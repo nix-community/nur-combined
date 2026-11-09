@@ -2,20 +2,20 @@
 set -euo pipefail
 
 exec swaylock \
-  --color "{{ .root.modules.base16.config.base00 }}" \
-  --text-color "{{ .root.modules.base16.config.base05 }}" \
-  --text-clear-color "{{ .root.modules.base16.config.base05 }}" \
-  --text-caps-lock-color "{{ .root.modules.base16.config.base05 }}" \
-  --text-ver-color "{{ .root.modules.base16.config.base05 }}" \
-  --text-wrong-color "{{ .root.modules.base16.config.base05 }}" \
-  --layout-text-color "{{ .root.modules.base16.config.base05 }}" \
-  --ring-color "{{ .root.modules.base16.config.base01 }}" \
-  --ring-clear-color "{{ .root.modules.base16.config.base0D }}" \
-  --ring-caps-lock-color "{{ .root.modules.base16.config.base0C }}" \
-  --ring-ver-color "{{ .root.modules.base16.config.base0A }}" \
-  --ring-wrong-color "{{ .root.modules.base16.config.base08 }}" \
-  --key-hl-color "{{ .root.modules.base16.config.base06 }}" \
-  --bs-hl-color "{{ .root.modules.base16.config.base08 }}" \
+  --color "{{ .module.palette.base00 }}" \
+  --text-color "{{ .module.palette.base05 }}" \
+  --text-clear-color "{{ .module.palette.base05 }}" \
+  --text-caps-lock-color "{{ .module.palette.base05 }}" \
+  --text-ver-color "{{ .module.palette.base05 }}" \
+  --text-wrong-color "{{ .module.palette.base05 }}" \
+  --layout-text-color "{{ .module.palette.base05 }}" \
+  --ring-color "{{ .module.palette.base01 }}" \
+  --ring-clear-color "{{ .module.palette.base0D }}" \
+  --ring-caps-lock-color "{{ .module.palette.base0C }}" \
+  --ring-ver-color "{{ .module.palette.base0A }}" \
+  --ring-wrong-color "{{ .module.palette.base08 }}" \
+  --key-hl-color "{{ .module.palette.base06 }}" \
+  --bs-hl-color "{{ .module.palette.base08 }}" \
   --inside-color "00000000" \
   --inside-clear-color "00000000" \
   --inside-caps-lock-color "00000000" \

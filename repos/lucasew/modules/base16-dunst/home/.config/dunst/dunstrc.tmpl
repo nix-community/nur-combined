@@ -43,16 +43,16 @@ context="ctrl+shift+period"
 history="ctrl+grave"
 
 [urgency_critical]
-background="#{{ .root.modules.base16.config.base08 }}"
-foreground="#{{ .root.modules.base16.config.base06 }}"
+background="{{ .module.palette.base08 }}"
+foreground="{{ .module.palette.base06 }}"
 timeout=10
 
 [urgency_low]
-background="#{{ .root.modules.base16.config.base01 }}"
-foreground="#{{ .root.modules.base16.config.base03 }}"
+background="{{ .module.palette.base01 }}"
+foreground="{{ .module.palette.base03 }}"
 timeout=5
 
 [urgency_normal]
-background="#{{ .root.modules.base16.config.base02 }}"
-foreground="#{{ .root.modules.base16.config.base05 }}"
+background="{{ .module.palette.base02 }}"
+foreground="{{ .module.palette.base05 }}"
 timeout=10

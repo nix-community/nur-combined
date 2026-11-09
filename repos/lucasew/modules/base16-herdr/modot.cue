@@ -1,12 +1,8 @@
 package module
 
-#hex: {
-	for k, v in modules.base16.config if k =~ "^base" {
-		(k): "#\(v)"
-	}
+options: {
+	palette: options.base16.palette
 }
-
-modules: "base16-herdr": config: {}
 
 // Herdr 0.8.2+ fills the sidebar from sidebar_bg. 0.8.0 leaves it
 // unpainted, so the outer terminal background shows through.
@@ -16,25 +12,25 @@ file: home: {
 		type: "toml"
 		values: {
 			theme: custom: {
-				accent:        #hex.base0D
-				panel_bg:      #hex.base00
-				sidebar_bg:    #hex.base00
-				active_row_bg: #hex.base02
-				selection_bg:  #hex.base03
-				surface0:      #hex.base02
-				surface1:      #hex.base03
-				surface_dim:   #hex.base04
-				overlay0:      #hex.base04
-				overlay1:      #hex.base05
-				text:          #hex.base05
-				subtext0:      #hex.base04
-				mauve:         #hex.base0E
-				green:         #hex.base0B
-				yellow:        #hex.base0A
-				red:           #hex.base08
-				blue:          #hex.base0D
-				teal:          #hex.base0C
-				peach:         #hex.base09
+				accent:        options.base16_herdr.palette.base0D
+				panel_bg:      options.base16_herdr.palette.base00
+				sidebar_bg:    options.base16_herdr.palette.base00
+				active_row_bg: options.base16_herdr.palette.base02
+				selection_bg:  options.base16_herdr.palette.base03
+				surface0:      options.base16_herdr.palette.base02
+				surface1:      options.base16_herdr.palette.base03
+				surface_dim:   options.base16_herdr.palette.base04
+				overlay0:      options.base16_herdr.palette.base04
+				overlay1:      options.base16_herdr.palette.base05
+				text:          options.base16_herdr.palette.base05
+				subtext0:      options.base16_herdr.palette.base04
+				mauve:         options.base16_herdr.palette.base0E
+				green:         options.base16_herdr.palette.base0B
+				yellow:        options.base16_herdr.palette.base0A
+				red:           options.base16_herdr.palette.base08
+				blue:          options.base16_herdr.palette.base0D
+				teal:          options.base16_herdr.palette.base0C
+				peach:         options.base16_herdr.palette.base09
 			}
 		}
 	}

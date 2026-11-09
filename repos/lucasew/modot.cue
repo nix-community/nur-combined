@@ -203,15 +203,9 @@ modules: {
 	fontconfig: {
 		input: "self:modules/fontconfig"
 		enable:      true
-		config: {
-			serif:       "Fira Code"
-			sans_serif:  "Fira Code"
-			monospace:   "Fira Code"
-			emoji:       "Noto Color Emoji"
-		}
 	}
 	
-	"script-directory": {input: "self:modules/script-directory", enable: true}
+	script_directory: {input: "self:modules/script-directory", enable: true}
 	mise: {input: "self:modules/mise", enable: true}
 	nix: {input: "self:modules/nix", enable: true}
 	gammastep: {input: "self:modules/gammastep", enable: true}
@@ -220,6 +214,13 @@ modules: {
 	grok: {input: "self:modules/grok", enable: true}
 	codex: {input: "self:modules/codex", enable: true}
 	opencode: {input: "self:modules/opencode", enable: true}
+}
+
+options: fontconfig: {
+	serif:      "Fira Code"
+	sans_serif: "Fira Code"
+	monospace:  "Fira Code"
+	emoji:      "Noto Color Emoji"
 }
 
 // ========== Base 16
@@ -233,50 +234,53 @@ modules: {
 	icons: {
 		input: "core:base16-icons-linux"
 		enable: runtime.hostname == "whiterun" || runtime.hostname == "riverwood"
-		config: {
-			input_dir: "papirus:Papirus"
-		}
 	}
 
 	base16: {
 		input: "self:modules/base16"
 		enable: true
-		config: {
-			// Gruvbox Material Light, Soft
-			// https://github.com/tinted-theming/schemes/blob/spec-0.11/base16/gruvbox-material-light-soft.yaml
-			dark_mode: false
-			base00: "f2e5bc"
-			base01: "ebdbb2"
-			base02: "c9b99a"
-			base03: "a89984"
-			base04: "665c54"
-			base05: "654735"
-			base06: "3c3836"
-			base07: "282828"
-			base08: "c14a4a"
-			base09: "c35e0a"
-			base0A: "b47109"
-			base0B: "6c782e"
-			base0C: "4c7a5d"
-			base0D: "45707a"
-			base0E: "945e80"
-			base0F: "e78a4e"
-		}
 	}
 
-	"base16-shell":     {input: "self:modules/base16-shell", enable: true}
-	"base16-helix":     {input: "self:modules/base16-helix", enable: true}
-	"base16-alacritty": {input: "self:modules/base16-alacritty", enable: true}
-	"base16-vscode":  {input: "self:modules/base16-vscode", enable: true}
-	"base16-sway":    {input: "self:modules/base16-sway", enable: true}
-	"base16-gtk":     {input: "self:modules/base16-gtk", enable: true}
-	"base16-rofi":    {input: "self:modules/base16-rofi", enable: true}
-	"base16-dunst":   {input: "self:modules/base16-dunst", enable: true}
-	"base16-tmux":    {input: "self:modules/base16-tmux", enable: true}
-	"base16-opencode": {input: "self:modules/base16-opencode", enable: true}
-	"base16-swaylock": {input: "self:modules/base16-swaylock", enable: true}
-	"base16-herdr":    {input: "self:modules/base16-herdr", enable: true}
-	"base16-grok":     {input: "self:modules/base16-grok", enable: true}
+	base16_shell:     {input: "self:modules/base16-shell", enable: true}
+	base16_helix:     {input: "self:modules/base16-helix", enable: true}
+	base16_alacritty: {input: "self:modules/base16-alacritty", enable: true}
+	base16_vscode:  {input: "self:modules/base16-vscode", enable: true}
+	base16_sway:    {input: "self:modules/base16-sway", enable: true}
+	base16_gtk:     {input: "self:modules/base16-gtk", enable: true}
+	base16_rofi:    {input: "self:modules/base16-rofi", enable: true}
+	base16_dunst:   {input: "self:modules/base16-dunst", enable: true}
+	base16_tmux:    {input: "self:modules/base16-tmux", enable: true}
+	base16_opencode: {input: "self:modules/base16-opencode", enable: true}
+	base16_swaylock: {input: "self:modules/base16-swaylock", enable: true}
+	base16_herdr:    {input: "self:modules/base16-herdr", enable: true}
+	base16_grok:     {input: "self:modules/base16-grok", enable: true}
+}
+
+options: {
+	icons: input_dir: "papirus:Papirus"
+	base16: {
+		// Gruvbox Material Light, Soft
+		// https://github.com/tinted-theming/schemes/blob/spec-0.11/base16/gruvbox-material-light-soft.yaml
+		mode: "light"
+		palette: {
+			base00: "#f2e5bc"
+			base01: "#ebdbb2"
+			base02: "#c9b99a"
+			base03: "#a89984"
+			base04: "#665c54"
+			base05: "#654735"
+			base06: "#3c3836"
+			base07: "#282828"
+			base08: "#c14a4a"
+			base09: "#c35e0a"
+			base0A: "#b47109"
+			base0B: "#6c782e"
+			base0C: "#4c7a5d"
+			base0D: "#45707a"
+			base0E: "#945e80"
+			base0F: "#e78a4e"
+		}
+	}
 }
 
 // Webapps
@@ -298,13 +302,14 @@ lazy_tools: {
 		bins: ["rod-mcp"]
 	}
 }
-modules: {
-	webapp: {
-		input: "self:modules/webapp"
-		enable: true
-		config: {
-			apps: {
-				main: {
+modules: webapp: {
+	input: "self:modules/webapp"
+	enable: true
+}
+
+options: webapp: {
+	apps: {
+		main: {
 					browser: #default_borderless_browser
 					desktop_name: "Navegador"
 					url: ""
@@ -440,9 +445,6 @@ modules: {
 				}
 			}
 		}
-	}
-}
-
 
 // =========== Backup
 #rsyncnet_user: "de3163@de3163.rsync.net"

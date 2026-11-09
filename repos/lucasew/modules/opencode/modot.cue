@@ -1,6 +1,6 @@
 package module
 
-modules: "opencode": config: {}
+options: {}
 
 file: home: {
 		".config/opencode/opencode.json": {

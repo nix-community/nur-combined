@@ -1,12 +1,8 @@
 package module
 
-#hex: {
-	for k, v in modules.base16.config if k =~ "^base" {
-		(k): "#\(v)"
-	}
+options: {
+	palette: options.base16.palette
 }
-
-modules: "base16-opencode": config: {}
 
 file: home: {
 		".config/opencode/themes/modot.json": {
@@ -14,22 +10,22 @@ file: home: {
 			values: {
 				"$schema": "https://opencode.ai/theme.json"
 				defs: {
-					base00: #hex.base00
-					base01: #hex.base01
-					base02: #hex.base02
-					base03: #hex.base03
-					base04: #hex.base04
-					base05: #hex.base05
-					base06: #hex.base06
-					base07: #hex.base07
-					base08: #hex.base08
-					base09: #hex.base09
-					base0A: #hex.base0A
-					base0B: #hex.base0B
-					base0C: #hex.base0C
-					base0D: #hex.base0D
-					base0E: #hex.base0E
-					base0F: #hex.base0F
+					base00: options.base16_opencode.palette.base00
+					base01: options.base16_opencode.palette.base01
+					base02: options.base16_opencode.palette.base02
+					base03: options.base16_opencode.palette.base03
+					base04: options.base16_opencode.palette.base04
+					base05: options.base16_opencode.palette.base05
+					base06: options.base16_opencode.palette.base06
+					base07: options.base16_opencode.palette.base07
+					base08: options.base16_opencode.palette.base08
+					base09: options.base16_opencode.palette.base09
+					base0A: options.base16_opencode.palette.base0A
+					base0B: options.base16_opencode.palette.base0B
+					base0C: options.base16_opencode.palette.base0C
+					base0D: options.base16_opencode.palette.base0D
+					base0E: options.base16_opencode.palette.base0E
+					base0F: options.base16_opencode.palette.base0F
 				}
 				theme: {
 					primary:                {dark: "base0D", light: "base0C"}

@@ -1,4 +1,5 @@
 package module
 
-modules: "base16-swaylock": config: {
-	}
+options: {
+	palette: options.base16.palette
+}

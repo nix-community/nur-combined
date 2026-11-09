@@ -1,34 +1,50 @@
 # Modot modules
 
-Stuff under `modules/` is wired in via `modot.cue` (`input: "self:modules/..."`). Palette lives in `modules.base16.config`; the `base16-*` modules just paint apps with it.
+Stuff under `modules/` is wired in via `modot.cue` (`input: "self:modules/..."`). The palette lives in `options.base16.palette` (with a leading `#`); the `base16-*` modules expose it as `options.base16_<app>.palette` and paint apps with it.
 
 ## New base16 module
 
 ```
 modules/base16-{app}/
-├── module.cue
+├── modot.cue
 ├── README.md          # optional, keep short
 └── home/
     └── .config/{app}/
         └── something.tmpl
 ```
 
-`module.cue`:
+`modot.cue`:
 
 ```cue
 package module
 
-module: {
-	meta: {
-		requires: ["base16"]
-		recommends: []
+// options is the module's config schema. modot injects it as options.<name>
+// in the shared options tree. Module names must be CUE identifiers, so use
+// base16_gtk, not base16-gtk.
+options: {
+	palette: options.base16.palette
+}
+
+// Contributions are top-level and unify into the global config.
+file: home: {
+	".config/{app}/something": {
+		type: "toml"
+		values: {
+			color: options.base16.palette.base0D
+		}
 	}
-	config: {}
 }
 ```
 
-Dest files can live in `module.file` (`docs/specs/file-spine.md` in modot)
-instead of templates. Enable the module in `modot.cue`.
+A `base16-<app>` module copies the palette into its own options
+(`palette: options.base16.palette`) and overrides entries when the app needs a
+different mapping. Templates read the app's copy from
+`options.base16_<app>.palette`, which already carries the leading `#`.
+Notification driver weights live in the global prelude, so modules do not
+repeat them.
+
+Dest files can live in `file` (`docs/specs/file-spine.md` in modot) instead of
+templates. Enable the module in `modot.cue`.
 
 Enable in `modot.cue`:
 
@@ -82,7 +98,7 @@ Use it when more than one module touches the same file. If one module owns the w
 | base0E | purple                              |
 | base0F | brown / deprecated                  |
 
-Defined in `modules/base16/module.cue` (`dark_mode` plus hex slots). Values are set in `modot.cue`.
+Defined in `modules/base16/modot.cue` as `options.mode` plus `options.palette`. Values are set in `modot.cue`.
 
 ## Shapes that already exist here
 

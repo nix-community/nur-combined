@@ -1,6 +1,6 @@
 package module
 
-modules: "helix": config: {}
+options: {}
 
 file: home: {
 		".config/helix/config.toml": {

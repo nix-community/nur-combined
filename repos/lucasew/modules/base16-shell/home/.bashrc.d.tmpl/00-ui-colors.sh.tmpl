@@ -14,52 +14,52 @@ function apply_colors {
 				printf '\033]P%s%s\033\\' "$1" "$2"
 			fi
 		}
-		_iterm_p 0 '{{ .root.modules.base16.config.base00 }}'
-		_iterm_p 1 '{{ .root.modules.base16.config.base08 }}'
-		_iterm_p 2 '{{ .root.modules.base16.config.base0B }}'
-		_iterm_p 3 '{{ .root.modules.base16.config.base0A }}'
-		_iterm_p 4 '{{ .root.modules.base16.config.base0D }}'
-		_iterm_p 5 '{{ .root.modules.base16.config.base0E }}'
-		_iterm_p 6 '{{ .root.modules.base16.config.base0C }}'
-		_iterm_p 7 '{{ .root.modules.base16.config.base05 }}'
-		_iterm_p 8 '{{ .root.modules.base16.config.base03 }}'
-		_iterm_p 9 '{{ .root.modules.base16.config.base08 }}'
-		_iterm_p a '{{ .root.modules.base16.config.base0B }}'
-		_iterm_p b '{{ .root.modules.base16.config.base0A }}'
-		_iterm_p c '{{ .root.modules.base16.config.base0D }}'
-		_iterm_p d '{{ .root.modules.base16.config.base0E }}'
-		_iterm_p e '{{ .root.modules.base16.config.base0C }}'
-		_iterm_p f '{{ .root.modules.base16.config.base07 }}'
-		_iterm_p g '{{ .root.modules.base16.config.base05 }}' # foreground
-		_iterm_p h '{{ .root.modules.base16.config.base00 }}' # background
-		_iterm_p i '{{ .root.modules.base16.config.base05 }}' # bold
-		_iterm_p j '{{ .root.modules.base16.config.base02 }}' # selection
-		_iterm_p k '{{ .root.modules.base16.config.base05 }}' # selected text
-		_iterm_p l '{{ .root.modules.base16.config.base05 }}' # cursor
-		_iterm_p m '{{ .root.modules.base16.config.base00 }}' # cursor text
+		_iterm_p 0 '{{ .module.palette.base00 }}'
+		_iterm_p 1 '{{ .module.palette.base08 }}'
+		_iterm_p 2 '{{ .module.palette.base0B }}'
+		_iterm_p 3 '{{ .module.palette.base0A }}'
+		_iterm_p 4 '{{ .module.palette.base0D }}'
+		_iterm_p 5 '{{ .module.palette.base0E }}'
+		_iterm_p 6 '{{ .module.palette.base0C }}'
+		_iterm_p 7 '{{ .module.palette.base05 }}'
+		_iterm_p 8 '{{ .module.palette.base03 }}'
+		_iterm_p 9 '{{ .module.palette.base08 }}'
+		_iterm_p a '{{ .module.palette.base0B }}'
+		_iterm_p b '{{ .module.palette.base0A }}'
+		_iterm_p c '{{ .module.palette.base0D }}'
+		_iterm_p d '{{ .module.palette.base0E }}'
+		_iterm_p e '{{ .module.palette.base0C }}'
+		_iterm_p f '{{ .module.palette.base07 }}'
+		_iterm_p g '{{ .module.palette.base05 }}' # foreground
+		_iterm_p h '{{ .module.palette.base00 }}' # background
+		_iterm_p i '{{ .module.palette.base05 }}' # bold
+		_iterm_p j '{{ .module.palette.base02 }}' # selection
+		_iterm_p k '{{ .module.palette.base05 }}' # selected text
+		_iterm_p l '{{ .module.palette.base05 }}' # cursor
+		_iterm_p m '{{ .module.palette.base00 }}' # cursor text
 		unset -f _iterm_p
 		return
 	fi
 
-	printf '\033]4;0;#{{ .root.modules.base16.config.base00 }}\033\\'
-	printf '\033]4;1;#{{ .root.modules.base16.config.base08 }}\033\\'
-	printf '\033]4;2;#{{ .root.modules.base16.config.base0B }}\033\\'
-	printf '\033]4;3;#{{ .root.modules.base16.config.base0A }}\033\\'
-	printf '\033]4;4;#{{ .root.modules.base16.config.base0D }}\033\\'
-	printf '\033]4;5;#{{ .root.modules.base16.config.base0E }}\033\\'
-	printf '\033]4;6;#{{ .root.modules.base16.config.base0C }}\033\\'
-	printf '\033]4;7;#{{ .root.modules.base16.config.base05 }}\033\\'
-	printf '\033]4;8;#{{ .root.modules.base16.config.base03 }}\033\\'
-	printf '\033]4;9;#{{ .root.modules.base16.config.base08 }}\033\\'
-	printf '\033]4;10;#{{ .root.modules.base16.config.base0B }}\033\\'
-	printf '\033]4;11;#{{ .root.modules.base16.config.base0A }}\033\\'
-	printf '\033]4;12;#{{ .root.modules.base16.config.base0D }}\033\\'
-	printf '\033]4;13;#{{ .root.modules.base16.config.base0E }}\033\\'
-	printf '\033]4;14;#{{ .root.modules.base16.config.base0C }}\033\\'
-	printf '\033]4;15;#{{ .root.modules.base16.config.base07 }}\033\\'
-	printf '\033]10;#{{ .root.modules.base16.config.base05 }}\033\\'  # foreground
-	printf '\033]11;#{{ .root.modules.base16.config.base00 }}\033\\'  # background
-	printf '\033]12;#{{ .root.modules.base16.config.base05 }}\033\\'  # cursor
+	printf '\033]4;0;{{ .module.palette.base00 }}\033\\'
+	printf '\033]4;1;{{ .module.palette.base08 }}\033\\'
+	printf '\033]4;2;{{ .module.palette.base0B }}\033\\'
+	printf '\033]4;3;{{ .module.palette.base0A }}\033\\'
+	printf '\033]4;4;{{ .module.palette.base0D }}\033\\'
+	printf '\033]4;5;{{ .module.palette.base0E }}\033\\'
+	printf '\033]4;6;{{ .module.palette.base0C }}\033\\'
+	printf '\033]4;7;{{ .module.palette.base05 }}\033\\'
+	printf '\033]4;8;{{ .module.palette.base03 }}\033\\'
+	printf '\033]4;9;{{ .module.palette.base08 }}\033\\'
+	printf '\033]4;10;{{ .module.palette.base0B }}\033\\'
+	printf '\033]4;11;{{ .module.palette.base0A }}\033\\'
+	printf '\033]4;12;{{ .module.palette.base0D }}\033\\'
+	printf '\033]4;13;{{ .module.palette.base0E }}\033\\'
+	printf '\033]4;14;{{ .module.palette.base0C }}\033\\'
+	printf '\033]4;15;{{ .module.palette.base07 }}\033\\'
+	printf '\033]10;{{ .module.palette.base05 }}\033\\'  # foreground
+	printf '\033]11;{{ .module.palette.base00 }}\033\\'  # background
+	printf '\033]12;{{ .module.palette.base05 }}\033\\'  # cursor
 }
 
 # Apply colors on shell startup

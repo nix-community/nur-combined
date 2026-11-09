@@ -1,6 +1,6 @@
 package module
 
-modules: "grok": config: {}
+options: {}
 
 file: home: {
 		".grok/config.toml": {

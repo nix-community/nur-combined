@@ -1,99 +1,99 @@
 /* Base16 Default Dark Theme for Obsidian */
 /* Color Palette:
- * color0: #{{ .root.modules.base16.config.base00 }} - Background
- * color1: #{{ .root.modules.base16.config.base08 }} - Red
- * color2: #{{ .root.modules.base16.config.base0B }} - Green
- * color3: #{{ .root.modules.base16.config.base0A }} - Yellow
- * color4: #{{ .root.modules.base16.config.base0D }} - Blue
- * color5: #{{ .root.modules.base16.config.base0E }} - Magenta
- * color6: #{{ .root.modules.base16.config.base0C }} - Cyan
- * color7: #{{ .root.modules.base16.config.base05 }} - Foreground
+ * color0: {{ .root.options.base16.palette.base00 }} - Background
+ * color1: {{ .root.options.base16.palette.base08 }} - Red
+ * color2: {{ .root.options.base16.palette.base0B }} - Green
+ * color3: {{ .root.options.base16.palette.base0A }} - Yellow
+ * color4: {{ .root.options.base16.palette.base0D }} - Blue
+ * color5: {{ .root.options.base16.palette.base0E }} - Magenta
+ * color6: {{ .root.options.base16.palette.base0C }} - Cyan
+ * color7: {{ .root.options.base16.palette.base05 }} - Foreground
  */
 
 .theme-dark {
   /* Base colors */
-  --background-primary: #{{ .root.modules.base16.config.base00 }};
-  --background-primary-alt: #{{ .root.modules.base16.config.base00 }};
-  --background-secondary: #{{ .root.modules.base16.config.base00 }};
-  --background-secondary-alt: #{{ .root.modules.base16.config.base00 }};
-  --background-modifier-border: #{{ .root.modules.base16.config.base02 }};
-  --background-modifier-form-field: #{{ .root.modules.base16.config.base00 }};
-  --background-modifier-form-field-highlighted: #{{ .root.modules.base16.config.base00 }};
+  --background-primary: {{ .root.options.base16.palette.base00 }};
+  --background-primary-alt: {{ .root.options.base16.palette.base00 }};
+  --background-secondary: {{ .root.options.base16.palette.base00 }};
+  --background-secondary-alt: {{ .root.options.base16.palette.base00 }};
+  --background-modifier-border: {{ .root.options.base16.palette.base02 }};
+  --background-modifier-form-field: {{ .root.options.base16.palette.base00 }};
+  --background-modifier-form-field-highlighted: {{ .root.options.base16.palette.base00 }};
   --background-modifier-box-shadow: none;
-  --background-modifier-success: #{{ .root.modules.base16.config.base0B }};
-  --background-modifier-error: #{{ .root.modules.base16.config.base08 }};
+  --background-modifier-success: {{ .root.options.base16.palette.base0B }};
+  --background-modifier-error: {{ .root.options.base16.palette.base08 }};
   --background-modifier-error-rgb: 171, 70, 66;
-  --background-modifier-error-hover: #{{ .root.modules.base16.config.base08 }};
+  --background-modifier-error-hover: {{ .root.options.base16.palette.base08 }};
   --background-modifier-cover: rgba(24, 24, 24, 0.8);
 
   /* Text colors */
-  --text-normal: #{{ .root.modules.base16.config.base05 }};
-  --text-muted: #{{ .root.modules.base16.config.base04 }};
-  --text-faint: #{{ .root.modules.base16.config.base03 }};
-  --text-error: #{{ .root.modules.base16.config.base08 }};
-  --text-accent: #{{ .root.modules.base16.config.base0D }};
-  --text-accent-hover: #{{ .root.modules.base16.config.base0C }};
-  --text-on-accent: #{{ .root.modules.base16.config.base00 }};
+  --text-normal: {{ .root.options.base16.palette.base05 }};
+  --text-muted: {{ .root.options.base16.palette.base04 }};
+  --text-faint: {{ .root.options.base16.palette.base03 }};
+  --text-error: {{ .root.options.base16.palette.base08 }};
+  --text-accent: {{ .root.options.base16.palette.base0D }};
+  --text-accent-hover: {{ .root.options.base16.palette.base0C }};
+  --text-on-accent: {{ .root.options.base16.palette.base00 }};
   --text-selection: rgba(124, 175, 194, 0.3);
 
   /* Interactive elements */
-  --interactive-normal: #{{ .root.modules.base16.config.base01 }};
-  --interactive-hover: #{{ .root.modules.base16.config.base02 }};
-  --interactive-accent: #{{ .root.modules.base16.config.base0D }};
-  --interactive-accent-hover: #{{ .root.modules.base16.config.base0C }};
+  --interactive-normal: {{ .root.options.base16.palette.base01 }};
+  --interactive-hover: {{ .root.options.base16.palette.base02 }};
+  --interactive-accent: {{ .root.options.base16.palette.base0D }};
+  --interactive-accent-hover: {{ .root.options.base16.palette.base0C }};
   --interactive-accent-rgb: 124, 175, 194;
-  --interactive-success: #{{ .root.modules.base16.config.base0B }};
+  --interactive-success: {{ .root.options.base16.palette.base0B }};
 
   /* Scrollbar */
-  --scrollbar-bg: #{{ .root.modules.base16.config.base00 }};
-  --scrollbar-thumb-bg: #{{ .root.modules.base16.config.base02 }};
-  --scrollbar-active-thumb-bg: #{{ .root.modules.base16.config.base03 }};
+  --scrollbar-bg: {{ .root.options.base16.palette.base00 }};
+  --scrollbar-thumb-bg: {{ .root.options.base16.palette.base02 }};
+  --scrollbar-active-thumb-bg: {{ .root.options.base16.palette.base03 }};
 
   /* Syntax highlighting */
-  --code-normal: #{{ .root.modules.base16.config.base05 }};
-  --code-background: #{{ .root.modules.base16.config.base01 }};
-  --code-comment: #{{ .root.modules.base16.config.base03 }};
-  --code-function: #{{ .root.modules.base16.config.base0D }};
-  --code-keyword: #{{ .root.modules.base16.config.base0E }};
-  --code-string: #{{ .root.modules.base16.config.base0B }};
-  --code-tag: #{{ .root.modules.base16.config.base08 }};
-  --code-important: #{{ .root.modules.base16.config.base0A }};
-  --code-operator: #{{ .root.modules.base16.config.base0C }};
-  --code-property: #{{ .root.modules.base16.config.base0A }};
-  --code-punctuation: #{{ .root.modules.base16.config.base05 }};
-  --code-value: #{{ .root.modules.base16.config.base0A }};
+  --code-normal: {{ .root.options.base16.palette.base05 }};
+  --code-background: {{ .root.options.base16.palette.base01 }};
+  --code-comment: {{ .root.options.base16.palette.base03 }};
+  --code-function: {{ .root.options.base16.palette.base0D }};
+  --code-keyword: {{ .root.options.base16.palette.base0E }};
+  --code-string: {{ .root.options.base16.palette.base0B }};
+  --code-tag: {{ .root.options.base16.palette.base08 }};
+  --code-important: {{ .root.options.base16.palette.base0A }};
+  --code-operator: {{ .root.options.base16.palette.base0C }};
+  --code-property: {{ .root.options.base16.palette.base0A }};
+  --code-punctuation: {{ .root.options.base16.palette.base05 }};
+  --code-value: {{ .root.options.base16.palette.base0A }};
 
   /* Headings */
-  --heading-color: #{{ .root.modules.base16.config.base05 }};
-  --inline-title-color: #{{ .root.modules.base16.config.base05 }};
+  --heading-color: {{ .root.options.base16.palette.base05 }};
+  --inline-title-color: {{ .root.options.base16.palette.base05 }};
 
   /* Links */
-  --link-internal-color: #{{ .root.modules.base16.config.base0D }};
-  --link-internal-hover: #{{ .root.modules.base16.config.base0C }};
-  --link-external-color: #{{ .root.modules.base16.config.base0E }};
-  --link-color: #{{ .root.modules.base16.config.base0D }};
-  --link-color-hover: #{{ .root.modules.base16.config.base0C }};
-  --link-unresolved-color: #{{ .root.modules.base16.config.base04 }};
+  --link-internal-color: {{ .root.options.base16.palette.base0D }};
+  --link-internal-hover: {{ .root.options.base16.palette.base0C }};
+  --link-external-color: {{ .root.options.base16.palette.base0E }};
+  --link-color: {{ .root.options.base16.palette.base0D }};
+  --link-color-hover: {{ .root.options.base16.palette.base0C }};
+  --link-unresolved-color: {{ .root.options.base16.palette.base04 }};
 
   /* Text formatting */
-  --bold-color: #{{ .root.modules.base16.config.base08 }};
-  --italic-color: #{{ .root.modules.base16.config.base0B }};
-  --inline-code-color: #{{ .root.modules.base16.config.base09 }};
+  --bold-color: {{ .root.options.base16.palette.base08 }};
+  --italic-color: {{ .root.options.base16.palette.base0B }};
+  --inline-code-color: {{ .root.options.base16.palette.base09 }};
 
   /* Tags */
-  --tag-color: #{{ .root.modules.base16.config.base0D }};
+  --tag-color: {{ .root.options.base16.palette.base0D }};
   --tag-background: rgba(124, 175, 194, 0.05);
 
   /* Graphs */
-  --graph-line: #{{ .root.modules.base16.config.base02 }};
-  --graph-node: #{{ .root.modules.base16.config.base0D }};
-  --graph-node-unresolved: #{{ .root.modules.base16.config.base03 }};
-  --graph-node-tag: #{{ .root.modules.base16.config.base0B }};
-  --graph-node-attachment: #{{ .root.modules.base16.config.base0A }};
+  --graph-line: {{ .root.options.base16.palette.base02 }};
+  --graph-node: {{ .root.options.base16.palette.base0D }};
+  --graph-node-unresolved: {{ .root.options.base16.palette.base03 }};
+  --graph-node-tag: {{ .root.options.base16.palette.base0B }};
+  --graph-node-attachment: {{ .root.options.base16.palette.base0A }};
 
   /* Borders */
-  --divider-color: #{{ .root.modules.base16.config.base02 }};
-  --divider-color-hover: #{{ .root.modules.base16.config.base03 }};
+  --divider-color: {{ .root.options.base16.palette.base02 }};
+  --divider-color-hover: {{ .root.options.base16.palette.base03 }};
 
   /* Tables */
   --table-header-background: transparent;
@@ -102,65 +102,65 @@
   --table-row-alt-background: transparent;
 
   /* Checkboxes */
-  --checkbox-color: #{{ .root.modules.base16.config.base0D }};
-  --checkbox-color-hover: #{{ .root.modules.base16.config.base0C }};
-  --checkbox-border-color: #{{ .root.modules.base16.config.base03 }};
+  --checkbox-color: {{ .root.options.base16.palette.base0D }};
+  --checkbox-color-hover: {{ .root.options.base16.palette.base0C }};
+  --checkbox-border-color: {{ .root.options.base16.palette.base03 }};
 
   /* Toggles */
-  --toggle-thumb-color: #{{ .root.modules.base16.config.base05 }};
-  --toggle-border-color: #{{ .root.modules.base16.config.base02 }};
+  --toggle-thumb-color: {{ .root.options.base16.palette.base05 }};
+  --toggle-border-color: {{ .root.options.base16.palette.base02 }};
 
   /* Vim mode cursor */
-  --vim-cursor: #{{ .root.modules.base16.config.base0D }};
+  --vim-cursor: {{ .root.options.base16.palette.base0D }};
 
   /* Prompts */
-  --prompt-border-color: #{{ .root.modules.base16.config.base02 }};
+  --prompt-border-color: {{ .root.options.base16.palette.base02 }};
 
   /* File colors */
-  --color-red: #{{ .root.modules.base16.config.base08 }};
-  --color-orange: #{{ .root.modules.base16.config.base09 }};
-  --color-yellow: #{{ .root.modules.base16.config.base0A }};
-  --color-green: #{{ .root.modules.base16.config.base0B }};
-  --color-cyan: #{{ .root.modules.base16.config.base0C }};
-  --color-blue: #{{ .root.modules.base16.config.base0D }};
-  --color-purple: #{{ .root.modules.base16.config.base0E }};
-  --color-pink: #{{ .root.modules.base16.config.base0E }};
+  --color-red: {{ .root.options.base16.palette.base08 }};
+  --color-orange: {{ .root.options.base16.palette.base09 }};
+  --color-yellow: {{ .root.options.base16.palette.base0A }};
+  --color-green: {{ .root.options.base16.palette.base0B }};
+  --color-cyan: {{ .root.options.base16.palette.base0C }};
+  --color-blue: {{ .root.options.base16.palette.base0D }};
+  --color-purple: {{ .root.options.base16.palette.base0E }};
+  --color-pink: {{ .root.options.base16.palette.base0E }};
 
   /* Ribbons */
-  --ribbon-background: #{{ .root.modules.base16.config.base01 }};
-  --ribbon-background-collapsed: #{{ .root.modules.base16.config.base00 }};
+  --ribbon-background: {{ .root.options.base16.palette.base01 }};
+  --ribbon-background-collapsed: {{ .root.options.base16.palette.base00 }};
 
   /* Titlebar */
-  --titlebar-background: #{{ .root.modules.base16.config.base00 }};
+  --titlebar-background: {{ .root.options.base16.palette.base00 }};
   --titlebar-background-focused: var(--titlebar-background);
 
   /* Tabs */
-  --tab-text-color: #{{ .root.modules.base16.config.base04 }};
-  --tab-text-color-focused: #{{ .root.modules.base16.config.base05 }};
-  --tab-text-color-active: #{{ .root.modules.base16.config.base05 }};
-  --tab-background-active: #{{ .root.modules.base16.config.base01 }};
+  --tab-text-color: {{ .root.options.base16.palette.base04 }};
+  --tab-text-color-focused: {{ .root.options.base16.palette.base05 }};
+  --tab-text-color-active: {{ .root.options.base16.palette.base05 }};
+  --tab-background-active: {{ .root.options.base16.palette.base01 }};
 
   /* Status bar */
-  --status-bar-background: #{{ .root.modules.base16.config.base00 }};
-  --status-bar-border-color: #{{ .root.modules.base16.config.base02 }};
+  --status-bar-background: {{ .root.options.base16.palette.base00 }};
+  --status-bar-border-color: {{ .root.options.base16.palette.base02 }};
 
   /* Search */
-  --search-clear-button-color: #{{ .root.modules.base16.config.base04 }};
+  --search-clear-button-color: {{ .root.options.base16.palette.base04 }};
 
   /* Misc */
   --list-indent: 1.6em;
 }
 
 .is-mobile.theme-dark {
-  --background-primary: #{{ .root.modules.base16.config.base00 }} !important;
-  --background-secondary: #{{ .root.modules.base16.config.base00 }} !important;
+  --background-primary: {{ .root.options.base16.palette.base00 }} !important;
+  --background-secondary: {{ .root.options.base16.palette.base00 }} !important;
 }
 
 /* Clean code blocks */
 .theme-dark .markdown-preview-view pre,
 .theme-dark .markdown-rendered pre {
   background-color: #1a1a1a;
-  border: 1px solid #{{ .root.modules.base16.config.base01 }};
+  border: 1px solid {{ .root.options.base16.palette.base01 }};
   border-radius: 2px;
   padding: 12px;
 }
@@ -293,7 +293,7 @@
 
 /* Blockquotes */
 .theme-dark .markdown-preview-view blockquote {
-  border-left: 3px solid #{{ .root.modules.base16.config.base03 }};
+  border-left: 3px solid {{ .root.options.base16.palette.base03 }};
   background: transparent;
   padding-left: 16px;
   margin: 12px 0;
@@ -356,7 +356,7 @@
 
 /* Horizontal rules */
 .theme-dark hr {
-  border-color: #{{ .root.modules.base16.config.base02 }};
+  border-color: {{ .root.options.base16.palette.base02 }};
 }
 
 /* Selection */
@@ -371,17 +371,17 @@
 }
 
 .theme-dark ::-webkit-scrollbar-track {
-  background: #{{ .root.modules.base16.config.base00 }};
+  background: {{ .root.options.base16.palette.base00 }};
 }
 
 .theme-dark ::-webkit-scrollbar-thumb {
-  background: #{{ .root.modules.base16.config.base02 }};
+  background: {{ .root.options.base16.palette.base02 }};
   border-radius: 5px;
   transition: background 0.1s ease;
 }
 
 .theme-dark ::-webkit-scrollbar-thumb:hover {
-  background: #{{ .root.modules.base16.config.base03 }};
+  background: {{ .root.options.base16.palette.base03 }};
 }
 
 /* Ribbon menu */
@@ -393,7 +393,7 @@
 .theme-dark .callout {
   background: transparent;
   border: none;
-  border-left: 2px solid var(--callout-color, #{{ .root.modules.base16.config.base02 }});
+  border-left: 2px solid var(--callout-color, {{ .root.options.base16.palette.base02 }});
   border-radius: 0;
   box-shadow: none;
   padding: 4px 12px;
@@ -1823,8 +1823,8 @@ body:not(.normal-header-bar) #cMenuToolbarModalBar.top {
 .theme-dark .markdown-preview-view th,
 .theme-dark .markdown-rendered th {
   background: transparent;
-  border: 1px solid #{{ .root.modules.base16.config.base02 }};
-  border-bottom: 2px solid #{{ .root.modules.base16.config.base03 }};
+  border: 1px solid {{ .root.options.base16.palette.base02 }};
+  border-bottom: 2px solid {{ .root.options.base16.palette.base03 }};
   padding: 6px 12px;
   text-align: left;
   font-weight: 700;
@@ -1865,7 +1865,7 @@ body:not(.normal-header-bar) #cMenuToolbarModalBar.top {
 /* Display math (block formulas) */
 .theme-dark .math.math-block {
   border: none;
-  border-left: 2px solid #{{ .root.modules.base16.config.base02 }};
+  border-left: 2px solid {{ .root.options.base16.palette.base02 }};
   background: transparent;
   padding: 12px 0;
   margin: 16px 0;

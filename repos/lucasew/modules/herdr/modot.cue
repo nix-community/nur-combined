@@ -1,6 +1,6 @@
 package module
 
-modules: "herdr": config: {}
+options: {}
 
 file: home: {
 		".config/herdr/config.toml": {

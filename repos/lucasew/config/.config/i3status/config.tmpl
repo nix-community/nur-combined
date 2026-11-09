@@ -2,9 +2,9 @@
 
 general {
   colors = true
-  color_bad = "#{{ .root.modules.base16.config.base08 }}"
-  color_degraded = "#{{ .root.modules.base16.config.base08 }}"
-  color_good = "#{{ .root.modules.base16.config.base0B }}"
+  color_bad = "{{ .root.options.base16.palette.base08 }}"
+  color_degraded = "{{ .root.options.base16.palette.base08 }}"
+  color_good = "{{ .root.options.base16.palette.base0B }}"
 
   interval = 2
 }

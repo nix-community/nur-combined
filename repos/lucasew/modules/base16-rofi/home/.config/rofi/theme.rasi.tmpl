@@ -2,13 +2,13 @@
 /* Base16 color scheme */
 
 * {
-    red:                         #{{ .root.modules.base16.config.base08 }};
-    blue:                        #{{ .root.modules.base16.config.base0D }};
-    lightfg:                     #{{ .root.modules.base16.config.base04 }};
-    lightbg:                     #{{ .root.modules.base16.config.base01 }};
-    foreground:                  #{{ .root.modules.base16.config.base05 }};
-    background:                  #{{ .root.modules.base16.config.base00 }};
-    background-color:            #{{ .root.modules.base16.config.base00 }};
+    red:                         {{ .module.palette.base08 }};
+    blue:                        {{ .module.palette.base0D }};
+    lightfg:                     {{ .module.palette.base04 }};
+    lightbg:                     {{ .module.palette.base01 }};
+    foreground:                  {{ .module.palette.base05 }};
+    background:                  {{ .module.palette.base00 }};
+    background-color:            {{ .module.palette.base00 }};
     separatorcolor:              @foreground;
     border-color:                @foreground;
     selected-normal-foreground:  @lightbg;

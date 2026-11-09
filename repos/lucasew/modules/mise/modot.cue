@@ -1,4 +1,3 @@
 package module
 
-modules: "mise": config: {
-	}
+options: {}

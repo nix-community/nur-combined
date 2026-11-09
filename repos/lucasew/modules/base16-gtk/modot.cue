@@ -1,83 +1,78 @@
 package module
 
-#gtk: modules["base16-gtk"].config
-
 #gtkSettingsShared: {
-	"gtk-theme-name":         #gtk.theme_name
-	"gtk-icon-theme-name":    #gtk.icon_theme
-	"gtk-font-name":          #gtk.font_name
-	"gtk-cursor-theme-name":  #gtk.cursor_theme
-	"gtk-cursor-theme-size":  #gtk.cursor_size
-	if modules.base16.config.dark_mode {
-		"gtk-application-prefer-dark-theme": 1
-	}
-	if modules.base16.config.dark_mode == false {
-		"gtk-application-prefer-dark-theme": 0
-	}
+	"gtk-theme-name":           options.base16_gtk.theme_name
+	"gtk-icon-theme-name":      options.base16_gtk.icon_theme
+	"gtk-font-name":            options.base16_gtk.font_name
+	"gtk-cursor-theme-name":    options.base16_gtk.cursor_theme
+	"gtk-cursor-theme-size":    options.base16_gtk.cursor_size
+	"gtk-application-prefer-dark-theme": options.base16_gtk.prefer_dark
 	...
 }
 
 file: home: {
-		".config/gtk-3.0/settings.ini": {
-			type: "ini"
-			values: {
-				Settings: #gtkSettingsShared & {
-					"gtk-toolbar-style":                "GTK_TOOLBAR_BOTH_HORIZ"
-					"gtk-toolbar-icon-size":            "GTK_ICON_SIZE_LARGE_TOOLBAR"
-					"gtk-button-images":                0
-					"gtk-menu-images":                  0
-					"gtk-enable-event-sounds":          1
-					"gtk-enable-input-feedback-sounds": 0
-					"gtk-xft-antialias":                1
-					"gtk-xft-hinting":                  1
-					"gtk-xft-hintstyle":                "hintslight"
-					"gtk-xft-rgba":                     "rgb"
-				}
-			}
-		}
-		".config/gtk-4.0/settings.ini": {
-			type: "ini"
-			values: {
-				Settings: #gtkSettingsShared
+	".config/gtk-3.0/settings.ini": {
+		type: "ini"
+		values: {
+			Settings: #gtkSettingsShared & {
+				"gtk-toolbar-style":                "GTK_TOOLBAR_BOTH_HORIZ"
+				"gtk-toolbar-icon-size":            "GTK_ICON_SIZE_LARGE_TOOLBAR"
+				"gtk-button-images":                0
+				"gtk-menu-images":                  0
+				"gtk-enable-event-sounds":          1
+				"gtk-enable-input-feedback-sounds": 0
+				"gtk-xft-antialias":                1
+				"gtk-xft-hinting":                  1
+				"gtk-xft-hintstyle":                "hintslight"
+				"gtk-xft-rgba":                     "rgb"
 			}
 		}
 	}
-
-modules: "base16-gtk": config: {
-		// adw-gtk3 reads libadwaita named colors from ~/.config/gtk-{3,4}.0/gtk.css
-		theme_name: string
-		if modules.base16.config.dark_mode {
-			theme_name: *"adw-gtk3-dark" | string
+	".config/gtk-4.0/settings.ini": {
+		type: "ini"
+		values: {
+			Settings: #gtkSettingsShared
 		}
-		if modules.base16.config.dark_mode == false {
-			theme_name: *"adw-gtk3" | string
-		}
+	}
+}
 
-		icon_theme:   string | *"modot-base16"
-		font_name:    string | *"Sans 10"
-		cursor_theme: string | *"Adwaita"
-		cursor_size:  int | *24
-		extra_css:    string | *""
+options: {
+	palette: options.base16.palette
+	prefer_dark: int
+	if options.base16.mode == "dark" {
+		prefer_dark: 1
+	}
+	if options.base16.mode == "light" {
+		prefer_dark: 0
+	}
 
-		dconf: {
-			"org/gnome/desktop/interface": {
-				"gtk-theme":    string | *theme_name
-				"icon-theme":   string | *icon_theme
-				"cursor-theme": string | *cursor_theme
-				"color-scheme": string
-				if modules.base16.config.dark_mode {
-					"color-scheme": *"prefer-dark" | string
-				}
-				if modules.base16.config.dark_mode == false {
-					"color-scheme": *"prefer-light" | string
-				}
+	// adw-gtk3 reads libadwaita named colors from ~/.config/gtk-{3,4}.0/gtk.css
+	theme_name: string
+	if options.base16.mode == "dark" {
+		theme_name: *"adw-gtk3-dark" | string
+	}
+	if options.base16.mode == "light" {
+		theme_name: *"adw-gtk3" | string
+	}
+
+	icon_theme:   string | *"modot-base16"
+	font_name:    string | *"Sans 10"
+	cursor_theme: string | *"Adwaita"
+	cursor_size:  int | *24
+	extra_css:    string | *""
+
+	dconf: {
+		"org/gnome/desktop/interface": {
+			"gtk-theme":    string | *theme_name
+			"icon-theme":   string | *icon_theme
+			"cursor-theme": string | *cursor_theme
+			"color-scheme": string
+			if options.base16.mode == "dark" {
+				"color-scheme": *"prefer-dark" | string
+			}
+			if options.base16.mode == "light" {
+				"color-scheme": *"prefer-light" | string
 			}
 		}
 	}
-
-drivers: {
-		"github.com/lewtec/modot/internal/driver/notification.Driver": {
-			notification_dbus:        100
-			notification_notify_send: 10
-		}
-	}
+}

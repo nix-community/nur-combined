@@ -1,6 +1,6 @@
 package module
 
-modules: "codex": config: {}
+options: {}
 
 file: home: {
 		".codex/config.toml": {

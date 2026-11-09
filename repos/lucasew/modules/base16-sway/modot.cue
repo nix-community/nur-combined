@@ -1,4 +1,5 @@
 package module
 
-modules: "base16-sway": config: {
-	}
+options: {
+	palette: options.base16.palette
+}

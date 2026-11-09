@@ -14,27 +14,27 @@ bar {
   workspace_buttons yes
 
   colors {
-    # background #00{{ .root.modules.base16.config.base00 }}
+    # background {{ .root.options.base16.palette.base00 }}
     background #00000000
-    statusline #{{ .root.modules.base16.config.base05 }}
-    separator #{{ .root.modules.base16.config.base00 }}
+    statusline {{ .root.options.base16.palette.base05 }}
+    separator {{ .root.options.base16.palette.base00 }}
 
     # name             border                 background             text
-    focused_workspace  #{{ .root.modules.base16.config.base01 }} #{{ .root.modules.base16.config.base02 }} #{{ .root.modules.base16.config.base05 }}
-    active_workspace   #{{ .root.modules.base16.config.base01 }} #{{ .root.modules.base16.config.base03 }} #{{ .root.modules.base16.config.base05 }}
-    inactive_workspace #{{ .root.modules.base16.config.base01 }} #{{ .root.modules.base16.config.base01 }} #{{ .root.modules.base16.config.base05 }}
-    urgent_workspace   #{{ .root.modules.base16.config.base08 }} #{{ .root.modules.base16.config.base08 }} #{{ .root.modules.base16.config.base00 }}
-    binding_mode       #{{ .root.modules.base16.config.base00 }} #{{ .root.modules.base16.config.base00 }} #{{ .root.modules.base16.config.base05 }}
+    focused_workspace  {{ .root.options.base16.palette.base01 }} {{ .root.options.base16.palette.base02 }} {{ .root.options.base16.palette.base05 }}
+    active_workspace   {{ .root.options.base16.palette.base01 }} {{ .root.options.base16.palette.base03 }} {{ .root.options.base16.palette.base05 }}
+    inactive_workspace {{ .root.options.base16.palette.base01 }} {{ .root.options.base16.palette.base01 }} {{ .root.options.base16.palette.base05 }}
+    urgent_workspace   {{ .root.options.base16.palette.base08 }} {{ .root.options.base16.palette.base08 }} {{ .root.options.base16.palette.base00 }}
+    binding_mode       {{ .root.options.base16.palette.base00 }} {{ .root.options.base16.palette.base00 }} {{ .root.options.base16.palette.base05 }}
   }
 }
 
 # Property Name         Border                 Background             Text                   Indicator              Child
-client.focused          #{{ .root.modules.base16.config.base01 }} #{{ .root.modules.base16.config.base00 }} #{{ .root.modules.base16.config.base05 }} #{{ .root.modules.base16.config.base0D }} #{{ .root.modules.base16.config.base0C }}
-client.focused_inactive #{{ .root.modules.base16.config.base01 }} #{{ .root.modules.base16.config.base01 }} #{{ .root.modules.base16.config.base05 }} #{{ .root.modules.base16.config.base03 }} #{{ .root.modules.base16.config.base01 }}
-client.unfocused        #{{ .root.modules.base16.config.base01 }} #{{ .root.modules.base16.config.base02 }} #{{ .root.modules.base16.config.base05 }} #{{ .root.modules.base16.config.base01 }} #{{ .root.modules.base16.config.base01 }}
-client.urgent           #{{ .root.modules.base16.config.base08 }} #{{ .root.modules.base16.config.base08 }} #{{ .root.modules.base16.config.base00 }} #{{ .root.modules.base16.config.base08 }} #{{ .root.modules.base16.config.base08 }}
-client.placeholder      #{{ .root.modules.base16.config.base00 }} #{{ .root.modules.base16.config.base00 }} #{{ .root.modules.base16.config.base05 }} #{{ .root.modules.base16.config.base00 }} #{{ .root.modules.base16.config.base00 }}
-client.background       #{{ .root.modules.base16.config.base07 }} #{{ .root.modules.base16.config.base00 }} #{{ .root.modules.base16.config.base05 }}
+client.focused          {{ .root.options.base16.palette.base01 }} {{ .root.options.base16.palette.base00 }} {{ .root.options.base16.palette.base05 }} {{ .root.options.base16.palette.base0D }} {{ .root.options.base16.palette.base0C }}
+client.focused_inactive {{ .root.options.base16.palette.base01 }} {{ .root.options.base16.palette.base01 }} {{ .root.options.base16.palette.base05 }} {{ .root.options.base16.palette.base03 }} {{ .root.options.base16.palette.base01 }}
+client.unfocused        {{ .root.options.base16.palette.base01 }} {{ .root.options.base16.palette.base02 }} {{ .root.options.base16.palette.base05 }} {{ .root.options.base16.palette.base01 }} {{ .root.options.base16.palette.base01 }}
+client.urgent           {{ .root.options.base16.palette.base08 }} {{ .root.options.base16.palette.base08 }} {{ .root.options.base16.palette.base00 }} {{ .root.options.base16.palette.base08 }} {{ .root.options.base16.palette.base08 }}
+client.placeholder      {{ .root.options.base16.palette.base00 }} {{ .root.options.base16.palette.base00 }} {{ .root.options.base16.palette.base05 }} {{ .root.options.base16.palette.base00 }} {{ .root.options.base16.palette.base00 }}
+client.background       {{ .root.options.base16.palette.base07 }} {{ .root.options.base16.palette.base00 }} {{ .root.options.base16.palette.base05 }}
 
 # Workspace bindings
 bindsym $mod+0 workspace number 10

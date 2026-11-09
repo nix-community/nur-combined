@@ -1,6 +1,8 @@
 package module
 
-modules: "base16-grok": config: {}
+options: {
+	palette: options.base16.palette
+}
 
 // Grok has no custom palette. The terminal theme uses the host ANSI colors,
 // which base16-alacritty already paints from this palette.

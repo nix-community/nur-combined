@@ -1,4 +1,5 @@
 package module
 
-modules: "base16-shell": config: {
-	}
+options: {
+	palette: options.base16.palette
+}

@@ -1,6 +1,6 @@
 package module
 
-modules: "gammastep": config: {}
+options: {}
 
 file: home: {
 		".config/gammastep/config.ini": {
