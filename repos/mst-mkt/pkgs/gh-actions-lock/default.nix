@@ -7,13 +7,13 @@
 
 buildGoModule (finalAttrs: {
   pname = "gh-actions-lock";
-  version = "0.4.0";
+  version = "0.4.1";
 
   src = fetchFromGitHub {
     owner = "github";
     repo = "gh-actions-lock";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-+J5nA1kzwmjY98u0HoJ2rsYD5hLNBhNnwmIT34Gxha4=";
+    hash = "sha256-9jU5NmBFZayhOX8ifc+aMDhaIQ4XVPlLI/dPUoQuzNw=";
   };
 
   vendorHash = "sha256-MS0GDAo/COikI5LwfgNPR83MhY6fAFg+Lpmzkv86X3M=";
