@@ -3,6 +3,7 @@
   rustPlatform,
   fetchFromGitHub,
   nix-update-script,
+  pkg-config,
   cacert,
   aws-lc,
   git,
@@ -30,6 +31,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     substituteInPlace src/reviewer.rs \
       --replace-fail '#!/bin/bash' '#!${bash}/bin/bash'
   '';
+
+  nativeBuildInputs = [
+    pkg-config
+  ];
 
   buildInputs = [
     aws-lc
