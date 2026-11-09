@@ -9,7 +9,7 @@
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
 
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> { }, ieda ? null }:
 
 with builtins;
 let
@@ -37,7 +37,11 @@ let
 
   outputsOf = p: map (o: p.${o}) p.outputs;
 
-  nurAttrs = import ./default.nix { inherit pkgs; };
+  nurAttrs = import ./default.nix ({
+    inherit pkgs;
+  } // pkgs.lib.optionalAttrs (ieda != null) {
+    inherit ieda;
+  });
 
   nurPkgs =
     flattenPkgs

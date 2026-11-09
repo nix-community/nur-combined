@@ -75,7 +75,6 @@ in stdenv.mkDerivation {
         sourceProvenance = with lib.sourceTypes; [
             binaryNativeCode
             binaryBytecode
-            binaryData
         ];
         maintainers = [ maintainers.srcres258 ];
         platforms = [ "x86_64-linux" ];

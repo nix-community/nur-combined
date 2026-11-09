@@ -71,6 +71,6 @@ pkgs.stdenvNoCC.mkDerivation {
         maintainers = [ maintainers.srcres258 ];
         mainProgram = "docx";
         platforms = builtins.attrNames releaseAssets;
-        sourceProvenance = with sourceTypes; [ binaryNativeCode binaryData ];
+        sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     };
 }

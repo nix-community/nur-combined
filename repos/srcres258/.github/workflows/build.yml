@@ -11,15 +11,21 @@ on:
 jobs:
   tests:
     strategy:
+      fail-fast: false
       matrix:
-        nurRepo:
-          - srcres258
-        cachixName:
-          - nur-packages-srcres258
-        nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.05.tar.gz
+        include:
+          - nurRepo: srcres258
+            cachixName: nur-packages-srcres258
+            channel: nixpkgs-unstable
+            triggerNurUpdate: true
+          - nurRepo: srcres258
+            cachixName: nur-packages-srcres258
+            channel: nixos-unstable
+            triggerNurUpdate: false
+          - nurRepo: srcres258
+            cachixName: nur-packages-srcres258
+            channel: nixos-25-05
+            triggerNurUpdate: false
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -27,12 +33,11 @@ jobs:
     - name: Install nix
       uses: cachix/install-nix-action@v31
       with:
-        nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Show nixpkgs version
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+      run: nix eval --raw .#channels.${{ matrix.channel }}.nixpkgsVersion.x86_64-linux
     - name: Setup cachix
       uses: cachix/cachix-action@v16
       if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
@@ -40,23 +45,28 @@ jobs:
         name: ${{ matrix.cachixName }}
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - name: Build iEDA via legacy entrypoint
-      run: nix-build -A ieda --show-trace
-    - name: Smoke test iEDA executable
-      run: test -x result/bin/iEDA
-    - name: Build iEDA via flake entrypoint
+    # iEDA comes from its own flake input, so it is identical in every leg;
+    # build it once instead of three times.
+    - name: Build iEDA
+      if: ${{ matrix.channel == 'nixpkgs-unstable' }}
       run: nix build --print-build-logs .#packages.x86_64-linux.ieda
+    - name: Smoke test iEDA executable
+      if: ${{ matrix.channel == 'nixpkgs-unstable' }}
+      run: test -x result/bin/iEDA
+    # `nix build` never evaluates `meta`, but NUR tooling (`nix-env -q --meta`,
+    # `nix search`, the NUR index) does. Force every package's meta here so a
+    # broken attribute fails CI instead of a user's query.
     - name: Check evaluation
       run: |
-        nix-env -f . -qa \* --meta --xml \
-          --allowed-uris "github:NixOS/nixpkgs github:srcres258/iEDA" \
-          --option restrict-eval true \
-          --option allow-import-from-derivation true \
-          --drv-path --show-trace \
-          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-          -I $PWD
+        nix eval --json .#channels.${{ matrix.channel }}.packages.x86_64-linux \
+          --apply 'pkgs: builtins.mapAttrs (_: p: p.meta) pkgs'
     - name: Build nix packages
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+      run: |
+        # Flake installables must be derivations or paths, so expand the
+        # cacheable-output list from the flake into one drv path per output.
+        targets=$(nix eval --raw .#channels.${{ matrix.channel }}.cacheOutputs.x86_64-linux \
+          --apply 'ds: builtins.concatStringsSep " " (map (d: d.drvPath) ds)')
+        nix build --keep-going --print-build-logs --no-link $targets
     - name: Trigger NUR update
-      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' && matrix.nixPath == 'nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz' }}
+      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' && matrix.triggerNurUpdate }}
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
