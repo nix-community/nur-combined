@@ -244,6 +244,11 @@ src.github = "grinev/opencode-telegram-bot"
 fetch.github = "grinev/opencode-telegram-bot"
 extract = ["package.json", "package-lock.json"]
 
+[pi-acp]
+src.github = "svkozak/pi-acp"
+fetch.github = "svkozak/pi-acp"
+extract = ["package-lock.json", "package.json"]
+
 [pi-ast-sgrep]
 src.github = "AdityaVG13/ast-sgrep"
 fetch.github = "AdityaVG13/ast-sgrep"

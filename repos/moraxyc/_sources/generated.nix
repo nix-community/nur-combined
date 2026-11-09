@@ -646,6 +646,21 @@
       "package.json" = ./. + "/sha256-EbnsnXa0H4ZUn3UNCH4FSdqFViSZRtE3FxUJ+g0RVwE=/package.json";
     };
   };
+  pi-acp = {
+    pname = "pi-acp";
+    version = "v0.0.34";
+    src = fetchFromGitHub {
+      owner = "svkozak";
+      repo = "pi-acp";
+      rev = "v0.0.34";
+      fetchSubmodules = false;
+      sha256 = "sha256-QRwxOtTZOY+Np3PkAoy2o2PrUzEqjItM/372sCPlSMo=";
+    };
+    extract = {
+      "package-lock.json" = ./. + "/sha256-QRwxOtTZOY+Np3PkAoy2o2PrUzEqjItM/372sCPlSMo=/package-lock.json";
+      "package.json" = ./. + "/sha256-QRwxOtTZOY+Np3PkAoy2o2PrUzEqjItM/372sCPlSMo=/package.json";
+    };
+  };
   pi-ast-sgrep = {
     pname = "pi-ast-sgrep";
     version = "v2.6.0";
