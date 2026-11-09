@@ -63,8 +63,9 @@ stdenv.mkDerivation {
   version = "0-unstable-2026-10-24";
 
   src = fetchFromGitHub {
-    owner = "citron-neo";
-    repo = "emulator";
+    # Re-host of citron-neo/emulator, whose fork network GitHub blocked on a Nintendo DMCA notice.
+    owner = "Kabosu-Emu";
+    repo = "Kabosu";
     rev = "56dad8119520160b744b959ba07f1e19538e97c1";
     hash = "sha256-524LtsduT65hfPJYIVRyXtdui99pKduU/2Fhm99Y+5k=";
     # Every external lives in externals/ as a submodule and CITRON_USE_CPM is
@@ -207,7 +208,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Citron NEO: Nintendo Switch emulator, continuation of the Citron fork of yuzu";
     homepage = "https://citron-neo.org/";
-    changelog = "https://github.com/citron-neo/emulator/commits/main";
+    changelog = "https://github.com/Kabosu-Emu/Kabosu/commits/main";
     license = lib.licenses.gpl3Plus;
     mainProgram = "citron";
     platforms = [ "x86_64-linux" ];

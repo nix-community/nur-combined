@@ -213,7 +213,7 @@ run() { # <name> <function...>
 run atmosphere update_release_asset pkgs/atmosphere/package.nix \
   Atmosphere-NX/Atmosphere '[.assets[].name | select(endswith(".zip"))][0] // empty' fusee.bin
 run citron-neo update_github_head citron-neo pkgs/citron-neo/package.nix \
-  citron-neo/emulator main 0 --fetch-submodules
+  Kabosu-Emu/Kabosu main 0 --fetch-submodules
 run hekate update_release_asset pkgs/hekate/package.nix \
   CTCaer/hekate '[.assets[].name | select(test("_Nyx_.*\\.zip$"))][0] // empty'
 run nx-optimizer update_github_head nx-optimizer pkgs/nx-optimizer/package.nix \
