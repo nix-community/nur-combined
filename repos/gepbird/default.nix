@@ -23,6 +23,4 @@
   xfce4-terminal-sixel = pkgs.callPackage ./pkgs/xfce4-terminal-sixel { };
 
   orb-forge-gui = pkgs.callPackage ./pkgs/orb-forge-gui { };
-
-  hytale-launcher = throw "'hytale-launcher' has been removed due to lack of maintenance. Consider using https://github.com/hyprismteam/Hyprism or https://github.com/JPyke3/hytale-launcher-nix instead.";
 }
