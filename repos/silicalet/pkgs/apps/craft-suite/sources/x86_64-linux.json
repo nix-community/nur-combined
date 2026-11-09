@@ -1,8 +1,8 @@
 {
   "artcraft-launcher": {
-    "hash": "sha256-8yLOfZtupFXC8S0t+PUtmRPe9IQu0MJ2eyricLFvgRY=",
-    "url": "https://github.com/storytold/craft-launcher/releases/download/v0.16.0/artcraft-launcher-0.16.0-linux-x86_64.tar.gz",
-    "version": "0.16.0"
+    "hash": "sha256-u/KxuE9Su66B+HIwNMzi1YYvKGZK2yh4f7EeHUuTuYo=",
+    "url": "https://github.com/storytold/craft-launcher/releases/download/v0.17.0/artcraft-launcher-0.17.0-linux-x86_64.tar.gz",
+    "version": "0.17.0"
   },
   "cadcraft": {
     "hash": "sha256-DVtSKvz6IMfliIfCCS+1rVMi65DB2pgGHmG346zRvtU=",
@@ -35,9 +35,9 @@
     "version": "0.18.0"
   },
   "gridcraft": {
-    "hash": "sha256-FOk3RVW8bS2cW8QbsxFQvGoctrToPVq0Fj/V12EbBhg=",
-    "url": "https://github.com/storytold/gridcraft/releases/download/v0.17.0/gridcraft-0.17.0-linux-x86_64.tar.gz",
-    "version": "0.17.0"
+    "hash": "sha256-aSBf1y5I6D52PFPI9so+3AHTi6i6DRbisYSpyFikzV8=",
+    "url": "https://github.com/storytold/gridcraft/releases/download/v0.18.0/gridcraft-0.18.0-linux-x86_64.tar.gz",
+    "version": "0.18.0"
   },
   "lightcraft": {
     "hash": "sha256-lIXWS9vpjG2vutDqeqwPpJQw0KAIuaZrpD3+d7dVUok=",
