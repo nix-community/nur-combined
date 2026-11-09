@@ -29,7 +29,7 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rsbinder-tools";
-  version = "0.12.0";
+  version = "0.13.0";
   __structuredAttrs = true;
 
   outputs = [
@@ -41,10 +41,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "hiking90";
     repo = "rsbinder";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-x7XZzzCzNb15bl7Yy2ts8bcNPzASWHvm9KZfR7/CIb8=";
+    hash = "sha256-WrtWS/lbaR5TtWfiq8uJyn4CvDzVlkF70fYfRHd938Q=";
   };
 
-  cargoHash = "sha256-LuhXN+h+ZhlWTbUTSbjCY+a4VC2TADF/xsmd8pPEn34=";
+  cargoHash = "sha256-GTpZWDlJOGThs9oSNamdQzczED71IQDzaYTue9nmQ/k=";
 
   cargoBuildFlags = [
     "--package=rsbinder-tools"
