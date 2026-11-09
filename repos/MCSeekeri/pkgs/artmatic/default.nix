@@ -11,6 +11,7 @@
   makeDesktopItem,
   copyDesktopItems,
   desktopToDarwinBundle,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
