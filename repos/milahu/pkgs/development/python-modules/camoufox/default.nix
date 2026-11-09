@@ -2,12 +2,6 @@
 
 # pkgs/development/python-modules/camoufox/default.nix
 
-# FIXME LeakWarning: Canvas and WebGL readback return random data,
-# as privacy.resistFingerprinting does in LibreWolf, Tor Browser and Mullvad Browser.
-# Stock Firefox does not do this, so the browser reads as a privacy-hardened Firefox.
-# It is on because the identity claims another OS or GPU than this machine's,
-# whose canvas would show the real one. Pass `canvas_noise=False` to keep stock canvas behaviour.
-
 {
   lib,
   buildPythonPackage,
