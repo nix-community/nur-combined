@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """Offline tests for independent CachyOS metadata discovery and transactions."""
 import base64
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import importlib.util
 import json
 from pathlib import Path
 import sys
 import tempfile
+from threading import Thread
 import unittest
 from unittest.mock import patch
 
@@ -41,6 +43,34 @@ class UpdaterTests(unittest.TestCase):
         self.other = Path(self.temp.name) / "unrelated-package" / "source.json"
         self.other.parent.mkdir()
         self.other.write_text(json.dumps({**CURRENT, "version": "7.2.10"}))
+
+    def test_http_requests_retry_504_but_not_404(self):
+        counts = {}
+        class Handler(BaseHTTPRequestHandler):
+            def respond(self):
+                key = (self.command, self.path)
+                counts[key] = counts.get(key, 0) + 1
+                status = 404 if self.path == "/missing" else (504 if counts[key] == 1 else 200)
+                self.send_response(status)
+                self.end_headers()
+                if self.command == "GET" and status == 200:
+                    self.wfile.write(b"config")
+            do_GET = respond
+            do_HEAD = respond
+            def log_message(self, *args): pass
+        with ThreadingHTTPServer(("127.0.0.1", 0), Handler) as server:
+            thread = Thread(target=server.serve_forever, daemon=True)
+            thread.start()
+            try:
+                url = f"http://127.0.0.1:{server.server_port}"
+                self.assertEqual(UPDATER.curl_bytes(url + "/config"), b"config")
+                UPDATER.assert_url(url + "/release")
+                with self.assertRaisesRegex(RuntimeError, "upstream asset unavailable"):
+                    UPDATER.assert_url(url + "/missing")
+            finally:
+                server.shutdown()
+                thread.join()
+        self.assertEqual(counts, {("GET", "/config"): 2, ("HEAD", "/release"): 2, ("HEAD", "/missing"): 1})
 
     def test_numeric_versions_are_strict_and_ignore_trailing_zeroes(self):
         self.assertGreater(UPDATER.version_key("7.10.1"), UPDATER.version_key("7.9.99"))

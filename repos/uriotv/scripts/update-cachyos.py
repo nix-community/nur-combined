@@ -16,6 +16,10 @@ KERNEL_RAW = "https://raw.githubusercontent.com/CachyOS/linux-cachyos"
 PATCH_RAW = "https://raw.githubusercontent.com/CachyOS/kernel-patches"
 RELEASE = "https://github.com/CachyOS/linux/releases/download/{srcname}/{srcname}.tar.gz"
 FIELDS = ("version", "url", "hash", "configUrl", "configHash", "patchRev", "patchVersion", "patchHash")
+# Retry transient HTTP 408/429/5xx and timeouts, but still fail closed on 404
+# or when the retry budget is exhausted. Each request is individually bounded.
+CURL_OPTIONS = ("--fail", "--silent", "--show-error", "--location", "--retry", "4",
+                "--retry-max-time", "60", "--max-time", "30")
 
 
 def run(*args, input_text=None, cwd=None):
@@ -24,13 +28,13 @@ def run(*args, input_text=None, cwd=None):
 
 
 def curl_bytes(url):
-    return subprocess.run(["curl", "--fail", "--silent", "--show-error", "--location", "--max-time", "30", url],
+    return subprocess.run(["curl", *CURL_OPTIONS, url],
                           check=True, capture_output=True).stdout
 
 
 def assert_url(url):
     # Follow release redirects but only request headers; do not download kernel archives in --check.
-    result = subprocess.run(["curl", "--fail", "--silent", "--show-error", "--location", "--head", "--max-time", "30", url],
+    result = subprocess.run(["curl", *CURL_OPTIONS, "--head", url],
                             capture_output=True, text=True)
     if result.returncode:
         raise RuntimeError(f"upstream asset unavailable: {url}: {result.stderr.strip()}")
