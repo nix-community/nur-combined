@@ -6,16 +6,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "spilltea";
-  version = "0.0.1";
+  version = "0.0.3";
 
   src = fetchFromGitHub {
     owner = "sectui";
     repo = "spilltea";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Q9bXnTSq2B9YJhkHN2jpxmE2xBAmt+AwU+EuKqAiQe4=";
+    hash = "sha256-vjH0tvw32D4ijD+tCJNPQITTRkt811uir6snbhmThoc=";
   };
 
-  vendorHash = "sha256-coqd5mL3z/7JfTluoiFhpVQgDS1WfuChcJAcjha2ByY=";
+  vendorHash = "sha256-McBEAPqRfwBmVjNGfZGvhkGzYJnBTeR70Qse97veLxg=";
 
   subPackages = ["cmd/spilltea"];
 
