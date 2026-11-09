@@ -4,22 +4,23 @@
   fetchFromGitHub,
   nix-update-script,
   cacert,
+  aws-lc,
   git,
   bash,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "sashiko";
-  version = "0.5.0";
+  version = "0.9.0";
 
   src = fetchFromGitHub {
     owner = "sashiko-dev";
     repo = "sashiko";
     tag = "v.${finalAttrs.version}";
-    hash = "sha256-QXm09pKI7+w0VwjBYLMxzdQTsrPQku97e8my1LpqRa4=";
+    hash = "sha256-2ciBBNM48TBhRXHSf+oKBBA31nzHBvVpV7IXwNh/0yQ=";
   };
 
-  cargoHash = "sha256-q3Moof35DLnTQEpz+hNCZJrCiQtxBFerLEquJtyNQTo=";
+  cargoHash = "sha256-eSrVK+cQJw0YzQlJv+E0kUzTWEUXPpeXBCfPsLM54gw=";
 
   # Mock worker scripts embedded in reviewer.rs carry a #!/bin/bash shebang
   # and are spawned directly; the sandbox has no /bin/bash, so point them at
@@ -29,6 +30,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     substituteInPlace src/reviewer.rs \
       --replace-fail '#!/bin/bash' '#!${bash}/bin/bash'
   '';
+
+  buildInputs = [
+    aws-lc
+  ];
 
   # reqwest fails to build a client in the sandbox without a CA bundle
   # ("No CA certificates were loaded from the system"), which takes out the
