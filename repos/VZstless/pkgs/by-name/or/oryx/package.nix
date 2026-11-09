@@ -9,16 +9,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "oryx";
-  version = "1.2.0";
+  version = "1.2.2";
 
   src = fetchFromGitHub {
     owner = "wmahfoudh";
     repo = "oryx";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-2kqW4D7rgI3RFYxqTEFWK0Q4OPw57yplpaKXcGe10dE=";
+    hash = "sha256-FbRrIoW1aBdORq4SZvKFc3+ZpmuwchJ2WMaMEPgl1oo=";
   };
 
-  cargoHash = "sha256-vfkVbMw+YeUPNehHvr+7Pq8idx4nWrZK2yUSP1NesC4=";
+  cargoHash = "sha256-ZeGEo65c3Ud39uTkxSck0pBYJEy8Q2e/06P3YfMwhd8=";
 
   buildInputs = [
     openssl
