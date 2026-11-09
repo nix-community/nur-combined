@@ -19,7 +19,6 @@
     syslock = lib.callPackage ./pkgs/syslock {};
     yapfast = lib.callPackage ./pkgs/yapfast {};
     sysbar = lib.callPackage ./pkgs/sysbar {};
-    sober = lib.callPackage ./pkgs/sober {};
 
     tinywiibackupmanager = lib.callPackage ./pkgs/tinywiibackupmanager {};
     note-block-studio = lib.callPackage ./pkgs/note-block-studio {};
