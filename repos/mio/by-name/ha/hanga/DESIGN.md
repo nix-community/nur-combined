@@ -217,8 +217,8 @@ for real menu chrome.
 
 `nix run .#hanga-dev` opens a main menu (Play / Multiplayer / Room / Game / Language / Controls / Quit).
 The Game row cycles discovered `.game` files. Each game owns the menu title,
-panel, buttons, and clear/sky colors; switching Game reloads that collection's
-WASM (lead plus any extra packs) and, on the next Play, respawns the world and
+panel, buttons, and clear/sky colors; switching Game selects a collection.
+On the next Play, Hanga loads its WASM (lead plus any extra packs), respawns the world, and
 retires old voxel chunks and rebakes player edits from the new lead WASM. Lead owns terrain, gravity, and jobs; extra mods add
 voxels, vehicles, and agents. Sandbox is Urban Chaos plus the testbed pack.
 Both shipped games and their mods install in `HANGA_GAMES` / `HANGA_MODS`.
@@ -284,3 +284,24 @@ under xvfb; `mods.nix` runs `urban_chaos` / `testbed` unit tests before the WASM
 
 Larger follow-ups (Hoot runtime in the host, cargo-kani packaging, Zig guest
 bindgen) are in [FOLLOWUP.md](FOLLOWUP.md).
+
+
+### Single-player terrain and saves
+
+The player, vehicles, and NPCs wait for the terrain colliders under their current
+chunk before gravity or movement runs. Chunk remeshing replaces its collider;
+removing a mesh removes the collider too. Decorative meshes never become static
+physics bodies. Pausing to the menu freezes physics and resumes the same world.
+Switching games replaces the lead terrain and loads that collection's voxel edits
+before generating chunks, including when starting directly with `--play` or an
+agent/text client. Procedural regeneration respects saved air and placed blocks.
+
+Aim the crosshair at a solid block: dig removes it, and place puts the selected
+block against the hit face. Placement refuses occupied cells and the player's
+capsule. The vehicle binding toggles entry/exit; occupied traffic vehicles follow
+the driver instead of their AI. Active jobs show destination coordinates and
+distance, and city job sites follow the local terrain elevation.
+
+`tests/agent_test.rs` plays all three bundled collections in isolated save folders:
+spawn stability, walking, digging, placement, persistence, and vehicle entry/exit.
+Agent observations include `world_ready` and `voxel_pos` for bounded test waits.

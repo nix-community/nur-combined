@@ -112,7 +112,7 @@ pub fn generate_story_event(_player_level: i32) -> String {
 }
 
 pub fn player_spawn() -> (i32, i32, i32) {
-    (0, 4, 0)
+    (0, 2, 0)
 }
 
 pub fn vehicle_spawn_count() -> i32 {
@@ -272,6 +272,10 @@ pub fn voxel_label(voxel: &str) -> String {
 }
 
 pub fn voxel_label_for(locale: &str, voxel: &str) -> String {
+    // A pack must decline names it does not own so the lead can label them.
+    if !matches!(voxel, "air" | "concrete" | "glass") {
+        return String::new();
+    }
     let lang = locale_id(locale);
     match (lang, voxel) {
         (1, "air") => "hau",
@@ -553,6 +557,8 @@ mod tests {
 
     #[test]
     fn testbed_labels_follow_locale() {
+        assert!(voxel_label_for("en", "sidewalk").is_empty());
+        assert!(item_label_for("en", "sidewalk").is_empty());
         assert_eq!(voxel_label_for("mi", "air"), "hau");
         assert_eq!(voxel_label_for("fr", "glass"), "verre");
         assert_eq!(voxel_label_for("zh-TW", "concrete"), "混凝土");

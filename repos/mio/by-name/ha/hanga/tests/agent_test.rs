@@ -1,115 +1,124 @@
-use std::io::{Read, Write};
-use std::path::PathBuf;
-use std::process::{Command, Stdio};
-use std::time::Duration;
+mod support;
 
-fn mods_dir() -> Option<PathBuf> {
-    if let Ok(dir) = std::env::var("HANGA_MODS") {
-        let path = PathBuf::from(dir);
-        if path.join("urban_chaos.wasm").is_file() {
-            return Some(path);
-        }
-    }
-    let root = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-    for profile in ["release", "debug"] {
-        let dir = root.join("target/wasm32-unknown-unknown").join(profile);
-        if dir.join("urban_chaos.wasm").is_file() {
-            return Some(dir);
-        }
-    }
-    None
-}
-
-fn hanga_bin() -> PathBuf {
-    if let Ok(path) = std::env::var("HANGA_BIN") {
-        return PathBuf::from(path);
-    }
-    if let Some(path) = option_env!("CARGO_BIN_EXE_hanga") {
-        return PathBuf::from(path);
-    }
-    std::env::current_exe()
-        .ok()
-        .and_then(|exe| exe.parent().map(|dir| dir.join("hanga")))
-        .filter(|path| path.is_file())
-        .unwrap_or_else(|| PathBuf::from("hanga"))
-}
+use serde_json::json;
+use std::time::{Duration, Instant};
+use support::Agent;
 
 #[test]
-fn test_agent_client_interaction() {
-    // Spawn the agent client directly (avoids cargo run deadlock during cargo test)
-    let mut cmd = Command::new(hanga_bin());
-    cmd.args(["--agent-client"])
-        .stdin(Stdio::piped())
-        .stdout(Stdio::piped());
-    if let Some(dir) = mods_dir() {
-        cmd.env("HANGA_MODS", dir);
+fn bundled_games_support_single_player_movement_digging_and_building() {
+    for game in ["urban_chaos", "testbed", "sandbox"] {
+        let mut agent = Agent::new(game, false);
+        let initial = agent.wait_for(|reply| reply["world_ready"] == true);
+        std::thread::sleep(Duration::from_secs(3));
+        let standing = agent.look();
+        let height = standing["player_pos"][1].as_f64().unwrap();
+        assert!(
+            height >= initial["player_pos"][1].as_f64().unwrap() - 1.5,
+            "{game}: player fell through spawn terrain: {initial} -> {standing}"
+        );
+        assert_eq!(
+            standing["wanted_level"], 0,
+            "{game}: unprovoked crash at spawn"
+        );
+        assert_eq!(standing["trust_score"], 1.0);
+        agent.send(json!({"action": "MoveForward"}));
+        std::thread::sleep(Duration::from_millis(800));
+        let moved = agent.look();
+        assert!(
+            (moved["player_pos"][2].as_f64().unwrap()
+                - standing["player_pos"][2].as_f64().unwrap())
+            .abs()
+                > 0.3,
+            "{game}: walk input did not move the player"
+        );
+        if game == "testbed" {
+            agent.restart();
+            agent.wait_for(|reply| reply["world_ready"] == true);
+        }
+        let aimed = agent.wait_for(|reply| reply["voxel_ahead"] != "air");
+        let target = aimed["voxel_pos"].clone();
+        agent.send(json!({"action": "BreakBlock", "pos": target}));
+        let carrying =
+            agent.wait_for(|reply| reply["held_item"].as_str().is_some_and(|s| !s.is_empty()));
+        let item = carrying["held_item"].clone();
+        agent.send(json!({"action": "PlaceBlock", "pos": target, "voxel": item}));
+        agent.wait_for(|reply| reply["held_item"] == "");
+        let db = agent.home.join("data/hanga/worlds").join(format!(
+            "{game}:{}.db",
+            if game == "sandbox" {
+                "urban_chaos+testbed"
+            } else {
+                game
+            }
+        ));
+        let deadline = Instant::now() + Duration::from_secs(5);
+        loop {
+            let conn = rusqlite::Connection::open(&db).unwrap();
+            let saved: Option<String> = conn
+                .query_row(
+                    "SELECT voxel_id FROM voxel_edits WHERE x=?1 AND y=?2 AND z=?3",
+                    rusqlite::params![
+                        target[0].as_i64().unwrap(),
+                        target[1].as_i64().unwrap(),
+                        target[2].as_i64().unwrap()
+                    ],
+                    |row| row.get(0),
+                )
+                .ok()
+                .flatten();
+            if saved.as_deref() == item.as_str() {
+                break;
+            }
+            assert!(
+                Instant::now() < deadline,
+                "{game}: placed voxel was not saved"
+            );
+            std::thread::sleep(Duration::from_millis(50));
+        }
+        if game == "testbed" {
+            // Persist an air edit and verify regenerated terrain honors it after restarting.
+            agent.send(json!({"action": "BreakBlock", "pos": target}));
+            agent.wait_for(|reply| reply["held_item"].as_str().is_some_and(|s| !s.is_empty()));
+            let deadline = Instant::now() + Duration::from_secs(5);
+            loop {
+                let conn = rusqlite::Connection::open(&db).unwrap();
+                let saved: Option<String> = conn
+                    .query_row(
+                        "SELECT voxel_id FROM voxel_edits WHERE x=?1 AND y=?2 AND z=?3",
+                        rusqlite::params![
+                            target[0].as_i64().unwrap(),
+                            target[1].as_i64().unwrap(),
+                            target[2].as_i64().unwrap()
+                        ],
+                        |row| row.get(0),
+                    )
+                    .unwrap();
+                if saved.is_none() {
+                    break;
+                }
+                assert!(Instant::now() < deadline, "dig was not saved");
+                std::thread::sleep(Duration::from_millis(50));
+            }
+            agent.restart();
+            let restored = agent.wait_for(|reply| reply["world_ready"] == true);
+            let deadline = Instant::now() + Duration::from_secs(60);
+            loop {
+                let cell = agent.inspect(target.clone());
+                if cell["loaded"] == true {
+                    assert_eq!(
+                        cell["voxel"], "air",
+                        "saved air was replaced by procedural terrain"
+                    );
+                    break;
+                }
+                assert!(Instant::now() < deadline, "saved terrain did not load");
+                std::thread::sleep(Duration::from_millis(100));
+            }
+            assert_eq!(restored["held_item"], "");
+            agent.send(json!({"action": "EnterVehicle"}));
+            agent.wait_for(|reply| reply["in_vehicle"] == true);
+            agent.send(json!({"action": "EnterVehicle"}));
+            agent.wait_for(|reply| reply["in_vehicle"] == false);
+        }
     }
-    let mut child = cmd.spawn().expect("Failed to spawn agent client");
-
-    let mut stdin = child.stdin.take().expect("Failed to open stdin");
-    let mut stdout = child.stdout.take().expect("Failed to open stdout");
-
-    // Wait a little bit for the app to initialize
-    std::thread::sleep(Duration::from_secs(2));
-
-    // Send a Look command
-    let look_command = b"{\"action\": \"Look\"}\n";
-    stdin.write_all(look_command).expect("Failed to write to stdin");
-    stdin.flush().expect("Failed to flush stdin");
-
-    // Give it a moment to process and print the observation
-    std::thread::sleep(Duration::from_millis(500));
-
-    // Read the output (we read a chunk of bytes to see if our JSON observation is there)
-    let mut buffer = [0; 1024];
-    let bytes_read = stdout.read(&mut buffer).unwrap_or(0);
-    let output = String::from_utf8_lossy(&buffer[..bytes_read]);
-
-    println!("Agent Output: {}", output);
-
-    // It should contain the JSON observation
-    assert!(output.contains("\"status\":\"ok\""));
-    assert!(output.contains("\"trust_score\":"));
-    assert!(output.contains("\"wanted_level\":"));
-    assert!(output.contains("\"voxel_ahead\":"));
-    let named = [
-        "air",
-        "concrete",
-        "asphalt",
-        "glass",
-        "sidewalk",
-        "grass",
-        "tile",
-        "rail",
-        "workbench",
-        "brick",
-    ]
-    .iter()
-    .any(|name| output.contains(&format!("\"voxel_ahead\":\"{name}\"")));
-    assert!(
-        named,
-        "WASM mod must load a named voxel (build hanga-mods / --target wasm32-unknown-unknown). Got: {output}"
-    );
-
-    // Send a MoveForward command
-    let move_command = b"{\"action\": \"MoveForward\"}\n";
-    stdin.write_all(move_command).expect("Failed to write to stdin");
-    stdin.flush().expect("Failed to flush stdin");
-
-    // Send another Look command
-    let look_command2 = b"{\"action\": \"Look\"}\n";
-    stdin.write_all(look_command2).expect("Failed to write to stdin");
-    stdin.flush().expect("Failed to flush stdin");
-
-    std::thread::sleep(Duration::from_millis(500));
-
-    let mut buffer2 = [0; 1024];
-    let bytes_read2 = stdout.read(&mut buffer2).unwrap_or(0);
-    let output2 = String::from_utf8_lossy(&buffer2[..bytes_read2]);
-
-    println!("Agent Output 2: {}", output2);
-    assert!(output2.contains("\"status\":\"ok\""));
-
-    // Kill the process after the test
-    child.kill().expect("Failed to kill child process");
 }

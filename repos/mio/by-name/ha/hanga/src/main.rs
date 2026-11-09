@@ -66,7 +66,9 @@ use mod_manager::{
 };
 
 #[derive(Resource, Clone, Default)]
-struct DefaultWorld;
+struct DefaultWorld {
+    catalog: Vec<String>,
+}
 
 #[derive(Resource, Clone, Copy, PartialEq, Eq, Default)]
 pub enum NetworkMode {
@@ -120,7 +122,20 @@ impl VoxelWorldConfig for DefaultWorld {
     }
 
     fn voxel_lookup_delegate(&self) -> VoxelLookupDelegate<Self::MaterialIndex> {
-        Box::new(|_chunk_pos, _lod, _chunk_data| Box::new(|pos, _voxel| query_lead_voxel(pos)))
+        let catalog = self.catalog.clone();
+        Box::new(move |_chunk_pos, _lod, _chunk_data| {
+            let catalog = catalog.clone();
+            Box::new(move |pos, _voxel| {
+                match overlay_get(pos.x, pos.y, pos.z) {
+                    Some(VoxelOverlay::Air) => WorldVoxel::Air,
+                    Some(VoxelOverlay::Solid(name)) => catalog_index(&catalog, &name)
+                        .filter(|index| *index > 0)
+                        .map(WorldVoxel::Solid)
+                        .unwrap_or_else(|| query_lead_voxel(pos)),
+                    None => query_lead_voxel(pos),
+                }
+            })
+        })
     }
 }
 
@@ -161,16 +176,15 @@ fn query_lead_voxel(pos: IVec3) -> WorldVoxel<u8> {
         if let Some((_, instances)) = instance_opt.as_mut() {
             for (store, func) in instances.iter_mut().rev() {
                 if let Ok(voxel_type) = func.hanga_engine_guest().call_query_voxel(store, pos.x, pos.y, pos.z) {
-                    if voxel_type != 0 {
-                        return WorldVoxel::Solid(voxel_type as u8);
-                    }
+                    return if voxel_type > 0 && voxel_type <= u8::MAX as i32 {
+                        WorldVoxel::Solid(voxel_type as u8)
+                    } else {
+                        WorldVoxel::Air
+                    };
                 }
             }
         }
 
-        if pos.y < 0 {
-            return WorldVoxel::Solid(1);
-        }
         WorldVoxel::Unset
     })
 }
@@ -683,7 +697,7 @@ fn main() {
     }
 
     app.add_plugins((
-            VoxelWorldPlugin::with_config(DefaultWorld),
+            VoxelWorldPlugin::with_config(DefaultWorld::default()),
             PhysicsPlugins::default(),
             CitySimPlugin,
             DistributedMultiplayerPlugin,
@@ -695,6 +709,7 @@ fn main() {
         .init_resource::<ModOffer>()
         .init_resource::<VoxelCatalog>()
         .init_resource::<WorldFor>()
+        .init_resource::<WorldReady>()
         .init_resource::<VoxelEdits>()
         .init_resource::<SkyFor>()
         .init_resource::<WorldGravity>()
@@ -757,7 +772,6 @@ fn main() {
             Update,
             (
                 sync_selected_game,
-                rebake_voxels_on_switch,
                 ensure_clouds,
                 apply_menu_chrome,
                 menu_keyboard,
@@ -782,9 +796,9 @@ fn main() {
             Update,
             (
                 pause_to_menu,
-                toggle_inventory_ui,
+                toggle_inventory_ui.before(player_physics).before(player_interaction),
                 select_hotbar,
-                player_look,
+                player_look.before(player_interaction),
                 update_hud,
                 sync_inv_ui_locale,
                 sync_hud_hotbar_visibility,
@@ -800,15 +814,18 @@ fn main() {
         .add_systems(
             Update,
             (
+                rebake_voxels_on_switch,
                 generate_voxel_colliders,
                 apply_guest_voxels.run_if(in_state(GameMode::Playing)),
-                player_physics.run_if(in_state(GameMode::Playing)),
+                player_physics.run_if(in_state(GameMode::Playing)).run_if(world_ready),
                 snapshot_player.run_if(in_state(GameMode::Playing)),
-                player_interaction.run_if(in_state(GameMode::Playing)),
-                validate_incoming_actions,
+                player_interaction.run_if(in_state(GameMode::Playing)).run_if(world_ready),
+                validate_incoming_actions.run_if(in_state(GameMode::Playing)).run_if(world_ready),
             )
                 .chain(),
         )
+        .add_systems(PreUpdate, (hold_unloaded_bodies, sync_physics_pause).chain())
+        .add_systems(PostUpdate, prepare_reloaded_palette)
         .add_systems(
             FixedUpdate,
             apply_point_gravity.run_if(in_state(GameMode::Playing)),
@@ -830,6 +847,7 @@ enum AgentCommand {
     MoveForward,
     BreakBlock { pos: [i32; 3] },
     PlaceBlock { pos: [i32; 3], voxel: String },
+    InspectBlock { pos: [i32; 3] },
     EnterVehicle,
     Look,
     AcceptJob,
@@ -841,12 +859,14 @@ enum AgentCommand {
 struct AgentObservation {
     status: String,
     player_pos: [f32; 3],
+    world_ready: bool,
     trust_score: f32,
     wanted_level: u32,
     credits: i32,
     offer_kind: String,
     contract_kind: String,
     voxel_ahead: String,
+    voxel_pos: [i32; 3],
     voxel_label: String,
     locale: String,
     in_vehicle: bool,
@@ -1173,14 +1193,6 @@ fn game_mod_paths(game: &GameSpec, search: &ModSearch) -> Vec<(String, PathBuf)>
         .collect()
 }
 
-fn load_game_mods(runtime: &mut ModRuntime, game: &GameSpec, search: &ModSearch) {
-    let paths = game_mod_paths(game, search);
-    if paths.is_empty() {
-        return;
-    }
-    runtime.load_collection(&paths);
-}
-
 fn resolve_bindings_path(args: &[String]) -> PathBuf {
     if let Some(path) = bindings::parse_bindings_path(args) {
         return PathBuf::from(path);
@@ -1398,6 +1410,14 @@ fn ensure_play_world(
     chunks: Query<Entity, With<Chunk<DefaultWorld>>>,
 ) {
     let game = current_game(&catalog, &selected_game);
+    if world_for.0 == game.id {
+        return;
+    }
+    hanga::clear_player_snap();
+    hanga::persistence::init_world_db(&game.collection_key());
+    commands.insert_resource(WorldReady(false));
+    commands.insert_resource(MovePulse::default());
+    commands.insert_resource(WorldContainers::default());
     let paths = game_mod_paths(&game, &search);
     if paths.is_empty() {
         warn!(
@@ -1406,9 +1426,6 @@ fn ensure_play_world(
         );
     } else {
         mod_runtime.load_collection(&paths);
-    }
-    if world_for.0 == game.id {
-        return;
     }
     despawn_play_world(&mut commands, &play_world);
     retire_voxel_chunks(&mut commands, &chunks);
@@ -1500,6 +1517,7 @@ fn spawn_play_world(
     } else {
         info!("Mod voxels: {}", catalog.0.join(", "));
     }
+    commands.insert_resource(DefaultWorld { catalog: catalog.0.clone() });
     commands.insert_resource(catalog);
 
     let gravity = with_mod(&mod_runtime, |ctx| {
@@ -1526,7 +1544,7 @@ fn spawn_play_world(
             Transform::from_translation(player_pos),
             Visibility::default(),
             Player,
-            RigidBody::Dynamic,
+            (RigidBody::Dynamic, GravityScale::default()),
             Collider::capsule(0.4, 1.0),
             LinearVelocity::default(),
             AngularVelocity::default(),
@@ -1561,14 +1579,11 @@ fn spawn_play_world(
         },
         Transform::from_rotation(Quat::from_euler(EulerRot::XYZ, -1.05, 0.55, 0.0)),
     ));
-    commands.spawn((
-        PlayWorld,
-        AmbientLight {
-            color: rgb3(atmo.ambient),
-            brightness: atmo.ambient_brightness,
-            ..default()
-        },
-    ));
+    commands.insert_resource(GlobalAmbientLight {
+        color: rgb3(atmo.ambient),
+        brightness: atmo.ambient_brightness,
+        ..default()
+    });
 
     let lead = mod_runtime.lead_name().to_string();
     with_mod(mod_runtime, |ctx| {
@@ -1695,7 +1710,7 @@ fn spawn_agent(
             Name::new(kind.to_string()),
             Transform::from_translation(pos).with_rotation(Quat::from_rotation_y(facing)),
             Visibility::default(),
-            RigidBody::Dynamic,
+            (RigidBody::Dynamic, GravityScale::default()),
             Collider::capsule(0.35, 0.95),
             LockedAxes::new().lock_rotation_x().lock_rotation_z(),
             LinearVelocity::default(),
@@ -1742,6 +1757,20 @@ fn spawn_agent(
         });
 }
 
+fn clear_spawn_position(mut pos: Vec3, half: Vec3) -> Vec3 {
+    // Bundled packs share an up axis. Raise embedded prefabs without flattening
+    // the lead world's terrain or changing the coordinates the pack authored.
+    for _ in 0..128 {
+        let min = (pos - half).floor().as_ivec3();
+        let max = (pos + half).floor().as_ivec3();
+        let blocked = (min.x..=max.x).any(|x| (min.y..=max.y).any(|y|
+            (min.z..=max.z).any(|z| matches!(query_lead_voxel(IVec3::new(x,y,z)), WorldVoxel::Solid(_)))));
+        if !blocked { return pos; }
+        pos.y += 1.0;
+    }
+    pos
+}
+
 fn spawn_vehicle(
     commands: &mut Commands,
     meshes: &mut Assets<Mesh>,
@@ -1751,6 +1780,7 @@ fn spawn_vehicle(
     owner: &str,
 ) {
     let [cx, cy, cz] = kit.collider;
+    let pos = clear_spawn_position(pos, Vec3::new(cx, cy, cz) * 0.5);
     let mut entity = commands.spawn((
         PlayWorld,
         Name::new("vehicle"),
@@ -1764,7 +1794,7 @@ fn spawn_vehicle(
         },
         Transform::from_translation(pos),
         Visibility::default(),
-        RigidBody::Dynamic,
+        (RigidBody::Dynamic, GravityScale::default()),
         Collider::cuboid(cx, cy, cz),
         LockedAxes::new().lock_rotation_x().lock_rotation_z(),
         LinearVelocity::default(),
@@ -2231,7 +2261,7 @@ fn validate_incoming_actions(
     mut sound_events: MessageWriter<SpatialSoundEvent>,
     mut player_query: Query<
         (
-            &Transform,
+            &mut Transform,
             &mut ModState,
             &mut ModWallet,
             &mut ModContract,
@@ -2290,6 +2320,9 @@ fn validate_incoming_actions(
                 let name = voxel_type_of(voxel_world.get_voxel(voxel_pos))
                     .and_then(|origin_type| catalog_name(&catalog.0, origin_type).map(str::to_string))
                     .unwrap_or_default();
+                if name.is_empty() || name == "air" {
+                    continue;
+                }
                 if mod_runtime.emit_all("before-dig", &voxel_event(voxel_pos, &name)) {
                     continue;
                 }
@@ -2435,6 +2468,12 @@ fn validate_incoming_actions(
                     info!("PlaceBlock rejected: unknown voxel {voxel}");
                     continue;
                 };
+                // Placement must not replace terrain or trap the player's capsule.
+                if matches!(voxel_world.get_voxel(voxel_pos), WorldVoxel::Solid(_))
+                    || placement_overlaps_player(voxel_pos, player_pos)
+                {
+                    continue;
+                }
                 if !consume_selected(&mut inventory, voxel) {
                     info!("PlaceBlock rejected: hotbar does not hold {voxel}");
                     continue;
@@ -2474,9 +2513,19 @@ fn validate_incoming_actions(
                     trust_ledger.penalize(player_entity, 0.4);
                     continue;
                 }
-                let Ok((transform, mut mod_state, mut wallet, _, _, _)) = player_query.get_mut(player_entity) else {
+                let Ok((mut transform, mut mod_state, mut wallet, _, _, riding)) = player_query.get_mut(player_entity) else {
                     continue;
                 };
+                if let Some(InVehicle(current)) = riding {
+                    if let Ok((vehicle, _)) = vehicles.get(*current) {
+                        transform.translation = dismount_position(vehicle, &voxel_world);
+                    }
+                    commands.entity(player_entity)
+                        .remove::<InVehicle>()
+                        .remove::<Sensor>()
+                        .insert((RigidBody::Dynamic, LinearVelocity::default()));
+                    continue;
+                }
                 let Ok((v_transform, wrecked)) = vehicles.get(vehicle_entity) else {
                     trust_ledger.penalize(player_entity, 0.5);
                     warn!("FRAUD DETECTED: EnterVehicle for missing vehicle {:?}", vehicle_entity);
@@ -2496,7 +2545,10 @@ fn validate_incoming_actions(
                     trust_ledger.penalize(player_entity, 0.2);
                     continue;
                 }
-                commands.entity(player_entity).insert(InVehicle(vehicle_entity));
+                commands.entity(player_entity).insert((
+                    InVehicle(vehicle_entity), RigidBody::Kinematic, Sensor,
+                    LinearVelocity::default(),
+                ));
                 info!("Player {:?} entered vehicle {:?}", player_entity, vehicle_entity);
                 apply_mod_action(
                     &mut commands,
@@ -2698,12 +2750,24 @@ fn release_cursor(mut windows: Query<&mut CursorOptions, With<PrimaryWindow>>) {
 }
 
 fn player_look(
+    state: Res<State<GameMode>>,
+    mut capture: Local<Option<(GameMode, bool, bool)>>,
+    mut settle: Local<u8>,
+    windows: Query<&Window, With<PrimaryWindow>>,
     motion: Res<AccumulatedMouseMotion>,
     inv_ui: Res<InventoryUi>,
     mut bodies: Query<(&mut Transform, &mut LookYaw, &mut AngularVelocity), With<Player>>,
     mut cameras: Query<(&mut Transform, &mut LookPitch), (With<LookPitch>, Without<Player>)>,
 ) {
-    if inv_ui.open {
+    let focused = windows.iter().next().is_some_and(|window| window.focused);
+    let current = (*state.get(), inv_ui.open, focused);
+    if *capture != Some(current) {
+        // X11 can report cursor recentering as motion after capture changes.
+        *capture = Some(current);
+        *settle = 2;
+    }
+    if !focused || inv_ui.open || *settle > 0 {
+        *settle = settle.saturating_sub(1);
         return;
     }
     let Some((mut body, mut yaw, mut angular)) = bodies.iter_mut().next() else {
@@ -2771,6 +2835,7 @@ fn apply_point_gravity(
 /// so those clients move for a short window instead of the single physics frame
 /// a lone velocity write would survive.
 fn player_physics(
+    inv_ui: Res<InventoryUi>,
     keyboard_input: Res<ButtonInput<KeyCode>>,
     mouse_input: Res<ButtonInput<MouseButton>>,
     bindings: Res<KeyBindings>,
@@ -2778,7 +2843,7 @@ fn player_physics(
     time: Res<Time>,
     mut pulse: ResMut<MovePulse>,
     voxel_world: VoxelWorld<DefaultWorld>,
-    mut players: Query<(&mut Transform, &mut LinearVelocity, Option<&InVehicle>), With<Player>>,
+    mut players: Query<(&mut Transform, &mut LinearVelocity, Option<&InVehicle>), (With<Player>, Without<AwaitingTerrain>)>,
     mut vehicles: Query<
         (
             &Transform,
@@ -2819,22 +2884,22 @@ fn player_physics(
 
         let right = player_transform.right();
 
-        if action_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_FORWARD) {
+        if !inv_ui.open && action_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_FORWARD) {
             direction += *forward;
         }
         // A one-shot pulse from a text/agent command walks on its own.
-        let pulse_active = pulse.remaining_ms > 0.0 && in_vehicle.is_none();
-        if action_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_BACK) {
+        let pulse_active = pulse.remaining_ms > 0.0 && in_vehicle.is_none() && !inv_ui.open;
+        if !inv_ui.open && action_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_BACK) {
             direction -= *forward;
         }
-        if action_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_RIGHT) {
+        if !inv_ui.open && action_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_RIGHT) {
             if target_vehicle.is_some() {
                 rotation_y -= 1.0; // Steer right
             } else {
                 direction += *right;
             }
         }
-        if action_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_LEFT) {
+        if !inv_ui.open && action_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_LEFT) {
             if target_vehicle.is_some() {
                 rotation_y += 1.0; // Steer left
             } else {
@@ -2847,8 +2912,8 @@ fn player_physics(
                 apply_wish(v_vel, direction, speed, &gravity.0, v_pos);
                 v_ang.y = rotation_y * 2.0;
             }
-            player_transform.translation = v_pos;
-            player_velocity.0 = v_vel.0;
+            player_transform.translation = v_pos + Vec3::Y * 1.3;
+            player_velocity.0 = Vec3::ZERO;
         } else {
             let pos = player_transform.translation;
             if pulse_active {
@@ -2863,7 +2928,7 @@ fn player_physics(
                     pos,
                 );
             }
-            if gravity.0.jump > 0.0
+            if !inv_ui.open && gravity.0.jump > 0.0
                 && action_just_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_JUMP)
             {
                 let up = walk_up(&gravity.0, pos.to_array());
@@ -2923,18 +2988,14 @@ fn player_interaction(
     if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_BREAK) {
         if let Some((player_entity, transform, _)) = query.iter().next() {
             let (origin, forward) = aim_from(&cameras, transform);
-            let forward_pos = if cheat_mode.0 {
-                warn!("CHEAT MODE: Attempting to illegally destroy a block far away...");
-                origin + (*forward * 50.0)
+            let voxel_pos = if cheat_mode.0 {
+                (origin + *forward * 50.0).floor().as_ivec3()
             } else {
-                origin + (*forward * 2.0)
+                let Some((hit, _)) = aimed_block(origin, forward, &voxel_world, AIM_REACH) else {
+                    return;
+                };
+                hit
             };
-            
-            let voxel_pos = IVec3::new(
-                forward_pos.x.round() as i32,
-                forward_pos.y.round() as i32,
-                forward_pos.z.round() as i32,
-            );
 
             events.write(signed_break(player_entity, voxel_pos));
             info!("Player sent BreakBlock request at {:?}", voxel_pos);
@@ -2944,12 +3005,9 @@ fn player_interaction(
     if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_EXPLODE) {
         if let Some((player_entity, transform, _)) = query.iter().next() {
             let (origin, forward) = aim_from(&cameras, transform);
-            let forward_pos = origin + (*forward * 15.0);
-            let voxel_pos = IVec3::new(
-                forward_pos.x.round() as i32,
-                forward_pos.y.round() as i32,
-                forward_pos.z.round() as i32,
-            );
+            let Some((voxel_pos, _)) = aimed_block(origin, forward, &voxel_world, action_range(&mod_runtime, ACTION_EXPLODE, 30.0)) else {
+                return;
+            };
 
             events.write(signed_explosion(player_entity, voxel_pos, 4.0));
             info!("Player fired RPG (Explosion) at {:?}", voxel_pos);
@@ -2959,12 +3017,9 @@ fn player_interaction(
     if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_PLACE) {
         if let Some((player_entity, transform, mut inventory)) = query.iter_mut().next() {
             let (origin, forward) = aim_from(&cameras, transform);
-            let forward_pos = origin + (*forward * 2.0);
-            let voxel_pos = IVec3::new(
-                forward_pos.x.round() as i32,
-                forward_pos.y.round() as i32,
-                forward_pos.z.round() as i32,
-            );
+            let Some((hit, normal)) = aimed_block(origin, forward, &voxel_world, AIM_REACH) else {
+                return;
+            };
             if try_open_container_at(
                 &mut commands,
                 &mut inv_ui,
@@ -2975,10 +3030,12 @@ fn player_interaction(
                 &mod_runtime,
                 &voxel_world,
                 &catalog,
-                voxel_pos,
+                hit,
             ) {
                 return;
             }
+            let Some(normal) = normal else { return; };
+            let voxel_pos = hit + normal;
             if let Some(item) =
                 inventory_selected(&inventory.items, &inventory.counts, inventory.selected)
             {
@@ -2990,7 +3047,7 @@ fn player_interaction(
 
     if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_ENTER) {
         if let Some((player_entity, transform, _)) = query.iter().next() {
-            if let Some(vehicle_entity) = nearest_vehicle(transform.translation, &vehicles) {
+            if let Some(vehicle_entity) = nearest_vehicle(transform.translation, &vehicles, action_range(&mod_runtime, ACTION_ENTER, 5.0)) {
                 events.write(signed_enter(player_entity, vehicle_entity));
             }
         }
@@ -3097,25 +3154,77 @@ fn pick_craft_pair(inventory: &ModInventory, mod_runtime: &ModRuntime) -> Option
     None
 }
 
-/// Bridges `bevy_voxel_world` meshes into `avian3d` physics colliders dynamically.
+/// Only terrain meshes become static bodies. NPC parts and debris keep their own physics.
 fn generate_voxel_colliders(
     mut commands: Commands,
-    query: Query<(Entity, &Mesh3d), (Added<Mesh3d>, Without<HeistMark>, Without<VehiclePart>)>,
+    query: Query<(Entity, &Mesh3d), (With<Chunk<DefaultWorld>>, Changed<Mesh3d>)>,
+    empty: Query<Entity, (With<Chunk<DefaultWorld>>, With<Collider>, Without<Mesh3d>)>,
     meshes: Res<Assets<Mesh>>,
 ) {
-    for (entity, mesh3d) in query.iter() {
-        // If the mesh is fully loaded and available in assets
-        if let Some(mesh) = meshes.get(&mesh3d.0) {
-            // Generate a highly accurate trimesh collider for the voxel chunk
-            if let Some(collider) = Collider::trimesh_from_mesh(mesh) {
-                // Attach the collider and make the chunk a static rigid body
-                commands.entity(entity).insert((
-                    collider,
-                    RigidBody::Static,
-                ));
-            }
+    for entity in &empty {
+        commands.entity(entity).remove::<(Collider, RigidBody)>();
+    }
+    for (entity, mesh3d) in &query {
+        if let Some(collider) = meshes.get(&mesh3d.0).and_then(Collider::trimesh_from_mesh) {
+            commands.entity(entity).insert((collider, RigidBody::Static));
+        } else {
+            commands.entity(entity).remove::<(Collider, RigidBody)>();
         }
     }
+}
+
+#[derive(Resource, Default)]
+struct WorldReady(bool);
+
+/// Wait for the spawn terrain before falling, and freeze physics while in menus.
+fn sync_physics_pause(
+    state: Res<State<GameMode>>,
+    ready: Res<WorldReady>,
+    mut physics: ResMut<Time<Physics>>,
+) {
+    if *state.get() == GameMode::Playing && ready.0 {
+        physics.unpause();
+    } else {
+        physics.pause();
+    }
+}
+
+#[derive(Component)]
+struct AwaitingTerrain;
+
+fn hold_unloaded_bodies(
+    mut commands: Commands,
+    gravity: Res<WorldGravity>,
+    world: VoxelWorld<DefaultWorld>,
+    mut ready: ResMut<WorldReady>,
+    chunks: Query<&Chunk<DefaultWorld>, (With<Collider>, Without<NeedsDespawn>)>,
+    mut bodies: Query<(Entity, &Transform, &mut LinearVelocity, &mut GravityScale, Option<&Player>),
+        Or<(With<Player>, With<Vehicle>, With<AgentAi>)>>,
+) {
+    let loaded: std::collections::HashSet<IVec3> = chunks.iter().map(|chunk| chunk.position).collect();
+    for (entity, transform, mut velocity, mut scale, player) in &mut bodies {
+        let (chunk, _) = get_chunk_voxel_position((transform.translation - Vec3::Y).floor().as_ivec3());
+        // Generated air needs no collider. Otherwise jumping above a terrain
+        // chunk could leave the player waiting forever for an air mesh.
+        let air = world.get_chunk_data(chunk).is_some_and(|data| data.has_generated() && data.is_empty());
+        let available = matches!(gravity.0.kind, hanga::gravity::GravityKind::None)
+            || loaded.contains(&chunk) || air;
+        if player.is_some() {
+            ready.0 = available;
+        }
+        if available {
+            scale.0 = 1.0;
+            commands.entity(entity).remove::<AwaitingTerrain>();
+        } else {
+            scale.0 = 0.0;
+            velocity.0 = Vec3::ZERO;
+            commands.entity(entity).insert(AwaitingTerrain);
+        }
+    }
+}
+
+fn world_ready(ready: Res<WorldReady>) -> bool {
+    ready.0
 }
 
 // Minecraft/Luanti voxels: bevy_voxel_world + WASM query_voxel
@@ -3140,7 +3249,8 @@ impl Plugin for CitySimPlugin {
             )
                 .chain()
                 .after(validate_incoming_actions)
-                .run_if(in_state(GameMode::Playing)),
+                .run_if(in_state(GameMode::Playing))
+                .run_if(world_ready),
         );
     }
 }
@@ -3177,7 +3287,7 @@ fn vehicle_crash_system(
             Option<&Wrecked>,
             Option<&Ignited>,
         ),
-        With<Vehicle>,
+        (With<Vehicle>, Without<AwaitingTerrain>),
     >,
     mut parts: Query<(Entity, &mut VehiclePart, &mut Transform), Without<Vehicle>>,
     mut players: Query<(Entity, Option<&InVehicle>), With<Player>>,
@@ -3258,7 +3368,11 @@ fn vehicle_crash_system(
             angular.0 += Vec3::new(1.6, 0.4, 0.9);
             for (player_entity, riding) in players.iter_mut() {
                 if matches!(riding, Some(InVehicle(v)) if *v == entity) {
-                    commands.entity(player_entity).remove::<InVehicle>();
+                    commands.entity(player_entity)
+                        .remove::<InVehicle>()
+                        .remove::<Sensor>()
+                        .insert((RigidBody::Dynamic, LinearVelocity::default(),
+                            Transform::from_translation(dismount_position(transform, &voxel_world))));
                 }
             }
         }
@@ -3269,7 +3383,10 @@ fn vehicle_crash_system(
         if action.is_empty() {
             continue;
         }
-        let Some((player_entity, _)) = players.iter().next() else {
+        // A traffic collision is not an action by the local player.
+        let Some((player_entity, _)) = players.iter().find(|(_, riding)| {
+            matches!(riding, Some(InVehicle(vehicle)) if *vehicle == entity)
+        }) else {
             continue;
         };
         let pos = IVec3::new(
@@ -3336,9 +3453,10 @@ fn path_blocked(transform: &Transform, voxel_world: &VoxelWorld<DefaultWorld>) -
 }
 
 fn vehicle_traffic_system(
+    riders: Query<&InVehicle>,
     mut vehicles: Query<
         (Entity, &mut Transform, &mut LinearVelocity, &VehicleDrive, &VehicleMod),
-        (With<VehicleAi>, Without<Wrecked>, Without<Player>, Without<Debris>),
+        (With<VehicleAi>, Without<Wrecked>, Without<Player>, Without<Debris>, Without<AwaitingTerrain>),
     >,
     extras: Query<
         (Entity, &Transform),
@@ -3359,6 +3477,9 @@ fn vehicle_traffic_system(
         .map(|(entity, transform)| (entity, transform.translation))
         .collect();
     for (entity, mut transform, mut velocity, drive, owner) in vehicles.iter_mut() {
+        if riders.iter().any(|rider| rider.0 == entity) {
+            continue;
+        }
         let fwd = transform.forward();
         let origin = transform.translation.to_array();
         let heading = [fwd.x, fwd.y, fwd.z];
@@ -3527,7 +3648,7 @@ fn flicker_ignition(time: Res<Time>, mut lights: Query<&mut PointLight, With<Ign
 
 /// AI logic for all agents, entirely powered by the WASM mod!
 fn agent_ai_tick(
-    mut agents: Query<(&mut Transform, &mut LinearVelocity, &AgentAi)>,
+    mut agents: Query<(&mut Transform, &mut LinearVelocity, &AgentAi), Without<AwaitingTerrain>>,
     players: Query<&Transform, (With<Player>, Without<AgentAi>)>,
     mod_runtime: Res<ModRuntime>,
 ) {
@@ -4044,6 +4165,18 @@ fn spawn_slot(parent: &mut ChildSpawnerCommands, kind: InvSlotKind, index: usize
 }
 
 fn spawn_hud(mut commands: Commands, locale: Res<UiLocale>) {
+    commands.spawn((
+        HudRoot,
+        Node {
+            position_type: PositionType::Absolute,
+            left: Val::Percent(50.0), top: Val::Percent(50.0),
+            ..default()
+        },
+        Text::new("+"),
+        TextFont { font_size: FontSize::Px(20.0), ..default() },
+        TextColor(Color::WHITE),
+        bevy::ui::FocusPolicy::Pass,
+    ));
     commands
         .spawn((
             HudRoot,
@@ -4397,7 +4530,8 @@ fn open_inventory_panel(
 fn update_hud(
     locale: Res<UiLocale>,
     bindings: Res<KeyBindings>,
-    players: Query<(&ModState, &ModWallet, &ModContract, &ModInventory), With<Player>>,
+    players: Query<(&Transform, &ModState, &ModWallet, &ModContract, &ModInventory), With<Player>>,
+    marks: Query<(&HeistMark, &Transform), Without<Player>>,
     offer: Res<ModOffer>,
     mod_runtime: Res<ModRuntime>,
     p2p: Res<P2pConfig>,
@@ -4406,12 +4540,12 @@ fn update_hud(
     mut status: Query<&mut Text, (With<HudStatus>, Without<HudHint>, Without<InvSlotLabel>)>,
     mut hint: Query<&mut Text, (With<HudHint>, Without<HudStatus>, Without<InvSlotLabel>)>,
 ) {
-    let Some((state, wallet, contract, inventory)) = players.iter().next() else {
+    let Some((player, state, wallet, contract, inventory)) = players.iter().next() else {
         return;
     };
     if let Some(mut text) = status.iter_mut().next() {
         let accept = bindings.0.display(ACTION_ACCEPT);
-        *text = Text::new(job_status_line(
+        let mut status = job_status_line(
             locale.0,
             &mod_runtime,
             state,
@@ -4420,7 +4554,13 @@ fn update_hud(
             &offer,
             inventory,
             Some(&accept),
-        ));
+        );
+        if let Some((_, target)) = marks.iter().find(|(mark, _)| mark.kind == contract.kind) {
+            let p = target.translation;
+            status.push_str(&format!("\n{}: {:.0}, {:.0}, {:.0} ({:.0} m)",
+                i18n::t(locale.0, "destination"), p.x, p.y, p.z, player.translation.distance(p)));
+        }
+        *text = Text::new(status);
     }
     if let Some(mut text) = hint.iter_mut().next() {
         *text = Text::new(play_hint_line(
@@ -4539,7 +4679,9 @@ fn container_place(
 }
 
 fn sync_inv_ui_locale(locale: Res<UiLocale>, mut inv_ui: ResMut<InventoryUi>) {
-    inv_ui.locale = locale.0;
+    if inv_ui.locale != locale.0 {
+        inv_ui.locale = locale.0;
+    }
 }
 
 fn sync_hud_hotbar_visibility(
@@ -4713,25 +4855,54 @@ fn apply_play_sky(theme: Res<MenuTheme>, mut clear: ResMut<ClearColor>) {
 }
 
 fn sync_selected_game(
+    mut applied: Local<Option<GameSpec>>,
+    assets: Res<AssetServer>,
     selected: Res<SelectedGame>,
     catalog: Res<GameCatalog>,
-    search: Res<ModSearch>,
     games: Res<GameSearch>,
     mut selected_mod: ResMut<SelectedMod>,
     mut theme: ResMut<MenuTheme>,
-    mut runtime: ResMut<ModRuntime>,
     mut collection: ResMut<CollectionId>,
 ) {
     if !selected.is_changed() && !catalog.is_changed() {
         return;
     }
     let game = current_game(&catalog, &selected);
+    if applied.as_ref() == Some(&game) {
+        return;
+    }
+    *applied = Some(game.clone());
     selected_mod.0 = game.lead_mod().to_string();
     collection.0 = game.collection_key();
-    hanga::persistence::init_world_db(&collection.0);
     theme.0 = game.backdrop;
     hanga::palette::prepare_asset_dir(&game, &games.0);
-    load_game_mods(&mut runtime, &game, &search);
+    assets.reload(hanga::palette::VOXEL_PALETTE_FILE);
+    if game.has_clouds() {
+        assets.reload(hanga::palette::CLOUD_FILE);
+    }
+}
+
+// The voxel plugin prepares the initial texture only once. A game switch reloads
+// the PNG as a 2D image, so restore its array view before render extraction.
+fn prepare_reloaded_palette(assets: Res<AssetServer>, mut images: ResMut<Assets<Image>>) {
+    let Some(handle) = assets.get_handle::<Image>(hanga::palette::VOXEL_PALETTE_FILE) else {
+        return;
+    };
+    let Some(image) = images.get(&handle) else { return; };
+    if image.texture_descriptor.size.depth_or_array_layers != 1 {
+        return;
+    }
+    let Some(mut image) = images.get_mut(&handle) else { return; };
+    if image.reinterpret_stacked_2d_as_array(hanga::palette::VOXEL_PALETTE_LAYERS).is_ok() {
+        image.texture_view_descriptor = Some(bevy::render::render_resource::TextureViewDescriptor {
+            dimension: Some(bevy::render::render_resource::TextureViewDimension::D2Array),
+            ..default()
+        });
+        let sampler = image.sampler.get_or_init_descriptor();
+        sampler.address_mode_u = bevy::image::ImageAddressMode::Repeat;
+        sampler.address_mode_v = bevy::image::ImageAddressMode::Repeat;
+        sampler.address_mode_w = bevy::image::ImageAddressMode::Repeat;
+    }
 }
 
 fn play_fog(game: &GameSpec) -> DistanceFog {
@@ -5445,6 +5616,47 @@ mod tests {
     use super::*;
     use proptest::prelude::*;
 
+    #[test]
+    fn terrain_colliders_follow_remeshing_and_leave_debris_dynamic() {
+        let mut app = App::new();
+        app.init_resource::<Assets<Mesh>>()
+            .add_systems(Update, generate_voxel_colliders);
+        let mesh = app.world_mut().resource_mut::<Assets<Mesh>>().add(Cuboid::new(2.0, 1.0, 2.0));
+        let chunk = app.world_mut().spawn(Mesh3d(mesh)).id();
+        app.world_mut().entity_mut(chunk).insert(Chunk::<DefaultWorld>::new(
+            IVec3::ZERO, 0, chunk, UVec3::splat(34), UVec3::splat(32)));
+        let debris = app.world_mut().spawn((Mesh3d(Handle::default()), RigidBody::Dynamic)).id();
+        app.update();
+        assert!(app.world().get::<Collider>(chunk).is_some());
+        assert_eq!(app.world().get::<RigidBody>(debris), Some(&RigidBody::Dynamic));
+        // An empty replacement mesh must remove the old, invisible floor.
+        let empty = app.world_mut().resource_mut::<Assets<Mesh>>().add(Mesh::new(
+            bevy::mesh::PrimitiveTopology::TriangleList, bevy::asset::RenderAssetUsages::default()));
+        app.world_mut().entity_mut(chunk).insert(Mesh3d(empty));
+        app.update();
+        assert!(app.world().get::<Collider>(chunk).is_none());
+    }
+
+    #[test]
+    fn physics_waits_for_spawn_and_stops_in_the_pause_menu() {
+        let mut app = App::new();
+        app.insert_resource(State::new(GameMode::Playing))
+            .insert_resource(WorldGravity(parse_gravity_node(&hanga::kit::Node::Text(
+                "kind=constant;y=-9.81".into()))))
+            .init_resource::<WorldReady>()
+            .init_resource::<Time<Physics>>()
+            .add_systems(Update, sync_physics_pause);
+        app.world_mut().spawn((Player, Transform::from_xyz(0.0, 2.0, 0.0)));
+        app.update();
+        assert!(app.world().resource::<Time<Physics>>().is_paused());
+        app.world_mut().resource_mut::<WorldReady>().0 = true;
+        app.update();
+        assert!(!app.world().resource::<Time<Physics>>().is_paused());
+        app.insert_resource(State::new(GameMode::Menu));
+        app.update();
+        assert!(app.world().resource::<Time<Physics>>().is_paused());
+    }
+
     proptest! {
         /// Bevy-specific property: TrustLedger penalization works with arbitrary
         /// initial scores and penalties. Tests the Bevy Entity-keyed ledger in main.rs.
@@ -5483,9 +5695,11 @@ mod tests {
 fn nearest_vehicle(
     player_pos: Vec3,
     vehicles: &Query<(Entity, &Transform), (With<Vehicle>, Without<Player>, Without<Wrecked>)>,
+    reach: f32,
 ) -> Option<Entity> {
     vehicles
         .iter()
+        .filter(|(_, transform)| transform.translation.distance(player_pos) <= reach)
         .min_by(|a, b| {
             a.1.translation
                 .distance(player_pos)
@@ -5493,6 +5707,33 @@ fn nearest_vehicle(
                 .unwrap_or(std::cmp::Ordering::Equal)
         })
         .map(|(e, _)| e)
+}
+
+fn placement_overlaps_player(cell: IVec3, player: Vec3) -> bool {
+    let center = cell.as_vec3() + Vec3::splat(0.5);
+    let delta = (center - player).abs();
+    delta.x < 0.9 && delta.y < 1.4 && delta.z < 0.9
+}
+
+fn dismount_position(vehicle: &Transform, world: &VoxelWorld<DefaultWorld>) -> Vec3 {
+    for offset in [*vehicle.right() * 3.0, *vehicle.right() * -3.0,
+                   *vehicle.forward() * 4.0, *vehicle.forward() * -4.0, Vec3::Y * 4.0] {
+        let pos = vehicle.translation + offset + Vec3::Y;
+        if [-0.8, 0.0, 0.8].iter().all(|height| {
+            !matches!(world.get_voxel((pos + Vec3::Y * *height).floor().as_ivec3()), WorldVoxel::Solid(_))
+        }) {
+            return pos;
+        }
+    }
+    vehicle.translation + Vec3::Y * 5.0
+}
+
+fn aimed_block(origin: Vec3, forward: Dir3, world: &VoxelWorld<DefaultWorld>, reach: f32)
+    -> Option<(IVec3, Option<IVec3>)>
+{
+    let hit = world.raycast(Ray3d::new(origin, forward),
+        &|(_, voxel)| matches!(voxel, WorldVoxel::Solid(_)))?;
+    (origin.distance(hit.position) <= reach).then(|| (hit.voxel_pos(), hit.voxel_normal()))
 }
 
 /// How far a text/agent client can reach with break/place/look.
@@ -5707,7 +5948,7 @@ fn read_terminal_input(
                 }
                 TextCommand::EnterVehicle => {
                     if let Some((player_entity, transform, _, _, _, _, _)) = query.iter().next() {
-                        if let Some(vehicle_entity) = nearest_vehicle(transform.translation, &vehicles) {
+                        if let Some(vehicle_entity) = nearest_vehicle(transform.translation, &vehicles, action_range(&mod_runtime, ACTION_ENTER, 5.0)) {
                             events.write(signed_enter(player_entity, vehicle_entity));
                             say(locale.0, i18n::t(locale.0, "entering"));
                         } else {
@@ -5790,6 +6031,7 @@ fn read_terminal_input(
 
 /// Polls standard input for JSON commands specifically for LLM Agents
 fn read_agent_input(
+    ready: Res<WorldReady>,
     receiver: Res<StdinReceiver>,
     mut query: Query<(Entity, &Transform, &mut LinearVelocity, &ModState, &ModWallet, &ModContract, &ModInventory, Option<&InVehicle>), With<Player>>,
     vehicles: Query<(Entity, &Transform), (With<Vehicle>, Without<Player>, Without<Wrecked>)>,
@@ -5839,7 +6081,7 @@ fn read_agent_input(
                     AgentCommand::EnterVehicle => {
                         if let Some((player_entity, transform, _, _, _, _, _, _)) = query.iter_mut().next() {
                             if let Some(vehicle_entity) =
-                                nearest_vehicle(transform.translation, &vehicles)
+                                nearest_vehicle(transform.translation, &vehicles, action_range(&mod_runtime, ACTION_ENTER, 5.0))
                             {
                                 events.write(signed_enter(player_entity, vehicle_entity));
                             }
@@ -5860,20 +6102,33 @@ fn read_agent_input(
                             events.write(signed_verb(player_entity, ACTION_FENCE, ""));
                         }
                     }
+                    AgentCommand::InspectBlock { pos } => {
+                        let cell = IVec3::from_array(pos);
+                        let (chunk, _) = get_chunk_voxel_position(cell);
+                        let loaded = voxel_world.get_chunk_data(chunk).is_some();
+                        let voxel = voxel_type_of(voxel_world.get_voxel(cell))
+                            .and_then(|index| catalog_name(&catalog.0, index))
+                            .unwrap_or("air");
+                        println!("{}", serde_json::json!({
+                            "status": "ok", "pos": pos, "voxel": voxel, "loaded": loaded,
+                        }));
+                    }
                     AgentCommand::Look => {
                         if let Some((entity, transform, _, state, wallet, contract, inventory, in_vehicle)) = query.iter_mut().next() {
-                            let score = trust_ledger.peer_scores.get(&entity).copied().unwrap_or(100.0);
-                            let (_pos, voxel_ahead, voxel_label) =
+                            let score = trust_ledger.peer_scores.get(&entity).copied().unwrap_or(1.0);
+                            let (target, voxel_ahead, voxel_label) =
                                 look_voxel_ahead(transform, &voxel_world, &catalog, &mod_runtime, locale.0);
                             let obs = AgentObservation {
                                 status: "ok".into(),
                                 player_pos: [transform.translation.x, transform.translation.y, transform.translation.z],
+                                world_ready: ready.0,
                                 trust_score: score,
                                 wanted_level: state.0,
                                 credits: wallet.0,
                                 offer_kind: offer.kind.clone(),
                                 contract_kind: contract.kind.clone(),
                                 voxel_ahead,
+                                voxel_pos: target.to_array(),
                                 voxel_label,
                                 locale: locale.0.code().into(),
                                 in_vehicle: in_vehicle.is_some(),
@@ -5896,12 +6151,14 @@ fn read_agent_input(
                 let err = AgentObservation {
                     status: "error: invalid json".into(),
                     player_pos: [0.0, 0.0, 0.0],
+                    world_ready: false,
                     trust_score: 0.0,
                     wanted_level: 0,
                     credits: 0,
                     offer_kind: String::new(),
                     contract_kind: String::new(),
                     voxel_ahead: String::new(),
+                    voxel_pos: [0; 3],
                     voxel_label: String::new(),
                     locale: locale.0.code().into(),
                     in_vehicle: false,

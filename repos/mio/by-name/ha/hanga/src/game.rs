@@ -178,7 +178,8 @@ pub fn cycle_game(catalog: &[GameSpec], current: &str) -> String {
     }
     let idx = catalog
         .iter()
-        .position(|game| game.id == current || game.lead_mod() == current)
+        .position(|game| game.id == current)
+        .or_else(|| catalog.iter().position(|game| game.lead_mod() == current))
         .unwrap_or(0);
     catalog[(idx + 1) % catalog.len()].id.clone()
 }
@@ -559,6 +560,19 @@ mod tests {
         assert_eq!(cycle_game(&catalog, "testbed"), "sandbox");
         assert_eq!(cycle_game(&catalog, "sandbox"), "urban_chaos");
         assert_eq!(cycle_game(&catalog, "missing.wasm"), "testbed");
+    }
+
+    #[test]
+    fn discovered_catalog_can_cycle_every_bundled_game() {
+        let catalog = load_game_catalog(&[]);
+        let mut selected = DEFAULT_GAME.to_string();
+        let mut seen = std::collections::BTreeSet::new();
+        for _ in 0..catalog.len() {
+            assert!(seen.insert(selected.clone()), "game repeated before visiting the whole catalog");
+            selected = cycle_game(&catalog, &selected);
+        }
+        assert_eq!(seen.len(), 3);
+        assert_eq!(selected, DEFAULT_GAME);
     }
 
     #[test]

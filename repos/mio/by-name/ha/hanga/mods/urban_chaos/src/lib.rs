@@ -637,7 +637,7 @@ pub fn ambient_agent_spawn(index: i32) -> (i32, i32, i32, String) {
     let i = index.max(0);
     if i >= 6 {
         let z = 400 + (i - 6) * 100;
-        return (400, -7, z, AGENT_TRAIN.into());
+        return (400, surface_elevation(400, z) - 6, z, AGENT_TRAIN.into());
     }
     let x = 502 + i * 8;
     let z = 500;
@@ -723,6 +723,7 @@ pub fn contract_mark(kind: &str) -> hanga::engine::host::Value {
         CONTRACT_BANK => (550, -4, 550, 12.0, true, 1.0, 0.84, 0.0),
         _ => return wire_empty(),
     };
+    let y = y + surface_elevation(x as i32, z as i32) as i64;
     wire_dict(vec![
         field("x", atom_int(x)),
         field("y", atom_int(y)),
@@ -780,9 +781,9 @@ pub fn event_label_for(locale: &str, event: &str) -> String {
 }
 
 pub fn loot_item(voxel: &str) -> String {
-    match voxel {
-        "concrete" | "glass" | "grass" | "tile" | "workbench" | "brick" => voxel.into(),
-        _ => String::new(),
+    match Voxel::from_name(voxel) {
+        Some(Voxel::Air) | None => String::new(),
+        Some(_) => voxel.into(),
     }
 }
 
@@ -996,11 +997,11 @@ pub fn mod_can_complete(
             }
             i32::from(match contract_kind {
                 CONTRACT_SMASH => near && held_one_of(held, &["glass", "tile"]),
-                CONTRACT_SUBWAY => near && y < 0,
+                CONTRACT_SUBWAY => near && y < surface_elevation(400, 400),
                 CONTRACT_CHOP => near && held_one_of(held, &["brick", "concrete", "workbench"]),
                 CONTRACT_TRUCK => near && vehicle,
                 CONTRACT_DRILL => near && held == "workbench",
-                CONTRACT_BANK => near && y < 0 && held == "drill",
+                CONTRACT_BANK => near && y < surface_elevation(550, 550) && held == "drill",
                 _ => near,
             })
         }
@@ -1827,7 +1828,7 @@ mod tests {
     fn train_agent_moves_fast_along_z_axis() {
         let (x, y, _z, kind) = ambient_agent_spawn(6);
         assert_eq!(kind, AGENT_TRAIN);
-        assert_eq!(y, -7);
+        assert_eq!(y, surface_elevation(x, 400) - 6);
         assert_eq!(x, 400);
         assert_eq!(compute_agent_vx(AGENT_TRAIN, 0.0, 0.0, 0.0, 0.0), 0.0);
         assert_eq!(compute_agent_vz(AGENT_TRAIN, 0.0, 0.0, 0.0, 0.0), 25.0);
@@ -1880,15 +1881,18 @@ mod tests {
     }
 
     #[test]
-    fn loot_drops_breakable_city_blocks() {
+    fn dug_city_materials_can_be_placed_again() {
+        for voxel in &Voxel::CATALOG[1..] {
+            assert_eq!(loot_item(voxel), *voxel);
+        }
         assert_eq!(loot_item("concrete"), "concrete");
         assert_eq!(loot_item("glass"), "glass");
         assert_eq!(loot_item("tile"), "tile");
         assert_eq!(loot_item("grass"), "grass");
         assert_eq!(loot_item("workbench"), "workbench");
         assert_eq!(loot_item("brick"), "brick");
-        assert!(loot_item("asphalt").is_empty());
-        assert!(loot_item("rail").is_empty());
+        assert_eq!(loot_item("asphalt"), "asphalt");
+        assert_eq!(loot_item("rail"), "rail");
         assert!(loot_item("air").is_empty());
         assert_eq!(item_label_for("en", "tile"), "tile");
         assert_eq!(item_label_for("mi", "tile"), "tāera");
@@ -1944,6 +1948,17 @@ mod tests {
     }
 
     #[test]
+    fn job_sites_follow_the_city_surface() {
+        for (kind, height) in [(CONTRACT_SMASH, 3), (CONTRACT_SUBWAY, -6),
+            (CONTRACT_CHOP, 2), (CONTRACT_TRUCK, 2), (CONTRACT_DRILL, 2), (CONTRACT_BANK, -4)] {
+            let mark = contract_mark(kind);
+            let x = payload_i64(&mark, "x") as i32;
+            let z = payload_i64(&mark, "z") as i32;
+            assert_eq!(payload_i64(&mark, "y") as i32, surface_elevation(x, z) + height);
+        }
+    }
+
+    #[test]
     fn clean_player_is_offered_an_atm_job() {
         assert_eq!(mod_offer_contract(0), (CONTRACT_SMASH.into(), 250, 1));
     }
@@ -1996,7 +2011,7 @@ mod tests {
             0
         );
         assert_eq!(
-            mod_can_complete(ACTION_COMPLETE, 2, CONTRACT_SUBWAY, 2, "", -6, false, true),
+            mod_can_complete(ACTION_COMPLETE, 2, CONTRACT_SUBWAY, 2, "", surface_elevation(400, 400) - 6, false, true),
             1
         );
         assert_eq!(
@@ -2004,11 +2019,11 @@ mod tests {
             1
         );
         assert_eq!(
-            mod_can_complete(ACTION_COMPLETE, 5, CONTRACT_BANK, 5, "drill", -4, false, true),
+            mod_can_complete(ACTION_COMPLETE, 5, CONTRACT_BANK, 5, "drill", surface_elevation(550, 550) - 4, false, true),
             1
         );
         assert_eq!(
-            mod_can_complete(ACTION_COMPLETE, 5, CONTRACT_BANK, 5, "", -4, false, true),
+            mod_can_complete(ACTION_COMPLETE, 5, CONTRACT_BANK, 5, "", surface_elevation(550, 550) - 4, false, true),
             0
         );
     }
@@ -2016,7 +2031,7 @@ mod tests {
     #[test]
     fn heist_marks_are_in_the_city() {
         assert_eq!(payload_i64(&contract_mark(CONTRACT_SMASH), "x"), 531);
-        assert_eq!(payload_i64(&contract_mark(CONTRACT_SUBWAY), "y"), -6);
+        assert_eq!(payload_i64(&contract_mark(CONTRACT_SUBWAY), "y"), (surface_elevation(400, 400) - 6) as i64);
         assert_eq!(payload_i64(&contract_mark(CONTRACT_CHOP), "z"), 520);
         assert_eq!(payload_i64(&contract_mark(CONTRACT_TRUCK), "x"), 510);
         assert!(wire_is_null(&contract_mark("nope")));

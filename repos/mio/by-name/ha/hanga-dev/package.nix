@@ -80,6 +80,7 @@ if stdenv.hostPlatform.isLinux then
       mkdir -p "$HOME" "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME"
       export HANGA_MODS=${mods}/share/hanga/mods
       export HANGA_GAMES=${mods}/share/hanga/games
+      export HANGA_GAMES=${mods}/share/hanga/games
       export WGPU_BACKEND=vulkan
       export VK_ICD_FILENAMES=${pkgs.mesa}/share/vulkan/icd.d/lvp_icd.x86_64.json
       export LIBGL_ALWAYS_SOFTWARE=1

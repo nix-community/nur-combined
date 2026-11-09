@@ -20,7 +20,7 @@ wasmtime::component::bindgen!({
 
 /// Global reference so that worker threads (like terrain generation) can
 /// instantiate their own stateless WASM instances for fast concurrent access.
-/// Holds all loaded mods to support multi-lead terrain merge.
+/// Only the current lead owns terrain; packs and previously played games must not leak in.
 pub static SHARED_WASM: RwLock<Vec<(u64, String, Engine, ModFormat)>> = RwLock::new(Vec::new());
 
 #[derive(Clone)]
@@ -1472,13 +1472,6 @@ impl ModRuntime {
             }
         };
 
-        if publish_shared {
-            let rev = WASM_GEN.fetch_add(1, Ordering::Relaxed) + 1;
-            if let Ok(mut shared) = SHARED_WASM.write() {
-                shared.push((rev, name.to_string(), engine.clone(), format.clone()));
-            }
-        }
-
         let mut store = Store::new(
             &engine,
             HostData {
@@ -1520,6 +1513,14 @@ impl ModRuntime {
                 };
                 store.data_mut().topics = topics.clone();
 
+                if publish_shared {
+                    let rev = WASM_GEN.fetch_add(1, Ordering::Relaxed) + 1;
+                    if let Ok(mut shared) = SHARED_WASM.write() {
+                        shared.clear();
+                        shared.push((rev, name.to_string(), engine.clone(), format.clone()));
+                    }
+                }
+
                 Some(MainModContext {
                     store,
                     bindings: ModBindings::Component(bindings),
@@ -1534,6 +1535,14 @@ impl ModRuntime {
                 crate::hoot_runtime::add_to_linker(&mut linker).ok()?;
                 let instance = linker.instantiate(&mut store, module).ok()?;
                 
+                if publish_shared {
+                    let rev = WASM_GEN.fetch_add(1, Ordering::Relaxed) + 1;
+                    if let Ok(mut shared) = SHARED_WASM.write() {
+                        shared.clear();
+                        shared.push((rev, name.to_string(), engine.clone(), format.clone()));
+                    }
+                }
+
                 Some(MainModContext {
                     store,
                     bindings: ModBindings::Core(instance),
@@ -2241,6 +2250,16 @@ mod tests {
     }
 
     #[test]
+    fn live_wasm_sandbox_labels_fall_back_to_the_owning_pack() {
+        let Some(runtime) = instantiate_live_runtime("urban_chaos", "testbed") else { return; };
+        for (topic, key) in [("voxel-label", "voxel"), ("item-label", "item")] {
+            assert_eq!(runtime.ask_any_text(topic, &wire_bag(vec![
+                ("locale", wire_text("en")), (key, wire_text("sidewalk")),
+            ])), "sidewalk");
+        }
+    }
+
+    #[test]
     fn live_wasm_two_packs_ready_greets_peer() {
         let Some((bus, lead, pack)) = instantiate_live_pair("testbed", "urban_chaos") else {
             return;
@@ -2495,9 +2514,7 @@ mod tests {
             ctx.bus_text_payload("loot-item", &wire_text("glass")),
             "glass"
         );
-        assert!(ctx
-            .bus_text_payload("loot-item", &wire_text("asphalt"))
-            .is_empty());
+        assert_eq!(ctx.bus_text_payload("loot-item", &wire_text("asphalt")), "asphalt");
         assert_eq!(
             ctx.bus_text_payload(
                 "craft-result",
@@ -2799,7 +2816,7 @@ mod tests {
     }
 
     #[test]
-    fn live_wasm_multi_lead_terrain_merge() {
+    fn live_wasm_switch_replaces_previous_terrain() {
         SHARED_WASM.write().unwrap().clear();
         
         let Some(lead_path) = mods_wasm("testbed") else { return; };
@@ -2809,7 +2826,8 @@ mod tests {
         let _ = ModRuntime::instantiate(&lead_path, "testbed", Arc::clone(&bus) as Arc<dyn EngineBus>, true);
         let _ = ModRuntime::instantiate(&pack_path, "urban_chaos", bus, true);
         
-        assert_eq!(SHARED_WASM.read().unwrap().len(), 2);
+        assert_eq!(SHARED_WASM.read().unwrap().len(), 1);
+        assert_eq!(SHARED_WASM.read().unwrap()[0].1, "urban_chaos");
         
         let voxel = sample_lead_worldgen(0, 0, 0);
         assert_ne!(voxel, "air");
