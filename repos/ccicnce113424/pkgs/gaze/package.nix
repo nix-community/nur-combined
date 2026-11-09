@@ -10,6 +10,7 @@
   gst_all_1,
   onnxruntime,
   opencv,
+  pam,
   pipewire,
   tpm2-tss,
   zstd,
@@ -27,16 +28,16 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "gaze";
-  version = "0.4.2";
+  version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "GunduLabs";
     repo = "gaze";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-3qLVIRJGr4yYA6PnkDA5sh77bCn1RHA4Wt+jqPk3fEs=";
+    hash = "sha256-zETld1vHTX83hQxBv9MLDXZ6Ltd9W2QxMIe2Kv++imw=";
   };
 
-  cargoHash = "sha256-bjNC2I/9TMUGEIBtUlXs0EBZ8BY5k/eeNyUFGo6+fb8=";
+  cargoHash = "sha256-h4Xbfj5rR1xurDuLwg8GKNnAX52ftV4JwRk7mcB1CIo=";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -55,6 +56,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     gst_all_1.gst-plugins-base
     onnxruntime
     opencv
+    pam
     tpm2-tss
     zstd
   ];
