@@ -1,3 +1,7 @@
+[ai-usagebar]
+fetch.github = "akitaonrails/ai-usagebar"
+src.github_tag = "akitaonrails/ai-usagebar"
+
 [aioshutil]
 fetch.github = "kumaraditya303/aioshutil"
 src.github_tag = "kumaraditya303/aioshutil"
@@ -13,6 +17,11 @@ src.github = "dqzboy/Docker-Proxy"
 [docker-proxy-hubcmdui]
 fetch.github = "dqzboy/Docker-Proxy"
 src.github = "dqzboy/Docker-Proxy"
+
+[epd-food-server]
+fetch.git = "https://github.com/zhyiheihei/EPD-Dashboard.git"
+src.git = "https://github.com/zhyiheihei/EPD-Dashboard.git"
+src.branch = "main"
 
 [filecodebox]
 fetch.github = "vastsa/FileCodeBox"
@@ -97,10 +106,14 @@ src.github = "Kodiqa-Solutions/VaultS3"
 src.prefix = "v"
 
 [vertex]
+pinned = true
 # 上游 vertex-center/vertex 已 404，pinned 固定现有 entry，不再检查上游
 fetch.github = "vertex-center/vertex"
 src.github = "vertex-center/vertex"
-pinned = true
+
+[ws-scrcpy]
+fetch.git = "https://github.com/NetrisTV/ws-scrcpy.git"
+src.git = "https://github.com/NetrisTV/ws-scrcpy.git"
 
 [zcode]
 fetch.url = "https://cdn-zcode.z.ai/zcode/electron/releases/$ver/linux-x64/ZCode-$ver-linux-x64.deb"
@@ -110,12 +123,3 @@ src.regex = "releases/([0-9.]+)/linux-x64"
 [zhconv-rs]
 fetch.github = "Gowee/zhconv-rs"
 src.github = "Gowee/zhconv-rs"
-
-[ws-scrcpy]
-fetch.git = "https://github.com/NetrisTV/ws-scrcpy.git"
-src.git = "https://github.com/NetrisTV/ws-scrcpy.git"
-
-[epd-food-server]
-fetch.git = "https://github.com/zhyiheihei/EPD-Dashboard.git"
-src.git = "https://github.com/zhyiheihei/EPD-Dashboard.git"
-src.branch = "main"

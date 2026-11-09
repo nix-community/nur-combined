@@ -6,6 +6,16 @@
   dockerTools,
 }:
 {
+  ai-usagebar = {
+    pname = "ai-usagebar";
+    version = "v1.49.0";
+    src = fetchFromGitHub {
+      owner = "akitaonrails";
+      repo = "ai-usagebar";
+      tag = "v1.49.0";
+      hash = "sha256-UTP9B1S6nLuEFvAIveZq0Mf7Xuf0Z6ovngBJVDQQ26E=";
+    };
+  };
   aioshutil = {
     pname = "aioshutil";
     version = "v1.7a1";

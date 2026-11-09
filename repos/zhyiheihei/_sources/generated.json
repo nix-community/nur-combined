@@ -1,4 +1,25 @@
 {
+    "ai-usagebar": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "ai-usagebar",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "akitaonrails",
+            "repo": "ai-usagebar",
+            "rev": "v1.49.0",
+            "sha256": "sha256-UTP9B1S6nLuEFvAIveZq0Mf7Xuf0Z6ovngBJVDQQ26E=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.49.0"
+    },
     "aioshutil": {
         "cargoLock": null,
         "date": null,
