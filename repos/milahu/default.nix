@@ -746,7 +746,9 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pdf-toc = callPackage ./pkgs/development/python-modules/pdf-toc { };
 
-      fpgen = callPackage ./pkgs/development/python-modules/fpgen { };
+      fpgen = callPackage ./pkgs/development/python-modules/fpgen {
+        pkgs-zstd = pkgs.zstd;
+      };
 
       camoufox = callPackage ./pkgs/development/python-modules/camoufox {
         # pkgs-camoufox = pkgs.camoufox-unwrapped; # FIXME scope
