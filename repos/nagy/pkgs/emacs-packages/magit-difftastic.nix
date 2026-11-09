@@ -8,13 +8,13 @@
 
 melpaBuild {
   pname = "magit-difftastic";
-  version = "0-unstable-2026-10-07";
+  version = "0-unstable-2026-11-05";
 
   src = fetchFromGitHub {
     owner = "rschmukler";
     repo = "magit-difftastic";
-    rev = "9394ab5e7a29d4507cc69471ea13a14a4bf78da1";
-    hash = "sha256-+/eF/FFgwdRX0wX2reCoNXmwIgH7ZsoJLJXGKqN6Vsk=";
+    rev = "9e5a889a77c807ef731875bf5289f892e7b455ed";
+    hash = "sha256-FUdC57YNsNhs+nmEZM/lpJFI5PJajm0rhkr1ly5gxJo=";
   };
 
   packageRequires = [

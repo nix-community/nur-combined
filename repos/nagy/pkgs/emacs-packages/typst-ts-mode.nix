@@ -6,14 +6,14 @@
 
 melpaBuild {
   pname = "typst-ts-mode";
-  version = "0-unstable-2025-11-05";
+  version = "0-unstable-2026-11-08";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "meow_king";
     repo = "typst-ts-mode";
-    rev = "7c2ef0d5bd2b5a8727fe6d00938c47ba562e0c94";
-    hash = "sha256-D+QEfEYlxJICcdUCleWpe7+HxePLSSmV7zAwvyTL0+Q=";
+    rev = "5fc2e73e0391903272509452d5c12e3104face99";
+    hash = "sha256-hRx2gs5DZtqnLrmIC/sJPzG2sc/TJvXQWbOBzYs7GUg=";
   };
 
   meta = {

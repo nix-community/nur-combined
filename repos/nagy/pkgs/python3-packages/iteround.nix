@@ -14,7 +14,7 @@ buildPythonPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "cgdeboer";
     repo = "iteround";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-0lHu01MTf+rdrUYuRDR2IUvQQKcw7NZXBOw+nbEmPMc=";
   };
 

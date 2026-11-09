@@ -6,13 +6,13 @@
 
 melpaBuild (finalAttrs: {
   pname = "pretty-tables";
-  version = "0.5.0";
+  version = "0.6.0";
 
   src = fetchFromGitHub {
     owner = "alberti42";
     repo = "pretty-tables.el";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-vSjlFWM0cfrLGvo0RmVY2pr3EkjAsIxJ1Os85yjuDHE=";
+    hash = "sha256-j1lNE/eTMeIdKDlyXv2p2FFLM5yK+B4YvVZxQJQUASQ=";
   };
 
   meta = {

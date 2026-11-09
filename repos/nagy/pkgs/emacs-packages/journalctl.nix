@@ -4,15 +4,15 @@
   fetchFromGitHub,
 }:
 
-melpaBuild {
+melpaBuild (finalAttrs: {
   pname = "journalctl";
-  version = "0-unstable-2026-08-27";
+  version = "1.4";
 
   src = fetchFromGitHub {
     owner = "WJCFerguson";
     repo = "journalctl";
-    rev = "e0f284d39a43bb9d62de9862960a201c6e574f93";
-    hash = "sha256-6a3A8cKhpYAMBD01oaVR/h4wOc8/eiGxw/ZZ54EZ5Dg=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-rmKLsNs5tBiAW/4jUUciYqMYQveTzS6IWFoSZpQ2bgs=";
   };
 
   turnCompilationWarningToError = true;
@@ -23,4 +23,4 @@ melpaBuild {
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ nagy ];
   };
-}
+})
