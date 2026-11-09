@@ -36,7 +36,7 @@
 
 buildDotnetModule rec {
   pname = "ryujinx-canary";
-  version = "1.3.351";
+  version = "1.3.352";
 
   src = fetchFromForgejo {
     domain = "git.ryujinx.app";
@@ -46,7 +46,7 @@ buildDotnetModule rec {
     # `ryubing` filters `Canary` out by design, so stable has not moved since
     # 1.3.3 (2025-10-11) while canary ships near-daily.
     tag = "Canary-${version}";
-    hash = "sha256-zaER6RTggNHMmuH2Z5KjC0Etvwg1ymn77ZpFLFQFoXI=";
+    hash = "sha256-Ixr64eMLlbX9YXvt0oyzn9+2p25iU1mLMusiR7PDAfA=";
   };
 
   nativeBuildInputs = [ wrapGAppsHook3 ];
