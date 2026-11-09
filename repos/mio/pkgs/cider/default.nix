@@ -14,17 +14,19 @@
   electron,
   copyDesktopItems,
   makeDesktopItem,
+  writeShellApplication,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cider";
-  version = "20261004134140";
+  version = "20261108001254";
 
   src = fetchFromGitHub {
     owner = "taoky";
     repo = "Cider";
     rev = finalAttrs.version;
-    hash = "sha256-jJRIiL3Lv61V61zB1vjn+keTZAtpkKC4kENw21+Uhng=";
+    hash = "sha256-rTKlL0h/ooPpm4hbMxkJNy+KmWVnX084aTLPBDs6PKc=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -33,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     prePnpmInstall = ''
       sed -i '/^overrides:/,+2d' pnpm-lock.yaml
     '';
-    hash = "sha256-lRA0rlAX0F/4uJab+Nz9nVXXanZXF3ziloTgMDT2okA=";
+    hash = "sha256-SIMHkcsLb7RJWw6j09RLtj7nzCkgmcCwQ9q8jBF8ndA=";
   };
 
   nativeBuildInputs = [
@@ -119,6 +121,14 @@ stdenv.mkDerivation (finalAttrs: {
       ];
     })
   ];
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-cider";
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="cider"
+      exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+    '';
+  };
 
   meta = {
     description = "Apple Music client based on Electron and Vue.js";

@@ -23,13 +23,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "chatbox";
-  version = "1.23.5";
+  version = "1.24.2";
 
   src = fetchFromGitHub {
     owner = "chatboxai";
     repo = "chatbox";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-lPIf6ij6rczLJQvAFdq6JG3R2kkcSi+q+7wueSBIfvw=";
+    hash = "sha256-zeMNPxwMbLHGeyYxr2UUgopjkpFT+f/ajOsRv40V8Cg=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -39,14 +39,14 @@ stdenv.mkDerivation (finalAttrs: {
     prePnpmInstall = ''
       sed -i 's/engine-strict=true/engine-strict=false/' .npmrc
     '';
-    hash = "sha256-KlHiURt+KFSroY1ZJfP6EE+ZDY0VaSPnK8OCqdZMYs8=";
+    hash = "sha256-xxwnjqd8oN4qBqdhQ8ZxYlTPu1n2plRRgVaaebvT/Hg=";
   };
 
   # Nested electron-react-boilerplate app; electron-builder only packages this tree.
   appNpmDeps = fetchNpmDeps {
     name = "chatbox-app-npm-deps-${finalAttrs.version}";
     src = "${finalAttrs.src}/release/app";
-    hash = "sha256-6wSDpk2x2CPI0wWLZoJDPHGeMAUiJMHz7EHdjtiV3Q0=";
+    hash = "sha256-1+gVNAfkA8h1qTVWGGxYKOHvQOEkBmWKMrtQUNqfimI=";
   };
 
   nativeBuildInputs = [
@@ -214,14 +214,14 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    inherit (finalAttrs) pnpmDeps;
+    inherit (finalAttrs) pnpmDeps appNpmDeps;
     updateScript = writeShellApplication {
       name = "update-chatbox";
       text = ''
         export UPDATE_NIX_ATTR_PATH="chatbox"
         exec ${
           lib.escapeShellArgs (nix-update-script {
-            extraArgs = [ "--use-github-releases" ];
+            extraArgs = [ "--subpackage=appNpmDeps" ];
           })
         } "$@"
       '';

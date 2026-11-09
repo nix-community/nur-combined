@@ -4,6 +4,12 @@
   fetchFromGitHub,
   dotnetCorePackages,
   fontconfig,
+  libx11,
+  libice,
+  libsm,
+  libxcursor,
+  libxi,
+  libxrandr,
   cacert,
   makeWrapper,
   writeShellApplication,
@@ -12,14 +18,26 @@
 
 let
   pname = "pcl-me";
-  version = "1.0.1-unstable-2026-11-06";
+  version = "1.0.1-unstable-2026-11-08";
 
   src = fetchFromGitHub {
     owner = "TheUnknownThing";
     repo = "PCL-ME";
-    rev = "21cb8dde4e3f7d080b81b7389af09342102f1291";
-    hash = "sha256-ZY/b63CREYsyPeBU+8DgRlSDR1yiNgaRIUdvcHodD3I=";
+    rev = "08eb0665dbb070630a1cb223de09c1359727b547";
+    hash = "sha256-yijL4Cy5QV2HMVnVFavqOlAUBWULUlFQWSOr/JyF1Ww=";
   };
+
+  runtimeLibraries = [
+    fontconfig
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    libx11
+    libice
+    libsm
+    libxcursor
+    libxi
+    libxrandr
+  ];
 
   dotnet-sdk = dotnetCorePackages.sdk_10_0;
 
@@ -80,7 +98,8 @@ stdenv.mkDerivation {
 
   installPhase = ''
     wrapProgram $out/bin/PCL.Frontend.Avalonia \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ fontconfig ]}"
+      --set DOTNET_ROOT "${dotnetCorePackages.runtime_10_0}/share/dotnet" \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeLibraries}"
   '';
 
   passthru.updateScript = writeShellApplication {

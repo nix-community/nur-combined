@@ -6,7 +6,7 @@
   writeShellApplication,
   nix-update-script,
   fetchFromGitHub,
-  nixosTests,
+  testers,
 
   freetype,
   libjpeg,
@@ -39,6 +39,7 @@
   flex,
 
   libbsd,
+  libxml2,
   openssl,
 
   xdg-user-dirs,
@@ -114,16 +115,16 @@ let
     pulseaudio
   ];
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "darling";
-  version = "0.1.20260608-unstable-2026-11-07";
+  version = "0.1.20260608-unstable-2026-11-08";
 
   src = fetchFromGitHub {
     owner = "darlinghq";
     repo = "darling";
-    rev = "8cead6ab8db902d2cebbc476f40fd263ec1c46d7";
+    rev = "7949337b409e8cabd2e8df567db57fb7731fbda9";
     fetchSubmodules = true;
-    hash = "sha256-DBLWj3QB+e8/7TSyDonQBoWIR4G6XAB1iLpzyn6e/5o=";
+    hash = "sha256-1B6HaSzGelKqPPO9CT2BnsWAbXtolR8z+v1GgFj4K40=";
     # Remove 500MB of dependency test files to get under Hydra output limit
     postFetch = ''
       rm -r $out/src/external/openjdk/test
@@ -139,6 +140,8 @@ stdenv.mkDerivation {
 
   patches = [
     ./fuse3.patch
+    # Keep XNU headers from shadowing glibc headers in host unit tests.
+    ./host-test-headers.patch
   ];
 
   postPatch = ''
@@ -148,6 +151,7 @@ stdenv.mkDerivation {
         patchShebangs \
           src/external/bootstrap_cmds/migcom.tproj/mig.sh \
           src/external/darlingserver/scripts \
+          src/external/darlingserver/tests/host \
           src/external/openssl_certificates/scripts
 
         substituteInPlace src/startup/CMakeLists.txt --replace-warn SETUID ""
@@ -193,6 +197,7 @@ stdenv.mkDerivation {
   ++ lib.optional compilePy2Bytecode python2;
   buildInputs = wrappedLibs ++ [
     libbsd
+    libxml2
     openssl
     stdenv.cc.libc.linuxHeaders
     systemdMinimal
@@ -272,7 +277,7 @@ stdenv.mkDerivation {
   '';
 
   passthru = {
-    tests.nixos = nixosTests.darling;
+    tests.nixos = testers.nixosTest (import ./test.nix { darling = finalAttrs.finalPackage; });
     updateScript = writeShellApplication {
       name = "update-darling";
       text = ''
@@ -290,8 +295,9 @@ stdenv.mkDerivation {
         # source for its hash, and that fetch pulls in every submodule and takes
         # a long time. If it is interrupted, the revision has moved but the hash
         # is stale, and later runs report "Not updating version" and leave the
-        # mismatch in place. Verify the pinned revision and update its hash
-        # explicitly; after a successful fetch this is a store hit.
+        # mismatch in place. Recompute the hash for the pinned revision even
+        # when its version has not changed. Building src with the existing hash
+        # can reuse an older fixed-output result without fetching this revision.
         update_hash() {
           ${
             lib.escapeShellArgs (nix-update-script {
@@ -306,10 +312,7 @@ stdenv.mkDerivation {
           exit 1
         fi
 
-        if ! nix build --no-link .#darling.src; then
-          echo "source hash is stale for the pinned revision; updating it" >&2
-          update_hash "$@"
-        fi
+        update_hash "$@"
       '';
     };
   };
@@ -323,4 +326,4 @@ stdenv.mkDerivation {
     platforms = [ "x86_64-linux" ];
     mainProgram = "darling";
   };
-}
+})

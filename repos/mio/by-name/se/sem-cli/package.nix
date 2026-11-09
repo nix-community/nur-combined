@@ -14,6 +14,8 @@ rustPlatform.buildRustPackage rec {
   pname = "sem-cli";
   version = "0.29.1";
 
+  dontCargoUseSystemLibs = true;
+
   src = fetchFromGitHub {
     owner = "Ataraxy-Labs";
     repo = "sem";

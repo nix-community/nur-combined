@@ -25,7 +25,7 @@ target_rev="${1:-}"
 if [[ -z "$target_rev" ]]; then
   echo "Fetching latest upstream commit for 0xc000022070/zen-browser-flake..."
   target_rev="$(
-    git ls-remote https://github.com/0xc000022070/zen-browser-flake.git refs/heads/beta \
+    git ls-remote https://github.com/0xc000022070/zen-browser-flake.git refs/heads/main \
       | awk '{print $1}'
   )"
   if [[ -z "$target_rev" ]]; then

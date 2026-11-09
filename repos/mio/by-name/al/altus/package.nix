@@ -6,26 +6,28 @@
   makeDesktopItem,
   copyDesktopItems,
   makeBinaryWrapper,
-  electron_42,
+  electron_43,
   yarn-berry_4,
   nodejs,
   zip,
   writableTmpDirAsHomeHook,
+  writeShellApplication,
+  nix-update-script,
 }:
 
 let
-  electron = electron_42;
+  electron = electron_43;
   yarn-berry = yarn-berry_4;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "altus";
-  version = "5.8.1";
+  version = "5.8.2";
 
   src = fetchFromGitHub {
     owner = "amanharwara";
     repo = "altus";
     tag = finalAttrs.version;
-    hash = "sha256-7/nC2AK2fo7kbacb6UmIFev6aepZjh7L8zxNqcUEUDU=";
+    hash = "sha256-X2vw/NFX0mc1yocfmmh/T6teyP2ZXpkIGAwDdMV89ys=";
   };
 
   patches = [
@@ -152,6 +154,14 @@ stdenv.mkDerivation (finalAttrs: {
       ];
     })
   ];
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-altus";
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="altus"
+      exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+    '';
+  };
 
   meta = {
     description = "Desktop client for WhatsApp Web with themes and multiple account support";

@@ -4,11 +4,13 @@
   fetchFromGitHub,
   nodejs_22,
   zip,
+  writeShellApplication,
+  nix-update-script,
 }:
 
 buildNpmPackage (finalAttrs: {
   pname = "floccus-firefox";
-  version = "5.12.0";
+  version = "5.13.0";
 
   extid = "floccus@handmadeideas.org";
 
@@ -16,12 +18,12 @@ buildNpmPackage (finalAttrs: {
     owner = "floccusaddon";
     repo = "floccus";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-DAA8eelnfoQAuJlEg93w73K7m74kvda90AsENxgRi5w=";
+    hash = "sha256-hnkOCML4Sn4dyYnwO/P1KtpWyeDdfnC9xlLUmqEkmXA=";
   };
 
   nodejs = nodejs_22;
 
-  npmDepsHash = "sha256-vJIz35o3hchhyiZEf8IAHT6/F5CbGDvRvMROz2J8aqk=";
+  npmDepsHash = "sha256-Cm4qAZlUrFa0/qsUCHXhG5X+s/zXw1JJjeGUgljGo6Y=";
 
   nativeBuildInputs = [ zip ];
 
@@ -59,6 +61,13 @@ buildNpmPackage (finalAttrs: {
 
   passthru = {
     inherit (finalAttrs) extid;
+    updateScript = writeShellApplication {
+      name = "update-floccus-firefox";
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="floccus-firefox"
+        exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+      '';
+    };
   };
 
   meta = {
