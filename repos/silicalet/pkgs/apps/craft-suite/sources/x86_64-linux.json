@@ -5,34 +5,34 @@
     "version": "0.17.0"
   },
   "cadcraft": {
-    "hash": "sha256-DVtSKvz6IMfliIfCCS+1rVMi65DB2pgGHmG346zRvtU=",
-    "url": "https://github.com/storytold/cadcraft/releases/download/v0.18.0/cadcraft-0.18.0-linux-x86_64.tar.gz",
-    "version": "0.18.0"
+    "hash": "sha256-plTfjD5EfGLEkMCoqtjEKp+vqwEMpNJbw1BO1Fs8j1E=",
+    "url": "https://github.com/storytold/cadcraft/releases/download/v0.19.0/cadcraft-0.19.0-linux-x86_64.tar.gz",
+    "version": "0.19.0"
   },
   "deckcraft": {
-    "hash": "sha256-7tVysvYjldD1z+JGpygYllHpXk7N9MPgrYe3ejgx4IY=",
-    "url": "https://github.com/storytold/deckcraft/releases/download/v0.16.0/deckcraft-0.16.0-linux-x86_64.tar.gz",
-    "version": "0.16.0"
+    "hash": "sha256-phoFCVpSqAmQqomQtEcQBVPpnI+m7ch1SqUnQKGm+bA=",
+    "url": "https://github.com/storytold/deckcraft/releases/download/v0.17.0/deckcraft-0.17.0-linux-x86_64.tar.gz",
+    "version": "0.17.0"
   },
   "designcraft": {
-    "hash": "sha256-U5h8tmvn3pOFTtVwAEJ/vhwHKgQnvIy69QH/NnLVQyw=",
-    "url": "https://github.com/storytold/designcraft/releases/download/v0.18.0/designcraft-0.18.0-linux-x86_64.tar.gz",
-    "version": "0.18.0"
+    "hash": "sha256-UFVTH+n2Dk2mETdw/s8n37A5hPgx+k7XBzC+FWoxaGY=",
+    "url": "https://github.com/storytold/designcraft/releases/download/v0.19.0/designcraft-0.19.0-linux-x86_64.tar.gz",
+    "version": "0.19.0"
   },
   "effectcraft": {
-    "hash": "sha256-X+mwrldGrCm2H33qEL1ntx6ZbB4BiIJMT4GpZiPDvuk=",
-    "url": "https://github.com/storytold/effectcraft/releases/download/v0.22.0/effectcraft-0.22.0-linux-x86_64.tar.gz",
-    "version": "0.22.0"
+    "hash": "sha256-E9mrI7db57inF3XMlALg+DIoCxZhR0ZyglV+nGoh09I=",
+    "url": "https://github.com/storytold/effectcraft/releases/download/v0.23.0/effectcraft-0.23.0-linux-x86_64.tar.gz",
+    "version": "0.23.0"
   },
   "figcraft": {
-    "hash": "sha256-1ef5n0nTpwPX9SQYVNx1b7PVX8lNDJXSlw24SjM5H1o=",
-    "url": "https://github.com/storytold/figcraft/releases/download/v0.16.0/figcraft-0.16.0-linux-x86_64.tar.gz",
-    "version": "0.16.0"
+    "hash": "sha256-68i/pNoCaGDP+CHSAk1vUXBKxpR4lp9bKWEdu5am5GQ=",
+    "url": "https://github.com/storytold/figcraft/releases/download/v0.17.0/figcraft-0.17.0-linux-x86_64.tar.gz",
+    "version": "0.17.0"
   },
   "filmcraft": {
-    "hash": "sha256-AXnwWyDbhVv9Pe+RNs5g3uWfItLcv88j5KYlbgwVOwU=",
-    "url": "https://github.com/storytold/filmcraft/releases/download/v0.18.0/filmcraft-0.18.0-linux-x86_64.tar.gz",
-    "version": "0.18.0"
+    "hash": "sha256-dhSTQ8GXALpqyQX96KAZ4JF9BlB/QmpZODltl6HKISQ=",
+    "url": "https://github.com/storytold/filmcraft/releases/download/v0.19.0/filmcraft-0.19.0-linux-x86_64.tar.gz",
+    "version": "0.19.0"
   },
   "gridcraft": {
     "hash": "sha256-aSBf1y5I6D52PFPI9so+3AHTi6i6DRbisYSpyFikzV8=",
@@ -40,33 +40,33 @@
     "version": "0.18.0"
   },
   "lightcraft": {
-    "hash": "sha256-lIXWS9vpjG2vutDqeqwPpJQw0KAIuaZrpD3+d7dVUok=",
-    "url": "https://github.com/storytold/lightcraft/releases/download/v0.19.0/lightcraft-0.19.0-linux-x86_64.tar.gz",
-    "version": "0.19.0"
+    "hash": "sha256-jLXu2CWy3Z4PpCaAEp0+WqcY8HGW1nzF0FdB8OapzCU=",
+    "url": "https://github.com/storytold/lightcraft/releases/download/v0.20.0/lightcraft-0.20.0-linux-x86_64.tar.gz",
+    "version": "0.20.0"
   },
   "pdfcraft": {
-    "hash": "sha256-NleqQP4UbUr0D6sFB8l/buLGzlupk4VnGUQ5vjM1uos=",
-    "url": "https://github.com/storytold/pdfcraft/releases/download/v0.19.0/pdfcraft-0.19.0-linux-x86_64.tar.gz",
-    "version": "0.19.0"
+    "hash": "sha256-Gg8px6auBJFhJiMdhDsuqDaiG42wny70FpUQFaQ36Lw=",
+    "url": "https://github.com/storytold/pdfcraft/releases/download/v0.20.0/pdfcraft-0.20.0-linux-x86_64.tar.gz",
+    "version": "0.20.0"
   },
   "photocraft": {
-    "hash": "sha256-MRXlbMZG2601QeObYyO4okMY/uYZTXhN320GX3tdLTc=",
-    "url": "https://github.com/storytold/photocraft/releases/download/v0.21.0/photocraft-0.21.0-linux-x86_64.tar.gz",
-    "version": "0.21.0"
-  },
-  "soundcraft": {
-    "hash": "sha256-M40f5yuWkqXZn/Q1UD31jIU/W5bC6VsoIdiD8x+LWmY=",
-    "url": "https://github.com/storytold/soundcraft/releases/download/v0.18.0/soundcraft-0.18.0-linux-x86_64.tar.gz",
-    "version": "0.18.0"
-  },
-  "vectorcraft": {
-    "hash": "sha256-boEqksrsTboj/XRzT6IKMniG7yBCe1Xy+If+kzSgkz8=",
-    "url": "https://github.com/storytold/vectorcraft/releases/download/v0.22.0/vectorcraft-0.22.0-linux-x86_64.tar.gz",
+    "hash": "sha256-7t6vpGdd+9HyNR5r+kuC9URTaU6zbaG71cqLv19U8gI=",
+    "url": "https://github.com/storytold/photocraft/releases/download/v0.22.0/photocraft-0.22.0-linux-x86_64.tar.gz",
     "version": "0.22.0"
   },
+  "soundcraft": {
+    "hash": "sha256-iaKb9Iwpnu5ZPXzWhLIchIPKKHq8GWZXrj+Vmh68GK0=",
+    "url": "https://github.com/storytold/soundcraft/releases/download/v0.19.0/soundcraft-0.19.0-linux-x86_64.tar.gz",
+    "version": "0.19.0"
+  },
+  "vectorcraft": {
+    "hash": "sha256-B8JKYJT7RXxmW5WEjVW/vQVGA1S8DqybTsn5RnqLHjE=",
+    "url": "https://github.com/storytold/vectorcraft/releases/download/v0.23.0/vectorcraft-0.23.0-linux-x86_64.tar.gz",
+    "version": "0.23.0"
+  },
   "wordcraft": {
-    "hash": "sha256-MluX8Vu/UyYooxdqnBcUinF18+Txm5MT3jI6tRNgl1I=",
-    "url": "https://github.com/storytold/wordcraft/releases/download/v0.16.0/wordcraft-0.16.0-linux-x86_64.tar.gz",
-    "version": "0.16.0"
+    "hash": "sha256-nHRMDDGjziXfgmgPx15kXWgoRvrMvhA/T5GnWLGfNoc=",
+    "url": "https://github.com/storytold/wordcraft/releases/download/v0.17.0/wordcraft-0.17.0-linux-x86_64.tar.gz",
+    "version": "0.17.0"
   }
 }
