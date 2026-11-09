@@ -26,4 +26,12 @@ rec {
     tag = "v${version}";
     hash = "sha256-w5c8KvHSPMCyHG+V9m169Q5RCt/enDsJof+VnXpqmoU=";
   };
+
+  camoufoxFontBundleVersion = "1";
+
+  camoufoxFontBundleSource = fetchurl {
+    url = "https://github.com/daijro/camoufox/releases/download/font-bundle-v${camoufoxFontBundleVersion}/fonts-bundle-v${camoufoxFontBundleVersion}.tar.xz";
+    hash = "sha256-jzRc4ipHXEXrmXTT5zn+Gi9adCiCxYcn28VatpyuiVM=";
+  };
+
 }
