@@ -1,9 +1,10 @@
 schema = 4
+go = '1.26.0'
 
 [mod]
   [mod.'github.com/router-for-me/CLIProxyAPI/v7']
-    version = 'v7.2.16'
-    hash = 'sha256-WtVC6m7w8gRFq9WE0BKLJ2+qTO36lpntLXpLOsST0a4='
+    version = 'v7.3.2'
+    hash = 'sha256-qTW7SxbJLnw4qBIacBdTiZ1h2+aq5klV4kMj6zezpZM='
 
   [mod.'gopkg.in/yaml.v3']
     version = 'v3.0.1'
