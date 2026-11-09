@@ -1,3 +1,0 @@
-main {
-    $ nix-update quarkpan --flake --build --format --version=branch $?
-}

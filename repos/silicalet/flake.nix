@@ -12,20 +12,6 @@
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
       pkgsFor = system: import nixpkgs { inherit system; };
       cangjieBuildPkgsFor = system: import cangjie-nixpkgs { inherit system; };
-      findUpdaters =
-        dir:
-        nixpkgs.lib.concatMap (
-          name:
-          let
-            path = dir + "/${name}";
-          in
-          if (builtins.readDir dir).${name} != "directory" then
-            [ ]
-          else if builtins.pathExists (path + "/update.ab") then
-            [ { inherit name path; } ]
-          else
-            findUpdaters path
-        ) (builtins.attrNames (builtins.readDir dir));
 
     in
     {
@@ -51,65 +37,22 @@
         system:
         let
           pkgs = pkgsFor system;
-          compileUpdater =
-            updater:
-            let
-              updaterName =
-                "nur-update-${updater.name}"
-                + nixpkgs.lib.optionalString (builtins.hasAttr "${updater.name}-bin"
-                  self.legacyPackages.${system}
-                ) "-bin";
-            in
-            pkgs.runCommand updaterName
-              {
-                nativeBuildInputs = [ pkgs.amber-lang ];
-              }
-              ''
-                mkdir -p "$out/bin"
-                amber build \
-                  ${updater.path + "/update.ab"} \
-                  "$out/bin/${updaterName}"
-              '';
-          craftUpdater = compileUpdater {
-            name = "craft-suite";
-            path = ./pkgs/apps/craft-suite;
+          update = pkgs.writeShellApplication {
+            name = "nur-packages-update";
+            runtimeInputs = [
+              pkgs.coreutils
+              pkgs.curl
+              pkgs.git
+              pkgs.jq
+              pkgs.nix
+              pkgs.nixfmt
+              pkgs.nix-update
+              pkgs.python3
+            ];
+            text = ''
+              exec ${pkgs.python3}/bin/python3 ${./maintainers/update.py} "''${@}"
+            '';
           };
-          packageUpdaters =
-            map compileUpdater (findUpdaters ./pkgs)
-            ++ map (
-              appName:
-              pkgs.writeShellScriptBin "nur-update-${appName}-bin" ''
-                exec ${craftUpdater}/bin/nur-update-craft-suite-bin "''${1:-x86_64-linux}" ${nixpkgs.lib.escapeShellArg appName}
-              ''
-            ) (builtins.attrNames (import ./pkgs/apps/craft-suite/catalog.nix));
-          update =
-            pkgs.runCommand "nur-packages-update"
-              {
-                nativeBuildInputs = [
-                  pkgs.amber-lang
-                  pkgs.makeWrapper
-                ];
-              }
-              ''
-                mkdir -p "$out/bin"
-                amber build ${./maintainers/update.ab} "$out/bin/nur-packages-update"
-                wrapProgram "$out/bin/nur-packages-update" \
-                  --prefix PATH : ${
-                    pkgs.lib.makeBinPath [
-                      pkgs.coreutils
-                      pkgs.curl
-                      pkgs.git
-                      pkgs.gnugrep
-                      pkgs.gnused
-                      pkgs.jq
-                      pkgs.nix
-                      pkgs.nixfmt
-                      pkgs.nix-update
-                    ]
-                    + ":"
-                    + pkgs.lib.makeBinPath packageUpdaters
-                  }
-              '';
         in
         {
           update = {

@@ -10,7 +10,6 @@
   procps,
   python3,
   writeShellApplication,
-  amber-lang,
   nix-update,
   nix,
   nixfmt,
@@ -18,8 +17,6 @@
   jq,
   coreutils,
   git,
-  gnugrep,
-  gnused,
 }:
 
 let
@@ -103,7 +100,7 @@ buildNpmPackage (finalAttrs: {
   passthru.updateScript = lib.getExe (writeShellApplication {
     name = "update-rea";
     runtimeInputs = [
-      amber-lang
+      python3
       nix-update
       nix
       nixfmt
@@ -111,10 +108,10 @@ buildNpmPackage (finalAttrs: {
       jq
       coreutils
       git
-      gnugrep
-      gnused
     ];
-    text = "exec amber ${./update.ab}";
+    text = ''
+      exec ${python3}/bin/python3 ${./../../../maintainers/update.py} rea
+    '';
   });
 
   meta = {

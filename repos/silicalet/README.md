@@ -242,13 +242,12 @@ assets explicitly when needed:
 nix run .#update -- --arch aarch64-linux nyaterm-bin meatshell-bin
 ```
 
-The updater is written in [Amber](./maintainers/update.ab). It invokes
-`nix-update` with build validation and formatting for regular packages, while
-packages with their own `update.ab` use that package-local updater. A failure
-in one package is reported and the remaining packages still update; the
-command exits nonzero after the full set if any package failed. The binary
-package updaters select the requested system's GitHub Release asset, version,
-and hash. The default update set uses `meatshell-bin` to avoid rebuilding its
+The updater is [maintainers/update.py](./maintainers/update.py). Regular
+packages go through `nix-update` with build validation and formatting. Binary
+packages select the requested system's GitHub Release asset, version, and
+hash. A failure in one package is reported and the remaining packages still
+update; the command exits nonzero after the full set if any package failed.
+The default update set uses `meatshell-bin` to avoid rebuilding its
 slower source package. `nyaterm` is binary-only and updates through `nyaterm-bin`.
 Both select the matching release asset for `x86_64-linux` or `aarch64-linux`;
 MeatShell uses its official ARM64 tarball because upstream does not publish an ARM64 AppImage.
