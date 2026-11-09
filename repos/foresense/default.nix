@@ -21,6 +21,8 @@ in
   loomer-string = callPackage ./pkgs/loomer/string.nix { };
   # ODDSound
   libmts = callPackage ./pkgs/libmts { };
+  # Modartt
+  pianoteq8 = callPackage ./pkgs/pianoteq { };
   # monome
   serialosc = callPackage ./pkgs/serialosc { };
   # emprcl

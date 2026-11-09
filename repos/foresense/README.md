@@ -20,6 +20,31 @@
 - [Sequent](https://loomer.co.uk/sequent.html): Modular step-sequenced FX processor.
 - [Shift](https://loomer.co.uk/shift.html): Diatonic granular pitch-shifting delay
 - [String](https://loomer.co.uk/string.html): Ensemble string synthesizer
+- [Pianoteq 8](https://www.modartt.com/pianoteq): Physically modeled piano synthesizer (requires manual download, see below)
+
+-----
+
+## Manually downloaded sources
+
+Some packages build from proprietary artifacts that upstream only offers behind
+a free registration/download form, so the build cannot fetch them itself
+(`requireFile`).
+
+### Pianoteq 8
+
+Download the Linux 64-bit archive of version 8.4.3 (`pianoteq_linux_v843.7z`)
+from [modartt.com](https://www.modartt.com/pianoteq) using your registered
+license, then add it to your Nix store so the build can find it:
+
+```shell
+$ nix-store --add-fixed sha256 /path/to/pianoteq_linux_v843.7z
+/nix/store/dix30mv2dw4wlp2ryvdqa5j2ykmnv1w2-pianoteq_linux_v843.7z
+```
+
+Afterwards `nix build .#pianoteq8` works as usual. The exact download filename
+and expected hash are baked into the package definition; if the build complains
+about a hash mismatch, the download may have been updated upstream and the pin
+needs adjusting.
 
 -----
 
