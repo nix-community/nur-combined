@@ -4,6 +4,7 @@
 
 let
   deepseek-harness = pkgs.callPackage ./pkgs/deepseek-harness { };
+  terracotta = pkgs.callPackage ./pkgs/terracotta { };
 in
 {
   ab-download-manager = pkgs.callPackage ./pkgs/ab-download-manager { };
@@ -20,6 +21,7 @@ in
   flutter-rust-bridge-codegen = pkgs.callPackage ./pkgs/flutter-rust-bridge-codegen { };
   gradle-language-server = pkgs.callPackage ./pkgs/gradle-language-server { };
   herdr = pkgs.callPackage ./pkgs/herdr { };
+  hmcl = pkgs.hmcl.override { inherit terracotta; };
   kelivo = pkgs.callPackage ./pkgs/kelivo { };
   kotlin-lsp = pkgs.callPackage ./pkgs/kotlin-lsp { };
   magpie = pkgs.callPackage ./pkgs/magpie { };
@@ -33,6 +35,7 @@ in
   sunloginclient = pkgs.callPackage ./pkgs/sunloginclient { };
   yanhekt-autoslides = pkgs.callPackage ./pkgs/yanhekt-autoslides { };
   winboat-unstable = pkgs.callPackage ./pkgs/winboat-unstable { };
+  inherit terracotta;
   xwayland-satellite = pkgs.callPackage ./pkgs/xwayland-satellite { };
   yesplaymusic = pkgs.callPackage ./pkgs/yesplaymusic { };
 

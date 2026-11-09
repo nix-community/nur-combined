@@ -4,7 +4,8 @@
 }:
 
 let
-  source = (builtins.fromJSON (builtins.readFile ./manifest.json))."github:YuJunZhiXue/dsh-purge";
+  source =
+    (builtins.fromJSON (builtins.readFile ./manifest.json))."github:kingcharleslzy-ai/dsh-purge";
 
   purge = fetchzip {
     inherit (source) url hash;
@@ -17,6 +18,7 @@ deepseek-harness.overrideAttrs (old: {
   postInstall = (old.postInstall or "") + ''
     cp -r ${purge} "$TMPDIR/purge-source"
     chmod -R u+w "$TMPDIR/purge-source"
+    ln -s "$out/share/deepseek-harness/node_modules" "$TMPDIR/purge-source/node_modules"
 
     DSH_HOME="$TMPDIR/purge-home" DSH_SURFACE=web \
       node ${./apply-purge.mjs} "$TMPDIR/purge-source" "$out/share/deepseek-harness"

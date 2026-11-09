@@ -3,6 +3,6 @@
   "private": true,
   "version": "1.0.0",
   "dependencies": {
-    "dsh-chat-import": "0.26.3"
+    "dsh-chat-import": "0.26.4"
   }
 }

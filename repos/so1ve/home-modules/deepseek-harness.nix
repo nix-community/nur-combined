@@ -11,7 +11,7 @@ let
 
   installedPackage =
     if
-      lib.any (profile: builtins.elem "github:YuJunZhiXue/dsh-purge" profile.plugins) (
+      lib.any (profile: builtins.elem "github:kingcharleslzy-ai/dsh-purge" profile.plugins) (
         builtins.attrValues cfg.profiles
       )
     then

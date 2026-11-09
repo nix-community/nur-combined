@@ -27,8 +27,8 @@
     "repository": "bowenliang123/dsh-context",
     "license": "asl20"
   },
-  "github:YuJunZhiXue/dsh-purge": {
-    "packageName": "dsh-purge",
+  "github:kingcharleslzy-ai/dsh-purge": {
+    "packageName": "dsh-purge-community",
     "description": "Configure model-specific prompts and red-team evaluations",
     "branch": "master",
     "license": "mit"

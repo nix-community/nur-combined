@@ -35,18 +35,14 @@ export default defineSource(async () => {
         throw new Error(`${source}: source is not the expected DSH bundle`);
       }
 
-      if (
-        Object.keys({
-          ...metadata.dependencies,
-          ...metadata.optionalDependencies,
-        }).length
-      ) {
-        throw new Error(
-          `${source}: Git bundle has runtime dependencies; add a locked build recipe`,
-        );
-      }
-
-      manifest[source] = { version: metadata.version, rev, url, hash };
+      const npmDepsHash = await npm.hash(`${storePath}/package-lock.json`);
+      manifest[source] = {
+        version: metadata.version,
+        rev,
+        url,
+        hash,
+        npmDepsHash,
+      };
       continue;
     }
 

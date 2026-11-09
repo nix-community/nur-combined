@@ -4,7 +4,6 @@
   deepseek-harness,
   fetchzip,
   nodejs_24,
-  stdenvNoCC,
 }:
 
 let
@@ -17,9 +16,8 @@ lib.recurseIntoAttrs (
     let
       source = manifest.${name};
       fromGit = lib.hasPrefix "github:" name;
-      builder = if fromGit then stdenvNoCC.mkDerivation else buildNpmPackage;
     in
-    builder {
+    buildNpmPackage {
       pname = lib.strings.sanitizeDerivationName plugin.packageName;
       inherit (source) version;
 
@@ -33,17 +31,17 @@ lib.recurseIntoAttrs (
           ./locks + "/${plugin.packageName}";
 
       nodejs = nodejs_24;
-      npmDepsHash = source.npmDepsHash or null;
+      inherit (source) npmDepsHash;
       npmFlags = [
         "--ignore-scripts"
         "--legacy-peer-deps"
+        "--omit=dev"
       ];
 
-      dontBuild = true;
-      nativeBuildInputs = lib.optional fromGit nodejs_24;
+      dontNpmBuild = true;
 
-      postPatch = lib.optionalString (name == "github:YuJunZhiXue/dsh-purge") ''
-        node --expose-internals ${./adapt-purge.mjs}
+      postPatch = lib.optionalString (name == "github:kingcharleslzy-ai/dsh-purge") ''
+        ${lib.getExe nodejs_24} --expose-internals ${./adapt-purge.mjs}
       '';
 
       installPhase = ''
@@ -74,9 +72,9 @@ lib.recurseIntoAttrs (
         const require = createRequire(process.env.out + '/lib/package.json');
         await import(pathToFileURL(require.resolve(${builtins.toJSON plugin.packageName})));
 
-        ${lib.optionalString (name == "github:YuJunZhiXue/dsh-purge") ''
+        ${lib.optionalString (name == "github:kingcharleslzy-ai/dsh-purge") ''
           const { default: assert } = await import('node:assert/strict');
-          const root = process.env.out + '/lib/node_modules/dsh-purge/lib/';
+          const root = process.env.out + '/lib/node_modules/dsh-purge-community/lib/';
           const core = await import(pathToFileURL(root + 'core.js'));
 
           assert.deepEqual(core.patchWatchedClientBundlesSync('/not-writable'), []);

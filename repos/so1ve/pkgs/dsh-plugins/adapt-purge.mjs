@@ -23,6 +23,29 @@ const replacements = {
   "lib/uninstall.js": { uninstallPurge: managed },
 };
 
+// Only the bundled red-team modules are installed; standalone entries do not exist.
+let patch = readFileSync("cordis.patch.yml", "utf8");
+for (
+  const id of [
+    "redteam-store",
+    "redteam-ui",
+    "redteam-mode",
+    "redteam-mode-store",
+    "redteam-mode-ui",
+  ]
+) {
+  const entry = new RegExp(
+    `^- id: ${id}\\n  name: [^\\n]+\\n  disabled: true\\n`,
+    "m",
+  );
+  assert(
+    entry.test(patch),
+    `cordis.patch.yml: expected standalone entry ${id}`,
+  );
+  patch = patch.replace(entry, "");
+}
+writeFileSync("cordis.patch.yml", patch);
+
 for (const [file, functions] of Object.entries(replacements)) {
   let source = readFileSync(file, "utf8");
   const tree = parse(source, { ecmaVersion: "latest", sourceType: "module" });
