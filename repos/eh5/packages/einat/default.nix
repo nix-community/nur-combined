@@ -37,7 +37,10 @@ rustPlatform.buildRustPackage rec {
     zlib
   ];
 
-  buildFeatures = [ "libbpf" ] ++ lib.optionals enableIpv6 [ "ipv6" ];
+  buildFeatures = [
+    #"libbpf"
+  ]
+  ++ lib.optionals enableIpv6 [ "ipv6" ];
 
   doCheck = false;
 
