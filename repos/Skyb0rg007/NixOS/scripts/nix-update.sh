@@ -15,6 +15,13 @@ cd "$(dirname "${BASH_SOURCE[0]}")/.." || exit
 
 system=$(nix eval --raw --impure --expr 'builtins.currentSystem')
 
+# nix-update evaluates `import ./.` rather than the flake, so default.nix falls
+# back to `<nixpkgs>`. Point that at the flake's locked nixpkgs: otherwise
+# fixed-output derivations whose contents depend on the toolchain (e.g. a
+# `bun install` node_modules) get hashes the flake build cannot reproduce.
+nixpkgs=$(nix eval --raw --impure --expr '(builtins.getFlake (toString ./.)).inputs.nixpkgs.outPath') || exit
+export NIX_PATH="nixpkgs=$nixpkgs"
+
 # With no arguments, update every package in the repo; otherwise update only
 # the attributes named on the command line (e.g. `cdash python3Packages.foo`).
 #

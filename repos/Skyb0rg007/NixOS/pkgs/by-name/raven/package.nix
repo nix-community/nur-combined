@@ -6,9 +6,7 @@
   linkFarm,
   nix-update-script,
   bison,
-  clang,
   cmake,
-  flex,
   ninja,
   pkg-config,
   pkgsCross,
@@ -35,12 +33,35 @@
   wayland-protocols,
 }:
 let
-  # Pinned ReactOS source the guest components are built from (scripts/provision-*.py)
-  reactosSource = fetchurl {
-    name = "reactos-dacf2a6c47fa562799f9c8a41ab6d5c558556558.tar.gz";
-    url = "https://codeload.github.com/reactos/reactos/tar.gz/dacf2a6c47fa562799f9c8a41ab6d5c558556558";
-    hash = "sha256-U3O7u2BUHLKkngrLUzYOEhjU9dVsMfkYezQbn8Ftqmk=";
-  };
+  # Pinned library releases the installer components are built from (UPSTREAM in scripts/provision-installer.py),
+  # named as the script expects to find them in its output directory
+  installerSources = [
+    (fetchurl {
+      url = "https://zlib.net/fossils/zlib-1.3.1.tar.gz";
+      name = "zlib-1.3.1-source.tar.gz";
+      hash = "sha256-mpOyt9/ax3zrpaVYpYDnRmfdb+3kWFuR7vtg8Dty3yM=";
+    })
+    (fetchurl {
+      url = "https://www.ijg.org/files/jpegsrc.v10.tar.gz";
+      name = "libjpeg-10-source.tar.gz";
+      hash = "sha256-i56qEyQmkOvQPhcoqx7fl6gaeO1ug2JNSTZV8xrJWrU=";
+    })
+    (fetchurl {
+      url = "https://download.osgeo.org/libtiff/tiff-4.7.1.tar.gz";
+      name = "libtiff-4.7.1-source.tar.gz";
+      hash = "sha256-9pjZTzED2oynQ42E4DRORT/gujt0huBMW/epo/q+m2k=";
+    })
+    (fetchurl {
+      url = "https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.8.tar.xz";
+      name = "libxml2-2.12.8-source.tar.xz";
+      hash = "sha256-Q62HewGLxj3rJGjXH5UhnC+sGWh27zbRvuUdImFz7JM=";
+    })
+    (fetchurl {
+      url = "https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.42.tar.xz";
+      name = "libxslt-1.1.42-source.tar.xz";
+      hash = "sha256-hcpiysDUH8d9P2Az2p32/XPSDqL8GLCjYJ/7QRDhuus=";
+    })
+  ];
 
   # Pinned SQLite amalgamation winsqlite3.dll is built from (scripts/provision-sqlite.py)
   sqliteAmalgamation = fetchurl {
@@ -68,13 +89,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "raven";
-  version = "0-unstable-2026-11-05";
+  version = "0-unstable-2026-11-09";
 
   src = fetchFromGitHub {
     owner = "mirkobrombin";
     repo = "raven";
-    rev = "f0b34b2b2777f0c907fddb0eb4d44e4cce18f786";
-    hash = "sha256-wtAQQ2IHSM6lyh/X9BOYN+GS6PFvVYN8wQd3/uOBen0=";
+    rev = "ffbd282af09c70da4f44856e34f42d21dbba0dd6";
+    hash = "sha256-rFCM6O3/l3Su1slQx6gDNtinzMBep8sz+oSuCLgrogw=";
   };
 
   # Configure-time fixture provisioning downloads and builds test programs
@@ -167,15 +188,13 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    # Guest components built ahead of the main build, some from the pinned ReactOS source
+    # Guest components built ahead of the main build, some from pinned library releases
     components = stdenv.mkDerivation {
       pname = "raven-components";
       inherit (finalAttrs) version src;
 
       nativeBuildInputs = [
         bison
-        clang
-        flex
         pkgsCross.mingw32.buildPackages.gcc
         pkgsCross.mingwW64.buildPackages.gcc
         python3
@@ -190,7 +209,11 @@ stdenv.mkDerivation (finalAttrs: {
         python3 scripts/provision-sqlite.py --archive ${sqliteAmalgamation} --output components/sqlite
         for arch in x64 x86; do
           python3 scripts/provision-controls.py --arch $arch --output components/controls-$arch
-          python3 scripts/provision-installer.py --archive ${reactosSource} --arch $arch --output components/installer-$arch
+          mkdir -p components/installer-$arch
+          for archive in ${toString installerSources}; do
+            cp "$archive" "components/installer-$arch/$(stripHash "$archive")"
+          done
+          python3 scripts/provision-installer.py --arch $arch --output components/installer-$arch
         done
 
         runHook postBuild
@@ -203,7 +226,7 @@ stdenv.mkDerivation (finalAttrs: {
       '';
     };
 
-    # The pinned ReactOS revision, SQLite release and certificates in scripts/provision-*.py must be bumped by hand
+    # The pinned library releases, SQLite release and certificates in scripts/provision-*.py must be bumped by hand
     updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
   };
 
@@ -215,15 +238,11 @@ stdenv.mkDerivation (finalAttrs: {
       AND [
         gpl3Plus # Raven host (raven, raven-bootstrap)
         mit # Raven guest components, libxml2 (msxml3.dll)
-        gpl2Only # ReactOS-derived installer components
-        lgpl21Plus # ReactOS/Wine headers and IDL in the installer components
         unicode-30 # Unicode decomposition data, code page tables
-        zlib # zlib (cabinet.dll, libpng.dll, libtiff.dll, msxml3.dll), DXVK
-        libpng2 # libpng.dll
+        zlib # zlib (cabinet.dll, libtiff.dll, msxml3.dll), DXVK
         ijg # libjpeg.dll, libtiff.dll
         libtiff # libtiff.dll
         x11 # libxslt (msxml3.dll)
-        publicDomain # win-iconv (msxml3.dll)
         blessing # SQLite (winsqlite3.dll)
         # libxml2 dict.c and list.c (msxml3.dll)
         (mkLicense {
