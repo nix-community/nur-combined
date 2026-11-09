@@ -90,6 +90,8 @@ lib.overrideDerivation
         #!/bin/sh
         set -ex
         if [ "$1" = "build-cmake" ]; then
+            unset AWS_LC_SYS_USE_SYSTEM
+            export AWS_LC_SYS_CMAKE_BUILDER=1
             MANIFEST="$CARGOKIT_MANIFEST_DIR/Cargo.toml"
             export CARGO_TARGET_DIR="$CARGOKIT_MANIFEST_DIR/../../target"
             if [ "$CARGOKIT_CONFIGURATION" = "Release" ]; then
@@ -111,6 +113,7 @@ lib.overrideDerivation
       '';
 
       dontUseCmakeConfigure = true;
+      dontCargoUseSystemLibs = true;
 
       dontFixup = stdenv.hostPlatform.isDarwin;
 
