@@ -28,11 +28,10 @@ jobs:
         # Format: Your cachix cache host name without the ".cachix.org" suffix.
         # Example: mycache (for mycache.cachix.org)
         #
-        # Leave it empty until a cache exists — the setup step is skipped then.
-        # Enabling it requires the CACHIX_AUTH_TOKEN secret in the repository
-        # settings.
+        # Pushing requires the CACHIX_AUTH_TOKEN secret in the repository
+        # settings; pulling works without it for public caches.
         cachixName:
-          - ""
+          - lorlike
         nixPath:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
