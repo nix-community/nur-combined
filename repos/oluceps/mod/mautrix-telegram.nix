@@ -27,7 +27,7 @@
         buildInputs = [ fixedPkgs.olm ];
         # Backport gotd daca24ff: avoid a bounded-queue deadlock between the
         # channel worker and the main update loop.
-        patches = [ ../patches/mautrix-telegram-sendout.patch ];
+        patches = [ ../pkgs/patches/mautrix-telegram-sendout.patch ];
         ldflags = [
           "-s"
           "-w"

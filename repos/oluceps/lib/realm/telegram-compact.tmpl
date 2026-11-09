@@ -35,3 +35,19 @@
 {{ end }}{{ end }}{{ if gt (len .Alerts) $limit }}… showing first 20; see {{ .ExternalURL }}
 {{ end }}
 {{- end -}}
+
+{{- define "realm.telegram.channel" -}}
+<b>{{ .CommonLabels.alertname }} · {{ .Status | toUpper }}</b>
+{{- if eq .CommonLabels.alertname "OfflineBGPPeers" }}
+<pre>
+{{ printf "%-10s %-32s %-14s %-9s\n" "NODE" "PEER" "DOWNTIME" "STATUS" }}{{ range $a := .Alerts }}{{ printf "%-10.10s %-32.32s %-14.14s %-9s\n" $a.Labels.instance $a.Labels.name $a.Annotations.downtime ($a.Status | toUpper) }}{{ end }}</pre>
+{{- else if eq .CommonLabels.alertname "AutopeerUnavailable" }}
+<pre>
+{{ printf "%-12s %-10s\n" "NODE" "STATUS" }}{{ range $a := .Alerts }}{{ printf "%-12.12s %-10s\n" $a.Labels.node ($a.Status | toUpper) }}{{ end }}</pre>
+{{- else if eq .CommonLabels.alertname "CentralDatabaseDown" }}
+<pre>
+{{ printf "%-24s %-10s\n" "COMPONENT" "STATUS" }}{{ range $a := .Alerts }}{{ printf "%-24s %-10s\n" "Central PostgreSQL" ($a.Status | toUpper) }}{{ end }}</pre>
+{{- else }}
+{{ range $a := .Alerts }}{{ with $a.Annotations.summary }}{{ . }}{{ end }}
+{{ end }}{{- end -}}
+{{- end -}}

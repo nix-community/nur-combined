@@ -646,6 +646,53 @@
               ];
             }
             {
+              name = "cluster_status";
+              rules = [
+                {
+                  alert = "AutopeerUnavailable";
+                  expr = ''
+                    min by (node) (probe_success{job="dn42-autopeer-challenge"}) == 0
+                    or
+                    min by (node) (up{job="dn42-autopeer-challenge"}) == 0
+                  '';
+                  labels.severity = "critical";
+                  annotations = {
+                    summary = "Autopeer endpoint unavailable on {{ $labels.node }}";
+                    description = "At least one probe returned a non-201 response or could not be scraped.";
+                  };
+                }
+                {
+                  alert = "OfflineBGPPeers";
+                  expr = ''
+                    max by (instance, name) (
+                      bird_protocol_uptime{proto="BGP", ip_version="6"}
+                        and on (instance, name)
+                      (bird_protocol_up{proto="BGP", ip_version="6"} == 0)
+                    )
+                  '';
+                  labels.severity = "warning";
+                  annotations = {
+                    summary = "BGP peer {{ $labels.name }} is down on {{ $labels.instance }}";
+                    downtime = ''{{ printf "%.0f" $value }}s'';
+                  };
+                }
+                {
+                  alert = "CentralDatabaseDown";
+                  expr = ''
+                    pg_up{job="centre_psql_metrics", instance="eihort"} == 0
+                    or
+                    up{job="centre_psql_metrics", instance="eihort"} == 0
+                  '';
+                  for = "1m";
+                  labels.severity = "critical";
+                  annotations = {
+                    summary = "Central PostgreSQL is unavailable on eihort";
+                    description = "The PostgreSQL health metric or its scrape target is down.";
+                  };
+                }
+              ];
+            }
+            {
               name = "pier_health";
               rules = [
                 {
@@ -740,8 +787,9 @@
             templateFile = pkgs.writeText "realm-alertmanager-telegram.tmpl" (
               builtins.readFile ../lib/realm/telegram-compact.tmpl
             );
-            # Both chat receivers use the same bounded body so a replica cannot
-            # send an unbounded default-template message.
+            # The legacy receivers use the compact template; the observability
+            # channel uses a dedicated preformatted status table.
+            channelMessage = ''{{ template "realm.telegram.channel" . }}'';
             telegramMessage = ''{{ template "realm.telegram.compact" . }}'';
           in
           {
@@ -789,6 +837,30 @@
                     matchers:
                       - node="kaambl"
                     continue: false
+                  - receiver: observability-channel
+                    matchers:
+                      - alertname="OfflineBGPPeers"
+                    group_by: [alertname]
+                    group_wait: 30s
+                    group_interval: 2m
+                    repeat_interval: 24h
+                    continue: false
+                  - receiver: observability-channel
+                    matchers:
+                      - alertname="AutopeerUnavailable"
+                    group_by: [alertname, node]
+                    group_wait: 30s
+                    group_interval: 2m
+                    repeat_interval: 24h
+                    continue: false
+                  - receiver: observability-channel
+                    matchers:
+                      - alertname="CentralDatabaseDown"
+                    group_by: [alertname]
+                    group_wait: 30s
+                    group_interval: 2m
+                    repeat_interval: 24h
+                    continue: false
                   - receiver: bridge-channel
                     matchers:
                       - alertname="PierDown"
@@ -805,6 +877,13 @@
                       parse_mode: HTML
                       send_resolved: true
                       message: '${telegramMessage}'
+                - name: observability-channel
+                  telegram_configs:
+                    - bot_token_file: /run/credentials/alertmanager.service/notifychan
+                      chat_id: -1004373971447
+                      parse_mode: HTML
+                      send_resolved: true
+                      message: '${channelMessage}'
                 - name: bridge-channel
                   telegram_configs:
                     - bot_token_file: /run/credentials/alertmanager.service/notifychan
