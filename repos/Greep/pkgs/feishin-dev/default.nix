@@ -24,13 +24,13 @@ let
 in
 buildNpmPackage (finalAttrs: {
   pname = "feishin";
-  version = "1.17.0-unstable-2026-11-03";
+  version = "1.17.0-unstable-2026-11-09";
 
   src = fetchFromGitHub {
     "owner" = "jeffvli";
     "repo" = "feishin";
-    "rev" = "155e562138f39adaa985a01bc974936925518b46";
-    "hash" = "sha256-TcmeSaW+Z+IMOMWQft8r2QQM3989S3yeeR6pc3+t/nE=";
+    "rev" = "e60dcc80e223703d285639736ee0bd9e3c9e9d43";
+    "hash" = "sha256-irBsmmSUSji67d3nsFZtQIiKQmtn2rPTs4x+Jn7rCK8=";
   };
 
   __structuredAttrs = true;
