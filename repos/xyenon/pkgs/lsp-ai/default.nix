@@ -4,6 +4,7 @@
   fetchFromGitHub,
   pkg-config,
   cmake,
+  oniguruma,
   openssl,
   zlib,
   perl,
@@ -58,9 +59,12 @@ rustPlatform.buildRustPackage {
   ];
 
   buildInputs = [
+    oniguruma
     openssl
     zlib
   ];
+
+  env.RUSTONIG_SYSTEM_LIBONIG = true;
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 

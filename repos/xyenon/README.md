@@ -141,7 +141,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>magpie</code></strong> — Manage models, providers, and accounts for AI coding agents in one place</summary>
 
-- **Version:** `0.1.3327`
+- **Version:** `0.1.3357`
 - **License:** MIT
 - **Homepage:** [https://github.com/yetone/magpie](https://github.com/yetone/magpie)
 - **Build:** `nix build github:XYenon/nur-packages#magpie`
@@ -201,7 +201,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>omnidiff</code></strong> — Fast, robust, accurate content-aware diffing</summary>
 
-- **Version:** `0.3.0`
+- **Version:** `0.4.0`
 - **License:** AGPL-3.0-only
 - **Homepage:** [https://github.com/ivankovic/omnidiff](https://github.com/ivankovic/omnidiff)
 - **Build:** `nix build github:XYenon/nur-packages#omnidiff`

@@ -3,8 +3,10 @@
   stdenv,
   rustPlatform,
   fetchFromGitHub,
+  pkg-config,
   installShellFiles,
   git,
+  oniguruma,
   nix-update-script,
 }:
 
@@ -12,19 +14,26 @@ rustPlatform.buildRustPackage (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "omnidiff";
-  version = "0.3.0";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "ivankovic";
     repo = "omnidiff";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-UKVsTsWot1EJWU0k2atnomcPDlUEbJl2xk03K+SfNeI=";
+    hash = "sha256-EtVWw6AGlI3vq4Uh8IFIzw2w9bpNXGvqzKHyZlzlJlE=";
   };
 
-  cargoHash = "sha256-XUZPUVamZ/edJueCELqW2+j0Mh4fXUST/VIN2y/17mo=";
+  cargoHash = "sha256-ZrKdddrU5MFYl2bcXp1FAwSvgf/mawraOsKQrKgUXcc=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [
+    pkg-config
+    installShellFiles
+  ];
   nativeCheckInputs = [ git ];
+
+  buildInputs = [ oniguruma ];
+
+  env.RUSTONIG_SYSTEM_LIBONIG = true;
 
   cargoBuildFlags = [
     "--bin"
