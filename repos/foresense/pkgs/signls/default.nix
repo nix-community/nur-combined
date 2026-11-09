@@ -7,18 +7,18 @@
 
 buildGoModule rec {
   pname = "signls";
-  version = "0.7.0";
+  version = "0.9.0";
 
   src = fetchFromGitHub {
     owner = "emprcl";
     repo = "signls";
     rev = "v${version}";
-    hash = "sha256-BvYgER7jPlLLbcTxQQbDLbEp4rS/flNfgWpVi6WmkyY=";
+    hash = "sha256-w/Au7sHh1wvDWHuVx7ClCFnXj8hG7UooZv5MDBNauz0=";
   };
 
   buildInputs = [ alsa-lib ];
 
-  vendorHash = "sha256-aFIFl613xg5Pd/3JEiMdpIbslpzcKm2pv9rmQxKvFdU=";
+  vendorHash = "sha256-kr/S+iO0fHTF3KM3nMdGtFhFIkxkpQOZRHFWcXNTvJk=";
 
   ldflags = [
     "-s"

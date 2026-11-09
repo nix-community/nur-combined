@@ -23,5 +23,18 @@
 
 -----
 
+## Updating packages
+
+Run `nix develop -c ./update.sh` to update all release-tracked packages
+(`convert-with-moss`, `sektron`, `signls`, `serialosc`) via
+[nix-update](https://github.com/Mic92/nix-update) (in the dev shell, no global
+install needed). Pass attrs to update specific packages instead, e.g.
+`nix develop -c ./update.sh libmts` (pinned-rev packages: use
+`--version=branch`, and check the build afterwards). The Loomer packages are
+frozen — upstream is defunct, so their hashes are never updated. Build any
+updated package locally (`nix build .#<attr>`) before pushing.
+
+-----
+
 ![Build and populate cache](https://github.com/foresense/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
 [![Cachix Cache](https://img.shields.io/badge/cachix-foresense-blue.svg)](https://foresense.cachix.org)

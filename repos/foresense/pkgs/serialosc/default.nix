@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation rec {
   pname = "serialosc";
-  version = "1.4.6";
+  version = "1.4.8";
 
   src = fetchFromGitHub {
     owner = "monome";
     repo = "serialosc";
     rev = "v${version}";
-    hash = "sha256-pONOr2JQCpbKKAnpMyHAaUSmsf48pxINZRKVWJ1q9mQ=";
+    hash = "sha256-WI9Ok4JDSUOvwN50KYjh0yov2l7Fk6eX7tC7NSJ6HiU=";
     fetchSubmodules = true;
   };
 
