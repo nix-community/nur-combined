@@ -8,15 +8,15 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "flirt";
-  version = "0-unstable-2026-10-07";
+  version = "0-unstable-2026-11-05";
   __structuredAttrs = true;
 
   src = fetchFromForgejo {
     domain = "codeberg.org";
     owner = "flirt";
     repo = "flirt";
-    rev = "a93a2d3632b1789e659fcbe503ecfe0e05597728";
-    hash = "sha256-YHIERwCY5ThpA/OVs8v3v7tFHHNoNMCtw7IqdEoOnwE=";
+    rev = "92358e078dc6c436ae80f1f99aba7fb8c90b6865";
+    hash = "sha256-BvXXTSJtoeYRlo0JzYTG7NGdT/crhYMxPJNjP475rlw=";
   };
 
   cargoHash = "sha256-gK6bfjHqlvLfNS3k3u2gKAg9KV61zL6O4FeNaamYVO8=";

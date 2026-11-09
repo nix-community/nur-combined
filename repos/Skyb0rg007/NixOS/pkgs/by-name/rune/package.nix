@@ -14,13 +14,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "rune";
-  version = "0.1-unstable-2026-11-01";
+  version = "0.2-unstable-2026-11-08";
 
   src = fetchFromGitHub {
     owner = "ruudkoot";
     repo = "rune";
-    rev = "7b910ccb386ba9226f9d83e9c28ee065f78349e5";
-    hash = "sha256-spzdqNaCkLXV+9UHwSupk42Vz9gERFo61nSm7dQig9g=";
+    rev = "697724da57889305cc125ec8505529b34f5cdb68";
+    hash = "sha256-4oit99+ZJocyQeCTmnhsP+5JCqWfplEUQWzEAGcPkFA=";
   };
 
   preBuild = ''
