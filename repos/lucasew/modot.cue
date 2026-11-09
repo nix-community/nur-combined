@@ -33,7 +33,10 @@ drivers: {
 	"github.com/lewtec/modot/internal/driver/terminal.Driver": {
 		"terminal_kitty": 70
 	}
-}
+	"github.com/lewtec/modot/internal/driver/dialog.Chooser": {
+		rofi:     100
+		terminal: 50
+	}}
 
 
 lazy_tools: {
@@ -284,12 +287,7 @@ options: {
 }
 
 // Webapps
-#default_borderless_browser: "helium"
 
-browser: {
-	default: "zen"
-	webapp:  "helium"
-}
 lazy_tools: {
 	helium_browser: {
 		ref: "helium-browser"
@@ -302,149 +300,129 @@ lazy_tools: {
 		bins: ["rod-mcp"]
 	}
 }
+
 modules: webapp: {
 	input: "self:modules/webapp"
 	enable: true
 }
-
 options: webapp: {
+	default: {
+		browser: "zen"
+		webapp:  "helium"
+	}
 	apps: {
 		main: {
-					browser: #default_borderless_browser
-					desktop_name: "Navegador"
-					url: ""
-				}
-				workx: {
-					browser: #default_borderless_browser
-					profile: "XAI"
-					desktop_name: "Trabson"
-					url: ""
-					extra_flags: [
-						"--proxy-server",
-						"socks5h://job-xai.stargazer-shark.ts.net:1080"
-					]
-				}
-				"castable-iframe": {
-					browser: #default_borderless_browser
-					url:     "https://castable-iframe.vercel.app/"
-					profile: "castable-iframe"
-				}
-				gemini: {
-					browser: #default_borderless_browser
-					url: "https://gemini.google.com"
-				}
-				element: {
-					browser: #default_borderless_browser
-					url:          "https://app.element.io"
-					profile:      "element"
-					desktop_name: "Element Matrix"
-				}
-				reemo: {
-					browser: #default_borderless_browser
-					url:          "https://reemo.io"
-					desktop_name: "Remote control"
-				}
-				clickup: {
-					browser: #default_borderless_browser
-					url:          "https://clickup.com"
-					desktop_name: "ClickUp"
-				}
-				facebook: {
-					browser: #default_borderless_browser
-					url:          "https://facebook.com"
-					profile:      "facebook"
-					desktop_name: "Facebook"
-				}
-				pocketcasts: {
-					browser: #default_borderless_browser
-					url:          "https://pocketcasts.com"
-					desktop_name: "PocketCasts"
-					icon:         "sound"
-				}
-				twitter: {
-					browser: #default_borderless_browser
-					url:          "https://twitter.com"
-					profile:      "twitter"
-					desktop_name: "Twitter"
-				}
-				"discord-pessoal": {
-					browser: #default_borderless_browser
-					url:          "https://discord.com/channels/me"
-					profile:      "discord-pessoal"
-					desktop_name: "Discord (pessoal)"
-				}
-				"discord-profissional": {
-					browser: #default_borderless_browser
-					url:          "https://discord.com/channels/me"
-					profile:      "discord-profissional"
-					desktop_name: "Discord (profissional)"
-				}
-				"youtube-tv": {
-					browser: #default_borderless_browser
-					url:          "https://youtube.com/tv"
-					profile:      "youtube-tv"
-					desktop_name: "YouTube (UI para TV)"
-				}
-				whatsapp: {
-					browser: #default_borderless_browser
-					url:          "web.whatsapp.com"
-					profile:      "zap"
-					desktop_name: "WhatsApp"
-				}
-				notion: {
-					browser: #default_borderless_browser
-					url:          "notion.so"
-					profile:      "notion"
-					desktop_name: "Notion"
-				}
-				duolingo: {
-					browser: #default_borderless_browser
-					url:          "duolingo.com"
-					desktop_name: "Duolingo"
-				}
-				"youtube-music": {
-					browser: #default_borderless_browser
-					url:          "music.youtube.com"
-					profile:      "youtubemusic"
-					desktop_name: "Youtube Music"
-				}
-				planttext: {
-					browser: #default_borderless_browser
-					url:          "https://www.planttext.com/"
-					desktop_name: "PlantText"
-				}
-				rainmode: {
-					browser: #default_borderless_browser
-					url:          "https://youtu.be/mPZkdNFkNps"
-					desktop_name: "Tocar som de chuva"
-					icon:         "weather-showers"
-				}
-				gmail: {
-					browser: #default_borderless_browser
-					url:          "gmail.com"
-					desktop_name: "GMail"
-				}
-				keymash: {
-					browser: #default_borderless_browser
-					url:          "https://keyma.sh/learn"
-					desktop_name: "keyma.sh: Keyboard typing train"
-				}
-				calendar: {
-					browser: #default_borderless_browser
-					url:          "https://calendar.google.com/calendar/u/0/r/customday"
-					desktop_name: "Calendário"
-					icon:         "x-office-calendar"
-				}
-				"twitch-dashboard": {
-					browser: #default_borderless_browser
-					url: "https://dashboard.twitch.tv/stream-manager"
-				}
-				"geforce-now": {
-					browser: #default_borderless_browser
-					url: "play.geforcenow.com"
-				}
-			}
+			desktop_name: "Navegador"
+			url: ""
 		}
+		workx: {
+			profile: "XAI"
+			desktop_name: "Trabson"
+			url: ""
+			extra_flags: [
+				"--proxy-server",
+				"socks5h://job-xai.stargazer-shark.ts.net:1080"
+			]
+		}
+		"castable-iframe": {
+			url:     "https://castable-iframe.vercel.app/"
+			profile: "castable-iframe"
+		}
+		gemini: {
+			url: "https://gemini.google.com"
+		}
+		element: {
+			url:          "https://app.element.io"
+			profile:      "element"
+			desktop_name: "Element Matrix"
+		}
+		reemo: {
+			url:          "https://reemo.io"
+			desktop_name: "Remote control"
+		}
+		clickup: {
+			url:          "https://clickup.com"
+			desktop_name: "ClickUp"
+		}
+		facebook: {
+			url:          "https://facebook.com"
+			profile:      "facebook"
+			desktop_name: "Facebook"
+		}
+		pocketcasts: {
+			url:          "https://pocketcasts.com"
+			desktop_name: "PocketCasts"
+			icon:         "sound"
+		}
+		twitter: {
+			url:          "https://twitter.com"
+			profile:      "twitter"
+			desktop_name: "Twitter"
+		}
+		"discord-pessoal": {
+			url:          "https://discord.com/channels/me"
+			profile:      "discord-pessoal"
+			desktop_name: "Discord (pessoal)"
+		}
+		"discord-profissional": {
+			url:          "https://discord.com/channels/me"
+			profile:      "discord-profissional"
+			desktop_name: "Discord (profissional)"
+		}
+		"youtube-tv": {
+			url:          "https://youtube.com/tv"
+			profile:      "youtube-tv"
+			desktop_name: "YouTube (UI para TV)"
+		}
+		whatsapp: {
+			url:          "web.whatsapp.com"
+			profile:      "zap"
+			desktop_name: "WhatsApp"
+		}
+		notion: {
+			url:          "notion.so"
+			profile:      "notion"
+			desktop_name: "Notion"
+		}
+		duolingo: {
+			url:          "duolingo.com"
+			desktop_name: "Duolingo"
+		}
+		"youtube-music": {
+			url:          "music.youtube.com"
+			profile:      "youtubemusic"
+			desktop_name: "Youtube Music"
+		}
+		planttext: {
+			url:          "https://www.planttext.com/"
+			desktop_name: "PlantText"
+		}
+		rainmode: {
+			url:          "https://youtu.be/mPZkdNFkNps"
+			desktop_name: "Tocar som de chuva"
+			icon:         "weather-showers"
+		}
+		gmail: {
+			url:          "gmail.com"
+			desktop_name: "GMail"
+		}
+		keymash: {
+			url:          "https://keyma.sh/learn"
+			desktop_name: "keyma.sh: Keyboard typing train"
+		}
+		calendar: {
+			url:          "https://calendar.google.com/calendar/u/0/r/customday"
+			desktop_name: "Calendário"
+			icon:         "x-office-calendar"
+		}
+		"twitch-dashboard": {
+			url: "https://dashboard.twitch.tv/stream-manager"
+		}
+		"geforce-now": {
+			url: "play.geforcenow.com"
+		}
+	}
+}
 
 // =========== Backup
 #rsyncnet_user: "de3163@de3163.rsync.net"

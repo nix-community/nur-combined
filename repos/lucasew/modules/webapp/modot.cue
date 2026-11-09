@@ -1,8 +1,12 @@
 package module
 
 options: {
+	default: {
+		browser: string
+		webapp: string
+	}
 	apps?: [string]: {
-		browser: string | *null
+		browser: default.webapp | *null
 		url: string
 		profile?: string
 		desktop_name?: string
