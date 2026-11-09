@@ -78,7 +78,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   # aws-lc-sys must build its vendored copy, matching upstream release builds.
-  env.AWS_LC_SYS_USE_SYSTEM = "0";
+  # nixpkgs' cargoSetupHook (26.11+) otherwise forces AWS_LC_SYS_USE_SYSTEM=1 in preConfigure.
+  dontCargoUseSystemLibs = true;
 
   # Upstream CI runs the test suite; it is not needed to produce the client.
   doCheck = false;
