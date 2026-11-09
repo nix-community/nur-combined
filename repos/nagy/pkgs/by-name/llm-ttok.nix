@@ -5,7 +5,7 @@
   nix-update-script,
 }:
 
-python3.pkgs.buildPythonApplication rec {
+python3.pkgs.buildPythonApplication (finalAttrs: {
 
   pname = "llm-ttok";
   version = "1.0";
@@ -13,9 +13,15 @@ python3.pkgs.buildPythonApplication rec {
 
   src = fetchPypi {
     pname = "ttok";
-    inherit version;
+    version = finalAttrs.version;
     hash = "sha256-tB6fYkFOFSmoSXH/zR+Gi+GwAeP64SQpZooebMEpCm4=";
   };
+
+  # Upstream pins uv_build <0.12.0. Relax the pin to use the nixpkgs uv-build.
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace-fail 'uv_build>=0.11.0,<0.12.0' 'uv_build>=0.11.0'
+  '';
 
   build-system = [
     python3.pkgs.uv-build
@@ -31,9 +37,9 @@ python3.pkgs.buildPythonApplication rec {
   meta = {
     description = "Count and truncate text based on tokens";
     homepage = "https://github.com/simonw/ttok";
-    changelog = "https://github.com/simonw/ttok/releases/tag/${version}";
+    changelog = "https://github.com/simonw/ttok/releases/tag/${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "ttok";
   };
-}
+})

@@ -39,7 +39,17 @@ packages
 
   # Extras
   lib = lib.foldr lib.mergeAttrs { } (
-    map (x: import x { inherit pkgs; })
+    map
+      (
+        x:
+        import x (
+          {
+            inherit pkgs;
+          }
+          # rust.nix reads the crates.io index flake input.
+          // lib.optionalAttrs (baseNameOf x == "rust.nix") { inherit flakes; }
+        )
+      )
       # fileset
       (lib.filesystem.listFilesRecursive ./lib)
   );

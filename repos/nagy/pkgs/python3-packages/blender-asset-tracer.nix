@@ -5,14 +5,14 @@
   cattrs,
 }:
 
-buildPythonApplication rec {
+buildPythonApplication (finalAttrs: {
   pname = "blender-asset-tracer";
   version = "2.2.0";
   format = "wheel";
 
   src = fetchPypi {
     pname = "blender_asset_tracer";
-    inherit version;
+    inherit (finalAttrs) version;
     format = "wheel";
     dist = "py3";
     python = "py3";
@@ -32,4 +32,4 @@ buildPythonApplication rec {
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ nagy ];
   };
-}
+})

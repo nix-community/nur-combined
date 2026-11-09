@@ -8,14 +8,14 @@
   pytest,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pytest-embedded";
   version = "2.9.3";
   pyproject = true;
 
   src = fetchPypi {
     pname = "pytest_embedded";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-9JkzplMksLJEzDqC+x6SbuOgErQN+tplUIudvHxFERk=";
   };
 
@@ -39,4 +39,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ nagy ];
   };
-}
+})

@@ -13,13 +13,13 @@
   versioneer,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pinion";
   version = "0.4.0";
   pyproject = true;
 
   src = fetchPypi {
-    inherit pname version;
+    inherit (finalAttrs) pname version;
     hash = "sha256-YWjH0Ie1ffEZ1jgLqhsiLtcfU87p9rJanMlhUN9PLj4=";
   };
 
@@ -56,4 +56,4 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "pinion";
   };
-}
+})

@@ -20,14 +20,14 @@
   versionCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "images-upload-cli";
   version = "3.0.6";
   pyproject = true;
 
   src = fetchPypi {
     pname = "images_upload_cli";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-vydsMVVBFrr0kEnNx6ZazdhNvHgdMn1xQcVz9DoHems=";
   };
 
@@ -59,4 +59,4 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "images-upload-cli";
   };
-}
+})

@@ -5,13 +5,13 @@
   buildPythonApplication,
 }:
 
-buildPythonApplication rec {
+buildPythonApplication (finalAttrs: {
   pname = "pipe21";
   version = "1.24.0";
   format = "pyproject";
 
   src = fetchPypi {
-    inherit pname version;
+    inherit (finalAttrs) pname version;
     hash = "sha256-wr3MQYvzVJA73SgAgO/W0lFiL2htYVpKztxUmTWMq2k=";
   };
 
@@ -36,4 +36,4 @@ buildPythonApplication rec {
     homepage = "https://pypi.org/project/pipe21/";
     maintainers = with lib.maintainers; [ nagy ];
   };
-}
+})

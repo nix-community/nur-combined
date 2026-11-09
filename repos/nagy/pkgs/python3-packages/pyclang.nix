@@ -12,13 +12,13 @@
   esp-pylib,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pyclang";
   version = "0.7.0";
   pyproject = true;
 
   src = fetchPypi {
-    inherit pname version;
+    inherit (finalAttrs) pname version;
     hash = "sha256-s9SHh7tnSJFk0G7wNDMo1lGDG0Xw62fg/skiHvompfU=";
   };
 
@@ -51,4 +51,4 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "idf_clang_tidy";
   };
-}
+})

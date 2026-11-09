@@ -4,14 +4,14 @@
   fetchPypi,
 }:
 
-python3.pkgs.buildPythonApplication rec {
+python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "feather-tools";
   version = "1.1.0";
   pyproject = true;
 
   src = fetchPypi {
     pname = "feather_tools";
-    inherit version;
+    version = finalAttrs.version;
     hash = "sha256-qSyGYhZjfbUIUt7T7lj+MZEhoa2Lbxou5LiqQcA5lMs=";
   };
 
@@ -41,4 +41,4 @@ python3.pkgs.buildPythonApplication rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ nagy ];
   };
-}
+})

@@ -18,14 +18,14 @@
   pyserial,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "esp-pylib";
   version = "1.2.1";
   pyproject = true;
 
   src = fetchPypi {
     pname = "esp_pylib";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-wIVMxXuG4nRen3rIINXV6Knywtk8rxJiPEGbjQjYUvY=";
   };
 
@@ -57,4 +57,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ nagy ];
   };
-}
+})

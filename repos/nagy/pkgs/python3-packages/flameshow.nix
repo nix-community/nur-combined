@@ -13,13 +13,13 @@
   versionCheckHook,
 }:
 
-buildPythonApplication rec {
+buildPythonApplication (finalAttrs: {
   pname = "flameshow";
   version = "1.1.5";
   pyproject = true;
 
   src = fetchPypi {
-    inherit pname version;
+    inherit (finalAttrs) pname version;
     hash = "sha256-K3qQczjQo/inHUa5BEnYYDYzR4RC0FqAbpBXan3llzI=";
   };
 
@@ -57,4 +57,4 @@ buildPythonApplication rec {
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "flameshow";
   };
-}
+})

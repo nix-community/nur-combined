@@ -1,15 +1,20 @@
 {
   pkgs,
   lib ? pkgs.lib,
+  flakes ? { },
 }:
 
 rec {
-  cargoCratesIoRegistryGit = pkgs.fetchFromGitHub {
-    owner = "rust-lang";
-    repo = "crates.io-index";
-    rev = "72afee52f501b41f9acb75f3be397ea9c861fd7e";
-    hash = "sha256-eBLpdjrkvwpeTeC+e5vIBx3XiYhgd3cuws6TEQ9/Ibo=";
-  };
+  # The crates.io git index.  Callers pass the `crates-io-index` flake input
+  # so the pin lives in flake.lock.  The fallback keeps plain
+  # `import ./lib/rust.nix { inherit pkgs; }` working.
+  cargoCratesIoRegistryGit =
+    flakes."crates-io-index" or (pkgs.fetchFromGitHub {
+      owner = "rust-lang";
+      repo = "crates.io-index";
+      rev = "72afee52f501b41f9acb75f3be397ea9c861fd7e";
+      hash = "sha256-eBLpdjrkvwpeTeC+e5vIBx3XiYhgd3cuws6TEQ9/Ibo=";
+    });
 
   cargoConfigWithLocalRegistry = pkgs.linkFarm "cargo-home" {
     "config.toml" = pkgs.writers.writeTOML "config.toml" {

@@ -6,13 +6,13 @@
   setuptools,
 }:
 
-buildPythonApplication rec {
+buildPythonApplication (finalAttrs: {
   pname = "jtbl";
   version = "1.6.0";
   pyproject = true;
 
   src = fetchPypi {
-    inherit pname version;
+    inherit (finalAttrs) pname version;
     hash = "sha256-feDLCOuys6Blgimo7dQgTGlEy9nj4EckqeojWmHBFaU=";
   };
 
@@ -31,4 +31,4 @@ buildPythonApplication rec {
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "jtbl";
   };
-}
+})

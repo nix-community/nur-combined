@@ -7,14 +7,14 @@
   p7zip,
 }:
 
-buildPythonApplication rec {
+buildPythonApplication (finalAttrs: {
   pname = "git-remote-rclone";
   version = "0.1";
   pyproject = true;
 
   src = fetchPypi {
-    inherit version;
-    pname = lib.replaceStrings [ "-" ] [ "_" ] pname;
+    inherit (finalAttrs) version;
+    pname = lib.replaceStrings [ "-" ] [ "_" ] finalAttrs.pname;
     hash = "sha256-zCOnHWvV74iQleEKrqye54R/QpUzXHL4pEX6uP76rRE=";
   };
 
@@ -32,4 +32,4 @@ buildPythonApplication rec {
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ nagy ];
   };
-}
+})

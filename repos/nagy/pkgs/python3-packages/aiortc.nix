@@ -16,13 +16,13 @@
   numpy,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "aiortc";
   version = "1.15.0";
   pyproject = true;
 
   src = fetchPypi {
-    inherit pname version;
+    inherit (finalAttrs) pname version;
     hash = "sha256-7mwHV8oHDPbWvuRBk21u3iTu9RIRu/9mU0CcVA9y5iU=";
   };
 
@@ -60,4 +60,4 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "aiortc";
   };
-}
+})

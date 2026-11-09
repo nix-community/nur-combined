@@ -12,13 +12,13 @@
   websockets,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "aioice";
   version = "0.10.2";
   pyproject = true;
 
   src = fetchPypi {
-    inherit pname version;
+    inherit (finalAttrs) pname version;
     hash = "sha256-vyNsaCnuM8jlQFNdMc1aBmtTHLVt4r6UxGvnbWixqAY=";
   };
 
@@ -52,4 +52,4 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "aioice";
   };
-}
+})

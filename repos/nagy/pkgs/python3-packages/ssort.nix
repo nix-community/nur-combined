@@ -8,13 +8,13 @@
   versionCheckHook,
 }:
 
-buildPythonApplication rec {
+buildPythonApplication (finalAttrs: {
   pname = "ssort";
   version = "0.19.0";
   pyproject = true;
 
   src = fetchPypi {
-    inherit pname version;
+    inherit (finalAttrs) pname version;
     sha256 = "sha256-G/8DakotgxvsyCK04R6ubk+L+z44buIHsIJGnTtgSmo=";
   };
 
@@ -41,4 +41,4 @@ buildPythonApplication rec {
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "ssort";
   };
-}
+})

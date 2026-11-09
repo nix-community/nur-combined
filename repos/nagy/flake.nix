@@ -118,6 +118,14 @@
     inputs.flake-parts.follows = "flake-parts";
   };
 
+  # crates.io git index for offline cargo lockfile generation.  Branch, not
+  # a revision: flake.lock pins the commit.  The tarball is 319 MiB and
+  # unpacks to 6.4 GiB, so update this input rarely.
+  inputs.crates-io-index = {
+    url = "github:rust-lang/crates.io-index";
+    flake = false;
+  };
+
   inputs.gguf = {
     url = "github:nagy/gguf.el";
     inputs.nixpkgs.follows = "nixpkgs";

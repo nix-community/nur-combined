@@ -19,13 +19,13 @@
   wxpython,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pcbdraw";
   version = "1.3.0";
   pyproject = true;
 
   src = fetchPypi {
-    inherit pname version;
+    inherit (finalAttrs) pname version;
     hash = "sha256-IjtA2RfXpYQmo3kubRK83i5M0Yqs2XfAw6PZGZlcELE=";
   };
 
@@ -73,4 +73,4 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "pcbdraw";
   };
-}
+})

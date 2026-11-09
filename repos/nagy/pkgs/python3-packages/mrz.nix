@@ -6,13 +6,13 @@
   wheel,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "mrz";
   version = "0.6.2";
   pyproject = true;
 
   src = fetchPypi {
-    inherit pname version;
+    inherit (finalAttrs) pname version;
     hash = "sha256-VLs7NwzMNxt/uGwFrdiHQ0bnqGaY2IIsSITLYZBP+O4=";
   };
 
@@ -32,4 +32,4 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "mrz";
   };
-}
+})

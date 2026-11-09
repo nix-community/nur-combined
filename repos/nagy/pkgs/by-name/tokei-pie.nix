@@ -4,14 +4,14 @@
   fetchPypi,
 }:
 
-python3.pkgs.buildPythonApplication rec {
+python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "tokei-pie";
   version = "1.2.2";
   pyproject = true;
 
   src = fetchPypi {
     pname = "tokei_pie";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-xglHgQCu7PZ45D3PSHodxCkez5d1gRh1WLcrGaGXcVw=";
   };
 
@@ -33,4 +33,4 @@ python3.pkgs.buildPythonApplication rec {
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "tokei-pie";
   };
-}
+})

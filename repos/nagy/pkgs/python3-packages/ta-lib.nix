@@ -10,14 +10,14 @@
   build,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "ta-lib";
   version = "0.7.1";
   pyproject = true;
 
   src = fetchPypi {
     pname = "ta_lib";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-0o7CgtWClMbtPGBMOxHMO1hDzt2EvzgxxRLKQTnQyvQ=";
   };
 
@@ -45,4 +45,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ nagy ];
   };
-}
+})

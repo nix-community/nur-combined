@@ -126,6 +126,22 @@
         "type": "github"
       }
     },
+    "crates-io-index": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794178450,
+        "narHash": "sha256-RB9TEcZyzQckQ4IU4cfxLI87aVw9UNk2pvX/ZQEh6BY=",
+        "owner": "rust-lang",
+        "repo": "crates.io-index",
+        "rev": "19c40556142354037a5219057bc9dd30344de234",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rust-lang",
+        "repo": "crates.io-index",
+        "type": "github"
+      }
+    },
     "derivation": {
       "inputs": {
         "flake-parts": [
@@ -900,6 +916,7 @@
       "inputs": {
         "bruvtab": "bruvtab",
         "crate": "crate",
+        "crates-io-index": "crates-io-index",
         "derivation": "derivation",
         "dot": "dot",
         "emacs-bruvtab": "emacs-bruvtab",

@@ -8,14 +8,14 @@
   pillow,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "imagehash";
   version = "4.3.2";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "ImageHash";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-5Up5gFr7gqNKzeR0ahZUBQOpY2/R/7MdjgmbKbu/gVY=";
   };
 
@@ -36,4 +36,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ nagy ];
   };
-}
+})
