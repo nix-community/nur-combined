@@ -12,6 +12,7 @@
   opencv,
   pipewire,
   tpm2-tss,
+  zstd,
 }:
 
 let
@@ -55,6 +56,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     onnxruntime
     opencv
     tpm2-tss
+    zstd
   ];
 
   # Two invocations keep gaze-vision's `detection` feature, and with it ONNX

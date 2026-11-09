@@ -5,6 +5,8 @@
   pkg-config,
   jq,
   openssl,
+  zlib,
+  zstd,
   qt6,
 }:
 let
@@ -22,6 +24,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   buildInputs = [
     openssl
+    zlib
+    zstd
   ];
 
   postInstall = ''

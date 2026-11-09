@@ -16,6 +16,8 @@
   moreutils,
   pkg-config,
   freetype,
+  sqlite,
+  zlib,
   makeWrapper,
   copyDesktopItems,
   makeDesktopItem,
@@ -95,7 +97,11 @@ stdenv.mkDerivation (finalAttrs: {
     removeReferencesTo
   ];
 
-  buildInputs = [ freetype ];
+  buildInputs = [
+    freetype
+    sqlite
+    zlib
+  ];
 
   strictDeps = true;
   __structuredAttrs = true;

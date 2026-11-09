@@ -3,12 +3,17 @@
   version,
   lib,
   rustPlatform,
+  pkg-config,
+  sqlite,
 }:
 rustPlatform.buildRustPackage {
   inherit (sources) pname src;
   inherit version;
 
   cargoLock = sources.cargoLock."Cargo.lock";
+
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ sqlite ];
 
   doCheck = false;
 

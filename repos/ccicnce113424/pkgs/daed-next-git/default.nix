@@ -15,6 +15,9 @@
   git,
   makeBinaryWrapper,
   ninja,
+  pkg-config,
+  rust-jemalloc-sys,
+  sqlite,
 }:
 let
   pnpm = pnpm_10;
@@ -105,7 +108,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
     git
     makeBinaryWrapper
     ninja
+    pkg-config
     rustPlatform.bindgenHook
+  ];
+
+  buildInputs = [
+    rust-jemalloc-sys
+    sqlite
   ];
 
   env = {

@@ -14,6 +14,10 @@
   symlinkJoin,
   nix-update-script,
   versionCheckHook,
+  aws-lc,
+  pkg-config,
+  sqlite,
+  rust-jemalloc-sys,
   withTool ? true,
 }:
 let
@@ -137,14 +141,20 @@ rustPlatform.buildRustPackage (finalAttrs: {
     cmake
     gitMinimal
     ninja
+    pkg-config
     rustPlatform.bindgenHook
   ]
   ++ lib.optionals withTool [ makeWrapper ];
 
-  # aws-lc-sys and boring-sys build their vendored crypto libraries through
-  # cmake; on the vendored sources at 8 jobs the ninja generator beats the
-  # default Unix Makefiles one for boring-sys' crypto+ssl targets (42.7s ->
-  # 27.7s) and is level with it for aws-lc-sys (20.7s -> 19.5s). Only ninja
+  buildInputs = [
+    aws-lc
+    sqlite
+    rust-jemalloc-sys
+  ];
+
+  # boring-sys builds its vendored crypto library through cmake; on the
+  # vendored sources at 8 jobs the ninja generator beats the default Unix
+  # Makefiles one for its crypto+ssl targets (42.7s -> 27.7s). Only ninja
   # needs guarding: buildRustPackage sets configurePhase itself, while
   # buildPhase/checkPhase/installPhase come from the cargo hooks and ninja's
   # setup hook would otherwise claim them first.
@@ -155,7 +165,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   # honk-core's build.rs stamps HONK_VERSION from the release ref
   env.GITHUB_REF = "refs/tags/v${finalAttrs.version}";
 
-  # Both -sys crates reach cmake through cmake-rs, which forwards this to `cmake -G`.
+  # boring-sys reaches cmake through cmake-rs, which forwards this to `cmake -G`.
   env.CMAKE_GENERATOR = "Ninja";
 
   preBuild = ''
