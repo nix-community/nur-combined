@@ -7,6 +7,7 @@
   libheif,
   pkg-config,
   rustPlatform,
+  sqlite,
   zstd,
   # keep-sorted end
 }: let
@@ -71,7 +72,16 @@ in
 
     nativeBuildInputs = [pkg-config];
     # nixpkgs' cargo setup hook links these crates against system libraries.
-    buildInputs = [aws-lc libheif zstd];
+    # sqlite3 is what the CLI's rusqlite/geo-package support links; without it the
+    # final cc line fails with `ld: cannot find -lsqlite3`.
+    buildInputs = [
+      # keep-sorted start
+      aws-lc
+      libheif
+      sqlite
+      zstd
+      # keep-sorted end
+    ];
 
     # Enable all format parsers without OCR, model runtimes, or PDFium.
     buildNoDefaultFeatures = true;
