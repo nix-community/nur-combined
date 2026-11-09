@@ -1150,10 +1150,10 @@
     };
     "betterttv" = buildMozillaXpiAddon {
       pname = "betterttv";
-      version = "7.7.31";
+      version = "7.7.32";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5222173/betterttv-7.7.31.xpi";
-      sha256 = "905048a2fbb24cfb88e66a10e229986368586da1fe2e24b91326215791218260";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5225307/betterttv-7.7.32.xpi";
+      sha256 = "f4c0b7e32c89d4a54d7ba131502046d9acca4938741b2cf466d06bdf4e664960";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -1979,10 +1979,10 @@
     };
     "chrome-mask" = buildMozillaXpiAddon {
       pname = "chrome-mask";
-      version = "10.1.0";
+      version = "11.0.0";
       addonId = "chrome-mask@overengineer.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4919967/chrome_mask-10.1.0.xpi";
-      sha256 = "fe8fc7ae806fc8f75a1d18988b61ea2f86993dcdd25707f0897e51b33a7b6d95";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5226573/chrome_mask-11.0.0.xpi";
+      sha256 = "3ea69dacc670bac715ebc365347bfc88e08aa350c3cc0a42b89d8829730d4413";
       meta = with lib;
       {
         homepage = "https://github.com/skyschub/chrome-mask";
@@ -3308,10 +3308,10 @@
     };
     "dictionaries" = buildMozillaXpiAddon {
       pname = "dictionaries";
-      version = "9.1.0";
+      version = "9.2.0";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5145536/dictionaries-9.1.0.xpi";
-      sha256 = "36a89197c259e5375e25e3d0d6cdb57e10fd528816afde9e96ec5a6ec2c91d6d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5225773/dictionaries-9.2.0.xpi";
+      sha256 = "a28a6ead25c7d3cdb4304fe7150f16d73c39aadf1086a58e71efa8aaa9055d27";
       meta = with lib;
       {
         homepage = "https://dictionariez.pnl.dev";
@@ -4497,10 +4497,10 @@
     };
     "floccus" = buildMozillaXpiAddon {
       pname = "floccus";
-      version = "5.12.0";
+      version = "5.13.0";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5156500/floccus-5.12.0.xpi";
-      sha256 = "a461abeb50d6578498d959fb4ac96cb8a327f0ecae6371618a1550425267ee62";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5224106/floccus-5.13.0.xpi";
+      sha256 = "71f658e689e67c17b3c605503e64400fa05c730618365b8d023b8e63bd1c8473";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -4850,10 +4850,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "2.2.3";
+      version = "2.3.0";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5101877/geo_spoof-2.2.3.xpi";
-      sha256 = "b8357f2461cbd4495c3aeb94472a1652354fa7adac498145b05298fc4f4c4254";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5225343/geo_spoof-2.3.0.xpi";
+      sha256 = "b3db408d506f35b489d3e02662461a7b6d4d78dacdd33d7f1bae2240ae990a6e";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -7369,10 +7369,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.5.10";
+      version = "2.5.11";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5211470/lichess_tools_by_siderite-2.5.10.xpi";
-      sha256 = "aafe3306d967bc3489f82df816d8dbe1ca7c7aed61651b767f503126ee9ed59f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5223956/lichess_tools_by_siderite-2.5.11.xpi";
+      sha256 = "ebbd2a05e1e7444ba90d993cb3673ebe6b883740fce1dfe257fa501a5a45f69b";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -10117,10 +10117,10 @@
     };
     "page-assist" = buildMozillaXpiAddon {
       pname = "page-assist";
-      version = "1.5.90";
+      version = "1.5.91";
       addonId = "page-assist@nazeem";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5194381/page_assist-1.5.90.xpi";
-      sha256 = "3d27659b512266b3b27656017a6598528b79d8773b541647cb3bb63b6ee71114";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5225144/page_assist-1.5.91.xpi";
+      sha256 = "ac0c574bcf5e9c91c397da1c8b1175cb2f23c1a3b0bd2add57226045c1f603cb";
       meta = with lib;
       {
         homepage = "https://github.com/n4ze3m/page-assist";
@@ -10500,10 +10500,10 @@
     };
     "print-friendly-pdf" = buildMozillaXpiAddon {
       pname = "print-friendly-pdf";
-      version = "7.4.1";
+      version = "7.4.2";
       addonId = "jid0-YQz0l1jthOIz179ehuitYAOdBEs@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5198825/print_friendly_pdf-7.4.1.xpi";
-      sha256 = "845f792d37454c9852c92db76cc9a81c42b88c478a6f20081ef06c3a3c174334";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5223371/print_friendly_pdf-7.4.2.xpi";
+      sha256 = "f63f31866ea7df69da67aa0cdee11d46ddc17e6928c4dd946b2af018564f5b0f";
       meta = with lib;
       {
         homepage = "https://www.printfriendly.com/";
@@ -11268,10 +11268,10 @@
     };
     "purpleadblock" = buildMozillaXpiAddon {
       pname = "purpleadblock";
-      version = "2.7.2";
+      version = "2.7.3";
       addonId = "{a7399979-5203-4489-9861-b168187b52e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5222539/purpleadblock-2.7.2.xpi";
-      sha256 = "e0c12660896828d7348d09f94c4d33505269b8cafffcf7732357743e5fed8329";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5226642/purpleadblock-2.7.3.xpi";
+      sha256 = "458b6c935dd5ca08c419ecb702d903179b62abf7f35ce0fb84f8924260f822a3";
       meta = with lib;
       {
         description = "Blocks the ads Twitch puts in live streams by editing the stream playlists inside the Twitch player. No proxy, no data collected.";
@@ -15523,10 +15523,10 @@
     };
     "ublock-origin" = buildMozillaXpiAddon {
       pname = "ublock-origin";
-      version = "1.75.4";
+      version = "1.76.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5203014/ublock_origin-1.75.4.xpi";
-      sha256 = "e2df503cce7cf5069130618c349695f62bdddb9eb8c189156d027269ae4ae267";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5225273/ublock_origin-1.76.0.xpi";
+      sha256 = "6f20ff6749193599548770539103069c20948dfcd3e61c3089a67da7bfc3be39";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -15537,6 +15537,7 @@
           "dns"
           "menus"
           "privacy"
+          "publicSuffix"
           "storage"
           "tabs"
           "unlimitedStorage"
@@ -15788,10 +15789,10 @@
     };
     "v2ex-polish" = buildMozillaXpiAddon {
       pname = "v2ex-polish";
-      version = "2.5.8";
+      version = "2.5.9";
       addonId = "leokudev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5220984/v2ex_polish-2.5.8.xpi";
-      sha256 = "2c216a6e90d253a9371bac78a046a2e3d44e30d6e45082e762acbdc22485b678";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5226677/v2ex_polish-2.5.9.xpi";
+      sha256 = "dab4d7e318c78aa6f65b8c7c022d573a3d9b0d66a3598bff3ba40621ca9613d3";
       meta = with lib;
       {
         description = "专为 V2EX 用户设计，提供了丰富的扩展功能。";
@@ -17558,10 +17559,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.10.8";
+      version = "18.11.0";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5147814/youtube_subscription_groups-18.10.8.xpi";
-      sha256 = "dae38fa78a09f93c95f904c43223394c03e5bbf7551cad51fdeb93730a2a02a6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5225493/youtube_subscription_groups-18.11.0.xpi";
+      sha256 = "92e5bc6e3c9e84f3967ae339b95a878996cfb8f2313004bd7d40fa947b7f02e2";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
