@@ -4,6 +4,11 @@
   buildGoModule,
   fetchFromGitHub,
   runCommand,
+  # 拉取 Go 依赖用的代理。默认走 goproxy.io 而不是官方 proxy.golang.org，
+  # 因为国内网络直连官方代理会超时；goproxy.io 在境外同样可用。
+  # 注意：该代理必须保留 .info 里的 Origin 字段，否则 go modules 缓存内容
+  # 会变化，连带让 vendorHash 失效（goproxy.cn / 阿里云镜像会丢该字段）。
+  goproxy ? "https://goproxy.io,direct",
   # 允许外部注入已构建好的原生部分（本地验证或自定义 nixpkgs）。
   ttsNative ? pkgs.callPackage ./tts-native.nix { },
   ttsHelper ? pkgs.callPackage ./tts.nix { inherit ttsNative; },
@@ -28,8 +33,19 @@ let
     proxyVendor = true;
     vendorHash = "sha256-pczP2+cgD4jM1R+HnSOEL9PqIaquqJ8yU9LT3PIhtlI=";
 
+    # goModules 是 fixed-output 派生，而 buildGoModule 把 GOPROXY 列进了
+    # impureEnvVars —— 构建时构建机的 GOPROXY（通常为空）会覆盖这里 env 的值，
+    # go 就会回落到 proxy.golang.org。所以显式固定代理，并把它从
+    # impureEnvVars 里摘掉，让产物只取决于 vendorHash。
+    overrideModAttrs = _: prev: {
+      impureEnvVars = builtins.filter (n: n != "GOPROXY") (prev.impureEnvVars or [ ]);
+    };
+
     subPackages = [ "cmd/arcana-world" ];
-    env.CGO_ENABLED = "0";
+    env = {
+      CGO_ENABLED = "0";
+      GOPROXY = goproxy;
+    };
     ldflags = [
       "-s"
       "-w"

@@ -1,37 +1,37 @@
-# nur-packages-template
-
-**A template for [NUR](https://github.com/nix-community/NUR) repositories**
-
-## Setup
-
-1. Click on [Use this template](https://github.com/nix-community/nur-packages-template/generate) to start a repo based on this template. (Do _not_ fork it.)
-2. Add your packages to the [pkgs](./pkgs) directory and to
-   [default.nix](./default.nix)
-   * Remember to mark the broken packages as `broken = true;` in the `meta`
-     attribute, or travis (and consequently caching) will fail!
-   * Library functions, modules and overlays go in the respective directories
-3. Choose your CI: Depending on your preference you can use github actions (recommended) or [Travis ci](https://travis-ci.com).
-   - Github actions: Change your NUR repo name and optionally add a cachix name in [.github/workflows/build.yml](./.github/workflows/build.yml) and change the cron timer
-     to a random value as described in the file
-   - Travis ci: Change your NUR repo name and optionally your cachix repo name in 
-   [.travis.yml](./.travis.yml). Than enable travis in your repo. You can add a cron job in the repository settings on travis to keep your cachix cache fresh
-5. Change your travis and cachix names on the README template section and delete
-   the rest
-6. [Add yourself to NUR](https://github.com/nix-community/NUR#how-to-add-your-own-repository)
-
-## README template
-
 # nur-packages
 
 **My personal [NUR](https://github.com/nix-community/NUR) repository**
 
-<!-- Remove this if you don't use github actions -->
-![Build and populate cache](https://github.com/<YOUR-GITHUB-USER>/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
+![Build and populate cache](https://github.com/lorlike/NUR/actions/workflows/build.yml/badge.svg)
 
-<!--
-Uncomment this if you use travis:
+## Packages
 
-[![Build Status](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages.svg?branch=master)](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages)
--->
-[![Cachix Cache](https://img.shields.io/badge/cachix-<YOUR_CACHIX_CACHE_NAME>-blue.svg)](https://<YOUR_CACHIX_CACHE_NAME>.cachix.org)
+| Attribute | Description |
+| --- | --- |
+| `arcana-world` | TUI alternative to bilibili LiveHime, with a TTS helper (`passthru.tui` builds the TUI only) |
+| `pigma` | NetEase Cloud Music / local audio playback TUI client |
+| `sqlmux` | tmux-like TUI database client for PostgreSQL, MySQL, SQLite, SQL Server and Redis |
 
+## Usage
+
+Via the [NUR](https://github.com/nix-community/NUR) flake input:
+
+```nix
+{
+  inputs.nur.url = "github:nix-community/NUR";
+
+  # then, for example
+  environment.systemPackages = [ inputs.nur.packages.${system}.repos.lorlike.sqlmux ];
+}
+```
+
+Or apply the overlay directly:
+
+```nix
+let
+  nur = builtins.fetchTarball "https://github.com/lorlike/NUR/archive/main.tar.gz";
+in {
+  nixpkgs.overlays = [ (import "${nur}/overlay.nix") ];
+  # packages are now available as pkgs.pigma, pkgs.sqlmux, ...
+}
+```

@@ -4,6 +4,7 @@
 , alsa-lib
 , stdenv
 , ttsNative
+, goproxy ? "https://goproxy.io,direct"
 }:
 
 # 统一 TTS 辅助程序：本地播放（oto → dlopen libasound）、sherpa-onnx 本地模型
@@ -21,15 +22,23 @@ buildGoModule rec {
   vendorHash = "sha256-pczP2+cgD4jM1R+HnSOEL9PqIaquqJ8yU9LT3PIhtlI=";
 
   subPackages = [ "cmd/arcana-world-tts" ];
-  env.CGO_ENABLED = "1";
+  env = {
+    CGO_ENABLED = "1";
+    # 与主程序同理：GOPROXY 在 impureEnvVars 中会被构建机环境覆盖，这里显式固定。
+    GOPROXY = goproxy;
+  };
   tags = [ "tts" ];
 
   # Go 侧不链接 Nix 里的 sherpa：cgo LDFLAGS 指向 Go module 自带的 lib/，
   # 真正生效的是运行时 $out/libexec 下随包发布的定制构建。
   buildInputs = [ alsa-lib stdenv.cc.cc.lib ];
 
-  # 依赖下载阶段既不需要原生库，也不该继承 preBuild。
-  overrideModAttrs = _: { preBuild = ""; };
+  # 依赖下载阶段既不需要原生库，也不该继承 preBuild；顺带把 GOPROXY 从
+  # impureEnvVars 里摘掉，避免构建机环境干扰 vendor 哈希。
+  overrideModAttrs = _: prev: {
+    preBuild = "";
+    impureEnvVars = builtins.filter (n: n != "GOPROXY") (prev.impureEnvVars or [ ]);
+  };
 
   ldflags = [ "-s" "-w" ];
 
