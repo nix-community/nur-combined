@@ -19,6 +19,9 @@ in pkgs.rustPlatform.buildRustPackage {
 
   cargoBuildFlags = [ "--ignore-rust-version" ];
 
+  nativeBuildInputs = [ pkgs.pkg-config ];
+  buildInputs = [ pkgs.zstd ];
+
   meta = with pkgs.lib; {
     description = "A TUI bibliography manager";
     homepage = "https://github.com/namil-k/${pname}";

@@ -21,36 +21,47 @@
     libappindicator-gtk3
     libxkbcommon
   ];
-in pkgs.rustPlatform.buildRustPackage {
-  inherit pname version src;
+in
+let
+  package = pkgs.rustPlatform.buildRustPackage {
+    inherit pname version src;
 
-  cargoHash = "sha256-q2P83RG+tHkego2gRIZhT4aGqAWNivxLnCrasxGfhOM=";
+    cargoHash = "sha256-q2P83RG+tHkego2gRIZhT4aGqAWNivxLnCrasxGfhOM=";
 
-  nativeBuildInputs = with pkgs; [
-    pkg-config
-    wrapGAppsHook4
-  ];
+    nativeBuildInputs = with pkgs; [
+      pkg-config
+      wrapGAppsHook4
+    ];
 
-  buildInputs = runtimeDeps;
-  doCheck = false;
+    buildInputs = runtimeDeps;
+    doCheck = false;
 
-  postPatch = ''
-    substituteInPlace src/tray.rs \
-      --replace-fail '!x.is_multiple_of(3)' 'x % 3 != 0'
-  '';
+    postPatch = ''
+      substituteInPlace src/tray.rs \
+        --replace-fail '!x.is_multiple_of(3)' 'x % 3 != 0'
+    '';
 
-  preFixup = ''
-    gappsWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath runtimeDeps}"
-    )
-  '';
+    preFixup = ''
+      gappsWrapperArgs+=(
+        --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath runtimeDeps}"
+      )
+    '';
 
-  meta = with pkgs.lib; {
-    description = "Display your keyboard and mouse activity in real-time";
-    homepage = "https://github.com/kfurafaelss/keystroke";
-    license = licenses.mit;
-    maintainers = [ maintainers.srcres258 ];
-    mainProgram = "keystroke";
-    platforms = platforms.linux;
+    meta = with pkgs.lib; {
+      description = "Display your keyboard and mouse activity in real-time";
+      homepage = "https://github.com/kfurafaelss/keystroke";
+      license = licenses.mit;
+      maintainers = [ maintainers.srcres258 ];
+      mainProgram = "keystroke";
+      platforms = platforms.linux;
+    };
+  };
+in
+package // {
+  # Keep this package out of CI until the upstream source is available again.
+  # Apply the flag to the final derivation metadata because newer nixpkgs
+  # helpers may normalize `meta` while constructing the derivation.
+  meta = package.meta // {
+    broken = true;
   };
 }
