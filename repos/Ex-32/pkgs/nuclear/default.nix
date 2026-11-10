@@ -26,10 +26,17 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-DdDmYtMCgKSVne0dFMgLDFK93sfWvxPCHFd9nFeKydI=";
   };
 
-  # fix-path-env-rs is a git dependency with no crates.io release; the
-  # lockfile is read straight out of src (single interpolation IFD)
+  # Vendored from packages/player/src-tauri/Cargo.lock at the pinned tag to
+  # avoid an import-from-derivation: NUR's CI check
+  # (`nix-env -f . -qa --drv-path`) evaluates read-only, so no .drv is ever
+  # written and the string-context IFD fails with
+  #   error: path '...-source.drv' is not valid
+  # Refresh on version bumps:
+  #   curl -o pkgs/nuclear/Cargo.lock https://raw.githubusercontent.com/nukeop/nuclear/player%40<version>/packages/player/src-tauri/Cargo.lock
+  # fix-path-env-rs is a git dependency with no crates.io release, hence the
+  # output hash below.
   cargoLock = {
-    lockFile = "${finalAttrs.src}/packages/player/src-tauri/Cargo.lock";
+    lockFile = ./Cargo.lock;
     outputHashes."fix-path-env-0.0.0" =
       "sha256-UygkxJZoiJlsgp8PLf1zaSVsJZx1GGdQyTXqaFv3oGk=";
   };
