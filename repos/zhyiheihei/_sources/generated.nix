@@ -8,12 +8,12 @@
 {
   ai-usagebar = {
     pname = "ai-usagebar";
-    version = "v1.49.0";
+    version = "v1.50.0";
     src = fetchFromGitHub {
       owner = "akitaonrails";
       repo = "ai-usagebar";
-      tag = "v1.49.0";
-      hash = "sha256-UTP9B1S6nLuEFvAIveZq0Mf7Xuf0Z6ovngBJVDQQ26E=";
+      tag = "v1.50.0";
+      hash = "sha256-YkEdxOkuC7RI/qgPoAO0CyHBHkE6PYEG56obq5asWUI=";
     };
   };
   aioshutil = {
@@ -242,18 +242,18 @@
   };
   vaults3-linux-amd64 = {
     pname = "vaults3-linux-amd64";
-    version = "5.0.11";
+    version = "5.0.14";
     src = fetchurl {
-      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v5.0.11/vaults3-linux-amd64.tar.gz";
-      hash = "sha256-BmMls7XFKJ2LlAAPQuUWpjDdEZs38DWlQeDYpzniF9Q=";
+      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v5.0.14/vaults3-linux-amd64.tar.gz";
+      hash = "sha256-VMZT2EIlF3X1ZE9iQMGKmXhk9shlJJcfvIPvjrMGCXI=";
     };
   };
   vaults3-linux-arm64 = {
     pname = "vaults3-linux-arm64";
-    version = "5.0.11";
+    version = "5.0.14";
     src = fetchurl {
-      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v5.0.11/vaults3-linux-arm64.tar.gz";
-      hash = "sha256-xRoszk4yQtf4fEPheRm8YfC+66EuS7m6NER4tpftEGc=";
+      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v5.0.14/vaults3-linux-arm64.tar.gz";
+      hash = "sha256-5EqWhI+/2UNqawt0qDYs9xmuS+r9W0/AnCFF0MSw+n4=";
     };
   };
   vertex = {

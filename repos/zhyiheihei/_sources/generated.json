@@ -13,12 +13,12 @@
             "name": null,
             "owner": "akitaonrails",
             "repo": "ai-usagebar",
-            "rev": "v1.49.0",
-            "sha256": "sha256-UTP9B1S6nLuEFvAIveZq0Mf7Xuf0Z6ovngBJVDQQ26E=",
+            "rev": "v1.50.0",
+            "sha256": "sha256-YkEdxOkuC7RI/qgPoAO0CyHBHkE6PYEG56obq5asWUI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.49.0"
+        "version": "v1.50.0"
     },
     "aioshutil": {
         "cargoLock": null,
@@ -477,11 +477,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-BmMls7XFKJ2LlAAPQuUWpjDdEZs38DWlQeDYpzniF9Q=",
+            "sha256": "sha256-VMZT2EIlF3X1ZE9iQMGKmXhk9shlJJcfvIPvjrMGCXI=",
             "type": "url",
-            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v5.0.11/vaults3-linux-amd64.tar.gz"
+            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v5.0.14/vaults3-linux-amd64.tar.gz"
         },
-        "version": "5.0.11"
+        "version": "5.0.14"
     },
     "vaults3-linux-arm64": {
         "cargoLock": null,
@@ -492,11 +492,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-xRoszk4yQtf4fEPheRm8YfC+66EuS7m6NER4tpftEGc=",
+            "sha256": "sha256-5EqWhI+/2UNqawt0qDYs9xmuS+r9W0/AnCFF0MSw+n4=",
             "type": "url",
-            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v5.0.11/vaults3-linux-arm64.tar.gz"
+            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v5.0.14/vaults3-linux-arm64.tar.gz"
         },
-        "version": "5.0.11"
+        "version": "5.0.14"
     },
     "vertex": {
         "cargoLock": null,
