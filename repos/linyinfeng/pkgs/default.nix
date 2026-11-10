@@ -29,7 +29,6 @@ lib.makeScope newScope (
     codestable = callPackage ./codestable { };
     dot-tar = callPackage ./dot-tar { };
     dpt-rp1-py = callPackage ./dpt-rp1-py { };
-    easylpac = callPackage ./easylpac { };
     emacsPackages = lib.recurseIntoAttrs (
       callPackage ./emacs-packages { emacsPackagesToplevel = pkgs.emacs.pkgs; }
     );
@@ -65,5 +64,8 @@ lib.makeScope newScope (
     yacd = callPackage ./yacd { };
     zeronsd = callPackage ./zeronsd { };
     # keep-sorted end
+  }
+  // lib.optionalAttrs (pkgs ? go_1_27) {
+    easylpac = callPackage ./easylpac { };
   }
 )

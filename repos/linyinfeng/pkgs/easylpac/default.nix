@@ -1,8 +1,11 @@
 {
-  callPackage,
-  go,
+  lib,
   buildGoModule,
+  go_1_27,
+  cmake,
+  cjson,
   fetchFromGitHub,
+  nix-update-script,
   pkg-config,
   gtk3,
   libXxf86vm,
@@ -10,59 +13,72 @@
   glfw,
   wrapGAppsHook3,
   fontconfig,
-  lpac,
-  lib,
+  pcsclite,
 }:
 
-buildGoModule rec {
+buildGoModule.override { go = go_1_27; } rec {
   pname = "easylpac";
-  version = "0.8.1.1";
+  version = "0.9.0";
+
   src = fetchFromGitHub {
     owner = "creamlike1024";
     repo = "EasyLPAC";
     rev = version;
-    sha256 = "sha256-xMXi+AJjbKX7RlcUAutbL/Gfg+DoltSldQza7YMgUWU=";
+    fetchSubmodules = true;
+    hash = "sha256-2bJzbr99qrhY8Czvl0BxrCToK27t5PDwxSlMpgEDqbE=";
   };
-  proxyVendor = true;
-  vendorHash = "sha256-Vamrw5f8wm+0FY3Cd1ye6A5xQ5Tw5yvcEGvS55/7zus=";
 
-  postConfigure = ''
-    cp --verbose "${./eum-registry.json}" eum-registry.json
-    cp --verbose "${./ci-registry.json}"  ci-registry.json
-  '';
+  proxyVendor = true;
+  vendorHash = "sha256-terM1t0NfTNCEE8BssP2vR2r8hNJ9gSRWEI/BPVeMBU=";
+
+  subPackages = [ "cmd/easylpac" ];
 
   env.FONTCONFIG_FILE = "${fontconfig.out}/etc/fonts/fonts.conf";
 
   nativeBuildInputs = [
     pkg-config
     wrapGAppsHook3
+    cmake
   ];
   buildInputs = [
     gtk3
     libglvnd
     libXxf86vm
+    cjson
+    pcsclite
   ]
   ++ glfw.buildInputs;
 
-  postInstall = ''
-    ln -s "${lpac}/bin/lpac" "$out/bin/lpac"
+  preBuild = ''
+    platform="$(go env GOOS)-$(go env GOARCH)"
+    build="third_party/libeuicc/$platform/cmake"
+
+    cmake -S third_party/lpac -B "$build" \
+      -DLPAC_BUILD_LIBEUICC_ONLY=ON \
+      -DLPAC_DYNAMIC_LIBEUICC=OFF \
+      -DUSE_SYSTEM_DEPS=ON \
+      -DcJSON_DIR="${cjson}/lib/cmake/cJSON" \
+      -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=OFF \
+      -DBUILD_TESTING=OFF \
+      -DCMAKE_BUILD_TYPE=Release
+    cmake --build "$build" --parallel
+
+    mkdir -p "third_party/libeuicc/$platform"
+    cp "$build/euicc/libeuicc.a" "third_party/libeuicc/$platform/"
+    ar rcs "third_party/libeuicc/$platform/libcjsonext.a" \
+      $(find "$build/cjson-ext" -name 'cJSON_ex.c.o')
   '';
 
   passthru = {
     updateScriptEnabled = true;
-    updateScript =
-      let
-        script = callPackage ./update.nix { };
-      in
-      [ "${script}/bin/update-easylpac" ];
+    updateScript = nix-update-script { attrPath = pname; };
   };
 
-  meta = with lib; {
+  meta = {
     description = "lpac GUI Frontend";
     homepage = "https://github.com/creamlike1024/EasyLPAC";
-    mainProgram = "EasyLPAC";
-    license = licenses.mit;
-    maintainers = with maintainers; [ yinfeng ];
-    broken = !(lib.versionAtLeast go.version "1.24");
+    mainProgram = "easylpac";
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ yinfeng ];
   };
 }
