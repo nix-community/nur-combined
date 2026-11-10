@@ -7,13 +7,13 @@
 
 melpaBuild {
   pname = "agent-shell-links";
-  version = "0-unstable-2026-07-08";
+  version = "0-unstable-2026-10-30";
 
   src = fetchFromGitHub {
     owner = "ultronozm";
     repo = "agent-shell-links.el";
-    rev = "acf70666c81b465a67580fc38d225169d959bef9";
-    hash = "sha256-l0k7m9AJarHRZJ3taM2wwrlQfrsaSuzBCSqjLiTzCUA=";
+    rev = "c7bcc1abb8bf4d79beee064ff2d18c58f5eade2a";
+    hash = "sha256-+7jKGQOKJHtfOcYkjOmuB7urWV1YrzL105pLz1iPu5E=";
   };
 
   packageRequires = [ agent-shell ];

@@ -7,14 +7,14 @@
 
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "yaml-shellcheck";
-  version = "1.8.0";
+  version = "1.9.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "mschuett";
     repo = "yaml-shellcheck";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-I+HkpUV1OCXau+i/ni0WX2bzTPFI705hrmVL9W9Co+8=";
+    hash = "sha256-wxMrHnTdoyI5s+F56HUcoaqU1ovIlwtaGtuisTcLhJU=";
   };
 
   postPatch = ''
@@ -43,6 +43,6 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     homepage = "https://github.com/mschuett/yaml-shellcheck";
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ nagy ];
-    mainProgram = "yaml-shellcheck";
+    mainProgram = "yaml_shellcheck";
   };
 })

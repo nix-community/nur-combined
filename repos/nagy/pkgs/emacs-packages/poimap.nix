@@ -9,13 +9,13 @@
 
 melpaBuild {
   pname = "poimap";
-  version = "0.1-unstable-2026-09-06";
+  version = "0.1-unstable-2026-10-04";
 
   src = fetchFromGitHub {
     owner = "florommel";
     repo = "poimap";
-    rev = "57a1b5dd76e28dec373eaa567f78553f74429585";
-    hash = "sha256-ft/RElziaF4wYDCoHsdar+QtAp0hR8JhYly1+fPV/d0=";
+    rev = "bac88a562df755400fb56174f18c28996ec3e582";
+    hash = "sha256-Fi1NH+LI8a3mWWhtHxJ8cCHl6LoQ4ZPjSdgA07569AQ=";
   };
 
   # The main `poimap' library only needs the built-in cl-lib/emacs.  The

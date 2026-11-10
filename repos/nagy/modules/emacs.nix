@@ -214,10 +214,6 @@ let
               packageRequires = [ self.nix-mode ];
             };
 
-        lua = super.lua.override {
-          lua = pkgs.lua5_4;
-        };
-
         naysayer-theme = super.naysayer-theme.overrideAttrs {
           # prevent warnings
           postPatch = ''

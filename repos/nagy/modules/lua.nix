@@ -14,13 +14,13 @@
   boot.binfmt.registrations.lua = {
     recognitionType = "extension";
     magicOrExtension = "lua";
-    interpreter = pkgs.lua5_4.interpreter;
+    interpreter = pkgs.lua.interpreter;
   };
   # byte code variant
   boot.binfmt.registrations.luac = {
     recognitionType = "extension";
     magicOrExtension = "lua";
-    interpreter = pkgs.lua5_4.interpreter;
+    interpreter = pkgs.lua.interpreter;
   };
 
   # This block can unfortunately not be used because luac
@@ -33,7 +33,7 @@
   #   config = {
   #     diff = {
   #       luac = {
-  #         textconv = "${pkgs.lua5_4}/bin/luac -p -l -";
+  #         textconv = "${pkgs.lua}/bin/luac -p -l -";
   #         binary = true;
   #       };
   #     };
