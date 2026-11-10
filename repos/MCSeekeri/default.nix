@@ -24,8 +24,6 @@
   lain-kde-splashscreen = pkgs.callPackage ./pkgs/lain-kde-splashscreen { };
   artmatic = pkgs.callPackage ./pkgs/artmatic { };
   luker = pkgs.callPackage ./pkgs/luker { };
-  metapi = pkgs.callPackage ./pkgs/metapi { };
-  sub2api = pkgs.callPackage ./pkgs/sub2api { };
   xmcl = pkgs.callPackage ./pkgs/xmcl { };
   xmcl-bin = pkgs.callPackage ./pkgs/xmcl-bin { };
   sabaki = pkgs.callPackage ./pkgs/sabaki { };

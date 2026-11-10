@@ -95,7 +95,14 @@ let
 
       pnpm build:renderer
 
-      ELECTRON_DIST="${electron.dist}" \
+      electronDist="${electron.dist}"
+      ${lib.optionalString stdenv.isDarwin ''
+        electronDist="$TMPDIR/electron-dist"
+        cp -R "${electron.dist}" "$electronDist"
+        chmod -R u+w "$electronDist"
+      ''}
+
+      ELECTRON_DIST="$electronDist" \
       ELECTRON_VERSION="${electron.version}" \
         pnpm build
 
@@ -105,7 +112,7 @@ let
     postBuild = ''
       mkdir -p "$out/share/xmcl"
 
-      asar=$(find xmcl-electron-app/build/output -name 'app.asar' -path '*/resources/*' | head -1)
+      asar=$(find xmcl-electron-app/build/output -name 'app.asar' | head -1)
       cp "$asar" "$out/share/xmcl/app.asar"
 
       ${installIcons "${src}/xmcl-electron-app/icons"}
