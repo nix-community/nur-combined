@@ -759,10 +759,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-38sOpJ6H5C05XyemJ4wh9VZK4vbgLbxcxeb/lWVFnUE=",
+            "sha256": "sha256-+YZHswHRbAD3Ea3H3L+MptI/I3+tGDXxORYHmtnAMs4=",
             "type": "url",
-            "url": "https://github.com/waywallen/waywallen-display/releases/download/v0.4.5/waywallen-kde-0.4.5-x86_64.zip"
+            "url": "https://github.com/waywallen/waywallen-display/releases/download/v0.4.6/waywallen-kde-0.4.6-x86_64.zip"
         },
-        "version": "0.4.5"
+        "version": "0.4.6"
     }
 }
