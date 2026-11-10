@@ -1,60 +1,56 @@
 {
   lib,
-  stdenv,
-  fetchurl,
+  fetchzip,
   unzip,
-  makeDesktopItem,
-  copyDesktopItems,
+  stdenvNoCC,
   jdk,
   jre,
-  makeWrapper,
   stripJavaArchivesHook,
+  makeWrapper,
+  makeDesktopItem ,
+  copyDesktopItems,
 }:
 
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   pname = "knotjob";
-  version = "0-chartreuse-2026-02-12";
+  version = "2026-02-12-chartreuse";
 
-  src = fetchurl {
+  src = fetchzip {
     url = "https://www.maths.dur.ac.uk/users/dirk.schuetz/KnotJob.zip";
-    hash = "sha256-kIlr8W0y2vqFLvUIN7wcu2MqFxsKP9aClhoI8usjiJw=";
+    hash = "sha256-91VyG+mITz/3E3mI7z12++ekgGkA0pfCvXCx8FDEqOg=";
   };
 
-  outputs = [
-    "out"
-    "doc"
+  patches = [
+    ./relative-paths.patch
   ];
+
+  postPatch = ''
+    substituteInPlace knotjob/{KnotJobCommand.java,Options.java,frames/ViewDocumentation.java} \
+      --subst-var out
+  '';
 
   nativeBuildInputs = [
     unzip
-    stripJavaArchivesHook
     jdk
-    copyDesktopItems
+    stripJavaArchivesHook
     makeWrapper
+    copyDesktopItems
   ];
 
   desktopItems = [
     (makeDesktopItem {
-      name = pname;
+      name        = "knotjob";
       desktopName = "KnotJob";
-      exec = "KnotJob";
+      exec        = "KnotJob";
+      icon        = "KnotJob";
     })
   ];
-
-  postPatch = ''
-    substituteInPlace knotjob/frames/ViewDocumentation.java \
-      --replace-fail '"Documentation"' '"${placeholder "doc"}/share/doc/KnotJob"'
-  '';
 
   buildPhase = ''
     runHook preBuild
 
-    javac knotjob/KnotJob.java
-    jar -c -f KnotJob.jar -e knotjob.KnotJob -C . knotjob
-
-    for f in Knots/*.txt.zip; do
-      unzip "$f" -d Knots
-    done
+    javac -d build $(find knotjob -name '*.java')
+    jar --create --file KnotJob.jar --main-class knotjob.KnotJob -C build .
 
     runHook postBuild
   '';
@@ -62,28 +58,49 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    install -Dm644 KnotJob.jar $out/share/java/KnotJob.jar
+    export kjb="$out"/share/KnotJob
+    mkdir -p "$kjb"
 
-    for f in Knots/*.{txt,kjb}; do
-      install -Dm644 -t "$out/share/KnotJob" "$f"
-    done
+    install -Dm644 -t "$kjb" \
+      README.TXT  \
+      KnotJob.jar \
+      knotjob.png \
+      knotjob_med.png
 
-    mkdir -p $out/bin
+    makeWrapper ${jre}/bin/java "$out"/bin/KnotJob \
+      --add-flags "-jar $kjb/KnotJob.jar" \
+      --prefix _JAVA_OPTIONS " " "-Dswing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel" \
+      --prefix _JAVA_OPTIONS " " "-Dawt.useSystemAAFontSettings=gasp"
 
-    makeWrapper ${jre}/bin/java $out/bin/KnotJob \
-      --prefix _JAVA_OPTIONS " " -Dawt.useSystemAAFontSettings=lcd \
-      --add-flags "-jar $out/share/java/KnotJob.jar"
+    unzip -q 'Knots/*.txt.zip' -d Knots
 
-    for f in Documentation/*.rtf; do
-      install -Dm644 -t "$doc/share/doc/KnotJob" "$f"
-    done
+    install -Dm644 -t "$kjb"/Knots \
+      Knots/*.kjb \
+      Knots/*.txt
+
+    install -Dm644 -t "$kjb"/Documentation \
+      Documentation/*.rtf
+
+    mkdir -p "$out"/share/icons/hicolor/96x96/apps
+    ln -s "$kjb"/knotjob_med.png "$out"/share/icons/hicolor/96x96/apps/KnotJob.png
 
     runHook postInstall
   '';
 
+  doInstallCheck = true;
+
+  installCheckPhase = ''
+    runHook preInstallCheck
+
+    "$out"/bin/KnotJob -h
+    "$out"/bin/KnotJob "$out"/share/KnotJob/Knots/Rolfsen.kjb -s0 -nf
+
+    runHook postInstallCheck
+  '';
+
   meta = {
     description = "Calculate knot invariants, centered around Khovanov homology";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     homepage = "https://www.maths.dur.ac.uk/users/dirk.schuetz/knotjob.html";
     mainProgram = "KnotJob";
     platforms = lib.platforms.linux;

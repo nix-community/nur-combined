@@ -1,0 +1,45 @@
+diff -rua a/knotjob/frames/ViewDocumentation.java b/knotjob/frames/ViewDocumentation.java
+--- a/knotjob/frames/ViewDocumentation.java
++++ b/knotjob/frames/ViewDocumentation.java
+@@ -145,7 +145,7 @@
+             thePane.setPreferredSize(new Dimension(570,534));
+             scroller.setPreferredSize(new Dimension(570,534));
+             try {
+-                FileInputStream fi = new FileInputStream("Documentation"+options.getSlash()+""+topics[typ]+".rtf");
++                FileInputStream fi = new FileInputStream("@out@/share/KnotJob/Documentation"+options.getSlash()+""+topics[typ]+".rtf");
+                 rtf.read(fi, thePane.getDocument(), 0);
+             }
+             catch (IOException | BadLocationException ex) {
+diff -rua a/knotjob/KnotJobCommand.java b/knotjob/KnotJobCommand.java
+--- a/knotjob/KnotJobCommand.java
++++ b/knotjob/KnotJobCommand.java
+@@ -856,7 +856,7 @@
+     }
+ 
+     private void schreiNachHilfe() {
+-        File file = new File("README.TXT");
++        File file = new File("@out@/share/KnotJob/README.TXT");
+         try (FileReader fr = new FileReader(file); BufferedReader in = new BufferedReader(fr)) {
+             boolean keepreading = true;
+             while (keepreading) {
+diff -rua a/knotjob/Options.java b/knotjob/Options.java
+--- a/knotjob/Options.java
++++ b/knotjob/Options.java
+@@ -82,7 +82,7 @@
+         slashSymbol = "/";
+         gridDiagram = false;
+         showTime = true;
+-        String fileLabel = "knotjob_med.png";
++        String fileLabel = "@out@/share/KnotJob/knotjob_med.png";
+         String medLabel = fileLabel;
+         String system = System.getProperty("os.name").toLowerCase();
+         int os = 0;
+@@ -91,7 +91,7 @@
+         opSys = os;
+         if (opSys == 1) { 
+             slashSymbol = "\\";
+-            fileLabel = "knotjob.png";
++            fileLabel = "@out@/share/KnotJob/knotjob.png";
+         }
+         else slashSymbol = "/";
+         try {
