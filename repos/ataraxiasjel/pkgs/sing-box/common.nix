@@ -85,8 +85,6 @@ buildGoModule (finalAttrs: {
       --replace-fail "/usr/bin/sing-box" "$out/bin/sing-box" \
       --replace-fail "/bin/kill" "${coreutils}/bin/kill"
     install -Dm444 -t "$out/lib/systemd/system/" release/config/sing-box{,@}.service
-
-    install -Dm444 release/config/sing-box.rules $out/share/polkit-1/rules.d/sing-box.rules
     install -Dm444 release/config/sing-box-split-dns.xml $out/share/dbus-1/system.d/sing-box-split-dns.conf
   '';
 

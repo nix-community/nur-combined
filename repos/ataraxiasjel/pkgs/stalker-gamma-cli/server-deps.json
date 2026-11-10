@@ -46,8 +46,8 @@
   },
   {
     "pname": "Microsoft.AspNetCore.OpenApi",
-    "version": "10.0.12",
-    "hash": "sha256-wgFQ5FKNBHSL2RH/mXaOLbLMdL2IryDyC9bKDXL3w+U="
+    "version": "10.0.14",
+    "hash": "sha256-apfyJFWq5DvIZkcs8dTP3LxNZSCRwYfwKgIpbeM69g8="
   },
   {
     "pname": "Microsoft.Bcl.AsyncInterfaces",
@@ -56,8 +56,8 @@
   },
   {
     "pname": "Microsoft.OpenApi",
-    "version": "2.12.0",
-    "hash": "sha256-B42H4dhWZye4EID+Xr6X8jh5n0XcNwncX6iShkyiKic="
+    "version": "2.12.2",
+    "hash": "sha256-OjW4VjHhx7h3thJEypPgQvaiScouBV/Vw9krVPGyR6k="
   },
   {
     "pname": "Microsoft.OpenApi.Kiota",
@@ -71,8 +71,8 @@
   },
   {
     "pname": "Scalar.AspNetCore",
-    "version": "2.17.13",
-    "hash": "sha256-FpCmZviFKDs7S3Fo1uC/ludBEXFDVzwXivEgommkJkc="
+    "version": "2.18.7",
+    "hash": "sha256-2tucE6zdTvRkkoNzeWWrrngpTB1w6sg7dncHtlgLipA="
   },
   {
     "pname": "SharpZipLib",
@@ -91,7 +91,7 @@
   },
   {
     "pname": "Testcontainers",
-    "version": "4.15.0",
-    "hash": "sha256-TkgR9PuBo2GXXM+z3Z71+Nt6uwP2RGBT8UO2vAkgoWo="
+    "version": "4.16.0",
+    "hash": "sha256-yrjNsyWoIpZGyvoy8jDetO84ExJuJoOhA6r9epahzko="
   }
 ]

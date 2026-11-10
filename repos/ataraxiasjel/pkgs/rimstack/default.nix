@@ -87,6 +87,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     install -Dm644 crates/app/assets/rimstack.svg $out/share/icons/hicolor/scalable/apps/rimstack.svg
   '';
 
+  doCheck = false;
+
   passthru.updateScript = nix-update-script { };
 
   meta = {

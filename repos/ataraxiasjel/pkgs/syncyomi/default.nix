@@ -23,7 +23,7 @@ buildGoModule rec {
     hash = "sha256-/Ku1PQW99YGQ8gre5cPLvbLCl49bPq1/yEVQm035bZA=";
   };
 
-  vendorHash = "sha256-D30abAjC5dODf5abHu62F3Yzgh906Dxeu2Xo/gGDW5o=";
+  vendorHash = "sha256-s81XjEGGFPt9A5RJOZFN0qbt57XJA0ZADfqUWpgvrWw=";
 
   web = stdenvNoCC.mkDerivation (finalAttrs: {
     pname = "${pname}-web";
@@ -39,7 +39,7 @@ buildGoModule rec {
         ;
       inherit pnpm;
       fetcherVersion = 4;
-      hash = "sha256-blfqDY8Is/CtNE653yWU+v0Q/BcTZAa89VVmknPmXAA=";
+      hash = "sha256-fUp3lJ3E0kGmSB4bsZleRo7p6f5ucLBaKm+irprkNmE=";
     };
 
     nativeBuildInputs = [
