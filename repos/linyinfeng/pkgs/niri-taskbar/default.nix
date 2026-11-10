@@ -12,6 +12,11 @@ rustPlatform.buildRustPackage {
   inherit (sources.niri-taskbar) pname version src;
   cargoLock = sources.niri-taskbar.cargoLock."Cargo.lock";
 
+  patches = [
+    # TODO wait for https://github.com/LawnGnome/niri-taskbar/pull/35
+    ./skip-unknown-ipc-events.patch
+  ];
+
   postPatch = ''
     sed --in-place 's/rust-version = .*//' Cargo.toml
   '';

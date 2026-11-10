@@ -1,0 +1,14 @@
+diff --git a/src/niri/window_stream.rs b/src/niri/window_stream.rs
+index d3a77a7..c9257db 100644
+--- a/src/niri/window_stream.rs
++++ b/src/niri/window_stream.rs
+@@ -48,6 +48,9 @@ fn window_stream(tx: Sender<Snapshot>) -> Result<(), Error> {
+                         .map_err(|_| Error::WindowStreamSend)?;
+                 }
+             }
++            Err(e) if e.kind() == std::io::ErrorKind::InvalidData => {
++                tracing::warn!(%e, "Niri IPC: skipping unknown event");
++            }
+             Err(e) => {
+                 tracing::error!(%e, "Niri IPC error reading from event stream");
+                 return Err(Error::NiriIpc(e));
