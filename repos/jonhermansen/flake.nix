@@ -1,6 +1,6 @@
 {
   description = "Jon Hermansen's NUR repository";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/master";
   outputs = { self, nixpkgs }:
     let
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
