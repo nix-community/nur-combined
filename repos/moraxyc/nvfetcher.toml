@@ -145,6 +145,11 @@ fetch.github = "HMCL-dev/HMCL"
 src.github = "apernet/hysteria-realm-server"
 fetch.github = "apernet/hysteria-realm-server"
 
+[jiufenxuezhang-ielts]
+src.webpage = "https://static.9fnnn.com/electron/stable/latest-mac.yml"
+src.regex = "version: (\\S+)"
+fetch.url = "file:///dev/null"
+
 [libinput-three-finger-drag]
 src.git = "https://github.com/marsqing/libinput-three-finger-drag"
 fetch.github = "marsqing/libinput-three-finger-drag"
