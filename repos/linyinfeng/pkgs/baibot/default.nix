@@ -6,6 +6,7 @@
   pkg-config,
   cmake,
   openssl,
+  aws-lc,
   sqlite,
   cacert,
 }:
@@ -19,6 +20,7 @@ rustPlatform.buildRustPackage {
   ];
   buildInputs = [
     openssl
+    aws-lc
     sqlite
   ];
 

@@ -4,6 +4,7 @@
   lib,
   pkg-config,
   openssl,
+  zstd,
 }:
 
 rustPlatform.buildRustPackage {
@@ -11,7 +12,10 @@ rustPlatform.buildRustPackage {
   cargoLock = sources.dot-tar.cargoLock."Cargo.lock";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  buildInputs = [
+    openssl
+    zstd
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/linyinfeng/dot-tar";

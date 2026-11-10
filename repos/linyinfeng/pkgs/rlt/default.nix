@@ -5,6 +5,7 @@
   pkg-config,
   openssl,
   perl,
+  zstd,
 }:
 rustPlatform.buildRustPackage {
   inherit (sources.rlt) pname version src;
@@ -16,6 +17,7 @@ rustPlatform.buildRustPackage {
   ];
   buildInputs = [
     openssl
+    zstd
   ];
 
   meta = with lib; {
