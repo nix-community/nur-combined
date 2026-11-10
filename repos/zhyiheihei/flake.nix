@@ -125,8 +125,6 @@
             # 青简输入法（包在 pkgs/uncategorized/qingjian）。
             # 上层仓库 import 后设 lantian.qingjian.enable。
             qingjian = import ./modules/qingjian.nix self;
-
-            nextai-translator = import ./modules/nextai-translator.nix self;
           };
 
           hydraJobs.packages.x86_64-linux = self.hydraPackages.x86_64-linux;

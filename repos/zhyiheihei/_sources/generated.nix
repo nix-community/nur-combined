@@ -116,14 +116,6 @@
       hash = "sha256-6TxzO+cuRHNbyKY5s6LZX6gKRLWrTHVsklXESDF9JxA=";
     };
   };
-  nextai-translator = {
-    pname = "nextai-translator";
-    version = "0.6.55";
-    src = fetchurl {
-      url = "https://gh-proxy.com/https://github.com/nextai-translator/nextai-translator/releases/download/v0.6.55/NextAI.Translator_0.6.55_amd64.AppImage";
-      hash = "sha256-z0VSWuPXZQdu/px18Pqb0xXjUB/p12eTzlzQ6Rp6Ces=";
-    };
-  };
   nexttodo-linux-arm64 = {
     pname = "nexttodo-linux-arm64";
     version = "0.1.145";

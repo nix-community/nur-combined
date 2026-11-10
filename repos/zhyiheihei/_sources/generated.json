@@ -222,21 +222,6 @@
         },
         "version": "v0.7.1"
     },
-    "nextai-translator": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "nextai-translator",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-z0VSWuPXZQdu/px18Pqb0xXjUB/p12eTzlzQ6Rp6Ces=",
-            "type": "url",
-            "url": "https://gh-proxy.com/https://github.com/nextai-translator/nextai-translator/releases/download/v0.6.55/NextAI.Translator_0.6.55_amd64.AppImage"
-        },
-        "version": "0.6.55"
-    },
     "nexttodo-linux-arm64": {
         "cargoLock": null,
         "date": null,
