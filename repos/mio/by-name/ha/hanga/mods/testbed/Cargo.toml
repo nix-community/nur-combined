@@ -12,3 +12,6 @@ unexpected_cfgs = { level = "warn", check-cfg = ['cfg(kani)'] }
 
 [dependencies]
 wit-bindgen = "0.60.0"
+
+[dev-dependencies]
+kani = "0.0.1"

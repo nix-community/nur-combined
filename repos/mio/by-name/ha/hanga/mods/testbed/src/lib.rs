@@ -273,7 +273,7 @@ pub fn voxel_label(voxel: &str) -> String {
 
 pub fn voxel_label_for(locale: &str, voxel: &str) -> String {
     // A pack must decline names it does not own so the lead can label them.
-    if !matches!(voxel, "air" | "concrete" | "glass") {
+    if !matches!(voxel, "air" | "concrete" | "glass" | "platform") {
         return String::new();
     }
     let lang = locale_id(locale);
@@ -281,18 +281,22 @@ pub fn voxel_label_for(locale: &str, voxel: &str) -> String {
         (1, "air") => "hau",
         (1, "concrete") => "raima",
         (1, "glass") => "karaihe",
+        (1, "platform") => "tūāpapa",
         (1, _) => "tē mōhiotia",
         (2, "air") => "air",
         (2, "concrete") => "béton",
         (2, "glass") => "verre",
+        (2, "platform") => "plateforme",
         (2, _) => "inconnu",
         (3, "air") => "空氣",
         (3, "concrete") => "混凝土",
         (3, "glass") => "玻璃",
+        (3, "platform") => "平台",
         (3, _) => "未知",
         (_, "air") => "air",
         (_, "concrete") => "concrete",
         (_, "glass") => "glass",
+        (_, "platform") => "platform",
         _ => "unknown",
     }
     .into()
@@ -343,7 +347,7 @@ pub fn contract_label_for(_locale: &str, _kind: &str) -> String {
 
 pub fn loot_item(voxel: &str) -> String {
     match voxel {
-        "concrete" | "glass" => voxel.into(),
+        "concrete" | "glass" | "platform" => voxel.into(),
         _ => String::new(),
     }
 }
@@ -355,8 +359,16 @@ pub fn item_label_for(locale: &str, item: &str) -> String {
     voxel_label_for(locale, item)
 }
 
-pub fn craft_result(_item_a: &str, _item_b: &str) -> String {
-    String::new()
+pub fn craft_result(item_a: &str, item_b: &str) -> String {
+    let (a, b) = if item_a <= item_b {
+        (item_a, item_b)
+    } else {
+        (item_b, item_a)
+    };
+    match (a, b) {
+        ("concrete", "glass") => "platform".into(),
+        _ => String::new(),
+    }
 }
 
 pub fn crash_severity(_speed: f32, _into_solid: bool) -> i32 {
@@ -496,9 +508,74 @@ impl exports::hanga::engine::guest::Guest for TestbedMod {
 
 export!(TestbedMod);
 
+#[cfg(kani)]
+mod kani_verification {
+    use super::*;
+
+    #[kani::proof]
+    fn verify_testbed_craft_result_symmetry() {
+        let pick_a: u8 = kani::any();
+        let pick_b: u8 = kani::any();
+        let items = ["concrete", "glass", "platform", "air"];
+        let a = items[(pick_a as usize) % items.len()];
+        let b = items[(pick_b as usize) % items.len()];
+        let r1 = craft_result(a, b);
+        let r2 = craft_result(b, a);
+        kani::assert(r1 == r2, "craft_result must be symmetric in testbed");
+    }
+
+    #[kani::proof]
+    fn verify_testbed_query_voxel_never_panics() {
+        let x: i32 = kani::any();
+        let y: i32 = kani::any();
+        let z: i32 = kani::any();
+        let voxel = query_voxel(x, y, z);
+        kani::assert(voxel == 0 || voxel == 1 || voxel == 2, "testbed query_voxel returns valid index");
+    }
+
+    #[kani::proof]
+    fn verify_testbed_can_fracture_boolean() {
+        let pick: u8 = kani::any();
+        let items = ["concrete", "glass", "platform", "air", ""];
+        let v = items[(pick as usize) % items.len()];
+        let f = can_fracture(v);
+        kani::assert(f == 0 || f == 1, "can_fracture is 0 or 1");
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn testbed_craft_platform_container() {
+        assert_eq!(craft_result("concrete", "glass"), "platform");
+        assert_eq!(craft_result("glass", "concrete"), "platform");
+        assert_eq!(loot_item("platform"), "platform");
+        assert_eq!(voxel_label_for("en", "platform"), "platform");
+        assert_eq!(voxel_label_for("mi", "platform"), "tūāpapa");
+        assert_eq!(voxel_label_for("fr", "platform"), "plateforme");
+        assert_eq!(voxel_label_for("zh-TW", "platform"), "平台");
+        assert_eq!(can_fracture("platform"), 1);
+    }
+
+    #[test]
+    fn kani_replay_testbed_proofs() {
+        let items = ["concrete", "glass", "platform", "air"];
+        for a in items {
+            for b in items {
+                assert_eq!(craft_result(a, b), craft_result(b, a));
+            }
+        }
+        for (x, y, z) in [(0, 0, 0), (1, 0, 1), (0, -5, 0), (10, 10, 10)] {
+            let v = query_voxel(x, y, z);
+            assert!(v == 0 || v == 1 || v == 2);
+        }
+        for v in items {
+            let f = can_fracture(v);
+            assert!(f == 0 || f == 1);
+        }
+    }
 
     #[test]
     fn refuse_is_a_bus_error() {

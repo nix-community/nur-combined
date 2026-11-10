@@ -1480,6 +1480,25 @@ mod tests {
             assert!(vehicle::beam_length(1.0, crumple, 0) <= vehicle::beam_length(1.0, crumple, 100));
         }
     }
+
+    #[test]
+    fn kani_replay_pulse_and_clamps() {
+        for rem in [0.0, 50.0, 240.0, 500.0, 1000.0] {
+            for walk in [0.0, 10.0, 100.0, 300.0] {
+                let next = pulse_remaining(rem, walk);
+                assert!(next >= MOVE_PULSE_MS);
+                assert!(next >= rem);
+            }
+        }
+        for idx in [-10, 0, 1, 7, 8, 9, 100, i32::MAX] {
+            let clamped = clamp_hotbar_index(idx);
+            assert!(clamped < HOTBAR_SLOTS);
+        }
+        for (v, min, max) in [(-10, 0, 5), (0, 0, 5), (3, 0, 5), (5, 0, 5), (10, 0, 5)] {
+            let clamped = clamp_mod_state(v, min, max);
+            assert!(clamped >= min && clamped <= max);
+        }
+    }
 }
 
 #[cfg(kani)]
@@ -1630,6 +1649,34 @@ mod kani_verification {
         } else {
             kani::assert(clamped == voxel_type as u8, "valid types remain unchanged");
         }
+    }
+
+    #[kani::proof]
+    fn verify_pulse_remaining_bounds() {
+        let remaining: f32 = kani::any();
+        let wired_walk: f32 = kani::any();
+        kani::assume(remaining.is_finite() && remaining >= 0.0 && remaining < 1e6);
+        kani::assume(wired_walk.is_finite() && wired_walk >= 0.0 && wired_walk < 1e6);
+        let next = pulse_remaining(remaining, wired_walk);
+        kani::assert(next >= MOVE_PULSE_MS, "pulse_remaining is at least MOVE_PULSE_MS");
+        kani::assert(next >= remaining, "pulse_remaining never cuts a live pulse short");
+    }
+
+    #[kani::proof]
+    fn verify_clamp_hotbar_index_bounds() {
+        let index: i32 = kani::any();
+        let clamped = clamp_hotbar_index(index);
+        kani::assert(clamped < HOTBAR_SLOTS, "clamped hotbar index must be valid slot");
+    }
+
+    #[kani::proof]
+    fn verify_clamp_mod_state_bounds() {
+        let value: i32 = kani::any();
+        let min: i32 = kani::any();
+        let max: i32 = kani::any();
+        kani::assume(min <= max);
+        let clamped = clamp_mod_state(value, min, max);
+        kani::assert(clamped >= min && clamped <= max, "mod state stays within bounds");
     }
 }
 

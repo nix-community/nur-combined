@@ -12,7 +12,7 @@
 let
   fenix_repo = pkgs.fetchzip {
     url = "https://github.com/nix-community/fenix/archive/main.tar.gz";
-    hash = "sha256-37asD+JKFnedthzsuGP8mDgxCzjNePJVfMAVzYWIMfs=";
+    hash = "sha256-s0LM0VgI+LQF+hqO96lyqfpyrux6xS8CgcxTjv+g8qU=";
   };
   fenix = import fenix_repo { inherit pkgs; };
   toolchain_components = fenix.targets.x86_64-unknown-linux-gnu.toolchainOf {

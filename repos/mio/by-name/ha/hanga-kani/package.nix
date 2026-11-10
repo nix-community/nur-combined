@@ -86,5 +86,6 @@ rustPlatform.buildRustPackage {
   meta = {
     description = "Hanga Kani proofs check";
     license = lib.licenses.mit;
+    platforms = [ "x86_64-linux" ];
   };
 }

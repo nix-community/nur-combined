@@ -120,7 +120,11 @@ else
     ];
     buildInputs = [ apple-sdk_14 ];
     doCheck = true;
-    cargoTestFlags = [ "--lib" ];
+    cargoTestFlags = [
+      "--lib"
+      "--"
+      "--test-threads=1"
+    ];
     postInstall = wrapHanga;
     meta = {
       description = "Hanga development build with tests";

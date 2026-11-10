@@ -211,7 +211,7 @@ impl CityLayout {
         
         let base_elevation = crate::surface_elevation(x, z);
         
-        let relative_y = y - base_elevation;
+        let relative_y = y.saturating_sub(base_elevation);
 
         if relative_y < -12 {
             return Voxel::Concrete;
@@ -426,13 +426,14 @@ pub fn mod_get_economy_params() -> i32 {
 }
 
 pub fn generate_story_event(player_level: i32) -> String {
-    match player_level.clamp(0, 5) {
+    match player_level {
         0 => EVENT_QUIET.into(),
         1 => EVENT_SMASH.into(),
         2 => EVENT_SUBWAY.into(),
         3 => EVENT_CHOP.into(),
         4 => EVENT_TRUCK.into(),
-        _ => EVENT_DRILL.into(),
+        5 => EVENT_DRILL.into(),
+        _ => EVENT_BANK.into(),
     }
 }
 
@@ -753,12 +754,16 @@ pub fn event_label_for(locale: &str, event: &str) -> String {
         (1, EVENT_SUBWAY) => "hopu rerewē",
         (1, EVENT_CHOP) => "oma toa tapahi",
         (1, EVENT_TRUCK) => "keehi taraka pākaha",
+        (1, EVENT_DRILL) => "kirimina pāhua drill",
+        (1, EVENT_BANK) => "kirimina pāhua pēke",
         (1, _) => "takahanga tē mōhiotia",
         (2, EVENT_QUIET) => "rues calmes",
         (2, EVENT_SMASH) => "contrat de vol à la sauvette",
         (2, EVENT_SUBWAY) => "pincement du métro",
         (2, EVENT_CHOP) => "course à l'atelier",
         (2, EVENT_TRUCK) => "casse de fourgon blindé",
+        (2, EVENT_DRILL) => "contrat de casse par forage",
+        (2, EVENT_BANK) => "braquage de banque",
         (2, _) => "événement inconnu",
         (3, EVENT_QUIET) => "平靜的街道",
         (3, EVENT_SMASH) => "搶劫合約",
@@ -802,16 +807,17 @@ pub fn craft_result(item_a: &str, item_b: &str) -> String {
         (item_b, item_a)
     };
     match (a, b) {
+        ("asphalt", "concrete") => "brick".into(),
+        ("brick", "brick") => "concrete".into(),
         ("concrete", "concrete") => "sidewalk".into(),
         ("concrete", "glass") => "tile".into(),
-        ("grass", "grass") => "concrete".into(),
-        ("tile", "tile") => "rail".into(),
-        ("glass", "glass") => "workbench".into(),
-        ("glass", "sidewalk") => "workbench".into(),
         ("concrete", "grass") => "brick".into(),
         ("concrete", "workbench") => "brick".into(),
-        ("brick", "brick") => "concrete".into(),
+        ("glass", "glass") => "workbench".into(),
+        ("glass", "sidewalk") => "workbench".into(),
+        ("grass", "grass") => "concrete".into(),
         ("rail", "workbench") => "drill".into(),
+        ("tile", "tile") => "rail".into(),
         _ => String::new(),
     }
 }
@@ -1000,7 +1006,7 @@ pub fn mod_can_complete(
                 CONTRACT_SUBWAY => near && y < surface_elevation(400, 400),
                 CONTRACT_CHOP => near && held_one_of(held, &["brick", "concrete", "workbench"]),
                 CONTRACT_TRUCK => near && vehicle,
-                CONTRACT_DRILL => near && held == "workbench",
+                CONTRACT_DRILL => near && held_one_of(held, &["workbench", "drill"]),
                 CONTRACT_BANK => near && y < surface_elevation(550, 550) && held == "drill",
                 _ => near,
             })
@@ -1384,11 +1390,87 @@ mod kani_verification {
         kani::assert((initial_py - final_py).abs() < 0.1, "Y momentum must be conserved");
         kani::assert((initial_pz - final_pz).abs() < 0.1, "Z momentum must be conserved");
     }
+
+    #[kani::proof]
+    fn verify_craft_result_symmetry() {
+        let pick_a: u8 = kani::any();
+        let pick_b: u8 = kani::any();
+        let a = Voxel::CATALOG[(pick_a as usize) % Voxel::CATALOG.len()];
+        let b = Voxel::CATALOG[(pick_b as usize) % Voxel::CATALOG.len()];
+        let r1 = craft_result(a, b);
+        let r2 = craft_result(b, a);
+        kani::assert(r1 == r2, "craft_result must be strictly symmetric");
+    }
+
+    #[kani::proof]
+    fn verify_crash_severity_bounds() {
+        let speed: f32 = kani::any();
+        let into_solid: bool = kani::any();
+        kani::assume(speed.is_finite());
+        let sev = crash_severity(speed, into_solid);
+        kani::assert(
+            sev == 0 || sev == 25 || sev == 50 || sev == 75 || sev == 100,
+            "crash severity must be in quantized range 0-100",
+        );
+    }
+
+    #[kani::proof]
+    fn verify_fire_kit_properties() {
+        let age_ms: i32 = kani::any();
+        let nearby_pick: u8 = kani::any();
+        let nearby = Voxel::CATALOG[(nearby_pick as usize) % Voxel::CATALOG.len()];
+        kani::assume(age_ms >= 0 && age_ms <= 100_000);
+        let kit = fire_kit(age_ms, nearby);
+        if age_ms >= FIRE_FUEL_MS {
+            kani::assert(payload_flag(&kit, "out"), "fire must be out after fuel expires");
+        } else {
+            kani::assert(!payload_flag(&kit, "out"), "fire stays active while fuel remains");
+            if age_ms >= FIRE_BURST_MS {
+                kani::assert(payload_flag(&kit, "burst"), "fire bursts at burst threshold");
+            }
+        }
+    }
 }
 
 #[cfg(test)]
 mod kani_replay {
     use super::*;
+
+    #[test]
+    fn kani_replay_craft_result_symmetry() {
+        for a in Voxel::CATALOG {
+            for b in Voxel::CATALOG {
+                assert_eq!(craft_result(a, b), craft_result(b, a), "craft_result must be symmetric for ({a}, {b})");
+            }
+        }
+    }
+
+    #[test]
+    fn kani_replay_crash_severity_bounds() {
+        for speed in [-10.0, 0.0, 5.0, 8.0, 13.9, 14.0, 19.9, 20.0, 27.9, 28.0, 100.0] {
+            for into_solid in [false, true] {
+                let sev = crash_severity(speed, into_solid);
+                assert!([0, 25, 50, 75, 100].contains(&sev));
+            }
+        }
+    }
+
+    #[test]
+    fn kani_replay_fire_kit_properties() {
+        for age in [0, 399, 400, 7999, 8000, 11999, 12000, 20000] {
+            for v in Voxel::CATALOG {
+                let kit = fire_kit(age, v);
+                if age >= FIRE_FUEL_MS {
+                    assert!(payload_flag(&kit, "out"));
+                } else {
+                    assert!(!payload_flag(&kit, "out"));
+                    if age >= FIRE_BURST_MS {
+                        assert!(payload_flag(&kit, "burst"));
+                    }
+                }
+            }
+        }
+    }
 
     #[test]
     fn kani_replay_engine_mod_bounds() {

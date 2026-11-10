@@ -2968,7 +2968,7 @@ fn player_interaction(
     mouse_input: Res<ButtonInput<MouseButton>>,
     keys: Res<ButtonInput<KeyCode>>,
     mut events: MessageWriter<ProposedAction>,
-    mut query: Query<(Entity, &Transform, &mut ModInventory), With<Player>>,
+    mut query: Query<(Entity, &Transform, &mut ModInventory, Option<&InVehicle>), With<Player>>,
     cameras: Query<&GlobalTransform, With<VoxelWorldCamera<DefaultWorld>>>,
     vehicles: Query<(Entity, &Transform), (With<Vehicle>, Without<Player>, Without<Wrecked>)>,
     cheat_mode: Res<CheatMode>,
@@ -2986,7 +2986,7 @@ fn player_interaction(
         return;
     }
     if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_BREAK) {
-        if let Some((player_entity, transform, _)) = query.iter().next() {
+        if let Some((player_entity, transform, _, _)) = query.iter().next() {
             let (origin, forward) = aim_from(&cameras, transform);
             let voxel_pos = if cheat_mode.0 {
                 (origin + *forward * 50.0).floor().as_ivec3()
@@ -3003,7 +3003,7 @@ fn player_interaction(
     }
     
     if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_EXPLODE) {
-        if let Some((player_entity, transform, _)) = query.iter().next() {
+        if let Some((player_entity, transform, _, _)) = query.iter().next() {
             let (origin, forward) = aim_from(&cameras, transform);
             let Some((voxel_pos, _)) = aimed_block(origin, forward, &voxel_world, action_range(&mod_runtime, ACTION_EXPLODE, 30.0)) else {
                 return;
@@ -3015,7 +3015,7 @@ fn player_interaction(
     }
 
     if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_PLACE) {
-        if let Some((player_entity, transform, mut inventory)) = query.iter_mut().next() {
+        if let Some((player_entity, transform, mut inventory, _)) = query.iter_mut().next() {
             let (origin, forward) = aim_from(&cameras, transform);
             let Some((hit, normal)) = aimed_block(origin, forward, &voxel_world, AIM_REACH) else {
                 return;
@@ -3046,15 +3046,21 @@ fn player_interaction(
     }
 
     if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_ENTER) {
-        if let Some((player_entity, transform, _)) = query.iter().next() {
-            if let Some(vehicle_entity) = nearest_vehicle(transform.translation, &vehicles, action_range(&mod_runtime, ACTION_ENTER, 5.0)) {
+        if let Some((player_entity, transform, _, in_vehicle)) = query.iter().next() {
+            if let Some(InVehicle(current)) = in_vehicle {
+                events.write(signed_enter(player_entity, *current));
+            } else if let Some(vehicle_entity) = nearest_vehicle(
+                transform.translation,
+                &vehicles,
+                action_range(&mod_runtime, ACTION_ENTER, 5.0),
+            ) {
                 events.write(signed_enter(player_entity, vehicle_entity));
             }
         }
     }
 
     if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_CRAFT) {
-        if let Some((player_entity, _, inventory)) = query.iter().next() {
+        if let Some((player_entity, _, inventory, _)) = query.iter().next() {
             if let Some((a, b)) = pick_craft_pair(inventory, &mod_runtime) {
                 events.write(signed_verb(player_entity, ACTION_CRAFT, &format!("{a}+{b}")));
             }
@@ -3062,17 +3068,17 @@ fn player_interaction(
     }
 
     if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_ACCEPT) {
-        if let Some((player_entity, _, _)) = query.iter().next() {
+        if let Some((player_entity, _, _, _)) = query.iter().next() {
             events.write(signed_verb(player_entity, ACTION_ACCEPT, ""));
         }
     }
     if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_COMPLETE) {
-        if let Some((player_entity, _, _)) = query.iter().next() {
+        if let Some((player_entity, _, _, _)) = query.iter().next() {
             events.write(signed_verb(player_entity, ACTION_COMPLETE, ""));
         }
     }
     if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_FENCE) {
-        if let Some((player_entity, _, _)) = query.iter().next() {
+        if let Some((player_entity, _, _, _)) = query.iter().next() {
             events.write(signed_verb(player_entity, ACTION_FENCE, ""));
         }
     }
