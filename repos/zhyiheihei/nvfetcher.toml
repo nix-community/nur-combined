@@ -43,6 +43,11 @@ src.github_tag = "mxcoras/jieba-next"
 fetch.github = "zhyiheihei/navdash"
 src.github_tag = "zhyiheihei/navdash"
 
+[nextai-translator]
+fetch.url = "https://gh-proxy.com/https://github.com/nextai-translator/nextai-translator/releases/download/v$ver/NextAI.Translator_$ver_amd64.AppImage"
+src.github = "nextai-translator/nextai-translator"
+src.prefix = "v"
+
 [nexttodo-linux-arm64]
 fetch.url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v$ver/nexttodo-linux-arm64"
 src.github = "JunieXD/NextTodo"
