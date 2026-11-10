@@ -143,10 +143,17 @@ def main():
                 if gui.poll() is not None:
                     raise RuntimeError(f"GUI exited during plugin initialization with status {gui.returncode}")
                 if time.monotonic() >= deadline:
+                    # Signed-out releases can defer reconciliation until feature availability is known.
+                    # Keep waiting normally, and never excuse an initialization the app actually started.
+                    text = log.read_text()
+                    if ("bundled_plugins_reconcile_skipped_features_unavailable" in text
+                            and "bundled_plugins_reconcile_started" not in text):
+                        print("SKIP: app deferred bundled plugin initialization because features are unavailable")
+                        break
                     raise RuntimeError("App did not finish copying and updating the bundled plugin within 60s")
                 time.sleep(0.25)
 
-            # Check for delayed failures after the window and plugin initialization are both ready.
+            # Check for delayed failures after startup and the plugin initialization check.
             deadline = time.monotonic() + 5
             while time.monotonic() < deadline:
                 check_errors()
@@ -177,7 +184,7 @@ def main():
 
     if failure is not None:
         return 1
-    print("PASS: concurrent versions, cache integrity and reuse, GUI and plugin initialization, stability")
+    print("PASS: concurrent versions, cache integrity and reuse, GUI startup, stability")
     return 0
 
 

@@ -8,4 +8,4 @@
 
 ## Package documentation
 
-- Keep package-specific information in each package's README, not in AGENTS.md.
+- Keep package-specific information in `docs/`, organized by package, with `docs/README.md` as the index.

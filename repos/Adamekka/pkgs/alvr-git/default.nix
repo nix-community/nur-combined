@@ -13,6 +13,7 @@
   vulkan-headers,
   writeShellApplication,
   x264,
+  zstd,
 }:
 
 let
@@ -51,6 +52,9 @@ let
       });
 in
 (alvr.override { inherit ffmpeg-alvr; }).overrideAttrs (oldAttrs: {
+  # zstd-sys requires libzstd.pc when using Nixpkgs' system-library configuration.
+  buildInputs = oldAttrs.buildInputs ++ [ zstd ];
+
   # buildRustPackage captures the release cargoHash before overrideAttrs runs.
   cargoDeps = rustPlatform.fetchCargoVendor {
     hash = "sha256-Wj8FVh8X7biYf/Fnjz/9t7jRfG85j9W21Pae5RnXZVA=";

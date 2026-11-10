@@ -64,7 +64,11 @@ it checks concurrent launches, cache permissions and reuse, and GUI startup with
 the bundled Codex process under Xvfb. Chromium's sandbox remains enabled; the
 disposable Ubuntu CI VM allows user namespaces for the test. It also runs on
 regular PRs and pushes to `main`. It does not upload the proprietary application
-to the public binary cache. Login and account-dependent features need manual testing.
+to the public binary cache. If the app explicitly defers plugin reconciliation
+because feature availability is unknown, the test reports plugin initialization
+as skipped only after its timeout and only if reconciliation never started.
+Startup and cache checks remain required. Login and account-dependent features
+need manual testing.
 
 Before pushing, the publishing job fetches `main` and aborts if it no longer
 matches the tested base. The ordinary non-force push also rejects a concurrent

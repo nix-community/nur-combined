@@ -37,6 +37,8 @@ def main():
             ).strip()
 
         git_output("init", "--quiet")
+        # Background maintenance can rewrite shallow boundaries between these fetches.
+        git_output("config", "maintenance.auto", "false")
         git_output("remote", "add", "origin", "https://github.com/RPCS3/rpcs3.git")
         git_output(
             "fetch", "--recurse-submodules=no", "--depth=1", "origin", args.revision
