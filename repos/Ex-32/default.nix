@@ -12,6 +12,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   ccc = pkgs.callPackage ./pkgs/ccc {};
+  nuclear = pkgs.callPackage ./pkgs/nuclear {};
   # vramfs = pkgs.callPackage ./pkgs/vramfs {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...

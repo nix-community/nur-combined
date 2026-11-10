@@ -23,7 +23,7 @@ in
 
     meta = {
       homepage = "https://github.com/ssleert/ccc";
-      description = "A Linux ram cache dropper in C without *alloc()";
+      description = "Linux ram cache dropper in C without *alloc()";
       license = lib.licenses.mit;
       platforms = lib.platforms.linux;
       mainProgram = "ccc";
