@@ -216,6 +216,7 @@ modules: {
 	grok: {input: "self:modules/grok", enable: true}
 	codex: {input: "self:modules/codex", enable: true}
 	opencode: {input: "self:modules/opencode", enable: true}
+	llm: {input: "self:modules/llm", enable: true}
 }
 
 options: fontconfig: {
