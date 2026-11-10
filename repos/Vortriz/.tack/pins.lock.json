@@ -44,11 +44,15 @@
     "type": "github",
     "owner": "archisman-panigrahi",
     "repo": "doi2bib3",
-    "rev": "e41eaef5f002799a4a48cee2706a0157b5fb8692",
-    "narHash": "sha256-hhe1opgkPTaaLopGzPtiCZqk1/qGtN5TbBSKeQFJ9xw=",
-    "lastModified": 1793212171,
-    "tag": "v1.7.1",
-    "version": "1.7.1"
+    "rev": "0f6106338c5847b4922b4348cd607e7c77c9d795",
+    "narHash": "sha256-DgcE14WsofhDHRbKPWimbY0PZZa/5LO+JCkuNuKS+so=",
+    "lastModified": 1794279940,
+    "archive": {
+      "hash": "sha256-3QH16FAtpiwO7PoHKvua1rpQRScezXeTagzeQFIkoDA=",
+      "outHash": "sha256-3OtE/N2vWvHOqh7/qM6eyjOF6S8I1RBHQCgE+kBN+Mc="
+    },
+    "tag": "v1.8.0",
+    "version": "1.8.0"
   },
   "enhance-piper.yazi": {
     "type": "github",
@@ -102,9 +106,9 @@
     "type": "github",
     "owner": "manic-systems",
     "repo": "tack",
-    "rev": "ea48abbf5ceb99d4e150b545767a2159f3e07979",
-    "narHash": "sha256-rpcW35sv5exqvhZ0uuyY/14KXaS9hndXJ5qb4DiLFIo=",
-    "lastModified": 1794193449
+    "rev": "f59bc3e6679df14d402e40bf895cc2533bae4ca2",
+    "narHash": "sha256-ZK5sfTsvSo9VYEi8mAVtfu5FUFvMYoGMn6+CYzS1pPU=",
+    "lastModified": 1794242539
   },
   "treefmt-nix": {
     "type": "github",
@@ -144,11 +148,11 @@
   },
   "zotlit": {
     "type": "fixed",
-    "url": "https://github.com/aidenlx/zotlit/releases/download/zt-2.2.1/zotlit-zotero-2.2.1.xpi",
-    "sha256": "sha256-hkky2Iy8rW91lwwLA4JMB6br3mbjFh29+dbrlKWVfVc=",
+    "url": "https://github.com/aidenlx/zotlit/releases/download/zt-2.2.2/zotlit-zotero-2.2.2.xpi",
+    "sha256": "sha256-4q+q5fcvnsyB6RgEPxBmnZ+3ilvDBSoQ0RLh4zTrJIM=",
     "unpack": "file",
-    "tag": "zt-2.2.1",
-    "version": "2.2.1"
+    "tag": "zt-2.2.2",
+    "version": "2.2.2"
   },
   "zotmoov": {
     "type": "fixed",
