@@ -4555,7 +4555,7 @@ dependencies = [
 
 [[package]]
 name = "nixbox"
-version = "0.4.5"
+version = "0.4.7"
 dependencies = [
  "anyhow",
  "clap",
@@ -4574,14 +4574,14 @@ dependencies = [
 
 [[package]]
 name = "nixbox-cli"
-version = "0.4.5"
+version = "0.4.7"
 dependencies = [
  "nixbox-cmd",
 ]
 
 [[package]]
 name = "nixbox-cmd"
-version = "0.4.5"
+version = "0.4.7"
 dependencies = [
  "anyhow",
  "clap",
@@ -4600,7 +4600,7 @@ dependencies = [
 
 [[package]]
 name = "nixbox-config"
-version = "0.4.5"
+version = "0.4.7"
 dependencies = [
  "anyhow",
  "directories",
@@ -4611,7 +4611,7 @@ dependencies = [
 
 [[package]]
 name = "nixbox-core"
-version = "0.4.5"
+version = "0.4.7"
 dependencies = [
  "anyhow",
  "axum",
@@ -4628,7 +4628,7 @@ dependencies = [
 
 [[package]]
 name = "nixbox-nix"
-version = "0.4.5"
+version = "0.4.7"
 dependencies = [
  "anyhow",
  "libc",
@@ -4642,7 +4642,7 @@ dependencies = [
 
 [[package]]
 name = "nixbox-tui"
-version = "0.4.5"
+version = "0.4.7"
 dependencies = [
  "anyhow",
  "clap",
