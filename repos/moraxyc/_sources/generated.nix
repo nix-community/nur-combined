@@ -102,16 +102,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "9cbb534c7d9e48db8879b4891ce69747440db0cf";
+    version = "93ce63265a0c47335f9198e512b7756355f6bff8";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "9cbb534c7d9e48db8879b4891ce69747440db0cf";
+      rev = "93ce63265a0c47335f9198e512b7756355f6bff8";
       fetchSubmodules = false;
-      sha256 = "sha256-t23XbvBKVkWUhNNnyP3UALdaCA5z7nPgRwHZ02Aakyk=";
+      sha256 = "sha256-jAMBGJDu7I362V3lHM6DVSeMbRvrF/nTMSv7MMApL4o=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-t23XbvBKVkWUhNNnyP3UALdaCA5z7nPgRwHZ02Aakyk=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-jAMBGJDu7I362V3lHM6DVSeMbRvrF_nTMSv7MMApL4o=/backend/Cargo.lock";
       outputHashes = {
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
         "runas-1.2.0" = "sha256-cTYTFtmdmCztL2JhgnOxwKhd+VfUmm5DB3gkNy92g04=";
@@ -137,13 +137,13 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v8.0.63";
+    version = "v8.0.64";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "cliproxyapi";
-      rev = "v8.0.63";
+      rev = "v8.0.64";
       fetchSubmodules = false;
-      sha256 = "sha256-ANJ+ZXGj4TlMAnNfQWVjm4GmbzpCRh5qgquBQwXIOec=";
+      sha256 = "sha256-X/G9jGelmB0RUnc8Eyw5QdXmBVywz2610TknILzkV8c=";
     };
   };
   cpa-usage-keeper = {
