@@ -44,6 +44,7 @@ declare -a syncoid_cmd=(
   "${syncoid_run[@]}"
   --no-sync-snap
   --use-hold
+  --compress=zstdmt-fast
   fw/root
   prop:propdata/trip/fw-backup-2/root
 )
