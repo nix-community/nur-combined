@@ -4,3 +4,13 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: ci
+  - package-ecosystem: "nix"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: flake.lock

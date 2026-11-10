@@ -1,0 +1,31 @@
+name: dependabot
+
+on:
+  pull_request:
+
+permissions: {}
+
+jobs:
+  merge:
+    runs-on: ubuntu-slim
+    name: merge
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    steps:
+      - name: Create app token for auto merge
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        id: app-token
+        with:
+          client-id: ${{ vars.HANEKOKORO_BOT_CLIENT_ID }}
+          private-key: ${{ secrets.HANEKOKORO_BOT_PRIVATE_KEY }}
+          permission-pull-requests: write
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@d7267f607e9d3fb96fc2fbe83e0af444713e90b7
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Merge
+        if: steps.dependabot-metadata.outputs.package-ecosystem == 'github-actions' || steps.dependabot-metadata.outputs.package-ecosystem == 'nix'
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
