@@ -47,6 +47,15 @@ ProxyDHCP, TFTP, and HTTP servers. Keep the LAN's existing DHCP server running.
 The command decrypts the CA as your user, then uses sudo to start a transient
 systemd service. It needs a Linux host running systemd.
 
+To boot Memtest86+ instead of the installer:
+
+```sh
+nix run .#make-installer -- pxe --memtest
+```
+
+This serves Memtest86+ without an initrd and does not decrypt or embed the SSH CA.
+The same firewall, port, and listen-address options apply.
+
 On a NixOS host it detects the nftables or iptables firewall and offers to open
 UDP 67, 69, 4011 and the HTTP TCP port temporarily. Use `--firewall open` to accept
 without a prompt, or `--firewall skip` to manage the firewall yourself. It removes

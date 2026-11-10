@@ -53,6 +53,7 @@ let
       pxeInitrd = "${pxe.system.build.netbootRamdisk}/initrd";
       pxeKernel = "${pxe.system.build.kernel}/${pxe.system.boot.loader.kernelFile}";
       pxeCmdline = "init=${pxe.system.build.toplevel}/init ${toString pxe.boot.kernelParams}";
+      memtest = pkgs.memtest86plus.efi;
       pixiecore = lib.getExe pkgs.pixiecore;
       firewall = lib.getExe firewall;
       ca = "${vacuRoot}/secrets/misc/installer_ssh_ca";

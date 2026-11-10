@@ -47,7 +47,12 @@ parser.add_argument(
     "--port", type=int, default=8080, help="PXE HTTP port (default: 8080)"
 )
 parser.add_argument("--listen-addr", default="0.0.0.0", help="PXE server IPv4 address")
+parser.add_argument(
+    "--memtest", action="store_true", help="PXE: boot Memtest86+ instead of the installer"
+)
 args = parser.parse_args()
+if args.memtest and args.format != "pxe":
+    parser.error("--memtest requires PXE mode")
 if args.format == "pxe":
     if args.output is not None:
         parser.error("PXE serves directly; omit the output path")
@@ -90,47 +95,48 @@ elif output is not None and output.exists():
 os.umask(0o077)
 with tempfile.TemporaryDirectory(prefix="installer-") as tmp:
     work = Path(tmp)
-    keys = work / "installer-ssh-ca"
-    keys.mkdir()
-    ca = keys / "key"
-    if args.ca_key is None:
-        with ca.open("wb") as stream:
+    if not args.memtest:
+        keys = work / "installer-ssh-ca"
+        keys.mkdir()
+        ca = keys / "key"
+        if args.ca_key is None:
+            with ca.open("wb") as stream:
+                run(
+                    settings["sops"],
+                    "decrypt",
+                    "--input-type",
+                    "binary",
+                    "--output-type",
+                    "binary",
+                    settings["ca"],
+                    stdout=stream,
+                )
+        else:
+            shutil.copyfile(args.ca_key, ca)
+        public = (
+            subprocess.check_output(["ssh-keygen", "-y", "-f", str(ca)])
+            .decode()
+            .split()[:2]
+        )
+        if public != Path(settings["caPublic"]).read_text().split()[:2]:
+            parser.error("CA key does not match installer_ssh_ca")
+        (keys / "principals").write_text(args.principals.lower())
+        (keys / "validity").write_text(args.validity)
+        archive = work / "ca.cpio"
+        with archive.open("wb") as stream:
             run(
-                settings["sops"],
-                "decrypt",
-                "--input-type",
-                "binary",
-                "--output-type",
-                "binary",
-                settings["ca"],
+                "cpio",
+                "--create",
+                "--format=newc",
+                "--quiet",
+                cwd=work,
+                input="\n".join(
+                    ["installer-ssh-ca"]
+                    + [str(p.relative_to(work)) for p in keys.iterdir()]
+                ).encode()
+                + b"\n",
                 stdout=stream,
             )
-    else:
-        shutil.copyfile(args.ca_key, ca)
-    public = (
-        subprocess.check_output(["ssh-keygen", "-y", "-f", str(ca)])
-        .decode()
-        .split()[:2]
-    )
-    if public != Path(settings["caPublic"]).read_text().split()[:2]:
-        parser.error("CA key does not match installer_ssh_ca")
-    (keys / "principals").write_text(args.principals.lower())
-    (keys / "validity").write_text(args.validity)
-    archive = work / "ca.cpio"
-    with archive.open("wb") as stream:
-        run(
-            "cpio",
-            "--create",
-            "--format=newc",
-            "--quiet",
-            cwd=work,
-            input="\n".join(
-                ["installer-ssh-ca"]
-                + [str(p.relative_to(work)) for p in keys.iterdir()]
-            ).encode()
-            + b"\n",
-            stdout=stream,
-        )
 
     def append_ca(initrd):
         with initrd.open("ab") as stream, archive.open("rb") as source:
@@ -139,9 +145,15 @@ with tempfile.TemporaryDirectory(prefix="installer-") as tmp:
             shutil.copyfileobj(source, stream)
 
     if args.format == "pxe":
-        initrd = work / "initrd"
-        shutil.copyfile(settings["pxeInitrd"], initrd)
-        append_ca(initrd)
+        if args.memtest:
+            payload = [settings["memtest"]]
+        else:
+            initrd = work / "initrd"
+            shutil.copyfile(settings["pxeInitrd"], initrd)
+            append_ca(initrd)
+            payload = [
+                settings["pxeKernel"], str(initrd), "--cmdline", settings["pxeCmdline"]
+            ]
         root = [] if os.geteuid() == 0 else ["sudo"]
         firewall = settings["firewall"]
         backend = "none"
@@ -180,10 +192,7 @@ with tempfile.TemporaryDirectory(prefix="installer-") as tmp:
         command += [
             settings["pixiecore"],
             "boot",
-            settings["pxeKernel"],
-            str(initrd),
-            "--cmdline",
-            settings["pxeCmdline"],
+            *payload,
             "--dhcp-no-bind",
             "--debug",
             "--log-timestamps",
@@ -194,7 +203,8 @@ with tempfile.TemporaryDirectory(prefix="installer-") as tmp:
             "--listen-addr",
             args.listen_addr,
         ]
-        print(f"Serving installer with {unit}. Press Ctrl-C to stop.", flush=True)
+        target = "Memtest86+" if args.memtest else "installer"
+        print(f"Serving {target} with {unit}. Press Ctrl-C to stop.", flush=True)
 
         def stop_on_signal(signum, frame):
             raise KeyboardInterrupt
