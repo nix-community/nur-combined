@@ -135,6 +135,17 @@
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
+  cliproxyapi = {
+    pname = "cliproxyapi";
+    version = "v8.0.63";
+    src = fetchFromGitHub {
+      owner = "router-for-me";
+      repo = "cliproxyapi";
+      rev = "v8.0.63";
+      fetchSubmodules = false;
+      sha256 = "sha256-ANJ+ZXGj4TlMAnNfQWVjm4GmbzpCRh5qgquBQwXIOec=";
+    };
+  };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
     version = "bf5fb1c05ae0d2c7ec3f80b1d30d5d622b72f287";

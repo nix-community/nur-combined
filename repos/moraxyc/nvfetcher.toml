@@ -42,6 +42,10 @@ cargo_lock = ['backend/Cargo.lock']
 src.github = "libnyanpasu/clash-nyanpasu"
 fetch.url = "file:///dev/null"
 
+[cliproxyapi]
+src.github = "router-for-me/cliproxyapi"
+fetch.github = "router-for-me/cliproxyapi"
+
 [cpa-usage-keeper]
 src.git = "https://github.com/Willxup/cpa-usage-keeper.git"
 fetch.github = "Willxup/cpa-usage-keeper"
@@ -347,5 +351,6 @@ cargo_lock = ['Cargo.lock']
 [whois42d-ng-stable]
 src.github = "moraxyc/whois42d-ng"
 fetch.url = "file:///dev/null"
+
 
 # keep-sorted end
