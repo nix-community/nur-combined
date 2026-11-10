@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "zpp-bits";
-  version = "4.7.6";
+  version = "4.7.7";
 
   src = fetchFromGitHub {
     owner = "eyalz800";
     repo = "zpp_bits";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-SEWoa+qKHE/oN8JXyC/Y1WYbD8ljCTQOAQKIrDc1X/w=";
+    hash = "sha256-3bC/Sgd90RpkRHh3XFVcLETdBZvmRdDmV6Q0aXzN39M=";
   };
 
   dontBuild = true;

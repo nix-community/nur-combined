@@ -24,13 +24,13 @@ let
 in
 buildNpmPackage (finalAttrs: {
   pname = "feishin";
-  version = "1.17.0-unstable-2026-11-09";
+  version = "1.17.0-unstable-2026-11-10";
 
   src = fetchFromGitHub {
     "owner" = "jeffvli";
     "repo" = "feishin";
-    "rev" = "e60dcc80e223703d285639736ee0bd9e3c9e9d43";
-    "hash" = "sha256-irBsmmSUSji67d3nsFZtQIiKQmtn2rPTs4x+Jn7rCK8=";
+    "rev" = "302db1cc55b731c727141ea1ddcb73c6178dacb8";
+    "hash" = "sha256-hSAuEuoc3+yN6SZSwn0LmwnoscFyDCKcjJ+OUVlO7mY=";
   };
 
   __structuredAttrs = true;
@@ -47,7 +47,7 @@ buildNpmPackage (finalAttrs: {
       src
       ;
     fetcherVersion = 4;
-    hash = "sha256-oyKXTXuEdRK/G8Tr9i5FDhyslM5FfoD6+puBmTNRwC8=";
+    hash = "sha256-lrtoO2t/0TRbQu+CAhCp4BDoyrCvpP8LdBu7nGt99wc=";
   };
 
   env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
