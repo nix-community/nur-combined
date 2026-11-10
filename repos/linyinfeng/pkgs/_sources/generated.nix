@@ -19,16 +19,16 @@
   };
   baibot = {
     pname = "baibot";
-    version = "v2026.11.06.0";
+    version = "v2026.11.09.0";
     src = fetchFromGitHub {
       owner = "etkecc";
       repo = "baibot";
-      rev = "v2026.11.06.0";
+      rev = "v2026.11.09.0";
       fetchSubmodules = false;
-      sha256 = "sha256-ou6cIN3BeC8XzKckp0J9A/nKlhF8je9Xpf/AWdw5hDE=";
+      sha256 = "sha256-yMxEGKRRCl93VuEa7Iej9x55L6xpKsW2G5pvYl0gRAs=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-ou6cIN3BeC8XzKckp0J9A_nKlhF8je9Xpf_AWdw5hDE=/Cargo.lock";
+      lockFile = ./. + "/sha256-yMxEGKRRCl93VuEa7Iej9x55L6xpKsW2G5pvYl0gRAs=/Cargo.lock";
       outputHashes = {
 
       };
@@ -50,13 +50,13 @@
   };
   cowrie = {
     pname = "cowrie";
-    version = "v3.1.5";
+    version = "v3.1.6";
     src = fetchFromGitHub {
       owner = "cowrie";
       repo = "cowrie";
-      rev = "v3.1.5";
+      rev = "v3.1.6";
       fetchSubmodules = false;
-      sha256 = "sha256-6060NM2vRKRFXnnZ3Atgqm1p/MRpThIH2t7dFMW+Cb8=";
+      sha256 = "sha256-1/m3kuJhI0eyigl5wOso9/pWxAopoaWy1RDKlnDhqrw=";
     };
   };
   dot-tar = {
@@ -191,7 +191,7 @@
     version = "v1.7.2";
     src = fetchurl {
       url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.7.2/MoeKoe_Music_v1.7.2-x86_64.AppImage";
-      sha256 = "sha256-8MUWs07/lnPfXdBdbnpzQjamNy2k6xJEvAPYsTi0b4Q=";
+      sha256 = "sha256-ebuqGVFF3iAfn/2yJCh/nctSmi1IsHL24iLRDxZow3M=";
     };
   };
   mstickereditor = {
