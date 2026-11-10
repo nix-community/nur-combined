@@ -7,13 +7,13 @@
   lib,
   ...
 }: let
-  version = "1.15.15.0";
+  version = "1.15.17.2";
 
   src = fetchFromGitHub {
     owner = "Equicord";
     repo = "Equicord";
     tag = "v${version}";
-    hash = "sha256-mqmFkVb0XZ8CQuokTIe60Ll4RMJ2rlL6HLKvo/mS0zA=";
+    hash = "sha256-yREhzm+HDSi9ZXepZmJy7zC5ZKfXUp5iUQga9XjLZ7k=";
   };
 
   # TODO: Once 26.11 drops remove the fixup.
@@ -23,7 +23,7 @@
       inherit version src;
       pnpm = pnpm_11;
       fetcherVersion = 4;
-      hash = "sha256-YI+fviBbfyKPdPZtMqin3Sk2M1Rumdf+B8n68bsibnc=";
+      hash = "sha256-rFxPEG/BvWUnI+nu1IAZAJxye6MRkoOGS9Afj2ksRK0=";
     }).overrideAttrs (old: {
       fixupPhase =
         lib.replaceStrings [
