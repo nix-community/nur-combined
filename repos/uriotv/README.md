@@ -30,13 +30,13 @@ redistribution.
 | Package | Version | Description | Public cache |
 |---|---|---|---|
 | `lantern-engine` | `0.9.38` | Lantern Engine by Awaken, built from source (needs your own game dump) | Yes |
-| `wordcraft` | `0.16.0` | Word processor (official binary release) | No: redistribution review pending |
-| `gridcraft` | `0.17.0` | Spreadsheet editor (official binary release) | No: redistribution review pending |
-| `deckcraft` | `0.16.0` | Presentation editor (official binary release) | No: redistribution review pending |
-| `pdfcraft` | `0.19.0` | PDF viewer and editor (official binary release) | No: redistribution review pending |
-| `photocraft` | `0.21.0` | Image editor (official binary release) | No: redistribution review pending |
-| `filmcraft` | `0.18.0` | Video editor (official binary release) | No: redistribution review pending |
-| `soundcraft` | `0.18.0` | Digital audio workstation (official binary release) | No: redistribution review pending |
+| `wordcraft` | `0.17.0` | Word processor (official binary release) | No: redistribution review pending |
+| `gridcraft` | `0.18.0` | Spreadsheet editor (official binary release) | No: redistribution review pending |
+| `deckcraft` | `0.17.0` | Presentation editor (official binary release) | No: redistribution review pending |
+| `pdfcraft` | `0.20.0` | PDF viewer and editor (official binary release) | No: redistribution review pending |
+| `photocraft` | `0.22.0` | Image editor (official binary release) | No: redistribution review pending |
+| `filmcraft` | `0.19.0` | Video editor (official binary release) | No: redistribution review pending |
+| `soundcraft` | `0.19.0` | Digital audio workstation (official binary release) | No: redistribution review pending |
 | `meitou-launcher` | `1.9.0` | Source-built launcher that downloads Meitou versions (requires Kenshi) | Yes |
 | `cybergrub2077` | `2.0.1-unstable-2026-02-28` | Cyberpunk 2077 inspired GRUB theme | Yes |
 | `nmssaveeditor` | `1.21.0` | Save editor for No Man's Sky | No: unfree |
