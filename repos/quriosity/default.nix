@@ -51,8 +51,11 @@
   proton-cachyos-v3 = pkgs.callPackage ./pkgs/compat-tools/proton-cachyos { variant = "x86_64-v3"; };
 
   # SDDM themes
-  echo-sddm = pkgs.callPackage ./pkgs/sddm-themes/echo-sddm {};
-  where-is-my-sddm-theme = pkgs.callPackage ./pkgs/sddm-themes/where-is-my-sddm-theme {};
+  echo-sddm = pkgs.callPackage ./pkgs/themes/sddm/echo-sddm {};
+  where-is-my-sddm-theme = pkgs.callPackage ./pkgs/themes/sddm/where-is-my-sddm-theme {};
+
+  # GTK themes
+  darkly-gtk = pkgs.callPackage ./pkgs/themes/gtk/darkly {};
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
