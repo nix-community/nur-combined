@@ -27,13 +27,13 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "niri-git";
-  version = "26.04-unstable-2026-11-08";
+  version = "26.04-unstable-2026-11-09";
 
   src = fetchFromGitHub {
     owner = "niri-wm";
     repo = "niri";
-    rev = "90d5c1bf7381a81c953cb8b3f26c5ddcaa3f48cb";
-    hash = "sha256-yyY6yKRasttZ8GKTqfyDGdlWtqHPVE19ZMrJ5dmHGnY=";
+    rev = "5935130029941411d9c00784a974a77f244ea3b5";
+    hash = "sha256-Olv3oXpH+E2AicKSb0Ggem1AW5hDEJEt7J/HDu1IGgk=";
   };
 
   cargoHash = "sha256-rLVTigIUf8rxn25bVdjVyOqPPjBq8KpKINoXQ/gFYxI=";
