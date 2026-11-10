@@ -10,13 +10,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "neorex";
-  version = "0.1.0-unstable-2026-11-09";
+  version = "0.1.0-unstable-2026-11-10";
 
   src = fetchFromGitHub {
     owner = "alexrlocke";
     repo = "neorex";
-    rev = "f3f2d47881ce0166a81d7125a75c706d70707701";
-    hash = "sha256-XfOGoMT0ddt8HJsYrWcBVUX7CuOYSOt8RW4PwrjJQks=";
+    rev = "7a0789f68ea5592daf9c8961c8b32d6e5bd0299f";
+    hash = "sha256-dxYSbsgaKD28lJZV61oelVmP80lDECGneg2vMx8B1NM=";
   };
 
   # Fail in the Nix sandbox

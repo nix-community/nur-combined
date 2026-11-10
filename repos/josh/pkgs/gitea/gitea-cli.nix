@@ -12,17 +12,17 @@
 }:
 buildGo127Module (finalAttrs: {
   pname = "gitea-cli";
-  version = "1.1.0";
+  version = "1.2.0";
 
   src = fetchFromGitea {
     domain = "gitea.com";
     owner = "gitea";
     repo = "cli";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-VXGLBbX6Y8Gkli2CLLHv0qeZuReAmJXh2ntGHoFQsU8=";
+    hash = "sha256-ZW51bSQxm9LEksHpWt66HGg7jtu4iuz4+4a+R6ss9So=";
   };
 
-  vendorHash = "sha256-PSjD8n0gn/9LskgQWqQPniS/sBbJf6mV04/AZHRa8l4=";
+  vendorHash = "sha256-xj93kLq4uEuMymf/sdmZOz/pjfWAXbxnu9K2Xpis8PU=";
 
   nativeBuildInputs = [ installShellFiles ];
   nativeCheckInputs = [ git ];
