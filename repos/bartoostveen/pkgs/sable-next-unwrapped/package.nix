@@ -63,6 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
   env = {
     VITE_BUILD_HASH = finalAttrs.src.rev;
     SABLE_BUILD_FLAVOR = "stable";
+    SABLE_FOSS = 1;
   };
 
   buildPhase = ''
