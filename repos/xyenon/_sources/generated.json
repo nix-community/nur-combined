@@ -115,7 +115,7 @@
     },
     "mholt/caddy-l4": {
         "cargoLock": null,
-        "date": "20261109095811",
+        "date": "20261109183710",
         "extract": null,
         "name": "mholt/caddy-l4",
         "passthru": {
@@ -130,12 +130,12 @@
             "name": null,
             "owner": "mholt",
             "repo": "caddy-l4",
-            "rev": "79f151c5dbd8d234398f88027b36bcc3d7597a16",
-            "sha256": "sha256-AgJvXSJenSB1hXPQKfmtQSr+Bl9IjxIScme1zJsIhLI=",
+            "rev": "eafc300ef23bcb2a28cc329a18e1e98bcd2b7cee",
+            "sha256": "sha256-2xpHjE2434pyUXFCi2MmVW6ADPhYL2baZFGR6uArfHE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "79f151c5dbd8d234398f88027b36bcc3d7597a16"
+        "version": "eafc300ef23bcb2a28cc329a18e1e98bcd2b7cee"
     },
     "mholt/caddy-webdav": {
         "cargoLock": null,
@@ -267,7 +267,7 @@
     },
     "yazi-rs-plugins": {
         "cargoLock": null,
-        "date": "2026-11-06",
+        "date": "2026-11-10",
         "extract": null,
         "name": "yazi-rs-plugins",
         "passthru": null,
@@ -279,11 +279,11 @@
             "name": null,
             "owner": "yazi-rs",
             "repo": "plugins",
-            "rev": "c0529fc34e4649effb79ff6f4a86aec46beebb7f",
-            "sha256": "sha256-Wf10m6iY4xWKALLFQBOz1vgGXOQpPzryPnFS+s40QFg=",
+            "rev": "70e03737ef91546e33114f94eabaad90d3b75c5f",
+            "sha256": "sha256-a4oddfENYnRD1AhDSBPBRMHgl+MPFnWELuO5uepOsqA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c0529fc34e4649effb79ff6f4a86aec46beebb7f"
+        "version": "70e03737ef91546e33114f94eabaad90d3b75c5f"
     }
 }
