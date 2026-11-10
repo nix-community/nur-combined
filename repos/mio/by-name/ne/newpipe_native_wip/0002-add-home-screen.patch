@@ -27,15 +27,15 @@ diff --git a/shared/src/commonMain/kotlin/net/newpipe/app/navigation/NavModule.k
 index fe1f30f91..b41323961 100644
 --- a/shared/src/commonMain/kotlin/net/newpipe/app/navigation/NavModule.kt
 +++ b/shared/src/commonMain/kotlin/net/newpipe/app/navigation/NavModule.kt
-@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateListOf
- import co.touchlab.kermit.Logger
- import net.newpipe.app.screen.about.AboutScreen
+@@ -15,6 +15,7 @@ import net.newpipe.app.screen.settings.HistorySettingsScreen
+ import net.newpipe.app.screen.settings.PlayerSettingsScreen
  import net.newpipe.app.screen.settings.SettingsHomeScreen
+ import net.newpipe.app.screen.settings.VideoAudioSettingsScreen
 +import net.newpipe.app.screen.home.HomeScreen
  import org.koin.core.annotation.KoinExperimentalAPI
  import org.koin.core.annotation.Provided
  import org.koin.core.annotation.Singleton
-@@ -32,6 +33,10 @@ fun navModule() = module {
+@@ -35,6 +36,10 @@ fun navModule() = module {
      navigation<Destination.Settings> {
          SettingsHomeScreen()
      }

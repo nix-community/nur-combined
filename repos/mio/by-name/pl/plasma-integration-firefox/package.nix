@@ -3,12 +3,13 @@
   stdenvNoCC,
   fetchFromGitLab,
   zip,
-  gitUpdater,
+  writeShellApplication,
+  nix-update-script,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "plasma-integration-firefox";
-  version = "2.2";
+  version = "6.8.3";
 
   extid = "plasma-browser-integration@kde.org";
 
@@ -16,8 +17,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     domain = "invent.kde.org";
     owner = "plasma";
     repo = "plasma-browser-integration";
-    tag = "v6.8.2";
-    hash = "sha256-VJCOO2fR5PrUHqUuLhOxC935OnJ2O/lm8zlqtEubCbo=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-DIvQY936eX+8AVlTy5VdiJCbasUfhOhsmOAnd5B/XS8=";
   };
 
   nativeBuildInputs = [ zip ];
@@ -41,8 +42,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru = {
     inherit (finalAttrs) extid;
-    updateScript = gitUpdater {
-      rev-prefix = "v";
+    updateScript = writeShellApplication {
+      name = "update-plasma-integration-firefox";
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="plasma-integration-firefox"
+        exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+      '';
     };
   };
 

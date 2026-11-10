@@ -114,7 +114,7 @@ diff -Naur a/Telegram/SourceFiles/history/history_inner_widget.cpp b/Telegram/So
  }
  
  bool HistoryInner::hasCopyMediaRestriction(
-@@ -3864,17 +3864,17 @@
+@@ -4123,18 +4123,7 @@ bool HistoryInner::showCopyMediaRestriction(not_null<HistoryItem*> item) {
  }
  
  bool HistoryInner::hasCopyRestrictionForSelected() const {
@@ -126,20 +126,11 @@ diff -Naur a/Telegram/SourceFiles/history/history_inner_widget.cpp b/Telegram/So
 -			return true;
 -		}
 -	}
--	return hasSelectedText()
--		&& _selectedTextItem
--		&& _selectedTextItem->forbidsForward();
+-	const auto textItem = hasSelectedText()
+-		? _selectedTextItem
+-		: _widgetSelection->item();
+-	return textItem && textItem->forbidsForward();
 +	return false;
-+		//return true;
-+	//}
-+	//for (const auto &item : _selected) {
-+		//if (item && item->forbidsForward()) {
-+			//return true;
-+		//}
-+	//}
-+	//return hasSelectedText()
-+		//&& _selectedTextItem
-+		//&& _selectedTextItem->forbidsForward();
  }
  
  bool HistoryInner::showCopyRestrictionForSelected() {

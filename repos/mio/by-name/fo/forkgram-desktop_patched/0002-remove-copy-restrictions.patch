@@ -1,0 +1,87 @@
+diff -Naur a/Telegram/SourceFiles/history/view/history_view_list_widget.cpp b/Telegram/SourceFiles/history/view/history_view_list_widget.cpp
+--- a/Telegram/SourceFiles/history/view/history_view_list_widget.cpp
++++ b/Telegram/SourceFiles/history/view/history_view_list_widget.cpp
+@@ -2401,22 +2401,6 @@
+ }
+ 
+ bool ListWidget::hasCopyRestrictionForSelected() const {
+-	if (hasCopyRestriction()) {
+-		return true;
+-	}
+-	if (_selected.empty()) {
+-		if ((_selectedTextItem && _selectedTextItem->forbidsForward())
+-			|| _widgetSelection->copyRestricted()) {
+-			return true;
+-		}
+-	}
+-	for (const auto &[itemId, selection] : _selected) {
+-		if (const auto item = session().data().message(itemId)) {
+-			if (item->forbidsForward()) {
+-				return true;
+-			}
+-		}
+-	}
+ 	return false;
+ }
+ 
+@@ -7148,43 +7133,18 @@
+ CopyRestrictionType CopyRestrictionTypeFor(
+ 		not_null<PeerData*> peer,
+ 		HistoryItem *item) {
+-	return (peer->allowsForwarding() && (!item || !item->forbidsForward()))
+-		? CopyRestrictionType::None
+-		: peer->isUser()
+-		? CopyRestrictionType::User
+-		: peer->isBroadcast()
+-		? CopyRestrictionType::Channel
+-		: CopyRestrictionType::Group;
++	return CopyRestrictionType::None;
+ }
+ 
+ CopyRestrictionType CopyMediaRestrictionTypeFor(
+ 		not_null<PeerData*> peer,
+ 		not_null<HistoryItem*> item) {
+-	if (const auto all = CopyRestrictionTypeFor(peer, item)
+-		; all != CopyRestrictionType::None) {
+-		return all;
+-	}
+-	return !item->forbidsSaving()
+-		? CopyRestrictionType::None
+-		: peer->isUser()
+-		? CopyRestrictionType::User
+-		: peer->isBroadcast()
+-		? CopyRestrictionType::Channel
+-		: CopyRestrictionType::Group;
++	return CopyRestrictionType::None;
+ }
+ 
+ CopyRestrictionType SelectRestrictionTypeFor(
+ 		not_null<PeerData*> peer) {
+-	if (const auto chat = peer->asChat()) {
+-		return chat->canDeleteMessages()
+-			? CopyRestrictionType::None
+-			: CopyRestrictionTypeFor(peer);
+-	} else if (const auto channel = peer->asChannel()) {
+-		return channel->canDeleteMessages()
+-			? CopyRestrictionType::None
+-			: CopyRestrictionTypeFor(peer);
+-	}
+-	return CopyRestrictionTypeFor(peer);
++	return CopyRestrictionType::None;
+ }
+ 
+ PeerData *FirstRevealWaitPeer(not_null<HistoryItem*> item) {
+diff -Naur a/Telegram/SourceFiles/media/view/media_view_overlay_widget.cpp b/Telegram/SourceFiles/media/view/media_view_overlay_widget.cpp
+--- a/Telegram/SourceFiles/media/view/media_view_overlay_widget.cpp	2026-11-10 19:08:43.982402092 +1100
++++ b/Telegram/SourceFiles/media/view/media_view_overlay_widget.cpp	2026-11-10 19:09:45.491152691 +1100
+@@ -1482,9 +1482,7 @@
+ 			? !story->canDownloadIfPremium()
+ 			: !story->canDownloadChecked();
+ 	}
+-	return (_history && !_history->peer->allowsForwarding())
+-		|| (_message && _message->forbidsSaving())
+-		|| (_history && _screenshotProtected);
++	return false;
+ }
+ 
+ bool OverlayWidget::showCopyMediaRestriction(bool skipPRemiumCheck) {

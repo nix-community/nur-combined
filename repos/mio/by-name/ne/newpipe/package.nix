@@ -41,13 +41,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "newpipe";
-  version = "0.29.2";
+  version = "0.29.3";
 
   src = fetchFromGitHub {
     owner = "TeamNewPipe";
     repo = "NewPipe";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-qdulNERZa+z5TxWadnk58ofngQnRsd8GDb1xrtrYX4Q=";
+    hash = "sha256-au3S2W+R3wzF72U+zJvqwY0oOQcWG7MsrCvcz4/JU9o=";
   };
 
   patches = [

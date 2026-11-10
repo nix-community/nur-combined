@@ -9,7 +9,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "user-agent-switcher-firefox";
-  version = "1.4.113";
+  version = "1.4.114";
 
   extid = "user-agent-switcher@ninetailed.ninja";
 
@@ -18,7 +18,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "ntninja";
     repo = "user-agent-switcher";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-yxmEyxHrDAKuWwOWtF1/szEKFDpCBOs0bCevHOKyYLg=";
+    hash = "sha256-CFuKq94+bU7AV4enr7Frl+q3eH4A0n3Semp7ZTd2Rf0=";
   };
 
   nativeBuildInputs = [ zip ];

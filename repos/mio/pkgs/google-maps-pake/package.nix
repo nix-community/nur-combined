@@ -11,7 +11,7 @@ makePakeApp {
   icon = fetchurl {
     name = "google-maps-icon.png";
     url = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Google_Maps_icon_%282020%29.svg/1280px-Google_Maps_icon_%282020%29.svg.png";
-    hash = "sha256-HVY6iEISjbPa5BKPq4e9bSHPp8D9jCcbFL3iGtf2agw=";
+    hash = "sha256-XIiA2peOR+VLtSJF8eXsutKCJYCdCWnTbpD3pmBsRCE=";
   };
   meta = {
     description = "Desktop application for Google Maps (packaged via Pake)";

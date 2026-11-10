@@ -16,6 +16,9 @@
   libxrender,
   fontconfig,
   freetype,
+  nix-update-script,
+  writeShellApplication,
+  jq,
 }:
 
 let
@@ -23,13 +26,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "newpipe-native-wip-wip";
-  version = "0.29.1";
+  version = "0.29.3";
 
   src = fetchFromGitHub {
     owner = "TeamNewPipe";
     repo = "NewPipe";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-pzwqMrDZKN4zmmorRK1jN1Wzg4OVZ5zDtAjIEDLoAnY=";
+    hash = "sha256-au3S2W+R3wzF72U+zJvqwY0oOQcWG7MsrCvcz4/JU9o=";
   };
 
   patches = [
@@ -136,6 +139,19 @@ stdenv.mkDerivation (finalAttrs: {
       startupWMClass = "newpipe-native-wip";
     })
   ];
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-newpipe_native_wip";
+    runtimeInputs = [ jq ];
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="newpipe_native_wip"
+      ${lib.escapeShellArgs (nix-update-script { })} "$@"
+      depsFile="by-name/ne/newpipe_native_wip/deps.json"
+      if [ -f "$depsFile" ]; then
+        jq 'del(."https:/"?."api.github")' "$depsFile" > "$depsFile.tmp" && mv "$depsFile.tmp" "$depsFile"
+      fi
+    '';
+  };
 
   meta = {
     description = "NewPipe Compose Multiplatform desktop app (native JVM build)";

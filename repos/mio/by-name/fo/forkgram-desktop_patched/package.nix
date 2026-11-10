@@ -22,6 +22,10 @@ forkgram-desktop.overrideAttrs (old: {
           (forkgram-desktop.unwrapped.patches or [ ])
           ++ [
             ./0001-forkgramPatches.patch
+            # The 7.x list widget checks copy/select restrictions through
+            # HistoryView::CopyRestrictionTypeFor; the older patch only covers
+            # the legacy HistoryInner paths.
+            ./0002-remove-copy-restrictions.patch
           ]
           ++ lib.optionals enableSwift6 [
             # Point apple Swift runtime helper at Nix Swift instead of Xcode.

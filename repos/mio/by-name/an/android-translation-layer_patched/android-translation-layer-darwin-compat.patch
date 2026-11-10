@@ -14,10 +14,10 @@ diff -ruN a/src/libandroid/native_window.c b/src/libandroid/native_window.c
  
  // FIXME: move this together with the other stuff that doesn't belong in this file
  #include <openxr/openxr.h>
-@@ -418,6 +424,17 @@
+@@ -421,6 +427,17 @@
  		};
  
- 		return vkCreateXlibSurfaceKHR(instance, &x11_create_info, pAllocator, pSurface);
+ 		ret = vkCreateXlibSurfaceKHR(instance, &x11_create_info, pAllocator, pSurface);
 +#ifdef __APPLE__
 +	} else if (GDK_IS_MACOS_DISPLAY(display)) {
 +		GtkWidget *window = GTK_WIDGET(gtk_widget_get_native(pCreateInfo->window->surface_view_widget));
@@ -27,32 +27,34 @@ diff -ruN a/src/libandroid/native_window.c b/src/libandroid/native_window.c
 +			.sType = VK_STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK,
 +			.pView = content_view,
 +		};
-+		return vkCreateMacOSSurfaceMVK(instance, &macos_create_info, pAllocator, pSurface);
++		ret = vkCreateMacOSSurfaceMVK(instance, &macos_create_info, pAllocator, pSurface);
 +#endif
  	} else {
  		fprintf(stderr, "bionic_vkCreateAndroidSurfaceKHR: the GDK backend is neither Wayland nor X11, no SurfaceView for you");
- 		return VK_ERROR_UNKNOWN;
-@@ -427,11 +444,19 @@
+ 		ret = VK_ERROR_UNKNOWN;
+@@ -443,12 +460,21 @@
  VkResult bionic_vkCreateInstance(VkInstanceCreateInfo *pCreateInfo, const VkAllocationCallbacks *pAllocator, VkInstance *pInstance)
  {
  	int original_extension_count = pCreateInfo->enabledExtensionCount;
 +#ifdef __APPLE__
-+	int new_extension_count = original_extension_count + 1;
++	int new_extension_count = original_extension_count + 2;
 +#else
- 	int new_extension_count = original_extension_count + 2;
+ 	int new_extension_count = original_extension_count + 3;
 +#endif
  	const char **enabled_exts = malloc(new_extension_count * sizeof(char *));
  	memcpy(enabled_exts, pCreateInfo->ppEnabledExtensionNames, original_extension_count * sizeof(char *));
 +#ifdef __APPLE__
 +	enabled_exts[original_extension_count] = "VK_MVK_macos_surface";
++	enabled_exts[original_extension_count + 1] = "VK_KHR_surface";
 +#else
  	enabled_exts[original_extension_count] = "VK_KHR_wayland_surface";
  	enabled_exts[original_extension_count + 1] = "VK_KHR_xlib_surface";
+ 	enabled_exts[original_extension_count + 2] = "VK_KHR_surface";
 +#endif
  
  	pCreateInfo->enabledExtensionCount = new_extension_count;
  	pCreateInfo->ppEnabledExtensionNames = enabled_exts;
-@@ -448,7 +473,7 @@
+@@ -491,7 +517,7 @@
  
  // FIXME 2: this BLATANTLY belongs elsewhere
  
@@ -61,7 +63,7 @@ diff -ruN a/src/libandroid/native_window.c b/src/libandroid/native_window.c
  
  /* avoid hard dependency on libopenxr_loader for the three functions that we only ever call when running a VR app */
  /* NOTE: our use of __builtin_va_arg_pack means this only works as long as we don't need to call a function
-@@ -461,7 +486,7 @@
+@@ -504,7 +530,7 @@
  	}
  
  	xr_func func = dlsym(openxr_loader_handle, func_name);

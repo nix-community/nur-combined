@@ -6,21 +6,23 @@
   pango,
   tlottie,
   wallet-engine,
+  writeShellApplication,
+  nix-update,
 }:
 
-telegram-desktop.override {
+(telegram-desktop.override {
   pname = "forkgram-desktop";
   unwrapped = telegram-desktop.unwrapped.overrideAttrs (
     finalAttrs: previousAttrs: {
       pname = "forkgram-desktop-unwrapped";
-      version = "7.3.3";
+      version = "7.4.1";
 
       src = fetchFromGitHub {
         owner = "forkgram";
         repo = "tdesktop";
         tag = "v${finalAttrs.version}";
         fetchSubmodules = true;
-        hash = "sha256-TesT9OHMhWRHSVhAsso0ajOVmCVhBDqUJGW9XvOuNHY=";
+        hash = "sha256-ct42yDZpjHGomYcy+Wuq4pZqrxtMvHSTtVTWdMWAIgc=";
       };
 
       buildInputs = previousAttrs.buildInputs ++ [
@@ -45,4 +47,15 @@ telegram-desktop.override {
       };
     }
   );
-}
+}).overrideAttrs
+  (prevAttrs: {
+    passthru = (prevAttrs.passthru or { }) // {
+      updateScript = writeShellApplication {
+        name = "update-forkgram-desktop";
+        runtimeInputs = [ nix-update ];
+        text = ''
+          exec nix-update --override-filename by-name/fo/forkgram-desktop/package.nix forkgram-desktop.unwrapped "$@"
+        '';
+      };
+    };
+  })

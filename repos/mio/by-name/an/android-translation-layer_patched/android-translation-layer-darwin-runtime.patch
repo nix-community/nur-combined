@@ -173,35 +173,38 @@ Subject: [PATCH] Darwin software decoding and host runtime safety
  	avcodec_free_context(&ctx->codec);
 --- a/src/libandroid/native_window.c
 +++ b/src/libandroid/native_window.c
-@@ -436,7 +436,10 @@
+@@ -430,7 +430,11 @@
  			.sType = VK_STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK,
  			.pView = content_view,
  		};
--		return vkCreateMacOSSurfaceMVK(instance, &macos_create_info, pAllocator, pSurface);
+-		ret = vkCreateMacOSSurfaceMVK(instance, &macos_create_info, pAllocator, pSurface);
 +		PFN_vkCreateMacOSSurfaceMVK create_surface = (PFN_vkCreateMacOSSurfaceMVK)vkGetInstanceProcAddr(instance, "vkCreateMacOSSurfaceMVK");
 +		if (!create_surface)
-+			return VK_ERROR_EXTENSION_NOT_PRESENT;
-+		return create_surface(instance, &macos_create_info, pAllocator, pSurface);
++			ret = VK_ERROR_EXTENSION_NOT_PRESENT;
++		else
++			ret = create_surface(instance, &macos_create_info, pAllocator, pSurface);
  #endif
  	} else {
  		fprintf(stderr, "bionic_vkCreateAndroidSurfaceKHR: the GDK backend is neither Wayland nor X11, no SurfaceView for you");
-@@ -446,24 +449,29 @@
+@@ -453,26 +457,29 @@
  
  VkResult bionic_vkCreateInstance(VkInstanceCreateInfo *pCreateInfo, const VkAllocationCallbacks *pAllocator, VkInstance *pInstance)
  {
 -	int original_extension_count = pCreateInfo->enabledExtensionCount;
 -#ifdef __APPLE__
--	int new_extension_count = original_extension_count + 1;
--#else
 -	int new_extension_count = original_extension_count + 2;
+-#else
+-	int new_extension_count = original_extension_count + 3;
 -#endif
 -	const char **enabled_exts = malloc(new_extension_count * sizeof(char *));
 -	memcpy(enabled_exts, pCreateInfo->ppEnabledExtensionNames, original_extension_count * sizeof(char *));
 -#ifdef __APPLE__
 -	enabled_exts[original_extension_count] = "VK_MVK_macos_surface";
+-	enabled_exts[original_extension_count + 1] = "VK_KHR_surface";
 -#else
 -	enabled_exts[original_extension_count] = "VK_KHR_wayland_surface";
 -	enabled_exts[original_extension_count + 1] = "VK_KHR_xlib_surface";
+-	enabled_exts[original_extension_count + 2] = "VK_KHR_surface";
 -#endif
 -
 -	pCreateInfo->enabledExtensionCount = new_extension_count;
