@@ -126,8 +126,6 @@
             # 上层仓库 import 后设 lantian.qingjian.enable。
             qingjian = import ./modules/qingjian.nix self;
 
-            # NextAI Translator 划词翻译（包在 pkgs/uncategorized/nextai-translator）。
-            # 上层仓库 import 后设 lantian.nextai-translator.enable。
             nextai-translator = import ./modules/nextai-translator.nix self;
           };
 

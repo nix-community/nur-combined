@@ -1,7 +1,3 @@
-# NextAI Translator 划词翻译桌面端 NixOS 模块主体。
-# 本模块随 zhyi-packages 发布，由上层 flake（nixos-config 的
-# nixos/client-apps/nextai-translator.nix 薄壳）导入后启用；包定义在
-# ../pkgs/uncategorized/nextai-translator，逻辑不重复落在上层仓库。
 self:
 {
   config,
