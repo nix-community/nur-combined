@@ -1,4 +1,4 @@
-{ lib, rustPlatform, fetchFromGitHub, git, nix-update-script }:
+{ lib, rustPlatform, fetchFromGitHub, git, nix-update-script, libgit2, pkg-config }:
 
 rustPlatform.buildRustPackage rec {
   pname = "lsd";
@@ -14,7 +14,9 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-TcC8ZY8Xv0076bLrprXGPh5nyGnR2NRnGeuTSEK4+Gg=";
 
   ## for checkPhase
-  nativeBuildInputs = [ git ];
+  nativeBuildInputs = [ pkg-config git ];
+
+  buildInputs = [ libgit2 ];
 
   passthru.updateScript = nix-update-script { };
 

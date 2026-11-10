@@ -8,6 +8,7 @@
 , git
 , makeWrapper
 , nix-update-script
+, libgit2
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -31,7 +32,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs = [
-    openssl
+    openssl libgit2
   ];
 
   postInstall = ''
