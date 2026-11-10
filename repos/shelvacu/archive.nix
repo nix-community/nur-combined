@@ -7,6 +7,7 @@
 let
   ignoreList = [
     "iso"
+    "make-installer"
     "host-pxe-installer"
     "host-pxe-installer-aarch64"
     "pxe-initrd"

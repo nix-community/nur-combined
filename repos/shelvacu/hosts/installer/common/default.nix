@@ -1,4 +1,11 @@
-{ config, lib, ... }: {
+{
+  config,
+  lib,
+  ...
+}:
+{
+  imports = [ ./ssh.nix ];
+
   # this is an installer image, created anew every time. There's no state we need to worry about messing up
   system.stateVersion = config.system.nixos.release;
   services.openssh.settings.PermitRootLogin = lib.mkForce "yes";

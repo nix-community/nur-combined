@@ -10,6 +10,9 @@
 let
   outerConfig = config;
   tests = {
+    installer = {
+      isExistingHost = false;
+    };
     liam = { };
     caddy-kanidm = {
       isExistingHost = false;
