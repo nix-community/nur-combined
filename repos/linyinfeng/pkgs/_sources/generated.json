@@ -187,12 +187,12 @@
             "name": null,
             "owner": "intel",
             "repo": "linux-intel-lts",
-            "rev": "lts-v6.18.58-linux-261022T004453Z",
-            "sha256": "sha256-c6uBQ1VQfdPb04GMGBrGDBhji37FFoiA+ULGOPIxD9k=",
+            "rev": "lts-v6.18.60-linux-261103T015043Z",
+            "sha256": "sha256-m6IJgQd0C71q328n2c8nALmsB00hAhCwxsmBNEd7skQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "lts-v6.18.58-linux-261022T004453Z"
+        "version": "lts-v6.18.60-linux-261103T015043Z"
     },
     "linux-intel-mainline-tracking": {
         "cargoLock": null,
@@ -717,7 +717,7 @@
     },
     "rime-quick": {
         "cargoLock": null,
-        "date": "2026-07-17",
+        "date": "2026-11-10",
         "extract": null,
         "name": "rime-quick",
         "passthru": null,
@@ -727,13 +727,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "5dcdb9e353d314239e9c8cddc0f42d52da4837bb",
-            "sha256": "sha256-O+Rbsff2V+TTfrC82PZftALEDDVI2SUUFBlDHyztH/k=",
+            "rev": "207d1efcc0dc9574510b61be861544edcf993736",
+            "sha256": "sha256-dICcFoT2g681ZuaMr+5ijTQkm6Eu2qGjozyoh2Im1eM=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-quick.git"
         },
-        "version": "5dcdb9e353d314239e9c8cddc0f42d52da4837bb"
+        "version": "207d1efcc0dc9574510b61be861544edcf993736"
     },
     "rime-stroke": {
         "cargoLock": null,
