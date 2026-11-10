@@ -8,7 +8,7 @@
   fetchPnpmDeps,
   glib-networking,
   nodejs,
-  pnpm,
+  pnpm_11,
   pnpmConfigHook,
   pkg-config,
   rustPlatform,
@@ -41,11 +41,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
       "sha256-UygkxJZoiJlsgp8PLf1zaSVsJZx1GGdQyTXqaFv3oGk=";
   };
 
+  # pnpmDeps.hash is tied to the pnpm major that produced the store, and
+  # nixos-26.05 ships pnpm 11 while unstable ships pnpm 12. Pin pnpm_11
+  # (11.27.0 on both) so one hash covers every channel in CI's matrix.
   pnpmDeps = fetchPnpmDeps {
     pname = finalAttrs.pname;
     inherit (finalAttrs) src;
+    pnpm = pnpm_11;
     fetcherVersion = 5;
-    hash = "sha256-UBUFb+smJA/FQy6TmsXzaCgsFb/m6inSUBa7Qn2/NOk=";
+    hash = "sha256-aALhI/YYru6CAOiUXmpBKr5UYYVhKjHyXrYILTYLFug=";
   };
 
   # The workspace root is the tauri app; vite needs the whole monorepo on disk
@@ -57,7 +61,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     desktop-file-utils
     nodejs
     pkg-config
-    pnpm
+    pnpm_11
     pnpmConfigHook
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
