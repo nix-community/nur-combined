@@ -213,6 +213,15 @@
       "datasource": "github-releases"
     },
     {
+      "kind": "source",
+      "ref": "github:lewtec/modot",
+      "depName": "lewtec/modot",
+      "packageName": "https://github.com/lewtec/modot",
+      "currentValue": "master",
+      "currentDigest": "833e99da856a33ef2809a0606ed338224a456eca",
+      "datasource": "git-refs"
+    },
+    {
       "kind": "tool",
       "ref": "github:lewtec/rod-mcp",
       "depName": "lewtec/rod-mcp",
@@ -234,15 +243,6 @@
       "depName": "lucasew/refactree",
       "currentValue": "0.11.0",
       "datasource": "github-releases"
-    },
-    {
-      "kind": "source",
-      "ref": "github:lewtec/modot",
-      "depName": "lewtec/modot",
-      "packageName": "https://github.com/lewtec/modot",
-      "currentValue": "master",
-      "currentDigest": "833e99da856a33ef2809a0606ed338224a456eca",
-      "datasource": "git-refs"
     },
     {
       "kind": "tool",
@@ -305,6 +305,13 @@
       "ref": "github:sharkdp/fd",
       "depName": "sharkdp/fd",
       "currentValue": "v10.5.0",
+      "datasource": "github-releases"
+    },
+    {
+      "kind": "tool",
+      "ref": "github:sigoden/aichat",
+      "depName": "sigoden/aichat",
+      "currentValue": "v0.30.0",
       "datasource": "github-releases"
     },
     {

@@ -69,6 +69,11 @@ lazy_tools: {
 		global: true
 		bins: ["opencode"]
 	}
+	aichat: {
+		ref: "github:sigoden/aichat"
+		global: true
+		bins: ["aichat"]
+	}
 	rclone: {
 		ref: "github:rclone/rclone"
 		global: true
@@ -216,7 +221,7 @@ modules: {
 	grok: {input: "self:modules/grok", enable: true}
 	codex: {input: "self:modules/codex", enable: true}
 	opencode: {input: "self:modules/opencode", enable: true}
-	llm: {input: "self:modules/llm", enable: true}
+	aichat: {input: "self:modules/aichat", enable: true}
 }
 
 options: fontconfig: {

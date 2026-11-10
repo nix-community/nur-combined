@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-# simonw/llm shim. Runs the latest llm from PyPI through uvx.
-# Models are configured in ~/.config/io.datasette.llm by modules/llm.
-
-exec uvx --from llm llm "$@"
