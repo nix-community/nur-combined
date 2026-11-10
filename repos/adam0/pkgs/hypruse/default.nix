@@ -34,14 +34,14 @@
 in
   buildPythonApplication rec {
     pname = "hypruse";
-    version = "0.13.1";
+    version = "0.14.1";
     pyproject = true;
 
     src = fetchFromGitHub {
       owner = "IlyasKhallouki";
       repo = "hypruse";
       tag = "v${version}";
-      hash = "sha256-vprYHAeQWNVOK/vhFqt3HUvL4ZQQyLlNFFMUIE17Y2s=";
+      hash = "sha256-Iel/NK6wI5jyUyrUZgIBsWZ6DVKDpXVGgccmz7DagFk=";
     };
 
     build-system = [hatchling];
@@ -51,7 +51,7 @@ in
 
     # Test the installed wheel's skill rather than the checkout-only location.
     postPatch = ''
-      substituteInPlace src/hypruse/keymap.py tests/test_keymap.py \
+      substituteInPlace src/hypruse/keymap.py \
         --replace-fail 'ctypes.util.find_library("xkbcommon")' '"${lib.getLib libxkbcommon}/lib/libxkbcommon.so.0"'
       substituteInPlace tests/test_skill.py \
         --replace-fail 'ROOT / "skills" / "hypruse"' 'Path(skill.__file__).resolve().parent / "skill"'
