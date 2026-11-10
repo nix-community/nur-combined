@@ -18,12 +18,12 @@
 }:
 
 let
-  version = "0.3.92";
+  version = "0.3.96";
   src = fetchFromGitHub {
     owner = "router-for-me";
     repo = "EasyCLIProxyAPI";
     tag = "v${version}";
-    hash = "sha256-NG4Gjbn4G/rm10VTHUyoMk5BWxIMTEJIeN46YCbYm88=";
+    hash = "sha256-9zels+58I8+zzMIkMEhGHwB4R4PsZLFROEDvJYQ3AEY=";
   };
 
   frontend = buildNpmPackage {
@@ -31,7 +31,7 @@ let
     inherit version src;
 
     nodejs = nodejs_24;
-    npmDepsHash = "sha256-o/zx1bTESWuH1dDejpNy6K9qedRhWpQxY6cXz0KETAs=";
+    npmDepsHash = "sha256-rIQzEEzG2Nh0xL1xPTWksgMDj3OxyHFvZ6/kw/TPTrs=";
 
     postPatch = ''
       cp ${./package-lock.json} package-lock.json
@@ -65,7 +65,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoRoot = "src-tauri";
   buildAndTestSubdir = finalAttrs.cargoRoot;
-  cargoHash = "sha256-0dBQT/pp7M3I2lPi3/Xw2OcOVu42sH9zVPRflgUz358=";
+  cargoHash = "sha256-6IlffdkiG1io2+cKlA89gZ+C6m+SHF36sqaL4OefFbw=";
 
   patches = [
     ./core-data-dir.patch
