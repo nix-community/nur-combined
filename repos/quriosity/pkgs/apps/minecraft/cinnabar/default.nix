@@ -2,11 +2,11 @@
 
 let
   pname = "cinnabar";
-  version = "0.1.31";
+  version = "0.2.1";
 
   src = fetchurl {
     url = "https://github.com/cinnabar-mc/cinnabar/releases/download/v${version}/Cinnabar-x86_64.AppImage";
-    hash = "sha256-/93uDxkGeBBtJonvilL236B8PGLD6y/xouGP1KsnM28=";
+    hash = "sha256-CgQhAujxHcZIup0lF1fjvQbBQ9vvCFQjKWt2jXqx0TY=";
   };
 
   appimageContents = appimageTools.extract {

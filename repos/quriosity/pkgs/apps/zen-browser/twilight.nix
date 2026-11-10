@@ -1,4 +1,4 @@
-{ lib, appimageTools, fetchurl, makeDesktopItem, nix-update-script }:
+{ lib, appimageTools, fetchurl, makeDesktopItem, writeScript }:
 
 let
   pname = "zen-browser-twilight";
@@ -6,7 +6,7 @@ let
 
   src = fetchurl {
     url = "https://github.com/zen-browser/desktop/releases/download/twilight-1/zen-x86_64.AppImage";
-    hash = "sha256-GMrOBVho4PdKP6e2ns9ZDClHPClOc3u+yCbSNixS3CU=";
+    hash = "sha256-qSTxOAlN6VL5Iq8RfwH9BmOenppzIei1ONovq16+KUo=";
   };
 
   appimageContents = appimageTools.extract {
@@ -42,7 +42,12 @@ appimageTools.wrapType2 {
        --replace-fail "Exec=${pname} %u" "Exec=$out/bin/${pname} %u"
    '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = writeScript "update-zen-twilight" ''
+    #!/usr/bin/env nix-shell
+    #!nix-shell -i bash -p common-updater-scripts
+    set -euo pipefail
+    update-source-version zen-twilight "${version}" --source-key=src
+  '';
 
   meta = with lib; {
     description = "a twilight build of Zen Browser";
