@@ -480,6 +480,11 @@ let
 
       ${pure_flags [ "healthchecks-io" "A" ] (from_matches "*@healthchecks.io")}
       
+      ${pure_flags [ "telnyx-rate" "D" ] [
+        (from_matches "portal@telnyx.com")
+        (subject_matches "telnyx*rate update")
+      ]}
+
       ${pure_flags [ "telnyx-balance" "D" ] [
         (from_matches "portal@telnyx.com")
         (subject_matches "*Low Balance Alert*")
