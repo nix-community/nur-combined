@@ -141,7 +141,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>magpie</code></strong> — Manage models, providers, and accounts for AI coding agents in one place</summary>
 
-- **Version:** `0.1.3487`
+- **Version:** `0.1.3511`
 - **License:** MIT
 - **Homepage:** [https://github.com/yetone/magpie](https://github.com/yetone/magpie)
 - **Build:** `nix build github:XYenon/nur-packages#magpie`
@@ -281,7 +281,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>vodozemac-bindings-kazv</code></strong> — Language bindings for vodozemac</summary>
 
-- **Version:** `1.0.0-unstable-2026-10-24`
+- **Version:** `1.0.0-unstable-2026-11-09`
 - **License:** Apache-2.0
 - **Homepage:** [https://r.lily-is.land/the-kazv-project/vodozemac-bindings](https://r.lily-is.land/the-kazv-project/vodozemac-bindings)
 - **Build:** `nix build github:XYenon/nur-packages#vodozemac-bindings-kazv`
