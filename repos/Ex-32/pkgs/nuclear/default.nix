@@ -1,6 +1,7 @@
 {
   lib,
   stdenv,
+  aws-lc,
   cacert,
   cargo-tauri,
   desktop-file-utils,
@@ -12,8 +13,10 @@
   pnpmConfigHook,
   pkg-config,
   rustPlatform,
+  sqlite,
   webkitgtk_4_1,
   wrapGAppsHook4,
+  zstd,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "nuclear";
@@ -68,9 +71,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
     wrapGAppsHook4
   ];
 
+  # nixpkgs' cargoSetupHook forces crates onto system libraries
+  # (nixpkgs #537108): rustls needs aws-lc, sqlx needs sqlite, and zstd needs
+  # zstd, instead of each crate's vendored copy.
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
+    aws-lc
     glib-networking
+    sqlite
     webkitgtk_4_1
+    zstd
   ];
 
   cargoRoot = "packages/player/src-tauri";
