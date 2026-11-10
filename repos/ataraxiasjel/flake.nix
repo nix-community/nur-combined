@@ -64,7 +64,8 @@
             hooks = {
               actionlint.enable = true;
               deadnix.enable = true;
-              flake-checker.enable = true;
+              # Disabled temporarily, build failed
+              # flake-checker.enable = true;
               nixfmt.enable = true;
               ripsecrets.enable = true;
             };
