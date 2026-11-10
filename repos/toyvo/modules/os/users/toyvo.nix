@@ -9,7 +9,8 @@
 }:
 let
   cfg = config.nixcfg.users;
-  homePath = if pkgs.stdenv.hostPlatform.isDarwin then "/Users/${cfg.toyvo.name}" else "/home/${cfg.toyvo.name}";
+  homePath =
+    if pkgs.stdenv.hostPlatform.isDarwin then "/Users/${cfg.toyvo.name}" else "/home/${cfg.toyvo.name}";
   # herdr-desktop from nixpkgs ships a macOS bundle without
   # NSLocalNetworkUsageDescription, so macOS 15+ Local Network privacy
   # silently blocks its LAN connections (ssh: No route to host) and never
@@ -53,6 +54,16 @@ let
     zigDeps = pkgs.herdr-core.zigDeps;
   });
 
+  # dioxus-cli 0.7.10's dependency tree enables zstd-sys's `pkg-config`
+  # feature, whose build script hard-fails when system libzstd isn't
+  # discoverable via pkg-config — but nixpkgs omits zstd from its
+  # buildInputs (only libgit2 and openssl provide .pc files). Same shape
+  # as nixpkgs sentry-cli, which does include zstd.
+  # TODO: drop once upstream adds zstd to dioxus-cli's buildInputs.
+  dioxus-cli-fixed = pkgs.dioxus-cli.overrideAttrs (old: {
+    buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.zstd ];
+  });
+
   shells = with pkgs; [
     bashInteractive
     fish
@@ -60,135 +71,140 @@ let
     powershell
     zsh
   ];
-  packages = with pkgs; shells ++ [
-    age
-    ast-grep
-    bison
-    broot
-    bun
-    cargo-generate
-    cargo-make
-    cargo-watch
-    ccache
-    cmake
-    curl
-    curlie
-    deno
-    dfu-util
-    dig
-    dioxus-cli
-    doggo
-    dotnet-sdk
-    dotnet-sdk_8
-    dust
-    fd
-    flex
-    gh
-    gnugrep
-    gnumake
-    gnused
-    gnutar
-    gperf
-    gping
-    graphviz
-    gzip
-    helix
-    herdr
-    herdr-core-0-1-16
-    httpie
-    hyperfine
-    icu
-    inputs.nixcfg.packages.${system}.toyvo-neovim
-    jq
-    jujutsu
-    just
-    kubectl
-    libffi
-    libiconv
-    libusb1
-    lsof
-    neovide
-    netcat
-    ninja
-    nix-output-monitor
-    nix-tree
-    nixfmt
-    nmap
-    nodejs
-    nvd
-    openssh
-    openssl
-    pkg-config
-    prettier
-    procs
-    proton-pass-cli
-    python3
-    rclone
-    ripgrep
-    rsync
-    rustup
-    sd
-    secretspec
-    sops
-    sqlite
-    systemfd
-    tlrc
-    tlrc
-    unzip
-    uutils-coreutils-noprefix
-    uv
-    volta
-    wget
-    xz
-    yq
-    zip
-    zstd
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [
-    aha
-    clang
-    clinfo
-    fwupd
-    gcc
-    kexec-tools
-    mesa-demos
-    pciutils
-    vulkan-tools
-    wayland-utils
-    yubico-piv-tool
-    yubikey-manager
-    yubikey-personalization
-  ]
-  ++ lib.optionals config.nixcfg.dev.enable [
+  packages =
+    with pkgs;
+    shells
+    ++ [
+      age
+      ast-grep
+      bison
+      broot
+      bun
+      cargo-generate
+      cargo-make
+      cargo-watch
+      ccache
+      cmake
+      curl
+      curlie
+      deno
+      dfu-util
+      dig
+      dioxus-cli-fixed
+      doggo
+      dotnet-sdk
+      dotnet-sdk_8
+      dust
+      fd
+      flex
+      gh
+      gnugrep
+      gnumake
+      gnused
+      gnutar
+      gperf
+      gping
+      graphviz
+      gzip
+      helix
+      herdr
+      herdr-core-0-1-16
+      httpie
+      hyperfine
+      icu
+      inputs.nixcfg.packages.${system}.toyvo-neovim
+      jq
+      jujutsu
+      just
+      kubectl
+      libffi
+      libiconv
+      libusb1
+      lsof
+      neovide
+      netcat
+      ninja
+      nix-output-monitor
+      nix-tree
+      nixfmt
+      nmap
+      nodejs
+      nvd
+      openssh
+      openssl
+      pkg-config
+      prettier
+      procs
+      proton-pass-cli
+      python3
+      rclone
+      ripgrep
+      rsync
+      rustup
+      sd
+      secretspec
+      sops
+      sqlite
+      systemfd
+      tlrc
+      tlrc
+      unzip
+      uutils-coreutils-noprefix
+      uv
+      volta
+      wget
+      xz
+      yq
+      zip
+      zstd
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
+      aha
+      clang
+      clinfo
+      fwupd
+      gcc
+      kexec-tools
+      mesa-demos
+      pciutils
+      vulkan-tools
+      wayland-utils
+      yubico-piv-tool
+      yubikey-manager
+      yubikey-personalization
+    ]
+    ++ lib.optionals config.nixcfg.dev.enable [
 
-  ];
-  guiPackages = with pkgs; [
-    element-desktop
-    firefox
-    herdr-desktop-fixed
-    inkscape
-    podman-desktop
-    zed-editor
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    appcleaner
-    ghostty-bin
-    inputs.nixcfg.packages.${system}.tinycast-beta
-    libreoffice-bin
-    pinentry_mac
-    utm
-  ]
-  ++ lib.optionals (stdenv.hostPlatform.isLinux) [
-    ghostty
-    gimp
-    libreoffice
-    proton-vpn
-    yubioath-flutter
-  ]
-  ++ lib.optionals (stdenv.hostPlatform.system != "aarch64-linux") [
-    proton-pass
-    protonmail-desktop
-  ];
+    ];
+  guiPackages =
+    with pkgs;
+    [
+      element-desktop
+      firefox
+      herdr-desktop-fixed
+      inkscape
+      podman-desktop
+      zed-editor
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      appcleaner
+      ghostty-bin
+      inputs.nixcfg.packages.${system}.tinycast-beta
+      libreoffice-bin
+      pinentry_mac
+      utm
+    ]
+    ++ lib.optionals (stdenv.hostPlatform.isLinux) [
+      ghostty
+      gimp
+      libreoffice
+      proton-vpn
+      yubioath-flutter
+    ]
+    ++ lib.optionals (stdenv.hostPlatform.system != "aarch64-linux") [
+      proton-pass
+      protonmail-desktop
+    ];
 in
 {
   # `nixcfg.gui` is read below; `config.ids.*` is read under `isLinux`
