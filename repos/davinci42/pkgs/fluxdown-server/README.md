@@ -51,6 +51,15 @@ remote server rate limits; values above 256 carry greater risk. Set
 `bt_enable_utp = false` to use TCP-only BitTorrent transport instead of the upstream
 TCP/uTP default. Cloud notification reporting requires explicit opt-in in the UI.
 
+`bt_piece_order` (`rarest` or `sequential`) and `bt_first_last_pieces_first`
+set defaults for new BT tasks, not existing ones. Setting
+`bt_selection_auto_default = false` disables the usual 60-second default file
+selection and can leave headless tasks waiting for user input.
+
+`hash_after_download = true` enables hashing of completed single-file outputs.
+`hash_algorithm` accepts `md5`, `sha1`, `sha256` (default), or `sha512`.
+Directory trees are not hashed; existing checksum-derived hashes are reused.
+
 ## Maintenance and tests
 
 ```sh
