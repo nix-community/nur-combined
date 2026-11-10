@@ -32,6 +32,7 @@ const UPDATERS = [
   "pkgs/VintagestoryServers/update.ts",
   "pkgs/tinycast/update.ts",
   "pkgs/infinity-agent-cli/update.ts",
+  "pkgs/toyvo-neovim/update.ts",
 ];
 
 const failed: string[] = [];

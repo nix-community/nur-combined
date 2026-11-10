@@ -14,7 +14,6 @@
   briar = ./users/briar.nix;
   catppuccin = ./catppuccin.nix;
   chloe = ./users/chloe.nix;
-  gui = ./gui.nix;
   eza = ./programs/eza.nix;
   fish = ./programs/shells/fish.nix;
   ghostty = ./programs/terminals/ghostty.nix;

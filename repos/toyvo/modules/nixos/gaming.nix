@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  stablePkgs,
   ...
 }:
 let

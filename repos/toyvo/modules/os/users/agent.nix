@@ -37,6 +37,17 @@ in
     users.groups.agent = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
       gid = config.ids.gids.agent;
     };
+
+    # NixOS activation resets home directory permissions via chmod,
+    # which wipes ACLs. Restore them after the users activation script.
+    system.activationScripts.fixToyVoACLs = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+      deps = [ "users" ];
+      text = ''
+        ${pkgs.acl}/bin/setfacl -m u:agent:rx ${config.users.users.toyvo.home} 2>/dev/null || true
+        ${pkgs.acl}/bin/setfacl -d -m u:agent:rx ${config.users.users.toyvo.home} 2>/dev/null || true
+      '';
+    };
+
     security = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
       sudo.extraConfig = ''
         agent ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/nixos-container *

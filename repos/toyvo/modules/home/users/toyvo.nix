@@ -22,15 +22,9 @@ in
     ../programs/pi.nix
     ../programs/ssh.nix
     ../programs/editors/helix.nix
-    ../programs/editors/ideavim.nix
     ../programs/editors/opencode.nix
     ../programs/editors/zed.nix
-    ../programs/terminals/alacritty.nix
     ../programs/terminals/ghostty.nix
-    ../programs/terminals/hyper.nix
-    ../programs/terminals/kitty.nix
-    ../programs/terminals/rio.nix
-    ../programs/terminals/wezterm.nix
   ];
 
   options.nixcfg.users.toyvo.enable = lib.mkEnableOption "Enable toyvo profile";
@@ -50,7 +44,6 @@ in
       sessionVariables.EDITOR = "nvim";
     };
     programs = {
-      alacritty.enable = cfg.gui.enable;
       bash.initExtra = ''
         if [ -e ${config.sops.templates."shell-secrets.env".path} ]; then
           set -a
@@ -123,6 +116,7 @@ in
       helix.enable = true;
       herdr = {
         enable = true;
+        mutableSettings = true;
         settings = {
           terminal.default_shell = lib.getExe pkgs.fish;
           ui = {
@@ -131,8 +125,6 @@ in
           };
         };
       };
-      hyper.enable = cfg.gui.enable;
-      ideavim.enable = true;
       jujutsu = {
         enable = true;
         aiDescribe.enable = true;
@@ -149,7 +141,6 @@ in
           };
         };
       };
-      kitty.enable = cfg.gui.enable;
       man.package = pkgs.man;
       nix-index-database.comma.enable = true;
       opencode = {
@@ -181,8 +172,6 @@ in
           ];
         };
       };
-      # TODO: undo
-      rio.enable = cfg.gui.enable && pkgs.stdenv.hostPlatform.isLinux;
       ssh =
         let
           identityConfig = {
@@ -253,11 +242,7 @@ in
             "10.1.0.*" = identityConfig;
           };
         };
-      wezterm.enable = cfg.gui.enable;
-      zed-editor = {
-        enable = cfg.gui.enable;
-        package = pkgs.zed-editor;
-      };
+      zed-editor.enable = cfg.gui.enable;
       zsh.initContent = ''
         if [ -e ${config.sops.templates."shell-secrets.env".path} ]; then
           set -a

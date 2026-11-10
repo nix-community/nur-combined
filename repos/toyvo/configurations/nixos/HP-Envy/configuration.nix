@@ -13,8 +13,6 @@
     inputs.nixcfg.modules.os.nix
     inputs.nixcfg.modules.os.security
     inputs.nixcfg.modules.os.home-manager
-    inputs.nixcfg.modules.os.console
-    inputs.nixcfg.modules.os.gui
     inputs.nixcfg.modules.os.toyvo
     inputs.nixcfg.modules.os.chloe
     inputs.nixcfg.modules.nixos.ids

@@ -6,9 +6,6 @@
   # dependent-module `imports`; configurations import only what they use.
   #
   # my-module = ./my-module;
-  console = ./console.nix;
-  dev = ./dev.nix;
-  gui = ./gui.nix;
   home-manager = ./home-manager.nix;
   nix = ./nix.nix;
   odysseus = ./odysseus.nix;

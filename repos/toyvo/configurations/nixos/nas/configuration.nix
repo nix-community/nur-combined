@@ -18,9 +18,6 @@ in
     inputs.nixcfg.modules.os.nix
     inputs.nixcfg.modules.os.security
     inputs.nixcfg.modules.os.home-manager
-    inputs.nixcfg.modules.os.console
-    inputs.nixcfg.modules.os.gui
-    inputs.nixcfg.modules.os.dev
     inputs.nixcfg.modules.os.podman
     inputs.nixcfg.modules.os.toyvo
     inputs.nixcfg.modules.os.chloe
@@ -195,15 +192,6 @@ in
         cockpit-files
       ];
     };
-    # discord_bot = {
-    #   enable = true;
-    #   env_file = config.sops.secrets."discord_bot.env".path;
-    #   env = {
-    #     ADDR = "0.0.0.0";
-    #     PORT = homelab.${hostName}.services.discord_bot.port;
-    #     BASE_URL = "https://toyvo.dev";
-    #   };
-    # };
     forgejo = {
       enable = true;
       stateDir = "/mnt/POOL/forgejo";

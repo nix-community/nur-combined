@@ -40,9 +40,9 @@ in
     programs.pi-coding-agent = {
       package = inputs.pi.packages.${system}.pi;
       # Shared NixOS lookup server, mirroring programs.opencode.settings.mcp.nixos.
-      # mcpServers.nixos = {
-      #   command = lib.getExe stablePkgs.mcp-nixos;
-      # };
+      mcpServers.nixos = {
+        command = lib.getExe pkgs.mcp-nixos;
+      };
 
       settings = {
         defaultModel = "muse-spark-1.3-contributor";
