@@ -11,7 +11,7 @@ buildGoModule (finalAttrs: {
   inherit (source) pname version src;
 
   # nix-update auto
-  vendorHash = "sha256-SBn8wh8IFeuVInCBTL2Kre7ekAASZoFAyif9UpEC/dc=";
+  vendorHash = "sha256-hGT801Bq9qTV1l02fSmQ0U+I9osA/hMgtu0Nk+JjtLI=";
 
   subPackages = [ "cmd/artex" ];
 
