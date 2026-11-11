@@ -17,11 +17,11 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "paintdotnet";
-  version = "5.200.9793.3533";
+  version = "5.200.9810.36543";
 
   src = fetchurl {
     url = "https://github.com/paintdotnet/Paint.NET-on-Wine/releases/download/v${finalAttrs.version}/paint.net.${finalAttrs.version}.portable.x64.wine.EXPERIMENTAL.zip";
-    hash = "sha256-aMBHckIDblOTe77x2okHWLetnqwtaCgmgXyiF+FLAoE=";
+    hash = "sha256-JFilX8oJnMso0YZrh2manU5jG3KIy7ftZyZJjE/kQcI=";
   };
 
   desktopItems = [
