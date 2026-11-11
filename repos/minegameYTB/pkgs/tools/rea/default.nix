@@ -5,7 +5,13 @@
   fetchFromGitHub,
   fetchurl,
   autoPatchelfHook,
-  nodejs_26,
+  makeWrapper,
+  nodejs_22 ? null,
+  nodejs_24 ? null,
+  nodejs_26 ? null,
+  ghidra ? null,
+  withGhidra ? false,
+  extraPackages ? [ ],
 }:
 
 let
@@ -49,12 +55,26 @@ buildNpmPackage rec {
   src = fetchFromGitHub {
     owner = "morluto";
     repo = "rea";
-    tag = "rea-agents-${version}";
+    rev = "rea-agents-${version}";
     hash = "sha256-2ADn3U3lvUoB4tCEpzO0rMfYE4sis+5uBiEazcp0gpI=";
   };
 
   ### REA requires ^22.23.4 || ^24.22.1 || >=26.12.1
-  nodejs = nodejs_26;
+  compatibleNodejs =
+    let
+      versionAtLeast = lib.versionAtLeast or (a: b: (builtins.compareVersions a b) >= 0);
+      isCompatible = n:
+        n != null
+        && (
+          (lib.hasPrefix "26." n.version && versionAtLeast n.version "26.12.1")
+          || (lib.hasPrefix "24." n.version && versionAtLeast n.version "24.22.1")
+          || (lib.hasPrefix "22." n.version && versionAtLeast n.version "22.23.4")
+        );
+      candidates = builtins.filter isCompatible [ nodejs_26 nodejs_24 nodejs_22 ];
+    in
+      if candidates == [ ] then null else builtins.head candidates;
+
+  nodejs = if compatibleNodejs != null then compatibleNodejs else nodejs_26;
   npmDepsHash = "sha256-3WPXD+qm5WVfrTEvepKwX5RZBfbLBcPB0uDmKIx4MR8=";
 
   ### Build the same way as the upstream CI (Turbo compile + generated skills)
@@ -63,7 +83,7 @@ buildNpmPackage rec {
   ### Native install scripts cannot download prebuilt binaries in the sandbox
   npmRebuildFlags = [ "--ignore-scripts" ];
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ stdenv.cc.cc.lib ];
 
   ### Avoid running lifecycle scripts again during packaging
@@ -88,6 +108,20 @@ buildNpmPackage rec {
     TURBO_CACHE = "local:rw";
   };
 
+  postInstall =
+    let
+      runtimePackages =
+        extraPackages
+        ++ lib.optional (withGhidra && ghidra != null) ghidra;
+    in
+    lib.optionalString (runtimePackages != [ ]) ''
+      for prog in "$out"/bin/*; do
+        [ -x "$prog" ] || continue
+        wrapProgram "$prog" \
+          --prefix PATH : ${lib.makeBinPath runtimePackages}
+      done
+    '';
+
   meta = {
     description = "Reverse engineer anything from your terminal or agent with one CLI and MCP server";
     homepage = "https://github.com/morluto/rea";
@@ -103,5 +137,6 @@ buildNpmPackage rec {
       lib.sourceTypes.fromSource
       lib.sourceTypes.binaryNativeCode
     ];
+    broken = compatibleNodejs == null;
   };
 }

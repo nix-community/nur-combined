@@ -12,6 +12,10 @@ rec {
   gsettings-diff = callPackage ./tools/gsettings-diff { };
   kvm-archive = callPackage ./tools/kvm-archive { };
   rea = callPackage ./tools/rea { };
+  rea-ghidra = rea.override (
+    { withGhidra = true; }
+    // lib.optionalAttrs (pkgs ? ghidra) { inherit (pkgs) ghidra; }
+  );
 
   ### dev set
   dev = rec {
