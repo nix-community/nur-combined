@@ -1,14 +1,31 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
   cfg = config.programs.zed-editor;
+  # nixpkgs' cargo-bundle (needed to bundle Zed on macOS) fails to build:
+  # cargo-setup-hook exports AWS_LC_SYS_USE_SYSTEM=1 but openssl is not
+  # AWS-LC. Build the bundled copy with cmake instead.
+  # TODO: drop once nixpkgs' cargo-bundle builds again.
+  zedFixed = pkgs.zed-editor.override (
+    lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
+      cargo-bundle = pkgs.cargo-bundle.overrideAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.cmake ];
+        preBuild = (old.preBuild or "") + ''
+          unset AWS_LC_SYS_USE_SYSTEM
+        '';
+        dontUseCmakeConfigure = true;
+      });
+    }
+  );
 in
 {
   config = lib.mkIf cfg.enable {
     programs.zed-editor = {
+      package = lib.mkDefault zedFixed;
       mutableUserSettings = true;
       userSettings = {
         cli_default_open_behavior = "new_window";
