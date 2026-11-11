@@ -963,4 +963,19 @@
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
+  ztnet = {
+    pname = "ztnet";
+    version = "v0.8.7";
+    src = fetchFromGitHub {
+      owner = "sinamics";
+      repo = "ztnet";
+      rev = "v0.8.7";
+      fetchSubmodules = false;
+      sha256 = "sha256-dL5aYVmYWkPl2ZrSOaquNacnh4k0suauUco9dJPeohQ=";
+    };
+    extract = {
+      "package-lock.json" = ./. + "/sha256-dL5aYVmYWkPl2ZrSOaquNacnh4k0suauUco9dJPeohQ=/package-lock.json";
+      "package.json" = ./. + "/sha256-dL5aYVmYWkPl2ZrSOaquNacnh4k0suauUco9dJPeohQ=/package.json";
+    };
+  };
 }

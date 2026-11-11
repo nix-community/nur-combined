@@ -357,5 +357,10 @@ cargo_lock = ['Cargo.lock']
 src.github = "moraxyc/whois42d-ng"
 fetch.url = "file:///dev/null"
 
+[ztnet]
+src.github = "sinamics/ztnet"
+fetch.github = "sinamics/ztnet"
+extract = ["package-lock.json", "package.json"]
+
 
 # keep-sorted end

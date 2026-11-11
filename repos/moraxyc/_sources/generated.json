@@ -1646,5 +1646,29 @@
             "url": "file:///dev/null"
         },
         "version": "v2.1.1"
+    },
+    "ztnet": {
+        "cargoLock": null,
+        "date": null,
+        "extract": {
+            "package-lock.json": "sha256-dL5aYVmYWkPl2ZrSOaquNacnh4k0suauUco9dJPeohQ=/package-lock.json",
+            "package.json": "sha256-dL5aYVmYWkPl2ZrSOaquNacnh4k0suauUco9dJPeohQ=/package.json"
+        },
+        "name": "ztnet",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "sinamics",
+            "repo": "ztnet",
+            "rev": "v0.8.7",
+            "sha256": "sha256-dL5aYVmYWkPl2ZrSOaquNacnh4k0suauUco9dJPeohQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.8.7"
     }
 }
