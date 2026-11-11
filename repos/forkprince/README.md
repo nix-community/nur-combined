@@ -32,6 +32,7 @@ This repository contains three types of packages:
 | [`blip`](pkgs/blip/default.nix) | [blip](https://blip.net/), send any size file between devices |
 | [`bluebubbles-server`](pkgs/bluebubbles-server/default.nix) | [bluebubbles-server](https://github.com/BlueBubblesApp/bluebubbles-server), server for forwarding iMessages to clients within the BlueBubbles App ecosystem |
 | [`boxtron-bin`](pkgs/boxtron-bin/default.nix) | [boxtron-bin](https://github.com/dreamer/boxtron), steam Play compatibility tool to run DOS games using native Linux DOSBox (This is intended for use in the `programs.steam.extraCompatPackages` option only.) |
+| [`brisk`](pkgs/brisk/default.nix) | [brisk](https://github.com/BrisklyDev/brisk), ultra-fast, modern download manager for desktop |
 | [`cadcraft`](pkgs/cadcraft/default.nix) | [cadcraft](https://getartcraft.com/apps/cadcraft), computer-aided design and drafting application |
 | [`capture-studio`](pkgs/capture-studio/default.nix) | [capture-studio](https://tenzen.studio/capture/), screen recorder and video editor |
 | [`clop`](pkgs/clop/default.nix) | [clop](https://lowtechguys.com/clop/), image, video and clipboard optimiser |

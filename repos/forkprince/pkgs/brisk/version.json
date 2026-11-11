@@ -1,0 +1,24 @@
+{
+  "name": "Brisk",
+  "source": {
+    "type": "github-release",
+    "repo": "BrisklyDev/brisk",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "2.4.0",
+  "platforms": {
+    "x86_64-linux": {
+      "file": "Brisk-v{version}-linux-x86_64.tar.xz",
+      "hash": "sha256-UhsjPhdy2MxVxY+5D3a5XlB9Qg4AZ3GAZlusMPHksKk="
+    },
+    "aarch64-darwin": {
+      "file": "Brisk-v{version}-macos.dmg",
+      "hash": "sha256-pEHSlTIv1jbJTKlLBruW0PAPE0HcmDXgUvIpNq3cvVg="
+    },
+    "x86_64-darwin": {
+      "file": "Brisk-v{version}-macos.dmg",
+      "hash": "sha256-pEHSlTIv1jbJTKlLBruW0PAPE0HcmDXgUvIpNq3cvVg="
+    }
+  }
+}
