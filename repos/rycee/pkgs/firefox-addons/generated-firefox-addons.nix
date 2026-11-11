@@ -140,10 +140,10 @@
     };
     "adblocker-ultimate" = buildMozillaXpiAddon {
       pname = "adblocker-ultimate";
-      version = "4.4.2";
+      version = "4.4.5";
       addonId = "adblockultimate@adblockultimate.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5087736/adblocker_ultimate-4.4.2.xpi";
-      sha256 = "24d9ebe887fc2781544e6d58669aa36c131dc75231446eaaaed1ee40c9954a7e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5211605/adblocker_ultimate-4.4.5.xpi";
+      sha256 = "ae167a5e6a6b3a4b94ac1f8fd8583e0a51d40b55ec5e149b32543ec8d8c13308";
       meta = with lib;
       {
         homepage = "https://adblockultimate.net";
@@ -2242,10 +2242,10 @@
     };
     "click-and-read" = buildMozillaXpiAddon {
       pname = "click-and-read";
-      version = "4.7.2";
+      version = "4.8.0";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5129450/click_and_read-4.7.2.xpi";
-      sha256 = "71d36ff6b7d6aa0ce4946da0f70a792f1e2b5894f1e715bfc916534e38c64b54";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5232800/click_and_read-4.8.0.xpi";
+      sha256 = "aba7305a1b4621db196b87cdedd2ae2f0496345a16a27eb9c64a7f1e74088650";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -3765,10 +3765,10 @@
     };
     "dualsub" = buildMozillaXpiAddon {
       pname = "dualsub";
-      version = "2.73.0";
+      version = "2.73.1";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5227307/dualsub-2.73.0.xpi";
-      sha256 = "ac43f329c1d1b4bca345d898c26611272f98c193d28de0e8e6fcc6836c887f34";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5231992/dualsub-2.73.1.xpi";
+      sha256 = "c78ccd342ad961ce70f26ad6f725956ca834e09f93043d13ce497832a0db83ec";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -4912,10 +4912,10 @@
     };
     "ghostery" = buildMozillaXpiAddon {
       pname = "ghostery";
-      version = "10.6.11";
+      version = "10.6.12";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5208467/ghostery-10.6.11.xpi";
-      sha256 = "f82beb500bf5b935f09c235d094771b70d4f40e6d3750ab8ca1140c9b9abc59d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5234326/ghostery-10.6.12.xpi";
+      sha256 = "21f353c7edac68dfb1841918af161d0513a7c227c8213b79d06397147f43be64";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -5504,10 +5504,10 @@
     };
     "header-editor" = buildMozillaXpiAddon {
       pname = "header-editor";
-      version = "5.2.12";
+      version = "5.5.0";
       addonId = "headereditor-amo@addon.firefoxcn.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4822302/header_editor-5.2.12.xpi";
-      sha256 = "2b5ecfe5fc76e65c29cb2cb1dfa61de2c2320c4f504c42cdbce6c438f97333ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5124034/header_editor-5.5.0.xpi";
+      sha256 = "b2330426728b7eb0ccd2f63625e1f740c537a2cd7360f64c4775e79871a9fe05";
       meta = with lib;
       {
         homepage = "https://he.firefoxcn.net/en/";
@@ -5521,6 +5521,12 @@
           "webRequestBlocking"
           "declarativeNetRequest"
           "*://*/*"
+          "ws://*/*"
+          "wss://*/*"
+          "file:///*"
+          "https://login.microsoftonline.com/common/oauth2/nativeclient*"
+          "https://ext.firefoxcn.net/login/callback/*"
+          "https://oauth.yandex.ru/verification_code*"
         ];
         platforms = platforms.all;
       };
@@ -7770,10 +7776,10 @@
     };
     "linkwarden" = buildMozillaXpiAddon {
       pname = "linkwarden";
-      version = "1.5.6";
+      version = "1.5.7";
       addonId = "jordanlinkwarden@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5015765/linkwarden-1.5.6.xpi";
-      sha256 = "511363ed9e1ced240abea75d0886ec83c91bc20167ff87d1514b7c1a65dfcb16";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5232170/linkwarden-1.5.7.xpi";
+      sha256 = "5704e21101186695b3da7ff5fdcd826ee4abbb96f87f303c73944f8e9aef7944";
       meta = with lib;
       {
         description = "The browser extension for Linkwarden.";
@@ -7891,15 +7897,14 @@
     };
     "lockedin-yt" = buildMozillaXpiAddon {
       pname = "lockedin-yt";
-      version = "1.2.3";
+      version = "1.2.4";
       addonId = "kartik@lockedin.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5216616/lockedin_yt-1.2.3.xpi";
-      sha256 = "7736d5ff11c78779924df604fc1769c4389f5718e66c2386255fc7e0744ec38a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5233792/lockedin_yt-1.2.4.xpi";
+      sha256 = "f349e8ec8892e23b175753335027a8a2b9e8affae1efd8514ab7dfdcc6ad29b5";
       meta = with lib;
       {
         homepage = "https://kartikrashmin.github.io/LockedIn-YT/";
         description = "Stop doomscrolling. Hide YouTube Shorts, feeds, and comments. Block the algorithm and stay LockedIn on what matters.";
-        license = licenses.mit;
         mozPermissions = [
           "storage"
           "alarms"
@@ -8818,10 +8823,10 @@
     };
     "mergify" = buildMozillaXpiAddon {
       pname = "mergify";
-      version = "1.9.0";
+      version = "1.10.1";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5227498/mergify-1.9.0.xpi";
-      sha256 = "84caed20ad04bd927251bc427d6177b93e1a65f995d7585331dc6673ba923baf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5234710/mergify-1.10.1.xpi";
+      sha256 = "af7abc4f85764c3503666dc50c1d39702353241e8c561d5eb0d0c12e9973da32";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -9801,10 +9806,10 @@
     };
     "onepassword-password-manager" = buildMozillaXpiAddon {
       pname = "onepassword-password-manager";
-      version = "8.12.41.1";
+      version = "8.12.44.33";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5097307/1password_x_password_manager-8.12.41.1.xpi";
-      sha256 = "6b00acff73253865303af49e99329245a940348484cbd931ea39f9fa215134f5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5203941/1password_x_password_manager-8.12.44.33.xpi";
+      sha256 = "dd896610a3e6776582b76f180ea0d3180b03413a244314f9d3c6b08ec6c59819";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -9853,10 +9858,6 @@
           "https://auth.kolide.com/*"
           "https://auth.kolide.ca/*"
           "https://auth.kolide.eu/*"
-          "https://www.director.ai/?*"
-          "https://www.director.ai/"
-          "https://www.director.ai/complete-1password-pairing?*"
-          "https://www.director.ai/complete-1password-pairing"
           "https://autofill.me/*"
         ];
         platforms = platforms.all;
@@ -11185,10 +11186,10 @@
     };
     "proton-pass" = buildMozillaXpiAddon {
       pname = "proton-pass";
-      version = "1.41.1";
+      version = "1.43.1";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5055526/proton_pass-1.41.1.xpi";
-      sha256 = "f67c5836e5eff3f82ac38e03a7b27d30b84dbb5246f74bb21b8b5bb15d3cd936";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5203430/proton_pass-1.43.1.xpi";
+      sha256 = "a973bb13e22816b73bc8be9c6a4df9d2b478b4e3d57d11f50033ff4e15f9b7b4";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -12945,10 +12946,10 @@
     };
     "save-all-images-webextension" = buildMozillaXpiAddon {
       pname = "save-all-images-webextension";
-      version = "1.1.1";
+      version = "1.1.2";
       addonId = "{32af1358-428a-446d-873e-5f8eb5f2a72e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5219892/save_all_images_webextension-1.1.1.xpi";
-      sha256 = "e11fd826158c4b033047761fef50e865351bbdb3f73b5ece83ce6c2a5985e2d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5232036/save_all_images_webextension-1.1.2.xpi";
+      sha256 = "caedf2869abcfce7032119421df1e4d1abeaac521df20cd070bb7042559227d1";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/save-images.html";
@@ -12961,7 +12962,7 @@
           "notifications"
           "downloads"
           "unlimitedStorage"
-          "declarativeNetRequest"
+          "declarativeNetRequestWithHostAccess"
         ];
         platforms = platforms.all;
       };
@@ -13555,10 +13556,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.36.0";
+      version = "1.37.0";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5218789/single_file-1.36.0.xpi";
-      sha256 = "aa4e6de6fe46d59985e12a897882c29e2a7f54f3a838b2e391e6ac51d1ea3c97";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5235638/single_file-1.37.0.xpi";
+      sha256 = "20b95d25af8c8f1e69384cb3ab64ddaf850562912446b45e90d12977df2d922f";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -13671,10 +13672,10 @@
     };
     "snowflake" = buildMozillaXpiAddon {
       pname = "snowflake";
-      version = "0.10.1";
+      version = "0.10.2";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4928620/torproject_snowflake-0.10.1.xpi";
-      sha256 = "f354f329673f90f27e9cf00c7471f8118f0541dc7a8c9755f61b0bbbdca83800";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5235096/torproject_snowflake-0.10.2.xpi";
+      sha256 = "e08b13930ba54349e30352bc960ce2da3e9bcfcb185a32a144cb1ddfeefc0b6c";
       meta = with lib;
       {
         homepage = "https://snowflake.torproject.org/";
@@ -14699,10 +14700,10 @@
     };
     "time-zone-converter-savvy-time" = buildMozillaXpiAddon {
       pname = "time-zone-converter-savvy-time";
-      version = "2026.11.1";
+      version = "2026.11.2";
       addonId = "yuriy@savvytime.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5210428/time_zone_converter_savvy_time-2026.11.1.xpi";
-      sha256 = "6a86f185449b212c6192ac8532b59a98f0d56b9d67be6da8f7800304e6189624";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5235673/time_zone_converter_savvy_time-2026.11.2.xpi";
+      sha256 = "ef5d3480a6a31d024c77feab50aa2da1f042737ec0ea22258ff7a741ab16b2b8";
       meta = with lib;
       {
         homepage = "https://savvytime.com/converter";
@@ -14756,10 +14757,10 @@
     };
     "toggl-button-time-tracker" = buildMozillaXpiAddon {
       pname = "toggl-button-time-tracker";
-      version = "4.11.25";
+      version = "4.11.26";
       addonId = "toggl-button@toggl.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5229026/toggl_button_time_tracker-4.11.25.xpi";
-      sha256 = "b4bcbb7fd2f794ee2043a2f7043dc089567ec88bf3fe1667a0c5536c088188eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5233837/toggl_button_time_tracker-4.11.26.xpi";
+      sha256 = "0f936af24339466a33a9fffeac408d083f58c3159c5754f86cfc429d20b4120c";
       meta = with lib;
       {
         homepage = "https://toggl.com/track/";
@@ -15194,10 +15195,10 @@
     };
     "tst-wheel-and-double" = buildMozillaXpiAddon {
       pname = "tst-wheel-and-double";
-      version = "1.5.10";
+      version = "1.6";
       addonId = "tst-wheel_and_double@dontpokebadgers.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4460647/tree_style_tab_mouse_wheel-1.5.10.xpi";
-      sha256 = "4f5e656db4c493e1646ae622d01598b7cdc06b41f1b5facdbb3f007533440719";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5234778/tree_style_tab_mouse_wheel-1.6.xpi";
+      sha256 = "d6271062014bcd87266f3f33cffba25459dca6d8663de784106bb9077110a760";
       meta = with lib;
       {
         homepage = "https://github.com/joshuacant/";
@@ -17319,10 +17320,10 @@
     };
     "yomitan" = buildMozillaXpiAddon {
       pname = "yomitan";
-      version = "26.10.22.0";
+      version = "26.11.2.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5200528/yomitan-26.10.22.0.xpi";
-      sha256 = "b8accf810bc24e21e328a6a1e3bdbda176316367772f300c01bcfd0220da26d8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5234497/yomitan-26.11.2.0.xpi";
+      sha256 = "85eac916668a00f7debc1550280407467b61739c726cfe7fe87154c379f90133";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
