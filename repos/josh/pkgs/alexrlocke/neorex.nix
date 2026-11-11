@@ -15,8 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "alexrlocke";
     repo = "neorex";
-    rev = "7a0789f68ea5592daf9c8961c8b32d6e5bd0299f";
-    hash = "sha256-dxYSbsgaKD28lJZV61oelVmP80lDECGneg2vMx8B1NM=";
+    rev = "675241e94916587782f0091a8cf8f25b332b0993";
+    hash = "sha256-++QGAD/t2WwXYEMnCiHI4LnQP6adYkBKeIODZM5C2PA=";
   };
 
   # Fail in the Nix sandbox
