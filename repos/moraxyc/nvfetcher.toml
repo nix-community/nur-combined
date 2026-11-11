@@ -17,8 +17,8 @@ src.github = "messense/aliyundrive-webdav"
 fetch.url = "file:///dev/null"
 
 [artex]
-src.git = "https://github.com/BaaRai/ARTEX.git"
-fetch.github = "BaaRai/ARTEX"
+src.git = "https://github.com/RuoJi6/ARTEX.git"
+fetch.github = "RuoJi6/ARTEX"
 extract = ["web/package-lock.json", "web/package.json"]
 
 [bark-server]

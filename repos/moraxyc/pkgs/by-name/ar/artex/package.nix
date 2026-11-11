@@ -10,8 +10,11 @@
 buildGoModule (finalAttrs: {
   inherit (source) pname version src;
 
+  # Keep signing keys outside the Nix store and browsable workspace.
+  patches = [ ./jwt-key-dir.patch ];
+
   # nix-update auto
-  vendorHash = "sha256-hGT801Bq9qTV1l02fSmQ0U+I9osA/hMgtu0Nk+JjtLI=";
+  vendorHash = "sha256-bLpP+BEKc6GqLWbhpGYQ/BJy6m146WLUVHhUO8ev948=";
 
   subPackages = [ "cmd/artex" ];
 
@@ -47,7 +50,7 @@ buildGoModule (finalAttrs: {
 
   meta = {
     description = "AI autonomous penetration testing system";
-    homepage = "https://github.com/BaaRai/ARTEX";
+    homepage = "https://github.com/RuoJi6/ARTEX";
     license = lib.licenses.agpl3Only;
     maintainers = with lib.maintainers; [ moraxyc ];
     mainProgram = "artex";

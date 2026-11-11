@@ -20,6 +20,8 @@ pkgs.testers.runNixOSTest {
     machine.wait_for_unit("artex.service")
     machine.wait_for_open_port(8787)
     machine.succeed("curl --fail http://127.0.0.1:8787/")
+    machine.succeed("curl --fail http://127.0.0.1:8787/api/health")
+    machine.succeed("test -s /var/lib/artex/keys/jwt.key")
     machine.wait_for_open_port(8788)
   '';
 

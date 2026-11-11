@@ -1,0 +1,12 @@
+diff --git a/server/auth.go b/server/auth.go
+--- a/server/auth.go
++++ b/server/auth.go
+@@ -55 +55,7 @@
+-func loadOrCreateJWTKey(keyDir, dataDir string) ([]byte, error) {
++func loadOrCreateJWTKey(keyDir, dataDir string) ([]byte, error) {
++	if dir := strings.TrimSpace(os.Getenv("ARTEX_JWT_KEY_DIR")); dir != "" {
++		keyDir = dir
++	}
++	if err := os.MkdirAll(keyDir, 0o700); err != nil {
++		return nil, fmt.Errorf("create jwt key dir: %w", err)
++	}

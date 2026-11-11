@@ -175,7 +175,7 @@ in
 
     systemd.services.artex = {
       description = "ARTEX AI autonomous penetration testing system";
-      documentation = [ "https://github.com/BaaRai/ARTEX" ];
+      documentation = [ "https://github.com/RuoJi6/ARTEX" ];
       wantedBy = [ "multi-user.target" ];
       wants = [ "network-online.target" ];
       after = [

@@ -56,18 +56,18 @@
   };
   artex = {
     pname = "artex";
-    version = "923c4a813ad2ae6cb91b0799f8b9104e2437175b";
+    version = "73d5437c5a64559ed803bcd096d2a0a0014a1214";
     src = fetchFromGitHub {
-      owner = "BaaRai";
+      owner = "RuoJi6";
       repo = "ARTEX";
-      rev = "923c4a813ad2ae6cb91b0799f8b9104e2437175b";
+      rev = "73d5437c5a64559ed803bcd096d2a0a0014a1214";
       fetchSubmodules = false;
-      sha256 = "sha256-cBYnacM8XptgFrH8y85lrC5tdq7qO1zFyI6CYskw/pY=";
+      sha256 = "sha256-7d5WE7irDbE6egAlFZHrgjYwiDl23EkM/KWSrBNK3kY=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-cBYnacM8XptgFrH8y85lrC5tdq7qO1zFyI6CYskw_pY=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-cBYnacM8XptgFrH8y85lrC5tdq7qO1zFyI6CYskw_pY=/web/package-lock.json";
-    };date = "2026-11-10";
+      "web/package.json" = ./. + "/sha256-7d5WE7irDbE6egAlFZHrgjYwiDl23EkM_KWSrBNK3kY=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-7d5WE7irDbE6egAlFZHrgjYwiDl23EkM_KWSrBNK3kY=/web/package-lock.json";
+    };date = "2026-11-11";
   };
   bark-server = {
     pname = "bark-server";

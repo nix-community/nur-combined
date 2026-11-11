@@ -84,10 +84,10 @@
     },
     "artex": {
         "cargoLock": null,
-        "date": "2026-11-10",
+        "date": "2026-11-11",
         "extract": {
-            "web/package-lock.json": "sha256-cBYnacM8XptgFrH8y85lrC5tdq7qO1zFyI6CYskw_pY=/web/package-lock.json",
-            "web/package.json": "sha256-cBYnacM8XptgFrH8y85lrC5tdq7qO1zFyI6CYskw_pY=/web/package.json"
+            "web/package-lock.json": "sha256-7d5WE7irDbE6egAlFZHrgjYwiDl23EkM_KWSrBNK3kY=/web/package-lock.json",
+            "web/package.json": "sha256-7d5WE7irDbE6egAlFZHrgjYwiDl23EkM_KWSrBNK3kY=/web/package.json"
         },
         "name": "artex",
         "passthru": null,
@@ -97,14 +97,14 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "BaaRai",
+            "owner": "RuoJi6",
             "repo": "ARTEX",
-            "rev": "923c4a813ad2ae6cb91b0799f8b9104e2437175b",
-            "sha256": "sha256-cBYnacM8XptgFrH8y85lrC5tdq7qO1zFyI6CYskw/pY=",
+            "rev": "73d5437c5a64559ed803bcd096d2a0a0014a1214",
+            "sha256": "sha256-7d5WE7irDbE6egAlFZHrgjYwiDl23EkM/KWSrBNK3kY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "923c4a813ad2ae6cb91b0799f8b9104e2437175b"
+        "version": "73d5437c5a64559ed803bcd096d2a0a0014a1214"
     },
     "bark-server": {
         "cargoLock": null,

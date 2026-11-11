@@ -11,18 +11,24 @@
     "format": "biome format --write",
     "check": "biome check",
     "check:fix": "biome check --write",
+    "test:i18n": "node --experimental-strip-types --test src/i18n/i18n.test.cjs src/i18n/screen-pages.test.cjs src/lib/chat-mentions.test.mjs src/lib/api-errors.test.cjs src/lib/api-intelligence.test.cjs src/lib/coverage-graph-lifecycle.test.cjs",
     "prepare": "husky",
     "generate:presets": "ts-node -P tsconfig.scripts.json src/scripts/generate-theme-presets.ts"
   },
   "lint-staged": {
-    "*.{js,ts,jsx,tsx}": [
-      "biome check --write --no-errors-on-unmatched"
-    ]
+    "*.{js,ts,jsx,tsx}": ["biome check --write --no-errors-on-unmatched"]
   },
   "dependencies": {
     "@antv/g6": "^5.1.1",
     "@antv/graphin": "^3.0.5",
     "@base-ui/react": "^1.6.0",
+    "@codemirror/commands": "^6.11.1",
+    "@codemirror/lang-html": "^6.4.12",
+    "@codemirror/lang-json": "^6.0.2",
+    "@codemirror/language": "^6.13.1",
+    "@codemirror/search": "^6.7.2",
+    "@codemirror/state": "^6.7.6",
+    "@codemirror/view": "^6.43.15",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/modifiers": "^9.0.0",
     "@dnd-kit/sortable": "^10.0.0",
@@ -38,6 +44,7 @@
     "date-fns": "^4.4.0",
     "embla-carousel-react": "^8.6.0",
     "geist": "^1.7.2",
+    "i18next": "^27.1.0",
     "input-otp": "^1.4.2",
     "lucide-react": "^1.22.0",
     "next": "^16.2.9",
@@ -47,6 +54,7 @@
     "react-day-picker": "^10.0.1",
     "react-dom": "^19.2.7",
     "react-hook-form": "^7.80.0",
+    "react-i18next": "^18.0.1",
     "react-is": "^19.2.7",
     "react-markdown": "^10.1.0",
     "react-resizable-panels": "^4.12.0",
