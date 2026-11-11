@@ -1,7 +1,6 @@
 {
   lib,
   stdenv,
-  fetchpatch2,
   buildGo127Module,
   callPackage,
   gitMinimal,
@@ -11,13 +10,6 @@
 
 buildGo127Module (finalAttrs: {
   inherit (source) pname version src;
-
-  patches = [
-    (fetchpatch2 {
-      url = "https://github.com/Willxup/cpa-usage-keeper/commit/9c41524c5184170c1093b81863686fd48529e216.patch?full_index=1";
-      hash = "sha256-F5abyPJuV8YTy6h6uQRhCX5djmWLxVrKG6SgrOM8JE8=";
-    })
-  ];
 
   # nix-update auto
   vendorHash = "sha256-kUPQ41UsZX86WNdeYGy914G3Pk/v/WcOfVw8Unb9SE4=";
