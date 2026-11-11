@@ -6,12 +6,12 @@
 }:
 rustPlatform.buildRustPackage {
   pname = "npr";
-  version = "0-unstable-2026-11-03";
+  version = "0-unstable-2026-11-10";
   src = fetchFromGitHub {
     owner = "manic-systems";
     repo = "npr";
-    rev = "6a55992b154751190a1460225961fb31461ae630";
-    hash = "sha256-EjIHvGvvCeWaMAh5FouOC0KuipIuy9FoXdcx/lsSu0I=";
+    rev = "f41af64484aa27f4a9f9e8ad0a3b41159d807f63";
+    hash = "sha256-LjOfSF13a0hWL0BMv7W2DLyM2Xs8Gk0eiPCpZCnrZxw=";
   };
   cargoHash = "sha256-MEyZ4E0FExOqzpWbmJCqDv6/gboFAnlo1kjPAqfMUQk=";
 
