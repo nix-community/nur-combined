@@ -60,7 +60,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     git
     perl
     protobuf
-    aws-lc
     wrapGAppsHook4
   ];
 
@@ -69,6 +68,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     openssl
     webkitgtk_4_1
     libayatana-appindicator
+    aws-lc.dev
   ];
 
   preFixup = ''
