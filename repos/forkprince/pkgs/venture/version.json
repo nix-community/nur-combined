@@ -6,11 +6,10 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.1.3",
-  "platforms": {
-    "x86_64-linux": {
-      "file": "Venture-{version}-linux-x86_64.AppImage",
-      "hash": "sha256-+J5EW6/KH9y6DP4cgPjxsHoXoru02wukxUKmY2VPq/Q="
-    }
-  }
+  "asset": {
+    "file": "Venture-{version}-linux-x86_64.AppImage",
+    "unpack": false
+  },
+  "version": "0.2.2.2",
+  "hash": "sha256-rWcJKuZ5Pu6fpjsvlywz9tY16S1Djlk7ObjCLgkVE4Y="
 }

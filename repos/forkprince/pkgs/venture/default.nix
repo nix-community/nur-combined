@@ -6,7 +6,7 @@
   ver = lib.helper.read ./version.json;
 
   inherit (ver) version;
-  src = fetchurl (lib.helper.getPlatform stdenvNoCC.hostPlatform.system ver);
+  src = fetchurl (lib.helper.getSingle ver);
 in
   lib.helper.mkAppImage {
     pname = "venture";
