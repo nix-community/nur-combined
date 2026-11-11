@@ -7,7 +7,7 @@
   ver = lib.helper.read ./version.json;
 
   pname = "helixnotes";
-  inherit (ver) version;
+  inherit (ver.platforms.${stdenvNoCC.hostPlatform.system}) version;
   src = fetchurl (lib.helper.getPlatform stdenvNoCC.hostPlatform.system ver);
 
   meta = {
