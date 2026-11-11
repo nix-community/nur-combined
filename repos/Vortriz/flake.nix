@@ -43,7 +43,6 @@
                 }:
                 let
                     inherit (lib.filesystem) packagesFromDirectoryRecursive;
-                    inherit (lib.attrsets) recurseIntoAttrs;
 
                     mkZoteroAddon =
                         {
@@ -95,22 +94,22 @@
                             };
                         }
                         // {
-                            fonts = recurseIntoAttrs (packagesFromDirectoryRecursive {
+                            fonts = packagesFromDirectoryRecursive {
                                 inherit callPackage;
                                 directory = ./pkgs/fonts;
-                            });
+                            };
                         }
                         // {
-                            yaziPlugins = recurseIntoAttrs (packagesFromDirectoryRecursive {
+                            yaziPlugins = packagesFromDirectoryRecursive {
                                 callPackage = callYaziPlugin;
                                 directory = ./pkgs/yaziPlugins;
-                            });
+                            };
                         }
                         // {
-                            zoteroAddons = recurseIntoAttrs (packagesFromDirectoryRecursive {
+                            zoteroAddons = packagesFromDirectoryRecursive {
                                 callPackage = callZoteroAddon;
                                 directory = ./pkgs/zoteroAddons;
-                            });
+                            };
                         };
                 };
 
