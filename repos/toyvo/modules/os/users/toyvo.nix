@@ -22,6 +22,9 @@ let
   # TODO: drop once upstream herdrdev/herdr-app ships the key in its bundle
   # (nixpkgs picks it up automatically); then this becomes plain `herdr-desktop`.
   herdr-desktop-fixed = pkgs.herdr-desktop.overrideAttrs (old: {
+    # zstd-sys finds libzstd via pkg-config under cargo-setup-hook (Linux only,
+    # so the Darwin derivation is unchanged)
+    buildInputs = (old.buildInputs or [ ]) ++ lib.optional pkgs.stdenv.hostPlatform.isLinux pkgs.zstd;
     postFixup =
       (old.postFixup or "")
       + lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
@@ -97,6 +100,7 @@ let
       dust
       fd
       flex
+      forgejo-cli
       gh
       gnugrep
       gnumake

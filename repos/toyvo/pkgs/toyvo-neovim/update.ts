@@ -8,9 +8,10 @@
 // Auth (optional, raises GitHub API rate limits):
 //   GITHUB_TOKEN=ghp_... bun ./update.ts
 //
-// Requires `nix` (for `nix flake prefetch`, which resolves the SRI hash of
-// the git tree exactly as `fetchFromGitHub` will fetch it), so run inside
-// `nix develop` when nix is not otherwise on PATH.
+// Requires `nix` (for `nix store prefetch-file --unpack`, which hashes the
+// GitHub tarball exactly as `fetchFromGitHub` will fetch it; a git-tree hash
+// from `nix flake prefetch` differs), so run inside `nix develop` when nix is
+// not otherwise on PATH.
 
 import {
   fetchJson,
@@ -89,20 +90,21 @@ async function main(): Promise<void> {
     return;
   }
 
-  console.log("Prefetching git tree for the SRI hash ...");
+  console.log("Prefetching source tarball for the SRI hash ...");
   const proc = Bun.spawnSync(
     [
       "nix",
-      "flake",
-      "prefetch",
+      "store",
+      "prefetch-file",
+      "--unpack",
       "--json",
-      `git+https://github.com/${OWNER}/${REPO}?rev=${rev}`,
+      `https://github.com/${OWNER}/${REPO}/archive/${rev}.tar.gz`,
     ],
     { stdout: "pipe", stderr: "pipe" },
   );
   if (proc.exitCode !== 0) {
     throw new Error(
-      `nix flake prefetch failed: ${proc.stderr.toString().trim()}`,
+      `nix store prefetch-file failed: ${proc.stderr.toString().trim()}`,
     );
   }
   const { hash } = JSON.parse(proc.stdout.toString()) as { hash: string };

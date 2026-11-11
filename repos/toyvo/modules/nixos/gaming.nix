@@ -26,7 +26,17 @@ in
       mangohud
       prismlauncher
       protonup-ng
-      gale
+      # cargo-setup-hook exports AWS_LC_SYS_USE_SYSTEM=1, but openssl is not AWS-LC;
+      # build the bundled copy of aws-lc instead (needs cmake)
+      (gale.overrideAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ cmake ];
+        preBuild = (old.preBuild or "") + ''
+          unset AWS_LC_SYS_USE_SYSTEM
+        '';
+        # libsqlite3-sys links the system sqlite under cargo-setup-hook
+        buildInputs = (old.buildInputs or [ ]) ++ [ sqlite ];
+        dontUseCmakeConfigure = true;
+      }))
       r2modman
       steam
       steamcmd

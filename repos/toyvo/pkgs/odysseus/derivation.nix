@@ -39,6 +39,15 @@ let
       "urllib3-future" = pyPrev."urllib3-future".overridePythonAttrs (_: {
         doCheck = false;
       });
+      # cargo-setup-hook forces the Rust bindings' sqlx-macros (sqlite) and
+      # tikv-jemalloc-sys onto system libraries, which nixpkgs' chromadb
+      # doesn't provide; rust-jemalloc-sys sets JEMALLOC_OVERRIDE for us.
+      chromadb = pyPrev.chromadb.overridePythonAttrs (old: {
+        buildInputs = (old.buildInputs or [ ]) ++ [
+          pkgs.sqlite
+          pkgs.rust-jemalloc-sys
+        ];
+      });
       posthog = pyPrev.posthog.overridePythonAttrs (old: {
         doCheck = false;
         meta = old.meta // {
