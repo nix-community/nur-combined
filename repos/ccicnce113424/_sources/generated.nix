@@ -365,16 +365,16 @@
   };
   rayburst-beta = {
     pname = "rayburst-beta";
-    version = "v4.1.2-beta.4";
+    version = "v4.1.2";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "rayburst";
-      rev = "v4.1.2-beta.4";
+      rev = "v4.1.2";
       fetchSubmodules = false;
-      sha256 = "sha256-cMucmmdEfF2d1lrs5tH/22sNAMinlIS7utYbKgOO/tY=";
+      sha256 = "sha256-bU1MQZM4oxt1iwUs/XwjeMjNNMm3VUKQyeVtMLFrZzo=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-cMucmmdEfF2d1lrs5tH_22sNAMinlIS7utYbKgOO_tY=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-bU1MQZM4oxt1iwUs_XwjeMjNNMm3VUKQyeVtMLFrZzo=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
