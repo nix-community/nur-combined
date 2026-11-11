@@ -46,14 +46,14 @@ in
       type = lib.types.functionTo lib.types.str;
       internal = true;
       readOnly = true;
-      default = hostname:
+      default =
+        hostname:
         let
           matches = builtins.filter (
             domain:
             hostname == domain
             || (
-              lib.hasSuffix ".${domain}" hostname
-              && !(lib.hasInfix "." (lib.removeSuffix ".${domain}" hostname))
+              lib.hasSuffix ".${domain}" hostname && !(lib.hasInfix "." (lib.removeSuffix ".${domain}" hostname))
             )
           ) cfg.domains;
         in
