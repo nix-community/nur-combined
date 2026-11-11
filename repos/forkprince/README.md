@@ -161,6 +161,7 @@ This repository contains three types of packages:
 | [`twintaillauncher`](pkgs/twintaillauncher/default.nix) | [twintaillauncher](https://github.com/TwintailTeam/TwintailLauncher), a multi-platform launcher for your anime games |
 | [`vector-studio`](pkgs/vector-studio/default.nix) | [vector-studio](https://tenzen.studio/vector/), illustrator alternative for vector illustration and design |
 | [`vectorcraft`](pkgs/vectorcraft/default.nix) | [vectorcraft](https://getartcraft.com/apps/vectorcraft), vector graphics editor |
+| [`venture`](pkgs/venture/default.nix) | [venture](https://venture-emu.org/), a Meta Quest emulator for PC VR |
 | [`vmware-fusion`](pkgs/vmware-fusion/default.nix) | [vmware-fusion](https://www.vmware.com/products/desktop-hypervisor/workstation-and-fusion), create, manage, and run virtual machines |
 | [`vorssaint`](pkgs/vorssaint/default.nix) | [vorssaint](https://vorssaint.com), free and open-source macOS menu bar toolkit. |
 | [`vscode`](pkgs/vscode/default.nix) | vscode |
