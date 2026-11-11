@@ -45,6 +45,7 @@
     opentubex = lib.callPackage ./pkgs/opentubex {};
     equicord = lib.callPackage ./pkgs/equicord {};
     sm64plus = lib.callPackage ./pkgs/sm64plus {};
+    freebuff = lib.callPackage ./pkgs/freebuff {};
     horizon = lib.callPackage ./pkgs/horizon {};
     orbolay = lib.callPackage ./pkgs/orbolay {};
     wg-nord = lib.callPackage ./pkgs/wg-nord {};

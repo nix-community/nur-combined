@@ -62,6 +62,7 @@ This repository contains three types of packages:
 | [`fluxer-stable-bin`](pkgs/fluxer-stable-bin/default.nix) | [fluxer-stable-bin](https://fluxer.app), fluxer desktop client |
 | [`folder-preview-pro`](pkgs/folder-preview-pro/default.nix) | [folder-preview-pro](https://anybox.ltd/folder-preview-pro), quick Look extension for folders |
 | [`folio-studio`](pkgs/folio-studio/default.nix) | [folio-studio](https://tenzen.studio/folio/), free InDesign alternative for page layout and publishing |
+| [`freebuff`](pkgs/freebuff/default.nix) | [freebuff](https://freebuff.com/), the 100% free coding agent (terminal) |
 | [`fx`](pkgs/fx/default.nix) | [fx](https://fx.sh), unix-like coding agent |
 | [`genoffice`](pkgs/genoffice/default.nix) | [genoffice](https://genoffice.ai/), free, open-source AI Office suite: Docs, Sheets, Slides, PDF, Markdown and HTML editors with a built-in AI agent |
 | [`ghostty`](pkgs/ghostty/default.nix) | ghostty |
