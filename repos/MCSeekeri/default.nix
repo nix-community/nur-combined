@@ -43,6 +43,7 @@ in
   yozo-office = pkgs.callPackage ./pkgs/yozo-office { };
   workbuddy = pkgs.callPackage ./pkgs/workbuddy { };
   orca = pkgs.callPackage ./pkgs/orca { };
+  alma = pkgs.callPackage ./pkgs/alma { wrapBuddy = pkgs.callPackage ./pkgs/wrap-buddy { }; };
   rime-frost = pkgs.callPackage ./pkgs/rime-frost { };
   inherit pg0;
   pg0-embedded = pkgs.python3Packages.callPackage ./pkgs/pg0-embedded { inherit pg0; };
