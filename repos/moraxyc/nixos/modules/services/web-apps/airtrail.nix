@@ -7,29 +7,47 @@
 
 let
   cfg = config.services.airtrail;
-  defaultDatabaseUrl = "postgresql://airtrail@localhost/airtrail?host=/run/postgresql";
   toEnvValue = value: if lib.isBool value then lib.boolToString value else toString value;
   listenStream =
     host: port: "${if lib.hasInfix ":" host then "[${host}]" else host}:${toString port}";
 in
 {
+  imports = [
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "airtrail" "host" ]
+      [ "services" "airtrail" "settings" "HOST" ]
+    )
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "airtrail" "port" ]
+      [ "services" "airtrail" "settings" "PORT" ]
+    )
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "airtrail" "origin" ]
+      [ "services" "airtrail" "settings" "ORIGIN" ]
+    )
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "airtrail" "bodySizeLimit" ]
+      [ "services" "airtrail" "settings" "BODY_SIZE_LIMIT" ]
+    )
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "airtrail" "database" "url" ]
+      [ "services" "airtrail" "settings" "DB_URL" ]
+    )
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "airtrail" "environment" ]
+      [ "services" "airtrail" "settings" ]
+    )
+    (lib.modules.mkRemovedOptionModule [
+      "services"
+      "airtrail"
+      "behindProxy"
+    ] "Set `PROTOCOL_HEADER` and `HOST_HEADER` in services.airtrail.settings instead.")
+  ];
+
   options.services.airtrail = {
     enable = lib.mkEnableOption "AirTrail, a self-hosted personal flight tracker";
 
     package = lib.mkPackageOption pkgs "airtrail" { };
-
-    host = lib.mkOption {
-      type = lib.types.str;
-      default = "127.0.0.1";
-      example = "0.0.0.0";
-      description = "Address on which the AirTrail web server listens.";
-    };
-
-    port = lib.mkOption {
-      type = lib.types.port;
-      default = 3000;
-      description = "TCP port on which the AirTrail web server listens.";
-    };
 
     unixSocket = lib.mkOption {
       type = with lib.types; nullOr path;
@@ -37,22 +55,10 @@ in
       example = "/run/airtrail/airtrail.sock";
       description = ''
         Unix socket on which the AirTrail web server listens, instead of
-        {option}`services.airtrail.host` and {option}`services.airtrail.port`.
-        systemd creates the socket with mode `0660`; when
-        {option}`services.airtrail.configureNginx` is enabled its group is set
-        to nginx's group. Override `systemd.sockets.airtrail.socketConfig` to
-        change the permissions.
-      '';
-    };
-
-    origin = lib.mkOption {
-      type = lib.types.str;
-      default = "https://${cfg.domain}";
-      defaultText = "https://\${cfg.domain}";
-      example = "https://airtrail.example.org";
-      description = ''
-        The public URL used to access AirTrail. This value is used for
-        authentication cookies and must match the URL used by clients.
+        `settings.HOST` and `settings.PORT`. systemd creates the socket with
+        mode `0660`; when {option}`services.airtrail.configureNginx` is enabled
+        its group is set to nginx's group. Override
+        `systemd.sockets.airtrail.socketConfig` to change the permissions.
       '';
     };
 
@@ -75,43 +81,13 @@ in
       description = "Domain name for the nginx virtual host.";
     };
 
-    behindProxy = lib.mkOption {
+    database.createLocally = lib.mkOption {
       type = lib.types.bool;
-      default = false;
+      default = true;
       description = ''
-        Whether AirTrail is running behind a reverse proxy that supplies
-        `X-Forwarded-Proto` and `X-Forwarded-Host` headers.
+        Whether to configure a local PostgreSQL database and user for
+        AirTrail. The database and user are both named `airtrail`.
       '';
-    };
-
-    bodySizeLimit = lib.mkOption {
-      type = lib.types.str;
-      default = "20M";
-      description = "Maximum HTTP request body size accepted by AirTrail.";
-    };
-
-    database = {
-      createLocally = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = ''
-          Whether to configure a local PostgreSQL database and user for
-          AirTrail. The database and user are both named `airtrail`.
-        '';
-      };
-
-      url = lib.mkOption {
-        type = lib.types.str;
-        default = defaultDatabaseUrl;
-        defaultText = lib.literalExpression ''"postgresql://airtrail@localhost/airtrail?host=/run/postgresql"'';
-        example = "postgresql://airtrail:password@db.example.org:5432/airtrail";
-        description = ''
-          PostgreSQL connection URL. Passwords in this value are stored in the
-          Nix store; use {option}`services.airtrail.environmentFile` with a
-          `DB_URL` entry for a secret URL instead. Values from the environment
-          file override this value.
-        '';
-      };
     };
 
     automaticMigrations = lib.mkOption {
@@ -120,25 +96,70 @@ in
       description = "Whether to run AirTrail database migrations before starting the service.";
     };
 
-    environment = lib.mkOption {
-      type =
-        with lib.types;
-        attrsOf (oneOf [
-          bool
-          int
-          str
-          path
-          package
-        ]);
+    settings = lib.mkOption {
+      type = lib.types.submodule {
+        freeformType =
+          with lib.types;
+          attrsOf (oneOf [
+            bool
+            int
+            str
+            path
+            package
+          ]);
+
+        options = {
+          HOST = lib.mkOption {
+            type = lib.types.str;
+            default = "127.0.0.1";
+            example = "0.0.0.0";
+            description = "Address on which the AirTrail web server listens.";
+          };
+
+          PORT = lib.mkOption {
+            type = lib.types.port;
+            default = 3000;
+            description = "TCP port on which the AirTrail web server listens.";
+          };
+
+          ORIGIN = lib.mkOption {
+            type = lib.types.str;
+            default = "https://${cfg.domain}";
+            defaultText = lib.literalExpression ''"https://''${config.services.airtrail.domain}"'';
+            example = "https://airtrail.example.org";
+            description = ''
+              The public URL used to access AirTrail. This value is used for
+              authentication cookies and must match the URL used by clients.
+            '';
+          };
+
+          DB_URL = lib.mkOption {
+            type = lib.types.str;
+            example = "postgresql://airtrail@db.example.org:5432/airtrail";
+            description = ''
+              PostgreSQL connection URL. Set automatically when
+              {option}`services.airtrail.database.createLocally` is enabled.
+              Passwords in this value are stored in the Nix store; use
+              {option}`services.airtrail.environmentFile` for a secret URL instead.
+            '';
+          };
+
+          BODY_SIZE_LIMIT = lib.mkOption {
+            type = lib.types.str;
+            default = "20M";
+            description = "Maximum HTTP request body size accepted by AirTrail.";
+          };
+        };
+      };
       default = { };
       example = {
         OAUTH_ENABLED = true;
         OAUTH_ISSUER_URL = "https://auth.example.org";
+        PROTOCOL_HEADER = "x-forwarded-proto";
+        HOST_HEADER = "x-forwarded-host";
       };
       description = ''
-        Additional environment variables passed to AirTrail. Values managed by
-        module options take precedence; use {option}`environmentFile` for
-        secrets or to override them.
+        Environment variables passed to AirTrail.
 
         See <https://airtrail.johanohly.com/docs/features/oauth> for supported
         configuration variables.
@@ -151,7 +172,7 @@ in
       example = "/run/secrets/airtrail.env";
       description = ''
         Environment file read by systemd. It can contain secrets and overrides
-        values set by {option}`services.airtrail.environment`, including
+        values set by {option}`services.airtrail.settings`, including
         `DB_URL`.
       '';
     };
@@ -166,18 +187,19 @@ in
           services.airtrail.unixSocket.
         '';
       }
-      {
-        assertion = cfg.database.createLocally -> cfg.database.url == defaultDatabaseUrl;
-        message = ''
-          services.airtrail.database.url must not be changed while
-          services.airtrail.database.createLocally is enabled.
-        '';
-      }
     ];
+
+    services.airtrail.settings = {
+      NODE_ENV = "production";
+      UPLOAD_LOCATION = "/var/lib/airtrail/uploads";
+      DB_URL = lib.mkIf cfg.database.createLocally "postgresql://airtrail@localhost/airtrail?host=/run/postgresql";
+      PROTOCOL_HEADER = lib.mkIf cfg.configureNginx (lib.mkDefault "x-forwarded-proto");
+      HOST_HEADER = lib.mkIf cfg.configureNginx (lib.mkDefault "x-forwarded-host");
+    };
 
     environment.systemPackages = [ cfg.package ];
 
-    networking.firewall.allowedTCPPorts = lib.optional cfg.openFirewall cfg.port;
+    networking.firewall.allowedTCPPorts = lib.optional cfg.openFirewall cfg.settings.PORT;
 
     services.postgresql = lib.mkIf cfg.database.createLocally {
       enable = true;
@@ -198,7 +220,7 @@ in
             if cfg.unixSocket != null then
               "http://unix:${cfg.unixSocket}:/"
             else
-              "http://127.0.0.1:${toString cfg.port}";
+              "http://127.0.0.1:${toString cfg.settings.PORT}";
           recommendedProxySettings = true;
           proxyWebsockets = true;
         };
@@ -208,15 +230,22 @@ in
     systemd.sockets.airtrail = {
       description = "AirTrail socket";
       wantedBy = [ "sockets.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
       listenStreams = [
-        (if cfg.unixSocket != null then cfg.unixSocket else listenStream cfg.host cfg.port)
+        (
+          if cfg.unixSocket != null then cfg.unixSocket else listenStream cfg.settings.HOST cfg.settings.PORT
+        )
       ];
-      socketConfig = lib.mkIf (cfg.unixSocket != null) {
-        SocketMode = lib.mkDefault "0660";
-        SocketGroup = lib.mkIf cfg.configureNginx (lib.mkDefault config.services.nginx.group);
-      };
+      socketConfig =
+        if cfg.unixSocket != null then
+          {
+            SocketMode = lib.mkDefault "0660";
+            SocketGroup = lib.mkIf cfg.configureNginx (lib.mkDefault config.services.nginx.group);
+          }
+        else
+          {
+            # Socket units start before network-online.target, so the address may not exist yet.
+            FreeBind = true;
+          };
     };
 
     systemd.services.airtrail = {
@@ -230,24 +259,7 @@ in
       ++ lib.optional cfg.database.createLocally "postgresql.service";
       requires = [ "airtrail.socket" ] ++ lib.optional cfg.database.createLocally "postgresql.service";
 
-      environment =
-        (lib.mapAttrs (_: toEnvValue) cfg.environment)
-        // {
-          NODE_ENV = "production";
-          HOST = cfg.host;
-          PORT = toString cfg.port;
-          ORIGIN = cfg.origin;
-          DB_URL = defaultDatabaseUrl;
-          BODY_SIZE_LIMIT = cfg.bodySizeLimit;
-          UPLOAD_LOCATION = "/var/lib/airtrail/uploads";
-        }
-        // lib.optionalAttrs (cfg.behindProxy || cfg.configureNginx) {
-          PROTOCOL_HEADER = "x-forwarded-proto";
-          HOST_HEADER = "x-forwarded-host";
-        }
-        // {
-          DB_URL = cfg.database.url;
-        };
+      environment = lib.mapAttrs (_: toEnvValue) cfg.settings;
 
       preStart = ''
         mkdir -p /var/lib/airtrail/uploads

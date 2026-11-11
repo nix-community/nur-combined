@@ -16,7 +16,14 @@ let
     types
     ;
 
-  defaultDatabaseUrl = "postgresql://ghostfolio@localhost/ghostfolio?host=/run/postgresql";
+  toEnvValue =
+    value:
+    if lib.isList value then
+      builtins.toJSON value
+    else if lib.isBool value then
+      lib.boolToString value
+    else
+      toString value;
 
   listenStream =
     host: port: "${if lib.hasInfix ":" host then "[${host}]" else host}:${toString port}";
@@ -42,6 +49,37 @@ let
   '';
 in
 {
+  imports = [
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "ghostfolio" "host" ]
+      [ "services" "ghostfolio" "settings" "HOST" ]
+    )
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "ghostfolio" "port" ]
+      [ "services" "ghostfolio" "settings" "PORT" ]
+    )
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "ghostfolio" "rootUrl" ]
+      [ "services" "ghostfolio" "settings" "ROOT_URL" ]
+    )
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "ghostfolio" "logLevels" ]
+      [ "services" "ghostfolio" "settings" "LOG_LEVELS" ]
+    )
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "ghostfolio" "database" "url" ]
+      [ "services" "ghostfolio" "settings" "DATABASE_URL" ]
+    )
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "ghostfolio" "redis" "host" ]
+      [ "services" "ghostfolio" "settings" "REDIS_HOST" ]
+    )
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "ghostfolio" "redis" "port" ]
+      [ "services" "ghostfolio" "settings" "REDIS_PORT" ]
+    )
+  ];
+
   meta.maintainers = with lib.maintainers; [ moraxyc ];
 
   options.services.ghostfolio = {
@@ -49,56 +87,17 @@ in
 
     package = lib.mkPackageOption pkgs "ghostfolio" { };
 
-    host = mkOption {
-      type = types.str;
-      default = "::";
-      description = "Host address Ghostfolio listens on.";
-    };
-
-    port = mkOption {
-      type = types.port;
-      default = 3333;
-      description = "Port Ghostfolio listens on.";
-    };
-
     unixSocket = mkOption {
       type = types.nullOr types.path;
       default = null;
       example = "/run/ghostfolio/ghostfolio.sock";
       description = ''
-        Unix socket on which Ghostfolio listens, instead of
-        {option}`services.ghostfolio.host` and {option}`services.ghostfolio.port`.
-        `services.ghostfolio.port` is still passed to Ghostfolio, which uses it
-        to identify the listening socket. systemd creates the socket with mode
-        `0660`; override `systemd.sockets.ghostfolio.socketConfig` to change
-        its owner or group.
+        Unix socket on which Ghostfolio listens, instead of `settings.HOST` and
+        `settings.PORT`. `settings.PORT` is still passed to Ghostfolio, which
+        uses it to identify the listening socket. systemd creates the socket
+        with mode `0660`; override `systemd.sockets.ghostfolio.socketConfig` to
+        change its owner or group.
       '';
-    };
-
-    rootUrl = mkOption {
-      type = types.str;
-      example = "https://wealth.example.com";
-      description = "Public root URL of the Ghostfolio instance.";
-    };
-
-    logLevels = mkOption {
-      type = types.listOf (
-        types.enum [
-          "debug"
-          "error"
-          "log"
-          "verbose"
-          "warn"
-        ]
-      );
-      default = [ "warn" ];
-      example = [
-        "debug"
-        "error"
-        "log"
-        "warn"
-      ];
-      description = "Ghostfolio log levels.";
     };
 
     autoMigrate = mkOption {
@@ -114,64 +113,107 @@ in
       default = null;
       example = "/run/secrets/ghostfolio.env";
       description = ''
-        Environment file containing secrets or additional variables.
-
-        Common required variables include:
-
-        - ACCESS_TOKEN_SALT
-        - JWT_SECRET_KEY
+        Environment file containing secrets such as `ACCESS_TOKEN_SALT` and
+        `JWT_SECRET_KEY`. Values in it override {option}`services.ghostfolio.settings`.
       '';
     };
 
     settings = mkOption {
-      type = types.attrsOf types.str;
+      type = types.submodule {
+        freeformType =
+          with types;
+          attrsOf (oneOf [
+            bool
+            int
+            str
+            path
+          ]);
+
+        options = {
+          HOST = mkOption {
+            type = types.str;
+            default = "::";
+            description = "Host address Ghostfolio listens on.";
+          };
+
+          PORT = mkOption {
+            type = types.port;
+            default = 3333;
+            description = "Port Ghostfolio listens on.";
+          };
+
+          ROOT_URL = mkOption {
+            type = types.str;
+            example = "https://wealth.example.com";
+            description = "Public root URL of the Ghostfolio instance.";
+          };
+
+          LOG_LEVELS = mkOption {
+            type = types.listOf (
+              types.enum [
+                "debug"
+                "error"
+                "log"
+                "verbose"
+                "warn"
+              ]
+            );
+            default = [ "warn" ];
+            example = [
+              "debug"
+              "error"
+              "log"
+              "warn"
+            ];
+            description = "Ghostfolio log levels.";
+          };
+
+          DATABASE_URL = mkOption {
+            type = types.str;
+            description = ''
+              PostgreSQL connection URL. Set automatically when
+              {option}`services.ghostfolio.database.createLocally` is enabled.
+            '';
+          };
+
+          REDIS_HOST = mkOption {
+            type = types.str;
+            default = "localhost";
+            description = "Redis host.";
+          };
+
+          REDIS_PORT = mkOption {
+            type = types.port;
+            default = 6379;
+            description = "Redis port.";
+          };
+        };
+      };
       default = { };
       example = {
-        REQUEST_TIMEOUT = "200";
+        REQUEST_TIMEOUT = 200;
       };
       description = ''
-        Additional environment variables passed to Ghostfolio.
+        Environment variables passed to Ghostfolio.
 
         See <https://github.com/ghostfolio/ghostfolio#supported-environment-variables> for available settings.
       '';
     };
 
-    database = {
-      createLocally = mkOption {
-        type = types.bool;
-        default = true;
-        description = ''
-          Whether to create a local PostgreSQL database and user for Ghostfolio.
-        '';
-      };
-
-      url = mkOption {
-        type = types.str;
-        default = defaultDatabaseUrl;
-        description = "PostgreSQL connection URL.";
-      };
+    database.createLocally = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        Whether to create a local PostgreSQL database and user for Ghostfolio.
+      '';
     };
 
-    redis = {
-      createLocally = mkOption {
-        type = types.bool;
-        default = true;
-        description = ''
-          Whether to create a local Redis instance for Ghostfolio.
-        '';
-      };
-
-      host = mkOption {
-        type = types.str;
-        default = "localhost";
-        description = "Redis host.";
-      };
-
-      port = mkOption {
-        type = types.port;
-        default = 6379;
-        description = "Redis port.";
-      };
+    redis.createLocally = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        Whether to create a local Redis instance for Ghostfolio.
+      '';
     };
   };
 
@@ -191,13 +233,9 @@ in
           services.ghostfolio.environmentFile.
         '';
       }
-      {
-        assertion = cfg.database.createLocally -> cfg.database.url == defaultDatabaseUrl;
-        message = ''
-          services.ghostfolio.database.url should not be set when services.ghostfolio.database.createLocally is true.
-        '';
-      }
     ];
+
+    services.ghostfolio.settings.DATABASE_URL = mkIf cfg.database.createLocally "postgresql://ghostfolio@localhost/ghostfolio?host=/run/postgresql";
 
     services.postgresql = mkIf cfg.database.createLocally {
       enable = true;
@@ -212,21 +250,28 @@ in
 
     services.redis.servers.ghostfolio = mkIf cfg.redis.createLocally {
       enable = true;
-      bind = cfg.redis.host;
-      port = cfg.redis.port;
+      bind = cfg.settings.REDIS_HOST;
+      port = cfg.settings.REDIS_PORT;
     };
 
     systemd.sockets.ghostfolio = {
       description = "Ghostfolio socket";
       wantedBy = [ "sockets.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
       listenStreams = [
-        (if cfg.unixSocket != null then cfg.unixSocket else listenStream cfg.host cfg.port)
+        (
+          if cfg.unixSocket != null then cfg.unixSocket else listenStream cfg.settings.HOST cfg.settings.PORT
+        )
       ];
-      socketConfig = lib.mkIf (cfg.unixSocket != null) {
-        SocketMode = lib.mkDefault "0660";
-      };
+      socketConfig =
+        if cfg.unixSocket != null then
+          {
+            SocketMode = lib.mkDefault "0660";
+          }
+        else
+          {
+            # Socket units start before network-online.target, so the address may not exist yet.
+            FreeBind = true;
+          };
     };
 
     systemd.services.ghostfolio = {
@@ -250,17 +295,8 @@ in
 
       environment = {
         NODE_OPTIONS = "--require ${socketActivationPreload}";
-        HOST = cfg.host;
-        PORT = toString cfg.port;
-        ROOT_URL = cfg.rootUrl;
-        LOG_LEVELS = builtins.toJSON cfg.logLevels;
-
-        DATABASE_URL = cfg.database.url;
-
-        REDIS_HOST = cfg.redis.host;
-        REDIS_PORT = toString cfg.redis.port;
       }
-      // cfg.settings;
+      // lib.mapAttrs (_: toEnvValue) cfg.settings;
 
       serviceConfig =
         lib.optionalAttrs cfg.autoMigrate {

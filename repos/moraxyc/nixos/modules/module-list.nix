@@ -20,6 +20,7 @@
   ./services/web-apps/mcsmanager.nix
   # ./services/web-apps/nezha.nix # upstreamed
   ./services/web-apps/shlink.nix
+  ./services/web-apps/ztnet.nix
   ./services/web-servers/bark-server.nix
   # keep-sorted end
 ]

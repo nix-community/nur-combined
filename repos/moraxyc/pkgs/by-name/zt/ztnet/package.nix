@@ -8,6 +8,7 @@
   makeWrapper,
   nodejs,
   nodejs-slim,
+  openssl,
   prisma-engines_6,
 
   sources,
@@ -42,7 +43,10 @@ buildNpmPackage (finalAttrs: {
     substituteInPlace src/server/api/routers/adminRoute.ts src/pages/api/mkworld/config.ts \
       --replace-fail '"/usr/local/bin/ztmkworld"' '"${lib.getExe finalAttrs.passthru.ztmkworld}"'
     substituteInPlace src/server/api/routers/adminRoute.ts \
-      --replace-fail 'process.cwd()' '(process.env.ZTNET_DATA_DIR || "/var/lib/ztnet")'
+      --replace-fail 'process.cwd()' '(process.env.ZTNET_DATA_DIR || "/var/lib/ztnet")' \
+      --replace-fail 'systemctl stop zerotier-one' 'systemctl stop zerotierone' \
+      --replace-fail 'systemctl start zerotier-one' 'systemctl start zerotierone' \
+      --replace-fail 'const host = url.hostname;' 'const host = url.searchParams.get("host") || url.hostname;'
   '';
 
   env = {
@@ -79,16 +83,19 @@ buildNpmPackage (finalAttrs: {
     makeWrapper ${lib.getExe nodejs-slim} $out/bin/ztnet \
       --add-flags "$out/share/ztnet/server.js" \
       --set NODE_ENV production \
+      --prefix PATH : ${lib.makeBinPath [ openssl ]} \
       --set NEXT_TELEMETRY_DISABLED 1 \
       --set PRISMA_QUERY_ENGINE_LIBRARY ${prisma-engines_6}/lib/libquery_engine.node
 
     makeWrapper ${lib.getExe nodejs-slim} $out/bin/ztnet-migrate \
       --add-flags "$out/share/ztnet/node_modules/prisma/build/index.js migrate deploy --schema $out/share/ztnet/prisma/schema.prisma" \
+      --prefix PATH : ${lib.makeBinPath [ openssl ]} \
       --set PRISMA_SCHEMA_ENGINE_BINARY ${prisma-engines_6}/bin/schema-engine \
       --set PRISMA_QUERY_ENGINE_LIBRARY ${prisma-engines_6}/lib/libquery_engine.node
 
     makeWrapper ${lib.getExe nodejs-slim} $out/bin/ztnet-seed \
       --add-flags "$out/share/ztnet/prisma/seed.js" \
+      --prefix PATH : ${lib.makeBinPath [ openssl ]} \
       --set PRISMA_QUERY_ENGINE_LIBRARY ${prisma-engines_6}/lib/libquery_engine.node
 
     runHook postInstall

@@ -6,8 +6,97 @@
 }:
 let
   cfg = config.services.bark-server;
+
+  toEnvValue = value: if lib.isBool value then lib.boolToString value else toString value;
+
+  # Files that may be readable by root only are passed via LoadCredential.
+  credentialSettings = lib.filterAttrs (_: v: v != null) {
+    BARK_SERVER_CERT = cfg.settings.BARK_SERVER_CERT;
+    BARK_SERVER_KEY = cfg.settings.BARK_SERVER_KEY;
+  };
 in
 {
+  imports = [
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "bark-server" "unixSocket" ]
+      [ "services" "bark-server" "settings" "BARK_SERVER_UNIX_SOCKET" ]
+    )
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "bark-server" "urlPrefix" ]
+      [ "services" "bark-server" "settings" "BARK_SERVER_URL_PREFIX" ]
+    )
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "bark-server" "serverlessMode" ]
+      [ "services" "bark-server" "settings" "BARK_SERVER_SERVERLESS" ]
+    )
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "bark-server" "caseSensitive" ]
+      [ "services" "bark-server" "settings" "BARK_SERVER_CASE_SENSITIVE" ]
+    )
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "bark-server" "strictRouting" ]
+      [ "services" "bark-server" "settings" "BARK_SERVER_STRICT_ROUTING" ]
+    )
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "bark-server" "reduceMemoryUsage" ]
+      [ "services" "bark-server" "settings" "BARK_SERVER_REDUCE_MEMORY_USAGE" ]
+    )
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "bark-server" "proxyHeader" ]
+      [ "services" "bark-server" "settings" "BARK_SERVER_PROXY_HEADER" ]
+    )
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "bark-server" "auth" "user" ]
+      [ "services" "bark-server" "settings" "BARK_SERVER_BASIC_AUTH_USER" ]
+    )
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "bark-server" "TLS" "certFile" ]
+      [ "services" "bark-server" "settings" "BARK_SERVER_CERT" ]
+    )
+    (lib.modules.mkRenamedOptionModule
+      [ "services" "bark-server" "TLS" "keyFile" ]
+      [ "services" "bark-server" "settings" "BARK_SERVER_KEY" ]
+    )
+    (lib.modules.mkRemovedOptionModule [
+      "services"
+      "bark-server"
+      "host"
+    ] "Set services.bark-server.settings.BARK_SERVER_ADDRESS instead.")
+    (lib.modules.mkRemovedOptionModule [
+      "services"
+      "bark-server"
+      "port"
+    ] "Set services.bark-server.settings.BARK_SERVER_ADDRESS instead.")
+    (lib.modules.mkRemovedOptionModule [
+      "services"
+      "bark-server"
+      "dataDir"
+    ] "The data directory is always /var/lib/bark-server.")
+    (lib.modules.mkRemovedOptionModule [
+      "services"
+      "bark-server"
+      "auth"
+      "passwordFile"
+    ] "Set BARK_SERVER_BASIC_AUTH_PASSWORD in services.bark-server.environmentFile instead.")
+    (lib.modules.mkRemovedOptionModule [
+      "services"
+      "bark-server"
+      "database"
+      "type"
+    ] "bark-server uses MySQL when BARK_SERVER_DSN is set.")
+    (lib.modules.mkRemovedOptionModule [
+      "services"
+      "bark-server"
+      "database"
+      "mysqlDsn"
+    ] "Set BARK_SERVER_DSN in services.bark-server.environmentFile instead.")
+    (lib.modules.mkRemovedOptionModule [
+      "services"
+      "bark-server"
+      "extraFlags"
+    ] "Use services.bark-server.settings instead.")
+  ];
+
   meta.maintainers = with lib.maintainers; [ moraxyc ];
 
   options = {
@@ -16,134 +105,98 @@ in
 
       package = lib.mkPackageOption pkgs "bark-server" { };
 
-      host = lib.mkOption {
-        type = with lib.types; nullOr str;
-        default = "127.0.0.1";
-      };
-
-      port = lib.mkOption {
-        type = with lib.types; nullOr port;
-        default = 8080;
-      };
-
-      unixSocket = lib.mkOption {
-        type = with lib.types; nullOr path;
+      environmentFile = lib.mkOption {
+        type = lib.types.nullOr lib.types.path;
         default = null;
-      };
-
-      dataDir = lib.mkOption {
-        type = lib.types.path;
-        default = "/var/lib/bark-server";
-        readOnly = true;
-      };
-
-      serverlessMode = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
+        example = "/run/secrets/bark-server.env";
         description = ''
-          Whether to enable serverless mode.
+          Environment file containing secrets such as
+          `BARK_SERVER_BASIC_AUTH_PASSWORD` or `BARK_SERVER_DSN`.
+          Values in it override {option}`services.bark-server.settings`.
         '';
       };
 
-      urlPrefix = lib.mkOption {
-        type = lib.types.nullOr lib.types.str;
-        default = null;
-      };
+      settings = lib.mkOption {
+        type = lib.types.submodule {
+          freeformType =
+            with lib.types;
+            attrsOf (
+              nullOr (oneOf [
+                bool
+                int
+                str
+              ])
+            );
 
-      caseSensitive = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-      };
+          options = {
+            BARK_SERVER_ADDRESS = lib.mkOption {
+              type = lib.types.str;
+              default = "127.0.0.1:8080";
+              description = "Address bark-server listens on.";
+            };
 
-      strictRouting = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-      };
+            BARK_SERVER_UNIX_SOCKET = lib.mkOption {
+              type = lib.types.nullOr lib.types.path;
+              default = null;
+              example = "/run/bark-server/bark.sock";
+              description = "Unix socket bark-server listens on, instead of `BARK_SERVER_ADDRESS`.";
+            };
 
-      reduceMemoryUsage = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-      };
+            BARK_SERVER_CERT = lib.mkOption {
+              type = lib.types.nullOr lib.types.path;
+              default = null;
+              description = ''
+                TLS certificate file. It is passed with systemd `LoadCredential`,
+                so it may be readable by root only.
+              '';
+            };
 
-      proxyHeader = lib.mkOption {
-        type = lib.types.nullOr lib.types.str;
-        default = null;
-      };
-
-      auth = {
-        user = lib.mkOption {
-          type = lib.types.nullOr lib.types.str;
-          default = null;
+            BARK_SERVER_KEY = lib.mkOption {
+              type = lib.types.nullOr lib.types.path;
+              default = null;
+              description = ''
+                TLS certificate key file. It is passed with systemd `LoadCredential`,
+                so it may be readable by root only.
+              '';
+            };
+          };
         };
-        passwordFile = lib.mkOption {
-          type = lib.types.nullOr lib.types.path;
-          default = null;
-          description = ''
-            Path to the file contained the password
-            Leave empty to not enable auth
-          '';
+        default = { };
+        example = {
+          BARK_SERVER_BASIC_AUTH_USER = "bark";
+          BARK_SERVER_PROXY_HEADER = "X-Forwarded-For";
+          BARK_SERVER_REDUCE_MEMORY_USAGE = true;
         };
-      };
+        description = ''
+          Environment variables passed to bark-server. `null` values are omitted.
 
-      database = {
-        type = lib.mkOption {
-          type = lib.types.enum [
-            "bbolt"
-            "mysql"
-          ];
-          default = "bbolt";
-          description = ''
-            Use mysql as database or the embedded bbolt
-          '';
-        };
-        # TODO: add createMysqlLocally
-        mysqlDsn = lib.mkOption {
-          type = lib.types.nullOr lib.types.str;
-          default = null;
-          description = ''
-            DSN to connect to mysql database
-          '';
-        };
-      };
-
-      TLS = {
-        certFile = lib.mkOption {
-          type = lib.types.nullOr lib.types.path;
-          default = null;
-          description = ''
-            Path to the file contained the TLS certificate
-            Leave empty to not offer TLS
-          '';
-        };
-        keyFile = lib.mkOption {
-          type = lib.types.nullOr lib.types.path;
-          default = null;
-          description = ''
-            Path to the file contained the TLS certificate key
-            Leave empty to not offer TLS
-          '';
-        };
-      };
-      extraFlags = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        default = [ ];
-        description = "";
+          See `bark-server --help` for available settings.
+        '';
       };
     };
   };
 
   config = lib.mkIf cfg.enable {
+    services.bark-server.settings.BARK_SERVER_DATA_DIR = "/var/lib/bark-server";
+
     systemd.services.bark-server = {
+      description = "Bark push server";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+
+      environment = lib.mapAttrs (_: toEnvValue) (
+        lib.filterAttrs (_: v: v != null) cfg.settings
+        // lib.mapAttrs (name: _: "%d/${name}") credentialSettings
+      );
+
       serviceConfig = {
+        ExecStart = lib.getExe cfg.package;
         Type = "simple";
         Restart = "on-failure";
-        StateDirectory = baseNameOf cfg.dataDir;
+        StateDirectory = "bark-server";
         RuntimeDirectory = "bark-server";
-        LoadCredential =
-          lib.optional (!isNull cfg.auth.passwordFile) "auth-password:${cfg.auth.passwordFile}"
-          ++ lib.optional (!isNull cfg.database.mysqlDsn) "mysql-dsn:${cfg.database.mysqlDsn}"
-          ++ lib.optional (!isNull cfg.TLS.certFile) "tls-certfile:${cfg.TLS.certFile}"
-          ++ lib.optional (!isNull cfg.TLS.keyFile) "tls-keyfile:${cfg.TLS.keyFile}";
+        EnvironmentFile = lib.optional (cfg.environmentFile != null) cfg.environmentFile;
+        LoadCredential = lib.mapAttrsToList (name: file: "${name}:${file}") credentialSettings;
 
         DynamicUser = true;
         UMask = "0077";
@@ -182,31 +235,6 @@ in
           "~@clock @cpu-emulation @debug @module @mount @obsolete @privileged @raw-io @reboot @swap"
         ];
       };
-      script = lib.concatStringsSep " " (
-        [
-          "exec"
-          "${lib.getExe cfg.package}"
-          "--data ${cfg.dataDir}"
-        ]
-        ++ lib.optional (cfg.unixSocket != null) "--unix-socket ${cfg.unixSocket}"
-        ++ lib.optional (cfg.host != null && cfg.port != null) "--addr ${cfg.host}:${toString cfg.port}"
-        ++ lib.optional cfg.serverlessMode "--serverless"
-        ++ lib.optional cfg.caseSensitive "--case-sensitive"
-        ++ lib.optional cfg.strictRouting "--strict-routing"
-        ++ lib.optional cfg.reduceMemoryUsage "--reduce-memory-usage"
-        ++ lib.optional (!isNull cfg.auth.user) "--user ${cfg.auth.user}"
-        ++ lib.optional (
-          !isNull cfg.auth.passwordFile
-        ) "--password $(cat $CREDENTIALS_DIRECTORY/auth-password)"
-        ++ lib.optional (!isNull cfg.database.mysqlDsn) "--dsn $(cat $CREDENTIALS_DIRECTORY/mysql-dsn)"
-        ++ lib.optional (!isNull cfg.TLS.certFile) "--cert $CREDENTIALS_DIRECTORY/tls-certfile"
-        ++ lib.optional (!isNull cfg.TLS.keyFile) "--key $CREDENTIALS_DIRECTORY/tls-keyfile"
-        ++ lib.optional (!isNull cfg.proxyHeader) "--proxy-header ${cfg.proxyHeader}"
-        ++ lib.optional (!isNull cfg.urlPrefix) "--url-prefix ${cfg.urlPrefix}"
-        ++ cfg.extraFlags
-      );
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
     };
   };
 }

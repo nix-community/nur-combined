@@ -9,8 +9,6 @@ let
   cfg = config.services.gzctf;
   settingsFormat = pkgs.formats.json { };
 
-  bindPrivileged = cfg.serverPort < 1024 || cfg.metricPort < 1024;
-
   toNpgsqlString =
     attrs:
     lib.concatStringsSep ";" (
@@ -20,45 +18,44 @@ let
     );
 in
 {
+  imports = [
+    (lib.modules.mkRemovedOptionModule [
+      "services"
+      "gzctf"
+      "serverPort"
+    ] "It was never applied; set services.gzctf.settings.Kestrel.Endpoints instead.")
+    (lib.modules.mkRemovedOptionModule [
+      "services"
+      "gzctf"
+      "metricPort"
+    ] "It was never applied; set services.gzctf.settings.Kestrel.Endpoints instead.")
+  ];
+
   meta.maintainers = with lib.maintainers; [ moraxyc ];
 
   options = {
     services.gzctf = {
-      enable = lib.mkEnableOption "";
+      enable = lib.mkEnableOption "GZCTF, an open source CTF platform";
 
       package = lib.mkPackageOption pkgs "gzctf" { };
 
-      database = {
-        createLocally = lib.mkEnableOption "";
-      };
-      docker = {
-        createLocally = lib.mkEnableOption "";
-      };
+      database.createLocally = lib.mkEnableOption "a local PostgreSQL database for GZCTF";
+
+      docker.createLocally = lib.mkEnableOption "a local Docker daemon as the GZCTF container provider";
+
       redis = {
-        enable = lib.mkEnableOption "";
-        createLocally = lib.mkEnableOption "";
+        enable = lib.mkEnableOption "Redis cache for GZCTF";
+        createLocally = lib.mkEnableOption "a local Redis instance for GZCTF";
         host = lib.mkOption {
           type = lib.types.str;
           default = "localhost";
-          description = "";
+          description = "Redis host.";
         };
         port = lib.mkOption {
           type = lib.types.port;
           default = 6379;
-          description = "";
+          description = "Redis port.";
         };
-      };
-
-      serverPort = lib.mkOption {
-        type = lib.types.port;
-        default = 28080;
-        description = "";
-      };
-
-      metricPort = lib.mkOption {
-        type = lib.types.port;
-        default = 23000;
-        description = "";
       };
 
       settings = lib.mkOption {
@@ -66,7 +63,19 @@ in
           freeformType = settingsFormat.type;
         };
         default = { };
-        description = "";
+        example = {
+          Kestrel.Endpoints = {
+            Web.Url = "http://127.0.0.1:8080";
+            Prometheus.Url = "http://127.0.0.1:3000";
+          };
+        };
+        description = ''
+          GZCTF {file}`appsettings.json`, see <https://github.com/GZTimeWalker/GZCTF>.
+
+          Options containing secret data should be set to an attribute set
+          containing the attribute `_secret` - a string pointing to a file
+          containing the value the option should be set to.
+        '';
       };
     };
   };
@@ -181,8 +190,9 @@ in
           "AF_UNIX"
         ];
         PrivateUsers = false;
-        AmbientCapabilities = if bindPrivileged then "CAP_NET_BIND_SERVICE" else "";
-        CapabilityBoundingSet = if bindPrivileged then "CAP_NET_BIND_SERVICE" else "";
+        # Kestrel endpoints are free-form URLs, so privileged ports are always allowed.
+        AmbientCapabilities = "CAP_NET_BIND_SERVICE";
+        CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
         SystemCallArchitectures = "native";
       };
     };

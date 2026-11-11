@@ -179,13 +179,18 @@ in
     systemd.sockets.ddns-go = lib.mkIf useSocket {
       description = "ddns-go socket";
       wantedBy = [ "sockets.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
       listenStreams = [ (if cfg.unixSocket != null then cfg.unixSocket else tcpListenStream) ];
-      socketConfig = lib.mkIf (cfg.unixSocket != null) {
-        SocketMode = lib.mkDefault "0660";
-        SocketGroup = lib.mkIf cfg.configureNginx (lib.mkDefault config.services.nginx.group);
-      };
+      socketConfig =
+        if cfg.unixSocket != null then
+          {
+            SocketMode = lib.mkDefault "0660";
+            SocketGroup = lib.mkIf cfg.configureNginx (lib.mkDefault config.services.nginx.group);
+          }
+        else
+          {
+            # Socket units start before network-online.target, so the address may not exist yet.
+            FreeBind = true;
+          };
     };
 
     systemd.services.ddns-go = {

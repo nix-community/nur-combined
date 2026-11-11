@@ -13,8 +13,8 @@ pkgs.testers.runNixOSTest {
 
     services.ghostfolio = {
       enable = true;
-      rootUrl = "http://localhost:3333";
       settings = {
+        ROOT_URL = "http://localhost:3333";
         ACCESS_TOKEN_SALT = "test-access-token-salt";
         JWT_SECRET_KEY = "test-jwt-secret-key";
       };
