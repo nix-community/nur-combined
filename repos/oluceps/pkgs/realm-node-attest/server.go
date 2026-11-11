@@ -245,11 +245,13 @@ func (a *ServerAttempt) fetch(ctx context.Context) ([]byte, error) {
 	host := net.JoinHostPort(a.node.fqdn, strconv.Itoa(a.server.config.Port))
 	url := "http://" + host + PathPrefix + a.challenge.ID
 	for _, address := range addresses {
-		if err := ctx.Err(); err != nil {
-			return nil, err
-		}
+		started := time.Now()
 		// Dial only the validated literal address, never the URL hostname.
 		target := net.JoinHostPort(address.String(), strconv.Itoa(a.server.config.Port))
+		if err := ctx.Err(); err != nil {
+			a.server.metrics.fetchFailure(a.node.name, target, "context", 0, 0, started, err)
+			return nil, err
+		}
 		transport := &http.Transport{
 			Proxy: nil, DisableKeepAlives: true, DisableCompression: true,
 			MaxResponseHeaderBytes: MaxDocumentSize,
@@ -259,18 +261,32 @@ func (a *ServerAttempt) fetch(ctx context.Context) ([]byte, error) {
 		req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 		if err != nil {
 			transport.CloseIdleConnections()
+			a.server.metrics.fetchFailure(a.node.name, target, "request", 0, 0, started, err)
 			return nil, err
 		}
 		req.Header.Set("Accept", "application/json")
 		response, err := client.Do(req)
 		if err != nil {
 			transport.CloseIdleConnections()
+			a.server.metrics.fetchFailure(a.node.name, target, "round_trip", 0, 0, started, err)
 			continue
 		}
 		body, readErr := io.ReadAll(io.LimitReader(response.Body, MaxDocumentSize+1))
 		_ = response.Body.Close()
 		transport.CloseIdleConnections()
-		if response.StatusCode != http.StatusOK || readErr != nil || len(body) > MaxDocumentSize || response.Header.Get("Content-Encoding") != "" {
+		phase := ""
+		switch {
+		case readErr != nil:
+			phase = "read_body"
+		case response.StatusCode != http.StatusOK:
+			phase = "http_status"
+		case len(body) > MaxDocumentSize:
+			phase = "body_too_large"
+		case response.Header.Get("Content-Encoding") != "":
+			phase = "content_encoding"
+		}
+		if phase != "" {
+			a.server.metrics.fetchFailure(a.node.name, target, phase, response.StatusCode, len(body), started, readErr)
 			return nil, errors.New("HTTP endpoint returned an invalid response")
 		}
 		return body, nil

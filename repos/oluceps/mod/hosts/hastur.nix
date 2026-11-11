@@ -204,6 +204,10 @@
       };
       realm.observability.endpoints.syncthing.port = 8384;
       services = {
+        # Allow VIA to configure the FK680Pro over Raw HID.
+        udev.extraRules = ''
+          SUBSYSTEM=="hidraw", KERNEL=="hidraw*", ATTRS{idVendor}=="feed", ATTRS{idProduct}=="6060", MODE="0660", GROUP="users", TAG+="uaccess"
+        '';
         # Did you read the comment?
         blueman.enable = true;
         syncthing = {

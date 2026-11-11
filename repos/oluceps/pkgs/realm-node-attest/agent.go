@@ -121,13 +121,13 @@ func controlRequest(ctx context.Context, socket, method, id string, body []byte)
 	req.Header.Set("Content-Type", "application/json")
 	response, err := client.Do(req)
 	if err != nil {
-		return errors.New("control endpoint unavailable")
+		return &controlError{message: "control endpoint unavailable", method: method, phase: "round_trip", err: err}
 	}
 	defer response.Body.Close()
 	_, _ = io.Copy(io.Discard, io.LimitReader(response.Body, 1024))
 	if (method == http.MethodPut && response.StatusCode != http.StatusCreated) ||
 		(method == http.MethodDelete && response.StatusCode != http.StatusNoContent && response.StatusCode != http.StatusNotFound) {
-		return errors.New("control endpoint rejected operation")
+		return &controlError{message: "control endpoint rejected operation", method: method, phase: "http_status", status: response.StatusCode}
 	}
 	return nil
 }

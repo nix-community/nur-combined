@@ -4,6 +4,7 @@ go 1.26.0
 
 require (
 	github.com/go-jose/go-jose/v4 v4.1.6
+	github.com/hashicorp/go-hclog v0.15.0
 	github.com/hashicorp/hcl v1.0.0
 	github.com/spiffe/spire-plugin-sdk v1.15.3
 	google.golang.org/grpc v1.74.2
@@ -12,7 +13,6 @@ require (
 require (
 	github.com/fatih/color v1.15.0 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
-	github.com/hashicorp/go-hclog v0.15.0 // indirect
 	github.com/hashicorp/go-plugin v1.4.0 // indirect
 	github.com/hashicorp/yamux v0.0.0-20180604194846-3520598351bb // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect

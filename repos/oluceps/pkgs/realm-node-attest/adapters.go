@@ -9,7 +9,9 @@ import (
 	"sync"
 	"time"
 
+	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/hcl"
+	"github.com/spiffe/spire-plugin-sdk/pluginsdk"
 	agentv1 "github.com/spiffe/spire-plugin-sdk/proto/spire/plugin/agent/nodeattestor/v1"
 	serverv1 "github.com/spiffe/spire-plugin-sdk/proto/spire/plugin/server/nodeattestor/v1"
 	configv1 "github.com/spiffe/spire-plugin-sdk/proto/spire/service/common/config/v1"
@@ -22,6 +24,8 @@ var (
 	_ serverv1.NodeAttestorServer = (*ServerPlugin)(nil)
 	_ configv1.ConfigServer       = (*AgentPlugin)(nil)
 	_ configv1.ConfigServer       = (*ServerPlugin)(nil)
+	_ pluginsdk.NeedsLogger       = (*AgentPlugin)(nil)
+	_ pluginsdk.NeedsLogger       = (*ServerPlugin)(nil)
 )
 
 // AgentPlugin implements the agent NodeAttestor registered as http_fqdn in SPIRE.
@@ -32,7 +36,18 @@ type AgentPlugin struct {
 	mu       sync.RWMutex
 	config   *AgentConfig
 	metrics  *metricsRegistry
+	logger   hclog.Logger
 	listener metricsListener
+}
+
+// SetLogger attaches SPIRE's plugin logger so events reach SPIRE instead of discarded stdio.
+func (p *AgentPlugin) SetLogger(logger hclog.Logger) {
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	p.logger = logger
+	if p.metrics != nil {
+		p.metrics.setLogger(logger)
+	}
 }
 
 // Configure replaces the agent configuration only after all checks pass.
@@ -52,6 +67,7 @@ func (p *AgentPlugin) Configure(_ context.Context, req *configv1.ConfigureReques
 	defer p.mu.Unlock()
 	if p.metrics == nil {
 		p.metrics = newMetrics("agent")
+		p.metrics.setLogger(p.logger)
 	}
 	if err := p.listener.configure(cfg.MetricsAddress, p.metrics); err != nil {
 		return nil, status.Error(codes.InvalidArgument, "cannot configure metrics listener")
@@ -66,6 +82,7 @@ func (p *AgentPlugin) AidAttestation(stream agentv1.NodeAttestor_AidAttestationS
 	p.mu.Lock()
 	if p.metrics == nil {
 		p.metrics = newMetrics("agent")
+		p.metrics.setLogger(p.logger)
 	}
 	cfg, metrics := p.config, p.metrics
 	p.mu.Unlock()
@@ -132,6 +149,7 @@ func aidAttestation(stream agentv1.NodeAttestor_AidAttestationServer, cfg AgentC
 	}
 	response, err := attempt.Respond(ctx, challenge.Challenge)
 	if err != nil {
+		metrics.controlFailure(cfg.FQDN, err)
 		stage, reason = classifyError(ctx, err, stage, reason)
 		return attestationError(ctx, codes.Unauthenticated, "cannot answer attestation challenge")
 	}
@@ -176,7 +194,18 @@ type ServerPlugin struct {
 	begin    serverPluginBegin
 	nodes    map[string]node
 	metrics  *metricsRegistry
+	logger   hclog.Logger
 	listener metricsListener
+}
+
+// SetLogger attaches SPIRE's plugin logger so events reach SPIRE instead of discarded stdio.
+func (p *ServerPlugin) SetLogger(logger hclog.Logger) {
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	p.logger = logger
+	if p.metrics != nil {
+		p.metrics.setLogger(logger)
+	}
 }
 
 // Configure validates a new server before it replaces the active server.
@@ -200,6 +229,7 @@ func (p *ServerPlugin) Configure(_ context.Context, req *configv1.ConfigureReque
 	defer p.mu.Unlock()
 	if p.metrics == nil {
 		p.metrics = newMetrics("server")
+		p.metrics.setLogger(p.logger)
 	}
 	if err := p.listener.configure(cfg.MetricsAddress, p.metrics); err != nil {
 		return nil, status.Error(codes.InvalidArgument, "cannot configure metrics listener")
@@ -221,6 +251,7 @@ func (p *ServerPlugin) Attest(stream serverv1.NodeAttestor_AttestServer) (retErr
 	p.mu.Lock()
 	if p.metrics == nil {
 		p.metrics = newMetrics("server")
+		p.metrics.setLogger(p.logger)
 	}
 	begin, nodes, metrics := p.begin, p.nodes, p.metrics
 	p.mu.Unlock()

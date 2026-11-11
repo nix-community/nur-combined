@@ -54,6 +54,21 @@ func newResponder(config ResponderConfig) (*responder, error) {
 	return &responder{config: config, proofs: make(map[string]storedProof), now: time.Now, metrics: metrics}, nil
 }
 
+func publicRequestInvalidPhase(request *http.Request, expectedHost string) string {
+	switch {
+	case request.Host != expectedHost:
+		return "host_mismatch"
+	case request.URL.RawQuery != "":
+		return "query_present"
+	case request.URL.EscapedPath() != request.URL.Path:
+		return "escaped_path"
+	case request.ContentLength > 0 || len(request.TransferEncoding) != 0:
+		return "unexpected_body"
+	default:
+		return ""
+	}
+}
+
 func proofID(path, prefix string) (string, bool) {
 	if !strings.HasPrefix(path, prefix) {
 		return "", false
@@ -89,13 +104,14 @@ func (r *responder) public(w http.ResponseWriter, request *http.Request) {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
-	if request.Host != net.JoinHostPort(r.config.FQDN, strconv.Itoa(r.config.Port)) || request.URL.RawQuery != "" ||
-		request.URL.EscapedPath() != request.URL.Path || request.ContentLength > 0 || len(request.TransferEncoding) != 0 {
+	if phase := publicRequestInvalidPhase(request, net.JoinHostPort(r.config.FQDN, strconv.Itoa(r.config.Port))); phase != "" {
+		r.metrics.responderFailure(r.config.FQDN, "public", reason, phase, http.StatusNotFound, nil)
 		http.NotFound(w, request)
 		return
 	}
 	id, valid := proofID(request.URL.Path, PathPrefix)
 	if !valid {
+		r.metrics.responderFailure(r.config.FQDN, "public", reason, "invalid_path", http.StatusNotFound, nil)
 		http.NotFound(w, request)
 		return
 	}
@@ -114,6 +130,7 @@ func (r *responder) public(w http.ResponseWriter, request *http.Request) {
 	n, err := w.Write(proof.body)
 	if err != nil || n != len(proof.body) {
 		reason = "write_failed"
+		r.metrics.responderFailure(r.config.FQDN, "public", reason, "write_body", http.StatusOK, err)
 		return
 	}
 	outcome, reason = "success", "proof_served"
@@ -142,12 +159,18 @@ func (r *responder) control(w http.ResponseWriter, request *http.Request) {
 		body, err := io.ReadAll(http.MaxBytesReader(w, request.Body, MaxDocumentSize))
 		if err != nil {
 			reason = "invalid_size"
+			r.metrics.responderFailure(r.config.FQDN, "control", reason, "read_body", http.StatusBadRequest, err)
 			http.Error(w, "invalid proof size", http.StatusBadRequest)
 			return
 		}
 		c, err := parseProof(body, r.config.FQDN, r.now())
 		if err != nil || c.ID != id {
 			reason = "invalid_proof"
+			phase := "parse_proof"
+			if err == nil {
+				phase = "id_mismatch"
+			}
+			r.metrics.responderFailure(r.config.FQDN, "control", reason, phase, http.StatusBadRequest, nil)
 			http.Error(w, "invalid proof", http.StatusBadRequest)
 			return
 		}

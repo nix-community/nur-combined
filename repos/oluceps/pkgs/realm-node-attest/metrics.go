@@ -2,7 +2,6 @@ package nodeattest
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -11,6 +10,8 @@ import (
 	"strconv"
 	"sync"
 	"time"
+
+	"github.com/hashicorp/go-hclog"
 )
 
 // These values are the complete vocabulary for metric labels and events.
@@ -54,6 +55,7 @@ type metricsRegistry struct {
 	capacity    int
 	proofs      map[string]uint64
 	events      io.Writer
+	logger      hclog.Logger
 }
 
 func newMetrics(component string) *metricsRegistry {
@@ -63,6 +65,15 @@ func newMetrics(component string) *metricsRegistry {
 	return &metricsRegistry{component: component, nodes: map[string]bool{"unknown": true},
 		totals: make(map[metricLabels]uint64), durations: make(map[durationLabels]durationMetric),
 		lastSuccess: make(map[string]float64), pending: make(map[string]int), proofs: make(map[string]uint64), events: os.Stderr}
+}
+
+func (m *metricsRegistry) setLogger(logger hclog.Logger) {
+	if m == nil || logger == nil {
+		return
+	}
+	m.mu.Lock()
+	m.logger = logger
+	m.mu.Unlock()
 }
 
 func (m *metricsRegistry) register(nodes ...string) {
@@ -136,22 +147,15 @@ func (m *metricsRegistry) record(node, outcome, stage, reason string, duration t
 	if outcome == "success" && (m.component != "responder" || reason == "proof_served") {
 		m.lastSuccess[node] = float64(now.UnixNano()) / 1e9
 	}
-	writer := m.events
+	component := m.component
 	m.mu.Unlock()
 	level := "info"
 	if outcome == "failure" {
 		level = "warn"
 	}
-	// Match the SDK's stderr JSON envelope. Never attach errors or request data.
-	data, _ := json.Marshal(map[string]any{
-		"@timestamp": now.UTC().Format(time.RFC3339Nano), "@level": level, "@message": "realm_http_attestation",
-		"component": m.component, "node": node, "outcome": outcome, "stage": stage, "reason": reason, "duration_seconds": seconds,
+	m.emitStructuredEvent(now, level, "realm_http_attestation", map[string]any{
+		"component": component, "node": node, "outcome": outcome, "stage": stage, "reason": reason, "duration_seconds": seconds,
 	})
-	if writer != nil {
-		eventMu.Lock()
-		_, _ = writer.Write(append(data, '\n'))
-		eventMu.Unlock()
-	}
 }
 
 func (m *metricsRegistry) ServeHTTP(w http.ResponseWriter, r *http.Request) {
