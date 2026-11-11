@@ -39,7 +39,7 @@ stdenvNoCC.mkDerivation {
 
   desktopItems = [
     (makeDesktopItem {
-      name        = "knotjob";
+      name        = "KnotJob";
       desktopName = "KnotJob";
       exec        = "KnotJob";
       icon        = "KnotJob";
@@ -72,7 +72,7 @@ stdenvNoCC.mkDerivation {
       --prefix _JAVA_OPTIONS " " "-Dswing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel" \
       --prefix _JAVA_OPTIONS " " "-Dawt.useSystemAAFontSettings=gasp"
 
-    unzip -q 'Knots/*.txt.zip' -d Knots
+    unzip -q "Knots/*.txt.zip" -d Knots
 
     install -Dm644 -t "$kjb"/Knots \
       Knots/*.kjb \
