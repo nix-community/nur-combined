@@ -1,0 +1,110 @@
+From b6a2615b0c8fda28363dc5578150fefc716d763f Mon Sep 17 00:00:00 2001
+From: samuel <samuel.vicente@border-innovation.com>
+Date: Tue, 25 Aug 2026 23:56:12 +0100
+Subject: [PATCH] feat(terminal-emulator): support DECSET 1003 any-event mouse
+ tracking
+
+1003 was unmapped, so an app requesting only ?1003h got no tracking at
+all - isMouseTrackingActive() returned false and TerminalView never
+forwarded touch events. Breaks Claude Code fullscreen, vim
+balloonevalterm and Zellij, especially through mosh/tmux which pass
+1003 straight through.
+
+Touch has no hover, so there are no motion-without-button events to
+report: 1003 is implemented with 1002 semantics.
+---
+ .../com/termux/terminal/TerminalEmulator.java | 18 ++++++++++-----
+ .../com/termux/terminal/TerminalTest.java     | 23 +++++++++++++++++++
+ 2 files changed, 35 insertions(+), 6 deletions(-)
+
+diff --git a/terminal-emulator/src/main/java/com/termux/terminal/TerminalEmulator.java b/terminal-emulator/src/main/java/com/termux/terminal/TerminalEmulator.java
+index b0be6f34405..73795474ba1 100644
+--- a/terminal-emulator/src/main/java/com/termux/terminal/TerminalEmulator.java
++++ b/terminal-emulator/src/main/java/com/termux/terminal/TerminalEmulator.java
+@@ -119,6 +119,8 @@ public final class TerminalEmulator {
+     private static final int DECSET_BIT_MOUSE_TRACKING_PRESS_RELEASE = 1 << 6;
+     /** DECSET 1002 - like 1000, but report moving mouse while pressed. */
+     private static final int DECSET_BIT_MOUSE_TRACKING_BUTTON_EVENT = 1 << 7;
++    /** DECSET 1003 - like 1002, but report all motion events. Touch has no hover, so this behaves as 1002. */
++    private static final int DECSET_BIT_MOUSE_TRACKING_ANY_EVENT = 1 << 13;
+     /** DECSET 1004 - NOT implemented. */
+     private static final int DECSET_BIT_SEND_FOCUS_EVENTS = 1 << 8;
+     /** DECSET 1006 - SGR-like mouse protocol (the modern sane choice). */
+@@ -280,10 +282,10 @@ private boolean isDecsetInternalBitSet(int bit) {
+     private void setDecsetinternalBit(int internalBit, boolean set) {
+         if (set) {
+             // The mouse modes are mutually exclusive.
+-            if (internalBit == DECSET_BIT_MOUSE_TRACKING_PRESS_RELEASE) {
+-                setDecsetinternalBit(DECSET_BIT_MOUSE_TRACKING_BUTTON_EVENT, false);
+-            } else if (internalBit == DECSET_BIT_MOUSE_TRACKING_BUTTON_EVENT) {
+-                setDecsetinternalBit(DECSET_BIT_MOUSE_TRACKING_PRESS_RELEASE, false);
++            int mouseModes = DECSET_BIT_MOUSE_TRACKING_PRESS_RELEASE | DECSET_BIT_MOUSE_TRACKING_BUTTON_EVENT
++                | DECSET_BIT_MOUSE_TRACKING_ANY_EVENT;
++            if ((internalBit & mouseModes) != 0) {
++                mCurrentDecSetFlags &= ~(mouseModes & ~internalBit);
+             }
+         }
+         if (set) {
+@@ -313,6 +315,8 @@ static int mapDecSetBitToInternalBit(int decsetBit) {
+                 return DECSET_BIT_MOUSE_TRACKING_PRESS_RELEASE;
+             case 1002:
+                 return DECSET_BIT_MOUSE_TRACKING_BUTTON_EVENT;
++            case 1003:
++                return DECSET_BIT_MOUSE_TRACKING_ANY_EVENT;
+             case 1004:
+                 return DECSET_BIT_SEND_FOCUS_EVENTS;
+             case 1006:
+@@ -368,7 +372,8 @@ public void sendMouseEvent(int mouseButton, int column, int row, boolean pressed
+         if (row < 1) row = 1;
+         if (row > mRows) row = mRows;
+ 
+-        if (mouseButton == MOUSE_LEFT_BUTTON_MOVED && !isDecsetInternalBitSet(DECSET_BIT_MOUSE_TRACKING_BUTTON_EVENT)) {
++        if (mouseButton == MOUSE_LEFT_BUTTON_MOVED && !isDecsetInternalBitSet(DECSET_BIT_MOUSE_TRACKING_BUTTON_EVENT)
++            && !isDecsetInternalBitSet(DECSET_BIT_MOUSE_TRACKING_ANY_EVENT)) {
+             // Do not send tracking.
+         } else if (isDecsetInternalBitSet(DECSET_BIT_MOUSE_PROTOCOL_SGR)) {
+             mSession.write(String.format("\033[<%d;%d;%d" + (pressed ? 'M' : 'm'), mouseButton, column, row));
+@@ -483,7 +488,8 @@ public boolean isCursorKeysApplicationMode() {
+ 
+     /** If mouse events are being sent as escape codes to the terminal. */
+     public boolean isMouseTrackingActive() {
+-        return isDecsetInternalBitSet(DECSET_BIT_MOUSE_TRACKING_PRESS_RELEASE) || isDecsetInternalBitSet(DECSET_BIT_MOUSE_TRACKING_BUTTON_EVENT);
++        return isDecsetInternalBitSet(DECSET_BIT_MOUSE_TRACKING_PRESS_RELEASE) || isDecsetInternalBitSet(DECSET_BIT_MOUSE_TRACKING_BUTTON_EVENT)
++            || isDecsetInternalBitSet(DECSET_BIT_MOUSE_TRACKING_ANY_EVENT);
+     }
+ 
+     private void setDefaultTabStops() {
+diff --git a/terminal-emulator/src/test/java/com/termux/terminal/TerminalTest.java b/terminal-emulator/src/test/java/com/termux/terminal/TerminalTest.java
+index 3e1f824265f..b3aabf821ee 100644
+--- a/terminal-emulator/src/test/java/com/termux/terminal/TerminalTest.java
++++ b/terminal-emulator/src/test/java/com/termux/terminal/TerminalTest.java
+@@ -65,6 +65,29 @@ public void testMouseClick() throws Exception {
+ 		assertEquals("\033[<0;10;10m", mOutput.getOutputAndClear());
+ 	}
+ 
++	/** DECSET 1003 (any-event tracking). Touch has no hover, so it behaves as 1002. */
++	public void testMouseAnyEventTracking() throws Exception {
++		withTerminalSized(10, 10);
++		assertFalse(mTerminal.isMouseTrackingActive());
++		enterString("\033[?1003h");
++		assertTrue(mTerminal.isMouseTrackingActive());
++
++		enterString("\033[?1006h");
++		mTerminal.sendMouseEvent(TerminalEmulator.MOUSE_LEFT_BUTTON, 3, 4, true);
++		assertEquals("\033[<0;3;4M", mOutput.getOutputAndClear());
++		mTerminal.sendMouseEvent(TerminalEmulator.MOUSE_LEFT_BUTTON_MOVED, 5, 6, true);
++		assertEquals("\033[<32;5;6M", mOutput.getOutputAndClear());
++		mTerminal.sendMouseEvent(TerminalEmulator.MOUSE_WHEELUP_BUTTON, 5, 6, true);
++		assertEquals("\033[<64;5;6M", mOutput.getOutputAndClear());
++
++		// The mouse modes are mutually exclusive.
++		enterString("\033[?1000h");
++		mTerminal.sendMouseEvent(TerminalEmulator.MOUSE_LEFT_BUTTON_MOVED, 5, 6, true);
++		assertEquals("", mOutput.getOutputAndClear());
++		enterString("\033[?1003h\033[?1003l");
++		assertFalse(mTerminal.isMouseTrackingActive());
++	}
++
+ 	public void testNormalization() throws UnsupportedEncodingException {
+ 		// int lowerCaseN = 0x006E;
+ 		// int combiningTilde = 0x0303;
