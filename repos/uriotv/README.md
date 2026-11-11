@@ -29,7 +29,7 @@ redistribution.
 
 | Package | Version | Description | Public cache |
 |---|---|---|---|
-| `lantern-engine` | `0.9.38` | Lantern Engine by Awaken, built from source (needs your own game dump) | Yes |
+| `lantern-engine` | `0.9.42` | Lantern Engine by Awaken, built from source (needs your own game dump) | Yes |
 | `wordcraft` | `0.17.0` | Word processor (official binary release) | No: redistribution review pending |
 | `gridcraft` | `0.18.0` | Spreadsheet editor (official binary release) | No: redistribution review pending |
 | `deckcraft` | `0.17.0` | Presentation editor (official binary release) | No: redistribution review pending |

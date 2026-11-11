@@ -2,7 +2,7 @@
   vulkan-headers, vulkan-loader, sdl3, ffmpeg-headless, boost, fmt, magic-enum,
   robin-map, xxhash, vulkan-memory-allocator, zydis, xbyak, spirv-headers, miniz,
   libx11, libxcb, xorgproto, wayland, protobuf, nlohmann_json, openssl, zlib,
-  miniupnpc, src, version }:
+  miniupnpc, alsa-lib, opus, src, version }:
 stdenv.mkDerivation {
   pname = "lantern-engine-core";
   inherit src version;
@@ -10,7 +10,8 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ cmake ninja pkg-config python3 glslang spirv-cross spirv-tools ];
   buildInputs = [ vulkan-headers vulkan-loader sdl3 ffmpeg-headless boost fmt magic-enum
     robin-map xxhash vulkan-memory-allocator zydis xbyak spirv-headers miniz
-    libx11 libxcb xorgproto wayland protobuf nlohmann_json openssl zlib miniupnpc ];
+    libx11 libxcb xorgproto wayland protobuf nlohmann_json openssl zlib miniupnpc
+    alsa-lib opus ];
   # Upstream v0.9.37 repeats this designated initializer (and puts the first
   # occurrence before physicalDevice); GCC correctly rejects it.
   patches = [ ./vma-initializer.patch ];
@@ -41,7 +42,9 @@ stdenv.mkDerivation {
     done
     $AR rcs out/libatrac9.a out/atrac9/*.o
     $CC -std=gnu11 -O2 -Wall -Wextra -pthread -no-pie "''${includes[@]}" -I. -Isrc \
-      src/probe.c src/runtime*.c src/vulkan_smoke.c out/libatrac9.a -lm \
+      src/probe.c src/blocked.c src/host.c src/isa_emulate.c src/isa_rewrite.c \
+      src/wait_stats.c src/win32_compat.c src/win32_memory.c src/sys/*.c \
+      out/libatrac9.a -lm \
       -Lout/gpu -lbbgpu -Wl,-rpath,'$ORIGIN/gpu' -rdynamic "''${libraries[@]}" -o out/bb-probe
     $CC -std=gnu11 -O2 -Wall -Wextra "''${includes[@]}" tools/gpu_capabilities.c \
       "''${libraries[@]}" -o out/bb-gpu-capabilities
