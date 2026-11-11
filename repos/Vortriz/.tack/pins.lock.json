@@ -44,15 +44,15 @@
     "type": "github",
     "owner": "archisman-panigrahi",
     "repo": "doi2bib3",
-    "rev": "0f6106338c5847b4922b4348cd607e7c77c9d795",
-    "narHash": "sha256-DgcE14WsofhDHRbKPWimbY0PZZa/5LO+JCkuNuKS+so=",
-    "lastModified": 1794279940,
+    "rev": "6884ed9b730d2ff05f055b976f0e7815120675bf",
+    "narHash": "sha256-1cooKTy2u2+ouDbBdC9kk18/M9UoUe03YsXqNH2/0d8=",
+    "lastModified": 1794319350,
     "archive": {
-      "hash": "sha256-3QH16FAtpiwO7PoHKvua1rpQRScezXeTagzeQFIkoDA=",
-      "outHash": "sha256-3OtE/N2vWvHOqh7/qM6eyjOF6S8I1RBHQCgE+kBN+Mc="
+      "hash": "sha256-OYrSuGPZCnrorCBMV3rdEAdDbMQKkfsxld6FkiK3S9k=",
+      "outHash": "sha256-hq5bRGZLVfPlp5Q1cRhEiDGACouufUBLnTp7L9TodIg="
     },
-    "tag": "v1.8.0",
-    "version": "1.8.0"
+    "tag": "v1.8.1",
+    "version": "1.8.1"
   },
   "enhance-piper.yazi": {
     "type": "github",
