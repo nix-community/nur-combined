@@ -58,7 +58,10 @@ The same firewall, port, and listen-address options apply.
 
 On a NixOS host it detects the nftables or iptables firewall and offers to open
 UDP 67, 69, 4011 and the HTTP TCP port temporarily. Use `--firewall open` to accept
-without a prompt, or `--firewall skip` to manage the firewall yourself. It removes
+without a prompt, or `--firewall skip` to manage the firewall yourself. Each run
+adds one jump to its own `temp-vacu-make-installer-$PID` chain
+(`temp-vacu-installer-$PID` with iptables due to its chain name limit). That chain
+allows all required ports, even if other rules already allow them. It removes
 only its own rules when the server stops, fails, or is killed. Press Ctrl-C to
 stop serving and clean up. If the launcher is killed with SIGKILL, the service
 keeps running; stop the `installer-pxe-….service` unit printed at startup with

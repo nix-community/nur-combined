@@ -8,9 +8,9 @@ def run(*args, **kwargs):
     return subprocess.run(args, check=True, **kwargs)
 
 
-def nft_rules():
+def nft_rules(chain="input-allow"):
     result = subprocess.run(
-        ["nft", "--json", "list", "chain", "inet", "nixos-fw", "input-allow"],
+        ["nft", "--json", "list", "chain", "inet", "nixos-fw", chain],
         capture_output=True,
         text=True,
     )
@@ -27,63 +27,60 @@ def probe():
 
 
 def change(action, backend, tag, port):
-    if not re.fullmatch(r"installer-pxe-[a-f0-9]+", tag):
-        raise ValueError("Invalid firewall rule tag")
+    if not re.fullmatch(r"temp-vacu-make-installer-[1-9][0-9]*", tag):
+        raise ValueError("Invalid firewall chain name")
     port = int(port)
     if not 1 <= port <= 65535:
         raise ValueError("Invalid HTTP port")
     if backend == "nftables":
         if action == "open":
-            run(
-                "nft",
-                "-f",
-                "-",
-                input=(
-                    f'insert rule inet nixos-fw input-allow udp dport {{ 67, 69, 4011 }} accept comment "{tag}"\n'
-                    f'insert rule inet nixos-fw input-allow tcp dport {port} accept comment "{tag}"\n'
-                ),
-                text=True,
+            commands = (
+                f"add chain inet nixos-fw {tag}\n"
+                f"add rule inet nixos-fw {tag} udp dport {{ 67, 69, 4011 }} accept\n"
+                f"add rule inet nixos-fw {tag} tcp dport {port} accept\n"
+                f"insert rule inet nixos-fw input-allow jump {tag}\n"
             )
         else:
+            commands = ""
             for entry in nft_rules() or []:
                 rule = entry.get("rule", {})
-                if rule.get("comment") == tag:
-                    run(
-                        "nft",
-                        "delete",
-                        "rule",
-                        "inet",
-                        "nixos-fw",
-                        "input-allow",
-                        "handle",
-                        str(rule["handle"]),
-                    )
+                if any(
+                    expr.get("jump", {}).get("target") == tag
+                    for expr in rule.get("expr", [])
+                ):
+                    commands += f"delete rule inet nixos-fw input-allow handle {rule['handle']}\n"
+            if nft_rules(tag) is not None:
+                commands += f"flush chain inet nixos-fw {tag}\n"
+                commands += f"delete chain inet nixos-fw {tag}\n"
+        if commands:
+            run("nft", "-f", "-", input=commands, text=True)
     elif backend == "iptables":
-        for protocol, ports in [("udp", "67,69,4011"), ("tcp", str(port))]:
-            rule = [
-                "nixos-fw",
-                "-p",
-                protocol,
-                "-m",
-                "multiport",
-                "--dports",
-                ports,
-                "-m",
-                "comment",
-                "--comment",
-                tag,
-                "-j",
-                "ACCEPT",
-            ]
-            if action == "open":
-                run("iptables", "-w", "-I", *rule)
-            elif (
+        # iptables limits chain names to 28 characters.
+        chain = tag.replace("temp-vacu-make-installer-", "temp-vacu-installer-")
+        jump = ["nixos-fw", "-j", chain]
+        if action == "open":
+            run("iptables", "-w", "-N", chain)
+            for protocol, ports in [("udp", "67,69,4011"), ("tcp", str(port))]:
+                run(
+                    "iptables", "-w", "-A", chain,
+                    "-p", protocol, "-m", "multiport", "--dports", ports,
+                    "-j", "ACCEPT",
+                )
+            run("iptables", "-w", "-I", *jump)
+        else:
+            if (
                 subprocess.run(
-                    ["iptables", "-w", "-C", *rule], capture_output=True
-                ).returncode
-                == 0
+                    ["iptables", "-w", "-C", *jump], capture_output=True
+                ).returncode == 0
             ):
-                run("iptables", "-w", "-D", *rule)
+                run("iptables", "-w", "-D", *jump)
+            if (
+                subprocess.run(
+                    ["iptables", "-w", "-S", chain], capture_output=True
+                ).returncode == 0
+            ):
+                run("iptables", "-w", "-F", chain)
+                run("iptables", "-w", "-X", chain)
     else:
         raise ValueError("Unsupported firewall backend")
 

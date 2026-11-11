@@ -114,10 +114,19 @@ in
 
     for machine, backend in [(nft, "nftables"), (ipt, "iptables")]:
         assert machine.succeed("installer-pxe-firewall probe").strip() == backend
+        chain_prefix = "temp-vacu-make-installer-" if backend == "nftables" else "temp-vacu-installer-"
         # Keep an independent temporary rule to check that cleanup owns its rules.
-        machine.succeed(f"installer-pxe-firewall open {backend} installer-pxe-abcdef 8080")
+        machine.succeed(f"installer-pxe-firewall open {backend} temp-vacu-make-installer-1 8080")
         machine.succeed("installer-test pxe --firewall open > /tmp/pxe.log 2>&1 & echo $! > /tmp/pxe.pid")
         machine.wait_for_open_port(8080)
+        pid = machine.succeed("cat /tmp/pxe.pid").strip()
+        chain = chain_prefix + pid
+        parent_cmd = "nft list chain inet nixos-fw input-allow" if backend == "nftables" else "iptables -S nixos-fw"
+        assert machine.succeed(parent_cmd).count(chain) == 1
+        child_cmd = f"nft list chain inet nixos-fw {chain}" if backend == "nftables" else f"iptables -S {chain}"
+        child_rules = machine.succeed(child_cmd)
+        for port in ["67", "69", "4011", "8080"]:
+            assert port in child_rules, child_rules
         script = machine.succeed("curl --fail 'http://127.0.0.1:8080/_/ipxe?mac=52:54:00:00:00:01&arch=1'")
         assert "init=/fixture/init" in script and "initrd=initrd0" in script
         initrd_url = next(line.split()[3] for line in script.splitlines() if line.startswith("initrd "))
@@ -125,20 +134,22 @@ in
         machine.succeed("mkdir /tmp/served-ca; tail -c +9 /tmp/served-initrd | ${pkgs.cpio}/bin/cpio -id --directory=/tmp/served-ca")
         machine.succeed("cmp /tmp/served-ca/installer-ssh-ca/key ${ca}/key")
         machine.succeed("grep -q 'init=/fixture/init' /proc/$(pgrep -x pixiecore)/cmdline")
-        machine.succeed("kill -TERM $(cat /tmp/pxe.pid)")
+        stop_signal = "INT" if backend == "nftables" else "TERM"
+        machine.succeed(f"kill -{stop_signal} $(cat /tmp/pxe.pid)")
         machine.wait_until_fails("pgrep -x pixiecore")
         rules_cmd = "nft list chain inet nixos-fw input-allow" if backend == "nftables" else "iptables -S nixos-fw"
-        machine.wait_until_succeeds(f"test $({rules_cmd} | grep -c installer-pxe-) -eq 2", timeout=60)
+        machine.wait_until_succeeds(f"test $({rules_cmd} | grep -c {chain_prefix}) -eq 1", timeout=60)
+        machine.wait_until_fails(child_cmd)
         rules = machine.succeed(rules_cmd)
-        assert rules.count("installer-pxe-") == 2, rules
-        machine.succeed(f"installer-pxe-firewall close {backend} installer-pxe-abcdef 8080")
-        assert "installer-pxe-" not in machine.succeed(rules_cmd)
+        assert rules.count(chain_prefix) == 1, rules
+        machine.succeed(f"installer-pxe-firewall close {backend} temp-vacu-make-installer-1 8080")
+        assert chain_prefix not in machine.succeed(rules_cmd)
         # A failed server startup must also run ExecStopPost.
         machine.succeed("installer-test pxe --firewall open > /tmp/pxe.log 2>&1 & echo $! > /tmp/pxe.pid")
         machine.wait_for_open_port(8080)
         machine.fail("installer-test pxe --firewall open")
         machine.succeed("kill -KILL $(pgrep -x pixiecore)")
         machine.wait_until_fails("pgrep -x pixiecore")
-        machine.wait_until_succeeds(f"! {rules_cmd} | grep installer-pxe-")
+        machine.wait_until_succeeds(f"! {rules_cmd} | grep {chain_prefix}")
   '';
 }

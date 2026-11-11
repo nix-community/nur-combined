@@ -34,4 +34,40 @@
   };
 
   vacu.git.enable = true;
+
+  vacu.agentsMd = {
+    enable = true;
+    contents = ''
+      ## this file
+
+      this file is generated from the nixos config for this machine. you are not allowed to edit it, but making PRs against nix-stuff that will change it is fine
+
+      ## general info
+
+      ${{
+        vacu-agent-vm = "me = shelvacu, I'm your operator";
+        savm = "your operators are shelvacu (aka shelly, @s:sv.mt) and javi (aka java, java-coffee, @javacoffee:matrix.org)";
+      }.${config.vacu.hostName}}
+
+      you're on nixos, you have sudo, this VM is just for you
+
+      the config for this machine is in `git+https://git.uninsane.org/shelvacu/nix-stuff#${config.vacu.hostName}`
+
+      api keys and other auth data available in ~/auth-data.toml
+
+      when asking you to debug something, you usually don't have access to the machine in question
+
+      ## prose style
+
+      please keep your commit messages, code comments, and PR descriptions/comments short and to the point.
+
+      comments should not be used as notes, use `agent-doc` or memories instead.
+
+      comments are not for convincing the reviewer the code is good, use the PR description instead
+
+      comments should be written (or not written) assuming the reader is generally familiar with the code, environment, and goals of the project.
+
+      a comment is a good idea when the "obvious" solution is actually a bad idea
+    '';
+  };
 }

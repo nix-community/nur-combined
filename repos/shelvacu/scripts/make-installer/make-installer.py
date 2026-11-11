@@ -185,9 +185,10 @@ with tempfile.TemporaryDirectory(prefix="installer-") as tmp:
             "--service-type=exec",
         ]
         if backend != "none":
+            chain = f"temp-vacu-make-installer-{os.getpid()}"
             for prop, action in [("ExecStartPre", "open"), ("ExecStopPost", "close")]:
                 command.append(
-                    f"--property={prop}={firewall} {action} {backend} {unit} {args.port}"
+                    f"--property={prop}={firewall} {action} {backend} {chain} {args.port}"
                 )
         command += [
             settings["pixiecore"],
@@ -209,14 +210,19 @@ with tempfile.TemporaryDirectory(prefix="installer-") as tmp:
         def stop_on_signal(signum, frame):
             raise KeyboardInterrupt
 
+        signal.signal(signal.SIGINT, stop_on_signal)
         signal.signal(signal.SIGTERM, stop_on_signal)
-        try:
-            run(*command)
-            raise RuntimeError("PXE server exited unexpectedly; see its output above")
-        except KeyboardInterrupt:
-            signal.signal(signal.SIGINT, signal.SIG_IGN)
-            signal.signal(signal.SIGTERM, signal.SIG_IGN)
-            run(*root, "systemctl", "stop", unit + ".service")
+        with subprocess.Popen(command) as server:
+            try:
+                returncode = server.wait()
+                if returncode:
+                    raise subprocess.CalledProcessError(returncode, command)
+                raise RuntimeError("PXE server exited unexpectedly; see its output above")
+            except KeyboardInterrupt:
+                signal.signal(signal.SIGINT, signal.SIG_IGN)
+                signal.signal(signal.SIGTERM, signal.SIG_IGN)
+                # Stop the service before Popen.__exit__ waits for systemd-run.
+                run(*root, "systemctl", "stop", unit + ".service")
     else:
         initrd = work / "initrd"
         shutil.copyfile(settings["isoInitrd"], initrd)
