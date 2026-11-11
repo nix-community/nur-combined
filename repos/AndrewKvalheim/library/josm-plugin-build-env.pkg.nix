@@ -25,7 +25,7 @@ let
 in
 {
   pname = "josm-plugin-build-env";
-  versionLegacy = "36525"; # TODO: Can this be derived from `pkgs.josm`?
+  versionLegacy = "36519"; # TODO: Can this be derived from `pkgs.josm`?
   versionTools = josm.version;
   version = "${josm-plugin-build-env.versionTools}-${josm-plugin-build-env.versionLegacy}";
   meta = {
@@ -50,7 +50,7 @@ in
     done
   '';
 
-  srcLegacyCommon = mkSrcLegacy "plugins/build-common.xml" "sha256-K3mCNh2GmZi9y7P7JzBUZsy2tf7rixzoL1/nyoY/ffU=";
+  srcLegacyCommon = mkSrcLegacy "plugins/build-common.xml" "sha256-sXk0oltWwrfOISCCBpcHBCU5es6Dulqe68CprUpTt0Y=";
   srcLegacyDist = mkSrcLegacy "dist" "sha256-SuZSzrPjlorijR7lxgD4sMYdddJgzrcv9REXD/dWIBU=";
   srcLegacyTools = mkSrcLegacy "plugins/00_tools" "sha256-2HoDySGB1PXL4n/HsVO9H1BGAXhbaHCiUxA2tFXDlJE=";
   srcTools = fetchsvn {
