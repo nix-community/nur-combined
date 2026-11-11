@@ -27,14 +27,14 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "jiufenxuezhang-ielts";
-  version = "0.9.19-rc.2";
+  version = "0.9.20-rc.1";
 
   __structuredAttrs = true;
   strictDeps = true;
 
   src = fetchurl {
     url = "${updateFeed}/jiufenxuezhang-ielts-${finalAttrs.version}-universal.dmg";
-    hash = "sha512-dvoE6a8xANcECtep0Sg6yWRtlxa1FVyc2fX/pnEogygay4udyAGC6ze4PsVmnP+kUeeMtEM2FUB7+6fkDBHDGQ==";
+    hash = "sha512-/EMIr+8Oz3aVgNFTofkzBUHNmxGbttgykKJKGvw/pAe8kiTcGWlMRoa8etymDM6mClYgnDzXv2JJbAfyIx3xzw==";
   };
 
   nativeBuildInputs = [
