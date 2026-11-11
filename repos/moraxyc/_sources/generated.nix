@@ -102,16 +102,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "7d80f8bd9992aa3593d63cd9c7f9833f5a75ddb9";
+    version = "c41063a6188d0abd7de694e8345d09c3efce3c2d";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "7d80f8bd9992aa3593d63cd9c7f9833f5a75ddb9";
+      rev = "c41063a6188d0abd7de694e8345d09c3efce3c2d";
       fetchSubmodules = false;
-      sha256 = "sha256-e7KOSlA8hHYcJxjYGW+X9Flh9QXpSRW1adWKp/1eVKE=";
+      sha256 = "sha256-dbKyLl1rXA6LMTGXiLxcRdcLI73DcwmTR966uRQ7AH8=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-e7KOSlA8hHYcJxjYGW+X9Flh9QXpSRW1adWKp_1eVKE=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-dbKyLl1rXA6LMTGXiLxcRdcLI73DcwmTR966uRQ7AH8=/backend/Cargo.lock";
       outputHashes = {
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
         "runas-1.2.0" = "sha256-cTYTFtmdmCztL2JhgnOxwKhd+VfUmm5DB3gkNy92g04=";
@@ -137,13 +137,13 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v8.0.66";
+    version = "v8.0.67";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "cliproxyapi";
-      rev = "v8.0.66";
+      rev = "v8.0.67";
       fetchSubmodules = false;
-      sha256 = "sha256-JKEb3rDgectItHhRqCUauyzpyngINNnaU0jdm4YdNSc=";
+      sha256 = "sha256-njk9i5JbHvJ3lTB7Bn0wTxFtmcJ5MEokgdOHNhzDPPY=";
     };
   };
   cpa-usage-keeper = {
@@ -261,21 +261,21 @@
   };
   gaze = {
     pname = "gaze";
-    version = "7dc47c0e8c6e9270448cbc5e25a7e038823955b0";
+    version = "dc9977a3fe0b511e8ad0f15b9956bf3985723723";
     src = fetchFromGitHub {
       owner = "GunduLabs";
       repo = "gaze";
-      rev = "7dc47c0e8c6e9270448cbc5e25a7e038823955b0";
+      rev = "dc9977a3fe0b511e8ad0f15b9956bf3985723723";
       fetchSubmodules = false;
-      sha256 = "sha256-k/pFxYkrpSIDdxZI6eP6C2P6kVXUmy9cWBYfJxeqtdE=";
+      sha256 = "sha256-2GmP6hqzLUMopMC4fo9/ITM2wKngKxdjg6e0i7F1uok=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-k_pFxYkrpSIDdxZI6eP6C2P6kVXUmy9cWBYfJxeqtdE=/Cargo.lock";
+      lockFile = ./. + "/sha256-2GmP6hqzLUMopMC4fo9_ITM2wKngKxdjg6e0i7F1uok=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-11-10";
+    date = "2026-11-11";
   };
   gaze-stable = {
     pname = "gaze-stable";

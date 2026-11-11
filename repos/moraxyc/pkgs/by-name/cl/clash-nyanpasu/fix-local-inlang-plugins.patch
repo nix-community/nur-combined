@@ -1,11 +1,11 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index 9e21eb8..6db62be 100644
+index 23f2de2..281e358 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -60,6 +60,8 @@
    "devDependencies": {
      "@csstools/normalize.css": "12.1.1",
-     "@iconify/json": "2.2.554",
+     "@iconify/json": "2.2.555",
 +    "@inlang/plugin-m-function-matcher": "^2.4.3",
 +    "@inlang/plugin-message-format": "^4.6.0",
      "@monaco-editor/react": "4.7.0",
@@ -27,13 +27,13 @@ index 1eb1a9a..5d024c1 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 9b9779b..9e24eb6 100644
+index fb67f8a..f6e6e78 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -440,6 +440,12 @@ importers:
        '@iconify/json':
-         specifier: 2.2.554
-         version: 2.2.554
+         specifier: 2.2.555
+         version: 2.2.555
 +      '@inlang/plugin-m-function-matcher':
 +        specifier: ^2.4.3
 +        version: 2.4.3
@@ -44,14 +44,14 @@ index 9b9779b..9e24eb6 100644
          specifier: 4.7.0
          version: 4.7.0(monaco-editor@0.57.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
 @@ -508,7 +514,7 @@ importers:
-         version: 21.1.0(oxc-parser@0.156.0)(rolldown@1.2.18)(vite@8.3.7(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1))
+         version: 21.1.0(oxc-parser@0.156.0)(rolldown@1.2.18)(vite@8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1))
        unplugin-icons:
          specifier: 24.0.0
--        version: 24.0.0(@svgr/core@8.1.0(supports-color@7.2.0)(typescript@7.0.2))(rolldown@1.2.18)(vite@8.3.7(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1))
-+        version: 24.0.0(@svgr/core@8.1.0(supports-color@7.2.0)(typescript@7.0.2))(rolldown@1.2.18)(svelte@5.57.3)(vite@8.3.7(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1))
+-        version: 24.0.0(@svgr/core@8.1.0(supports-color@7.2.0)(typescript@7.0.2))(rolldown@1.2.18)(vite@8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1))
++        version: 24.0.0(@svgr/core@8.1.0(supports-color@7.2.0)(typescript@7.0.2))(rolldown@1.2.18)(svelte@5.57.3)(vite@8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1))
        vite:
-         specifier: 8.3.7
-         version: 8.3.7(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1)
+         specifier: 8.3.8
+         version: 8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1)
 @@ -1705,6 +1711,12 @@ packages:
        vite:
          optional: true
@@ -198,7 +198,7 @@ index 9b9779b..9e24eb6 100644
  
 @@ -8254,6 +8313,19 @@ snapshots:
        typescript: 7.0.2
-       vite: 8.3.7(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1)
+       vite: 8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1)
  
 +  '@inlang/plugin-m-function-matcher@2.4.3':
 +    dependencies:
@@ -308,7 +308,7 @@ index 9b9779b..9e24eb6 100644
    is-typedarray@1.0.0: {}
  
    is-what@4.1.16: {}
-@@ -11679,6 +11780,8 @@ snapshots:
+@@ -11678,6 +11779,8 @@ snapshots:
        pkg-types: 2.3.0
        quansync: 0.2.11
  
@@ -317,7 +317,7 @@ index 9b9779b..9e24eb6 100644
    lodash-es@4.18.1: {}
  
    lodash.debounce@4.0.8: {}
-@@ -13113,6 +13216,26 @@ snapshots:
+@@ -13112,6 +13215,26 @@ snapshots:
  
    supports-preserve-symlinks-flag@1.0.0: {}
  
@@ -344,17 +344,17 @@ index 9b9779b..9e24eb6 100644
    svg-parser@2.0.4: {}
  
    systemjs@6.15.1: {}
-@@ -13368,6 +13491,27 @@ snapshots:
+@@ -13367,6 +13490,27 @@ snapshots:
        - vite
        - webpack
  
-+  unplugin-icons@24.0.0(@svgr/core@8.1.0(supports-color@7.2.0)(typescript@7.0.2))(rolldown@1.2.18)(svelte@5.57.3)(vite@8.3.7(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1)):
++  unplugin-icons@24.0.0(@svgr/core@8.1.0(supports-color@7.2.0)(typescript@7.0.2))(rolldown@1.2.18)(svelte@5.57.3)(vite@8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1)):
 +    dependencies:
 +      '@antfu/install-pkg': 1.1.0
 +      '@iconify/utils': 3.1.7
 +      local-pkg: 1.2.1
 +      obug: 2.2.1
-+      unplugin: 3.3.0(rolldown@1.2.18)(vite@8.3.7(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1))
++      unplugin: 3.3.0(rolldown@1.2.18)(vite@8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1))
 +    optionalDependencies:
 +      '@svgr/core': 8.1.0(supports-color@7.2.0)(typescript@7.0.2)
 +      svelte: 5.57.3
@@ -369,10 +369,10 @@ index 9b9779b..9e24eb6 100644
 +      - vite
 +      - webpack
 +
-   unplugin-icons@24.0.0(@svgr/core@8.1.0(supports-color@7.2.0)(typescript@7.0.2))(rolldown@1.2.18)(vite@8.3.7(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1)):
+   unplugin-icons@24.0.0(@svgr/core@8.1.0(supports-color@7.2.0)(typescript@7.0.2))(rolldown@1.2.18)(vite@8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1)):
      dependencies:
        '@antfu/install-pkg': 1.1.0
-@@ -13662,6 +13806,8 @@ snapshots:
+@@ -13661,6 +13805,8 @@ snapshots:
        y18n: 5.0.8
        yargs-parser: 22.0.0
  
