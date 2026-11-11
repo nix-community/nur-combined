@@ -9,6 +9,7 @@
   vulkan-loader,
   pkg-config,
   openssl,
+  sqlite,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -33,6 +34,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [
     openssl
+    sqlite
   ];
 
   cargoBuildFlags = [
