@@ -14,6 +14,7 @@
   git,
   perl,
   protobuf,
+  aws-lc,
   libayatana-appindicator,
   wrapGAppsHook4,
   nix-update-script,
@@ -59,6 +60,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     git
     perl
     protobuf
+    aws-lc
     wrapGAppsHook4
   ];
 
