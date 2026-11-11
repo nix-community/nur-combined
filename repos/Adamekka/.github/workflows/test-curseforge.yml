@@ -71,5 +71,5 @@ jobs:
           package=$(nix build --impure --no-link --print-out-paths --print-build-logs .#curseforge)
           version=$(nix eval --impure --raw .#curseforge.version)
           # FHS launches need user namespaces, so exercise them outside the Nix build sandbox.
-          nix shell --inputs-from . nixpkgs#python3 nixpkgs#xdotool nixpkgs#xvfb-run \
+          nix shell --inputs-from . nixpkgs#glib nixpkgs#python3 nixpkgs#xdotool nixpkgs#xvfb-run \
             -c xvfb-run -a python3 pkgs/curseforge/smoke-test.py "$package/bin/curseforge" "$version"

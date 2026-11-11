@@ -17,22 +17,29 @@ repository's `curseforge` output to your package list. Installation provides the
 ## Account login
 
 Browser login returns to the app through a `cfauth://` link. The desktop session
-must be able to find CurseForge's installed desktop entry to open this link.
-`nix run` alone launches the app without installing that entry.
+finds this handler through a user application database that the launcher creates
+automatically before starting CurseForge. This also works with `nix run`.
 
-Install the package through NixOS, Home Manager, or a Nix profile. From the
-repository root, a profile installation is:
+For a persistent installation, add the package through NixOS, Home Manager, or a
+Nix profile. From the repository root, a profile installation is:
 
 ```sh
 NIXPKGS_ALLOW_UNFREE=1 nix profile add --impure .#curseforge
 ```
 
-Check the callback association with `xdg-mime query default x-scheme-handler/cfauth`.
-If it is missing, register the installed desktop entry, then repeat login:
+The launcher manages `applications/curseforge.desktop` and registration state
+under `curseforge-nix/` in `${XDG_DATA_HOME:-$HOME/.local/share}`. It follows this
+package's installed desktop entry in `XDG_DATA_DIRS` when available, retaining
+the profile path so upgrades update the menu entry. Standalone runs register
+their own package output. The profile link from the previous manual setup is
+migrated automatically. A conflicting custom desktop entry is preserved and
+reported with a diagnostic.
 
-```sh
-xdg-mime default curseforge.desktop x-scheme-handler/cfauth
-```
+Registration is locked across concurrent launches and rebuilt on each launch.
+The lock is released before starting the app so browser callbacks can launch
+the same wrapper. The user MIME database keeps the handler discoverable even
+when Electron repeats protocol registration during login. Ordinary MIME
+preferences are left to the app and desktop session.
 
 ## Runtime
 
@@ -80,6 +87,8 @@ public release has not changed, validation and publishing are skipped.
 package for `x86_64-linux`, and validates its desktop entry. Outside the Nix build
 sandbox, it launches the app under Xvfb with isolated user data directories and
 requires the expected version, a visible GUI, and a connected, running .NET agent.
+It also verifies automatic registration in clean user directories and checks
+that all three URL handlers remain discoverable after repeated GIO registration.
 Chromium's sandbox stays enabled. The disposable Ubuntu runner permits the user
 namespaces needed by the FHS launcher. The same checks run on PRs, pushes to
 `main`, and manual runs. Game launches and account-dependent features still need

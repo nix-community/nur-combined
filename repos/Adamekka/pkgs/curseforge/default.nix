@@ -10,9 +10,17 @@
   python3,
   stdenvNoCC,
   writeShellApplication,
+  writeShellScript,
 }:
 
 let
+  launcher = writeShellScript "curseforge-launch" ''
+    set -e
+    ${lib.getExe python3} ${./register_desktop.py} \
+      "@out@/share/applications/curseforge.desktop" \
+      "${lib.getExe' desktop-file-utils "update-desktop-database"}"
+    exec "@out@/bin/.curseforge-fhs" "$@"
+  '';
   source = builtins.fromJSON (builtins.readFile ./source.json);
   unwrapped = stdenvNoCC.mkDerivation {
     dontBuild = true;
@@ -62,10 +70,18 @@ buildFHSEnv (
     extraInstallCommands = ''
       mkdir -p "$out/share"
       cp -R ${unwrapped}/share/applications ${unwrapped}/share/doc ${unwrapped}/share/icons "$out/share/"
-      chmod u+w "$out/share/applications/curseforge.desktop"
+      chmod u+w "$out/share/applications" "$out/share/applications/curseforge.desktop"
       substituteInPlace "$out/share/applications/curseforge.desktop" \
         --replace-fail 'Exec=/opt/CurseForge/curseforge %U' "Exec=$out/bin/curseforge %U"
+      # Identify our installed entries so automatic registration can retain live profile paths.
+      ${lib.getExe' desktop-file-utils "desktop-file-edit"} \
+        --set-key=X-Nix-CurseForge --set-value=true "$out/share/applications/curseforge.desktop"
       ${lib.getExe' desktop-file-utils "desktop-file-validate"} "$out/share/applications/curseforge.desktop"
+      # Register on the host before entering FHS so the browser's portal can discover the callback handler.
+      mv "$out/bin/curseforge" "$out/bin/.curseforge-fhs"
+      # Fill in this output's path after FHS has generated its launcher, without a Nix self-reference.
+      substitute ${launcher} "$out/bin/curseforge" --replace-fail '@out@' "$out"
+      chmod +x "$out/bin/curseforge"
     '';
 
     inherit (unwrapped) meta pname;
