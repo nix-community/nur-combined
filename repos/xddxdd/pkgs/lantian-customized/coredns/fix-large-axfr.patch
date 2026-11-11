@@ -1,15 +1,15 @@
 --- a/plugin/pkg/proxy/connect.go
 +++ b/plugin/pkg/proxy/connect.go
-@@ -118,7 +118,7 @@
+@@ -137,7 +137,7 @@
  	return &persistConn{c: conn, created: time.Now()}, false, err
  }
  
--func (p *Proxy) lookupDNS(_ctx context.Context, state request.Request, opts Options) (*dns.Msg, net.Addr, string, error) {
-+func (p *Proxy) lookupDNS(_ctx context.Context, state request.Request, opts Options) (*dns.Msg, []dns.RR, net.Addr, string, error) {
+-func (p *Proxy) lookupDNS(ctx context.Context, state request.Request, opts Options) (*dns.Msg, net.Addr, string, error) {
++func (p *Proxy) lookupDNS(ctx context.Context, state request.Request, opts Options) (*dns.Msg, []dns.RR, net.Addr, string, error) {
  	var proto string
  	switch {
  	case opts.ForceTCP: // TCP flag has precedence over UDP flag
-@@ -140,13 +140,13 @@
+@@ -159,13 +159,13 @@
  		var err error
  		wire, err = state.Req.Pack()
  		if err != nil {
@@ -18,14 +18,14 @@
  		}
  	}
  
- 	pc, cached, err := p.transport.Dial(proto)
+ 	pc, cached, err := p.transport.dial(ctx, proto, opts.TLSConnectDeadline)
  	if err != nil {
 -		return nil, nil, proto, err
 +		return nil, nil, nil, proto, err
  	}
  
  	// Dial may have upgraded the transport (e.g. from udp to tcp for DoT),
-@@ -167,6 +167,54 @@
+@@ -186,6 +186,54 @@
  	// Set buffer size correctly for this client.
  	pc.c.UDPSize = max(uint16(state.Size()), 512) // #nosec G115 -- UDP size fits in uint16
  
@@ -80,7 +80,7 @@
  	pc.c.SetWriteDeadline(time.Now().Add(maxTimeout))
  	if wire != nil {
  		_, err = pc.c.Write(wire)
-@@ -176,9 +224,9 @@
+@@ -195,9 +243,9 @@
  	if err != nil {
  		pc.c.Close() // not giving it back
  		if err == io.EOF && cached {
@@ -92,7 +92,7 @@
  	}
  
  	var ret *dns.Msg
-@@ -206,13 +254,13 @@
+@@ -225,13 +273,13 @@
  
  			pc.c.Close() // not giving it back
  			if err == io.EOF && cached {
@@ -108,7 +108,7 @@
  		}
  		// drop out-of-order responses
  		if state.Req.Id == ret.Id {
-@@ -221,10 +269,10 @@
+@@ -240,10 +288,10 @@
  	}
  	p.transport.Yield(pc)
  
@@ -121,7 +121,7 @@
  	// DoH always runs over TCP (HTTPS), regardless of the downstream
  	// client's protocol.
  	const proto = "tcp"
-@@ -246,51 +294,52 @@
+@@ -265,64 +313,65 @@
  
  	req, err := doh.NewRequestWithContext(ctx, p.dohMethod, p.addr, p.dohHost, state.Req)
  	if err != nil {
@@ -150,6 +150,20 @@
 +	return ret, nil, localAddr, proto, nil
  }
  
+-func (p *Proxy) lookupDoQ(ctx context.Context, state request.Request, _ Options) (*dns.Msg, net.Addr, string, error) {
++func (p *Proxy) lookupDoQ(ctx context.Context, state request.Request, _ Options) (*dns.Msg, []dns.RR, net.Addr, string, error) {
+ 	// QUIC runs over UDP. Reporting udp keeps dnstap query_address and
+ 	// response_address consistent with the actual upstream socket.
+ 	const proto = "udp"
+ 	if p.doq == nil {
+-		return nil, nil, proto, errors.New("proxy: DoQ transport is not initialized")
++		return nil, nil, nil, proto, errors.New("proxy: DoQ transport is not initialized")
+ 	}
+ 	ret, localAddr, err := p.doq.exchange(ctx, state.Req, p.readTimeout)
+-	return ret, localAddr, proto, err
++	return ret, nil, localAddr, proto, err
+ }
+ 
  // Connect selects an upstream, sends the request and waits for a response. It
  // also returns CoreDNS's own outbound address on the upstream socket
  // (localAddr) and the transport proto ("udp" or "tcp") actually used to reach
@@ -170,6 +184,9 @@
  	case transport.HTTPS:
 -		ret, localAddr, proto, err = p.lookupDoH(ctx, state, opts)
 +		ret, records, localAddr, proto, err = p.lookupDoH(ctx, state, opts)
+ 	case transport.QUIC:
+-		ret, localAddr, proto, err = p.lookupDoQ(ctx, state, opts)
++		ret, records, localAddr, proto, err = p.lookupDoQ(ctx, state, opts)
  	case transport.DNS, transport.TLS:
 -		ret, localAddr, proto, err = p.lookupDNS(ctx, state, opts)
 +		ret, records, localAddr, proto, err = p.lookupDNS(ctx, state, opts)
@@ -183,7 +200,7 @@
  	}
  
  	// recovery the origin Id after upstream.
-@@ -303,7 +352,7 @@
+@@ -335,7 +384,7 @@
  
  	requestDuration.WithLabelValues(p.proxyName, p.addr, rc).Observe(time.Since(start).Seconds())
  
@@ -194,7 +211,7 @@
  const cumulativeAvgWeight = 4
 --- a/plugin/forward/forward.go
 +++ b/plugin/forward/forward.go
-@@ -181,6 +181,7 @@
+@@ -189,6 +189,7 @@
  
  		var (
  			ret           *dns.Msg
@@ -202,16 +219,16 @@
  			localAddr     net.Addr
  			upstreamProto string
  			err           error
-@@ -188,7 +189,7 @@
- 		opts := f.opts
- 
- 		for {
+@@ -200,7 +201,7 @@
+ 			if opts.TLSConnectDeadline.After(tlsDeadline) {
+ 				opts.TLSConnectDeadline = tlsDeadline
+ 			}
 -			ret, localAddr, upstreamProto, err = proxy.Connect(ctx, state, opts)
 +			ret, records, localAddr, upstreamProto, err = proxy.Connect(ctx, state, opts)
  
- 			if err == proxyPkg.ErrCachedClosed { // Remote side closed conn, can only happen with TCP.
+ 			if err == proxyPkg.ErrCachedClosed { // The peer closed a cached TCP or QUIC connection before the query was sent.
  				continue
-@@ -201,6 +202,26 @@
+@@ -213,6 +214,26 @@
  			break
  		}
  
@@ -296,3 +313,152 @@
  	if err != nil {
  		t.Fatalf("Connect failed: %v", err)
  	}
+--- a/plugin/pkg/proxy/doq_test.go
++++ b/plugin/pkg/proxy/doq_test.go
+@@ -240,7 +240,7 @@
+ 	state := doqTestRequest("example.org.", 0x1234)
+ 	state.Req.SetEdns0(1232, false)
+ 	state.Req.IsEdns0().Option = append(state.Req.IsEdns0().Option, &dns.EDNS0_TCP_KEEPALIVE{Code: dns.EDNS0TCPKEEPALIVE, Timeout: 10})
+-	response, localAddr, proto, err := p.Connect(context.Background(), state, Options{ForceTCP: true})
++	response, _, localAddr, proto, err := p.Connect(context.Background(), state, Options{ForceTCP: true})
+ 	if err != nil {
+ 		t.Fatalf("Connect() failed: %v", err)
+ 	}
+@@ -287,7 +287,7 @@
+ 	p.SetReadTimeout(time.Second)
+ 	defer p.Stop()
+ 
+-	_, _, _, err := p.Connect(context.Background(), doqTestRequest("example.org.", 1), Options{})
++	_, _, _, _, err := p.Connect(context.Background(), doqTestRequest("example.org.", 1), Options{})
+ 	if err == nil {
+ 		t.Fatal("Connect() succeeded with the wrong TLS server name")
+ 	}
+@@ -308,7 +308,7 @@
+ 	p.SetLocalAddress(net.ParseIP("127.0.0.2"))
+ 	defer p.Stop()
+ 
+-	_, localAddress, _, err := p.Connect(context.Background(), doqTestRequest("example.org.", 1), Options{})
++	_, _, localAddress, _, err := p.Connect(context.Background(), doqTestRequest("example.org.", 1), Options{})
+ 	if err != nil {
+ 		t.Fatalf("Connect() failed: %v", err)
+ 	}
+@@ -365,7 +365,7 @@
+ 	for i := range queries {
+ 		wg.Go(func() {
+ 			state := doqTestRequest(fmt.Sprintf("q%d.example.", i), uint16(i+1))
+-			response, _, _, err := p.Connect(context.Background(), state, Options{})
++			response, _, _, _, err := p.Connect(context.Background(), state, Options{})
+ 			if err == nil && response.Id != uint16(i+1) {
+ 				err = fmt.Errorf("response ID = %d, want %d", response.Id, i+1)
+ 			}
+@@ -412,7 +412,7 @@
+ 	ctx, cancel := context.WithTimeout(context.Background(), 75*time.Millisecond)
+ 	defer cancel()
+ 	started := time.Now()
+-	_, _, _, err := p.Connect(ctx, doqTestRequest("slow.example.", 1), Options{})
++	_, _, _, _, err := p.Connect(ctx, doqTestRequest("slow.example.", 1), Options{})
+ 	if !errors.Is(err, context.DeadlineExceeded) {
+ 		t.Fatalf("slow Connect() error = %v, want context deadline exceeded", err)
+ 	}
+@@ -420,7 +420,7 @@
+ 		t.Fatalf("canceled Connect() returned after %s", elapsed)
+ 	}
+ 
+-	response, _, _, err := p.Connect(context.Background(), doqTestRequest("fast.example.", 2), Options{})
++	response, _, _, _, err := p.Connect(context.Background(), doqTestRequest("fast.example.", 2), Options{})
+ 	if err != nil {
+ 		t.Fatalf("Connect() after cancellation failed: %v", err)
+ 	}
+@@ -459,7 +459,7 @@
+ 	p.SetReadTimeout(time.Second)
+ 	defer p.Stop()
+ 
+-	if _, _, _, err := p.Connect(context.Background(), doqTestRequest("first.example.", 1), Options{}); err != nil {
++	if _, _, _, _, err := p.Connect(context.Background(), doqTestRequest("first.example.", 1), Options{}); err != nil {
+ 		t.Fatalf("first Connect() failed: %v", err)
+ 	}
+ 	p.doq.mu.Lock()
+@@ -474,7 +474,7 @@
+ 		t.Fatal("server did not close the first QUIC connection")
+ 	}
+ 
+-	if _, _, _, err := p.Connect(context.Background(), doqTestRequest("second.example.", 2), Options{}); err != nil {
++	if _, _, _, _, err := p.Connect(context.Background(), doqTestRequest("second.example.", 2), Options{}); err != nil {
+ 		t.Fatalf("second Connect() failed: %v", err)
+ 	}
+ 	if got := server.accepted.Load(); got != 2 {
+@@ -497,11 +497,11 @@
+ 	p.SetReadTimeout(time.Second)
+ 	defer p.Stop()
+ 
+-	_, _, _, err := p.Connect(context.Background(), doqTestRequest("bad.example.", 10), Options{})
++	_, _, _, _, err := p.Connect(context.Background(), doqTestRequest("bad.example.", 10), Options{})
+ 	if !errors.Is(err, errDoQProtocol) {
+ 		t.Fatalf("first Connect() error = %v, want DoQ protocol error", err)
+ 	}
+-	response, _, _, err := p.Connect(context.Background(), doqTestRequest("good.example.", 11), Options{})
++	response, _, _, _, err := p.Connect(context.Background(), doqTestRequest("good.example.", 11), Options{})
+ 	if err != nil {
+ 		t.Fatalf("Connect() after protocol error failed: %v", err)
+ 	}
+@@ -547,7 +547,7 @@
+ 	for _, qtype := range []uint16{dns.TypeAXFR, dns.TypeIXFR} {
+ 		query := new(dns.Msg)
+ 		query.SetQuestion("example.org.", qtype)
+-		_, _, _, err := p.Connect(context.Background(), request.Request{Req: query}, Options{})
++		_, _, _, _, err := p.Connect(context.Background(), request.Request{Req: query}, Options{})
+ 		if !errors.Is(err, ErrUnsupportedRequest) {
+ 			t.Errorf("Connect(%s) error = %v, want ErrUnsupportedRequest", dns.TypeToString[qtype], err)
+ 		}
+@@ -587,11 +587,11 @@
+ 			tc.configure(p)
+ 			defer p.Stop()
+ 
+-			if _, _, _, err := p.Connect(context.Background(), doqTestRequest("first.example.", 1), Options{}); err != nil {
++			if _, _, _, _, err := p.Connect(context.Background(), doqTestRequest("first.example.", 1), Options{}); err != nil {
+ 				t.Fatalf("first Connect() failed: %v", err)
+ 			}
+ 			time.Sleep(30 * time.Millisecond)
+-			if _, _, _, err := p.Connect(context.Background(), doqTestRequest("second.example.", 2), Options{}); err != nil {
++			if _, _, _, _, err := p.Connect(context.Background(), doqTestRequest("second.example.", 2), Options{}); err != nil {
+ 				t.Fatalf("second Connect() failed: %v", err)
+ 			}
+ 			if got := server.accepted.Load(); got != 2 {
+@@ -612,7 +612,7 @@
+ 	p.SetTLSConfig(&tls.Config{ServerName: "doq.test"})
+ 	result := make(chan error, 1)
+ 	go func() {
+-		_, _, _, err := p.Connect(context.Background(), doqTestRequest("example.org.", 1), Options{})
++		_, _, _, _, err := p.Connect(context.Background(), doqTestRequest("example.org.", 1), Options{})
+ 		result <- err
+ 	}()
+ 
+@@ -627,7 +627,7 @@
+ 		t.Fatal("Stop() did not cancel the in-progress DoQ dial")
+ 	}
+ 	p.Stop()
+-	_, _, _, err = p.Connect(context.Background(), doqTestRequest("example.org.", 2), Options{})
++	_, _, _, _, err = p.Connect(context.Background(), doqTestRequest("example.org.", 2), Options{})
+ 	if err == nil || err.Error() != ErrTransportStopped {
+ 		t.Fatalf("Connect() after Stop() error = %v, want %q", err, ErrTransportStopped)
+ 	}
+--- a/plugin/pkg/proxy/dial_context_test.go
++++ b/plugin/pkg/proxy/dial_context_test.go
+@@ -65,7 +65,7 @@
+ 			originalID := msg.Id
+ 			result := make(chan error, 1)
+ 			go func() {
+-				_, _, _, err := p.Connect(ctx, request.Request{Req: msg, W: &test.ResponseWriter{}}, Options{})
++				_, _, _, _, err := p.Connect(ctx, request.Request{Req: msg, W: &test.ResponseWriter{}}, Options{})
+ 				result <- err
+ 			}()
+ 			select {
+@@ -143,7 +143,7 @@
+ 			msg := new(dns.Msg)
+ 			msg.SetQuestion("example.org.", dns.TypeA)
+ 			opts := Options{TLSConnectDeadline: time.Now().Add(-time.Second)}
+-			response, _, proto, err := p.Connect(t.Context(), request.Request{
++			response, _, _, proto, err := p.Connect(t.Context(), request.Request{
+ 				Req: msg, W: &test.ResponseWriter{TCP: tcp},
+ 			}, opts)
+ 			if err != nil {
