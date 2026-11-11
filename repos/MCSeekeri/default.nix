@@ -11,6 +11,9 @@
   pkgs ? import <nixpkgs> { },
 }:
 
+let
+  pg0 = pkgs.callPackage ./pkgs/pg0 { };
+in
 {
   # The `lib`, `overlays`, `nixosModules`, `homeModules`,
   # `darwinModules` and `flakeModules` names are special
@@ -39,5 +42,8 @@
   mindmaster = pkgs.callPackage ./pkgs/mindmaster { };
   yozo-office = pkgs.callPackage ./pkgs/yozo-office { };
   workbuddy = pkgs.callPackage ./pkgs/workbuddy { };
+  orca = pkgs.callPackage ./pkgs/orca { };
   rime-frost = pkgs.callPackage ./pkgs/rime-frost { };
+  inherit pg0;
+  pg0-embedded = pkgs.python3Packages.callPackage ./pkgs/pg0-embedded { inherit pg0; };
 }
