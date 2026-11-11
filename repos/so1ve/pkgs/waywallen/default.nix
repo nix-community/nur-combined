@@ -57,6 +57,9 @@ assert lib.assertMsg (lib.allUnique (
 appimageTools.wrapAppImage {
   inherit pname version contents;
 
+  # The Open Wallpaper Engine scene renderer links against liblz4.so.1.
+  extraPkgs = pkgs: [ pkgs.lz4.lib ];
+
   extraInstallCommands = ''
     install -Dm444 "${contents}/usr/share/applications/${appId}.desktop" \
       "$out/share/applications/${appId}.desktop"
