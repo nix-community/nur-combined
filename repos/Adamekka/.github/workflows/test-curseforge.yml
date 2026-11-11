@@ -1,0 +1,75 @@
+name: Test CurseForge
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_call:
+    inputs:
+      base_sha:
+        description: Main commit on which the update was prepared
+        required: true
+        type: string
+      source:
+        description: Base64-encoded candidate source.json bytes
+        required: true
+        type: string
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: curseforge-amd64
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        if: inputs.base_sha == ''
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Checkout update base
+        if: inputs.base_sha != ''
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          ref: ${{ inputs.base_sha }}
+
+      - name: Apply candidate update
+        if: inputs.base_sha != ''
+        env:
+          BASE_SHA: ${{ inputs.base_sha }}
+          SOURCE: ${{ inputs.source }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$BASE_SHA"
+          printf '%s' "$SOURCE" | base64 --decode > pkgs/curseforge/source.json
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@3138316df39ed29be04236d7ffc686fa525866aa # v23
+
+      - name: Test updater
+        run: python3 -B -m unittest discover -s pkgs/curseforge -p 'test_*.py'
+
+      - name: Allow application namespaces on the disposable runner
+        run: |
+          # Ubuntu restricts Nix-store binaries by default. Allow user namespaces
+          # on this CI VM rather than disabling Chromium's sandbox.
+          sysctl kernel.apparmor_restrict_unprivileged_userns
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+
+      # The generic repository build excludes unfree packages. Build this one explicitly,
+      # without uploading the proprietary application to the public binary cache.
+      - name: Build and smoke-test package
+        env:
+          NIXPKGS_ALLOW_UNFREE: "1"
+        run: |
+          nix run --inputs-from . nixpkgs#nixfmt -- --check pkgs/curseforge/default.nix
+          package=$(nix build --impure --no-link --print-out-paths --print-build-logs .#curseforge)
+          version=$(nix eval --impure --raw .#curseforge.version)
+          # FHS launches need user namespaces, so exercise them outside the Nix build sandbox.
+          nix shell --inputs-from . nixpkgs#python3 nixpkgs#xdotool nixpkgs#xvfb-run \
+            -c xvfb-run -a python3 pkgs/curseforge/smoke-test.py "$package/bin/curseforge" "$version"
