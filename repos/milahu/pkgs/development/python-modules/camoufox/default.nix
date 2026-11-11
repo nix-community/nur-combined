@@ -33,10 +33,17 @@
 
 let
   firefox-addons = {
+  # FIXME uBlock Origin needs about 10 seconds to init filter lists on its first run
+  # -> also install some filter lists by default
+  # see also
+  # https://github.com/gorhill/uBlock/wiki/Dashboard:-Filter-lists
+  # https://github.com/milahu/aiohttp_chromium/blob/1a8a493ca48c4603374936fa3030ec072a1690e4/src/aiohttp_chromium/extensions.py#L274
     ublock-origin = stdenv.mkDerivation rec {
       pname = "ublock-origin-firefox";
       version = "1.75.5rc3";
       # FIXME build from source
+      # https://github.com/NixOS/nixpkgs/pull/113976
+      # ublock-origin: Init at 1.33.2
       src = fetchurl {
         url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
         hash = "sha256-XQlshmRPNxmwzqwxwmXKM6c52xuCQAz62vQP4tf+//I=";
@@ -50,6 +57,34 @@ let
         echo "unpacking $src"
         unzip $src
       '';
+      # TODO meta
+      # https://github.com/gorhill/uBlock
+    };
+
+    darkreader = stdenv.mkDerivation rec {
+      pname = "darkreader-firefox";
+      version = "4.9.135";
+      # FIXME build from source
+      src = fetchurl {
+        url = "https://github.com/darkreader/darkreader/releases/download/v${version}/darkreader-firefox.xpi";
+        hash = "sha256-EVVUjCSuA+8HxMNcSt2hncdZKYKjf6Hj5txh23McNQM=";
+      };
+      # TODO change default settings
+      # - dont open help tab on first start
+      # - enable "use system theme"
+      # see also
+      # https://github.com/milahu/aiohttp_chromium/blob/1a8a493ca48c4603374936fa3030ec072a1690e4/src/aiohttp_chromium/extensions.py#L321
+      nativeBuildInputs = [
+        unzip
+      ];
+      buildCommand = ''
+        mkdir $out
+        cd $out
+        echo "unpacking $src"
+        unzip $src
+      '';
+      # TODO meta
+      # https://github.com/darkreader/darkreader
     };
   };
 in
@@ -131,10 +166,21 @@ buildPythonPackage rec {
         'env_build = os.environ.get("CAMOUFOX_BROWSER_BUILD")' \
         'env_build = os.environ.get("CAMOUFOX_BROWSER_BUILD") or "${pkgs-camoufox.camoufoxVersion}"'
 
+    # currently, uBlock Origin (UBO) is the only default addon:
+    # class DefaultAddons(Enum):
+    #     """
+    #     Default addons. Each browser release bundles them, extracted, under
+    #     addons/<name>/ beside its binary (browser/scripts/fetch-ubo.py).
+    #     """
+    #
+    #     UBO = 'UBO'
+    #
+    # https://github.com/daijro/camoufox/issues/1027
+    # add optional addons to the camoufox bundle
     substituteInPlace src/camoufox/addons.py \
       --replace-fail \
         'default_path_by_addon_name = {}' \
-        'default_path_by_addon_name = {"UBO": "${firefox-addons.ublock-origin}"}'
+        'default_path_by_addon_name = {"UBO": "${firefox-addons.ublock-origin}", "DarkReader": "${firefox-addons.darkreader}"}'
 
     substituteInPlace src/camoufox/utils.py \
       --replace-fail \
@@ -184,6 +230,10 @@ buildPythonPackage rec {
   # pythonImportsCheck = [ "camoufox" ];
 
   doCheck = false;
+
+  passthru = {
+    inherit firefox-addons;
+  };
 
   meta = with lib; {
     description = "Lightweight wrapper around the Playwright API to help launch Camoufox.";
