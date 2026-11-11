@@ -45,6 +45,10 @@ url = "gh:archisman-panigrahi/doi2bib3"
 type = "fetch"
 tag = "v{version}"
 
+[inputs.filemanager1-common]
+url = "gh:boydaihungst/org.freedesktop.FileManager1.common"
+type = "fetch"
+
 [inputs."bunny.yazi"]
 url = "gh:stelcodes/bunny.yazi"
 type = "fetch"

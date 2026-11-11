@@ -5,6 +5,7 @@
     "doi2bib3": "github:archisman-panigrahi/doi2bib3",
     "enhance-piper.yazi": "github:boydaihungst/enhance-piper.yazi",
     "file-extra-metadata.yazi": "github:boydaihungst/file-extra-metadata.yazi",
+    "filemanager1-common": "github:boydaihungst/org.freedesktop.FileManager1.common",
     "flake-parts": "github:hercules-ci/flake-parts",
     "nixpkgs": "github:nixos/nixpkgs/nixpkgs-unstable",
     "systems": "github:nix-systems/x86_64-linux",
@@ -77,6 +78,18 @@
     "archive": {
       "hash": "sha256-Daz3NJoPsDbp3yaQMK8RrnOsJpCfJBaV9MZi/3bI2K0=",
       "outHash": "sha256-Bchxge6LA8YbkHLjkPUix2b9XwbfmBJqwOntPjBUENI="
+    }
+  },
+  "filemanager1-common": {
+    "type": "github",
+    "owner": "boydaihungst",
+    "repo": "org.freedesktop.FileManager1.common",
+    "rev": "3254f383d30bf898153b927407f5a20c4ac069f4",
+    "narHash": "sha256-T0KMAAn2lqkgAC66poCOjEebu/uqY3PIGMCe2dCmZRM=",
+    "lastModified": 1794186202,
+    "archive": {
+      "hash": "sha256-ljPOI0GtG2175MrTF8ht3zGoiiSZBcbG89HfjNrzTWA=",
+      "outHash": "sha256-XV6yOS5B6K/3Dvvc+0aP7xFDcGGveHTPqvW74vBd5GQ="
     }
   },
   "flake-parts": {
