@@ -10,20 +10,21 @@
   pkg-config,
   openssl,
   sqlite,
+  aws-lc,
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "bb-imager-rs";
-  version = "1.0.7";
+  version = "1.0.20";
 
   src = fetchFromGitHub {
     owner = "beagleboard";
     repo = "bb-imager-rs";
     tag = "${version}";
-    hash = "sha256-IsH6ic37AV+k34JKhkgGiCSER62cSSzmIxfXaC60xGY=";
+    hash = "sha256-lLBswNcwR0DSicMoyBqTmUvjqu6NwQrdiHrKXj8SAqA=";
   };
 
-  cargoHash = "sha256-07+aSx0pXQIL/Na6Ds1iZuEDANFedpMXGmFLzEc+Orw=";
+  cargoHash = "sha256-oef7BeQsXHWj+Q50IdRnbFfUL7RPVf8DpatWq+pLHAI=";
 
   doCheck = false;
 
@@ -35,6 +36,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [
     openssl
     sqlite
+    aws-lc
   ];
 
   cargoBuildFlags = [
@@ -72,7 +74,7 @@ rustPlatform.buildRustPackage rec {
      }"
 
     install -Dm644 \
-      bb-imager-gui/assets/icons/icon.png \
+      bb-imager-ui/assets/icons/icon.png \
       $out/share/icons/hicolor/128x128/apps/bb-imager.png
     install -Dm644 \
       bb-imager-gui/assets/packages/linux/BeagleBoardImager.desktop \
