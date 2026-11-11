@@ -44,7 +44,7 @@ redistribution.
 | `rimsort-appimage` | `1.17.4` | RimWorld mod manager | Yes |
 | `scopebuddy` | `1.5.0` | Gamescope manager | Yes |
 | `storyforge` | `2.0.11` | Story Forge desktop application, built independently of the upstream flake | Yes |
-| `wowup-cf` | `2.25.4` | World of Warcraft addon manager with CurseForge support | Yes |
+| `wowup-cf` | `2.25.5` | World of Warcraft addon manager with CurseForge support | Yes |
 | `linux-cachyos-latest-x86_64-v3` | `7.3.3` | CachyOS kernel, x86-64-v3, non-LTO | Yes |
 
 ## Using the packages
