@@ -16,6 +16,7 @@
   protobuf,
   aws-lc,
   libgit2,
+  sqlite,
   libayatana-appindicator,
   wrapGAppsHook4,
   nix-update-script,
@@ -71,6 +72,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     libayatana-appindicator
     aws-lc.dev
     libgit2.dev
+    sqlite.dev
   ];
 
   preFixup = ''
