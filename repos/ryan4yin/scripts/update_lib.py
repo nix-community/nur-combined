@@ -85,6 +85,11 @@ def version_key(
     return (numbers, (0,), identifiers)
 
 
+def prerelease_label(version: str) -> str:
+    """Return the first prerelease identifier ("rc" for 1.2.3-rc.1), or "" for a release."""
+    return version.partition("+")[0].partition("-")[2].partition(".")[0]
+
+
 def is_newer(latest: str, current: str) -> bool:
     """Whether latest is strictly newer than current."""
     return version_key(latest) > version_key(current)
@@ -132,11 +137,13 @@ def npm_latest_version(package: str, *, tag: str = "latest") -> str:
     return result.stdout.strip()
 
 
-def npm_highest_version(package: str) -> str:
+def npm_highest_version(package: str, *, prereleases: tuple[str, ...] | None = None) -> str:
     """Return the highest version across all npm dist-tags.
 
     npm's default ``latest`` tag can lag behind ``next`` or ``alpha``. Track
     every published release line instead of silently ignoring newer RCs.
+    When prereleases is given, only stable versions and prereleases whose
+    first identifier is listed (e.g. ``("rc",)``) are considered.
     """
     result = run(
         ["npm", "view", package, "dist-tags", "--json"],
@@ -145,8 +152,14 @@ def npm_highest_version(package: str) -> str:
     )
     tags = json.loads(result.stdout)
     versions = [str(version) for version in tags.values()]
+    if prereleases is not None:
+        versions = [
+            version
+            for version in versions
+            if prerelease_label(version) in ("", *prereleases)
+        ]
     if not versions:
-        raise SystemExit(f"no npm dist-tags found for {package}")
+        raise SystemExit(f"no matching npm dist-tags found for {package}")
     return max(versions, key=version_key)
 
 

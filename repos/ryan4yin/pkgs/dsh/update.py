@@ -62,7 +62,7 @@ def regenerate_lockfile(url: str) -> None:
                 "install",
                 "--package-lock-only",
                 "--ignore-scripts",
-                # Alpha releases often depend on packages published the same
+                # Prereleases often depend on packages published the same
                 # day; do not let the user's npm release-age policy reject them.
                 "--min-release-age=0",
             ],
@@ -79,8 +79,8 @@ def main() -> None:
     parser.add_argument(
         "--tag",
         default="all",
-        help="npm dist-tag to track, or 'all' for the highest version across "
-        "every dist-tag (default: all)",
+        help="npm dist-tag to track, or 'all' for the highest stable or RC "
+        "version across every dist-tag (default: all)",
     )
     args = parser.parse_args()
 
@@ -88,8 +88,8 @@ def main() -> None:
     data = read_json(hashes_file)
     current = data["version"]
     if args.tag == "all":
-        latest = npm_highest_version(PACKAGE)
-        channel = "all dist-tags"
+        latest = npm_highest_version(PACKAGE, prereleases=("rc",))
+        channel = "stable/rc across dist-tags"
     else:
         latest = npm_latest_version(PACKAGE, tag=args.tag)
         channel = args.tag
