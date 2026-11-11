@@ -33,6 +33,7 @@ Ray's personal [NUR](https://github.com/nix-community/NUR) repository
 | `rime-lmdg` | [Upstream](https://github.com/amzxyz/rime-wanxiang-data) |
 | `rime-wanxiang` | [Upstream](https://github.com/amzxyz/rime-wanxiang) |
 | `sunloginclient` | [Usage](pkgs/sunloginclient/README.md) |
+| `waywallen` | [Usage](pkgs/waywallen/README.md) |
 | `xwayland-satellite` | [Upstream](https://github.com/Supreeeme/xwayland-satellite) |
 | `yanhekt-autoslides` | [Upstream](https://github.com/BIT-Admin/Yanhekt-AutoSlides) |
 | `winboat-unstable` | [Usage](pkgs/winboat-unstable/README.md) |

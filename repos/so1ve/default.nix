@@ -34,6 +34,7 @@ in
   rime-wanxiang = pkgs.callPackage ./pkgs/rime-wanxiang { };
   sunloginclient = pkgs.callPackage ./pkgs/sunloginclient { };
   yanhekt-autoslides = pkgs.callPackage ./pkgs/yanhekt-autoslides { };
+  waywallen = pkgs.callPackage ./pkgs/waywallen { };
   winboat-unstable = pkgs.callPackage ./pkgs/winboat-unstable { };
   inherit terracotta;
   xwayland-satellite = pkgs.callPackage ./pkgs/xwayland-satellite { };
