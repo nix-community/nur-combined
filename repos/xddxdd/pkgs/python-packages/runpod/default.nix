@@ -31,14 +31,14 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "runpod";
-  version = "2.2.0";
+  version = "2.2.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "runpod";
     repo = "runpod-python";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-UffCdrjQRTcUJ2RaDdg/hDqy56y1tZQp2kwVvd4neek=";
+    hash = "sha256-oJvzbbYk9amwmBS9W/1L/MXE+vlcrGPn1Jo5N63m098=";
   };
   __structuredAttrs = true;
   strictDeps = true;

@@ -7,16 +7,16 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "metapi";
-  version = "1.3.0";
+  version = "1.3.1";
   src = fetchFromGitHub {
     owner = "cita-777";
     repo = "metapi";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-OfS8iAjP1yU40RNlJeFEvih4jn9Ab4joTgLfRD6e1pQ=";
+    hash = "sha256-FdeDnTi/XDUdtKvKbBs83ThkGEjU3yG3J6fistZeiT8=";
   };
   __structuredAttrs = true;
   strictDeps = true;
-  npmDepsHash = "sha256-6C4SIoP0+HdIoODkWq6uEJppOOfzFiNf/5FEtTG/Eo0=";
+  npmDepsHash = "sha256-EURkPGlwtJrcBcw/Gypg5Nm5Hl9JgYLhv/uvOX3CisQ=";
 
   npmFlags = [ "--ignore-scripts" ];
 
