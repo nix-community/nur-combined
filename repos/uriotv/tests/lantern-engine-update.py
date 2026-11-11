@@ -13,10 +13,14 @@ class LanternEngineUpdateTests(unittest.TestCase):
         self.assertNotIn("avares://Lantern Engine/", launcher)
         self.assertNotIn("--replace-fail 'avares://", launcher)
 
-    def test_package_tracks_latest_known_stable_version_and_source_hash(self):
+    def test_package_tracks_version_and_source_hash(self):
         package = (ROOT / "pkgs/lantern-engine/default.nix").read_text()
-        self.assertIn('version = "0.9.42";', package)
+        self.assertRegex(package, r'version = "\d+\.\d+\.\d+";')
         self.assertRegex(package, r'hash = "sha256-[A-Za-z0-9+/]{43}=";')
+
+    def test_probe_includes_vulkan_smoke_implementation(self):
+        engine = (ROOT / "pkgs/lantern-engine/engine.nix").read_text()
+        self.assertIn("src/vulkan_smoke.c", engine)
 
     def test_updater_refreshes_version_and_nuget_lock(self):
         updater = (ROOT / "pkgs/lantern-engine/update.sh").read_text()

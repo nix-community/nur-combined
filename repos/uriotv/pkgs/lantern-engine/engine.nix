@@ -43,7 +43,7 @@ stdenv.mkDerivation {
     $AR rcs out/libatrac9.a out/atrac9/*.o
     $CC -std=gnu11 -O2 -Wall -Wextra -pthread -no-pie "''${includes[@]}" -I. -Isrc \
       src/probe.c src/blocked.c src/host.c src/isa_emulate.c src/isa_rewrite.c \
-      src/wait_stats.c src/win32_compat.c src/win32_memory.c src/sys/*.c \
+      src/wait_stats.c src/win32_compat.c src/win32_memory.c src/vulkan_smoke.c src/sys/*.c \
       out/libatrac9.a -lm \
       -Lout/gpu -lbbgpu -Wl,-rpath,'$ORIGIN/gpu' -rdynamic "''${libraries[@]}" -o out/bb-probe
     $CC -std=gnu11 -O2 -Wall -Wextra "''${includes[@]}" tools/gpu_capabilities.c \
