@@ -25,7 +25,14 @@ diff -rua a/knotjob/KnotJobCommand.java b/knotjob/KnotJobCommand.java
 diff -rua a/knotjob/Options.java b/knotjob/Options.java
 --- a/knotjob/Options.java
 +++ b/knotjob/Options.java
-@@ -82,7 +82,7 @@
+@@ -76,13 +76,13 @@
+         combAttempts = 5000;
+         stableBound = 15;
+         divFactor = 6.0;
+-        loadLinksFrom = null;
++        loadLinksFrom = new File("@out@/share/KnotJob/Knots");
+         saveKhovanov = null;
+         saveImage = null;
          slashSymbol = "/";
          gridDiagram = false;
          showTime = true;
