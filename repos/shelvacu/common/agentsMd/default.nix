@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  vacuModuleType,
   ...
 }:
 let
@@ -17,7 +18,7 @@ let
     };
   };
 in
-{
+lib.optionalAttrs (vacuModuleType == "nixos") {
   options.vacu.agentsMd = {
     enable = lib.mkEnableOption "create&update a ~/AGENTS.md file";
 
