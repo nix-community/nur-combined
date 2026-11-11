@@ -2,10 +2,8 @@
 
 set -euo pipefail
 
-if ! command -v nix >/dev/null 2>&1 && [[ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
-	# shellcheck disable=SC1091
-	source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-	export PATH="/nix/var/nix/profiles/default/bin:$PATH"
+if [[ -x "$HOME/.nix-profile/bin/nix" ]]; then
+	export PATH="$HOME/.nix-profile/bin:$PATH"
 fi
 
 if ! command -v nix >/dev/null 2>&1; then
@@ -13,4 +11,4 @@ if ! command -v nix >/dev/null 2>&1; then
 	exit 1
 fi
 
-nix --version
+nix store info >/dev/null

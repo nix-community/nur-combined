@@ -2,57 +2,39 @@
 
 set -euo pipefail
 
-repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-nix_profile=/nix/var/nix/profiles/default
+if [[ "$(uname -r)" == *gvisor* ]]; then
+	nix_config_dir="${XDG_CONFIG_HOME:-$HOME/.config}/nix"
+	mkdir -p "$nix_config_dir"
+	if ! grep -Fqx 'sandbox = false' "$nix_config_dir/nix.conf" 2>/dev/null; then
+		printf '\nsandbox = false\n' >>"$nix_config_dir/nix.conf"
+	fi
+fi
 
-if ! command -v nix >/dev/null 2>&1 && [[ -e "$nix_profile/etc/profile.d/nix-daemon.sh" ]]; then
-	# shellcheck disable=SC1091
-	source "$nix_profile/etc/profile.d/nix-daemon.sh"
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+nix_profile="$HOME/.nix-profile"
+if [[ -x "$nix_profile/bin/nix" ]]; then
 	export PATH="$nix_profile/bin:$PATH"
 fi
+nix_path="$(command -v nix)"
+nix store info >/dev/null
 
-if ! command -v nix >/dev/null 2>&1; then
-	echo "Installing Nix..."
-	curl --proto '=https' --tlsv1.2 --fail --silent --show-error --location \
-		https://install.determinate.systems/nix | sh -s -- install --no-confirm
-	# The installer cannot update this running process's environment.
-	# shellcheck disable=SC1091
-	source "$nix_profile/etc/profile.d/nix-daemon.sh"
-else
-	echo "Nix is already installed."
-fi
-
-nix_config_marker="# nur-packages trusted orb user"
-if ! sudo grep -Fqx "$nix_config_marker" /etc/nix/nix.custom.conf; then
-	printf '\n%s\ntrusted-users = root %s\n' "$nix_config_marker" "$(id -un)" |
-		sudo tee -a /etc/nix/nix.custom.conf >/dev/null
-	sudo systemctl restart nix-daemon.service
-fi
-
-profile_marker="# nur-packages Nix environment"
+# Refresh the old daemon-profile and global PATH hooks on stale snapshots.
 touch "$HOME/.bash_profile"
-if ! grep -Fqx "$profile_marker" "$HOME/.bash_profile"; then
-	cat >>"$HOME/.bash_profile" <<'EOF'
-
-# nur-packages Nix environment
-if [[ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
-	# shellcheck disable=SC1091
-	source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+tmp="$(mktemp)"
+awk '
+	$0 == "# nur-packages Nix environment" { skip = 1 }
+	$0 == "# nur-packages Nix binary path" { skip = 1 }
+	$0 == "# nur-packages orb Nix" { skip = 1 }
+	skip && ($0 == "fi" || $0 == "esac") { skip = 0; next }
+	!skip { print }
+' "$HOME/.bash_profile" >"$tmp"
+cat >>"$tmp" <<EOF
+# nur-packages orb Nix
+if [[ "\${PWD}" == "$repo_root" ]]; then
+	export PATH="$(dirname "$nix_path"):\${PATH}"
 fi
 EOF
-fi
-
-path_marker="# nur-packages Nix binary path"
-if ! grep -Fqx "$path_marker" "$HOME/.bash_profile"; then
-	cat >>"$HOME/.bash_profile" <<'EOF'
-
-# nur-packages Nix binary path
-case ":$PATH:" in
-	*:/nix/var/nix/profiles/default/bin:*) ;;
-	*) export PATH="/nix/var/nix/profiles/default/bin:$PATH" ;;
-esac
-EOF
-fi
+mv "$tmp" "$HOME/.bash_profile"
 
 echo "Evaluating the locked flake..."
 nix eval --accept-flake-config --no-write-lock-file \
