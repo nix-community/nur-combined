@@ -13,7 +13,7 @@
 }:
 
 let
-  betterbirdVersion = "153.6.0esr-bb12";
+  betterbirdVersion = "153.7.0esr-bb13";
   majVer = lib.versions.major betterbirdVersion;
 
   thunderbird-unwrapped = thunderbird-153-unwrapped;
@@ -22,15 +22,15 @@ let
     owner = "Betterbird";
     repo = "thunderbird-patches";
     rev = betterbirdVersion;
-    hash = "sha256-cdo2DLyRdJmw1QZZ3R30h0BwoI6u6aWMABDc9SXObLw=";
+    hash = "sha256-fUZrStvn8IR1yPA/TskZR7x/kjHjPhF2HnTMc3CdDvA=";
   };
 
   # Fetch and extract comm subdirectory
   comm-source = fetchhg {
     name = "comm-source";
     url = "https://hg.mozilla.org/releases/comm-esr${majVer}";
-    rev = "c211ee7e705362098a25ec07fe67d495d3bfce15";
-    hash = "sha256-xEGCRbGCz+VYDVnPr0bWUBsFggdSpL4ZEbbrT/Y3BYE=";
+    rev = "c2f34efeee84fe07111353c7b931c85c1e58df02";
+    hash = "sha256-wFNXweATldgbGjFkkv8AT2iYKXHh6bYhmLQXEF923rI=";
   };
 
   updatePackage = writers.writePython3Bin "update-betterbird" {
@@ -70,8 +70,8 @@ in
     src = fetchhg {
       name = "mozilla-source";
       url = "https://hg.mozilla.org/releases/mozilla-esr${majVer}";
-      rev = "d63de7b9609253a860fbb0050f678700f4cdc492";
-      hash = "sha256-Z3KOxB3hGTUYw/eOcxOoaImi1ph0gD4mfVcj6PPJaso=";
+      rev = "a9effd9e521653405f0ffd311e8edf90bde92237";
+      hash = "sha256-Zvnx4SG/aplpdGhqknaAxesZ/HkzHvgNlMKg2xINHeo=";
     };
 
     unpackPhase = ''
