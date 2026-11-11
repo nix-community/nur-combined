@@ -5,6 +5,7 @@
   installShellFiles,
   libsecret,
   patchelfUnstable,
+  vulkan-loader,
   source,
   pname,
 }:
@@ -23,7 +24,10 @@ stdenv.mkDerivation (finalAttrs: {
     autoPatchelfHook
     installShellFiles
   ];
-  buildInputs = [ stdenv.cc.cc.lib ];
+  buildInputs = [
+    stdenv.cc.cc.lib
+    vulkan-loader
+  ];
 
   # Native keyring modules load libsecret at runtime.
   appendRunpaths = [ (lib.makeLibraryPath [ libsecret ]) ];
