@@ -1,12 +1,12 @@
 {
     inputs,
-    date,
+    timestampToDate,
     lib,
     mkYaziPlugin,
 }:
 mkYaziPlugin (finalAttrs: {
     pname = "custom-shell.yazi";
-    version = "unstable-${date}";
+    version = timestampToDate inputs._meta."custom-shell.yazi".lastModified;
 
     src = inputs.${finalAttrs.pname};
 

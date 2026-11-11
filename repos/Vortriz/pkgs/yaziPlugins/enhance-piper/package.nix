@@ -1,12 +1,12 @@
 {
     inputs,
-    date,
+    timestampToDate,
     lib,
     mkYaziPlugin,
 }:
 mkYaziPlugin (finalAttrs: {
     pname = "enhance-piper.yazi";
-    version = "unstable-${date}";
+    version = timestampToDate inputs._meta."enhance-piper.yazi".lastModified;
 
     src = inputs.${finalAttrs.pname};
 

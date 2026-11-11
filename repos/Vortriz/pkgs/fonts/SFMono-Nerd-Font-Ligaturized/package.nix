@@ -4,7 +4,7 @@
 }:
 stdenvNoCC.mkDerivation {
     pname = "SFMono-Nerd-Font-Ligaturized";
-    version = "unstable-2023-07-01";
+    version = "2023-07-01";
 
     src = fetchFromGitHub {
         owner = "shaunsingh";

@@ -5,7 +5,7 @@
 }:
 stdenvNoCC.mkDerivation rec {
     pname = "greek-letters-improved";
-    version = "unstable-2026-07-02";
+    version = "2026-07-02";
 
     src = fetchFromGitHub {
         owner = "jpmvferreira";

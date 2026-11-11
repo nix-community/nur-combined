@@ -5,7 +5,7 @@
 }:
 stdenvNoCC.mkDerivation {
     pname = "lower-upper";
-    version = "unstable-2021-11-04";
+    version = "2021-11-04";
 
     src = fetchFromGitHub {
         owner = "anthonygraignic";

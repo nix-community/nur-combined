@@ -4,7 +4,7 @@
 }:
 stdenvNoCC.mkDerivation {
     pname = "HelveticaNeueCyr";
-    version = "unstable-2025-11-06";
+    version = "2025-11-06";
 
     src = fetchFromGitHub {
         owner = "Vortriz";

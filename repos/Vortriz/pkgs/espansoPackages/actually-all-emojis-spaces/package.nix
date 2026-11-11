@@ -4,7 +4,7 @@
 }:
 stdenvNoCC.mkDerivation {
     pname = "actually-all-emojis-spaces";
-    version = "unstable-2023-06-22";
+    version = "2023-06-22";
 
     src = fetchFromGitHub {
         owner = "jobiewong";
