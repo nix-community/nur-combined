@@ -1,0 +1,12 @@
+diff --git a/lib/utils/update.dart b/lib/utils/update.dart
+index b555ca8..28adbc4 100644
+--- a/lib/utils/update.dart
++++ b/lib/utils/update.dart
+@@ -20,7 +20,6 @@ import 'package:material_ui/material_ui.dart';
+ abstract final class Update {
+   // 检查更新
+   static Future<void> checkUpdate([bool isAuto = true]) async {
+-    if (kDebugMode) return;
+     SmartDialog.dismiss();
+     try {
+       final res = await Request().get(

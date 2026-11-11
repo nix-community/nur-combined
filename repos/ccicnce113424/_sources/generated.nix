@@ -281,6 +281,20 @@
     };
     date = "2026-11-07";
   };
+  pilinara = {
+    pname = "pilinara";
+    version = "2.6.2";
+    src = fetchFromGitHub {
+      owner = "Starfallan";
+      repo = "PiliNara";
+      rev = "2.6.2";
+      fetchSubmodules = false;
+      sha256 = "sha256-eoMqNP2J4LHZu6TwXBslDJFWXiWxMqR/iVt8Qw1Yl0k=";
+    };
+    extract = {
+      "pubspec.lock" = ./. + "/sha256-eoMqNP2J4LHZu6TwXBslDJFWXiWxMqR_iVt8Qw1Yl0k=/pubspec.lock";
+    };
+  };
   piliplus = {
     pname = "piliplus";
     version = "2.2.0.2";

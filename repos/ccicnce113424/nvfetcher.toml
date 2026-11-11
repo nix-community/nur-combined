@@ -90,6 +90,11 @@ cargo_lock = ["Cargo.lock"]
 fetch.github = "YUCLing/open-orpheus"
 src.git = "https://github.com/YUCLing/open-orpheus"
 
+[pilinara]
+extract = ["pubspec.lock"]
+fetch.github = "Starfallan/PiliNara"
+src.github = "Starfallan/PiliNara"
+
 [piliplus]
 extract = ["pubspec.lock"]
 fetch.github = "bggRGjQaUbCoE/PiliPlus"

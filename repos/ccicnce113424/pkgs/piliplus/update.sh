@@ -26,7 +26,13 @@ else
   time_val=0
 fi
 
-rev_count=$(curl -sS -D - -o /dev/null "https://api.github.com/repos/$owner/$repo/commits?sha=$version&per_page=1" |
+# 认证请求可避开匿名 60 次/小时的限流（CI 里 GITHUB_TOKEN 默认可用）；
+# 未认证时 GitHub 返回 403 且无 Link 头，rev_count 会回退成 1。
+curl_args=()
+if [[ -n ${GITHUB_TOKEN-} ]]; then
+  curl_args+=(-H "Authorization: Bearer $GITHUB_TOKEN")
+fi
+rev_count=$(curl -sS "${curl_args[@]}" -D - -o /dev/null "https://api.github.com/repos/$owner/$repo/commits?sha=$version&per_page=1" |
   tr -d '\r' |
   sed -n 's/^link: .*[\?&]page=\([0-9]\+\)>; rel="last".*/\1/p')
 
