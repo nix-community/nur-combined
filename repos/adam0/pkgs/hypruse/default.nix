@@ -34,14 +34,14 @@
 in
   buildPythonApplication rec {
     pname = "hypruse";
-    version = "0.14.1";
+    version = "0.15.0";
     pyproject = true;
 
     src = fetchFromGitHub {
       owner = "IlyasKhallouki";
       repo = "hypruse";
       tag = "v${version}";
-      hash = "sha256-Iel/NK6wI5jyUyrUZgIBsWZ6DVKDpXVGgccmz7DagFk=";
+      hash = "sha256-44OdFUWTRmfhLkzoq0CdAvEoelY+zgj8LbAaj5BkEhk=";
     };
 
     build-system = [hatchling];
