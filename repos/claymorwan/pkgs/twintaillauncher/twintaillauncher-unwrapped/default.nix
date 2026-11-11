@@ -15,6 +15,7 @@
   perl,
   protobuf,
   aws-lc,
+  libgit2,
   libayatana-appindicator,
   wrapGAppsHook4,
   nix-update-script,
@@ -69,6 +70,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     webkitgtk_4_1
     libayatana-appindicator
     aws-lc.dev
+    libgit2.dev
   ];
 
   preFixup = ''
