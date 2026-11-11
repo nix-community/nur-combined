@@ -145,6 +145,7 @@ This repository contains three types of packages:
 | [`sfw`](pkgs/sfw/default.nix) | [sfw](https://github.com/SocketDev/sfw-free), wraps your package manager, preventing installation of malicious packages. |
 | [`sm64plus`](pkgs/sm64plus/default.nix) | [sm64plus](https://github.com/MorsGames/sm64plus), a standalone fork of the Super Mario 64 PC port with quality of life improvements |
 | [`sonixd`](pkgs/sonixd/default.nix) | [sonixd](https://github.com/jeffvli/sonixd), full-featured Subsonic/Jellyfin compatible desktop music player |
+| [`sonora`](pkgs/sonora/default.nix) | [sonora](https://sonorahq.org/), a native, familiar music streaming client |
 | [`soundcraft`](pkgs/soundcraft/default.nix) | [soundcraft](https://getartcraft.com/apps/soundcraft), digital audio workstation for audio recording, editing and mixing |
 | [`steam`](pkgs/steam/default.nix) | [steam](https://store.steampowered.com/), digital distribution platform |
 | [`streamnook`](pkgs/streamnook/default.nix) | [streamnook](https://streamnook.app), a native desktop client for Twitch, Kick and YouTube multi-streaming |
