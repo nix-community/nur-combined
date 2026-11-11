@@ -16,9 +16,9 @@ Add this repository to your flake inputs:
     inputs = {
         # Your Nixpkgs input
         nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
-    
+
         vpkgs.url = "github:Vortriz/vpkgs";
-        
+
         # Other inputs
         # ...
     };
@@ -28,12 +28,12 @@ Add this repository to your flake inputs:
 Then all the packages can be used directly from inputs, through `legacyPackages`:
 
 ```nix
-{ 
+{
     inputs,
     ...
 }: {
     # For this to be valid, you need `inputs` in the argset above and vpkgs
-    # to be in your `inputs`, as demonstrated in the flake.nix example. You 
+    # to be in your `inputs`, as demonstrated in the flake.nix example. You
     # will also need `inputs` to be in your `nixosSystem` call's `specialArgs`
     # or else you will not be able to access `inputs` in your modules.
     environment.systemPackages = [
@@ -94,6 +94,7 @@ Available only through `legacyPackages.zoteroAddons.<package>`.
 | Package                                                                      | Status                         |
 | ---------------------------------------------------------------------------- | ------------------------------ |
 | [`zotero-better-bibtex`](https://github.com/retorquere/zotero-better-bibtex) | Auto updated (stable releases) |
+| [`zotero-scihub`](https://github.com/ethanwillis/zotero-scihub)              | Auto updated (stable releases) |
 | [`zotero-scipdf`](https://github.com/syt2/zotero-scipdf)                     | Auto updated (stable releases) |
 | [`zotlit`](https://github.com/aidenlx/zotlit)                                | Auto updated (stable releases) |
 | [`zotmoov`](https://github.com/wileyyugioh/zotmoov)                          | Auto updated (stable releases) |

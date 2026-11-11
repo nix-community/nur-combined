@@ -12,6 +12,7 @@
     "treefmt-nix": "github:numtide/treefmt-nix",
     "what-size.yazi": "github:pirafrank/what-size.yazi",
     "zotero-better-bibtex": "https://github.com/retorquere/zotero-better-bibtex/releases/download/v{version}/zotero-better-bibtex-{version}.xpi",
+    "zotero-scihub": "https://github.com/ethanwillis/zotero-scihub/releases/download/v{version}/zotero-scihub-{version}.xpi",
     "zotero-scipdf": "https://github.com/syt2/zotero-scipdf/releases/download/V{version}/sci-pdf.xpi",
     "zotlit": "https://github.com/aidenlx/zotlit/releases/download/zt-{version}/zotlit-zotero-{version}.xpi",
     "zotmoov": "https://github.com/wileyyugioh/zotmoov/releases/download/{version}/zotmoov-{version}-fx.xpi"
@@ -137,6 +138,14 @@
     "unpack": "file",
     "tag": "v9.0.77",
     "version": "9.0.77"
+  },
+  "zotero-scihub": {
+    "type": "fixed",
+    "url": "https://github.com/ethanwillis/zotero-scihub/releases/download/v2.0.1/zotero-scihub-2.0.1.xpi",
+    "sha256": "sha256-naj2dIaWQBhYVPpsgUBh4N/3JegRYUfEnGtLyaUed1o=",
+    "unpack": "file",
+    "tag": "v2.0.1",
+    "version": "2.0.1"
   },
   "zotero-scipdf": {
     "type": "fixed",
