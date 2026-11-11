@@ -9,13 +9,13 @@
 }:
 swiftPackages.stdenv.mkDerivation (finalAttrs: {
   pname = "apple-reminders-server";
-  version = "0-unstable-2026-11-09";
+  version = "0-unstable-2026-11-10";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "apple-reminders-server";
-    rev = "4ef7862bfde4e9d200c1cd1b832450c0b608de93";
-    hash = "sha256-Aoa01+nrIuT2f9xsbZi8klUotBcmuvUaZe2yI9rqxR0=";
+    rev = "6dfc4d6ff5aaa798631a67f582c9944cb2805e54";
+    hash = "sha256-2cn+3YyiJNkrTgexr9zT6SF0+Uk1Jc5lLuuqaiUrDG4=";
   };
 
   nativeBuildInputs = [
@@ -25,7 +25,7 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
 
   swiftpmDeps = swiftPackages.fetchSwiftPMDeps {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-nb7aGusmip481lEbgAmapJll+P+BHrDkxPT+atmq44I=";
+    hash = "sha256-7ArtmVgB4TKqjOKimicILK7tFBwn+9ob1+SZIJ7oQX4=";
   };
 
   installPhase = ''
