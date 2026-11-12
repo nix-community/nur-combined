@@ -3253,6 +3253,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get dropped => 'বাদ দিয়েছি';
 
   @override
+  String get unfinished => 'Unfinished';
+
+  @override
   String get planned => 'প্ল্যান করা';
 
   @override
@@ -6937,6 +6940,30 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get playerAutoPipDesc => 'অ্যাপ ছেড়ে গেলে ছোট উইন্ডোতে চলতে থাকুক';
+
+  @override
+  String get playerPipPlay => 'Play';
+
+  @override
+  String get playerPipPause => 'Pause';
+
+  @override
+  String get playerPipPrevious => 'Previous episode';
+
+  @override
+  String get playerPipNext => 'Next episode';
+
+  @override
+  String get playerPipBack => 'Rewind';
+
+  @override
+  String get playerPipForward => 'Forward';
+
+  @override
+  String get listDateAdded => 'Added to list';
+
+  @override
+  String get listDateLastWatched => 'Last watched';
 
   @override
   String playerAutoPlaying(String title) {

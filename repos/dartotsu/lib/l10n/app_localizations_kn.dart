@@ -3276,6 +3276,9 @@ class AppLocalizationsKn extends AppLocalizations {
   String get dropped => 'ಕೈಬಿಟ್ಟಿದ್ದು';
 
   @override
+  String get unfinished => 'Unfinished';
+
+  @override
   String get planned => 'ಯೋಜಿಸಿದ್ದು';
 
   @override
@@ -6975,6 +6978,30 @@ class AppLocalizationsKn extends AppLocalizations {
   @override
   String get playerAutoPipDesc =>
       'ನೀನು ಆ್ಯಪ್ ಬಿಟ್ಟು ಹೋದಾಗ ಚಿಕ್ಕ ವಿಂಡೋದಲ್ಲಿ ಪ್ಲೇ ಆಗುತ್ತಲೇ ಇರಲಿ';
+
+  @override
+  String get playerPipPlay => 'Play';
+
+  @override
+  String get playerPipPause => 'Pause';
+
+  @override
+  String get playerPipPrevious => 'Previous episode';
+
+  @override
+  String get playerPipNext => 'Next episode';
+
+  @override
+  String get playerPipBack => 'Rewind';
+
+  @override
+  String get playerPipForward => 'Forward';
+
+  @override
+  String get listDateAdded => 'Added to list';
+
+  @override
+  String get listDateLastWatched => 'Last watched';
 
   @override
   String playerAutoPlaying(String title) {

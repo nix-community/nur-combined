@@ -350,7 +350,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: "666d8e9303c1a3ceeaed0135049f524fcf5c070a"
+      resolved-ref: "9c4ef318c8a062405e1ae9ee78459e8c7a5610ce"
       url: "https://github.com/aayush2622/DartotsuExtensionBridge.git"
     source: git
     version: "0.0.5"
@@ -588,14 +588,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
-  fl_pip:
-    dependency: "direct main"
-    description:
-      name: fl_pip
-      sha256: "564aad008e710cb428c2461463473480ebd36f9e5487f59c4d2c3580a0904b63"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.2.3"
   flutter:
     dependency: "direct main"
     description: flutter

@@ -3255,6 +3255,9 @@ class AppLocalizationsFa extends AppLocalizations {
   String get dropped => 'رها شده';
 
   @override
+  String get unfinished => 'Unfinished';
+
+  @override
   String get planned => 'تو برنامه';
 
   @override
@@ -6937,6 +6940,30 @@ class AppLocalizationsFa extends AppLocalizations {
   @override
   String get playerAutoPipDesc =>
       'وقتی از اپ می‌ری بیرون، تو یه پنجره کوچیک پخش ادامه پیدا کنه';
+
+  @override
+  String get playerPipPlay => 'Play';
+
+  @override
+  String get playerPipPause => 'Pause';
+
+  @override
+  String get playerPipPrevious => 'Previous episode';
+
+  @override
+  String get playerPipNext => 'Next episode';
+
+  @override
+  String get playerPipBack => 'Rewind';
+
+  @override
+  String get playerPipForward => 'Forward';
+
+  @override
+  String get listDateAdded => 'Added to list';
+
+  @override
+  String get listDateLastWatched => 'Last watched';
 
   @override
   String playerAutoPlaying(String title) {

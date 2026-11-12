@@ -3287,6 +3287,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get dropped => 'Abandonné';
 
   @override
+  String get unfinished => 'Unfinished';
+
+  @override
   String get planned => 'Prévu';
 
   @override
@@ -7016,6 +7019,30 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get playerAutoPipDesc =>
       'Continue la lecture dans une petite fenêtre quand tu quittes l\'app';
+
+  @override
+  String get playerPipPlay => 'Play';
+
+  @override
+  String get playerPipPause => 'Pause';
+
+  @override
+  String get playerPipPrevious => 'Previous episode';
+
+  @override
+  String get playerPipNext => 'Next episode';
+
+  @override
+  String get playerPipBack => 'Rewind';
+
+  @override
+  String get playerPipForward => 'Forward';
+
+  @override
+  String get listDateAdded => 'Added to list';
+
+  @override
+  String get listDateLastWatched => 'Last watched';
 
   @override
   String playerAutoPlaying(String title) {

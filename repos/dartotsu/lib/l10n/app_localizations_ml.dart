@@ -3289,6 +3289,9 @@ class AppLocalizationsMl extends AppLocalizations {
   String get dropped => 'ഉപേക്ഷിച്ചു';
 
   @override
+  String get unfinished => 'Unfinished';
+
+  @override
   String get planned => 'പ്ലാൻ ചെയ്തത്';
 
   @override
@@ -7009,6 +7012,30 @@ class AppLocalizationsMl extends AppLocalizations {
   @override
   String get playerAutoPipDesc =>
       'ആപ്പ് വിടുമ്പോൾ ചെറിയ വിൻഡോയിൽ പ്ലേ ചെയ്യുന്നത് തുടരൂ';
+
+  @override
+  String get playerPipPlay => 'Play';
+
+  @override
+  String get playerPipPause => 'Pause';
+
+  @override
+  String get playerPipPrevious => 'Previous episode';
+
+  @override
+  String get playerPipNext => 'Next episode';
+
+  @override
+  String get playerPipBack => 'Rewind';
+
+  @override
+  String get playerPipForward => 'Forward';
+
+  @override
+  String get listDateAdded => 'Added to list';
+
+  @override
+  String get listDateLastWatched => 'Last watched';
 
   @override
   String playerAutoPlaying(String title) {

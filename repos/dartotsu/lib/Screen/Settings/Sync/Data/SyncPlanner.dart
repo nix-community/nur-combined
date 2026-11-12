@@ -17,6 +17,7 @@ class SyncTarget {
   final bool syncsDates;
   final bool syncsRepeat;
   final bool syncsPrivate;
+  final Set<String> noProgress;
   final String prefix;
 
   const SyncTarget({
@@ -26,6 +27,7 @@ class SyncTarget {
     required this.syncsDates,
     required this.syncsRepeat,
     this.syncsPrivate = false,
+    this.noProgress = const {},
     required this.prefix,
   });
 
@@ -38,6 +40,7 @@ class SyncTarget {
       syncsDates: adapter.syncsDates,
       syncsRepeat: adapter.syncsRepeat,
       syncsPrivate: adapter.syncsPrivate,
+      noProgress: adapter.statusesWithoutProgress,
       prefix: sample.substring(0, sample.length - 1),
     );
   }
@@ -108,6 +111,7 @@ SyncTargetPlan planWith({
       dates: spec.syncsDates && mainDates,
       repeat: spec.syncsRepeat && mainRepeat,
       privacy: spec.syncsPrivate,
+      noProgress: spec.noProgress,
       main: m,
       targetId: targetId,
       target: shared ? null : found,
@@ -129,16 +133,20 @@ SyncTargetPlan planWith({
     pairs.add(pair);
   }
   final extra = target.where((t) => !matched.contains(t.id)).toList();
-  return SyncTargetPlan(
-    pairs,
-    onlyInTarget: extra.length,
-    removals: collectRemovals && main.isNotEmpty
-        ? [
-            for (final t in extra)
-              if (t.ids.keys.any((k) => k != spec.key)) t,
-          ]
-        : null,
-  );
+  List<SyncItem>? removals;
+  if (collectRemovals && main.isNotEmpty) {
+    final unknown = [
+      for (final p in pairs)
+        if (p.targetId == null) p.main,
+    ];
+    removals = [
+      for (final t in extra)
+        if (t.ids.keys.any((k) => k != spec.key) &&
+            unknown.every((m) => m.ids.keys.any(t.ids.containsKey)))
+          t,
+    ];
+  }
+  return SyncTargetPlan(pairs, onlyInTarget: extra.length, removals: removals);
 }
 
 /// Whether two entries carry a different id for the same service, which makes

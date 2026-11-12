@@ -3277,6 +3277,9 @@ class AppLocalizationsTa extends AppLocalizations {
   String get dropped => 'டிராப் பண்ணவங்க';
 
   @override
+  String get unfinished => 'Unfinished';
+
+  @override
   String get planned => 'ப்ளான் பண்ணவங்க';
 
   @override
@@ -6988,6 +6991,30 @@ class AppLocalizationsTa extends AppLocalizations {
   @override
   String get playerAutoPipDesc =>
       'ஆப்பை விட்டு வெளியேறும்போது சின்ன விண்டோவுல தொடர்ந்து ப்ளே ஆகட்டும்';
+
+  @override
+  String get playerPipPlay => 'Play';
+
+  @override
+  String get playerPipPause => 'Pause';
+
+  @override
+  String get playerPipPrevious => 'Previous episode';
+
+  @override
+  String get playerPipNext => 'Next episode';
+
+  @override
+  String get playerPipBack => 'Rewind';
+
+  @override
+  String get playerPipForward => 'Forward';
+
+  @override
+  String get listDateAdded => 'Added to list';
+
+  @override
+  String get listDateLastWatched => 'Last watched';
 
   @override
   String playerAutoPlaying(String title) {

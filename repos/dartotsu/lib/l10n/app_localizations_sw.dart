@@ -3279,6 +3279,9 @@ class AppLocalizationsSw extends AppLocalizations {
   String get dropped => 'Walioacha';
 
   @override
+  String get unfinished => 'Unfinished';
+
+  @override
   String get planned => 'Zilizopangwa';
 
   @override
@@ -6994,6 +6997,30 @@ class AppLocalizationsSw extends AppLocalizations {
   @override
   String get playerAutoPipDesc =>
       'Endelea kucheza kwenye dirisha dogo unapotoka kwenye programu';
+
+  @override
+  String get playerPipPlay => 'Play';
+
+  @override
+  String get playerPipPause => 'Pause';
+
+  @override
+  String get playerPipPrevious => 'Previous episode';
+
+  @override
+  String get playerPipNext => 'Next episode';
+
+  @override
+  String get playerPipBack => 'Rewind';
+
+  @override
+  String get playerPipForward => 'Forward';
+
+  @override
+  String get listDateAdded => 'Added to list';
+
+  @override
+  String get listDateLastWatched => 'Last watched';
 
   @override
   String playerAutoPlaying(String title) {

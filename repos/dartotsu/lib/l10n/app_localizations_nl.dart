@@ -3272,6 +3272,9 @@ class AppLocalizationsNl extends AppLocalizations {
   String get dropped => 'Gedropt';
 
   @override
+  String get unfinished => 'Unfinished';
+
+  @override
   String get planned => 'Gepland';
 
   @override
@@ -6985,6 +6988,30 @@ class AppLocalizationsNl extends AppLocalizations {
   @override
   String get playerAutoPipDesc =>
       'Blijf afspelen in een klein venster als je de app verlaat';
+
+  @override
+  String get playerPipPlay => 'Play';
+
+  @override
+  String get playerPipPause => 'Pause';
+
+  @override
+  String get playerPipPrevious => 'Previous episode';
+
+  @override
+  String get playerPipNext => 'Next episode';
+
+  @override
+  String get playerPipBack => 'Rewind';
+
+  @override
+  String get playerPipForward => 'Forward';
+
+  @override
+  String get listDateAdded => 'Added to list';
+
+  @override
+  String get listDateLastWatched => 'Last watched';
 
   @override
   String playerAutoPlaying(String title) {

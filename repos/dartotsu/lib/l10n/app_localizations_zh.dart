@@ -3214,6 +3214,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get dropped => '抛弃';
 
   @override
+  String get unfinished => 'Unfinished';
+
+  @override
   String get planned => '计划中';
 
   @override
@@ -6826,6 +6829,30 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get playerAutoPipDesc => '离开应用时，在小窗口里继续播放';
+
+  @override
+  String get playerPipPlay => 'Play';
+
+  @override
+  String get playerPipPause => 'Pause';
+
+  @override
+  String get playerPipPrevious => 'Previous episode';
+
+  @override
+  String get playerPipNext => 'Next episode';
+
+  @override
+  String get playerPipBack => 'Rewind';
+
+  @override
+  String get playerPipForward => 'Forward';
+
+  @override
+  String get listDateAdded => 'Added to list';
+
+  @override
+  String get listDateLastWatched => 'Last watched';
 
   @override
   String playerAutoPlaying(String title) {
