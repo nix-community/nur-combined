@@ -223,6 +223,13 @@
     },
     {
       "kind": "tool",
+      "ref": "github:lewtec/refactree-rs",
+      "depName": "lewtec/refactree-rs",
+      "currentValue": "0.0.3",
+      "datasource": "github-releases"
+    },
+    {
+      "kind": "tool",
       "ref": "github:lewtec/rod-mcp",
       "depName": "lewtec/rod-mcp",
       "currentValue": "0.2.3",
@@ -312,6 +319,13 @@
       "ref": "github:sigoden/aichat",
       "depName": "sigoden/aichat",
       "currentValue": "v0.30.0",
+      "datasource": "github-releases"
+    },
+    {
+      "kind": "tool",
+      "ref": "github:superradcompany/microsandbox",
+      "depName": "superradcompany/microsandbox",
+      "currentValue": "v0.7.14",
       "datasource": "github-releases"
     },
     {

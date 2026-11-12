@@ -40,6 +40,11 @@ drivers: {
 
 
 lazy_tools: {
+	microsandbox: {
+		ref: "github:superradcompany/microsandbox"
+		bins: ["msb"]
+		global: true
+	}
 	codex: {
 		ref: "github:openai/codex"
 		bins: ["codex"]
@@ -121,7 +126,7 @@ lazy_tools: {
 		bins: ["hx"]
 	}
 	refactree: {
-		ref: "github:lucasew/refactree"
+		ref: "github:lewtec/refactree-rs"
 		global: true
 		bins: ["rft"]
 	}
@@ -430,7 +435,9 @@ options: webapp: {
 }
 
 // =========== Backup
-#rsyncnet_user: "de3163@de3163.rsync.net"
+// #rsyncnet_user: "de3163@de3163.rsync.net"
+#rsyncnet_user: "de3163@rsyncnet"
+
 #is_whiterun: runtime.hostname == "whiterun"
 #is_riverwood: runtime.hostname == "riverwood"
 #is_massan: runtime.hostname == "MacBook-Air-de-Lucas.local"
