@@ -36,10 +36,6 @@ jobs:
             nix run nixpkgs#nix-update -- --flake --build "$pkg" || true
           done
 
-          # Bun client + Go daemon: also refresh the node_modules and vendor hashes
-          echo "==> vpn-tui"
-          nix run nixpkgs#nix-update -- --flake --build --subpackage nodeModules --subpackage daemon vpn-tui || true
-
       - uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
