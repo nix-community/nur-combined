@@ -343,6 +343,11 @@ fetch.github = "obra/superpowers"
 src.github_tag = "pcherenkov/udpxy"
 fetch.github = "pcherenkov/udpxy"
 
+[uu-remote-linux]
+src.github = "VallierDev/uu-remote-linux"
+fetch.github = "VallierDev/uu-remote-linux"
+cargo_lock = ["Cargo.lock"]
+
 [v2ray-rules-dat]
 src.git = "https://github.com/Loyalsoldier/v2ray-rules-dat.git"
 fetch.github = "Loyalsoldier/v2ray-rules-dat"

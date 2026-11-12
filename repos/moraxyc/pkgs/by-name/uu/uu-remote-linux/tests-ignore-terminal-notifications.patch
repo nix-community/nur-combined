@@ -1,0 +1,23 @@
+The terminal data channel also carries asynchronous list-change notifications.
+Wait for a TERM frame instead of decoding those notifications as a response.
+
+--- a/src/desktop_control_tests.rs
++++ b/src/desktop_control_tests.rs
+@@ -243,7 +243,7 @@
+         let frame = tokio::time::timeout(Duration::from_secs(5), async {
+             loop {
+                 let (channel, message) = terminal_viewer.messages.recv().await.unwrap();
+-                if channel == "BINARY_DATA_CHANNEL" { break crate::terminal::decode(&message).unwrap(); }
++                if channel == "BINARY_DATA_CHANNEL" && crate::terminal::is_frame(&message) { break crate::terminal::decode(&message).unwrap(); }
+             }
+         }).await.unwrap();
+         assert_eq!((frame.kind, frame.session), (crate::terminal::LIST_RESP, 71));
+@@ -299,7 +299,7 @@
+         let frame = tokio::time::timeout(Duration::from_secs(5), async {
+             loop {
+                 let (channel, message) = terminal_viewer.messages.recv().await.unwrap();
+-                if channel == "BINARY_DATA_CHANNEL" { break crate::terminal::decode(&message).unwrap(); }
++                if channel == "BINARY_DATA_CHANNEL" && crate::terminal::is_frame(&message) { break crate::terminal::decode(&message).unwrap(); }
+             }
+         }).await.unwrap();
+         assert_eq!((frame.kind, frame.session), (crate::terminal::LIST_RESP, 72));

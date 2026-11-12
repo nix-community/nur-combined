@@ -1585,6 +1585,32 @@
         },
         "version": "1.0-25.2"
     },
+    "uu-remote-linux": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-BbUF5hlso+FJbC8xgTaqSYzuJiYhJuMnbqQG2_e3yww=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "uu-remote-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "VallierDev",
+            "repo": "uu-remote-linux",
+            "rev": "v0.2.57",
+            "sha256": "sha256-BbUF5hlso+FJbC8xgTaqSYzuJiYhJuMnbqQG2/e3yww=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.2.57"
+    },
     "v2ray-rules-dat": {
         "cargoLock": null,
         "date": "2026-11-10",
