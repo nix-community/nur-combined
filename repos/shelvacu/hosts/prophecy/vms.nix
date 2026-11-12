@@ -69,14 +69,5 @@ in
       cpus = 2;
       shares = { inherit nixcache; };
     };
-
-    # jv-shel = {
-    #   tag = 5;
-    #   baseMem = 1 * 1024;
-    #   maxMem = 16 * 1024;
-    #   dimmSlots = 4;
-    #   cpus = 2;
-    #   shares = { inherit nixcache; };
-    # };
   };
 }

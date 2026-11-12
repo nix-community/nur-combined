@@ -1,6 +1,6 @@
-# Large nix builds here starve jv-shel (a guest running an etcd member and half
-# of a Postgres pair) badly enough that its WAL fsyncs take seconds and the
-# cluster around it starts electing new leaders.
+# Keep large nix builds here from starving the guests. (This was written for
+# jv-shel, a guest running an etcd member and half of a Postgres pair, whose WAL
+# fsyncs took seconds under a build; it has since moved to its own hardware.)
 { ... }:
 let
   mib = 1024 * 1024;
@@ -18,14 +18,10 @@ in
   };
   systemd.services.nix-daemon.serviceConfig.Slice = "nix-builds.slice";
 
-  # Within vacuvm.slice, favour jv-shel over the other guests, some of which
-  # also run builds.
-  systemd.slices.vacuvm-jv-shel.sliceConfig.CPUWeight = 1000;
-
   # The kernel defaults (10% / 20% of RAM) let a build pile gigabytes of dirty
   # pages into the cache before anything is written. Everything shares one
   # btrfs, so each transaction commit then has to push all of it out, and
-  # every fsync on the filesystem waits on that, jv-shel's included. With small
+  # every fsync on the filesystem waits on that, the guests' included. With small
   # limits, writeback runs steadily and heavy writers are throttled when they
   # write, not later.
   boot.kernel.sysctl = {

@@ -82,7 +82,7 @@
       ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBeABuK70NGsVFqaOgDDdmwaweUJ2GeQYP/Bbd9+oq20";
     };
     "jv-shel" = {
-      primaryIp = "10.78.77.5";
+      primaryIp = "205.201.63.14";
       ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICuMMNppiWY0VY8FxNsQO+fGE3yEcSJwRPKZnBWemrlD";
     };
     "jv-java".ssh = {

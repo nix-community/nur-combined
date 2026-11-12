@@ -26,7 +26,6 @@ in
   services.caddy.virtualHosts."http://pbx.shelvacu.com" = {
     vacu.hsts = false;
     extraConfig = ''
-      bind ${config.vacu.sniFrontend.httpBind}
       handle /.well-known/acme-challenge/* {
         reverse_proxy ${pbx}:80
       }

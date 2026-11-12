@@ -20,9 +20,6 @@ let
     qemu-vm = {
       isExistingHost = false;
     };
-    sni-frontend = {
-      isExistingHost = false;
-    };
   };
 in
 {
