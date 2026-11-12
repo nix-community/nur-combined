@@ -2,8 +2,6 @@
 
 source shellvaculib.bash || exit 1
 
-svl_no_args $#
-
 if [[ $HOSTNAME != "prophecy" ]]; then
   svl_die "only makes sense to run this on prophecy"
 fi
@@ -38,4 +36,4 @@ declare -a cmd=(
   --partial-dir=.rsync-partial
 )
 
-svl_verbose_run exec "${cmd[@]}"
+svl_verbose_run exec "${cmd[@]}" "$@"
