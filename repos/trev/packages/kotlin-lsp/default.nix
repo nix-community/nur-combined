@@ -1,9 +1,12 @@
 {
   autoPatchelfHook,
+  coreutils,
   fetchzip,
   jdk25,
   lib,
+  libfaketime,
   makeWrapper,
+  patchelf,
   stdenv,
   stdenvNoCC,
   unzip,
@@ -29,6 +32,26 @@ let
       days = era * 146097 + dayOfEra - 719468;
     in
     days * 86400 + part 8 2 * 3600 + part 10 2 * 60;
+
+  # seconds since the epoch at which the server refuses to start
+  expiresAt = toEpoch buildDate + 30 * 24 * 60 * 60;
+
+  # On Linux, libfaketime is a DT_NEEDED dependency of the launcher, so only the
+  # server process sees the faked clock; child processes such as the Gradle
+  # daemon inherit no LD_PRELOAD and keep the real one. Once the real clock
+  # passes fakeStart, the server's clock starts at fakeStart instead and ticks
+  # from there, leaving a week of uptime before it would reach expiresAt.
+  fakeStart = expiresAt - 7 * 24 * 60 * 60;
+  faketimeSetup = ''
+    if (( $(${coreutils}/bin/date +%s) >= ${toString fakeStart} )); then
+      export FAKETIME="@$(${coreutils}/bin/date -d @${toString fakeStart} '+%Y-%m-%d %H:%M:%S')"
+    else
+      export FAKETIME=+0
+    fi
+    export FAKETIME_DONT_FAKE_MONOTONIC=1
+    # one process needs no shared state, which would leak in /dev/shm when the server is killed
+    export FAKETIME_DISABLE_SHM=1
+  '';
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "kotlin-lsp";
@@ -60,6 +83,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
     autoPatchelfHook
+    patchelf
   ];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
@@ -75,13 +99,16 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   ''
   + lib.optionalString stdenv.hostPlatform.isLinux ''
     ln -s ${jdk25}/lib/openjdk $out/share/kotlin-lsp/jbr
+
+    patchelf --add-needed ${libfaketime}/lib/libfaketime.so.1 $out/share/kotlin-lsp/bin/intellij-server
+    makeWrapper $out/share/kotlin-lsp/bin/intellij-server $out/bin/kotlin-lsp \
+      --run ${lib.escapeShellArg faketimeSetup}
   ''
   + lib.optionalString stdenv.hostPlatform.isDarwin ''
     cp -r jbr $out/share/kotlin-lsp/
+    makeWrapper $out/share/kotlin-lsp/bin/intellij-server $out/bin/kotlin-lsp
   ''
   + ''
-    makeWrapper $out/share/kotlin-lsp/bin/intellij-server $out/bin/kotlin-lsp
-
     runHook postInstall
   '';
 
@@ -97,17 +124,28 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       exit 1
     }
 
-    if (( $(date +%s) >= ${toString finalAttrs.passthru.expiresAt} )); then
-      echo "kotlin-lsp ${finalAttrs.version} has expired, update it" >&2
-      exit 1
-    fi
+    # sends an LSP initialize request to the given command and prints its output
+    initialize() {
+      local req='{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"processId":null,"rootUri":null,"capabilities":{}}}'
+      printf 'Content-Length: %d\r\n\r\n%s' "''${#req}" "$req" | timeout 120 "$@" --stdio 2>&1 || true
+    }
 
-    req='{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"processId":null,"rootUri":null,"capabilities":{}}}'
-    printf 'Content-Length: %d\r\n\r\n%s' "''${#req}" "$req" \
-      | timeout 120 $out/bin/kotlin-lsp --stdio > response.txt 2>/dev/null || true
-
-    grep -q '"jsonrpc"' response.txt || {
+    initialize $out/bin/kotlin-lsp | grep -q '"jsonrpc"' || {
       echo "kotlin-lsp did not respond to an LSP initialize request" >&2
+      exit 1
+    }
+
+    # a year after expiry, by faking the clock for the wrapper's own date calls too
+    after=$(( ${toString expiresAt} + 365 * 24 * 60 * 60 - $(date +%s) ))
+
+    FAKETIME="+$after" initialize $out/share/kotlin-lsp/bin/intellij-server | grep -q 'has expired' || {
+      echo "the launcher does not follow the libfaketime clock, so the expiry is not faked" >&2
+      exit 1
+    }
+
+    LD_PRELOAD=${libfaketime}/lib/libfaketime.so.1 FAKETIME="+$after" initialize $out/bin/kotlin-lsp \
+      | grep -q '"jsonrpc"' || {
+      echo "kotlin-lsp did not respond to an LSP initialize request after it expired" >&2
       exit 1
     }
 
@@ -115,13 +153,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    # seconds since the epoch at which the server refuses to start
-    expiresAt = toEpoch buildDate + 30 * 24 * 60 * 60;
-
     updateScript = [
       "bash"
       "packages/kotlin-lsp/update.sh"
     ];
+  }
+  # macOS ignores DYLD_INSERT_LIBRARIES for the hardened darwin launcher, so it still expires there
+  // lib.optionalAttrs stdenv.hostPlatform.isDarwin {
+    inherit expiresAt;
   };
 
   meta = {

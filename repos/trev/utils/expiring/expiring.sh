@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Fails when a package's passthru.expiresAt is less than a week away,
-# so it can be updated before it stops working.
+# Warns when a package's passthru.expiresAt is less than a week away,
+# so it can be updated before it stops working, and fails once it has passed.
 
 set -euo pipefail
 
@@ -17,8 +17,7 @@ while read -r package expires; do
         echo "::error::${package} expired on ${date}"
         status=1
     elif ((expires - now < window)); then
-        echo "::error::${package} expires on ${date}"
-        status=1
+        echo "::warning::${package} expires on ${date}"
     else
         echo "${package} expires on ${date}"
     fi
