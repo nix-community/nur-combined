@@ -1,1 +1,1 @@
---flake --use-update-script
+-f . --use-update-script
