@@ -114,6 +114,15 @@ let
     ffmpeg
     pulseaudio
   ];
+
+  # The pinned darlingserver predates the DisablePointerAuthentication system
+  # setting that prefsd and mldr read.
+  darlingserverSrc = fetchFromGitHub {
+    owner = "darlinghq";
+    repo = "darlingserver";
+    rev = "1f39685b1c65b87978de3ed0d0d27b2d632d1a4e";
+    hash = "sha256-jNmbu+HC+wIvpVJLjN+odE39rwwhQwLALHiuyWZ78ww=";
+  };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "darling";
@@ -145,42 +154,70 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postPatch = ''
-        # We have to be careful - Patching everything indiscriminately
-        # would affect Darwin scripts as well
-        chmod +x src/external/bootstrap_cmds/migcom.tproj/mig.sh
-        patchShebangs \
-          src/external/bootstrap_cmds/migcom.tproj/mig.sh \
-          src/external/darlingserver/scripts \
-          src/external/darlingserver/tests/host \
-          src/external/openssl_certificates/scripts
+            # The pinned darlingserver predates the DisablePointerAuthentication
+            # system setting that prefsd and mldr read, so take the tree that adds
+            # it. Swapping it here loses the tests/CMakeLists.txt hunk of
+            # ./host-test-headers.patch, which is reapplied in the submodule's own
+            # layout, and the swap comes before patchShebangs so its scripts are
+            # rewritten too.
+            chmod -R u+w src/external/darlingserver
+            rm -rf src/external/darlingserver
+            cp -a ${darlingserverSrc} src/external/darlingserver
+            chmod -R u+w src/external/darlingserver
+            patch -p4 -N -d src/external/darlingserver < ${./host-test-headers.patch}
 
-        substituteInPlace src/startup/CMakeLists.txt --replace-warn SETUID ""
-        substituteInPlace src/external/basic_cmds/CMakeLists.txt --replace-warn SETGID ""
+            # We have to be careful - Patching everything indiscriminately
+            # would affect Darwin scripts as well
+            chmod +x src/external/bootstrap_cmds/migcom.tproj/mig.sh
+            patchShebangs \
+              src/external/bootstrap_cmds/migcom.tproj/mig.sh \
+              src/external/darlingserver/scripts \
+              src/external/darlingserver/tests/host \
+              src/external/openssl_certificates/scripts
 
-        # Nix has no /bin/mkdir or /bin/chmod, and bare commands would resolve to the Darling
-        # targets, which makes the MIG custom command a dependency cycle.
-        substituteInPlace cmake/mig.cmake --replace-warn /bin/mkdir ${coreutils}/bin/mkdir
-        substituteInPlace src/external/bootstrap_cmds/CMakeLists.txt --replace-warn /bin/chmod ${coreutils}/bin/chmod
+            substituteInPlace src/startup/CMakeLists.txt --replace-warn SETUID ""
+            substituteInPlace src/external/basic_cmds/CMakeLists.txt --replace-warn SETGID ""
 
-        # Upstream PR #1842 requires libsystem_kernel to publish DARLING_OS_* properties,
-        # which is pending xnu submodule update (darling-xnu#46).
-        substituteInPlace src/frameworks/CoreServices/CMakeLists.txt \
-          --replace-warn 'if (NOT DARLING_OS_PRODUCT_VERSION OR NOT DARLING_OS_BUILD_VERSION)' \
-                         'if (NOT DARLING_OS_PRODUCT_VERSION)
-      set(DARLING_OS_PRODUCT_VERSION "26.4")
-    endif()
-    if (NOT DARLING_OS_BUILD_VERSION)
-      set(DARLING_OS_BUILD_VERSION "25E246")
-    endif()
-    if (FALSE)'
+            # Nix has no /bin/mkdir or /bin/chmod, and bare commands would resolve to the Darling
+            # targets, which makes the MIG custom command a dependency cycle.
+            substituteInPlace cmake/mig.cmake --replace-warn /bin/mkdir ${coreutils}/bin/mkdir
+            substituteInPlace src/external/bootstrap_cmds/CMakeLists.txt --replace-warn /bin/chmod ${coreutils}/bin/chmod
 
-        # Top-level enable_testing() creates a phony `test` target in every subdirectory,
-        # which conflicts with shell_cmds's `test` binary (output of test-bin).
-        substituteInPlace CMakeLists.txt \
-          --replace-warn "enable_testing()" ""
+            # Upstream PR #1842 requires libsystem_kernel to publish DARLING_OS_* properties,
+            # which is pending xnu submodule update (darling-xnu#46).
+            substituteInPlace src/frameworks/CoreServices/CMakeLists.txt \
+              --replace-warn 'if (NOT DARLING_OS_PRODUCT_VERSION OR NOT DARLING_OS_BUILD_VERSION)' \
+                             'if (NOT DARLING_OS_PRODUCT_VERSION)
+          set(DARLING_OS_PRODUCT_VERSION "26.4")
+        endif()
+        if (NOT DARLING_OS_BUILD_VERSION)
+          set(DARLING_OS_BUILD_VERSION "25E246")
+        endif()
+        if (FALSE)'
 
-        # In sandbox package builds there are no running containers and no sudo.
-        echo "exit 0" > tools/shutdown-user.sh
+            # This revision merged several stub-framework pulls that each added the
+            # same add_subdirectory(), and CMake rejects the repeat as a duplicate
+            # binary directory. Keep the first occurrence.
+            awk '{ key = $0; gsub(/[[:space:]]+/, "", key);
+                   if (key ~ /^add_subdirectory[(]/ && seen[key]++) next } { print }' \
+              src/private-frameworks/CMakeLists.txt > private-frameworks.CMakeLists.txt.orig
+            mv private-frameworks.CMakeLists.txt.orig src/private-frameworks/CMakeLists.txt
+
+            # The pinned cocotron writes the image resolution with
+            # kCGImageDestinationDPI, which ImageIO no longer exports. Upstream
+            # cocotron fixed this in 433ed8cb5f by passing Onyx2D's own key.
+            substituteInPlace src/external/cocotron/AppKit/NSBitmapImageRep.m \
+              --replace-warn '#import <AppKit/NSView.h>' '#import <AppKit/NSView.h>
+    #import <Onyx2D/O2ImageDestination.h>' \
+              --replace-warn kCGImageDestinationDPI kO2ImageDestinationDPI
+
+            # Top-level enable_testing() creates a phony `test` target in every subdirectory,
+            # which conflicts with shell_cmds's `test` binary (output of test-bin).
+            substituteInPlace CMakeLists.txt \
+              --replace-warn "enable_testing()" ""
+
+            # In sandbox package builds there are no running containers and no sudo.
+            echo "exit 0" > tools/shutdown-user.sh
   '';
 
   nativeBuildInputs = [
