@@ -45,7 +45,7 @@
       ## general info
 
       ${{
-        vacu-agent-vm = "me = shelvacu, I'm your operator";
+        vacu-agent-vm = ''me/us = shelvacu, I'm your operator. Sometimes things say "us" because they were written to be used in multiple places'';
         savm = "your operators are shelvacu (aka shelly, @s:sv.mt) and javi (aka java, java-coffee, @javacoffee:matrix.org)";
       }.${config.vacu.hostName}}
 
@@ -68,6 +68,12 @@
       comments should be written (or not written) assuming the reader is generally familiar with the code, environment, and goals of the project.
 
       a comment is a good idea when the "obvious" solution is actually a bad idea
+
+      ## worktrees
+
+      when a change is requested, please use a worktree by default.
+
+      put it inside the repo, or in a temp dir, not next to the repo. Ex: repo is cloned at `~/dev/fooproject`, and the branch is called `bar`. The worktree path should be `~/dev/fooproject/wt/bar` (or `~/dev/fooproject/.claude/worktrees/bar` or similar) or in `/tmp`. The path should not be `~/dev/fooproject-bar`.
     '';
   };
 }

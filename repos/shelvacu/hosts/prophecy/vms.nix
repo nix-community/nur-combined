@@ -36,6 +36,15 @@ in
       };
     };
 
+    quasar2 = {
+      tag = 3;
+      baseMem = 1 * 1024;
+      maxMem = 16 * 1024;
+      dimmSlots = 4;
+      cpus = 2;
+      shares = { inherit nixcache; };
+    };
+
     savm = {
       tag = 4;
       baseMem = 16 * 1024;
@@ -52,14 +61,7 @@ in
       };
     };
 
-    quasar2 = {
-      tag = 3;
-      baseMem = 1 * 1024;
-      maxMem = 16 * 1024;
-      dimmSlots = 4;
-      cpus = 2;
-      shares = { inherit nixcache; };
-    };
+    # tag = 5 was previously jv-shel
 
     pbxvm = {
       tag = 6;
