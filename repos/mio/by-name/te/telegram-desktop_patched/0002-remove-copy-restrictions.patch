@@ -1,28 +1,13 @@
 diff -Naur a/Telegram/SourceFiles/history/view/history_view_list_widget.cpp b/Telegram/SourceFiles/history/view/history_view_list_widget.cpp
 --- a/Telegram/SourceFiles/history/view/history_view_list_widget.cpp	2026-11-10 19:08:43.971402136 +1100
 +++ b/Telegram/SourceFiles/history/view/history_view_list_widget.cpp	2026-11-10 19:09:45.490152695 +1100
-@@ -2339,21 +2339,6 @@
- }
+@@ -2339,5 +2339,3 @@
  
  bool ListWidget::hasCopyRestrictionForSelected() const {
 -	if (hasCopyRestriction()) {
 -		return true;
 -	}
--	if (_selected.empty()) {
--		if (_selectedTextItem && _selectedTextItem->forbidsForward()) {
--			return true;
--		}
--	}
--	for (const auto &[itemId, selection] : _selected) {
--		if (const auto item = session().data().message(itemId)) {
--			if (item->forbidsForward()) {
--				return true;
--			}
--		}
--	}
- 	return false;
- }
- 
++	return false;
 @@ -7148,43 +7133,18 @@
  CopyRestrictionType CopyRestrictionTypeFor(
  		not_null<PeerData*> peer,

@@ -114,8 +114,7 @@ diff -Naur a/Telegram/SourceFiles/history/history_inner_widget.cpp b/Telegram/So
  }
  
  bool HistoryInner::hasCopyMediaRestriction(
-@@ -3864,17 +3864,17 @@
- }
+@@ -3864,10 +3864,3 @@
  
  bool HistoryInner::hasCopyRestrictionForSelected() const {
 -	if (hasCopyRestriction()) {
@@ -126,23 +125,7 @@ diff -Naur a/Telegram/SourceFiles/history/history_inner_widget.cpp b/Telegram/So
 -			return true;
 -		}
 -	}
--	return hasSelectedText()
--		&& _selectedTextItem
--		&& _selectedTextItem->forbidsForward();
 +	return false;
-+		//return true;
-+	//}
-+	//for (const auto &item : _selected) {
-+		//if (item && item->forbidsForward()) {
-+			//return true;
-+		//}
-+	//}
-+	//return hasSelectedText()
-+		//&& _selectedTextItem
-+		//&& _selectedTextItem->forbidsForward();
- }
- 
- bool HistoryInner::showCopyRestrictionForSelected() {
 diff -Naur a/Telegram/SourceFiles/main/main_domain.h b/Telegram/SourceFiles/main/main_domain.h
 --- a/Telegram/SourceFiles/main/main_domain.h	1970-01-01 12:00:01
 +++ b/Telegram/SourceFiles/main/main_domain.h	2026-07-19 11:31:17
