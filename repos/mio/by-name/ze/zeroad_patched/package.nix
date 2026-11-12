@@ -18,21 +18,12 @@ let
   # while nixpkgs' spidermonkey_140 links icu77 (the ICU Firefox ESR 140
   # ships). Two ICU majors in one binary is unsupported, so build the game
   # against the same ICU as the engine instead of rebuilding mozjs.
-  unwrapped = zeroad-unwrapped.overrideAttrs (old: {
+  unwrapped = (zeroad-unwrapped.override { icu75 = icu77; }).overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ./spidermonkey-140.patch ];
 
-    buildInputs =
-      builtins.filter (
-        x:
-        !(builtins.elem (x.pname or "") [
-          "spidermonkey"
-          "icu4c"
-        ])
-      ) (old.buildInputs or [ ])
-      ++ [
-        icu77
-        spidermonkey_140
-      ];
+    buildInputs = builtins.filter (x: (x.pname or "") != "spidermonkey") (old.buildInputs or [ ]) ++ [
+      spidermonkey_140
+    ];
   });
 in
 assert unwrapped.version == zeroad-data.version;
