@@ -1,12 +1,16 @@
 {
-  lib,
-  stdenv,
+  curl,
   fetchFromGitHub,
   fetchurl,
+  git,
+  lib,
+  nix,
   pkg-config,
   protobuf,
   python313,
+  stdenv,
   which,
+  writeShellApplication,
 }:
 
 let
@@ -26,15 +30,15 @@ let
 in
 python.pkgs.buildPythonApplication (finalAttrs: {
   pname = "codexctl";
-  version = "1794370117";
+  version = "1.2.1-unstable-2026-11-11";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "Jayy001";
     repo = "codexctl";
     # Upstream release tags are Unix timestamps rather than semantic versions.
-    tag = "1793410533";
-    hash = "sha256-6PfZGIWThSulPMkPEyQuCGUVGfQpJQSLb2M2uLJ7xXk=";
+    tag = "1794370117";
+    hash = "sha256-hIwaKIU7ER7bhVYzkPe16XIa5ycFWxFIXfA65yy4jK0=";
   };
 
   build-system = [ python.pkgs.poetry-core ];
@@ -76,6 +80,20 @@ python.pkgs.buildPythonApplication (finalAttrs: {
   ];
 
   pythonImportsCheck = [ "codexctl" ];
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-codexctl";
+    runtimeInputs = [
+      curl
+      git
+      nix
+      python313
+    ];
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="codexctl"
+      exec python3 ${./update.py} "$@"
+    '';
+  };
 
   meta = {
     description = "Automated update management for the reMarkable tablet";

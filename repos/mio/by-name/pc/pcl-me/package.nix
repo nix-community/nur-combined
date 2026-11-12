@@ -18,12 +18,12 @@
 
 let
   pname = "pcl-me";
-  version = "1.0.2-unstable-2026-11-11";
+  version = "1.0.2";
 
   src = fetchFromGitHub {
     owner = "TheUnknownThing";
     repo = "PCL-ME";
-    rev = "e971ea678ea2c73a7f907d35abc86e1907a4a2f8";
+    tag = "v${version}";
     hash = "sha256-6VAFe8okbQnZJ5SoylGUVRADrMpe1GwIZhNn1c4CCDs=";
   };
 
@@ -106,11 +106,7 @@ stdenv.mkDerivation {
     name = "update-pcl-me";
     text = ''
       export UPDATE_NIX_ATTR_PATH="pcl-me"
-      exec ${
-        lib.escapeShellArgs (nix-update-script {
-          extraArgs = [ "--version=branch" ];
-        })
-      } "$@"
+      exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
     '';
   };
 

@@ -32,8 +32,11 @@ def main() -> int:
     package = repo_root() / "by-name/te/telegram-mac/package.nix"
     base = BASE.search(package.read_text(encoding="utf-8"))
 
+    # nix-update resolves the package from the working directory, so run it
+    # from the repo root regardless of where the update script was invoked.
     status = subprocess.run(
         ["nix-update", "--version=branch", "telegram-mac", *sys.argv[1:]],
+        cwd=repo_root(),
         check=False,
     ).returncode
 

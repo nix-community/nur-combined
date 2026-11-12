@@ -25,8 +25,8 @@
 }:
 
 let
-  version = "13.1.0-unstable-2026-11-04";
-  rev = "561169337e838c3281f7cfe24652757a5b522df9";
+  version = "13.1.0-unstable-2026-11-12";
+  rev = "eedc963978f3416d34a5b91e81cb4186a7f67438";
 
   arch = stdenvNoCC.hostPlatform.darwinArch;
   rustTarget = stdenvNoCC.hostPlatform.rust.rustcTarget;
@@ -51,13 +51,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "TelegramMessenger";
     repo = "telegram-macos";
     inherit rev;
-    hash = "sha256-xzWR+UdjnfwyRjnn6wbHdaIpU0Wi22IQocHZ/GN80M8=";
-    # Unused private widget submodules are not part of the app's package graph.
-    # Resolve the remaining submodules before fetchgit removes all Git metadata.
+    hash = "sha256-nRakyg4jyqrcZpeyNhVy0xpF5QZpn1JGW9sxxO4A9+8=";
+    # The widget submodules are referenced from the SwiftPM manifests, so they
+    # have to be resolved before fetchgit removes all Git metadata.
     postCheckout = ''
       cd "$out"
-      git config submodule.third-party/twidget.update none
-      git config submodule.third-party/widget-sandbox.update none
       export GIT_CONFIG_COUNT=2
       export GIT_CONFIG_KEY_0=url.https://github.com/.insteadOf
       export GIT_CONFIG_VALUE_0=git@github.com:
@@ -66,8 +64,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       git submodule update --init --recursive --depth 1
     '';
   };
-
-  patches = [ ./xcode26-typecheck.patch ];
 
   ffmpegSrc = fetchzip {
     name = "ffmpeg-8.1.2-source";
@@ -160,9 +156,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       --replace-fail 'makeDefaultLibrary(bundle: .module)' 'makeDefaultLibrary(bundle: Bundle.main)'
     substituteInPlace packages/SceneEffects/Sources/LiquidGlassShapes/LiquidGlassShapesPipelines.swift \
       --replace-fail 'makeDefaultLibrary(bundle: .module)' 'makeDefaultLibrary(bundle: Bundle.main)'
-
-    python3 ${./files/fix-chat-header-width.py}
-
 
     # SwiftPM sandboxes manifest evaluation with sandbox-exec, which cannot
     # nest inside the build sandbox.
