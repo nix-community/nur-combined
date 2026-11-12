@@ -252,10 +252,10 @@
     };
     "owl-for-exchange" = buildMozillaXpiAddon {
       pname = "owl-for-exchange";
-      version = "1.5.8.1";
+      version = "1.6.0";
       addonId = "owl@beonex.com";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1053635/eule_fur_exchange-1.5.8.1-tb.xpi?src=";
-      sha256 = "8c7452c9733e8d90afbcdc048b93417fe190618f8a40b4094fd5ecd16268a24d";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1055210/eule_fur_exchange-1.6.0-tb.xpi?src=";
+      sha256 = "a62fa7d0729832c780a08fb8394a4fbfe632a6f563219ea2d4b756a5d40ab882";
       meta = with lib;
       {
         homepage = "https://www.beonex.com/owl/";
@@ -278,7 +278,6 @@
           "webRequest"
           "webRequestBlocking"
           "https://*/*"
-          "https://teams.microsoft.com/*"
         ];
         platforms = platforms.all;
       };
@@ -300,10 +299,10 @@
     };
     "quickfilters" = buildMozillaXpiAddon {
       pname = "quickfilters";
-      version = "6.14";
+      version = "6.15";
       addonId = "quickFilters@axelg.com";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1054014/quickfilters-6.14-tb.xpi?src=";
-      sha256 = "68fbe5fb1be554ebdd95509aeb9802e83c0dbcfbc42a3b2752af45f8fe1a09c5";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1054961/quickfilters-6.15-tb.xpi?src=";
+      sha256 = "b05607c7dbc721354d76c968a002596edb7dec0e36d68003067900bdee26f75d";
       meta = with lib;
       {
         homepage = "https://quickfilters.quickfolders.org/";

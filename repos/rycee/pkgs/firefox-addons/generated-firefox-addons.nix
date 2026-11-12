@@ -3056,10 +3056,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "161.0.20261109.153532";
+      version = "161.0.20261111.90329";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5230025/dansk_da_language_pack-161.0.20261109.153532.xpi";
-      sha256 = "76c8c2171b6ea684648013d49c514d06dedbb07aeec87622f1b01789446efd92";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5238425/dansk_da_language_pack-161.0.20261111.90329.xpi";
+      sha256 = "1025ab00e6bf31c28cb5a2babe6aa4b46d92a12faaf3777491254945c757e527";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3272,10 +3272,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "161.0.20261109.153532";
+      version = "161.0.20261111.90329";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5230023/deutsch_de_language_pack-161.0.20261109.153532.xpi";
-      sha256 = "b2eedb009e79d2226f2e640c8681879aa5aefd032b48bd5f87b1c183e8812799";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5238427/deutsch_de_language_pack-161.0.20261111.90329.xpi";
+      sha256 = "52e065d72a99fb0fbc08204911353aab8fc62a733a00df5237c8c7042152df51";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3765,10 +3765,10 @@
     };
     "dualsub" = buildMozillaXpiAddon {
       pname = "dualsub";
-      version = "2.73.1";
+      version = "2.73.2";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5231992/dualsub-2.73.1.xpi";
-      sha256 = "c78ccd342ad961ce70f26ad6f725956ca834e09f93043d13ce497832a0db83ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5237180/dualsub-2.73.2.xpi";
+      sha256 = "bd46a2eb3d861e11aba67fe2d59c0d171c3dfa2944fb355f0fe4cbd252a7798e";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -4769,10 +4769,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "161.0.20261109.153532";
+      version = "161.0.20261111.90329";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5229955/francais_language_pack-161.0.20261109.153532.xpi";
-      sha256 = "7c093f6eeb38f2350390b24bb2070957e7a2d6b27e84defdfd233c8998f6498d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5238365/francais_language_pack-161.0.20261111.90329.xpi";
+      sha256 = "b901222f65636a3f121e406807d3d88d8f6202ed4ab7eab22417e7f9c8f7a881";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4806,10 +4806,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "161.0.20261109.153532";
+      version = "161.0.20261111.90329";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5229970/gaidhlig_language_pack-161.0.20261109.153532.xpi";
-      sha256 = "f16f8a651531e994b0a47e630a74be3f02e88b8a88324777698a1f3b5681bfa8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5238352/gaidhlig_language_pack-161.0.20261111.90329.xpi";
+      sha256 = "03af48a2f138c6545eb3baf68b05ed19ed8942538b8b4d1dd82a4de3cddebfd9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -6517,10 +6517,10 @@
     };
     "kiss-translator" = buildMozillaXpiAddon {
       pname = "kiss-translator";
-      version = "2.2.0";
+      version = "2.2.2";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5228898/kiss_translator-2.2.0.xpi";
-      sha256 = "d917caae5f8e82cdd52338d36b0b181b3615f39c0f3ecac99a84f09444ded3b5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5237439/kiss_translator-2.2.2.xpi";
+      sha256 = "77028206bfe5ae4734ae057458a681955aeecd8139de2308571f325d9a72d429";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -8876,10 +8876,10 @@
     };
     "metamask" = buildMozillaXpiAddon {
       pname = "metamask";
-      version = "13.54.0.0";
+      version = "13.55.0.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5197026/ether_metamask-13.54.0.0.xpi";
-      sha256 = "3b1c65f3eb48b8fae6c3509698a26f80237b0f9fddae16afea9b9b3e9ac24e1a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5228351/ether_metamask-13.55.0.0.xpi";
+      sha256 = "9000b21ea3970067aba654009d06d844bef705c6cbeccf0a4340beac261a33de";
       meta = with lib;
       {
         description = "The most secure wallet for crypto, NFTs, and DeFi, trusted by millions of users";
@@ -9013,10 +9013,10 @@
     };
     "monochromate" = buildMozillaXpiAddon {
       pname = "monochromate";
-      version = "1.5.4.0";
+      version = "1.5.5";
       addonId = "{cdf4f419-70fa-491b-abcb-14bc1ad3d36f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5130535/monochromate-1.5.4.0.xpi";
-      sha256 = "6d043701c5a36c3acad707ca20c6e62feb1c05d4b47a5cb73d760f8f290570af";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5240543/monochromate-1.5.5.xpi";
+      sha256 = "0a3e29e2f96c3aa8507c2cc19f551738fad6e90102dd6e61cc6d0fa489f0fda1";
       meta = with lib;
       {
         homepage = "https://monochromate.lirena.in/";
@@ -10513,10 +10513,10 @@
     };
     "print-friendly-pdf" = buildMozillaXpiAddon {
       pname = "print-friendly-pdf";
-      version = "7.4.2";
+      version = "7.5.0";
       addonId = "jid0-YQz0l1jthOIz179ehuitYAOdBEs@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5223371/print_friendly_pdf-7.4.2.xpi";
-      sha256 = "f63f31866ea7df69da67aa0cdee11d46ddc17e6928c4dd946b2af018564f5b0f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5236795/print_friendly_pdf-7.5.0.xpi";
+      sha256 = "f7cca1b0dd394305a93c2f91087877d241d54674fca86bd8b42fd83c9c69ff96";
       meta = with lib;
       {
         homepage = "https://www.printfriendly.com/";
@@ -13026,10 +13026,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "161.0.20261109.153532";
+      version = "161.0.20261111.90329";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5229996/scots_language_pack-161.0.20261109.153532.xpi";
-      sha256 = "6d71ffa85274f21f1afb0eac088620dd2c74662545613376e59a27728df7a908";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5238359/scots_language_pack-161.0.20261111.90329.xpi";
+      sha256 = "83cf38798e7254b3401320175abe328cfb1f6bd765660f5ec0963ca67c1b0f78";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -16011,10 +16011,10 @@
     };
     "video-downloadhelper" = buildMozillaXpiAddon {
       pname = "video-downloadhelper";
-      version = "10.6.7.2";
+      version = "10.7.1.2";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5146939/video_downloadhelper-10.6.7.2.xpi";
-      sha256 = "abcddad43a3e5f9585078a52e95d938664a01cc1a1aeb32fad1d3bdfd6df56c2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5236821/video_downloadhelper-10.7.1.2.xpi";
+      sha256 = "8e9e6af61a6e8b011fdcbb5bd4bd4058a679e419e1828c7c9ae686922b2e3fa1";
       meta = with lib;
       {
         homepage = "https://www.downloadhelper.net/";
@@ -16060,10 +16060,11 @@
           "*://*.91porna.com/*"
           "*://*.9n6gyt.umydsfs.cc/*"
           "*://*.javrank.com/*"
+          "*://*.sociofyme.com/*"
+          "*://supjav.com/*"
           "https://downloadhelper.net/activate*"
           "https://app.downloadhelper.net/activate*"
           "https://v10.downloadhelper.net/activate*"
-          "https://downloadhelper.net/premium*"
         ];
         platforms = platforms.all;
       };
@@ -17270,16 +17271,16 @@
     };
     "yang" = buildMozillaXpiAddon {
       pname = "yang";
-      version = "2.1.3";
+      version = "2.1.4";
       addonId = "{0a3250b1-58e0-48cb-9383-428f5adc3dc1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5211751/yang_addon-2.1.3.xpi";
-      sha256 = "e370f2e6d98f0af5fc3832a3e06dcc37d898bfe090f634deea12640a83e4d8c3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5238648/yang_addon-2.1.4.xpi";
+      sha256 = "6906c7caa97360ae1885390a99e848edea550153f9a8a9edd47784c994853d65";
       meta = with lib;
       {
         homepage = "https://github.com/dmlls/yang";
         description = "An open-source, lightweight extension that allows using DuckDuckGo-like bangs anywhere.";
         license = licenses.gpl3;
-        mozPermissions = [ "webRequest" "search" "activeTab" "storage" ];
+        mozPermissions = [ "webRequest" "search" "storage" ];
         platforms = platforms.all;
       };
     };

@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.4.9.0";
+  version = "4.4.9.2";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.9.0.xpi";
-  sha256 = "c5d901dd41b0648edac0b5ce877cd3e2cba51ff1732f37206eba4dc7fa2acd30";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.9.2.xpi";
+  sha256 = "27a3f3bb2fa3517770345459d8f8ef91e221f1ccd6daef663030516cc0569ccd";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -117,7 +117,6 @@ buildFirefoxXpiAddon {
       "*://*.businessoffashion.com/*"
       "*://*.businesspost.ie/*"
       "*://*.businesstimes.com.sg/*"
-      "*://*.cairnspost.com.au/*"
       "*://*.calgaryherald.com/*"
       "*://*.canarias7.es/*"
       "*://*.canberratimes.com.au/*"
@@ -310,7 +309,6 @@ buildFirefoxXpiAddon {
       "*://*.gazetadopovo.com.br/*"
       "*://*.gazzetta.it/*"
       "*://*.gbnews.com/*"
-      "*://*.geelongadvertiser.com.au/*"
       "*://*.gelderlander.nl/*"
       "*://*.genomeweb.com/*"
       "*://*.gestion.pe/*"
@@ -318,7 +316,6 @@ buildFirefoxXpiAddon {
       "*://*.globes.co.il/*"
       "*://*.globo.com/*"
       "*://*.glossy.co/*"
-      "*://*.goldcoastbulletin.com.au/*"
       "*://*.goodhousekeeping.com/*"
       "*://*.gq.com/*"
       "*://*.granta.com/*"
@@ -549,7 +546,6 @@ buildFirefoxXpiAddon {
       "*://*.nature.com/*"
       "*://*.nautil.us/*"
       "*://*.nbcnews.com/*"
-      "*://*.nd.nl/*"
       "*://*.ndtvprofit.com/*"
       "*://*.neuepresse.de/*"
       "*://*.newcastleherald.com.au/*"
@@ -579,7 +575,6 @@ buildFirefoxXpiAddon {
       "*://*.nrpyrenees.fr/*"
       "*://*.nrz.de/*"
       "*://*.nsctotal.com.br/*"
-      "*://*.ntnews.com.au/*"
       "*://*.nv.ua/*"
       "*://*.nw.de/*"
       "*://*.nwitimes.com/*"
@@ -779,7 +774,6 @@ buildFirefoxXpiAddon {
       "*://*.theblaze.com/*"
       "*://*.thebookseller.com/*"
       "*://*.thebulletin.org/*"
-      "*://*.thechronicle.com.au/*"
       "*://*.thecourier.com.au/*"
       "*://*.thecritic.co.uk/*"
       "*://*.thecut.com/*"
@@ -800,7 +794,6 @@ buildFirefoxXpiAddon {
       "*://*.themandarin.com.au/*"
       "*://*.themarker.com/*"
       "*://*.themarket.ch/*"
-      "*://*.themercury.com.au/*"
       "*://*.thenation.com/*"
       "*://*.thenewatlantis.com/*"
       "*://*.thenewslens.com/*"
@@ -837,7 +830,6 @@ buildFirefoxXpiAddon {
       "*://*.torontosun.com/*"
       "*://*.towardsdatascience.com/*"
       "*://*.townandcountrymag.com/*"
-      "*://*.townsvillebulletin.com.au/*"
       "*://*.trailrunnermag.com/*"
       "*://*.tri-cityherald.com/*"
       "*://*.triathlete.com/*"
