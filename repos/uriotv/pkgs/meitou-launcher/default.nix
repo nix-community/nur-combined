@@ -1,20 +1,21 @@
 { lib, buildDotnetModule, dotnetCorePackages, fetchFromGitHub, buildFHSEnv, makeDesktopItem,
   copyDesktopItems, stdenv, libGL, libx11, libxcursor, libxext, libxi, libxrandr, libice, libsm, fontconfig, freetype, openal, libvpx, zlib }:
 let
-  version = "1.9.0";
+  version = "1.10.0";
   src = fetchFromGitHub {
     owner = "VlcekM";
     repo = "MeitouClient";
     rev = "launcher-v${version}";
-    hash = "sha256-m9ZnkbECw1gB4bvLHP4VbZWgcKMrUOSm3uurcFmvYGw=";
+    hash = "sha256-vx0HpriCnYURfTTYM7t1WfNXwtJ0nM6Wrovk4R8bw0E=";
   };
   launcher = buildDotnetModule {
     pname = "meitou-launcher-unwrapped";
     inherit version src;
     projectFile = "launcher/Meitou.Launcher/Meitou.Launcher.csproj";
     nugetDeps = ./deps.json;
-    dotnet-sdk = dotnetCorePackages.sdk_10_0;
-    dotnet-runtime = dotnetCorePackages.runtime_10_0;
+    # Use Microsoft's stable binaries; avoid bootstrapping the entire .NET SDK.
+    dotnet-sdk = dotnetCorePackages.sdk_11_0_1xx-bin;
+    dotnet-runtime = dotnetCorePackages.runtime_11_0-bin;
     executables = [ "meitou-launcher" ];
     # Publish as framework-dependent .NET instead of upstream's single-file AOT.
     # Keep Avalonia/Skia native libraries alongside the managed executable.
@@ -67,7 +68,11 @@ buildFHSEnv {
     install -Dm644 ${src}/LICENSE-EXCEPTION.md $out/share/licenses/meitou-launcher/LICENSE-EXCEPTION.md
     install -Dm644 ${src}/THIRD_PARTY_NOTICES.md $out/share/licenses/meitou-launcher/THIRD_PARTY_NOTICES.md
   '';
-  passthru = { inherit src; inherit (launcher) fetch-deps; };
+  passthru = {
+    inherit src;
+    inherit (launcher) fetch-deps;
+    dotnetSdkVersion = dotnetCorePackages.sdk_11_0_1xx-bin.version;
+  };
   meta = {
     description = "Meitou game launcher; downloads game versions and requires Kenshi";
     homepage = "https://github.com/VlcekM/MeitouClient";

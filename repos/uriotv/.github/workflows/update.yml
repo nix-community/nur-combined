@@ -81,6 +81,7 @@ jobs:
         env:
           UPDATE_FAILURES: ${{ steps.update.outputs.update_failures }}
           SUCCESSFUL_UPDATES: ${{ steps.update.outputs.successful_updates }}
+          FAILED_PACKAGES: ${{ steps.update.outputs.failed_packages }}
         run: |
-          echo "::error::$UPDATE_FAILURES package updater(s) failed; successful updates: ${SUCCESSFUL_UPDATES:-unknown}."
+          echo "::error::$UPDATE_FAILURES package updater(s) failed (${FAILED_PACKAGES:-unknown}); successful updates: ${SUCCESSFUL_UPDATES:-unknown}."
           exit 1

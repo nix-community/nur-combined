@@ -28,16 +28,17 @@ markdown_escape() {
 truncate_log() {
   local file=$1
   local max_lines=$2
+  local keep=${3:-head}
   local max_chars=4000
   local lines
   lines=$(wc -l < "$file")
   if [ "$lines" -gt "$max_lines" ]; then
-    head -n "$max_lines" "$file" > "$file.tmp"
-    echo "... (truncated, $((lines - max_lines)) more lines; see full log in the Build Log)" >> "$file.tmp"
+    "$keep" -n "$max_lines" "$file" > "$file.tmp"
+    echo "... (truncated; kept $keep, $((lines - max_lines)) lines omitted; see full log in the Build Log)" >> "$file.tmp"
     mv "$file.tmp" "$file"
   fi
   if [ "$(wc -c < "$file")" -gt $max_chars ]; then
-    head -c $max_chars "$file" > "$file.tmp"
+    "$keep" -c $max_chars "$file" > "$file.tmp"
     echo "" >> "$file.tmp"
     echo "... (truncated at ${max_chars} chars; see full log in the Build Log)" >> "$file.tmp"
     mv "$file.tmp" "$file"
@@ -49,6 +50,7 @@ summary+=$'\n'"| Package | Status | Details |"
 summary+=$'\n'"| --- | --- | --- |"
 
 FAILED=0
+FAILED_PACKAGES=()
 SUCCEEDED=0
 UPDATE_PACKAGE=${UPDATE_PACKAGE:-}
 UPDATE_TIMEOUT_SECONDS=${UPDATE_TIMEOUT_SECONDS:-900}
@@ -93,11 +95,14 @@ run_update() {
     cp -a "$backup" "$pkg_dir"
     echo "::warning file=$script::Update failed for $pkg_name; package changes restored"
     echo "❌ Failed"
-    truncate_log "$log_file" 50
+    # SDK/build diagnostics usually follow long dependency download listings.
+    # Keep the end of failed logs, not just the download preamble.
+    truncate_log "$log_file" 50 tail
     local escaped
     escaped=$(markdown_escape "$log_file")
     summary+=$'\n'"| $pkg_name | ❌ Failed | $escaped |"
     FAILED=$((FAILED + 1))
+    FAILED_PACKAGES+=("$pkg_name")
   fi
 
   echo "$output"
@@ -157,7 +162,8 @@ fi
 # The workflow opens a PR for successful changes first, then marks an incomplete
 # update check as failed. Offline/local callers do not need GITHUB_OUTPUT.
 if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
-  printf 'update_failures=%s\nsuccessful_updates=%s\n' "$FAILED" "$SUCCEEDED" >> "$GITHUB_OUTPUT"
+  printf 'update_failures=%s\nsuccessful_updates=%s\nfailed_packages=%s\n' \
+    "$FAILED" "$SUCCEEDED" "${FAILED_PACKAGES[*]}" >> "$GITHUB_OUTPUT"
 fi
 
 if [ "$FAILED" -ne 0 ]; then

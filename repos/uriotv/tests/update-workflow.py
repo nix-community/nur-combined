@@ -242,7 +242,18 @@ class UpdateWorkflowTests(unittest.TestCase):
         self.package("bad", "exit 1")
         result = self.run_updates()
         self.assertEqual(result.returncode, 0)
-        self.assertEqual(self.outputs.read_text(), "update_failures=1\nsuccessful_updates=1\n")
+        self.assertEqual(self.outputs.read_text(), "update_failures=1\nsuccessful_updates=1\nfailed_packages=bad\n")
+
+    def test_long_failure_log_preserves_final_root_cause(self):
+        self.package("bad", "for i in {1..120}; do printf 'Downloading dependency %080d\\n' \"$i\"; done\n"
+                     "echo 'A compatible .NET SDK was not found: requested 11.0.100'\nexit 1")
+        result = self.run_updates()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        summary = self.summary.read_text()
+        self.assertIn("requested 11.0.100", summary)
+        self.assertIn("truncated", summary)
+        self.assertIn("failed_packages=bad", self.outputs.read_text())
+        self.assertLess(len(summary), 5000)
 
     def test_forgotten_updater_fails_preflight_before_changing_other_packages(self):
         good = self.package("a-good", "echo updated > pkgs/a-good/default.nix")
