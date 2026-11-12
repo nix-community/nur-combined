@@ -8,13 +8,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "operations";
-  version = "0.0.1";
+  version = "0.0.2";
 
   src = fetchFromGitHub {
     owner = "anotherhadi";
     repo = "operations";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-9e05N1gVmGacz+/sannIuDRZ2BluZQjwoZRofiHBgWI=";
+    hash = "sha256-5K/lBlzIv5gOXI5qZdr/VR/KAVFB5OMbKDnw4aQLsRQ=";
   };
 
   vendorHash = "sha256-AvrtpZkoGpRo08sV1QlIUYxacZaHNyC8CXB86kKEkr4=";

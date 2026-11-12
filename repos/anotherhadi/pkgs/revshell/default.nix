@@ -6,16 +6,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "revshell";
-  version = "0.0.2";
+  version = "0.0.3";
 
   src = fetchFromGitHub {
     owner = "anotherhadi";
     repo = "revshell";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-W+luu6TcsDIYUN9jOqcU00pg7J5aOsx5grk7JCQE0Hg=";
+    hash = "sha256-+g/AeHHQdNMYMlYrYf/+qd0cCtSOJiEfxIXddJzxy8E=";
   };
 
-  vendorHash = "sha256-GaJzDv5fuB9p9Mh8vR5vlBIOpS/grvzKIZM8lDpzeiM=";
+  vendorHash = "sha256-X2AtAGIpnnXf319QgUyiScIgliA0iN3B2ftf59QIeWI=";
 
   subPackages = ["cmd/revshell"];
 
