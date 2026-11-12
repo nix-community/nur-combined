@@ -18,6 +18,7 @@
   git-of-theseus = pkgs.callPackage ./pkgs/git-of-theseus { };
   gix-of-theseus = pkgs.callPackage ./pkgs/gix-of-theseus { };
   likec4 = pkgs.callPackage ./pkgs/likec4 { };
+  proxctl = pkgs.callPackage ./pkgs/proxctl { };
 
   # Audio plugins/tools
   ratatouille = pkgs.callPackage ./pkgs/ratatouille { };
