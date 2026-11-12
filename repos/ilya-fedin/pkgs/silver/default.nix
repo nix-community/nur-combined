@@ -17,6 +17,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-H7kVTXsLYoLH0mjIG/u6ZkUwr9L6zpSFFd3TJYY5eko=";
 
+  preBuild = ''
+    export LIBGIT2_NO_VENDOR=0
+  '';
+
   meta = with lib; {
     description = "A cross-shell customizable powerline-like prompt with icons";
     homepage = https://github.com/reujab/silver;
