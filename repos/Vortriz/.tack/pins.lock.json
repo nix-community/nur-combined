@@ -104,9 +104,9 @@
     "type": "github",
     "owner": "nixos",
     "repo": "nixpkgs",
-    "rev": "4fe25e12eb9f4c744966dd3de5a05246cf098601",
-    "narHash": "sha256-WrSODdZFVIs/Hh2NzC0bY+ROByi0bATg8WfePX8dPj8=",
-    "lastModified": 1793977579
+    "rev": "f6bf1059f02576e0b913c7b49d5e4eb6dda9cc22",
+    "narHash": "sha256-IzmtpTUNYk6hfRlNwQKVxgJXHQSe1LltY+mrTUtVm8E=",
+    "lastModified": 1794158174
   },
   "systems": {
     "type": "github",
@@ -120,9 +120,9 @@
     "type": "github",
     "owner": "manic-systems",
     "repo": "tack",
-    "rev": "f59bc3e6679df14d402e40bf895cc2533bae4ca2",
-    "narHash": "sha256-ZK5sfTsvSo9VYEi8mAVtfu5FUFvMYoGMn6+CYzS1pPU=",
-    "lastModified": 1794242539
+    "rev": "c107b0fc252b0b33b01e6b7d6111aaaedc49613e",
+    "narHash": "sha256-bdNCaHUF3c8hgsYw6FCI+lGcZanZIDxt2Sefu5AsERY=",
+    "lastModified": 1794450976
   },
   "treefmt-nix": {
     "type": "github",
