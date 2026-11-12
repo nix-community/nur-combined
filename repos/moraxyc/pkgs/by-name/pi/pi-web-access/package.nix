@@ -10,33 +10,36 @@
 buildNpmPackage (finalAttrs: {
   inherit (source) pname version src;
 
-  npmDeps = importNpmLock {
-    package =
-      let
-        package = lib.importJSON source.extract."package.json";
-      in
-      package
-      // {
-        # Only esbuild and the standalone MCP bundle's typebox are needed to build.
-        devDependencies = lib.getAttrs [ "esbuild" "typebox" ] package.devDependencies;
-      };
-    packageLock =
-      let
-        lock = lib.importJSON source.extract."package-lock.json";
-      in
-      lock
-      // {
-        packages = lib.filterAttrs (
-          name: package:
-          !(package.dev or false)
-          || builtins.elem name [
-            "node_modules/esbuild"
-            "node_modules/typebox"
-          ]
-          || lib.hasPrefix "node_modules/@esbuild/" name
-        ) lock.packages;
-      };
-  };
+  npmDeps = importNpmLock (
+    source.npmDeps
+    // {
+      package =
+        let
+          package = source.npmDeps.package;
+        in
+        package
+        // {
+          # Only esbuild and the standalone MCP bundle's typebox are needed to build.
+          devDependencies = lib.getAttrs [ "esbuild" "typebox" ] package.devDependencies;
+        };
+      packageLock =
+        let
+          lock = source.npmDeps.packageLock;
+        in
+        lock
+        // {
+          packages = lib.filterAttrs (
+            name: package:
+            !(package.dev or false)
+            || builtins.elem name [
+              "node_modules/esbuild"
+              "node_modules/typebox"
+            ]
+            || lib.hasPrefix "node_modules/@esbuild/" name
+          ) lock.packages;
+        };
+    }
+  );
   npmConfigHook = importNpmLock.npmConfigHook;
 
   npmFlags = [ "--legacy-peer-deps" ];

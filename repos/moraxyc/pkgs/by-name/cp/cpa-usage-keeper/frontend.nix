@@ -15,10 +15,7 @@ buildNpmPackage (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/web";
 
-  npmDeps = importNpmLock {
-    package = lib.importJSON source.extract."web/package.json";
-    packageLock = lib.importJSON source.extract."web/package-lock.json";
-  };
+  npmDeps = importNpmLock source.npmDeps;
   npmConfigHook = importNpmLock.npmConfigHook;
 
   nativeBuildInputs = [ nodejs ];

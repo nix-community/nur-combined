@@ -2,7 +2,7 @@ result
 result-*
 /.direnv
 
-# Nvfetcher keyfile
+# Legacy updater keyfile
 secrets.toml
 
 /shell.nix

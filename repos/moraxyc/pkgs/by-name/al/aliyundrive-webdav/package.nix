@@ -16,7 +16,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
 
   pyproject = true;
 
-  cargoDeps = rustPlatform.importCargoLock source.cargoLock."Cargo.lock";
+  cargoDeps = rustPlatform.importCargoLock source.cargoLock;
 
   nativeBuildInputs = [
     rustPlatform.cargoSetupHook

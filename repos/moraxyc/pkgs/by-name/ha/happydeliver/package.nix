@@ -11,16 +11,18 @@
 }:
 
 buildGoModule (finalAttrs: {
-  inherit (source) pname version src;
+  inherit (source)
+    pname
+    version
+    src
+    vendorHash
+    ;
 
   patches = [
     ./0001-fix-analyzer-remove-hostname-filtering-for-Authentic.patch
     ./0002-fix-analyzer-extract-DKIM-selector-from-DKIM-Signatu.patch
     ./0003-feat-analyzer-add-parseLegacyIPRev-and-parseLegacyAl.patch
   ];
-
-  # nix-update auto
-  vendorHash = "sha256-4mQ3/Hc+Ow2MYSNsnACopDhTblCs593Y4uTbtKRWWks=";
   modPostBuild = ''
     substituteInPlace vendor/github.com/oapi-codegen/runtime/types/regexes.go \
         --replace-fail ')))\\.?$' '))|dn42)\\.?$'

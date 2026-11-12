@@ -41,13 +41,6 @@ jobs:
                   ATTIC_CACHE: ${{ vars.ATTIC_CACHE }}
                   ONLY_NIX: true
 
-            - name: Cache Nvfetcher Database
-              id: cache-nvfetcher
-              uses: actions/cache@v6
-              with:
-                  path: ~/.local/share/nvfetcher
-                  key: nvfetcher
-
             - name: Flake update
               run: |
                   nix flake update --commit-lock-file
@@ -58,11 +51,7 @@ jobs:
             - name: Fetch new versions
               env:
                   GH_TOKEN: ${{ steps.app-token.outputs.token }}
-              run: |
-                  key_file=$(mktemp)
-                  trap 'rm -f "$key_file"' EXIT
-                  printf '[keys]\ngithub = "%s"\n' "$GH_TOKEN" > "$key_file"
-                  nix develop -c update-packages -k "$key_file"
+              run: nix develop -c update-packages
 
             - name: copy nixpkgs scripts
               run: |
@@ -71,18 +60,18 @@ jobs:
                   chmod -R +w .
                   sed -i "s|./../../default.nix|$NIXPKGS|g" maintainers/scripts/update.nix
 
-            - name: Update vendor hashes (nix-update)
+            - name: Run custom package updaters (nix-update)
               run: |
                   export NIXPKGS_ALLOW_UNFREE=1
-                  old_json=$(git show HEAD:_sources/generated.json 2>/dev/null || echo '{}')
-                  new_json=$(<_sources/generated.json)
+                  old_json=$(git show HEAD:_sources/lock.json 2>/dev/null || echo '{"packages":{}}')
+                  new_json=$(<_sources/lock.json)
                   changed_sources=$(jq -rn \
                       --argjson old "$old_json" \
                       --argjson new "$new_json" \
-                      '$new | keys[] | . as $k | select($old[$k].version != $new[$k].version)')
+                      '$new.packages | keys[] | . as $k | select($old.packages[$k].version != $new.packages[$k].version)')
 
                   if [ -z "$changed_sources" ]; then
-                      echo "No nvfetcher source changes detected, skipping nix-update"
+                      echo "No fetchrix source changes detected, skipping custom updaters"
                       exit 0
                   fi
 
@@ -92,7 +81,7 @@ jobs:
                       pkg_name=$(basename $(dirname "$file"))
 
                       if ! echo "$changed_sources" | grep -qx "$pkg_name"; then
-                          echo "Skipping $pkg_name: source not changed by nvfetcher"
+                          echo "Skipping $pkg_name: source not changed by fetchrix"
                           continue
                       fi
 
@@ -108,6 +97,6 @@ jobs:
             - name: Commit changes
               run: |
                   git add _sources pkgs/by-name
-                  git diff --staged --quiet || git commit -m "chore: update nvfetcher & vendor hashes"
+                  git diff --staged --quiet || git commit -m "chore: update package sources and dependencies"
                   git push
                   curl -XPOST https://nur-update.nix-community.org/update?repo=moraxyc

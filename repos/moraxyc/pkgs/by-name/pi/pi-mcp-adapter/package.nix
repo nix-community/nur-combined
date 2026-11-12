@@ -10,27 +10,30 @@
 buildNpmPackage (finalAttrs: {
   inherit (source) src version pname;
 
-  npmDeps = importNpmLock {
-    package =
-      let
-        package = lib.importJSON source.extract."package.json";
-      in
-      package
-      // {
-        # Only the compiler is needed to build.
-        devDependencies = lib.getAttrs [ "typescript" ] package.devDependencies;
-      };
-    packageLock =
-      let
-        lock = lib.importJSON source.extract."package-lock.json";
-      in
-      lock
-      // {
-        packages = lib.filterAttrs (
-          name: package: !(package.dev or false) || name == "node_modules/typescript"
-        ) lock.packages;
-      };
-  };
+  npmDeps = importNpmLock (
+    source.npmDeps
+    // {
+      package =
+        let
+          package = source.npmDeps.package;
+        in
+        package
+        // {
+          # Only the compiler is needed to build.
+          devDependencies = lib.getAttrs [ "typescript" ] package.devDependencies;
+        };
+      packageLock =
+        let
+          lock = source.npmDeps.packageLock;
+        in
+        lock
+        // {
+          packages = lib.filterAttrs (
+            name: package: !(package.dev or false) || name == "node_modules/typescript"
+          ) lock.packages;
+        };
+    }
+  );
   npmConfigHook = importNpmLock.npmConfigHook;
 
   npmFlags = [ "--legacy-peer-deps" ];

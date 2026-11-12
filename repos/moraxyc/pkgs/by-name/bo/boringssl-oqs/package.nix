@@ -14,10 +14,7 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "boringssl-oqs";
-  inherit (source) version src;
-
-  # nix-update auto
-  vendorHash = "sha256-jcV7dZZITkvzqKq1EQ4qLiGar568WsDPLtxMvBoh7B8=";
+  inherit (source) version src vendorHash;
   proxyVendor = true;
 
   outputs = [

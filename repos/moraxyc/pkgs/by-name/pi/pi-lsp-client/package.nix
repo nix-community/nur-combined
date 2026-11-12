@@ -10,17 +10,20 @@
 buildNpmPackage (finalAttrs: {
   inherit (source) pname version src;
 
-  npmDeps = importNpmLock {
-    package = removeAttrs (lib.importJSON source.extract."package.json") [ "devDependencies" ];
-    packageLock =
-      let
-        lock = lib.importJSON source.extract."package-lock.json";
-      in
-      lock
-      // {
-        packages = lib.filterAttrs (_: package: !(package.dev or false)) lock.packages;
-      };
-  };
+  npmDeps = importNpmLock (
+    source.npmDeps
+    // {
+      package = removeAttrs (source.npmDeps.package) [ "devDependencies" ];
+      packageLock =
+        let
+          lock = source.npmDeps.packageLock;
+        in
+        lock
+        // {
+          packages = lib.filterAttrs (_: package: !(package.dev or false)) lock.packages;
+        };
+    }
+  );
   npmConfigHook = importNpmLock.npmConfigHook;
 
   npmInstallFlags = [ "--omit=dev" ];

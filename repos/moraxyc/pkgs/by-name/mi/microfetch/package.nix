@@ -12,7 +12,7 @@ nixpkgs.microfetch.overrideAttrs (
     inherit (source) src;
     version = prevAttrs.version + lib.removePrefix "0" source.version;
 
-    cargoDeps = rustPlatform.importCargoLock source.cargoLock."Cargo.lock";
+    cargoDeps = rustPlatform.importCargoLock source.cargoLock;
 
     passthru = (prevAttrs.passthru or { }) // {
       _ignoreOverride = true;

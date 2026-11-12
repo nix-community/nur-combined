@@ -21,13 +21,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     pnpmConfigHook
   ];
 
-  # nix-update auto
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     pnpm = pnpm_11;
     fetcherVersion = 5;
     pnpmInstallFlags = finalAttrs.pnpmInstallFlags;
-    hash = "sha256-lEOEUBU8qdkkjWzqBzIwRS225b5g9BzrbN9YfL4OZKg=";
+    hash = source.pnpmDepsHash;
   };
   # Pi supplies the optional peer dependencies of the utility packages.
   pnpmInstallFlags = [

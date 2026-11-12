@@ -12,7 +12,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mpv-danmaku";
   inherit (source) version src;
 
-  cargoLock.lockFile = source.cargoLock."Cargo.lock".lockFile;
+  cargoLock.lockFile = source.cargoLock.lockFile;
 
   buildInputs = [ openssl ];
 

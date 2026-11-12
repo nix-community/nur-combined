@@ -13,10 +13,7 @@ buildNpmPackage (finalAttrs: {
   __structuredAttrs = true;
   strictDeps = true;
 
-  npmDeps = importNpmLock {
-    package = lib.importJSON source.extract."package.json";
-    packageLock = lib.importJSON source.extract."package-lock.json";
-  };
+  npmDeps = importNpmLock source.npmDeps;
   npmConfigHook = importNpmLock.npmConfigHook;
 
   # Installed as a standalone ACP agent (bin: pi-acp), not a Pi extension, so keep the npm layout.

@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   # Shard's workspace lockfile is at the repo root; Tauri builds in desktop/src-tauri.
   cargoRoot = "./.";
   buildAndTestSubdir = "desktop/src-tauri";
-  cargoDeps = rustPlatform.importCargoLock source.cargoLock."Cargo.lock";
+  cargoDeps = rustPlatform.importCargoLock source.cargoLock;
 
   postPatch = ''
     jq '
@@ -102,10 +102,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       inherit (finalAttrs) version src;
       sourceRoot = "${finalAttrsUI.src.name}/desktop";
 
-      npmDeps = importNpmLock {
-        package = lib.importJSON source.extract."desktop/package.json";
-        packageLock = lib.importJSON source.extract."desktop/package-lock.json";
-      };
+      npmDeps = importNpmLock source.npmDeps;
       npmConfigHook = importNpmLock.npmConfigHook;
 
       nativeBuildInputs = [ nodejs ];

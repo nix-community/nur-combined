@@ -36,7 +36,7 @@
 rustPlatform.buildRustPackage {
   inherit (source) pname version src;
 
-  cargoLock = source.cargoLock."Cargo.lock";
+  cargoLock = source.cargoLock;
 
   patches = [ ./tests-ignore-terminal-notifications.patch ];
 

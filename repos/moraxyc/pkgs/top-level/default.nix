@@ -8,6 +8,7 @@
 }:
 let
   packageOverlay = lib.composeManyExtensions [
+    (import ../../lib/sources-overlay.nix { inherit lib; })
     allPackagesOverlay
     (
       final: prev:

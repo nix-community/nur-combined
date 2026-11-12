@@ -8,13 +8,15 @@
 }:
 
 buildGoModule (finalAttrs: {
-  inherit (source) pname version src;
+  inherit (source)
+    pname
+    version
+    src
+    vendorHash
+    ;
 
   # Keep signing keys outside the Nix store and browsable workspace.
   patches = [ ./jwt-key-dir.patch ];
-
-  # nix-update auto
-  vendorHash = "sha256-bLpP+BEKc6GqLWbhpGYQ/BJy6m146WLUVHhUO8ev948=";
 
   subPackages = [ "cmd/artex" ];
 

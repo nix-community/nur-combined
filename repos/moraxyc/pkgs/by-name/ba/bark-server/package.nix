@@ -6,7 +6,7 @@
 }:
 nixpkgs.bark-server.overrideAttrs (
   finalAttrs: prevAttrs: {
-    inherit (source) version src;
+    inherit (source) version src vendorHash;
 
     postPatch = ''
       echo "1970-01-01T00:00:00Z" > SOURCE_DATE_EPOCH
@@ -17,9 +17,6 @@ nixpkgs.bark-server.overrideAttrs (
       ./0001-feat-add-support-for-systemd-socket-activation.patch
       ./0002-feat-Add-shutdown-timeout-for-idle-auto-termination.patch
     ];
-
-    # nix-update auto
-    vendorHash = "sha256-PXrslg24bxdG5PTkjS3LacJniZx5nSgki24mc9BcjaQ=";
 
     passthru = (prevAttrs.passthru or { }) // {
       _ignoreOverride = true;

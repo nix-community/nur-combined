@@ -1,5 +1,5 @@
 { pkgs, ... }:
 let
-  nvfetcherLoader = pkgs.callPackage ./nvfetcher-loader.nix { };
+  fetchrixLoader = pkgs.callPackage ./fetchrix-loader.nix { };
 in
-nvfetcherLoader ../../../../_sources/generated.nix
+fetchrixLoader ../../../../_sources

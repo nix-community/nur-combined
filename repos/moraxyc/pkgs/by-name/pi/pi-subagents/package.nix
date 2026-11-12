@@ -12,10 +12,7 @@ buildNpmPackage (finalAttrs: {
 
   __structuredAttrs = true;
 
-  npmDeps = importNpmLock {
-    package = lib.importJSON source.extract."package.json";
-    packageLock = lib.importJSON source.extract."package-lock.json";
-  };
+  npmDeps = importNpmLock source.npmDeps;
   npmConfigHook = importNpmLock.npmConfigHook;
 
   npmBuildScript = "build:pkg";

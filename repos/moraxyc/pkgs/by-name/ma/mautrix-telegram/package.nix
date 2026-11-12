@@ -12,10 +12,7 @@
 buildGoModule (finalAttrs: {
   pname = "mautrix-telegram";
 
-  inherit (source) version src;
-
-  # nix-update auto
-  vendorHash = "sha256-JbnlJnCtIKC3rpO2mBa7DvEFeWuq9tpvN9H+MoQ5VV0=";
+  inherit (source) version src vendorHash;
 
   ldflags = [
     "-s"

@@ -7,14 +7,16 @@
   source ? sources.opencode-go-cliproxyapi,
 }:
 buildGoModule {
-  inherit (source) pname version src;
+  inherit (source)
+    pname
+    version
+    src
+    vendorHash
+    ;
 
   patches = [
     ./opencode-go-catalog-excluded-models.patch
   ];
-
-  # nix-update auto
-  vendorHash = "sha256-N/gri6Xm/1UNZyaLCPLUAuWswJ/DeVdpnFWnF7pKPUo=";
   env.CGO_ENABLED = "1";
 
   buildPhase = ''

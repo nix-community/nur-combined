@@ -18,10 +18,7 @@
 buildNpmPackage (finalAttrs: {
   inherit (source) pname version src;
 
-  npmDeps = importNpmLock {
-    package = lib.importJSON source.extract."package.json";
-    packageLock = lib.importJSON source.extract."package-lock.json";
-  };
+  npmDeps = importNpmLock source.npmDeps;
   npmConfigHook = importNpmLock.npmConfigHook;
   npmBuildScript = "build:webpack";
 
@@ -102,13 +99,12 @@ buildNpmPackage (finalAttrs: {
   '';
 
   passthru = {
-    # nix-update auto --subpackage=ztmkworld
     ztmkworld = buildGoModule {
       pname = "ztmkworld";
       inherit (finalAttrs) version src;
 
       modRoot = "ztnodeid";
-      vendorHash = "sha256-ry0usPZf6/Nsj3GcIKG34/EkhJ+9QJ1fK2VF69z+z+8=";
+      vendorHash = source.ztmkworldVendorHash;
 
       subPackages = [ "cmd/mkworld" ];
       ldflags = [ "-s" ];

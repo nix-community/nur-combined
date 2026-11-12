@@ -10,6 +10,7 @@ _: {
     let
       updater = pkgs.writeShellScriptBin "update-packages" ''
         set -euo pipefail
+        export NIXPKGS_ALLOW_UNFREE=1
         export PATH=${
           lib.makeBinPath [
             pkgs.coreutils
@@ -17,9 +18,7 @@ _: {
           ]
         }:$PATH
 
-        KEY_FLAG=""
-        [ -f "secrets.toml" ] && KEY_FLAG="$KEY_FLAG -k secrets.toml"
-        ${lib.getExe inputs'.nvfetcher.packages.default} $KEY_FLAG --keep-going -c nvfetcher.toml -o _sources "$@"
+        exec ${lib.getExe inputs'.fetchrix.packages.default} --config fetchrix.toml --out-dir _sources update "$@"
       '';
     in
     {

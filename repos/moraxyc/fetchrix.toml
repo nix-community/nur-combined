@@ -1,0 +1,523 @@
+[packages.aircard]
+version = { source = "github-release", repo = "Mak5er/AirCard" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "Mak5er/AirCard", rev = "{version}" }
+
+[packages.airtrail]
+version = { source = "github-release", repo = "johanohly/AirTrail" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "johanohly/AirTrail", rev = "{version}" }
+
+[packages.aliyundrive-webdav]
+version = { source = "git", url = "https://github.com/messense/aliyundrive-webdav.git", unstable = { stable = { source = "github-release", repo = "messense/aliyundrive-webdav" } } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/messense/aliyundrive-webdav.git", rev = "{version}" }
+
+[packages.aliyundrive-webdav.derive.cargoLock]
+kind = "cargo-vendor"
+strategy = "lockfile"
+
+[packages.artex]
+version = { source = "git", url = "https://github.com/RuoJi6/ARTEX.git", unstable = { } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/RuoJi6/ARTEX.git", rev = "{version}" }
+
+[packages.artex.derive.vendorHash]
+strategy = "fod"
+attr = ".#artex.goModules"
+
+[packages.artex.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"
+sub_dir = "web"
+
+[packages.bark-server]
+version = { source = "git", url = "https://github.com/Finb/bark-server.git", unstable = { stable = { source = "github-release", repo = "Finb/bark-server" } } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/Finb/bark-server.git", rev = "{version}" }
+
+[packages.bark-server.derive.vendorHash]
+strategy = "fod"
+attr = ".#bark-server.goModules"
+
+[packages.boringssl-oqs]
+version = { source = "github-release", repo = "open-quantum-safe/boringssl" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "open-quantum-safe/boringssl", rev = "{version}" }
+
+[packages.boringssl-oqs.derive.vendorHash]
+strategy = "fod"
+attr = ".#boringssl-oqs.goModules"
+
+[packages.clash-nyanpasu]
+version = { source = "git", url = "https://github.com/libnyanpasu/clash-nyanpasu", unstable = { stable = { source = "github-release", repo = "libnyanpasu/clash-nyanpasu" } } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/libnyanpasu/clash-nyanpasu", rev = "{version}" }
+
+[packages.clash-nyanpasu.derive.cargoLock]
+kind = "cargo-vendor"
+strategy = "lockfile"
+sub_dir = "backend"
+
+[packages.cliproxyapi]
+version = { source = "github-release", repo = "router-for-me/cliproxyapi" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "router-for-me/cliproxyapi", rev = "{version}" }
+
+[packages.cliproxyapi.derive.vendorHash]
+strategy = "fod"
+attr = ".#cliproxyapi.goModules"
+
+[packages.cpa-usage-keeper]
+version = { source = "git", url = "https://github.com/Willxup/cpa-usage-keeper.git", unstable = { stable = { source = "github-release", repo = "Willxup/cpa-usage-keeper" } } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/Willxup/cpa-usage-keeper.git", rev = "{version}" }
+
+[packages.cpa-usage-keeper.derive.vendorHash]
+strategy = "fod"
+attr = ".#cpa-usage-keeper.goModules"
+
+[packages.cpa-usage-keeper.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"
+sub_dir = "web"
+
+[packages.dae]
+version = { source = "git", url = "https://github.com/daeuniverse/dae.git", unstable = { stable = { source = "github-release", repo = "daeuniverse/dae" } } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/daeuniverse/dae.git", rev = "{version}", submodules = true }
+
+[packages.dae.derive.vendorHash]
+strategy = "fod"
+attr = ".#dae.goModules"
+
+[packages.dell-idrac-fan-controller]
+version = { source = "github-release", repo = "tigerblue77/Dell_iDRAC_fan_controller_Docker" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "tigerblue77/Dell_iDRAC_fan_controller_Docker", rev = "{version}" }
+
+[packages.elio]
+version = { source = "github-release", repo = "elio-fm/elio" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "elio-fm/elio", rev = "{version}" }
+
+[packages.elio.derive.cargoLock]
+kind = "cargo-vendor"
+strategy = "lockfile"
+
+[packages.english_words]
+version = { source = "git", url = "https://github.com/dwyl/english-words.git", unstable = { } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/dwyl/english-words.git", rev = "{version}" }
+
+[packages.exloli-next]
+version = { source = "git", url = "https://github.com/lolishinshi/exloli-next", unstable = { } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/lolishinshi/exloli-next", rev = "{version}" }
+
+[packages.fcitx5-themes-candlelight]
+version = { source = "git", url = "https://github.com/thep0y/fcitx5-themes-candlelight.git", unstable = { } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/thep0y/fcitx5-themes-candlelight.git", rev = "{version}" }
+
+[packages.ferstar-gestures]
+version = { source = "github-release", repo = "ferstar/gestures" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "ferstar/gestures", rev = "{version}" }
+
+[packages.ferstar-gestures.derive.cargoLock]
+kind = "cargo-vendor"
+strategy = "lockfile"
+
+[packages.gaze]
+version = { source = "git", url = "https://github.com/GunduLabs/gaze.git", unstable = { stable = { source = "github-release", repo = "GunduLabs/gaze" } } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/GunduLabs/gaze.git", rev = "{version}" }
+
+[packages.gaze.derive.cargoLock]
+kind = "cargo-vendor"
+strategy = "lockfile"
+
+[packages.geolite2-asn]
+version = { source = "github-release", repo = "P3TERX/GeoLite.mmdb" }
+transform = ["strip-v"]
+fetch = { type = "url", url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/{version}/GeoLite2-ASN.mmdb" }
+
+[packages.geolite2-city]
+version = { source = "github-release", repo = "P3TERX/GeoLite.mmdb" }
+transform = ["strip-v"]
+fetch = { type = "url", url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/{version}/GeoLite2-City.mmdb" }
+
+[packages.geolite2-country]
+version = { source = "github-release", repo = "P3TERX/GeoLite.mmdb" }
+transform = ["strip-v"]
+fetch = { type = "url", url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/{version}/GeoLite2-Country.mmdb" }
+
+[packages.git-mcp-server]
+version = { source = "github-tag", repo = "cyanheads/git-mcp-server", strip_prefix = "v" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "cyanheads/git-mcp-server", rev = "v{version}" }
+
+[packages.happydeliver]
+version = { source = "github-release", repo = "happyDomain/happydeliver" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "happyDomain/happydeliver", rev = "{version}" }
+
+[packages.happydeliver.derive.vendorHash]
+strategy = "fod"
+attr = ".#happydeliver.goModules"
+
+[packages.happydeliver.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"
+sub_dir = "web"
+
+[packages.headscale-ui]
+version = { source = "git", url = "https://github.com/gurucomputing/headscale-ui", unstable = { } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/gurucomputing/headscale-ui", rev = "{version}" }
+
+[packages.headscale-ui.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"
+
+[packages.hmcl-dev-bin]
+version = { source = "github-tag", repo = "HMCL-dev/HMCL", strip_prefix = "v", filter = "^v[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$" }
+transform = ["strip-v"]
+fetch = { type = "url", url = "https://github.com/HMCL-dev/HMCL/releases/download/v{version}/HMCL-{version}.jar" }
+
+[packages.hmcl-dev-exe]
+version = { source = "github-tag", repo = "HMCL-dev/HMCL", strip_prefix = "v", filter = "^v[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$" }
+transform = ["strip-v"]
+fetch = { type = "url", url = "https://github.com/HMCL-dev/HMCL/releases/download/v{version}/HMCL-{version}.exe" }
+
+[packages.hmcl-dev-src]
+version = { source = "github-tag", repo = "HMCL-dev/HMCL", strip_prefix = "v", filter = "^v[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "HMCL-dev/HMCL", rev = "v{version}" }
+
+[packages.hysteria-realm-server]
+version = { source = "github-release", repo = "apernet/hysteria-realm-server" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "apernet/hysteria-realm-server", rev = "{version}" }
+
+[packages.hysteria-realm-server.derive.vendorHash]
+strategy = "fod"
+attr = ".#hysteria-realm-server.goModules"
+
+[packages.jiufenxuezhang-ielts]
+version = { source = "regex", url = "https://static.9fnnn.com/electron/stable/latest-mac.yml", regex = "version: (\\S+)" }
+transform = ["strip-v"]
+fetch = { type = "url", url = "https://static.9fnnn.com/electron/stable/latest-mac.yml" }
+
+[packages.libinput-three-finger-drag]
+version = { source = "git", url = "https://github.com/marsqing/libinput-three-finger-drag", unstable = { } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/marsqing/libinput-three-finger-drag", rev = "{version}" }
+
+[packages.loyalsoldier-geoip]
+version = { source = "git", url = "https://github.com/Loyalsoldier/geoip.git", branch = "release", unstable = { } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/Loyalsoldier/geoip.git", rev = "{version}" }
+
+[packages.manpage-zh]
+version = { source = "github-tag", repo = "man-pages-zh/manpages-zh", strip_prefix = "v" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "man-pages-zh/manpages-zh", rev = "v{version}", submodules = true }
+
+[packages.mautrix-telegram]
+version = { source = "github-release", repo = "mautrix/telegram" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "mautrix/telegram", rev = "{version}" }
+
+[packages.mautrix-telegram.derive.vendorHash]
+strategy = "fod"
+attr = ".#mautrix-telegram.goModules"
+
+[packages.meta-rules-converter]
+version = { source = "git", url = "https://github.com/MetaCubeX/meta-rules-converter", unstable = { } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/MetaCubeX/meta-rules-converter", rev = "{version}" }
+
+[packages.meta-rules-converter.derive.vendorHash]
+strategy = "fod"
+attr = ".#meta-rules-converter.goModules"
+
+[packages.meta-rules-dat]
+version = { source = "git", url = "https://github.com/MetaCubeX/meta-rules-dat.git", branch = "release", unstable = { } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/MetaCubeX/meta-rules-dat.git", rev = "{version}" }
+
+[packages.metacubex-geo]
+version = { source = "github-release", repo = "metacubex/geo" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "metacubex/geo", rev = "{version}" }
+
+[packages.metacubex-geo.derive.vendorHash]
+strategy = "fod"
+attr = ".#metacubex-geo.goModules"
+
+[packages.microfetch]
+version = { source = "git", url = "https://github.com/NotAShelf/microfetch", unstable = { } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/NotAShelf/microfetch", rev = "{version}" }
+
+[packages.microfetch.derive.cargoLock]
+kind = "cargo-vendor"
+strategy = "lockfile"
+
+[packages.mm-geofeed-verifier]
+version = { source = "github-release", repo = "maxmind/mm-geofeed-verifier" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "maxmind/mm-geofeed-verifier", rev = "{version}" }
+
+[packages.mm-geofeed-verifier.derive.vendorHash]
+strategy = "fod"
+attr = ".#mm-geofeed-verifier.goModules"
+
+[packages.mpv-danmaku]
+version = { source = "git", url = "https://github.com/moraxyc/mpv-danmaku.git", unstable = { stable = { source = "github-release", repo = "moraxyc/mpv-danmaku" } } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/moraxyc/mpv-danmaku.git", rev = "{version}" }
+
+[packages.mpv-danmaku.derive.cargoLock]
+kind = "cargo-vendor"
+strategy = "lockfile"
+
+[packages.nezha]
+version = { source = "github-release", repo = "nezhahq/nezha" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "nezhahq/nezha", rev = "{version}" }
+
+[packages.nezha-agent]
+version = { source = "github-release", repo = "nezhahq/agent" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "nezhahq/agent", rev = "{version}" }
+
+[packages.nezha-theme-admin]
+version = { source = "github-release", repo = "nezhahq/admin-frontend" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "nezhahq/admin-frontend", rev = "{version}" }
+
+[packages.nezha-theme-admin.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"
+
+[packages.nezha-theme-user]
+version = { source = "github-release", repo = "hamster1963/nezha-dash-v2" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "hamster1963/nezha-dash-v2", rev = "{version}" }
+
+[packages.nipaplay-reload-aarch64-linux]
+version = { source = "github-release", repo = "AimesSoft/NipaPlay-Reload", strip_prefix = "v" }
+transform = ["strip-v"]
+fetch = { type = "url", url = "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v{version}/NipaPlay-{version}-Linux-arm64.tar.gz" }
+
+[packages.nipaplay-reload-darwin]
+version = { source = "github-release", repo = "AimesSoft/NipaPlay-Reload", strip_prefix = "v" }
+transform = ["strip-v"]
+fetch = { type = "url", url = "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v{version}/NipaPlay_{version}_macOS_Universal.dmg" }
+
+[packages.nipaplay-reload-x86_64-linux]
+version = { source = "github-release", repo = "AimesSoft/NipaPlay-Reload", strip_prefix = "v" }
+transform = ["strip-v"]
+fetch = { type = "url", url = "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v{version}/NipaPlay-{version}-Linux-amd64.tar.gz" }
+
+[packages.nyanpasu-service]
+version = { source = "git", url = "https://github.com/libnyanpasu/nyanpasu-service.git", unstable = { stable = { source = "github-release", repo = "libnyanpasu/nyanpasu-service" } } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/libnyanpasu/nyanpasu-service.git", rev = "{version}" }
+
+[packages.nyanpasu-service.derive.cargoLock]
+kind = "cargo-vendor"
+strategy = "lockfile"
+
+[packages.opencode-go-cliproxyapi]
+version = { source = "git", url = "https://github.com/massiveits/opencode-go-cliproxyapi", unstable = { stable = { source = "manual", version = "0.0.0" } } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/massiveits/opencode-go-cliproxyapi", rev = "{version}" }
+
+[packages.opencode-go-cliproxyapi.derive.vendorHash]
+strategy = "fod"
+attr = ".#opencode-go-cliproxyapi.goModules"
+
+[packages.opencode-telegram-bot]
+version = { source = "github-release", repo = "grinev/opencode-telegram-bot" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "grinev/opencode-telegram-bot", rev = "{version}" }
+
+[packages.opencode-telegram-bot.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"
+
+[packages.pi-acp]
+version = { source = "github-release", repo = "svkozak/pi-acp" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "svkozak/pi-acp", rev = "{version}" }
+
+[packages.pi-acp.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"
+
+[packages.pi-ast-sgrep]
+version = { source = "github-release", repo = "AdityaVG13/ast-sgrep" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "AdityaVG13/ast-sgrep", rev = "{version}" }
+
+[packages.pi-ast-sgrep.derive.cargoLock]
+kind = "cargo-vendor"
+strategy = "lockfile"
+
+[packages.pi-cliproxyapi-provider]
+version = { source = "github-tag", repo = "router-for-me/pi-cliproxyapi-provider", strip_prefix = "v" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "router-for-me/pi-cliproxyapi-provider", rev = "v{version}" }
+
+[packages.pi-cliproxyapi-provider.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"
+
+[packages.pi-context-view]
+version = { source = "github-release", repo = "dimk90/pi-context-view" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "dimk90/pi-context-view", rev = "{version}" }
+
+[packages.pi-lsp-client]
+version = { source = "github-tag", repo = "code-yeongyu/pi-lsp-client", strip_prefix = "v" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "code-yeongyu/pi-lsp-client", rev = "v{version}" }
+
+[packages.pi-lsp-client.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"
+
+[packages.pi-mcp-adapter]
+version = { source = "github-release", repo = "nicobailon/pi-mcp-adapter" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "nicobailon/pi-mcp-adapter", rev = "{version}" }
+
+[packages.pi-mcp-adapter.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"
+
+[packages.pi-plan-mode]
+version = { source = "github-tag", repo = "qmx/pi-plan-mode", strip_prefix = "v" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "qmx/pi-plan-mode", rev = "v{version}" }
+
+[packages.pi-processes]
+version = { source = "github-tag", repo = "aliou/pi-processes", strip_prefix = "v" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "aliou/pi-processes", rev = "v{version}" }
+
+[packages.pi-processes.derive.pnpmDepsHash]
+strategy = "fod"
+attr = ".#pi-processes.pnpmDeps"
+
+[packages.pi-simplify]
+version = { source = "github-tag", repo = "MattDevy/pi-extensions", strip_prefix = "pi-simplify-v", filter = "^pi-simplify-v[0-9]+\\.[0-9]+\\.[0-9]+$" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "MattDevy/pi-extensions", rev = "pi-simplify-v{version}" }
+
+[packages.pi-subagents]
+version = { source = "github-release", repo = "nicobailon/pi-subagents" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "nicobailon/pi-subagents", rev = "{version}" }
+
+[packages.pi-subagents.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"
+
+[packages.pi-token-speed]
+version = { source = "github-tag", repo = "gsanhueza/pi-token-speed" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "gsanhueza/pi-token-speed", rev = "{version}" }
+
+[packages.pi-web-access]
+version = { source = "github-release", repo = "nicobailon/pi-web-access" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "nicobailon/pi-web-access", rev = "{version}" }
+
+[packages.pi-web-access.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"
+
+[packages.picoclaw]
+version = { source = "github-tag", repo = "sipeed/picoclaw", strip_prefix = "v" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "sipeed/picoclaw", rev = "v{version}" }
+
+[packages.pixy2]
+version = { source = "git", url = "https://github.com/charmedlabs/pixy2", unstable = { } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/charmedlabs/pixy2", rev = "{version}" }
+
+[packages.shard]
+version = { source = "git", url = "https://github.com/Th0rgal/shard.git", unstable = { stable = { source = "github-release", repo = "Th0rgal/shard" } } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/Th0rgal/shard.git", rev = "{version}" }
+
+[packages.shard.derive.cargoLock]
+kind = "cargo-vendor"
+strategy = "lockfile"
+
+[packages.shard.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"
+sub_dir = "desktop"
+
+[packages.shlink]
+version = { source = "github-release", repo = "shlinkio/shlink" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "shlinkio/shlink", rev = "{version}" }
+
+[packages.subconverter]
+version = { source = "git", url = "https://github.com/tindy2013/subconverter", unstable = { } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/tindy2013/subconverter", rev = "{version}" }
+
+[packages.superpowers-skills]
+version = { source = "git", url = "https://github.com/obra/superpowers.git", unstable = { } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/obra/superpowers.git", rev = "{version}" }
+
+[packages.udpxy]
+version = { source = "github-tag", repo = "pcherenkov/udpxy" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "pcherenkov/udpxy", rev = "{version}" }
+
+[packages.uu-remote-linux]
+version = { source = "github-release", repo = "VallierDev/uu-remote-linux" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "VallierDev/uu-remote-linux", rev = "{version}" }
+
+[packages.uu-remote-linux.derive.cargoLock]
+kind = "cargo-vendor"
+strategy = "lockfile"
+
+[packages.v2ray-rules-dat]
+version = { source = "git", url = "https://github.com/Loyalsoldier/v2ray-rules-dat.git", branch = "release", unstable = { } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/Loyalsoldier/v2ray-rules-dat.git", rev = "{version}" }
+
+[packages.whois42d-ng]
+version = { source = "git", url = "https://github.com/moraxyc/whois42d-ng.git", unstable = { stable = { source = "github-release", repo = "moraxyc/whois42d-ng" } } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/moraxyc/whois42d-ng.git", rev = "{version}" }
+
+[packages.whois42d-ng.derive.cargoLock]
+kind = "cargo-vendor"
+strategy = "lockfile"
+
+[packages.ztnet]
+version = { source = "github-release", repo = "sinamics/ztnet" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "sinamics/ztnet", rev = "{version}" }
+
+[packages.ztnet.derive.ztmkworldVendorHash]
+strategy = "fod"
+attr = ".#ztnet.ztmkworld.goModules"
+
+[packages.ztnet.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"

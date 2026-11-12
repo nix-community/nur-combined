@@ -1,0 +1,1079 @@
+{
+  "schema": 1,
+  "packages": {
+    "aircard": {
+      "version": "1.2.6",
+      "rawVersion": "v1.2.6",
+      "src": {
+        "fetcher": "github",
+        "owner": "Mak5er",
+        "repo": "AirCard",
+        "rev": "v1.2.6",
+        "hash": "sha256-rNsHoJprJg41lTksTYvCrcY1pLx5Qh1+o57DPS9QCIw="
+      },
+      "fingerprint": "sha256-klb+1lq/D/+q91MaFpVif5SvdSPPQyCLZMXn5OU6YD0="
+    },
+    "airtrail": {
+      "version": "3.14.0",
+      "rawVersion": "v3.14.0",
+      "src": {
+        "fetcher": "github",
+        "owner": "johanohly",
+        "repo": "AirTrail",
+        "rev": "v3.14.0",
+        "hash": "sha256-6JOK3g4ADGZ1rLu2BZ4nPDboqNCYaOpSmF/a9N3lasY="
+      },
+      "fingerprint": "sha256-H+prPsozgCaYykHN444qQHIAT4Q+mqAdIWuvlPxQWK8="
+    },
+    "aliyundrive-webdav": {
+      "version": "2.3.3-unstable-2026-02-20",
+      "rawVersion": "00caff62b55ae53327f1c8824b19b1c9532cc174",
+      "date": "2026-02-20",
+      "src": {
+        "fetcher": "github",
+        "owner": "messense",
+        "repo": "aliyundrive-webdav",
+        "rev": "00caff62b55ae53327f1c8824b19b1c9532cc174",
+        "hash": "sha256-Glr/PryfyihEMM+41ZkXp3I0VeXerHMKO82znLJJ2mc="
+      },
+      "derived": {
+        "cargoLock": {
+          "lockfile": "aliyundrive-webdav/src/Cargo.lock"
+        }
+      },
+      "fingerprint": "sha256-EzLRq3QAiHG27ighituP5lPcvPj7/QwETXi44wuTAQg="
+    },
+    "artex": {
+      "version": "0-unstable-2026-11-11",
+      "rawVersion": "73d5437c5a64559ed803bcd096d2a0a0014a1214",
+      "date": "2026-11-11",
+      "src": {
+        "fetcher": "github",
+        "owner": "RuoJi6",
+        "repo": "ARTEX",
+        "rev": "73d5437c5a64559ed803bcd096d2a0a0014a1214",
+        "hash": "sha256-7d5WE7irDbE6egAlFZHrgjYwiDl23EkM/KWSrBNK3kY="
+      },
+      "derived": {
+        "npmDeps": {
+          "lockfile": "artex/src/web/package-lock.json"
+        },
+        "vendorHash": {
+          "hash": "sha256-bLpP+BEKc6GqLWbhpGYQ/BJy6m146WLUVHhUO8ev948="
+        }
+      },
+      "fingerprint": "sha256-PfKZVsH4boxC6dGxRRpGYtQF+iHnlVuQhplgidbywUM="
+    },
+    "bark-server": {
+      "version": "2.4.0-unstable-2026-11-06",
+      "rawVersion": "a365aa9ddc9362495efffb3db4358b7c12beb963",
+      "date": "2026-11-06",
+      "src": {
+        "fetcher": "github",
+        "owner": "Finb",
+        "repo": "bark-server",
+        "rev": "a365aa9ddc9362495efffb3db4358b7c12beb963",
+        "hash": "sha256-TLWvJGQRi0BlOHlR33EnfIdrB7zG8PeivvY0S99zOXM="
+      },
+      "derived": {
+        "vendorHash": {
+          "hash": "sha256-PXrslg24bxdG5PTkjS3LacJniZx5nSgki24mc9BcjaQ="
+        }
+      },
+      "fingerprint": "sha256-19K58xslpcJZbIs8eH4o5Pkm1Jcde0YS6I8gTAdmEnE="
+    },
+    "boringssl-oqs": {
+      "version": "OQS-BoringSSL-snapshot-2025-01",
+      "rawVersion": "OQS-BoringSSL-snapshot-2025-01",
+      "src": {
+        "fetcher": "github",
+        "owner": "open-quantum-safe",
+        "repo": "boringssl",
+        "rev": "OQS-BoringSSL-snapshot-2025-01",
+        "hash": "sha256-zVZgAvq6V85hxO79Ct8s+VVyf9yPa/YbRL4D5z31qEs="
+      },
+      "derived": {
+        "vendorHash": {
+          "hash": "sha256-jcV7dZZITkvzqKq1EQ4qLiGar568WsDPLtxMvBoh7B8="
+        }
+      },
+      "fingerprint": "sha256-2oqfnz+z58NLkA5td+pM7EuS4K0RjpG1WdXsdVaLvZY="
+    },
+    "clash-nyanpasu": {
+      "version": "2.0.1-unstable-2026-11-11",
+      "rawVersion": "c41063a6188d0abd7de694e8345d09c3efce3c2d",
+      "date": "2026-11-11",
+      "src": {
+        "fetcher": "github",
+        "owner": "libnyanpasu",
+        "repo": "clash-nyanpasu",
+        "rev": "c41063a6188d0abd7de694e8345d09c3efce3c2d",
+        "hash": "sha256-dbKyLl1rXA6LMTGXiLxcRdcLI73DcwmTR966uRQ7AH8="
+      },
+      "derived": {
+        "cargoLock": {
+          "lockfile": "clash-nyanpasu/src/backend/Cargo.lock",
+          "outputHashes": {
+            "auto-launch-0.5.0": "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=",
+            "gpu-info-0.2.1": "sha256-dQ5cLLZf0Ao0MxaBeue2osQVpUs+G+7ewGf4X1nkKAM=",
+            "include_url_macro-0.1.0": "sha256-uWrm6/8aH2cny172IWwOsPbFW8WMQ1OzO3M0S8DqKX8=",
+            "processkit-2.2.5": "sha256-aLH0vrplsy8uTBzm5ult//Ix4DGE/Qg5TQyCBlUCCJo=",
+            "runas-1.2.0": "sha256-cTYTFtmdmCztL2JhgnOxwKhd+VfUmm5DB3gkNy92g04=",
+            "serde_yaml_ng-0.10.0": "sha256-0KkwfAWwhCELkobRjnhzyQPzcqDdnwm8oAzfL1GjKnk=",
+            "softbuffer-0.4.8": "sha256-yH3wfgaXT4fRnThP1INBqX/+71b67+nBZS40H6wPJgw=",
+            "sysproxy-0.3.0": "sha256-2xv1vjthD3J/SFhbnh21bi2V4fcvoo6CpjJDxpSbwnk=",
+            "tauri-specta-2.0.0-rc.25": "sha256-jcUyCknyN8ObGMXdQXQdN/hoiQrZTdi/XLZ8WCv6XtA=",
+            "tracing-test-0.2.5": "sha256-uhjFW7s8Lfvq/j8mTCXcivzIvwHP3NFoI8rJOZ9avdE="
+          }
+        }
+      },
+      "fingerprint": "sha256-kTGx7lZsOvb+dFQOxGgUuq4JRQeA98P/k/1S743fRkE="
+    },
+    "cliproxyapi": {
+      "version": "8.0.67",
+      "rawVersion": "v8.0.67",
+      "src": {
+        "fetcher": "github",
+        "owner": "router-for-me",
+        "repo": "cliproxyapi",
+        "rev": "v8.0.67",
+        "hash": "sha256-njk9i5JbHvJ3lTB7Bn0wTxFtmcJ5MEokgdOHNhzDPPY="
+      },
+      "derived": {
+        "vendorHash": {
+          "hash": "sha256-02Qqrs9lQ0kE+Tnk/SWvlkLXGSh8RQPxRawFZogRYNc="
+        }
+      },
+      "fingerprint": "sha256-0ZOszgPQKtup+CvOCK4zA28HzJnx0SDYVVtsN6lPoR8="
+    },
+    "cpa-usage-keeper": {
+      "version": "2.1.0-unstable-2026-11-11",
+      "rawVersion": "ab827c45486cec9a166fd25ad0ecbc971ed5c8dc",
+      "date": "2026-11-11",
+      "src": {
+        "fetcher": "github",
+        "owner": "Willxup",
+        "repo": "cpa-usage-keeper",
+        "rev": "ab827c45486cec9a166fd25ad0ecbc971ed5c8dc",
+        "hash": "sha256-cZ0p3UobWUhpQUhRcKhw7zSC6H+m326T1sqZufMxy5k="
+      },
+      "derived": {
+        "npmDeps": {
+          "lockfile": "cpa-usage-keeper/src/web/package-lock.json"
+        },
+        "vendorHash": {
+          "hash": "sha256-kUPQ41UsZX86WNdeYGy914G3Pk/v/WcOfVw8Unb9SE4="
+        }
+      },
+      "fingerprint": "sha256-klw1I8Gyyya7pGDq2zSPFRJN6KsZkHFPtsiYx0SS/YE="
+    },
+    "dae": {
+      "version": "2.1.1-unstable-2026-11-09",
+      "rawVersion": "460cec77f4365abfd9ea6fae04b66466dd4861cb",
+      "date": "2026-11-09",
+      "src": {
+        "fetcher": "github",
+        "owner": "daeuniverse",
+        "repo": "dae",
+        "rev": "460cec77f4365abfd9ea6fae04b66466dd4861cb",
+        "hash": "sha256-lBooE12735YST7kQeG21IW+kHNluW0n6bsEwIALjo+w=",
+        "fetchSubmodules": true
+      },
+      "derived": {
+        "vendorHash": {
+          "hash": "sha256-N2noQXRV9Vewie4PiWkjDeX6U2+kF1kQ9L10kZ5X/LI="
+        }
+      },
+      "fingerprint": "sha256-DAk+AGRkm0Fn18SqYMF8qMu8Mha+bMMrO5BOrKjmWUs="
+    },
+    "dell-idrac-fan-controller": {
+      "version": "1.108",
+      "rawVersion": "v1.108",
+      "src": {
+        "fetcher": "github",
+        "owner": "tigerblue77",
+        "repo": "Dell_iDRAC_fan_controller_Docker",
+        "rev": "v1.108",
+        "hash": "sha256-afyvw6iUmVn7wOQJSq/wD+vKNIDIyqmXjYFfkS/j+0E="
+      },
+      "fingerprint": "sha256-r7mntDDQfi3/e44oN9H5AAkAhqTtZgop0gAJ1/hFF+U="
+    },
+    "elio": {
+      "version": "1.15.0",
+      "rawVersion": "v1.15.0",
+      "src": {
+        "fetcher": "github",
+        "owner": "elio-fm",
+        "repo": "elio",
+        "rev": "v1.15.0",
+        "hash": "sha256-tHfkNnt5o91VVKHCCRUEJEcdLMYYy5QQC5+E0zT1veQ="
+      },
+      "derived": {
+        "cargoLock": {
+          "lockfile": "elio/src/Cargo.lock"
+        }
+      },
+      "fingerprint": "sha256-bH7TX9jzDAvhhBT7pWALAJt8hxk3XlJfA34ECsgPCSE="
+    },
+    "english_words": {
+      "version": "0-unstable-2025-01-06",
+      "rawVersion": "20f5cc9b3f0ccc8ce45d814c532b7c2031bba31c",
+      "date": "2025-01-06",
+      "src": {
+        "fetcher": "github",
+        "owner": "dwyl",
+        "repo": "english-words",
+        "rev": "20f5cc9b3f0ccc8ce45d814c532b7c2031bba31c",
+        "hash": "sha256-PfBQ9iavOLx7M8+j0TXASUxVamPiQn2YXsiuUmz4XCg="
+      },
+      "fingerprint": "sha256-FJhOAKqCH1txvT3OmdAbHOzwFpW2dWEWKc+E6n8YNGs="
+    },
+    "exloli-next": {
+      "version": "0-unstable-2024-11-23",
+      "rawVersion": "41d7a6e52a1625d6febb47160a4b143ca47c16d5",
+      "date": "2024-11-23",
+      "src": {
+        "fetcher": "github",
+        "owner": "lolishinshi",
+        "repo": "exloli-next",
+        "rev": "41d7a6e52a1625d6febb47160a4b143ca47c16d5",
+        "hash": "sha256-S3hjuRSDtPkK9XF2USXfyOawWoD/fu9qYDJbUPI3Op0="
+      },
+      "fingerprint": "sha256-H+2e216kKsS9Q6nGNECrfqjZ4xDBu4oXIxK+9I4R8j0="
+    },
+    "fcitx5-themes-candlelight": {
+      "version": "0-unstable-2026-09-14",
+      "rawVersion": "f297d1d43ddd5227406eae9f211cdc218af12a94",
+      "date": "2026-09-14",
+      "src": {
+        "fetcher": "github",
+        "owner": "thep0y",
+        "repo": "fcitx5-themes-candlelight",
+        "rev": "f297d1d43ddd5227406eae9f211cdc218af12a94",
+        "hash": "sha256-Aca8JZxhdNjr/g2oRDWHsnj8mm+jvlEaxYRqCR4sU60="
+      },
+      "fingerprint": "sha256-YJpU9eA0YdX6Qb5zA5BVFo9W2IIOtgw4AdVv9F/s8Jo="
+    },
+    "ferstar-gestures": {
+      "version": "1.1.0",
+      "rawVersion": "v1.1.0",
+      "src": {
+        "fetcher": "github",
+        "owner": "ferstar",
+        "repo": "gestures",
+        "rev": "v1.1.0",
+        "hash": "sha256-fWWx0uf9N/wnMR3LIIk4m7JuqwI2Br+7Ny/o+OzmGxQ="
+      },
+      "derived": {
+        "cargoLock": {
+          "lockfile": "ferstar-gestures/src/Cargo.lock"
+        }
+      },
+      "fingerprint": "sha256-30OsBkMRA0jMQKYo3jIET9P4D5xWLMEblIxAU7j2p2k="
+    },
+    "gaze": {
+      "version": "0.5.1-unstable-2026-11-11",
+      "rawVersion": "dc9977a3fe0b511e8ad0f15b9956bf3985723723",
+      "date": "2026-11-11",
+      "src": {
+        "fetcher": "github",
+        "owner": "GunduLabs",
+        "repo": "gaze",
+        "rev": "dc9977a3fe0b511e8ad0f15b9956bf3985723723",
+        "hash": "sha256-2GmP6hqzLUMopMC4fo9/ITM2wKngKxdjg6e0i7F1uok="
+      },
+      "derived": {
+        "cargoLock": {
+          "lockfile": "gaze/src/Cargo.lock"
+        }
+      },
+      "fingerprint": "sha256-6vwU86Q620n8nsNkHPLQDLh/B5W3Md2Z+UQ7Pg4PKEU="
+    },
+    "geolite2-asn": {
+      "version": "2026.11.10",
+      "rawVersion": "2026.11.10",
+      "src": {
+        "fetcher": "url",
+        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.10/GeoLite2-ASN.mmdb",
+        "hash": "sha256-1e50yGMnG+1wZucxyIDzgCC75o9M3SHWCjP1cZXDB4U="
+      },
+      "fingerprint": "sha256-0ToZa+2Em+tnyn9CPCmAPlp6lIcX7/Merx+CDKFXW1M="
+    },
+    "geolite2-city": {
+      "version": "2026.11.10",
+      "rawVersion": "2026.11.10",
+      "src": {
+        "fetcher": "url",
+        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.10/GeoLite2-City.mmdb",
+        "hash": "sha256-nbBOikRB7FQYNTfYd0wI5Ccg8iQxN91C6cx/eOorkns="
+      },
+      "fingerprint": "sha256-463eu1xFZXCx4oz8SRSvBA0hvpJyFhic5DHxAO5Hvus="
+    },
+    "geolite2-country": {
+      "version": "2026.11.10",
+      "rawVersion": "2026.11.10",
+      "src": {
+        "fetcher": "url",
+        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.10/GeoLite2-Country.mmdb",
+        "hash": "sha256-LC0FxHS662aSmMzpEqYja17MTlDwMWqT4BulzyIYNgA="
+      },
+      "fingerprint": "sha256-J85WDuNyYNUaddQZHQiF6elxX2H2Ai5xb/pLo1lio2E="
+    },
+    "git-mcp-server": {
+      "version": "2.15.3",
+      "rawVersion": "2.15.3",
+      "src": {
+        "fetcher": "github",
+        "owner": "cyanheads",
+        "repo": "git-mcp-server",
+        "rev": "v2.15.3",
+        "hash": "sha256-dALz4Tb2Opn19ppJ47D3ABmAwLQ6v5Ba/ZaxfE9bvT0="
+      },
+      "fingerprint": "sha256-lfnqX4vQRPUUGtM14mp5JyUBdZNe4OIxfsfNY6Q8c3E="
+    },
+    "happydeliver": {
+      "version": "1.2.0",
+      "rawVersion": "v1.2.0",
+      "src": {
+        "fetcher": "github",
+        "owner": "happyDomain",
+        "repo": "happydeliver",
+        "rev": "v1.2.0",
+        "hash": "sha256-VXkRDVHrRbU2TEl47jUhEmjXCkGzJgGYLKZBE/m9Ka8="
+      },
+      "derived": {
+        "npmDeps": {
+          "lockfile": "happydeliver/src/web/package-lock.json"
+        },
+        "vendorHash": {
+          "hash": "sha256-4mQ3/Hc+Ow2MYSNsnACopDhTblCs593Y4uTbtKRWWks="
+        }
+      },
+      "fingerprint": "sha256-hyQ1jD39LNwSLQ85omJuvsUpbRv+Rc0TJKXAHH9Ng/g="
+    },
+    "headscale-ui": {
+      "version": "0-unstable-2026-03-16",
+      "rawVersion": "ce7569c8473b70f6f8359385f2dbd6af66f21e55",
+      "date": "2026-03-16",
+      "src": {
+        "fetcher": "github",
+        "owner": "gurucomputing",
+        "repo": "headscale-ui",
+        "rev": "ce7569c8473b70f6f8359385f2dbd6af66f21e55",
+        "hash": "sha256-JR+VLwXqMKACWB+4AIgWLIpZh0xtU9uCsiskra71BHQ="
+      },
+      "derived": {
+        "npmDeps": {
+          "lockfile": "headscale-ui/src/package-lock.json"
+        }
+      },
+      "fingerprint": "sha256-v+uWxxo2a4Md+kP0v1IDXMczauSD0N9ZV9zBPaGCZdA="
+    },
+    "hmcl-dev-bin": {
+      "version": "3.17.0.365",
+      "rawVersion": "3.17.0.365",
+      "src": {
+        "fetcher": "url",
+        "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.365/HMCL-3.17.0.365.jar",
+        "hash": "sha256-Mq2ax7SUnUQdx/D/zE4zE+CeShItdpLI/w8VFtrFaAo="
+      },
+      "fingerprint": "sha256-FCpeK4prWYIRrizU4R/xf25Lx71ILojidsolvF5tgIU="
+    },
+    "hmcl-dev-exe": {
+      "version": "3.17.0.365",
+      "rawVersion": "3.17.0.365",
+      "src": {
+        "fetcher": "url",
+        "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.365/HMCL-3.17.0.365.exe",
+        "hash": "sha256-OsZY/UhyxCsDGBF4ycaY+eTYNvwXXrR/M1EIjtziEnQ="
+      },
+      "fingerprint": "sha256-7dSsriLulyHBfpIDnwakGLyV7hcHnbygShSMURMjIz0="
+    },
+    "hmcl-dev-src": {
+      "version": "3.17.0.365",
+      "rawVersion": "3.17.0.365",
+      "src": {
+        "fetcher": "github",
+        "owner": "HMCL-dev",
+        "repo": "HMCL",
+        "rev": "v3.17.0.365",
+        "hash": "sha256-h473j1FajiZeO5NVnckgItWv9fhJuqEgTYdLRs7eCxc="
+      },
+      "fingerprint": "sha256-4jCQslnqwTJoijYP2CKfwBZjAzj2BCR/xHV7lz2D//4="
+    },
+    "hysteria-realm-server": {
+      "version": "1.1.0",
+      "rawVersion": "v1.1.0",
+      "src": {
+        "fetcher": "github",
+        "owner": "apernet",
+        "repo": "hysteria-realm-server",
+        "rev": "v1.1.0",
+        "hash": "sha256-Mz+pkJA+/mX1BwxXnAP41eitaJMzOFiNh0U9SCJx0iU="
+      },
+      "derived": {
+        "vendorHash": {
+          "hash": "sha256-xjnaCKwCduaWfvXI5NCHmrMqLzADxiYuXVzgyz0jUGc="
+        }
+      },
+      "fingerprint": "sha256-OQm+NVjyhdgeM8gNfLr3Vq7mdt4gBlpJ+PyQBjCfaPg="
+    },
+    "jiufenxuezhang-ielts": {
+      "version": "0.9.20-rc.1",
+      "rawVersion": "0.9.20-rc.1",
+      "src": {
+        "fetcher": "url",
+        "url": "file:///dev/null",
+        "hash": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+      },
+      "fingerprint": "sha256-8xJykuK3ygYx81RKBhLKXn6PfgcyL9rYlM2RYElkE3E="
+    },
+    "libinput-three-finger-drag": {
+      "version": "0-unstable-2024-06-17",
+      "rawVersion": "6acd3f84b551b855b5f21b08db55e95dae3305c5",
+      "date": "2024-06-17",
+      "src": {
+        "fetcher": "github",
+        "owner": "marsqing",
+        "repo": "libinput-three-finger-drag",
+        "rev": "6acd3f84b551b855b5f21b08db55e95dae3305c5",
+        "hash": "sha256-xmcTb+23d6mMzIfMVjzN6bwV0fWH4p6YhXXqrFmt4TM="
+      },
+      "fingerprint": "sha256-HYc8oCFm8Qe2SluAfM0YhCQeLpuqUh05clT9jWt+NuI="
+    },
+    "loyalsoldier-geoip": {
+      "version": "0-unstable-2026-11-05",
+      "rawVersion": "eace600e4e2d6708de3948b047ff9ff7bc5b5b11",
+      "date": "2026-11-05",
+      "src": {
+        "fetcher": "github",
+        "owner": "Loyalsoldier",
+        "repo": "geoip",
+        "rev": "eace600e4e2d6708de3948b047ff9ff7bc5b5b11",
+        "hash": "sha256-KtEJr+hFM1lNU8j1d7ZOy2YqI4Sauu/OxJn8Xv9gZwY="
+      },
+      "fingerprint": "sha256-ALo+9T9fPJgSIp9a8raa877ZNvv12ZL/oT2t4t82G6g="
+    },
+    "manpage-zh": {
+      "version": "1.6.4.5",
+      "rawVersion": "1.6.4.5",
+      "src": {
+        "fetcher": "github",
+        "owner": "man-pages-zh",
+        "repo": "manpages-zh",
+        "rev": "v1.6.4.5",
+        "hash": "sha256-UCWfefrPr5kFsN+HjpAA0IMbhXKOlb5WIpcbnw+2kf8=",
+        "fetchSubmodules": true
+      },
+      "fingerprint": "sha256-w/kdBG77SIgcsRtiEzY6Jao4sw7x/Im13oA8DuqMvac="
+    },
+    "mautrix-telegram": {
+      "version": "0.2610.0",
+      "rawVersion": "v0.2610.0",
+      "src": {
+        "fetcher": "github",
+        "owner": "mautrix",
+        "repo": "telegram",
+        "rev": "v0.2610.0",
+        "hash": "sha256-2oHtqtpFhNr+v49nMSe33RGDj+MQV2D/+8JX+YYWi+0="
+      },
+      "derived": {
+        "vendorHash": {
+          "hash": "sha256-JbnlJnCtIKC3rpO2mBa7DvEFeWuq9tpvN9H+MoQ5VV0="
+        }
+      },
+      "fingerprint": "sha256-qEsTIMwmqKOKkslNEm7UH0CYmjGEIqCEWLcRhb19EGA="
+    },
+    "meta-rules-converter": {
+      "version": "0-unstable-2025-12-01",
+      "rawVersion": "7dea27841a3579a633189830c98c08a0434e8b79",
+      "date": "2025-12-01",
+      "src": {
+        "fetcher": "github",
+        "owner": "MetaCubeX",
+        "repo": "meta-rules-converter",
+        "rev": "7dea27841a3579a633189830c98c08a0434e8b79",
+        "hash": "sha256-PwM5EH4v4MWePVeSjIGjCSu1ACYCIQ/wVq4sBTbrF9M="
+      },
+      "derived": {
+        "vendorHash": {
+          "hash": "sha256-LIBrejN3Uv0/oWZeSA4XxelfhtAws8VK1yD7xVzWQvM="
+        }
+      },
+      "fingerprint": "sha256-vR7sJIoluiLgop9ZZHZKD6Or/5XOXg5rf4u3QaTDtco="
+    },
+    "meta-rules-dat": {
+      "version": "0-unstable-2026-11-11",
+      "rawVersion": "eb124581e13888a33b8d5efe87a28e7eb20d097e",
+      "date": "2026-11-11",
+      "src": {
+        "fetcher": "github",
+        "owner": "MetaCubeX",
+        "repo": "meta-rules-dat",
+        "rev": "eb124581e13888a33b8d5efe87a28e7eb20d097e",
+        "hash": "sha256-lOY42h8JEP2mQnRgzSN7QLzAVxeX79XrXC/nwI38/J4="
+      },
+      "fingerprint": "sha256-TIYhTrLHUIy3UW2EvS8OwphsOms1PhAB6thF+nWLoMo="
+    },
+    "metacubex-geo": {
+      "version": "1.1",
+      "rawVersion": "v1.1",
+      "src": {
+        "fetcher": "github",
+        "owner": "metacubex",
+        "repo": "geo",
+        "rev": "v1.1",
+        "hash": "sha256-lwFBevf3iP90LgnfUqweCjPBJPr2vMFtRqQXXUC+cRA="
+      },
+      "derived": {
+        "vendorHash": {
+          "hash": "sha256-FXvuojlMZRzi8TIQ2aPiDH7F9c+2dpe4PYzYWljfUIc="
+        }
+      },
+      "fingerprint": "sha256-89S+7AGIYHMJI9qdM+43aFrcG1e1mugSqI/NiPkj74o="
+    },
+    "microfetch": {
+      "version": "0-unstable-2026-11-07",
+      "rawVersion": "b06c987bf6ea9606f203a6304cb4764eca56984a",
+      "date": "2026-11-07",
+      "src": {
+        "fetcher": "github",
+        "owner": "NotAShelf",
+        "repo": "microfetch",
+        "rev": "b06c987bf6ea9606f203a6304cb4764eca56984a",
+        "hash": "sha256-t3L3DmVj9F4pvamxo6pP4uqn34XwThNhu96RQO8afQg="
+      },
+      "derived": {
+        "cargoLock": {
+          "lockfile": "microfetch/src/Cargo.lock"
+        }
+      },
+      "fingerprint": "sha256-By6sROdojmfX+E8JY55HXm3Y/JcOVtptjqaDd6E6ysU="
+    },
+    "mm-geofeed-verifier": {
+      "version": "4.0.0",
+      "rawVersion": "v4.0.0",
+      "src": {
+        "fetcher": "github",
+        "owner": "maxmind",
+        "repo": "mm-geofeed-verifier",
+        "rev": "v4.0.0",
+        "hash": "sha256-QbILhdodWRV3J03YkV0uSYj0c7yaNHiD950US9JaE3s="
+      },
+      "derived": {
+        "vendorHash": {
+          "hash": "sha256-zYPNcU2f+vX5GnhQ2PxVSW5HAGGlOq5Ii3nH8Sc4cKY="
+        }
+      },
+      "fingerprint": "sha256-o44sQxfLt/yYWgS+L/FJ97QIKdi7SKFXsj0fi43x4M4="
+    },
+    "mpv-danmaku": {
+      "version": "1.9.0-unstable-2026-07-31",
+      "rawVersion": "731dbc96c9b438b78b7ad115da181c6dc404982d",
+      "date": "2026-07-31",
+      "src": {
+        "fetcher": "github",
+        "owner": "moraxyc",
+        "repo": "mpv-danmaku",
+        "rev": "731dbc96c9b438b78b7ad115da181c6dc404982d",
+        "hash": "sha256-9Zp+MxUHDD/lEqwf8TNj/n+MKO4maW8TjH8HOkRqQIQ="
+      },
+      "derived": {
+        "cargoLock": {
+          "lockfile": "mpv-danmaku/src/Cargo.lock"
+        }
+      },
+      "fingerprint": "sha256-P51tPau6Do0vxjsosKOFMCAEEEkqDHkPWxP/B+XOtfA="
+    },
+    "nezha": {
+      "version": "2.6.1",
+      "rawVersion": "v2.6.1",
+      "src": {
+        "fetcher": "github",
+        "owner": "nezhahq",
+        "repo": "nezha",
+        "rev": "v2.6.1",
+        "hash": "sha256-NBGr4gQI0BzGBMU0mwukUtgaqmcMP04iGqGmNWPvp/A="
+      },
+      "fingerprint": "sha256-XGgYC0V+zgCBDK3pro5CgnEWs5e+XEhjsm9ntwty0pw="
+    },
+    "nezha-agent": {
+      "version": "2.4.0",
+      "rawVersion": "v2.4.0",
+      "src": {
+        "fetcher": "github",
+        "owner": "nezhahq",
+        "repo": "agent",
+        "rev": "v2.4.0",
+        "hash": "sha256-HiR2D+EiYB4N3HbzGz7W2v5RVq19ph22dyyBr4eCltI="
+      },
+      "fingerprint": "sha256-auNeaN3UlxE3aWGKBkvVNrZkb14T2DxZMUO1zpasejY="
+    },
+    "nezha-theme-admin": {
+      "version": "2.6.1",
+      "rawVersion": "v2.6.1",
+      "src": {
+        "fetcher": "github",
+        "owner": "nezhahq",
+        "repo": "admin-frontend",
+        "rev": "v2.6.1",
+        "hash": "sha256-rLavWiGNyBjpbaFAsetmWAJvYXdzHLYawlHOUzhQ4/U="
+      },
+      "derived": {
+        "npmDeps": {
+          "lockfile": "nezha-theme-admin/src/package-lock.json"
+        }
+      },
+      "fingerprint": "sha256-+m3lVhrsAFsUUf3vqQnZoFEBE3+Q4MJnEgUHe9LEr1k="
+    },
+    "nezha-theme-user": {
+      "version": "2.7.0",
+      "rawVersion": "v2.7.0",
+      "src": {
+        "fetcher": "github",
+        "owner": "hamster1963",
+        "repo": "nezha-dash-v2",
+        "rev": "v2.7.0",
+        "hash": "sha256-ECunE/tW83Ndp953SPiuZ5o8CozcI1GccgF8bhS1xtY="
+      },
+      "fingerprint": "sha256-f6Mw1+aEfLDmYWsQoTmh8hI/BwFA4vRfOQkiHPjK7FA="
+    },
+    "nipaplay-reload-aarch64-linux": {
+      "version": "1.11.11",
+      "rawVersion": "1.11.11",
+      "src": {
+        "fetcher": "url",
+        "url": "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v1.11.11/NipaPlay-1.11.11-Linux-arm64.tar.gz",
+        "hash": "sha256-4dtNBkwx7pvrrY3+GskGbxKFL2RERu686eSe63qthBI="
+      },
+      "fingerprint": "sha256-kum/fapjdQaqh+BQdH93buw+ZlqZM52n8KKTfj18YQI="
+    },
+    "nipaplay-reload-darwin": {
+      "version": "1.11.11",
+      "rawVersion": "1.11.11",
+      "src": {
+        "fetcher": "url",
+        "url": "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v1.11.11/NipaPlay_1.11.11_macOS_Universal.dmg",
+        "hash": "sha256-Zn4oqfD3JwJBeHVjBIA63/vPPnowgi1x5x0clxDAOvU="
+      },
+      "fingerprint": "sha256-c9RB0oxf7znc6KTNBd0lbv63+B6pLxxibC3PTGiHXZ8="
+    },
+    "nipaplay-reload-x86_64-linux": {
+      "version": "1.11.11",
+      "rawVersion": "1.11.11",
+      "src": {
+        "fetcher": "url",
+        "url": "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v1.11.11/NipaPlay-1.11.11-Linux-amd64.tar.gz",
+        "hash": "sha256-IrK6nNmC2zX4iRaCkK4czFuxlzGtw/UihHqZQx4GIkY="
+      },
+      "fingerprint": "sha256-9uEqj0SD5VQ2MS+9WTPJ6Ak8K1ljl4wOHXvMEHZhhv8="
+    },
+    "nyanpasu-service": {
+      "version": "2.0.3-unstable-2026-11-09",
+      "rawVersion": "3a79dabc4a1fd4a7d708bafe87fceb240fe24c3b",
+      "date": "2026-11-09",
+      "src": {
+        "fetcher": "github",
+        "owner": "libnyanpasu",
+        "repo": "nyanpasu-service",
+        "rev": "3a79dabc4a1fd4a7d708bafe87fceb240fe24c3b",
+        "hash": "sha256-TkdkPm2+yifrH9/Ebp6dsreewMuGKFyEqyvJFMzhdCw="
+      },
+      "derived": {
+        "cargoLock": {
+          "lockfile": "nyanpasu-service/src/Cargo.lock",
+          "outputHashes": {
+            "processkit-2.2.5": "sha256-aLH0vrplsy8uTBzm5ult//Ix4DGE/Qg5TQyCBlUCCJo="
+          }
+        }
+      },
+      "fingerprint": "sha256-Zi4bkD+W3I/+bT7myMf901aQCmuTUS2hn3/gafcNtLE="
+    },
+    "opencode-go-cliproxyapi": {
+      "version": "0.0.0-unstable-2026-10-19",
+      "rawVersion": "e8d3e36db58fc390b62624c20c2ae1b5b9078546",
+      "date": "2026-10-19",
+      "src": {
+        "fetcher": "github",
+        "owner": "massiveits",
+        "repo": "opencode-go-cliproxyapi",
+        "rev": "e8d3e36db58fc390b62624c20c2ae1b5b9078546",
+        "hash": "sha256-7T6YRBxqxKoOxzilItFGHDUdg6V4Lc3jJwO1KsT9VM0="
+      },
+      "derived": {
+        "vendorHash": {
+          "hash": "sha256-N/gri6Xm/1UNZyaLCPLUAuWswJ/DeVdpnFWnF7pKPUo="
+        }
+      },
+      "fingerprint": "sha256-WGmfJFbGw9W5lvzrKu4NQ6W6PZD4mJsd7TFKiLbc9/Q="
+    },
+    "opencode-telegram-bot": {
+      "version": "0.27.0",
+      "rawVersion": "v0.27.0",
+      "src": {
+        "fetcher": "github",
+        "owner": "grinev",
+        "repo": "opencode-telegram-bot",
+        "rev": "v0.27.0",
+        "hash": "sha256-EbnsnXa0H4ZUn3UNCH4FSdqFViSZRtE3FxUJ+g0RVwE="
+      },
+      "derived": {
+        "npmDeps": {
+          "lockfile": "opencode-telegram-bot/src/package-lock.json"
+        }
+      },
+      "fingerprint": "sha256-H4zSe5hqoIp+rvbMnhhz6god7xhSwhlnN4MDECI8YX8="
+    },
+    "pi-acp": {
+      "version": "0.0.34",
+      "rawVersion": "v0.0.34",
+      "src": {
+        "fetcher": "github",
+        "owner": "svkozak",
+        "repo": "pi-acp",
+        "rev": "v0.0.34",
+        "hash": "sha256-QRwxOtTZOY+Np3PkAoy2o2PrUzEqjItM/372sCPlSMo="
+      },
+      "derived": {
+        "npmDeps": {
+          "lockfile": "pi-acp/src/package-lock.json"
+        }
+      },
+      "fingerprint": "sha256-a+ZX2O2XKUh34ENKYHxrgXjE7Vi/nqYJ3R2a9AAuQ4s="
+    },
+    "pi-ast-sgrep": {
+      "version": "2.6.0",
+      "rawVersion": "v2.6.0",
+      "src": {
+        "fetcher": "github",
+        "owner": "AdityaVG13",
+        "repo": "ast-sgrep",
+        "rev": "v2.6.0",
+        "hash": "sha256-YwAXrkUUTb7uykIIG05WKchqKoZDBvSyilJl4mFyVvM="
+      },
+      "derived": {
+        "cargoLock": {
+          "lockfile": "pi-ast-sgrep/src/Cargo.lock",
+          "outputHashes": {
+            "tree-sitter-moonbit-0.1.0": "sha256-Eq2IiNjNidorJOY65RNmFUbs6jcIo/y22SDxngcB9WA="
+          }
+        }
+      },
+      "fingerprint": "sha256-axQY4oyIkncZR91dnj1w5YeNzJccStNBGi+ao7r52u0="
+    },
+    "pi-cliproxyapi-provider": {
+      "version": "1.4.23",
+      "rawVersion": "1.4.23",
+      "src": {
+        "fetcher": "github",
+        "owner": "router-for-me",
+        "repo": "pi-cliproxyapi-provider",
+        "rev": "v1.4.23",
+        "hash": "sha256-PsmXW3yCr9zIDGpxsDz3nDfqE8NQPqEZNifbEo9GQCI="
+      },
+      "derived": {
+        "npmDeps": {
+          "lockfile": "pi-cliproxyapi-provider/src/package-lock.json"
+        }
+      },
+      "fingerprint": "sha256-gKE60Ly3p8qZ1STgoh9b3quLDtOSWZLd5aweegAjdzc="
+    },
+    "pi-context-view": {
+      "version": "0.8.4",
+      "rawVersion": "v0.8.4",
+      "src": {
+        "fetcher": "github",
+        "owner": "dimk90",
+        "repo": "pi-context-view",
+        "rev": "v0.8.4",
+        "hash": "sha256-yHPAK9eWrOGQn55r47RqE67Ef6bYJ8ZBCb6eQj1gR0Q="
+      },
+      "fingerprint": "sha256-2iQIwkuhuI6JIwGrLvC4r49EzdZp07VUvbXFvxjHU3o="
+    },
+    "pi-lsp-client": {
+      "version": "0.2.0",
+      "rawVersion": "0.2.0",
+      "src": {
+        "fetcher": "github",
+        "owner": "code-yeongyu",
+        "repo": "pi-lsp-client",
+        "rev": "v0.2.0",
+        "hash": "sha256-YnBazeGvh3UdDklO2jPLLKnuqpZ9YCJ4l4uZELwwXGE="
+      },
+      "derived": {
+        "npmDeps": {
+          "lockfile": "pi-lsp-client/src/package-lock.json"
+        }
+      },
+      "fingerprint": "sha256-NxRFQ+q8RSaslXcUdn83ZX3voAsuCQ/sUfIlrs/vCSU="
+    },
+    "pi-mcp-adapter": {
+      "version": "7.0.1",
+      "rawVersion": "v7.0.1",
+      "src": {
+        "fetcher": "github",
+        "owner": "nicobailon",
+        "repo": "pi-mcp-adapter",
+        "rev": "v7.0.1",
+        "hash": "sha256-OyHd9Se7HDjbu8K668Q8/Z+sq83apfqHoKn72N8PBqg="
+      },
+      "derived": {
+        "npmDeps": {
+          "lockfile": "pi-mcp-adapter/src/package-lock.json"
+        }
+      },
+      "fingerprint": "sha256-bDHuPi4pDA+KHdBq0EWN+AFaEHyxWkqkaNUpvXDWM7M="
+    },
+    "pi-plan-mode": {
+      "version": "0.4.8",
+      "rawVersion": "0.4.8",
+      "src": {
+        "fetcher": "github",
+        "owner": "qmx",
+        "repo": "pi-plan-mode",
+        "rev": "v0.4.8",
+        "hash": "sha256-M9dAPDEEeeV38H1jWIP9thgIM9sHACq1YjrPI37Yn8w="
+      },
+      "fingerprint": "sha256-GX8sG4ZE6Z12NYXX4mjZbg1jhycZenJvMY4FVk4rdZE="
+    },
+    "pi-processes": {
+      "version": "0.13.6",
+      "rawVersion": "0.13.6",
+      "src": {
+        "fetcher": "github",
+        "owner": "aliou",
+        "repo": "pi-processes",
+        "rev": "v0.13.6",
+        "hash": "sha256-2ZhEsR/CBvi8Wr/o1j4kfMWhYM9jSobMuY1weUtLzzU="
+      },
+      "derived": {
+        "pnpmDepsHash": {
+          "hash": "sha256-lEOEUBU8qdkkjWzqBzIwRS225b5g9BzrbN9YfL4OZKg="
+        }
+      },
+      "fingerprint": "sha256-sO6+e3cTxMxud2ka6gjVLoo7mlyA5XuzXcBiIaRwOqg="
+    },
+    "pi-simplify": {
+      "version": "0.2.3",
+      "rawVersion": "0.2.3",
+      "src": {
+        "fetcher": "github",
+        "owner": "MattDevy",
+        "repo": "pi-extensions",
+        "rev": "pi-simplify-v0.2.3",
+        "hash": "sha256-bFpHtHBpBop56ylNGwwNsy6090vcOz6aMUAn3i6SE4A="
+      },
+      "fingerprint": "sha256-DJ4+3oLtprApprpfZRBtUGu+g/zfonnPMQj5h6Nx+FM="
+    },
+    "pi-subagents": {
+      "version": "0.88.0",
+      "rawVersion": "v0.88.0",
+      "src": {
+        "fetcher": "github",
+        "owner": "nicobailon",
+        "repo": "pi-subagents",
+        "rev": "v0.88.0",
+        "hash": "sha256-DPeu8UEl0Oq+m3YirA4vXOaDmyyIVMkxBzMXEWrmVHo="
+      },
+      "derived": {
+        "npmDeps": {
+          "lockfile": "pi-subagents/src/package-lock.json"
+        }
+      },
+      "fingerprint": "sha256-qXwJf9JOdMjDzf10EZA3R4IgwtfyqsWe2z/+PWLhTBI="
+    },
+    "pi-token-speed": {
+      "version": "0.12.0",
+      "rawVersion": "0.12.0",
+      "src": {
+        "fetcher": "github",
+        "owner": "gsanhueza",
+        "repo": "pi-token-speed",
+        "rev": "0.12.0",
+        "hash": "sha256-P6u5Og9SkEY6UQdx8IsV4xl4gBECUXHeofi6FxGDm/Q="
+      },
+      "fingerprint": "sha256-K58gY57C7hwd+vKM6ADWcuseEQ8ifHJ5cV8t/Wer+T4="
+    },
+    "pi-web-access": {
+      "version": "0.47.0",
+      "rawVersion": "v0.47.0",
+      "src": {
+        "fetcher": "github",
+        "owner": "nicobailon",
+        "repo": "pi-web-access",
+        "rev": "v0.47.0",
+        "hash": "sha256-QfwEKSqOTc/VhPonFySNsgDAOkx9ROf+PnEF9v/iCow="
+      },
+      "derived": {
+        "npmDeps": {
+          "lockfile": "pi-web-access/src/package-lock.json"
+        }
+      },
+      "fingerprint": "sha256-ZLANG+YUxoldl5tAV33NSy4/DlHWaRPvmBuTGTHhJwI="
+    },
+    "picoclaw": {
+      "version": "0.3.1",
+      "rawVersion": "0.3.1",
+      "src": {
+        "fetcher": "github",
+        "owner": "sipeed",
+        "repo": "picoclaw",
+        "rev": "v0.3.1",
+        "hash": "sha256-QYfHXIHJjeZJdkhGNNhdO91Q8EFgSP+ubqGJ8VgTEtc="
+      },
+      "fingerprint": "sha256-C+UmF9eZsBkykZL/RHzILh5nNZloBBpzIw5rxpnaPTQ="
+    },
+    "pixy2": {
+      "version": "0-unstable-2024-07-17",
+      "rawVersion": "d7c38d49ae8071b58e46f5b35eda927dd2b7c621",
+      "date": "2024-07-17",
+      "src": {
+        "fetcher": "github",
+        "owner": "charmedlabs",
+        "repo": "pixy2",
+        "rev": "d7c38d49ae8071b58e46f5b35eda927dd2b7c621",
+        "hash": "sha256-w0t7KqV8OS3PJBdZtLn86zknQYo70rBv7fuK/UFx9zQ="
+      },
+      "fingerprint": "sha256-DVfNywYSFo1CsGMlZETK498c+tENR0KgB2W1cJxOe48="
+    },
+    "shard": {
+      "version": "0.1.28-unstable-2026-10-21",
+      "rawVersion": "cf184267f48bc25774c47b3530b7418524813c2b",
+      "date": "2026-10-21",
+      "src": {
+        "fetcher": "github",
+        "owner": "Th0rgal",
+        "repo": "shard",
+        "rev": "cf184267f48bc25774c47b3530b7418524813c2b",
+        "hash": "sha256-oF07KgFoo7WmOjLBgCkkXXfzi7O308HDLbsSj8X2IS0="
+      },
+      "derived": {
+        "cargoLock": {
+          "lockfile": "shard/src/Cargo.lock"
+        },
+        "npmDeps": {
+          "lockfile": "shard/src/desktop/package-lock.json"
+        }
+      },
+      "fingerprint": "sha256-Qwjd2w1hXDJ961HrQYbkshOGXiKiIkm/dtDsPAiKvPQ="
+    },
+    "shlink": {
+      "version": "5.1.8",
+      "rawVersion": "v5.1.8",
+      "src": {
+        "fetcher": "github",
+        "owner": "shlinkio",
+        "repo": "shlink",
+        "rev": "v5.1.8",
+        "hash": "sha256-bkmqNwRTZqr0rLc0QLN5W3uJdfcfkY53P0vhed3j21w="
+      },
+      "fingerprint": "sha256-yTL6US3HN4TBh/e8Qvl1DEEOO+j/G3Sr8tN41q70ffw="
+    },
+    "subconverter": {
+      "version": "0-unstable-2026-07-08",
+      "rawVersion": "a0d4eab28cb8b6c782d4ce5c3a918de4829b4a72",
+      "date": "2026-07-08",
+      "src": {
+        "fetcher": "github",
+        "owner": "tindy2013",
+        "repo": "subconverter",
+        "rev": "a0d4eab28cb8b6c782d4ce5c3a918de4829b4a72",
+        "hash": "sha256-5GH2HEcloEc6XooJ0YclLF7XS/0KGOVnaK8Nsy0mSUg="
+      },
+      "fingerprint": "sha256-9kAZWrm5vPSy+g3aclzhdexDa5XRwxAPKD85rVPVRrs="
+    },
+    "superpowers-skills": {
+      "version": "0-unstable-2026-11-03",
+      "rawVersion": "22f0b463e7a5e579904dd6211a520321035526f7",
+      "date": "2026-11-03",
+      "src": {
+        "fetcher": "github",
+        "owner": "obra",
+        "repo": "superpowers",
+        "rev": "22f0b463e7a5e579904dd6211a520321035526f7",
+        "hash": "sha256-rP5YsyGuPd9YSW/Fj3aukrq1bLuV+nwwQMK4JaZQgkI="
+      },
+      "fingerprint": "sha256-5Y6zttRaxAr2jJCmMPG71WGzSnE1O6JO2MamvipnucE="
+    },
+    "udpxy": {
+      "version": "1.0-25.2",
+      "rawVersion": "1.0-25.2",
+      "src": {
+        "fetcher": "github",
+        "owner": "pcherenkov",
+        "repo": "udpxy",
+        "rev": "1.0-25.2",
+        "hash": "sha256-v+w4Y6MyJqUrgwuYUYTZW0Zn1jhW4vEpgBEQyEjvkzg="
+      },
+      "fingerprint": "sha256-imgtibGyweQKSt73wcN8RnflrzCvxGnXE2OOGS5lLSs="
+    },
+    "uu-remote-linux": {
+      "version": "0.2.57",
+      "rawVersion": "v0.2.57",
+      "src": {
+        "fetcher": "github",
+        "owner": "VallierDev",
+        "repo": "uu-remote-linux",
+        "rev": "v0.2.57",
+        "hash": "sha256-BbUF5hlso+FJbC8xgTaqSYzuJiYhJuMnbqQG2/e3yww="
+      },
+      "derived": {
+        "cargoLock": {
+          "lockfile": "uu-remote-linux/src/Cargo.lock"
+        }
+      },
+      "fingerprint": "sha256-bkfLJkEtLMz1h+WpImLqmsX1w0C+bC6LFQVif/RSb0s="
+    },
+    "v2ray-rules-dat": {
+      "version": "0-unstable-2026-11-10",
+      "rawVersion": "35dc401906ec5d3a69c134238b43a010fdaafe7b",
+      "date": "2026-11-10",
+      "src": {
+        "fetcher": "github",
+        "owner": "Loyalsoldier",
+        "repo": "v2ray-rules-dat",
+        "rev": "35dc401906ec5d3a69c134238b43a010fdaafe7b",
+        "hash": "sha256-twGeZRjxqzhsPnBeOtVny/rqdwtxJc/PsNU3YmUjNRo="
+      },
+      "fingerprint": "sha256-x1jWMHpIIz6TUNutapXxc1DXMdN+WkimjPLB8MahUn8="
+    },
+    "whois42d-ng": {
+      "version": "2.1.1-unstable-2026-11-02",
+      "rawVersion": "60da3ef880cbad8d6b82488aebc7d9bd39d43076",
+      "date": "2026-11-02",
+      "src": {
+        "fetcher": "github",
+        "owner": "moraxyc",
+        "repo": "whois42d-ng",
+        "rev": "60da3ef880cbad8d6b82488aebc7d9bd39d43076",
+        "hash": "sha256-fb2qg1Yv4yjkyfxwHOcugNF9fZZX2q2gNHHiz2fVqWc="
+      },
+      "derived": {
+        "cargoLock": {
+          "lockfile": "whois42d-ng/src/Cargo.lock"
+        }
+      },
+      "fingerprint": "sha256-8Gu7h6sTB+D1pWI3dvTh8/PFerDzpMmFydAyMyXKiq4="
+    },
+    "ztnet": {
+      "version": "0.8.7",
+      "rawVersion": "v0.8.7",
+      "src": {
+        "fetcher": "github",
+        "owner": "sinamics",
+        "repo": "ztnet",
+        "rev": "v0.8.7",
+        "hash": "sha256-dL5aYVmYWkPl2ZrSOaquNacnh4k0suauUco9dJPeohQ="
+      },
+      "derived": {
+        "npmDeps": {
+          "lockfile": "ztnet/src/package-lock.json"
+        },
+        "ztmkworldVendorHash": {
+          "hash": "sha256-ry0usPZf6/Nsj3GcIKG34/EkhJ+9QJ1fK2VF69z+z+8="
+        }
+      },
+      "fingerprint": "sha256-0FfXl9SwxTqrROILX8qbVZXGcc1rORvkJW25UvuQVUU="
+    }
+  }
+}

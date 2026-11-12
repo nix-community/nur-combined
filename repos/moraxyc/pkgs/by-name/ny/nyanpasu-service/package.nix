@@ -11,7 +11,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   inherit (source) pname version src;
 
-  cargoDeps = rustPlatform.importCargoLock source.cargoLock."Cargo.lock";
+  cargoDeps = rustPlatform.importCargoLock source.cargoLock;
 
   env = {
     # nightly features

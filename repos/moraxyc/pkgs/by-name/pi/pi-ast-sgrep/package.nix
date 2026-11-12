@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   __structuredAttrs = true;
   strictDeps = true;
 
-  cargoLock = source.cargoLock."Cargo.lock";
+  cargoLock = source.cargoLock;
 
   nativeBuildInputs = [
     nodejs

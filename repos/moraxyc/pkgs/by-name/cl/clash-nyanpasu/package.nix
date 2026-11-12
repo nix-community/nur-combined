@@ -56,7 +56,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoDeps =
     let
-      originalCargoDeps = rustPlatform.importCargoLock source.cargoLock."backend/Cargo.lock";
+      originalCargoDeps = rustPlatform.importCargoLock source.cargoLock;
       patchedCargoDeps = originalCargoDeps.overrideAttrs (old: {
         buildCommand = lib.replaceString ''ln -s "$crate" $out/$(basename "$crate" | cut -c 34-)'' ''
           dest="$out/$(basename "$crate" | cut -c 34-)"

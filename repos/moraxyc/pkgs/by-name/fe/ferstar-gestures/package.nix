@@ -15,7 +15,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   inherit (source) pname version src;
 
-  cargoLock.lockFile = source.cargoLock."Cargo.lock".lockFile;
+  cargoLock.lockFile = source.cargoLock.lockFile;
 
   nativeBuildInputs = [
     pkg-config
