@@ -29,18 +29,6 @@
     overlays.default = final: _prev:
       removeAttrs (import ./default.nix {pkgs = final;}) ["modules"];
 
-    # fetchTree instead of the src derivation: a module is not per-system, and an
-    # x86_64-linux fetcher derivation cannot be built on aarch64.
-    nixosModules = let
-      src = (nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/vpn-tui {}).src;
-    in
-      import ./modules {
-        vpnTuiSrc = builtins.fetchTree {
-          type = "github";
-          inherit (src) owner repo;
-          ref = src.rev;
-          narHash = src.outputHash;
-        };
-      };
+    nixosModules = import ./modules;
   };
 }

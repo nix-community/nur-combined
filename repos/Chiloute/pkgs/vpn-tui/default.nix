@@ -13,7 +13,7 @@ let
     owner = "Chiloute";
     repo = "vpn-tui";
     rev = "v${version}";
-    hash = "sha256-JpNXMpAv/o2y38n0a065WXjmAd4g1AgR6XcwP34J5DU=";
+    hash = "sha256-KL1NLPkqr1EJp4XpAwjadiPaZPen5QAklZ3uDQneNMU=";
   };
 
   vpn-tuid = callPackage "${src}/nix/daemon.nix" { inherit version; };

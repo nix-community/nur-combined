@@ -1,23 +1,25 @@
 # NixOS modules imported from the tagged upstream source: no copy kept in this repo.
-# `imports` cannot depend on the module system's `pkgs`, hence the source passed in here.
-{vpnTuiSrc}: {
+# `imports` cannot depend on the module system's `pkgs`, and NUR evaluates this file with
+# pkgs = throw: the pin is read from the package file with stub fetchers and fetched with builtins.
+let
+  pin =
+    (import ../pkgs/vpn-tui {
+      lib = null;
+      callPackage = null;
+      symlinkJoin = args: args;
+      fetchFromGitHub = args: args;
+    }).passthru.src;
+  vpnTuiSrc = builtins.fetchTarball {
+    url = "https://github.com/${pin.owner}/${pin.repo}/archive/${pin.rev}.tar.gz";
+    sha256 = pin.hash;
+  };
+in {
   vpn-tui = {
     lib,
     pkgs,
     ...
-  }: let
-    upstream = import "${vpnTuiSrc}/nix/module.nix";
-    package = pkgs.callPackage ../pkgs/vpn-tui {};
-  in {
-    # shortcut: v0.1.0's module takes the flake `self`; a plain module (named args) is used as is.
-    # Remove the `self` branch once every supported tag ships the plain module.
-    imports = [
-      (
-        if builtins.functionArgs upstream == {}
-        then upstream {packages.${pkgs.stdenv.hostPlatform.system}.default = package;}
-        else upstream
-      )
-    ];
-    services.vpn-tui.package = lib.mkDefault package;
+  }: {
+    imports = ["${vpnTuiSrc}/nix/module.nix"];
+    services.vpn-tui.package = lib.mkDefault (pkgs.callPackage ../pkgs/vpn-tui {});
   };
 }
