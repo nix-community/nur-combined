@@ -17,6 +17,7 @@ jobs:
 
       - uses: cachix/install-nix-action@v31
         with:
+          nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
@@ -28,12 +29,12 @@ jobs:
 
           for pkg in "${python_pkgs[@]}"; do
             echo "==> $pkg"
-            nix run nixpkgs#nix-update -- --flake "$pkg" || true
+            nix run nixpkgs#nix-update -- "$pkg" || true
           done
 
           for pkg in "${go_pkgs[@]}"; do
             echo "==> $pkg"
-            nix run nixpkgs#nix-update -- --flake --build "$pkg" || true
+            nix run nixpkgs#nix-update -- --build "$pkg" || true
           done
 
       - uses: peter-evans/create-pull-request@v8
