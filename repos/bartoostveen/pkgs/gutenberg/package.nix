@@ -9,7 +9,7 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "gutenberg";
-  version = "24.3.1";
+  version = "24.4.0";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -18,7 +18,7 @@ buildNpmPackage (finalAttrs: {
     owner = "WordPress";
     repo = "gutenberg";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-zHeFggRYAxmo9fwGT2iV6Ei39D7TgLBwycQUSbGfxfI=";
+    hash = "sha256-7OjKOAnj2mN4QF1mjwJHc+ebcU5U40KKosVx8dTXAo8=";
   };
 
   patches = [
@@ -36,7 +36,7 @@ buildNpmPackage (finalAttrs: {
   npmBuildScript = "build:plugin-zip";
   npmRebuildFlags = [ "--dangerously-allow-all-scripts" ];
 
-  npmDepsHash = "sha256-DFGLfZ0OdmkCsVoOUVvmIhgmHKbRTIO9m2RH99B7q0E=";
+  npmDepsHash = "sha256-2w+BJkSh2fYNbTL8hp+Ph1cFJjtQB5m9abtEyvV6W5s=";
   npmDepsFetcherVersion = 2;
 
   env.NO_CHECKS = "true"; # avoids git clean
