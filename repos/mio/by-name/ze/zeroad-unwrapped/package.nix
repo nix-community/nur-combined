@@ -1,6 +1,7 @@
 {
   stdenv,
   lib,
+  callPackage,
   perl,
   fetchurl,
   fetchpatch,
@@ -8,7 +9,6 @@
   fmt_9,
   libidn,
   pkg-config,
-  spidermonkey_128,
   boost,
   icu,
   libxml2,
@@ -42,6 +42,10 @@
 # https://gitea.wildfiregames.com/0ad/0ad/wiki/BuildInstructions
 
 let
+  # 0 A.D. 0.28 only supports mozjs 128, which nixpkgs no longer ships, so the
+  # derivation is vendored from f6bf1059f025 (the last pin that had it).
+  spidermonkey_128 = callPackage ./spidermonkey-128/128.nix { };
+
   # When updating 0 A.D., check for necessary SpiderMonkey patches here:
   # https://gitea.wildfiregames.com/0ad/0ad/src/branch/main/libraries/source/spidermonkey/patches
   spidermonkey = spidermonkey_128.overrideAttrs (old: {
