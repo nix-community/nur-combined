@@ -10,7 +10,7 @@
   libidn,
   pkg-config,
   boost,
-  icu,
+  icu75,
   libxml2,
   libpng,
   libsodium,
@@ -75,10 +75,14 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
+  # 0 A.D. does not pin ICU: its premake looks it up with pkg-config
+  # (icu-i18n/icu-uc), so it would take the default icu (78) while the mozjs 128
+  # we build links icu75. Two ICU majors in one binary is unsupported, so use
+  # the ICU the engine is built against.
   buildInputs = [
     spidermonkey
     boost
-    icu
+    icu75
     libxml2
     libpng
     libjpeg

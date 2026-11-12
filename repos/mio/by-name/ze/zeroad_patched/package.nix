@@ -1,32 +1,38 @@
 {
   buildEnv,
-  icu,
   makeWrapper,
   zeroad-unwrapped,
   zeroad-data,
+  icu77,
   spidermonkey_140,
 }:
 
 let
-  # nixpkgs' spidermonkey_140 is built against icu77 (the ICU Firefox ESR 140
-  # ships), while 0 A.D. and the wxWidgets stack behind its Atlas editor use the
-  # default ICU (78). Loading two ICU major versions into one process is not
-  # supported: the linker warns about the conflicting libicuuc sonames and only
-  # ICU's versioned C++ namespaces keep the two copies apart. icu77 is only a
-  # conservative default (mozjs 128 used icu75 for the same reason), so build
-  # mozjs against the ICU version the rest of the closure uses.
-  spidermonkey = spidermonkey_140.override { icu77 = icu; };
-
   # 0 A.D. 0.28 targets SpiderMonkey 128, which nixpkgs no longer ships.
-  # spidermonkey-140.patch ports the source to the ESR 140 API (scope chains,
-  # JobQueue::getHostDefinedData, JS::Heap::unsafeAddress) and teaches the
-  # premake build to look for mozjs-140 instead of mozjs-128.
+  # spidermonkey-140.patch is upstream PR #9350 ("Update SpiderMonkey to ESR
+  # 140.1") applied to the 0.28.0 release; only its file renames are adapted to
+  # the 0.28.0 tree and the vendored-mozjs/CI hunks are dropped, since we build
+  # against system mozjs 140.
+  #
+  # 0 A.D. takes ICU from pkg-config, so it would pick the default icu (78)
+  # while nixpkgs' spidermonkey_140 links icu77 (the ICU Firefox ESR 140
+  # ships). Two ICU majors in one binary is unsupported, so build the game
+  # against the same ICU as the engine instead of rebuilding mozjs.
   unwrapped = zeroad-unwrapped.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ./spidermonkey-140.patch ];
 
-    buildInputs = builtins.filter (x: (x.pname or "") != "spidermonkey") (old.buildInputs or [ ]) ++ [
-      spidermonkey
-    ];
+    buildInputs =
+      builtins.filter (
+        x:
+        !(builtins.elem (x.pname or "") [
+          "spidermonkey"
+          "icu4c"
+        ])
+      ) (old.buildInputs or [ ])
+      ++ [
+        icu77
+        spidermonkey_140
+      ];
   });
 in
 assert unwrapped.version == zeroad-data.version;

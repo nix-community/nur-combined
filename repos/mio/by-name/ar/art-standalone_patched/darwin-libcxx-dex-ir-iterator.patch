@@ -1,0 +1,14 @@
+--- a/art/dexlayout/dex_ir.h
++++ b/art/dexlayout/dex_ir.h
+@@ -197,7 +197,10 @@
+   }
+ 
+   reference operator[](difference_type n) const {
+-    return (*vector_)[position_ + n];
++    // libc++ 22's std::sort reads elements through operator[]; vector_ is a
++    // const pointer, so its elements are const.  Return the mutable reference
++    // the adapter promises, the same way operator* and operator-> do.
++    return const_cast<reference>((*vector_)[position_ + n]);
+   }
+ 
+  private:

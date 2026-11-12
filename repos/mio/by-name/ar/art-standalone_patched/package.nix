@@ -64,6 +64,9 @@ let
     # Thin lock whose owner thread is gone: clear it instead of spinning.
     ./darwin-arm64-abandoned-lock.patch
     ./darwin-misc.patch
+    # libc++ 22's std::sort goes through Iterator::operator[], which has to hand
+    # back a mutable reference from the const vector it stores.
+    ./darwin-libcxx-dex-ir-iterator.patch
     # Skip CHECK_EQ(sysconf(_SC_PAGE_SIZE), kPageSize) on Apple Silicon where
     # the host page size is 16 KB but ART's kPageSize is compiled as 4 KB.
     ./darwin-page-size.patch

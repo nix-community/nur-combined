@@ -1,8 +1,36 @@
 diff --git a/build/premake/extern_libs5.lua b/build/premake/extern_libs5.lua
-index b9fdd70..5a4576e 100644
+index b9fdd70..c40fa19 100644
 --- a/build/premake/extern_libs5.lua
 +++ b/build/premake/extern_libs5.lua
-@@ -641,7 +641,7 @@ extern_lib_defs = {
+@@ -628,12 +628,23 @@ extern_lib_defs = {
+ 	},
+ 	spidermonkey = {
+ 		compile_settings = function()
+-			-- This define is not supposed to be needed anymore, but it leaks into the
+-			-- SpiderMonkey headers, and is necessary to build with ESR140 at the time
++			-- These defines are not supposed to be needed anymore, but they leak into the
++			-- SpiderMonkey headers, and are necessary to build with ESR140 at the time
+ 			-- of writing (https://bugzilla.mozilla.org/show_bug.cgi?id=1987876).
+-			filter "system:windows"
++			-- They must match the ones SpiderMonkey itself is built with, see
++			-- build/moz.configure/init.configure, otherwise the shared headers take
++			-- different branches (UniquePtrExtensions.h errors out without XP_UNIX,
++			-- HeapAPI.h gets the wrong page size on Apple Silicon...).
++			if os.istarget("windows") then
+ 				defines { "XP_WIN" }
+-			filter { }
++			else
++				defines { "XP_UNIX" }
++				if os.istarget("linux") then
++					defines { "XP_LINUX" }
++				elseif os.istarget("macosx") then
++					defines { "XP_DARWIN", "XP_MACOSX" }
++				end
++			end
+ 
+ 			filter "Debug"
+ 				defines { "MOZ_DIAGNOSTIC_ASSERT_ENABLED" }
+@@ -641,7 +652,7 @@ extern_lib_defs = {
  
  			if _OPTIONS["with-system-mozjs"] then
  				if not _OPTIONS["android"] then
@@ -11,7 +39,7 @@ index b9fdd70..5a4576e 100644
  				end
  			else
  				filter "Debug"
-@@ -655,9 +655,9 @@ extern_lib_defs = {
+@@ -655,17 +666,17 @@ extern_lib_defs = {
  		link_settings = function()
  			if _OPTIONS["with-system-mozjs"] then
  				if _OPTIONS["android"] then
@@ -23,6 +51,17 @@ index b9fdd70..5a4576e 100644
  				end
  			else
  				filter { "Debug" }
+-					links { "mozjs128-debug" }
++					links { "mozjs-140-debug" }
+ 				filter { "Release" }
+-					links { "mozjs128-release" }
++					links { "mozjs-140-release" }
+ 				filter { }
+-				links { "mozjs128-rust" }
++				links { "mozjs-140-rust" }
+ 				add_source_lib_paths("spidermonkey")
+ 			end
+ 		end,
 diff --git a/build/premake/premake5.lua b/build/premake/premake5.lua
 index 357b08f..9669055 100644
 --- a/build/premake/premake5.lua
@@ -46,7 +85,7 @@ index 357b08f..9669055 100644
  		mozjs_is_debug_build = true
  	end
 diff --git a/source/gui/ObjectBases/IGUIObject.cpp b/source/gui/ObjectBases/IGUIObject.cpp
-index ea20d22..8a26d9e 100644
+index ea20d22..aaa6b59 100644
 --- a/source/gui/ObjectBases/IGUIObject.cpp
 +++ b/source/gui/ObjectBases/IGUIObject.cpp
 @@ -39,6 +39,7 @@
@@ -62,23 +101,70 @@ index ea20d22..8a26d9e 100644
  	JS::SourceText<mozilla::Utf8Unit> src;
  	ENSURE(src.init(rq.cx, Code.c_str(), Code.length(), JS::SourceOwnership::Borrowed));
 -	JS::RootedObjectVector emptyScopeChain(rq.cx);
-+	JS::EnvironmentChain emptyScopeChain(rq.cx, JS::SupportUnscopables::No);
++	JS::EnvironmentChain emptyScopeChain{ rq.cx, JS::SupportUnscopables::No };
  	JS::RootedFunction func(rq.cx, JS::CompileFunction(rq.cx, emptyScopeChain, options, buf, paramCount, paramNames, src));
  	if (func == nullptr)
  	{
+diff --git a/source/renderer/backend/vulkan/VMA.h b/source/renderer/backend/vulkan/VMA.h
+index d2c7c6b..90bde62 100644
+--- a/source/renderer/backend/vulkan/VMA.h
++++ b/source/renderer/backend/vulkan/VMA.h
+@@ -65,8 +65,12 @@
+ 
+ // GCC before 13 doesn't account some diagnostics:
+ //   https://gcc.gnu.org/bugzilla/show_bug.cgi?id=53431
++// VMA tests the MSVC-specific _MSVC_LANG in an #if, so define it for GCC to
++// avoid -Wundef. Needs to be undefined again below, as >=fmt-11 would take the
++// pre-C++14 code path and fail to build with <gcc-15.
+ #if GCC_VERSION && !defined(_MSVC_LANG)
+ #define _MSVC_LANG 0
++#define RENDERER_BACKEND_VULKAN_VMA_MSVC_LANG
+ #endif
+ 
+ // VMA always uses extension variants and glad doesn't provide extension
+@@ -112,6 +116,11 @@
+ 
+ #include "third_party/vma/vk_mem_alloc.h"
+ 
++#ifdef RENDERER_BACKEND_VULKAN_VMA_MSVC_LANG
++#undef _MSVC_LANG
++#undef RENDERER_BACKEND_VULKAN_VMA_MSVC_LANG
++#endif
++
+ #if GCC_VERSION
+ #pragma GCC diagnostic pop
+ #endif
+diff --git a/source/scriptinterface/FunctionWrapper.h b/source/scriptinterface/FunctionWrapper.h
+index 5e39d6a..267aab6 100644
+--- a/source/scriptinterface/FunctionWrapper.h
++++ b/source/scriptinterface/FunctionWrapper.h
+@@ -321,7 +321,10 @@ public:
+ 		{
+ 			obj = thisGetter(rq, args);
+ 			if (!obj)
++			{
++				ScriptException::ReportUncatchable(rq);
+ 				return false;
++			}
+ 		}
+ #ifdef __GNUC__
+ #pragma GCC diagnostic pop
+@@ -331,7 +334,10 @@ public:
+ 		typename args_info<callable>::arg_types outs = ConvertFromJS(rq, args, wentOk,
+ 			static_cast<typename args_info<callable>::arg_types*>(nullptr));
+ 		if (!wentOk)
++		{
++			ScriptException::ReportUncatchable(rq);
+ 			return false;
++		}
+ 
+ 		try
+ 		{
 diff --git a/source/scriptinterface/Promises.cpp b/source/scriptinterface/Promises.cpp
-index 303ab26..a5b71c6 100644
+index 303ab26..3077726 100644
 --- a/source/scriptinterface/Promises.cpp
 +++ b/source/scriptinterface/Promises.cpp
-@@ -28,6 +28,7 @@
- #include <js/CallAndConstruct.h>
- #include <js/GlobalObject.h>
- #include <js/Promise.h>
-+#include <js/Realm.h>
- #include <js/Value.h>
- #include <js/ValueArray.h>
- #include <string>
-@@ -69,9 +70,10 @@ void JobQueue::runJobs(JSContext*)
+@@ -69,9 +69,10 @@ void JobQueue::runJobs(JSContext*)
  	}
  }
  
@@ -105,18 +191,80 @@ index 4403e09..b2e3cbe 100644
  	bool enqueuePromiseJob(JSContext* cx, JS::HandleObject, JS::HandleObject job, JS::HandleObject,
  		JS::HandleObject) final;
 diff --git a/source/scriptinterface/ScriptContext.cpp b/source/scriptinterface/ScriptContext.cpp
-index 19cce27..6c96e65 100644
+index 19cce27..626f803 100644
 --- a/source/scriptinterface/ScriptContext.cpp
 +++ b/source/scriptinterface/ScriptContext.cpp
-@@ -259,7 +259,7 @@ void ScriptContext::MaybeIncrementalGC()
+@@ -20,7 +20,6 @@
+ #include "ScriptContext.h"
+ 
+ #include "js/Modules.h"
+-#include "js/friend/PerformanceHint.h"
+ #include "lib/alignment.h"
+ #include "lib/debug.h"
+ #include "ps/Profile.h"
+@@ -139,6 +138,9 @@ ScriptContext::ScriptContext(int contextSize, uint32_t heapGrowthBytesGCTrigger)
+ 	JS_SetGCParameter(m_cx, JSGC_SLICE_TIME_BUDGET_MS, 6);
+ 	JS_SetGCParameter(m_cx, JSGC_MIN_LAST_DITCH_GC_PERIOD, 0);
+ 
++	// Turn off nursery size heuristic.
++	// See https://gitea.wildfiregames.com/0ad/0ad/issues/7714 for details.
++	JS_SetGCParameter(m_cx, JSGC_NURSERY_MAX_TIME_GOAL_MS, 0);
+ 
+ 	JS_SetOffthreadIonCompilationEnabled(m_cx, true);
+ 
+@@ -157,10 +159,6 @@ ScriptContext::ScriptContext(int contextSize, uint32_t heapGrowthBytesGCTrigger)
+ 	JS_SetGlobalJitCompilerOption(m_cx, JSJITCOMPILER_SPECTRE_STRING_MITIGATIONS, 0);
+ 	JS_SetGlobalJitCompilerOption(m_cx, JSJITCOMPILER_SPECTRE_OBJECT_MITIGATIONS, 0);
+ 
+-	// Workaround to turn off nursery size heuristic.
+-	// See https://gitea.wildfiregames.com/0ad/0ad/issues/7714 for details.
+-	js::gc::SetPerformanceHint(m_cx, js::gc::PerformanceHint::InPageLoad);
+-
+ 	ScriptEngine::GetSingleton().RegisterContext(m_cx);
+ 
+ 	JS::SetJobQueue(m_cx, m_JobQueue.get());
+@@ -181,9 +179,6 @@ ScriptContext::~ScriptContext()
+ 	JS::SetModuleResolveHook(runtime, nullptr);
+ 	JS::SetModuleMetadataHook(runtime, nullptr);
+ 
+-	// Switch back to normal performance mode to avoid assertion in debug mode.
+-	js::gc::SetPerformanceHint(m_cx, js::gc::PerformanceHint::Normal);
+-
+ 	JS_DestroyContext(m_cx);
+ 	ScriptEngine::GetSingleton().UnRegisterContext(m_cx);
+ }
+@@ -259,7 +254,7 @@ void ScriptContext::MaybeIncrementalGC()
  #endif
  
  		// There is a tradeoff between this time and the number of frames we must run GCs on, but overall we should prioritize smooth framerates.
 -		const js::SliceBudget GCSliceTimeBudget = js::SliceBudget(js::TimeBudget(6)); // Milliseconds an incremental slice is allowed to run. SM respects this fairly well.
-+		const JS::SliceBudget GCSliceTimeBudget{JS::TimeBudget(6)}; // Milliseconds an incremental slice is allowed to run. SM respects this fairly well.
++		const JS::SliceBudget GCSliceTimeBudget = JS::SliceBudget(JS::TimeBudget(6)); // Milliseconds an incremental slice is allowed to run. SM respects this fairly well.
  
  		PrepareZonesForIncrementalGC();
  		if (!JS::IsIncrementalGCInProgress(m_cx))
+diff --git a/source/scriptinterface/ScriptConversions.cpp b/source/scriptinterface/ScriptConversions.cpp
+index a95eded..c582845 100644
+--- a/source/scriptinterface/ScriptConversions.cpp
++++ b/source/scriptinterface/ScriptConversions.cpp
+@@ -32,13 +32,16 @@
+ #include <jsapi.h>
+ #include <string>
+ 
+-// Catch the raised exception right away to ensure the stack trace gets printed.
+-#define FAIL(msg) STMT(ScriptException::Raise(rq, msg); ScriptException::CatchPending(rq); return false)
++// Catch the raised exception right away to ensure the stack trace gets
++// printed. The script is then aborted without a catchable exception which is
++// required since ESR 140.
++#define FAIL(msg) STMT(ScriptException::Raise(rq, msg); ScriptException::CatchPending(rq); ScriptException::ReportUncatchable(rq); return false)
+ 
+ // Implicit type conversions often hide bugs, so fail.
+ #define FAIL_IF_NOT(c, v) STMT(if (!(c)) { \
+ 	ScriptException::Raise(rq, "Script value conversion check failed: %s (got type %s)", #c, JS::InformalValueTypeName(v)); \
+ 	ScriptException::CatchPending(rq); \
++	ScriptException::ReportUncatchable(rq); \
+ 	return false; \
+ })
+ 
 diff --git a/source/scriptinterface/ScriptEngine.h b/source/scriptinterface/ScriptEngine.h
 index 5a8f65f..d954942 100644
 --- a/source/scriptinterface/ScriptEngine.h
@@ -130,8 +278,44 @@ index 5a8f65f..d954942 100644
  #error Your compiler is trying to use an incorrect major version of the \
  SpiderMonkey library. The SpiderMonkey API is subject to changes, and the \
  game will not build with the selected version of the library. Make sure \
+diff --git a/source/scriptinterface/ScriptExceptions.cpp b/source/scriptinterface/ScriptExceptions.cpp
+index 71ed549..ea6f642 100644
+--- a/source/scriptinterface/ScriptExceptions.cpp
++++ b/source/scriptinterface/ScriptExceptions.cpp
+@@ -106,6 +106,12 @@ bool ScriptException::CatchPending(const ScriptRequest& rq)
+ 	return true;
+ }
+ 
++void ScriptException::ReportUncatchable(const ScriptRequest& rq)
++{
++	if (!JS_IsExceptionPending(rq.cx))
++		JS::ReportUncatchableException(rq.cx);
++}
++
+ void ScriptException::Raise(const ScriptRequest& rq, const char* format, ...)
+ {
+ 	va_list ap;
+diff --git a/source/scriptinterface/ScriptExceptions.h b/source/scriptinterface/ScriptExceptions.h
+index 823c4bd..eb3208f 100644
+--- a/source/scriptinterface/ScriptExceptions.h
++++ b/source/scriptinterface/ScriptExceptions.h
+@@ -37,6 +37,14 @@ bool IsPending(const ScriptRequest& rq);
+  */
+ bool CatchPending(const ScriptRequest& rq);
+ 
++/**
++ * Since ESR140, SpiderMonkey asserts in debug builds that a JSNative returning
++ * false reported an exception (js::AssertExceptionResult), so this must be called
++ * whenever an error was only logged instead of being propagated - notably after
++ * CatchPending.
++ */
++void ReportUncatchable(const ScriptRequest& rq);
++
+ /**
+  * Raise a JS exception from C++ code.
+  * This is only really relevant in JSNative functions that don't use ObjectOpResult,
 diff --git a/source/scriptinterface/ScriptInterface.cpp b/source/scriptinterface/ScriptInterface.cpp
-index 0ca2a0e..4185719 100644
+index 0ca2a0e..869a4cf 100644
 --- a/source/scriptinterface/ScriptInterface.cpp
 +++ b/source/scriptinterface/ScriptInterface.cpp
 @@ -43,6 +43,7 @@
@@ -147,7 +331,7 @@ index 0ca2a0e..4185719 100644
  	JS::SourceText<mozilla::Utf8Unit> src;
  	ENSURE(src.init(rq.cx, code.c_str(), code.length(), JS::SourceOwnership::Borrowed));
 -	JS::RootedObjectVector emptyScopeChain(rq.cx);
-+	JS::EnvironmentChain emptyScopeChain(rq.cx, JS::SupportUnscopables::No);
++	JS::EnvironmentChain emptyScopeChain{ rq.cx, JS::SupportUnscopables::No };
  	JS::RootedFunction func(rq.cx, JS::CompileFunction(rq.cx, emptyScopeChain, options, NULL, 0, NULL, src));
  	if (func == nullptr)
  	{
@@ -188,3 +372,23 @@ index 8068384..b3d6923 100644
  	} \
  	void RegisterComponentInterface_##iname(ScriptInterface& scriptInterface) { \
  		ICmp##iname::InterfaceInit(scriptInterface); \
+diff --git a/source/third_party/ogre3d_preprocessor/OgreGLSLPreprocessor.cpp b/source/third_party/ogre3d_preprocessor/OgreGLSLPreprocessor.cpp
+index 44bb7bc..a585a41 100644
+--- a/source/third_party/ogre3d_preprocessor/OgreGLSLPreprocessor.cpp
++++ b/source/third_party/ogre3d_preprocessor/OgreGLSLPreprocessor.cpp
+@@ -423,9 +423,13 @@ namespace Ogre
+ 
+             if (args.size() > cur->Args.size())
+             {
+-                char tmp [60];
++                char tmp [128];
++                // The name isn't NUL-terminated, so limit it to what fits:
++                int nameLen = int (cur->Name.Length);
++                if (nameLen > 40)
++                    nameLen = 40;
+                 snprintf (tmp, sizeof (tmp), "Macro `%.*s' passed %zu arguments, but takes just %zu",
+-                          int (cur->Name.Length), cur->Name.String,
++                          nameLen, cur->Name.String,
+                           args.size(), cur->Args.size());
+                 ErrorHandler (old_line, tmp, nullptr);
+                 return Token (Token::TK_ERROR);
