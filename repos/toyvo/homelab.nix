@@ -564,6 +564,8 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAiHxhZFUQIrOII6q1A5rOB3ZIzPy5mExKoKoMiRwxsC";
     "github_toyvo_auth_ed25519.pub" =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFt+KZ8CWXZjeejGWUcatiJFUAkLJtiMyH/wSNMxxuj1 Collin@Diekvoss.com";
+    "herdr_mobile_pixel10a_ed25519.pub" =
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILbApZSu6caJno0csqUoyDbVPLssy5xSYug94LZ3JIGW herdr-mobile";
     "ssh_toyvo_auth_ed25519.pub" =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEBGYGku1g/rV12/PJp4rLKeutPU/tZ5scl3ZA5t9iqG";
     "yubikey_usba_ed25519_sk.pub" =

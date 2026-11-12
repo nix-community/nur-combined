@@ -257,9 +257,10 @@ in
               home = homePath;
               shell = pkgs.fish;
               openssh.authorizedKeys.keys = [
+                homelab.publicKeys."herdr_mobile_pixel10a_ed25519.pub"
                 homelab.publicKeys."ssh_toyvo_auth_ed25519.pub"
-                homelab.publicKeys."yubikey_usbc_ed25519_sk.pub"
                 homelab.publicKeys."yubikey_usba_ed25519_sk.pub"
+                homelab.publicKeys."yubikey_usbc_ed25519_sk.pub"
               ];
             }
             (lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
