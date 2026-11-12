@@ -232,11 +232,15 @@
             pre-commit-check = inputs.git-hooks.lib.${system}.run {
               src = ./.;
               hooks = {
-                treefmt.enable = true;
+                treefmt = {
+                  enable = true;
+                  package = treefmtEval.config.build.wrapper;
+                };
               };
             };
           };
           devShells.default = pkgs.mkShell {
+            shellHook = inputs.self.checks.${system}.pre-commit-check.shellHook;
             packages = [
               pkgs.just
               pkgs.nh

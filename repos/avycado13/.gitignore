@@ -2,6 +2,7 @@
 machines/.DS_Store
 modules/.DS_Store
 .direnv
+.pre-commit-config.yaml
 old.json
 result
 result/

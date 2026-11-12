@@ -8,8 +8,12 @@ removeAttrs nur [ "overlays" ]
   scooter =
     let
       hasInput = inputs: pkg: builtins.any (input: prev.lib.getName input == prev.lib.getName pkg) inputs;
-      missingNative = prev.lib.optional (!(hasInput prev.scooter.nativeBuildInputs prev.pkg-config)) prev.pkg-config;
-      missingBuild = prev.lib.optional (!(hasInput prev.scooter.buildInputs prev.oniguruma)) prev.oniguruma;
+      missingNative = prev.lib.optional (
+        !(hasInput prev.scooter.nativeBuildInputs prev.pkg-config)
+      ) prev.pkg-config;
+      missingBuild = prev.lib.optional (
+        !(hasInput prev.scooter.buildInputs prev.oniguruma)
+      ) prev.oniguruma;
     in
     # Pass through upstream unchanged once it declares both dependencies.
     if missingNative == [ ] && missingBuild == [ ] then
