@@ -6,19 +6,19 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "2.4.0",
+  "version": "2.5.0",
   "platforms": {
     "x86_64-linux": {
       "file": "Brisk-v{version}-linux-x86_64.tar.xz",
-      "hash": "sha256-UhsjPhdy2MxVxY+5D3a5XlB9Qg4AZ3GAZlusMPHksKk="
+      "hash": "sha256-9o4pjLfvETdbAQTWmYbcFmC+BQfayMc5aqLfrBFaw20="
     },
     "aarch64-darwin": {
       "file": "Brisk-v{version}-macos.dmg",
-      "hash": "sha256-pEHSlTIv1jbJTKlLBruW0PAPE0HcmDXgUvIpNq3cvVg="
+      "hash": "sha256-DL3uxzTrJlhspnwI0abk3JrqgusLckS7m/bUs0EtPMo="
     },
     "x86_64-darwin": {
       "file": "Brisk-v{version}-macos.dmg",
-      "hash": "sha256-pEHSlTIv1jbJTKlLBruW0PAPE0HcmDXgUvIpNq3cvVg="
+      "hash": "sha256-DL3uxzTrJlhspnwI0abk3JrqgusLckS7m/bUs0EtPMo="
     }
   }
 }

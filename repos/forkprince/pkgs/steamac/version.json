@@ -1,0 +1,15 @@
+{
+  "name": "FX Steam Launcher",
+  "source": {
+    "type": "github-release",
+    "repo": "fxgl/steamac",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "FX-Steam-Launcher-{version}.dmg",
+    "unpack": false
+  },
+  "version": "1.9.13",
+  "hash": "sha256-+2auWraC3Ztdd+ATflBaLtnrMOWpPBpBElj9BNOMV8A="
+}

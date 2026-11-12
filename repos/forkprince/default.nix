@@ -28,6 +28,7 @@
     punktfunk-client = lib.callPackage ./pkgs/punktfunk-client {};
     quiver-launcher = lib.callPackage ./pkgs/quiver-launcher {};
     noisetorch-next = lib.callPackage ./pkgs/noisetorch-next {};
+    pokemon-fulldex = lib.callPackage ./pkgs/pokemon-fulldex {};
     nintoolbox-gui = lib.callPackage ./pkgs/nintoolbox-gui {};
     beeper-nightly = lib.callPackage ./pkgs/beeper-nightly {};
     app-librescore = lib.callPackage ./pkgs/app-librescore {};
@@ -97,6 +98,7 @@
     openemu = lib.callPackage ./pkgs/openemu {};
     openmtp = lib.callPackage ./pkgs/openmtp {};
     puremac = lib.callPackage ./pkgs/puremac {};
+    steamac = lib.callPackage ./pkgs/steamac {};
     macusb = lib.callPackage ./pkgs/macusb {};
     roblox = lib.callPackage ./pkgs/roblox {};
     figura = lib.callPackage ./pkgs/figura {};

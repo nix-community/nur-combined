@@ -1,0 +1,30 @@
+{
+  "name": "Pokémon Fulldex",
+  "source": {
+    "type": "github-release",
+    "repo": "mamesj/pokemon-fulldex",
+    "skip_prerelease": true,
+    "tag_prefix": "fulldex-"
+  },
+  "version": "2026-11-08",
+  "platforms": {
+    "x86_64-linux": {
+      "file": "pokemon-ds-wide-pc-linux-x86_64.tar.gz",
+      "hash": "sha256-B2O8NTRvbjSjaasRU2l2QVzMdH8R/NQbdRKZ9fLLHso=",
+      "unpack": false
+    },
+    "aarch64-linux": {
+      "file": "pokemon-ds-wide-pc-linux-aarch64.tar.gz",
+      "hash": "sha256-qoI/GBe26fkJrXN2POCKryksc7GZq3AO2w1AeY1mJLg=",
+      "unpack": false
+    },
+    "aarch64-darwin": {
+      "file": "pokemon-ds-wide-pc-macos-arm64.zip",
+      "hash": "sha256-VxoLEAFWey0vhGDds2k4Q+V9DL1y9kDRs6Nwj11PJHM="
+    },
+    "x86_64-darwin": {
+      "file": "pokemon-ds-wide-pc-macos-x86_64.zip",
+      "hash": "sha256-rROMzdBfVemeZ7zydRj4y2cLJHfXYUy1jBIA8LKKA4A="
+    }
+  }
+}

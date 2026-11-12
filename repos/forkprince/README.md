@@ -126,6 +126,7 @@ This repository contains three types of packages:
 | [`photon-studio`](pkgs/photon-studio/default.nix) | [photon-studio](https://tenzen.studio/photon/), free Photoshop alternative for photo editing |
 | [`pixelflasher`](pkgs/pixelflasher/default.nix) | [pixelflasher](https://github.com/badabing2005/PixelFlasher), pixel™ phone flashing GUI utility with features |
 | [`playcover`](pkgs/playcover/default.nix) | [playcover](https://playcover.io/), sideload iOS apps and games |
+| [`pokemon-fulldex`](pkgs/pokemon-fulldex/default.nix) | [pokemon-fulldex](https://github.com/mamesj/pokemon-fulldex), launcher for Pokémon DS and GBA games in widescreen at 60 fps |
 | [`proton-cachyos-arm-bin`](pkgs/proton-cachyos-bin/default.nix) | [proton-cachyos-gi-cn-bin](https://github.com/CachyOS/proton-cachyos), compatibility tool for Steam Play based on Wine and additional components (This is intended for use in the `programs.steam.extraCompatPackages` option only.) |
 | [`proton-cachyos-v1-bin`](pkgs/proton-cachyos-bin/default.nix) | [proton-cachyos-gi-cn-bin](https://github.com/CachyOS/proton-cachyos), compatibility tool for Steam Play based on Wine and additional components (This is intended for use in the `programs.steam.extraCompatPackages` option only.) |
 | [`proton-cachyos-v3-bin`](pkgs/proton-cachyos-bin/default.nix) | [proton-cachyos-gi-cn-bin](https://github.com/CachyOS/proton-cachyos), compatibility tool for Steam Play based on Wine and additional components (This is intended for use in the `programs.steam.extraCompatPackages` option only.) |
@@ -150,6 +151,7 @@ This repository contains three types of packages:
 | [`sonora`](pkgs/sonora/default.nix) | [sonora](https://sonorahq.org/), a native, familiar music streaming client |
 | [`soundcraft`](pkgs/soundcraft/default.nix) | [soundcraft](https://getartcraft.com/apps/soundcraft), digital audio workstation for audio recording, editing and mixing |
 | [`steam`](pkgs/steam/default.nix) | [steam](https://store.steampowered.com/), digital distribution platform |
+| [`steamac`](pkgs/steamac/default.nix) | [steamac](https://github.com/fxgl/steamac), valve's official ARM64 SteamOS in a lightweight VM on Apple Silicon |
 | [`streamnook`](pkgs/streamnook/default.nix) | [streamnook](https://streamnook.app), a native desktop client for Twitch, Kick and YouTube multi-streaming |
 | [`sublime-text`](pkgs/sublime-text/default.nix) | [sublime-text](https://www.sublimetext.com/), sophisticated text editor for code, markup and prose |
 | [`supercharge`](pkgs/supercharge/default.nix) | [supercharge](https://sindresorhus.com/supercharge), elevate your Mac experience |
