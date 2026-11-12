@@ -14,13 +14,13 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "postman-gpui";
-  version = "0.1.3-unstable-2026-11-10";
+  version = "0.1.3-unstable-2026-11-11";
 
   src = fetchFromGitHub {
     owner = "847850277";
     repo = "postman-gpui";
-    rev = "955249fb6e07249de232b4137589c654c257ae1b";
-    hash = "sha256-P7ViTdKUoROKLkhmPdh55+rTtC7QBnPVTuOZyDawxhk=";
+    rev = "deef1840dfa3dcb8be3d2e98c353883605cbe382";
+    hash = "sha256-xLwZ26XHTgY4x+CaE3QYCk6Ml8JGwH9+rsD2HKMsjM0=";
   };
 
   cargoHash = "sha256-Ly3f4GJwYYmckJgsn/AqzTunqtdFQ5dMCy9Q7i4Vonc=";
