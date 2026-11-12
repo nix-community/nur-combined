@@ -102,21 +102,21 @@
   };
   nh = {
     pname = "nh";
-    version = "05872315fe2501d073e08e83fa27a582522b9cac";
+    version = "8aea407a9def5356b6a2a5c2ba197cd9ea9e3932";
     src = fetchFromGitHub {
       owner = "XYenon";
       repo = "nh";
-      rev = "05872315fe2501d073e08e83fa27a582522b9cac";
+      rev = "8aea407a9def5356b6a2a5c2ba197cd9ea9e3932";
       fetchSubmodules = false;
-      sha256 = "sha256-UFtL7olZKKtYBnGVe5u+YcKnYbZyKxTEyHI/piG+YsE=";
+      sha256 = "sha256-CTjV04/FnBtnDwQPWUUNPnGVeTYE5f6K//u+tMzT29U=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-UFtL7olZKKtYBnGVe5u+YcKnYbZyKxTEyHI_piG+YsE=/Cargo.lock";
+      lockFile = ./. + "/sha256-CTjV04_FnBtnDwQPWUUNPnGVeTYE5f6K__u+tMzT29U=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-10-22";
+    date = "2026-11-12";
   };
   nix-package-versions = {
     pname = "nix-package-versions";
