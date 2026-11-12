@@ -8,16 +8,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "steep";
-  version = "0.0.4";
+  version = "0.0.6";
 
   src = fetchFromGitHub {
     owner = "anotherhadi";
     repo = "steep";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-mwoXurOv1iQ8lpRvjTUDcrWaHODIHORTMC38pdrp/IQ=";
+    hash = "sha256-Fva9tKHQvaRWXQZLDypqxtReOOmmHZxCaSuiU6X9hp4=";
   };
 
-  vendorHash = "sha256-RDGCWH8QwLk0wiUVtC58Lu6TK/ZCB4p/8JK/yg4KzkI=";
+  vendorHash = "sha256-eDTPxzc/qeeY+j46PYIRv3JaLrBu4DbERW3O/Npj490=";
 
   subPackages = ["cmd/steep"];
 
