@@ -23,14 +23,14 @@
 
 buildPythonPackage rec {
   pname = "modal";
-  version = "1.6.3";
+  version = "1.6.4";
 
   pyproject = true;
   pythonRelaxDeps = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-9sHFkXInQ1fiYKbz0kJU3dtHKm1CAsq86HRSwSehd5w=";
+    sha256 = "sha256-PJS74nRE27HONjH3vlsW724hp7EmpIWm/rP81iNDq+Y=";
   };
 
   build-system = [
@@ -54,7 +54,7 @@ buildPythonPackage rec {
   ];
 
   postPatch = ''
-    sed -i 's/requires = \["setuptools~=.*", "wheel"]/requires = ["setuptools", "wheel"]/' pyproject.toml
+    sed -i 's/requires = \["setuptools[^"]*", "wheel"]/requires = ["setuptools", "wheel"]/' pyproject.toml
     sed -i '/"types-certifi"/d' pyproject.toml
     sed -i '/"types-toml"/d' pyproject.toml
   '';
