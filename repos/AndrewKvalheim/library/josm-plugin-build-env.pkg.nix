@@ -25,7 +25,7 @@ let
 in
 {
   pname = "josm-plugin-build-env";
-  versionLegacy = "36519"; # TODO: Can this be derived from `pkgs.josm`?
+  versionLegacy = "36525"; # TODO: Can this be derived from `pkgs.josm`?
   versionTools = josm.version;
   version = "${josm-plugin-build-env.versionTools}-${josm-plugin-build-env.versionLegacy}";
   meta = {
@@ -50,7 +50,7 @@ in
     done
   '';
 
-  srcLegacyCommon = mkSrcLegacy "plugins/build-common.xml" "sha256-sXk0oltWwrfOISCCBpcHBCU5es6Dulqe68CprUpTt0Y=";
+  srcLegacyCommon = mkSrcLegacy "plugins/build-common.xml" "sha256-K3mCNh2GmZi9y7P7JzBUZsy2tf7rixzoL1/nyoY/ffU=";
   srcLegacyDist = mkSrcLegacy "dist" "sha256-SuZSzrPjlorijR7lxgD4sMYdddJgzrcv9REXD/dWIBU=";
   srcLegacyTools = mkSrcLegacy "plugins/00_tools" "sha256-2HoDySGB1PXL4n/HsVO9H1BGAXhbaHCiUxA2tFXDlJE=";
   srcTools = fetchsvn {
@@ -78,14 +78,12 @@ in
     (toFile "offline.patch" ''
       --- a/plugins/build-common.xml
       +++ b/plugins/build-common.xml
-      @@ -123 +123 @@
+      @@ -121 +121 @@
       -    <target name="compile" depends="init, pre-compile, resolve-tools, plugin-classpath-actual" unless="skip-compile">
       +    <target name="compile" depends="init, pre-compile, plugin-classpath-actual" unless="skip-compile">
-      @@ -126 +125,0 @@
-      -            <path refid="errorprone_javac.classpath"/>
-      @@ -146 +144,0 @@
+      @@ -140 +139,0 @@
       -            <compilerarg pathref="errorprone.classpath"/>
-      @@ -149 +146,0 @@
+      @@ -143 +141,0 @@
       -            <compilerarg value="-Xplugin:ErrorProne -Xep:StringSplitter:OFF -Xep:ReferenceEquality:OFF -Xep:InsecureCryptoUsage:OFF -Xep:FutureReturnValueIgnored:OFF -Xep:JdkObsolete:OFF -Xep:EqualsHashCode:OFF -Xep:JavaUtilDate:OFF -Xep:DoNotCallSuggester:OFF -Xep:BanSerializableRead:OFF" />
     '')
   ];
