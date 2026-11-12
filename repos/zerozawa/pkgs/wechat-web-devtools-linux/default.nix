@@ -146,13 +146,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "wechat-web-devtools-linux";
-  version = "0-unstable-10b7fca";
+  version = "0-unstable-779df20";
 
   src = fetchFromGitHub {
     owner = "msojocs";
     repo = "wechat-web-devtools-linux";
-    rev = "10b7fca448223d1bb6b27b44fd720728cc2abff0";
-    hash = "sha256-Fgqs1pC07GndyDFJaGWsFxMn4SNLX+In5g2E1Rc4Lw0=";
+    rev = "779df20a1869c4c4346a22da2cb0c336e85532a8";
+    hash = "sha256-t0rI+kVp0VfwXsHDCe/PBaNKQ3kHzxvglE9t44lhYDc=";
   };
 
   nativeBuildInputs = [

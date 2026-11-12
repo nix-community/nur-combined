@@ -13,24 +13,13 @@
   ...
 }:
 let
-  commonx = python313Packages.buildPythonPackage rec {
-    pname = "commonx";
-    version = "0.6.40";
-    format = "setuptools";
-    src = fetchPypi {
-      inherit pname version;
-      hash = "sha256-0CjN+1IZovMy3SsujDqR40z0ZRl0MLpnaFfmU/f05Bw=";
-    };
-    doCheck = false;
-  };
-
   jmcomic = python313Packages.buildPythonPackage rec {
     pname = "jmcomic";
-    version = "2.7.9";
+    version = "2.7.11";
     pyproject = true;
     src = fetchPypi {
       inherit pname version;
-      hash = "sha256-JlxdFasOqBVU36UOf/57WgNKcTcURQOnlTFM9tqLPhQ=";
+      hash = "sha256-+W8sVxbSKhugKY7G8S9/nfJltkO+527c22LffC+9mvI=";
     };
     build-system = with python313Packages; [ setuptools ];
     dependencies = with python313Packages; [
@@ -38,7 +27,6 @@ let
       pillow
       pycryptodome
       pyyaml
-      commonx
     ];
     doCheck = false;
     pythonImportsCheck = [ "jmcomic" ];
