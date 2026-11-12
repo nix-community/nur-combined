@@ -22,6 +22,11 @@ use gpui_terminal::ColorPalette;
 pub struct TerminalTabs {
     pub(crate) active_tab: usize,
     pub(crate) tabs: Vec<Entity<TerminalSession>>,
+    /// Horizontal scroll state for the tab strip.
+    pub(crate) tab_scroll_handle: ScrollHandle,
+    /// Last tab index scrolled into view, so manual tab-strip scrolling is not
+    /// reset on unrelated re-renders.
+    pub(crate) last_revealed_tab: Option<usize>,
     pub(crate) show_host_prompt: bool,
     pub(crate) ssh_hosts: Vec<crate::hosts::HostItem>,
     pub(crate) selected_host_index: usize,
@@ -241,6 +246,7 @@ impl TerminalTabs {
                     });
                 })
                 .detach();
+                this.last_revealed_tab = None;
                 this.restore_terminal_focus(window, cx);
                 cx.notify();
             }),
@@ -274,6 +280,8 @@ impl TerminalTabs {
             active_tab: 0,
             ssh_hosts: Self::get_available_hosts(&initial_tabs, cx),
             tabs: initial_tabs,
+            tab_scroll_handle: ScrollHandle::new(),
+            last_revealed_tab: None,
             show_host_prompt: start_prompt,
             selected_host_index: 0,
             show_settings: false,
@@ -305,6 +313,10 @@ impl TerminalTabs {
 impl Render for TerminalTabs {
     fn render(&mut self, window: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
         self.active_tab = self.active_tab.min(self.tabs.len().saturating_sub(1));
+        if !self.tabs.is_empty() && self.last_revealed_tab != Some(self.active_tab) {
+            self.tab_scroll_handle.scroll_to_item(self.active_tab);
+            self.last_revealed_tab = Some(self.active_tab);
+        }
         self.apply_pending_focus(window, cx);
 
         let appearance = cx.window_appearance();

@@ -10,6 +10,7 @@
   pnpm_10,
   pkg-config,
   openssl,
+  zstd,
   makeWrapper,
   glib,
   gtk3,
@@ -19,7 +20,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "futo-notes";
-  version = "1.9.2";
+  version = "1.9.3";
 
   strictDeps = true;
 
@@ -28,7 +29,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "futo-notes";
     repo = "futo-notes";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-2+3pOefK0BWVunI8QSI1M/3V9161tEjJ+xGXXytE0ko=";
+    hash = "sha256-U7QRKDaeaUnNS9Mkog4FD4+otZjuOqbJLOLBOWr5PD4=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -57,6 +58,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   buildInputs = [
     openssl
+    # tantivy (new in 1.9.3) pulls in zstd-sys, which links the system libzstd
+    # found through pkg-config rather than compiling the vendored one.
+    zstd
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
     glib
