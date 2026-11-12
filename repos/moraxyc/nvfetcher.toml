@@ -64,6 +64,10 @@ git.fetchSubmodules = true
 src.github = "daeuniverse/dae"
 fetch.url = "file:///dev/null"
 
+[dell-idrac-fan-controller]
+src.github = "tigerblue77/Dell_iDRAC_fan_controller_Docker"
+fetch.github = "tigerblue77/Dell_iDRAC_fan_controller_Docker"
+
 [elio]
 src.github = "elio-fm/elio"
 fetch.github = "elio-fm/elio"

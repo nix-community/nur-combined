@@ -189,6 +189,17 @@
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
+  dell-idrac-fan-controller = {
+    pname = "dell-idrac-fan-controller";
+    version = "v1.108";
+    src = fetchFromGitHub {
+      owner = "tigerblue77";
+      repo = "Dell_iDRAC_fan_controller_Docker";
+      rev = "v1.108";
+      fetchSubmodules = false;
+      sha256 = "sha256-afyvw6iUmVn7wOQJSq/wD+vKNIDIyqmXjYFfkS/j+0E=";
+    };
+  };
   elio = {
     pname = "elio";
     version = "v1.15.0";
