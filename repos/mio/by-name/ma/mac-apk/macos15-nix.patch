@@ -142,17 +142,16 @@ diff --git a/runtime/src/photos_bridge.mm b/runtime/src/photos_bridge.mm
 index a596e69..3bc9c70 100644
 --- a/runtime/src/photos_bridge.mm
 +++ b/runtime/src/photos_bridge.mm
-@@ -258,10 +258,18 @@ jobjectArray JNICALL nList(JNIEnv* env, jclass, jboolean images, jboolean videos
+@@ -258,10 +258,17 @@ jobjectArray JNICALL nList(JNIEnv* env, jclass, jboolean images, jboolean videos
                  const bool video = a.mediaType == PHAssetMediaTypeVideo;
                  NSString* base = [Clean(orig.originalFilename) stringByDeletingPathExtension];
                  if (base.length == 0) base = video ? @"VID" : @"IMG";
 -                NSString* ext = res.contentType.preferredFilenameExtension;
++                // PHAssetResource.contentType is macOS 26+ API; the build uses
++                // the 15.x SDK, so derive the type from uniformTypeIdentifier.
 +                NSString* ext = nil;
 +                NSString* mime = nil;
-+                if (@available(macOS 26.0, *)) {
-+                    ext = res.contentType.preferredFilenameExtension;
-+                    mime = res.contentType.preferredMIMEType;
-+                } else if (res.uniformTypeIdentifier.length > 0) {
++                if (res.uniformTypeIdentifier.length > 0) {
 +                    UTType* ut = [UTType typeWithIdentifier:res.uniformTypeIdentifier];
 +                    ext = ut.preferredFilenameExtension;
 +                    mime = ut.preferredMIMEType;

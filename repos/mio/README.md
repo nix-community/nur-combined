@@ -183,4 +183,6 @@ services.displayManager.sddm.wayland.enable = true;
 environment.cutefish.excludePackages = [ pkgs.cutefish-video-player ];
 ```
 
+The desktop has a VM test (`nix build .#checks.x86_64-linux.cutefish`). It follows the NixOS desktop-manager tests: SDDM logs a user into the Wayland session on a virtio GPU, and the test checks the registered session file, the compositor, session and shell processes, the logind session type, the session environment, the portal backend, `environment.cutefish.excludePackages`, and that nothing coredumped. It boots a QEMU VM and saves a screenshot, so it is registered for x86_64-linux only.
+
 Languages besides the ones in `i18n.supportedLocales` are not generated into the NixOS locale archive.

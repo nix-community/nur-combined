@@ -89,6 +89,7 @@ in
     # Wallpapers and session files are looked up under /run/current-system/sw.
     environment.pathsToLink = [
       "/share/backgrounds"
+      "/share/cutefish"
       "/share/wayland-sessions"
       "/share/X11/xkb"
     ];
@@ -103,6 +104,27 @@ in
     services.dbus.packages = [ cu.cutefish-core ];
     # Privacy, locales and the session. The portal unit comes in with extraPortals.
     systemd.packages = [ cu.cutefish-core ];
+
+    # The session starts this after exporting its environment. Units that are
+    # PartOf graphical-session.target (xdg-desktop-portal needs it as a
+    # Requisite) then become startable.
+    systemd.user.targets.graphical-session = {
+      description = "Cutefish graphical session";
+      documentation = [ "man:systemd.special(7)" ];
+    };
+
+    # graphical-session.target is dependency-only, so the session starts this
+    # oneshot, which pulls the target in.
+    systemd.user.services.cutefish-graphical-session = {
+      description = "Activate the Cutefish graphical session target";
+      wants = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.coreutils}/bin/true";
+        RemainAfterExit = true;
+      };
+    };
 
     security.polkit.enable = true;
     # The lock screen calls pam_start("cutefish-auth") and must not open a login session.

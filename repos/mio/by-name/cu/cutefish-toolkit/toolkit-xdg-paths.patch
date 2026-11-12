@@ -9,11 +9,10 @@ diff --git a/src/base/paths.cpp b/src/base/paths.cpp
  #include <optional>
  #include <pwd.h>
  #include <regex>
-@@ -11,6 +12,27 @@
- #include "base/file.h"
+@@ -12,6 +13,27 @@
  
  namespace cutefish::base::paths {
-+
+ 
 +// XDG lists are colon-separated. Empty entries are skipped.
 +static std::vector<std::string> splitColon(const char *value)
 +{
@@ -34,9 +33,10 @@ diff --git a/src/base/paths.cpp b/src/base/paths.cpp
 +    }
 +    return parts;
 +}
- 
++
  std::string home()
  {
+     static const std::string directory = [] {
 @@ -52,6 +74,9 @@
  
  std::vector<std::string> dataDirectories()
@@ -47,7 +47,6 @@ diff --git a/src/base/paths.cpp b/src/base/paths.cpp
      // Where Flatpak exports its installed applications' entries and icons,
      // ahead of the system's as Flatpak orders them.
      return {dataHome() + "/flatpak/exports/share", "/var/lib/flatpak/exports/share", "/usr/local/share", "/usr/share"};
- 
 @@ -59,6 +84,9 @@
  
  std::vector<std::string> configDirectories()
@@ -58,7 +57,7 @@ diff --git a/src/base/paths.cpp b/src/base/paths.cpp
      return {"/etc/xdg"};
  }
  
-@@ -125,8 +153,13 @@
+@@ -125,8 +153,14 @@
      if (program.find('/') != std::string::npos)
          return access(program.c_str(), X_OK) == 0 ? program : std::string();
  
@@ -66,11 +65,12 @@ diff --git a/src/base/paths.cpp b/src/base/paths.cpp
 -                                       "/usr/sbin", "/usr/bin", "/sbin", "/bin"};
 +    std::vector<std::string> directories = splitColon(std::getenv("PATH"));
 +    if (directories.empty()) {
-+        directories = {home() + "/.local/bin", "/usr/local/sbin", "/usr/local/bin",
-+                       "/usr/sbin", "/usr/bin", "/sbin", "/bin"};
-+    } else {
-+        directories.insert(directories.begin(), home() + "/.local/bin");
++        directories = {"/usr/local/sbin", "/usr/local/bin", "/usr/sbin", "/usr/bin", "/sbin", "/bin"};
 +    }
++    // NixOS keeps system executables in the system profile, and the session is
++    // the process that starts the rest of the desktop.
++    directories.insert(directories.begin(), home() + "/.local/bin");
++    directories.push_back("/run/current-system/sw/bin");
      for (const std::string& directory : directories) {
          const std::string path = directory + "/" + program;
          if (access(path.c_str(), X_OK) == 0)
@@ -83,9 +83,9 @@ diff --git a/src/base/paths.h b/src/base/paths.h
  
 -// The user's and the system's standard directories. They are the XDG base
 -// directory defaults; the XDG_* variables are not read.
-+// The user's and the system's standard directories. dataDirectories(),
-+// configDirectories() and findExecutable() follow XDG_DATA_DIRS, XDG_CONFIG_DIRS
-+// and PATH when those variables are set, and the XDG defaults otherwise.
++// The user's and the system's standard directories. dataDirectories() and
++// configDirectories() follow XDG_DATA_DIRS and XDG_CONFIG_DIRS when those
++// variables are set, and the XDG defaults otherwise.
  namespace cutefish::base::paths {
  
  std::string home();
@@ -107,8 +107,8 @@ diff --git a/src/base/paths.h b/src/base/paths.h
  
 -// The program's path through ~/.local/bin and the system's binary
 -// directories, or itself when it has a slash; empty when not executable.
-+// The program's path through ~/.local/bin and PATH, or itself when it has a
-+// slash; empty when not executable.
++// The program's path through ~/.local/bin, PATH and the NixOS system profile,
++// or itself when it has a slash; empty when not executable.
  std::string findExecutable(const std::string& program);
  
  } // namespace cutefish::base::paths

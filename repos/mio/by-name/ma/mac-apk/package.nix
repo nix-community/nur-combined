@@ -25,8 +25,9 @@
 }:
 
 let
-  version = "1.0.2379-unstable-2026-11-06";
-  rev = "57c99122f9a164c9ddcc97cfaf5d14dde89d7152";
+  version = "1.0.2379";
+  # Commit of the upstream v1.0.2379 release tag.
+  rev = "153968c83524c40abaef96cd35ab5d73cbbbc3d9";
 
   # Android 16 (API 36) AOSP frameworks/base/core/res source tree (Apache-2.0).
   # Google's gitiles +archive tarballs embed request-time timestamps in gzip/tar
@@ -58,7 +59,7 @@ clangStdenv.mkDerivation {
     owner = "kksimp";
     repo = "Mac.apk";
     inherit rev;
-    hash = "sha256-23rCwmFCd5XirTwfDCn1fxeO1hBxnl1elUCn4wjCpGE=";
+    hash = "sha256-3dj7MzVlK0MKdXeyacYFBkMpCqKKOfGu/eDyL7CtJw4=";
   };
 
   patches = [
@@ -196,6 +197,14 @@ clangStdenv.mkDerivation {
     export HOME="$TMPDIR/home"
     mkdir -p "$HOME"
 
+    # swift 6.4 propagates apple-sdk_27, whose SwiftUI declares @State as a
+    # macro backed by an Xcode-only plugin (libSwiftUIMacros.dylib) that is not
+    # shipped in the Nix store. Compile against apple-sdk_15 instead: it is what
+    # the deployment target below was verified against, and its SwiftUI still
+    # exposes the property wrappers.
+    export SDKROOT="${apple-sdk_15}/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
+    export NIX_APPLE_SDK_VERSION=150500
+
     export JAVA_HOME="${openjdk21}"
     export MACAPK_JDK_HOME="${openjdk21}"
     export CAPSTONE_ROOT="${capstone}"
@@ -249,12 +258,7 @@ clangStdenv.mkDerivation {
     name = "update-mac-apk";
     text = ''
       export UPDATE_NIX_ATTR_PATH="mac-apk"
-      exec ${
-        lib.escapeShellArgs (nix-update-script {
-          # Upstream only tags releases occasionally; follow main instead.
-          extraArgs = [ "--version=branch" ];
-        })
-      } "$@"
+      exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
     '';
   };
 

@@ -36,12 +36,19 @@
       # boot Android in a container in both rootful and rootless mode and wait
       # for sys.boot_completed.  They are x86_64-only (the OTA images are
       # x86_64) and heavy: each run downloads ~1.5 GiB of images and needs KVM.
-      checks.x86_64-linux = {
-        miodroid-nixos = self.legacyPackages.x86_64-linux.miodroid.tests.nixos;
-        miodroid-nixos-rootless = self.legacyPackages.x86_64-linux.miodroid.tests.nixos-rootless;
-        miodroid-nixos-rootless-grow = self.legacyPackages.x86_64-linux.miodroid.tests.nixos-rootless-grow;
-        miodroid-desktop-sockets = self.legacyPackages.x86_64-linux.miodroid.tests.desktop-sockets;
-      };
+      checks.x86_64-linux =
+        let
+          cutefishTests = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/desktops/cutefish/tests.nix {
+            cutefishModule = self.nixosModules.cutefish;
+          };
+        in
+        {
+          miodroid-nixos = self.legacyPackages.x86_64-linux.miodroid.tests.nixos;
+          miodroid-nixos-rootless = self.legacyPackages.x86_64-linux.miodroid.tests.nixos-rootless;
+          miodroid-nixos-rootless-grow = self.legacyPackages.x86_64-linux.miodroid.tests.nixos-rootless-grow;
+          miodroid-desktop-sockets = self.legacyPackages.x86_64-linux.miodroid.tests.desktop-sockets;
+          cutefish = cutefishTests.basic;
+        };
       cached-cuda = forAllSystems (
         system:
         let

@@ -38,7 +38,13 @@ mkCutefishDerivation {
         'DESTINATION lib/systemd/user/xdg-document-portal.service.d'
     substituteInPlace session/application.cpp \
       --replace-fail 'setenv("XDG_DATA_DIRS", "/usr/local/share/:/usr/share/", 1);' \
-        'setenv("XDG_DATA_DIRS", "/run/current-system/sw/share:/usr/local/share/:/usr/share/", 1);'
+        'setenv("XDG_DATA_DIRS", "/run/current-system/sw/share:/usr/local/share/:/usr/share/", 1);' \
+      --replace-fail 'setenv("XDG_CONFIG_DIRS", "/etc/xdg", 1);' \
+        'setenv("XDG_CONFIG_DIRS", "/run/current-system/sw/etc/xdg:/etc/xdg", 1);' \
+      --replace-fail 'return name == "DISPLAY" || name == "XAUTHORITY" || name == "WAYLAND_DISPLAY"' \
+        'return name == "PATH" || name == "DISPLAY" || name == "XAUTHORITY" || name == "WAYLAND_DISPLAY"' \
+      --replace-fail 'runSync(systemctl, {"--user", "unset-environment", "GTK_IM_MODULE", "QT_IM_MODULE", "LC_ALL"});' \
+        'runSync(systemctl, {"--user", "unset-environment", "GTK_IM_MODULE", "QT_IM_MODULE", "LC_ALL"}); runSync(systemctl, {"--user", "start", "cutefish-graphical-session.service"});'
     substituteInPlace polkit-agent/authsession.cpp \
       --replace-fail '/usr/lib/polkit-1/polkit-agent-helper-1' \
         '${polkit.out}/lib/polkit-1/polkit-agent-helper-1'
