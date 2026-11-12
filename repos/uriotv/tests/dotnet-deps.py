@@ -70,7 +70,10 @@ class RefreshScriptTests(unittest.TestCase):
         self.bin = Path(self.temp.name) / "bin"
         self.bin.mkdir()
         fetch = self.bin / "fake-fetch-deps"
-        fetch.write_text('#!/usr/bin/env bash\necho partial > "$1"\n'
+        fetch.write_text('#!/usr/bin/env bash\n'
+                         'printf "%s %s %s\\n" "$TMPDIR" "$HOME" "$DOTNET_CLI_HOME" >> "$NIX_CALLS.env"\n'
+                         '[[ -d "$TMPDIR" && -d "$HOME" && "$HOME" == "$DOTNET_CLI_HOME" ]] || exit 9\n'
+                         'echo partial > "$1"\n'
                          '[[ "$1" == "$FAIL_LOCK" ]] && exit 1\necho new > "$1"\n')
         fetch.chmod(0o755)
         nix = self.bin / "nix"
@@ -100,6 +103,11 @@ class RefreshScriptTests(unittest.TestCase):
         snapshots = Path(str(self.calls) + ".locks").read_text().splitlines()
         for (_, lock), snapshot in zip(declared_entries(), snapshots):
             self.assertIn(f"{lock}=[]", snapshot)
+        # Each fetch-deps gets its own fresh TMPDIR/HOME, removed afterwards.
+        envs = [line.split() for line in Path(str(self.calls) + ".env").read_text().splitlines()]
+        self.assertEqual(len({e[0] for e in envs}), len(envs))
+        self.assertTrue(all(e[0] != os.environ.get("TMPDIR", "/tmp") for e in envs))
+        self.assertFalse(any(Path(e[0]).exists() for e in envs))
 
     def test_failure_restores_that_lock_continues_and_fails(self):
         entries = declared_entries()
