@@ -40,7 +40,7 @@ stdenv.mkDerivation (
     # from. The branch is rewritten on every clice release, so a branch URL would
     # make the fixed-output hash stale within a day; the commit keeps the build
     # reproducible. Bump it together with the hash when updating clice.
-    registryRev = "962790a9b49c417bdc7812747bc9449519431658";
+    registryRev = "7244a58ac60631642f07e0b5a931990d56af1107";
 
     # Extra flags of the darwin build: the server cannot listen in the sandbox
     # (--batch) and links cache ThinLTO output in $TMPDIR. The link action does
@@ -62,13 +62,13 @@ stdenv.mkDerivation (
   in
   {
     pname = "clice";
-    version = "0.1.2026110808";
+    version = "0.1.2026111107";
 
     src = fetchFromGitHub {
       owner = "clice-io";
       repo = "clice";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-Lygyqbq2KDchmaAfbWLkvJvm+3KVYeg228OVQtJJP/U=";
+      hash = "sha256-fJPtTpGfN3UKTEns1RbwWAeMJZiG2t4K/CtMoi/CFP4=";
     };
 
     deps = stdenv.mkDerivation {

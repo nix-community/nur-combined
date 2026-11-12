@@ -18,13 +18,13 @@
 
 let
   pname = "pcl-me";
-  version = "1.0.1-unstable-2026-11-08";
+  version = "1.0.2-unstable-2026-11-11";
 
   src = fetchFromGitHub {
     owner = "TheUnknownThing";
     repo = "PCL-ME";
-    rev = "08eb0665dbb070630a1cb223de09c1359727b547";
-    hash = "sha256-yijL4Cy5QV2HMVnVFavqOlAUBWULUlFQWSOr/JyF1Ww=";
+    rev = "e971ea678ea2c73a7f907d35abc86e1907a4a2f8";
+    hash = "sha256-6VAFe8okbQnZJ5SoylGUVRADrMpe1GwIZhNn1c4CCDs=";
   };
 
   runtimeLibraries = [

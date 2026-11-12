@@ -26,7 +26,7 @@ let
 in
 python.pkgs.buildPythonApplication (finalAttrs: {
   pname = "codexctl";
-  version = "1.2.1-unstable-2026-10-31";
+  version = "1794370117";
   pyproject = true;
 
   src = fetchFromGitHub {

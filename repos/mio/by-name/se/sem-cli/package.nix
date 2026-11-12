@@ -12,7 +12,7 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "sem-cli";
-  version = "0.30.0";
+  version = "0.30.1";
 
   dontCargoUseSystemLibs = true;
 
@@ -20,10 +20,10 @@ rustPlatform.buildRustPackage rec {
     owner = "Ataraxy-Labs";
     repo = "sem";
     rev = "v${version}";
-    hash = "sha256-JH8/UBO62VbPu4OR59FdaxdRubA0lGoI8+f7OtlwjJA=";
+    hash = "sha256-YmauBVqS0n3tEfpymicjjmBBiR3TRm1V90wxa6m8d8o=";
   };
 
-  cargoHash = "sha256-DQOuJP1oG95zmPaqCja+mdDFyz+6/bmfcmDbHCtugH0=";
+  cargoHash = "sha256-Fn/GURsUWEABjA4TbxE6qe2qo5zn0+GdksJg+RLz8C0=";
 
   sourceRoot = "${src.name}/crates";
 
