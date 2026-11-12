@@ -12,8 +12,8 @@ mkYaziPlugin rec {
   src = fetchFromGitHub {
     owner = "AminurAlam";
     repo = "yazi-plugins";
-    rev = "acdbca5fe4b371490de3d6080aebcd101240e856";
-    hash = "sha256-sAffV0lOvxD2zzi839KY7ghiWt91TuGw2hp9jYZwddQ=";
+    rev = "aebeaa7eec76f7a22e1218b5c4841ab87acd56da";
+    hash = "sha256-iPe0BlQSY9/qnklwL2WyaDh2jCCIDEUREXI9l3h6IAQ=";
   };
 
   installPhase = ''
