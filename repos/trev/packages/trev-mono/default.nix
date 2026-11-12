@@ -4,6 +4,6 @@
 }:
 (getForgejoFlake {
   url = "https://trev.zip/llc/trev-mono";
-  rev = "4996fec05f413195c8afa2353f8dc22d9ebef757"; # v0.2.6
-  hash = "sha256-ovoWYVKlah0RwZjMkOS1ecFZ3eI5bPyvUDpshzofFsM=";
+  rev = "dde2cca7a2cb25d38cbdeac0fb8d4d5652d549b8"; # v0.2.7
+  hash = "sha256-I8joLsLp09qAAQtvv6VRzYd6JnOaVaFXuO6s2htd1os=";
 }).packages."${system}".default
