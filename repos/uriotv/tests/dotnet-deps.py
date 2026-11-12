@@ -74,7 +74,11 @@ class RefreshScriptTests(unittest.TestCase):
                          '[[ "$1" == "$FAIL_LOCK" ]] && exit 1\necho new > "$1"\n')
         fetch.chmod(0o755)
         nix = self.bin / "nix"
-        nix.write_text(f'#!/usr/bin/env bash\necho "$*" >> "$NIX_CALLS"\necho {fetch}\n')
+        # Record which locks were already emptied when each fetch-deps was evaluated.
+        nix.write_text(f'#!/usr/bin/env bash\necho "$*" >> "$NIX_CALLS"\n'
+                       'for f in pkgs/*/deps.json; do printf "%s=%s " "$f" "$(cat "$f")"; done >> "$NIX_CALLS.locks"\n'
+                       'echo >> "$NIX_CALLS.locks"\n'
+                       f'echo {fetch}\n')
         nix.chmod(0o755)
         self.calls = Path(self.temp.name) / "calls"
 
@@ -92,6 +96,10 @@ class RefreshScriptTests(unittest.TestCase):
         calls = self.calls.read_text().splitlines()
         self.assertEqual(len(calls), len(declared_entries()))
         self.assertTrue(all(c.rstrip().endswith(".fetch-deps") for c in calls), calls)
+        # Each lock is regenerated from scratch, never from its stale content.
+        snapshots = Path(str(self.calls) + ".locks").read_text().splitlines()
+        for (_, lock), snapshot in zip(declared_entries(), snapshots):
+            self.assertIn(f"{lock}=[]", snapshot)
 
     def test_failure_restores_that_lock_continues_and_fails(self):
         entries = declared_entries()

@@ -19,6 +19,9 @@ for entry in "${DOTNET_DEPS[@]}"; do
   attr=${entry%%:*}
   lock=${entry#*:}
   echo "::group::Refresh $lock ($attr)"
+  # Start from an empty lock: a stale lock can itself break fetch-deps (e.g. its
+  # runtime packs collide with ones the new SDK ships: "ln: ... File exists").
+  echo '[]' > "$lock"
   if fetch_deps=$(nix build --no-link --print-out-paths --no-write-lock-file \
         ".#packages.x86_64-linux.${attr}.fetch-deps") &&
      "$fetch_deps" "$lock"; then
