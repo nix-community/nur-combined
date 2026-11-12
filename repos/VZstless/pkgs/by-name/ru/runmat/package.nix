@@ -9,6 +9,7 @@
   cmake,
   perl,
   aws-lc,
+  zstd,
   nix-update-script,
 }:
 
@@ -36,6 +37,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     openblas
     openssl
     hdf5
+    zstd
   ];
 
   # The workspace has 60+ members (LSP, wasm bindings, AOT packer, test

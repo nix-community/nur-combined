@@ -12,16 +12,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "sashiko";
-  version = "0.9.0";
+  version = "0.9.3";
 
   src = fetchFromGitHub {
     owner = "sashiko-dev";
     repo = "sashiko";
     tag = "v.${finalAttrs.version}";
-    hash = "sha256-2ciBBNM48TBhRXHSf+oKBBA31nzHBvVpV7IXwNh/0yQ=";
+    hash = "sha256-bCi0DAr+auODitYQv5lrM/Iuc0c36t5Bh+Mk7Frivgs=";
   };
 
-  cargoHash = "sha256-eSrVK+cQJw0YzQlJv+E0kUzTWEUXPpeXBCfPsLM54gw=";
+  cargoHash = "sha256-2HPYRoEmflESycyWtRBzL6/iDEIz62gkbPTeqgcMkZY=";
 
   # Mock worker scripts embedded in reviewer.rs carry a #!/bin/bash shebang
   # and are spawned directly; the sandbox has no /bin/bash, so point them at
