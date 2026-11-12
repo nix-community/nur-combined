@@ -1,0 +1,60 @@
+#!/bin/sh
+
+set -eu -o pipefail
+
+workdir=$(mktemp -d)
+reg_cutoff=$(date -d '7 days ago' +%s)
+atime_cutoff=$(date -d '7 days ago' +%s)
+
+# 1. determine the set of recently-used store paths
+
+sudo sqlite3 -readonly /nix/var/nix/db/db.sqlite \
+  "SELECT path FROM ValidPaths WHERE registrationTime >= $reg_cutoff" |
+  sort \
+  > "$workdir/recent-paths"
+
+sudo sqlite3 -readonly /nix/var/nix/db/db.sqlite \
+  "SELECT path FROM ValidPaths WHERE registrationTime < $reg_cutoff" |
+  sort |
+  xargs -r -d '\n' stat --printf='%X %n\n' -- |
+  awk -v cutoff="$atime_cutoff" '
+    $1 >= cutoff {
+      sub(/^[^ ]+ /, "")
+      print
+    }
+' >> "$workdir/recent-paths"
+
+sort "$workdir/recent-paths" | sponge "$workdir/recent-paths"
+
+## render some diagnostics about the paths we want to keep
+
+wc -l "$workdir/recent-paths"
+
+# render the NAR size of *just the roots*
+sudo sqlite3 -readonly -separator "$(printf '\t')" \
+  /nix/var/nix/db/db.sqlite \
+  'SELECT path, narSize FROM ValidPaths' |
+  awk -F '\t' '
+    FILENAME == ARGV[1] { recent[$0] = 1; next }
+    $1 in recent { total += $2 }
+    END { printf "%.0f\n", total }
+  ' "$workdir/recent-paths" - |
+  numfmt --to=iec-i --suffix=B
+
+# 2. create temporary GC roots for the paths to keep
+mkdir -p "$workdir/keep-recent"
+xargs -r -d '\n' ln -sft "$workdir/keep-recent" -- \
+  < "$workdir/recent-paths"
+
+sudo mv /nix/var/nix/gcroots/keep-recent /nix/var/nix/gcroots/keep-recent-old || true
+sudo cp -R "$workdir/keep-recent" /nix/var/nix/gcroots/keep-recent
+sudo rm -rf /nix/var/nix/gcroots/keep-recent-old || true
+
+
+# 3. remove unrooted paths
+sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations "7d"
+sudo nix-collect-garbage
+
+# 4. cleanup: remove our temporary gcroots
+sudo rm -rf /nix/var/nix/gcroots/keep-recent
+sudo rm -rf "$workdir"

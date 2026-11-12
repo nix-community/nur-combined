@@ -25,6 +25,7 @@
     ./users
   ];
 
+  # nixpkgs.config.allowAliases = false;
   nixpkgs.config.allowUnfree = true;  # NIXPKGS_ALLOW_UNFREE=1
   nixpkgs.config.allowBroken = true;  # NIXPKGS_ALLOW_BROKEN=1
   nixpkgs.config.allowUnsupportedSystem = true;  # NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1

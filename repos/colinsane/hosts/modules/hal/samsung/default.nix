@@ -185,7 +185,7 @@ in
     # i believe this metadata is stored in a depthcharge-specific format, not anything
     # which can be generalized.
     sane.image.installBootloader = ''
-      ${lib.getExe' pkgs.buildPackages.vboot_reference "cgpt"} add ${lib.concatStringsSep " " [
+      ${lib.getExe' pkgs.buildPackages.vboot-utils "cgpt"} add ${lib.concatStringsSep " " [
         "-i 1"  # work on the first partition (instead of adding)
         "-S 1"  # mark as successful (so it'll be booted from)
         "-T 5"  # tries remaining

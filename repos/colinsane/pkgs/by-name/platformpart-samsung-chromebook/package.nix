@@ -4,11 +4,11 @@
   runCommand,
   ubootSamsungChromebook,
   ubootTools,
-  vboot_reference,
+  vboot-utils,
 }: runCommand "kernel-partition" {
   preferLocalBuild = true;
   nativeBuildInputs = [
-    vboot_reference
+    vboot-utils
     dtc
     ubootTools
   ];
@@ -49,8 +49,8 @@
     --bootloader ./dummy_bootloader.bin \
     --vmlinuz u-boot.fit \
     --arch arm \
-    --keyblock ${buildPackages.vboot_reference}/share/vboot/devkeys/kernel.keyblock \
-    --signprivate ${buildPackages.vboot_reference}/share/vboot/devkeys/kernel_data_key.vbprivk \
+    --keyblock ${buildPackages.vboot-utils}/share/vboot/devkeys/kernel.keyblock \
+    --signprivate ${buildPackages.vboot-utils}/share/vboot/devkeys/kernel_data_key.vbprivk \
     --config ./dummy_config.txt \
     --pack $out
 ''

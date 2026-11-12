@@ -1,22 +1,38 @@
 {
+  bash,
+  coreutils,
   fetchFromGitHub,
+  git,
   lib,
   nix-update-script,
+  perl,
+  procps,
   rustPlatform,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mcpls";
-  version = "0.6.0";
+  version = "0.9.1";
 
   src = fetchFromGitHub {
     owner = "bug-ops";
     repo = "mcpls";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-LEMcmr2+xxZnq0wKhql0jT6ma89tAD1J3hkUAeC1FXY=";
+    hash = "sha256-xoSV2CU149A3frvDnkkGfLNeZh/zFLwL1dO6IlMMir8=";
   };
 
-  cargoHash = "sha256-ktQDIY5Q9DyymDIxUxTjzPugVc46Sn4GOP9+u9wfZlI=";
+  cargoHash = "sha256-/6dRJlFYNxkn6XtacmZSxiq/OnH22b1m37adj12X2ds=";
+
+  postPatch = ''
+    substituteInPlace \
+      crates/mcpls-cli/tests/cli_integration.rs \
+      crates/mcpls-core/src/runtime/untrusted.rs \
+      --replace-fail '/usr/bin/env' '${coreutils}/bin/env' \
+      --replace-fail '/bin/sh' '${bash}/bin/sh' \
+      --replace-fail '{}:/usr/bin:/bin' '{}:${lib.makeBinPath [ bash coreutils ]}'
+  '';
+
+  nativeCheckInputs = [ git perl procps ];
 
   dontUseCargoParallelTests = true;
 

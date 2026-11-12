@@ -102,6 +102,8 @@ in
       status.short = true;  #< make `git statues` behave as `git status --short`
 
       stash.showPatch = true;
+
+      worktree.useRelativePaths = true;
     };
 
     fs.".config/git/config.user".symlink.target = gitIni.generate "git-config.user" {

@@ -167,10 +167,13 @@ in
     '';
   });
 
+  # upstreaming: <https://github.com/NixOS/nixpkgs/pull/582586>
   bind = prev.bind.overrideAttrs {
     # XXX(2026-10-11): isc_rwlock_benchmark fails for extremely high core count (512).
     # `nix-build -A bind --cores 32` still causes it to use 512 cores.
-    doCheck = false;
+    #   (fixed by https://github.com/NixOS/nixpkgs/pull/582586)
+    # doCheck = false;
+    NIX_BUILD_CORES = "128";
   };
 
   # XXX(2026-10-02): gcc15 -> gcc16 upgrade detects more warnings than before; default -Werror flag breaks the build.
@@ -260,17 +263,17 @@ in
     };
   };
 
-  ispc = prev.ispc.overrideAttrs (prevAttrs: {
-    patches = (prevAttrs.patches or []) ++ [
-      (final.fetchpatch {
-        # XXX(2026-10-18): fixes a hang in checkPhase
-        # https://github.com/ispc/ispc/pull/3913
-        name = "Fix-a-result-collection-race-that-can-hide-functional-test-failures";
-        url = "https://github.com/ispc/ispc/commit/3cec0a7d793942ffc043a8064929d322072554c8.diff";
-        hash = "sha256-keaWYCR9WKF5fYUqCZw6Tz8vMLAHUFQIgDapDQsY99Q=";
-      })
-    ];
-  });
+  # ispc = prev.ispc.overrideAttrs (prevAttrs: {
+  #   patches = (prevAttrs.patches or []) ++ [
+  #     (final.fetchpatch {
+  #       # XXX(2026-10-18): fixes a hang in checkPhase
+  #       # https://github.com/ispc/ispc/pull/3913
+  #       name = "Fix-a-result-collection-race-that-can-hide-functional-test-failures";
+  #       url = "https://github.com/ispc/ispc/commit/3cec0a7d793942ffc043a8064929d322072554c8.diff";
+  #       hash = "sha256-keaWYCR9WKF5fYUqCZw6Tz8vMLAHUFQIgDapDQsY99Q=";
+  #     })
+  #   ];
+  # });
 
   # XXX(2026-10-24): `onetbb` hangs in checkPhase on highly parallel builder.
   # i *think* libblake3 is the only user on my system, so disable it there.

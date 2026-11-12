@@ -17,7 +17,7 @@
   libsecret,
   miniupnpc,
   ncurses,
-  nettools,
+  net-tools,
   networkmanager-split,
   nix,
   oath-toolkit,
@@ -222,7 +222,7 @@ let
       srcRoot = ./src;
       packages = {
         inherit
-          nettools
+          net-tools
           systemd
           ;
       };
@@ -274,7 +274,7 @@ let
       srcRoot = ./src;
       packages = {
         inherit
-          nettools
+          net-tools
           systemd
           ;
       };

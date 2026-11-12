@@ -7,6 +7,7 @@ usage() {
   echo "git-work DIRECTORY: create a worktree in DIRECTORY and cd into it"
 }
 
+base=
 dir=
 parseArgs() {
   while [ "$#" -ne 0 ]; do
@@ -17,12 +18,17 @@ parseArgs() {
         usage
         exit 0
         ;;
+      (-b)
+        base="$1"
+        shift
+        ;;
       (*)
-        if [ -n "$dir" ]; then
+        if [ -z "$dir" ]; then
+          dir="$arg"
+        else
           usage
           exit 1
-        fi;
-        dir="$arg"
+        fi
         ;;
     esac
   done
@@ -30,5 +36,12 @@ parseArgs() {
 
 parseArgs "$@"
 
-git worktree add "$dir" >&2
+if [ -n "$base" ]; then
+  # branch off of `$base` and name it `$dir`; also checkout branch `$dir` into a newly-created worktree directory `$dir`.
+  # this is different than stock git worktree syntax, where
+  # `git worktree add $dir $branch` would checkout $branch into $dir AND ERROR if $branch were checked out anywhere else.
+  git worktree add -b "$dir" "$dir" "$base" >&2
+else
+  git worktree add "$dir" >&2
+fi
 echo "$PWD/$dir"

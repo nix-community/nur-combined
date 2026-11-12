@@ -6,17 +6,17 @@
 }:
 mkPiExtension (finalAttrs: {
   pname = "pi-codex-goal";
-  version = "0.6.1";
+  version = "0.7.8";
 
   src = fetchFromGitHub {
     owner = "fitchmultz";
     repo = "pi-codex-goal";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-IcTs2QfjlvlimauHh3tZBcIi7mD3bZW2boagBRHyr5c=";
+    hash = "sha256-7vEkiLl8lf8tUtOugz1v34U6AjfNpw37i+wVg0N3cGY=";
   };
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-KUVNdZtVb3AtywhDaXaE5hFBU8Y/6sx7YvOBCei1mTQ=";
+  npmDepsHash = "sha256-O/jCLR9IbAeAH0ufxk37swONUkcPfWizIEk5Mv+AbCk=";
 
   dontNpmBuild = true;  # package.json defines no build script
 

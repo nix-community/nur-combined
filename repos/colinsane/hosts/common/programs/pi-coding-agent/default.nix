@@ -132,7 +132,7 @@ let
         args = [ "mcp" ];
         exposure = "direct";
       };
-      home_assistant = {
+      ${if cfg.ha-mcp then "home_assistant" else null} = {
         command = "ha-mcp";
         exposure = "deferred";
       };
@@ -211,6 +211,10 @@ in
             type = types.bool;
             default = false;
           };
+          ha-mcp = mkOption {
+            type = types.bool;
+            default = false;
+          };
           pi-offline-provider = mkOption {
             type = types.bool;
             default = false;
@@ -257,7 +261,6 @@ in
       # "ck"
       # "cocoindex-code"
       # "fetch-mcp"
-      "ha-mcp"
       "kagi-cli"
       # "kagi-ken-cli"  # for pi-kagi
       # "kagimcp"
@@ -276,6 +279,8 @@ in
       "auto-zoekt"
     ] ++ lib.optionals cfg.coderag [
       "coderag"
+    ] ++ lib.optionals cfg.ha-mcp [
+      "ha-mcp"
     ] ++ lib.optionals cfg.semble [
       "semble"
     ];

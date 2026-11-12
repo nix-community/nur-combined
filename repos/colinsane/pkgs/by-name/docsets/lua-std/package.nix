@@ -1,18 +1,18 @@
 {
   dashing,
-  lua,
+  lua5_5_compat,
   stdenvNoCC,
 }:
 stdenvNoCC.mkDerivation {
   pname = "docsets-lua-std";
-  inherit (lua) version;
+  inherit (lua5_5_compat) version;
 
   src = ./.;
 
   nativeBuildInputs = [ dashing ];
 
   postPatch = ''
-    cp -R ${lua.doc}/share/doc/* .
+    cp -R ${lua5_5_compat.doc}/share/doc/* .
   '';
 
   buildPhase = ''

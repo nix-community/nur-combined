@@ -711,7 +711,7 @@ in
   # vlc = prev.vlc.overrideAttrs (orig: {
   #   # fixes: "configure: error: could not find the LUA byte compiler"
   #   # fixes: "configure: error: protoc compiler needed for chromecast was not found"
-  #   nativeBuildInputs = orig.nativeBuildInputs ++ [ lua5 protobuf ];
+  #   nativeBuildInputs = orig.nativeBuildInputs ++ [ lua5_5_compat protobuf ];
   #   # fix that it can't find the c compiler
   #   # makeFlags = orig.makeFlags or [] ++ [ "CC=${prev.stdenv.cc.targetPrefix}cc" ];
   #   env = orig.env // {

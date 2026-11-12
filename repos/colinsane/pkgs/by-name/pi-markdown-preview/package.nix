@@ -7,17 +7,17 @@
 }:
 mkPiExtension (finalAttrs: {
   pname = "pi-markdown-preview";
-  version = "0.24.0";
+  version = "0.26.4";
 
   src = fetchFromGitHub {
     owner = "omaclaren";
     repo = "pi-markdown-preview";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-AigB9O1p0e5FLL9hCNu/l2Kj0xerCRSubkjmaWi7/pg=";
+    hash = "sha256-WEGzcPtuppwZ6Fei+fnnx3ygkB9svCALJtIG+8q5Aek=";
   };
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-2uP9bBd9TEJFhgjVLiwmwGhkiyCOrd2pHjJmc9bVMJQ=";
+  npmDepsHash = "sha256-mYHKyV2iye++SxEcB4Ml7/JfnUz5GY0ssUHEw+HFrDo=";
 
   propagatedBuildInputs = [
     pandoc

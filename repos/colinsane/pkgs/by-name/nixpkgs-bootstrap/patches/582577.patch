@@ -1,0 +1,37 @@
+From e3e93a80b81f03e0ef4092a9b1b5051fdf970286 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Tue, 3 Nov 2026 07:52:59 +0000
+Subject: [PATCH] tzdata: fix tests by running against the release timestamp
+
+fixes `nix-build -A tzdata`
+
+sourced from
+<https://github.com/nixos/nixpkgs/pull/582265#issuecomment-6589507902>
+
+Co-authored-by: Sergei Trofimovich <slyich@gmail.com>
+---
+ pkgs/by-name/tz/tzdata/package.nix | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/pkgs/by-name/tz/tzdata/package.nix b/pkgs/by-name/tz/tzdata/package.nix
+index 4b4675a81fd0cd8235fe5a1b7597f0108a2afa52..a3cd0a6fae1b9ff32c9369c524efb674bdc06385 100644
+--- a/pkgs/by-name/tz/tzdata/package.nix
++++ b/pkgs/by-name/tz/tzdata/package.nix
+@@ -115,6 +115,17 @@ stdenv.mkDerivation (finalAttrs: {
+     cp tzfile.h "$dev/include/tzfile.h"
+   '';
+ 
++  preCheck = ''
++    # Releases 2026e and 2026f fail if built on or after 2026-11-01
++    # Mitigate this and potential future issues by testing with the release timestamp
++    # See: https://lists.iana.org/hyperkitty/list/tz@iana.org/message/WCIAEEDCPA5HT3LLJK6YQ6FH7ND5ORIK/
++    release_timestamp=$(awk '/^Release /{print $4, $5, $6; exit}' NEWS)
++    release_time_t=$(date -d"$release_timestamp" +%s)
++    checkFlagsArray+=(
++      "CHECK_NOW_TIMESTAMP=$release_time_t"
++    )
++  '';
++
+   setupHook = ./tzdata-setup-hook.sh;
+ 
+   # PostgreSQL is sensitive to tzdata updates, because the test-suite often breaks.

@@ -8,12 +8,12 @@
   updater-tools,
 }:
 let
-  version = "0-unstable-2026-10-23";
+  version = "0-unstable-2026-11-05";
   src = fetchFromGitHub {
     owner = "natsukium";
     repo = "mcp-servers-nix";
-    rev = "24d6d9aa839483af6727e6b72f8e54d7ca01b3ad";
-    hash = "sha256-J59Od5KsOOuR4AmCdW6tT8tZDWSgy93NzlZhHQkDfgU=";
+    rev = "ddcc98c234f159971d03f8513bc3e03927d34a30";
+    hash = "sha256-7uFDvp41MH+6LZuYyOrgBiU3SGMEobCFOCAiZsAoTNU=";
   };
   flake = flake-inputs.import-flake {
     inherit src;

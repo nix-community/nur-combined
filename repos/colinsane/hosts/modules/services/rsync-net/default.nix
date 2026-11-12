@@ -5,7 +5,7 @@ let
     pname = "sane-backup-rsync-net";
     packages = {
       inherit (pkgs)
-        nettools
+        net-tools
         openssh
         rsync
       ;

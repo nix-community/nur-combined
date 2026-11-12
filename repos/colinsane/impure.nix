@@ -16,7 +16,13 @@ let
     nixpkgs = import ./pkgs/by-name/nixpkgs-bootstrap/${branch}.nix { inherit mkNixpkgs; };
   in nixpkgs // {
     lib = import "${nixpkgs}/lib";
-    pkgs = import "${nixpkgs}/pkgs/top-level" { inherit localSystem overlays; };
+    pkgs = import "${nixpkgs}/pkgs/top-level" {
+      inherit localSystem overlays;
+      config.allowAliases = false;
+      config.allowUnfree = true;
+      # config.allowBroken = true;
+      # config.allowUnsupportedSystem = true;
+    };
   };
   nixpkgs = mkNixpkgs { branch = "master"; inherit localSystem; };
   inherit (nixpkgs) lib pkgs;

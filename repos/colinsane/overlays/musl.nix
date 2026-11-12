@@ -290,6 +290,15 @@ super.lib.composeManyExtensions [
       '';
     });
 
+    # 2026-11-09: fixes "methods/aptmethod.h:189:52: error: '__SNR_prlimit' was not declared in this scope".
+    # musl's <sys/resource.h> does `#define prlimit64 prlimit`, which mangles `SCMP_SYS(prlimit64)`.
+    apt = prev.apt.overrideAttrs (upstream: {
+      postPatch = (upstream.postPatch or "") + ''
+        substituteInPlace methods/aptmethod.h \
+          --replace-fail '#define ALLOW(what)' $'#undef prlimit64\n#define ALLOW(what)'
+      '';
+    });
+
     # 2026-10-03: this is no longer enough to fix the build
     # 2026-08-30: still required
     # audacity = prev.audacity.overrideAttrs (upstream: {

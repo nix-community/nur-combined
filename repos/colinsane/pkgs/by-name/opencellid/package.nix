@@ -13,14 +13,14 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "opencellid";
-  version = "0-unstable-2026-10-24";
+  version = "0-unstable-2026-11-04";
 
   src = fetchFromGitea {
     domain = "git.uninsane.org";
     owner = "colin";
     repo = "opencellid-mirror";
-    rev = "12aa489960c6ff87050ae1c1ac1e398cc01ef9d1";
-    hash = "sha256-I8yBfpxD+EVJHh3oz3Eh6jATyspRz2+87kK+qLmWJPU=";
+    rev = "966e5e8d0c2a2fd542d3452dad8087bbe895f5cf";
+    hash = "sha256-8698TLKK4tQYZzRDsGmHOOPDrfxnqrSRu1TTwhk+fqE=";
   };
 
   dontBuild = true;

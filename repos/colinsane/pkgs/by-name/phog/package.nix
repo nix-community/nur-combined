@@ -1,7 +1,7 @@
 {
   bash,
   fetchFromGitLab,
-  gcr,
+  gcr_3,
   gitUpdater,
   glib,
   gnome-desktop,
@@ -69,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
-    gcr
+    gcr_3
     glib
     gnome-desktop
     gtk3

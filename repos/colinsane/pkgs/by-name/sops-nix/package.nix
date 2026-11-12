@@ -5,19 +5,14 @@
   nix-update-script,
 }:
 let
-  version = "assets-unstable-2026-10-24";
+  version = "assets-unstable-2026-11-02";
   src = applyPatches {
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "sops-nix";
-      rev = "442449fa7b1fe6c692d0103ac9fc8f9e82931cf3";
-      hash = "sha256-4GuMPW90JSxXWDPUB9M+1m7fYbe3H0apOd86/zBQ2Kw=";
+      rev = "b18e01ce148eb3efff5de2f2d3181ca53b2b2a54";
+      hash = "sha256-Y/JIHTnMlOabDfyaSBubWGLDIVGihLEUuoMhFvQKaDo=";
     };
-    # XXX(2026-09-16): nixpkgs dropped buildGo125Module; package builds fine with 1.26 instead.
-    postPatch = ''
-      substituteInPlace pkgs/sops-install-secrets/default.nix \
-        --replace-fail buildGo125Module buildGo126Module
-    '';
   };
   flake = flake-inputs.import-flake {
     inherit src;

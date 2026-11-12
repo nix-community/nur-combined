@@ -9,7 +9,7 @@
   libepoxy,
   libmegapixels,
   libpulseaudio,
-  libXrandr,
+  libxrandr,
   meson,
   ninja,
   pkg-config,
@@ -50,7 +50,7 @@ stdenv.mkDerivation {
     libepoxy
     libmegapixels
     libpulseaudio
-    libXrandr
+    libxrandr
     zbar
   ];
 

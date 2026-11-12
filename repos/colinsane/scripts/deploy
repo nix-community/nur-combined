@@ -1,5 +1,5 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i ysh ../integrations/nix-shell --arg f 'ps: [ ps.nettools ps.oils-for-unix ]'
+#!nix-shell -i ysh ../integrations/nix-shell --arg f 'ps: [ ps.net-tools ps.oils-for-unix ]'
 
 # TODO: simplify variant handling by defining `desko-full = desko`, etc, in nix config.
 

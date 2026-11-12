@@ -1,0 +1,21 @@
+From 4e4184761e4a1008d4d856a44bf5f4944991581b Mon Sep 17 00:00:00 2001
+From: Che-0129 <yuto8664@gmail.com>
+Date: Wed, 4 Nov 2026 02:01:23 +0900
+Subject: [PATCH] pi-coding-agent: include pi-schema
+
+---
+ pkgs/by-name/pi/pi-coding-agent/package.nix | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/pkgs/by-name/pi/pi-coding-agent/package.nix b/pkgs/by-name/pi/pi-coding-agent/package.nix
+index e556dd861db8a80d075c3077de900ab7449bff78..00caa2e9a29b9456f5466e07b0753b2c685afc9d 100644
+--- a/pkgs/by-name/pi/pi-coding-agent/package.nix
++++ b/pkgs/by-name/pi/pi-coding-agent/package.nix
+@@ -81,6 +81,7 @@ buildNpmPackage (finalAttrs: {
+               @earendil-works/pi-durable:packages/durable \
+               @earendil-works/pi-env:packages/env \
+               @earendil-works/pi-mcp:packages/mcp \
++              @earendil-works/pi-schema:packages/schema \
+               @earendil-works/pi-telemetry:packages/telemetry \
+               @earendil-works/pi-tui:packages/tui; do
+       IFS=: read -r pkg src <<< "$ws"

@@ -2,7 +2,6 @@
   fetchFromGitHub,
   fetchYarnDeps,
   gitUpdater,
-  mkYarnModules,
   nodejs,
   stdenvNoCC,
   wrapFirefoxAddonsHook,
@@ -12,12 +11,12 @@
 
 let
   pname = "browserpass-extension";
-  version = "3.12.0";
+  version = "3.13.0";
   src = fetchFromGitHub {
     owner = "browserpass";
     repo = "browserpass-extension";
     rev = version;
-    hash = "sha256-HDQCI/ugtM/AkEruLuRl8d8O+M/NIGX8lqMlZohJbd4=";
+    hash = "sha256-iZ/br8OtNNLF1+R6vm/VVmX3UlTseN8nXUeDevOVD9o=";
   };
   # src = fetchFromGitea {
   #   domain = "git.uninsane.org";
@@ -27,24 +26,12 @@ let
   #   rev = "e3bf558ff63d002d3c15f2ce966071f04fada306";
   #   sha256 = "sha256-dSRZ2ToEOPhzHNvlG8qdewa7689gT8cNB7nXkN3/Avo=";
   # };
-  # browserpass-extension-yarn-modules = mkYarnModules {
-  #   inherit version;
-  #   pname = "${pname}-modules";
-  #   packageJSON = "${src}/src/package.json";
-  #   # XXX(2025-12-14): this triggers IFD, but NUR & system configs *seem* to be OK with that??
-  #   yarnLock = "${src}/src/yarn.lock";
-  #   # offlineCache = fetchYarnDeps {
-  #   #   yarnLock = "${src}/src/yarn.lock";
-  #   #   # yarnLock = ./yarn.lock;
-  #   #   hash = "sha256-8cKFbrY3EcQBCnwJHFgPCL7HZnM6w4edwkkibMLVyRQ=";
-  #   # };
-  # };
 in stdenvNoCC.mkDerivation {
   inherit pname src version;
 
   yarnOfflineCache = fetchYarnDeps {
     yarnLock = "${src}/src/yarn.lock";
-    hash = "sha256-vhoiPPWfZH7QD54wMH9fXacBcrIcfy7BHIPNOYm+tWM=";
+    hash = "sha256-2bKO+I1Pipruvj6oIJEyaiODQ8f/FEvabxqL9ey/Yy4=";
   };
 
   nativeBuildInputs = [

@@ -13,7 +13,7 @@
   symlinkJoin,
   callPackage,
   # Build tools
-  python2, # Legacy build scripts. Marked insecure but not in final binary
+  python2 ? null, # Legacy build scripts. Marked insecure but not in final binary
   python3,
   # Newest version that supports mypy 0.780's typeshed. TODO: python3.10 is dropped from nixpkgs
   python310 ? lib.warnOnInstantiate "python != 3.10 unlikely to work for oils" python3,
@@ -25,7 +25,9 @@
   time,
   readline,
 }:
-
+if python2 == null then
+  throw "nixpkgs dropped python2 2026-05-03 due to EOL"
+else
 let
   mypy-extensions = callPackage ./mypy-extensions-0.4.4.nix { python3 = python310; };
   typed-ast = callPackage ./typed-ast-1.5.5.nix { python3 = python310; };

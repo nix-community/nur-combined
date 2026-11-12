@@ -1,6 +1,6 @@
 {
   lib,
-  linux ? linux_6_1, linux_6_1,
+  linux ? linuxKernel.kernels.linux_6_1, linuxKernel,
   linuxManualConfig,
   optimizeForSize ? false,
   useEdpPanel ? false,  #< use `edp-panel` driver in snow device tree (fails to fix graphics)

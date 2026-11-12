@@ -7,7 +7,7 @@
       { startUid=301000; count=1; }
     ];
     group = "users";
-    initialPassword = lib.mkDefault "";
+    # initialPassword = lib.mkDefault "";
     shell = pkgs.bash;
 
     openssh.authorizedKeys.keys = [

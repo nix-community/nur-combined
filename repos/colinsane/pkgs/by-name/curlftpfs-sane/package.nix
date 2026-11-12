@@ -1,11 +1,14 @@
 # see also:
 # - <https://github.com/jomat/curlftpfs/pull/2>
 {
-  curlftpfs,
+  curlftpfs ? null,
   fetchFromGitea,
   fuse3,
   libbsd,
 }:
+if curlftpfs == null then
+  throw "nixpkgs dropped curlftpfs 2026-06-05 due to lack of fuse3 support"
+else
 (curlftpfs.override {
   fuse = fuse3;
 }).overrideAttrs (upstream: {

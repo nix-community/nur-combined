@@ -1,4 +1,4 @@
-From 7e4b6b56d27adf38a6d1c666ffc72cf08e61fc19 Mon Sep 17 00:00:00 2001
+From f1f76d06be63900f71d13869900e0a3f60911e22 Mon Sep 17 00:00:00 2001
 From: Colin <colin@uninsane.org>
 Date: Tue, 27 Oct 2026 04:38:05 +0000
 Subject: [PATCH] python3Packages.imageio: fix stale test_images hash
@@ -11,10 +11,10 @@ and it seems to have rotted at some point.
  1 file changed, 12 insertions(+), 7 deletions(-)
 
 diff --git a/pkgs/development/python-modules/imageio/default.nix b/pkgs/development/python-modules/imageio/default.nix
-index 098ce911c53b..82050b0fd026 100644
+index 64043d1cdb02..89626553c01a 100644
 --- a/pkgs/development/python-modules/imageio/default.nix
 +++ b/pkgs/development/python-modules/imageio/default.nix
-@@ -26,7 +26,6 @@
+@@ -26,18 +26,16 @@
  
    # tests
    fsspec,
@@ -22,7 +22,9 @@ index 098ce911c53b..82050b0fd026 100644
    pytestCheckHook,
    writableTmpDirAsHomeHook,
  }:
-@@ -36,8 +35,7 @@
+ 
+ let
+   test_images = fetchFromGitHub {
      owner = "imageio";
      repo = "test_images";
      rev = "f676c96b1af7e04bb1eed1e4551e058eb2f14acd";
@@ -49,7 +51,7 @@ index 098ce911c53b..82050b0fd026 100644
      substituteInPlace tests/test_core.py \
        --replace-fail 'ctypes.util.find_library("GL")' '"${libgl}"'
    '';
-@@ -90,7 +96,6 @@ buildPythonPackage rec {
+@@ -90,28 +96,27 @@ buildPythonPackage rec {
  
    nativeCheckInputs = [
      fsspec
@@ -66,7 +68,12 @@ index 098ce911c53b..82050b0fd026 100644
    disabledTestMarks = [ "needs_internet" ];
  
    disabledTestPaths = [
-@@ -112,6 +117,8 @@ buildPythonPackage rec {
+     # These tests require the old and vulnerable freeimage binaries; skip.
+     "tests/test_freeimage.py"
+     # These tests require an older version of pillow
+     "tests/test_pillow.py::test_png_16bit"
+     "tests/test_pillow_legacy.py::test_png"
+   ];
  
    preCheck = ''
      export IMAGEIO_USERDIR=$(mktemp -d)
@@ -74,4 +81,4 @@ index 098ce911c53b..82050b0fd026 100644
 +    chmod +w -R .test_images
    '';
  
-   meta = {
+   passthru = {

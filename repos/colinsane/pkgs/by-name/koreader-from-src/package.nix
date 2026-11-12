@@ -67,7 +67,7 @@
   sqlite,
   utf8proc,
   zlib,
-  zeromq4,
+  zeromq,
   zstd,
   zsync,
 }:
@@ -204,7 +204,7 @@ let
     sqlite
     utf8proc
     zlib
-    zeromq4
+    zeromq
     zstd
     zsync
   ];
@@ -420,8 +420,8 @@ stdenv.mkDerivation (finalAttrs: with finalAttrs; let
     ZLIB="${lib.getLib zlib}/lib/libz.so" \
     ZLIB_DIR="${zlibAll}" \
     ZLIB_STATIC="${zlib.static}/lib/libz.a" \
-    ZMQ_LIB="${lib.getLib zeromq4}/lib/libzmq.so" \
-    ZMQ_DIR="${lib.getDev zeromq4}" \
+    ZMQ_LIB="${lib.getLib zeromq}/lib/libzmq.so" \
+    ZMQ_DIR="${lib.getDev zeromq}" \
     ZSTD_LIB="${lib.getLib zstd}/lib/libzstd.so" \
     ZSTD_DIR="${lib.getDev zstd}" \
     ZSTD_DESTDIR="${lib.getDev zstd}" \

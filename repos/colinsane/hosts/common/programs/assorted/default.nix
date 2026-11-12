@@ -24,7 +24,7 @@ in
       "host"
       "iproute2"
       "iputils"
-      "nettools"
+      "net-tools"
     ];
     nixosBuiltinsWireless = declPackageSet [
       # from nixos/modules/tasks/network-interfaces.nix
@@ -195,7 +195,7 @@ in
       "mozlz4a"  # for extracting .mozlz4 files (firefox)
       "neovim"  # needed as a user package, for swap persistence
       "nix"  # needed as user package, for ~/.cache/nix persistence
-      # "nettools"
+      # "net-tools"
       # "networkmanager"
       # "nvimpager"  # needed as a user package, for config.
       # "nixos-generators"
@@ -926,8 +926,8 @@ in
     nethogs.sandbox.net = "all";
 
     # provides `arp`, `hostname`, `route`, `ifconfig`
-    nettools.sandbox.net = "all";
-    nettools.sandbox.capabilities = [ "net_admin" "net_raw" ];
+    net-tools.sandbox.net = "all";
+    net-tools.sandbox.capabilities = [ "net_admin" "net_raw" ];
 
     networkmanagerapplet.sandbox.whitelistWayland = true;
     networkmanagerapplet.sandbox.whitelistDbus.system = true;

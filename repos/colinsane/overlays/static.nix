@@ -6,8 +6,35 @@
 final: prev:
 let
   inherit (final.stdenv.hostPlatform) hasSharedLibraries;
+
+  # Static linking exposes duplicate _mi_heap_{main,empty} symbols between
+  # CPython's bundled mimalloc (3.13+) and our mimalloc-backed musl.
+  pythonWithoutMimalloc = upstream: upstream.configureFlags ++ final.lib.optionals (
+    final.stdenv.hostPlatform.isMusl
+    && (final.musl.allocatorModel or "malloc-ng") == "mimalloc"
+    && final.lib.versionAtLeast upstream.version "3.13"
+  ) [ "--without-mimalloc" ];
 in
 {
+  # p11-kit is `broken = true` for static (it unconditionally builds shared modules); apt builds fine without it.
+  apt = (prev.apt.override { p11-kit = null; }).overrideAttrs (upstream: {
+    # apt hardcodes SHARED for its libraries -> replace with nix `BUILD_SHARED_LIBS` instead.
+    postPatch = (upstream.postPatch or "") + ''
+      substituteInPlace apt-pkg/CMakeLists.txt \
+        --replace-fail 'add_library(apt-pkg SHARED)' 'add_library(apt-pkg)' \
+        --replace-fail 'target_link_libraries(apt-pkg PRIVATE -Wl,-version-script="''${CMAKE_CURRENT_BINARY_DIR}/versionscript")' "" \
+        --replace-fail 'install(TARGETS apt-pkg LIBRARY DESTINATION ''${CMAKE_INSTALL_LIBDIR})' \
+          'install(TARGETS apt-pkg LIBRARY DESTINATION ''${CMAKE_INSTALL_LIBDIR} ARCHIVE DESTINATION ''${CMAKE_INSTALL_LIBDIR})'
+      substituteInPlace apt-private/CMakeLists.txt \
+        --replace-fail 'add_library(apt-private SHARED)' 'add_library(apt-private)' \
+        --replace-fail 'add_version_script(apt-private)' "" \
+        --replace-fail 'LIBRARY DESTINATION ''${CMAKE_INSTALL_LIBDIR}' \
+          'LIBRARY DESTINATION ''${CMAKE_INSTALL_LIBDIR} ARCHIVE DESTINATION ''${CMAKE_INSTALL_LIBDIR}'
+      substituteInPlace CMakeLists.txt \
+        --replace-fail 'add_subdirectory(test)' ""
+    '';
+  });
+
   nodejs-slim_24 = prev.nodejs-slim_24.overrideAttrs (old: {
     dontAddStaticConfigureFlags = true;
     dontDisableShared = true;
@@ -57,14 +84,12 @@ in
     };
   });
 
+  python314 = prev.python314.overrideAttrs (upstream: {
+    configureFlags = pythonWithoutMimalloc upstream;
+  });
+
   python3Minimal = prev.python3Minimal.overrideAttrs (upstream: {
-    # Static linking exposes duplicate _mi_heap_{main,empty} symbols between
-    # CPython's bundled mimalloc (3.13+) and our mimalloc-backed musl.
-    configureFlags = upstream.configureFlags ++ final.lib.optionals (
-      final.stdenv.hostPlatform.isMusl
-      && (final.musl.allocatorModel or "malloc-ng") == "mimalloc"
-      && final.lib.versionAtLeast upstream.version "3.13"
-    ) [ "--without-mimalloc" ];
+    configureFlags = pythonWithoutMimalloc upstream;
 
     # The static stdenv propagates build inputs, selecting bash's dev output.
     # Python needs the shell, not its headers.
@@ -79,6 +104,18 @@ in
       [ "rm -R $out/lib/python*/test $out/lib/python*/**/test{,s}" ]
       [ "rm -Rf $out/lib/python*/test $out/lib/python*/**/test{,s}" ]
       upstream.postInstall;
+  });
+
+  # build sudo w/o pam. not sure what libxcrypt is about here.
+  # TODO: upstream this using the same pattern established by `doas`:
+  # - `withPam ? lib.meta.availableOn stdenv.hostPlatform pam` callarg
+  # - add `libxcrypt` when pam is disabled.
+  sudo = (prev.sudo.override { pam = null; }).overrideAttrs (upstream: {
+    buildInputs = upstream.buildInputs ++ [ final.libxcrypt ];
+    configureFlags = upstream.configureFlags ++ [
+      "--without-pam"
+      "ac_cv_search_crypt=-lcrypt"
+    ];
   });
 
   # networkmanager = prev.networkmanager.override {

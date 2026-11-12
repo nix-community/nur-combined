@@ -269,7 +269,7 @@ in
     img = pkgs.runCommand "nixos" {
       nativeBuildInputs = with pkgs; [
         jq
-        vboot_reference
+        vboot-utils
       ];
       partitions = lib.optionals (cfg.platformPartSize != null) [
         platformFsImg

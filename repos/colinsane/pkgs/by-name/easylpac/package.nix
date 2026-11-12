@@ -7,11 +7,11 @@
   gtk3,
   lib,
   libglvnd,
+  libxxf86vm,
   lpac,
   nix-update-script,
   pkg-config,
   wrapGAppsHook3,
-  xorg,
 }:
 
 buildGoModule (finalAttrs: {
@@ -41,7 +41,7 @@ buildGoModule (finalAttrs: {
   buildInputs = [
     gtk3
     libglvnd
-    xorg.libXxf86vm
+    libxxf86vm
   ] ++ glfw.buildInputs;
 
   postInstall = ''
