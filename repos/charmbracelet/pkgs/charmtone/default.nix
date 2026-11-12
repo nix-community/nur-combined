@@ -9,34 +9,34 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    i686-linux = "0zracny8xjvmqdcx52iz49njfqw0ksvy5qcp9m90pkbaj6j8f4cz";
-    x86_64-linux = "0mgk6fibrnp3b3bv46bramscg6wj1q658s6ng92ylq51iw4aklnn";
-    armv7l-linux = "1vhwy8lvaz9rg4agb0bbv3k0fjys2lmhwkxgfxdrjwp6piinb5cm";
-    aarch64-linux = "0iwihf5k1bx4gmz40gjsi60p6shbfbk2n72x17vjyffp1543kgpp";
-    x86_64-darwin = "0aa93kqi4xlxahdvqlif6x0wwp9080xl00zasy93142j8qr5h6ff";
-    aarch64-darwin = "16b8x5q7df2hbcpbhs9z582rahj7bs190s6kh3wfybj5yia8dcy5";
+    i686-linux = "10k73rwd0aynjng13ndffap59nrvhah5vq7d6b2n0pgfwpaizg3f";
+    x86_64-linux = "1v6m128vx7givqw4f0pfcl55fd36qj1fsrhqqr1p7fmralm3h4qi";
+    armv7l-linux = "0h9aviq1vsxk5ni9sxq24756c6ka77h98by2nfal6kjfwh0fxgwq";
+    aarch64-linux = "0rirwwwyadm3rw4kqbiygxqqwv71ls7hcm3g2cmbypkgbj5qsrnr";
+    x86_64-darwin = "1zkz443fjp8rd8xqyx4b0kjnp0hahh93ll4sasnikgsm00jyvmp3";
+    aarch64-darwin = "1njigvnvbby2ycy565yj0kkd2hc1wl582gz43c9fkiq63271bn13";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/charmbracelet/tone/releases/download/v0.1.0/charmtone_0.1.0_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/charmbracelet/tone/releases/download/v0.1.0/charmtone_0.1.0_Linux_x86_64.tar.gz";
-    armv7l-linux = "https://github.com/charmbracelet/tone/releases/download/v0.1.0/charmtone_0.1.0_Linux_arm.tar.gz";
-    aarch64-linux = "https://github.com/charmbracelet/tone/releases/download/v0.1.0/charmtone_0.1.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/charmbracelet/tone/releases/download/v0.1.0/charmtone_0.1.0_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/charmbracelet/tone/releases/download/v0.1.0/charmtone_0.1.0_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/charmbracelet/tone/releases/download/v0.2.0/charmtone_0.2.0_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/charmbracelet/tone/releases/download/v0.2.0/charmtone_0.2.0_Linux_x86_64.tar.gz";
+    armv7l-linux = "https://github.com/charmbracelet/tone/releases/download/v0.2.0/charmtone_0.2.0_Linux_arm.tar.gz";
+    aarch64-linux = "https://github.com/charmbracelet/tone/releases/download/v0.2.0/charmtone_0.2.0_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/charmbracelet/tone/releases/download/v0.2.0/charmtone_0.2.0_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/charmbracelet/tone/releases/download/v0.2.0/charmtone_0.2.0_Darwin_arm64.tar.gz";
   };
   sourceRootMap = {
-    i686-linux = "charmtone_0.1.0_Linux_i386";
-    x86_64-linux = "charmtone_0.1.0_Linux_x86_64";
-    armv7l-linux = "charmtone_0.1.0_Linux_arm";
-    aarch64-linux = "charmtone_0.1.0_Linux_arm64";
-    x86_64-darwin = "charmtone_0.1.0_Darwin_x86_64";
-    aarch64-darwin = "charmtone_0.1.0_Darwin_arm64";
+    i686-linux = "charmtone_0.2.0_Linux_i386";
+    x86_64-linux = "charmtone_0.2.0_Linux_x86_64";
+    armv7l-linux = "charmtone_0.2.0_Linux_arm";
+    aarch64-linux = "charmtone_0.2.0_Linux_arm64";
+    x86_64-darwin = "charmtone_0.2.0_Darwin_x86_64";
+    aarch64-darwin = "charmtone_0.2.0_Darwin_arm64";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "charmtone";
-  version = "0.1.0";
+  version = "0.2.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
