@@ -40,7 +40,7 @@ in
       443
       8448
     ];
-    passthrough.".matrix-test.shelvacu.com" = "${config.vacu.qemuVMs.jv-shel.v4Address}:443";
+    # passthrough.".matrix-test.shelvacu.com" = "${config.vacu.qemuVMs.jv-shel.v4Address}:443";
   };
   systemd.tmpfiles.settings."10-whatever".${socketDir}.d = {
     user = "caddy";
