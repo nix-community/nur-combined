@@ -6,6 +6,7 @@
   bun,
   pkgs,
   pkg-config,
+  aws-lc,
   python3,
   openssl,
   sqlite,
@@ -42,7 +43,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     wrapGAppsHook4
   ];
 
+  # nixpkgs' cargo setup hook exports AWS_LC_SYS_USE_SYSTEM=1 for aws-lc-sys,
+  # so the system AWS-LC must be provided explicitly (matches nixpkgs' own override).
   buildInputs = [
+    aws-lc
     openssl
     sqlite
     glib-networking
