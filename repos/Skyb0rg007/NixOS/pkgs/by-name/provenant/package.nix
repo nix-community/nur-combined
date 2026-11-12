@@ -1,5 +1,9 @@
 {
   lib,
+  aws-lc,
+  pkg-config,
+  sqlite,
+  zstd,
   fetchFromGitHub,
   rustPlatform,
   rustc,
@@ -21,6 +25,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-hvXcOZTinZ4GHcDztPTdINVkTL+e56tDPOJpe1ktuU8=";
+
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [
+    aws-lc
+    sqlite
+    zstd
+  ];
 
   # The test suite takes half an hour and more memory than the build itself,
   # so it runs from passthru.tests.cargo rather than as part of the build.

@@ -12,6 +12,7 @@
   debian-archive-keyring,
   help2man,
   nix-update-script,
+  fetchgit,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "mmdebstrap";
@@ -19,13 +20,19 @@ stdenv.mkDerivation (finalAttrs: {
   __structuredAttrs = true;
   strictDeps = true;
 
-  src = fetchFromForgejo {
-    domain = "gitlab.mister-muffin.de";
-    owner = "josch";
-    repo = "mmdebstrap";
+  src = fetchgit {
+    url = "https://gitlab.mister-muffin.de/josch/mmdebstrap.git";
     tag = finalAttrs.version;
     hash = "sha256-Gy5egg4SgLCJ49cmGqK2MIKiCsfvL+6sWwcNOsO3o88=";
   };
+
+  # src = fetchFromForgejo {
+  #   domain = "gitlab.mister-muffin.de";
+  #   owner = "josch";
+  #   repo = "mmdebstrap";
+  #   tag = finalAttrs.version;
+  #   hash = "sha256-Gy5egg4SgLCJ49cmGqK2MIKiCsfvL+6sWwcNOsO3o88=";
+  # };
 
   nativeBuildInputs = [
     installShellFiles

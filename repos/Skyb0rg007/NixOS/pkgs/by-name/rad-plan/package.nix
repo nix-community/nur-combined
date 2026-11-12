@@ -3,6 +3,8 @@
   fetchFromRadicle,
   rustPlatform,
   rustc,
+  pkg-config,
+  libgit2,
   nix-update-script,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -17,6 +19,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-scxHbfLAbmXitE4IwcJPkgfAr5lHOzRyjiRP4gF7DEk=";
+
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ libgit2 ];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [ "--version=branch" ];

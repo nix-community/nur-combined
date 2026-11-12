@@ -4,6 +4,7 @@
   stdenv,
   rustPlatform,
   pkg-config,
+  aws-lc,
   libxkbcommon,
   libx11,
   libxi,
@@ -22,9 +23,12 @@ rustPlatform.buildRustPackage {
   buildAndTestSubdir = "native/desktop-bridge";
   cargoHash = "sha256-rCHKKRP7l2x9qPHtFUAQ8YwigG1B8oruvlW5/xJAirw=";
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
+  buildInputs = [
+    aws-lc
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     libxkbcommon
     libx11
     libxi

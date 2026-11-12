@@ -9,6 +9,9 @@
   fetchFromGitHub,
   fetchpatch,
   makeWrapper,
+  pkg-config,
+  libgit2,
+  zlib,
   coreutils,
   bash,
   wget,
@@ -123,9 +126,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
     NANVIX_BIN = if stdenv.hostPlatform.isLinux then nanvixBin else null;
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+  ];
   nativeCheckInputs = [ bubblewrap ];
-  buildInputs = [ lxc ];
+  buildInputs = [
+    libgit2
+    lxc
+    zlib
+  ];
 
   cargoBuildFlags = [
     "--features=${lib.concatStringsSep "," buildFeatures}"

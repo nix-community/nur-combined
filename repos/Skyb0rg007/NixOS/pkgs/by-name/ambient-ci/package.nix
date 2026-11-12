@@ -1,8 +1,10 @@
 {
+  aws-lc,
   fetchFromRadicle,
   installShellFiles,
   lib,
   libisoburn,
+  pkg-config,
   qemu,
   rustPlatform,
   stdenv,
@@ -24,7 +26,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-guLg9AwxEYrGK1iNqHcQJMINcm3BEx8F5EOQpbnP2q8=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+  ];
+  buildInputs = [ aws-lc ];
   nativeCheckInputs = [ libisoburn ];
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;

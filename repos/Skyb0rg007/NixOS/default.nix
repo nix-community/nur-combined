@@ -110,6 +110,10 @@ let
           tcl9Packages = tcl9PackagesFull;
           # "ocaml-ng" = ocamlNg;
           nixpkgs = pkgs;
+          zizmor = pkgs.zizmor.overrideAttrs (prevAttrs: {
+            nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
+            buildInputs = (prevAttrs.buildInputs or [ ]) ++ [ pkgs.aws-lc ];
+          });
         }
       );
       directory = ./pkgs/by-name;

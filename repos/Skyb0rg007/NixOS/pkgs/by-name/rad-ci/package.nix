@@ -3,6 +3,8 @@
   fetchFromRadicle,
   rustPlatform,
   installShellFiles,
+  pkg-config,
+  libgit2,
   versionCheckHook,
   nix-update-script,
 }:
@@ -21,7 +23,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-+Engv2UzmK9HQjVrPV+UCFtQZHhjKdYBBpZwDmkGdWE=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+  ];
+  buildInputs = [ libgit2 ];
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
 

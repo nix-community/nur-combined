@@ -4,7 +4,15 @@
   hatchling,
   tree-sitter,
   tree-sitter-language-pack,
+  pkg-config,
+  pkgs,
 }:
+let
+  tree-sitter-language-pack' = tree-sitter-language-pack.overridePythonAttrs (prevAttrs: {
+    nativeBuildInputs = prevAttrs.nativeBuildInputs or [ ] ++ [ pkg-config ];
+    buildInputs = prevAttrs.buildInputs or [ ] ++ [ pkgs.zstd ]; # not python3Packages.zstd
+  });
+in
 
 buildPythonPackage (finalAttrs: {
   pname = "darnit-baseline";
@@ -23,7 +31,7 @@ buildPythonPackage (finalAttrs: {
   dependencies = [
     darnit-core
     tree-sitter
-    tree-sitter-language-pack
+    tree-sitter-language-pack'
   ];
 
   doCheck = false;
