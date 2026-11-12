@@ -17,6 +17,7 @@ in
     ../session.nix
     ../sops.nix
     ../programs/git.nix
+    ../programs/herdr.nix
     ../programs/jujutsu.nix
     ../programs/infinity.nix
     ../programs/pi.nix
@@ -125,6 +126,11 @@ in
           };
         };
       };
+      herdr-core = {
+        enable = true;
+        mutableSettings = true;
+        settings.shell = [ (lib.getExe pkgs.fish) ];
+      };
       jujutsu = {
         enable = true;
         aiDescribe.enable = true;
@@ -211,8 +217,6 @@ in
             "macmini-m1" = identityConfig // {
               User = "toyvo";
               HostName = "macmini-m1.internal";
-              RemoteCommand = "fish --login";
-              RequestTTY = "yes";
             };
             "nas" = identityConfig // {
               User = "toyvo";
