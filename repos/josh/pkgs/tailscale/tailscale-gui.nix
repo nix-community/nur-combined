@@ -40,6 +40,7 @@ tailscale-gui.overrideAttrs (
           "--version-regex"
           "v(\\d+\\.\\d+\\.\\d+)$"
           "--version=stable"
+          "--use-github-releases"
           "--override-filename"
           "pkgs/tailscale/tailscale-gui.nix"
         ];
