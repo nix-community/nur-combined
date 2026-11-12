@@ -61,6 +61,7 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | --- | --- |
 | `gryph` | [Usage](docs/modules/gryph.md) |
 | `magic-context` | [Usage](docs/modules/magic-context.md) |
+| `zcode` | [Usage](docs/modules/zcode.md) |
 
 ## nix-darwin modules
 
