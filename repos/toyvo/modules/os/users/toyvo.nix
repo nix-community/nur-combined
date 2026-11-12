@@ -63,6 +63,16 @@ let
       hash = "sha256-TIOXZswCum0g3qcDK+RDZb9Y7lUu+bx+Oyja4EtKKh4=";
     };
     cargoHash = "sha256-hMkych62liZ+Oe5huM2drN5/6ckpF8AEHH2dyskcivo=";
+    # The hc_update_* distribution tests restart the core and wait at most
+    # 5 s (hardcoded wait_for_socket timeout) for the new core. On a loaded
+    # aarch64 builder (e.g. oracle building 500+ derivations) the restart
+    # takes longer, failing with "core did not start within 5 s"
+    # (2026-11-12: 4 passed, these 2 failed in 6.5 s). Same class as the two
+    # network tests nixpkgs already skips for the sandbox.
+    checkFlags = (old.checkFlags or [ ]) ++ [
+      "--skip=hc_update_downloads_checks_and_swaps"
+      "--skip=hc_update_to_a_version_takes_at_least_that_one"
+    ];
     # vendor/ghostty is pinned to the same commit as 0.1.15
     # (1e5cdb865807abc990181efb8ebfa9122955cce2), so its Zig deps are
     # byte-identical: reuse the already-fetched output instead of
