@@ -311,17 +311,17 @@
   };
   pipewire-bluez5-lhdc-git = {
     pname = "pipewire-bluez5-lhdc-git";
-    version = "814436ecf16e6b050a2ae9cd6469545bfcb885a4";
+    version = "dba60f1a6e2471ec88d67881e88f04836bd826ec";
     src = fetchgit {
       url = "https://gitlab.freedesktop.org/pipewire/pipewire.git";
-      rev = "814436ecf16e6b050a2ae9cd6469545bfcb885a4";
+      rev = "dba60f1a6e2471ec88d67881e88f04836bd826ec";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-V2jHjuK1C8I3d15CPG89ZEAVG9FL7mVNW5reTWKkyvE=";
+      sha256 = "sha256-NdjRXWU6zOdCtd6bG5dn8atiKwSK3leK1yUy4toPWjc=";
     };
-    date = "2026-11-10";
+    date = "2026-11-11";
   };
   pipewire-bluez5-lhdc-jd-git = {
     pname = "pipewire-bluez5-lhdc-jd-git";
