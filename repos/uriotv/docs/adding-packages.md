@@ -99,8 +99,16 @@ Version cell empty, then run `python3 -B scripts/readme-versions.py --write`.
 The update workflow refreshes that column with each update PR, and CI fails if
 it is stale or lists a different set of packages than the registry.
 
-Package updates never silently advance `flake.lock`. Use `nix flake update`
-as a separate deliberate maintenance change and validate it before committing.
+Package updates never silently advance `flake.lock`. `flake.lock` changes only
+through a pull request (the weekly `flake-update.yml` PR or a manual one) whose
+full package build must pass; `main` is protected for administrators too.
+
+.NET packages (`buildDotnetModule`) must use binary toolchains
+(`dotnetCorePackages.sdk_*-bin` / `runtime_*-bin`) and be listed in
+`scripts/refresh-dotnet-deps.sh`. The lock-update PR regenerates their
+`deps.json` for the new SDK automatically. CI rejects in seconds any build plan
+that would compile a compiler or SDK from source (`scripts/check-build-plan.py`);
+only a manual dispatch with `allow_heavy_builds` overrides it.
 The independently defined CachyOS packages keep source/config/patch metadata in
 `pkgs/<kernel>/source.json`; their version-only updater reads CachyOS directly.
 Their shared recipe and deliberately separate nixpkgs pin live in `lib/cachyos/`.

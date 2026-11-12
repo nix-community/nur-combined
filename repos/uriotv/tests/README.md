@@ -16,7 +16,10 @@ strict-Bash updater, then runs:
   including non-cacheable ones; continue then fail on build errors; both Nix
   JSON output formats; malformed manifests/outputs; publication restrictions,
   complete output matching, HTTP/upload failures and exact narinfo StorePath
-  validation; required gate handling all 16 success/failure/skip/cancel pairs.
+  validation; required gate handling all 16 success/failure/skip/cancel pairs;
+  fail-fast rejection of plans compiling a toolchain from source.
+- `dotnet-deps.py`: every .NET package uses binary SDK/runtime and has its
+  `deps.json` refreshed (stubbed fetch-deps) in the weekly flake.lock PR.
 
 - `storyforge-update.py`: mocked stable-release selection, snapshot preservation,
   strict ancestry/retag checks, complete staged updates, dependency coverage,

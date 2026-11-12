@@ -43,6 +43,17 @@ class BuildCiTests(unittest.TestCase):
 rows = json.load(open(os.environ["FIXTURE_MANIFEST"]))
 if sys.argv[1] == "eval":
     print(json.dumps(rows)); sys.exit(0)
+if "--dry-run" in sys.argv:
+    name = re.search(r'\\."([^"]+)"\\^\\*$', sys.argv[-1]).group(1)
+    with open(os.environ["NIX_CALLS"] + ".dry", "a") as f: f.write(name + "\\n")
+    if name == os.environ.get("DRY_RUN_FAIL"): print("error: eval", file=sys.stderr); sys.exit(1)
+    heavy = name == os.environ.get("HEAVY_PACKAGE")
+    print("these 2 derivations will be built:", file=sys.stderr)
+    print("  /nix/store/" + "f"*32 + "-" + name + "-1.0.drv", file=sys.stderr)
+    print("  /nix/store/" + "9"*32 + ("-dotnet-vmr-8.0.134.drv" if heavy else "-gcc-wrapper-14.drv"), file=sys.stderr)
+    print("these 3 paths will be fetched (1 MiB download):", file=sys.stderr)
+    print("  /nix/store/" + "8"*32 + "-rustc-1.91.0", file=sys.stderr)
+    sys.exit(0)
 with open(os.environ["NIX_CALLS"], "a") as f: f.write(json.dumps(sys.argv[1:]) + "\\n")
 name = re.search(r'\\."([^"]+)"\\^\\*$', sys.argv[-1]).group(1)
 if name == os.environ.get("FAIL_PACKAGE"): sys.exit(1)
@@ -106,6 +117,31 @@ sys.exit(22)
                 self.assertIn("Nix progress/warning", result.stderr)
                 self.assertFalse(self.cache_calls.exists())
                 self.assertTrue(self.manifest.exists())
+
+    def test_heavy_toolchain_bootstrap_fails_fast_without_building_it(self):
+        result = self.run_helper(HEAVY_PACKAGE="unfree")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(self.built_names(), ["freepkg", "localpkg"])
+        self.assertIn("would compile a toolchain from source", result.stdout)
+        self.assertIn("dotnet-vmr-8.0.134.drv", result.stdout)
+        self.assertFalse(self.outputs.exists())
+        self.assertIn("| unfree | failed |", (self.root / "summary.md").read_text())
+
+    def test_heavy_guard_can_be_overridden_and_ignores_fetched_paths(self):
+        result = self.run_helper(HEAVY_PACKAGE="unfree", CI_ALLOW_HEAVY_BUILDS="true")
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(self.built_names(), ["freepkg", "unfree", "localpkg"])
+        self.assertFalse(Path(str(self.calls) + ".dry").exists())
+        # Normal plans (wrappers built, toolchains fetched) pass the guard.
+        self.calls.unlink()
+        result = self.run_helper()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(Path(str(self.calls) + ".dry").read_text().split(), ["freepkg", "unfree", "localpkg"])
+
+    def test_dry_run_error_falls_through_to_real_build(self):
+        result = self.run_helper(DRY_RUN_FAIL="freepkg")
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(self.built_names(), ["freepkg", "unfree", "localpkg"])
 
     def test_build_failure_continues_other_packages_and_removes_output_list(self):
         self.outputs.write_text("stale success\n")

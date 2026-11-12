@@ -24,6 +24,11 @@ on:
         type: boolean
         required: false
         default: false
+      allow_heavy_builds:
+        description: 'Allow compiling toolchains (compilers/SDKs) from source; may exceed the job timeout'
+        type: boolean
+        required: false
+        default: false
 
 env:
   CI_TRUSTED_UPDATE_COMPLETION: >-
@@ -92,6 +97,7 @@ jobs:
         env:
           CI_MANIFEST_PATH: ${{ runner.temp }}/ci-manifest.json
           CI_BUILT_OUTPUTS_FILE: ${{ runner.temp }}/ci-built-outputs.txt
+          CI_ALLOW_HEAVY_BUILDS: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_heavy_builds }}
         run: bash scripts/build-ci.sh
       - name: Publish eligible outputs
         id: cachix

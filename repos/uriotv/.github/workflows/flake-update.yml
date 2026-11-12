@@ -39,10 +39,17 @@ jobs:
       - uses: ./.github/actions/setup-runner-tools
       - name: Update every flake input
         run: nix flake update
+      # A nixpkgs bump moves the .NET SDK patch version; refresh the NuGet locks in
+      # the same PR so the offline restore keeps working. Downloads only, no builds.
+      # A failure leaves the old lock in place; the PR build then shows the problem.
+      - name: Refresh .NET NuGet locks
+        id: dotnet
+        continue-on-error: true
+        run: bash scripts/refresh-dotnet-deps.sh
       - name: Check for changes
         id: changes
         run: |
-          if [ -n "$(git status --porcelain -- flake.lock)" ]; then
+          if [ -n "$(git status --porcelain -- flake.lock 'pkgs/*/deps.json')" ]; then
             echo 'has_changes=true' >> "$GITHUB_OUTPUT"
           else
             echo 'has_changes=false' >> "$GITHUB_OUTPUT"
@@ -53,12 +60,16 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.PAT_FOR_UPDATES }}
-          add-paths: flake.lock
+          add-paths: |
+            flake.lock
+            pkgs/*/deps.json
           commit-message: 'chore: update flake.lock'
           title: 'chore: Update flake.lock'
           body: |
             Weekly update of every flake input. The CachyOS kernels and all packages
             build against this lock; the kernel rebuild and cache publication run after merge.
+            .NET NuGet locks (deps.json) are refreshed for the new SDK in the same PR
+            (refresh step: ${{ steps.dotnet.outcome }}).
           branch: auto-update-flake-lock
           delete-branch: true
       - name: Enable auto-merge

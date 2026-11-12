@@ -54,6 +54,27 @@ if [[ "$publish" != true ]]; then
   status=0
   while IFS= read -r name; do
     echo "::group::Build $name"
+    # Fail in seconds, not after the job timeout, when the plan would bootstrap
+    # a compiler/SDK from source. Dry-run errors fall through to the real build.
+    if [[ "${CI_ALLOW_HEAVY_BUILDS:-false}" != true ]] &&
+       nix build --dry-run --no-link --no-write-lock-file \
+         ".#packages.x86_64-linux.\"${name}\"^*" 2> "$work/plan" > /dev/null; then
+      plan_status=0
+      python3 "$(dirname "${BASH_SOURCE[0]}")/check-build-plan.py" < "$work/plan" > "$work/heavy" || plan_status=$?
+      if (( plan_status != 0 )); then
+        if (( plan_status == 3 )); then
+          echo "::error::$name would compile a toolchain from source (not in the binary cache):"
+        else
+          echo "::error::Build plan check crashed for $name"
+        fi
+        cat "$work/heavy"
+        echo 'Use a binary toolchain variant (e.g. dotnetCorePackages.sdk_*-bin) or set CI_ALLOW_HEAVY_BUILDS.'
+        printf '%s\tfailed\n' "$name" >> "$work/statuses"
+        status=1
+        echo '::endgroup::'
+        continue
+      fi
+    fi
     # Keep stderr separate: progress/warnings must not corrupt the JSON response.
     if nix build --print-build-logs --no-link --no-write-lock-file --json \
       ".#packages.x86_64-linux.\"${name}\"^*" > "$work/build.json"; then
