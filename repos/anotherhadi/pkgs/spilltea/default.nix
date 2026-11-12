@@ -6,7 +6,7 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "spilltea";
-  version = "0.0.1";
+  version = "0.1.0";
 
   src = fetchFromGitHub {
     owner = "anotherhadi";
