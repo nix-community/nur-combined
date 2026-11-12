@@ -24,7 +24,7 @@ jobs:
       - name: Update packages
         run: |
           python_pkgs=()
-          go_pkgs=(jwt-tui)
+          go_pkgs=(jwt-tui vpn-tui)
 
           for pkg in "${python_pkgs[@]}"; do
             echo "==> $pkg"

@@ -8,6 +8,31 @@
 | Package   | Description                                                                            | Source                                                  |
 | --------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------- |
 | `jwt-tui` | A TUI to decode, tamper with, and re-sign JSON Web Tokens (HMAC, RSA, ECDSA, Ed25519). | [Chiloute/jwt-tui](https://github.com/Chiloute/jwt-tui) |
+| `vpn-tui` | VPN manager (OpenVPN/WireGuard) with kill switch: daemon `vpn-tuid` and TUI/CLI client. Linux only. | [Chiloute/vpn-tui](https://github.com/Chiloute/vpn-tui) |
+
+## NixOS modules
+
+| Module    | Options              |
+| --------- | -------------------- |
+| `vpn-tui` | `services.vpn-tui.*` |
+
+The vpn-tui daemon runs as a root systemd service (socket-activated), so use the module rather than only installing the package:
+
+```nix
+# with flakes
+imports = [ nur-chiloute.nixosModules.vpn-tui ];
+
+# or with NUR: `imports` cannot use `pkgs` (infinite recursion), use a NUR instance without pkgs
+imports = [
+  (import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/main.tar.gz") { })
+    .repos.Chiloute.modules.vpn-tui
+];
+
+services.vpn-tui = {
+  enable = true;
+  users = [ "alice" ]; # members of the vpn-tui group can use the daemon
+};
+```
 
 ## Usage
 
