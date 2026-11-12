@@ -45,6 +45,9 @@
     "slug": "add-custom-search-engine"
   },
   {
+    "slug": "add-to-kinopio"
+  },
+  {
     "slug": "addy_io"
   },
   {
@@ -219,6 +222,9 @@
   },
   {
     "slug": "boring-rss"
+  },
+  {
+    "slug": "bramble"
   },
   {
     "slug": "brandon1024-find"
@@ -2040,6 +2046,9 @@
     }
   },
   {
+    "slug": "sticky-window-containers"
+  },
+  {
     "slug": "streetpass-for-mastodon"
   },
   {
@@ -2518,6 +2527,9 @@
       "url": "https://www.wikiwand.com/terms",
       "free": false
     }
+  },
+  {
+    "slug": "window-titler"
   },
   {
     "slug": "windscribe"

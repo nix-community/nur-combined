@@ -184,6 +184,21 @@
         platforms = platforms.all;
       };
     };
+    "add-to-kinopio" = buildMozillaXpiAddon {
+      pname = "add-to-kinopio";
+      version = "3.2";
+      addonId = "{330deb4b-55e8-44d7-b4a4-560f5976dc2e}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4750011/add_to_kinopio-3.2.xpi";
+      sha256 = "1dca79230c444f835c8a8862429bcacf503c49ba042b1d580110a6e166d10025";
+      meta = with lib;
+      {
+        homepage = "https://kinopio.club";
+        description = "Add cards to your Kinopio Inbox wherever you are";
+        license = licenses.mit;
+        mozPermissions = [ "activeTab" "contextMenus" "storage" ];
+        platforms = platforms.all;
+      };
+    };
     "addy_io" = buildMozillaXpiAddon {
       pname = "addy_io";
       version = "3.2.1";
@@ -1530,6 +1545,29 @@
         platforms = platforms.all;
       };
     };
+    "bramble" = buildMozillaXpiAddon {
+      pname = "bramble";
+      version = "1.35.0";
+      addonId = "firefox@bramble.app";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5226840/bramble-1.35.0.xpi";
+      sha256 = "5e52e64835321fe11c481ac610da8d0d872abd131f1ac18274a230f0ef2fd8d6";
+      meta = with lib;
+      {
+        homepage = "https://bramble.sh";
+        description = "Local-first, encrypted password manager. No central cloud storing your secrets.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "storage"
+          "unlimitedStorage"
+          "alarms"
+          "idle"
+          "clipboardWrite"
+          "identity"
+          "<all_urls>"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "brandon1024-find" = buildMozillaXpiAddon {
       pname = "brandon1024-find";
       version = "2.2.1";
@@ -2439,10 +2477,10 @@
     };
     "container-tab-groups" = buildMozillaXpiAddon {
       pname = "container-tab-groups";
-      version = "11.12.0.200";
+      version = "12.0.0.200";
       addonId = "tab-array@menhera.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4691167/container_tab_groups-11.12.0.200.xpi";
-      sha256 = "726b9a06f31028a95a0ff4ea4c6fd9e5ffc5d9c3b1c578f2f4ca58fb3389bf12";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5243183/container_tab_groups-12.0.0.200.xpi";
+      sha256 = "6a0f5df7fcfd0cbbc07b2306a292aea23d9a624e58c98cc24bc56269b5053495";
       meta = with lib;
       {
         homepage = "https://github.com/menhera-org/TabArray";
@@ -2465,8 +2503,9 @@
           "browsingData"
           "theme"
           "alarms"
-          "scripting"
           "proxy"
+          "publicSuffix"
+          "tabGroups"
         ];
         platforms = platforms.all;
       };
@@ -7387,10 +7426,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.5.11";
+      version = "2.5.12";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5223956/lichess_tools_by_siderite-2.5.11.xpi";
-      sha256 = "ebbd2a05e1e7444ba90d993cb3673ebe6b883740fce1dfe257fa501a5a45f69b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5241912/lichess_tools_by_siderite-2.5.12.xpi";
+      sha256 = "5232881698bccc1d4ec749b32b6f2ee91cafb5b0442e483ecf8a99a695be73f3";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -9331,10 +9370,10 @@
     };
     "news-feed-eradicator" = buildMozillaXpiAddon {
       pname = "news-feed-eradicator";
-      version = "3.0.5";
+      version = "3.0.6";
       addonId = "@news-feed-eradicator";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4902519/news_feed_eradicator-3.0.5.xpi";
-      sha256 = "3b6b7c6bc23f2f347cd8936719f61fb5338ec16dc4b2f0073e17c76deb6a5c02";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5243143/news_feed_eradicator-3.0.6.xpi";
+      sha256 = "856169a225cab22b0b60ce73efadea7a7fe25404f8a2bfcf054b6ed2f459a4dd";
       meta = with lib;
       {
         homepage = "https://west.io/news-feed-eradicator";
@@ -10183,10 +10222,10 @@
     };
     "paperpile" = buildMozillaXpiAddon {
       pname = "paperpile";
-      version = "1.0.134";
+      version = "1.0.135";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5156160/paperpile_addon-1.0.134.xpi";
-      sha256 = "441e1696126a0fa7cda6177c03395dcd0e823c1a7c9fcd90b24504050d8c56d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5242354/paperpile_addon-1.0.135.xpi";
+      sha256 = "663fcb0a8329275e20e6f8258e9603b05e94dff02c960e2349e1a309d1ff161f";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -10214,10 +10253,10 @@
     };
     "passbolt" = buildMozillaXpiAddon {
       pname = "passbolt";
-      version = "5.17.1";
+      version = "5.18.0";
       addonId = "passbolt@passbolt.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5168512/passbolt-5.17.1.xpi";
-      sha256 = "afd60004139e92ec7a02827e0680940f56b9191c4d0648807b238f12e6ce7d52";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5242832/passbolt-5.18.0.xpi";
+      sha256 = "374c05933a293915d78081b1e2052fd68595738fa7ae49f766fc7cf98f472437";
       meta = with lib;
       {
         homepage = "https://www.passbolt.com";
@@ -13990,6 +14029,27 @@
         platforms = platforms.all;
       };
     };
+    "sticky-window-containers" = buildMozillaXpiAddon {
+      pname = "sticky-window-containers";
+      version = "1.0.4";
+      addonId = "{a263f1ee-2fa8-4caf-be73-7421b54efa39}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3768188/sticky_window_containers-1.0.4.xpi";
+      sha256 = "8809492e18d7b5fe1e3ea8c12bd660311bf93de2390b7dba959fe4fffa35d72d";
+      meta = with lib;
+      {
+        homepage = "https://github.com/chronakis/firefox-sticky-window-containers";
+        description = "Tabs open in the same container as the first tab in the window.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "<all_urls>"
+          "contextualIdentities"
+          "cookies"
+          "tabs"
+          "webNavigation"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "streetpass-for-mastodon" = buildMozillaXpiAddon {
       pname = "streetpass-for-mastodon";
       version = "2024.1";
@@ -17161,6 +17221,21 @@
           free = false;
         };
         mozPermissions = [ "declarativeNetRequest" "contextMenus" ];
+        platforms = platforms.all;
+      };
+    };
+    "window-titler" = buildMozillaXpiAddon {
+      pname = "window-titler";
+      version = "3.0";
+      addonId = "{35dd5f9a-ca89-4643-b107-f07d09cc94b5}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3365362/window_titler-3.0.xpi";
+      sha256 = "9b1be1ce4fdcc25504a6c269f1e686f689bef599b7dcacc9b06b893c8ea11ca6";
+      meta = with lib;
+      {
+        homepage = "https://github.com/tpamula/webextension-window-titler";
+        description = "Label your windows and profiles using custom window titles.";
+        license = licenses.mit;
+        mozPermissions = [ "sessions" "storage" ];
         platforms = platforms.all;
       };
     };
