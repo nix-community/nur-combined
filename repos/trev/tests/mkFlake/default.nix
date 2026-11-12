@@ -28,6 +28,8 @@ let
           CGO_ENABLED = 1;
         };
         doCheck = canExecute;
+        # keep bin/flake-release as the Mach-O binary rather than a makeWrapper script
+        postInstall = "";
       });
     in
     {
