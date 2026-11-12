@@ -1,15 +1,7 @@
 {pkgs ? import <nixpkgs> {}}: {
-  github-recon = pkgs.callPackage ./pkgs/github-recon {};
-  gravatar-recon = pkgs.callPackage ./pkgs/gravatar-recon {};
-  spilltea = pkgs.callPackage ./pkgs/spilltea {};
-  settuings = pkgs.callPackage ./pkgs/settuings {};
-  usbguard-tui = pkgs.callPackage ./pkgs/usbguard-tui {};
-  jwt-tui = pkgs.callPackage ./pkgs/jwt-tui {};
-  fztea = pkgs.callPackage ./pkgs/fztea {};
-  monitui = pkgs.callPackage ./pkgs/monitui {};
+  cheatmd = pkgs.callPackage ./pkgs/cheatmd {};
+  operations = pkgs.callPackage ./pkgs/operations {};
   revshell = pkgs.callPackage ./pkgs/revshell {};
-  default-creds-tui = pkgs.callPackage ./pkgs/default-creds-tui {};
-  proton-vpn-tui = pkgs.callPackage ./pkgs/proton-vpn-tui {};
-  myx = pkgs.callPackage ./pkgs/myx {};
-  enzo = pkgs.callPackage ./pkgs/enzo {};
+  spilltea = pkgs.callPackage ./pkgs/spilltea {};
+  steep = pkgs.callPackage ./pkgs/steep {};
 }

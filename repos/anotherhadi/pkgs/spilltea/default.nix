@@ -1,39 +1,48 @@
 {
   lib,
-  buildGo126Module,
+  buildGoModule,
   fetchFromGitHub,
-  installShellFiles,
+  versionCheckHook,
 }:
-buildGo126Module rec {
+buildGoModule (finalAttrs: {
   pname = "spilltea";
-  version = "0.0.8";
+  version = "0.0.1";
 
   src = fetchFromGitHub {
     owner = "anotherhadi";
     repo = "spilltea";
-    rev = "v${version}";
-    hash = "sha256-xOJ+VvrdPRyNJBVo+1Sd1tvw++OWbBN59uWI3Tc/hCY=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-Q9bXnTSq2B9YJhkHN2jpxmE2xBAmt+AwU+EuKqAiQe4=";
   };
 
-  vendorHash = "sha256-Mz5TLKcQKk9cuPNOpMl6hgaODKlaw137B00e3M6fgwM=";
+  vendorHash = "sha256-coqd5mL3z/7JfTluoiFhpVQgDS1WfuChcJAcjha2ByY=";
 
-  ldflags = ["-s" "-w" "-X main.version=${version}"];
+  subPackages = ["cmd/spilltea"];
 
-  nativeBuildInputs = [installShellFiles];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/anotherhadi/spilltea/internal/config.Version=${finalAttrs.version}"
+  ];
 
-  postInstall = ''
-    installShellCompletion --cmd spilltea \
-      --bash <($out/bin/spilltea completion bash) \
-      --zsh <($out/bin/spilltea completion zsh) \
-      --fish <($out/bin/spilltea completion fish)
-  '';
+  nativeInstallCheckInputs = [versionCheckHook];
+  doInstallCheck = true;
+  versionCheckProgram = "${placeholder "out"}/bin/spilltea";
+  versionCheckProgramArg = "--version";
 
-  meta = with lib; {
-    description = "A minimal, terminal-based HTTP(S) proxy for pentesters and CTF players.";
+  meta = {
+    description = "TUI intercepting proxy for pentesters and bug bounty hunters, a lightweight terminal-first alternative to Burp Suite and Caido";
     homepage = "https://github.com/anotherhadi/spilltea";
-    license = licenses.mit;
-    platforms = platforms.unix;
-    maintainers = [];
+    changelog = "https://github.com/anotherhadi/spilltea/releases/tag/v${finalAttrs.version}";
+    license = lib.licenses.mit;
+    platforms = lib.platforms.unix;
+    maintainers = [
+      {
+        name = "Hadi";
+        github = "anotherhadi";
+        githubId = 112569860;
+      }
+    ];
     mainProgram = "spilltea";
   };
-}
+})

@@ -2,32 +2,47 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  versionCheckHook,
 }:
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "revshell";
-  version = "0.8.9";
+  version = "0.0.2";
 
   src = fetchFromGitHub {
-    owner = "Gubarz";
+    owner = "anotherhadi";
     repo = "revshell";
-    rev = "v${version}";
-    hash = "sha256-rCj8CT3VOsocvF1CVlimhuAsxsB91axp7oBUxxinZF4=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-W+luu6TcsDIYUN9jOqcU00pg7J5aOsx5grk7JCQE0Hg=";
   };
 
-  vendorHash = "sha256-yC6O/+yvC0U8cms0sxfLNNb2/Q6MpACAltf7J7L1HWM=";
+  vendorHash = "sha256-GaJzDv5fuB9p9Mh8vR5vlBIOpS/grvzKIZM8lDpzeiM=";
+
+  subPackages = ["cmd/revshell"];
 
   ldflags = [
     "-s"
     "-w"
-    "-X github.com/Gubarz/revshell/cmd.version=${version}"
+    "-X main.version=${finalAttrs.version}"
   ];
 
+  nativeInstallCheckInputs = [versionCheckHook];
+  doInstallCheck = true;
+  versionCheckProgram = "${placeholder "out"}/bin/revshell";
+  versionCheckProgramArg = "--version";
+
   meta = {
-    description = "CLI reverse shell generator";
-    homepage = "https://github.com/Gubarz/revshell";
-    license = lib.licenses.unlicense;
+    description = "TUI to search, render and copy reverse shell one-liners: bind shells, MSFVenom, HoaxShell and shellcode included, with a scriptable CLI";
+    homepage = "https://github.com/anotherhadi/revshell";
+    changelog = "https://github.com/anotherhadi/revshell/releases/tag/v${finalAttrs.version}";
+    license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = [];
+    maintainers = [
+      {
+        name = "Hadi";
+        github = "anotherhadi";
+        githubId = 112569860;
+      }
+    ];
     mainProgram = "revshell";
   };
-}
+})
