@@ -164,7 +164,10 @@ class UpdateTests(unittest.TestCase):
             "sourceRef": "v2026.10.10-8410.c3dfdf4",
             "system": "x86_64-linux",
         }
-        after = before | {"sourceRef": "v2026.10.11-8411.a7d4000"}
+        after = before | {
+            "identity": "2026.10.11-8411.a7d4000",
+            "sourceRef": "v2026.10.11-8411.a7d4000",
+        }
         with (
             patch.dict(
                 os.environ,
@@ -181,7 +184,6 @@ class UpdateTests(unittest.TestCase):
             ) as github,
             patch.object(maintain, "update_info", side_effect=[before, after]),
             patch.object(maintain, "update", return_value=True),
-            patch.object(maintain, "version", return_value="2026.10.11-8411.a7d4000"),
             patch.object(maintain, "run"),
         ):
             self.assertEqual(

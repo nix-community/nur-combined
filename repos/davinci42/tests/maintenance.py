@@ -1,10 +1,11 @@
+# pyright: reportAny=false, reportExplicitAny=false, reportUnusedCallResult=false
 import json
 import subprocess
 import sys
 import tempfile
 import unittest
 from pathlib import Path
-from typing import cast
+from typing import Any
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -26,10 +27,12 @@ class MaintenanceTests(unittest.TestCase):
         with patch.object(
             maintain, "run", return_value=json.dumps({"command": command})
         ) as run:
-            self.assertEqual(maintain.update_command(Path.cwd(), "example"), command)
-        self.assertIn("--argstr", cast(list[str], run.call_args.args[1]))
+            self.assertEqual(
+                maintain.update_info(Path.cwd(), "example")["command"], command
+            )
+        self.assertIn("--argstr", run.call_args.args[1])
         with self.assertRaises(ValueError):
-            _ = maintain.update_command(Path.cwd(), "../example")
+            maintain.update_info(Path.cwd(), "../example")
 
     def test_official_script_forms_and_attrpath(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -39,24 +42,24 @@ class MaintenanceTests(unittest.TestCase):
                 '[ "/bin/true" "argument" ]',
                 '{ command = [ "/bin/true" ]; attrPath = "nested"; supportedFeatures = [ "commit" ]; }',
             ):
-                _ = (root / "default.nix").write_text(
+                (root / "default.nix").write_text(
                     '{ ... }: { example = { name = "example-1"; pname = "example"; version = "1"; updateScript = '
                     + declaration
                     + '; }; nested = { name = "nested-2"; pname = "nested"; version = "2"; }; }'
                 )
                 info = maintain.update_info(root, "example")
-                self.assertEqual(cast(list[str], info["command"])[0], "/bin/true")
+                self.assertEqual(info["command"][0], "/bin/true")
                 if "attrPath" in declaration:
                     self.assertEqual(info["identity"], "2")
                     self.assertEqual(info["supportedFeatures"], ["commit"])
                     self.assertEqual(
-                        cast(dict[str, str], info["env"])["UPDATE_NIX_ATTR_PATH"],
+                        info["env"]["UPDATE_NIX_ATTR_PATH"],
                         "nested",
                     )
 
     def test_check_builds_standard_tests(self) -> None:
         with (
-            patch.object(maintain, "update_command"),
+            patch.object(maintain, "update_info"),
             patch.object(maintain, "run") as run,
         ):
             maintain.check(Path.cwd(), "example", run_lint=False)
@@ -131,12 +134,10 @@ class MaintenanceTests(unittest.TestCase):
             _ = (folder / "update.py").write_text("")
             before = maintain.snapshot(root)
 
-            def run(directory: Path, command: list[str], **kwargs: object) -> str:
+            def run(directory: Path, command: list[str], **kwargs: Any) -> str:
                 if command[0] == "nix-update":
-                    _ = (directory / "pkgs/example/default.nix").write_text("new")
-                    self.assertEqual(
-                        cast(dict[str, str], kwargs["env"])["NUR_ACCEPT_CONTRACT"], "0"
-                    )
+                    (directory / "pkgs/example/default.nix").write_text("new")
+                    self.assertEqual(kwargs["env"]["NUR_ACCEPT_CONTRACT"], "0")
                     raise subprocess.CalledProcessError(1, command)
                 return ""
 
@@ -150,13 +151,13 @@ class MaintenanceTests(unittest.TestCase):
                 patch.object(maintain, "check") as check,
                 self.assertRaises(subprocess.CalledProcessError),
             ):
-                _ = maintain.update(root, "example")
+                maintain.update(root, "example")
             check.assert_not_called()
             self.assertEqual(maintain.snapshot(root), before)
 
     def test_real_packages_export_update_scripts_and_tests(self) -> None:
         for package in maintain.packages(maintain.ROOT):
-            command = maintain.update_command(maintain.ROOT, package)
+            command = maintain.update_info(maintain.ROOT, package)["command"]
             self.assertTrue(command[0].startswith("/nix/store/"))
             tests = maintain.run(
                 maintain.ROOT,
@@ -172,7 +173,7 @@ class MaintenanceTests(unittest.TestCase):
                 ],
                 capture=True,
             )
-            self.assertIn("packaging", cast(list[str], json.loads(tests)))
+            self.assertIn("packaging", json.loads(tests))
             self.assertFalse(
                 (maintain.ROOT / "pkgs" / package / "maintenance.toml").exists()
             )

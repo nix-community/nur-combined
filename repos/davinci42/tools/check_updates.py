@@ -1,49 +1,57 @@
+# pyright: reportAny=false, reportExplicitAny=false, reportUnusedCallResult=false, reportUnusedExpression=false
 import argparse
 import os
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
-from typing import cast
+from typing import Any
 from urllib.parse import quote
 from uuid import uuid4
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools import maintain
+from tools.maintain import Pipe
 
 
 def detect(root: Path, package: str) -> tuple[str, str] | None:
     with tempfile.TemporaryDirectory(prefix="nur-detect-") as temporary:
         candidate = Path(temporary) / "repo"
-        maintain.copy_repository(root, candidate)
-        info = maintain.update_info(candidate, package)
-        current = cast(str, info["identity"])
-        maintain.execute_update(candidate, package, detect=True, info=info)
-        target = cast(str, maintain.update_info(candidate, package)["identity"])
-        if target == current:
-            return None
-        if info["snapshot"]:
-            return current, target
-        comparison = maintain.run(
-            root,
-            [
-                "nix-instantiate",
-                "--eval",
-                "--strict",
-                "--expr",
-                "{ target, current }: builtins.compareVersions target current",
-                "--argstr",
-                "target",
-                target,
-                "--argstr",
-                "current",
-                current,
-            ],
-            capture=True,
-        )
-        if comparison == "-1":
-            return None
-        return current, target
+
+        def run_detect(ws: Path) -> tuple[dict[str, Any], str, str]:
+            maintain.copy_repository(root, ws)
+            info = maintain.update_info(ws, package)
+            maintain.execute_update(ws, package, detect=True, info=info)
+            return info, info["identity"], maintain.update_info(ws, package)["identity"]
+
+        def filter_newer(
+            state: tuple[dict[str, Any], str, str],
+        ) -> tuple[str, str] | None:
+            info, current, target = state
+            if target == current:
+                return None
+            if info["snapshot"]:
+                return current, target
+            comparison = maintain.run(
+                root,
+                [
+                    "nix-instantiate",
+                    "--eval",
+                    "--strict",
+                    "--expr",
+                    "{ target, current }: builtins.compareVersions target current",
+                    "--argstr",
+                    "target",
+                    target,
+                    "--argstr",
+                    "current",
+                    current,
+                ],
+                capture=True,
+            )
+            return None if comparison == "-1" else (current, target)
+
+        return (Pipe(candidate) | run_detect | filter_newer).value
 
 
 def github(root: Path, arguments: list[str]) -> str:
@@ -62,8 +70,8 @@ def pr_body(
     package: str,
     current: str,
     target: str,
-    before: dict[str, object],
-    after: dict[str, object],
+    before: dict[str, Any],
+    after: dict[str, Any],
 ) -> str:
     if not all(
         isinstance(info.get(key), str) and info[key]
@@ -73,24 +81,22 @@ def pr_body(
         raise ValueError("Cannot determine upstream diff or validation platform")
     if before["upstream"] != after["upstream"]:
         raise ValueError("Upstream repository changed; review manually")
-    upstream = cast(str, after["upstream"])
-    old_ref = quote(cast(str, before["sourceRef"]), safe="")
-    new_ref = quote(cast(str, after["sourceRef"]), safe="")
+    old_ref = quote(before["sourceRef"], safe="")
+    new_ref = quote(after["sourceRef"], safe="")
     template = (root / ".github/package-update-pr.md").read_text()
     run_id = os.environ.get("GITHUB_RUN_ID")
-    ci_url = ""
-    if run_id:
-        ci_url = (
-            f"{os.environ['GITHUB_SERVER_URL']}/{os.environ['GITHUB_REPOSITORY']}"
-            + f"/actions/runs/{run_id}"
-        )
-    else:
+    ci_url = (
+        f"{os.environ['GITHUB_SERVER_URL']}/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{run_id}"
+        if run_id
+        else ""
+    )
+    if not run_id:
         template = template.replace("[CI logs]({ci_run_url})\n", "")
     return template.format(
         package=package,
         old_version=current,
         new_version=target,
-        compare_url=f"{upstream}/compare/{old_ref}...{new_ref}",
+        compare_url=f"{after['upstream']}/compare/{old_ref}...{new_ref}",
         check_command=f"just check {package}",
         system=after["system"],
         checks_run="Package build, package checks, lint and `git diff --check`",
@@ -130,30 +136,26 @@ def open_pr(root: Path, package: str, current: str, target: str, force: bool) ->
         title = f"{package}: {current[:12]} -> {target[:12]}"
     with tempfile.TemporaryDirectory(prefix="nur-pr-") as temporary:
         worktree = Path(temporary) / "repo"
-        _ = maintain.run(
+        maintain.run(
             root, ["git", "worktree", "add", "--detach", str(worktree), "HEAD"]
         )
         try:
             before = maintain.update_info(worktree, package)
-            snapshot = before["snapshot"]
-            if not maintain.update(worktree, package, None if snapshot else target):
+            if not maintain.update(
+                worktree, package, None if before["snapshot"] else target
+            ):
                 return f"{package}: no changes"
-            if maintain.version(worktree, package) != target:
+            after = maintain.update_info(worktree, package)
+            if after["identity"] != target:
                 raise ValueError("Upstream moved during update; retry the check")
-            _ = maintain.run(worktree, ["git", "diff", "--check"])
-            body = pr_body(
-                root,
-                package,
-                current,
-                target,
-                before,
-                maintain.update_info(worktree, package),
-            )
-            _ = maintain.run(worktree, ["git", "add", "--", f"pkgs/{package}"])
-            _ = maintain.run(worktree, ["git", "commit", "-m", title])
-            _ = maintain.run(
-                worktree, ["git", "push", "-u", "origin", f"HEAD:refs/heads/{branch}"]
-            )
+            body = pr_body(root, package, current, target, before, after)
+            for cmd in (
+                ["git", "diff", "--check"],
+                ["git", "add", "--", f"pkgs/{package}"],
+                ["git", "commit", "-m", title],
+                ["git", "push", "-u", "origin", f"HEAD:refs/heads/{branch}"],
+            ):
+                maintain.run(worktree, cmd)
             return github(
                 worktree,
                 [
@@ -172,17 +174,14 @@ def open_pr(root: Path, package: str, current: str, target: str, force: bool) ->
                 ],
             )
         finally:
-            _ = maintain.run(
-                root, ["git", "worktree", "remove", "--force", str(worktree)]
-            )
+            maintain.run(root, ["git", "worktree", "remove", "--force", str(worktree)])
 
 
 def report(message: str) -> None:
     print(message, flush=True)
-    summary = os.environ.get("GITHUB_STEP_SUMMARY")
-    if summary:
+    if summary := os.environ.get("GITHUB_STEP_SUMMARY"):
         with Path(summary).open("a") as output:
-            _ = output.write(f"- {message}\n")
+            output.write(f"- {message}\n")
 
 
 def check_updates(
@@ -193,20 +192,24 @@ def check_updates(
     if pr and maintain.run(root, ["git", "status", "--porcelain"], capture=True):
         raise ValueError("PR publishing requires a clean checkout")
     failures: list[str] = []
+
+    def handle(package: str) -> None:
+        candidate = detect(root, package)
+        if not candidate:
+            report(f"{package}: no newer version")
+            return
+        current, target = candidate
+        if pr:
+            report(open_pr(root, package, current, target, force))
+        elif update:
+            snapshot = maintain.update_info(root, package)["snapshot"]
+            maintain.update(root, package, None if snapshot else target)
+        else:
+            report(f"{package}: {current} -> {target} (read-only check)")
+
     for package in maintain.packages(root):
         try:
-            candidate = detect(root, package)
-            if not candidate:
-                report(f"{package}: no newer version")
-                continue
-            current, target = candidate
-            if pr:
-                report(open_pr(root, package, current, target, force))
-            elif update:
-                snapshot = maintain.update_info(root, package)["snapshot"]
-                _ = maintain.update(root, package, None if snapshot else target)
-            else:
-                report(f"{package}: {current} -> {target} (read-only check)")
+            Pipe(package) | handle
         except (OSError, ValueError, KeyError, subprocess.SubprocessError) as error:
             failures.append(package)
             report(f"{package}: failed: {error}")
@@ -214,19 +217,13 @@ def check_updates(
         raise ValueError("Updates failed for: " + ", ".join(failures))
 
 
-class Arguments(argparse.Namespace):
-    pr: bool = False
-    update: bool = False
-    force: bool = False
-
-
 def main() -> None:
     parser = argparse.ArgumentParser(description="Check package update scripts")
     mode = parser.add_mutually_exclusive_group()
-    _ = mode.add_argument("--pr", action="store_true")
-    _ = mode.add_argument("--update", action="store_true")
-    _ = parser.add_argument("--force", action="store_true")
-    args = parser.parse_args(namespace=Arguments())
+    mode.add_argument("--pr", action="store_true")
+    mode.add_argument("--update", action="store_true")
+    parser.add_argument("--force", action="store_true")
+    args = parser.parse_args()
     try:
         check_updates(maintain.ROOT, args.pr, args.update, args.force)
     except (OSError, ValueError, KeyError, subprocess.SubprocessError) as error:
