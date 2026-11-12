@@ -5,7 +5,7 @@ import {
   buildDesiredRecords,
   diffRecords,
   isSnapshotTrustworthy,
-} from "./sync";
+} from "./src/sync";
 test("sanitize lowercases and rejects junk", () => {
   expect(sanitizeHostname("My_Laptop ")).toBe("my-laptop");
   expect(sanitizeHostname("")).toBeNull();

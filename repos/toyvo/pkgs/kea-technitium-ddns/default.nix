@@ -9,7 +9,7 @@ writeShellApplication {
   name = "kea-technitium-ddns";
   runtimeInputs = [ bun ];
   text = ''
-    exec bun ${./ddns.ts}
+    exec bun ${./src}/ddns.ts
   '';
 }
 // {
