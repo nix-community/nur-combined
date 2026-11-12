@@ -12,17 +12,17 @@ buildGoModule (finalAttrs: {
     owner = "anotherhadi";
     repo = "spilltea";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-cNTZG3jevJeRcdaqJghnroq05T1CSOxBDEi5Hj5qcew=";
+    hash = "sha256-9r4EN2+CQ0WCv+Ih0l7nwh58wUaDPOn9z9q0bw/70Xg=";
   };
 
-  vendorHash = "sha256-u+u38Qr5Dugk5eFmxTK4vKUEv2SlXcfY6ZFlu1cPqVk=";
+  vendorHash = "sha256-sU2Z6U2v/Qz6YLPEN5dPPmlXwLXRnpE6aSMnh+GTMSI=";
 
   subPackages = ["cmd/spilltea"];
 
   ldflags = [
     "-s"
     "-w"
-    "-X main.version=${finalAttrs.version}"
+    "-X github.com/anotherhadi/spilltea/internal/config.Version=${finalAttrs.version}"
   ];
 
   nativeInstallCheckInputs = [versionCheckHook];
