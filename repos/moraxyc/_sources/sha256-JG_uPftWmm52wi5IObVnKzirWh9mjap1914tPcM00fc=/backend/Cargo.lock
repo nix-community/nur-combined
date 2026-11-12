@@ -239,7 +239,7 @@ version = "1.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "40c48f72fd53cd289104fc64099abca73db4166ad86ea0b4341abe65af83dadc"
 dependencies = [
- "windows-sys 0.61.2",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -250,7 +250,7 @@ checksum = "291e6a250ff86cd4a820112fb8898808a366d8f9f58ce16d1f538353ad55747d"
 dependencies = [
  "anstyle",
  "once_cell_polyfill",
- "windows-sys 0.61.2",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -281,7 +281,7 @@ dependencies = [
  "objc2-foundation 0.3.2",
  "parking_lot 0.12.5",
  "percent-encoding",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
  "wl-clipboard-rs",
  "x11rb",
 ]
@@ -1151,7 +1151,7 @@ name = "boa_utils"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "async-fs",
+ "async-trait",
  "boa_engine",
  "boa_parser",
  "brotli 9.1.1",
@@ -1161,16 +1161,12 @@ dependencies = [
  "log",
  "mime",
  "nyanpasu-log-preview",
- "nyanpasu-utils",
  "phf 0.14.0",
- "postcard",
- "reqwest 0.13.5",
  "serde",
  "serde_json",
  "smol",
- "tempfile",
+ "snafu 0.9.2",
  "test-log",
- "tokio",
  "tracing",
  "url",
 ]
@@ -1786,11 +1782,13 @@ dependencies = [
  "ambassador",
  "ansi-str",
  "anyhow",
+ "async-fs",
  "async-trait",
  "atomic_enum",
  "atomicwrites",
- "axum",
  "base64 0.23.1",
+ "boa_engine",
+ "boa_utils",
  "bolt-load",
  "camino",
  "chrono",
@@ -1821,6 +1819,7 @@ dependencies = [
  "log",
  "md-5",
  "mime",
+ "mlua",
  "mockall",
  "nanoid",
  "nix 0.31.3",
@@ -1846,7 +1845,11 @@ dependencies = [
  "nyanpasu-persistence",
  "nyanpasu-profile-io",
  "nyanpasu-profile-transform",
+ "nyanpasu-rpc",
+ "nyanpasu-rpc-protocol",
+ "nyanpasu-runtime-values",
  "nyanpasu-scripts",
+ "nyanpasu-state-engine",
  "nyanpasu-traffic",
  "nyanpasu-tsdb",
  "nyanpasu-updater",
@@ -1861,6 +1864,7 @@ dependencies = [
  "os_pipe",
  "parking_lot 0.13.0",
  "percent-encoding",
+ "postcard",
  "ractor",
  "rand 0.10.3",
  "rayon",
@@ -1906,10 +1910,8 @@ dependencies = [
  "time",
  "timeago",
  "tokio",
- "tokio-tungstenite 0.30.0",
  "tokio-util",
  "toml 1.2.1+spec-1.1.0",
- "tower",
  "tracing",
  "tracing-appender",
  "tracing-attributes",
@@ -1930,7 +1932,7 @@ dependencies = [
  "windows-registry 0.6.1",
  "windows-sys 0.61.2",
  "winreg 0.56.0",
- "zip 9.4.1",
+ "zip 9.5.1",
  "zip-extensions",
 ]
 
@@ -2003,7 +2005,7 @@ version = "3.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "faf9468729b8cbcea668e36183cb69d317348c2e08e994829fb56ebfdfbaac34"
 dependencies = [
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -2325,9 +2327,9 @@ dependencies = [
 
 [[package]]
 name = "csscolorparser"
-version = "0.9.0"
+version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "75c9db70df93ea049adaa5ef1a727079ada6ccb33d4b358f262923aef4fcac8c"
+checksum = "b3c89b58e3eb25afa9d30ccc8ab8ca2b9b1d3158659b061af1d58ec9bd57feab"
 dependencies = [
  "num-traits",
  "phf 0.14.0",
@@ -2800,7 +2802,7 @@ dependencies = [
  "libc",
  "option-ext",
  "redox_users 0.5.3",
- "windows-sys 0.61.2",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
@@ -3216,7 +3218,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "39cab71617ae0d63f51a36d69f866391735b51691dbda63cf6f96d042b63efeb"
 dependencies = [
  "libc",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -3277,9 +3279,9 @@ version = "0.1.0"
 
 [[package]]
 name = "fancy-regex"
-version = "0.20.1"
+version = "0.20.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7b32c6266c2b14b0db7aa3409d3ee3f0ddda3b1d0279c4ba24fbec18af81d90e"
+checksum = "0a2e16b9a584b602f1e0e5e22c30ca0906786088c27500653e432d086def8b53"
 dependencies = [
  "bit-set 0.8.0",
  "regex-automata",
@@ -4117,7 +4119,7 @@ dependencies = [
  "log",
  "presser",
  "thiserror 2.0.21",
- "windows 0.62.2",
+ "windows 0.58.0",
 ]
 
 [[package]]
@@ -6287,7 +6289,7 @@ dependencies = [
  "once_cell",
  "png",
  "thiserror 2.0.21",
- "windows-sys 0.61.2",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -6308,7 +6310,7 @@ dependencies = [
  "png",
  "serde",
  "thiserror 2.0.21",
- "windows-sys 0.61.2",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -6590,7 +6592,7 @@ version = "0.50.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7957b9740744892f114936ab4a57b3f487491bbeafaf8083688b16841a4240e5"
 dependencies = [
- "windows-sys 0.61.2",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
@@ -6777,11 +6779,9 @@ name = "nyanpasu-core"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "arc-swap",
  "async-trait",
  "atomicwrites",
  "axum",
- "bon",
  "bytes",
  "camino",
  "chrono",
@@ -6800,6 +6800,7 @@ dependencies = [
  "nyanpasu-config",
  "nyanpasu-contracts",
  "nyanpasu-core-manager",
+ "nyanpasu-core-metadata",
  "nyanpasu-diagnose",
  "nyanpasu-geodata",
  "nyanpasu-ipc",
@@ -6814,6 +6815,8 @@ dependencies = [
  "nyanpasu-persistence",
  "nyanpasu-profile-io",
  "nyanpasu-profile-transform",
+ "nyanpasu-runtime-values",
+ "nyanpasu-state-engine",
  "nyanpasu-traffic",
  "nyanpasu-tsdb",
  "nyanpasu-updater",
@@ -6917,7 +6920,7 @@ dependencies = [
  "sysinfo",
  "tempfile",
  "windows-registry 0.6.1",
- "zip 9.4.1",
+ "zip 9.5.1",
 ]
 
 [[package]]
@@ -7233,7 +7236,11 @@ dependencies = [
 name = "nyanpasu-profile-transform"
 version = "0.1.0"
 dependencies = [
+ "async-trait",
+ "boa_engine",
+ "boa_utils",
  "indexmap 2.14.2",
+ "mlua",
  "nyanpasu-config",
  "nyanpasu-scripts",
  "serde",
@@ -7242,6 +7249,117 @@ dependencies = [
  "snafu 0.9.2",
  "specta",
  "tempfile",
+ "url",
+]
+
+[[package]]
+name = "nyanpasu-rpc"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "atomicwrites",
+ "axum",
+ "base64 0.23.1",
+ "chrono",
+ "clash-api",
+ "dirs 7.0.0",
+ "futures",
+ "hyper-util",
+ "indexmap 2.14.2",
+ "interprocess",
+ "inventory",
+ "libc",
+ "mockall",
+ "nyanpasu-config",
+ "nyanpasu-contracts",
+ "nyanpasu-core",
+ "nyanpasu-core-manager",
+ "nyanpasu-diagnose",
+ "nyanpasu-ipc",
+ "nyanpasu-jobs",
+ "nyanpasu-logging",
+ "nyanpasu-macro",
+ "nyanpasu-migration",
+ "nyanpasu-observers",
+ "nyanpasu-owner-support",
+ "nyanpasu-paths",
+ "nyanpasu-persistence",
+ "nyanpasu-profile-transform",
+ "nyanpasu-rpc-protocol",
+ "nyanpasu-runtime-values",
+ "nyanpasu-state-engine",
+ "nyanpasu-traffic",
+ "nyanpasu-updater",
+ "parking_lot 0.13.0",
+ "percent-encoding",
+ "ractor",
+ "redb",
+ "reqwest 0.13.5",
+ "serde",
+ "serde_json",
+ "serde_yaml_ng 0.10.0 (git+https://github.com/libnyanpasu/serde-yaml-ng.git?rev=363da138dc97f90ef0a356f971c2dc1d8fe04c9e)",
+ "sha2 0.11.1",
+ "snafu 0.9.2",
+ "socket2",
+ "specta",
+ "specta-typescript",
+ "tempfile",
+ "tokio",
+ "tokio-tungstenite 0.30.0",
+ "tokio-util",
+ "tower",
+ "tracing",
+ "tracing-attributes",
+ "tracing-subscriber",
+ "url",
+ "uuid",
+ "whoami",
+ "widestring 1.2.1",
+ "windows-sys 0.61.2",
+ "zip 9.5.1",
+]
+
+[[package]]
+name = "nyanpasu-rpc-protocol"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "clash-api",
+ "indexmap 2.14.2",
+ "nyanpasu-config",
+ "nyanpasu-contracts",
+ "nyanpasu-core-metadata",
+ "nyanpasu-logging",
+ "nyanpasu-profile-transform",
+ "nyanpasu-runtime-values",
+ "serde",
+ "serde_json",
+ "snafu 0.9.2",
+ "specta",
+ "specta-typescript",
+ "tokio",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "nyanpasu-runtime-values"
+version = "0.1.0"
+dependencies = [
+ "atomicwrites",
+ "nyanpasu-config",
+ "nyanpasu-contracts",
+ "nyanpasu-core-metadata",
+ "nyanpasu-ipc",
+ "nyanpasu-profile-transform",
+ "serde",
+ "serde_json",
+ "serde_yaml_ng 0.10.0 (git+https://github.com/libnyanpasu/serde-yaml-ng.git?rev=363da138dc97f90ef0a356f971c2dc1d8fe04c9e)",
+ "snafu 0.9.2",
+ "specta",
+ "tokio",
+ "url",
 ]
 
 [[package]]
@@ -7271,6 +7389,7 @@ dependencies = [
  "thiserror 2.0.21",
  "tokio",
  "tracing",
+ "url",
 ]
 
 [[package]]
@@ -7291,6 +7410,78 @@ dependencies = [
  "quote",
  "serde_derive_internals 0.30.0",
  "syn 3.0.10",
+]
+
+[[package]]
+name = "nyanpasu-server"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "boa_engine",
+ "boa_utils",
+ "chrono",
+ "clap",
+ "flexi_logger",
+ "futures",
+ "inventory",
+ "mlua",
+ "nyanpasu-config",
+ "nyanpasu-contracts",
+ "nyanpasu-core",
+ "nyanpasu-core-manager",
+ "nyanpasu-ipc",
+ "nyanpasu-jobs",
+ "nyanpasu-logging",
+ "nyanpasu-migration",
+ "nyanpasu-net",
+ "nyanpasu-observers",
+ "nyanpasu-os",
+ "nyanpasu-owner-support",
+ "nyanpasu-panics",
+ "nyanpasu-paths",
+ "nyanpasu-profile-io",
+ "nyanpasu-rpc",
+ "nyanpasu-rpc-protocol",
+ "nyanpasu-runtime-values",
+ "nyanpasu-scripts",
+ "nyanpasu-server",
+ "nyanpasu-tsdb",
+ "nyanpasu-updater",
+ "nyanpasu-utils",
+ "postcard",
+ "reqwest 0.13.5",
+ "runas",
+ "serde_json",
+ "snafu 0.9.2",
+ "struct-patch",
+ "tempfile",
+ "tokio",
+ "tokio-util",
+ "tracing",
+ "tracing-subscriber",
+ "url",
+]
+
+[[package]]
+name = "nyanpasu-state-engine"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "arc-swap",
+ "async-trait",
+ "atomicwrites",
+ "bon",
+ "camino",
+ "fs-err",
+ "indexmap 2.14.2",
+ "nyanpasu-persistence",
+ "serde",
+ "serde_yaml_ng 0.10.0 (git+https://github.com/libnyanpasu/serde-yaml-ng.git?rev=363da138dc97f90ef0a356f971c2dc1d8fe04c9e)",
+ "tempfile",
+ "thiserror 2.0.21",
+ "tokio",
+ "tracing",
 ]
 
 [[package]]
@@ -7357,7 +7548,7 @@ dependencies = [
  "tokio-util",
  "tracing",
  "url",
- "zip 9.4.1",
+ "zip 9.5.1",
 ]
 
 [[package]]
@@ -8061,7 +8252,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7d8fae84b431384b68627d0f9b3b1245fcf9f46f6c0e3dc902e9dce64edd1967"
 dependencies = [
  "libc",
- "windows-sys 0.45.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -9145,7 +9336,7 @@ dependencies = [
  "once_cell",
  "socket2",
  "tracing",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -9890,7 +10081,7 @@ dependencies = [
  "errno",
  "libc",
  "linux-raw-sys 0.4.15",
- "windows-sys 0.52.0",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
@@ -9903,7 +10094,7 @@ dependencies = [
  "errno",
  "libc",
  "linux-raw-sys 0.12.1",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -9961,7 +10152,7 @@ dependencies = [
  "security-framework",
  "security-framework-sys",
  "webpki-root-certs",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -10909,7 +11100,7 @@ version = "0.8.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c1c97747dbf44bb1ca44a561ece23508e99cb592e862f22222dcf42f51d1e451"
 dependencies = [
- "heck 0.4.1",
+ "heck 0.5.0",
  "proc-macro2",
  "quote",
  "syn 2.0.119",
@@ -10921,7 +11112,7 @@ version = "0.9.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "287f59010008f0d7cf5e3b03196d666c1acc46c8d3e9cf34c28a1a7157601e72"
 dependencies = [
- "heck 0.4.1",
+ "heck 0.5.0",
  "proc-macro2",
  "quote",
  "syn 2.0.119",
@@ -10934,7 +11125,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c3d1e2c7f27f8d4cb10542a02c49005dbd6e93095799d6f3be745fae9f8fedd4"
 dependencies = [
  "libc",
- "windows-sys 0.61.2",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -11684,9 +11875,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-notification"
-version = "2.8.0"
+version = "2.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5bc6c194a95a535abdfbe3bc1af9a43935b8b9b29c216b8e71af8b59132703cf"
+checksum = "14a226bfb8189ec4ab2c1936e66330ad06c44d9f6c54a674338208491dee177f"
 dependencies = [
  "log",
  "notify-rust",
@@ -11704,9 +11895,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-opener"
-version = "2.7.2"
+version = "2.7.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "53810be1b4fed22bb6ac3f4cab5a2b80d9391d1af436bda145607532bc0bb219"
+checksum = "54592c6718b42ab198bf11bda6a428a3553ca2f2f8e506df56f6a063ec328331"
 dependencies = [
  "dunce",
  "glob",
@@ -11806,7 +11997,7 @@ dependencies = [
  "tokio",
  "url",
  "windows-sys 0.61.2",
- "zip 9.4.1",
+ "zip 9.5.1",
 ]
 
 [[package]]
@@ -11968,10 +12159,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "32497e9a4c7b38532efcdebeef879707aa9f794296a4f0244f6f69e9bc8574bd"
 dependencies = [
  "fastrand",
- "getrandom 0.3.4",
+ "getrandom 0.4.3",
  "once_cell",
  "rustix 1.1.5",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -12756,7 +12947,7 @@ dependencies = [
  "png",
  "serde",
  "thiserror 2.0.21",
- "windows-sys 0.61.2",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -12902,7 +13093,7 @@ checksum = "f2f6fb2847f6742cd76af783a2a2c49e9375d0a111c7bef6f71cd9e738c72d6e"
 dependencies = [
  "memoffset 0.9.1",
  "tempfile",
- "windows-sys 0.61.2",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -13835,7 +14026,7 @@ version = "0.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c2a7b1c03c876122aa43f3020e6c3c3ee5c05081c9a00739faf7503aeba10d22"
 dependencies = [
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -13856,7 +14047,7 @@ dependencies = [
  "objc2-foundation 0.3.2",
  "objc2-quartz-core 0.3.2",
  "raw-window-handle",
- "windows-sys 0.61.2",
+ "windows-sys 0.60.2",
  "windows-version",
 ]
 
@@ -14496,7 +14687,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7d6f32a0ff4a9f6f01231eb2059cc85479330739333e0e58cadf03b6af2cca10"
 dependencies = [
  "cfg-if",
- "windows-sys 0.61.2",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
@@ -14898,6 +15089,20 @@ name = "zeroize"
 version = "1.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e13c156562582aa81c60cb29407084cdb54c4164760106ab78e6c5b0858cf64e"
+dependencies = [
+ "zeroize_derive",
+]
+
+[[package]]
+name = "zeroize_derive"
+version = "1.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3c50655cbb0fe3fc43170059e702f1ce5e19b84cec58dc87b037a09935c2f328"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.119",
+]
 
 [[package]]
 name = "zerotrie"
@@ -14958,9 +15163,9 @@ dependencies = [
 
 [[package]]
 name = "zip"
-version = "9.4.1"
+version = "9.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "23f17fbc870bfac28c6228aed7d6e6df352e26bf7015c4313727e16a7a01ce5e"
+checksum = "e3476fd497ac8af5b1ec7b51acab7bef380f7e8dd8e0487595bafd839417a302"
 dependencies = [
  "aes",
  "bzip2",
