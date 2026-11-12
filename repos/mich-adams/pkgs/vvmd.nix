@@ -10,7 +10,7 @@
   curl,
   glib,
   dbus,
-  glibmm,
+  glibmm_2_68,
   modemmanager,
   c-ares,
   libphonenumber,
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     curl
     glib
     dbus
-    glibmm
+    glibmm_2_68
     modemmanager
     c-ares
     libphonenumber
