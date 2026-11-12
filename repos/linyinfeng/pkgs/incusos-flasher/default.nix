@@ -9,17 +9,17 @@
 
 buildGoModule (finalAttrs: {
   pname = "incusos-flasher";
-  version = "202611112004-unstable-2026-11-11";
+  version = "202611112343-unstable-2026-11-12";
 
   src = fetchFromGitHub {
     owner = "lxc";
     repo = "incus-os";
-    rev = "d3da6f19046bd60b9c032a83d07cb391b1f256b8";
-    hash = "sha256-/ZXg2tzrWKC7cj4vjNnX1l9c7jNGQYzrcujf4y1qeY8=";
+    rev = "da029ff5957e96d458a1a10751fe69e7ca384812";
+    hash = "sha256-7vmmshimhZ9qWF0CwAulPHv2sEMBCT6O2uLYhVrzb8w=";
   };
 
   modRoot = "incus-osd";
-  vendorHash = "sha256-ReweuhSSEmpGyIpyqP9aZglZ7f3R+fjK1BprTNsVLXw=";
+  vendorHash = "sha256-+rt8OvygmGxI8QAFjDds7in6XrUna823VEmVaPC20NQ=";
   subPackages = [ "cmd/flasher-tool" ];
   # INCUSOS_IMAGE_ARCHITECTURE selects images for a different target architecture.
   patches = [ ./image-architecture.patch ];
