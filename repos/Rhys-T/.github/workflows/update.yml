@@ -29,6 +29,11 @@ jobs:
       - name: Set NIX_PATH
         run: |
           echo -E 'NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz' >> "$GITHUB_ENV"
+      - name: Update nix and poke the store
+        run: |
+          set -ex
+          nix-env -iA nixVersions.latest -f '<nixpkgs>'
+          nix-build '<nixpkgs>' -A hello --no-out-link
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(import <nixpkgs/lib>).version'
       - name: Setup cachix
