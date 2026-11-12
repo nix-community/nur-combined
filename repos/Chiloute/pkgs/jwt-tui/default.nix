@@ -5,16 +5,16 @@
 }:
 buildGo126Module rec {
   pname = "jwt-tui";
-  version = "0.2.1";
+  version = "0.2.3";
 
   src = fetchFromGitHub {
     owner = "Chiloute";
     repo = "jwt-tui";
     rev = "v${version}";
-    hash = "sha256-d4Hwc6/y4XacokiW9fNS2isSRmbOWE5WsOjhNqJ3Uvc=";
+    hash = "sha256-JWxTchoJDWLImjPr4B3jg32IAw2hRv146K7MpD/MgyU=";
   };
 
-  vendorHash = "sha256-/NtGoOQ6AWV47P3vOO/n99DGvxv4Tgv/Jj4G18aow1Y=";
+  vendorHash = "sha256-xe8OBTV6JQNdlMAQUog4vPiLDUZreAa6kQCimUkaCas=";
 
   ldflags = ["-s" "-w" "-X main.version=${version}"];
 
