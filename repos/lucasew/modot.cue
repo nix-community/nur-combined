@@ -436,6 +436,7 @@ options: webapp: {
 #is_massan: runtime.hostname == "MacBook-Air-de-Lucas.local"
 #is_ravenrock: runtime.hostname == "ravenrock"
 #is_grokbot: strings.HasPrefix(runtime.hostname, "grok-bot-vm-")
+#is_openbot: runtime.hostname == "openbot"
 #is_computer: #is_whiterun || #is_riverwood || #is_massan
 // github:lewtec/skills is private. Leave this off so a new machine can
 // home apply before anyone logs in or copies a token.
@@ -445,16 +446,16 @@ options: webapp: {
 
 #backup_personal_repos: [string]: bool
 #backup_personal_repos: {
-	"personal-zettel-obsidian": #is_computer || #is_phone || #is_grokbot
-	"personal-beancount":       #is_computer || #is_phone || #is_grokbot
+	"personal-zettel-obsidian": #is_computer || #is_phone || #is_grokbot || #is_openbot
+	"personal-beancount":       #is_computer || #is_phone || #is_grokbot || #is_openbot
 	"personal-keepass":         #is_computer || #is_phone
 	"personal-bookmarks":       #is_computer || #is_phone
 	"personal-decsync":         #is_computer || #is_phone
 	"personal-zettel-org":      #is_computer || #is_phone
-	"personal-memes":           #is_computer || #is_phone || #is_grokbot
-	"personal-bots":            #is_massan || #is_phone || #is_grokbot
+	"personal-memes":           #is_computer || #is_phone || #is_grokbot || #is_openbot
+	"personal-bots":            #is_massan || #is_phone || #is_grokbot || #is_openbot
 	"personal-savegames":           #is_whiterun
-	"personal-internal-playground": #is_whiterun || #is_massan || #is_grokbot
+	"personal-internal-playground": #is_whiterun || #is_massan || #is_grokbot || #is_openbot
 }
 
 backup: {
