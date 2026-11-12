@@ -140,7 +140,7 @@ in
         option-data = [
           {
             name = "domain-search";
-            data = "diekvoss.internal, diekvoss.net, diekvoss.com";
+            data = "home.arpa, diekvoss.internal, diekvoss.net, diekvoss.com";
           }
         ];
         loggers = [
@@ -268,7 +268,7 @@ in
         option-data = [
           {
             name = "domain-search";
-            data = "diekvoss.internal, diekvoss.net, diekvoss.com";
+            data = "home.arpa, diekvoss.internal, diekvoss.net, diekvoss.com";
           }
         ];
         loggers = [

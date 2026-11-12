@@ -616,6 +616,38 @@ in
       Persistent = true;
     };
   };
+  # Sync trusted-LAN Kea DHCP hostnames into Technitium (home.arpa)
+  systemd.services.kea-technitium-ddns = {
+    description = "Sync Kea DHCP hostnames to Technitium DNS";
+    after = [
+      "network.target"
+      "technitium-dns-server.service"
+    ];
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+      Group = "root";
+      Environment = [
+        "KEA_LEASES=/var/lib/kea/dhcp4.leases"
+        "DNS_ZONE=home.arpa"
+        "ALLOWED_SUBNETS=1"
+        "STATIC_NAMES_FILE=${pkgs.writeText "kea-ddns-static-names.json" (builtins.toJSON (builtins.attrNames homelab))}"
+        "TECHNITIUM_URL=http://127.0.0.1:${toString homelab.${hostName}.services.technitium.port}"
+        "TECHNITIUM_TOKEN_FILE=${config.sops.secrets.technitium_api_key.path}"
+        "TECHNITIUM_ADMIN_PASS_FILE=${config.sops.secrets.technitium_admin_password.path}"
+      ];
+      ExecStart = lib.getExe inputs.nixcfg.packages.${system}.kea-technitium-ddns;
+    };
+  };
+  systemd.timers.kea-technitium-ddns = {
+    description = "Periodic Kea to Technitium DNS sync";
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "2min";
+      OnUnitActiveSec = "2min";
+      Persistent = true;
+    };
+  };
   # Configure Technitium DNS Server built-in zones, blocklists, and forwarders
   systemd.services.configure-technitium = {
     description = "Configure Technitium DNS Server via API";

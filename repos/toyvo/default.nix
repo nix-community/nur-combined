@@ -65,6 +65,7 @@ let
   tinycastPackages = safeSet ./pkgs/tinycast;
   packages = {
     jellyfin-plugin-ldap-authentication = callPackage ./pkgs/jellyfin-plugin-ldap-authentication;
+    kea-technitium-ddns = callPackage ./pkgs/kea-technitium-ddns;
     libpcpnatpmp = callPackage ./pkgs/libpcpnatpmp;
     mcsmanager = callPackage ./pkgs/mcsmanager;
     network-inventory = callPackage ./pkgs/network-inventory;
