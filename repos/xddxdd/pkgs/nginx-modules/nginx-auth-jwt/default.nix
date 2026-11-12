@@ -8,7 +8,7 @@
 
 mkNginxPlugin (finalAttrs: {
   pname = "nginx-auth-jwt";
-  version = "0.15.0";
+  version = "0.15.1";
   __structuredAttrs = true;
   strictDeps = true;
 
@@ -17,7 +17,7 @@ mkNginxPlugin (finalAttrs: {
     repo = "nginx-auth-jwt";
     tag = finalAttrs.version;
     fetchSubmodules = true;
-    hash = "sha256-OfrdokFqHhHCpWVtatK91DWgiWzAgn+5CPSPeJVjJuE=";
+    hash = "sha256-osPbXavAp0ofK4gn2BGoinPTgVMxPzH0HeUBysXnJgE=";
   };
 
   buildInputs = [

@@ -11,13 +11,13 @@
   stdenv,
 }:
 let
-  version = "1.0.0-rc2";
+  version = "1.0.0-rc.3";
 
   src = fetchFromGitHub {
     owner = "looplj";
     repo = "axonhub";
     tag = "v${version}";
-    hash = "sha256-EVJribtcR3QR2eZWnjmVuFv0YYXQO6cvMFlzTJ41sUY=";
+    hash = "sha256-yR3PpiBcDtMZU3/qN0S/AjwQKyKD9oYbKVWdv3LsbnI=";
   };
 
   frontendPnpmDeps = fetchPnpmDeps {
