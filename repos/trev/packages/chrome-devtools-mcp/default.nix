@@ -1,56 +1,52 @@
 {
-  buildNpmPackage,
+  fetchzip,
   lib,
-  fetchFromGitHub,
-  jq,
+  makeWrapper,
   nix-update-script,
+  nodejs,
+  stdenvNoCC,
 }:
 
-buildNpmPackage (final: {
+# upstream builds with gn/ninja on top of devtools-frontend's chromium tooling,
+# which needs gclient to fetch prebuilt toolchains. use the published npm
+# package instead, it is fully bundled and has no runtime dependencies
+stdenvNoCC.mkDerivation (final: {
   pname = "chrome-devtools-mcp";
-  version = "1.12.0";
+  version = "1.13.0";
 
-  src = fetchFromGitHub {
-    owner = "ChromeDevTools";
-    repo = "chrome-devtools-mcp";
-    rev = "chrome-devtools-mcp-v${final.version}";
-    hash = "sha256-3H858tro0VGawNrINf1FGtLRWsOISq2GK+eLTCqGUTg=";
-    fetchSubmodules = true;
+  src = fetchzip {
+    url = "https://registry.npmjs.org/chrome-devtools-mcp/-/chrome-devtools-mcp-${final.version}.tgz";
+    hash = "sha256-Tq62vmf6Z2OxG7cQ+PYuI5OYrBVeUbfkGGPXFrhb3L8=";
   };
 
-  # upstream doesn't always keep `resolved` in package-lock.json, which makes
-  # fetchNpmDeps skip those packages. derive the registry tarball url for any
-  # registry package that is missing one. postPatch is shared with fetchNpmDeps
-  # https://github.com/ChromeDevTools/chrome-devtools-mcp/issues/3219
-  postPatch = ''
-    ${lib.getExe jq} '
-      .packages |= with_entries(
-        if (.key | contains("node_modules/"))
-          and .value.resolved == null
-          and .value.integrity != null
-          and (.value.link | not)
-          and (.value.inBundle | not)
-        then
-          (.value.name // (.key | sub("^.*node_modules/"; ""))) as $name
-          | .value.resolved = "https://registry.npmjs.org/\($name)/-/\($name | sub("^@[^/]+/"; ""))-\(.value.version).tgz"
-        else . end
-      )
-    ' package-lock.json > package-lock.json.tmp
-    mv package-lock.json.tmp package-lock.json
+  nativeBuildInputs = [ makeWrapper ];
+
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/lib/node_modules/chrome-devtools-mcp
+    cp -r . $out/lib/node_modules/chrome-devtools-mcp
+
+    for bin in chrome-devtools-mcp chrome-devtools; do
+      makeWrapper ${lib.getExe nodejs} $out/bin/$bin \
+        --add-flags $out/lib/node_modules/chrome-devtools-mcp/out/Default/gen/src/bin/$bin.js
+    done
+
+    runHook postInstall
   '';
 
-  npmDepsHash = "sha256-CEYtrmCDO+EeKoScH8IO+jsJCrkvzJKqqeoT+yqD1FU=";
+  doInstallCheck = true;
+  installCheckPhase = ''
+    runHook preInstallCheck
 
-  postConfigure = ''
-    npm run prepare
+    [[ "$($out/bin/chrome-devtools-mcp --version)" == "${final.version}" ]]
+    $out/bin/chrome-devtools --help > /dev/null
+
+    runHook postInstallCheck
   '';
-
-  npmBuildScript = "bundle";
-  PUPPETEER_SKIP_DOWNLOAD = true;
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
-      "--version-regex='chrome-devtools-mcp-v(.*)'"
       "--commit"
       final.pname
     ];
