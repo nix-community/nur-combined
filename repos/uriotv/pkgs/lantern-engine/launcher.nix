@@ -4,8 +4,9 @@ buildDotnetModule {
   inherit src version;
   projectFile = "launcher/windows/LanternLauncher/LanternLauncher.csproj";
   nugetDeps = ./deps.json;
-  dotnet-sdk = dotnetCorePackages.sdk_8_0;
-  dotnet-runtime = dotnetCorePackages.runtime_8_0;
+  # Binary SDK/runtime: the source-built .NET 8 SDK at the current pin exceeds CI's time limit.
+  dotnet-sdk = dotnetCorePackages.sdk_8_0-bin;
+  dotnet-runtime = dotnetCorePackages.runtime_8_0-bin;
   # The engine is read-only; validate and log in BB_DATA_DIR / BB_OUT_DIR instead.
   patches = [ ./writable-data.patch ];
   # Nix owns updates: never replace the source-built engine with release binaries.
