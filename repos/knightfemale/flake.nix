@@ -5,7 +5,7 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    import-tree.url = "github:denful/import-tree";
+    import-tree.url = "github:denful/import-tree/main";
 
     nixpkgs.url = "github:NixOS/nixpkgs/master";
   };

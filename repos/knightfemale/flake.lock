@@ -32,17 +32,18 @@
       },
       "original": {
         "owner": "denful",
+        "ref": "main",
         "repo": "import-tree",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1793798831,
-        "narHash": "sha256-iZbZG7ZG5YR1VGTo1hdOKRKJjdr58AIZxks5E7k3ZBY=",
+        "lastModified": 1794470256,
+        "narHash": "sha256-aIx+AI/EU8sUJcmREx/SdkJL+6NwEgNcVduOeyS5nPk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4b639d015dc1f34c6abbfd33f2a1712ca36f1497",
+        "rev": "e174f414f03383fe69fa8c519596dd2f6279a2ce",
         "type": "github"
       },
       "original": {
