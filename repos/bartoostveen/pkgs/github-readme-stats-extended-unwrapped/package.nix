@@ -19,7 +19,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "github-readme-stats-extended-unwrapped";
-  version = "2.3.0";
+  version = "2.3.1";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "stats-organization";
     repo = "github-stats-extended";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-RDVWsoOtzaa39K3slhnmsR3nY0Fx2Vnax+tnm5mCyGs=";
+    hash = "sha256-Gg2b5IM6UMhthwTnzAeAjVXLoZFYTVpAMBQZzZuztbo=";
   };
 
   nativeBuildInputs = [
