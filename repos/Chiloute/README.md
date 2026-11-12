@@ -8,6 +8,12 @@
 | Package   | Description                                                                            | Source                                                  |
 | --------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------- |
 | `jwt-tui` | A TUI to decode, tamper with, and re-sign JSON Web Tokens (HMAC, RSA, ECDSA, Ed25519). | [Chiloute/jwt-tui](https://github.com/Chiloute/jwt-tui) |
+| `vpn-tui` | VPN manager for pentesters (OpenVPN/WireGuard, nftables kill switch): TUI/CLI client. | [Chiloute/vpn-tui](https://github.com/Chiloute/vpn-tui) |
+| `vpn-tuid` | Root daemon of `vpn-tui` (profiles, tunnels, kill switch). | [Chiloute/vpn-tui](https://github.com/Chiloute/vpn-tui) |
+
+> [!NOTE]
+> `vpn-tui` and `vpn-tuid` are updated weekly from the upstream tags, like the other packages.
+> For the daemon as a service, use the NixOS module from the upstream flake.
 
 ## Usage
 

@@ -24,7 +24,7 @@ jobs:
       - name: Update packages
         run: |
           python_pkgs=()
-          go_pkgs=(jwt-tui)
+          go_pkgs=(jwt-tui vpn-tuid)
 
           for pkg in "${python_pkgs[@]}"; do
             echo "==> $pkg"
@@ -35,6 +35,10 @@ jobs:
             echo "==> $pkg"
             nix run nixpkgs#nix-update -- --flake --build "$pkg" || true
           done
+
+          # Bun package: also refresh the node_modules fixed-output hash
+          echo "==> vpn-tui"
+          nix run nixpkgs#nix-update -- --flake --build --subpackage nodeModules vpn-tui || true
 
       - uses: peter-evans/create-pull-request@v8
         with:
