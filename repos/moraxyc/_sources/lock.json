@@ -30,9 +30,8 @@
       "rawVersion": "00caff62b55ae53327f1c8824b19b1c9532cc174",
       "date": "2026-02-20",
       "src": {
-        "fetcher": "github",
-        "owner": "messense",
-        "repo": "aliyundrive-webdav",
+        "fetcher": "git",
+        "url": "https://github.com/messense/aliyundrive-webdav.git",
         "rev": "00caff62b55ae53327f1c8824b19b1c9532cc174",
         "hash": "sha256-Glr/PryfyihEMM+41ZkXp3I0VeXerHMKO82znLJJ2mc="
       },
@@ -41,7 +40,7 @@
           "lockfile": "aliyundrive-webdav/src/Cargo.lock"
         }
       },
-      "fingerprint": "sha256-EzLRq3QAiHG27ighituP5lPcvPj7/QwETXi44wuTAQg="
+      "fingerprint": "sha256-FbUkrewKZ0lckP8/i/BGu9EE6IXwByVR2mX/BVLIAn4="
     },
     "artex": {
       "version": "0-unstable-2026-11-11",
@@ -100,15 +99,14 @@
       "fingerprint": "sha256-2oqfnz+z58NLkA5td+pM7EuS4K0RjpG1WdXsdVaLvZY="
     },
     "clash-nyanpasu": {
-      "version": "2.0.1-unstable-2026-11-11",
-      "rawVersion": "c41063a6188d0abd7de694e8345d09c3efce3c2d",
-      "date": "2026-11-11",
+      "version": "2.0.1-unstable-2026-11-12",
+      "rawVersion": "a01c6e3e829683c96ee91d37894ebc21aa0bf3b1",
+      "date": "2026-11-12",
       "src": {
-        "fetcher": "github",
-        "owner": "libnyanpasu",
-        "repo": "clash-nyanpasu",
-        "rev": "c41063a6188d0abd7de694e8345d09c3efce3c2d",
-        "hash": "sha256-dbKyLl1rXA6LMTGXiLxcRdcLI73DcwmTR966uRQ7AH8="
+        "fetcher": "git",
+        "url": "https://github.com/libnyanpasu/clash-nyanpasu",
+        "rev": "a01c6e3e829683c96ee91d37894ebc21aa0bf3b1",
+        "hash": "sha256-Nh2/wAlPzdWVm7Znn4nwv6FzKwbKTHEpVZKKq64EOfQ="
       },
       "derived": {
         "cargoLock": {
@@ -123,11 +121,14 @@
             "softbuffer-0.4.8": "sha256-yH3wfgaXT4fRnThP1INBqX/+71b67+nBZS40H6wPJgw=",
             "sysproxy-0.3.0": "sha256-2xv1vjthD3J/SFhbnh21bi2V4fcvoo6CpjJDxpSbwnk=",
             "tauri-specta-2.0.0-rc.25": "sha256-jcUyCknyN8ObGMXdQXQdN/hoiQrZTdi/XLZ8WCv6XtA=",
-            "tracing-test-0.2.5": "sha256-uhjFW7s8Lfvq/j8mTCXcivzIvwHP3NFoI8rJOZ9avdE="
+            "tauri-specta-macros-2.0.0-rc.25": "sha256-jcUyCknyN8ObGMXdQXQdN/hoiQrZTdi/XLZ8WCv6XtA=",
+            "tauri-specta-query-0.0.0": "sha256-jcUyCknyN8ObGMXdQXQdN/hoiQrZTdi/XLZ8WCv6XtA=",
+            "tracing-test-0.2.5": "sha256-uhjFW7s8Lfvq/j8mTCXcivzIvwHP3NFoI8rJOZ9avdE=",
+            "tracing-test-macro-0.2.5": "sha256-uhjFW7s8Lfvq/j8mTCXcivzIvwHP3NFoI8rJOZ9avdE="
           }
         }
       },
-      "fingerprint": "sha256-kTGx7lZsOvb+dFQOxGgUuq4JRQeA98P/k/1S743fRkE="
+      "fingerprint": "sha256-Nbdjs7R1EExJWEfM0jkyZEoZg3OvJwG5IncOH8c5eCU="
     },
     "cliproxyapi": {
       "version": "8.0.67",
@@ -220,39 +221,36 @@
       "rawVersion": "20f5cc9b3f0ccc8ce45d814c532b7c2031bba31c",
       "date": "2025-01-06",
       "src": {
-        "fetcher": "github",
-        "owner": "dwyl",
-        "repo": "english-words",
+        "fetcher": "git",
+        "url": "https://github.com/dwyl/english-words.git",
         "rev": "20f5cc9b3f0ccc8ce45d814c532b7c2031bba31c",
         "hash": "sha256-PfBQ9iavOLx7M8+j0TXASUxVamPiQn2YXsiuUmz4XCg="
       },
-      "fingerprint": "sha256-FJhOAKqCH1txvT3OmdAbHOzwFpW2dWEWKc+E6n8YNGs="
+      "fingerprint": "sha256-58k5VKlDWnKxxv2qgTOWERZ96ghp1dr9wNig9a1Bf2I="
     },
     "exloli-next": {
       "version": "0-unstable-2024-11-23",
       "rawVersion": "41d7a6e52a1625d6febb47160a4b143ca47c16d5",
       "date": "2024-11-23",
       "src": {
-        "fetcher": "github",
-        "owner": "lolishinshi",
-        "repo": "exloli-next",
+        "fetcher": "git",
+        "url": "https://github.com/lolishinshi/exloli-next",
         "rev": "41d7a6e52a1625d6febb47160a4b143ca47c16d5",
         "hash": "sha256-S3hjuRSDtPkK9XF2USXfyOawWoD/fu9qYDJbUPI3Op0="
       },
-      "fingerprint": "sha256-H+2e216kKsS9Q6nGNECrfqjZ4xDBu4oXIxK+9I4R8j0="
+      "fingerprint": "sha256-nCMMMJpj1Q0anp6RtZ/7913jXwZfNHqBLDXewhE+Ixk="
     },
     "fcitx5-themes-candlelight": {
       "version": "0-unstable-2026-09-14",
       "rawVersion": "f297d1d43ddd5227406eae9f211cdc218af12a94",
       "date": "2026-09-14",
       "src": {
-        "fetcher": "github",
-        "owner": "thep0y",
-        "repo": "fcitx5-themes-candlelight",
+        "fetcher": "git",
+        "url": "https://github.com/thep0y/fcitx5-themes-candlelight.git",
         "rev": "f297d1d43ddd5227406eae9f211cdc218af12a94",
         "hash": "sha256-Aca8JZxhdNjr/g2oRDWHsnj8mm+jvlEaxYRqCR4sU60="
       },
-      "fingerprint": "sha256-YJpU9eA0YdX6Qb5zA5BVFo9W2IIOtgw4AdVv9F/s8Jo="
+      "fingerprint": "sha256-cGq9UAnhohnFUn5lT3rm+/hjZCEfJE12VDLKGXqxK3U="
     },
     "ferstar-gestures": {
       "version": "1.1.0",
@@ -272,22 +270,21 @@
       "fingerprint": "sha256-30OsBkMRA0jMQKYo3jIET9P4D5xWLMEblIxAU7j2p2k="
     },
     "gaze": {
-      "version": "0.5.1-unstable-2026-11-11",
-      "rawVersion": "dc9977a3fe0b511e8ad0f15b9956bf3985723723",
-      "date": "2026-11-11",
+      "version": "0.5.1-unstable-2026-11-12",
+      "rawVersion": "322309400c044d20421564e779d0eed7f8bfff41",
+      "date": "2026-11-12",
       "src": {
-        "fetcher": "github",
-        "owner": "GunduLabs",
-        "repo": "gaze",
-        "rev": "dc9977a3fe0b511e8ad0f15b9956bf3985723723",
-        "hash": "sha256-2GmP6hqzLUMopMC4fo9/ITM2wKngKxdjg6e0i7F1uok="
+        "fetcher": "git",
+        "url": "https://github.com/GunduLabs/gaze.git",
+        "rev": "322309400c044d20421564e779d0eed7f8bfff41",
+        "hash": "sha256-qgsFPdzBXB++KLJu2Y05JJs/QBo957Pm8NMiAsZalp4="
       },
       "derived": {
         "cargoLock": {
           "lockfile": "gaze/src/Cargo.lock"
         }
       },
-      "fingerprint": "sha256-6vwU86Q620n8nsNkHPLQDLh/B5W3Md2Z+UQ7Pg4PKEU="
+      "fingerprint": "sha256-towcatrM+06L5DicpsZfVGQtyJY6jfzlWnl5JtIKcs4="
     },
     "geolite2-asn": {
       "version": "2026.11.10",
@@ -356,9 +353,8 @@
       "rawVersion": "ce7569c8473b70f6f8359385f2dbd6af66f21e55",
       "date": "2026-03-16",
       "src": {
-        "fetcher": "github",
-        "owner": "gurucomputing",
-        "repo": "headscale-ui",
+        "fetcher": "git",
+        "url": "https://github.com/gurucomputing/headscale-ui",
         "rev": "ce7569c8473b70f6f8359385f2dbd6af66f21e55",
         "hash": "sha256-JR+VLwXqMKACWB+4AIgWLIpZh0xtU9uCsiskra71BHQ="
       },
@@ -367,7 +363,7 @@
           "lockfile": "headscale-ui/src/package-lock.json"
         }
       },
-      "fingerprint": "sha256-v+uWxxo2a4Md+kP0v1IDXMczauSD0N9ZV9zBPaGCZdA="
+      "fingerprint": "sha256-VDgHTON3muqQMwensyByNopQtkpYIRQQcKdCjIQhwJI="
     },
     "hmcl-dev-bin": {
       "version": "3.17.0.365",
@@ -423,36 +419,34 @@
       "rawVersion": "0.9.20-rc.1",
       "src": {
         "fetcher": "url",
-        "url": "file:///dev/null",
-        "hash": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        "url": "https://static.9fnnn.com/electron/stable/latest-mac.yml",
+        "hash": "sha256-GUQkxn3m9q3YJI/NcLO3d7QgdO6gHNUkjRj71//VtN0="
       },
-      "fingerprint": "sha256-8xJykuK3ygYx81RKBhLKXn6PfgcyL9rYlM2RYElkE3E="
+      "fingerprint": "sha256-83GC/jcKANACt2LWSdR9uu93Ry/Yix7V/9XRoU12RIU="
     },
     "libinput-three-finger-drag": {
       "version": "0-unstable-2024-06-17",
       "rawVersion": "6acd3f84b551b855b5f21b08db55e95dae3305c5",
       "date": "2024-06-17",
       "src": {
-        "fetcher": "github",
-        "owner": "marsqing",
-        "repo": "libinput-three-finger-drag",
+        "fetcher": "git",
+        "url": "https://github.com/marsqing/libinput-three-finger-drag",
         "rev": "6acd3f84b551b855b5f21b08db55e95dae3305c5",
         "hash": "sha256-xmcTb+23d6mMzIfMVjzN6bwV0fWH4p6YhXXqrFmt4TM="
       },
-      "fingerprint": "sha256-HYc8oCFm8Qe2SluAfM0YhCQeLpuqUh05clT9jWt+NuI="
+      "fingerprint": "sha256-t9FqOeVHAGjQkgvnjnqYpKMvf9KM/sj0vdA2JRAu/Ts="
     },
     "loyalsoldier-geoip": {
-      "version": "0-unstable-2026-11-05",
-      "rawVersion": "eace600e4e2d6708de3948b047ff9ff7bc5b5b11",
-      "date": "2026-11-05",
+      "version": "0-unstable-2026-11-12",
+      "rawVersion": "ec6f8d0f6b5c6c6924d9230f2ed893f69585d38c",
+      "date": "2026-11-12",
       "src": {
-        "fetcher": "github",
-        "owner": "Loyalsoldier",
-        "repo": "geoip",
-        "rev": "eace600e4e2d6708de3948b047ff9ff7bc5b5b11",
-        "hash": "sha256-KtEJr+hFM1lNU8j1d7ZOy2YqI4Sauu/OxJn8Xv9gZwY="
+        "fetcher": "git",
+        "url": "https://github.com/Loyalsoldier/geoip.git",
+        "rev": "ec6f8d0f6b5c6c6924d9230f2ed893f69585d38c",
+        "hash": "sha256-z0xnzD2432xqvtR9LFINERQfylU66iPHtnc07fYVSfQ="
       },
-      "fingerprint": "sha256-ALo+9T9fPJgSIp9a8raa877ZNvv12ZL/oT2t4t82G6g="
+      "fingerprint": "sha256-hx96JJO1209o6FzcJOvJLwehW78iolaRc0KDGJFxbgo="
     },
     "manpage-zh": {
       "version": "1.6.4.5",
@@ -503,17 +497,16 @@
       "fingerprint": "sha256-vR7sJIoluiLgop9ZZHZKD6Or/5XOXg5rf4u3QaTDtco="
     },
     "meta-rules-dat": {
-      "version": "0-unstable-2026-11-11",
-      "rawVersion": "eb124581e13888a33b8d5efe87a28e7eb20d097e",
-      "date": "2026-11-11",
+      "version": "0-unstable-2026-11-12",
+      "rawVersion": "7a54c461fff10e272c404c49a1d6dc3b9cc9a9f0",
+      "date": "2026-11-12",
       "src": {
-        "fetcher": "github",
-        "owner": "MetaCubeX",
-        "repo": "meta-rules-dat",
-        "rev": "eb124581e13888a33b8d5efe87a28e7eb20d097e",
-        "hash": "sha256-lOY42h8JEP2mQnRgzSN7QLzAVxeX79XrXC/nwI38/J4="
+        "fetcher": "git",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat.git",
+        "rev": "7a54c461fff10e272c404c49a1d6dc3b9cc9a9f0",
+        "hash": "sha256-1hMcHcTKEBXuTc8Sg5sB9S94He0k7jpm70tSthhY61c="
       },
-      "fingerprint": "sha256-TIYhTrLHUIy3UW2EvS8OwphsOms1PhAB6thF+nWLoMo="
+      "fingerprint": "sha256-wX3xYgeMbiaHcGTwYkJLKkmGHaWP1yW5YbKKukaREX0="
     },
     "metacubex-geo": {
       "version": "1.1",
@@ -537,9 +530,8 @@
       "rawVersion": "b06c987bf6ea9606f203a6304cb4764eca56984a",
       "date": "2026-11-07",
       "src": {
-        "fetcher": "github",
-        "owner": "NotAShelf",
-        "repo": "microfetch",
+        "fetcher": "git",
+        "url": "https://github.com/NotAShelf/microfetch",
         "rev": "b06c987bf6ea9606f203a6304cb4764eca56984a",
         "hash": "sha256-t3L3DmVj9F4pvamxo6pP4uqn34XwThNhu96RQO8afQg="
       },
@@ -548,7 +540,7 @@
           "lockfile": "microfetch/src/Cargo.lock"
         }
       },
-      "fingerprint": "sha256-By6sROdojmfX+E8JY55HXm3Y/JcOVtptjqaDd6E6ysU="
+      "fingerprint": "sha256-7rgsYi0ID81iQKuliT7du/LJLE9M/EXqNtWPXwb3kl8="
     },
     "mm-geofeed-verifier": {
       "version": "4.0.0",
@@ -572,9 +564,8 @@
       "rawVersion": "731dbc96c9b438b78b7ad115da181c6dc404982d",
       "date": "2026-07-31",
       "src": {
-        "fetcher": "github",
-        "owner": "moraxyc",
-        "repo": "mpv-danmaku",
+        "fetcher": "git",
+        "url": "https://github.com/moraxyc/mpv-danmaku.git",
         "rev": "731dbc96c9b438b78b7ad115da181c6dc404982d",
         "hash": "sha256-9Zp+MxUHDD/lEqwf8TNj/n+MKO4maW8TjH8HOkRqQIQ="
       },
@@ -583,7 +574,7 @@
           "lockfile": "mpv-danmaku/src/Cargo.lock"
         }
       },
-      "fingerprint": "sha256-P51tPau6Do0vxjsosKOFMCAEEEkqDHkPWxP/B+XOtfA="
+      "fingerprint": "sha256-RF7dTjRA08i3eBdVEzcyBdNUd5jMpUf82/JeB3dMxIs="
     },
     "nezha": {
       "version": "2.6.1",
@@ -673,9 +664,8 @@
       "rawVersion": "3a79dabc4a1fd4a7d708bafe87fceb240fe24c3b",
       "date": "2026-11-09",
       "src": {
-        "fetcher": "github",
-        "owner": "libnyanpasu",
-        "repo": "nyanpasu-service",
+        "fetcher": "git",
+        "url": "https://github.com/libnyanpasu/nyanpasu-service.git",
         "rev": "3a79dabc4a1fd4a7d708bafe87fceb240fe24c3b",
         "hash": "sha256-TkdkPm2+yifrH9/Ebp6dsreewMuGKFyEqyvJFMzhdCw="
       },
@@ -687,7 +677,7 @@
           }
         }
       },
-      "fingerprint": "sha256-Zi4bkD+W3I/+bT7myMf901aQCmuTUS2hn3/gafcNtLE="
+      "fingerprint": "sha256-Dr1WDPgou9rf7F0lFoENHBENBHyOHQFJ5JZhY3ZYXeM="
     },
     "opencode-go-cliproxyapi": {
       "version": "0.0.0-unstable-2026-10-19",
@@ -708,14 +698,14 @@
       "fingerprint": "sha256-WGmfJFbGw9W5lvzrKu4NQ6W6PZD4mJsd7TFKiLbc9/Q="
     },
     "opencode-telegram-bot": {
-      "version": "0.27.0",
-      "rawVersion": "v0.27.0",
+      "version": "0.27.1",
+      "rawVersion": "v0.27.1",
       "src": {
         "fetcher": "github",
         "owner": "grinev",
         "repo": "opencode-telegram-bot",
-        "rev": "v0.27.0",
-        "hash": "sha256-EbnsnXa0H4ZUn3UNCH4FSdqFViSZRtE3FxUJ+g0RVwE="
+        "rev": "v0.27.1",
+        "hash": "sha256-0qTkXE+it+idaxWQXTyy6zhptYuCpsYzViBYVMQ5ldo="
       },
       "derived": {
         "npmDeps": {
@@ -742,14 +732,14 @@
       "fingerprint": "sha256-a+ZX2O2XKUh34ENKYHxrgXjE7Vi/nqYJ3R2a9AAuQ4s="
     },
     "pi-ast-sgrep": {
-      "version": "2.6.0",
-      "rawVersion": "v2.6.0",
+      "version": "2.7.0",
+      "rawVersion": "v2.7.0",
       "src": {
         "fetcher": "github",
         "owner": "AdityaVG13",
         "repo": "ast-sgrep",
-        "rev": "v2.6.0",
-        "hash": "sha256-YwAXrkUUTb7uykIIG05WKchqKoZDBvSyilJl4mFyVvM="
+        "rev": "v2.7.0",
+        "hash": "sha256-bY0MimphE+MfCmMcF7qufGSv4JCLZaiK0o5pzxciSPE="
       },
       "derived": {
         "cargoLock": {
@@ -928,22 +918,20 @@
       "rawVersion": "d7c38d49ae8071b58e46f5b35eda927dd2b7c621",
       "date": "2024-07-17",
       "src": {
-        "fetcher": "github",
-        "owner": "charmedlabs",
-        "repo": "pixy2",
+        "fetcher": "git",
+        "url": "https://github.com/charmedlabs/pixy2",
         "rev": "d7c38d49ae8071b58e46f5b35eda927dd2b7c621",
         "hash": "sha256-w0t7KqV8OS3PJBdZtLn86zknQYo70rBv7fuK/UFx9zQ="
       },
-      "fingerprint": "sha256-DVfNywYSFo1CsGMlZETK498c+tENR0KgB2W1cJxOe48="
+      "fingerprint": "sha256-H7/fT4nfEg6N60/hpZLT4tL2Ehl2w1jA42zyrihYhcA="
     },
     "shard": {
       "version": "0.1.28-unstable-2026-10-21",
       "rawVersion": "cf184267f48bc25774c47b3530b7418524813c2b",
       "date": "2026-10-21",
       "src": {
-        "fetcher": "github",
-        "owner": "Th0rgal",
-        "repo": "shard",
+        "fetcher": "git",
+        "url": "https://github.com/Th0rgal/shard.git",
         "rev": "cf184267f48bc25774c47b3530b7418524813c2b",
         "hash": "sha256-oF07KgFoo7WmOjLBgCkkXXfzi7O308HDLbsSj8X2IS0="
       },
@@ -955,7 +943,7 @@
           "lockfile": "shard/src/desktop/package-lock.json"
         }
       },
-      "fingerprint": "sha256-Qwjd2w1hXDJ961HrQYbkshOGXiKiIkm/dtDsPAiKvPQ="
+      "fingerprint": "sha256-hhfPFtrq0/qT0UpfvWsBCMygMJRAJkTpe5nDlOYuHBY="
     },
     "shlink": {
       "version": "5.1.8",
@@ -974,26 +962,24 @@
       "rawVersion": "a0d4eab28cb8b6c782d4ce5c3a918de4829b4a72",
       "date": "2026-07-08",
       "src": {
-        "fetcher": "github",
-        "owner": "tindy2013",
-        "repo": "subconverter",
+        "fetcher": "git",
+        "url": "https://github.com/tindy2013/subconverter",
         "rev": "a0d4eab28cb8b6c782d4ce5c3a918de4829b4a72",
         "hash": "sha256-5GH2HEcloEc6XooJ0YclLF7XS/0KGOVnaK8Nsy0mSUg="
       },
-      "fingerprint": "sha256-9kAZWrm5vPSy+g3aclzhdexDa5XRwxAPKD85rVPVRrs="
+      "fingerprint": "sha256-LlZDgy3aTRdVrgeChch2g//DkgiJ9CkMgdG8JMG+RN0="
     },
     "superpowers-skills": {
       "version": "0-unstable-2026-11-03",
       "rawVersion": "22f0b463e7a5e579904dd6211a520321035526f7",
       "date": "2026-11-03",
       "src": {
-        "fetcher": "github",
-        "owner": "obra",
-        "repo": "superpowers",
+        "fetcher": "git",
+        "url": "https://github.com/obra/superpowers.git",
         "rev": "22f0b463e7a5e579904dd6211a520321035526f7",
         "hash": "sha256-rP5YsyGuPd9YSW/Fj3aukrq1bLuV+nwwQMK4JaZQgkI="
       },
-      "fingerprint": "sha256-5Y6zttRaxAr2jJCmMPG71WGzSnE1O6JO2MamvipnucE="
+      "fingerprint": "sha256-lrVp1rLZrlyGtadATaXbJpjppZ1kTzZ/p1q1OCoP6Qk="
     },
     "udpxy": {
       "version": "1.0-25.2",
@@ -1008,14 +994,14 @@
       "fingerprint": "sha256-imgtibGyweQKSt73wcN8RnflrzCvxGnXE2OOGS5lLSs="
     },
     "uu-remote-linux": {
-      "version": "0.2.57",
-      "rawVersion": "v0.2.57",
+      "version": "0.2.58",
+      "rawVersion": "v0.2.58",
       "src": {
         "fetcher": "github",
         "owner": "VallierDev",
         "repo": "uu-remote-linux",
-        "rev": "v0.2.57",
-        "hash": "sha256-BbUF5hlso+FJbC8xgTaqSYzuJiYhJuMnbqQG2/e3yww="
+        "rev": "v0.2.58",
+        "hash": "sha256-2dUtuDa/JPHu1uQyW9lIT++c1vCKVAs7sFtk98Z3Esk="
       },
       "derived": {
         "cargoLock": {
@@ -1025,26 +1011,24 @@
       "fingerprint": "sha256-bkfLJkEtLMz1h+WpImLqmsX1w0C+bC6LFQVif/RSb0s="
     },
     "v2ray-rules-dat": {
-      "version": "0-unstable-2026-11-10",
-      "rawVersion": "35dc401906ec5d3a69c134238b43a010fdaafe7b",
-      "date": "2026-11-10",
+      "version": "0-unstable-2026-11-11",
+      "rawVersion": "979f25034e16abf4e0d4dac0d8a7863fed0595c4",
+      "date": "2026-11-11",
       "src": {
-        "fetcher": "github",
-        "owner": "Loyalsoldier",
-        "repo": "v2ray-rules-dat",
-        "rev": "35dc401906ec5d3a69c134238b43a010fdaafe7b",
-        "hash": "sha256-twGeZRjxqzhsPnBeOtVny/rqdwtxJc/PsNU3YmUjNRo="
+        "fetcher": "git",
+        "url": "https://github.com/Loyalsoldier/v2ray-rules-dat.git",
+        "rev": "979f25034e16abf4e0d4dac0d8a7863fed0595c4",
+        "hash": "sha256-NjGZFJrW8LY+qJn/rBykVYOXBmyHlKqn5/ra9Gz5SGA="
       },
-      "fingerprint": "sha256-x1jWMHpIIz6TUNutapXxc1DXMdN+WkimjPLB8MahUn8="
+      "fingerprint": "sha256-VCqt6bExRQnJkTY51zmxmoGSt/p7RbF3g/HsGQUjUqs="
     },
     "whois42d-ng": {
       "version": "2.1.1-unstable-2026-11-02",
       "rawVersion": "60da3ef880cbad8d6b82488aebc7d9bd39d43076",
       "date": "2026-11-02",
       "src": {
-        "fetcher": "github",
-        "owner": "moraxyc",
-        "repo": "whois42d-ng",
+        "fetcher": "git",
+        "url": "https://github.com/moraxyc/whois42d-ng.git",
         "rev": "60da3ef880cbad8d6b82488aebc7d9bd39d43076",
         "hash": "sha256-fb2qg1Yv4yjkyfxwHOcugNF9fZZX2q2gNHHiz2fVqWc="
       },
@@ -1053,7 +1037,7 @@
           "lockfile": "whois42d-ng/src/Cargo.lock"
         }
       },
-      "fingerprint": "sha256-8Gu7h6sTB+D1pWI3dvTh8/PFerDzpMmFydAyMyXKiq4="
+      "fingerprint": "sha256-63QjM8YbiBFKvPleI9bt2OiHKCatR+V1pl2hYjiYcIo="
     },
     "ztnet": {
       "version": "0.8.7",
