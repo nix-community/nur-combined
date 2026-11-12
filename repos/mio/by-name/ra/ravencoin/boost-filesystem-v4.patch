@@ -1,0 +1,51 @@
+--- a/src/util.cpp
++++ b/src/util.cpp
+@@ -620,7 +620,7 @@
+ fs::path GetConfigFile(const std::string &confPath)
+ {
+     fs::path pathConfigFile(confPath);
+-    if (!pathConfigFile.is_complete())
++    if (!pathConfigFile.is_absolute())
+         pathConfigFile = GetDataDir(false) / pathConfigFile;
+ 
+     return pathConfigFile;
+@@ -657,7 +657,7 @@
+ fs::path GetPidFile()
+ {
+     fs::path pathPidFile(gArgs.GetArg("-pid", RAVEN_PID_FILENAME));
+-    if (!pathPidFile.is_complete()) pathPidFile = GetDataDir() / pathPidFile;
++    if (!pathPidFile.is_absolute()) pathPidFile = GetDataDir() / pathPidFile;
+     return pathPidFile;
+ }
+ 
+--- a/src/rpc/protocol.cpp
++++ b/src/rpc/protocol.cpp
+@@ -75,7 +75,7 @@
+         arg += ".tmp";
+     }
+     fs::path path(arg);
+-    if (!path.is_complete()) path = GetDataDir() / path;
++    if (!path.is_absolute()) path = GetDataDir() / path;
+     return path;
+ }
+ 
+--- a/src/wallet/db.cpp
++++ b/src/wallet/db.cpp
+@@ -267,7 +267,7 @@
+     LogPrintf("Using wallet %s\n", walletFile);
+ 
+     // Wallet file must be a plain filename without a directory
+-    if (walletFile != fs::basename(walletFile) + fs::extension(walletFile))
++    if (fs::path(walletFile) != fs::path(walletFile).filename())
+     {
+         errorStr = strprintf(_("Wallet %s resides outside data directory %s"), walletFile, dataDir.string());
+         return false;
+@@ -706,7 +706,7 @@
+                     pathDest /= strFile;
+ 
+                 try {
+-                    fs::copy_file(pathSrc, pathDest, fs::copy_option::overwrite_if_exists);
++                    fs::copy_file(pathSrc, pathDest, fs::copy_options::overwrite_existing);
+                     LogPrintf("copied %s to %s\n", strFile, pathDest.string());
+                     return true;
+                 } catch (const fs::filesystem_error& e) {

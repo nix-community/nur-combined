@@ -1,0 +1,20 @@
+Disable the bundled libsecp256k1's OpenSSL-based tests.
+
+Its DER parsing fuzz test compares secp256k1 against OpenSSL's
+d2i_ECDSA_SIG, and OpenSSL 3 rejects encodings that secp256k1 accepts, so
+the test aborts randomly depending on the generated signature
+("parsed_der && !parsed_openssl"). Upstream Bitcoin Core dropped these
+tests for the same reason (bitcoin/bitcoin#23314, following
+bitcoin-core/secp256k1#983).
+
+--- a/configure.ac
++++ b/configure.ac
+@@ -1304,7 +1304,7 @@
+   AC_CONFIG_SUBDIRS([src/univalue])
+ fi
+ 
+-ac_configure_args="${ac_configure_args} --disable-shared --with-pic --enable-benchmark=no --with-bignum=no --enable-module-recovery"
++ac_configure_args="${ac_configure_args} --disable-shared --with-pic --enable-benchmark=no --with-bignum=no --enable-module-recovery --disable-openssl-tests"
+ AC_CONFIG_SUBDIRS([src/secp256k1])
+ 
+ AC_OUTPUT

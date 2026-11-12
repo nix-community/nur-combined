@@ -1,0 +1,190 @@
+diff --git a/build/premake/extern_libs5.lua b/build/premake/extern_libs5.lua
+index b9fdd70..5a4576e 100644
+--- a/build/premake/extern_libs5.lua
++++ b/build/premake/extern_libs5.lua
+@@ -641,7 +641,7 @@ extern_lib_defs = {
+ 
+ 			if _OPTIONS["with-system-mozjs"] then
+ 				if not _OPTIONS["android"] then
+-					pkgconfig.add_includes_after("mozjs-128")
++					pkgconfig.add_includes_after("mozjs-140")
+ 				end
+ 			else
+ 				filter "Debug"
+@@ -655,9 +655,9 @@ extern_lib_defs = {
+ 		link_settings = function()
+ 			if _OPTIONS["with-system-mozjs"] then
+ 				if _OPTIONS["android"] then
+-					links { "mozjs-128" }
++					links { "mozjs-140" }
+ 				else
+-					pkgconfig.add_links("mozjs-128")
++					pkgconfig.add_links("mozjs-140")
+ 				end
+ 			else
+ 				filter { "Debug" }
+diff --git a/build/premake/premake5.lua b/build/premake/premake5.lua
+index 357b08f..9669055 100644
+--- a/build/premake/premake5.lua
++++ b/build/premake/premake5.lua
+@@ -50,7 +50,7 @@ newoption { category = "Pyrogenesis", trigger = "sanitize-undefined-behaviour",
+ newoption { category = "Pyrogenesis", trigger = "strip-binaries", description = "Strip created binaries" }
+ newoption { category = "Pyrogenesis", trigger = "with-system-cxxtest", description = "Search standard paths for cxxtest, instead of using bundled copy" }
+ newoption { category = "Pyrogenesis", trigger = "with-lto", description = "Enable Link Time Optimization (LTO)" }
+-newoption { category = "Pyrogenesis", trigger = "with-system-mozjs", description = "Search standard paths for libmozjs128, instead of using bundled copy" }
++newoption { category = "Pyrogenesis", trigger = "with-system-mozjs", description = "Search standard paths for libmozjs140, instead of using bundled copy" }
+ newoption { category = "Pyrogenesis", trigger = "with-system-nvtt", description = "Search standard paths for nvidia-texture-tools library, instead of using bundled copy" }
+ newoption { category = "Pyrogenesis", trigger = "with-valgrind", description = "Enable Valgrind support (non-Windows only)" }
+ newoption { category = "Pyrogenesis", trigger = "without-audio", description = "Disable use of OpenAL/Ogg/Vorbis APIs" }
+@@ -165,7 +165,7 @@ end
+ -- The pc file doesn't specify the required -DDEBUG needed in that case
+ local mozjs_is_debug_build = false
+ if _OPTIONS["with-system-mozjs"] then
+-	local _, errorCode = os.outputof(cc .. " $(pkg-config mozjs-128 --cflags) ./tests/mozdebug.c -o /dev/null")
++	local _, errorCode = os.outputof(cc .. " $(pkg-config mozjs-140 --cflags) ./tests/mozdebug.c -o /dev/null")
+ 	if errorCode ~= 0 then
+ 		mozjs_is_debug_build = true
+ 	end
+diff --git a/source/gui/ObjectBases/IGUIObject.cpp b/source/gui/ObjectBases/IGUIObject.cpp
+index ea20d22..8a26d9e 100644
+--- a/source/gui/ObjectBases/IGUIObject.cpp
++++ b/source/gui/ObjectBases/IGUIObject.cpp
+@@ -39,6 +39,7 @@
+ #include <js/ComparisonOperators.h>
+ #include <js/CompilationAndEvaluation.h>
+ #include <js/CompileOptions.h>
++#include <js/EnvironmentChain.h>
+ #include <js/GCAPI.h>
+ #include <js/GCVector.h>
+ #include <js/SourceText.h>
+@@ -339,7 +340,7 @@ void IGUIObject::RegisterScriptHandler(const CStr& eventName, const CStr& Code,
+ 
+ 	JS::SourceText<mozilla::Utf8Unit> src;
+ 	ENSURE(src.init(rq.cx, Code.c_str(), Code.length(), JS::SourceOwnership::Borrowed));
+-	JS::RootedObjectVector emptyScopeChain(rq.cx);
++	JS::EnvironmentChain emptyScopeChain(rq.cx, JS::SupportUnscopables::No);
+ 	JS::RootedFunction func(rq.cx, JS::CompileFunction(rq.cx, emptyScopeChain, options, buf, paramCount, paramNames, src));
+ 	if (func == nullptr)
+ 	{
+diff --git a/source/scriptinterface/Promises.cpp b/source/scriptinterface/Promises.cpp
+index 303ab26..a5b71c6 100644
+--- a/source/scriptinterface/Promises.cpp
++++ b/source/scriptinterface/Promises.cpp
+@@ -28,6 +28,7 @@
+ #include <js/CallAndConstruct.h>
+ #include <js/GlobalObject.h>
+ #include <js/Promise.h>
++#include <js/Realm.h>
+ #include <js/Value.h>
+ #include <js/ValueArray.h>
+ #include <string>
+@@ -69,9 +70,10 @@ void JobQueue::runJobs(JSContext*)
+ 	}
+ }
+ 
+-JSObject* JobQueue::getIncumbentGlobal(JSContext* cx)
++bool JobQueue::getHostDefinedData(JSContext* cx, JS::MutableHandle<JSObject*> data) const
+ {
+-	return JS::CurrentGlobalOrNull(cx);
++	data.set(JS::CurrentGlobalOrNull(cx));
++	return true;
+ }
+ 
+ bool JobQueue::enqueuePromiseJob(JSContext* cx, JS::HandleObject, JS::HandleObject job, JS::HandleObject,
+diff --git a/source/scriptinterface/Promises.h b/source/scriptinterface/Promises.h
+index 4403e09..b2e3cbe 100644
+--- a/source/scriptinterface/Promises.h
++++ b/source/scriptinterface/Promises.h
+@@ -40,7 +40,7 @@ public:
+ 	void runJobs(JSContext*) final;
+ 
+ private:
+-	JSObject* getIncumbentGlobal(JSContext* cx) final;
++	bool getHostDefinedData(JSContext* cx, JS::MutableHandle<JSObject*> data) const final;
+ 
+ 	bool enqueuePromiseJob(JSContext* cx, JS::HandleObject, JS::HandleObject job, JS::HandleObject,
+ 		JS::HandleObject) final;
+diff --git a/source/scriptinterface/ScriptContext.cpp b/source/scriptinterface/ScriptContext.cpp
+index 19cce27..6c96e65 100644
+--- a/source/scriptinterface/ScriptContext.cpp
++++ b/source/scriptinterface/ScriptContext.cpp
+@@ -259,7 +259,7 @@ void ScriptContext::MaybeIncrementalGC()
+ #endif
+ 
+ 		// There is a tradeoff between this time and the number of frames we must run GCs on, but overall we should prioritize smooth framerates.
+-		const js::SliceBudget GCSliceTimeBudget = js::SliceBudget(js::TimeBudget(6)); // Milliseconds an incremental slice is allowed to run. SM respects this fairly well.
++		const JS::SliceBudget GCSliceTimeBudget{JS::TimeBudget(6)}; // Milliseconds an incremental slice is allowed to run. SM respects this fairly well.
+ 
+ 		PrepareZonesForIncrementalGC();
+ 		if (!JS::IsIncrementalGCInProgress(m_cx))
+diff --git a/source/scriptinterface/ScriptEngine.h b/source/scriptinterface/ScriptEngine.h
+index 5a8f65f..d954942 100644
+--- a/source/scriptinterface/ScriptEngine.h
++++ b/source/scriptinterface/ScriptEngine.h
+@@ -24,7 +24,7 @@
+ #include <js/Initialization.h>
+ #include <list>
+ 
+-#if MOZJS_MAJOR_VERSION != 128
++#if MOZJS_MAJOR_VERSION != 140
+ #error Your compiler is trying to use an incorrect major version of the \
+ SpiderMonkey library. The SpiderMonkey API is subject to changes, and the \
+ game will not build with the selected version of the library. Make sure \
+diff --git a/source/scriptinterface/ScriptInterface.cpp b/source/scriptinterface/ScriptInterface.cpp
+index 0ca2a0e..4185719 100644
+--- a/source/scriptinterface/ScriptInterface.cpp
++++ b/source/scriptinterface/ScriptInterface.cpp
+@@ -43,6 +43,7 @@
+ #include <js/ComparisonOperators.h>
+ #include <js/CompilationAndEvaluation.h>
+ #include <js/CompileOptions.h>
++#include <js/EnvironmentChain.h>
+ #include <js/GCVector.h>
+ #include <js/GlobalObject.h>
+ #include <js/PropertyAndElement.h>
+@@ -666,7 +667,7 @@ bool ScriptInterface::LoadScript(const VfsPath& filename, const std::string& cod
+ 
+ 	JS::SourceText<mozilla::Utf8Unit> src;
+ 	ENSURE(src.init(rq.cx, code.c_str(), code.length(), JS::SourceOwnership::Borrowed));
+-	JS::RootedObjectVector emptyScopeChain(rq.cx);
++	JS::EnvironmentChain emptyScopeChain(rq.cx, JS::SupportUnscopables::No);
+ 	JS::RootedFunction func(rq.cx, JS::CompileFunction(rq.cx, emptyScopeChain, options, NULL, 0, NULL, src));
+ 	if (func == nullptr)
+ 	{
+diff --git a/source/simulation2/scripting/ScriptComponent.h b/source/simulation2/scripting/ScriptComponent.h
+index e05f574..001d84a 100644
+--- a/source/simulation2/scripting/ScriptComponent.h
++++ b/source/simulation2/scripting/ScriptComponent.h
+@@ -37,8 +37,8 @@ class CComponentTypeScript
+ public:
+ 	CComponentTypeScript(const ScriptInterface& scriptInterface, JS::HandleValue instance);
+ 
+-	JS::HandleValue GetInstance() const { return JS::HandleValue::fromMarkedLocation(m_Instance.address()); }
+-	JS::MutableHandleValue GetMutInstance() { return JS::MutableHandleValue::fromMarkedLocation(const_cast<JS::Value*>(m_Instance.address())); }
++	JS::HandleValue GetInstance() const { return JS::HandleValue::fromMarkedLocation(m_Instance.unsafeAddress()); }
++	JS::MutableHandleValue GetMutInstance() { return JS::MutableHandleValue::fromMarkedLocation(const_cast<JS::Value*>(m_Instance.unsafeAddress())); }
+ 	static void Trace(JSTracer* trc, void* data);
+ 
+ 	void Init(CComponentManager& cmpMgr, const CParamNode& paramNode, entity_id_t ent);
+diff --git a/source/simulation2/system/InterfaceScripted.h b/source/simulation2/system/InterfaceScripted.h
+index 8068384..b3d6923 100644
+--- a/source/simulation2/system/InterfaceScripted.h
++++ b/source/simulation2/system/InterfaceScripted.h
+@@ -46,7 +46,7 @@
+ 	JS::HandleValue ICmp##iname::GetJSInstance() const \
+ 	{ \
+ 		if (m_CachedInstance) \
+-			return JS::HandleValue::fromMarkedLocation(m_CachedInstance.address()); \
++			return JS::HandleValue::fromMarkedLocation(m_CachedInstance.unsafeAddress()); \
+ 		\
+ 		const ScriptInterface& si = GetSimContext().GetScriptInterface(); \
+ 		ScriptRequest rq(si); \
+@@ -55,7 +55,7 @@
+ 		m_CachedInstance.setObject(*obj); \
+ 		\
+ 		GetSimContext().GetComponentManager().RegisterTrace(GetEntityId(), m_CachedInstance); \
+-		return JS::HandleValue::fromMarkedLocation(m_CachedInstance.address()); \
++		return JS::HandleValue::fromMarkedLocation(m_CachedInstance.unsafeAddress()); \
+ 	} \
+ 	void RegisterComponentInterface_##iname(ScriptInterface& scriptInterface) { \
+ 		ICmp##iname::InterfaceInit(scriptInterface); \

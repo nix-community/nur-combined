@@ -1,0 +1,18 @@
+--- a/build-aux/m4/ax_boost_system.m4
++++ b/build-aux/m4/ax_boost_system.m4
+@@ -109,11 +109,11 @@
+ 
+             fi
+             if test "x$ax_lib" = "x"; then
+-                AC_MSG_ERROR(Could not find a version of the boost_system library!)
++                dnl Boost >= 1.69 ships Boost.System as a header-only library.
++                BOOST_SYSTEM_LIB=""
++            elif test "x$link_system" = "xno"; then
++                AC_MSG_ERROR(Could not link against $ax_lib !)
+             fi
+-			if test "x$link_system" = "xno"; then
+-				AC_MSG_ERROR(Could not link against $ax_lib !)
+-			fi
+ 		fi
+ 
+ 		CPPFLAGS="$CPPFLAGS_SAVED"
