@@ -4,11 +4,11 @@
   "hashes": {
     "x86_64-linux": {
       "gnu": {
-        "sha256": "abb4f95783c5ff3d5fad19750ed8ea404c213a558b2211dd5a88b19167e15051",
+        "sha256": "6e43498cc9fe8bad6db71160d9e25974d89dbcdca81992f5eaa8254631520c02",
         "targetSystem": "x86_64-unknown-linux-gnu"
       },
       "musl": {
-        "sha256": "afe7291ec0daeda2266b5967faef20ec787bb0533e5c14cbe6d73eae23969605",
+        "sha256": "1b512b5d61f754437517295f9049ab81f3f094e60e8077f84fb0d7a8fa8724ad",
         "targetSystem": "x86_64-unknown-linux-musl"
       }
     },
