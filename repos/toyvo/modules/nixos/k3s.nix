@@ -239,7 +239,10 @@ in
             additionalArguments:
               - --entrypoints.metrics.address=127.0.0.1:8082
             service:
-              type: NodePort
+              # Chart 40.x renders service.spec verbatim and ignores service.type;
+              # k3s packaged defaults set spec.type=LoadBalancer, so override it here.
+              spec:
+                type: NodePort
             ports:
               web:
                 port: 80
