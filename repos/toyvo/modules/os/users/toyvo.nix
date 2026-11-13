@@ -210,7 +210,6 @@ let
     with pkgs;
     [
       element-desktop
-      firefox
       herdr-desktop-fixed
       inkscape
       podman-desktop
@@ -225,6 +224,7 @@ let
       utm
     ]
     ++ lib.optionals (stdenv.hostPlatform.isLinux) [
+      firefox
       ghostty
       gimp
       libreoffice

@@ -2,7 +2,7 @@
 /**
  * Kea DHCP → Technitium dynamic DNS sync (one-shot).
  *
- * Reads the Kea DHCPv4 lease file, builds the desired set of
+ * Reads Kea's live DHCPv4 leases over its unix control socket, builds the desired set of
  * `<hostname>.<zone>` A records, and reconciles them with the
  * Technitium zone via its HTTP API.
  *
@@ -10,7 +10,10 @@
  *   - Only subnets in ALLOWED_SUBNETS are published.
  *   - Names in STATIC_NAMES_FILE are never touched.
  *   - Only TTL-120 records are managed; all other records are ignored.
- *   - If the lease file or the existing-records list cannot be read,
+ *   - Adds/updates apply immediately; deletes wait until a name has been
+ *     continuously absent for GRACE_PERIOD_SEC (covers torn lease-file
+ *     reads, sleep, brief roaming). Last-seen state lives in STATE_FILE.
+ *   - If the control socket or the existing-records list cannot be read,
  *     the script aborts BEFORE mutating anything.
  *
  * Required environment:
@@ -18,19 +21,23 @@
  *   TECHNITIUM_TOKEN_FILE        API token (preferred auth)
  *   TECHNITIUM_ADMIN_PASS_FILE   admin password (fallback auth)
  *   TECHNITIUM_ADMIN_USER        (default "admin")
- *   KEA_LEASES                   (default /var/lib/kea/dhcp4.leases)
+ *   KEA_SOCKET                   (default /run/kea/kea-dhcp4.socket)
  *   DNS_ZONE                     (default "home.arpa")
  *   ALLOWED_SUBNETS              (default "1", comma separated)
  *   STATIC_NAMES_FILE            JSON array of reserved hostnames
+ *   GRACE_PERIOD_SEC             (default "3600") absent-before-delete
+ *   STATE_FILE                   (default "/var/lib/kea-technitium-ddns/state.json")
  */
 
 import {
   buildDesiredRecords,
-  diffRecords,
   isSnapshotTrustworthy,
-  parseKeaLeases,
+  normalizeControlLeases,
+  planSync,
   type ExistingRecord,
+  type SeenState,
 } from "./sync";
+import { queryKeaLeases } from "./kea";
 
 const DYNAMIC_TTL = 120;
 
@@ -38,12 +45,18 @@ const url = process.env.TECHNITIUM_URL ?? "http://127.0.0.1:5380";
 const tokenFile = process.env.TECHNITIUM_TOKEN_FILE ?? "";
 const adminUser = process.env.TECHNITIUM_ADMIN_USER ?? "admin";
 const adminPassFile = process.env.TECHNITIUM_ADMIN_PASS_FILE ?? "";
-const leasesFile = process.env.KEA_LEASES ?? "/var/lib/kea/dhcp4.leases";
+const keaSocket = process.env.KEA_SOCKET ?? "/run/kea/kea-dhcp4.socket";
 const zone = process.env.DNS_ZONE ?? "home.arpa";
 const allowedSubnets = (process.env.ALLOWED_SUBNETS ?? "1")
   .split(",")
   .map((s) => Number.parseInt(s.trim(), 10))
   .filter((n) => Number.isInteger(n));
+const graceSec = (() => {
+  const n = Number.parseInt(process.env.GRACE_PERIOD_SEC ?? "3600", 10);
+  return Number.isInteger(n) && n >= 0 ? n : 3600;
+})();
+const stateFile =
+  process.env.STATE_FILE ?? "/var/lib/kea-technitium-ddns/state.json";
 const staticNamesFile = process.env.STATIC_NAMES_FILE ?? "";
 
 async function readFile(path: string): Promise<string> {
@@ -173,15 +186,16 @@ async function main(): Promise<void> {
     }
   }
 
-  // 2. Kea leases — abort before any mutation if unreadable.
-  let csv: string;
+  // 2. Kea leases, live from the control socket — abort before any
+  // mutation if unreachable.
+  let raw: unknown[];
   try {
-    csv = await Bun.file(leasesFile).text();
+    raw = await queryKeaLeases(keaSocket);
   } catch (e) {
-    console.error(`FATAL: cannot read Kea leases: ${e}`);
+    console.error(`FATAL: cannot query Kea leases: ${e}`);
     process.exit(1);
   }
-  const leases = parseKeaLeases(csv, allowedSubnets, Date.now() / 1000);
+  const leases = normalizeControlLeases(raw, allowedSubnets, Date.now() / 1000);
   const desired = buildDesiredRecords(leases, staticNames);
   console.error(
     `Leases: ${leases.length} valid, desired DNS records: ${desired.size}`,
@@ -203,18 +217,38 @@ async function main(): Promise<void> {
     process.exit(1);
   }
   const byName = new Map(existing.map((r) => [r.name, r]));
-  const dataRows = Math.max(
-    0,
-    csv.split("\n").filter((l) => l !== "").length - 1,
-  );
   const dynamicCount = existing.filter((r) => r.ttl === DYNAMIC_TTL).length;
-  if (!isSnapshotTrustworthy(dataRows, dynamicCount)) {
+  if (!isSnapshotTrustworthy(raw.length, dynamicCount)) {
     console.error(
       "FATAL: lease snapshot is empty but dynamic records exist; aborting to avoid mass delete.",
     );
     process.exit(1);
   }
-  const { toAdd, toUpdate, toDelete } = diffRecords(desired, existing);
+  // Last-seen state: deletes wait out the grace period, adds don't.
+  let prev: SeenState = {};
+  try {
+    prev = (await Bun.file(stateFile).json()) as SeenState;
+  } catch {
+    console.error(`No usable state at ${stateFile}, starting fresh.`);
+  }
+  const nowSec = Date.now() / 1000;
+  const plan = planSync(desired, existing, prev, nowSec, graceSec);
+  const { toAdd, toUpdate, toDelete } = plan;
+  const deleted = new Set(toDelete.map((d) => d.name));
+  for (const rec of existing) {
+    if (
+      rec.ttl === DYNAMIC_TTL &&
+      !desired.has(rec.name) &&
+      !deleted.has(rec.name)
+    ) {
+      console.error(`KEEP ${rec.name}.${zone} (grace, last seen recently)`);
+    }
+  }
+  try {
+    await Bun.write(stateFile, JSON.stringify(plan.next));
+  } catch (e) {
+    console.error(`WARNING: cannot persist state: ${e}`);
+  }
 
   for (const { name, ip } of toAdd) {
     const domain = `${name}.${zone}`;

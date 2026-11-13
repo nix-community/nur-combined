@@ -20,91 +20,60 @@ export interface ExistingRecord {
 /** Hostname without domain → IP for records we want to exist. */
 export type DesiredRecords = Map<string, string>;
 
-/** Lowercase, replace underscores/whitespace with `-`, validate RFC 1035 label. */
+/**
+ * Lowercase, strip one trailing dot (FQDN notation), replace
+ * underscores/whitespace with `-`, validate RFC 1035 label.
+ */
 export function sanitizeHostname(raw: string): string | null {
   const lowered = raw
     .trim()
     .toLowerCase()
+    .replace(/\.$/, "")
     .replace(/[_\s]+/g, "-");
   if (!/^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/.test(lowered)) return null;
   return lowered;
 }
 
-/** Split one CSV row, honoring double-quoted fields. */
-function splitCsvRow(row: string): string[] {
-  const fields: string[] = [];
-  let cur = "";
-  let inQuotes = false;
-  for (let i = 0; i < row.length; i++) {
-    const c = row[i];
-    if (inQuotes) {
-      if (c === '"') {
-        if (row[i + 1] === '"') {
-          cur += '"';
-          i++;
-        } else {
-          inQuotes = false;
-        }
-      } else {
-        cur += c;
-      }
-    } else if (c === '"') {
-      inQuotes = true;
-    } else if (c === ",") {
-      fields.push(cur);
-      cur = "";
-    } else {
-      cur += c;
-    }
-  }
-  fields.push(cur);
-  return fields;
-}
-
 /**
- * Parse a Kea memfile DHCPv4 CSV lease dump.
- * Keeps only leases on allowed subnets that have not expired and carry a
- * usable hostname. Unparseable `expire` values are treated as expired.
+ * Normalize a `lease4-get-all` response into parsed leases.
+ *
+ * Kea reports `cltt` (client last transaction time, epoch seconds) and
+ * `valid-lft`; a lease is live while `cltt + valid-lft` is in the future.
+ * Keeps only leases on allowed subnets that have not expired, carry a
+ * usable hostname, and are in assigned state. Missing or unparseable
+ * times are treated as expired (fail-closed).
  */
-export function parseKeaLeases(
-  csv: string,
+export function normalizeControlLeases(
+  raw: unknown[],
   allowedSubnetIds: number[],
   nowSec: number,
 ): ParsedLease[] {
   const allowed = new Set(allowedSubnetIds);
-  const lines = csv.split("\n").filter((l) => l !== "");
-  if (lines.length === 0) return [];
-  const header = splitCsvRow(lines[0]);
-  const ipIdx = header.indexOf("address");
-  const hostnameIdx = header.indexOf("hostname");
-  const expireIdx = header.indexOf("expire");
-  const subnetIdx =
-    header.indexOf("subnet_id") !== -1
-      ? header.indexOf("subnet_id")
-      : header.indexOf("subnet-id") !== -1
-        ? header.indexOf("subnet-id")
-        : header.indexOf("subnet");
-  if (ipIdx === -1 || hostnameIdx === -1) return [];
-
   const out: ParsedLease[] = [];
-  for (const line of lines.slice(1)) {
-    const row = splitCsvRow(line);
-    const ip = (row[ipIdx] ?? "").trim();
+  for (const item of raw) {
+    if (typeof item !== "object" || item === null) continue;
+    const rec = item as Record<string, unknown>;
+    const ip = typeof rec["ip-address"] === "string" ? rec["ip-address"] : "";
     if (!ip) continue;
-    if (subnetIdx !== -1) {
-      const subnetId = Number.parseInt((row[subnetIdx] ?? "").trim(), 10);
-      if (!allowed.has(subnetId)) continue;
-    } else if (allowed.size > 0) {
-      continue;
-    }
-    if (expireIdx !== -1) {
-      const expire = Number.parseInt((row[expireIdx] ?? "").trim(), 10);
-      if (!Number.isInteger(expire) || expire <= nowSec) continue;
-    }
-    const hostname = sanitizeHostname((row[hostnameIdx] ?? "").trim());
-    if (!hostname) continue;
     const subnetId =
-      subnetIdx !== -1 ? Number.parseInt((row[subnetIdx] ?? "").trim(), 10) : 0;
+      typeof rec["subnet-id"] === "number" ? rec["subnet-id"] : NaN;
+    if (!allowed.has(subnetId)) continue;
+    const state = rec["state"];
+    if (state !== undefined && state !== 0) continue;
+    const cltt = typeof rec["cltt"] === "number" ? rec["cltt"] : NaN;
+    const validLft =
+      typeof rec["valid-lft"] === "number"
+        ? rec["valid-lft"]
+        : typeof rec["valid-lifetime"] === "number"
+          ? rec["valid-lifetime"]
+          : NaN;
+    if (!Number.isInteger(cltt) || !Number.isInteger(validLft)) continue;
+    if (cltt + validLft <= nowSec) continue;
+    const hostname =
+      typeof rec["hostname"] === "string"
+        ? sanitizeHostname(rec["hostname"].trim())
+        : null;
+    if (!hostname) continue;
     out.push({ ip, hostname, subnetId });
   }
   return out;
@@ -133,6 +102,61 @@ export interface RecordDiff {
   toAdd: Array<{ name: string; ip: string }>;
   toUpdate: Array<{ name: string; ip: string }>;
   toDelete: Array<{ name: string }>;
+}
+
+export interface SeenEntry {
+  ip: string;
+  lastSeen: number;
+}
+export type SeenState = Record<string, SeenEntry>;
+
+export interface SyncPlan {
+  toAdd: Array<{ name: string; ip: string }>;
+  toUpdate: Array<{ name: string; ip: string }>;
+  toDelete: Array<{ name: string }>;
+  next: SeenState;
+}
+
+/**
+ * Immediate adds/updates, grace-delayed deletes.
+ *
+ * Desired entries refresh their lastSeen clock every run. A dynamic
+ * record absent from the leases is deleted only after being continuously
+ * absent for graceSec (covers torn lease-file reads, sleep, brief
+ * roaming). First sighting of an absence starts the clock. State entries
+ * for names in neither desired nor the zone are pruned.
+ */
+export function planSync(
+  desired: DesiredRecords,
+  existing: ExistingRecord[],
+  prev: SeenState,
+  nowSec: number,
+  graceSec: number,
+): SyncPlan {
+  const {
+    toAdd,
+    toUpdate,
+    toDelete: immediate,
+  } = diffRecords(desired, existing);
+  const byName = new Map(existing.map((r) => [r.name, r]));
+  const next: SeenState = {};
+  for (const [name, ip] of desired) next[name] = { ip, lastSeen: nowSec };
+  const toDelete: SyncPlan["toDelete"] = [];
+  for (const { name } of immediate) {
+    const seen = prev[name];
+    if (!seen) {
+      // Absence noticed for the first time: start the clock, keep it.
+      next[name] = { ip: byName.get(name)?.ip ?? "", lastSeen: nowSec };
+      continue;
+    }
+    if (nowSec - seen.lastSeen < graceSec) {
+      next[name] = seen;
+      continue;
+    }
+    // Grace expired: delete (and drop from state by omitting).
+    toDelete.push({ name });
+  }
+  return { toAdd, toUpdate, toDelete, next };
 }
 
 /**

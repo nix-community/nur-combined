@@ -19,6 +19,9 @@ in
       };
       casks = [
         {
+          name = "firefox";
+        }
+        {
           name = "proton-drive";
         }
         {

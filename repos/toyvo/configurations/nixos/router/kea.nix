@@ -1,4 +1,9 @@
-{ homelab, lib, ... }:
+{
+  homelab,
+  lib,
+  pkgs,
+  ...
+}:
 let
   reserved = 64;
   ipv4NetworkPrefix = "10.1";
@@ -30,6 +35,14 @@ in
           socket-type = "unix";
           socket-name = "/run/kea/kea-dhcp4.socket";
         };
+        # Exposes lease4-get-all and friends over the control socket,
+        # which kea-technitium-ddns uses instead of the memfile (the file
+        # is periodically rewritten, so readers can catch it torn).
+        hooks-libraries = [
+          {
+            library = "${pkgs.kea}/lib/kea/hooks/libdhcp_lease_cmds.so";
+          }
+        ];
         authoritative = true;
         renew-timer = 3600 * 5;
         rebind-timer = 3600 * 8;

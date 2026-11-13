@@ -65,7 +65,10 @@ in
       inherit (tomlFormat) type;
       default = { };
       example = {
-        shell = [ "nu" "-l" ];
+        shell = [
+          "nu"
+          "-l"
+        ];
         detach_key = "ctrl+\\";
         wait_timeout = 180.0;
         notes = true;

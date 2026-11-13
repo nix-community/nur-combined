@@ -627,10 +627,12 @@ in
       Type = "oneshot";
       User = "root";
       Group = "root";
+      StateDirectory = "kea-technitium-ddns";
       Environment = [
-        "KEA_LEASES=/var/lib/kea/dhcp4.leases"
+        "KEA_SOCKET=/run/kea/kea-dhcp4.socket"
         "DNS_ZONE=home.arpa"
         "ALLOWED_SUBNETS=1"
+        "GRACE_PERIOD_SEC=3600"
         "STATIC_NAMES_FILE=${pkgs.writeText "kea-ddns-static-names.json" (builtins.toJSON (builtins.attrNames homelab))}"
         "TECHNITIUM_URL=http://127.0.0.1:${toString homelab.${hostName}.services.technitium.port}"
         "TECHNITIUM_TOKEN_FILE=${config.sops.secrets.technitium_api_key.path}"
@@ -643,8 +645,8 @@ in
     description = "Periodic Kea to Technitium DNS sync";
     wantedBy = [ "timers.target" ];
     timerConfig = {
-      OnBootSec = "2min";
-      OnUnitActiveSec = "2min";
+      OnBootSec = "1min";
+      OnUnitActiveSec = "1min";
       Persistent = true;
     };
   };
