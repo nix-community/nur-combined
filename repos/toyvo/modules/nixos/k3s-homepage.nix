@@ -108,6 +108,7 @@ let
 
   toYAML = lib.generators.toYAML { };
   image = "ghcr.io/gethomepage/homepage:v2.6.0"; # matches nixpkgs homepage-dashboard 2.6.0
+  middlewaresLib = import ./k3s-traefik-middlewares.nix { inherit lib; };
 in
 {
   options.nixcfg.k3sHomepage = {
@@ -247,6 +248,11 @@ in
       kind = "Ingress";
       metadata = {
         name = "homepage";
+        # Same chains as the edge IngressRoutes (see k3s-traefik-middlewares.nix).
+        annotations = {
+          "traefik.ingress.kubernetes.io/router.middlewares" =
+            middlewaresLib.ingressMiddlewareAnnotation homelab.nas.services.homepage;
+        };
       };
       spec = {
         ingressClassName = "traefik";

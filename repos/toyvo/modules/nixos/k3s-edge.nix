@@ -7,6 +7,7 @@
 let
   cfg = config.nixcfg.k3sEdge;
   edgeNamespace = "edge";
+  middlewaresLib = import ./k3s-traefik-middlewares.nix { inherit lib; };
 
   sanitize = s: lib.toLower (builtins.replaceStrings [ "." "_" "@" ] [ "-" "-" "" ] s);
 
@@ -66,11 +67,18 @@ let
       r:
       let
         svcName = "edge-${r.key}";
-        middlewares = [
-          { name = "edge-secure-headers"; }
-        ]
-        ++ lib.optional (!r.public) { name = "edge-lan-only"; }
-        ++ lib.optional (r.forwardAuthGate && !r.selfSigned) { name = "edge-authentik-forwardauth"; };
+        # Same-namespace short refs; selection logic lives in
+        # k3s-traefik-middlewares.nix (shared with the Ingress generators).
+        middlewares = map (name: { inherit name; }) (
+          middlewaresLib.routerMiddlewareNames {
+            inherit (r)
+              domain
+              public
+              forwardAuthGate
+              selfSigned
+              ;
+          }
+        );
         backend = {
           name = svcName;
           port = r.port;

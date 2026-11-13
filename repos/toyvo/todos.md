@@ -11,7 +11,8 @@
 - [x] Deploy + verify (2026-10-26): `nixos-rebuild switch --flake .#nas`, then `.#MacMini-Intel-NixOS`; `kubectl get nodes` shows nas + macmini-intel-nixos Ready (control-plane,etcd). Required opening etcd 2379-2380/tcp in `nixcfg.k3s` firewall on both nodes.
 - [x] Router joined as etcd-only third server (2026-10-26).
 - [x] Protectli joined as worker agent (2026-10-26): Ready, `<none>` roles as designed; etcd stays 3 voters.
-- [ ] Traefik NodePorts 30080/30443 live (code done on nas+macmini); deploy both, verify svc + cross-node pod curl.
+- [x] Traefik NodePorts 30080/30443 live (2026-11-13, superseded shape): edge cutover complete — Traefik now runs as hostNetwork DaemonSet on router (:80/:443 direct), NodePort service retained as fallback (verified svc + pod on router).
+- [x] Caddy ingress integration for cluster services (2026-11-13, superseded): Caddy retired and removed; Traefik DaemonSet is the sole edge (TLS via cert-sync, authentik forward-auth + LAN-only middlewares).
 - [x] homepage serves from cluster (2026-10-26): manifests live, Caddy `upstreams` flip for `diekvoss.net` verified 200 with auth gate, nas-native service retired (file deleted, 8082 closed). Failover verified 2026-10-26 in both directions (k3s stopped on nas → 200 via macmini, and vice versa).
 - [x] homepage widget secrets via secretspec (2026-10-26): contract + `envFrom` live, 17 keys populated, pods show all 17 in env. Key learning recorded in `k8s/homepage/secretspec.toml` header: address providers BY ALIAS (`-p kube`), never literal URIs (literal bypasses `refs`); `refs.kube` pins exact entries (route-wide `ref` would also redirect Pass reads). Secretspec write semantics settled (alias invocations honor `refs`; literal URIs bypass). No upstream issue — behavior matches docs as written.
 - [x] Storage platform proven (2026-10-26): NFS static PVs (`nfs-pool`, csi-driver-nfs v4.13.6) + local-path DB pattern with dump-to-NFS verified end to end, proof cleaned up. Note: `pool-k3s-test` PV sits `Released` (Retain) — clear claimRef before reuse.
@@ -26,7 +27,12 @@
 - [x] Home Assistant migrated to k3s (2026-10-28): new k3s-homeassistant module (StatefulSet, no media — HA needs none), exact-version image 2026.5.4 (zero migration risk), sqlite on local-path, seeded from verified-live set (46M state + .backup DB + generated configuration.yaml + pod-CIDR trusted_proxies in both configuration.yaml and .storage/http), UI + data + integrations verified, container module deleted (not just disabled), old port dead after switch, k8s login green through public URL. Follow-ups: (a) HA failover drill not explicitly run (same Traefik mechanism as prior flips); (b) ownership drift: k8s runs as root, rollback needs `chown -R hass` on state dir.
 - [x] qBittorrent migrated to k3s (2026-10-27/28): VPN-isolated pod with in-pod wg-quick + split-tunnel carve-outs, legacy state mounted for resume, WEBUI_PORT=4080, Traefik upstreams flipped, starr container disabled (module kept, `enable = false` for rollback). TEMPORARY passwordless `k3s` sudo for wheel still in nas config — remove after cutover verified.
 - [ ] qBittorrent also migrated into kubernetes, but downloads are not yet working, ref: https://protonvpn.com/support/port-forwarding-manual-setup.
-- [ ] Caddy ingress integration for cluster services.
+- [x] Caddy ingress retired 2026-11-13 (Traefik DaemonSet edge live, virtual-hosts.nix deleted).
+- [ ] Edge LAN-client verification (from MacBook, not router — router-originated traffic takes a policy-routed path that lan-only correctly rejects): no-cookie gated URL (e.g. hermes-agent) → authentik challenge, with cookie → app; public URLs (git, apex) → 200.
+- [ ] hermes-agent backend down (noticed 2026-11-13 during edge verification): 10.1.0.3:8642 connection refused; edge correctly gates it, but the nas service needs attention.
+- [ ] In-cluster default-ns Ingresses lack edge middlewares (lan-only/forward-auth) — pre-existing shape (same exposure as old NodePort path, internal DNS only), harden the Ingress generator as follow-up.
+- [ ] Traefik forwardAuth tuning warnings from DaemonSet logs (2026-11-13): set maxResponseBodySize + trustForwardHeader=false on edge-authentik-forwardauth.
+- [ ] Remove TEMPORARY passwordless k3s/kubectl sudoers on router (`configurations/nixos/router/configuration.nix`, added 2026-11-13 for edge debugging; kept per user request — revisit when done).
 - [ ] aarch64 nodes (rpis) after x86_64 stable.
 
 Outstanding work and follow-up items for this repository.

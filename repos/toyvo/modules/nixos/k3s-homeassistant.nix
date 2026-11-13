@@ -1,10 +1,12 @@
 {
   config,
+  homelab,
   lib,
   ...
 }:
 let
   cfg = config.nixcfg.k3sHomeassistant;
+  middlewaresLib = import ./k3s-traefik-middlewares.nix { inherit lib; };
 
   # Mirrors the nixpkgs services.home-assistant 2026.5.4 the hass container
   # runs (exact image tag below) — no version migration involved.
@@ -114,6 +116,11 @@ in
         kind = "Ingress";
         metadata = {
           name = "home-assistant";
+          # Same chains as the edge IngressRoutes (see k3s-traefik-middlewares.nix).
+          annotations = {
+            "traefik.ingress.kubernetes.io/router.middlewares" =
+              middlewaresLib.ingressMiddlewareAnnotation homelab.home-assistant.services.home-assistant;
+          };
         };
         spec = {
           ingressClassName = "traefik";
