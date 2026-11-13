@@ -254,6 +254,11 @@ def validate_package(package, system):
 
 def update_nix_package(package):
     print(f"==> Updating {package}", flush=True)
+    # nix-update evaluates a store copy of the flake obtained from
+    # `nix flake metadata`, but Nix leaves that copy unmaterialized for dirty
+    # trees, which this workflow always has. Prefetch the current tree so the
+    # path nix-update reads exists.
+    run(["nix", "flake", "prefetch", "--json", "."], cwd=REPO_ROOT, stdout=subprocess.DEVNULL)
     command = ["nix-update", package, "--flake", "--build", "--format"]
     extra = NIX_UPDATE_ARGS.get(package, ["--use-github-releases"])
     if package == "rea":
