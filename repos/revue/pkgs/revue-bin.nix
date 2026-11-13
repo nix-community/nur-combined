@@ -44,10 +44,10 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "revue-bin";
-  version = "0.44.0";
+  version = "0.44.1";
   src = fetchurl {
     url = "https://forgejo.cleangame.dev/thatrichan/revue/releases/download/v${version}/revue-v${version}-linux-x86_64.tar.gz";
-    sha256 = "9a4942b499171fc00266e84acd0954a90a3ebfab8f90ab6922c6c398ae5e6537";
+    sha256 = "332616e1d8b65a321a88a0374e19244607f0f816f4c539a506cf0c2de76a5180";
   };
   nativeBuildInputs = [
     autoPatchelfHook
