@@ -1,8 +1,8 @@
 diff --git a/browser/app/profile/firefox.js b/browser/app/profile/firefox.js
-index 0f4b2915..838df50f 100644
+index 15a12b6..2b71bfd 100644
 --- a/browser/app/profile/firefox.js
 +++ b/browser/app/profile/firefox.js
-@@ -1954,7 +1954,7 @@ pref("browser.newtab.preload", true);
+@@ -1946,7 +1946,7 @@ pref("browser.newtab.preload", true);
  // For further detail on the TOU prefs below, see the `preonboarding` feature in
  // FeatureManifest.yaml
  // Version of the TOU that the user last accepted
@@ -12,7 +12,7 @@ index 0f4b2915..838df50f 100644
  pref("termsofuse.acceptedDate", "0");
  // Stringified timestamp of when the user first accepted the TOU, only set if
 diff --git a/browser/app/winlauncher/LauncherProcessWin.cpp b/browser/app/winlauncher/LauncherProcessWin.cpp
-index 3734e1d3..bea43635 100644
+index 3734e1d..bea4363 100644
 --- a/browser/app/winlauncher/LauncherProcessWin.cpp
 +++ b/browser/app/winlauncher/LauncherProcessWin.cpp
 @@ -21,6 +21,7 @@

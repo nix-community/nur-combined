@@ -1,5 +1,5 @@
 diff --git a/widget/MouseEvents.h b/widget/MouseEvents.h
-index e0e3b70f..bbbb15a8 100644
+index e0e3b70..bbbb15a 100644
 --- a/widget/MouseEvents.h
 +++ b/widget/MouseEvents.h
 @@ -239,6 +239,15 @@ class WidgetMouseEventBase : public WidgetInputEvent {
@@ -27,7 +27,7 @@ index e0e3b70f..bbbb15a8 100644
  
    /**
 diff --git a/widget/gtk/nsWindow.cpp b/widget/gtk/nsWindow.cpp
-index 8b8fc448..46062bb6 100644
+index ada6f99..ab04ef1 100644
 --- a/widget/gtk/nsWindow.cpp
 +++ b/widget/gtk/nsWindow.cpp
 @@ -49,6 +49,7 @@
@@ -38,7 +38,7 @@ index 8b8fc448..46062bb6 100644
  #include "mozilla/SwipeTracker.h"
  #include "mozilla/TextEventDispatcher.h"
  #include "mozilla/TextEvents.h"
-@@ -3545,7 +3546,13 @@ void nsWindow::DispatchPanGesture(PanGestureInput& aPanInput) {
+@@ -3552,7 +3553,13 @@ void nsWindow::DispatchPanGesture(PanGestureInput& aPanInput) {
  
  void nsWindow::OnVisibilityNotifyEvent(GdkVisibilityState aState) {
    LOG("nsWindow::OnVisibilityNotifyEvent [%p] state 0x%x\n", this, aState);
@@ -54,7 +54,7 @@ index 8b8fc448..46062bb6 100644
                     : OcclusionState::UNKNOWN;
    NotifyOcclusionState(state);
 diff --git a/widget/nsGUIEventIPC.h b/widget/nsGUIEventIPC.h
-index 2ecd7803..f852c75a 100644
+index 2ecd780..f852c75 100644
 --- a/widget/nsGUIEventIPC.h
 +++ b/widget/nsGUIEventIPC.h
 @@ -165,6 +165,7 @@ struct ParamTraits<mozilla::WidgetMouseEventBase> {

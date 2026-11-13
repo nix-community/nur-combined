@@ -1,8 +1,8 @@
 diff --git a/dom/base/Document.cpp b/dom/base/Document.cpp
-index 24fc4978..6c91464c 100644
+index dbc92f8..66f5f3f 100644
 --- a/dom/base/Document.cpp
 +++ b/dom/base/Document.cpp
-@@ -254,6 +254,7 @@
+@@ -257,6 +257,7 @@
  #include "mozilla/dom/SpeculationRuleSet.h"
  #include "mozilla/dom/SpeculationRules.h"
  #include "mozilla/dom/SpeculationRulesManager.h"
@@ -10,7 +10,7 @@ index 24fc4978..6c91464c 100644
  #include "mozilla/dom/StyleSheetApplicableStateChangeEvent.h"
  #include "mozilla/dom/StyleSheetApplicableStateChangeEventBinding.h"
  #include "mozilla/dom/StyleSheetList.h"
-@@ -4054,6 +4055,13 @@ nsresult Document::InitCSP(nsIChannel* aChannel) {
+@@ -4080,6 +4081,13 @@ nsresult Document::InitCSP(nsIChannel* aChannel) {
      return rv;
    }
  
@@ -24,7 +24,7 @@ index 24fc4978..6c91464c 100644
    nsCOMPtr<nsIPrincipal> principal = NodePrincipal();
    if ((principal->IsSystemPrincipal() ||
         (mDocumentURI && mDocumentURI->SchemeIs("chrome"))) &&
-@@ -4597,11 +4605,12 @@ void Document::SetDocumentURI(nsIURI* aURI) {
+@@ -4616,11 +4624,12 @@ void Document::SetDocumentURI(nsIURI* aURI) {
    }
  }
  
@@ -40,7 +40,7 @@ index 24fc4978..6c91464c 100644
    // "MM/DD/YYYY hh:mm:ss"
    char formatedTime[24];
    if (SprintfLiteral(formatedTime, "%02d/%02d/%04d %02d:%02d:%02d",
-@@ -4619,9 +4628,7 @@ void Document::GetLastModified(nsAString& aLastModified) const {
+@@ -4638,9 +4647,7 @@ void Document::GetLastModified(nsAString& aLastModified) const {
    if (!mLastModified.IsEmpty()) {
      aLastModified.Assign(mLastModified);
    } else {
@@ -51,7 +51,7 @@ index 24fc4978..6c91464c 100644
    }
  }
  
-@@ -12233,9 +12240,7 @@ void Document::RetrieveRelevantHeaders(nsIChannel* aChannel) {
+@@ -12291,9 +12298,7 @@ void Document::RetrieveRelevantHeaders(nsIChannel* aChannel) {
  
    mLastModified.Truncate();
    if (modDate != 0) {
@@ -62,7 +62,7 @@ index 24fc4978..6c91464c 100644
    }
  }
  
-@@ -17749,6 +17754,10 @@ VisibilityState Document::ComputeVisibilityState() const {
+@@ -17864,6 +17869,10 @@ VisibilityState Document::ComputeVisibilityState() const {
    // Otherwise, we're visible.
    if (!IsVisible() || !mWindow || !mWindow->GetOuterWindow() ||
        mWindow->GetOuterWindow()->IsBackground()) {
@@ -74,10 +74,10 @@ index 24fc4978..6c91464c 100644
    }
  
 diff --git a/dom/base/Navigator.cpp b/dom/base/Navigator.cpp
-index 20fc3905..0d5a8244 100644
+index 2019f1f..6aa98b1 100644
 --- a/dom/base/Navigator.cpp
 +++ b/dom/base/Navigator.cpp
-@@ -41,6 +41,7 @@
+@@ -42,6 +42,7 @@
  #include "mozilla/StaticPrefs_network.h"
  #include "mozilla/StaticPrefs_pdfjs.h"
  #include "mozilla/StaticPrefs_privacy.h"
@@ -85,7 +85,7 @@ index 20fc3905..0d5a8244 100644
  #include "mozilla/StaticPtr.h"
  #include "mozilla/StorageAccess.h"
  #include "mozilla/dom/AudioSession.h"
-@@ -687,6 +688,12 @@ bool Navigator::GlobalPrivacyControl() {
+@@ -689,6 +690,12 @@ bool Navigator::GlobalPrivacyControl() {
  }
  
  uint64_t Navigator::HardwareConcurrency() {
@@ -98,7 +98,7 @@ index 20fc3905..0d5a8244 100644
    workerinternals::RuntimeService* rts =
        workerinternals::RuntimeService::GetOrCreateService();
    if (!rts) {
-@@ -896,6 +903,12 @@ uint32_t Navigator::MaxTouchPoints(CallerType aCallerType) {
+@@ -898,6 +905,12 @@ uint32_t Navigator::MaxTouchPoints(CallerType aCallerType) {
      return bc->Top()->GetMaxTouchPointsOverride();
    }
  
@@ -113,7 +113,7 @@ index 20fc3905..0d5a8244 100644
    if (aCallerType != CallerType::System &&
 diff --git a/dom/base/StealthSessionDeclaration.cpp b/dom/base/StealthSessionDeclaration.cpp
 new file mode 100644
-index 00000000..3d1d32a5
+index 0000000..3d1d32a
 --- /dev/null
 +++ b/dom/base/StealthSessionDeclaration.cpp
 @@ -0,0 +1,131 @@
@@ -250,7 +250,7 @@ index 00000000..3d1d32a5
 +}  // namespace mozilla::dom
 diff --git a/dom/base/StealthSessionDeclaration.h b/dom/base/StealthSessionDeclaration.h
 new file mode 100644
-index 00000000..a3ebebec
+index 0000000..a3ebebe
 --- /dev/null
 +++ b/dom/base/StealthSessionDeclaration.h
 @@ -0,0 +1,87 @@
@@ -342,10 +342,10 @@ index 00000000..a3ebebec
 +
 +#endif  // mozilla_dom_StealthSessionDeclaration_h
 diff --git a/dom/base/moz.build b/dom/base/moz.build
-index f94e5a88..bda8236c 100644
+index 30060e9..17eaa3e 100644
 --- a/dom/base/moz.build
 +++ b/dom/base/moz.build
-@@ -273,6 +273,7 @@ EXPORTS.mozilla.dom += [
+@@ -274,6 +274,7 @@ EXPORTS.mozilla.dom += [
      "SpeculationRulesManager.h",
      "StaticAtomSet.h",
      "StaticRange.h",
@@ -353,7 +353,7 @@ index f94e5a88..bda8236c 100644
      "StructuredCloneBlob.h",
      "StructuredCloneHolder.h",
      "StructuredCloneTags.h",
-@@ -492,6 +493,7 @@ UNIFIED_SOURCES += [
+@@ -494,6 +495,7 @@ UNIFIED_SOURCES += [
      "SpeculationRuleSet.cpp",
      "SpeculationRulesManager.cpp",
      "StaticRange.cpp",
@@ -362,10 +362,10 @@ index f94e5a88..bda8236c 100644
      "StructuredCloneBlob.cpp",
      "StructuredCloneHolder.cpp",
 diff --git a/dom/base/nsContentUtils.cpp b/dom/base/nsContentUtils.cpp
-index 7929fcde..d3218d26 100644
+index a741bd4..d4528b7 100644
 --- a/dom/base/nsContentUtils.cpp
 +++ b/dom/base/nsContentUtils.cpp
-@@ -10401,6 +10401,24 @@ NS_IMPL_ISUPPORTS(SynthesizedEventCallback, nsISynthesizedEventCallback)
+@@ -10428,6 +10428,24 @@ NS_IMPL_ISUPPORTS(SynthesizedEventCallback, nsISynthesizedEventCallback)
  
  }  // namespace
  
@@ -390,7 +390,7 @@ index 7929fcde..d3218d26 100644
  Result<bool, nsresult> nsContentUtils::SynthesizeMouseEvent(
      mozilla::PresShell* aPresShell, nsIWidget* aWidget, const nsAString& aType,
      LayoutDeviceIntPoint& aRefPoint,
-@@ -10508,6 +10526,8 @@ Result<bool, nsresult> nsContentUtils::SynthesizeMouseEvent(
+@@ -10533,6 +10551,8 @@ Result<bool, nsresult> nsContentUtils::SynthesizeMouseEvent(
    mouseOrPointerEvent.mModifiers =
        GetWidgetModifiers(aMouseEventData.mModifiers);
    mouseOrPointerEvent.mButton = aMouseEventData.mButton;
@@ -399,7 +399,7 @@ index 7929fcde..d3218d26 100644
    mouseOrPointerEvent.mButtons =
        aMouseEventData.mButtons.WasPassed()
            ? aMouseEventData.mButtons.Value()
-@@ -10542,6 +10562,12 @@ Result<bool, nsresult> nsContentUtils::SynthesizeMouseEvent(
+@@ -10567,6 +10587,12 @@ Result<bool, nsresult> nsContentUtils::SynthesizeMouseEvent(
                                            aMouseEventData.mMovementY.Value());
    }
  
@@ -413,10 +413,10 @@ index 7929fcde..d3218d26 100644
    if (aOptions.mToWindow) {
      nsresult rv = aPresShell->HandleEvent(aPresShell->GetRootFrame(),
 diff --git a/dom/base/nsContentUtils.h b/dom/base/nsContentUtils.h
-index c2ca97c4..f571018f 100644
+index 15d2a6e..d73475c 100644
 --- a/dom/base/nsContentUtils.h
 +++ b/dom/base/nsContentUtils.h
-@@ -3174,6 +3174,13 @@ class nsContentUtils {
+@@ -3178,6 +3178,13 @@ class nsContentUtils {
     *         by any event listener.
     */
    MOZ_CAN_RUN_SCRIPT
@@ -431,7 +431,7 @@ index c2ca97c4..f571018f 100644
        mozilla::PresShell* aPresShell, nsIWidget* aWidget,
        const nsAString& aType, mozilla::LayoutDeviceIntPoint& aRefPoint,
 diff --git a/dom/base/nsDOMWindowUtils.cpp b/dom/base/nsDOMWindowUtils.cpp
-index b39212b1..c140cab6 100644
+index ff95d54..1ea8f11 100644
 --- a/dom/base/nsDOMWindowUtils.cpp
 +++ b/dom/base/nsDOMWindowUtils.cpp
 @@ -62,6 +62,8 @@
@@ -443,7 +443,7 @@ index b39212b1..c140cab6 100644
  #include "nsIFrame.h"
  #include "nsIObjectLoadingContent.h"
  #include "nsIWidget.h"
-@@ -717,13 +719,135 @@ nsDOMWindowUtils::IsCORSSafelistedRequestHeader(const nsACString& aName,
+@@ -718,13 +720,135 @@ nsDOMWindowUtils::IsCORSSafelistedRequestHeader(const nsACString& aName,
    return NS_OK;
  }
  
@@ -580,7 +580,7 @@ index b39212b1..c140cab6 100644
    if (XRE_IsContentProcess() && aCallback &&
        ((aOptions & WHEEL_EVENT_ASYNC_ENABLED) ||
         StaticPrefs::test_events_async_enabled())) {
-@@ -757,6 +881,9 @@ nsDOMWindowUtils::SendWheelEvent(float aX, float aY, double aDeltaX,
+@@ -758,6 +882,9 @@ nsDOMWindowUtils::SendWheelEvent(float aX, float aY, double aDeltaX,
    wheelEvent.mLineOrPageDeltaY = aLineOrPageDeltaY;
    wheelEvent.mCallbackId = notifier.SaveCallback();
    wheelEvent.mFlags.mIsSynthesizedForTests = true;
@@ -591,10 +591,10 @@ index b39212b1..c140cab6 100644
    nsPresContext* presContext = GetPresContext();
    NS_ENSURE_TRUE(presContext, NS_ERROR_FAILURE);
 diff --git a/dom/base/nsGlobalWindowOuter.cpp b/dom/base/nsGlobalWindowOuter.cpp
-index 59a1a467..09741165 100644
+index c5156a4..c041f11 100644
 --- a/dom/base/nsGlobalWindowOuter.cpp
 +++ b/dom/base/nsGlobalWindowOuter.cpp
-@@ -35,6 +35,7 @@
+@@ -34,6 +34,7 @@
  #include "mozilla/dom/MaybeCrossOriginObject.h"
  #include "mozilla/dom/Performance.h"
  #include "mozilla/dom/ProxyHandlerUtils.h"
@@ -602,7 +602,7 @@ index 59a1a467..09741165 100644
  #include "mozilla/dom/Storage.h"
  #include "mozilla/dom/StorageEvent.h"
  #include "mozilla/dom/StorageEventBinding.h"
-@@ -112,6 +113,7 @@
+@@ -111,6 +112,7 @@
  #include "mozilla/StaticPrefs_fission.h"
  #include "mozilla/StaticPrefs_full_screen_api.h"
  #include "mozilla/StaticPrefs_print.h"
@@ -610,7 +610,7 @@ index 59a1a467..09741165 100644
  #include "mozilla/ThrottledEventQueue.h"
  #include "mozilla/dom/BarProps.h"
  #include "mozilla/dom/DocGroup.h"
-@@ -2090,13 +2092,18 @@ static nsresult CreateNativeGlobalForInner(
+@@ -2089,13 +2091,18 @@ static nsresult CreateNativeGlobalForInner(
    creationOptions.setDefineSharedArrayBufferConstructor(
        aDefineSharedArrayBufferConstructor);
  
@@ -631,7 +631,7 @@ index 59a1a467..09741165 100644
  
    if (principal->IsSystemPrincipal()) {
      creationOptions.setFreezeBuiltins(true);
-@@ -3554,6 +3561,20 @@ CSSIntSize nsGlobalWindowOuter::GetOuterSize(CallerType aCallerType,
+@@ -3553,6 +3560,20 @@ CSSIntSize nsGlobalWindowOuter::GetOuterSize(CallerType aCallerType,
      return {};
    }
  
@@ -653,7 +653,7 @@ index 59a1a467..09741165 100644
    // return the simulated device size.
    if (mDoc) {
 diff --git a/dom/base/nsScreen.cpp b/dom/base/nsScreen.cpp
-index 3b48a7f1..69975ed0 100644
+index 3b48a7f..69975ed 100644
 --- a/dom/base/nsScreen.cpp
 +++ b/dom/base/nsScreen.cpp
 @@ -18,6 +18,7 @@
@@ -692,7 +692,7 @@ index 3b48a7f1..69975ed0 100644
    if (ShouldResistFingerprinting(RFPTarget::ScreenAvailRect)) {
      return GetTopWindowInnerRectForRFP();
 diff --git a/dom/base/test/browser_language_override.js b/dom/base/test/browser_language_override.js
-index 23fff355..b65469a0 100644
+index 23fff35..b65469a 100644
 --- a/dom/base/test/browser_language_override.js
 +++ b/dom/base/test/browser_language_override.js
 @@ -119,6 +119,87 @@ add_task(async function test_set_language_override_in_different_contexts() {
@@ -784,7 +784,7 @@ index 23fff355..b65469a0 100644
    return languages.find(lang => lang !== defaultLanguage);
  }
 diff --git a/dom/canvas/CanvasRenderingContext2D.cpp b/dom/canvas/CanvasRenderingContext2D.cpp
-index 2f28cb56..d17e0b12 100644
+index bf131b5..26fa50c 100644
 --- a/dom/canvas/CanvasRenderingContext2D.cpp
 +++ b/dom/canvas/CanvasRenderingContext2D.cpp
 @@ -51,6 +51,7 @@
@@ -795,7 +795,7 @@ index 2f28cb56..d17e0b12 100644
  #include "mozilla/TimeStamp.h"
  #include "mozilla/UniquePtr.h"
  #include "mozilla/dom/CanvasGradient.h"
-@@ -2281,6 +2282,139 @@ CanvasRenderingContext2D::SetContextOptions(JSContext* aCx,
+@@ -2288,6 +2289,139 @@ CanvasRenderingContext2D::SetContextOptions(
    return NS_OK;
  }
  
@@ -935,7 +935,7 @@ index 2f28cb56..d17e0b12 100644
  UniquePtr<uint8_t[]> CanvasRenderingContext2D::GetImageBuffer(
      mozilla::CanvasUtils::ImageExtraction aExtractionBehavior,
      int32_t* out_format, gfx::IntSize* out_imageSize) {
-@@ -2319,6 +2453,26 @@ UniquePtr<uint8_t[]> CanvasRenderingContext2D::GetImageBuffer(
+@@ -2326,6 +2460,26 @@ UniquePtr<uint8_t[]> CanvasRenderingContext2D::GetImageBuffer(
      }
    }
  
@@ -962,7 +962,7 @@ index 2f28cb56..d17e0b12 100644
    return ret;
  }
  
-@@ -6914,6 +7068,26 @@ nsresult CanvasRenderingContext2D::GetImageDataArray(
+@@ -6928,6 +7082,26 @@ nsresult CanvasRenderingContext2D::GetImageDataArray(
                          aWidth * 4, SurfaceFormat::R8G8B8A8,
                          dstWriteRect.Size());
      }
@@ -990,7 +990,7 @@ index 2f28cb56..d17e0b12 100644
  
    readback->Unmap();
 diff --git a/dom/canvas/ClientWebGLContext.cpp b/dom/canvas/ClientWebGLContext.cpp
-index 097d2022..848a851d 100644
+index b9a1e47..f6a410e 100644
 --- a/dom/canvas/ClientWebGLContext.cpp
 +++ b/dom/canvas/ClientWebGLContext.cpp
 @@ -25,6 +25,7 @@
@@ -999,9 +999,9 @@ index 097d2022..848a851d 100644
  #include "mozilla/StaticPrefs_webgl.h"
 +#include "mozilla/StaticPrefs_zoom.h"
  #include "mozilla/dom/BufferSourceBinding.h"
+ #include "mozilla/dom/CanvasRenderingContextHelper.h"
  #include "mozilla/dom/Document.h"
- #include "mozilla/dom/GeneratePlaceholderCanvasData.h"
-@@ -55,6 +56,165 @@ std::string SanitizeVendor(const std::string&);
+@@ -56,6 +57,165 @@ std::string SanitizeVendor(const std::string&);
  
  // -
  
@@ -1167,7 +1167,7 @@ index 097d2022..848a851d 100644
  webgl::NotLostData::NotLostData(ClientWebGLContext& _context)
      : context(_context) {}
  
-@@ -1118,6 +1278,30 @@ already_AddRefed<gfx::SourceSurface> ClientWebGLContext::GetSurfaceSnapshot(
+@@ -1128,6 +1288,30 @@ already_AddRefed<gfx::SourceSurface> ClientWebGLContext::GetSurfaceSnapshot(
    auto ret = BackBufferSnapshot();
    if (!ret) return nullptr;
  
@@ -1198,7 +1198,7 @@ index 097d2022..848a851d 100644
    // -
  
    const auto& options = notLost->info.options;
-@@ -2166,6 +2350,37 @@ Maybe<std::string> ClientWebGLContext::GetString(const GLenum pname) {
+@@ -2176,6 +2360,37 @@ Maybe<std::string> ClientWebGLContext::GetString(const GLenum pname) {
    return ret;
  }
  
@@ -1236,7 +1236,7 @@ index 097d2022..848a851d 100644
  void ClientWebGLContext::GetParameter(JSContext* cx, GLenum pname,
                                        JS::MutableHandle<JS::Value> retval,
                                        ErrorResult& rv, const bool debug) {
-@@ -2178,6 +2393,73 @@ void ClientWebGLContext::GetParameter(JSContext* cx, GLenum pname,
+@@ -2188,6 +2403,73 @@ void ClientWebGLContext::GetParameter(JSContext* cx, GLenum pname,
    const auto& limits = Limits();
    const auto& state = State();
  
@@ -1310,7 +1310,7 @@ index 097d2022..848a851d 100644
    // -
  
    const auto fnSetRetval_Buffer = [&](const GLenum target) {
-@@ -2456,6 +2738,20 @@ void ClientWebGLContext::GetParameter(JSContext* cx, GLenum pname,
+@@ -2466,6 +2748,20 @@ void ClientWebGLContext::GetParameter(JSContext* cx, GLenum pname,
  
      // -
  
@@ -1331,7 +1331,7 @@ index 097d2022..848a851d 100644
      Maybe<std::string> ret;
  
      switch (pname) {
-@@ -2464,19 +2760,26 @@ void ClientWebGLContext::GetParameter(JSContext* cx, GLenum pname,
+@@ -2474,19 +2770,26 @@ void ClientWebGLContext::GetParameter(JSContext* cx, GLenum pname,
          break;
  
        case LOCAL_GL_RENDERER: {
@@ -1370,7 +1370,7 @@ index 097d2022..848a851d 100644
          }
          break;
        }
-@@ -2506,8 +2809,16 @@ void ClientWebGLContext::GetParameter(JSContext* cx, GLenum pname,
+@@ -2516,8 +2819,16 @@ void ClientWebGLContext::GetParameter(JSContext* cx, GLenum pname,
  
          switch (pname) {
            case dom::WEBGL_debug_renderer_info_Binding::UNMASKED_RENDERER_WEBGL:
@@ -1389,7 +1389,7 @@ index 097d2022..848a851d 100644
                ret = Some("Mozilla"_ns);
              } else {
                ret = GetUnmaskedRenderer();
-@@ -2518,11 +2829,12 @@ void ClientWebGLContext::GetParameter(JSContext* cx, GLenum pname,
+@@ -2528,11 +2839,12 @@ void ClientWebGLContext::GetParameter(JSContext* cx, GLenum pname,
              break;
  
            case dom::WEBGL_debug_renderer_info_Binding::UNMASKED_VENDOR_WEBGL:
@@ -1404,7 +1404,7 @@ index 097d2022..848a851d 100644
                auto randomValue = RandomUint64();
                if (randomValue.isSome()) {
                  uint64_t value = randomValue.value();
-@@ -3020,6 +3332,56 @@ ClientWebGLContext::GetShaderPrecisionFormat(const GLenum shadertype,
+@@ -3030,6 +3342,56 @@ ClientWebGLContext::GetShaderPrecisionFormat(const GLenum shadertype,
      return nullptr;
    }
  
@@ -1461,7 +1461,7 @@ index 097d2022..848a851d 100644
    const auto& shaderPrecisions = *notLost->info.shaderPrecisions;
    const auto args =
        webgl::GetShaderPrecisionFormatArgs{shadertype, precisiontype};
-@@ -5546,6 +5908,14 @@ bool ClientWebGLContext::DoReadPixels(const webgl::ReadPixelsDesc& desc,
+@@ -5556,6 +5918,14 @@ bool ClientWebGLContext::DoReadPixels(const webgl::ReadPixelsDesc& desc,
      Memcpy(&destRow, srcRow);
    }
  
@@ -1476,7 +1476,7 @@ index 097d2022..848a851d 100644
    return true;
  }
  
-@@ -6403,12 +6773,49 @@ bool ClientWebGLContext::IsExtensionForbiddenForCaller(
+@@ -6413,12 +6783,49 @@ bool ClientWebGLContext::IsExtensionForbiddenForCaller(
    }
  }
  
@@ -1526,7 +1526,7 @@ index 097d2022..848a851d 100644
    const auto& limits = Limits();
    return limits.supportedExtensions[ext];
  }
-@@ -6423,6 +6830,17 @@ void ClientWebGLContext::GetSupportedExtensions(
+@@ -6433,6 +6840,17 @@ void ClientWebGLContext::GetSupportedExtensions(
    }
  
    auto& retarr = retval.SetValue();
@@ -1545,7 +1545,7 @@ index 097d2022..848a851d 100644
      if (!IsSupported(i, callerType)) continue;
  
 diff --git a/dom/events/EventStateManager.cpp b/dom/events/EventStateManager.cpp
-index 294b486e..ce94f21a 100644
+index 294b486..ce94f21 100644
 --- a/dom/events/EventStateManager.cpp
 +++ b/dom/events/EventStateManager.cpp
 @@ -2672,6 +2672,7 @@ void EventStateManager::BeginTrackingDragGesture(
@@ -1582,7 +1582,7 @@ index 294b486e..ce94f21a 100644
    auto autoRestore = MakeScopeExit([&] { mCurrentTarget = targetFrameBefore; });
  
 diff --git a/dom/events/EventStateManager.h b/dom/events/EventStateManager.h
-index 24bd0f5c..d5d175fe 100644
+index 24bd0f5..d5d175f 100644
 --- a/dom/events/EventStateManager.h
 +++ b/dom/events/EventStateManager.h
 @@ -1469,6 +1469,10 @@ class EventStateManager : public nsSupportsWeakReference, public nsIObserver {
@@ -1597,7 +1597,7 @@ index 24bd0f5c..d5d175fe 100644
    LastMouseButtonPressInfo mLastPrimaryButtonPressInfo;
    LastMouseButtonPressInfo mLastMiddleButtonPressInfo;
 diff --git a/dom/interfaces/base/nsIDOMWindowUtils.idl b/dom/interfaces/base/nsIDOMWindowUtils.idl
-index 400fb84f..1fc7ef4b 100644
+index 400fb84..1fc7ef4 100644
 --- a/dom/interfaces/base/nsIDOMWindowUtils.idl
 +++ b/dom/interfaces/base/nsIDOMWindowUtils.idl
 @@ -381,7 +381,8 @@ interface nsIDOMWindowUtils : nsISupports {
@@ -1663,7 +1663,7 @@ index 400fb84f..1fc7ef4b 100644
     * Suppress animations that are applied to a window by OS when
     * resizing, moving, changing size mode, ...
 diff --git a/dom/ipc/CoalescedMouseData.cpp b/dom/ipc/CoalescedMouseData.cpp
-index ac5a2b05..a26a3773 100644
+index ac5a2b0..a26a377 100644
 --- a/dom/ipc/CoalescedMouseData.cpp
 +++ b/dom/ipc/CoalescedMouseData.cpp
 @@ -47,6 +47,10 @@ void CoalescedMouseData::Coalesce(const WidgetMouseEvent& aMouseOrPointerEvent,
@@ -1678,10 +1678,10 @@ index ac5a2b05..a26a3773 100644
      // Accumulate motion across coalesced events. Without this,
      // the dispatched event would report only the first motion,
 diff --git a/dom/ipc/ContentChild.cpp b/dom/ipc/ContentChild.cpp
-index 410561de..38708713 100644
+index 379bb10..58f4f61 100644
 --- a/dom/ipc/ContentChild.cpp
 +++ b/dom/ipc/ContentChild.cpp
-@@ -697,6 +697,16 @@ mozilla::ipc::IPCResult ContentChild::RecvSetXPCOMProcessAttributes(
+@@ -698,6 +698,16 @@ mozilla::ipc::IPCResult ContentChild::RecvSetXPCOMProcessAttributes(
      dnsServiceChild->SetTRRModeInChild(aXPCOMInit.trrMode(),
                                         aXPCOMInit.trrModeFromPref());
    }
@@ -1698,7 +1698,7 @@ index 410561de..38708713 100644
    return IPC_OK();
  }
  
-@@ -2489,6 +2499,7 @@ mozilla::ipc::IPCResult ContentChild::RecvUpdateRequestedLocales(
+@@ -2494,6 +2504,7 @@ mozilla::ipc::IPCResult ContentChild::RecvUpdateRequestedLocales(
  }
  
  mozilla::ipc::IPCResult ContentChild::RecvSystemTimezoneChanged() {
@@ -1707,7 +1707,7 @@ index 410561de..38708713 100644
    return IPC_OK();
  }
 diff --git a/dom/media/CubebUtils.cpp b/dom/media/CubebUtils.cpp
-index 72551b79..58332ff5 100644
+index 959ce56..ba8f7b5 100644
 --- a/dom/media/CubebUtils.cpp
 +++ b/dom/media/CubebUtils.cpp
 @@ -46,6 +46,7 @@
@@ -1718,7 +1718,7 @@ index 72551b79..58332ff5 100644
  
  #if defined(ENABLE_TESTS) || defined(FUZZING)
  #  define ENABLE_MOCK_CUBEB 1
-@@ -501,6 +502,11 @@ uint32_t PreferredSampleRate(bool aShouldResistFingerprinting) {
+@@ -491,6 +492,11 @@ uint32_t PreferredSampleRate(bool aShouldResistFingerprinting) {
    if (sCubebForcedSampleRate) {
      return sCubebForcedSampleRate;
    }
@@ -1731,7 +1731,7 @@ index 72551b79..58332ff5 100644
      return 44100;
    }
 diff --git a/dom/media/MediaManager.cpp b/dom/media/MediaManager.cpp
-index a3d6a13a..96fc3e80 100644
+index a3d6a13..96fc3e8 100644
 --- a/dom/media/MediaManager.cpp
 +++ b/dom/media/MediaManager.cpp
 @@ -24,6 +24,7 @@
@@ -1834,7 +1834,7 @@ index a3d6a13a..96fc3e80 100644
            [](RefPtr<MediaMgrError>&& reason) {
              MOZ_ASSERT_UNREACHABLE(
 diff --git a/dom/media/MediaManager.h b/dom/media/MediaManager.h
-index 3dac2943..07a738c4 100644
+index 3dac294..07a738c 100644
 --- a/dom/media/MediaManager.h
 +++ b/dom/media/MediaManager.h
 @@ -370,6 +370,9 @@ class MediaManager final : public nsIMediaManagerService,
@@ -1848,7 +1848,7 @@ index 3dac2943..07a738c4 100644
      dom::MediaSourceEnum AudioInputType() const;
      EnumerationFlags mFlags;
 diff --git a/dom/media/webaudio/AnalyserNode.cpp b/dom/media/webaudio/AnalyserNode.cpp
-index 3c80514a..f0a85996 100644
+index 3c80514..f0a8599 100644
 --- a/dom/media/webaudio/AnalyserNode.cpp
 +++ b/dom/media/webaudio/AnalyserNode.cpp
 @@ -9,6 +9,7 @@
@@ -1900,10 +1900,10 @@ index 3c80514a..f0a85996 100644
  }
  
 diff --git a/dom/media/webaudio/AudioContext.cpp b/dom/media/webaudio/AudioContext.cpp
-index 6e7f17e7..9d5c4517 100644
+index 4c91572..df96497 100644
 --- a/dom/media/webaudio/AudioContext.cpp
 +++ b/dom/media/webaudio/AudioContext.cpp
-@@ -41,6 +41,9 @@
+@@ -43,6 +43,9 @@
  #include "mozilla/Preferences.h"
  #include "mozilla/RefPtr.h"
  #include "mozilla/StaticPrefs_media.h"
@@ -1913,7 +1913,7 @@ index 6e7f17e7..9d5c4517 100644
  #include "mozilla/dom/AnalyserNode.h"
  #include "mozilla/dom/AnalyserNodeBinding.h"
  #include "mozilla/dom/AudioBufferSourceNodeBinding.h"
-@@ -559,6 +562,11 @@ double AudioContext::OutputLatency() {
+@@ -561,6 +564,11 @@ double AudioContext::OutputLatency() {
    if (mIsShutDown) {
      return 0.0;
    }
@@ -1925,7 +1925,7 @@ index 6e7f17e7..9d5c4517 100644
    // When reduceFingerprinting is enabled, return a latency figure that is
    // fixed, but plausible for the platform.
    double latency_s = 0.0;
-@@ -714,6 +722,11 @@ void AudioContext::UnregisterActiveNode(AudioNode* aNode) {
+@@ -716,6 +724,11 @@ void AudioContext::UnregisterActiveNode(AudioNode* aNode) {
  }
  
  uint32_t AudioContext::MaxChannelCount() const {
@@ -1938,7 +1938,7 @@ index 6e7f17e7..9d5c4517 100644
      return 2;
    }
 diff --git a/dom/media/webaudio/AudioDestinationNode.cpp b/dom/media/webaudio/AudioDestinationNode.cpp
-index b179d245..b5e92e20 100644
+index 169b258..f109214 100644
 --- a/dom/media/webaudio/AudioDestinationNode.cpp
 +++ b/dom/media/webaudio/AudioDestinationNode.cpp
 @@ -14,6 +14,7 @@
@@ -1992,7 +1992,7 @@ index b179d245..b5e92e20 100644
      mWriteIndex += duration;
  
 diff --git a/dom/media/webaudio/DynamicsCompressorNode.h b/dom/media/webaudio/DynamicsCompressorNode.h
-index 3fb9120f..741dab7d 100644
+index 3fb9120..741dab7 100644
 --- a/dom/media/webaudio/DynamicsCompressorNode.h
 +++ b/dom/media/webaudio/DynamicsCompressorNode.h
 @@ -7,6 +7,7 @@
@@ -2019,7 +2019,7 @@ index 3fb9120f..741dab7d 100644
    }
  
 diff --git a/dom/media/webrtc/jsapi/PeerConnectionImpl.cpp b/dom/media/webrtc/jsapi/PeerConnectionImpl.cpp
-index 74ec5d79..3b164246 100644
+index c8ea13b..126c49e 100644
 --- a/dom/media/webrtc/jsapi/PeerConnectionImpl.cpp
 +++ b/dom/media/webrtc/jsapi/PeerConnectionImpl.cpp
 @@ -31,6 +31,7 @@
@@ -2030,7 +2030,7 @@ index 74ec5d79..3b164246 100644
  #include "mozilla/glean/DomMediaWebrtcMetrics.h"
  #include "mozilla/media/MediaUtils.h"
  #include "nsEffectiveTLDService.h"
-@@ -4792,10 +4793,18 @@ void PeerConnectionImpl::EnsureIceGathering(bool aDefaultRouteOnly,
+@@ -4818,10 +4819,18 @@ void PeerConnectionImpl::EnsureIceGathering(bool aDefaultRouteOnly,
    // absence of previously provided STUN addresses, StartIceGathering will
    // attempt to gather them (as in non-e10s mode), and this will cause a
    // sandboxing exception in e10s mode.
@@ -2053,7 +2053,7 @@ index 74ec5d79..3b164246 100644
  
    mTransportHandler->StartIceGathering(aDefaultRouteOnly,
 diff --git a/dom/media/webrtc/transport/common.build b/dom/media/webrtc/transport/common.build
-index 215d6119..8e0e90f2 100644
+index 215d611..8e0e90f 100644
 --- a/dom/media/webrtc/transport/common.build
 +++ b/dom/media/webrtc/transport/common.build
 @@ -8,6 +8,7 @@ transport_lcppsrcs = [
@@ -2066,7 +2066,7 @@ index 215d6119..8e0e90f2 100644
      "nricectx.cpp",
 diff --git a/dom/media/webrtc/transport/nr_stealth_bridge.cpp b/dom/media/webrtc/transport/nr_stealth_bridge.cpp
 new file mode 100644
-index 00000000..c0b25477
+index 0000000..c0b2547
 --- /dev/null
 +++ b/dom/media/webrtc/transport/nr_stealth_bridge.cpp
 @@ -0,0 +1,78 @@
@@ -2150,7 +2150,7 @@ index 00000000..c0b25477
 +}
 diff --git a/dom/media/webrtc/transport/nr_stealth_bridge.h b/dom/media/webrtc/transport/nr_stealth_bridge.h
 new file mode 100644
-index 00000000..9ac66208
+index 0000000..9ac6620
 --- /dev/null
 +++ b/dom/media/webrtc/transport/nr_stealth_bridge.h
 @@ -0,0 +1,47 @@
@@ -2202,7 +2202,7 @@ index 00000000..9ac66208
 +
 +#endif /* nr_stealth_bridge_h__ */
 diff --git a/dom/media/webrtc/transport/third_party/nICEr/nicer.gyp b/dom/media/webrtc/transport/third_party/nICEr/nicer.gyp
-index 4bfd7d62..cd0ee90c 100644
+index 4bfd7d6..cd0ee90 100644
 --- a/dom/media/webrtc/transport/third_party/nICEr/nicer.gyp
 +++ b/dom/media/webrtc/transport/third_party/nICEr/nicer.gyp
 @@ -25,6 +25,9 @@
@@ -2216,7 +2216,7 @@ index 4bfd7d62..cd0ee90c 100644
                "./src/crypto",
                "./src/ice",
 diff --git a/dom/media/webrtc/transport/third_party/nICEr/src/ice/ice_candidate.cpp b/dom/media/webrtc/transport/third_party/nICEr/src/ice/ice_candidate.cpp
-index 5f250a51..8666d11c 100644
+index 5f250a5..8666d11 100644
 --- a/dom/media/webrtc/transport/third_party/nICEr/src/ice/ice_candidate.cpp
 +++ b/dom/media/webrtc/transport/third_party/nICEr/src/ice/ice_candidate.cpp
 @@ -59,6 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
@@ -2254,7 +2254,7 @@ index 5f250a51..8666d11c 100644
          nr_stun_client_ctx_destroy(&cand->u.srvrflx.stun);
 diff --git a/dom/media/webrtc/transport/third_party/nICEr/src/ice/ice_component.c b/dom/media/webrtc/transport/third_party/nICEr/src/ice/ice_component.c
 new file mode 100644
-index 00000000..67385130
+index 0000000..6738513
 --- /dev/null
 +++ b/dom/media/webrtc/transport/third_party/nICEr/src/ice/ice_component.c
 @@ -0,0 +1,2037 @@
@@ -4296,7 +4296,7 @@ index 00000000..67385130
 +  }
 +
 diff --git a/dom/media/webrtc/transport/third_party/nICEr/src/ice/ice_component.cpp b/dom/media/webrtc/transport/third_party/nICEr/src/ice/ice_component.cpp
-index b1ed4d11..db5dd71c 100644
+index 3f07681..f8a8d3b 100644
 --- a/dom/media/webrtc/transport/third_party/nICEr/src/ice/ice_component.cpp
 +++ b/dom/media/webrtc/transport/third_party/nICEr/src/ice/ice_component.cpp
 @@ -45,6 +45,177 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
@@ -4506,7 +4506,7 @@ index b1ed4d11..db5dd71c 100644
        }
        else{
          r_log(LOG_ICE,LOG_WARNING,"ICE-STREAM(%s): relay only option results in no host candidate for %s",component->stream->label,addrs[i].addr.as_string);
-@@ -694,6 +878,7 @@ int nr_ice_component_initialize(struct nr_ice_ctx_ *ctx,nr_ice_component *compon
+@@ -693,6 +877,7 @@ int nr_ice_component_initialize(struct nr_ice_ctx_ *ctx,nr_ice_component *compon
        }
        cand=TAILQ_NEXT(cand,entry_comp);
      }
@@ -4515,7 +4515,7 @@ index b1ed4d11..db5dd71c 100644
   abort:
      return(_status);
 diff --git a/dom/media/webrtc/transport/third_party/nICEr/src/ice/ice_ctx.cpp b/dom/media/webrtc/transport/third_party/nICEr/src/ice/ice_ctx.cpp
-index 04c91642..85c21e3c 100644
+index 04c9164..85c21e3 100644
 --- a/dom/media/webrtc/transport/third_party/nICEr/src/ice/ice_ctx.cpp
 +++ b/dom/media/webrtc/transport/third_party/nICEr/src/ice/ice_ctx.cpp
 @@ -782,11 +782,32 @@ int nr_ice_set_local_addresses(nr_ice_ctx *ctx,
@@ -4556,7 +4556,7 @@ index 04c91642..85c21e3c 100644
      else {
        addrs = local_addrs;
 diff --git a/dom/media/webrtc/transport/third_party/nICEr/src/stun/addrs.cpp b/dom/media/webrtc/transport/third_party/nICEr/src/stun/addrs.cpp
-index 94494323..fe5c3168 100644
+index 9449432..fe5c316 100644
 --- a/dom/media/webrtc/transport/third_party/nICEr/src/stun/addrs.cpp
 +++ b/dom/media/webrtc/transport/third_party/nICEr/src/stun/addrs.cpp
 @@ -45,6 +45,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
@@ -4583,7 +4583,7 @@ index 94494323..fe5c3168 100644
          r_log(NR_LOG_STUN, LOG_WARNING, "Ignoring loopback addr");
          /* skip src[i], it's a loopback */
 diff --git a/dom/media/webspeech/synth/SpeechSynthesis.cpp b/dom/media/webspeech/synth/SpeechSynthesis.cpp
-index e6ce7294..4063243f 100644
+index e6ce729..4063243 100644
 --- a/dom/media/webspeech/synth/SpeechSynthesis.cpp
 +++ b/dom/media/webspeech/synth/SpeechSynthesis.cpp
 @@ -6,6 +6,7 @@
@@ -4641,7 +4641,7 @@ index e6ce7294..4063243f 100644
    if (NS_WARN_IF(NS_FAILED(rv))) {
      return;
 diff --git a/dom/media/webspeech/synth/SpeechSynthesisVoice.cpp b/dom/media/webspeech/synth/SpeechSynthesisVoice.cpp
-index c5aefb69..fce60c34 100644
+index c5aefb6..fce60c3 100644
 --- a/dom/media/webspeech/synth/SpeechSynthesisVoice.cpp
 +++ b/dom/media/webspeech/synth/SpeechSynthesisVoice.cpp
 @@ -8,6 +8,39 @@
@@ -4731,18 +4731,18 @@ index c5aefb69..fce60c34 100644
    DebugOnly<nsresult> rv =
        nsSynthVoiceRegistry::GetInstance()->IsDefaultVoice(mUri, &isDefault);
 diff --git a/dom/quota/ActorsParent.cpp b/dom/quota/ActorsParent.cpp
-index 4d81e947..807246a0 100644
+index 71bdcaa..0e23c5d 100644
 --- a/dom/quota/ActorsParent.cpp
 +++ b/dom/quota/ActorsParent.cpp
-@@ -79,6 +79,7 @@
+@@ -80,6 +80,7 @@
  #include "mozilla/ScopeExit.h"
  #include "mozilla/SpinEventLoopUntil.h"
  #include "mozilla/StaticPrefs_dom.h"
 +#include "mozilla/StaticPrefs_zoom.h"
  #include "mozilla/StaticPtr.h"
  #include "mozilla/StorageOriginAttributes.h"
- #include "mozilla/SystemPrincipal.h"
-@@ -8454,8 +8455,11 @@ std::pair<uint64_t, uint64_t> QuotaManager::GetUsageAndLimitForEstimate(
+ #include "mozilla/SyncRunnable.h"
+@@ -8547,8 +8548,11 @@ std::pair<uint64_t, uint64_t> QuotaManager::GetUsageAndLimitForEstimate(
    // group-limit eviction and is bound by the global temporary storage limit
    // instead. Both values are exposed to content via
    // navigator.storage.estimate() so the usage is clamped to 0.
@@ -4757,7 +4757,7 @@ index 4d81e947..807246a0 100644
  
  std::pair<uint64_t, uint64_t> QuotaManager::GetGroupUsageAndLimitForEstimate(
 diff --git a/dom/security/nsCSPUtils.cpp b/dom/security/nsCSPUtils.cpp
-index 11de03cf..0e7814d2 100644
+index 49d4367..2d195aa 100644
 --- a/dom/security/nsCSPUtils.cpp
 +++ b/dom/security/nsCSPUtils.cpp
 @@ -22,6 +22,7 @@
@@ -4798,7 +4798,7 @@ index 11de03cf..0e7814d2 100644
        nsContentUtils::TrimWhitespace<nsContentUtils::IsHTMLWhitespace>(
            aPolicyStr));
 diff --git a/dom/security/nsCSPUtils.h b/dom/security/nsCSPUtils.h
-index ddc5b3ee..14c69607 100644
+index ddc5b3e..14c6960 100644
 --- a/dom/security/nsCSPUtils.h
 +++ b/dom/security/nsCSPUtils.h
 @@ -216,6 +216,12 @@ bool CSP_ShouldURIInheritCSP(nsIURI* aURI);
@@ -4815,7 +4815,7 @@ index ddc5b3ee..14c69607 100644
  bool CSP_IsBrowserXHTML(nsIURI* aURI);
  
 diff --git a/dom/webidl/Window.webidl b/dom/webidl/Window.webidl
-index 36207ca9..0df69a5f 100644
+index 36207ca..0df69a5 100644
 --- a/dom/webidl/Window.webidl
 +++ b/dom/webidl/Window.webidl
 @@ -400,6 +400,12 @@ dictionary SynthesizeMouseEventData : SynthesizeEventData {
@@ -4832,7 +4832,7 @@ index 36207ca9..0df69a5f 100644
  
  // Mozilla-specific stuff
 diff --git a/dom/workers/WorkerNavigator.cpp b/dom/workers/WorkerNavigator.cpp
-index 50dbb084..422a74c4 100644
+index 50dbb08..422a74c 100644
 --- a/dom/workers/WorkerNavigator.cpp
 +++ b/dom/workers/WorkerNavigator.cpp
 @@ -29,6 +29,7 @@
@@ -4857,7 +4857,7 @@ index 50dbb084..422a74c4 100644
    MOZ_ASSERT(rts);
  
 diff --git a/dom/xslt/xslt/txEXSLTFunctions.cpp b/dom/xslt/xslt/txEXSLTFunctions.cpp
-index ba2f3c2e..6e36c5d5 100644
+index ba2f3c2..6e36c5d 100644
 --- a/dom/xslt/xslt/txEXSLTFunctions.cpp
 +++ b/dom/xslt/xslt/txEXSLTFunctions.cpp
 @@ -8,6 +8,7 @@

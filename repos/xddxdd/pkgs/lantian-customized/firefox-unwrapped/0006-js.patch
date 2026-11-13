@@ -1,5 +1,5 @@
 diff --git a/js/src/debugger/Debugger.cpp b/js/src/debugger/Debugger.cpp
-index 73490492..0538c666 100644
+index 2220119..75ebbb4 100644
 --- a/js/src/debugger/Debugger.cpp
 +++ b/js/src/debugger/Debugger.cpp
 @@ -5093,16 +5093,42 @@ bool Debugger::addDebuggeeGlobal(JSContext* cx, Handle<GlobalObject*> global) {
@@ -29,14 +29,14 @@ index 73490492..0538c666 100644
  
 -  // (1)
 -  auto& globalDebuggers = global->getDebuggers(nogc);
--  if (!globalDebuggers.append(Realm::DebuggerVectorEntry(this, debuggeeLink))) {
+-  if (!globalDebuggers.emplaceBack(this, debuggeeLink)) {
 -    ReportOutOfMemory(cx);
 -    return false;
 +  // (1) — skip the Realm debuggers_ registration for an invisible (stealth) attach.
 +  bool appendedGlobalDebugger = false;
 +  if (!isStealth) {
 +    auto& globalDebuggers = global->getDebuggers(nogc);
-+    if (!globalDebuggers.append(Realm::DebuggerVectorEntry(this, debuggeeLink))) {
++    if (!globalDebuggers.emplaceBack(this, debuggeeLink)) {
 +      ReportOutOfMemory(cx);
 +      return false;
 +    }
@@ -111,7 +111,7 @@ index 73490492..0538c666 100644
    if (debugIter) {
      debugIter->remove();
 diff --git a/js/src/debugger/Debugger.h b/js/src/debugger/Debugger.h
-index 50438c8f..814ec4d1 100644
+index d333c71..5aea8ae 100644
 --- a/js/src/debugger/Debugger.h
 +++ b/js/src/debugger/Debugger.h
 @@ -691,6 +691,11 @@ class Debugger : private mozilla::LinkedListElement<Debugger> {
@@ -127,7 +127,7 @@ index 50438c8f..814ec4d1 100644
    double allocationSamplingProbability;
    size_t maxAllocationsLogLength;
 diff --git a/js/src/debugger/Frame.cpp b/js/src/debugger/Frame.cpp
-index f02ae572..04bd8e4c 100644
+index f02ae57..04bd8e4 100644
 --- a/js/src/debugger/Frame.cpp
 +++ b/js/src/debugger/Frame.cpp
 @@ -1053,13 +1053,15 @@ static bool EvaluateInEnv(
@@ -149,7 +149,7 @@ index f02ae572..04bd8e4c 100644
         * javascript executions sent through the debugger. Besides making up
         * a filename for these codepaths, we must allow arbitrary JS execution
 diff --git a/js/src/vm/SavedStacks.cpp b/js/src/vm/SavedStacks.cpp
-index db96f4fb..d807651e 100644
+index db96f4f..d807651 100644
 --- a/js/src/vm/SavedStacks.cpp
 +++ b/js/src/vm/SavedStacks.cpp
 @@ -1082,6 +1082,35 @@ JS_PUBLIC_API bool BuildStackString(JSContext* cx, JSPrincipals* principals,
@@ -189,7 +189,7 @@ index db96f4fb..d807651e 100644
          case js::StackFormat::SpiderMonkey:
            if (!FormatSpiderMonkeyStackFrame(cx, sb, frame, indent,
 diff --git a/js/xpconnect/src/Sandbox.cpp b/js/xpconnect/src/Sandbox.cpp
-index 34e0724f..6e87a293 100644
+index 34e0724..6e87a29 100644
 --- a/js/xpconnect/src/Sandbox.cpp
 +++ b/js/xpconnect/src/Sandbox.cpp
 @@ -6,6 +6,35 @@
@@ -308,10 +308,10 @@ index 34e0724f..6e87a293 100644
              ParseBoolean("wantComponents", &wantComponents) &&
              ParseBoolean("wantExportHelpers", &wantExportHelpers) &&
 diff --git a/js/xpconnect/src/XPCJSRuntime.cpp b/js/xpconnect/src/XPCJSRuntime.cpp
-index 785c2227..2076762a 100644
+index 87932af..bac43da 100644
 --- a/js/xpconnect/src/XPCJSRuntime.cpp
 +++ b/js/xpconnect/src/XPCJSRuntime.cpp
-@@ -204,6 +204,7 @@ CompartmentPrivate::CompartmentPrivate(
+@@ -206,6 +206,7 @@ CompartmentPrivate::CompartmentPrivate(
      mozilla::BasePrincipal* origin, const SiteIdentifier& site)
      : originInfo(origin, site),
        wantXrays(false),
@@ -320,7 +320,7 @@ index 785c2227..2076762a 100644
        isWebExtensionContentScript(false),
        isUAWidgetCompartment(false),
 diff --git a/js/xpconnect/src/nsXPConnect.cpp b/js/xpconnect/src/nsXPConnect.cpp
-index e9b93e5e..356fd776 100644
+index fd650a5..c567f83 100644
 --- a/js/xpconnect/src/nsXPConnect.cpp
 +++ b/js/xpconnect/src/nsXPConnect.cpp
 @@ -12,6 +12,7 @@
@@ -331,7 +331,7 @@ index e9b93e5e..356fd776 100644
  #include "mozilla/glean/bindings/Glean.h"
  #include "mozilla/glean/bindings/GleanPings.h"
  #include "mozilla/Likely.h"
-@@ -537,21 +538,11 @@ void InitGlobalObjectOptions(JS::RealmOptions& aOptions,
+@@ -539,21 +540,11 @@ void InitGlobalObjectOptions(JS::RealmOptions& aOptions,
      aOptions.creationOptions().setSecureContext(aSecureContext);
    }
  
@@ -358,10 +358,10 @@ index e9b93e5e..356fd776 100644
  
  bool InitGlobalObject(JSContext* aJSContext, JS::Handle<JSObject*> aGlobal,
 diff --git a/js/xpconnect/src/xpcprivate.h b/js/xpconnect/src/xpcprivate.h
-index 4e9ab1c7..d705efd8 100644
+index 30f2c1e..fc5416d 100644
 --- a/js/xpconnect/src/xpcprivate.h
 +++ b/js/xpconnect/src/xpcprivate.h
-@@ -2253,6 +2253,7 @@ class MOZ_STACK_CLASS SandboxOptions : public OptionsBase {
+@@ -2250,6 +2250,7 @@ class MOZ_STACK_CLASS SandboxOptions : public OptionsBase {
                            JSObject* options = nullptr)
        : OptionsBase(cx, options),
          wantXrays(true),
@@ -369,7 +369,7 @@ index 4e9ab1c7..d705efd8 100644
          allowWaivers(true),
          wantComponents(true),
          wantExportHelpers(false),
-@@ -2274,6 +2275,8 @@ class MOZ_STACK_CLASS SandboxOptions : public OptionsBase {
+@@ -2271,6 +2272,8 @@ class MOZ_STACK_CLASS SandboxOptions : public OptionsBase {
    virtual bool Parse() override;
  
    bool wantXrays;
@@ -378,7 +378,7 @@ index 4e9ab1c7..d705efd8 100644
    bool allowWaivers;
    bool wantComponents;
    bool wantExportHelpers;
-@@ -2563,7 +2566,7 @@ class CompartmentPrivate {
+@@ -2560,7 +2563,7 @@ class CompartmentPrivate {
      }
  
      // Don't share if we have any weird state set.
@@ -387,7 +387,7 @@ index 4e9ab1c7..d705efd8 100644
             !isUAWidgetCompartment && mScope->XBLScopeStateMatches(principal);
    }
  
-@@ -2574,6 +2577,14 @@ class CompartmentPrivate {
+@@ -2571,6 +2574,14 @@ class CompartmentPrivate {
    // reasons.
    bool wantXrays;
  
@@ -403,7 +403,7 @@ index 4e9ab1c7..d705efd8 100644
    // that it subsumes. This should generally be true, except in cases where we
    // want to prevent code from depending on Xray Waivers (which might make it
 diff --git a/js/xpconnect/wrappers/WrapperFactory.cpp b/js/xpconnect/wrappers/WrapperFactory.cpp
-index 1d7fbf89..0d618010 100644
+index 1d7fbf8..0d61801 100644
 --- a/js/xpconnect/wrappers/WrapperFactory.cpp
 +++ b/js/xpconnect/wrappers/WrapperFactory.cpp
 @@ -375,6 +375,7 @@ static void DEBUG_CheckUnwrapSafety(HandleObject obj,
@@ -599,7 +599,7 @@ index 1d7fbf89..0d618010 100644
  
    if (!targetSubsumesOrigin && !isTransparentWrapperDueToDocumentDomain) {
 diff --git a/js/xpconnect/wrappers/XrayWrapper.cpp b/js/xpconnect/wrappers/XrayWrapper.cpp
-index 4559682d..565a78d4 100644
+index 4559682..565a78d 100644
 --- a/js/xpconnect/wrappers/XrayWrapper.cpp
 +++ b/js/xpconnect/wrappers/XrayWrapper.cpp
 @@ -2304,6 +2304,496 @@ bool XrayWrapper<Base, Traits>::getPropertyKeys(
@@ -1100,7 +1100,7 @@ index 4559682d..565a78d4 100644
   * The Permissive / Security variants should be used depending on whether the
   * compartment of the wrapper is guranteed to subsume the compartment of the
 diff --git a/js/xpconnect/wrappers/XrayWrapper.h b/js/xpconnect/wrappers/XrayWrapper.h
-index 061f207b..04b8f607 100644
+index 061f207..04b8f60 100644
 --- a/js/xpconnect/wrappers/XrayWrapper.h
 +++ b/js/xpconnect/wrappers/XrayWrapper.h
 @@ -383,6 +383,13 @@ class XrayWrapper : public Base {

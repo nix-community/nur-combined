@@ -1,5 +1,5 @@
 diff --git a/security/manager/ssl/nsCertOverrideService.cpp b/security/manager/ssl/nsCertOverrideService.cpp
-index 30ca5460..2dbfd8a0 100644
+index 30ca546..2dbfd8a 100644
 --- a/security/manager/ssl/nsCertOverrideService.cpp
 +++ b/security/manager/ssl/nsCertOverrideService.cpp
 @@ -24,6 +24,8 @@

@@ -1,8 +1,8 @@
 diff --git a/python/mozbuild/mozbuild/backend/recursivemake.py b/python/mozbuild/mozbuild/backend/recursivemake.py
-index f5a2b8c4..2d758869 100644
+index 86d66cc..e1274cc 100644
 --- a/python/mozbuild/mozbuild/backend/recursivemake.py
 +++ b/python/mozbuild/mozbuild/backend/recursivemake.py
-@@ -1640,7 +1640,10 @@ class RecursiveMakeBackend(MakeBackend):
+@@ -1654,7 +1654,10 @@ class RecursiveMakeBackend(MakeBackend):
          if isinstance(obj, (Program, SharedLibrary)):
              obj_target = self._pretty_path(obj.output_path, backend_file)
  
@@ -15,10 +15,10 @@ index f5a2b8c4..2d758869 100644
              # Don't bother with a list file if we're only linking objects built
              # in this directory.
 diff --git a/python/mozbuild/mozbuild/frontend/data.py b/python/mozbuild/mozbuild/frontend/data.py
-index fb9fe225..077e3d89 100644
+index 9235959..68813f1 100644
 --- a/python/mozbuild/mozbuild/frontend/data.py
 +++ b/python/mozbuild/mozbuild/frontend/data.py
-@@ -1214,8 +1214,13 @@ class UnifiedSources(BaseSources):
+@@ -1217,8 +1217,13 @@ class UnifiedSources(BaseSources):
              # On Windows, path names have a maximum length of 255 characters,
              # so avoid creating extremely long path names.
              unified_prefix = context.relsrcdir
@@ -35,7 +35,7 @@ index fb9fe225..077e3d89 100644
  
              suffix = self.canonical_suffix[1:]
 diff --git a/python/mozbuild/mozbuild/jar.py b/python/mozbuild/mozbuild/jar.py
-index 17dbf405..516f14df 100644
+index 17dbf40..516f14d 100644
 --- a/python/mozbuild/mozbuild/jar.py
 +++ b/python/mozbuild/mozbuild/jar.py
 @@ -531,6 +531,12 @@ class JarMaker:

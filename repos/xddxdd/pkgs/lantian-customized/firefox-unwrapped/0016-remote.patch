@@ -1,5 +1,5 @@
 diff --git a/remote/marionette/atom.sys.mjs b/remote/marionette/atom.sys.mjs
-index ddb8cf29..99ab3209 100644
+index ddb8cf2..99ab320 100644
 --- a/remote/marionette/atom.sys.mjs
 +++ b/remote/marionette/atom.sys.mjs
 @@ -31,6 +31,11 @@ const ATOMS = {

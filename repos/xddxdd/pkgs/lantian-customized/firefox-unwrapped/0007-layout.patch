@@ -1,8 +1,8 @@
 diff --git a/layout/base/PresShell.cpp b/layout/base/PresShell.cpp
-index ca58605f..d8e15e0c 100644
+index f22d971..df5e032 100644
 --- a/layout/base/PresShell.cpp
 +++ b/layout/base/PresShell.cpp
-@@ -7373,6 +7373,57 @@ nsresult PresShell::HandleEvent(nsIFrame* aFrameForPresShell,
+@@ -7376,6 +7376,57 @@ nsresult PresShell::HandleEvent(nsIFrame* aFrameForPresShell,
  
    RecordModifiers(aGUIEvent);
  
@@ -61,7 +61,7 @@ index ca58605f..d8e15e0c 100644
  
    // Running tests must not expect that some mouse boundary events are fired
 diff --git a/layout/style/nsMediaFeatures.cpp b/layout/style/nsMediaFeatures.cpp
-index 1f9613b8..dcf3c164 100644
+index bc73761..9ef5527 100644
 --- a/layout/style/nsMediaFeatures.cpp
 +++ b/layout/style/nsMediaFeatures.cpp
 @@ -10,6 +10,7 @@
@@ -85,7 +85,7 @@ index 1f9613b8..dcf3c164 100644
    if (aDocument.ShouldResistFingerprinting(RFPTarget::CSSDeviceSize)) {
      return GetSize(aDocument);
    }
-@@ -411,6 +418,12 @@ static PointerCapabilities GetPointerCapabilities(const Document* aDocument,
+@@ -429,6 +436,12 @@ static PointerCapabilities GetPointerCapabilities(const Document* aDocument,
      }
    }
  

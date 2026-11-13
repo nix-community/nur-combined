@@ -1,6 +1,6 @@
 diff --git a/juggler/ChannelEventSink.sys.mjs b/juggler/ChannelEventSink.sys.mjs
 new file mode 100644
-index 00000000..ab03e9f0
+index 0000000..ab03e9f
 --- /dev/null
 +++ b/juggler/ChannelEventSink.sys.mjs
 @@ -0,0 +1,99 @@
@@ -105,7 +105,7 @@ index 00000000..ab03e9f0
 +};
 diff --git a/juggler/Helper.js b/juggler/Helper.js
 new file mode 100644
-index 00000000..4e70ee4d
+index 0000000..4e70ee4
 --- /dev/null
 +++ b/juggler/Helper.js
 @@ -0,0 +1,236 @@
@@ -347,7 +347,7 @@ index 00000000..4e70ee4d
 +
 diff --git a/juggler/JugglerFrameParent.jsm b/juggler/JugglerFrameParent.jsm
 new file mode 100644
-index 00000000..e5b591d1
+index 0000000..e5b591d
 --- /dev/null
 +++ b/juggler/JugglerFrameParent.jsm
 @@ -0,0 +1,40 @@
@@ -393,7 +393,7 @@ index 00000000..e5b591d1
 +}
 diff --git a/juggler/JugglerFrameParent.sys.mjs b/juggler/JugglerFrameParent.sys.mjs
 new file mode 100644
-index 00000000..e2487bbc
+index 0000000..e2487bb
 --- /dev/null
 +++ b/juggler/JugglerFrameParent.sys.mjs
 @@ -0,0 +1,59 @@
@@ -458,7 +458,7 @@ index 00000000..e2487bbc
 +}
 diff --git a/juggler/NetworkObserver.js b/juggler/NetworkObserver.js
 new file mode 100644
-index 00000000..7fbfe6e6
+index 0000000..7fbfe6e
 --- /dev/null
 +++ b/juggler/NetworkObserver.js
 @@ -0,0 +1,1132 @@
@@ -1596,7 +1596,7 @@ index 00000000..7fbfe6e6
 +}
 diff --git a/juggler/SessionRoute.js b/juggler/SessionRoute.js
 new file mode 100644
-index 00000000..f60b59cc
+index 0000000..f60b59c
 --- /dev/null
 +++ b/juggler/SessionRoute.js
 @@ -0,0 +1,149 @@
@@ -1751,7 +1751,7 @@ index 00000000..f60b59cc
 +}
 diff --git a/juggler/SimpleChannel.js b/juggler/SimpleChannel.js
 new file mode 100644
-index 00000000..81e4ba96
+index 0000000..81e4ba9
 --- /dev/null
 +++ b/juggler/SimpleChannel.js
 @@ -0,0 +1,306 @@
@@ -2063,7 +2063,7 @@ index 00000000..81e4ba96
 +};
 diff --git a/juggler/StealthCursor.js b/juggler/StealthCursor.js
 new file mode 100644
-index 00000000..e181f75d
+index 0000000..e181f75
 --- /dev/null
 +++ b/juggler/StealthCursor.js
 @@ -0,0 +1,563 @@
@@ -2632,7 +2632,7 @@ index 00000000..e181f75d
 +
 diff --git a/juggler/TargetRegistry.js b/juggler/TargetRegistry.js
 new file mode 100644
-index 00000000..78bd2bc5
+index 0000000..78bd2bc
 --- /dev/null
 +++ b/juggler/TargetRegistry.js
 @@ -0,0 +1,1556 @@
@@ -4194,7 +4194,7 @@ index 00000000..78bd2bc5
 +};
 diff --git a/juggler/components/Juggler.js b/juggler/components/Juggler.js
 new file mode 100644
-index 00000000..ec188b82
+index 0000000..ec188b8
 --- /dev/null
 +++ b/juggler/components/Juggler.js
 @@ -0,0 +1,187 @@
@@ -4387,7 +4387,7 @@ index 00000000..ec188b82
 +
 diff --git a/juggler/components/components.conf b/juggler/components/components.conf
 new file mode 100644
-index 00000000..3e77389b
+index 0000000..3e77389
 --- /dev/null
 +++ b/juggler/components/components.conf
 @@ -0,0 +1,18 @@
@@ -4411,7 +4411,7 @@ index 00000000..3e77389b
 + 
 diff --git a/juggler/components/moz.build b/juggler/components/moz.build
 new file mode 100644
-index 00000000..bab81f83
+index 0000000..bab81f8
 --- /dev/null
 +++ b/juggler/components/moz.build
 @@ -0,0 +1,6 @@
@@ -4423,7 +4423,7 @@ index 00000000..bab81f83
 +
 diff --git a/juggler/content/FrameTree.js b/juggler/content/FrameTree.js
 new file mode 100644
-index 00000000..9d197b55
+index 0000000..9d197b5
 --- /dev/null
 +++ b/juggler/content/FrameTree.js
 @@ -0,0 +1,987 @@
@@ -5416,7 +5416,7 @@ index 00000000..9d197b55
 +
 diff --git a/juggler/content/JugglerFrameChild.jsm b/juggler/content/JugglerFrameChild.jsm
 new file mode 100644
-index 00000000..6eb09d66
+index 0000000..6eb09d6
 --- /dev/null
 +++ b/juggler/content/JugglerFrameChild.jsm
 @@ -0,0 +1,89 @@
@@ -5511,7 +5511,7 @@ index 00000000..6eb09d66
 +
 diff --git a/juggler/content/JugglerFrameChild.sys.mjs b/juggler/content/JugglerFrameChild.sys.mjs
 new file mode 100644
-index 00000000..d92c312e
+index 0000000..d92c312
 --- /dev/null
 +++ b/juggler/content/JugglerFrameChild.sys.mjs
 @@ -0,0 +1,108 @@
@@ -5625,7 +5625,7 @@ index 00000000..d92c312e
 +}
 diff --git a/juggler/content/PageAgent.js b/juggler/content/PageAgent.js
 new file mode 100644
-index 00000000..daa60318
+index 0000000..daa6031
 --- /dev/null
 +++ b/juggler/content/PageAgent.js
 @@ -0,0 +1,910 @@
@@ -6541,7 +6541,7 @@ index 00000000..daa60318
 +
 diff --git a/juggler/content/Runtime.js b/juggler/content/Runtime.js
 new file mode 100644
-index 00000000..0aef1bfd
+index 0000000..0aef1bf
 --- /dev/null
 +++ b/juggler/content/Runtime.js
 @@ -0,0 +1,790 @@
@@ -7337,7 +7337,7 @@ index 00000000..0aef1bfd
 +globalThis.Runtime = Runtime;
 diff --git a/juggler/content/WorkerMain.js b/juggler/content/WorkerMain.js
 new file mode 100644
-index 00000000..36a67f04
+index 0000000..36a67f0
 --- /dev/null
 +++ b/juggler/content/WorkerMain.js
 @@ -0,0 +1,78 @@
@@ -7421,7 +7421,7 @@ index 00000000..36a67f04
 +
 diff --git a/juggler/content/hidden-scrollbars.css b/juggler/content/hidden-scrollbars.css
 new file mode 100644
-index 00000000..26fc0db7
+index 0000000..26fc0db
 --- /dev/null
 +++ b/juggler/content/hidden-scrollbars.css
 @@ -0,0 +1,7 @@
@@ -7434,7 +7434,7 @@ index 00000000..26fc0db7
 +}
 diff --git a/juggler/content/main.js b/juggler/content/main.js
 new file mode 100644
-index 00000000..d79075e7
+index 0000000..d79075e
 --- /dev/null
 +++ b/juggler/content/main.js
 @@ -0,0 +1,137 @@
@@ -7577,7 +7577,7 @@ index 00000000..d79075e7
 +}
 diff --git a/juggler/moz.build b/juggler/moz.build
 new file mode 100644
-index 00000000..c45d64f9
+index 0000000..c45d64f
 --- /dev/null
 +++ b/juggler/moz.build
 @@ -0,0 +1,52 @@
@@ -7635,7 +7635,7 @@ index 00000000..c45d64f9
 +
 diff --git a/juggler/pipe/components.conf b/juggler/pipe/components.conf
 new file mode 100644
-index 00000000..db13a00b
+index 0000000..db13a00
 --- /dev/null
 +++ b/juggler/pipe/components.conf
 @@ -0,0 +1,15 @@
@@ -7656,7 +7656,7 @@ index 00000000..db13a00b
 +]
 diff --git a/juggler/pipe/moz.build b/juggler/pipe/moz.build
 new file mode 100644
-index 00000000..b56c6978
+index 0000000..b56c697
 --- /dev/null
 +++ b/juggler/pipe/moz.build
 @@ -0,0 +1,24 @@
@@ -7686,7 +7686,7 @@ index 00000000..b56c6978
 +FINAL_LIBRARY = 'xul'
 diff --git a/juggler/pipe/nsIRemoteDebuggingPipe.idl b/juggler/pipe/nsIRemoteDebuggingPipe.idl
 new file mode 100644
-index 00000000..8a2ff3a6
+index 0000000..8a2ff3a
 --- /dev/null
 +++ b/juggler/pipe/nsIRemoteDebuggingPipe.idl
 @@ -0,0 +1,24 @@
@@ -7716,7 +7716,7 @@ index 00000000..8a2ff3a6
 +};
 diff --git a/juggler/pipe/nsRemoteDebuggingPipe.cpp b/juggler/pipe/nsRemoteDebuggingPipe.cpp
 new file mode 100644
-index 00000000..2f01f849
+index 0000000..2f01f84
 --- /dev/null
 +++ b/juggler/pipe/nsRemoteDebuggingPipe.cpp
 @@ -0,0 +1,235 @@
@@ -7957,7 +7957,7 @@ index 00000000..2f01f849
 +}  // namespace mozilla
 diff --git a/juggler/pipe/nsRemoteDebuggingPipe.h b/juggler/pipe/nsRemoteDebuggingPipe.h
 new file mode 100644
-index 00000000..be4cb267
+index 0000000..be4cb26
 --- /dev/null
 +++ b/juggler/pipe/nsRemoteDebuggingPipe.h
 @@ -0,0 +1,34 @@
@@ -7997,7 +7997,7 @@ index 00000000..be4cb267
 +}  // namespace mozilla
 diff --git a/juggler/protocol/BrowserHandler.js b/juggler/protocol/BrowserHandler.js
 new file mode 100644
-index 00000000..4c3bbcd4
+index 0000000..4c3bbcd
 --- /dev/null
 +++ b/juggler/protocol/BrowserHandler.js
 @@ -0,0 +1,351 @@
@@ -8354,7 +8354,7 @@ index 00000000..4c3bbcd4
 +}
 diff --git a/juggler/protocol/Dispatcher.js b/juggler/protocol/Dispatcher.js
 new file mode 100644
-index 00000000..7ae0b4d1
+index 0000000..7ae0b4d
 --- /dev/null
 +++ b/juggler/protocol/Dispatcher.js
 @@ -0,0 +1,135 @@
@@ -8495,7 +8495,7 @@ index 00000000..7ae0b4d1
 +}
 diff --git a/juggler/protocol/PageHandler.js b/juggler/protocol/PageHandler.js
 new file mode 100644
-index 00000000..5516e0fd
+index 0000000..5516e0f
 --- /dev/null
 +++ b/juggler/protocol/PageHandler.js
 @@ -0,0 +1,1119 @@
@@ -9620,7 +9620,7 @@ index 00000000..5516e0fd
 +}
 diff --git a/juggler/protocol/PrimitiveTypes.js b/juggler/protocol/PrimitiveTypes.js
 new file mode 100644
-index 00000000..ca6d1ec4
+index 0000000..ca6d1ec
 --- /dev/null
 +++ b/juggler/protocol/PrimitiveTypes.js
 @@ -0,0 +1,144 @@
@@ -9770,7 +9770,7 @@ index 00000000..ca6d1ec4
 +
 diff --git a/juggler/protocol/Protocol.js b/juggler/protocol/Protocol.js
 new file mode 100644
-index 00000000..342373e3
+index 0000000..342373e
 --- /dev/null
 +++ b/juggler/protocol/Protocol.js
 @@ -0,0 +1,1055 @@
@@ -10831,7 +10831,7 @@ index 00000000..342373e3
 +};
 diff --git a/juggler/screencast/components.conf b/juggler/screencast/components.conf
 new file mode 100644
-index 00000000..74791e9c
+index 0000000..74791e9
 --- /dev/null
 +++ b/juggler/screencast/components.conf
 @@ -0,0 +1,15 @@
@@ -10852,7 +10852,7 @@ index 00000000..74791e9c
 +]
 diff --git a/juggler/screencast/moz.build b/juggler/screencast/moz.build
 new file mode 100644
-index 00000000..1fc6d606
+index 0000000..1fc6d60
 --- /dev/null
 +++ b/juggler/screencast/moz.build
 @@ -0,0 +1,42 @@
@@ -10900,7 +10900,7 @@ index 00000000..1fc6d606
 +FINAL_LIBRARY = "xul"
 diff --git a/juggler/screencast/nsIScreencastService.idl b/juggler/screencast/nsIScreencastService.idl
 new file mode 100644
-index 00000000..22f02387
+index 0000000..22f0238
 --- /dev/null
 +++ b/juggler/screencast/nsIScreencastService.idl
 @@ -0,0 +1,79 @@
@@ -10985,7 +10985,7 @@ index 00000000..22f02387
 +};
 diff --git a/juggler/screencast/nsScreencastService.cpp b/juggler/screencast/nsScreencastService.cpp
 new file mode 100644
-index 00000000..cd553af2
+index 0000000..cd553af
 --- /dev/null
 +++ b/juggler/screencast/nsScreencastService.cpp
 @@ -0,0 +1,690 @@
@@ -11681,7 +11681,7 @@ index 00000000..cd553af2
 +}  // namespace mozilla
 diff --git a/juggler/screencast/nsScreencastService.h b/juggler/screencast/nsScreencastService.h
 new file mode 100644
-index 00000000..df6c89a7
+index 0000000..df6c89a
 --- /dev/null
 +++ b/juggler/screencast/nsScreencastService.h
 @@ -0,0 +1,34 @@
@@ -11721,7 +11721,7 @@ index 00000000..df6c89a7
 +}  // namespace mozilla
 diff --git a/juggler/tests/bfcache_reattach.test.mjs b/juggler/tests/bfcache_reattach.test.mjs
 new file mode 100644
-index 00000000..e13cb743
+index 0000000..e13cb74
 --- /dev/null
 +++ b/juggler/tests/bfcache_reattach.test.mjs
 @@ -0,0 +1,151 @@
@@ -11878,7 +11878,7 @@ index 00000000..e13cb743
 +});
 diff --git a/juggler/tests/caller_world.test.mjs b/juggler/tests/caller_world.test.mjs
 new file mode 100644
-index 00000000..7eee7e62
+index 0000000..7eee7e6
 --- /dev/null
 +++ b/juggler/tests/caller_world.test.mjs
 @@ -0,0 +1,154 @@
@@ -12038,7 +12038,7 @@ index 00000000..7eee7e62
 +});
 diff --git a/juggler/tests/crashed_tab_is_closed.test.mjs b/juggler/tests/crashed_tab_is_closed.test.mjs
 new file mode 100644
-index 00000000..472670e2
+index 0000000..472670e
 --- /dev/null
 +++ b/juggler/tests/crashed_tab_is_closed.test.mjs
 @@ -0,0 +1,42 @@
@@ -12086,7 +12086,7 @@ index 00000000..472670e2
 +});
 diff --git a/juggler/tests/download_complete_follows_the_idl.test.mjs b/juggler/tests/download_complete_follows_the_idl.test.mjs
 new file mode 100644
-index 00000000..bcb1ed7b
+index 0000000..bcb1ed7
 --- /dev/null
 +++ b/juggler/tests/download_complete_follows_the_idl.test.mjs
 @@ -0,0 +1,41 @@
@@ -12133,7 +12133,7 @@ index 00000000..bcb1ed7b
 +});
 diff --git a/juggler/tests/explicit_size_flag_is_free.test.mjs b/juggler/tests/explicit_size_flag_is_free.test.mjs
 new file mode 100644
-index 00000000..de4ca249
+index 0000000..de4ca24
 --- /dev/null
 +++ b/juggler/tests/explicit_size_flag_is_free.test.mjs
 @@ -0,0 +1,56 @@
@@ -12195,7 +12195,7 @@ index 00000000..de4ca249
 +});
 diff --git a/juggler/tests/frame_tree.test.mjs b/juggler/tests/frame_tree.test.mjs
 new file mode 100644
-index 00000000..28a5a108
+index 0000000..28a5a10
 --- /dev/null
 +++ b/juggler/tests/frame_tree.test.mjs
 @@ -0,0 +1,114 @@
@@ -12315,7 +12315,7 @@ index 00000000..28a5a108
 +});
 diff --git a/juggler/tests/input_waits_are_bounded.test.mjs b/juggler/tests/input_waits_are_bounded.test.mjs
 new file mode 100644
-index 00000000..bac04d7d
+index 0000000..bac04d7
 --- /dev/null
 +++ b/juggler/tests/input_waits_are_bounded.test.mjs
 @@ -0,0 +1,53 @@
@@ -12374,7 +12374,7 @@ index 00000000..bac04d7d
 +});
 diff --git a/juggler/tests/navigation_abort.test.mjs b/juggler/tests/navigation_abort.test.mjs
 new file mode 100644
-index 00000000..76349a27
+index 0000000..76349a2
 --- /dev/null
 +++ b/juggler/tests/navigation_abort.test.mjs
 @@ -0,0 +1,141 @@
@@ -12521,7 +12521,7 @@ index 00000000..76349a27
 +});
 diff --git a/juggler/tests/not_a_chrome_package.test.mjs b/juggler/tests/not_a_chrome_package.test.mjs
 new file mode 100644
-index 00000000..6b1d5c8c
+index 0000000..6b1d5c8
 --- /dev/null
 +++ b/juggler/tests/not_a_chrome_package.test.mjs
 @@ -0,0 +1,160 @@
@@ -12687,7 +12687,7 @@ index 00000000..6b1d5c8c
 +});
 diff --git a/juggler/tests/request_body_is_always_read.test.mjs b/juggler/tests/request_body_is_always_read.test.mjs
 new file mode 100644
-index 00000000..b052dc2f
+index 0000000..b052dc2
 --- /dev/null
 +++ b/juggler/tests/request_body_is_always_read.test.mjs
 @@ -0,0 +1,38 @@
@@ -12731,7 +12731,7 @@ index 00000000..b052dc2f
 +});
 diff --git a/juggler/tests/response_tells_its_security_and_service_worker.test.mjs b/juggler/tests/response_tells_its_security_and_service_worker.test.mjs
 new file mode 100644
-index 00000000..a0c14d2b
+index 0000000..a0c14d2
 --- /dev/null
 +++ b/juggler/tests/response_tells_its_security_and_service_worker.test.mjs
 @@ -0,0 +1,46 @@
@@ -12783,7 +12783,7 @@ index 00000000..a0c14d2b
 +});
 diff --git a/juggler/tests/runtime_debugger_module_url.test.mjs b/juggler/tests/runtime_debugger_module_url.test.mjs
 new file mode 100644
-index 00000000..5685c882
+index 0000000..5685c88
 --- /dev/null
 +++ b/juggler/tests/runtime_debugger_module_url.test.mjs
 @@ -0,0 +1,36 @@
@@ -12825,7 +12825,7 @@ index 00000000..5685c882
 +});
 diff --git a/juggler/tests/runtime_ids_are_unique_per_session.test.mjs b/juggler/tests/runtime_ids_are_unique_per_session.test.mjs
 new file mode 100644
-index 00000000..8c790731
+index 0000000..8c79073
 --- /dev/null
 +++ b/juggler/tests/runtime_ids_are_unique_per_session.test.mjs
 @@ -0,0 +1,59 @@
@@ -12890,7 +12890,7 @@ index 00000000..8c790731
 +});
 diff --git a/juggler/tests/shared_cookies_leave_with_their_owner.test.mjs b/juggler/tests/shared_cookies_leave_with_their_owner.test.mjs
 new file mode 100644
-index 00000000..30a7f6d6
+index 0000000..30a7f6d
 --- /dev/null
 +++ b/juggler/tests/shared_cookies_leave_with_their_owner.test.mjs
 @@ -0,0 +1,49 @@
@@ -12945,7 +12945,7 @@ index 00000000..30a7f6d6
 +});
 diff --git a/juggler/tests/simple_channel.test.mjs b/juggler/tests/simple_channel.test.mjs
 new file mode 100644
-index 00000000..b7f0d52f
+index 0000000..b7f0d52
 --- /dev/null
 +++ b/juggler/tests/simple_channel.test.mjs
 @@ -0,0 +1,138 @@
@@ -13089,7 +13089,7 @@ index 00000000..b7f0d52f
 +});
 diff --git a/juggler/tests/websocket_listener_follows_the_idl.test.mjs b/juggler/tests/websocket_listener_follows_the_idl.test.mjs
 new file mode 100644
-index 00000000..9f696688
+index 0000000..9f69668
 --- /dev/null
 +++ b/juggler/tests/websocket_listener_follows_the_idl.test.mjs
 @@ -0,0 +1,118 @@
@@ -13213,7 +13213,7 @@ index 00000000..9f696688
 +});
 diff --git a/juggler/tests/worker_debugger_manager_is_a_service.test.mjs b/juggler/tests/worker_debugger_manager_is_a_service.test.mjs
 new file mode 100644
-index 00000000..98cc65b7
+index 0000000..98cc65b
 --- /dev/null
 +++ b/juggler/tests/worker_debugger_manager_is_a_service.test.mjs
 @@ -0,0 +1,101 @@

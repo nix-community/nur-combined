@@ -1,5 +1,5 @@
 diff --git a/docshell/base/BrowsingContext.cpp b/docshell/base/BrowsingContext.cpp
-index 0986f712..8aec6423 100644
+index 76be933..301c475 100644
 --- a/docshell/base/BrowsingContext.cpp
 +++ b/docshell/base/BrowsingContext.cpp
 @@ -44,6 +44,7 @@
@@ -18,7 +18,7 @@ index 0986f712..8aec6423 100644
  #include "mozilla/ipc/ProtocolUtils.h"
  #include "mozilla/net/DocumentLoadListener.h"
  #include "mozilla/net/RequestContextService.h"
-@@ -1089,6 +1091,34 @@ void BrowsingContext::Attach(bool aFromIPC, ContentParent* aOriginProcess) {
+@@ -1094,6 +1096,34 @@ void BrowsingContext::Attach(bool aFromIPC, ContentParent* aOriginProcess) {
    if (XRE_IsParentProcess()) {
      Canonical()->CanonicalAttach();
    }
@@ -53,7 +53,7 @@ index 0986f712..8aec6423 100644
  }
  
  void BrowsingContext::Detach(bool aFromIPC) {
-@@ -3579,7 +3609,11 @@ void BrowsingContext::DidSet(FieldIndex<IDX_LanguageOverride>,
+@@ -3610,7 +3640,11 @@ void BrowsingContext::DidSet(FieldIndex<IDX_LanguageOverride>,
                               nsCString&& aOldValue) {
    MOZ_ASSERT(IsTop());
  
@@ -66,7 +66,7 @@ index 0986f712..8aec6423 100644
  
    workerinternals::RuntimeService* rts =
        workerinternals::RuntimeService::GetService();
-@@ -3596,8 +3630,12 @@ void BrowsingContext::DidSet(FieldIndex<IDX_LanguageOverride>,
+@@ -3627,8 +3661,12 @@ void BrowsingContext::DidSet(FieldIndex<IDX_LanguageOverride>,
          if (languageOverride.IsEmpty()) {
            JS::SetRealmLocaleOverride(realm, nullptr);
          } else {
@@ -81,7 +81,7 @@ index 0986f712..8aec6423 100644
          }
  
          if (Navigator* navigator = window->Navigator()) {
-@@ -3889,6 +3927,17 @@ void BrowsingContext::DidSet(FieldIndex<IDX_TimezoneOverride>,
+@@ -3912,6 +3950,17 @@ void BrowsingContext::DidSet(FieldIndex<IDX_TimezoneOverride>,
                               nsString&& aOldValue) {
    MOZ_ASSERT(IsTop());
  
@@ -99,7 +99,7 @@ index 0986f712..8aec6423 100644
    const nsString& timezoneOverride = GetTimezoneOverride();
  
    PreOrderWalk([&](BrowsingContext* aBrowsingContext) {
-@@ -3900,11 +3949,11 @@ void BrowsingContext::DidSet(FieldIndex<IDX_TimezoneOverride>,
+@@ -3923,11 +3972,11 @@ void BrowsingContext::DidSet(FieldIndex<IDX_TimezoneOverride>,
              nsGlobalWindowInner::Cast(window)->GetGlobalJSObject();
          JS::Realm* realm = JS::GetObjectRealmOrNull(global);
  
@@ -114,7 +114,7 @@ index 0986f712..8aec6423 100644
  
          UpdateTimezoneOverrideForWorkers(*window, timezoneOverride);
 diff --git a/docshell/base/CanonicalBrowsingContext.cpp b/docshell/base/CanonicalBrowsingContext.cpp
-index 86b2939a..37d3bc2c 100644
+index b228b69..eb305e5 100644
 --- a/docshell/base/CanonicalBrowsingContext.cpp
 +++ b/docshell/base/CanonicalBrowsingContext.cpp
 @@ -2200,6 +2200,17 @@ void CanonicalBrowsingContext::LoadURI(nsIURI* aURI,
@@ -154,10 +154,10 @@ index 86b2939a..37d3bc2c 100644
  }
  
 diff --git a/docshell/base/nsDocShell.cpp b/docshell/base/nsDocShell.cpp
-index 9890b717..dada2bb8 100644
+index 3c78b92..335775d 100644
 --- a/docshell/base/nsDocShell.cpp
 +++ b/docshell/base/nsDocShell.cpp
-@@ -365,6 +365,8 @@ nsDocShell::nsDocShell(BrowsingContext* aBrowsingContext,
+@@ -367,6 +367,8 @@ nsDocShell::nsDocShell(BrowsingContext* aBrowsingContext,
        mURIResultedInDocument(false),
        mIsBeingDestroyed(false),
        mIsExecutingOnLoadHandler(false),
@@ -166,7 +166,7 @@ index 9890b717..dada2bb8 100644
        mInvisible(false),
        mHasLoadedNonBlankURI(false),
        mHasStartedLoadingOtherThanInitialBlankURI(false),
-@@ -2899,6 +2901,29 @@ nsDocShell* nsDocShell::GetInProcessChildAt(int32_t aIndex) {
+@@ -3048,6 +3050,29 @@ nsDocShell* nsDocShell::GetInProcessChildAt(int32_t aIndex) {
    return static_cast<nsDocShell*>(child);
  }
  
@@ -196,7 +196,7 @@ index 9890b717..dada2bb8 100644
  NS_IMETHODIMP nsDocShell::SynchronizeLayoutHistoryState() {
    if (mActiveEntry && mActiveEntry->GetLayoutHistoryState() &&
        mBrowsingContext) {
-@@ -8999,6 +9024,22 @@ nsresult nsDocShell::InternalLoad(nsDocShellLoadState* aLoadState,
+@@ -9220,6 +9245,22 @@ nsresult nsDocShell::InternalLoad(nsDocShellLoadState* aLoadState,
    attrs.SetFirstPartyDomain(isTopLevelDoc, aLoadState->URI());
  
    nsCOMPtr<nsIRequest> req;
@@ -220,10 +220,10 @@ index 9890b717..dada2bb8 100644
  
    if (NS_SUCCEEDED(rv)) {
 diff --git a/docshell/base/nsDocShell.h b/docshell/base/nsDocShell.h
-index 27d9e920..80887d51 100644
+index ec2a473..e50c41d 100644
 --- a/docshell/base/nsDocShell.h
 +++ b/docshell/base/nsDocShell.h
-@@ -1359,6 +1359,13 @@ class nsDocShell final : public nsDocLoader,
+@@ -1399,6 +1399,13 @@ class nsDocShell final : public nsDocLoader,
  
    bool mIsExecutingOnLoadHandler : 1;
  
@@ -238,7 +238,7 @@ index 27d9e920..80887d51 100644
  
    // There has been an OnStartRequest for a non-about:blank URI
 diff --git a/docshell/base/nsIDocShell.idl b/docshell/base/nsIDocShell.idl
-index 264a665f..4c10c4c3 100644
+index 264a665..4c10c4c 100644
 --- a/docshell/base/nsIDocShell.idl
 +++ b/docshell/base/nsIDocShell.idl
 @@ -685,6 +685,21 @@ interface nsIDocShell : nsIDocShellTreeItem

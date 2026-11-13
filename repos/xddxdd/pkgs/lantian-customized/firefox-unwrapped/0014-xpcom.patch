@@ -1,5 +1,5 @@
 diff --git a/xpcom/reflect/xptinfo/xptinfo.h b/xpcom/reflect/xptinfo/xptinfo.h
-index 7b1d918e..b99db243 100644
+index 7b1d918..b99db24 100644
 --- a/xpcom/reflect/xptinfo/xptinfo.h
 +++ b/xpcom/reflect/xptinfo/xptinfo.h
 @@ -504,7 +504,8 @@ static_assert(sizeof(nsXPTMethodInfo) == 8, "wrong size");

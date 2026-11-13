@@ -1,6 +1,6 @@
 diff --git a/uriloader/exthandler/StealthDownloadIntercept.cpp b/uriloader/exthandler/StealthDownloadIntercept.cpp
 new file mode 100644
-index 00000000..2077bc34
+index 0000000..2077bc3
 --- /dev/null
 +++ b/uriloader/exthandler/StealthDownloadIntercept.cpp
 @@ -0,0 +1,123 @@
@@ -129,7 +129,7 @@ index 00000000..2077bc34
 +}
 diff --git a/uriloader/exthandler/StealthDownloadIntercept.h b/uriloader/exthandler/StealthDownloadIntercept.h
 new file mode 100644
-index 00000000..60d6bfd5
+index 0000000..60d6bfd
 --- /dev/null
 +++ b/uriloader/exthandler/StealthDownloadIntercept.h
 @@ -0,0 +1,44 @@
@@ -179,7 +179,7 @@ index 00000000..60d6bfd5
 +#endif  // StealthDownloadIntercept_h_
 diff --git a/uriloader/exthandler/StealthDownloadInterceptor.idl b/uriloader/exthandler/StealthDownloadInterceptor.idl
 new file mode 100644
-index 00000000..ef67b2fa
+index 0000000..ef67b2f
 --- /dev/null
 +++ b/uriloader/exthandler/StealthDownloadInterceptor.idl
 @@ -0,0 +1,33 @@
@@ -217,7 +217,7 @@ index 00000000..ef67b2fa
 +  void onDownloadComplete(in nsIHelperAppLauncher aHandler, in ACString aErrorName);
 +};
 diff --git a/uriloader/exthandler/moz.build b/uriloader/exthandler/moz.build
-index a88b18c4..81587a33 100644
+index 9a40d20..65750f5 100644
 --- a/uriloader/exthandler/moz.build
 +++ b/uriloader/exthandler/moz.build
 @@ -18,6 +18,7 @@ XPIDL_SOURCES += [
@@ -237,7 +237,7 @@ index a88b18c4..81587a33 100644
  if CONFIG["MOZ_BUILD_APP"] == "browser":
      DEFINES["MOZ_BUILD_APP_IS_BROWSER"] = True
 diff --git a/uriloader/exthandler/nsExternalHelperAppService.cpp b/uriloader/exthandler/nsExternalHelperAppService.cpp
-index ccebdcc8..6777f605 100644
+index ccebdcc..6777f60 100644
 --- a/uriloader/exthandler/nsExternalHelperAppService.cpp
 +++ b/uriloader/exthandler/nsExternalHelperAppService.cpp
 @@ -118,6 +118,7 @@
@@ -289,7 +289,7 @@ index ccebdcc8..6777f605 100644
  }
  
 diff --git a/uriloader/exthandler/nsExternalHelperAppService.h b/uriloader/exthandler/nsExternalHelperAppService.h
-index 477afd0a..132b2bc6 100644
+index 477afd0..132b2bc 100644
 --- a/uriloader/exthandler/nsExternalHelperAppService.h
 +++ b/uriloader/exthandler/nsExternalHelperAppService.h
 @@ -302,6 +302,12 @@ class nsExternalHelperAppService : public nsIExternalHelperAppService,
@@ -316,7 +316,7 @@ index 477afd0a..132b2bc6 100644
  
  #endif  // nsExternalHelperAppService_h_
 diff --git a/uriloader/exthandler/nsIExternalHelperAppService.idl b/uriloader/exthandler/nsIExternalHelperAppService.idl
-index f5c40986..e6bf3f0c 100644
+index f5c4098..e6bf3f0 100644
 --- a/uriloader/exthandler/nsIExternalHelperAppService.idl
 +++ b/uriloader/exthandler/nsIExternalHelperAppService.idl
 @@ -4,6 +4,7 @@

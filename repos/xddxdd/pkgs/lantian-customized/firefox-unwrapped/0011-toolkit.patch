@@ -1,8 +1,8 @@
 diff --git a/toolkit/components/enterprisepolicies/EnterprisePoliciesParent.sys.mjs b/toolkit/components/enterprisepolicies/EnterprisePoliciesParent.sys.mjs
-index 2d3be893..d6c8378d 100644
+index b705d72..02c6a2c 100644
 --- a/toolkit/components/enterprisepolicies/EnterprisePoliciesParent.sys.mjs
 +++ b/toolkit/components/enterprisepolicies/EnterprisePoliciesParent.sys.mjs
-@@ -859,6 +859,19 @@ class JSONPoliciesProvider extends PoliciesProvider {
+@@ -878,6 +878,19 @@ class JSONPoliciesProvider extends PoliciesProvider {
    }
  }
  
@@ -24,7 +24,7 @@ index 2d3be893..d6c8378d 100644
      super();
 diff --git a/toolkit/components/windowwatcher/JugglerWindowSize.cpp b/toolkit/components/windowwatcher/JugglerWindowSize.cpp
 new file mode 100644
-index 00000000..7321de10
+index 0000000..7321de1
 --- /dev/null
 +++ b/toolkit/components/windowwatcher/JugglerWindowSize.cpp
 @@ -0,0 +1,25 @@
@@ -55,7 +55,7 @@ index 00000000..7321de10
 +}  // namespace mozilla
 diff --git a/toolkit/components/windowwatcher/JugglerWindowSize.h b/toolkit/components/windowwatcher/JugglerWindowSize.h
 new file mode 100644
-index 00000000..3ecf0953
+index 0000000..3ecf095
 --- /dev/null
 +++ b/toolkit/components/windowwatcher/JugglerWindowSize.h
 @@ -0,0 +1,33 @@
@@ -93,7 +93,7 @@ index 00000000..3ecf0953
 +
 +#endif  // TOOLKIT_COMPONENTS_WINDOWWATCHER_JUGGLERWINDOWSIZE_H_
 diff --git a/toolkit/components/windowwatcher/moz.build b/toolkit/components/windowwatcher/moz.build
-index 4d1326db..4291fdc7 100644
+index ce62b66..31b3882 100644
 --- a/toolkit/components/windowwatcher/moz.build
 +++ b/toolkit/components/windowwatcher/moz.build
 @@ -30,6 +30,7 @@ UNIFIED_SOURCES += [
@@ -105,7 +105,7 @@ index 4d1326db..4291fdc7 100644
  FINAL_LIBRARY = "xul"
  # For nsJSUtils
 diff --git a/toolkit/components/windowwatcher/nsWindowWatcher.cpp b/toolkit/components/windowwatcher/nsWindowWatcher.cpp
-index a1044338..ebae376a 100644
+index a104433..ebae376 100644
 --- a/toolkit/components/windowwatcher/nsWindowWatcher.cpp
 +++ b/toolkit/components/windowwatcher/nsWindowWatcher.cpp
 @@ -3,6 +3,7 @@
@@ -126,7 +126,7 @@ index a1044338..ebae376a 100644
  }
  
 diff --git a/toolkit/toolkit.mozbuild b/toolkit/toolkit.mozbuild
-index c2ac333a..c2b16a4c 100644
+index c2ac333..c2b16a4 100644
 --- a/toolkit/toolkit.mozbuild
 +++ b/toolkit/toolkit.mozbuild
 @@ -151,6 +151,7 @@ if CONFIG["MOZ_WIDGET_TOOLKIT"] == "gtk":
@@ -138,7 +138,7 @@ index c2ac333a..c2b16a4c 100644
          "/testing/marionette",
          "/toolkit/components/telemetry/tests/marionette",
 diff --git a/toolkit/xre/nsWindowsWMain.cpp b/toolkit/xre/nsWindowsWMain.cpp
-index b7c376ea..81a843ed 100644
+index b7c376e..81a843e 100644
 --- a/toolkit/xre/nsWindowsWMain.cpp
 +++ b/toolkit/xre/nsWindowsWMain.cpp
 @@ -14,9 +14,12 @@

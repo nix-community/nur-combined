@@ -1,8 +1,8 @@
 diff --git a/netwerk/base/LoadInfo.cpp b/netwerk/base/LoadInfo.cpp
-index 9d64a003..1ff2a1f6 100644
+index 2290271..52e7bc3 100644
 --- a/netwerk/base/LoadInfo.cpp
 +++ b/netwerk/base/LoadInfo.cpp
-@@ -759,7 +759,8 @@ LoadInfo::LoadInfo(const LoadInfo& rhs)
+@@ -744,7 +744,8 @@ LoadInfo::LoadInfo(const LoadInfo& rhs)
        mInterceptionInfo(rhs.mInterceptionInfo),
        mSchemelessInput(rhs.mSchemelessInput),
        mUserNavigationInvolvement(rhs.mUserNavigationInvolvement),
@@ -12,7 +12,7 @@ index 9d64a003..1ff2a1f6 100644
  }
  
  LoadInfo::LoadInfo(
-@@ -2141,4 +2142,16 @@ void LoadInfo::UpdateParentAddressSpaceInfo() {
+@@ -2116,4 +2117,16 @@ void LoadInfo::UpdateParentAddressSpaceInfo() {
    }
  }
  
@@ -30,10 +30,10 @@ index 9d64a003..1ff2a1f6 100644
 +
  }  // namespace mozilla::net
 diff --git a/netwerk/base/LoadInfo.h b/netwerk/base/LoadInfo.h
-index a6a44ac7..1fbbf4dd 100644
+index 4e547c0..66cbd91 100644
 --- a/netwerk/base/LoadInfo.h
 +++ b/netwerk/base/LoadInfo.h
-@@ -519,6 +519,8 @@ class LoadInfo final : public nsILoadInfo {
+@@ -522,6 +522,8 @@ class LoadInfo final : public nsILoadInfo {
        dom::UserNavigationInvolvement::None;
  
    bool mSkipHTTPSUpgrade = false;
@@ -43,7 +43,7 @@ index a6a44ac7..1fbbf4dd 100644
  // This is exposed solely for testing purposes and should not be used outside of
  // LoadInfo
 diff --git a/netwerk/base/TRRLoadInfo.cpp b/netwerk/base/TRRLoadInfo.cpp
-index 0cba5455..d4d68b98 100644
+index 0cba545..d4d68b9 100644
 --- a/netwerk/base/TRRLoadInfo.cpp
 +++ b/netwerk/base/TRRLoadInfo.cpp
 @@ -571,5 +571,15 @@ TRRLoadInfo::GetFetchDestination(nsACString& aDestination) {
@@ -63,10 +63,10 @@ index 0cba5455..d4d68b98 100644
  }  // namespace net
  }  // namespace mozilla
 diff --git a/netwerk/base/nsILoadInfo.idl b/netwerk/base/nsILoadInfo.idl
-index a3e73845..86327e3e 100644
+index 690e7eb..0e8bd24 100644
 --- a/netwerk/base/nsILoadInfo.idl
 +++ b/netwerk/base/nsILoadInfo.idl
-@@ -1748,4 +1748,6 @@ interface nsILoadInfo : nsISupports
+@@ -1756,4 +1756,6 @@ interface nsILoadInfo : nsISupports
        return static_cast<mozilla::dom::UserNavigationInvolvement>(userNavigationInvolvement);
      }
  %}
@@ -74,7 +74,7 @@ index a3e73845..86327e3e 100644
 +  [infallible] attribute unsigned long long jugglerLoadIdentifier;
  };
 diff --git a/netwerk/base/nsINetworkInterceptController.idl b/netwerk/base/nsINetworkInterceptController.idl
-index 3654f3ed..f685e766 100644
+index 3654f3e..f685e76 100644
 --- a/netwerk/base/nsINetworkInterceptController.idl
 +++ b/netwerk/base/nsINetworkInterceptController.idl
 @@ -59,6 +59,16 @@ interface nsIInterceptedChannel : nsISupports
@@ -95,7 +95,7 @@ index 3654f3ed..f685e766 100644
       * Set the status and reason for the forthcoming synthesized response.
       * Multiple calls overwrite existing values.
 diff --git a/netwerk/base/nsProtocolProxyService.cpp b/netwerk/base/nsProtocolProxyService.cpp
-index dcf0dca2..a556579e 100644
+index dcf0dca..a556579 100644
 --- a/netwerk/base/nsProtocolProxyService.cpp
 +++ b/netwerk/base/nsProtocolProxyService.cpp
 @@ -1079,6 +1079,16 @@ void nsProtocolProxyService::PrefsChanged(nsIPrefBranch* prefBranch,
@@ -129,7 +129,7 @@ index dcf0dca2..a556579e 100644
    }
  
 diff --git a/netwerk/base/nsProtocolProxyService.h b/netwerk/base/nsProtocolProxyService.h
-index 104a1a6a..6ad5a9d5 100644
+index 104a1a6..6ad5a9d 100644
 --- a/netwerk/base/nsProtocolProxyService.h
 +++ b/netwerk/base/nsProtocolProxyService.h
 @@ -399,6 +399,8 @@ class nsProtocolProxyService final : public nsIProtocolProxyService2,
@@ -142,7 +142,7 @@ index 104a1a6a..6ad5a9d5 100644
    bool mSOCKS5ProxyRemoteDNS{false};
    bool mProxyOverTLS{true};
 diff --git a/netwerk/base/nsUDPSocket.cpp b/netwerk/base/nsUDPSocket.cpp
-index f052d8af..e05d7ee4 100644
+index f052d8a..e05d7ee 100644
 --- a/netwerk/base/nsUDPSocket.cpp
 +++ b/netwerk/base/nsUDPSocket.cpp
 @@ -7,6 +7,7 @@
@@ -206,10 +206,10 @@ index f052d8af..e05d7ee4 100644
    if (StaticPrefs::fuzzing_necko_enabled()) {
      rv = AttachFuzzyIOLayer(mFD);
 diff --git a/netwerk/ipc/DocumentLoadListener.cpp b/netwerk/ipc/DocumentLoadListener.cpp
-index 10b16322..fd059098 100644
+index 6f5f5dc..82d648e 100644
 --- a/netwerk/ipc/DocumentLoadListener.cpp
 +++ b/netwerk/ipc/DocumentLoadListener.cpp
-@@ -205,6 +205,7 @@ static auto CreateDocumentLoadInfo(CanonicalBrowsingContext* aBrowsingContext,
+@@ -207,6 +207,7 @@ static auto CreateDocumentLoadInfo(CanonicalBrowsingContext* aBrowsingContext,
        aLoadState->GetTextDirectiveUserActivation() ||
        aLoadState->HasLoadFlags(nsIWebNavigation::LOAD_FLAGS_FROM_EXTERNAL));
    loadInfo->SetIsMetaRefresh(aLoadState->IsMetaRefresh());
@@ -218,7 +218,7 @@ index 10b16322..fd059098 100644
    return loadInfo.forget();
  }
 diff --git a/netwerk/protocol/http/AlternateServices.cpp b/netwerk/protocol/http/AlternateServices.cpp
-index 91cc428d..a3820955 100644
+index 289b877..b16840a 100644
 --- a/netwerk/protocol/http/AlternateServices.cpp
 +++ b/netwerk/protocol/http/AlternateServices.cpp
 @@ -8,6 +8,7 @@
@@ -249,7 +249,7 @@ index 91cc428d..a3820955 100644
        LOG(
            ("AltSvcCache::UpdateAltServiceMapping %p map %p ignored h3 because "
 diff --git a/netwerk/protocol/http/DnsAndConnectSocket.cpp b/netwerk/protocol/http/DnsAndConnectSocket.cpp
-index 4d572c6f..5ecb2084 100644
+index 869dc97..d598319 100644
 --- a/netwerk/protocol/http/DnsAndConnectSocket.cpp
 +++ b/netwerk/protocol/http/DnsAndConnectSocket.cpp
 @@ -11,11 +11,13 @@
@@ -329,10 +329,10 @@ index 4d572c6f..5ecb2084 100644
        gHttpHandler->ConnMgr()->FindConnectionEntry(mConnInfo);
    MOZ_DIAGNOSTIC_ASSERT(ent);
 diff --git a/netwerk/protocol/http/HttpBaseChannel.cpp b/netwerk/protocol/http/HttpBaseChannel.cpp
-index 2d53f5de..015a632d 100644
+index 5d248ea..2931fb7 100644
 --- a/netwerk/protocol/http/HttpBaseChannel.cpp
 +++ b/netwerk/protocol/http/HttpBaseChannel.cpp
-@@ -27,6 +27,7 @@
+@@ -28,6 +28,7 @@
  #include "mozilla/Mutex.h"
  #include "mozilla/NullPrincipal.h"
  #include "mozilla/PermissionManager.h"
@@ -340,7 +340,7 @@ index 2d53f5de..015a632d 100644
  #include "mozilla/RemoteLazyInputStreamChild.h"
  #include "mozilla/StaticPrefs_browser.h"
  #include "mozilla/StaticPrefs_fission.h"
-@@ -6748,10 +6749,18 @@ void HttpBaseChannel::MaybeFlushConsoleReports() {
+@@ -6765,10 +6766,18 @@ void HttpBaseChannel::MaybeFlushConsoleReports() {
  void HttpBaseChannel::DoDiagnosticAssertWhenOnStopNotCalledOnDestroy() {}
  
  bool HttpBaseChannel::Http3Allowed() const {
@@ -363,10 +363,10 @@ index 2d53f5de..015a632d 100644
    // connect-udp.
    return !mUpgradeProtocolCallback && allowedProxyInfo &&
 diff --git a/netwerk/protocol/http/InterceptedHttpChannel.cpp b/netwerk/protocol/http/InterceptedHttpChannel.cpp
-index 551ed5ba..a51a88dc 100644
+index ca6b906..aa7f5ea 100644
 --- a/netwerk/protocol/http/InterceptedHttpChannel.cpp
 +++ b/netwerk/protocol/http/InterceptedHttpChannel.cpp
-@@ -735,10 +735,41 @@ NS_IMPL_ISUPPORTS(ResetInterceptionHeaderVisitor, nsIHttpHeaderVisitor)
+@@ -738,10 +738,41 @@ NS_IMPL_ISUPPORTS(ResetInterceptionHeaderVisitor, nsIHttpHeaderVisitor)
  
  }  // anonymous namespace
  
@@ -408,9 +408,9 @@ index 551ed5ba..a51a88dc 100644
    if (mCanceled) {
      return mStatus;
    }
-@@ -1162,11 +1193,18 @@ InterceptedHttpChannel::OnStartRequest(nsIRequest* aRequest) {
-     GetCallback(mProgressSink);
+@@ -1166,11 +1197,18 @@ InterceptedHttpChannel::OnStartRequest(nsIRequest* aRequest) {
    }
+   mHasProgressSink = !!mProgressSink;
  
 +  // Playwright: main requests in firefox do not have loading principal.
 +  // As they are intercepted by Playwright, they don't have
@@ -428,10 +428,10 @@ index 551ed5ba..a51a88dc 100644
    if (mPump && mLoadFlags & LOAD_CALL_CONTENT_SNIFFERS) {
      RefPtr<nsInputStreamPump> pump(mPump);
 diff --git a/netwerk/protocol/http/InterceptedHttpChannel.h b/netwerk/protocol/http/InterceptedHttpChannel.h
-index ab440756..f80bba29 100644
+index 401fd2d..914ea90 100644
 --- a/netwerk/protocol/http/InterceptedHttpChannel.h
 +++ b/netwerk/protocol/http/InterceptedHttpChannel.h
-@@ -89,6 +89,17 @@ class InterceptedHttpChannel final
+@@ -91,6 +91,17 @@ class InterceptedHttpChannel final
    Atomic<bool> mCallingStatusAndProgress;
    bool mInterceptionReset{false};
  
@@ -449,122 +449,8 @@ index ab440756..f80bba29 100644
    /**
     *  InterceptionTimeStamps is used to record the time stamps of the
     *  interception.
-diff --git a/netwerk/protocol/http/nsHttpChannel.cpp b/netwerk/protocol/http/nsHttpChannel.cpp
-index d17a57fd..c2841048 100644
---- a/netwerk/protocol/http/nsHttpChannel.cpp
-+++ b/netwerk/protocol/http/nsHttpChannel.cpp
-@@ -950,11 +950,9 @@ nsresult nsHttpChannel::OnBeforeConnect() {
-   // SecurityInfo.sys.mjs
-   mLoadInfo->SetHstsStatus(isSecureURI);
- 
--  RefPtr<mozilla::dom::BrowsingContext> bc;
--  mLoadInfo->GetBrowsingContext(getter_AddRefs(bc));
-   // If bypassing the cache and we're forced offline
-   // we can just return the error here.
--  if (bc && bc->Top()->GetForceOffline() &&
-+  if (IsForcedOffline() &&
-       BYPASS_LOCAL_CACHE(mLoadFlags, LoadPreferCacheLoadOverBypass())) {
-     return NS_ERROR_OFFLINE;
-   }
-@@ -1074,9 +1072,7 @@ nsresult nsHttpChannel::MaybeUseHTTPSRRForUpgrade(bool aShouldUpgrade,
-     return aStatus;
-   }
- 
--  RefPtr<mozilla::dom::BrowsingContext> bc;
--  mLoadInfo->GetBrowsingContext(getter_AddRefs(bc));
--  bool forceOffline = bc && bc->Top()->GetForceOffline();
-+  bool forceOffline = IsForcedOffline();
- 
-   if (mURI->SchemeIs("https") || aShouldUpgrade || !LoadUseHTTPSSVC() ||
-       forceOffline) {
-@@ -1554,15 +1550,14 @@ nsresult nsHttpChannel::ContinueConnect() {
-                      "CORS preflight must have been finished by the time we "
-                      "do the rest of ContinueConnect");
- 
--  RefPtr<mozilla::dom::BrowsingContext> bc;
--  mLoadInfo->GetBrowsingContext(getter_AddRefs(bc));
-+  bool isForcedOffline = IsForcedOffline();
- 
-   // we may or may not have a cache entry at this point
-   if (mCacheEntry) {
-     // read straight from the cache if possible...
-     if (CachedContentIsValid()) {
-       // If we're forced offline, and set to bypass the cache, return offline.
--      if (bc && bc->Top()->GetForceOffline() &&
-+      if (isForcedOffline &&
-           BYPASS_LOCAL_CACHE(mLoadFlags, LoadPreferCacheLoadOverBypass())) {
-         return NS_ERROR_OFFLINE;
-       }
-@@ -1604,7 +1599,7 @@ nsresult nsHttpChannel::ContinueConnect() {
-   }
- 
-   // We're about to hit the network. Don't if we're forced offline.
--  if (bc && bc->Top()->GetForceOffline()) {
-+  if (isForcedOffline) {
-     return NS_ERROR_OFFLINE;
-   }
- 
-@@ -1712,12 +1707,9 @@ void nsHttpChannel::SpeculativeConnect() {
-   // don't speculate if we are offline, when doing http upgrade (i.e.
-   // websockets bootstrap), or if we can't do keep-alive (because then we
-   // couldn't reuse the speculative connection anyhow).
--  RefPtr<mozilla::dom::BrowsingContext> bc;
--  mLoadInfo->GetBrowsingContext(getter_AddRefs(bc));
--
-   if (gIOService->IsOffline() || mUpgradeProtocolCallback ||
-       !(mCaps & NS_HTTP_ALLOW_KEEPALIVE) ||
--      (bc && bc->Top()->GetForceOffline())) {
-+      IsForcedOffline()) {
-     return;
-   }
- 
-@@ -5070,7 +5062,7 @@ nsresult nsHttpChannel::OpenCacheEntryInternal(bool isHttps) {
-     return NS_OK;
-   }
- 
--  bool forceOffline = bc && bc->Top()->GetForceOffline();
-+  bool forceOffline = IsForcedOffline();
-   if (offline || (mLoadFlags & INHIBIT_CACHING) || forceOffline) {
-     if (BYPASS_LOCAL_CACHE(mLoadFlags, LoadPreferCacheLoadOverBypass()) &&
-         !offline && !forceOffline) {
-@@ -8594,6 +8586,20 @@ void nsHttpChannel::MaybeStartDNSPrefetch() {
-   }
- }
- 
-+bool nsHttpChannel::IsForcedOffline() {
-+  // Stealthfox: the upstream Playwright patch for this helper reads
-+  // `bc->Top()->GetForceOffline()` and `mLoadInfo->GetWorkerAssociatedBrowsingContext()`.
-+  // Both depend on BrowsingContext field additions and an nsILoadInfo
-+  // attribute that live in the 38 PENDING upstream hunks we haven't
-+  // ported yet (see docs/firefox-stealth-architecture/30-upstream-playwright-patches.md).
-+  // Until firefox-7 lands the BC `ForceOffline` field, this helper is
-+  // a no-op — `BrowserContext.setOffline()` from the Playwright client
-+  // simply has no effect. All other firefox-6 patches in this file
-+  // (juggler load identifier propagation + interceptAfterServiceWorkerResets)
-+  // work correctly without ForceOffline.
-+  return false;
-+}
-+
- NS_IMETHODIMP
- nsHttpChannel::GetEncodedBodySize(uint64_t* aEncodedBodySize) {
-   if (mCacheEntry && !LoadCacheEntryIsWriteOnly()) {
-diff --git a/netwerk/protocol/http/nsHttpChannel.h b/netwerk/protocol/http/nsHttpChannel.h
-index cb5da1a6..b826374a 100644
---- a/netwerk/protocol/http/nsHttpChannel.h
-+++ b/netwerk/protocol/http/nsHttpChannel.h
-@@ -317,6 +317,10 @@ class nsHttpChannel final : public HttpBaseChannel,
-   void MaybeResolveProxyAndBeginConnect();
-   void MaybeStartDNSPrefetch();
- 
-+  // ---- Playwright begin
-+  bool IsForcedOffline();
-+  // ---- Playwright end
-+
-   // Based on the proxy configuration determine the strategy for resolving the
-   // end server host name.
-   nsIHttpChannelInternal::ProxyDNSStrategy ComputeProxyDNSStrategy();
 diff --git a/netwerk/protocol/http/nsHttpHandler.cpp b/netwerk/protocol/http/nsHttpHandler.cpp
-index c35867b9..d9cd8e09 100644
+index e62b4d0..4aa8b7b 100644
 --- a/netwerk/protocol/http/nsHttpHandler.cpp
 +++ b/netwerk/protocol/http/nsHttpHandler.cpp
 @@ -746,6 +746,9 @@ nsresult nsHttpHandler::AddAcceptAndDictionaryHeaders(
@@ -607,7 +493,7 @@ index c35867b9..d9cd8e09 100644
      // Add the "Accept-Language" header.  This header is also exposed to the
      // service worker.
 diff --git a/netwerk/socket/moz.build b/netwerk/socket/moz.build
-index 97b6d04e..b33a5097 100644
+index dc761a7..418eee5 100644
 --- a/netwerk/socket/moz.build
 +++ b/netwerk/socket/moz.build
 @@ -21,12 +21,14 @@ include("/ipc/chromium/chromium-config.mozbuild")
@@ -627,7 +513,7 @@ index 97b6d04e..b33a5097 100644
  
 diff --git a/netwerk/socket/nsSOCKSUDPIOLayer.cpp b/netwerk/socket/nsSOCKSUDPIOLayer.cpp
 new file mode 100644
-index 00000000..44d29718
+index 0000000..44d2971
 --- /dev/null
 +++ b/netwerk/socket/nsSOCKSUDPIOLayer.cpp
 @@ -0,0 +1,423 @@
@@ -1056,7 +942,7 @@ index 00000000..44d29718
 +}  // namespace mozilla
 diff --git a/netwerk/socket/nsSOCKSUDPIOLayer.h b/netwerk/socket/nsSOCKSUDPIOLayer.h
 new file mode 100644
-index 00000000..2997c469
+index 0000000..2997c46
 --- /dev/null
 +++ b/netwerk/socket/nsSOCKSUDPIOLayer.h
 @@ -0,0 +1,59 @@
@@ -1120,7 +1006,7 @@ index 00000000..2997c469
 +
 +#endif /* nsSOCKSUDPIOLayer_h__ */
 diff --git a/netwerk/test/browser/browser_accept_language_override.js b/netwerk/test/browser/browser_accept_language_override.js
-index 68acd49e..58ee6fea 100644
+index 68acd49..58ee6fe 100644
 --- a/netwerk/test/browser/browser_accept_language_override.js
 +++ b/netwerk/test/browser/browser_accept_language_override.js
 @@ -134,6 +134,42 @@ add_task(async function test_set_language_override_in_different_contexts() {

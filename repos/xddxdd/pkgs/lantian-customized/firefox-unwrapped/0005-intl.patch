@@ -1,5 +1,5 @@
 diff --git a/intl/locale/LocaleService.cpp b/intl/locale/LocaleService.cpp
-index 49a16861..dc5d5c8e 100644
+index 49a1686..dc5d5c8 100644
 --- a/intl/locale/LocaleService.cpp
 +++ b/intl/locale/LocaleService.cpp
 @@ -15,6 +15,7 @@
@@ -60,7 +60,7 @@ index 49a16861..dc5d5c8e 100644
    }
 diff --git a/intl/locale/StealthSessionPrefs.cpp b/intl/locale/StealthSessionPrefs.cpp
 new file mode 100644
-index 00000000..edd83068
+index 0000000..edd8306
 --- /dev/null
 +++ b/intl/locale/StealthSessionPrefs.cpp
 @@ -0,0 +1,42 @@
@@ -108,7 +108,7 @@ index 00000000..edd83068
 +}  // namespace mozilla::intl
 diff --git a/intl/locale/StealthSessionPrefs.h b/intl/locale/StealthSessionPrefs.h
 new file mode 100644
-index 00000000..0d1d7ae5
+index 0000000..0d1d7ae
 --- /dev/null
 +++ b/intl/locale/StealthSessionPrefs.h
 @@ -0,0 +1,52 @@
@@ -165,7 +165,7 @@ index 00000000..0d1d7ae5
 +
 +#endif  // mozilla_intl_StealthSessionPrefs_h__
 diff --git a/intl/locale/moz.build b/intl/locale/moz.build
-index 4d6ff042..7e753f0f 100644
+index 4d6ff04..7e753f0 100644
 --- a/intl/locale/moz.build
 +++ b/intl/locale/moz.build
 @@ -39,6 +39,7 @@ EXPORTS.mozilla.intl += [
@@ -185,7 +185,7 @@ index 4d6ff042..7e753f0f 100644
  
  MOZ_SRC_FILES += [
 diff --git a/intl/locale/nsLanguageAtomService.cpp b/intl/locale/nsLanguageAtomService.cpp
-index 1761b528..e35d7f7b 100644
+index 1761b52..e35d7f7 100644
 --- a/intl/locale/nsLanguageAtomService.cpp
 +++ b/intl/locale/nsLanguageAtomService.cpp
 @@ -7,6 +7,7 @@
