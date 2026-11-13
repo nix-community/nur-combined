@@ -9,8 +9,8 @@ mkSpicetifyExtension {
   src = fetchFromGitHub {
     owner = "jeroentvb";
     repo = "spicetify-playlist-icons";
-    rev = "dist";
-    hash = "sha256-hOkFIAperiWzfR+EVVAxEdta9LRndJbjritMj4I0gNw=";
+    rev = "6beb6c85f0c752f692f52a93f7c0f33b3b81a28a";
+    hash = "sha256-zmJWR1FeazFmM3qSa9L2tcU9RkdiGYpvoBbHFi+SRSI=";
   };
 
   name = "playlist-icons.js";
