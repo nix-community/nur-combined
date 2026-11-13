@@ -93,7 +93,7 @@ This repo is not limited to one packaging style. Examples worth following:
 
 Filtering behavior:
 
-- `meta.broken = true` -> excluded from CI builds
+- `meta.available = false` (broken, unsupported platform, or `knownVulnerabilities`) -> excluded from CI builds; reading `meta` never forces `drvPath`, so an unavailable package cannot abort evaluation
 - unfree licenses -> excluded from build/cache sets
 - `preferLocalBuild = true` -> buildable locally but excluded from cache set
 

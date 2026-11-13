@@ -18,7 +18,7 @@ This repository currently exports **27 packages**, **1 library helper**, and pla
 | `JMComic-qt` | Qt-based 禁漫天堂 / 18comic desktop client with Vulkan upscaling support |
 | `picacg-qt` | Qt-based PicACG desktop client with Vulkan upscaling support |
 | `LoveIwara` | Source-built Flutter desktop client for Iwara with libmpv playback |
-| `lightnovel-crawler` | Download light novels and generate e-books |
+| `lightnovel-crawler` | Download light novels and generate e-books (currently unavailable: its `python-jose` dependency carries CVE-2026-120459, so it is marked insecure and skipped by CI) |
 | `banguminet` | Third-party Bangumi (番組计划) desktop client built with .NET 10 |
 #### Streaming, networking, and developer tools
 

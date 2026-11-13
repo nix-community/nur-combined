@@ -239,5 +239,13 @@ python3Packages.buildPythonApplication rec {
     platforms = platforms.linux;
     sourceProvenance = with sourceTypes; [ fromSource ];
     mainProgram = "lncrawl";
+
+    # Upstream depends on python-jose (lncrawl/services/users.py: `from jose
+    # import jwt`) and python-jose >= 3.5.0 carries CVE-2026-120459 (HMAC
+    # authentication bypass with an empty key) with no fixed release and no
+    # commits upstream since 3.5.0. nixpkgs therefore marks the dependency
+    # insecure, which makes this package unavailable to evaluate; drop this
+    # marker once nixpkgs ships a fixed python-jose or lncrawl stops using it.
+    knownVulnerabilities = [ "CVE-2026-120459 (python-jose)" ];
   };
 }

@@ -19,7 +19,11 @@ let
     let
       licenses = p.meta.license or [ ];
     in
-    !(p.meta.broken or false) && lib.all (license: license.free or true) (lib.toList licenses);
+    # `meta.available` is false for everything nixpkgs refuses to provide:
+    # broken packages, unsupported platforms, and packages we or nixpkgs mark
+    # with `knownVulnerabilities`. Reading `meta` never forces `drvPath`, so
+    # such a package is dropped here instead of aborting evaluation.
+    (p.meta.available or true) && lib.all (license: license.free or true) (lib.toList licenses);
 
   isCacheable = p: !(p.preferLocalBuild or false);
 
