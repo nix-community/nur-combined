@@ -214,7 +214,16 @@ in
                 value: edge
                 effect: NoSchedule
             accesslog: true
-            # Non-root image: needs NET_BIND_SERVICE for host :80/:443.
+            # Non-root + NET_BIND_SERVICE does not work on this k3s/containerd:
+            # granted caps stay in the bounding set only (CapEff 0 for uid != 0),
+            # so the listener bind fails with EACCES. Run as root instead, with
+            # the container capability set still restricted to NET_BIND_SERVICE.
+            podSecurityContext:
+              runAsUser: 0
+              runAsGroup: 0
+              runAsNonRoot: false
+              seccompProfile:
+                type: RuntimeDefault
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:
