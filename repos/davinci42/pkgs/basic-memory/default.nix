@@ -9,6 +9,7 @@
   callPackage,
   python3,
   python3Packages,
+  withSemanticSearch ? false,
 }:
 let
   pythonPackages = python3Packages // callPackage ./dependencies.nix { };
@@ -52,6 +53,12 @@ pythonPackages.buildPythonApplication (finalAttrs: {
     "pyright"
     "pytest-aio"
     "pytest-asyncio"
+  ]
+  ++ lib.optionals (!withSemanticSearch) [
+    "fastembed"
+    "litellm"
+    "openai"
+    "sqlite-vec"
   ];
 
   dependencies =
@@ -65,12 +72,10 @@ pythonPackages.buildPythonApplication (finalAttrs: {
       dateparser
       fastapi
       fastapi-redis-sdk
-      fastembed
       fastmcp
       filelock
       greenlet
       httpx
-      litellm
       logfire
       loguru
       markdown-it-py
@@ -79,7 +84,6 @@ pythonPackages.buildPythonApplication (finalAttrs: {
       mdformat-frontmatter
       mdformat-gfm
       nest-asyncio
-      openai
       pathspec
       pillow
       psutil
@@ -93,12 +97,17 @@ pythonPackages.buildPythonApplication (finalAttrs: {
       rich
       sniffio
       sqlalchemy
-      sqlite-vec
       typer
       tzdata
       unidecode
       uvloop
       watchfiles
+    ]
+    ++ lib.optionals withSemanticSearch [
+      fastembed
+      litellm
+      openai
+      sqlite-vec
     ]
     ++ fastapi.optional-dependencies.standard
     ++ pydantic.optional-dependencies.email;
@@ -131,8 +140,13 @@ pythonPackages.buildPythonApplication (finalAttrs: {
         exec python3 pkgs/basic-memory/update.py "$@"
       '';
     });
-    tests.packaging = callPackage ../../tests/pkgs/basic-memory.nix {
-      package = finalAttrs.finalPackage;
+    tests = {
+      packaging = callPackage ../../tests/pkgs/basic-memory.nix {
+        package = finalAttrs.finalPackage;
+      };
+      semantic-dependencies = callPackage ./default.nix {
+        withSemanticSearch = true;
+      };
     };
   };
 

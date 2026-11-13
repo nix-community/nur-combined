@@ -22,10 +22,11 @@ Run `${package}/bin/basic-memory` with `mcp --project main --transport stdio`:
 
 Activate mutable notes links before starting MCP. Full-text search needs no API
 key. Writes are asynchronous: confirm file contents before committing to Git.
-Upstream removed `BASIC_MEMORY_SEMANTIC_SEARCH_ENABLED`: set
-`BASIC_MEMORY_DEFAULT_SEARCH_TYPE=text` and `HF_HUB_OFFLINE=1`, or omit
-`sqlite-vec` and embedding providers to keep search keyword-only without model
-downloads.
+`withSemanticSearch` defaults to `false`, omitting `fastembed`, `litellm`,
+`openai`, and `sqlite-vec` so keyword-only setups avoid embedding/vector
+dependencies and Hugging Face model downloads (`BASIC_MEMORY_DEFAULT_SEARCH_TYPE=text`,
+`HF_HUB_OFFLINE=1`). Override with `basic-memory.override { withSemanticSearch = true; }`
+when local/remote vector search is needed.
 
 ## Maintenance
 
