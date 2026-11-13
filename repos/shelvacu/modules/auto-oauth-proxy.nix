@@ -78,7 +78,7 @@ let
         default = { };
       };
       scopes = mkOption {
-        type = types.listOf (types.strMatching ''[a-zA-Z0-9_-]+'');
+        type = types.listOf (types.strMatching "[a-zA-Z0-9_-]+");
         default = [
           "openid"
           "email"

@@ -59,12 +59,14 @@
                 requests
               ]
             );
-        "general-env" = makePathFor (pkgs.makeVacuPythonScript {
-          name = "empty-script";
-          src = ''
-            print("hello")
-          '';
-        });
+        "general-env" = makePathFor (
+          pkgs.makeVacuPythonScript {
+            name = "empty-script";
+            src = ''
+              print("hello")
+            '';
+          }
+        );
       };
     };
 }

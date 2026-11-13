@@ -16,6 +16,28 @@ let
   # a plain exit code; the value itself is arbitrary.
   rebootExitStatus = 133;
 
+  # Guest xattrs are stored on the host under this prefix, so the guest can set
+  # security.*/trusted.*/etc. without them meaning anything to the host. Host
+  # xattrs outside the prefix are hidden from the guest.
+  defaultXattrMap = ":map::user.nested.:";
+
+  xattrOptions = defaultEnable: {
+    xattr = mkOption {
+      type = types.bool;
+      default = defaultEnable;
+      description = "Whether to enable extended attribute support.";
+    };
+    xattrMap = mkOption {
+      type = types.nullOr types.str;
+      default = defaultXattrMap;
+      description = ''
+        virtiofsd `--xattrmap` rules, used when `xattr` is enabled. The
+        default stores every guest xattr `foo` as `user.nested.foo` on the
+        host. `null` passes xattrs through unmapped.
+      '';
+    };
+  };
+
   # QEMU runs with -no-reboot (see the run script), so a guest reboot makes it
   # *exit* — with status 0, exactly like a guest poweroff does. The only thing
   # that tells the two apart is the QMP SHUTDOWN event's `reason`, which this
@@ -63,9 +85,10 @@ let
           type = types.listOf types.str;
           default = [ ];
           description = "Extra command-line arguments for this share's virtiofsd.";
-          example = [ "--xattr" ];
+          example = [ "--announce-submounts" ];
         };
-      };
+      }
+      // xattrOptions false;
     }
   );
 
@@ -183,6 +206,7 @@ let
           default = true;
           description = "Whether to start the VM automatically at boot.";
         };
+        rootfs = xattrOptions true;
         shares = mkOption {
           type = types.attrsOf shareSubmodule;
           default = { };
@@ -276,6 +300,7 @@ let
                   cache = "always";
                   readOnly = false;
                   extraArgs = [ ];
+                  inherit (vmCfg.rootfs) xattr xattrMap;
                 }
               ]
               ++ map (shareName: {
@@ -287,6 +312,8 @@ let
                   cache
                   readOnly
                   extraArgs
+                  xattr
+                  xattrMap
                   ;
               }) (lib.attrNames vmCfg.shares)
             );
@@ -332,6 +359,11 @@ let
                 s.cache
               ]
               ++ lib.optional s.readOnly "--readonly"
+              ++ lib.optional s.xattr "--xattr"
+              ++ lib.optionals (s.xattr && s.xattrMap != null) [
+                "--xattrmap"
+                s.xattrMap
+              ]
               ++ s.extraArgs
             );
             # virtiofsd has no sd_notify support, so Type=notify would hang
@@ -687,7 +719,20 @@ in
       # uplink the host's policy routing selects.
       config.networkConfig.IPv4Forwarding = true;
       config.networkConfig.IPv6Forwarding = true;
-      networks = vmNetworks;
+      networks = vmNetworks // {
+        # Without these, a stopped VM's addresses fall through to a broader
+        # route (e.g. the LAN) and the host bounces them with ICMP redirects.
+        "40-vacuvm-unreachable" = {
+          matchConfig.Name = "lo";
+          routes =
+            map
+              (dest: {
+                Destination = dest;
+                Type = "unreachable";
+              })
+              ([ "${netCfg.v4Prefix}.0/24" ] ++ lib.optional (netCfg.v4PublicRange != null) netCfg.v4PublicRange);
+        };
+      };
     };
 
     systemd.slices = vmSlices;

@@ -130,6 +130,13 @@ let
                 echo "read-only share was writable" >&2
                 exit 1
               fi
+              touch /var/lib/xattr-test
+              ${pkgs.attr}/bin/setfattr -n security.vacutest -v rootfs /var/lib/xattr-test
+              test "$(${pkgs.attr}/bin/getfattr --only-values -n security.vacutest /var/lib/xattr-test)" = rootfs
+              if ${pkgs.attr}/bin/setfattr -n user.vacutest -v x /mnt/data/read-from-ro; then
+                echo "xattrs worked on a share without xattr enabled" >&2
+                exit 1
+              fi
               echo ok > /mnt/data/guest-wrote
               ${pkgs.coreutils}/bin/sync
             '';
@@ -341,6 +348,10 @@ in
     host.wait_until_succeeds("test -e ${shareRwDir}/guest-wrote", timeout=600)
     host.succeed("grep -q hello-from-host ${shareRwDir}/read-from-ro")
     host.fail("test -e ${shareRoDir}/should-not-exist")
+    # rootfs xattrs are on by default and stored under the user.nested. prefix.
+    host.succeed(
+        "test \"$(${pkgs.attr}/bin/getfattr --only-values -n user.nested.security.vacutest /tmp/test-vm-root/var/lib/xattr-test)\" = rootfs"
+    )
 
     # Reboot. QEMU runs with -no-reboot (so an updated in-guest kernel is
     # actually picked up), meaning a guest reset makes it exit — with status 0,

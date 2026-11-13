@@ -14,24 +14,24 @@ in
 {
   options.data.nix.caches = mkOption {
     default = { };
-    type = types.attrsOf (types.submodule {
-      # modules = [
-      #   (pluralRename "key")
-      # ];
-      options = {
-        enable = mkOption {
-          default = true;
-          type = types.bool;
+    type = types.attrsOf (
+      types.submodule {
+        # modules = [
+        #   (pluralRename "key")
+        # ];
+        options = {
+          enable = mkOption {
+            default = true;
+            type = types.bool;
+          };
+          url = mkOption { type = vaculib.types.storeUrl; };
+          key = mkOption {
+            default = [ ];
+            type = vaculib.types.listOrSingle vaculib.types.nixPublicKey;
+          };
         };
-        url = mkOption {
-          type = vaculib.types.storeUrl;
-        };
-        key = mkOption {
-          default = [ ];
-          type = vaculib.types.listOrSingle vaculib.types.nixPublicKey;
-        };
-      };
-    });
+      }
+    );
   };
   config.data.nix.caches = {
     vacu = {

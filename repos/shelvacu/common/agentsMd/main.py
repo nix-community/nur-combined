@@ -48,7 +48,9 @@ try:
     try:
         os.setxattr(fd, XATTR, b"")
     except OSError as e:
-        die(f"Could not set xattr on {nixdata.dst_dir}/{tmp} (xattr not supported on fs?): {e}")
+        die(
+            f"Could not set xattr on {nixdata.dst_dir}/{tmp} (xattr not supported on fs?): {e}"
+        )
     os.write(fd, nixdata.contents.encode())
     os.fchmod(fd, 0o444)
     os.fsync(fd)

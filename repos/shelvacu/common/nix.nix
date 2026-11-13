@@ -14,10 +14,7 @@ let
   trustedKeys = builtins.concatMap (c: c.key) enabledCaches;
 
   nixPackage =
-    if _class == "nixos" || _class == "nixOnDroid" then
-      config.nix.package.out
-    else
-      pkgs.nix.out;
+    if _class == "nixos" || _class == "nixOnDroid" then config.nix.package.out else pkgs.nix.out;
 
   fmt = pkgs.formats.nixConf {
     package = nixPackage;
@@ -64,9 +61,7 @@ in
       };
     };
   options.vacu.nix = {
-    caches = mkOption {
-      type = vacuData.options.data.nix.caches.type;
-    };
+    caches = mkOption { type = vacuData.options.data.nix.caches.type; };
 
     settings = mkOption {
       # inherit (fmt) type;

@@ -33,13 +33,13 @@ def load_ppm16(path):
     fields = []
     pos = 0
     while len(fields) < 4:
-        while head[pos:pos + 1].isspace():
+        while head[pos : pos + 1].isspace():
             pos += 1
-        if head[pos:pos + 1] == b"#":
+        if head[pos : pos + 1] == b"#":
             pos = head.index(b"\n", pos)
             continue
         end = pos
-        while not head[end:end + 1].isspace():
+        while not head[end : end + 1].isspace():
             end += 1
         fields.append(head[pos:end])
         pos = end
@@ -60,7 +60,9 @@ def scan_geometry(meta, dpi):
     Reference scans are taken with --strip at left=0, top=0.
     """
     area = meta["area_mm"]
-    col0 = int((X_OFFSET_MM + area["left"]) * dpi / 25.4) - int(X_OFFSET_MM * dpi / 25.4)
+    col0 = int((X_OFFSET_MM + area["left"]) * dpi / 25.4) - int(
+        X_OFFSET_MM * dpi / 25.4
+    )
     y0 = (0.0 if meta.get("strip") else Y_OFFSET_MM) + area["top"]
     return col0, y0
 
@@ -87,7 +89,9 @@ class TiffWriter:
         self.w, self.h, self.dpi = width, height, dpi
         self.size = width * height * 6
         if self.size + 1024 >= 2**32:
-            sys.exit("output is too large for a classic TIFF (4 GiB); scan a smaller area")
+            sys.exit(
+                "output is too large for a classic TIFF (4 GiB); scan a smaller area"
+            )
         self.ifd = 8 + self.size + (self.size & 1)
         self.f = open(path, "wb")
         self.f.write(b"II*\0" + struct.pack("<I", self.ifd))
@@ -102,15 +106,28 @@ class TiffWriter:
         extra = self.ifd + 2 + n * 12 + 4
         bps, xres, yres = extra, extra + 6, extra + 14
         entries = [
-            (256, 4, 1, self.w), (257, 4, 1, self.h), (258, 3, 3, bps), (259, 3, 1, 1),
-            (262, 3, 1, 2), (273, 4, 1, 8), (277, 3, 1, 3), (278, 4, 1, self.h),
-            (279, 4, 1, self.size), (282, 5, 1, xres), (283, 5, 1, yres), (284, 3, 1, 1),
+            (256, 4, 1, self.w),
+            (257, 4, 1, self.h),
+            (258, 3, 3, bps),
+            (259, 3, 1, 1),
+            (262, 3, 1, 2),
+            (273, 4, 1, 8),
+            (277, 3, 1, 3),
+            (278, 4, 1, self.h),
+            (279, 4, 1, self.size),
+            (282, 5, 1, xres),
+            (283, 5, 1, yres),
+            (284, 3, 1, 1),
             (296, 3, 1, 2),
         ]
         assert len(entries) == n
         out = struct.pack("<H", n)
         for tag, typ, count, value in entries:
-            val = struct.pack("<HH", value, 0) if typ == 3 and count == 1 else struct.pack("<I", value)
+            val = (
+                struct.pack("<HH", value, 0)
+                if typ == 3 and count == 1
+                else struct.pack("<I", value)
+            )
             out += struct.pack("<HHI", tag, typ, count) + val
         out += struct.pack("<I", 0)
         out += struct.pack("<HHH", 16, 16, 16) + struct.pack("<II", self.dpi, 1) * 2
@@ -119,29 +136,59 @@ class TiffWriter:
 
 
 def main():
-    ap = argparse.ArgumentParser(description=__doc__,
-                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("scan", help="scan prefix (PREFIX.ppm and PREFIX.json from scan-raw-8400f)")
+    ap = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    ap.add_argument(
+        "scan", help="scan prefix (PREFIX.ppm and PREFIX.json from scan-raw-8400f)"
+    )
     ap.add_argument("output", help="output TIFF path")
-    ap.add_argument("--ref", required=True, help="reference .npz for this dpi and these settings")
-    ap.add_argument("--dark", metavar="PREFIX",
-                    help="dark frame (scan-raw-8400f --dark at the same settings) to use instead "
-                    "of the reference's; the black level drifts, so use one from the same session")
-    ap.add_argument("--side-strip", metavar="X0-X1",
-                    help="x range in mm (as scan-raw-8400f -l counts it) of a white strip on the "
-                    "glass; each row is scaled so the strip reads --strip-white")
-    ap.add_argument("--side-strip-y", metavar="Y0-Y1",
-                    help="y range in mm from the head's home (the white calibration strip is at "
-                    "0-4 mm, the glass about 16-309 mm) that the side strip covers; rows outside "
-                    "it reuse the nearest covered row's level (default: the whole glass)")
-    ap.add_argument("--strip-white", type=float, default=1.0,
-                    help="the side strip's whiteness relative to the reference paper (default 1.0)")
-    ap.add_argument("--strip-smooth", type=float, default=5.0, metavar="MM",
-                    help="average the side strip over this many mm along y (default 5)")
-    ap.add_argument("--white", type=float, default=50000,
-                    help="output value for the reference paper's white (default 50000)")
-    ap.add_argument("--force", action="store_true",
-                    help="use the reference even if its settings differ from the scan's")
+    ap.add_argument(
+        "--ref", required=True, help="reference .npz for this dpi and these settings"
+    )
+    ap.add_argument(
+        "--dark",
+        metavar="PREFIX",
+        help="dark frame (scan-raw-8400f --dark at the same settings) to use instead "
+        "of the reference's; the black level drifts, so use one from the same session",
+    )
+    ap.add_argument(
+        "--side-strip",
+        metavar="X0-X1",
+        help="x range in mm (as scan-raw-8400f -l counts it) of a white strip on the "
+        "glass; each row is scaled so the strip reads --strip-white",
+    )
+    ap.add_argument(
+        "--side-strip-y",
+        metavar="Y0-Y1",
+        help="y range in mm from the head's home (the white calibration strip is at "
+        "0-4 mm, the glass about 16-309 mm) that the side strip covers; rows outside "
+        "it reuse the nearest covered row's level (default: the whole glass)",
+    )
+    ap.add_argument(
+        "--strip-white",
+        type=float,
+        default=1.0,
+        help="the side strip's whiteness relative to the reference paper (default 1.0)",
+    )
+    ap.add_argument(
+        "--strip-smooth",
+        type=float,
+        default=5.0,
+        metavar="MM",
+        help="average the side strip over this many mm along y (default 5)",
+    )
+    ap.add_argument(
+        "--white",
+        type=float,
+        default=50000,
+        help="output value for the reference paper's white (default 50000)",
+    )
+    ap.add_argument(
+        "--force",
+        action="store_true",
+        help="use the reference even if its settings differ from the scan's",
+    )
     args = ap.parse_args()
 
     meta = json.load(open(args.scan + ".json"))
@@ -161,24 +208,31 @@ def main():
     col0, y0 = scan_geometry(meta, dpi)
     ref_w = ref["P"].shape[0]
     if col0 < 0 or col0 + w > ref_w:
-        sys.exit(f"scan columns {col0}..{col0 + w} fall outside the reference's 0..{ref_w}")
+        sys.exit(
+            f"scan columns {col0}..{col0 + w} fall outside the reference's 0..{ref_w}"
+        )
     cols = slice(col0, col0 + w)
     xs_mm = (np.arange(col0, col0 + w) + 0.5) / dpi * 25.4
     ys_mm = y0 + (np.arange(h) + 0.5) / dpi * 25.4
     if min(ys_mm[-1], GLASS_Y_MM[1]) > ref["y_c"][-1] + 2.5:
-        print(f"warning: scan extends to {ys_mm[-1]:.0f} mm, the reference only to "
-              f"{ref['y_c'][-1] + 2.5:.0f} mm; the last row of the reference is reused", file=sys.stderr)
+        print(
+            f"warning: scan extends to {ys_mm[-1]:.0f} mm, the reference only to "
+            f"{ref['y_c'][-1] + 2.5:.0f} mm; the last row of the reference is reused",
+            file=sys.stderr,
+        )
 
     if args.dark:
         dmeta = json.load(open(args.dark + ".json"))
         if not dmeta.get("dark"):
             sys.exit(f"{args.dark} is not a dark frame")
         if settings_of(dmeta) != ref_settings and not args.force:
-            sys.exit(f"dark frame settings {settings_of(dmeta)} differ from the reference's")
+            sys.exit(
+                f"dark frame settings {settings_of(dmeta)} differ from the reference's"
+            )
         dimg = load_ppm16(args.dark + ".ppm")
         dcol0, _ = scan_geometry(dmeta, dpi)
         D = np.full((ref_w, 3), np.nan, np.float32)
-        D[dcol0:dcol0 + dimg.shape[1]] = dimg[::4].astype(np.float32).mean(axis=0)
+        D[dcol0 : dcol0 + dimg.shape[1]] = dimg[::4].astype(np.float32).mean(axis=0)
         D = D[cols]
         if np.isnan(D).any():
             sys.exit("the dark frame doesn't cover all of the scan's columns")
@@ -201,8 +255,12 @@ def main():
         if len(sel) < 3:
             sys.exit(f"side strip {a}-{b} mm isn't within the scan's columns")
         sel = slice(sel[0], sel[-1] + 1)
-        level = np.concatenate([corrected(r0, min(h, r0 + CHUNK_ROWS), sel).mean(axis=1)
-                                for r0 in range(0, h, CHUNK_ROWS)])
+        level = np.concatenate(
+            [
+                corrected(r0, min(h, r0 + CHUNK_ROWS), sel).mean(axis=1)
+                for r0 in range(0, h, CHUNK_ROWS)
+            ]
+        )
         # only rows where the strip lies on the glass see it; other rows reuse the nearest such row's level
         y_lo, y_hi = GLASS_Y_MM
         if args.side_strip_y:
@@ -210,18 +268,26 @@ def main():
             y_lo, y_hi = max(y_lo, sy0), min(y_hi, sy1)
         on = np.where((ys_mm >= y_lo) & (ys_mm <= y_hi))[0]
         if len(on) == 0:
-            sys.exit(f"the scan has no rows where the side strip lies on the glass ({y_lo:.0f}-{y_hi:.0f} mm)")
-        level = level[on[0]:on[-1] + 1]
+            sys.exit(
+                f"the scan has no rows where the side strip lies on the glass ({y_lo:.0f}-{y_hi:.0f} mm)"
+            )
+        level = level[on[0] : on[-1] + 1]
         k = max(1, int(round(args.strip_smooth / 25.4 * dpi)))
         pad = np.pad(level, ((k // 2, k - 1 - k // 2), (0, 0)), mode="edge")
         csum = np.cumsum(np.vstack([np.zeros((1, 3)), pad]), axis=0)
         smooth = (csum[k:] - csum[:-k]) / k
         smooth = np.pad(smooth, ((on[0], h - 1 - on[-1]), (0, 0)), mode="edge")
         rowscale = (smooth / args.strip_white).astype(np.float32)
-        strip_info = {"x_mm": [a, b], "y_mm": [round(float(y_lo), 1), round(float(y_hi), 1)], "level_min": smooth.min(axis=0).round(4).tolist(),
-                      "level_max": smooth.max(axis=0).round(4).tolist()}
-        print(f"side strip {a}-{b} mm: corrected level per row R/G/B ranges "
-              f"{strip_info['level_min']} .. {strip_info['level_max']}")
+        strip_info = {
+            "x_mm": [a, b],
+            "y_mm": [round(float(y_lo), 1), round(float(y_hi), 1)],
+            "level_min": smooth.min(axis=0).round(4).tolist(),
+            "level_max": smooth.max(axis=0).round(4).tolist(),
+        }
+        print(
+            f"side strip {a}-{b} mm: corrected level per row R/G/B ranges "
+            f"{strip_info['level_min']} .. {strip_info['level_max']}"
+        )
 
     out = TiffWriter(args.output, w, h, dpi)
     clipped_lo = clipped_hi = 0
@@ -236,15 +302,24 @@ def main():
         out.write_rows(np.clip(np.rint(v), 0, 65535).astype(np.uint16))
     out.close()
 
-    info = {"scan": os.path.abspath(args.scan), "ref": os.path.abspath(args.ref),
-            "dark": os.path.abspath(args.dark) if args.dark else "reference", "white": args.white,
-            "side_strip": strip_info, "clipped_low_on_glass": clipped_lo, "clipped_high_on_glass": clipped_hi,
-            "settings": ref_settings, "size_px": [w, h]}
+    info = {
+        "scan": os.path.abspath(args.scan),
+        "ref": os.path.abspath(args.ref),
+        "dark": os.path.abspath(args.dark) if args.dark else "reference",
+        "white": args.white,
+        "side_strip": strip_info,
+        "clipped_low_on_glass": clipped_lo,
+        "clipped_high_on_glass": clipped_hi,
+        "settings": ref_settings,
+        "size_px": [w, h],
+    }
     with open(os.path.splitext(args.output)[0] + ".json", "w") as f:
         json.dump(info, f, indent=2)
         f.write("\n")
-    print(f"{args.output}: {w}x{h} px, white = {args.white:.0f}; on the glass, "
-          f"{clipped_lo} samples clipped at 0 and {clipped_hi} at 65535")
+    print(
+        f"{args.output}: {w}x{h} px, white = {args.white:.0f}; on the glass, "
+        f"{clipped_lo} samples clipped at 0 and {clipped_hi} at 65535"
+    )
 
 
 if __name__ == "__main__":

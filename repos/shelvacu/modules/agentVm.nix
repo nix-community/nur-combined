@@ -44,10 +44,13 @@
 
       ## general info
 
-      ${{
-        vacu-agent-vm = ''me/us = shelvacu, I'm your operator. Sometimes things say "us" because they were written to be used in multiple places'';
-        savm = "your operators are shelvacu (aka shelly, @s:sv.mt) and javi (aka java, java-coffee, @javacoffee:matrix.org)";
-      }.${config.vacu.hostName}}
+      ${
+        {
+          vacu-agent-vm = ''me/us = shelvacu, I'm your operator. Sometimes things say "us" because they were written to be used in multiple places'';
+          savm = "your operators are shelvacu (aka shelly, @s:sv.mt) and javi (aka java, java-coffee, @javacoffee:matrix.org)";
+        }
+        .${config.vacu.hostName}
+      }
 
       you're on nixos, you have sudo, this VM is just for you
 

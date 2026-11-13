@@ -44,14 +44,12 @@ let
       throw ''"stack overflow": ${escapeNixPath path}''
     else if builtins.isAttrs val && !(val ? _type) then
       lib.pipe val [
-        (builtins.mapAttrs (k: v:
+        (builtins.mapAttrs (
+          k: v:
           let
             subPath = path ++ [ k ];
           in
-          if k == "_tests" then
-            allGood subPath v
-          else
-            recurseAllTests subPath v
+          if k == "_tests" then allGood subPath v else recurseAllTests subPath v
         ))
         builtins.attrValues
         allId

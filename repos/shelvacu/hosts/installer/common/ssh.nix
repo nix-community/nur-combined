@@ -1,9 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}:
-{
+{ lib, pkgs, ... }: {
   services.openssh.generateHostKeys = false;
   services.openssh.hostKeys = lib.mkForce [
     {

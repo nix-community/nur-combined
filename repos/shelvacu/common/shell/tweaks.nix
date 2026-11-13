@@ -129,14 +129,20 @@ let
     xtrace = null;
     # keep-sorted end
   };
-  mkLines = opts: f: lib.pipe opts [
-    (lib.filterAttrs (_: val: val != null))
-    (lib.mapAttrsToList f)
-    (map (s: s + "\n"))
-    (lib.concatStrings)
-  ];
-  shoptLines = mkLines shopts (name: val: "shopt ${if val then "-s" else "-u"} ${lib.escapeShellArg name}");
-  setLines = mkLines setOpts (name: val: "set ${if val then "-o" else "+o"} ${lib.escapeShellArg name}"); 
+  mkLines =
+    opts: f:
+    lib.pipe opts [
+      (lib.filterAttrs (_: val: val != null))
+      (lib.mapAttrsToList f)
+      (map (s: s + "\n"))
+      (lib.concatStrings)
+    ];
+  shoptLines = mkLines shopts (
+    name: val: "shopt ${if val then "-s" else "-u"} ${lib.escapeShellArg name}"
+  );
+  setLines = mkLines setOpts (
+    name: val: "set ${if val then "-o" else "+o"} ${lib.escapeShellArg name}"
+  );
 in
 {
   vacu.shell.idempotentShellLines = shoptLines + setLines;

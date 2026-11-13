@@ -10,28 +10,31 @@ declare -a classpath=()
 declare -a java_options=()
 main_class=""
 
-while IFS= read -r line || [[ -n "$line" ]]; do
+while IFS= read -r line || [[ -n $line ]]; do
   case "$line" in
-    app.classpath=*)
-      value="${line#app.classpath=}"
-      classpath+=("${value//\$APPDIR/$app_dir}")
-      ;;
-    app.mainclass=*)
-      main_class="${line#app.mainclass=}"
-      ;;
-    java-options=*)
-      value="${line#java-options=}"
-      java_options+=("${value//\$APPDIR/$app_dir}")
-      ;;
+  app.classpath=*)
+    value="${line#app.classpath=}"
+    classpath+=("${value//\$APPDIR/$app_dir}")
+    ;;
+  app.mainclass=*)
+    main_class="${line#app.mainclass=}"
+    ;;
+  java-options=*)
+    value="${line#java-options=}"
+    java_options+=("${value//\$APPDIR/$app_dir}")
+    ;;
   esac
-done < "$config"
+done <"$config"
 
-if [[ -z "$main_class" || ${#classpath[@]} -eq 0 ]]; then
+if [[ -z $main_class || ${#classpath[@]} -eq 0 ]]; then
   echo "Invalid jpackage configuration: $config" >&2
   exit 1
 fi
 
-classpath_string="$(IFS=:; echo "${classpath[*]}")"
+classpath_string="$(
+  IFS=:
+  echo "${classpath[*]}"
+)"
 
 exec @java@ \
   "${java_options[@]}" \

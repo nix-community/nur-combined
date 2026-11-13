@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   services.printing = {
     enable = true;
     drivers = [ pkgs.cups-dymo ];
@@ -9,7 +8,10 @@
   };
 
   services.ipp-usb.enable = true;
-  services.avahi = { enable = true; nssmdns4 = true; };
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+  };
 
   hardware.sane.enable = true;
 }

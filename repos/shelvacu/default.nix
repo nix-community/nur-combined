@@ -29,8 +29,6 @@ pkgs
 // {
   nixpkgs-update =
     { ... }@args:
-    import "${pkgs.path}/maintainers/scripts/update.nix" (
-      { include-overlays = overlays; } // args
-    );
+    import "${pkgs.path}/maintainers/scripts/update.nix" ({ include-overlays = overlays; } // args);
   inherit flake;
 }

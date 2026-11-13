@@ -17,18 +17,25 @@ let
   set_inverted_color = colornum: ''\[\e[1;37;${toString (colornum + 10)}m\]'';
   reset_color = ''\[\e[0m\]'';
   colornum = colors.${cfg.color};
-  user_text = user:
+  user_text =
+    user:
     {
       root = "ROOT@";
       notMe = "$USER@";
       unknown = "?@";
       me = "";
-    }.${user};
+    }
+    .${user};
   final = user: if user == "root" then (set_inverted_color colors.red) + "!!" else "$";
   hostName = if config.vacu.shortHostName == null then ''\h'' else config.vacu.shortHostName;
   default_ps1 =
     user:
-    assert builtins.elem user [ "root" "me" "notMe" "unknown" ];
+    assert builtins.elem user [
+      "root"
+      "me"
+      "notMe"
+      "unknown"
+    ];
     ""
     + ''\n''
     # + ''\[${reset_without_clear}\]''

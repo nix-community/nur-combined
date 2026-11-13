@@ -1,6 +1,5 @@
 # Shared by vavm (caddy, oauth2-proxy) and prophecy (kanidm).
-{ lib, vacuRoot, ... }:
-{
+{ lib, vacuRoot, ... }: {
   imports = [ ./auto-oauth-proxy.nix ];
   vacu.oauthProxy.instances.tpictures = {
     appDomain = "tpictures.shelvacu.com";

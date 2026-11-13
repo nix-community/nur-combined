@@ -20,6 +20,9 @@ let
     qemu-vm = {
       isExistingHost = false;
     };
+    vacuvm-virtiofs = {
+      isExistingHost = false;
+    };
   };
 in
 {

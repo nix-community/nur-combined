@@ -1,9 +1,4 @@
-{
-  vaculib,
-  vacuModules,
-  ...
-}:
-{
+{ vaculib, vacuModules, ... }: {
   imports = [ vacuModules.agentVm ] ++ vaculib.directoryGrabberList ./.;
 
   vacu.hostName = "savm";

@@ -55,6 +55,10 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     impermanence.url = "github:nix-community/impermanence";
+    javi-wallpapers = {
+      url = "git+ssh://git@github.com/Java-Coffee1/wallpaper.git";
+      flake = false;
+    };
     jovian-unstable = {
       # there is no stable jovian :cry:
       url = "github:Jovian-Experiments/Jovian-NixOS";
@@ -118,10 +122,6 @@
       url = "git+https://git.uninsane.org/shelvacu/keys.nix.git";
       flake = false;
     };
-    javi-wallpapers = {
-      url = "git+ssh://git@github.com/Java-Coffee1/wallpaper.git";
-      flake = false;
-    };
     # keep-sorted end
   };
 
@@ -165,9 +165,7 @@
               /${vacuRoot}/data
               /${vacuRoot}/common-nopkgs
             ];
-            specialArgs = {
-              inherit vaculib vacuData;
-            };
+            specialArgs = { inherit vaculib vacuData; };
             class = "vacuData";
           };
         in

@@ -1,8 +1,4 @@
-{
-  lib,
-  config,
-  ...
-}:
+{ lib, config, ... }:
 let
   inherit (lib) mkOption types;
   cfg = config.vacu.pbx;
@@ -20,8 +16,7 @@ in
       '';
       type = types.attrsOf (
         types.submodule (
-          { name, ... }:
-          {
+          { name, ... }: {
             options = {
               prefix = mkOption {
                 type = types.strMatching "10[0-9]";

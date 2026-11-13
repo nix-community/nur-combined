@@ -77,13 +77,13 @@ in
     mail.A = doA;
     "mailjet._2a63b1df".TXT = s "2a63b1df1ccb26117f3c73439791a27e";
     matrix-rtc.A = propA;
-    matrix.A = propA;
     matrix-test.NS = [
       "pns51.cloudns.net."
       "pns52.cloudns.net."
       "pns53.cloudns.net."
       "pns54.cloudns.net."
     ];
+    matrix.A = propA;
     mc.SRV = [
       {
         service = "minecraft";
@@ -99,8 +99,8 @@ in
     ns2 = host cloudns.pns52.ipv4 cloudns.pns52.ipv6;
     ns3 = host cloudns.pns53.ipv4 cloudns.pns53.ipv6;
     ns4 = host cloudns.pns54.ipv4 cloudns.pns54.ipv6;
-    powerhouse.CNAME = s "powerhouse.dyn.74358228.xyz.";
     pbx = host "205.201.63.134" "2602:fce8:106:10::6";
+    powerhouse.CNAME = s "powerhouse.dyn.74358228.xyz.";
     prop.CNAME = s "prophecy";
     prophecy.A = propA;
     prophecy.subdomains."*".A = propA;

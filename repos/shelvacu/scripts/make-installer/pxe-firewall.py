@@ -62,22 +62,33 @@ def change(action, backend, tag, port):
             run("iptables", "-w", "-N", chain)
             for protocol, ports in [("udp", "67,69,4011"), ("tcp", str(port))]:
                 run(
-                    "iptables", "-w", "-A", chain,
-                    "-p", protocol, "-m", "multiport", "--dports", ports,
-                    "-j", "ACCEPT",
+                    "iptables",
+                    "-w",
+                    "-A",
+                    chain,
+                    "-p",
+                    protocol,
+                    "-m",
+                    "multiport",
+                    "--dports",
+                    ports,
+                    "-j",
+                    "ACCEPT",
                 )
             run("iptables", "-w", "-I", *jump)
         else:
             if (
                 subprocess.run(
                     ["iptables", "-w", "-C", *jump], capture_output=True
-                ).returncode == 0
+                ).returncode
+                == 0
             ):
                 run("iptables", "-w", "-D", *jump)
             if (
                 subprocess.run(
                     ["iptables", "-w", "-S", chain], capture_output=True
-                ).returncode == 0
+                ).returncode
+                == 0
             ):
                 run("iptables", "-w", "-F", chain)
                 run("iptables", "-w", "-X", chain)

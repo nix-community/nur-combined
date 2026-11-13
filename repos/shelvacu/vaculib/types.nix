@@ -1,8 +1,7 @@
 { lib, ... }:
 let
   typeMatches =
-    type:
-    value:
+    type: value:
     let
       eval = lib.evalModules {
         modules = [
@@ -25,7 +24,7 @@ rec {
       name = "vaculib.storeUrl";
       description = "nix store URL";
     };
-    nixPublicKey = (lib.types.strMatching ''[^:]+:[a-zA-Z0-9+/]+={0,3}'') // {
+    nixPublicKey = (lib.types.strMatching "[^:]+:[a-zA-Z0-9+/]+={0,3}") // {
       name = "vaculib.nixPublicKey";
       description = "nix public key";
     };
@@ -33,15 +32,15 @@ rec {
 
     listOrSingle =
       elemType:
-      lib.throwIf
-        (elemType.check [ ])
+      lib.throwIf (elemType.check [ ])
         "vaculib.listOrSingle cannot be used with type ${elemType.name} because ${elemType.name} accepts a list"
-        (lib.types.coercedTo elemType (x: [ x ]) (lib.types.listOf elemType)) // {
-          name = "vaculib.listOrSingle";
-          description = "list of, or a single ${
-           lib.types.optionDescriptionPhrase (class: class == "noun" || class == "composite") elemType
-          }";
-        };
+        (lib.types.coercedTo elemType (x: [ x ]) (lib.types.listOf elemType))
+      // {
+        name = "vaculib.listOrSingle";
+        description = "list of, or a single ${
+          lib.types.optionDescriptionPhrase (class: class == "noun" || class == "composite") elemType
+        }";
+      };
     _tests.listOrSingle = {
       element = typeMatches (types.listOrSingle lib.types.str) "hello";
       empty = typeMatches (types.listOrSingle lib.types.str) [ ];

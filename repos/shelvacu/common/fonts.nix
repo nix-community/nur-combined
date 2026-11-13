@@ -17,9 +17,9 @@ in
 lib.optionalAttrs (vacuModuleType == "nixos") {
   imports = [
     {
-      config.vacu.fontPackages = lib.optionalAttrs isStable (lib.mapAttrs (_: oldName:
-        { package = pkgs.${oldName}; }
-      ) renames);
+      config.vacu.fontPackages = lib.optionalAttrs isStable (
+        lib.mapAttrs (_: oldName: { package = pkgs.${oldName}; }) renames
+      );
     }
   ];
   # result of `nix-locate --at-root --minimal /share/fonts | sed -e 's/\.out//'`

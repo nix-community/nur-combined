@@ -1,14 +1,13 @@
-{ vaculib, ... }:
-{
+{ vaculib, ... }: {
   _class = "vacuData";
-  
+
   imports = vaculib.directoryGrabberList ./.;
 
   options.data.mtu = vaculib.mkOutOptions rec {
     t2dWanEth = 1500;
     t2dWanV4 = t2dWanEth - 8;
     t2dWavV6 = 1280;
-    wgDoof = 
+    wgDoof =
       # in theory it should be
       #   let
       #     ipv4Header = 20;

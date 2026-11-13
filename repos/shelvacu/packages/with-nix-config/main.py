@@ -8,8 +8,10 @@ from scriptipy import run
 
 _T_contra = typing.TypeVar("_T_contra", contravariant=True)
 
+
 class SupportsWrite(typing.Protocol[_T_contra]):
     def write(self, s: _T_contra, /) -> object: ...
+
 
 @dataclasses.dataclass(frozen=True, kw_only=True)
 class Builder:
@@ -28,7 +30,9 @@ class Builder:
         return (self.name, *self.aliases)
 
     def serialize(self) -> str:
-        components_diverse: list[str | Path | list[str] | tuple[str, ...] | int | float | None] = [
+        components_diverse: list[
+            str | Path | list[str] | tuple[str, ...] | int | float | None
+        ] = [
             self.store_path,
             self.system_types,
             self.identity_file,
@@ -39,7 +43,9 @@ class Builder:
             self.host_key,
         ]
 
-        def conv(el: str | Path | list[str] | tuple[str, ...] | int | float | None) -> str:
+        def conv(
+            el: str | Path | list[str] | tuple[str, ...] | int | float | None,
+        ) -> str:
             if el is None:
                 return "-"
             if isinstance(el, (Path, int, float)):
@@ -56,7 +62,7 @@ class Builder:
         return " ".join(components)
 
 
-BUILDERS:typing.Final[tuple[Builder, ...]] = (
+BUILDERS: typing.Final[tuple[Builder, ...]] = (
     Builder(
         name="prophecy",
         aliases=("prop",),
@@ -76,6 +82,7 @@ BUILDERS:typing.Final[tuple[Builder, ...]] = (
 
 PROGRAM_NAME: typing.Final[str] = "with-nix-config"
 
+
 def warn_print(
     first_arg: object,
     *args: object,
@@ -90,6 +97,7 @@ def warn_print(
         end=end,
         file=file,
     )
+
 
 parser = argparse.ArgumentParser(
     prog=PROGRAM_NAME,
@@ -142,7 +150,7 @@ parser.add_argument(
     nargs=2,
     dest="extra_options",
     default=[],
-    metavar=("KEY","VALUE"),
+    metavar=("KEY", "VALUE"),
     help="set an arbitrary option; `KEY = VALUE` is appended to NIX_CONFIG. can be specified multiple times",
 )
 for b in BUILDERS:
@@ -175,13 +183,15 @@ if not args.command:
 if args.self_builder and args.no_local:
     parser.error("--self-builder and --no-local can't be used together")
 
-verbose:bool = args.verbose
+verbose: bool = args.verbose
 
-HOSTNAME = os.environ.get("HOSTNAME","")
+HOSTNAME = os.environ.get("HOSTNAME", "")
 
 for b in BUILDERS:
     if getattr(args, b.name) and HOSTNAME == b.name:
-        base_msg = f"specified to build on remote builder {b.name}, but we are on {b.name}"
+        base_msg = (
+            f"specified to build on remote builder {b.name}, but we are on {b.name}"
+        )
         if args.no_local:
             parser.error(f"{base_msg}, and --no-local was specified")
         else:
@@ -198,7 +208,7 @@ builders_list: list[Builder] = []
 
 for b in BUILDERS:
     if getattr(args, b.name):
-        overrides:dict[str, typing.Any] = {}
+        overrides: dict[str, typing.Any] = {}
         for attr in ("jobs", "speed_factor"):
             arg = getattr(args, f"{b.name}_{attr}")
             if arg is not None:
@@ -207,14 +217,27 @@ for b in BUILDERS:
 
 if args.self_builder:
     new_config.append(("max-jobs", "0"))
-    old_config_full = run("nix", "--extra-experimental-features", "nix-command", "config", "show", "--json").json().must_succeed()
-    old_config:dict[str, typing.Any] = {name: data["value"] for (name, data) in old_config_full.items()}
-    system:str = old_config["system"]
-    extra_platforms:list[str] = old_config["extra-platforms"]
-    jobs:int = old_config["max-jobs"]
+    old_config_full = (
+        run(
+            "nix",
+            "--extra-experimental-features",
+            "nix-command",
+            "config",
+            "show",
+            "--json",
+        )
+        .json()
+        .must_succeed()
+    )
+    old_config: dict[str, typing.Any] = {
+        name: data["value"] for (name, data) in old_config_full.items()
+    }
+    system: str = old_config["system"]
+    extra_platforms: list[str] = old_config["extra-platforms"]
+    jobs: int = old_config["max-jobs"]
     if args.self_builder_jobs is not None:
         jobs = args.self_builder_jobs
-    system_features:list[str] = old_config["system-features"]
+    system_features: list[str] = old_config["system-features"]
     builders_list.append(
         Builder(
             name=HOSTNAME,
@@ -255,11 +278,16 @@ if len(new_config) > 0:
 
     additional_config = "\n".join(f"{k} = {v}" for (k, v) in new_config)
     if verbose:
-        print(f"{PROGRAM_NAME}: NIX_CONFIG +=\n{additional_config}\n\n", file=sys.stderr)
+        print(
+            f"{PROGRAM_NAME}: NIX_CONFIG +=\n{additional_config}\n\n", file=sys.stderr
+        )
 
     val += additional_config
     new_environ["NIX_CONFIG"] = val
 else:
-    print(f"{PROGRAM_NAME}: warning: no nix config applied (NIX_CONFIG unchanged)", file=sys.stderr)
+    print(
+        f"{PROGRAM_NAME}: warning: no nix config applied (NIX_CONFIG unchanged)",
+        file=sys.stderr,
+    )
 
 os.execvpe(args.command[0], args.command, new_environ)

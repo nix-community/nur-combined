@@ -39,37 +39,42 @@ type JsonValue = _JsonPlainValue | list[JsonValue] | dict[str, JsonValue]
 type ToJsonValue = _JsonPlainValue | Collection[ToJsonValue] | Mapping[str, ToJsonValue]
 
 
-def _type_assert(a:JsonValue) -> ToJsonValue: # pyright: ignore[reportUnusedFunction]
+def _type_assert(a: JsonValue) -> ToJsonValue:  # pyright: ignore[reportUnusedFunction]
     return a
 
-def from_json(data: str|bytes|bytearray, /, empty_okay:bool=False) -> JsonValue:
+
+def from_json(data: str | bytes | bytearray, /, empty_okay: bool = False) -> JsonValue:
     if empty_okay and len(data) == 0:
         return None
     return json.loads(data)
+
 
 class MorallyCorrectJsonEncoder(json.JSONEncoder):
     def default(self, o: object) -> object:
         if isinstance(o, (str, int, float, bool)) or o is None:
             return o
         elif isinstance(o, Mapping):
-            return dict(**o) # pyright: ignore[reportUnknownVariableType,reportUnknownArgumentType]
+            return dict(
+                **o
+            )  # pyright: ignore[reportUnknownVariableType,reportUnknownArgumentType]
         elif isinstance(o, Collection):
-            return list(*o) # pyright: ignore[reportUnknownVariableType]
+            return list(*o)  # pyright: ignore[reportUnknownVariableType]
         else:
             return super().default(o)
+
 
 def to_json(
     obj: ToJsonValue,
     /,
     # no skipkeys
-    ensure_ascii:bool = True,
-    check_circular:bool = True,
-    allow_nan:Literal[False] = False,
+    ensure_ascii: bool = True,
+    check_circular: bool = True,
+    allow_nan: Literal[False] = False,
     # no cls
-    indent:int|str|None = None,
-    separators:tuple[Literal[',',', '], Literal[':',': ']]|None = None,
-    default:None = None,
-    sort_keys:bool = False,
+    indent: int | str | None = None,
+    separators: tuple[Literal[",", ", "], Literal[":", ": "]] | None = None,
+    default: None = None,
+    sort_keys: bool = False,
 ) -> str:
     return json.dumps(
         obj,
@@ -83,16 +88,16 @@ def to_json(
     )
 
 
-def die(first_arg: object, /, *args:object) -> NoReturn:
+def die(first_arg: object, /, *args: object) -> NoReturn:
     eprint("FATAL:", first_arg, *args)
     sys.exit(1)
 
 
 def eprint(
-    *args:object,
-    sep:str|None=' ',
-    end:str|None='\n',
-    flush:bool=True,
+    *args: object,
+    sep: str | None = " ",
+    end: str | None = "\n",
+    flush: bool = True,
 ) -> None:
     print(*args, sep=sep, end=end, file=sys.stderr, flush=flush)
 
@@ -119,8 +124,8 @@ class ProcessResult[T]:
 
 
 def run(
-        *cmd: str | bytes | PathLike[str] | PathLike[bytes],
-        verbose:bool=True,
+    *cmd: str | bytes | PathLike[str] | PathLike[bytes],
+    verbose: bool = True,
 ) -> ProcessResult[str]:
     if verbose:
         eprint(f"running {cmd!r}")

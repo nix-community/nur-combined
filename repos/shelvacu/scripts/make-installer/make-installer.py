@@ -48,7 +48,9 @@ parser.add_argument(
 )
 parser.add_argument("--listen-addr", default="0.0.0.0", help="PXE server IPv4 address")
 parser.add_argument(
-    "--memtest", action="store_true", help="PXE: boot Memtest86+ instead of the installer"
+    "--memtest",
+    action="store_true",
+    help="PXE: boot Memtest86+ instead of the installer",
 )
 args = parser.parse_args()
 if args.memtest and args.format != "pxe":
@@ -152,7 +154,10 @@ with tempfile.TemporaryDirectory(prefix="installer-") as tmp:
             shutil.copyfile(settings["pxeInitrd"], initrd)
             append_ca(initrd)
             payload = [
-                settings["pxeKernel"], str(initrd), "--cmdline", settings["pxeCmdline"]
+                settings["pxeKernel"],
+                str(initrd),
+                "--cmdline",
+                settings["pxeCmdline"],
             ]
         root = [] if os.geteuid() == 0 else ["sudo"]
         firewall = settings["firewall"]
@@ -217,7 +222,9 @@ with tempfile.TemporaryDirectory(prefix="installer-") as tmp:
                 returncode = server.wait()
                 if returncode:
                     raise subprocess.CalledProcessError(returncode, command)
-                raise RuntimeError("PXE server exited unexpectedly; see its output above")
+                raise RuntimeError(
+                    "PXE server exited unexpectedly; see its output above"
+                )
             except KeyboardInterrupt:
                 signal.signal(signal.SIGINT, signal.SIG_IGN)
                 signal.signal(signal.SIGTERM, signal.SIG_IGN)

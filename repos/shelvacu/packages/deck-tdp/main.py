@@ -50,7 +50,9 @@ class App:
         buttons = tk.Frame(root)
         buttons.grid(row=3, column=0, columnspan=2, pady=8)
         tk.Button(buttons, text="Apply", command=self.apply).pack(side="left", padx=4)
-        tk.Button(buttons, text="Defaults", command=self.defaults).pack(side="left", padx=4)
+        tk.Button(buttons, text="Defaults", command=self.defaults).pack(
+            side="left", padx=4
+        )
 
         self.root = root
         self.refresh()
@@ -80,7 +82,9 @@ class App:
             self.scales[n].set(w)
 
     def refresh(self):
-        caps = " / ".join(f"{read_w(self.hwmon / f'power{n}_cap'):g}" for n in self.scales)
+        caps = " / ".join(
+            f"{read_w(self.hwmon / f'power{n}_cap'):g}" for n in self.scales
+        )
         avg = self.hwmon / "power1_average"
         if not avg.exists():
             avg = self.hwmon / "power1_input"

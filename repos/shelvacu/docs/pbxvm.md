@@ -1,8 +1,8 @@
 # pbxvm — Asterisk + TFTP for the Cisco CP-8851
 
 A vacuvm on prophecy (tag 6, `10.78.77.6` / `2602:fce8:106:10::6`) that does two
-jobs: TFTP-provisions one Cisco IP Phone 8851 and gives it dial tone through
-SIP trunks (SignalWire and JMP.chat).
+jobs: TFTP-provisions one Cisco IP Phone 8851 and gives it dial tone through SIP
+trunks (SignalWire and JMP.chat).
 
 ## Why it looks like this
 
@@ -22,12 +22,12 @@ SIP trunks (SignalWire and JMP.chat).
   which upstream deleted in Asterisk 21 and the patch reintroduces wholesale.
 
   So the phone is a `chan_sip` peer in `sip.conf` with `cisco=yes`, and the
-  trunks stay `chan_pjsip` endpoints. The two stacks are independent and
-  cannot share a bind, so chan_sip keeps 5060 (which is what the phone is told
-  and what it falls back to) and chan_pjsip moves to 5062. Only outbound
-  registration uses the latter, so the number is arbitrary — providers reply to
-  whatever source port the REGISTER came from. Trunks with `encrypt` use a
-  separate TLS transport on 5063 instead.
+  trunks stay `chan_pjsip` endpoints. The two stacks are independent and cannot
+  share a bind, so chan_sip keeps 5060 (which is what the phone is told and what
+  it falls back to) and chan_pjsip moves to 5062. Only outbound registration
+  uses the latter, so the number is arbitrary — providers reply to whatever
+  source port the REGISTER came from. Trunks with `encrypt` use a separate TLS
+  transport on 5063 instead.
 
   The patched build is `packages/asterisk-usecallmanager`. It pins one exact
   Asterisk release, because the patch is cut against one and will not apply to
@@ -46,27 +46,28 @@ SIP trunks (SignalWire and JMP.chat).
   same flow the REGISTER opened, which is what survives the SNAT. Each AOR's
   `qualify_frequency=30` doubles as the keepalive that stops conntrack dropping
   that mapping.
-- **SignalWire is encrypted, JMP.chat can't be.** `vacu.pbx.trunks.<name>.encrypt`
-  moves a trunk to SIP over TLS (server cert verified against the system CA
-  bundle) and SDES-SRTP media. SignalWire supports both, but its cert only has
-  `*.sip.signalwire.com`, and stock pjsip rejects wildcards (RFC 5922 §7.2), so
-  the bundled pjproject is patched to accept them. JMP's SIP account is a direct
-  connection to Bandwidth over plain UDP, with no TLS or SRTP on offer, so that
-  trunk is cleartext signalling and media. Its only authentication is digest on
-  the requests we send.
+- **SignalWire is encrypted, JMP.chat can't be.**
+  `vacu.pbx.trunks.<name>.encrypt` moves a trunk to SIP over TLS (server cert
+  verified against the system CA bundle) and SDES-SRTP media. SignalWire
+  supports both, but its cert only has `*.sip.signalwire.com`, and stock pjsip
+  rejects wildcards (RFC 5922 §7.2), so the bundled pjproject is patched to
+  accept them. JMP's SIP account is a direct connection to Bandwidth over plain
+  UDP, with no TLS or SRTP on offer, so that trunk is cleartext signalling and
+  media. Its only authentication is digest on the requests we send.
 - **Line buttons pick the trunk.** `vacu.pbx.trunks` generates a pjsip
   endpoint/aor/registration set and a `from-<name>` inbound context per
   provider, so adding a third is a few lines.
 
   Each trunk also gets a **line button on the handset**, and that is how you
   choose which way a call goes out. Button 1 is **Default**, which uses
-  `vacu.pbx.defaultTrunk`; after it comes one button per trunk. Each button is
-  a chan_sip peer of its own — 10701 for Default, 10702 for JMP.chat, 10703 for
-  SignalWire, counting up from `vacu.pbx.extension` — so the button a call was placed on arrives at asterisk
-  as _which peer sent the INVITE_. Each peer uses its trunk's `from-phone-<trunk>`
-  context, whose only job is to `Set(TRUNK=…)` before handing off to the shared
-  dialplan. Nothing is dialled to select a trunk, so nothing interferes with the
-  dial rules, and the normal timeouts apply unchanged.
+  `vacu.pbx.defaultTrunk`; after it comes one button per trunk. Each button is a
+  chan_sip peer of its own — 10701 for Default, 10702 for JMP.chat, 10703 for
+  SignalWire, counting up from `vacu.pbx.extension` — so the button a call was
+  placed on arrives at asterisk as _which peer sent the INVITE_. Each peer uses
+  its trunk's `from-phone-<trunk>` context, whose only job is to `Set(TRUNK=…)`
+  before handing off to the shared dialplan. Nothing is dialled to select a
+  trunk, so nothing interferes with the dial rules, and the normal timeouts
+  apply unchanged.
 
   They are not independent registrations, and that is the part that bites: the
   enterprise firmware sends **one REGISTER, for the primary line**, and holds
@@ -190,10 +191,10 @@ git add common/hosts.nix secrets/hosts/pbxvm.yaml   # flakes only see tracked fi
   puts it in its own config.
 - `contacts` — the phone's address book. See "Contacts" below; it can be empty,
   but the key has to exist or sops-nix fails for every secret.
-- `phone.password` — invent one. It only has to match between asterisk and
-  the XML, and this repo puts it in both. Every line button shares it: they are
-  the same handset on the same trusted LAN, and one secret is one thing to
-  rotate. So adding a trunk needs no new secret beyond its own password.
+- `phone.password` — invent one. It only has to match between asterisk and the
+  XML, and this repo puts it in both. Every line button shares it: they are the
+  same handset on the same trusted LAN, and one secret is one thing to rotate.
+  So adding a trunk needs no new secret beyond its own password.
 
 Then rebuild and deploy pbxvm. The asterisk _unit_ does not change when only the
 ciphertext does, and it is `restartIfChanged = false` besides (so a rebuild
@@ -229,7 +230,8 @@ asterisk -rx 'sip show peers'               # 10701–10703 → one row each, wi
 
 Every line peer must show a host:port. 10702 and 10703 get theirs from 10701's
 registration (`register=` in `sip.conf`), so they appear a moment after the
-phone registers and not before — if 10701 is unregistered, all of them look dead.
+phone registers and not before — if 10701 is unregistered, all of them look
+dead.
 
 Then dial **611** from the handset for an echo test — that proves RTP between
 phone and PBX without involving a trunk or spending money. After that, dial a
@@ -359,8 +361,8 @@ Press the line button for the trunk you want — **JMP** on button 2,
 **SignalWire** on button 3 — then dial. Off-hook without pressing one takes
 button 1, **Default**, which goes out `vacu.pbx.defaultTrunk` (SignalWire).
 
-The labels next to the trunk buttons come from each trunk's `label`; the dialling
-rules below are the same on every line.
+The labels next to the trunk buttons come from each trunk's `label`; the
+dialling rules below are the same on every line.
 
 ### Numbers
 
@@ -507,10 +509,10 @@ own default caller ID. Set it to an E.164 number you own to override.
 
 ## Voicemail, DND and contacts
 
-**Voicemail.** One mailbox, `10701@default`, shared by every line, so the message
-lamp lights whichever trunk the caller came in on. An inbound call rings for 30
-s and then goes to voicemail (the busy greeting if the phone answered busy).
-Messages live under `/var/spool/asterisk/voicemail`.
+**Voicemail.** One mailbox, `10701@default`, shared by every line, so the
+message lamp lights whichever trunk the caller came in on. An inbound call rings
+for 30 s and then goes to voicemail (the busy greeting if the phone answered
+busy). Messages live under `/var/spool/asterisk/voicemail`.
 
 The **Messages** button opens usecallmanager's visual voicemail
 (`<messagesURL>`): list, play, delete, move, call back. Play and "Call
@@ -562,12 +564,12 @@ LAN too.
   answer wins. DND on the desk phone sends calls to voicemail for all of them.
 - **Outbound** from a softphone uses `defaultTrunk`, or another trunk if you
   dial its `dialPrefix`.
-- **Device to device / transfers.** `107XX` numbers are internal: 10701–10703 ring
-  the desk phone's lines, 10711/10712 the softphones. Every device can dial them,
-  which is all a transfer needs: on the 8851, **Transfer** then the extension;
-  in a softphone, its transfer button to `10712` etc. `*97` is voicemail for
-  devices without a Messages button. The desk phone's dial rules send `10XXX`
-  instantly; no NANP number starts `10`.
+- **Device to device / transfers.** `107XX` numbers are internal: 10701–10703
+  ring the desk phone's lines, 10711/10712 the softphones. Every device can dial
+  them, which is all a transfer needs: on the 8851, **Transfer** then the
+  extension; in a softphone, its transfer button to `10712` etc. `*97` is
+  voicemail for devices without a Messages button. The desk phone's dial rules
+  send `10XXX` instantly; no NANP number starts `10`.
 - The softphones get the voicemail lamp too (unsolicited MWI).
 
 Client settings (Linphone on both):
@@ -605,19 +607,19 @@ extensions are `103XX` (ours are `107XX`). A peer has no static IP, so it
 registers here: SIP over TLS to `pbx.shelvacu.com:5061`, the softphones'
 transport. It checks our Let's Encrypt cert; we check its digest password
 (`peer.<name>.password` in sops), and find its endpoint by the digest username,
-since its From header carries its callers' extensions. Our calls and messages
-go back down that connection, and the peer knows them by the registration's
-`line` tag. SDES-SRTP is required.
+since its From header carries its callers' extensions. Our calls and messages go
+back down that connection, and the peer knows them by the registration's `line`
+tag. SDES-SRTP is required.
 
-- **Extensions.** `103XX` from any device here dials the peer; the desk
-  phone's dial rules send it instantly. The peer can dial our `107XX` devices.
+- **Extensions.** `103XX` from any device here dials the peer; the desk phone's
+  dial rules send it instantly. The peer can dial our `107XX` devices.
 - **PSTN numbers.** Each side advertises the E.164 numbers it answers. A call to
-  a number the peer advertises goes over the peering; if the peer cannot take
-  it (`CHANUNAVAIL`/`CONGESTION`: unregistered, or it 404s) it falls back to the
+  a number the peer advertises goes over the peering; if the peer cannot take it
+  (`CHANUNAVAIL`/`CONGESTION`: unregistered, or it 404s) it falls back to the
   trunk. Busy or no answer does not fall back. Ours are
   `vacu.pbx.advertisedNumbers`; a peer's call to one rings the Default line,
-  otherwise like a trunk call (contacts, DND, voicemail). Remove a number there and redeploy to take it
-  back off the peering; the peer needs to do nothing.
+  otherwise like a trunk call (contacts, DND, voicemail). Remove a number there
+  and redeploy to take it back off the peering; the peer needs to do nothing.
 - **What a peer can reach:** our device extensions and advertised numbers.
   Nothing else: no trunks, no voicemail menu. Anything else is a 404.
 

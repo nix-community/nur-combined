@@ -207,6 +207,7 @@ rec {
         a = lib.sortOn (x: x) ints;
         b = lib.sortOn numToComparableString ints;
       in
-      assert a == b; true;
+      assert a == b;
+      true;
   };
 }

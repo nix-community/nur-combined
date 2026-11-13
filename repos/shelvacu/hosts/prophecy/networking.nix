@@ -1,4 +1,9 @@
-{ config, lib, vacuData, ... }:
+{
+  config,
+  lib,
+  vacuData,
+  ...
+}:
 let
   cfg = config.vacu.network;
   bridge = cfg.lan_bridge;
