@@ -660,6 +660,25 @@ class AppLocalizationsOr extends AppLocalizations {
   String get dcConnected => 'Connected';
 
   @override
+  String get dcConnection => 'Connection';
+
+  @override
+  String get dcMethodDesktop => 'Discord desktop app';
+
+  @override
+  String get dcMethodDesktopDesc =>
+      'Used automatically when nothing else is connected. Discord has to be open on this computer.';
+
+  @override
+  String get dcMethodToken => 'Account token';
+
+  @override
+  String get dcInUse => 'In use';
+
+  @override
+  String get dcRecommended => 'Recommended';
+
+  @override
   String get dcConnecting => 'Connecting…';
 
   @override
@@ -732,7 +751,7 @@ class AppLocalizationsOr extends AppLocalizations {
 
   @override
   String get settingsSyncTitlesNote =>
-      'Watch and read positions, the resume shelf, bookmarks, highlights and per-title options. Source matches and streams stay on each device because they depend on your extensions. Titles upload at most every 45 seconds.';
+      'Watch and read positions, the resume shelf, your local lists, bookmarks, highlights and per-title options. Source matches and streams stay on each device because they depend on your extensions. Titles upload at most every 45 seconds.';
 
   @override
   String get settingsSyncConnect => 'Not connected';
@@ -2008,6 +2027,9 @@ class AppLocalizationsOr extends AppLocalizations {
   String get following => 'ଅନୁସରଣ କରୁଛ';
 
   @override
+  String get followsMutual => 'Mutual';
+
+  @override
   String get homeSections => 'ହୋମ୍ ବିଭାଗ';
 
   @override
@@ -3274,6 +3296,12 @@ class AppLocalizationsOr extends AppLocalizations {
 
   @override
   String get season => 'ସିଜନ୍';
+
+  @override
+  String get year => 'Year';
+
+  @override
+  String get filterAny => 'Any';
 
   @override
   String get broadcast => 'ପ୍ରସାରଣ';
@@ -6344,6 +6372,9 @@ class AppLocalizationsOr extends AppLocalizations {
   String get readerResetDesc => 'ଡିଫଲ୍ଟକୁ ଫେରନ୍ତୁ';
 
   @override
+  String get readerResetConfirm => 'Reset every reader setting to its default?';
+
+  @override
   String get novelSize => 'ଟେକ୍ସଟ୍ ଆକାର';
 
   @override
@@ -6560,6 +6591,9 @@ class AppLocalizationsOr extends AppLocalizations {
   String get dantotsuTheme => 'ଥିମ୍';
 
   @override
+  String get themePickerTitle => 'Theme';
+
+  @override
   String get dantotsuReposAnime => 'ଆନିମେ ଏକ୍ସଟେନସନ୍ ରିପୋଜିଟୋରି';
 
   @override
@@ -6616,6 +6650,14 @@ class AppLocalizationsOr extends AppLocalizations {
   @override
   String get togetherIntro =>
       'ତୁମ ସାଙ୍ଗ ପଠାଇଥିବା ରୁମ୍ ଲିଙ୍କ୍ ପେଷ୍ଟ କରନ୍ତୁ। ତୁମେ ତୁରନ୍ତ ଯୋଗ ଦେବ ଓ ସେମାନେ ଦେଖିବା ଆରମ୍ଭ କଲେ ପ୍ଲେୟାର୍ ଖୋଲିବ।';
+
+  @override
+  String togetherLinkConfirm(String room) {
+    return 'Join the room $room? The host chooses what plays and the player opens by itself when they start watching.';
+  }
+
+  @override
+  String get togetherJoin => 'Join';
 
   @override
   String get togetherName => 'ତୁମ ନାମ';
@@ -7017,16 +7059,16 @@ class AppLocalizationsOr extends AppLocalizations {
   String get playerPipPause => 'Pause';
 
   @override
-  String get playerPipPrevious => 'Previous episode';
-
-  @override
-  String get playerPipNext => 'Next episode';
-
-  @override
   String get playerPipBack => 'Rewind';
 
   @override
   String get playerPipForward => 'Forward';
+
+  @override
+  String get playerPipRestore => 'Back to the player';
+
+  @override
+  String get playerPipActive => 'Playing in a small window';
 
   @override
   String get listDateAdded => 'Added to list';
@@ -7262,6 +7304,12 @@ class AppLocalizationsOr extends AppLocalizations {
 
   @override
   String get downloadSourceMissing => 'ଏହି ଏପିସୋଡ୍‌ର ଉତ୍ସ ଇନଷ୍ଟଲ୍ ହୋଇନାହିଁ';
+
+  @override
+  String get downloadDashDrm => 'This stream is DRM protected';
+
+  @override
+  String get downloadDashNoVideo => 'The DASH manifest has no video';
 
   @override
   String get downloadWaitingConnection => 'ସଂଯୋଗ ପାଇଁ ଅପେକ୍ଷା';

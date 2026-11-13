@@ -2,7 +2,7 @@ import '../Animation/WidgetAnimations.dart';
 
 import 'package:flutter/material.dart';
 
-import '../Functions/AppShortcuts.dart';
+import 'KeyboardMode.dart';
 import '../Functions/NavigateToScreen.dart';
 import 'DpadNav.dart';
 
@@ -63,19 +63,6 @@ class DpadColumn extends StatelessWidget {
     memoryKey: memoryKey,
     horizontalEdge: DpadEdgeBehavior.stop,
     verticalEdge: DpadEdgeBehavior.leave,
-    child: child,
-  );
-}
-
-class DpadPanel extends StatelessWidget {
-  final Widget child;
-
-  const DpadPanel({super.key, required this.child});
-
-  @override
-  Widget build(BuildContext context) => DpadRegion(
-    horizontalEdge: DpadEdgeBehavior.stop,
-    verticalEdge: DpadEdgeBehavior.stop,
     child: child,
   );
 }

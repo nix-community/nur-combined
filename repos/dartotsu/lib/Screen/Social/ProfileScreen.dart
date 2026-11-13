@@ -1,10 +1,10 @@
 import 'Components/ProfileSkeleton.dart';
 import '../../Utils/Animation/WidgetAnimations.dart';
+
 import 'package:flutter/material.dart';
 
 import '../../Core/Services/MediaService.dart';
 import '../../Core/ThemeManager/ThemeController.dart';
-import '../../Utils/Extensions/ContextExtensions.dart';
 import '../Navbar.dart';
 import '../../Utils/Functions/NavigateToScreen.dart';
 import '../Settings/SubSettingsScreen.dart';
@@ -152,19 +152,7 @@ class _ProfileScreenState extends BaseScreen<ProfileScreen>
       ),
     );
 
-    return context.isPhone
-        ? Stack(
-            children: [
-              Positioned.fill(child: content),
-              nav,
-            ],
-          )
-        : Row(
-            children: [
-              SizedBox(width: 100, child: nav),
-              Expanded(child: content),
-            ],
-          );
+    return FloatingNavLayout(nav: nav, content: content);
   }
 
   VoidCallback? _accountOptions(BuildContext context) {
@@ -181,7 +169,7 @@ class _ProfileScreenState extends BaseScreen<ProfileScreen>
     final stats = state.hasActivity ? 2 : 1;
     if (index == 0) {
       return ProfileInfoTab(
-        key: const ValueKey('profile-info'),
+        key: ValueKey('profile-info-${state.bundleVersion.value}'),
         service: widget.service,
         user: state.user.value,
         userId: userId,
@@ -199,7 +187,7 @@ class _ProfileScreenState extends BaseScreen<ProfileScreen>
       );
     }
     return ProfileStatsTab(
-      key: ValueKey('profile-stats$stats'),
+      key: ValueKey('profile-stats$stats-${state.bundleVersion.value}'),
       service: widget.service,
       userId: userId,
       bundle: state.bundle,

@@ -245,17 +245,23 @@ class _Side extends StatelessWidget {
                   )
                 else ...[
                   Text(
-                    tag == null
-                        ? statusLabel(item.status)
-                        : '${statusLabel(item.status)} · $tag',
+                    [
+                      statusLabel(item.status),
+                      ?tag,
+                      if (item.isPrivate) getString.private,
+                    ].join(' · '),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: mark('status'),
+                    style: mark(
+                      diffs.contains('private') && !diffs.contains('status')
+                          ? 'private'
+                          : 'status',
+                    ),
                   ),
                   Text(
                     '${item.progress}${total == null || total == 0 ? '' : '/$total'}'
                     '${item.score > 0 ? ' · ${(item.score / 10).round()}' : ''}',
-                    style: mark('progress'),
+                    style: mark(diffs.contains('score') ? 'score' : 'progress'),
                   ),
                   if (item.repeat > 0 || item.started?.year != null)
                     Text(

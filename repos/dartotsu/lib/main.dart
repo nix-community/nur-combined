@@ -41,6 +41,7 @@ import 'Screen/MainScreen.dart';
 import 'Screen/Onboarding/OnboardingScreen.dart';
 import 'Screen/Splash/SplashApp.dart';
 import 'Utils/Functions/AppShortcuts.dart';
+import 'Utils/Nav/KeyboardMode.dart';
 import 'Utils/Functions/AppRouteLinks.dart';
 import 'Utils/Functions/DeepLink.dart';
 import 'Utils/Functions/DisplayMode.dart';
@@ -54,6 +55,8 @@ import 'Screen/Player/Engine/PlayerSupport.dart';
 import 'Screen/Player/PlayerLauncher.dart';
 import 'Screen/Reader/LocalBook.dart';
 import 'Utils/Functions/SnackBar.dart';
+import 'Screen/Player/Engine/PipWindow.dart';
+import 'Utils/Functions/Windowing.dart';
 import 'Widgets/Components/ScrollConfig.dart';
 import 'l10n/app_localizations.dart';
 import 'Core/SettingsSync/SettingsSync.dart';
@@ -62,6 +65,7 @@ import 'Core/State/State.dart';
 void main(List<String> args) async {
   await runZonedGuarded(
     () async {
+      enableWindowing();
       WidgetsFlutterBinding.ensureInitialized();
       PaintingBinding.instance.imageCache
         ..maximumSizeBytes =
@@ -243,12 +247,9 @@ void applySystemBarStyle({required bool isDark}) {
 /// Work that can safely run after the first frame.
 Future<void> _postInit(List<String> args) async {
   installDownloadLinks();
-  IdMapper.warm();
   find<OfflineMode>();
   find<DownloadEngine>();
-  find<ActivityAlerts>().start();
-  find<CommentAlerts>().start();
-  find<SourceAlerts>().start();
+  find<SettingsSync>().start();
   HomeWidgetSync.start();
   installPlayerLinks();
   installReaderLinks();
@@ -259,11 +260,17 @@ Future<void> _postInit(List<String> args) async {
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     DeepLink.initVideoIntentListener(args);
   }
+  await Future<void>.delayed(_backgroundDelay);
+  IdMapper.warm();
+  find<ActivityAlerts>().start();
+  find<CommentAlerts>().start();
+  find<SourceAlerts>().start();
   unawaited(find<AppUpdater>().checkForUpdate());
   find<SyncController>().startAuto();
-  find<SettingsSync>().start();
   find<DiscordPresenceController>().start();
 }
+
+const _backgroundDelay = Duration(seconds: 4);
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -309,7 +316,10 @@ class _MyAppState extends State<MyApp> {
       1100,
     );
     applySystemBarStyle(isDark: _theme.isDarkModeActive);
-    return LockOverlay(child: _dpadWrap(context, child));
+    return ViewAnchor(
+      view: PipWindow.view(),
+      child: LockOverlay(child: _dpadWrap(context, child)),
+    );
   }
 
   @override

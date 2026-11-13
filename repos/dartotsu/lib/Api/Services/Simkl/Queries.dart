@@ -231,10 +231,9 @@ Map<String, Media> _decodeLibrary(Map<String, dynamic> raw) => {
 
 class SimklQueries extends Queries {
   final SimklClient client;
-  final Future<bool> Function() refreshUser;
   final void Function(int episodes)? onEpisodes;
 
-  SimklQueries(this.client, {required this.refreshUser, this.onEpisodes});
+  SimklQueries(this.client, {this.onEpisodes});
 
   _Activity? _seen;
   bool _facts = false;
@@ -450,9 +449,6 @@ class SimklQueries extends Queries {
   ];
 
   @override
-  Future<bool> getUserData() async => refreshUser();
-
-  @override
   Future<Media?> getMedia(String id) async {
     final ref = parseSimklMediaId(id);
     return ref == null ? null : _detail(ref.$1, ref.$2);
@@ -540,7 +536,7 @@ class SimklQueries extends Queries {
           title,
           () async {
             final items = _byStatus((await library()).values, status);
-            return items.isEmpty ? <String, List<Media>>{} : {title: items};
+            return titledSection(title, items);
           },
         ),
     ];

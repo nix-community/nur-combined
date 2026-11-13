@@ -46,12 +46,27 @@ import 'Screen/Detail/Watch/Data/Media/ResumeStore.dart';
 /// Single registration point for every long-lived controller.
 ///
 /// Eager (`put`): infrastructure needed immediately at startup.
-/// Lazy (`lazyPut`): built on first `find<T>()`.
+/// Lazy (`lazyPut`): built on first `find<T>()`. Hooks that only poke an
+/// existing controller use `findBuilt`, so a restore never constructs one.
 class DI {
   static void init() {
-    SettingsSync.titleHooks.addAll([MediaRecords.reload, ResumeStore.reload]);
+    _wireHooks();
+    _putInfrastructure();
+    _lazyApp();
+    _lazyServices();
+    _lazyOffline();
+    _lazyDiscord();
+  }
+
+  static void _wireHooks() {
+    SettingsSync.titleHooks.addAll([
+      MediaRecords.reload,
+      ResumeStore.reload,
+      LocalListStore.reloadAll,
+      () => findBuilt<RefreshController>()?.all(),
+    ]);
     SettingsSync.secretHooks.add(() {
-      tryFind<DiscordAccount>()?.onSignedIn();
+      findBuilt<DiscordAccount>()?.onSignedIn();
       for (final service in find<MediaServiceController>().services) {
         final auth = service.auth;
         if (auth != null && auth.isLoggedIn) unawaited(auth.refreshUser());
@@ -62,30 +77,37 @@ class DI {
       'READER/readerSettings': ReaderPrefs.reload,
     });
     PrefManager.restoreHooks.addAll([
-      PlayerPrefs.reload,
-      ReaderPrefs.reload,
       MediaRecords.reload,
       ResumeStore.reload,
-      () => tryFind<PendingWrites>()?.reload(),
-      () => tryFind<DownloadEngine>()?.reload(),
-      () => tryFind<NetworkManager>()?.cookieManager.reload(),
+      () => findBuilt<PendingWrites>()?.reload(),
+      () => findBuilt<DownloadEngine>()?.reload(),
+      () => findBuilt<SourceSubscriptions>()?.reload(),
+      LocalListStore.reloadAll,
+      () => findBuilt<NetworkManager>()?.cookieManager.reload(),
     ]);
-    // Eager — used during startup / must observe every error.
+  }
+
+  static void _putInfrastructure() {
     put(NetworkManager());
     put(AnalyticsManager());
     unawaited(put(NotificationManager(), permanent: true).initialize());
+  }
 
-    // Lazy — resolved on demand.
+  static void _lazyApp() {
     lazyPut<AppLock>(AppLock.new);
     lazyPut<ThemeController>(ThemeController.new);
     lazyPut<CardStyleController>(CardStyleController.new);
     lazyPut<LocaleController>(LocaleController.new);
-    lazyPut<MediaServiceController>(MediaServiceController.new);
-    lazyPut<SyncController>(SyncController.new);
+    lazyPut<RefreshController>(RefreshController.new);
+    lazyPut<AppUpdater>(AppUpdater.new);
     lazyPut<SettingsSync>(SettingsSync.new);
     lazyPut<GithubAuth>(GithubAuth.new);
     lazyPut<TogetherController>(TogetherController.new);
     lazyPut<CastService>(CastService.new);
+  }
+
+  static void _lazyServices() {
+    lazyPut<MediaServiceController>(MediaServiceController.new);
     lazyPut<AnilistAuth>(AnilistAuth.new);
     lazyPut<MalAuth>(MalAuth.new);
     lazyPut<SimklAuth>(SimklAuth.new);
@@ -93,17 +115,22 @@ class DI {
     lazyPut<MangaBakaAuth>(MangaBakaAuth.new);
     lazyPut<MangaUpdatesAuth>(MangaUpdatesAuth.new);
     lazyPut<AnimePlanetAuth>(AnimePlanetAuth.new);
+    lazyPut<SyncController>(SyncController.new);
     lazyPut<CommentsApi>(() => CommentsApi(find<AnilistAuth>().token));
     lazyPut<CommentAlerts>(CommentAlerts.new);
-    lazyPut<RefreshController>(RefreshController.new);
     lazyPut<ActivityAlerts>(ActivityAlerts.new);
     lazyPut<SourceSubscriptions>(SourceSubscriptions.new);
     lazyPut<SourceAlerts>(SourceAlerts.new);
-    lazyPut<AppUpdater>(AppUpdater.new);
+  }
+
+  static void _lazyOffline() {
     lazyPut<NetStatus>(NetStatus.new);
     lazyPut<PendingWrites>(PendingWrites.new);
     lazyPut<OfflineMode>(OfflineMode.new);
     lazyPut<DownloadEngine>(DownloadEngine.new);
+  }
+
+  static void _lazyDiscord() {
     lazyPut<DiscordPresenceController>(DiscordPresenceController.new);
     lazyPut<DiscordRpcRouter>(DiscordRpcRouter.new);
     lazyPut<BaseDiscordRPC>(() => find<DiscordRpcRouter>());

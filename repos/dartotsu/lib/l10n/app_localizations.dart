@@ -1355,6 +1355,42 @@ abstract class AppLocalizations {
   /// **'Connected'**
   String get dcConnected;
 
+  /// No description provided for @dcConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection'**
+  String get dcConnection;
+
+  /// No description provided for @dcMethodDesktop.
+  ///
+  /// In en, this message translates to:
+  /// **'Discord desktop app'**
+  String get dcMethodDesktop;
+
+  /// No description provided for @dcMethodDesktopDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Used automatically when nothing else is connected. Discord has to be open on this computer.'**
+  String get dcMethodDesktopDesc;
+
+  /// No description provided for @dcMethodToken.
+  ///
+  /// In en, this message translates to:
+  /// **'Account token'**
+  String get dcMethodToken;
+
+  /// No description provided for @dcInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'In use'**
+  String get dcInUse;
+
+  /// No description provided for @dcRecommended.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended'**
+  String get dcRecommended;
+
   /// No description provided for @dcConnecting.
   ///
   /// In en, this message translates to:
@@ -1478,7 +1514,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsSyncTitlesNote.
   ///
   /// In en, this message translates to:
-  /// **'Watch and read positions, the resume shelf, bookmarks, highlights and per-title options. Source matches and streams stay on each device because they depend on your extensions. Titles upload at most every 45 seconds.'**
+  /// **'Watch and read positions, the resume shelf, your local lists, bookmarks, highlights and per-title options. Source matches and streams stay on each device because they depend on your extensions. Titles upload at most every 45 seconds.'**
   String get settingsSyncTitlesNote;
 
   /// No description provided for @settingsSyncConnect.
@@ -3748,6 +3784,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Following'**
   String get following;
+
+  /// No description provided for @followsMutual.
+  ///
+  /// In en, this message translates to:
+  /// **'Mutual'**
+  String get followsMutual;
 
   /// No description provided for @homeSections.
   ///
@@ -6052,6 +6094,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Season'**
   String get season;
+
+  /// No description provided for @year.
+  ///
+  /// In en, this message translates to:
+  /// **'Year'**
+  String get year;
+
+  /// No description provided for @filterAny.
+  ///
+  /// In en, this message translates to:
+  /// **'Any'**
+  String get filterAny;
 
   /// No description provided for @broadcast.
   ///
@@ -11423,6 +11477,12 @@ abstract class AppLocalizations {
   /// **'Back to the defaults'**
   String get readerResetDesc;
 
+  /// No description provided for @readerResetConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset every reader setting to its default?'**
+  String get readerResetConfirm;
+
   /// No description provided for @novelSize.
   ///
   /// In en, this message translates to:
@@ -11807,6 +11867,12 @@ abstract class AppLocalizations {
   /// **'Theme'**
   String get dantotsuTheme;
 
+  /// No description provided for @themePickerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get themePickerTitle;
+
   /// No description provided for @dantotsuReposAnime.
   ///
   /// In en, this message translates to:
@@ -11914,6 +11980,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Paste the room link your friend sent you. You join straight away and the player opens when they start watching.'**
   String get togetherIntro;
+
+  /// No description provided for @togetherLinkConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Join the room {room}? The host chooses what plays and the player opens by itself when they start watching.'**
+  String togetherLinkConfirm(String room);
+
+  /// No description provided for @togetherJoin.
+  ///
+  /// In en, this message translates to:
+  /// **'Join'**
+  String get togetherJoin;
 
   /// No description provided for @togetherName.
   ///
@@ -12587,18 +12665,6 @@ abstract class AppLocalizations {
   /// **'Pause'**
   String get playerPipPause;
 
-  /// No description provided for @playerPipPrevious.
-  ///
-  /// In en, this message translates to:
-  /// **'Previous episode'**
-  String get playerPipPrevious;
-
-  /// No description provided for @playerPipNext.
-  ///
-  /// In en, this message translates to:
-  /// **'Next episode'**
-  String get playerPipNext;
-
   /// No description provided for @playerPipBack.
   ///
   /// In en, this message translates to:
@@ -12610,6 +12676,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Forward'**
   String get playerPipForward;
+
+  /// No description provided for @playerPipRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to the player'**
+  String get playerPipRestore;
+
+  /// No description provided for @playerPipActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Playing in a small window'**
+  String get playerPipActive;
 
   /// No description provided for @listDateAdded.
   ///
@@ -12994,6 +13072,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The source for this episode is not installed'**
   String get downloadSourceMissing;
+
+  /// No description provided for @downloadDashDrm.
+  ///
+  /// In en, this message translates to:
+  /// **'This stream is DRM protected'**
+  String get downloadDashDrm;
+
+  /// No description provided for @downloadDashNoVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'The DASH manifest has no video'**
+  String get downloadDashNoVideo;
 
   /// No description provided for @downloadWaitingConnection.
   ///

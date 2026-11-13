@@ -1,30 +1,22 @@
 import '../../../Core/Preferences/PrefManager.dart';
 import '../../../Core/Services/LayoutPref.dart';
 import '../../../Core/Services/MediaService.dart';
+import 'Queries.dart';
 
 const kMangaBakaHomeSections = <String, bool>{
   'Continue Reading': true,
   'Planned Manga': true,
   'On Hold': true,
   'Dropped': true,
-  'Hidden Media': false,
+  kHiddenMediaTitle: false,
 };
 
-const kMangaBakaMangaSections = <String, bool>{
-  'Trending Now': true,
-  'Rising': true,
-  'Latest Releases': true,
-  'Top Rated': true,
-  'Upcoming': true,
-  'Top Manga': true,
+final kMangaBakaMangaSections = {
+  for (final s in mangaBakaSectionsFor(MediaType.manga)) s.title: true,
 };
 
-const kMangaBakaNovelSections = <String, bool>{
-  'Trending Now': true,
-  'Latest Releases': true,
-  'Top Rated': true,
-  'Upcoming': true,
-  'Top Novels': true,
+final kMangaBakaNovelSections = {
+  for (final s in mangaBakaSectionsFor(MediaType.novel)) s.title: true,
 };
 
 class MangaBakaPref {

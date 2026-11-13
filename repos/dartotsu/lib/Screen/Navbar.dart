@@ -36,13 +36,7 @@ class _FloatingBottomNavBarState extends State<FloatingBottomNavBar> {
 
   final hoveredIndex = (-1).live;
 
-  List<NavItem> get _items {
-    final service = _services.currentService.value;
-    if (!widget.standalone && service is NavBarProvider) {
-      return (service as NavBarProvider).navBarItems;
-    }
-    return widget.items;
-  }
+  List<NavItem> get _items => widget.items;
 
   @override
   Widget build(BuildContext context) {
@@ -306,3 +300,29 @@ Widget Function(BuildContext, DpadFocusState, Widget) _pillFocus(
         child,
       ],
     );
+
+class FloatingNavLayout extends StatelessWidget {
+  final Widget nav;
+  final Widget content;
+
+  const FloatingNavLayout({
+    super.key,
+    required this.nav,
+    required this.content,
+  });
+
+  @override
+  Widget build(BuildContext context) => context.isPhone
+      ? Stack(
+          children: [
+            Positioned.fill(child: content),
+            nav,
+          ],
+        )
+      : Row(
+          children: [
+            SizedBox(width: 100, child: nav),
+            Expanded(child: content),
+          ],
+        );
+}

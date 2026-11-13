@@ -80,6 +80,8 @@ class _SourceBrowseScreenState extends BaseScreen<SourceBrowseScreen>
                 height: 34,
                 child: cachedNetworkImage(
                   imageUrl: widget.source.iconUrl ?? '',
+                  width: 34,
+                  height: 34,
                   fit: BoxFit.cover,
                   errorWidget: (_, _, _) => ColoredBox(
                     color: scheme.secondaryContainer,
@@ -248,12 +250,7 @@ class _SourceBrowseScreenState extends BaseScreen<SourceBrowseScreen>
           Dimens.pagePad,
           Dimens.gapXl,
         ),
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: style.itemWidth + Dimens.cardGap + 6,
-          mainAxisExtent: style.itemHeightFor(context),
-          crossAxisSpacing: Dimens.cardGap,
-          mainAxisSpacing: Dimens.gap,
-        ),
+        gridDelegate: style.posterGrid(context),
         physics: const AlwaysScrollableScrollPhysics(),
         itemCount: children.length,
         itemBuilder: (_, i) =>

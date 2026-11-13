@@ -11,7 +11,7 @@ import '../../Core/ThemeManager/language.dart';
 import '../../Utils/Animation/WidgetAnimations.dart';
 import '../../Utils/Extensions/ContextExtensions.dart';
 import '../../Utils/Extensions/Responsive.dart';
-import '../../Utils/Functions/AppShortcuts.dart';
+import '../../Utils/Nav/KeyboardMode.dart';
 import '../../Utils/Functions/NavigateToScreen.dart';
 import 'SourcePreferenceScreen.dart';
 import '../../Utils/Nav/DpadNav.dart';
@@ -414,7 +414,7 @@ class _ExtensionListState extends State<ExtensionList>
   }
 
   Widget _buildTrailing(Source source, int index) {
-    final repo = manager[source.itemType!];
+    final repo = manager[source.itemType ?? widget.itemType];
     final installProgress = source.id == null
         ? null
         : state.bridgeState.installProgress[source.id];

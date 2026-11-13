@@ -4,9 +4,14 @@ import '../Model/Media.dart';
 import '../Screens/ScreenWidget.dart';
 import '../../../Logger.dart';
 
+const kHiddenMediaTitle = 'Hidden Media';
+
 typedef SectionMap = Map<String, List<Media>>;
 
 typedef SectionJob = Future<SectionMap> Function();
+
+SectionMap titledSection(String title, List<Media> items) =>
+    items.isEmpty ? <String, List<Media>>{} : {title: items};
 
 /// True while the user's own pull-to-refresh is running, so a job that keeps
 /// its result for a while can fetch again.
@@ -68,11 +73,6 @@ Stream<(int, SectionMap)> runSectionJobsIndexed(
     Error.throwWithStackTrace(failure!, failureStack!);
   }
 }
-
-Stream<SectionMap> runSectionJobs(
-  List<SectionJob> jobs, {
-  bool parallel = true,
-}) => runSectionJobsIndexed(jobs, parallel: parallel).map((e) => e.$2);
 
 Stream<List<ScreenWidget>> sectionWidgets(
   List<SectionJob> jobs, {

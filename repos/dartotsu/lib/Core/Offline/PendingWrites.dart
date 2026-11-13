@@ -133,7 +133,7 @@ class PendingWrites extends AppController {
     }
     entries.refresh();
     _persist();
-    tryFind<RefreshController>()?.all();
+    findBuilt<RefreshController>()?.all();
   }
 
   PendingWrite? of(String serviceId, String mediaId) =>
@@ -204,7 +204,7 @@ class PendingWrites extends AppController {
     }
     if (sent > 0) {
       snackString(getString.offlineSynced(sent));
-      tryFind<RefreshController>()?.all();
+      findBuilt<RefreshController>()?.all();
     }
   }
 
@@ -218,7 +218,12 @@ class PendingWrites extends AppController {
       case PendingKind.delete:
         await api.deleteFromList(media);
       case PendingKind.edit:
-        await api.saveEntry(media);
+        final custom = write.customList;
+        if (custom == null) {
+          await api.saveEntry(media);
+        } else {
+          await api.editList(media, customList: custom);
+        }
       case PendingKind.progress:
         final remote = await service.getQueries?.getMedia(media.id);
         final target = write.progress ?? 0;

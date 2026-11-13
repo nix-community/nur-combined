@@ -1,3 +1,5 @@
+import '../../../Core/Services/Api/ListOverlay.dart';
+
 import 'dart:async';
 
 import '../../../Core/Preferences/PrefManager.dart';
@@ -147,14 +149,9 @@ Map<String, String> get mangaUpdatesSearchSorts => {
 
 class MangaUpdatesQueries extends Queries {
   final MangaUpdatesClient client;
-  final Future<bool> Function() refreshUser;
   final void Function(int chapters)? onChapters;
 
-  MangaUpdatesQueries(
-    this.client, {
-    required this.refreshUser,
-    this.onChapters,
-  });
+  MangaUpdatesQueries(this.client, {this.onChapters});
 
   static int? cleanId(String rawId) =>
       int.tryParse(rawId.contains('/') ? rawId.split('/').last : rawId);
@@ -168,19 +165,8 @@ class MangaUpdatesQueries extends Queries {
         mapMangaUpdatesSeries(_record(r['record'])),
   ];
 
-  Future<List<Media>> _withList(List<Media> items) async {
-    if (!client.hasToken || items.isEmpty) return items;
-    try {
-      final mine = {for (final m in await library()) m.id: m};
-      for (final m in items) {
-        final entry = mine[m.id];
-        if (entry != null) m.takeListEntry(entry);
-      }
-    } catch (e, st) {
-      logError('Queries', e, st);
-    }
-    return items;
-  }
+  Future<List<Media>> _withList(List<Media> items) async =>
+      client.hasToken ? overlayEntries(items, library) : items;
 
   Map<String, dynamic> _filters(Map<String, dynamic> body) => {
     ...body,
@@ -201,9 +187,6 @@ class MangaUpdatesQueries extends Queries {
     );
     return _withList(_parseResults(res));
   }
-
-  @override
-  Future<bool> getUserData() async => refreshUser();
 
   late final _library = LibraryCache<List<Media>>(load: (_) => _loadLibrary());
 
@@ -413,7 +396,7 @@ class MangaUpdatesQueries extends Queries {
         for (final m in await library())
           if (statuses.contains(m.userStatus) && !(hide && m.isAdult)) m,
       ];
-      return items.isEmpty ? <String, List<Media>>{} : {title: items};
+      return titledSection(title, items);
     };
     final jobs = <(String, SectionJob)>[
       ('Continue Reading', job('Continue Reading', {'CURRENT', 'REPEATING'})),
@@ -422,15 +405,13 @@ class MangaUpdatesQueries extends Queries {
       ('Dropped', job('Dropped', {'DROPPED'})),
       if (hide)
         (
-          'Hidden Media',
+          kHiddenMediaTitle,
           () async {
             final items = [
               for (final m in await library())
                 if (m.isAdult) m,
             ];
-            return items.isEmpty
-                ? <String, List<Media>>{}
-                : {'Hidden Media': items};
+            return titledSection(kHiddenMediaTitle, items);
           },
         ),
     ];

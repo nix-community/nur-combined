@@ -475,7 +475,7 @@ class SyncController extends AppController {
       resumeAt.clear();
       _saveNow();
       _notify();
-      tryFind<RefreshController>()?.all();
+      findBuilt<RefreshController>()?.all();
     }
   }
 
@@ -815,7 +815,10 @@ class SyncController extends AppController {
     await _resolve(id, service, adapter, pairs, current.anime, auto);
     while (!_stop) {
       final todo = pairs
-          .where((p) => isWanted(p) && p.op != SyncOpState.failed)
+          .where(
+            (p) =>
+                isWanted(p) && p.op != SyncOpState.failed && p.targetId != null,
+          )
           .take(adapter.batchSize)
           .toList();
       if (todo.isEmpty) break;

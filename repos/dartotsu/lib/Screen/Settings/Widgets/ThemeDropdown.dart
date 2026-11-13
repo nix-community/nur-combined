@@ -68,7 +68,7 @@ class _ThemePickerSheet extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
                 child: Text(
-                  'Theme',
+                  getString.themePickerTitle,
                   style: context.textTheme.titleMedium,
                   textAlign: TextAlign.center,
                 ),
@@ -85,7 +85,7 @@ class _ThemePickerSheet extends StatelessWidget {
                   final itemCount = AppTheme.values.length + 1;
                   return ScrollConfig(
                     context,
-                    child: ScrollConfig(context, child: SingleChildScrollView(
+                    child: SingleChildScrollView(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: GridView.builder(
                         shrinkWrap: true,
@@ -157,7 +157,7 @@ class _ThemePickerSheet extends StatelessWidget {
                           );
                         },
                       ),
-                    )),
+                    ),
                   );
                 }),
               ),

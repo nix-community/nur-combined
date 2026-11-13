@@ -1,3 +1,5 @@
+import '../../../Core/Services/Api/ListOverlay.dart';
+
 import 'dart:async';
 import 'dart:convert';
 
@@ -7,7 +9,6 @@ import '../../../Core/Services/Api/Queries.dart';
 import '../../../Core/Services/Api/SectionJobs.dart';
 import '../../../Core/Services/Model/CommunityList.dart';
 import '../../../Core/Services/Model/Media.dart';
-import '../../../Core/Services/Model/MediaListEntry.dart';
 import '../../../Core/Services/Model/Review.dart';
 import '../../../Core/Services/Screens/EntityHost.dart';
 import '../../../Core/ThemeManager/LanguageSwitcher.dart';
@@ -242,19 +243,8 @@ class AnimePlanetQueries extends Queries {
   Future<List<Media>> _withList(
     List<Media> items, {
     required bool anime,
-  }) async {
-    if (!loggedIn || items.isEmpty) return items;
-    try {
-      final mine = {for (final m in await library(anime: anime)) m.id: m};
-      for (final m in items) {
-        final entry = mine[m.id];
-        if (entry != null) m.takeListEntry(entry);
-      }
-    } catch (e, st) {
-      logError('AnimePlanet', e, st);
-    }
-    return items;
-  }
+  }) async =>
+      loggedIn ? overlayEntries(items, () => library(anime: anime)) : items;
 
   AnimePlanetFacets? _anime;
   AnimePlanetFacets? _manga;
@@ -293,7 +283,7 @@ class AnimePlanetQueries extends Queries {
         for (final m in await library(anime: anime))
           if (statuses.contains(m.userStatus)) m,
       ];
-      return items.isEmpty ? <String, List<Media>>{} : {title: items};
+      return titledSection(title, items);
     };
     final jobs = [
       (
@@ -322,9 +312,6 @@ class AnimePlanetQueries extends Queries {
   }
 
   @override
-  Future<bool> getUserData() async => loggedIn;
-
-  @override
   Future<Media?> getMedia(String id) async {
     final ref = splitAnimePlanetId(id);
     if (ref == null) return null;
@@ -333,7 +320,9 @@ class AnimePlanetQueries extends Queries {
         '/${ref.$1}/${ref.$2}',
         cache: const Duration(minutes: 5),
       );
-      return parseAnimePlanetDetail(body, ref.$1, ref.$2);
+      final media = parseAnimePlanetDetail(body, ref.$1, ref.$2);
+      if (media != null) await _withList([media], anime: ref.$1 == 'anime');
+      return media;
     } on AnimePlanetException catch (e) {
       if (e.status == 404 || e.status == 410) return null;
       rethrow;

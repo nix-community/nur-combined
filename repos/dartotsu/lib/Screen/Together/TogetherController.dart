@@ -61,6 +61,7 @@ class TogetherController extends AppController {
   bool _announced = false;
   final _unshared = <String>{};
   int _attempt = 0;
+  bool _fatalError = false;
   bool _wanted = false;
   TogetherPlaystate? _hostPlay;
   DateTime _hostAt = DateTime.now();
@@ -142,6 +143,10 @@ class TogetherController extends AppController {
     _lastPos = _position;
     _bindEngine();
     _checkFollow();
+  }
+
+  void engineChanged(PlayerState player) {
+    if (identical(_player, player)) _bindEngine();
   }
 
   void detach(PlayerState player) {
@@ -239,6 +244,7 @@ class TogetherController extends AppController {
   }
 
   Future<void> _open() async {
+    _fatalError = false;
     status.value = TogetherStatus.connecting;
     error.value = null;
     await _events?.cancel();
@@ -253,7 +259,7 @@ class TogetherController extends AppController {
   void _fail(String message) {
     error.value = message;
     _poll?.cancel();
-    if (_wanted && _attempt < 8) {
+    if (_wanted && !_fatalError && _attempt < 8) {
       status.value = TogetherStatus.connecting;
       final delay = Duration(seconds: [2, 4, 8, 15, 15, 15, 15, 15][_attempt]);
       _attempt++;
@@ -484,6 +490,7 @@ class TogetherController extends AppController {
           snackString(text, simple: true);
         }
       case TogetherError():
+        _fatalError = true;
         error.value = event.message;
         _system(event.message);
     }

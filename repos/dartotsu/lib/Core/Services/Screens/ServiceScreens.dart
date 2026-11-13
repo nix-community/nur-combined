@@ -1,3 +1,4 @@
+import '../../../Model/SectionLayout.dart';
 import '../../../Logger.dart';
 
 import 'dart:convert';
@@ -70,6 +71,22 @@ class HomeScreenView {
   bool isHiddenSection(String title) => false;
 }
 
+class QueriesHomeView extends HomeScreenView {
+  final Queries Function() queries;
+  final bool Function(String title)? hidden;
+
+  QueriesHomeView(super.service, this.queries, {this.hidden});
+
+  @override
+  Stream<List<ScreenWidget>> screenStream() {
+    if (!service.isLoggedIn) return super.screenStream();
+    return sectionWidgets(queries().homeJobs(), build: ScreenWidget.media);
+  }
+
+  @override
+  bool isHiddenSection(String title) => hidden?.call(title) ?? false;
+}
+
 class FeedChip {
   final String id;
   final String label;
@@ -90,11 +107,12 @@ class FeedScreenView {
 
   /// How the list called [title] renders (see `ScreenWidget.sectionType`).
   /// Also used to paint the cached lists before the first fetch lands.
-  int sectionType(MediaType type, String title) => 0;
+  SectionLayout sectionType(MediaType type, String title) =>
+      SectionLayout.shelf;
 
   /// The section types the enabled rows will have, in order, so the loading
   /// skeleton can match the feed. Empty = a generic skeleton.
-  List<int> skeleton(MediaType type) => const [];
+  List<SectionLayout> skeleton(MediaType type) => const [];
 
   Stream<List<ScreenWidget>> screenStream(MediaType type) async* {
     final anime = type.isVideo;

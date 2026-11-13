@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 
 import '../../Core/State/State.dart';
+import '../../Core/ThemeManager/LanguageSwitcher.dart';
+import '../../Widgets/Components/AlertDialogBuilder.dart';
 import '../../Utils/Functions/DeepLinkHandlers.dart';
 import 'TogetherController.dart';
 
@@ -44,6 +46,19 @@ class TogetherLinks extends DeepLinkHandler {
 
   @override
   Future<void> handle(BuildContext context, Uri uri) async {
-    await joinRoomLink(uri.toString());
+    final parsed = parseRoomLink(uri.toString());
+    if (parsed == null) return;
+    final accepted = await AlertDialogBuilder(context)
+        .setTitle(getString.togetherTitle)
+        .setMessage(
+          getString.togetherLinkConfirm(
+            parsed.server == null
+                ? parsed.room
+                : '${parsed.room} (${parsed.server})',
+          ),
+        )
+        .confirm(getString.togetherJoin, getString.cancel);
+    if (!accepted) return;
+    await find<TogetherController>().join(parsed.room, server: parsed.server);
   }
 }
