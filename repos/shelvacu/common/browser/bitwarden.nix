@@ -8,9 +8,15 @@ let
   bitwarden = pkgs.bitwarden-extension;
   firefox = pkgs.firefox-unwrapped.override (
     if pkgs.firefox-unwrapped ? enableAddonSigning then
-      { enableAddonSigning = false; }
+      {
+        enableAddonSigning = false;
+        enablePGO = false;
+      }
     else
-      { requireSigning = false; }
+      {
+        requireSigning = false;
+        pgoSupport = false;
+      }
   );
 in
 lib.optionalAttrs (vacuModuleType == "nixos") {

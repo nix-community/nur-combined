@@ -25,7 +25,7 @@ keeps its original extension ID and vault storage.
 This fixes field collection, not sites marking login passwords as
 `autocomplete="new-password"`; that still causes password-generation suggestions.
 
-`common/browser/bitwarden.nix` builds Firefox with signature enforcement disabled
+`common/browser/bitwarden.nix` builds Firefox with signature enforcement and PGO disabled
 and force-installs the local XPI through ExtensionSettings on GUI NixOS hosts,
 including `fw` and `compute-deck`. It handles both the stable `requireSigning`
 and unstable `enableAddonSigning` build arguments.
