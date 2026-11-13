@@ -122,7 +122,7 @@
       sha256 = "a6f560b62341dd4969a13acd401a41d11c9f2881bd3c056440280161fee21cf9";
       meta = with lib;
       {
-        homepage = "https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour";
+        homepage = "https://github.com/atbc-org/Adaptive-Tab-Bar-Colour";
         description = "Changes the color of Firefox theme to match the website’s appearance.";
         license = licenses.mit;
         mozPermissions = [
@@ -1547,10 +1547,10 @@
     };
     "bramble" = buildMozillaXpiAddon {
       pname = "bramble";
-      version = "1.35.0";
+      version = "1.36.0";
       addonId = "firefox@bramble.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5226840/bramble-1.35.0.xpi";
-      sha256 = "5e52e64835321fe11c481ac610da8d0d872abd131f1ac18274a230f0ef2fd8d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5246292/bramble-1.36.0.xpi";
+      sha256 = "0c0a41e9bcd01bcacb409965191a17269525b588a3b808cbf38ae05a4765e947";
       meta = with lib;
       {
         homepage = "https://bramble.sh";
@@ -5048,10 +5048,10 @@
     };
     "github-isometric-contributions" = buildMozillaXpiAddon {
       pname = "github-isometric-contributions";
-      version = "1.2.8";
+      version = "1.2.9";
       addonId = "isometric-contributions@jasonlong.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5074179/github_isometric_contributions-1.2.8.xpi";
-      sha256 = "6d5d16e7e4eaa01e7604d48cbcdf571ae71246d690bf19900b865236ec3ad462";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5243589/github_isometric_contributions-1.2.9.xpi";
+      sha256 = "38ac6b8e1fae766bce4a81bf80ba315a1f7b1fab8dd9cd6ddde9e4e0d99da071";
       meta = with lib;
       {
         description = "Renders an isometric pixel view of GitHub contribution graphs.";
@@ -6353,10 +6353,10 @@
     };
     "kagi-search" = buildMozillaXpiAddon {
       pname = "kagi-search";
-      version = "0.7.7";
+      version = "0.7.8";
       addonId = "search@kagi.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5130000/kagi_search_for_firefox-0.7.7.xpi";
-      sha256 = "e24cdc2ac8579a022a25850972d0e821138054dd9d9d15e8e04f064c553cd002";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5244301/kagi_search_for_firefox-0.7.8.xpi";
+      sha256 = "8ef7beb36edecbac778cfb20cb630ce4fb28e67661db0367a06b6726759e9430";
       meta = with lib;
       {
         homepage = "https://kagi.com";
@@ -17346,10 +17346,10 @@
     };
     "yang" = buildMozillaXpiAddon {
       pname = "yang";
-      version = "2.1.4";
+      version = "2.1.5";
       addonId = "{0a3250b1-58e0-48cb-9383-428f5adc3dc1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5238648/yang_addon-2.1.4.xpi";
-      sha256 = "6906c7caa97360ae1885390a99e848edea550153f9a8a9edd47784c994853d65";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5243799/yang_addon-2.1.5.xpi";
+      sha256 = "8d891ba8626819364c1abff8adcfe0bf4cb891434dd3d41b868130dfdf49c86a";
       meta = with lib;
       {
         homepage = "https://github.com/dmlls/yang";

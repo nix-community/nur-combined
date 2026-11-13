@@ -2,10 +2,10 @@
   {
     "cardbook" = buildMozillaXpiAddon {
       pname = "cardbook";
-      version = "107.7";
+      version = "120.0";
       addonId = "cardbook@vigneau.philippe";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1054554/cardbook-107.7-tb.xpi?src=";
-      sha256 = "ca0c26b369176833919a7cbfcc32324ae80ba90743212ebd963ceafe6f64edcc";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1055396/cardbook-120.0-tb.xpi?src=";
+      sha256 = "c8677cb273981bf8e0ac79b1d302e0538ca49bd513cc7b4575aa09b1b1b4858d";
       meta = with lib;
       {
         homepage = "https://gitlab.com/CardBook/CardBook";
@@ -361,10 +361,10 @@
     };
     "tb-langpack-de" = buildMozillaXpiAddon {
       pname = "tb-langpack-de";
-      version = "153.7.20261110.162734";
+      version = "161.0.20261111.165556";
       addonId = "langpack-de@thunderbird.mozilla.org";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1055295/deutsch_de_language_pack-153.7.20261110.162734-tb.xpi?src=";
-      sha256 = "eac8cb6f844903b288dcad4698f120426943f42a9d05e312109d71a66f46d950";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1055507/deutsch_de_language_pack-161.0.20261111.165556-tb.xpi?src=";
+      sha256 = "a64f5aa0a8ffc086ecb5a6eae22b08c29938d19ff6c4fa4712d055dfd86478a9";
       meta = with lib;
       {
         description = "Deutsch (de) Language Pack";
