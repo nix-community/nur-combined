@@ -9,13 +9,13 @@
 
 buildGoModule (finalAttrs: {
   pname = "incusos-flasher";
-  version = "202611122004-unstable-2026-11-13";
+  version = "202611132004-unstable-2026-11-13";
 
   src = fetchFromGitHub {
     owner = "lxc";
     repo = "incus-os";
-    rev = "5dffa1d78eeec2126056c768c51728f3591e63d1";
-    hash = "sha256-mU2+rQJblrILMYgKuwj9HZqT0xJThMF7TAv9lAL/qdI=";
+    rev = "6bf5b5aa825ff2de1ff993b5288260a51ee6f291";
+    hash = "sha256-+xqfyLHMIm9VI3QJ9OZCKCkNEsDMTTDfpbYizqllXwE=";
   };
 
   modRoot = "incus-osd";
