@@ -4,7 +4,13 @@
   haskellPackages,
   fetchFromGitHub,
   installShellFiles,
+  makeWrapper,
   scdoc,
+  bash,
+  coreutils,
+  git,
+  openssh,
+  zstd,
 }:
 let
   # The dependencies come from akyuu.nix of the project (cabal2nix output).
@@ -31,6 +37,7 @@ let
       tasty,
       tasty-hunit,
       tasty-quickcheck,
+      temporary,
       text,
       time,
       toml-parser,
@@ -41,12 +48,12 @@ let
     }:
     mkDerivation {
       pname = "akyuu";
-      version = "0.4.0.0-unstable-2026-11-05";
+      version = "0.5.0.0";
       src = fetchFromGitHub {
         owner = "lillycham";
         repo = "akyuu";
-        rev = "d6094b09243a66806736f4545036d47ddd1f816b";
-        hash = "sha256-rRK1fG1h0IeepdEt6zr+sHA6MWGFAFGrrMhxssifOJI=";
+        rev = "8238d49ef94dfc48261a6b09613942e9b7545682"; # v0.5.0.0
+        hash = "sha256-EziLoncLOOoWFMsuRD/J8yDdI72XqAT94mElF46ieGQ=";
       };
       isLibrary = true;
       isExecutable = true;
@@ -87,13 +94,22 @@ let
         filepath
         http-types
         optparse-applicative
+        process
         sqlite-simple
         tasty
         tasty-hunit
         tasty-quickcheck
+        temporary
         text
         time
+        unix
         wai
+      ];
+      testToolDepends = [
+        bash
+        coreutils
+        git
+        zstd
       ];
       description = "A content-addressed memory store for AI agents";
       homepage = "https://github.com/lillycham/akyuu";
@@ -109,6 +125,7 @@ haskell.lib.overrideCabal (haskell.lib.justStaticExecutables (haskell.lib.dontHa
     buildTools = (drv.buildTools or [ ]) ++ [
       scdoc
       installShellFiles
+      makeWrapper
     ];
     postInstall = (drv.postInstall or "") + ''
       for p in man/*.scd; do scdoc < "$p" > "''${p%.scd}"; done
@@ -117,5 +134,14 @@ haskell.lib.overrideCabal (haskell.lib.justStaticExecutables (haskell.lib.dontHa
         --bash <($out/bin/akyuu --bash-completion-script $out/bin/akyuu) \
         --zsh <($out/bin/akyuu --zsh-completion-script $out/bin/akyuu) \
         --fish <($out/bin/akyuu --fish-completion-script $out/bin/akyuu)
+      wrapProgram $out/bin/akyuu --prefix PATH : ${
+        lib.makeBinPath [
+          zstd
+          git
+          bash
+          coreutils
+          openssh
+        ]
+      }
     '';
   })
