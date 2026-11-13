@@ -1,3 +1,0 @@
-{
-    zotero = import ./zotero.nix;
-}
