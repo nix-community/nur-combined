@@ -89,7 +89,33 @@ makeScope newScope (
       };
 
     plugins = {
+      ignore-translation-updates = self.callPackage (
+        {
+          writeTextDir,
+        }:
+
+        writeTextDir "ignore-translation-updates.php" ''
+          <?php
+          /**
+           * Plugin Name: Ignore WordPress Translation Updates
+           * Description: Ignore language pack updates managed externally.
+           */
+
+          function ignore_translation_updates( $transient ) {
+            if ( is_object( $transient ) && isset( $transient->translations ) ) {
+              $transient->translations = array();
+            }
+
+            return $transient;
+          }
+
+          add_filter( 'site_transient_update_core', 'ignore_translation_updates' );
+          add_filter( 'site_transient_update_plugins', 'ignore_translation_updates' );
+          add_filter( 'site_transient_update_themes', 'ignore_translation_updates' );
+        ''
+      ) { };
       gutenberg = self.callPackage ../pkgs/gutenberg/package.nix { };
+      wp-oidc-roles = self.callPackage ../pkgs/wp-oidc-roles/package.nix { };
     }
     // mapAttrs (_: self.callPackage self.mkWpPlugin) {
       antispam-bee = {
