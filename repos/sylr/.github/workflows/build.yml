@@ -1,0 +1,121 @@
+name: "Build and populate cache"
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+  schedule:
+    # rebuild everyday at 2:51
+    # TIP: Choose a random time here so not all repositories are build at once:
+    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
+    - cron:  '51 2 * * *'
+  workflow_dispatch:
+jobs:
+  tests:
+    strategy:
+      # Let every channel and OS finish: one channel's failure must not
+      # cancel (and hide the result of) the others.
+      fail-fast: false
+      matrix:
+        # Set this to cache your build results in cachix for faster builds
+        # in CI and for everyone who uses your cache.
+        #
+        # Format: Your cachix cache host name without the ".cachix.org" suffix.
+        # Example: mycache (for mycache.cachix.org)
+        #
+        # For this to work, you also need to set the CACHIX_SIGNING_KEY or
+        # CACHIX_AUTH_TOKEN secret in your repository secrets settings in
+        # Github found at
+        # https://github.com/<your_githubname>/nur-packages/settings/secrets
+        cachixName:
+          - sylr-nur-packages
+        nixPath:
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-26.05.tar.gz
+        # macos-latest (aarch64-darwin) builds the darwin-only packages,
+        # which ci.nix skips on Linux.
+        os:
+          - ubuntu-latest
+          - macos-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v5
+    - name: Install nix
+      uses: cachix/install-nix-action@v31
+      with:
+        nix_path: "${{ matrix.nixPath }}"
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Show nixpkgs version
+      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Setup cachix
+      uses: cachix/cachix-action@v16
+      # Don't replace <YOUR_CACHIX_NAME> here!
+      if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
+      with:
+        name: ${{ matrix.cachixName }}
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - name: Check evaluation
+      run: |
+        nix-env -f . -qa \* --meta --xml \
+          --allowed-uris https://static.rust-lang.org \
+          --option restrict-eval true \
+          --option allow-import-from-derivation true \
+          --drv-path --show-trace \
+          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+          -I $PWD
+    - name: Build nix packages
+      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+  # Build the flake outputs, pinned by flake.lock, and push them to Cachix.
+  # These are the exact store paths that `github:sylr/nur-packages#<name>`
+  # and flake inputs resolve to, so machines that use the cache download
+  # them instead of compiling. The `tests` job builds against channels
+  # instead, which give different store paths.
+  flake:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-26.04     # x86_64-linux
+          - ubuntu-26.04-arm # aarch64-linux
+          - macos-latest     # aarch64-darwin
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v5
+    - name: Install nix
+      uses: cachix/install-nix-action@v31
+      with:
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Setup cachix
+      uses: cachix/cachix-action@v16
+      with:
+        name: sylr-nur-packages
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - name: Build flake packages
+      # bash (not the default) runs with -o pipefail, so a failing
+      # `nix eval` fails the step instead of building nothing.
+      shell: bash
+      run: |
+        system=$(nix eval --impure --raw --expr builtins.currentSystem)
+        nix eval --json ".#packages.$system" --apply builtins.attrNames \
+          | jq -r --arg s "$system" '.[] | ".#packages.\($s).\(.)"' \
+          | xargs -r nix build --no-link -L
+  # Notify NUR once, after every matrix job succeeded, and not for pull
+  # requests. The repo name is the one in
+  # https://github.com/nix-community/NUR/blob/main/repos.json
+  nur-update:
+    needs: [tests, flake]
+    if: ${{ github.event_name != 'pull_request' }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Trigger NUR update
+      run: curl -sS -XPOST "https://nur-update.nix-community.org/update?repo=sylr"
