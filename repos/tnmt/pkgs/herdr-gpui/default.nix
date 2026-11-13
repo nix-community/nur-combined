@@ -10,6 +10,7 @@
   freetype,
   libxkbcommon,
   libxcb,
+  sqlite,
   vulkan-loader,
   wayland,
   wl-clipboard,
@@ -69,6 +70,7 @@ rustPlatform.buildRustPackage rec {
     freetype
     libxkbcommon
     libxcb
+    sqlite
   ] ++ runtimeLibraries;
 
   postInstall = ''
