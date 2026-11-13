@@ -28,8 +28,6 @@ in with pkgs; rec {
 
   sambaWithMDNS = samba.override { enableMDNS = true; };
 
-  silver = callPackage ./pkgs/silver {};
-
   termbin = writeShellScriptBin "tb" ''
     exec ${lib.getExe netcat} termbin.com 9999
   '';
