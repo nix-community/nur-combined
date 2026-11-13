@@ -1,0 +1,3 @@
+# Product data version; written by data-bundle.sh and read by data-fetch.sh. Do not edit manually.
+tag = data-v10
+qingjian-data.tar.gz = 62cf2b43eb49c86065544a2008b2121b065c0d30e47c12d08932c8ac30f53ab6

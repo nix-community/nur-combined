@@ -1,0 +1,3 @@
+{
+  qingjian = ./qingjian.nix;
+}

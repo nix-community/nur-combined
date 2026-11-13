@@ -1,0 +1,7 @@
+{
+  "owner": "NixOS",
+  "repo": "patchelf",
+  "version": "0.19.3-unstable-2026-10-30",
+  "rev": "2b4b49d36b62690860414dd127f567be4f1f3208",
+  "narHash": "sha256-jeHuH5wi8yEs148ApY636xkVhp4jT5tRZHTluW4AQtY="
+}
