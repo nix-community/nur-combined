@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation rec {
   version = "1.2304.79";
   src = fetchurl {
     url = "https://github.com/SpaceTimee/Fusion-JetBrainsMapleMono/releases/download/${version}/JetBrainsMapleMono-NF-XX-XX-XX.zip";
-    hash = "sha256-On7V5Q9oMdwUFKStlrHgPBPLxnyjK8G7fp2QxWuQM1g=";
+    hash = "sha256-Wu9Qva7hbUrfNiB7Tw5O77h6T5Y2rrdZWa4yyBM7LHU=";
   };
 
   nativeBuildInputs = [ unzip ];
@@ -26,13 +26,7 @@ stdenvNoCC.mkDerivation rec {
     find -name \*.ttf -exec mkdir -p $dst_truetype \; -exec cp -p {} $dst_truetype \;
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--github-release"
-      "--asset-regex"
-      "JetBrainsMapleMono-NF-XX-XX-XX.zip"
-    ];
-  };
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Fusion JetBrains Maple Mono integration";
