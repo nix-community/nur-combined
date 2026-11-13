@@ -7,6 +7,13 @@
 
   qt6,
   # libsForQt5,
+  expat,
+  freetype,
+  fontconfig,
+  bzip2,
+  libxrender,
+  libxcb-cursor,
+  libunwind,
   libusb1,
   pkg-config,
   gst_all_1,
@@ -107,6 +114,13 @@ stdenv.mkDerivation (
         qtsvg
       ])
       ++ [
+        expat
+        freetype
+        fontconfig
+        bzip2
+        libxrender
+        libxcb-cursor
+        libunwind
         libusb1
         libudev
         libgudev

@@ -16,7 +16,16 @@ stdenv.mkDerivation {
     hash = "sha256-wjEwNMQBKLWf4sGrHeQmDTtObSI72c0IS/2MEwRuUgU=";
   };
 
+  patches = [ ./ma7.patch ];
+
   nativeBuildInputs = [ cmake ];
+
+  doCheck = true;
+  checkPhase = ''
+    runHook preCheck
+    ctest --output-on-failure
+    runHook postCheck
+  '';
 
   installPhase = ''
     runHook preInstall

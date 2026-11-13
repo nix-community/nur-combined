@@ -110,7 +110,7 @@ in
       monero-gui
       obsidian
       openscad
-      # openterface-qt #broken build
+      openterface-qt
       orca-slicer
       oscar
       prismlauncher

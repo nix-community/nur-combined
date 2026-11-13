@@ -1,0 +1,271 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 7a63888..1ae4c93 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -21,3 +21,10 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+     add_executable(smaf-render example/smaf-render.cpp)
+     target_link_libraries(smaf-render PRIVATE smaf)
+ endif()
++
++include(CTest)
++if(BUILD_TESTING)
++    add_executable(smaf-ma7-test tests/ma7.cpp)
++    target_link_libraries(smaf-ma7-test PRIVATE smaf)
++    add_test(NAME ma7 COMMAND smaf-ma7-test)
++endif()
+diff --git a/src/ma_player.cpp b/src/ma_player.cpp
+index aa201e8..90d904d 100644
+--- a/src/ma_player.cpp
++++ b/src/ma_player.cpp
+@@ -134,10 +134,11 @@ bool MaPlayer::init(const SmafFile& file, uint32_t sampleRate) {
+ 
+     for (size_t idx : play) {
+         const TrackChunk& t = file.tracks[idx];
+-        // handyphone = 4 channels/track, mobile = 16. global channel base keeps
++        // HandyPhone = 4 channels/track, Mobile = 16, MA-7 = 32. The base keeps
+         // multi-track files from colliding.
+-        int base = (t.formatType == 0x00) ? t.trackNumber * 4 : t.trackNumber * 16;
+-        if (base < 0 || base > 112) base = 0;
++        int width = t.formatType == 0x00 ? 4 : t.formatType == 0x03 ? 32 : 16;
++        int base = t.trackNumber * width;
++        if (base < 0 || base + width > 128) base = 0;
+         decodeTrack_(t, base);
+     }
+ 
+@@ -285,7 +286,7 @@ void MaPlayer::decodeTrack_(const TrackChunk& t, int base) {
+         if (!inflated.empty())
+             decodeMobile_(inflated.data(), inflated.size(), base, tbD, tbG);
+     } else {
+-        decodeMobile_(t.sequenceData.data(), t.sequenceData.size(), base, tbD, tbG);
++        decodeMobile_(t.sequenceData.data(), t.sequenceData.size(), base, tbD, tbG, t.formatType == 0x03);
+     }
+ }
+ 
+@@ -396,13 +397,13 @@ void MaPlayer::decodeHandyPhone_(const uint8_t* p, size_t n, int base, double tb
+ }
+ 
+ // ── mobile standard event stream ────────────────────────────────────────────
+-void MaPlayer::decodeMobile_(const uint8_t* p, size_t n, int base, double tbDms, double tbGms) {
++void MaPlayer::decodeMobile_(const uint8_t* p, size_t n, int base, double tbDms, double tbGms, bool ma7) {
+     const uint8_t* end = p + n;
+     double curMs = 0.0;
+     auto msToSample = [&](double ms) { return uint64_t(ms * rate_ / 1000.0); };
+     // per-channel running velocity: a 0x9n note SETS it, later 0x8n notes REUSE
+     // it (spec behaviour; initial value 64).
+-    uint8_t runVel[16];
++    uint8_t runVel[32];
+     for (auto& v : runVel) v = 64;
+     int guard = 0;
+     while (p < end && guard++ < 4000000 && events_.size() < kMaxEvents) {
+@@ -410,8 +411,16 @@ void MaPlayer::decodeMobile_(const uint8_t* p, size_t n, int base, double tbDms,
+         curMs += dur * tbDms;
+         if (p >= end) break;
+         uint8_t s = *p++;
++        // MA-7 moves the MIDI class down by 0x80 and uses bit 7 for
++        // channels 16..31. System events retain their F0/FF status bytes.
++        int localCh = s & 0x0f;
++        if (ma7 && s != 0xf0 && s != 0xff) {
++            if ((s & 0x70) == 0x70) break;
++            localCh += (s & 0x80) ? 16 : 0;
++            s = (s & 0x7f) | 0x80;
++        }
+         if (s < 0x80) continue;                        // stray data byte
+-        int ch = base + (s & 0x0f);
++        int ch = base + localCh;
+         uint64_t at = msToSample(curMs);
+         switch (s & 0xf0) {
+             case 0x80: case 0x90: {                    // note off-vel / on-vel
+@@ -421,9 +430,9 @@ void MaPlayer::decodeMobile_(const uint8_t* p, size_t n, int base, double tbDms,
+                 if ((s & 0xf0) == 0x90) {
+                     if (p >= end) break;
+                     vel = *p++;
+-                    runVel[s & 0x0f] = uint8_t(vel & 0x7f);   // remember
++                    runVel[localCh] = uint8_t(vel & 0x7f);   // remember
+                 } else {
+-                    vel = runVel[s & 0x0f];                    // reuse remembered
++                    vel = runVel[localCh];                    // reuse remembered
+                 }
+                 uint32_t gate = readVlq(p, end);
+                 if (gate == 0) break;
+@@ -648,7 +657,7 @@ void MaPlayer::fireEvent_(const Ev& e) {
+             // a rhythm-channel note with no bound voice gets a percussion hit,
+             // never a melodic gm patch (the "drums play piano" class).
+             const FmVoicePatch& patch = rv ? rv->patch
+-                : (c.rhythm || c.drum) ? FmVoicePatch::drumApprox(e.a)
++                : (c.rhythm || c.drum || c.bankMsb == 0x7d) ? FmVoicePatch::drumApprox(e.a)
+                                        : FmVoicePatch::gmApprox(c.program);
+             int slot = -1;
+             for (int i = 0; i < kPoolSize; ++i) if (!pool_[i].active()) { slot = i; break; }
+diff --git a/src/ma_player.h b/src/ma_player.h
+index 5b0d5dc..22beacf 100644
+--- a/src/ma_player.h
++++ b/src/ma_player.h
+@@ -119,7 +119,7 @@ private:
+     // the note nibble carrying a WAVE NUMBER; notes become WaveOn triggers.
+     void decodeHandyPhone_(const uint8_t* p, size_t n, int base, double tbDms, double tbGms,
+                            bool atrWaveMode = false);
+-    void decodeMobile_(const uint8_t* p, size_t n, int base, double tbDms, double tbGms);
++    void decodeMobile_(const uint8_t* p, size_t n, int base, double tbDms, double tbGms, bool ma7 = false);
+ 
+     // resolve a channel's current patch (voice table hit or gm fallback).
+     const FmVoicePatch& patchFor_(int ch, int note, bool& isPcmOut) const;
+diff --git a/src/smaf_voice.cpp b/src/smaf_voice.cpp
+index 20a5e11..461b873 100644
+--- a/src/smaf_voice.cpp
++++ b/src/smaf_voice.cpp
+@@ -127,6 +127,25 @@ ParsedVoice parseVoiceExclusive(const uint8_t* p, size_t n) {
+     if (!p || n < 5) return out;
+     if (p[0] != 0x43) return out;   // not a yamaha maker id
+ 
++    // MA-7 FM voices retain the VM35 globals and first seven bytes of
++    // each operator, followed by three bytes of additional MA-7 controls.
++    if (n >= 14 && p[1] == 0x79 && p[2] == 0x08 && p[3] == 0x7f && p[4] == 0x21) {
++        if (p[10] != 0) return out; // other MA-7 voice types need separate decoders
++        int alg = p[13] & 0x0f;
++        if (alg > 7) return out;
++        int count = opCountFromAlg(alg);
++        if (n < size_t(14 + count * 10)) return out;
++        out.key.bankMSB = p[5]; out.key.bankLSB = p[6]; out.key.pc = p[7];
++        out.key.drumNote = p[8];
++        uint8_t body[3 + 7 * 4] = {};
++        std::copy_n(p + 11, 3, body);
++        for (int i = 0; i < count; ++i)
++            std::copy_n(p + 14 + i * 10, 7, body + 3 + i * 7);
++        applyVm35Body(body, 3 + count * 7, count, out.patch);
++        out.valid = true;
++        return out;
++    }
++
+     // MA-3 / MA-5 long form: 43 79 06|07 7F 01 [bank...] body
+     if (n >= 11 && p[1] == 0x79 && (p[2] == 0x06 || p[2] == 0x07) && p[3] == 0x7f && p[4] == 0x01) {
+         out.key.bankMSB = p[5]; out.key.bankLSB = p[6]; out.key.pc = p[7];
+diff --git a/tests/ma7.cpp b/tests/ma7.cpp
+new file mode 100644
+index 0000000..06afc27
+--- /dev/null
++++ b/tests/ma7.cpp
+@@ -0,0 +1,124 @@
++// SPDX-License-Identifier: Apache-2.0
++#include "ma_player.h"
++#include "smaf_voice.h"
++
++#include <algorithm>
++#include <cmath>
++#include <cstdio>
++#include <stdexcept>
++#include <vector>
++
++using namespace fxchain::smaf;
++
++static void require(bool ok, const char* message) {
++    if (!ok) throw std::runtime_error(message);
++}
++
++static std::vector<float> render(int format, const std::vector<uint8_t>& sequence, bool rhythm = false) {
++    SmafFile file;
++    TrackChunk track;
++    track.formatType = format;
++    track.trackNumber = format == 3 ? 7 : 0;
++    track.durationTimeBase = track.gateTimeBase = 2;
++    track.channelStatus.resize(format == 3 ? 32 : 16);
++    if (rhythm) track.channelStatus[0] = 3;
++    track.sequenceData = sequence;
++    file.tracks.push_back(track);
++    MaPlayer player;
++    require(player.init(file, 8000), "score rejected");
++    std::vector<float> audio;
++    float buffer[512];
++    for (int frames = 0; frames < 32000;) {
++        int got = player.render(buffer, 256);
++        if (!got) break;
++        audio.insert(audio.end(), buffer, buffer + got * 2);
++        frames += got;
++    }
++    return audio;
++}
++
++static void events() {
++    // Different programs, volumes and running velocities on channels 0 and 16.
++    // The equivalent Mobile score uses channels 0 and 1.
++    const std::vector<uint8_t> native = {
++        0, 0xf0, 5, 0x43, 0x10, 0x30, 0x90, 0xf7,
++        0, 0x40, 16, 0, 0xc0, 40,
++        0, 0x30, 7, 80, 0, 0xb0, 7, 110,
++        0, 0x30, 10, 32, 0, 0xb0, 10, 96,
++        0, 0xe0, 0, 72,
++        0, 0x10, 60, 30, 0x81, 2,
++        0, 0x90, 67, 110, 0x81, 2,
++        0x81, 2, 0x00, 64, 0x81, 2,
++        0, 0x80, 71, 0x81, 2,
++        0, 0xff, 0,
++        0, 0xff, 0x2f, 0,
++        0, 0x10, 20, 127, 1,
++    };
++    const std::vector<uint8_t> mobile = {
++        0, 0xf0, 5, 0x43, 0x10, 0x30, 0x90, 0xf7,
++        0, 0xc0, 16, 0, 0xc1, 40,
++        0, 0xb0, 7, 80, 0, 0xb1, 7, 110,
++        0, 0xb0, 10, 32, 0, 0xb1, 10, 96,
++        0, 0xe1, 0, 72,
++        0, 0x90, 60, 30, 0x81, 2,
++        0, 0x91, 67, 110, 0x81, 2,
++        0x81, 2, 0x80, 64, 0x81, 2,
++        0, 0x81, 71, 0x81, 2,
++        0, 0xff, 0,
++        0, 0xff, 0x2f, 0,
++    };
++    auto actual = render(3, native);
++    auto expected = render(2, mobile);
++    require(actual == expected, "MA-7 timing, channel state or event decoding differs");
++    require(std::any_of(actual.begin(), actual.end(), [](float v) {
++        return std::isfinite(v) && std::fabs(v) > 0.001f;
++    }), "render is silent");
++}
++
++static void percussion() {
++    auto actual = render(3, {0, 0x30, 0, 0x7d, 0, 0x10, 40, 100, 125});
++    auto expected = render(2, {0, 0xb0, 0, 0x7d, 0, 0x90, 40, 100, 125}, true);
++    auto melodic = render(2, {0, 0x90, 40, 100, 125});
++    require(actual == expected && actual != melodic,
++            "MA-7 percussion bank did not use percussion fallback");
++}
++
++static void voices() {
++    for (int alg : {0, 1, 2, 7}) {
++        int ops = alg < 2 ? 2 : 4;
++        std::vector<uint8_t> native = {0x43, 0x79, 8, 0x7f, 0x21,
++                                     0x7c, 2, 57, 0, 0, 0, 0, 0x79, uint8_t(alg)};
++        std::vector<uint8_t> mobile = {0x43, 0x79, 7, 0x7f, 1,
++                                     0x7c, 2, 57, 0, 0, 0, 0x79, uint8_t(alg)};
++        for (int i = 0; i < ops; ++i) {
++            std::vector<uint8_t> op = {2, 0x73, 0xf4, uint8_t(i * 12), 1, 0x10, 0};
++            native.insert(native.end(), op.begin(), op.end());
++            native.insert(native.end(), {0x0e, 0xca, 0x10});
++            mobile.insert(mobile.end(), op.begin(), op.end());
++        }
++        auto a = parseVoiceExclusive(native.data(), native.size());
++        auto b = parseVoiceExclusive(mobile.data(), mobile.size());
++        require(a.valid && b.valid && a.key == b.key, "MA-7 FM voice rejected");
++        FmVoice va, vb;
++        va.setSampleRate(8000); vb.setSampleRate(8000);
++        va.noteOn(a.patch, 440, 0.5); vb.noteOn(b.patch, 440, 0.5);
++        for (int i = 0; i < 800; ++i)
++            require(va.tick() == vb.tick(), "MA-7 operator layout differs");
++        for (size_t n = 0; n < native.size(); ++n)
++            require(!parseVoiceExclusive(native.data(), n).valid, "truncated voice accepted");
++        native[10] = 3;
++        require(!parseVoiceExclusive(native.data(), native.size()).valid,
++                "unsupported PCM voice interpreted as FM");
++    }
++}
++
++int main() {
++    try {
++        events();
++        voices();
++        percussion();
++    } catch (const std::exception& e) {
++        std::fprintf(stderr, "%s\n", e.what());
++        return 1;
++    }
++}
