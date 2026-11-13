@@ -10,19 +10,19 @@
    "module": "sha256-sdLhqqhUgJqHuB3XROcNm83tIgebmOM4YcMpwqld1/k=",
    "pom": "sha256-U7WXNikqL2F/pPn/VRFw6/k2v4JZGpQnbvrSuGdgKM8="
   },
-  "com/google/code/gson#gson-parent/2.14.0": {
-   "pom": "sha256-grD2aUxXWKuLsH4FYwII1Q9YnUteBP0KBG1Zzfe6PR0="
+  "com/google/code/gson#gson-parent/2.15.0": {
+   "pom": "sha256-M3Zkswrem2bjc7bvyhq6dCHB+P9jZDuKqLbQXY7+jos="
   },
-  "com/google/code/gson#gson/2.14.0": {
-   "jar": "sha256-LL0Rm/GWHCh4gxCWPcgLpl9Yze7B3ROci9sSQPqiw28=",
-   "pom": "sha256-H6ASLA43MxkmQoYcNr5Mb3maeVMnojvdKSJpG26bpIA="
+  "com/google/code/gson#gson/2.15.0": {
+   "jar": "sha256-ltPdhD3CkR3gHNq81QBky56GA1MQKgp4yW/YM9OW/H0=",
+   "pom": "sha256-QmvJaKTlIYZaWN0XpgOJ/tYZWhw1fj64vLfK4xOHvK4="
   },
-  "com/google/errorprone#error_prone_annotations/2.48.0": {
-   "jar": "sha256-tJxclYMW7WegnGmd2pqnScr0NNUdhj3qWZ7zakm5yFU=",
-   "pom": "sha256-GJ4JrQSJwyXpDaqp1cj0BjMGAvo2Zgm8oHy82tA6udo="
+  "com/google/errorprone#error_prone_annotations/2.50.0": {
+   "jar": "sha256-RmdySHfx03pokgLaGR4j76dlfGLu+TzNrEBuzP5c3Qo=",
+   "pom": "sha256-caBoDSdzJLq0a+xLAPbxEcG3lKkx0NjNp5vLkkaYL5I="
   },
-  "com/google/errorprone#error_prone_parent/2.48.0": {
-   "pom": "sha256-sz+opFyfF5SlAIwLLYOoTrKLXQEXptFW8AP58JvnQQ8="
+  "com/google/errorprone#error_prone_parent/2.50.0": {
+   "pom": "sha256-q/RaAZ2xJbUP9VE07Cr5SuNRl2EDit8KYLm9e0uLYlQ="
   },
   "com/squareup#javapoet/1.13.0": {
    "jar": "sha256-THUX6EinGzbQadErs79Gpw/UzaMQXYIrDtLhnAC2kpE=",
@@ -37,13 +37,13 @@
    "module": "sha256-L0NhyMIntTte899BoQfqpwHRUAF3M0cz0aegpwfj/ZI=",
    "pom": "sha256-1afQVYLc92/+7onxys89cxs7Kr858LkWOMqXVuKsbEU="
   },
-  "io/github/jwharm/flatpak-gradle-generator#io.github.jwharm.flatpak-gradle-generator.gradle.plugin/1.8.0": {
-   "pom": "sha256-Be/PEkp9Fawe/6MVQVp6n42i2E1ayi7XAj/sRXPFWMw="
+  "io/github/jwharm/flatpak-gradle-generator#io.github.jwharm.flatpak-gradle-generator.gradle.plugin/1.9.0": {
+   "pom": "sha256-/zuVvvlt0xByW9vbQQoQT1M7LUg9VssmSmRlihkSXB0="
   },
-  "io/github/jwharm/flatpak-gradle-generator#plugin/1.8.0": {
-   "jar": "sha256-Al106QZ6z3QWPWvWZZM8KHNpCJXxZNYvsPMoEdXyxpQ=",
-   "module": "sha256-xl9RCXDVEffZJU+9WuHjqF3YIs/Em+zrqYXWl/Emn7s=",
-   "pom": "sha256-CRDRmiu9fkTahAsp4LfYyUw668kddopDgT0Hd8QOxfs="
+  "io/github/jwharm/flatpak-gradle-generator#plugin/1.9.0": {
+   "jar": "sha256-hD5mg8PNMwyduVzwKc/j4fTxB4UYgAGAKiGnTyzIaik=",
+   "module": "sha256-FI4gq/btxZJ4jpgSzp8uz9hoXXR/+0+KPLXXKeuM9hI=",
+   "pom": "sha256-vJ71ojdr2EZa8CDbXFDu0wX47g98GGVOMU8GZyjgCwQ="
   },
   "org/gradle/toolchains#foojay-resolver/1.0.0": {
    "jar": "sha256-eLhqR9/fdpfJvRXaeJg/2A2nJH1uAvwQa98H4DiLYKg=",
@@ -207,10 +207,10 @@
    "jar": "sha256-C/37SmPcEw9QotbyRtNi/M6k3t1mc3OeEw1YzKNgLMI=",
    "pom": "sha256-2KtgePFZcW5nLDG7hXQKQrxjfkzIpwysd3v5zmUtzYY="
   },
-  "com/formdev#flatlaf/3.7.2": {
-   "jar": "sha256-kXr/OWPIjXl9D9m5zL1w92gcEB350RxZ4rx6OmwPq/Q=",
-   "module": "sha256-QmkNxewSEuQUNOVbc4ocdKtZLQd6AWYD3F0+kVmDbtI=",
-   "pom": "sha256-fX2k/mP99zzJgJZ6t/L8fZTgl0g1Y8rx4Tae/It1luE="
+  "com/formdev#flatlaf/3.8": {
+   "jar": "sha256-jYSJ3ua5USpmm+dnD9LQEPan3PsjtiIynOPGH4Up52s=",
+   "module": "sha256-5m3MKFryLooyb0ahisF4ByfXwbqfXY4Y1rv68yGvHLY=",
+   "pom": "sha256-r0eTZ9tGXIqMSAq0l3kahbn4+I/+xtGb7wGVeMSGfa4="
   },
   "com/github/hypfvieh#dbus-java-core/5.2.2": {
    "jar": "sha256-3WJbpZpjK30F1xLynuBFUXNtWE0PbEDR2KCeq67cnPA=",
