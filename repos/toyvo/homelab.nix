@@ -124,7 +124,7 @@
         port = 9119;
         subdomain = "hermes";
         # Dashboard does native OIDC against Authentik itself, so skip the
-        # Caddy forward-auth gate (avoids a double login).
+        # forward-auth gate (avoids a double login).
         forwardAuthGate = false;
         displayName = "Hermes Dashboard";
         description = "Agent Dashboard";

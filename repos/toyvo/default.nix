@@ -66,6 +66,7 @@ let
   packages = {
     jellyfin-plugin-ldap-authentication = callPackage ./pkgs/jellyfin-plugin-ldap-authentication;
     kea-technitium-ddns = callPackage ./pkgs/kea-technitium-ddns;
+    traefik-cert-sync = callPackage ./pkgs/traefik-cert-sync;
     libpcpnatpmp = callPackage ./pkgs/libpcpnatpmp;
     mcsmanager = callPackage ./pkgs/mcsmanager;
     network-inventory = callPackage ./pkgs/network-inventory;

@@ -53,7 +53,7 @@ in
     disable = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       # servicelb (klipper-lb) stays off: no LoadBalancer services, no :80/:443
-      # binds on nodes — Caddy on the router owns the edge. NOTE: packaged
+      # binds on nodes — the Traefik DaemonSet pinned to the router owns the edge. NOTE: packaged
       # disable flags must be identical on ALL servers; a single server with
       # a component enabled deletes the shared Addon cluster-wide (observed
       # with traefik). Keep this default uniform; override per-host only to
@@ -62,13 +62,20 @@ in
         "traefik"
         "servicelb"
       ];
-      description = "Disable default k3s components (traefik stays off unless traefik.enable; router Caddy owns the edge).";
+      description = "Disable default k3s components (traefik stays off unless traefik.enable).";
     };
 
     disableAgent = lib.mkOption {
       type = lib.types.bool;
       default = false;
       description = "Only run the server (etcd/control-plane, no kubelet workloads). For quorum-only members like the router.";
+    };
+
+    nodeTaints = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      example = [ "dedicated=edge:NoSchedule" ];
+      description = "Extra --node-taint= flags for k3s servers.";
     };
 
     firewallInterfaces = lib.mkOption {
@@ -81,10 +88,19 @@ in
     traefik = {
       enable = lib.mkEnableOption "k3s Traefik ingress (NodePort service with pinned nodePorts)";
 
+      tcpEntrypoints = lib.mkOption {
+        type = lib.types.attrsOf lib.types.port;
+        default = { };
+        example = {
+          netbird = 9443;
+        };
+        description = "Extra TCP entrypoints (e.g. NetBird); empty until its port map is known.";
+      };
+
       httpNodePort = lib.mkOption {
         type = lib.types.port;
         default = 30080;
-        description = "Pinned NodePort for Traefik web (what Caddy forwards to).";
+        description = "Pinned NodePort for Traefik web (legacy now that the edge binds :80 directly via hostNetwork).";
       };
 
       httpsNodePort = lib.mkOption {
@@ -158,9 +174,12 @@ in
         if cfg.traefik.enable then builtins.filter (x: x != "traefik") cfg.disable else cfg.disable
       );
       serverAddr = lib.mkIf (cfg.serverAddr != null) cfg.serverAddr;
-      extraFlags = map (san: "--tls-san=${san}") cfg.extraSANs ++ [
-        "--resolv-conf=/etc/rancher/k3s/resolv.conf"
-      ];
+      extraFlags =
+        map (san: "--tls-san=${san}") cfg.extraSANs
+        ++ [
+          "--resolv-conf=/etc/rancher/k3s/resolv.conf"
+        ]
+        ++ map (t: "--node-taint=${t}") cfg.nodeTaints;
       manifests = lib.mkIf cfg.traefik.enable {
         "traefik-config.yaml".content = {
           apiVersion = "helm.cattle.io/v1";
@@ -170,13 +189,39 @@ in
             namespace = "kube-system";
           };
           spec.valuesContent = ''
+            deployment:
+              kind: DaemonSet
+            hostNetwork: true
+            nodeSelector:
+              kubernetes.io/hostname: router
+            tolerations:
+              - key: dedicated
+                operator: Equal
+                value: edge
+                effect: NoSchedule
+            accesslog: true
+            metrics:
+              prometheus:
+                entryPoint: metrics
+            additionalArguments:
+              - --entrypoints.metrics.address=127.0.0.1:8082
             service:
               type: NodePort
             ports:
               web:
                 nodePort: ${toString cfg.traefik.httpNodePort}
+                redirectTo: websecure
               websecure:
                 nodePort: ${toString cfg.traefik.httpsNodePort}
+              metrics:
+                port: 8082
+                expose: false
+            ${lib.concatStringsSep "\n" (
+              lib.mapAttrsToList (name: port: ''
+                ${name}:
+                  port: ${toString port}
+                  expose: false'') cfg.traefik.tcpEntrypoints
+            )}
           '';
         };
       };

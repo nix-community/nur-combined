@@ -250,6 +250,12 @@ in
       };
       spec = {
         ingressClassName = "traefik";
+        tls = [
+          {
+            hosts = [ "diekvoss.net" ];
+            secretName = "wildcard-tls-diekvoss-net";
+          }
+        ];
         rules = [
           {
             host = "diekvoss.net";

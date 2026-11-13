@@ -199,11 +199,10 @@ metadata (`displayName`, `description`, `category`, `icon`, `widget`).
 
 Consumers:
 
-- `configurations/nixos/router/virtual-hosts.nix` — generates a Caddy vhost
-  `<subdomain>.<domain>` → `http://<host ip>:<port>` for every service on a
-  `10.1.0.0/16` or `10.200.0.0/16` host. TLS uses the `*.diekvoss.net` /
-  `*.toyvo.dev` wildcard ACME certs (Cloudflare DNS challenge). See
-  "Domains and Public Exposure" below for how vhost listen addresses are chosen.
+- `modules/nixos/k3s-edge.nix` (manifests deployed from the nas) — generates an IngressRoute `<subdomain>.<domain>` → `http://<host ip>:<port>` for every service on a
+  `10.1.0.0/16` or `10.200.0.0/16` host, served by the single Traefik DaemonSet pinned to the router. TLS uses the `*.diekvoss.net` /
+  `*.toyvo.dev` wildcard ACME certs (Cloudflare DNS challenge, synced into the cluster). See
+  "Domains and Public Exposure" below for how route visibility is chosen.
 - `configurations/nixos/nas/homepage.nix` — generates homepage-dashboard
   entries grouped by `category`.
 
@@ -219,13 +218,13 @@ Note on SSH: the router's admin sshd listens on port **2222** (client config in
 ### Domains and Public Exposure
 
 - `diekvoss.net` — **internal-only**: only resolvable within the home network.
-  As defense in depth, its Caddy vhosts listen on localhost/LAN addresses only,
+  As defense in depth, its Traefik routes carry an IP allow-list for LAN/private ranges only,
   and services are gated behind authentik forward-auth by default
   (`forwardAuthGate = true`). Exposure risk is low, but don't treat it as
   nonexistent — the network has guest/IoT VLANs.
 - `toyvo.dev` and `diekvoss.com` — **public internet-facing**: anything exposed
   on these domains is reachable by the entire world, so keep security top of
-  mind. Their Caddy vhosts listen on all interfaces. Requirements for anything
+  mind. Their Traefik routes are served on the public entrypoint. Requirements for anything
   public: strong authentication (prefer authentik forward-auth or OIDC), no
   default/weak credentials, no unauthenticated write access, no sensitive data
   on unauthenticated endpoints, and the minimal set of open ports. Think twice

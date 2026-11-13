@@ -30,6 +30,7 @@ in
     inputs.nixcfg.modules.nixos.nix-ld
     inputs.nixcfg.modules.nixos.podman
     inputs.nixcfg.modules.nixos.k3s
+    inputs.nixcfg.modules.nixos.k3s-edge
     inputs.nixcfg.modules.nixos.k3s-homepage
     inputs.nixcfg.modules.nixos.k3s-homeassistant
     inputs.nixcfg.modules.nixos.k3s-storage
@@ -143,6 +144,8 @@ in
     };
     # First migration passenger; manifests deploy cluster-wide from here.
     k3sHomepage.enable = true;
+    # Traefik edge routes generated from homelab.
+    k3sEdge.enable = true;
     # Home Assistant (not starr); same cluster-wide pattern.
     k3sHomeassistant.enable = true;
     # Shared NFS storage (csi-driver-nfs + static pool PVs).
@@ -536,7 +539,7 @@ in
       toolsets = [ "hermes-cli" ];
       display.personality = "kawaii";
       dashboard = {
-        # Public URL behind the router Caddy reverse proxy. Its hostname is
+        # Public URL behind the router Traefik edge. Its hostname is
         # trusted by the Host/Origin guards and it builds the OIDC
         # redirect_uri (https://hermes.diekvoss.net/auth/callback).
         public_url = "https://hermes.diekvoss.net";

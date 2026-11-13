@@ -22,6 +22,7 @@
   system = ./system.nix;
   ids = ./ids.nix;
   k3s = ./k3s.nix;
+  k3s-edge = ./k3s-edge.nix;
   k3s-homepage = ./k3s-homepage.nix;
   k3s-homeassistant = ./k3s-homeassistant.nix;
   k3s-storage = ./k3s-storage.nix;

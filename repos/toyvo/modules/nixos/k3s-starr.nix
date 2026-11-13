@@ -161,6 +161,12 @@ in
           };
           spec = {
             ingressClassName = "traefik";
+            tls = [
+              {
+                hosts = [ "prowlarr.diekvoss.net" ];
+                secretName = "wildcard-tls-diekvoss-net";
+              }
+            ];
             rules = [
               {
                 host = "prowlarr.diekvoss.net";
@@ -311,6 +317,12 @@ in
           };
           spec = {
             ingressClassName = "traefik";
+            tls = [
+              {
+                hosts = [ "sonarr.diekvoss.net" ];
+                secretName = "wildcard-tls-diekvoss-net";
+              }
+            ];
             rules = [
               {
                 host = "sonarr.diekvoss.net";
@@ -461,6 +473,12 @@ in
           };
           spec = {
             ingressClassName = "traefik";
+            tls = [
+              {
+                hosts = [ "lidarr.diekvoss.net" ];
+                secretName = "wildcard-tls-diekvoss-net";
+              }
+            ];
             rules = [
               {
                 host = "lidarr.diekvoss.net";
@@ -611,6 +629,12 @@ in
           };
           spec = {
             ingressClassName = "traefik";
+            tls = [
+              {
+                hosts = [ "radarr.diekvoss.net" ];
+                secretName = "wildcard-tls-diekvoss-net";
+              }
+            ];
             rules = [
               {
                 host = "radarr.diekvoss.net";
@@ -761,6 +785,12 @@ in
           };
           spec = {
             ingressClassName = "traefik";
+            tls = [
+              {
+                hosts = [ "readarr.diekvoss.net" ];
+                secretName = "wildcard-tls-diekvoss-net";
+              }
+            ];
             rules = [
               {
                 host = "readarr.diekvoss.net";
@@ -911,6 +941,12 @@ in
           };
           spec = {
             ingressClassName = "traefik";
+            tls = [
+              {
+                hosts = [ "bazarr.diekvoss.net" ];
+                secretName = "wildcard-tls-diekvoss-net";
+              }
+            ];
             rules = [
               {
                 host = "bazarr.diekvoss.net";
@@ -1016,6 +1052,12 @@ in
           };
           spec = {
             ingressClassName = "traefik";
+            tls = [
+              {
+                hosts = [ "flaresolverr.diekvoss.net" ];
+                secretName = "wildcard-tls-diekvoss-net";
+              }
+            ];
             rules = [
               {
                 host = "flaresolverr.diekvoss.net";
@@ -1277,6 +1319,12 @@ in
           };
           spec = {
             ingressClassName = "traefik";
+            tls = [
+              {
+                hosts = [ "qbittorrent.diekvoss.net" ];
+                secretName = "wildcard-tls-diekvoss-net";
+              }
+            ];
             rules = [
               {
                 host = "qbittorrent.diekvoss.net";

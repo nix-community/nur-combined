@@ -117,6 +117,12 @@ in
         };
         spec = {
           ingressClassName = "traefik";
+          tls = [
+            {
+              hosts = [ "home-assistant.diekvoss.net" ];
+              secretName = "wildcard-tls-diekvoss-net";
+            }
+          ];
           rules = [
             {
               host = "home-assistant.diekvoss.net";
