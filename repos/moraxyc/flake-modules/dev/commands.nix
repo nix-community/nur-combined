@@ -13,8 +13,14 @@ _: {
         export NIXPKGS_ALLOW_UNFREE=1
         export PATH=${
           lib.makeBinPath [
+            pkgs.bash
             pkgs.coreutils
+            pkgs.gawk
             pkgs.gh
+            pkgs.git
+            pkgs.gnugrep
+            pkgs.gnused
+            pkgs.pnpm_11
           ]
         }:$PATH
 

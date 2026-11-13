@@ -18,6 +18,7 @@ let
     mautrix-telegramgo = "unmaintained";
 
     # discontinued
+    boringssl-oqs = "discontinued";
     wetype = "discontinued";
   }
   // lib.mapAttrs (_n: _v: "discontinued") (lib.filesystem.readDir ../discontinued);

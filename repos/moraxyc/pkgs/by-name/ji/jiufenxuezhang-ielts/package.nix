@@ -2,17 +2,15 @@
   lib,
   stdenv,
   callPackage,
-  fetchurl,
   _7zz,
-  common-updater-scripts,
   copyDesktopItems,
-  curl,
   electron_41,
   libicns,
   makeDesktopItem,
   makeWrapper,
-  writeShellApplication,
-  yq-go,
+
+  sources,
+  source ? sources.jiufenxuezhang-ielts,
 }:
 
 let
@@ -23,19 +21,12 @@ let
   inherit (stdenv.hostPlatform) isDarwin isLinux;
 
   appName = "九分学长考雅机考平台";
-  updateFeed = "https://static.9fnnn.com/electron/stable";
 in
 stdenv.mkDerivation (finalAttrs: {
-  pname = "jiufenxuezhang-ielts";
-  version = "0.9.20-rc.1";
+  inherit (source) pname version src;
 
   __structuredAttrs = true;
   strictDeps = true;
-
-  src = fetchurl {
-    url = "${updateFeed}/jiufenxuezhang-ielts-${finalAttrs.version}-universal.dmg";
-    hash = "sha512-/EMIr+8Oz3aVgNFTofkzBUHNmxGbttgykKJKGvw/pAe8kiTcGWlMRoa8etymDM6mClYgnDzXv2JJbAfyIx3xzw==";
-  };
 
   nativeBuildInputs = [
     _7zz
@@ -104,27 +95,9 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  passthru = {
-    # Must be built against the same Electron that runs the app.
-    better-sqlite3-mc = callPackage ./better-sqlite3-multiple-ciphers.nix { inherit electron; };
-
-    # nix-update auto -u
-    # Run from the repository root. The feed's base64 sha512 is already a valid
-    # SRI hash once prefixed, so nothing needs to be downloaded.
-    updateScript = lib.getExe (writeShellApplication {
-      name = "update-${finalAttrs.pname}";
-      runtimeInputs = [
-        common-updater-scripts
-        curl
-        yq-go
-      ];
-      text = ''
-        feed=$(curl -fsSL ${updateFeed}/latest-mac.yml)
-        version=$(yq '.version' <<< "$feed")
-        sha512=$(yq '.files[] | select(.url | test("-universal\\.dmg$")) | .sha512' <<< "$feed")
-        update-source-version ${finalAttrs.pname} "$version" "sha512-$sha512"
-      '';
-    });
+  # Must be built against the same Electron that runs the app.
+  passthru.better-sqlite3-mc = callPackage ./better-sqlite3-multiple-ciphers.nix {
+    inherit electron;
   };
 
   meta = {

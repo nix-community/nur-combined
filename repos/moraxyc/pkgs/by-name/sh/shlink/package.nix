@@ -33,9 +33,9 @@ php.buildComposerProject2 (finalAttrs: {
 
   inherit (finalAttrs.passthru) php;
 
-  vendorHash = "sha256-xnwa61iFW8niml8/04/gOSboq0ddWpUJ7b+6a2aOH50=";
+  inherit (source) vendorHash;
 
-  composerLock = ./composer.lock;
+  composerLock = source.artifacts."composer.lock";
   composerNoDev = true;
   composerNoScripts = true;
   composerNoPlugins = false;
@@ -75,8 +75,8 @@ php.buildComposerProject2 (finalAttrs: {
       ++ lib.optional withMysql all.pdo_mysql
       ++ lib.optional withMssql all.pdo_sqlsrv
     );
-    # nix-update auto -u
-    updateScript = ./update.sh;
+    # Use the lockfile in fetchrix's prepared source, not the previous artifact.
+    fetchrix.composerVendor = finalAttrs.composerVendor.overrideAttrs { composerLock = null; };
   };
 
   meta = {

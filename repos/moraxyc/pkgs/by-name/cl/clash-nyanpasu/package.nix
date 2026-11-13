@@ -48,7 +48,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   strictDeps = true;
 
   patches = [
-    ./fix-local-inlang-plugins.patch
+    source.artifacts."fix-local-inlang-plugins.patch"
   ];
 
   cargoRoot = "backend";
@@ -77,7 +77,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     in
     patchedCargoDeps;
 
-  # nix-update auto
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs)
       pname
@@ -87,7 +86,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       ;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-CU4Cg4gEDVMNIFR0LBMRi6R2T3yB7tQJvTYD+Ls5nag=";
+    hash = source.pnpmDepsHash;
   };
 
   nativeBuildInputs = [
@@ -209,8 +208,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=enhance::script::js::test::test_process_honey_with_fetch"
   ];
 
-  # nix-update auto -u
-  passthru.updateScript = ./update.sh;
+  # fetchrix has already applied the changes when it computes this hash.
+  passthru.fetchrix.pnpmDeps = finalAttrs.pnpmDeps.overrideAttrs { patches = [ ]; };
 
   meta = {
     description = "Clash GUI based on Tauri";

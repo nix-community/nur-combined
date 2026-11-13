@@ -32,7 +32,6 @@ buildGoModule (finalAttrs: {
   nativeCheckInputs = [ versionCheckHook ];
   versionCheckProgramArg = "-version";
 
-  # nix-update auto -u
   passthru.updateScript = ./update.sh;
 
   meta = {

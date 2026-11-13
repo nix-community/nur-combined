@@ -1,6 +1,7 @@
 {
   lib,
   buildNpmPackage,
+  fetchNpmDeps,
   makeWrapper,
   nodejs-slim,
   versionCheckHook,
@@ -16,10 +17,10 @@ buildNpmPackage (finalAttrs: {
   nodejs = nodejs-slim;
 
   postPatch = ''
-    cp ${./package-lock.json} package-lock.json
+    cp ${source.artifacts."package-lock.json"} package-lock.json
   '';
 
-  npmDepsHash = "sha256-8kh9B/5lZ6BDarh4CAjAJD61cgUM9tnkm1wbEIemKwQ=";
+  inherit (source) npmDepsHash;
   npmFlags = [ "--legacy-peer-deps" ];
   npmRebuildFlags = [ "--ignore-scripts" ];
 
@@ -68,13 +69,8 @@ buildNpmPackage (finalAttrs: {
   versionCheckProgram = "${placeholder "out"}/bin/airtrail-admin";
   versionCheckProgramArg = "version";
 
-  # nix-update auto --version=skip --generate-lockfile
-  # passthru.updateScript = nix-update-script {
-  #   extraArgs = [
-  #     "--version=skip"
-  #     "--generate-lockfile"
-  #   ];
-  # };
+  # Start without a hash so fetchNpmDeps enables network access for prefetching.
+  passthru.fetchrix.npmDeps = fetchNpmDeps { inherit (finalAttrs) src; };
 
   meta = {
     description = "Self-hosted personal flight tracker";

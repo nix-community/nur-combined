@@ -20,10 +20,18 @@
         "fetcher": "github",
         "owner": "johanohly",
         "repo": "AirTrail",
-        "rev": "v3.14.0",
+        "tag": "v3.14.0",
         "hash": "sha256-6JOK3g4ADGZ1rLu2BZ4nPDboqNCYaOpSmF/a9N3lasY="
       },
-      "fingerprint": "sha256-H+prPsozgCaYykHN444qQHIAT4Q+mqAdIWuvlPxQWK8="
+      "derived": {
+        "npmDepsHash": {
+          "hash": "sha256-hTVVpahGZ1sNYLNF9P1q8V6cjdk1Hkr9snwT7qHhHHI="
+        }
+      },
+      "artifacts": {
+        "package-lock.json": "airtrail/package-lock.json"
+      },
+      "fingerprint": "sha256-cVQ7h55JChvA30nwu2Nmkypiz9ytWuPQd2UqxAacviU="
     },
     "aliyundrive-webdav": {
       "version": "2.3.3-unstable-2026-02-20",
@@ -126,9 +134,15 @@
             "tracing-test-0.2.5": "sha256-uhjFW7s8Lfvq/j8mTCXcivzIvwHP3NFoI8rJOZ9avdE=",
             "tracing-test-macro-0.2.5": "sha256-uhjFW7s8Lfvq/j8mTCXcivzIvwHP3NFoI8rJOZ9avdE="
           }
+        },
+        "pnpmDepsHash": {
+          "hash": "sha256-3w3+3i9chn6d9OTD7NTdXunNwAZzntqcKDXRz0B6mFI="
         }
       },
-      "fingerprint": "sha256-Nbdjs7R1EExJWEfM0jkyZEoZg3OvJwG5IncOH8c5eCU="
+      "artifacts": {
+        "fix-local-inlang-plugins.patch": "clash-nyanpasu/fix-local-inlang-plugins.patch"
+      },
+      "fingerprint": "sha256-lRVSyyEgjB7+DTkWkJjnh25GVEAgFctbwDVE8UlBRzg="
     },
     "cliproxyapi": {
       "version": "8.0.67",
@@ -419,10 +433,10 @@
       "rawVersion": "0.9.20-rc.1",
       "src": {
         "fetcher": "url",
-        "url": "https://static.9fnnn.com/electron/stable/latest-mac.yml",
-        "hash": "sha256-GUQkxn3m9q3YJI/NcLO3d7QgdO6gHNUkjRj71//VtN0="
+        "url": "https://static.9fnnn.com/electron/stable/jiufenxuezhang-ielts-0.9.20-rc.1-universal.dmg",
+        "hash": "sha256-XrD5h6VCGOvDh1zsudhmmEx2vK6Oc1DToICPgtwNyxE="
       },
-      "fingerprint": "sha256-83GC/jcKANACt2LWSdR9uu93Ry/Yix7V/9XRoU12RIU="
+      "fingerprint": "sha256-mdqb1M4vkcpF3pYjpSYHRZ/stovbzouCMceT/0NbiWQ="
     },
     "libinput-three-finger-drag": {
       "version": "0-unstable-2024-06-17",
@@ -952,10 +966,18 @@
         "fetcher": "github",
         "owner": "shlinkio",
         "repo": "shlink",
-        "rev": "v5.1.8",
+        "tag": "v5.1.8",
         "hash": "sha256-bkmqNwRTZqr0rLc0QLN5W3uJdfcfkY53P0vhed3j21w="
       },
-      "fingerprint": "sha256-yTL6US3HN4TBh/e8Qvl1DEEOO+j/G3Sr8tN41q70ffw="
+      "derived": {
+        "vendorHash": {
+          "hash": "sha256-on/o6nO6Bh0Jpshg/SbNktYHajGS8KwPSTdSfxyLhp4="
+        }
+      },
+      "artifacts": {
+        "composer.lock": "shlink/composer.lock"
+      },
+      "fingerprint": "sha256-c0dPdttZ4qu/djUB9fDR49vv2JwR/rLNt/gMptNArG8="
     },
     "subconverter": {
       "version": "0-unstable-2026-07-08",

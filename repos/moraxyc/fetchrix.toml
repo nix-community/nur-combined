@@ -6,7 +6,15 @@ fetch = { type = "github", repo = "Mak5er/AirCard", rev = "{version}" }
 [packages.airtrail]
 version = { source = "github-release", repo = "johanohly/AirTrail" }
 transform = ["strip-v"]
-fetch = { type = "github", repo = "johanohly/AirTrail", rev = "{version}" }
+fetch = { type = "github", repo = "johanohly/AirTrail", tag = "{version}" }
+
+[packages.airtrail.prepare]
+steps = [{ type = "npm-lock", args = ["--legacy-peer-deps"] }]
+artifacts."package-lock.json" = { type = "file", path = "package-lock.json" }
+
+[packages.airtrail.derive.npmDepsHash]
+strategy = "fod"
+attr = ".#airtrail.fetchrix.npmDeps"
 
 [packages.aliyundrive-webdav]
 version = { source = "git", url = "https://github.com/messense/aliyundrive-webdav.git", unstable = { stable = { source = "github-release", repo = "messense/aliyundrive-webdav" } } }
@@ -40,19 +48,18 @@ fetch = { type = "git", url = "https://github.com/Finb/bark-server.git", rev = "
 strategy = "fod"
 attr = ".#bark-server.goModules"
 
-[packages.boringssl-oqs]
-version = { source = "github-release", repo = "open-quantum-safe/boringssl" }
-transform = ["strip-v"]
-fetch = { type = "github", repo = "open-quantum-safe/boringssl", rev = "{version}" }
-
-[packages.boringssl-oqs.derive.vendorHash]
-strategy = "fod"
-attr = ".#boringssl-oqs.goModules"
-
 [packages.clash-nyanpasu]
 version = { source = "git", url = "https://github.com/libnyanpasu/clash-nyanpasu", unstable = { stable = { source = "github-release", repo = "libnyanpasu/clash-nyanpasu" } } }
 transform = ["strip-v"]
 fetch = { type = "git", url = "https://github.com/libnyanpasu/clash-nyanpasu", rev = "{version}" }
+
+[packages.clash-nyanpasu.prepare]
+steps = [{ type = "hook", run = ["./pkgs/by-name/cl/clash-nyanpasu/prepare.sh"] }]
+artifacts."fix-local-inlang-plugins.patch" = { type = "patch", paths = ["frontend/nyanpasu/package.json", "frontend/nyanpasu/project.inlang/settings.json", "pnpm-lock.yaml"] }
+
+[packages.clash-nyanpasu.derive.pnpmDepsHash]
+strategy = "fod"
+attr = ".#clash-nyanpasu.fetchrix.pnpmDeps"
 
 [packages.clash-nyanpasu.derive.cargoLock]
 kind = "cargo-vendor"
@@ -206,9 +213,9 @@ strategy = "fod"
 attr = ".#hysteria-realm-server.goModules"
 
 [packages.jiufenxuezhang-ielts]
-version = { source = "regex", url = "https://static.9fnnn.com/electron/stable/latest-mac.yml", regex = "version: (\\S+)" }
+version = { source = "manifest", url = "https://static.9fnnn.com/electron/stable/latest-mac.yml", format = "yaml" }
 transform = ["strip-v"]
-fetch = { type = "url", url = "https://static.9fnnn.com/electron/stable/latest-mac.yml" }
+fetch = { type = "url", url = "https://static.9fnnn.com/electron/stable/jiufenxuezhang-ielts-{version}-universal.dmg" }
 
 [packages.libinput-three-finger-drag]
 version = { source = "git", url = "https://github.com/marsqing/libinput-three-finger-drag", unstable = { } }
@@ -469,7 +476,15 @@ sub_dir = "desktop"
 [packages.shlink]
 version = { source = "github-release", repo = "shlinkio/shlink" }
 transform = ["strip-v"]
-fetch = { type = "github", repo = "shlinkio/shlink", rev = "{version}" }
+fetch = { type = "github", repo = "shlinkio/shlink", tag = "{version}" }
+
+[packages.shlink.prepare]
+steps = [{ type = "composer-lock" }]
+artifacts."composer.lock" = { type = "file", path = "composer.lock" }
+
+[packages.shlink.derive.vendorHash]
+strategy = "fod"
+attr = ".#shlink.fetchrix.composerVendor"
 
 [packages.subconverter]
 version = { source = "git", url = "https://github.com/tindy2013/subconverter", unstable = { } }

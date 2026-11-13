@@ -9,7 +9,8 @@ rec {
     `{ lockFile; outputHashes; }`, which `cargoLock` accepts directly. An
     extracted `package-lock.json` becomes `{ npmRoot; package; packageLock; }`,
     the arguments of `importNpmLock`; `npmRoot` points into `src` so local and
-    workspace dependencies resolve against the fetched source.
+    workspace dependencies resolve against the fetched source. Files exported
+    by `prepare` become paths in `artifacts`, keyed by name.
   */
   load =
     { pkgs, dir }:
@@ -68,6 +69,9 @@ rec {
       // lib.optionalAttrs (pkg ? date) { inherit (pkg) date; }
       // {
         inherit src;
+      }
+      // lib.optionalAttrs (pkg ? artifacts) {
+        artifacts = lib.mapAttrs (_: path: dir + "/${path}") pkg.artifacts;
       }
       // lib.mapAttrs (_: derive name src) (pkg.derived or { })
     ) parsed.packages;

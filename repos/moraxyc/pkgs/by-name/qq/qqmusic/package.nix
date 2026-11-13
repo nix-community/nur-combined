@@ -18,7 +18,6 @@ let
     maintainers = with lib.maintainers; [ moraxyc ];
   };
   passthru = {
-    # nix-update auto -u
     updateScript = ./update.sh;
     _ignoreOverride = true;
   };

@@ -89,17 +89,6 @@
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
-  boringssl-oqs = {
-    pname = "boringssl-oqs";
-    version = "OQS-BoringSSL-snapshot-2025-01";
-    src = fetchFromGitHub {
-      owner = "open-quantum-safe";
-      repo = "boringssl";
-      rev = "OQS-BoringSSL-snapshot-2025-01";
-      fetchSubmodules = false;
-      sha256 = "sha256-zVZgAvq6V85hxO79Ct8s+VVyf9yPa/YbRL4D5z31qEs=";
-    };
-  };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
     version = "883c1135d57c8eaa905f9f78a27fc6ccf62d435a";
