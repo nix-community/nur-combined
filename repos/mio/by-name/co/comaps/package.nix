@@ -39,19 +39,19 @@ let
   };
 
   # Update mapRev based on v field and mapSeries near the top in https://codeberg.org/comaps/comaps/src/branch/main/data/countries.txt
-  mapSeries = "2026.06.28";
-  mapRev = 261004;
+  mapSeries = "2026.10.27";
+  mapRev = 261105;
 
   worldMap = fetchurl {
     name = "World-${mapSeries}-${toString mapRev}.mwm";
     url = "https://mapgen-fi-1.comaps.app/maps/${mapSeries}/${toString mapRev}/World.mwm";
-    hash = "sha256-d6NcFvrWQlL+ff+tuOlm6OOvkGNUsU3y7cGAmz4i5KU=";
+    hash = "sha256-vzw5XtJZuXF/8p+Umv5vQB7J0zsxtEtBi3LGrrRqkNs=";
   };
 
   worldCoasts = fetchurl {
     name = "WorldCoasts-${mapSeries}-${toString mapRev}.mwm";
     url = "https://mapgen-fi-1.comaps.app/maps/${mapSeries}/${toString mapRev}/WorldCoasts.mwm";
-    hash = "sha256-1CpxsQxWN4FEaJKdxMcsL8IPKZbOmHfWl7091NwUNiY=";
+    hash = "sha256-cjDWCVmIC4ayIEc5cRfQZrdzGQcjinzvSs2qCRebfIo=";
   };
 
   pythonEnv = python3.withPackages (

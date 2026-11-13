@@ -1,8 +1,8 @@
 diff --git a/3party/CMakeLists.txt b/3party/CMakeLists.txt
-index 2146a5fdcf..9fc67abfb3 100644
+index 2146a5f..9fc67ab 100644
 --- a/3party/CMakeLists.txt
 +++ b/3party/CMakeLists.txt
-@@ -41,9 +41,6 @@
+@@ -41,9 +41,6 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
    # Add pugixml library.
    add_subdirectory(pugixml)
  
@@ -12,7 +12,7 @@ index 2146a5fdcf..9fc67abfb3 100644
    if (NOT PLATFORM_LINUX)
      add_subdirectory(freetype)
      add_subdirectory(icu)
-@@ -55,6 +52,9 @@
+@@ -55,6 +52,9 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
    target_include_directories(utf8cpp INTERFACE "${OMIM_ROOT}/3party/utfcpp/source")
  endif()
  
@@ -23,11 +23,11 @@ index 2146a5fdcf..9fc67abfb3 100644
  add_subdirectory(bsdiff-courgette)
  add_subdirectory(glaze)
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 096d31389e..c6e4aabdeb 100644
+index b581cd6..32bd74f 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -212,26 +212,6 @@
-   message(STATUS "==> Python Virtual Environment detected : ${PYTHON_VENV_PATH}"  "  ==>  "  "Using python command: ${Python3_EXECUTABLE}" )
+@@ -221,25 +221,6 @@ elseif(EXISTS "${OMIM_ROOT}/.venv")
+   message(STATUS "==> Python Virtual Environment detected : ${OMIM_ROOT}/.venv"  "  ==>  "  "Using python command: ${Python3_EXECUTABLE}" )
  endif()
  
 -execute_process(
@@ -49,7 +49,6 @@ index 096d31389e..c6e4aabdeb 100644
 -    message(FATAL_ERROR "Python protobuf not found. Run ./configure.sh to provision a local .venv with the correct version (>=3.20, <4.0), or set SKIP_PYTHON_VENV=1 to manage protobuf via your system Python.")
 -endif()
 -
--
- add_subdirectory(libs)
+ find_package(Doxygen OPTIONAL_COMPONENTS dot)
  
- if (PLATFORM_DESKTOP)
+ if(DOXYGEN_FOUND)
