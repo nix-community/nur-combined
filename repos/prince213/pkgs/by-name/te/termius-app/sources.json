@@ -1,16 +1,16 @@
 {
   "aarch64-darwin": {
-    "version": "10.4.0",
+    "version": "10.4.1",
     "src": {
       "url": "https://autoupdate.termius.com/mac-arm64/Termius.zip",
-      "hash": "sha256-rhfoLuMQpGiC5b4GYPccN0nbhOGbKBgVCk38lsE4O4I="
+      "hash": "sha256-mYvT+jZpTuD0iav/teivgVQxTe59oDTWzl3geqU0Kr0="
     }
   },
   "x86_64-linux": {
-    "version": "10.4.0",
+    "version": "10.4.1",
     "src": {
-      "url": "https://deb.termius.com/pool/main/t/termius-app/termius-app_10.4.0_amd64.deb",
-      "hash": "sha256-MboY1gDVP2W/YURhhxrJEV2BmZCa52Ill9ajdlXGEDA="
+      "url": "https://deb.termius.com/pool/main/t/termius-app/termius-app_10.4.1_amd64.deb",
+      "hash": "sha256-C64o+k6JuIJOp5ATMUV/MTkn8M6qFlI8VzJlfbj0DfU="
     }
   }
 }
