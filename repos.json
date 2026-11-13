@@ -132,8 +132,8 @@
         "VZstless": {
             "url": "https://github.com/VZstless/NUR-repo"
         },
-        "Vortriz": {
-            "url": "https://github.com/Vortriz/nur-packages"
+        "Wian1977": {
+            "url": "https://github.com/Wian1977/nur-packages"
         },
         "XiaoXioe": {
             "url": "https://github.com/XiaoXioe/nix-custompkgs"
@@ -277,6 +277,9 @@
         "aymanbagabas": {
             "url": "https://github.com/aymanbagabas/nur"
         },
+        "b6d5b38e0d7ae6bd0d951815cd92df43": {
+            "url": "https://github.com/b6d5b38e0d7ae6bd0d951815cd92df43/nur"
+        },
         "babariviere": {
             "url": "https://github.com/babariviere/nur-packages"
         },
@@ -306,6 +309,9 @@
         },
         "behoof4mind": {
             "url": "https://github.com/behoof4mind/packages"
+        },
+        "beiyanyunyi": {
+            "url": "https://github.com/BeiyanYunyi/NUR-Repo"
         },
         "bendlas": {
             "url": "https://github.com/bendlas/nur-packages"
@@ -353,6 +359,9 @@
         },
         "caarlos0": {
             "url": "https://github.com/caarlos0/nur"
+        },
+        "callumd789": {
+            "url": "https://github.com/callumd789/nur-packages"
         },
         "cameronyule": {
             "url": "https://github.com/cameronyule/nurpkgs"
@@ -646,6 +655,9 @@
         },
         "fractuscontext": {
             "url": "https://github.com/fractuscontext/nix-nur"
+        },
+        "freegoxing": {
+            "url": "https://github.com/freegoxing/nur-packages"
         },
         "friedow": {
             "url": "https://github.com/friedow/nur-packages"
@@ -1430,6 +1442,9 @@
         "ressu": {
             "url": "https://github.com/ressu/nur-packages"
         },
+        "revue": {
+            "url": "https://forgejo.cleangame.dev/thatrichan/nix-revue"
+        },
         "reward": {
             "url": "https://github.com/rewardenv/nur"
         },
@@ -1599,6 +1614,9 @@
         },
         "syberant": {
             "url": "https://github.com/syberant/nur-packages"
+        },
+        "sylr": {
+            "url": "https://github.com/sylr/nur-packages"
         },
         "szanko": {
             "url": "https://github.com/SZanko/nur-packages"
