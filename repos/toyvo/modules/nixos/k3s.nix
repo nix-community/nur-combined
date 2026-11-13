@@ -200,6 +200,11 @@ in
           spec.valuesContent = ''
             deployment:
               kind: DaemonSet
+            updateStrategy:
+              type: RollingUpdate
+              rollingUpdate:
+                maxUnavailable: 1
+                maxSurge: 1
             hostNetwork: true
             nodeSelector:
               kubernetes.io/hostname: router
@@ -209,6 +214,15 @@ in
                 value: edge
                 effect: NoSchedule
             accesslog: true
+            # Non-root image: needs NET_BIND_SERVICE for host :80/:443.
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+                add:
+                  - NET_BIND_SERVICE
+              readOnlyRootFilesystem: true
             metrics:
               prometheus:
                 entryPoint: metrics
@@ -218,13 +232,14 @@ in
               type: NodePort
             ports:
               web:
+                port: 80
                 nodePort: ${toString cfg.traefik.httpNodePort}
                 redirectTo: websecure
               websecure:
+                port: 443
                 nodePort: ${toString cfg.traefik.httpsNodePort}
               metrics:
                 port: 8082
-                expose: false
             ${lib.concatStringsSep "\n" (
               lib.mapAttrsToList (name: port: ''
                 ${name}:
