@@ -6,7 +6,7 @@
 }:
 
 let
-  version = "1.24.0";
+  version = "1.25.0";
 
   os =
     if stdenv.hostPlatform.isLinux then
@@ -28,10 +28,10 @@ let
       throw "varlock: unsupported arch ${stdenv.hostPlatform.system}";
 
   sha256BySystem = {
-    "x86_64-linux" = "sha256-JU7X32lZhSKWkZ2IVJT4Uc3quYxUTFhDFvQhJcVqBRk=";
-    "aarch64-linux" = "sha256-jaKQgWMxtR3A0hs9V0wgA7iNMxldpI5cGT0E5U2FuB0=";
-    "x86_64-darwin" = "sha256-dFhCaHwMC/BrxZgITmZDhOeO6eYCWiin+jD3o/PAT64=";
-    "aarch64-darwin" = "sha256-TqRTwdk83jv8dh2+eospvzCdRRo0p8ZmHAbxoTH/zqQ=";
+    "x86_64-linux" = "sha256-Rsi8a86Yh4r+cOw7/hbItWzUikFofqVBjI7IiETA0HM=";
+    "aarch64-linux" = "sha256-kA38MQqNlAI7x0v+A0kD/lWArGmAl0DluvA7lpmNnXE=";
+    "x86_64-darwin" = "sha256-IMBhW/gTuf1UbUuEaAXUsnxBdaCSrR1uco5jw0SwF5E=";
+    "aarch64-darwin" = "sha256-fXXVY1ZTfxL31SvF8KQxiTbm0Wmd87ycczglrZ3gDRk=";
   };
 
   srcUrl = "https://github.com/dmno-dev/varlock/releases/download/varlock@${version}/varlock-${os}-${arch}.tar.gz";
