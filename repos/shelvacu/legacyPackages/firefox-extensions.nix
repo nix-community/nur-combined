@@ -58,13 +58,6 @@ let
       version = "1.68.0";
       hash = "sha256-XK9KvaSUAYhBIioSFWkZu92MrYKng8OMNrIt1kJwQxU=";
     };
-    bitwarden = {
-      fixedExtid = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      amoId = "bitwarden-password-manager";
-      fileId = 4664623;
-      version = "2025.12.1";
-      hash = "sha256-p6Ej7uTkD92K98DGckNzHdzDeuFJjPKCiZX0kFYAxR8=";
-    };
     clearurls = {
       fixedExtid = "{74145f27-f039-47ce-a470-a662b129930a}";
       fileId = 4432106;

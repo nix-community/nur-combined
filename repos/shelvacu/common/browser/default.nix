@@ -59,7 +59,6 @@ let
     "sponsorBlocker@ajay.app"
     "uBlock0@raymondhill.net"
     "{0d7cafdd-501c-49ca-8ebb-e3341caaa55e}" # youtube-nonstop
-    "{446900e4-71c2-419f-a6a7-df9c091e268b}" # bitwarden-password-manager
     "{531906d3-e22f-4a6c-a102-8057b88a1a63}" # singlefile
     "{73a6fe31-595d-460b-a920-fcc0f8843232}" # noscript
     "{74145f27-f039-47ce-a470-a662b129930a}" # clearurls
