@@ -1,0 +1,30 @@
+From 2cd5e31eb46c910a1ce58a4e616db9ab48f93ead Mon Sep 17 00:00:00 2001
+From: FlashOnFire_ <flashonfire@proton.me>
+Date: Tue, 10 Nov 2026 15:14:42 +0100
+Subject: [PATCH] rust-bindgen-unwrapped: use clang from rustc instead of
+ rustPlatform
+
+Assisted-by: Claude Code (claude-opus-5-5)
+---
+ pkgs/by-name/ru/rust-bindgen-unwrapped/package.nix | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/pkgs/by-name/ru/rust-bindgen-unwrapped/package.nix b/pkgs/by-name/ru/rust-bindgen-unwrapped/package.nix
+index 50e4576027d34b3b30ca57b2d33dccce8f8b5f58..9e705f41df14b0833d4ce40a1b0733f6e54f55cd 100644
+--- a/pkgs/by-name/ru/rust-bindgen-unwrapped/package.nix
++++ b/pkgs/by-name/ru/rust-bindgen-unwrapped/package.nix
+@@ -2,12 +2,13 @@
+   lib,
+   fetchCrate,
+   rustPlatform,
++  rustc,
+   rustfmt,
+ }:
+ let
+   # bindgen hardcodes rustfmt outputs that use nightly features
+   rustfmt-nightly = rustfmt.override { asNightly = true; };
+-  clang = rustPlatform.rust.rustc.llvmPackages.clang;
++  clang = rustc.llvmPackages.clang;
+ in
+ rustPlatform.buildRustPackage rec {
+   pname = "rust-bindgen-unwrapped";

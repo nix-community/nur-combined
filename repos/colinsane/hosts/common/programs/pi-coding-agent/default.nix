@@ -237,6 +237,8 @@ in
       # hijack that to also add the api key.
       #
       # env vars:
+      # - LLAMA_BASE_URL: populating this is not required to use llama-cpp (i think);
+      #                   only required to access its control plane, i.e. to manually load/unload models.
       # - PI_CODING_AGENT_DIR: Override config directory (default: ~/.pi/agent)
       # - PI_CODING_AGENT_SESSION_DIR: Override session storage directory (overridden by --session-dir)
       # - PI_PACKAGE_DIR: Override package directory
@@ -250,6 +252,7 @@ in
             --set-default PI_OFFLINE 1 \
             --set-default PI_SKIP_VERSION_CHECK 1 \
             --run 'export PI_CODING_AGENT_DIR=''${PI_CODING_AGENT_DIR:-$XDG_CONFIG_HOME/pi}' \
+            --run 'export LLAMA_BASE_URL=''${LLAMA_BASE_URL:-http://${deskoHostname}:11435}' \
             --run 'export NANOGPT_API_KEY=''${NANOGPT_API_KEY:-$(cat "$XDG_CONFIG_HOME/nanogpt/nanogpt_api_key")}'
         }
         ${prevAttrs.postFixup}
@@ -346,15 +349,25 @@ in
       };
     };
 
-    fs.".config/pi/auth.json".symlink.target = (pkgs.formats.json {}).generate "pi-auth.json" {
-      # this lets me manually load/unload models
-      "llama.cpp" = {
-        type = "api_key";
-        env = {
-          LLAMA_BASE_URL = "http://${deskoHostname}:11435";
-        };
-      };
-    };
+    # fs.".config/pi/auth.json".symlink.target = let
+    #   auth = pkgs.writers.writeJSON "pi-auth.json" {
+    #     # this lets me manually load/unload models
+    #     "llama.cpp" = {
+    #       type = "api_key";
+    #       env = {
+    #         LLAMA_BASE_URL = "http://${deskoHostname}:11435";
+    #       };
+    #     };
+    #   };
+    #   # pi wants to create $(realpath ~/.config/pi/auth.json).lock on launch,
+    #   # so force that to live on mutable storage even as auth.json lives in the store.
+    #   # see: <https://github.com/earendil-works/pi/pull/11787#issuecomment-6846777190>
+    #   authDir = pkgs.runCommand "config-pi-auth" { } ''
+    #     mkdir $out
+    #     cp ${auth} $out/auth.json
+    #     ln -s /home/colin/.config/pi/auth.json.lock $out/auth.json.lock
+    #   '';
+    # in "${authDir}/auth.json";
 
     fs.".config/pi/models.json".symlink.target = pkgs.runCommand "pi-models.json" {
       nativeBuildInputs = [ pkgs.jq ];

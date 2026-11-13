@@ -12,7 +12,7 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ublock-origin";
-  version = "1.75.4";
+  version = "1.76.0";
   src = fetchurl {
     # N.B.: the release process seems to be to first release an unsigned .xpi,
     #       then sign it a few days later,
@@ -20,7 +20,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     #       therefore, only grab signed releases, to avoid having the artifact disappear out from under us :(
     # url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.xpi";
     url = "https://github.com/gorhill/uBlock/releases/download/${finalAttrs.version}/uBlock0_${finalAttrs.version}.firefox.signed.xpi";
-    hash = "sha256-4t9QPM589QaRMGGMNJaV9ivd2564wYkVbQJyaa5K4mc=";
+    hash = "sha256-byD/Z0kZNZlUh3BTkQMGnCCUjfzT5hwwiaZ9p7/Dvjk=";
     name = "uBlock0_${finalAttrs.version}.firefox.signed.zip";
   };
   # .zip file has everything in the top-level; stdenv needs it to be extracted into a subdir:

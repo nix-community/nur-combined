@@ -35,9 +35,8 @@ let
     ];
     postPatch = (upstream.postPatch or "") + ''
       # pretend we're running under Flatpak so that we *always* dispatch non-webapp URIs through the portal.
-      # XXX(2026-08-28): function name changes to `xdp_portal_running_under_sandbox` in future versions
       substituteInPlace lib/ephy-file-helpers.c --replace-fail \
-        'ephy_is_running_inside_sandbox ()' \
+        'xdp_portal_running_under_sandbox ()' \
         'true'
     '';
     postInstall = (upstream.postInstall or "") + ''

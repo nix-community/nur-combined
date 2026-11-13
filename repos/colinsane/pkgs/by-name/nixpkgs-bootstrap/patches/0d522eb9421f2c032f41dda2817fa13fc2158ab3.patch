@@ -1,0 +1,25 @@
+From 0d522eb9421f2c032f41dda2817fa13fc2158ab3 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Thu, 12 Nov 2026 05:09:24 +0000
+Subject: [PATCH] WIP: mesa: install pdsc_precomp to cross_tools to fix cross
+ compilation
+
+fixes `nix-build -A pkgsCross.aarch64-multiplatform.mesa` when combined
+with https://github.com/NixOS/nixpkgs/pull/586150,
+but should be safe to merge in either order.
+---
+ pkgs/development/libraries/mesa/default.nix | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/pkgs/development/libraries/mesa/default.nix b/pkgs/development/libraries/mesa/default.nix
+index 7f2311597a7e..987047074baf 100644
+--- a/pkgs/development/libraries/mesa/default.nix
++++ b/pkgs/development/libraries/mesa/default.nix
+@@ -349,6 +349,7 @@ stdenv.mkDerivation (finalAttrs: {
+     moveToOutput bin/panfrost_texfeatures $cross_tools
+     moveToOutput bin/panfrostdump $cross_tools
+     moveToOutput bin/pco_clc $cross_tools
++    moveToOutput bin/pdsc_precomp $cross_tools
+     moveToOutput bin/vtn_bindgen2 $cross_tools
+ 
+     moveToOutput "lib/lib*OpenCL*" $opencl

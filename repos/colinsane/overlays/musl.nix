@@ -30,9 +30,10 @@
 # 1. `overrideAttrs` for most everything outside of patching the source code.
 #    e.g. adding env vars, missing nativeBuildInputs/buildInputs, configuring checkPhase, etc.
 # 2. `override { withFeature = false; }` or `override { feature-specific-dependency = null; }` if build is fixed by removing some feature.
-# 3. `overrideAttrs (prevAttrs: { patches = (prevAttrs.patches or []) ++ [(fetchAports { ...})]; })`.
-# 4. fetchCports; fetchVoid; fetch${distro}  (create the fetcher if it doesn't exist yet).
-# 5. `postPatch = (prevAttrs.postPatch or "") + ''...'';` ONLY as a last resort.
+# 3. `overrideAttrs (prevAttrs: { patches = (prevAttrs.patches or []) ++ [(fetchpatch { url = "<upstream repo>/commit/<git_rev>.patch"; ... })]; })`, i.e. fetch a fix which was has been sent to upstream.
+# 4. `overrideAttrs (prevAttrs: { patches = (prevAttrs.patches or []) ++ [(fetchAports { ... })]; })`.
+# 5. fetchCports; fetchVoid; fetch${distro}  (create the fetcher if it doesn't exist yet).
+# 6. `postPatch = (prevAttrs.postPatch or "") + ''...'';` ONLY as a last resort.
 #
 # package overrides throughout this file are (with exception) sorted alphabetically by attrname
 final: super:
@@ -74,6 +75,16 @@ let
     # fetchpatch not fetchurl, to support args like `stripLen = 2;`
     url = "https://raw.githubusercontent.com/chimera-linux/cports/${rev}/${path}";
     # key the name by rev to help the url remain valid as i bulk upgrade
+    name = "${rev}-${args'.name or path}";
+  });
+  fetchGentoo = {
+    path,
+    rev ? "26d062d8904f625767c6d28b5eb47c1e37576512",  # 2026-11-11
+    ...
+  }@args: let
+    args' = lib.removeAttrs args [ "path" "rev" ];
+  in fetchpatch (args' // {
+    url = "https://raw.githubusercontent.com/gentoo/gentoo/${rev}/${path}";
     name = "${rev}-${args'.name or path}";
   });
   fetchVoid = {
@@ -165,30 +176,25 @@ super.lib.composeManyExtensions [
     #
     # related/alternatives:
     # - <https://github.com/NixOS/nixpkgs/pull/475746>
-    _pkgsSystemd = prev._pkgsSystemd or (import pkgs.path {
-      overlays = [
-        (final': prev': {
-          _pkgsSystemd = prev';  #< prevents infinite recursion; avoid re-defining _pkgsSystemd if we're already inside it.
-          musl = prev'.musl.overrideAttrs (upstream: {
-            patches = (upstream.patches or []) ++ [
-              (prev.fetchpatch {
-                # <https://inbox.vuxu.org/musl/20251017-dlopen-use-rpath-of-caller-dso-v1-1-46c69eda1473@iscas.ac.cn/>
-                # 2026-02-02: allegedly, fixes systemd/kmod, particularly:
-                # > $ /nix/store/xxx-systemd-258.2/lib/systemd/systemd-modules-load
-                # > Failed to initialize libkmod context: Not supported
-                # see also:
-                # - <https://github.com/NixOS/nixpkgs/pull/475746>
-                name = "ldso: Use rpath of dso of caller in dlopen";
-                url = "https://inbox.vuxu.org/musl/20251017-dlopen-use-rpath-of-caller-dso-v1-1-46c69eda1473@iscas.ac.cn/raw";
-                hash = "sha256-ltg6Vt2EO8VDb/rMZlniPQNz2Kv4TXFOV+4xfnhJ1+Q=";
-              })
-            ];
-          });
-        })
-      ] ++ overlays;
-      localSystem = stdenv.buildPlatform;
-      crossSystem = stdenv.hostPlatform;
-    });
+    _pkgsSystemd = prev._pkgsSystemd or pkgs.extend
+      (final': prev': {
+        _pkgsSystemd = prev;  #< prevents infinite recursion; avoid re-defining _pkgsSystemd if we're already inside it.
+        musl = prev'.musl.overrideAttrs (upstream: {
+          patches = (upstream.patches or []) ++ [
+            (prev.fetchpatch {
+              # <https://inbox.vuxu.org/musl/20251017-dlopen-use-rpath-of-caller-dso-v1-1-46c69eda1473@iscas.ac.cn/>
+              # 2026-02-02: allegedly, fixes systemd/kmod, particularly:
+              # > $ /nix/store/xxx-systemd-258.2/lib/systemd/systemd-modules-load
+              # > Failed to initialize libkmod context: Not supported
+              # see also:
+              # - <https://github.com/NixOS/nixpkgs/pull/475746>
+              name = "ldso: Use rpath of dso of caller in dlopen";
+              url = "https://inbox.vuxu.org/musl/20251017-dlopen-use-rpath-of-caller-dso-v1-1-46c69eda1473@iscas.ac.cn/raw";
+              hash = "sha256-ltg6Vt2EO8VDb/rMZlniPQNz2Kv4TXFOV+4xfnhJ1+Q=";
+            })
+          ];
+        });
+      });
 
     inherit (final._pkgsSystemd) systemd;
     # _pkgsSystemd = prev.extend (final': prev': {
@@ -311,6 +317,11 @@ super.lib.composeManyExtensions [
     #   ];
     # });
 
+    # Rust's musl target links statically, so system zstd needs libzstd.a.
+    cargo-nextest = prev.cargo-nextest.override {
+      zstd = final.zstd.override { enableStatic = true; };
+    };
+
     # chromium = prev.chromium.override {
     #   # chromium (used by e.g. electron) sandboxes itself but with special access to gconv & glibcLocales.
     #   # neither of those are used on musl: patch them out to avoid broken dep on glibc
@@ -322,6 +333,7 @@ super.lib.composeManyExtensions [
 
     # 2026-10-03: still required
     claude-code = final._pkgsGnu.claude-code;
+
     # claude-code = (prev.claude-code.override {
     #   # autoPatchelfHook = null;
     # }).overrideAttrs {
@@ -330,6 +342,20 @@ super.lib.composeManyExtensions [
     #     final._pkgsGnu.glibc
     #   ];
     # };
+
+    coreutils = prev.coreutils.overrideAttrs (upstream: {
+      # write-errors probes --version, then allows only 12 MiB for actual I/O.
+      # mimalloc may need another 64 MiB segment (plus alignment); otherwise
+      # the test diagnoses ENOMEM instead of the intended ENOSPC/EBADF.
+      # This also covers fetchurl's bootstrap coreutils override, which disables
+      # gmp/acl/attr and is distinct from pkgsMusl.coreutils.
+      preCheck = (upstream.preCheck or "") + lib.optionalString
+        ((stdenv.cc.libc.allocatorModel or "malloc-ng") == "mimalloc")
+        ''
+          substituteInPlace tests/misc/write-errors.sh \
+            --replace-fail '$base_mem+12000' '$base_mem+131072'
+        '';
+    });
 
     # 2026-01-29: tried, but could not fix build
     # dante = prev.dante.overrideAttrs (upstream: {
@@ -463,6 +489,16 @@ super.lib.composeManyExtensions [
         v
     )) prev.electron-source;
 
+    evolution-data-server = prev.evolution-data-server.overrideAttrs (prevAttrs: {
+      patches = (prevAttrs.patches or []) ++ [
+        (fetchpatch {
+          # Replace non-POSIX strcasestr with camel_strstrcase in the IMAP test.
+          url = "https://gitlab.gnome.org/GNOME/evolution-data-server/-/merge_requests/251.patch";
+          hash = "sha256-NY0eMTRvTmtNBk73/KHhk8U+C2VdAn8JQ576O7rcP5M=";
+        })
+      ];
+    });
+
     # 2026-10-03: still required
     ffmpeg_7 = prev.ffmpeg_7.overrideAttrs {
       # 2026-02-03: two tests fail: tests/data/hls-list.append.m3u8, tests/data/hls-list.m3u8
@@ -526,11 +562,6 @@ super.lib.composeManyExtensions [
           # 2026-02-03: fixes "/nix/store/hsvrmvp1i7k326fpvdrg99gmka863fwi-musl-1.2.5-dev/include/sys/prctl.h:88:8: error: redefinition of 'prctl_mm_map'"
           path = "community/firefox/musl-no-linux-prctl.patch";
           hash = "sha256-Mwyvdqc//WvSn7HqbkCILipl2C9Qo0T3ZQWbYPtGK8A=";
-        })
-        (fetchVoid {
-          # 2026-10-02: fixes "/build/firefox-157.0/third_party/parakeet.cpp/src/backend.hpp:116:39: error: unknown type name 'int64_t'"
-          path = "srcpkgs/firefox/patches/firefox-157-parakeet_cpp-missing-includes.patch";
-          hash = "sha256-pqkxuyJP+NFUOPPKQM0m54sMbpc178NJmJXZUWXdE8Y=";
         })
 
         # (fetchVoid {
@@ -909,26 +940,26 @@ super.lib.composeManyExtensions [
       };
     });
 
-    haskell = prev.haskell // {
-      compiler = prev.haskell.compiler // {
-      # XXX(2026-10-18): fixes segfault in postFixup
-      # <https://github.com/NixOS/patchelf/pull/672>
-        ghc984Binary = prev.haskell.compiler.ghc984Binary.overrideAttrs (prevAttrs: {
-          nativeBuildInputs = [
-            (final.buildPackages.patchelf.overrideAttrs (old: {
-              # the patch adds tests to tests/Makefile.am -> needs reconf
-              nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ final.buildPackages.autoreconfHook ];
-              patches = (old.patches or []) ++ [
-                (fetchpatch {
-                  url = "https://github.com/NixOS/patchelf/commit/59acc3d98b4961cfddf02090d9426ac735603218.patch";
-                  hash = "sha256-MgJft8jCQ8TsOtXyTtuZuAVw1y5PFkqDapdLSTUAUeY=";
-                })
-              ];
-            }))
-          ] ++ (prevAttrs.nativeBuildInputs or []);
-        });
-      };
-    };
+    # haskell = prev.haskell // {
+    #   compiler = prev.haskell.compiler // {
+    #   # XXX(2026-10-18): fixes segfault in postFixup
+    #   # <https://github.com/NixOS/patchelf/pull/672>
+    #     ghc984Binary = prev.haskell.compiler.ghc984Binary.overrideAttrs (prevAttrs: {
+    #       nativeBuildInputs = [
+    #         (final.buildPackages.patchelf.overrideAttrs (old: {
+    #           # the patch adds tests to tests/Makefile.am -> needs reconf
+    #           nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ final.buildPackages.autoreconfHook ];
+    #           patches = (old.patches or []) ++ [
+    #             (fetchpatch {
+    #               url = "https://github.com/NixOS/patchelf/commit/59acc3d98b4961cfddf02090d9426ac735603218.patch";
+    #               hash = "sha256-MgJft8jCQ8TsOtXyTtuZuAVw1y5PFkqDapdLSTUAUeY=";
+    #             })
+    #           ];
+    #         }))
+    #       ] ++ (prevAttrs.nativeBuildInputs or []);
+    #     });
+    #   };
+    # };
 
     # 2026-08-31: still required
     # 2026-01-27: fails hyprland -> hyprcursor -> tomlplusplus (locale tests fail)
@@ -1025,6 +1056,16 @@ super.lib.composeManyExtensions [
     libnice = prev.libnice.overrideAttrs {
       doCheck = false;
     };
+
+    libsecret = prev.libsecret.overrideAttrs (prevAttrs: {
+      patches = (prevAttrs.patches or []) ++ [
+        (fetchpatch {
+          # Include <fcntl.h> for open/O_CREAT/O_RDWR on musl (merged 2026-09-15)
+          url = "https://gitlab.gnome.org/GNOME/libsecret/-/merge_requests/181.patch";
+          hash = "sha256-3GJ2wh2sEKqbF6xCtNViFAc915KdTmc//vTCnCx7+W0=";
+        })
+      ];
+    });
 
     # 2026-10-17: still required
     lixPackageSets = prev.lixPackageSets.extend (_: lixPrev: {
@@ -1565,14 +1606,31 @@ super.lib.composeManyExtensions [
       })
     ];
 
+    # ripgrep enables jemalloc on 64-bit musl; Cargo's setup hook requires a system library.
+    ripgrep = prev.ripgrep.overrideAttrs (prevAttrs: let
+      jemalloc = final.rust-jemalloc-sys.overrideAttrs {
+        dontDisableStatic = true;
+      };
+    in {
+      # Rust's musl target links libc statically; a shared jemalloc segfaults at startup.
+      env = (prevAttrs.env or {}) // lib.optionalAttrs stdenv.hostPlatform.is64bit {
+        JEMALLOC_OVERRIDE = "${jemalloc}/lib/libjemalloc.a";
+      };
+    });
+
     # 2026-10-03: still required
     rpm = prev.rpm.overrideAttrs (upstream: {
       patches = (upstream.patches or []) ++ [
-        (fetchAports {
-          # fixes "/build/rpm-4.20.1/rpmio/rpmglob.c:84:15: error: ‘GLOB_BRACE’ undeclared (first use in this function); did you mean ‘GLOB_NOSPACE’?"
-          # upstream tracking issue (stalled): <https://github.com/rpm-software-management/rpm/issues/2844>
-          path = "community/rpm/fix-glibc-glob.patch";
-          hash = "sha256-ycclRqEWohv+Ur0gJjdTXb46GHnGc0ybwhIILE/j7kE=";
+        # (fetchAports {
+        #   # fixes "/build/rpm-4.20.1/rpmio/rpmglob.c:84:15: error: ‘GLOB_BRACE’ undeclared (first use in this function); did you mean ‘GLOB_NOSPACE’?"
+        #   # upstream tracking issue (stalled): <https://github.com/rpm-software-management/rpm/issues/2844>
+        #   path = "community/rpm/fix-glibc-glob.patch";
+        #   hash = "sha256-ycclRqEWohv+Ur0gJjdTXb46GHnGc0ybwhIILE/j7kE=";
+        # })
+        (fetchGentoo {
+          # fixes "/build/source/rpmio/rpmglob.cc:81:15: error: ‘GLOB_BRACE’ was not declared in this scope"
+          path = "app-arch/rpm/files/rpm-6.0.0-musl-compat.patch";
+          hash = "sha256-hKu6Y1IncCbZSwGxp/UTMhXtXxIw8lr6MeIhnqKC3NI=";
         })
       ];
     });

@@ -180,6 +180,11 @@ in
   #   shell = runtimeShell;
   # };
 
+  aws-lc = prev.aws-lc.override {
+    # Go only builds native generators, including the separate symbol-extraction derivation.
+    go = pkgsBuildBuild.go;
+  };
+
   # 2026-10-03: still required
   clapper-enhancers = prev.clapper-enhancers.overrideAttrs (prevAttrs: {
     nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [
@@ -254,17 +259,28 @@ in
   # });
 
   # 2026-10-17: still needed
-  gcc16 = wrapCC (prev.gcc16.cc.overrideAttrs (prevAttrs: {
-    # nixpkgs has a in-tree patch to fix the cross gccNG; it applies cleanly => grab it.
-    # see: pkgs/development/compilers/gcc/ng/16/libgomp/uid-buffer-size.patch
-    # there's no patch sharing mechanism between gcc and gccNG inside nixpkgs, so i don't see an easy upstream fix.
-    # (gccNG expressions are way overcomplicated).
-    #
-    # fixes build error:
-    # > ../../../gcc-16.2.0/libgomp/target.c:5956:31: error: '__builtin___snprintf_chk' output may be truncated before the last format character [-Werror=format-truncation=]
-    # >  5956 |       snprintf (uid, ln, "%s%d", STR_OMP_DEV_PREFIX, device_num);
-    patches = (prevAttrs.patches or []) ++ gccNGPackages_16.libgomp.patches;
-  }));
+  # gcc16 = wrapCC (prev.gcc16.cc.overrideAttrs (prevAttrs: {
+  #   # nixpkgs has a in-tree patch to fix the cross gccNG; it applies cleanly => grab it.
+  #   # see: pkgs/development/compilers/gcc/ng/16/libgomp/uid-buffer-size.patch
+  #   # there's no patch sharing mechanism between gcc and gccNG inside nixpkgs, so i don't see an easy upstream fix.
+  #   # (gccNG expressions are way overcomplicated).
+  #   #
+  #   # fixes build error:
+  #   # > ../../../gcc-16.2.0/libgomp/target.c:5956:31: error: '__builtin___snprintf_chk' output may be truncated before the last format character [-Werror=format-truncation=]
+  #   # >  5956 |       snprintf (uid, ln, "%s%d", STR_OMP_DEV_PREFIX, device_num);
+  #   patches = (prevAttrs.patches or []) ++ gccNGPackages_16.libgomp.patches;
+  # }));
+
+  # postInstall compiles Python files even when GDB's Python support is disabled.
+  gdb = addNativeInputs [ buildPackages.python3 ] prev.gdb;
+
+  git-lfs = prev.git-lfs.overrideAttrs (prevAttrs: {
+    # The native manpage generator needs no C interop; cross Go defaults to external linking.
+    preBuild = lib.replaceStrings
+      [ "CC= GOOS= GOARCH=" ]
+      [ "CGO_ENABLED=0 GO_EXTLINK_ENABLED=0 CC= GOOS= GOARCH=" ]
+      prevAttrs.preBuild;
+  });
 
   # 2026-10-03: build is still broken but this no longer fixes it
   # 2026-05-24: upstreaming is unblocked
@@ -433,6 +449,13 @@ in
     zigBuildFlags = [ "-Dtarget=aarch64-linux-gnu" ];
   });
 
+  ministream = prev.ministream.overrideAttrs (prevAttrs: {
+    # Introspection requires meson.can_run_host_binaries() even with g-ir-scanner available.
+    nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [
+      buildPackages.mesonEmulatorHook
+    ];
+  });
+
   # 2026-10-02: still required
   # orc = prev.orc.overrideAttrs (upstream: {
   #   nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
@@ -452,6 +475,14 @@ in
   # `ar` is provided by bintools
   # 2025/12/07: upstreaming is unblocked by deps; but turns out to not be this simple
   # ncftp = addNativeInputs [ bintools ] prev.ncftp;
+
+  newsflash = prev.newsflash.overrideAttrs (prevAttrs: {
+    # The news-flash build script and SQLx proc macros need build-platform SQLite.
+    env = (prevAttrs.env or {}) // {
+      HOST_PKG_CONFIG = lib.getExe pkgsBuildBuild.pkg-config;
+      HOST_PKG_CONFIG_PATH = "${lib.getDev buildPackages.sqlite}/lib/pkgconfig";
+    };
+  });
 
   # fixes "properties/gresource.xml: Permission denied"
   #   - by providing glib-compile-resources
@@ -577,6 +608,20 @@ in
   #     desktop-file-utils  # fixes "meson.build:116:8: ERROR: Program 'update-desktop-database' not found or not executable"
   #   ];
   # } prev.phosh-mobile-settings;
+
+  pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+    (pyself: pysuper: {
+      shapely = pysuper.shapely.overridePythonAttrs (prevAttrs: {
+        # Meson cannot import target NumPy with the build Python; use its known version
+        # and let dependency('numpy') find the target headers through pkg-config.
+        postPatch = (prevAttrs.postPatch or "") + ''
+          substituteInPlace meson.build \
+            --replace-fail 'import numpy as np; print(np.__version__)' \
+              'print("${pyself.numpy.version}")'
+        '';
+      });
+    })
+  ];
 
   # pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
   #   (pyself: pysuper: {

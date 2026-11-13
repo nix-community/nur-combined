@@ -34,7 +34,7 @@ in
     p."0008-stalled-backlight-qcom-wled-fix-unbalanced-enable-ir"
     # p."0009-EDITME-cover-title-for-ebbg-ft8719-fixups"  #< empty
     p."0010-drm-panel-ebbg-ft8719-Split-initialization-into-enab"
-    p."0011-drm-panel-ebbg-ft8719-prepare_prev_first"
+    # p."0011-drm-panel-ebbg-ft8719-prepare_prev_first"  #< upstreamed into 7.3.4
     # p."0012-SDM845-DOWNSTREAM-EDITME-cover-title-for-qcom-spmi-s"  #< empty
     # p."0013-dt-bindings-input-add-Qualcomm-SPMI-haptics-driver"  #< FAILS APPLY (7.3)
     # p."0014-input-add-Qualcomm-SPMI-haptics-driver"  #< TODO: package qcom-spmi-haptics as a standalone driver

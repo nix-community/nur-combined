@@ -5,6 +5,7 @@
   writeText,
   writeShellScript,
   buildMozillaMach,
+  buildPackages,
   wrapFirefox,
   conjure-tor,
   coreutils,
@@ -199,6 +200,11 @@ let
           # the BuildID of the corresponding official build (see the
           # application.ini of the published tor-browser binaries).
           echo 20260928083000 > sourcestamp.txt
+
+          # Clang 22 removed the builtin used by this version of skcms.
+          # Use the public intrinsic, as in upstream skcms change 1038217.
+          substituteInPlace gfx/skia/skia/modules/skcms/src/Transform_inl.h \
+            --replace-fail '__builtin_ia32_vcvtph2ps256((I16)half)' '_mm256_cvtph_ps((__m128i)half)'
         '';
         # TODO: upstream also patches the geoip data
 
@@ -281,9 +287,16 @@ let
     # by security/certverifier), so the in-tree NSS must be built;
     # --with-system-nss (which implies --with-system-nspr) cannot work.
     configured.overrideAttrs (oldAttrs: {
+      # The vendored bindgen predates libclang 22's type representation
+      # changes, which otherwise produce opaque/incomplete NSS bindings.
       configureFlags = builtins.filter (
-        flag: flag != "--with-system-nss" && flag != "--with-system-nspr"
-      ) oldAttrs.configureFlags;
+        flag:
+        flag != "--with-system-nss"
+        && flag != "--with-system-nspr"
+        && !(lib.hasPrefix "--with-libclang-path=" flag)
+      ) oldAttrs.configureFlags ++ [
+        "--with-libclang-path=${lib.getLib buildPackages.llvmPackages_21.libclang}/lib"
+      ];
       # Extra branding/provenance settings to match the official builds;
       # appended after buildMozillaMach's preConfigure on purpose so they
       # take precedence.

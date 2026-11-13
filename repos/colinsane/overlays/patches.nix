@@ -376,6 +376,18 @@ in
         '';
       });
 
+      filelock = pysuper.filelock.overridePythonAttrs (prevAttrs: {
+        # Inject contention after the held claim exists, not on a fixed scandir call count.
+        patches = (prevAttrs.patches or []) ++ [
+          (final.fetchpatch {
+            url = "https://github.com/tox-dev/filelock/commit/008e3c3e55b7051230a1e9d3af9e94e6afe8624c.patch";
+            includes = [ "tests/test_strict_soft_failures.py" ];
+            hunks = [ 2 ];
+            hash = "sha256-2EKYJqgqvFHaoOjZQPIjkzXoKDeu1fl0NerLnmhTQuc=";
+          })
+        ];
+      });
+
       hypothesis = pysuper.hypothesis.overridePythonAttrs (prevAttrs: {
         # XXX(2026-10-18): keep charmap tests on one xdist worker: they
         # delete/rewrite a shared cache, racing in test_uses_cached_charmap.
@@ -403,6 +415,14 @@ in
         dontUsePytestXdist = true;
         preCheck = (prevAttrs.preCheck or "") + ''
           appendToVar pytestFlags "--numprocesses=$((NIX_BUILD_CORES > 8 ? 8 : NIX_BUILD_CORES))"
+        '';
+      });
+
+      sphinx = pysuper.sphinx.overridePythonAttrs (prevAttrs: {
+        # Parallel tests copy shared fixtures while imports create/rename .pyc
+        # files inside them, racing with shutil.copytree.
+        preCheck = (prevAttrs.preCheck or "") + ''
+          export PYTHONDONTWRITEBYTECODE=1
         '';
       });
 

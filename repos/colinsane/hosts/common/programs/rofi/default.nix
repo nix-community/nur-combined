@@ -29,25 +29,25 @@ let
       (pkgs.fetchpatch {
         # so that i can open applications via the xdg-desktop-portal instead of by having rofi launch them directly.
         # N.B.: since 1.7.6, rofi is able to dbus-activate applications as well
-        url = "https://git.uninsane.org/colin/rofi/commit/81e9d6ca1f7c5367752a81e39d30908a3e8e65cf.patch";
+        url = "https://git.uninsane.org/colin/rofi/commit/a86caf42f979a5ae7509a18e6a09e5fff125068e.patch";
         name = "run-{shell-,}command: expand `{app_id}` inside the template string";
-        hash = "sha256-g7802EDxt/iOLTslhzKaYpy0bDUeHCo7yacRJnF/1/o=";
+        hash = "sha256-lcmVvDjVJsuamPtHVvRPQcELMMOa54/51+ibsVBVtSo=";
       })
       (pkgs.fetchpatch {
         # workaround for <https://github.com/davatorium/rofi/issues/1954>
         # which was only ever fixed for the *recursive* file browser.
         # maintainer doesn't want to `stat` in non-recursive file browser yet; defer patching until filebrowser is made to be async
-        url = "https://git.uninsane.org/colin/rofi/commit/ede969e9ce4b549ad0b28cfb36f9e5a156114d70.patch";
+        url = "https://git.uninsane.org/colin/rofi/commit/4660c31d0097f1edd36f7964cd402aaa936e6144.patch";
         name = "filebrowser: include entries of d_type DT_UNKNOWN";
-        hash = "sha256-gz3N4uo7IWzzqaPHHVhby/e9NbtzcFJRQwgdNYxO/Yw=";
+        hash = "sha256-9J3z2lTPwOZxhmmG7FdlyiKkH9oqfDytNLPnXbqK5CA=";
       })
-      (lib.warnIf (lib.versionOlder "2.0.0" upstream.version) "rofi updated: remove natural ordering patch?" pkgs.fetchpatch {
-        # merged upstream: <https://github.com/davatorium/rofi/pull/2201>
-        url = "https://github.com/davatorium/rofi/pull/2201.patch?full_index=1";
-        # url = "https://git.uninsane.org/colin/rofi/commit/375e54332b9e269e3367c9724f8828534ffeb414.patch";
-        name = "filebrowser: sort based on natural ordering";
-        hash = "sha256-BzVAMBz4XSYLFN6Gz7HW+2ACrszvjCDK7RBt4rXxnOk=";
-      })
+      # (lib.warnIf (lib.versionOlder "2.0.0" upstream.version) "rofi updated: remove natural ordering patch?" pkgs.fetchpatch {
+      #   # merged upstream: <https://github.com/davatorium/rofi/pull/2201>
+      #   url = "https://github.com/davatorium/rofi/pull/2201.patch?full_index=1";
+      #   # url = "https://git.uninsane.org/colin/rofi/commit/375e54332b9e269e3367c9724f8828534ffeb414.patch";
+      #   name = "filebrowser: sort based on natural ordering";
+      #   hash = "sha256-BzVAMBz4XSYLFN6Gz7HW+2ACrszvjCDK7RBt4rXxnOk=";
+      # })
     ];
 
     nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
