@@ -1,5 +1,4 @@
 {
-  nix-update-script,
   fetchFromGitHub,
   fetchPnpmDeps,
   equicord,
@@ -12,8 +11,8 @@
   src = fetchFromGitHub {
     owner = "Equicord";
     repo = "Equicord";
-    tag = "v${version}";
-    hash = "sha256-yREhzm+HDSi9ZXepZmJy7zC5ZKfXUp5iUQga9XjLZ7k=";
+    tag = version;
+    hash = "sha256-KKkjr8jFvUZc1HhK+0DH24OV4odEAC82/57oAOinQ1A=";
   };
 
   # TODO: Once 26.11 drops remove the fixup.
