@@ -23,13 +23,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "chatbox";
-  version = "1.24.3";
+  version = "1.24.4";
 
   src = fetchFromGitHub {
     owner = "chatboxai";
     repo = "chatbox";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-7+lii1lrmwHqb4heXa8rpMp/OPzmpcYpZJKYZyilrb4=";
+    hash = "sha256-svygHJVZSNwocl9jTiivBwzW4zUXot8x+9rSk5SOZGE=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     prePnpmInstall = ''
       sed -i 's/engine-strict=true/engine-strict=false/' .npmrc
     '';
-    hash = "sha256-xxwnjqd8oN4qBqdhQ8ZxYlTPu1n2plRRgVaaebvT/Hg=";
+    hash = "sha256-KxxfHApHefvJp8dFs17dSJraD5PCRDP0Ms+2BJTffJI=";
   };
 
   # Nested electron-react-boilerplate app; electron-builder only packages this tree.
