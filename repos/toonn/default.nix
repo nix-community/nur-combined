@@ -18,5 +18,7 @@
     firefox = pkgs.callPackage ./pkgs/darwin/apps/firefox {};
   };
 
+  purple-matrix = pkgs.callPackage ./pkgs/purple-matrix {};
+
   sotp = pkgs.callPackage ./pkgs/sotp {};
 }
