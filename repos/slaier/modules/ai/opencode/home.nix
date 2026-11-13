@@ -2,7 +2,10 @@
 {
   sops.secrets.gemini_api_key = { };
   sops.secrets.opencode_api_key = { };
-  home.packages = with pkgs; [ nur.repos.natsukium.playwright-cli ];
+  home.packages = with pkgs; [
+    nur.repos.natsukium.playwright-cli
+    rtk
+  ];
   programs.opencode = {
     enable = true;
     skills.find-flake-input = ./skills/find-flake-input;
@@ -13,12 +16,8 @@
     skills.ponytail-review = pkgs.agent-skills.github.dietrichgebert.ponytail.ponytail-review;
     skills.ponytail-simplify = ./skills/ponytail-simplify;
     skills.skill-creator = ./skills/skill-creator;
-    extraPackages = with pkgs; [ rtk ];
     settings = {
       small_model = "google/gemini-3.5-flash-lite";
-      plugin = [
-        "${pkgs.rtk.src}/hooks/opencode/rtk.ts"
-      ];
       providers = {
         google.settings.apiKey = "{file:${config.sops.secrets.gemini_api_key.path}}";
         opencode.settings.apiKey = "{file:${config.sops.secrets.opencode_api_key.path}}";
@@ -27,8 +26,8 @@
           package = "@opencode/ai/providers/openai-compatible";
           settings.baseURL = "http://127.0.0.1:8080/v1";
           models = {
-            "InternScience/Sage-A1.5" = {
-              name = "Sage-A1.5 (local)";
+            "ornith-ai/Ornith-1.5-35B-A3B" = {
+              name = "Ornith-1.5-35B-A3B (local)";
               capabilities = {
                 input = [
                   "text"
@@ -40,36 +39,14 @@
                   supported = true;
                   effort = [ "max" ];
                 };
-                temperature = true;
                 tools = true;
               };
-              limit.context = 131072;
-            };
-            "XHToken/Spark-X2.6-4B" = {
-              name = "Spark-X2.6-4B (local)";
-              capabilities = {
-                input = [ "text" ];
-                output = [ "text" ];
-                reasoning = {
-                  supported = true;
-                  effort = [
-                    "low"
-                    "high"
-                  ];
-                };
-                temperature = true;
-                tools = true;
-              };
-              limit.context = 131072;
+              limit.context = 262144;
             };
           };
         };
       };
-      permission = {
-        read = {
-          "secrets/**" = "deny";
-        };
-      };
     };
   };
+  xdg.configFile."opencode/plugins/rtk.ts".source = "${pkgs.rtk.src}/hooks/opencode/rtk.ts";
 }

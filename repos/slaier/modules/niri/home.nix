@@ -19,6 +19,9 @@ in
       lock = "${pkgs.swaylock}/bin/swaylock --daemonize -i ${bgPath}";
       # Niri
       display = status: "${pkgs.niri}/bin/niri msg action power-${status}-monitors";
+      # AMD GPU PCIe link recovery after display wake
+      sw = "/run/current-system/sw/bin";
+      recover = "${sw}/sudo ${sw}/amdgpu-pcie-recover";
     in
     {
       enable = true;
@@ -42,7 +45,7 @@ in
         before-sleep = (display "off") + "; " + lock;
         after-resume = display "on";
         lock = (display "off") + "; " + lock;
-        unlock = display "on";
+        unlock = (display "on") + "; " + recover;
       };
     };
   xdg.desktopEntries = {

@@ -26,6 +26,7 @@
       file-icons.file-icons
       jnoortheen.nix-ide
       llvm-vs-code-extensions.vscode-clangd
+      mechatroner.rainbow-csv
       mesonbuild.mesonbuild
       mkhl.direnv
       ms-python.black-formatter
@@ -133,6 +134,10 @@
         };
         "nix.hiddenLanguageServerErrors" = [ "textDocument/definition" ];
         "remote.autoForwardPorts" = false;
+
+        "[python]" = {
+          "editor.defaultFormatter" = "ms-python.black-formatter";
+        };
       };
     };
   };
