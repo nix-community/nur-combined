@@ -27,6 +27,7 @@ import 'Engine/LocalPlayback.dart';
 import 'Engine/MpvFiles.dart';
 import 'Engine/Pip.dart';
 import 'Engine/PipConfig.dart';
+import 'Engine/PipWindow.dart';
 import 'Engine/StreamFeed.dart';
 import 'Engine/TrackSelector.dart';
 import 'Engine/SeekPreview.dart';
@@ -58,6 +59,7 @@ bool get supportsBrightness => !Platform.isLinux || _linuxBacklight;
 
 class PlayerState extends ScreenState {
   static int openCount = 0;
+  static PlayerState? current;
 
   final PlayRequest request;
 
@@ -284,7 +286,9 @@ class PlayerState extends ScreenState {
 
   @override
   void onInit() {
+    PipWindow.close();
     openCount++;
+    current = this;
     settings = _effective();
     engine = PlayerEngine(settings);
     unawaited(SeekPreview.sweep());
@@ -359,6 +363,10 @@ class PlayerState extends ScreenState {
         pip.value = active;
         _pipPending = false;
         if (active) {
+          if (!isMobilePlatform && fullscreen.value) {
+            fullscreen.value = false;
+            unawaited(setDesktopFullscreen(false));
+          }
           _blurTimer?.cancel();
           if (_pausedByBlur) {
             _pausedByBlur = false;
@@ -516,6 +524,7 @@ class PlayerState extends ScreenState {
   @override
   void onClose() {
     openCount--;
+    if (identical(current, this)) current = null;
     _closed = true;
     _feed?.cancel();
     _feedWatch?.dispose();
@@ -680,7 +689,9 @@ class PlayerState extends ScreenState {
       if (sheet != null && chosen != null) await _confirmTracking();
       if (generation != _generation) return;
       if (chosen == null) {
-        if (engine.duration.value == Duration.zero) pop();
+        if (engine.duration.value == Duration.zero) {
+          pop();
+        }
         loading.value = false;
         return;
       }

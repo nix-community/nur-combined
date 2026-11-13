@@ -1,10 +1,13 @@
+import 'package:dartotsu_extension_bridge/player.dart';
+
 import 'dart:async';
 import 'dart:io';
 
+import 'package:dartotsu_extension_bridge/dartotsu_extension_bridge.dart'
+    show Mpv;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:media_kit_video/media_kit_video.dart';
 
 import '../../Api/Discord/DiscordPresence.dart';
 import '../../Api/Discord/PresenceScope.dart';
@@ -27,6 +30,7 @@ import '../../Widgets/Components/ScreenState.dart';
 import 'Components/EpisodePanel.dart';
 import 'Components/PlayerActions.dart';
 import 'Components/PlayerControls.dart';
+import 'Components/PlayerDownload.dart';
 import '../Settings/Layout/BarLayout.dart';
 import 'Components/PlayerEpisodes.dart';
 import 'Components/PlayerIndicators.dart';
@@ -44,8 +48,32 @@ class PlayerScreen extends StatefulWidget {
   State<PlayerScreen> createState() => _PlayerScreenState();
 }
 
-class _PlayerScreenState extends State<PlayerScreen>
-    with ScreenStateHost<PlayerScreen, PlayerState> {
+class _PlayerScreenState extends State<PlayerScreen> {
+  @override
+  void initState() {
+    super.initState();
+    unawaited(Mpv.ensure());
+  }
+
+  @override
+  Widget build(BuildContext context) => Watch(
+    () => Mpv.ready
+        ? PlayerPage(request: widget.request)
+        : const PlayerDownloadView(),
+  );
+}
+
+class PlayerPage extends StatefulWidget {
+  final PlayRequest request;
+
+  const PlayerPage({super.key, required this.request});
+
+  @override
+  State<PlayerPage> createState() => _PlayerPageState();
+}
+
+class _PlayerPageState extends State<PlayerPage>
+    with ScreenStateHost<PlayerPage, PlayerState> {
   final _videoKey = GlobalKey();
   Orientation? _orientation;
   Size? _stageSize;
@@ -60,6 +88,7 @@ class _PlayerScreenState extends State<PlayerScreen>
   void initState() {
     super.initState();
     FocusManager.instance.addListener(_guardFocus);
+    PlayerState.current = state;
     state.videoRect = _videoRect;
     state.askStream = (list) =>
         showStreamSheet(context, state, list, selected: -1);
@@ -115,7 +144,7 @@ class _PlayerScreenState extends State<PlayerScreen>
         (_) => mounted ? state.followOrientation(orientation) : null,
       );
     }
-    if (state.pip.value) return _pip(context);
+    if (state.pip.value && Platform.isAndroid) return _pip(context);
     final body = PopScope(
       canPop: !fullscreen,
       onPopInvokedWithResult: (didPop, _) {
@@ -157,7 +186,6 @@ class _PlayerScreenState extends State<PlayerScreen>
   }
 
   Widget _pip(BuildContext context) {
-    if (!Platform.isAndroid) return _pipPlaceholder(context);
     final engine = state.engine;
     return Scaffold(
       backgroundColor: Colors.black,
@@ -190,31 +218,48 @@ class _PlayerScreenState extends State<PlayerScreen>
     );
   }
 
-  Widget _pipPlaceholder(BuildContext context) => Scaffold(
-    backgroundColor: Colors.black,
-    body: Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(
-            Icons.picture_in_picture_alt_rounded,
-            size: 48,
-            color: Colors.white54,
-          ),
-          SizedBox(height: Dimens.gap),
-          Text(
-            getString.playerPipActive,
-            style: context.textTheme.titleMedium?.copyWith(
-              color: Colors.white70,
+  Widget _pipStage(BuildContext context) => ColoredBox(
+    color: Colors.black,
+    child: Stack(
+      children: [
+        Center(
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.picture_in_picture_alt_rounded,
+                  size: 48,
+                  color: Colors.white54,
+                ),
+                SizedBox(height: Dimens.gap),
+                Text(
+                  getString.playerPipActive,
+                  style: context.textTheme.titleMedium?.copyWith(
+                    color: Colors.white70,
+                  ),
+                ),
+                SizedBox(height: Dimens.gapLg),
+                FilledButton.tonal(
+                  onPressed: () => unawaited(PlayerPip.exit()),
+                  child: Text(getString.playerPipRestore),
+                ),
+              ],
             ),
           ),
-          SizedBox(height: Dimens.gapLg),
-          FilledButton.tonal(
-            onPressed: () => unawaited(PlayerPip.exit()),
-            child: Text(getString.playerPipRestore),
+        ),
+        Positioned.directional(
+          textDirection: Directionality.of(context),
+          start: 8,
+          top: 8,
+          child: IconButton(
+            onPressed: () => popPage(context),
+            color: Colors.white,
+            icon: const Icon(Icons.arrow_back_ios_new_rounded),
           ),
-        ],
-      ),
+        ),
+      ],
     ),
   );
 
@@ -244,6 +289,7 @@ class _PlayerScreenState extends State<PlayerScreen>
   );
 
   Widget _stage(BuildContext context, {required bool compact}) {
+    if (state.pip.value && !Platform.isAndroid) return _pipStage(context);
     final video = KeyedSubtree(
       key: _videoKey,
       child: LayoutBuilder(
@@ -688,7 +734,9 @@ class _PlayerScreenState extends State<PlayerScreen>
         Watch(() {
           final error = state.loadError.value;
           if (error != null) return _failure(context, error);
-          if (!state.loading.value) return const SizedBox.shrink();
+          if (!state.loading.value || state.controlsVisible.value) {
+            return const SizedBox.shrink();
+          }
           return const IgnorePointer(
             child: Center(
               child: CircularProgressIndicator(color: Colors.white),

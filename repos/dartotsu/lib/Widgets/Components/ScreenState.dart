@@ -6,8 +6,9 @@ import '../../Core/State/State.dart';
 
 abstract class ScreenState extends AppController {
   State? _host;
+  bool _started = false;
 
-  BuildContext get context => _host!.context;
+  BuildContext get context => (_host?.context ?? appContext)!;
 
   bool get mounted => _host?.mounted ?? false;
 
@@ -28,9 +29,10 @@ mixin ScreenStateHost<W extends StatefulWidget, S extends ScreenState>
   @override
   void initState() {
     super.initState();
-    state
-      .._host = this
-      ..onInit();
+    state._host = this;
+    if (state._started) return;
+    state._started = true;
+    state.onInit();
   }
 
   @override

@@ -1,10 +1,11 @@
+import 'package:dartotsu_extension_bridge/player.dart';
+
 // ignore_for_file: implementation_imports, invalid_use_of_internal_member
 import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/_window.dart' as fw;
-import 'package:media_kit_video/media_kit_video.dart';
 import 'package:screen_retriever/screen_retriever.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:window_manager/windowing.dart' show nativeWindowOf;
@@ -47,6 +48,8 @@ class PipWindow {
 
   static bool get active => controller.peek != null;
 
+  static PlayerState? get state => active ? _state : null;
+
   static Future<bool> open(PlayerState state, double aspect) async {
     if (active) return true;
     if (!supported) return false;
@@ -85,6 +88,13 @@ class PipWindow {
       logError('PlayerPip', e, st, 'pip window failed to close');
     }
     _released();
+  }
+
+  static void restore() {
+    close();
+    appWindow
+      ?..show()
+      ..focus();
   }
 
   static void _released() {
@@ -239,7 +249,7 @@ class _PipContent extends StatelessWidget {
                       _button(
                         Icons.open_in_full_rounded,
                         getString.playerPipRestore,
-                        PipWindow.close,
+                        PipWindow.restore,
                       ),
                     ],
                   ),
