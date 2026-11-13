@@ -13,12 +13,12 @@
             "name": null,
             "owner": "akitaonrails",
             "repo": "ai-usagebar",
-            "rev": "v1.50.0",
-            "sha256": "sha256-YkEdxOkuC7RI/qgPoAO0CyHBHkE6PYEG56obq5asWUI=",
+            "rev": "v1.51.0",
+            "sha256": "sha256-UDIv3QZUvMG8HvEyWz8uFFOSVlJuZ88tiWpXSMYY+5E=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.50.0"
+        "version": "v1.51.0"
     },
     "aioshutil": {
         "cargoLock": null,
@@ -231,11 +231,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-RirOw8BB+DAEZmP2j1jZ8Z9Tes7dDkG32x1m9obkaTY=",
+            "sha256": "sha256-bOcZASo64xRyF3dcqzcrwbmNoRwcqC87MOTZ4SImQHk=",
             "type": "url",
-            "url": "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.176/nexttodo-linux-arm64"
+            "url": "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.179/nexttodo-linux-arm64"
         },
-        "version": "0.1.176"
+        "version": "0.1.179"
     },
     "nexttodo-linux-x64": {
         "cargoLock": null,
@@ -246,11 +246,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-LVvrdvrn6fCyHQ49p523QT3y/3U2QnOMfRuwbZ/zQ44=",
+            "sha256": "sha256-Q1ypsf4tzWJ2nrW33txfsON7jAYZr0UR5XzAU1DybR8=",
             "type": "url",
-            "url": "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.176/nexttodo-linux-x64"
+            "url": "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.179/nexttodo-linux-x64"
         },
-        "version": "0.1.176"
+        "version": "0.1.179"
     },
     "nexus-media": {
         "cargoLock": null,
@@ -266,12 +266,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media",
-            "rev": "v5.10.0",
-            "sha256": "sha256-WE7Pzrrs2wv2bevnIvI6YKoW46ak+X3Z3r8cOWpAZSo=",
+            "rev": "v5.11.2",
+            "sha256": "sha256-JWGZ8rRGoff/FqfHFWZfWDC8xCPH/asrGOUiZwTB4Fo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.10.0"
+        "version": "v5.11.2"
     },
     "nexus-media-web": {
         "cargoLock": null,
@@ -287,12 +287,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media-web",
-            "rev": "v5.10.0",
-            "sha256": "sha256-tw7mzxe1GsfIUwEgOsdOx9272HDxcWvuY/hfGcy71ns=",
+            "rev": "v5.11.2",
+            "sha256": "sha256-9BL2Lp7yGNBTO8CP/eRIDMnjYTJzhNvKSKzHxGiaEAg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.10.0"
+        "version": "v5.11.2"
     },
     "pinyin2hanzi": {
         "cargoLock": null,

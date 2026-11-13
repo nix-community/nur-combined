@@ -55,7 +55,7 @@ Build artifacts are cached in the Attic binary cache:
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-| - [ ] |  | `ai-usagebar` | [ai-usagebar](https://github.com/akitaonrails/ai-usagebar) | 1.50.0 | Multi-provider AI plan usage widget, CLI and TUI |
+| - [ ] |  | `ai-usagebar` | [ai-usagebar](https://github.com/akitaonrails/ai-usagebar) | 1.51.0 | Multi-provider AI plan usage widget, CLI and TUI |
 | - [x] |  | `aioshutil` | [aioshutil](https://github.com/kumaraditya303/aioshutil) | 1.7a1 | Asynchronous shutil module |
 | - [x] |  | `cn2an` | [cn2an](https://github.com/Ailln/cn2an) | 0.5.24 | Convert Chinese numerals and Arabic numerals |
 | - [x] |  | `docker-proxy` | [docker-proxy](https://github.com/dqzboy/Docker-Proxy) | 5.1.9 | Self-hosted Docker registry proxy with host-based upstream routing |
@@ -66,9 +66,9 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `imou-bridge` | [imou-bridge](https://github.com/home-assistant-tools/imou-life) | 2026-08-16 | Imou/Lechange P2P bridge for Home Assistant and Frigate (go2rtc RTSP restream) |
 | - [x] |  | `jieba-next` | [jieba-next](https://github.com/mxcoras/jieba-next) | 1.0.0rc1 | Modern jieba fork with Rust speedups |
 | - [ ] |  | `navdash` | [navdash](https://github.com/zhyiheihei/navdash) | 0.7.1 | Personal service portal with native OIDC login and Nix-generated service cards |
-| - [ ] |  | `nexttodo` | [nexttodo](https://github.com/JunieXD/NextTodo) | 0.1.176 | Dependency-aware todo client: shows what can be done right now |
-| - [x] |  | `nexus-media` | [nexus-media](https://github.com/linyuan0213/nexus-media) | 5.10.0 | Media library manager with automated downloading, media organization and subscription workflows |
-| - [ ] |  | `nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 5.10.0 | Vue 3 web frontend for the Nexus Media media library manager |
+| - [ ] |  | `nexttodo` | [nexttodo](https://github.com/JunieXD/NextTodo) | 0.1.179 | Dependency-aware todo client: shows what can be done right now |
+| - [x] |  | `nexus-media` | [nexus-media](https://github.com/linyuan0213/nexus-media) | 5.11.2 | Media library manager with automated downloading, media organization and subscription workflows |
+| - [ ] |  | `nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 5.11.2 | Vue 3 web frontend for the Nexus Media media library manager |
 | - [x] |  | `pinyin2hanzi` | [Pinyin2Hanzi](https://github.com/someus/Pinyin2Hanzi) | 0.1.1 | Pinyin to Chinese character conversion engine |
 | - [x] |  | `proces` | [proces](https://github.com/Ailln/proces) | 0.1.7 | Text preprocess utilities |
 | - [x] |  | `pypika-tortoise` | [pypika-tortoise](https://github.com/tortoise/pypika-tortoise) | 0.6.5 | SQL query builder fork streamlined for tortoise-orm |
@@ -112,7 +112,7 @@ Build artifacts are cached in the Attic binary cache:
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-| - [ ] |  | `uncategorized.ai-usagebar` | [ai-usagebar](https://github.com/akitaonrails/ai-usagebar) | 1.50.0 | Multi-provider AI plan usage widget, CLI and TUI |
+| - [ ] |  | `uncategorized.ai-usagebar` | [ai-usagebar](https://github.com/akitaonrails/ai-usagebar) | 1.51.0 | Multi-provider AI plan usage widget, CLI and TUI |
 | - [ ] |  | `uncategorized.docker-proxy` | [docker-proxy](https://github.com/dqzboy/Docker-Proxy) | 5.1.9 | Self-hosted Docker registry proxy with host-based upstream routing |
 | - [ ] |  | `uncategorized.docker-proxy-hubcmdui` | [docker-proxy-hubcmdui](https://github.com/dqzboy/Docker-Proxy) | 5.1.9 | Web management panel for the Docker-Proxy registry proxy |
 | - [ ] |  | `uncategorized.epd-food-server` | [epd-food-server](https://github.com/zhyiheihei/EPD-Dashboard) | 0.1.0 | 家庭食品存储看板服务端（REST API + PostgreSQL + BLE 推送） |
@@ -120,9 +120,9 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `uncategorized.hubproxy` | [hubproxy](https://github.com/sky22333/hubproxy) | 1.2.5 | Lightweight multi-purpose proxy for Docker images, GitHub and Hugging Face acceleration |
 | - [ ] |  | `uncategorized.imou-bridge` | [imou-bridge](https://github.com/home-assistant-tools/imou-life) | 2026-08-16 | Imou/Lechange P2P bridge for Home Assistant and Frigate (go2rtc RTSP restream) |
 | - [ ] |  | `uncategorized.navdash` | [navdash](https://github.com/zhyiheihei/navdash) | 0.7.1 | Personal service portal with native OIDC login and Nix-generated service cards |
-| - [ ] |  | `uncategorized.nexttodo` | [nexttodo](https://github.com/JunieXD/NextTodo) | 0.1.176 | Dependency-aware todo client: shows what can be done right now |
-| - [ ] |  | `uncategorized.nexus-media` | [nexus-media](https://github.com/linyuan0213/nexus-media) | 5.10.0 | Media library manager with automated downloading, media organization and subscription workflows |
-| - [ ] |  | `uncategorized.nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 5.10.0 | Vue 3 web frontend for the Nexus Media media library manager |
+| - [ ] |  | `uncategorized.nexttodo` | [nexttodo](https://github.com/JunieXD/NextTodo) | 0.1.179 | Dependency-aware todo client: shows what can be done right now |
+| - [ ] |  | `uncategorized.nexus-media` | [nexus-media](https://github.com/linyuan0213/nexus-media) | 5.11.2 | Media library manager with automated downloading, media organization and subscription workflows |
+| - [ ] |  | `uncategorized.nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 5.11.2 | Vue 3 web frontend for the Nexus Media media library manager |
 | - [ ] | `x86_64-linux` | `uncategorized.qingjian` | [qingjian](https://qingjian.app) | 0.3.3 | Pinyin input method with translation hints for language learners |
 | - [ ] |  | `uncategorized.rtkbt` | [rtkbt](https://github.com/radxa/rtkbt) | 2022-06-07 | Realtek Bluetooth UART attach tool and RTL8852BS firmware |
 | - [ ] |  | `uncategorized.sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.3.0 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |

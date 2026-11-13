@@ -8,12 +8,12 @@
 {
   ai-usagebar = {
     pname = "ai-usagebar";
-    version = "v1.50.0";
+    version = "v1.51.0";
     src = fetchFromGitHub {
       owner = "akitaonrails";
       repo = "ai-usagebar";
-      tag = "v1.50.0";
-      hash = "sha256-YkEdxOkuC7RI/qgPoAO0CyHBHkE6PYEG56obq5asWUI=";
+      tag = "v1.51.0";
+      hash = "sha256-UDIv3QZUvMG8HvEyWz8uFFOSVlJuZ88tiWpXSMYY+5E=";
     };
   };
   aioshutil = {
@@ -118,38 +118,38 @@
   };
   nexttodo-linux-arm64 = {
     pname = "nexttodo-linux-arm64";
-    version = "0.1.176";
+    version = "0.1.179";
     src = fetchurl {
-      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.176/nexttodo-linux-arm64";
-      hash = "sha256-RirOw8BB+DAEZmP2j1jZ8Z9Tes7dDkG32x1m9obkaTY=";
+      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.179/nexttodo-linux-arm64";
+      hash = "sha256-bOcZASo64xRyF3dcqzcrwbmNoRwcqC87MOTZ4SImQHk=";
     };
   };
   nexttodo-linux-x64 = {
     pname = "nexttodo-linux-x64";
-    version = "0.1.176";
+    version = "0.1.179";
     src = fetchurl {
-      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.176/nexttodo-linux-x64";
-      hash = "sha256-LVvrdvrn6fCyHQ49p523QT3y/3U2QnOMfRuwbZ/zQ44=";
+      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.179/nexttodo-linux-x64";
+      hash = "sha256-Q1ypsf4tzWJ2nrW33txfsON7jAYZr0UR5XzAU1DybR8=";
     };
   };
   nexus-media = {
     pname = "nexus-media";
-    version = "v5.10.0";
+    version = "v5.11.2";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media";
-      tag = "v5.10.0";
-      hash = "sha256-WE7Pzrrs2wv2bevnIvI6YKoW46ak+X3Z3r8cOWpAZSo=";
+      tag = "v5.11.2";
+      hash = "sha256-JWGZ8rRGoff/FqfHFWZfWDC8xCPH/asrGOUiZwTB4Fo=";
     };
   };
   nexus-media-web = {
     pname = "nexus-media-web";
-    version = "v5.10.0";
+    version = "v5.11.2";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media-web";
-      tag = "v5.10.0";
-      hash = "sha256-tw7mzxe1GsfIUwEgOsdOx9272HDxcWvuY/hfGcy71ns=";
+      tag = "v5.11.2";
+      hash = "sha256-9BL2Lp7yGNBTO8CP/eRIDMnjYTJzhNvKSKzHxGiaEAg=";
     };
   };
   pinyin2hanzi = {
