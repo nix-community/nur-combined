@@ -344,6 +344,9 @@ in
       # everything except the Traefik DaemonSet off this box.
       disableAgent = false;
       nodeTaints = [ "dedicated=edge:NoSchedule" ];
+      # Pin k3s to the LAN IP: the WAN IP churns (ISP DHCP) and a changed
+      # advertise address wedges etcd cluster membership on restart.
+      nodeIP = "10.1.0.1";
       # Traefik must be enabled on EVERY server: k3s shares one Addon
       # object per packaged chart, and a server with --disable=traefik
       # deletes it cluster-wide (observed: router join uninstalled Traefik

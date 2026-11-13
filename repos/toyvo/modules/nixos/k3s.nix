@@ -78,6 +78,13 @@ in
       description = "Extra --node-taint= flags for k3s servers.";
     };
 
+    nodeIP = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      example = "10.1.0.1";
+      description = "Pin --node-ip/--advertise-address (multi-homed hosts only; the router's WAN IP churns and wedges etcd membership).";
+    };
+
     firewallInterfaces = lib.mkOption {
       type = lib.types.nullOr (lib.types.listOf lib.types.str);
       default = null;
@@ -179,7 +186,9 @@ in
         ++ [
           "--resolv-conf=/etc/rancher/k3s/resolv.conf"
         ]
-        ++ map (t: "--node-taint=${t}") cfg.nodeTaints;
+        ++ map (t: "--node-taint=${t}") cfg.nodeTaints
+        ++ lib.optional (cfg.nodeIP != null) "--node-ip=${cfg.nodeIP}"
+        ++ lib.optional (cfg.nodeIP != null) "--advertise-address=${cfg.nodeIP}";
       manifests = lib.mkIf cfg.traefik.enable {
         "traefik-config.yaml".content = {
           apiVersion = "helm.cattle.io/v1";

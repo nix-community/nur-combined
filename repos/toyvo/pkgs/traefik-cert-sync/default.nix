@@ -1,13 +1,19 @@
 {
   lib,
   writeShellApplication,
+  bash,
   k3s,
   ...
 }:
 
 writeShellApplication {
   name = "traefik-cert-sync";
-  runtimeInputs = [ k3s ];
+  # bash must be on PATH: sync.sh runs via `#!/usr/bin/env bash` and
+  # systemd units start with a minimal PATH (this bit us on deploy).
+  runtimeInputs = [
+    bash
+    k3s
+  ];
   text = ''
     exec ${./sync.sh}
   '';
