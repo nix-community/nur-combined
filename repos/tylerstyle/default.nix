@@ -21,4 +21,5 @@
 
   dfcore = pkgs.callPackage ./pkgs/dfcore { };
   dfdisk = pkgs.callPackage ./pkgs/dfdisk { };
+  matrix-rat = pkgs.callPackage ./pkgs/matrix-rat { };
 }
