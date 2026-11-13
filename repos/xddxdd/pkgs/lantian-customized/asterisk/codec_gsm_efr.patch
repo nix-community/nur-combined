@@ -1,0 +1,103 @@
+--- main/codec_builtin.c
++++ main/codec_builtin.c
+@@ -982,10 +982,28 @@ static struct ast_codec evs = {
+ 	.minimum_ms = 20,
+ 	.maximum_ms = 300,
+ 	.default_ms = 20,
+ };
+ 
++static int gsm_efr_samples(struct ast_frame *frame)
++{
++	return 160 * (frame->datalen / 31);
++}
++
++static struct ast_codec gsm_efr = {
++	.name = "gsm-efr",
++	.description = "GSM-EFR",
++	.type = AST_MEDIA_TYPE_AUDIO,
++	.sample_rate = 8000,
++	.minimum_ms = 20,
++	.maximum_ms = 300,
++	.default_ms = 20,
++	.minimum_bytes = 31,
++	.samples_count = gsm_efr_samples,
++	.smooth = 1,
++};
++
+ #define CODEC_REGISTER_AND_CACHE(codec) \
+ 	({ \
+ 		int __res_ ## __LINE__ = 0; \
+ 		struct ast_format *__fmt_ ## __LINE__; \
+ 		struct ast_codec *__codec_ ## __LINE__; \
+@@ -1014,10 +1032,12 @@ static struct ast_codec evs = {
+ 
+ int ast_codec_builtin_init(void)
+ {
+ 	int res = 0;
+ 
++	res |= CODEC_REGISTER_AND_CACHE(gsm_efr);
++
+ 	res |= CODEC_REGISTER_AND_CACHE(evs);
+ 
+ 	res |= CODEC_REGISTER_AND_CACHE(amr);
+ 	res |= CODEC_REGISTER_AND_CACHE(amrwb);
+ 
+--- main/format_cache.c
++++ main/format_cache.c
+@@ -238,10 +238,15 @@ struct ast_format *ast_format_amrwb;
+ /*!
+  * \brief Built-in cached 3GPP EVS format.
+  */
+ struct ast_format *ast_format_evs;
+ 
++/*!
++ * \brief Built-in cached GSM-EFR format.
++ */
++struct ast_format *ast_format_gsm_efr;
++
+ /*!
+  * \brief Built-in cached t140 format.
+  */
+ struct ast_format *ast_format_t140;
+ 
+@@ -331,10 +336,12 @@ static void format_cache_shutdown(void)
+ 	ao2_replace(ast_format_amr, NULL);
+ 	ao2_replace(ast_format_amrwb, NULL);
+ 
+ 	ao2_replace(ast_format_evs, NULL);
+ 
++	ao2_replace(ast_format_gsm_efr, NULL);
++
+ 	ao2_replace(ast_format_g723, NULL);
+ 	ao2_replace(ast_format_ulaw, NULL);
+ 	ao2_replace(ast_format_alaw, NULL);
+ 	ao2_replace(ast_format_gsm, NULL);
+ 	ao2_replace(ast_format_g726, NULL);
+@@ -440,10 +447,12 @@ static void set_cached_format(const char *name, struct ast_format *format)
+ 		ao2_replace(ast_format_speex16, format);
+ 	} else if (!strcmp(name, "speex32")) {
+ 		ao2_replace(ast_format_speex32, format);
+ 	} else if (!strcmp(name, "ilbc")) {
+ 		ao2_replace(ast_format_ilbc, format);
++	} else if (!strcmp(name, "gsm-efr")) {
++		ao2_replace(ast_format_gsm_efr, format);
+ 	} else if (!strcmp(name, "g722")) {
+ 		ao2_replace(ast_format_g722, format);
+ 	} else if (!strcmp(name, "siren7")) {
+ 		ao2_replace(ast_format_siren7, format);
+ 	} else if (!strcmp(name, "siren14")) {
+--- main/rtp_engine.c
++++ main/rtp_engine.c
+@@ -4072,10 +4072,12 @@ int ast_rtp_engine_init(void)
+ 	 * prevents resources being pulled out from under a running
+ 	 * module and possibly causing a segfault.  In this case however,
+ 	 * the only thing we're cleaning up are the registrations of the
+ 	 * debug categories.
+ 	 */
++	ast_rtp_engine_load_format(ast_format_gsm_efr);
++
+ 	ast_register_atexit(rtp_engine_atexit);
+ 
+ 	return 0;
+ }
+ 

@@ -1,17 +1,29 @@
---- include/asterisk/format_cache.h	(Asterisk 13.13.1)
-+++ include/asterisk/format_cache.h	(working copy)
-@@ -234,2 +234,7 @@
+--- include/asterisk/format_cache.h
++++ include/asterisk/format_cache.h
+@@ -254,10 +254,15 @@ extern struct ast_format *ast_format_amr;
  /*!
+  * \brief Built-in cached AMR-WB format.
+  */
+ extern struct ast_format *ast_format_amrwb;
+ 
++/*!
 + * \brief Built-in cached 3GPP EVS format.
 + */
 +extern struct ast_format *ast_format_evs;
 +
-+/*!
+ /*!
   * \brief Initialize format cache support within the core.
---- main/codec_builtin.c	(Asterisk 13.13.1)
-+++ main/codec_builtin.c	(working copy)
-@@ -855,2 +855,13 @@
-
+  *
+  * \retval 0 success
+  * \retval -1 failure
+--- main/codec_builtin.c
++++ main/codec_builtin.c
+@@ -971,10 +971,21 @@ static struct ast_codec amrwb = {
+ 	.samples_count = amrwb_samples,
+ 	.get_length = amrwb_length,
+ 	.smooth = 0,
+ };
+ 
 +
 +static struct ast_codec evs = {
 +	.name = "evs",
@@ -24,35 +36,79 @@
 +};
 +
  #define CODEC_REGISTER_AND_CACHE(codec) \
-@@ -887,2 +898,4 @@
+ 	({ \
+ 		int __res_ ## __LINE__ = 0; \
+ 		struct ast_format *__fmt_ ## __LINE__; \
+ 		struct ast_codec *__codec_ ## __LINE__; \
+@@ -1003,10 +1014,12 @@ static struct ast_codec amrwb = {
+ 
+ int ast_codec_builtin_init(void)
+ {
+ 	int res = 0;
  
 +	res |= CODEC_REGISTER_AND_CACHE(evs);
 +
+ 	res |= CODEC_REGISTER_AND_CACHE(amr);
+ 	res |= CODEC_REGISTER_AND_CACHE(amrwb);
+ 
+ 	res |= CODEC_REGISTER_AND_CACHE(codec2);
  	res |= CODEC_REGISTER_AND_CACHE(g723);
---- main/format_cache.c	(Asterisk 13.13.1)
-+++ main/format_cache.c	(working copy)
-@@ -220,2 +220,7 @@
+--- main/format_cache.c
++++ main/format_cache.c
+@@ -233,10 +233,15 @@ struct ast_format *ast_format_amr;
  /*!
+  * \brief Built-in cached AMR-WB format.
+  */
+ struct ast_format *ast_format_amrwb;
+ 
++/*!
 + * \brief Built-in cached 3GPP EVS format.
 + */
 +struct ast_format *ast_format_evs;
 +
-+/*!
+ /*!
   * \brief Built-in cached t140 format.
-@@ -302,2 +307,4 @@
+  */
+ struct ast_format *ast_format_t140;
+ 
+@@ -324,10 +329,12 @@ static void format_cache_shutdown(void)
+ 	formats = NULL;
+ 
+ 	ao2_replace(ast_format_amr, NULL);
+ 	ao2_replace(ast_format_amrwb, NULL);
  
 +	ao2_replace(ast_format_evs, NULL);
 +
  	ao2_replace(ast_format_g723, NULL);
-@@ -416,2 +423,4 @@
+ 	ao2_replace(ast_format_ulaw, NULL);
+ 	ao2_replace(ast_format_alaw, NULL);
+ 	ao2_replace(ast_format_gsm, NULL);
+ 	ao2_replace(ast_format_g726, NULL);
+@@ -441,10 +448,12 @@ static void set_cached_format(const char *name, struct ast_format *format)
+ 		ao2_replace(ast_format_siren7, format);
+ 	} else if (!strcmp(name, "siren14")) {
+ 		ao2_replace(ast_format_siren14, format);
+ 	} else if (!strcmp(name, "g719")) {
  		ao2_replace(ast_format_g719, format);
 +	} else if (!strcmp(name, "evs")) {
 +		ao2_replace(ast_format_evs, format);
  	} else if (!strcmp(name, "opus")) {
---- main/rtp_engine.c	(Asterisk 13.13.1)
-+++ main/rtp_engine.c	(working copy)
-@@ -3720,2 +3720,4 @@
- 	add_static_payload(107, ast_format_opus, 0);
-+
-+	ast_rtp_engine_load_format(ast_format_evs);
+ 		ao2_replace(ast_format_opus, format);
+ 	} else if (!strcmp(name, "amr")) {
+ 		ao2_replace(ast_format_amr, format);
+ 	} else if (!strcmp(name, "amrwb")) {
+--- main/rtp_engine.c
++++ main/rtp_engine.c
+@@ -4054,10 +4054,12 @@ int ast_rtp_engine_init(void)
+ 	add_static_payload(125, ast_format_slin44, 0);
+ 	add_static_payload(126, ast_format_slin48, 0);
+ 	add_static_payload(127, ast_format_slin96, 0);
+ 	/* payload types above 127 are not valid */
  
++	ast_rtp_engine_load_format(ast_format_evs);
++
+ 	debug_category_rtp_id = ast_debug_category_register(AST_LOG_CATEGORY_RTP);
+ 	debug_category_rtp_packet_id = ast_debug_category_register(AST_LOG_CATEGORY_RTP_PACKET);
+ 	debug_category_rtcp_id = ast_debug_category_register(AST_LOG_CATEGORY_RTCP);
+ 	debug_category_rtcp_packet_id = ast_debug_category_register(AST_LOG_CATEGORY_RTCP_PACKET);
+ 	debug_category_dtls_id = ast_debug_category_register(AST_LOG_CATEGORY_DTLS);

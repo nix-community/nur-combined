@@ -37,6 +37,13 @@ let
   asterisk-g72x-actual = asterisk-g72x.override { inherit asterisk; };
   _3gpp-evs = callPackage ./3gpp-evs.nix { };
 
+  # Upstream codec_evs.patch and codec_gsm_efr.patch were written against
+  # Asterisk 13 with two lines of context. On Asterisk 22 patch falls back to
+  # fuzz and inserts ast_rtp_engine_load_format() calls into unrelated
+  # functions; in ast_rtp_lookup_mime_subtype2 the call also deadlocks on
+  # mime_types_lock. Both are vendored here, regenerated against 22.11 with
+  # five lines of context so they apply exactly.
+  #
   # Patches that use patch -p0
   myPatches = [
     "${asteriskAmrSrc}/codec_amr.patch"
@@ -44,7 +51,7 @@ let
     ./codec_evs.patch
     "${asteriskEvsSrc}/build_evs.patch"
     "${asteriskEvsSrc}/force_limitations.patch"
-    "${asteriskGsmEfrSrc}/codec_gsm_efr.patch"
+    ./codec_gsm_efr.patch
   ];
 
   myExtraFiles = [
