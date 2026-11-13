@@ -11,21 +11,21 @@
 
 let
   inherit (stdenv) hostPlatform;
-  version = "3.29.15";
+  version = "3.30.8";
   pname = "cursor";
 
   sources = {
     x86_64-linux = fetchurl {
-      url = "https://downloads.cursor.com/production/86776fcb52ca505783155631089b65d646f9b03f/linux/x64/Cursor-3.29.15-x86_64.AppImage";
-      hash = "sha256-rvFuzyfb6ohiXQbU+UXG0RUsSJ8v7dUDLJeNaW+UF9E=";
+      url = "https://downloads.cursor.com/production/4a44c846d0b817fab060823f93c63ea2861ac192/linux/x64/Cursor-3.30.8-x86_64.AppImage";
+      hash = "sha256-7Ar3giXoppvCrfzyM3xyjROnJOFENixgoW0lljfWfHg=";
     };
     x86_64-darwin = fetchurl {
-      url = "https://downloads.cursor.com/production/86776fcb52ca505783155631089b65d646f9b03f/darwin/x64/Cursor-darwin-x64.dmg";
-      hash = "sha256-LLn8/To9y65yHelqzyfUWwr3laz3SeZ7GaRwbFZqgEM=";
+      url = "https://downloads.cursor.com/production/4a44c846d0b817fab060823f93c63ea2861ac192/darwin/x64/Cursor-darwin-x64.dmg";
+      hash = "sha256-f2XflvLK5Ds8Mm+FG7l4OW3DukjUR7u1tCxH98Cl/Qg=";
     };
     aarch64-darwin = fetchurl {
-      url = "https://downloads.cursor.com/production/86776fcb52ca505783155631089b65d646f9b03f/darwin/arm64/Cursor-darwin-arm64.dmg";
-      hash = "sha256-942ne+QU5ayvHqT/utgf5LGsXD32SgWTRhULp2gNJi0=";
+      url = "https://downloads.cursor.com/production/4a44c846d0b817fab060823f93c63ea2861ac192/darwin/arm64/Cursor-darwin-arm64.dmg";
+      hash = "sha256-WfCAeEGsVyqXvqimRZkS6aOPNhugaLdVx/AeAjZnUjk=";
     };
   };
 
