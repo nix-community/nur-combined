@@ -975,7 +975,7 @@ dependencies = [
 
 [[package]]
 name = "gitpane"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "arboard",
  "clap",

@@ -47,16 +47,16 @@
   };
   gitpane = {
     pname = "gitpane";
-    version = "v0.18.7";
+    version = "v0.18.8";
     src = fetchFromGitHub {
       owner = "affromero";
       repo = "gitpane";
-      rev = "v0.18.7";
+      rev = "v0.18.8";
       fetchSubmodules = false;
-      sha256 = "sha256-lEtZhsFnQaa95B/ErsP1Ia7s+pgcMTFTVAS7OWHySRM=";
+      sha256 = "sha256-vCd/xKJMzTLVgA6G3EflSZXKYVfdWDmxlpSRWMCSux8=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-lEtZhsFnQaa95B_ErsP1Ia7s+pgcMTFTVAS7OWHySRM=/Cargo.lock";
+      lockFile = ./. + "/sha256-vCd_xKJMzTLVgA6G3EflSZXKYVfdWDmxlpSRWMCSux8=/Cargo.lock";
       outputHashes = {
         
       };
