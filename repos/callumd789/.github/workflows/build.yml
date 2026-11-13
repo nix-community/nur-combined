@@ -1,0 +1,109 @@
+name: "Build and populate cache"
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  schedule:
+    # rebuild everyday at 3:35
+    # TIP: Choose a random time here so not all repositories are build at once:
+    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
+    - cron:  '35 3 * * *'
+  workflow_dispatch:
+jobs:
+  tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        # Set this to notify the global nur package registry that changes are
+        # available.
+        #
+        # The repo name as used in
+        # https://github.com/nix-community/NUR/blob/master/repos.json
+        nurRepo:
+          - callumd789
+        # Set this to cache your build results in cachix for faster builds
+        # in CI and for everyone who uses your cache.
+        #
+        # Format: Your cachix cache host name without the ".cachix.org" suffix.
+        # Example: mycache (for mycache.cachix.org)
+        #
+        # The "Setup cachix" step is skipped until the CACHIX_AUTH_TOKEN secret
+        # is set in
+        # https://github.com/callumd789/nur-packages/settings/secrets/actions
+        cachixName:
+          # TODO: create this cache on https://app.cachix.org (or rename it
+          # here, in the flake job below and in update.yml to the one you
+          # create), then add the CACHIX_AUTH_TOKEN secret.
+          - callumd789
+        nixPath:
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-26.05.tar.gz
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+    - name: Install nix
+      uses: cachix/install-nix-action@75c75c31ebece974e48ebc36b4ad125bd97bd97b # v31.11.3
+      with:
+        nix_path: "${{ matrix.nixPath }}"
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Show nixpkgs version
+      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Check for Cachix auth token
+      id: cachix
+      run: echo "enabled=${{ secrets.CACHIX_AUTH_TOKEN != '' }}" >> "$GITHUB_OUTPUT"
+    - name: Setup cachix
+      uses: cachix/cachix-action@38b082610b782e7e93e209c35fd730d399dee866 # v17
+      if: ${{ steps.cachix.outputs.enabled == 'true' }}
+      with:
+        name: ${{ matrix.cachixName }}
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - name: Check evaluation
+      run: |
+        nix-env -f . -qa \* --meta --xml \
+          --allowed-uris https://static.rust-lang.org \
+          --option restrict-eval true \
+          --option allow-import-from-derivation true \
+          --drv-path --show-trace \
+          -I nixpkgs="$(nix-instantiate --find-file nixpkgs)" \
+          -I "$PWD"
+    - name: Build nix packages
+      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+    - name: Trigger NUR update
+      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+  # The tests job builds against channel heads, which no consumer's lock
+  # matches. This one builds against flake.lock: the exact store paths that
+  # `packages` and `overlays.default` hand to a consumer that doesn't make
+  # nixpkgs follow its own.
+  flake:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+    - name: Install nix
+      uses: cachix/install-nix-action@75c75c31ebece974e48ebc36b4ad125bd97bd97b # v31.11.3
+      with:
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Check for Cachix auth token
+      id: cachix
+      run: echo "enabled=${{ secrets.CACHIX_AUTH_TOKEN != '' }}" >> "$GITHUB_OUTPUT"
+    - name: Setup cachix
+      uses: cachix/cachix-action@38b082610b782e7e93e209c35fd730d399dee866 # v17
+      if: ${{ steps.cachix.outputs.enabled == 'true' }}
+      with:
+        # The same cache as cachixName in the tests job.
+        name: callumd789
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - name: Check flake
+      run: nix flake check
+    - name: Build flake packages
+      run: |
+        nix eval --json .#packages.x86_64-linux --apply builtins.attrNames \
+          | jq -r '.[] | ".#" + .' \
+          | xargs nix build --no-link --print-build-logs

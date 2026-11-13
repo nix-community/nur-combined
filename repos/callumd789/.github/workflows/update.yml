@@ -1,0 +1,71 @@
+name: "Update packages"
+on:
+  schedule:
+    # every Monday at 4:20
+    - cron: '20 4 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  update:
+    strategy:
+      fail-fast: false
+      matrix:
+        # Packages that own their version and src. tmux-agent-sidebar-plugin
+        # inherits both from tmux-agent-sidebar, so it follows that update.
+        package:
+          - rustconn
+          - tmux-agent-sidebar
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+    - name: Install nix
+      uses: cachix/install-nix-action@75c75c31ebece974e48ebc36b4ad125bd97bd97b # v31.11.3
+      with:
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Check for Cachix auth token
+      id: cachix
+      run: echo "enabled=${{ secrets.CACHIX_AUTH_TOKEN != '' }}" >> "$GITHUB_OUTPUT"
+    # Pushes the builds below, so an update is cached before its pull request
+    # is merged.
+    - name: Setup cachix
+      uses: cachix/cachix-action@38b082610b782e7e93e209c35fd730d399dee866 # v17
+      if: ${{ steps.cachix.outputs.enabled == 'true' }}
+      with:
+        # The same cache as cachixName in build.yml.
+        name: callumd789
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - name: Run nix-update
+      id: update
+      env:
+        # nix-update queries the GitHub API for the latest release.
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PACKAGE: ${{ matrix.package }}
+      run: |
+        echo "old=$(nix eval --raw ".#$PACKAGE.version")" >> "$GITHUB_OUTPUT"
+        nix run --inputs-from . nixpkgs#nix-update -- --flake "$PACKAGE"
+        echo "new=$(nix eval --raw ".#$PACKAGE.version")" >> "$GITHUB_OUTPUT"
+    # Pull requests opened with GITHUB_TOKEN don't trigger the build workflow,
+    # so build every package here before opening one.
+    - name: Build packages
+      if: ${{ steps.update.outputs.old != steps.update.outputs.new }}
+      run: |
+        nix eval --json .#packages.x86_64-linux --apply builtins.attrNames \
+          | jq -r '.[] | ".#" + .' \
+          | xargs nix build --no-link --print-build-logs
+    - name: Open pull request
+      if: ${{ steps.update.outputs.old != steps.update.outputs.new }}
+      uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+      with:
+        branch: update/${{ matrix.package }}
+        delete-branch: true
+        commit-message: "chore(${{ matrix.package }}): updated ${{ steps.update.outputs.old }} -> ${{ steps.update.outputs.new }}"
+        title: "chore(${{ matrix.package }}): updated ${{ steps.update.outputs.old }} -> ${{ steps.update.outputs.new }}"
+        body: |
+          Automated update by [nix-update](https://github.com/Mic92/nix-update).
+
+          Every flake package built in [the update run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}).

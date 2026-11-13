@@ -1,0 +1,5 @@
+.direnv
+.env
+.envrc.local
+result
+result-*
