@@ -1,0 +1,3 @@
+{
+  injectd = ./injectd.nix;
+}
