@@ -115,7 +115,9 @@ int atl_audio_write(AtlAudio *audio, const int16_t *samples, int frames, float v
 }
 int atl_audio_read(AtlAudio *audio, int16_t *samples, int frames) {
     if (!audio || !audio->capture || !samples || frames < 0 || frames > INT_MAX / (audio->channels * 2)) return -2;
-    if (!frames || atomic_load(&audio->paused)) return 0;
+    if (!frames) return 0;
+    /* Not recording: block briefly instead of letting a read loop spin. */
+    if (atomic_load(&audio->paused)) { SDL_Delay(10); return 0; }
     unsigned frame_bytes = audio->channels * 2;
     unsigned wanted = frames * frame_bytes;
     for (;;) {

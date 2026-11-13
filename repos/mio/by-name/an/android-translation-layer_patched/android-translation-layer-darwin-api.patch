@@ -27,7 +27,23 @@
  	}
  
  	public void play() {
-@@ -95,7 +97,7 @@
+@@ -81,12 +83,13 @@
+ 	}
+ 
+ 	public void stop() {
+-		System.out.println("STUB: AudioTrack.stop()\n");
++		native_stop();
+ 		playbackState = PLAYSTATE_STOPPED;
++		playbackHeadPosition = 0;
+ 	}
+ 
+ 	public void flush() {
+-		System.out.println("STUB: AudioTrack.flush()\n");
++		native_flush();
+ 	}
+ 
+ 	public void release() {
+@@ -95,7 +98,7 @@
  	}
  
  	public int getState() {
@@ -36,7 +52,7 @@
  	}
  
  	public int write(byte[] audioData, int offsetInBytes, int sizeInBytes) {
-@@ -107,12 +109,13 @@
+@@ -107,12 +110,13 @@
  			return ERROR_BAD_VALUE;
  		}
  
@@ -51,7 +67,7 @@
  	}
  
  	public int write(ByteBuffer audioData, int sizeInBytes, int writeMode) {
-@@ -130,12 +133,13 @@
+@@ -130,12 +134,13 @@
  			return ERROR_BAD_VALUE;
  		}
  
@@ -66,11 +82,12 @@
  	}
  
  	public int getAudioSessionId() {
-@@ -180,6 +184,7 @@
+@@ -180,6 +185,8 @@
  	private native int native_write(byte[] audioData, int offsetInBytes, int framesToWrite, float volume);
  	private native int native_write(short[] audioData, int offsetInShorts, int framesToWrite, float volume);
  	public native void native_release();
 +	private native void native_flush();
++	public native void native_stop();
  
  	public static int getNativeOutputSampleRate(int i) {
  		return -1;
@@ -98,7 +115,7 @@
  	public void stop() {
 --- a/src/api-impl/android/webkit/WebView.java
 +++ b/src/api-impl/android/webkit/WebView.java
-@@ -87,16 +87,12 @@
+@@ -93,16 +93,12 @@
  	}
  
  	public void loadUrl(String url) {
@@ -116,7 +133,7 @@
  
  	// to be used by native code
  	@Export
-@@ -118,7 +114,7 @@
+@@ -124,7 +120,7 @@
  		loadDataWithBaseURL("about:blank", data, mimeType, encoding, "about:blank");
  	}
  
@@ -125,7 +142,7 @@
  
  	public static void setWebContentsDebuggingEnabled(boolean enabled) {}
  
-@@ -143,4 +139,6 @@
+@@ -149,4 +145,6 @@
  	protected native long native_constructor(Context context, AttributeSet attrs);
  	private native void native_loadDataWithBaseURL(long widget, String baseUrl, String data, String mimeType, String encoding);
  	private native void native_loadUrl(long widget, String url);

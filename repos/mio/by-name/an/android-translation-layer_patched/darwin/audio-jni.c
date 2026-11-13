@@ -102,6 +102,10 @@ JNIEXPORT void JNICALL Java_android_media_AudioTrack_native_1pause(JNIEnv *env, 
     AudioHandle *h = acquire(_GET_LONG_FIELD(this, "pcm_handle"));
     if (h) { atl_audio_pause(h->audio, 1); drop(h); }
 }
+JNIEXPORT void JNICALL Java_android_media_AudioTrack_native_1stop(JNIEnv *env, jobject this) {
+    AudioHandle *h = acquire(_GET_LONG_FIELD(this, "pcm_handle"));
+    if (h) { atl_audio_pause(h->audio, 1); atl_audio_clear(h->audio); h->last_notification = 0; drop(h); }
+}
 JNIEXPORT void JNICALL Java_android_media_AudioTrack_native_1flush(JNIEnv *env, jobject this) {
     AudioHandle *h = acquire(_GET_LONG_FIELD(this, "pcm_handle"));
     if (h) { atl_audio_clear(h->audio); h->last_notification = 0; drop(h); }

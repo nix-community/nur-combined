@@ -8,28 +8,39 @@ The runtime's Apple Silicon work is documented in
 
 The Darwin backend uses GTK's macOS display backend. MediaCodec uses FFmpeg's
 software decoder and GTK memory textures; Linux VA-API/DRM/DMA-BUF paths are
-excluded. Vulkan surface creation requires a macOS Vulkan implementation exposing
-`VK_MVK_macos_surface` and portability enumeration. The loader itself is not a
+excluded. Vulkan SurfaceViews get a dedicated `CAMetalLayer`-backed `NSView` placed
+over the widget, because the ICDs only accept a layer that is a `CAMetalLayer` and
+GTK's window content view is not one. Surface creation prefers `VK_EXT_metal_surface`
+and falls back to the deprecated `VK_MVK_macos_surface`. Instance extensions are
+probed with `vkEnumerateInstanceExtensionProperties`, so only extensions the ICD
+advertises (surface extensions and portability enumeration, which also sets
+`VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR`) are requested and
+`VK_KHR_android_surface` never reaches the host loader. The loader itself is not a
 Vulkan implementation. OpenXR entrypoints are resolved dynamically and return
 `XR_ERROR_RUNTIME_UNAVAILABLE` when the host loader or entrypoint is absent.
 
 PCM `AudioTrack`/`AudioRecord` are backed by SDL2's CoreAudio driver. Playback is
-queued and bounded, pause/flush are supported, stream and per-write volume are
-applied, and playback-position notifications are delivered. Capture requires
-`ATL_UGLY_ENABLE_MICROPHONE`; otherwise the constructor throws. SoundPool and
-MediaPlayer keep using GTK media support.
+queued and bounded, pause/flush/stop are supported (`stop` also resets the playback
+head position), stream and per-write volume are applied, and playback-position
+notifications are delivered. A `read` on a stopped record waits briefly instead of
+returning immediately. Capture requires `ATL_UGLY_ENABLE_MICROPHONE`; otherwise the
+constructor throws. SoundPool and MediaPlayer keep using GTK media support.
 
 Platform services use native macOS APIs:
 
 - Notifications use `UNUserNotificationCenter`, including action buttons whose
-  Android intents are serialized and replayed when the user taps them. Ongoing
+  Android intents are serialized and replayed when the user taps them. A small icon
+  that ATL resolved to a file path is attached from a temporary copy. Ongoing
   notifications are removed when the app tears down its manager.
 - Media sessions publish to the system Now Playing centre (`MPRemoteCommandCenter`),
   with play/pause/toggle/next/previous/seek mapped back to the Android callback.
+  Title/artist/artwork are dropped when an update no longer carries them; artwork is
+  fetched for `file://` and `http(s)://` URIs (`content://` needs the app's resolver).
 - Location uses Core Location behind `ATL_UGLY_ENABLE_LOCATION`, with authorization
   and Open/When-In-Use usage descriptions.
 - Wallpaper setting writes the bitmap as PNG and applies it to every screen through
-  `NSWorkspace`; the file is kept because macOS references it after the call.
+  `NSWorkspace`; the single backing file is rewritten in place because macOS keeps
+  referencing it after the call, and older copies are removed.
 - Vibration maps to `NSHapticFeedbackManager` trackpad haptics and honours cancel.
 
 WebView is implemented with `WKWebView` behind `ATL_UGLY_ENABLE_WEBVIEW`, embedded
@@ -42,17 +53,20 @@ Input-method composition is implemented with `NSTextInputClient`: composing text
 commits, selection, surrounding-text deletion and hardware key events are forwarded
 to the focused GTK editable.
 
-The compatibility `memfd_create` uses an unlinked temporary file and honors
-`MFD_CLOEXEC`; sealing and other Linux-only flags are unsupported. Darwin-specific
-patches and compatibility headers are only added on Darwin. Native Android ELF
-libraries are not made into macOS libraries by these patches.
+The compatibility `memfd_create` uses an unlinked temporary file opened with
+`O_CLOEXEC`, so `MFD_CLOEXEC` is honoured without a fork/exec race; sealing and other
+Linux-only flags are unsupported. Darwin-specific patches and compatibility headers
+are only added on Darwin. Native Android ELF libraries are not made into macOS
+libraries by these patches.
 
 ## Validation
 
 On aarch64-darwin the Nix build succeeds, including boot-image compilation, and
 `android-translation-layer --help` exits successfully. The `darwin-audio` Meson test
 runs in `checkPhase` and covers playback/capture queues, pause, flush, buffer
-validation and caller-buffer ownership. A bounded NewPipe 0.29.1 smoke test reaches
+validation and caller-buffer ownership. Vulkan SurfaceView creation is not covered by
+these checks: it needs an installed Vulkan implementation (MoltenVK or KosmicKrisp)
+and an app that uses `SurfaceView`. A bounded NewPipe 0.29.1 smoke test reaches
 `JVM launched successfully` and remains running; that does not establish UI or
 playback correctness.
 

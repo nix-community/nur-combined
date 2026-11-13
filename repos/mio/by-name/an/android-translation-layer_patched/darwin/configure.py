@@ -11,6 +11,8 @@ replacements = {
     "'src/api-impl-jni/audio/android_media_AudioRecord.c',": "'src/api-impl-jni/darwin/audio.c',",
     "'src/api-impl-jni/widgets/android_webkit_WebView.c',": "'src/api-impl-jni/darwin/webview.m',",
     "dependency('libavcodec', version: '>=59')": "dependency('sdl2'), dependency('libavcodec', version: '>=59')",
+    # the SurfaceView overlay needs AppKit/QuartzCore, so it lives in libandroid
+    "'src/libandroid/native_window.c',": "'src/libandroid/native_window.c', 'src/api-impl-jni/darwin/vulkan_surface.m',",
 }
 for old,new in replacements.items():
     assert old in s, f'missing Meson source/dependency: {old}'

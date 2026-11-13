@@ -68,9 +68,22 @@ JNIEXPORT void JNICALL Java_android_app_NotificationManager_nativeAddAction(JNIE
     NSDictionary *action = notification_action(env, atl_string(env, label), type, intent);
     if (action) [(__bridge NSMutableArray *)(void *)(intptr_t)builder addObject:action];
 }
+/* Android's small icon is a drawable name that ATL resolves to a file path.  The
+ * notification system takes ownership of the file it is given, so hand it a copy. */
+static UNNotificationAttachment *icon_attachment(NSString *path) {
+    if (!path.length || ![[NSFileManager defaultManager] fileExistsAtPath:path]) return nil;
+    NSURL *directory = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"atl-notification-icons"] isDirectory:YES];
+    [[NSFileManager defaultManager] createDirectoryAtURL:directory withIntermediateDirectories:YES attributes:nil error:nil];
+    NSURL *source = [NSURL fileURLWithPath:path];
+    NSString *extension = source.pathExtension.length ? source.pathExtension : @"png";
+    NSURL *copy = [directory URLByAppendingPathComponent:[NSUUID.UUID.UUIDString stringByAppendingPathExtension:extension]];
+    if (![[NSFileManager defaultManager] copyItemAtURL:source toURL:copy error:nil]) return nil;
+    return [UNNotificationAttachment attachmentWithIdentifier:@"icon" URL:copy options:nil error:nil];
+}
 JNIEXPORT void JNICALL Java_android_app_NotificationManager_nativeShowNotification(JNIEnv *env, jobject this, jlong builder, jint identifier, jstring title, jstring text, jstring icon, jboolean ongoing, jint type, jobject intent) {
     NSArray *actions = builder ? CFBridgingRelease((void *)(intptr_t)builder) : @[];
     NSString *heading = atl_string(env, title) ?: @"", *body = atl_string(env, text) ?: @"";
+    NSString *iconPath = atl_string(env, icon);
     NSDictionary *defaultAction = notification_action(env, nil, type, intent);
     atl_main(^{
         UNUserNotificationCenter *center = notification_center();
@@ -79,6 +92,8 @@ JNIEXPORT void JNICALL Java_android_app_NotificationManager_nativeShowNotificati
         notifications.generations[key] = generation;
         UNMutableNotificationContent *content = [UNMutableNotificationContent new];
         content.title = heading; content.body = body;
+        UNNotificationAttachment *attachment = icon_attachment(iconPath);
+        if (attachment) content.attachments = @[attachment];
         NSMutableDictionary *targets = [NSMutableDictionary new];
         NSMutableArray *buttons = [NSMutableArray new];
         for (NSUInteger i = 0; i < actions.count; i++) {
@@ -128,6 +143,7 @@ void remove_ongoing_notifications(void) {
 
 /* Now Playing replaces the Linux MPRIS transport, retaining Android callbacks. */
 static jobject media_callback;
+static NSUInteger media_generation;
 static NSMutableDictionary *media_info;
 static BOOL media_playing;
 @interface ATLMediaCommands : NSObject
@@ -175,17 +191,56 @@ JNIEXPORT void JNICALL Java_android_media_session_MediaSession_nativeSetCallback
         media_callback = ref;
     }); });
 }
+static void media_set_artwork(NSImage *image, NSUInteger generation) {
+    atl_main(^{
+        if (generation != media_generation || !media_info) return;
+        if (image) {
+            MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithBoundsSize:image.size requestHandler:^NSImage *(CGSize size) { return image; }];
+            media_info[MPMediaItemPropertyArtwork] = artwork;
+        } else {
+            [media_info removeObjectForKey:MPMediaItemPropertyArtwork];
+        }
+        [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = media_info;
+    });
+}
+/* MediaDescription.iconUri is an Android URI: file and http(s) can be resolved here,
+ * content:// needs the app's content resolver and is left out instead of going stale. */
+static NSString *media_artwork_url;
+static void media_artwork(NSString *location, NSUInteger generation) {
+    /* Playback state updates repeat the same icon URI every second: only react to
+     * a change, otherwise every update would re-fetch the artwork. */
+    if (location.length && (location == media_artwork_url || [media_artwork_url isEqualToString:location]))
+        return;
+    media_artwork_url = [location copy];
+    if (!location.length) { media_set_artwork(nil, generation); return; }
+    NSURL *url = [NSURL URLWithString:location];
+    if (!url.scheme) url = [NSURL fileURLWithPath:location];
+    if (url.isFileURL) {
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        media_set_artwork(data ? [[NSImage alloc] initWithData:data] : nil, generation);
+    } else if ([url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"https"]) {
+        [[[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            media_set_artwork((!error && data.length) ? [[NSImage alloc] initWithData:data] : nil, generation);
+        }] resume];
+    } else {
+        media_set_artwork(nil, generation);
+    }
+}
 JNIEXPORT void JNICALL Java_android_media_session_MediaSession_nativeSetState(JNIEnv *env, jobject this, jint state, jlong actions, jlong position, jlong update, jstring title, jstring artist, jstring artwork) {
-    NSString *heading = atl_string(env, title), *subtitle = atl_string(env, artist);
+    NSString *heading = atl_string(env, title), *subtitle = atl_string(env, artist), *art = atl_string(env, artwork);
     jlong now = Java_android_os_SystemClock_elapsedRealtime(env, NULL);
     double elapsed = MAX(0, position) / 1000.0;
     if (state == 3 && update > 0) elapsed += MAX((jlong)0, now-update)/1000.0;
+    __block NSUInteger generation = 0;
     atl_main(^{
         media_install();
         media_playing = state == 3;
         if (!media_info) media_info = [NSMutableDictionary new];
         if (heading) media_info[MPMediaItemPropertyTitle] = heading;
+        else [media_info removeObjectForKey:MPMediaItemPropertyTitle];
         if (subtitle) media_info[MPMediaItemPropertyArtist] = subtitle;
+        else [media_info removeObjectForKey:MPMediaItemPropertyArtist];
+        generation = ++media_generation;
         media_info[MPNowPlayingInfoPropertyElapsedPlaybackTime] = @(elapsed);
         media_info[MPNowPlayingInfoPropertyPlaybackRate] = @(media_playing ? 1 : 0);
         MPNowPlayingInfoCenter *info = [MPNowPlayingInfoCenter defaultCenter];
@@ -199,6 +254,7 @@ JNIEXPORT void JNICALL Java_android_media_session_MediaSession_nativeSetState(JN
         center.previousTrackCommand.enabled = !!(actions & (1<<4));
         center.changePlaybackPositionCommand.enabled = !!(actions & (1<<8));
     });
+    media_artwork(art, generation);
 }
 JNIEXPORT void JNICALL Java_android_app_NotificationManager_nativeShowMPRIS(JNIEnv *env, jobject this, jstring package, jstring identity) {
     NSString *name = atl_string(env, identity);
@@ -269,7 +325,9 @@ JNIEXPORT void JNICALL Java_android_app_WallpaperManager_set_1bitmap(JNIEnv *env
         NSURL *directory = [[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask].firstObject;
         directory = [directory URLByAppendingPathComponent:@"android_translation_layer/wallpaper" isDirectory:YES];
         if (![[NSFileManager defaultManager] createDirectoryAtURL:directory withIntermediateDirectories:YES attributes:nil error:&failure]) return;
-        NSURL *file = [directory URLByAppendingPathComponent:[NSUUID.UUID.UUIDString stringByAppendingString:@".png"]];
+        /* One backing file rewritten in place: macOS keeps referencing it, so it
+         * must persist, but repeated calls must not accumulate copies. */
+        NSURL *file = [directory URLByAppendingPathComponent:@"wallpaper.png"];
         if (![data writeToURL:file options:NSDataWritingAtomic error:&failure]) return;
         BOOL applied = NO;
         for (NSScreen *screen in NSScreen.screens) {
@@ -277,8 +335,12 @@ JNIEXPORT void JNICALL Java_android_app_WallpaperManager_set_1bitmap(JNIEnv *env
             if ([[NSWorkspace sharedWorkspace] setDesktopImageURL:file forScreen:screen options:@{} error:&error]) applied = YES;
             else if (!failure) failure = error;
         }
-        /* macOS needs the backing image to persist after this method returns. */
-        if (!applied) [[NSFileManager defaultManager] removeItemAtURL:file error:nil];
+        /* macOS needs the backing image to persist after this method returns, so
+         * earlier copies only go once every screen points at the new file. */
+        if (!applied) { [[NSFileManager defaultManager] removeItemAtURL:file error:nil]; return; }
+        for (NSURL *stale in [[NSFileManager defaultManager] contentsOfDirectoryAtURL:directory includingPropertiesForKeys:nil options:0 error:nil])
+            if (![stale.lastPathComponent isEqualToString:file.lastPathComponent])
+                [[NSFileManager defaultManager] removeItemAtURL:stale error:nil];
     });
     if (failure) atl_throw(env, "java/io/IOException", failure.localizedDescription);
 }

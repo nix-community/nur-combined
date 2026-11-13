@@ -27,17 +27,12 @@ Subject: [PATCH] Darwin software decoding and host runtime safety
  	if (!codec) {
 -		printf("Codec %s not found\n", name);
 -		exit(0);
--	}
--	(*env)->ReleaseStringUTFChars(env, codec_name, name);
--	if (!codec)
 +		jclass error = (*env)->FindClass(env, "java/lang/IllegalArgumentException");
 +		if (error) (*env)->ThrowNew(env, error, "FFmpeg decoder is unavailable");
- 		return 0;
--	AVCodecContext *codec_ctx = avcodec_alloc_context3(codec);
--
--	struct ATL_codec_context *ctx = calloc(1, sizeof(struct ATL_codec_context));
--	ctx->codec = codec_ctx;
-+	}
++		return 0;
+ 	}
+-	(*env)->ReleaseStringUTFChars(env, codec_name, name);
+-	if (!codec)
 +	struct ATL_codec_context *ctx = calloc(1, sizeof(*ctx));
 +	if (ctx)
 +		ctx->codec = avcodec_alloc_context3(codec);
@@ -45,7 +40,11 @@ Subject: [PATCH] Darwin software decoding and host runtime safety
 +		free(ctx);
 +		jclass error = (*env)->FindClass(env, "java/lang/OutOfMemoryError");
 +		if (error) (*env)->ThrowNew(env, error, "Cannot allocate FFmpeg decoder");
-+		return 0;
+ 		return 0;
+-	AVCodecContext *codec_ctx = avcodec_alloc_context3(codec);
+-
+-	struct ATL_codec_context *ctx = calloc(1, sizeof(struct ATL_codec_context));
+-	ctx->codec = codec_ctx;
 +	}
  	return _INTPTR(ctx);
  }
@@ -58,15 +57,15 @@ Subject: [PATCH] Darwin software decoding and host runtime safety
  static const struct {
  	uint32_t format;
  	int nb_layers;
-@@ -146,6 +157,8 @@
+@@ -145,6 +156,8 @@
+ 	}
  	return AV_PIX_FMT_NONE;
  }
- 
-+#endif
 +
++#endif
+ 
  struct render_frame_data {
  	AVFrame *frame;
- 	GdkTexture *texture; // for software decoding
 @@ -167,6 +180,7 @@
  	return g_idle_add(render_fn, data);
  }
@@ -133,15 +132,15 @@ Subject: [PATCH] Darwin software decoding and host runtime safety
  static gboolean render_frame(void *data)
  {
  	struct render_frame_data *d = (struct render_frame_data *)data;
-@@ -426,6 +447,8 @@
- 
+@@ -427,6 +448,8 @@
  	return G_SOURCE_REMOVE;
  }
-+
-+#endif
  
++#endif
++
  static gboolean render_texture(void *data)
  {
+ 	struct render_frame_data *d = (struct render_frame_data *)data;
 @@ -493,11 +516,15 @@
  			return;
  		}
@@ -173,61 +172,86 @@ Subject: [PATCH] Darwin software decoding and host runtime safety
  	avcodec_free_context(&ctx->codec);
 --- a/src/libandroid/native_window.c
 +++ b/src/libandroid/native_window.c
-@@ -430,7 +430,11 @@
- 			.sType = VK_STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK,
- 			.pView = content_view,
+@@ -405,6 +405,12 @@
+ // FIXME 1.5: this most likely belongs elsewhere
+ 
+ static GHashTable *vk_surface_native_windows;
++
++#ifdef __APPLE__
++/* darwin/vulkan_surface.m: the SurfaceView widget gets its own CAMetalLayer view. */
++VkResult atl_darwin_create_android_surface(VkInstance instance, GtkWidget *surface_view_widget,
++                                           const VkAllocationCallbacks *allocator, VkSurfaceKHR *surface);
++#endif
+ 
+ VkResult bionic_vkCreateAndroidSurfaceKHR(VkInstance instance, const VkAndroidSurfaceCreateInfoKHR *pCreateInfo, const VkAllocationCallbacks *pAllocator, VkSurfaceKHR *pSurface)
+ {
+@@ -427,6 +433,10 @@
  		};
--		ret = vkCreateMacOSSurfaceMVK(instance, &macos_create_info, pAllocator, pSurface);
-+		PFN_vkCreateMacOSSurfaceMVK create_surface = (PFN_vkCreateMacOSSurfaceMVK)vkGetInstanceProcAddr(instance, "vkCreateMacOSSurfaceMVK");
-+		if (!create_surface)
-+			ret = VK_ERROR_EXTENSION_NOT_PRESENT;
-+		else
-+			ret = create_surface(instance, &macos_create_info, pAllocator, pSurface);
- #endif
+ 
+ 		ret = vkCreateXlibSurfaceKHR(instance, &x11_create_info, pAllocator, pSurface);
++#ifdef __APPLE__
++	} else if (GDK_IS_MACOS_DISPLAY(display)) {
++		ret = atl_darwin_create_android_surface(instance, GTK_WIDGET(pCreateInfo->window->surface_view_widget), pAllocator, pSurface);
++#endif
  	} else {
  		fprintf(stderr, "bionic_vkCreateAndroidSurfaceKHR: the GDK backend is neither Wayland nor X11, no SurfaceView for you");
-@@ -453,26 +457,29 @@
+ 		ret = VK_ERROR_UNKNOWN;
+@@ -446,19 +456,52 @@
+ 	vkDestroySurfaceKHR(instance, surface, pAllocator);
+ }
  
- VkResult bionic_vkCreateInstance(VkInstanceCreateInfo *pCreateInfo, const VkAllocationCallbacks *pAllocator, VkInstance *pInstance)
+-VkResult bionic_vkCreateInstance(VkInstanceCreateInfo *pCreateInfo, const VkAllocationCallbacks *pAllocator, VkInstance *pInstance)
++/* The host loader rejects extensions its drivers do not advertise, and portability
++ * enumeration changes the instance flags as well as the extension list. */
++static bool instance_extension_supported(const char *name)
  {
 -	int original_extension_count = pCreateInfo->enabledExtensionCount;
--#ifdef __APPLE__
--	int new_extension_count = original_extension_count + 2;
--#else
 -	int new_extension_count = original_extension_count + 3;
--#endif
 -	const char **enabled_exts = malloc(new_extension_count * sizeof(char *));
 -	memcpy(enabled_exts, pCreateInfo->ppEnabledExtensionNames, original_extension_count * sizeof(char *));
--#ifdef __APPLE__
--	enabled_exts[original_extension_count] = "VK_MVK_macos_surface";
--	enabled_exts[original_extension_count + 1] = "VK_KHR_surface";
--#else
 -	enabled_exts[original_extension_count] = "VK_KHR_wayland_surface";
 -	enabled_exts[original_extension_count + 1] = "VK_KHR_xlib_surface";
 -	enabled_exts[original_extension_count + 2] = "VK_KHR_surface";
--#endif
--
++	uint32_t count = 0;
++	if (vkEnumerateInstanceExtensionProperties(NULL, &count, NULL) != VK_SUCCESS || !count)
++		return false;
++	VkExtensionProperties *properties = calloc(count, sizeof(*properties));
++	if (!properties)
++		return false;
++	bool found = false;
++	if (vkEnumerateInstanceExtensionProperties(NULL, &count, properties) == VK_SUCCESS)
++		for (uint32_t i = 0; i < count; i++)
++			if (!strcmp(properties[i].extensionName, name)) { found = true; break; }
++	free(properties);
++	return found;
++}
+ 
 -	pCreateInfo->enabledExtensionCount = new_extension_count;
 -	pCreateInfo->ppEnabledExtensionNames = enabled_exts;
 -	return vkCreateInstance(pCreateInfo, pAllocator, pInstance);
-+	/* Android's surface extension must not reach the host Vulkan loader. */
++VkResult bionic_vkCreateInstance(VkInstanceCreateInfo *pCreateInfo, const VkAllocationCallbacks *pAllocator, VkInstance *pInstance)
++{
++	/* Android's surface extension must never reach the host Vulkan loader; the
++	 * macOS surface extensions are only added when the ICD advertises them. */
++	const char *const managed[] = { "VK_KHR_android_surface", "VK_KHR_surface", "VK_EXT_metal_surface", "VK_MVK_macos_surface", "VK_KHR_portability_enumeration" };
++	const char *const surfaces[] = { "VK_KHR_surface", "VK_EXT_metal_surface", "VK_MVK_macos_surface" };
++	bool portability = instance_extension_supported("VK_KHR_portability_enumeration");
 +	uint32_t count = 0;
-+	const char **extensions = calloc(pCreateInfo->enabledExtensionCount + 4, sizeof(*extensions));
++	const char **extensions = calloc(pCreateInfo->enabledExtensionCount + ARRAY_SIZE(surfaces) + 1, sizeof(*extensions));
 +	if (!extensions)
 +		return VK_ERROR_OUT_OF_HOST_MEMORY;
 +	for (uint32_t i = 0; i < pCreateInfo->enabledExtensionCount; i++) {
 +		const char *extension = pCreateInfo->ppEnabledExtensionNames[i];
-+		if (strcmp(extension, "VK_KHR_android_surface") &&
-+		    strcmp(extension, "VK_MVK_macos_surface") &&
-+		    strcmp(extension, "VK_KHR_surface") &&
-+		    strcmp(extension, "VK_KHR_portability_enumeration"))
-+			extensions[count++] = extension;
++		bool skip = false;
++		for (uint32_t j = 0; j < ARRAY_SIZE(managed); j++)
++			if (!strcmp(extension, managed[j])) skip = true;
++		if (!skip) extensions[count++] = extension;
 +	}
-+	extensions[count++] = "VK_KHR_surface";
-+	extensions[count++] = "VK_MVK_macos_surface";
-+	extensions[count++] = "VK_KHR_portability_enumeration";
++	for (uint32_t i = 0; i < ARRAY_SIZE(surfaces); i++)
++		if (instance_extension_supported(surfaces[i])) extensions[count++] = surfaces[i];
++	if (portability) extensions[count++] = "VK_KHR_portability_enumeration";
 +	VkInstanceCreateInfo info = *pCreateInfo;
-+	info.flags |= VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
++	if (portability) info.flags |= VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
 +	info.enabledExtensionCount = count;
 +	info.ppEnabledExtensionNames = extensions;
 +	VkResult result = vkCreateInstance(&info, pAllocator, pInstance);
@@ -235,12 +259,12 @@ Subject: [PATCH] Darwin software decoding and host runtime safety
 +	return result;
  }
  
- PFN_vkVoidFunction bionic_vkGetInstanceProcAddr(VkInstance instance, const char *pName)
-@@ -476,21 +484,18 @@
+ VkResult bionic_vkGetPhysicalDeviceSurfaceCapabilitiesKHR(VkPhysicalDevice physicalDevice, VkSurfaceKHR surface, VkSurfaceCapabilitiesKHR *pSurfaceCapabilities)
+@@ -497,21 +540,18 @@
  
  // FIXME 2: this BLATANTLY belongs elsewhere
  
--typedef XrResult (*xr_func)();
+-typedef XrResult (*xr_func)(...);
 -
 -/* avoid hard dependency on libopenxr_loader for the three functions that we only ever call when running a VR app */
 -/* NOTE: our use of __builtin_va_arg_pack means this only works as long as we don't need to call a function
@@ -248,20 +272,18 @@ Subject: [PATCH] Darwin software decoding and host runtime safety
 +/* Resolve typed entrypoints: Clang cannot forward __builtin_va_arg_pack. */
  static void *openxr_loader_handle = NULL;
 -static inline __attribute__((__always_inline__)) XrResult xr_lazy_call(char *func_name, ...)
--{
++static void *xr_lookup(const char *name)
+ {
 -	if (!openxr_loader_handle) {
 -		openxr_loader_handle = dlopen("libopenxr_loader.so.1", RTLD_LAZY);
 -	}
 -
 -	xr_func func = dlsym(openxr_loader_handle, func_name);
--	return -1;
--}
-+static void *xr_lookup(const char *name)
-+{
+-	return func(__builtin_va_arg_pack());
 +	if (!openxr_loader_handle)
 +		openxr_loader_handle = dlopen("libopenxr_loader.dylib", RTLD_LAZY | RTLD_LOCAL);
 +	return openxr_loader_handle ? dlsym(openxr_loader_handle, name) : NULL;
-+}
+ }
 +#define xr_lazy_call(name, ...) ({ \
 +	PFN_##name function = (PFN_##name)xr_lookup(#name); \
 +	function ? function(__VA_ARGS__) : XR_ERROR_RUNTIME_UNAVAILABLE; \
@@ -269,7 +291,7 @@ Subject: [PATCH] Darwin software decoding and host runtime safety
  
  static XrResult bionic_xrInitializeLoaderKHR(void *loaderInitInfo)
  {
-@@ -521,7 +526,7 @@
+@@ -542,7 +582,7 @@
  		fprintf(stderr, "xrCreateSession: The graphics binding type = %d\n", android_bind->type);
  	}
  
@@ -278,19 +300,20 @@ Subject: [PATCH] Darwin software decoding and host runtime safety
  }
  
  /*
-@@ -529,7 +534,10 @@
+@@ -550,8 +590,11 @@
   */
  XrResult bionic_xrGetInstanceProperties(XrInstance instance, XrInstanceProperties *instanceProperties)
  {
 -	XrResult ret = xr_lazy_call("xrGetInstanceProperties", instance, instanceProperties);
 +	XrResult ret = xr_lazy_call(xrGetInstanceProperties, instance, instanceProperties);
-+
+ 
 +	if (XR_FAILED(ret))
 +		return ret;
- 
++
  	strncat(instanceProperties->runtimeName, " (With ATL meta-layer)",
  	        XR_MAX_RUNTIME_NAME_SIZE - 1 - strlen(instanceProperties->runtimeName));
-@@ -573,7 +581,7 @@
+ 
+@@ -594,7 +637,7 @@
  	for (int i = 0; i < createInfo->enabledExtensionCount; ++i)
  		fprintf(stderr, "## ---- %s\n", createInfo->enabledExtensionNames[i]);
  
@@ -299,7 +322,7 @@ Subject: [PATCH] Darwin software decoding and host runtime safety
  }
  
  XrResult bionic_xrCreateReferenceSpace(XrSession session, const XrReferenceSpaceCreateInfo *createInfo, XrSpace *space)
-@@ -584,7 +592,7 @@
+@@ -605,7 +648,7 @@
  	if (createInfo->referenceSpaceType > 100)
  		*(int *)(&createInfo->referenceSpaceType) = XR_REFERENCE_SPACE_TYPE_LOCAL_FLOOR_EXT;
  
@@ -308,7 +331,7 @@ Subject: [PATCH] Darwin software decoding and host runtime safety
  }
  
  /*
-@@ -634,7 +642,7 @@
+@@ -655,7 +698,7 @@
  		return XR_SUCCESS;
  	}
  
@@ -319,7 +342,7 @@ Subject: [PATCH] Darwin software decoding and host runtime safety
  typedef void *ANativeActivity;
 --- a/meson.build
 +++ b/meson.build
-@@ -240,7 +240,7 @@
+@@ -241,7 +241,7 @@
                                                                    dependencies: [
                                                                          extra_deps,
                                                                    	dependency('gtk4', version: '>=4.14'), dependency('gl'), dependency('egl'), dependency('wayland-client'), dependency('jni'),
