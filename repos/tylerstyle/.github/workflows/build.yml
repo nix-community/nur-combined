@@ -33,7 +33,7 @@ jobs:
         # Github found at
         # https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
-          - <YOUR_CACHIX_NAME>
+          - tylerstyle
         nixPath:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
@@ -59,6 +59,10 @@ jobs:
         name: ${{ matrix.cachixName }}
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+        # Push package outputs only. Sources, vendored crates and the crate downloads
+        # are build inputs that no output references, so nobody substitutes them; they
+        # would take about three quarters of the 5 GB cache.
+        pushFilter: '(-source|-src-[^/]*|-vendor|-vendor-staging)$'
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \
