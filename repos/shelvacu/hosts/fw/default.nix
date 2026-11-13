@@ -17,8 +17,8 @@
       programs.wireshark.enable = true;
       vacu.packages.kicad.package = pkgs.kicad.override {
         addons = with pkgs.kicadAddons; [
-          kikit
-          kikit-library
+          # kikit # requires insecure package
+          # kikit-library
         ];
         withJava = true;
       };
