@@ -1,0 +1,71 @@
+name: Update packages
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Daily at 11:17 Beijing time
+    - cron: '17 3 * * *'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Update packages
+        timeout-minutes: 15
+        env:
+          NIXPKGS_ALLOW_UNFREE: '1'
+          PYTHONUNBUFFERED: '1'
+          UPDATE_NIX_FLAKE: '1'
+        run: |
+          set -euo pipefail
+          nix shell nixpkgs#nix-update -c bash -euc '
+            for package in baidunetdisk chatgpt lceda-pro qq; do
+              echo "::group::Update $package"
+              export UPDATE_NIX_ATTR_PATH="$package"
+              UPDATE_NIX_OLD_VERSION=$(nix eval --impure --raw ".#$package.version")
+              export UPDATE_NIX_OLD_VERSION
+              timeout --kill-after=30s 7m bash "pkgs/$package/update.sh"
+              echo "::endgroup::"
+              if git diff --quiet -- "pkgs/$package"; then
+                printf "%-12s %s\n" "$package" "No changes (see group for details)"
+              else
+                printf "%-12s %s\n" "$package" "Update available"
+              fi
+            done
+          '
+
+      - name: Review changes
+        run: |
+          git diff --check
+          git diff -- pkgs/baidunetdisk/default.nix pkgs/chatgpt/package.nix pkgs/lceda-pro/default.nix pkgs/qq/default.nix
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          branch: update/packages
+          delete-branch: true
+          commit-message: 'packages: update upstream versions'
+          title: 'packages: update upstream versions'
+          body: |
+            Automatically update upstream versions and source SHA256 hashes.
+
+            Full Nix build validation is not performed by this workflow.
+          add-paths: |
+            pkgs/baidunetdisk/default.nix
+            pkgs/chatgpt/package.nix
+            pkgs/lceda-pro/default.nix
+            pkgs/qq/default.nix
