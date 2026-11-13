@@ -198,6 +198,7 @@ in
             namespace = "kube-system";
           };
           spec.valuesContent = ''
+            # Service (NodePort) is recreated by helm when missing; host ports are the edge.
             deployment:
               kind: DaemonSet
             updateStrategy:

@@ -673,7 +673,9 @@ in
       Group = "root";
       Environment = [
         "KUBECONFIG=/etc/rancher/k3s/k3s.yaml"
-        "NAMESPACES=edge default"
+        # Literal quotes: systemd splits unquoted Environment values on spaces
+        # and silently drops the extra words ("Invalid environment assignment").
+        ''"NAMESPACES=edge default"''
       ];
       ExecStart = lib.getExe inputs.nixcfg.packages.${system}.traefik-cert-sync;
     };
