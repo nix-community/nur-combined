@@ -1,0 +1,38 @@
+--- a/src/feature.ts
++++ b/src/feature.ts
+@@ -65,10 +65,34 @@
+     },
+ };
+ 
++/**
++ * Whether the server advertises `version` or any later minor version of the same major version.
++ *
++ * Minor versions of the spec are backwards compatible (removals go through the deprecation policy), so a
++ * feature that was stabilised in `vX.Y` is supported by every server that supports a later `vX.Z`. Servers
++ * do not always list every version they support: Continuwuity, for example, advertises v1.11 but not v1.10.
++ */
++function supportsVersionOrLater(advertised: string[] | undefined, version: string): boolean {
++    const parse = (v: string): [number, number] | undefined => {
++        const match = /^v(\d+)\.(\d+)$/.exec(v);
++        return match ? [Number(match[1]), Number(match[2])] : undefined;
++    };
++    const wanted = parse(version);
++    if (!wanted) return advertised?.includes(version) ?? false;
++    return (
++        advertised?.some((v) => {
++            const have = parse(v);
++            return have !== undefined && have[0] === wanted[0] && have[1] >= wanted[1];
++        }) ?? false
++    );
++}
++
+ export async function buildFeatureSupportMap(versions: IServerVersions): Promise<Map<Feature, ServerSupport>> {
+     const supportMap = new Map<Feature, ServerSupport>();
+     for (const [feature, supportCondition] of Object.entries(featureSupportResolver)) {
+-        const supportMatrixVersion = versions.versions?.includes(supportCondition.matrixVersion || "") ?? false;
++        const supportMatrixVersion =
++            supportCondition.matrixVersion !== undefined &&
++            supportsVersionOrLater(versions.versions, supportCondition.matrixVersion);
+         const supportUnstablePrefixes =
+             supportCondition.unstablePrefixes?.every((unstablePrefix) => {
+                 return versions.unstable_features?.[unstablePrefix] === true;
