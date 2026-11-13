@@ -20,7 +20,7 @@ in with pkgs; rec {
   hplipWithPlugin = pkgs.hplipWithPlugin;
 
   nixos-collect-garbage = writeShellScriptBin "nixos-collect-garbage" ''
-    ${nix}/bin/nix-collect-garbage "$@"
+    ${lib.getExe' nix "nix-collect-garbage"} "$@"
     /run/current-system/bin/switch-to-configuration boot
   '';
 
@@ -31,7 +31,7 @@ in with pkgs; rec {
   silver = callPackage ./pkgs/silver {};
 
   termbin = writeShellScriptBin "tb" ''
-    exec ${netcat}/bin/nc termbin.com 9999
+    exec ${lib.getExe netcat} termbin.com 9999
   '';
 
   ttf-croscore = google-fonts.override { fonts = [ "Arimo" "Cousine" "Tinos" ]; };
