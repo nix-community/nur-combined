@@ -1,5 +1,5 @@
 {
-  version = "0.18.0";
-  x86_64-linux = "0d5b522afcfa20c7e58887c2092fb5ad5322eb90c1da98061e61b7e3acd1bed5";
-  aarch64-linux = "4218f2c8c663af4f16d87cbeff741bd97936ec17cb11507a407e8b63b4d6cec7";
+  version = "0.20.1";
+  x86_64-linux = "57b6f1b41b4f3c542a82f103202ed1a779440e5ff8d25c08ef66abda1a8cb1b9";
+  aarch64-linux = "b149db4bdf61d135fcb40ce7361828c75b18d6f3f710e165ca17f30819d23212";
 }

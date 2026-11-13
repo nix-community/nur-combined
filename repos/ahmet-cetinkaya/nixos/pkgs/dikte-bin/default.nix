@@ -27,11 +27,11 @@
 }: let
   # The wrapper executable is named after pname, and the command must be `dikte`.
   pname = "dikte";
-  version = "2.3.0";
+  version = "2.4.0";
 
   src = fetchurl {
     url = "https://github.com/yusufipk/dikte/releases/download/v${version}/Dikte-${version}-x86_64.AppImage";
-    hash = "sha256-4o1n5rUq3aHjrdpASb/xHyUGVkFkH3lEmWrI3h/wCHQ=";
+    hash = "sha256-2tXhP1nM3PpOCSpn2hVAJhtlh1y0OU0wQKsWHBJCUzo=";
   };
 
   # Extract the AppImage contents so we can lift out the .desktop entry and
