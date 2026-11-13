@@ -89,32 +89,15 @@
       },
       "fingerprint": "sha256-19K58xslpcJZbIs8eH4o5Pkm1Jcde0YS6I8gTAdmEnE="
     },
-    "boringssl-oqs": {
-      "version": "OQS-BoringSSL-snapshot-2025-01",
-      "rawVersion": "OQS-BoringSSL-snapshot-2025-01",
-      "src": {
-        "fetcher": "github",
-        "owner": "open-quantum-safe",
-        "repo": "boringssl",
-        "rev": "OQS-BoringSSL-snapshot-2025-01",
-        "hash": "sha256-zVZgAvq6V85hxO79Ct8s+VVyf9yPa/YbRL4D5z31qEs="
-      },
-      "derived": {
-        "vendorHash": {
-          "hash": "sha256-jcV7dZZITkvzqKq1EQ4qLiGar568WsDPLtxMvBoh7B8="
-        }
-      },
-      "fingerprint": "sha256-2oqfnz+z58NLkA5td+pM7EuS4K0RjpG1WdXsdVaLvZY="
-    },
     "clash-nyanpasu": {
-      "version": "2.0.1-unstable-2026-11-12",
-      "rawVersion": "a01c6e3e829683c96ee91d37894ebc21aa0bf3b1",
-      "date": "2026-11-12",
+      "version": "2.0.1-unstable-2026-11-13",
+      "rawVersion": "40547d40ac4199adffcd69efcac500c600cf9901",
+      "date": "2026-11-13",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/libnyanpasu/clash-nyanpasu",
-        "rev": "a01c6e3e829683c96ee91d37894ebc21aa0bf3b1",
-        "hash": "sha256-Nh2/wAlPzdWVm7Znn4nwv6FzKwbKTHEpVZKKq64EOfQ="
+        "rev": "40547d40ac4199adffcd69efcac500c600cf9901",
+        "hash": "sha256-m6qZMdr4/QoBqvaHjrAM/OOM16coyzTFMqyF8Ev0Yms="
       },
       "derived": {
         "cargoLock": {
@@ -145,14 +128,14 @@
       "fingerprint": "sha256-lRVSyyEgjB7+DTkWkJjnh25GVEAgFctbwDVE8UlBRzg="
     },
     "cliproxyapi": {
-      "version": "8.0.67",
-      "rawVersion": "v8.0.67",
+      "version": "8.0.69",
+      "rawVersion": "v8.0.69",
       "src": {
         "fetcher": "github",
         "owner": "router-for-me",
         "repo": "cliproxyapi",
-        "rev": "v8.0.67",
-        "hash": "sha256-njk9i5JbHvJ3lTB7Bn0wTxFtmcJ5MEokgdOHNhzDPPY="
+        "rev": "v8.0.69",
+        "hash": "sha256-SF3aSlhWMPEBu9q5vuKeSbdB4ew8CwyjyhcOQ5U/GUI="
       },
       "derived": {
         "vendorHash": {
@@ -162,15 +145,14 @@
       "fingerprint": "sha256-0ZOszgPQKtup+CvOCK4zA28HzJnx0SDYVVtsN6lPoR8="
     },
     "cpa-usage-keeper": {
-      "version": "2.1.0-unstable-2026-11-11",
-      "rawVersion": "ab827c45486cec9a166fd25ad0ecbc971ed5c8dc",
-      "date": "2026-11-11",
+      "version": "2.1.0-unstable-2026-11-13",
+      "rawVersion": "7d288484f9a474b4ec48861f6bce204836f5dc11",
+      "date": "2026-11-13",
       "src": {
-        "fetcher": "github",
-        "owner": "Willxup",
-        "repo": "cpa-usage-keeper",
-        "rev": "ab827c45486cec9a166fd25ad0ecbc971ed5c8dc",
-        "hash": "sha256-cZ0p3UobWUhpQUhRcKhw7zSC6H+m326T1sqZufMxy5k="
+        "fetcher": "git",
+        "url": "https://github.com/Willxup/cpa-usage-keeper.git",
+        "rev": "7d288484f9a474b4ec48861f6bce204836f5dc11",
+        "hash": "sha256-siR0dkTuIVL8ZM9ZPNBugBIx+/EQaQ45HIkqoxB5Ha0="
       },
       "derived": {
         "npmDeps": {
@@ -301,32 +283,32 @@
       "fingerprint": "sha256-towcatrM+06L5DicpsZfVGQtyJY6jfzlWnl5JtIKcs4="
     },
     "geolite2-asn": {
-      "version": "2026.11.10",
-      "rawVersion": "2026.11.10",
+      "version": "2026.11.13",
+      "rawVersion": "2026.11.13",
       "src": {
         "fetcher": "url",
-        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.10/GeoLite2-ASN.mmdb",
-        "hash": "sha256-1e50yGMnG+1wZucxyIDzgCC75o9M3SHWCjP1cZXDB4U="
+        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.13/GeoLite2-ASN.mmdb",
+        "hash": "sha256-8tTDzQddYDeKF3rdJ8CStTay7VqmUaH4uaYVb25SCFw="
       },
       "fingerprint": "sha256-0ToZa+2Em+tnyn9CPCmAPlp6lIcX7/Merx+CDKFXW1M="
     },
     "geolite2-city": {
-      "version": "2026.11.10",
-      "rawVersion": "2026.11.10",
+      "version": "2026.11.13",
+      "rawVersion": "2026.11.13",
       "src": {
         "fetcher": "url",
-        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.10/GeoLite2-City.mmdb",
-        "hash": "sha256-nbBOikRB7FQYNTfYd0wI5Ccg8iQxN91C6cx/eOorkns="
+        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.13/GeoLite2-City.mmdb",
+        "hash": "sha256-H/wuPiwNg6Ectk36oxjm8Q90quEx3RiJnVJD6vgcA2Q="
       },
       "fingerprint": "sha256-463eu1xFZXCx4oz8SRSvBA0hvpJyFhic5DHxAO5Hvus="
     },
     "geolite2-country": {
-      "version": "2026.11.10",
-      "rawVersion": "2026.11.10",
+      "version": "2026.11.13",
+      "rawVersion": "2026.11.13",
       "src": {
         "fetcher": "url",
-        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.10/GeoLite2-Country.mmdb",
-        "hash": "sha256-LC0FxHS662aSmMzpEqYja17MTlDwMWqT4BulzyIYNgA="
+        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.13/GeoLite2-Country.mmdb",
+        "hash": "sha256-vbKz+G3CeOWl32S8b7494D9IRKXpeUWpTfdudwSe54g="
       },
       "fingerprint": "sha256-J85WDuNyYNUaddQZHQiF6elxX2H2Ai5xb/pLo1lio2E="
     },
@@ -511,14 +493,14 @@
       "fingerprint": "sha256-vR7sJIoluiLgop9ZZHZKD6Or/5XOXg5rf4u3QaTDtco="
     },
     "meta-rules-dat": {
-      "version": "0-unstable-2026-11-12",
-      "rawVersion": "7a54c461fff10e272c404c49a1d6dc3b9cc9a9f0",
-      "date": "2026-11-12",
+      "version": "0-unstable-2026-11-13",
+      "rawVersion": "1e56705950b6e0c5ebde4b5c764f98cc800643a0",
+      "date": "2026-11-13",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/MetaCubeX/meta-rules-dat.git",
-        "rev": "7a54c461fff10e272c404c49a1d6dc3b9cc9a9f0",
-        "hash": "sha256-1hMcHcTKEBXuTc8Sg5sB9S94He0k7jpm70tSthhY61c="
+        "rev": "1e56705950b6e0c5ebde4b5c764f98cc800643a0",
+        "hash": "sha256-VwQzhmgp6bIqxQDdgOFPyqdUQNIS/698koV0j+mpvg8="
       },
       "fingerprint": "sha256-wX3xYgeMbiaHcGTwYkJLKkmGHaWP1yW5YbKKukaREX0="
     },
@@ -557,18 +539,18 @@
       "fingerprint": "sha256-7rgsYi0ID81iQKuliT7du/LJLE9M/EXqNtWPXwb3kl8="
     },
     "mm-geofeed-verifier": {
-      "version": "4.0.0",
-      "rawVersion": "v4.0.0",
+      "version": "5.0.0",
+      "rawVersion": "v5.0.0",
       "src": {
         "fetcher": "github",
         "owner": "maxmind",
         "repo": "mm-geofeed-verifier",
-        "rev": "v4.0.0",
-        "hash": "sha256-QbILhdodWRV3J03YkV0uSYj0c7yaNHiD950US9JaE3s="
+        "rev": "v5.0.0",
+        "hash": "sha256-2IqwT5fgEEfKiNPxGBcf87//DECNg8MiEekcv9mh7HQ="
       },
       "derived": {
         "vendorHash": {
-          "hash": "sha256-zYPNcU2f+vX5GnhQ2PxVSW5HAGGlOq5Ii3nH8Sc4cKY="
+          "hash": "sha256-D8BbsyDPaSyhoeOGtxaZs8dePFrXIFLlrzh8fOMCQ5Q="
         }
       },
       "fingerprint": "sha256-o44sQxfLt/yYWgS+L/FJ97QIKdi7SKFXsj0fi43x4M4="
@@ -674,14 +656,14 @@
       "fingerprint": "sha256-9uEqj0SD5VQ2MS+9WTPJ6Ak8K1ljl4wOHXvMEHZhhv8="
     },
     "nyanpasu-service": {
-      "version": "2.0.3-unstable-2026-11-09",
-      "rawVersion": "3a79dabc4a1fd4a7d708bafe87fceb240fe24c3b",
-      "date": "2026-11-09",
+      "version": "2.0.3-unstable-2026-11-13",
+      "rawVersion": "29a11dfa6dbf84c5597a1e50e998eeb2e6d7b9ac",
+      "date": "2026-11-13",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/libnyanpasu/nyanpasu-service.git",
-        "rev": "3a79dabc4a1fd4a7d708bafe87fceb240fe24c3b",
-        "hash": "sha256-TkdkPm2+yifrH9/Ebp6dsreewMuGKFyEqyvJFMzhdCw="
+        "rev": "29a11dfa6dbf84c5597a1e50e998eeb2e6d7b9ac",
+        "hash": "sha256-ece1t/oBU2Q0IvyGKnTg9PisqhDxy8qc3V9HW5Hvhrc="
       },
       "derived": {
         "cargoLock": {
@@ -870,14 +852,14 @@
       "fingerprint": "sha256-DJ4+3oLtprApprpfZRBtUGu+g/zfonnPMQj5h6Nx+FM="
     },
     "pi-subagents": {
-      "version": "0.88.0",
-      "rawVersion": "v0.88.0",
+      "version": "0.88.1",
+      "rawVersion": "v0.88.1",
       "src": {
         "fetcher": "github",
         "owner": "nicobailon",
         "repo": "pi-subagents",
-        "rev": "v0.88.0",
-        "hash": "sha256-DPeu8UEl0Oq+m3YirA4vXOaDmyyIVMkxBzMXEWrmVHo="
+        "rev": "v0.88.1",
+        "hash": "sha256-t/IAZHTbIG1iFF+jq9tBm2jptfIYO2mLvn7WPb1I2Qc="
       },
       "derived": {
         "npmDeps": {
@@ -1033,26 +1015,26 @@
       "fingerprint": "sha256-bkfLJkEtLMz1h+WpImLqmsX1w0C+bC6LFQVif/RSb0s="
     },
     "v2ray-rules-dat": {
-      "version": "0-unstable-2026-11-11",
-      "rawVersion": "979f25034e16abf4e0d4dac0d8a7863fed0595c4",
-      "date": "2026-11-11",
+      "version": "0-unstable-2026-11-12",
+      "rawVersion": "e3cc7a947e46e24b3f3f8090f3063261f2ce9a66",
+      "date": "2026-11-12",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/Loyalsoldier/v2ray-rules-dat.git",
-        "rev": "979f25034e16abf4e0d4dac0d8a7863fed0595c4",
-        "hash": "sha256-NjGZFJrW8LY+qJn/rBykVYOXBmyHlKqn5/ra9Gz5SGA="
+        "rev": "e3cc7a947e46e24b3f3f8090f3063261f2ce9a66",
+        "hash": "sha256-gmxZZYeS51igaA9gi3vqSySfM+dmn27+QrnyxeF84ng="
       },
       "fingerprint": "sha256-VCqt6bExRQnJkTY51zmxmoGSt/p7RbF3g/HsGQUjUqs="
     },
     "whois42d-ng": {
-      "version": "2.1.1-unstable-2026-11-02",
-      "rawVersion": "60da3ef880cbad8d6b82488aebc7d9bd39d43076",
-      "date": "2026-11-02",
+      "version": "2.2.0-unstable-2026-11-13",
+      "rawVersion": "e172356146c640d882e26642f06a219bb03a0bca",
+      "date": "2026-11-13",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/moraxyc/whois42d-ng.git",
-        "rev": "60da3ef880cbad8d6b82488aebc7d9bd39d43076",
-        "hash": "sha256-fb2qg1Yv4yjkyfxwHOcugNF9fZZX2q2gNHHiz2fVqWc="
+        "rev": "e172356146c640d882e26642f06a219bb03a0bca",
+        "hash": "sha256-4d6SENacaUxxJs6HXnhJ7Byf6syJSU429vIo3IPAAaE="
       },
       "derived": {
         "cargoLock": {
