@@ -51,6 +51,7 @@
     horizon = lib.callPackage ./pkgs/horizon {};
     orbolay = lib.callPackage ./pkgs/orbolay {};
     wg-nord = lib.callPackage ./pkgs/wg-nord {};
+    hyprism = lib.callPackage ./pkgs/hyprism {};
     sonora = lib.callPackage ./pkgs/sonora {};
     sonixd = lib.callPackage ./pkgs/sonixd {};
     hytale = lib.callPackage ./pkgs/hytale {};

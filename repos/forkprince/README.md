@@ -76,6 +76,7 @@ This repository contains three types of packages:
 | [`horizon`](pkgs/horizon/default.nix) | [horizon-launcher](https://playhorizon.dev/), launcher for Horizon, a Rust rewrite of the Minecraft: Java Edition client |
 | [`hyperkey`](pkgs/hyperkey/default.nix) | [hyperkey](https://hyperkey.app/), convert your caps lock key or any of your modifier keys to the hyper key |
 | [`hyprcursor-bibata`](pkgs/hyprcursor-bibata/default.nix) | [hyprcursor-bibata](https://github.com/LOSEARDES77/Bibata-Cursor-hyprcursor), material Based Cursor Theme for Hyprland |
+| [`hyprism`](pkgs/hyprism/default.nix) | [hyprism](https://github.com/hyprismteam/Hyprism), unofficial, cross-platform Hytale launcher with isolated instances, mod discovery, and profile management |
 | [`hyprpanel`](pkgs/hyprpanel/default.nix) | [hyprpanel](https://github.com/pdf/hyprpanel), an opinionated panel/shell for the Hyprland compositor. |
 | [`hytale`](pkgs/hytale/default.nix) | [hytale-launcher](https://hytale.com), official launcher for Hytale |
 | [`keka-external-helper`](pkgs/keka-external-helper/default.nix) | [keka-external-helper](https://github.com/aonez/Keka/wiki/Default-application), helper application for the Keka file archiver |

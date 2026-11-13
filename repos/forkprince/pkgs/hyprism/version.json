@@ -1,0 +1,20 @@
+{
+  "name": "Hyprism",
+  "source": {
+    "type": "github-release",
+    "repo": "hyprismteam/Hyprism",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "4.0.0",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "Hyprism-mac-arm64-{version}.dmg",
+      "hash": "sha256-R3wWDgSMpF0IUv5MNJ1JJlmoePWxz71uS0omG1ehXHg="
+    },
+    "x86_64-linux": {
+      "file": "Hyprism-linux-x64-{version}.AppImage",
+      "hash": "sha256-KQxyy9dlvLFLmxJ++aXPlyPG23XZ/NBnrKC0F8fvMog="
+    }
+  }
+}
