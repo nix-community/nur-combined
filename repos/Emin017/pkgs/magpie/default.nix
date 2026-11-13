@@ -2,6 +2,7 @@
   lib,
   stdenvNoCC,
   fetchurl,
+  makeDesktopItem,
   patchelf,
   glibc,
   gtk3,
@@ -21,6 +22,26 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = fetchurl {
     url = "https://github.com/yetone/magpie-releases/releases/download/v${finalAttrs.version}/magpie-linux-amd64";
     hash = "sha256-xAkojbLDDiIXTVQlFCZYhX8fGcTDzguSkHhvnuClFHE=";
+  };
+
+  icon = fetchurl {
+    url = "https://raw.githubusercontent.com/yetone/magpie/v${finalAttrs.version}/site/public/img/icon-256.png";
+    hash = "sha256-V0N8ZZbgWo/PxC1CiMAwqgDthraf411GTWnXAmFQxwQ=";
+  };
+
+  desktopItem = makeDesktopItem {
+    name = "magpie";
+    desktopName = "magpie";
+    comment = "Every agent's model. One place.";
+    exec = "magpie %u";
+    icon = "magpie";
+    startupWMClass = "magpie";
+    categories = [
+      "Development"
+      "Utility"
+    ];
+    mimeTypes = [ "x-scheme-handler/magpie" ];
+    terminal = false;
   };
 
   dontUnpack = true;
@@ -51,6 +72,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
     install -Dm755 $src $out/bin/magpie
+    install -Dm644 ${finalAttrs.desktopItem}/share/applications/magpie.desktop $out/share/applications/magpie.desktop
+    install -Dm644 ${finalAttrs.icon} $out/share/icons/hicolor/256x256/apps/magpie.png
     patchelf --set-rpath "${lib.makeLibraryPath finalAttrs.runtimeLibs}" $out/bin/magpie
     patchelf --set-interpreter "${lib.getLib glibc}/lib/ld-linux-x86-64.so.2" $out/bin/magpie
     runHook postInstall
