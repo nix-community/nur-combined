@@ -14,13 +14,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "airsane";
-  version = "0.4.6";
+  version = "0.4.16";
 
   src = fetchFromGitHub {
     owner = "SimulPiscator";
     repo = "AirSane";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-U2FrcoLMZ9WmAkqMYnPOOV2JRkMUVowqzyfr2/NKbcU=";
+    hash = "sha256-HNePV0XoGqnY270UxFKKl0nMlFnyRYP/IzCHbjdntas=";
   };
 
   postPatch = ''
