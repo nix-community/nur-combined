@@ -204,7 +204,7 @@ in
               type: RollingUpdate
               rollingUpdate:
                 maxUnavailable: 1
-                maxSurge: 1
+                maxSurge: 0
             hostNetwork: true
             nodeSelector:
               kubernetes.io/hostname: router

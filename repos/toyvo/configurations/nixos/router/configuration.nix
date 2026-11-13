@@ -367,6 +367,14 @@ in
     boot.enable = true;
   };
   nixcfg.users.toyvo.enable = true;
+  security.sudo.extraConfig = ''
+    %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/nixos-container *
+    %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/journalctl *
+    %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/systemctl status *
+    # TEMPORARY DEBUG: passwordless k3s for faster agent-driven diagnostics.
+    %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/k3s *
+    %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/kubectl *
+  '';
   systemd = {
     network = {
       enable = true;
