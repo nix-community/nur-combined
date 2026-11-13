@@ -2,7 +2,10 @@
   fetchFromGitHub,
   lib,
   nix-update-script,
+  pkg-config,
   rustPlatform,
+  sqlite,
+  zstd,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "uni-api";
@@ -16,6 +19,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
   __structuredAttrs = true;
   strictDeps = true;
   cargoHash = "sha256-Yw6uTa0pRmAl2UAK1jzaDM0sBM9FYVK5mIzQmN7A3ZE=";
+
+  nativeBuildInputs = [ pkg-config ];
+
+  buildInputs = [
+    sqlite
+    zstd
+  ];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

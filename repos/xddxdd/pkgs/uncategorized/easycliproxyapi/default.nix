@@ -1,6 +1,7 @@
 {
   lib,
   stdenv,
+  aws-lc,
   fetchFromGitHub,
   rustPlatform,
   buildNpmPackage,
@@ -12,6 +13,7 @@
   libayatana-appindicator,
   libsoup_3,
   openssl,
+  sqlite,
   webkitgtk_4_1,
   gtk3,
   versionCheckHook,
@@ -80,11 +82,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   buildInputs = [
+    aws-lc
     glib-networking
     gtk3
     libayatana-appindicator
     libsoup_3
     openssl
+    sqlite
     webkitgtk_4_1
   ];
 

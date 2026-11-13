@@ -6,6 +6,7 @@
   pkg-config,
   dbus,
   openssl,
+  zstd,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "lyrica";
@@ -25,6 +26,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   buildInputs = [
     dbus
     openssl
+    zstd
   ];
 
   passthru.updateScript = nix-update-script { };

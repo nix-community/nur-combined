@@ -60,11 +60,18 @@ buildGoModule (finalAttrs: {
   inherit version src;
   __structuredAttrs = true;
   strictDeps = true;
-  vendorHash = "sha256-xD+nto7Z3mWTvlKx96w+Lc+e5938sOlIlzxSGiK3gHw=";
+  vendorHash = "sha256-7x+K+i8qq833KLOKkXVD/97OG2eIHnLtpVlyawnnqiA=";
 
   tags = [ "nomsgpack" ];
 
   proxyVendor = true;
+
+  postPatch = ''
+    for f in go.mod llm/go.mod; do
+      sed -i 's/^go 1\.27\.4$/go 1.27.3/' "$f"
+      grep -qx 'go 1\.27\.3' "$f"
+    done
+  '';
 
   preBuild = ''
 

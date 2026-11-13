@@ -17,7 +17,6 @@
   fontconfig,
   freetype,
   glib,
-  gnome2,
   gtk3,
   libdrm,
   libgbm,
@@ -73,7 +72,6 @@ let
     fontconfig
     freetype
     glib
-    gnome2.gtkglext
     gtk3
     libdrm
     libgbm

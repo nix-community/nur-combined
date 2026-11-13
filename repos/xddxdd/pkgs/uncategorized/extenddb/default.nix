@@ -1,8 +1,11 @@
 {
+  aws-lc,
   fetchFromGitHub,
   lib,
   nix-update-script,
+  pkg-config,
   rustPlatform,
+  sqlite,
   versionCheckHook,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -17,6 +20,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
   __structuredAttrs = true;
   strictDeps = true;
   cargoHash = "sha256-TJrigtUa6tjqUBpDsSmcr/Yc8Rj3WX4RrcHhHYvCwT4=";
+
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [
+    aws-lc
+    sqlite
+  ];
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;

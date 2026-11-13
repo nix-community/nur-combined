@@ -16,7 +16,7 @@ buildNpmPackage (finalAttrs: {
   __structuredAttrs = true;
   strictDeps = true;
 
-  npmDepsHash = "sha256-FnR768u44K6ZsN7qJR896yui9J02eeCjm2rBrsuX1UA=";
+  npmDepsHash = "sha256-OyrD7KDm75ZbnBNZTWepa05dJYiWaWLd6poO0YFVhJs=";
 
   patches = [ ./no-google-font.patch ];
 

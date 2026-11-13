@@ -14,11 +14,13 @@
   inquirerpy,
   nix-update-script,
   paramiko,
+  pathspec,
   prettytable,
   psutil,
   py-cpuinfo,
   pynacl,
   requests,
+  rich,
   setuptools,
   setuptools-scm,
   tomli,
@@ -58,11 +60,13 @@ buildPythonPackage (finalAttrs: {
     filelock
     inquirerpy
     paramiko
+    pathspec
     prettytable
     psutil
     py-cpuinfo
     pynacl
     requests
+    rich
     setuptools
     setuptools-scm
     tomli
