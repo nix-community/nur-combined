@@ -3,7 +3,6 @@
   stdenv,
   callPackage,
   autoPatchelfHook,
-  makeWrapper,
   lib,
   makeDesktopItem,
   copyDesktopItems,
@@ -12,7 +11,6 @@
   alsa-lib,
   apr,
   aprutil,
-  at-spi2-atk,
   at-spi2-core,
   cairo,
   cups,
@@ -24,7 +22,6 @@
   fribidi,
   gdk-pixbuf,
   glib,
-  gtkglext,
   gnutls,
   graphite2,
   gtk3,
@@ -55,7 +52,6 @@
   pango,
   pcre2,
   pipewire,
-  prelink,
   qt5,
   rtmpdump,
   udev,
@@ -88,11 +84,11 @@
 ################################################################################
 let
   pname = "dingtalk";
-  version = "8.2.8.260818002";
+  version = "9.0.0.261105002";
 
   src = fetchurl {
     url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_${version}_amd64.deb";
-    hash = "sha256-iNrWB7u3pykYOZORydU67fz6Om2rAffQZZ5iwcoyZ48=";
+    hash = "sha256-mg6eWTA/zl2Ggt4Q7PyCHHpgP4iSQjYpFEn+LAiQ0fU=";
   };
 
   dingtalk-wayland-screenshare = callPackage ./wayland-screenshare.nix {};
@@ -101,7 +97,6 @@ let
     alsa-lib
     apr
     aprutil
-    at-spi2-atk
     at-spi2-core
     cairo
     cups
@@ -113,7 +108,6 @@ let
     fribidi
     gdk-pixbuf
     glib
-    gtkglext
     gnutls
     graphite2
     gtk3
@@ -174,13 +168,11 @@ let
     xcbutilwm
   ];
 in
-  stdenv.mkDerivation (finalAttrs: {
+  stdenv.mkDerivation {
     inherit pname version src;
 
     nativeBuildInputs = [
       autoPatchelfHook
-      makeWrapper
-      prelink
       qt5.wrapQtAppsHook
       copyDesktopItems
       dpkg
@@ -201,15 +193,21 @@ in
       # Cleanup
       # Keep the bundled OpenSSL 1.1 libraries: DingTalk still requires their ABI,
       # which is no longer provided by nixpkgs.
-      rm -f release/{*.a,*.la,*.prl,dingtalk_crash_report,dingtalk_updater,libapr*,libcurl.so.*}
-      rm -f release/{libdouble-conversion.so.*,libEGL*,libfontconfig*,libfreetype*,libfribidi*,libgbm.*,libgdk*,libGLES*}
-      rm -f release/{libgtk*,libgtk-x11-2.0.so.*,libharfbuzz*,libicu*,libidn2*,libjpeg*,libm.so.*,libnghttp2*}
-      rm -f release/{libpango-1.0.*,libpangocairo-1.0.*,libpangoft2-1.0.*,libpcre2*,libpng*,libpsl*,libQt5*,libssh2*}
-      rm -f release/{libstdc++.so.6,libstdc++*,libunistring*,libvk*,libvulkan*,libxcb*,libz*}
-      rm -rf release/{engines-1_1,imageformats,platform*,swiftshader,xcbglintegrations}
-      rm -rf release/Resources/{i18n/tool/*.exe,qss/mac}
+      rm -f release/{dingtalk_crash_report,dingtalk_updater,libapr*,libcurl.so.*}
+      rm -f release/{libdouble-conversion.so.*,libgbm.*,libgdk*}
+      rm -f release/{libgtk*,libharfbuzz*,libicu*,libidn2*,libjpeg*,libm.so.*,libnghttp2*}
+      rm -f release/{libpcre2*,libpng*,libpsl*,libQt5*,libssh2*}
+      rm -f release/{libstdc++*,libunistring*,libxcb*,libz*}
+      rm -rf release/{imageformats,platform*,xcbglintegrations}
+      rm -rf release/Resources/qss/mac
 
       runHook postUnpack
+    '';
+
+    postPatch = ''
+      # doctor uses Qt and imports no GTK2 symbols. Drop its unused
+      # DT_NEEDED entry so it does not pull in the retired GTK2 stack.
+      patchelf --remove-needed libgtk-x11-2.0.so.0 release/doctor
     '';
 
     installPhase = ''
@@ -253,11 +251,6 @@ in
       runHook postInstall
     '';
 
-    postFixup = ''
-      execstack -c $out/lib/dingtalk_dll.so
-      execstack -c $out/lib/libconference_new.so
-    '';
-
     desktopItems = [
       (makeDesktopItem {
         name = "dingtalk";
@@ -289,4 +282,4 @@ in
       sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
       mainProgram = "dingtalk";
     };
-  })
+  }

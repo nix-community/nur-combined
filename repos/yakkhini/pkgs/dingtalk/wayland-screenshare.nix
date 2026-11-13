@@ -5,7 +5,6 @@
   cmake,
   ninja,
   pkg-config,
-  libsForQt5,
   libportal,
   pipewire,
   opencv,
@@ -13,9 +12,7 @@
   libxcomposite,
   libxdamage,
   libxext,
-  libxfixes,
   libxrandr,
-  libxtst,
 }: let
   pname = "dingtalk-wayland-screenshare";
   version = "e15063310eb3251e4619345c8fad0059e8a0558a";
@@ -38,8 +35,6 @@ in
     ];
 
     buildInputs = [
-      libsForQt5.qtbase
-      libsForQt5.qtx11extras
       libportal
       pipewire
       opencv
@@ -47,12 +42,8 @@ in
       libxcomposite
       libxdamage
       libxext
-      libxfixes
       libxrandr
-      libxtst
     ];
-
-    dontWrapQtApps = true;
 
     installPhase = ''
       runHook preInstall
