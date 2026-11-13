@@ -3,12 +3,13 @@
 { fetchgit }:
 
 let
-  date = "2026-06-22";
-  rev = "dcc19a065877cb1c75d22b7c5662845e8c8df203";
+  date = "2026-11-12";
+  rev = "1e24d5312a93a5b9faff00b77bb199030169414d";
   src = fetchgit {
     url = "https://gist.github.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f.git";
     inherit rev;
-    hash = "sha256-uy6HUlf4czUX0NyU+Rgu+4XPfUWQlIRD7cTe3XKZet0=";
+    hash = "sha256-apDLZk6DKV/E5L69fF9uBhg9xtPyLmUYhbs+P6K0RWc=";
+    fetchSubmodules = false;
   };
 in
 {

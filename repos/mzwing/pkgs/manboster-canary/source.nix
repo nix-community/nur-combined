@@ -3,11 +3,11 @@
 { fetchzip }:
 
 let
-  date = "2026-09-27";
-  rev = "3aac0adcf711df621996df896b2e2900ceb72053";
+  date = "2026-09-26";
+  rev = "5675a7c67f643ac6cf64f749f67b9255d7e6ca86";
   src = fetchzip {
-    url = "https://codeload.github.com/manboster/manboster/tar.gz/3aac0adcf711df621996df896b2e2900ceb72053";
-    hash = "sha256-p3ZC6fv0fd8qhVBtIqNWTd0TRh3oSnzSu4/DKWk5tUQ=";
+    url = "https://codeload.github.com/manboster/manboster/tar.gz/5675a7c67f643ac6cf64f749f67b9255d7e6ca86";
+    hash = "sha256-DhOWhYprJyFwwVoXYWTpZnmEwNvufJvxyxe6gZga96E=";
     extension = "tar.gz";
   };
 in
