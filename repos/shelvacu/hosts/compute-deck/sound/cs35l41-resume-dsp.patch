@@ -1,0 +1,31 @@
+--- a/sound/soc/codecs/cs35l41.c
++++ b/sound/soc/codecs/cs35l41.c
+@@ -1540,19 +1540,19 @@
+ 
+ 	enable_irq(cs35l41->irq);
+ 
+-	if (!cs35l41->dsp.cs_dsp.running)
+-		return 0;
+-
+ 	/*
+ 	 * DSP firmware is gone after a full power cycle. Reset the DSP
+-	 * software state so that firmware is reloaded on next DSP preload event
++	 * software state and reload it; a forced-on preload widget won't
++	 * see another PRE_PMU to do so.
+ 	 */
+-	wm_adsp_stop(&cs35l41->dsp);
+-
+-	if (!cs35l41->dsp.cs_dsp.booted)
+-		return 0;
++	if (cs35l41->dsp.cs_dsp.running)
++		wm_adsp_stop(&cs35l41->dsp);
+ 
+-	wm_adsp_power_down(&cs35l41->dsp);
++	if (cs35l41->dsp.cs_dsp.booted) {
++		wm_adsp_power_down(&cs35l41->dsp);
++		if (cs35l41->dsp.preloaded)
++			queue_work(system_dfl_wq, &cs35l41->dsp.boot_work);
++	}
+ 
+ 	return 0;
+ }
