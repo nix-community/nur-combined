@@ -242,7 +242,9 @@ assets explicitly when needed:
 nix run .#update -- --arch aarch64-linux nyaterm-bin meatshell-bin
 ```
 
-The updater is [maintainers/update.py](./maintainers/update.py). Regular
+The updater is [maintainers/update.py](./maintainers/update.py). It edits the
+checkout in the current working directory; set `NUR_PACKAGES_ROOT` to point it
+at a different checkout. Regular
 packages go through `nix-update` with build validation and formatting. Binary
 packages select the requested system's GitHub Release asset, version, and
 hash. A failure in one package is reported and the remaining packages still

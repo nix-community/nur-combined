@@ -25,7 +25,9 @@ FRIDA_VERSION_RE = re.compile(r"^[0-9]+\.[0-9]+\.[0-9]+$")
 SHA256_DIGEST_RE = re.compile(r"^sha256:[0-9a-f]+$")
 NIX_STRING_RE = re.compile(r'^[0-9A-Za-z._+/=-]+$')
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+# `nix run .#update` copies this file into the store, so __file__ is not inside
+# the checkout. Updates must rewrite the caller's working tree.
+REPO_ROOT = Path(os.environ.get("NUR_PACKAGES_ROOT") or Path.cwd()).resolve()
 
 NIX_UPDATE_ARGS = {
     "neu-cli": ["--version=branch"],
@@ -405,6 +407,13 @@ def parse_args(argv):
 
 def main(argv=None):
     packages, system = parse_args(sys.argv[1:] if argv is None else argv)
+    if not (REPO_ROOT / "flake.nix").is_file() or not (REPO_ROOT / "pkgs").is_dir():
+        print(
+            f"error: {REPO_ROOT} is not the package repository "
+            "(run from the checkout or set NUR_PACKAGES_ROOT)",
+            file=sys.stderr,
+        )
+        return 1
     failures = []
     for package in packages:
         try:
