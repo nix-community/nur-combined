@@ -1,1 +1,1 @@
--f . --use-update-script
+-f . --version-regex '^v(\d+\.\d+\.\d+\.\d+)$'

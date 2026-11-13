@@ -1,3 +1,4 @@
+
 name: "Build/Populate Cache"
 on:
   push:
@@ -7,6 +8,16 @@ on:
   schedule:
     - cron: '05 7 * * *'
   workflow_dispatch:
+    inputs:
+      updater:
+        description: "Which updater to run"
+        required: false
+        default: both
+        type: choice
+        options:
+          - both
+          - nix-update
+          - bun
 
 permissions:
   contents: read
@@ -33,6 +44,7 @@ jobs:
 
       - name: Update Packages (nix-update)
         id: nix_update
+        if: github.event_name != 'workflow_dispatch' || inputs.updater == 'both' || inputs.updater == 'nix-update'
         run: |
           export NIX_PATH=nixpkgs=flake:nixpkgs
           failed_pkgs=""
@@ -50,6 +62,7 @@ jobs:
 
       - name: Update Packages (bun)
         id: update
+        if: github.event_name != 'workflow_dispatch' || inputs.updater == 'both' || inputs.updater == 'bun'
         run: |
           failed_apps=""
           while IFS= read -r version_file; do
@@ -65,11 +78,11 @@ jobs:
           CODEBERG_TOKEN: ${{ secrets.CODEBERG_TOKEN }}
 
       - name: Wait (5 minutes)
-        if: steps.update.outputs.failed_apps != ''
+        if: (github.event_name != 'workflow_dispatch' || inputs.updater == 'both' || inputs.updater == 'bun') && steps.update.outputs.failed_apps != ''
         run: sleep 300
 
       - name: Retry Updates
-        if: steps.update.outputs.failed_apps != ''
+        if: (github.event_name != 'workflow_dispatch' || inputs.updater == 'both' || inputs.updater == 'bun') && steps.update.outputs.failed_apps != ''
         id: retry
         run: |
           still_failed_apps=""

@@ -55,11 +55,5 @@ in
       (old.passthru or {})
       // {
         inherit pnpmDeps;
-        updateScript = nix-update-script {
-          extraArgs = [
-            "--version-regex"
-            "^v(\\d+\\.\\d+\\.\\d+\\.\\d+)$"
-          ];
-        };
       };
   })
