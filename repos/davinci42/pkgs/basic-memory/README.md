@@ -49,42 +49,8 @@ Checks cover imports, CLI version, MCP discovery, read/write/search/edit, and
 restart persistence using temporary data. Semantic search, PostgreSQL, cloud
 integrations, and upstream test suites are not exercised.
 
-## Temporary security exception
-
-Nixpkgs blocks builds because the required `pybars3` 0.9.7 dependency has
-CVE-2026-119716 (code injection via bracketed path segments). CI temporarily
-accepts only `python3.14-pybars3-0.9.7` through a temporary `NIXPKGS_CONFIG`.
-This exception applies only to CI and is not included in the exported package.
-
-Consumers must explicitly accept the risk in the nixpkgs instance used to build
-this package. For NixOS or nix-darwin configurations using their system `pkgs`:
-
-```nix
-nixpkgs.config.permittedInsecurePackages = [
-  "python3.14-pybars3-0.9.7"
-];
-```
-
-For a separately imported nixpkgs instance, pass the exception at import time
-and use that instance when importing this repository:
-
-```nix
-let
-  pkgs = import <nixpkgs> {
-    config.permittedInsecurePackages = [ "python3.14-pybars3-0.9.7" ];
-  };
-  nurPackages = import /path/to/nur-packages { inherit pkgs; };
-in
-nurPackages.basic-memory
-```
-
-Match the exact dependency name reported by Nix; a Python version change can
-require updating the allowlist. This bypasses the evaluation block, not the
-vulnerability. Do not compile untrusted Handlebars templates. Remove both CI and
-consumer exceptions once a reviewed security fix is available.
-
-A search of Basic Memory's public issues and pull requests found no report
-specifically mentioning this CVE or `pybars3` as of 2026-11-04.
-[Issue #1731](https://github.com/basicmachines-co/basic-memory/issues/1731)
-mentions the `pybars` import chain during MCP startup, but concerns performance,
-not this vulnerability.
+For release `1.0.0`, `default.nix` backports upstream commit `00d685993`
+([#2096](https://github.com/basicmachines-co/basic-memory/pull/2096)), replacing
+Handlebars prompt templates with plain Python and removing the insecure
+`pybars3` dependency (CVE-2026-119716) so consumers need no
+`permittedInsecurePackages` exception.

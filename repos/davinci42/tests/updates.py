@@ -235,13 +235,7 @@ class UpdateTests(unittest.TestCase):
         self.assertIn("cron: '0 0 * * *'", workflow)
         self.assertIn("workflow_dispatch:", workflow)
         self.assertIn("just check-updates --pr", workflow)
-        self.assertIn(
-            "NIXPKGS_CONFIG: ${{ runner.temp }}/nur-nixpkgs-config.nix", workflow
-        )
-        self.assertIn(
-            '\'{ permittedInsecurePackages = [ "python3.14-pybars3-0.9.7" ]; }\' > "$NIXPKGS_CONFIG"',
-            workflow,
-        )
+        self.assertNotIn("permittedInsecurePackages", workflow)
         self.assertNotIn("NIXPKGS_ALLOW_INSECURE", workflow)
         self.assertRegex(
             workflow,

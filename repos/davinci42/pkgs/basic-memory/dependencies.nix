@@ -18,7 +18,10 @@ let
       inherit dependencies;
       pythonRelaxDeps =
         lib.optionals (name == "fastapi") [ "opentelemetry-api" ]
-        ++ lib.optionals (name == "litellm") [ "importlib-metadata" ];
+        ++ lib.optionals (name == "litellm") [
+          "importlib-metadata"
+          "openai"
+        ];
       doCheck = false;
       pythonImportsCheck = imports;
       meta = {

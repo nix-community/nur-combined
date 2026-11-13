@@ -25,8 +25,12 @@ pkgs.runCommand "basic-memory-packaging-check"
     import os
     from pathlib import Path
 
+    from basic_memory.api.prompt_text import continue_conversation_prompt, search_prompt
     from fastmcp import Client
     from fastmcp.client.transports import StdioTransport
+
+    assert "Packaging" in search_prompt(query="Packaging", timeframe=None, results=[])
+    assert "Packaging" in continue_conversation_prompt(topic="Packaging", timeframe=None, results=[])
 
     async def wait_for_content(path, content):
         async with asyncio.timeout(30):

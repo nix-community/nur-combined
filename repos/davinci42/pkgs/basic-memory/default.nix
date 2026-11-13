@@ -1,6 +1,7 @@
 {
   lib,
   fetchFromGitHub,
+  fetchpatch2,
   nix-update,
   nix,
   git,
@@ -24,6 +25,19 @@ pythonPackages.buildPythonApplication (finalAttrs: {
     hash = "sha256-ClSY1QB11+KmohBZSrjA0IwuWmj813ayKY6zDOT4YNw=";
   };
 
+  patches = lib.optionals (lib.versionAtLeast "1.0.0" finalAttrs.version) [
+    (fetchpatch2 {
+      name = "drop-pybars3.patch";
+      url = "https://github.com/basicmachines-co/basic-memory/commit/00d685993fe9e070cbb622ca9a70378bf6cabe90.patch";
+      excludes = [
+        "pyproject.toml"
+        "uv.lock"
+        "test-int/*"
+      ];
+      hash = "sha256-WaSiyL/4YDXkaRpH58fYdvKZcw6W9GeDrEoHvgATrCs=";
+    })
+  ];
+
   build-system = with pythonPackages; [
     hatchling
     uv-dynamic-versioning
@@ -34,6 +48,7 @@ pythonPackages.buildPythonApplication (finalAttrs: {
   pythonRelaxDeps = [ "psycopg" ];
 
   pythonRemoveDeps = [
+    "pybars3"
     "pyright"
     "pytest-aio"
     "pytest-asyncio"
@@ -69,7 +84,6 @@ pythonPackages.buildPythonApplication (finalAttrs: {
       pillow
       psutil
       psycopg
-      pybars3
       pydantic
       pydantic-settings
       pyjwt
@@ -96,6 +110,7 @@ pythonPackages.buildPythonApplication (finalAttrs: {
     "basic_memory.mcp.server"
     "basic_memory.read_cache.routes"
     "basic_memory.api.app"
+    "basic_memory.api.prompt_text"
   ];
   preCheck = ''
     export HOME="$TMPDIR"
