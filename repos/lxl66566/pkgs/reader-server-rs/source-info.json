@@ -1,6 +1,6 @@
 {
   "owner": "lxl66566",
-  "version": "v0.2.0",
+  "version": "v0.2.1",
   "hashes": {
     "x86_64-linux": {
       "gnu": {
@@ -14,11 +14,11 @@
     },
     "aarch64-linux": {
       "gnu": {
-        "sha256": "e1f72c948968a300f21a4ba07675dfa31f1e4f053a875f9b02248f92851eccc6",
+        "sha256": "7edcf8b874c1b1b32bcd076a98b7488ea23bfb948ef66418c2681e5a28e759bc",
         "targetSystem": "aarch64-unknown-linux-gnu"
       },
       "musl": {
-        "sha256": "8001421f373e9fc1c7d777b1a16934ed38f05adb9c0f7b52d96b5beff628c947",
+        "sha256": "2c499c1a62638f6c8e2898accf16f397dbdd7fae04b60f776ad32256aedda729",
         "targetSystem": "aarch64-unknown-linux-musl"
       }
     }
