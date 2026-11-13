@@ -76,7 +76,7 @@
       "kind": "tool",
       "ref": "github:cli/cli",
       "depName": "cli/cli",
-      "currentValue": "v2.97.0",
+      "currentValue": "v2.103.3",
       "datasource": "github-releases"
     },
     {
