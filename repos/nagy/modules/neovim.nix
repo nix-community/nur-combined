@@ -1,6 +1,7 @@
 { pkgs, ... }:
 
 {
+  environment.sessionVariables.NVIM_LOG_FILE = "/dev/null";
 
   programs.neovim = {
     enable = true;

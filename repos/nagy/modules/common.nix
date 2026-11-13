@@ -172,6 +172,9 @@ in
     # https://github.com/denoland/deno/blob/21065797f6dce285e55705007f54abe2bafb611c/cli/tools/upgrade.rs#L184-L187
     DENO_NO_UPDATE_CHECK = "1";
 
+    # Rust Trunk
+    TRUNK_SKIP_VERSION_CHECK = "true";
+
     IPFS_GATEWAY = lib.mkDefault "https://ipfs.io";
 
     # Release memory of polars data library, because they hardcode "-1" ms muzzy decay

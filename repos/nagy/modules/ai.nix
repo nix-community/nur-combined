@@ -23,6 +23,16 @@ let
     # host environment. Later entries win in bwrap.
     envs = map (name: "${name}=${cfg.envs.${name}}") (lib.attrNames cfg.envs) ++ cfg.inheritEnvs;
   };
+
+  # Git must never wait for an editor, a password prompt, or a pager.
+  # Shared by the host shell and the agent sandbox.
+  gitNonInteractiveEnv = {
+    GIT_EDITOR = "true";
+    GIT_SEQUENCE_EDITOR = "true";
+    GIT_TERMINAL_PROMPT = "0";
+    GIT_ASKPASS = "true";
+    GIT_PAGER = "cat";
+  };
 in
 {
   options.nagy.ai.agent = {
@@ -89,7 +99,7 @@ in
       # self.llm-ttok
     ];
 
-    environment.sessionVariables = {
+    environment.sessionVariables = gitNonInteractiveEnv // {
       PI_TELEMETRY = "0";
       PI_OFFLINE = "1";
       PI_SKIP_VERSION_CHECK = "1";
@@ -104,7 +114,7 @@ in
 
     # Custom tool `agent` CLI
     nagy.ai.agent = {
-      envs = {
+      envs = gitNonInteractiveEnv // {
         XDG_CACHE_HOME = "/home/user/agent/cache";
         CARGO_TARGET_DIR = "/tmp/cargo-target";
       };
