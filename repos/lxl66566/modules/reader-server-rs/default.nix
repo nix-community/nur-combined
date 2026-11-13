@@ -11,11 +11,12 @@ let
   myCallPackage = pkgs.newScope (pkgs // mylib);
   defaultPackage = myCallPackage ../../pkgs/reader-server-rs { };
   settingsFormat = pkgs.formats.json { };
-  # the app reads ./config.json from its working directory
+  # config file the module writes and pins via `-c`; plain JSON is valid JSON5
+  configName = "config.json5";
   stateDir = "/var/lib/reader-server-rs";
 
   # Declared options default to null on purpose: null leaves are stripped
-  # before writing config.json, so unset options fall back to the app's own
+  # before writing config.json5, so unset options fall back to the app's own
   # defaults (container-level serde(default) in config.rs) — the app stays
   # the single source of truth. Declared options exist for type checking
   # and docs only. (Options without any default would break eval: the
@@ -147,7 +148,7 @@ in
               description = ''
                 JWT signing secret. `secretFile` is preferred since this value
                 ends up in the nix store. If neither is set, the app generates
-                a random secret per boot — and `preStart` recreates config.json
+                a random secret per boot — and `preStart` recreates config.json5
                 on every boot, so all tokens would be invalidated on restart;
                 set one of the two explicitly.
               '';
@@ -224,7 +225,7 @@ in
         };
       };
       description = ''
-        reader-server-rs configuration, written to config.json. See
+        reader-server-rs configuration, written to config.json5. See
         https://github.com/lxl66566/reader-server-rs for all options.
         Unset options fall back to the app's built-in defaults.
       '';
@@ -257,17 +258,17 @@ in
       # jq for merging secretFile into the generated config in preStart
       path = [ pkgs.jq ];
 
-      # the app only reads ./config.json relative to its working directory,
-      # so materialize it into the state directory (0600, it holds the JWT secret)
+      # materialize the config into the state directory (0600, it holds the
+      # JWT secret); the app reads it from its working directory
       preStart = ''
         umask 077
         if [ -f "$CREDENTIALS_DIRECTORY/jwt_secret" ]; then
           jq --rawfile secret "$CREDENTIALS_DIRECTORY/jwt_secret" \
-            '.jwt.secret = ($secret | rtrimstr("\n"))' ${configFile} > config.json
+            '.jwt.secret = ($secret | rtrimstr("\n"))' ${configFile} > ${configName}
         else
-          cp ${configFile} config.json
+          cp ${configFile} ${configName}
         fi
-        chmod 600 config.json
+        chmod 600 ${configName}
         ${lib.optionalString (dbFile != null) ''
           mkdir -p "${dirOf dbFile}"
         ''}
@@ -275,7 +276,7 @@ in
 
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${cfg.package}/bin/reader-server";
+        ExecStart = "${cfg.package}/bin/reader-server -c ${configName}";
 
         Restart = "on-failure";
         RestartSec = "5s";
