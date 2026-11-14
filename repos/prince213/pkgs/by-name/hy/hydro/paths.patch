@@ -1,0 +1,237 @@
+--- a/framework/utils/lib/utils.ts
++++ b/framework/utils/lib/utils.ts
+@@ -232,10 +232,7 @@
+             if (await fs.pathExists(path.resolve(p, rest))) return path.resolve(p, rest);
+         } catch (e) { }
+     }
+-    if (await fs.pathExists(path.resolve(os.homedir(), pathname))) return path.resolve(os.homedir(), pathname);
+-    if (await fs.pathExists(path.resolve(os.homedir(), '.hydro', pathname))) return path.resolve(os.homedir(), '.hydro', pathname);
+-    // eslint-disable-next-line max-len
+-    if (await fs.pathExists(path.resolve(os.homedir(), '.config', 'hydro', pathname))) return path.resolve(os.homedir(), '.config', 'hydro', pathname);
++    if (await fs.pathExists(path.resolve('/etc/hydro', pathname))) return path.resolve('/etc/hydro', pathname);
+     if (doThrow) throw new Error(`File ${pathname} not found`);
+     return null;
+ }
+@@ -257,9 +254,7 @@
+             if (fs.statSync(path.resolve(p, rest))) return path.resolve(p, rest);
+         } catch (e) { }
+     }
+-    if (fs.pathExistsSync(path.resolve(os.homedir(), pathname))) return path.resolve(os.homedir(), pathname);
+-    if (fs.pathExistsSync(path.resolve(os.homedir(), '.hydro', pathname))) return path.resolve(os.homedir(), '.hydro', pathname);
+-    if (fs.pathExistsSync(path.resolve(os.homedir(), '.config', 'hydro', pathname))) return path.resolve(os.homedir(), '.config', 'hydro', pathname);
++    if (fs.pathExistsSync(path.resolve('/etc/hydro', pathname))) return path.resolve('/etc/hydro', pathname);
+     if (doThrow) throw (typeof doThrow !== 'boolean' ? doThrow : new Error(`File ${pathname} not found`));
+     return null;
+ }
+--- a/packages/hydrojudge/src/config.ts
++++ b/packages/hydrojudge/src/config.ts
+@@ -14,7 +14,7 @@
+ `;
+ 
+ export const JudgeSettings = Schema.object({
+-    cache_dir: Schema.string().default(path.resolve(os.homedir(), '.cache', 'hydro', 'judge')).description('Testdata cache directory'),
++    cache_dir: Schema.string().default('/var/cache/hydro/judge').description('Testdata cache directory'),
+     tmp_dir: Schema.string().default(path.resolve(os.tmpdir(), 'hydro', 'judge')),
+     stdio_size: Schema.string().pattern(/^\d+[kmg]b?$/g).default('32m'),
+     memoryMax: Schema.string().pattern(/^\d+[kmg]b?$/g).default('512m'),
+@@ -51,8 +51,7 @@
+     performance: Schema.boolean().description('Performance mode').default(false),
+ });
+ 
+-const oldPath = path.resolve(os.homedir(), '.config', 'hydro', 'judge.yaml');
+-const newPath = path.resolve(os.homedir(), '.hydro', 'judge.yaml');
++const newPath = '/etc/hydro/judge.yaml';
+ 
+ let config = global.Hydro
+     ? JudgeSettings({})
+@@ -69,7 +68,7 @@
+         }
+         const configFilePath = (process.env.CONFIG_FILE || argv.options.config)
+             ? path.resolve(process.env.CONFIG_FILE || argv.options.config)
+-            : fs.existsSync(newPath) ? newPath : oldPath;
++            : newPath;
+         const configFile = fs.readFileSync(configFilePath, 'utf-8');
+         Object.assign(base, yaml.load(configFile) as any);
+         if (process.env.OVERRIDE_CONFIG) {
+--- a/packages/hydrooj/bin/hydrooj.js
++++ b/packages/hydrooj/bin/hydrooj.js
+@@ -32,7 +32,7 @@
+                 return require.resolve(id, { paths: [`${process.cwd()}/node_modules`] });
+             } catch (e) {
+                 try {
+-                    return require.resolve(id.replace(/^@hydrooj\//, './'), { paths: [`${homedir()}/.hydro/addons`] });
++                    return require.resolve(id.replace(/^@hydrooj\//, './'), { paths: ['/var/lib/hydro/addons'] });
+                 } catch (er) {
+                     return id;
+                 }
+--- a/packages/hydrooj/src/commands/addon.ts
++++ b/packages/hydrooj/src/commands/addon.ts
+@@ -7,7 +7,7 @@
+ import { getAddons, writeAddons } from '../options';
+ 
+ const logger = new Logger('addon');
+-const addonDir = path.resolve(os.homedir(), '.hydro', 'addons');
++const addonDir = '/var/lib/hydro/addons';
+ 
+ export function register(cli: CAC) {
+     cli.command('addon [operation] [name]').action((operation, name) => {
+@@ -24,7 +24,7 @@
+             fs.mkdirSync(`${dir}/locales`);
+             fs.mkdirSync(`${dir}/public`);
+             fs.mkdirSync(`${dir}/frontend`);
+-            fs.symlinkSync(dir, path.resolve(os.homedir(), name || 'addon'), 'dir');
++            fs.symlinkSync(dir, path.resolve('/var/lib/hydro', name || 'addon'), 'dir');
+             addons.push(dir);
+             logger.success(`Addon created at ${dir}`);
+         } else if (operation && name) {
+--- a/packages/hydrooj/src/commands/db.ts
++++ b/packages/hydrooj/src/commands/db.ts
+@@ -17,6 +17,12 @@
+     return res;
+ };
+ const dir = process.env.HYDRO_BACKUP_DIR || `${os.tmpdir()}/${Math.random().toString(36).substring(2)}`;
++const dataPath = '/var/lib/hydro';
++const profile = process.env.HYDRO_PROFILE;
++const addonDir = profile
++    ? path.resolve(`${dataPath}/profiles`, profile, 'addons')
++    : `${dataPath}/addons`;
++const addonArchivePath = path.relative(dataPath, addonDir);
+ function getUrl() {
+     const dbConfig = fs.readFileSync(path.resolve(hydroPath, 'config.json'), 'utf-8');
+     const opts = JSON.parse(dbConfig);
+@@ -68,25 +74,25 @@
+             const addFile = argv.options.r
+                 ? (cwd: string, item: string, keepSource = true) => {
+                     filesToAdd.push(item);
+-                    if (cwd === '/data') return;
+-                    if (keepSource) fs.copySync(path.join(cwd, item), path.join('/data', item), { overwrite: true });
+-                    else fs.moveSync(path.join(cwd, item), path.join('/data', item), { overwrite: true });
+-                    filesToRemove.push(path.join('/data', item));
++                    if (cwd === dataPath) return;
++                    if (keepSource) fs.copySync(path.join(cwd, item), path.join(dataPath, item), { overwrite: true });
++                    else fs.moveSync(path.join(cwd, item), path.join(dataPath, item), { overwrite: true });
++                    filesToRemove.push(path.join(dataPath, item));
+                 }
+                 : (cwd: string, item: string, keepSource = true) => {
+                     exec('zip', ['-gr', target, item], { cwd, stdio: 'inherit' });
+                     if (!keepSource) fs.removeSync(path.join(cwd, item));
+                 };
+             addFile(dir, 'dump', false);
+-            if (!argv.options.dbOnly) addFile('/data', 'file');
++            if (!argv.options.dbOnly) addFile(dataPath, 'file');
+             if (argv.options.withAddons) {
+-                if (fs.existsSync(path.join(hydroPath, 'addons'))) addFile(hydroPath, 'addons');
++                if (fs.existsSync(addonDir)) addFile(dataPath, addonArchivePath);
+                 if (fs.existsSync(path.join(hydroPath, 'addon.json'))) addFile(hydroPath, 'addon.json');
+             }
+-            if (argv.options.withLogs && fs.existsSync('/data/access.log')) addFile('/data', 'access.log');
++            if (argv.options.withLogs && fs.existsSync(`${dataPath}/access.log`)) addFile(dataPath, 'access.log');
+             if (argv.options.r) {
+                 await withPasswordFile(argv.options.p, async (file) => {
+-                    exec('restic', ['backup', '-r', argv.options.r.toString(), '-p', file, ...filesToAdd], { stdio: 'inherit', cwd: '/data' });
++                    exec('restic', ['backup', '-r', argv.options.r.toString(), '-p', file, ...filesToAdd], { stdio: 'inherit', cwd: dataPath });
+                 });
+                 for (const file of filesToRemove) fs.removeSync(file);
+             } else {
+@@ -146,22 +152,23 @@
+                     await withPasswordFile(argv.options.p, async (file) => {
+                         exec('restic', [
+                             'restore', '-r', argv.options.r, '-p', file, 'latest',
+-                            '-t', '/data', '-i', '/file', '--delete',
+-                            '--overwrite', 'if-changed', '--path', '/data/file',
++                            '-t', dataPath, '-i', '/file', '--delete',
++                            '--overwrite', 'if-changed', '--path', `${dataPath}/file`,
+                         ], { stdio: 'inherit' });
+                     });
+                 } else {
+-                    await fs.remove('/data/file/hydro');
+-                    exec('bash', ['-c', `${isReadOnly ? 'cp -r' : 'mv'} ${dataDir}/file/* /data/file`], { stdio: 'inherit' });
++                    await fs.remove(`${dataPath}/file/hydro`);
++                    exec('bash', ['-c', `${isReadOnly ? 'cp -r' : 'mv'} ${dataDir}/file/* ${dataPath}/file`], { stdio: 'inherit' });
+                 }
+             }
+             if (argv.options.withAddons) {
+-                if (fs.existsSync(`${dataDir}/addons.json`)) {
+-                    fs.copyFileSync(`${dataDir}/addons.json`, path.join(hydroPath, 'addons.json'));
++                if (fs.existsSync(`${dataDir}/addon.json`)) {
++                    fs.copyFileSync(`${dataDir}/addon.json`, path.join(hydroPath, 'addon.json'));
+                 }
+-                if (fs.existsSync(`${dataDir}/addons`)) {
+-                    fs.removeSync(path.join(hydroPath, 'addons'));
+-                    fs.copySync(`${dataDir}/addons`, path.join(hydroPath, 'addons'));
++                const archivedAddonDir = path.join(dataDir, addonArchivePath);
++                if (fs.existsSync(archivedAddonDir)) {
++                    fs.removeSync(addonDir);
++                    fs.copySync(archivedAddonDir, addonDir);
+                 }
+             }
+             if (restic) {
+--- a/packages/hydrooj/src/commands/install.ts
++++ b/packages/hydrooj/src/commands/install.ts
+@@ -18,7 +18,10 @@
+     // yarn 2 does not support global dir
+ }
+ 
+-const addonDir = path.join(hydroPath, 'addons');
++const profile = process.env.HYDRO_PROFILE;
++const addonDir = profile
++    ? path.resolve('/var/lib/hydro/profiles', profile, 'addons')
++    : '/var/lib/hydro/addons';
+ const userAgent = `Hydro/${version} Node.js/${process.version.split('v').pop()}`;
+ 
+ function downloadAndExtractTgz(url: string, dest: string) {
+--- a/packages/hydrooj/src/entry/setup.ts
++++ b/packages/hydrooj/src/entry/setup.ts
+@@ -9,7 +9,7 @@
+ export async function load() {
+     console.error('Config file not found.');
+     if (!process.stdin.isTTY) {
+-        console.error('Please fill in ~/.hydro/config.json with MongoDB connection string in the following format:');
++        console.error('Please fill in /etc/hydro/config.json with MongoDB connection string in the following format:');
+         console.error('{"url":"mongodb://localhost:27017/hydro"}');
+         process.exit(1);
+     }
+@@ -28,8 +28,8 @@
+             const coll = db.collection<any>('system');
+             await coll.updateOne({ _id: '_test' }, { $set: { value: 1 } }, { upsert: true });
+             await coll.deleteOne({ _id: '_test' });
+-            fs.ensureDirSync(path.resolve(os.homedir(), '.hydro'));
+-            fs.writeFileSync(path.resolve(os.homedir(), '.hydro', 'config.json'), JSON.stringify({ url: uri }));
++            fs.ensureDirSync('/etc/hydro');
++            fs.writeFileSync('/etc/hydro/config.json', JSON.stringify({ url: uri }));
+             break;
+         } catch (e) {
+             console.error(e);
+--- a/packages/hydrooj/src/entry/worker.ts
++++ b/packages/hydrooj/src/entry/worker.ts
+@@ -68,7 +68,7 @@
+     await loadDir(path.resolve(__dirname, '..', 'script'));
+     await ctx.parallel('app/started');
+     if (process.env.NODE_APP_INSTANCE === '0') {
+-        const staticDir = path.join(os.homedir(), '.hydro/static');
++        const staticDir = '/run/hydro/static';
+         await fs.emptyDir(staticDir);
+         // Use ordered copy to allow resource override
+         for (const f of Object.values(global.addons)) {
+--- a/packages/hydrooj/src/options.ts
++++ b/packages/hydrooj/src/options.ts
+@@ -14,7 +14,7 @@
+ }
+ 
+ const profile = process.env.HYDRO_PROFILE;
+-export const hydroPath = profile ? path.resolve(os.homedir(), '.hydro', 'profiles', profile) : path.resolve(os.homedir(), '.hydro');
++export const hydroPath = profile ? path.resolve('/etc/hydro/profiles', profile) : '/etc/hydro';
+ if (profile && !fs.existsSync(hydroPath)) {
+     logger.error('Profile %s not found', profile);
+     process.exit(1);
+--- a/packages/hydrooj/src/service/storage.ts
++++ b/packages/hydrooj/src/service/storage.ts
+@@ -61,7 +61,7 @@
+ };
+ 
+ const defaultPath = process.env.CI ? '/tmp/file'
+-    : process.env.DEFAULT_STORE_PATH || '/data/file/hydro';
++    : process.env.DEFAULT_STORE_PATH || '/var/lib/hydro/file/hydro';
+ const FileSetting = Schema.intersect([
+     Schema.object({
+         type: Schema.union([

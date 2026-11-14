@@ -1,0 +1,50 @@
+--- a/framework/utils/lib/utils.ts
++++ b/framework/utils/lib/utils.ts
+@@ -6,7 +6,7 @@
+ import type { Entry, ZipReader } from '@zip.js/zip.js';
+ import fs from 'fs-extra';
+ import type { Moment } from 'moment';
+-import { Exporter, Factory, Logger as Reggol } from 'reggol';
++import { Exporter, Factory, Logger as Reggol, type Message } from 'reggol';
+ import type * as superagent from 'superagent';
+ 
+ // @ts-ignore
+@@ -15,9 +15,15 @@
+ 
+ Factory.formatters['d'] = (value, exporter) => Reggol.color(exporter, 3, value);
+ 
++class StderrExporter extends Exporter.Console {
++    export(message: Message) {
++        console.error(this.render(message));
++    }
++}
++
+ const factory = new Factory();
+ 
+-factory.addExporter(new Exporter.Console({
++factory.addExporter(new StderrExporter({
+     showDiff: false,
+     showTime: 'dd hh:mm:ss',
+     label: {
+--- a/packages/hydrooj/src/init.ts
++++ b/packages/hydrooj/src/init.ts
+@@ -1,7 +1,7 @@
+ const versionNum = +process.version.replace(/v/gi, '').split('.')[0];
+ if (versionNum < 22) throw new Error('NodeJS >=22 required');
+ 
+-console.log('Process', process.pid, 'running as', process.env.NODE_APP_INSTANCE === '0' ? 'master' : 'worker');
++console.error('Process', process.pid, 'running as', process.env.NODE_APP_INSTANCE === '0' ? 'master' : 'worker');
+ if (!global.Hydro) {
+     global.Hydro = {
+         version: {
+--- a/packages/hydrooj/src/service/bus.ts
++++ b/packages/hydrooj/src/service/bus.ts
+@@ -118,7 +118,7 @@
+         });
+     } catch (e) {
+         ctx.on('bus/broadcast', (event, payload) => app.parallel(event, ...payload));
+-        console.debug('Using mongodb external event bus');
++        console.error('Using mongodb external event bus');
+     }
+ }
+ 

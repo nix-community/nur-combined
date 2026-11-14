@@ -21,6 +21,9 @@
       imports = [ treefmt-nix.flakeModule ];
       systems = import systems;
       flake = {
+        nixosModules.default = {
+          imports = import ./nixos/modules/module-list.nix;
+        };
         overlays.default = import ./pkgs/top-level/all-packages.nix;
       };
       perSystem =
@@ -37,6 +40,7 @@
           packages = lib.filterAttrs (_: lib.meta.availableOn { inherit system; }) (
             lib.removeAttrs (overlay (pkgs.extend overlay) pkgs) [
               "linuxKernel"
+              "nixosTests"
               "pythonPackagesExtensions"
             ]
           );
