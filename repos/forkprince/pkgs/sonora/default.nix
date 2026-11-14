@@ -37,7 +37,6 @@ in
       inherit pname version src meta;
 
       desktopName = "Sonora";
-      icon = "sonora";
       startupWMClass = "sonora";
       categories = ["AudioVideo" "Audio" "Player"];
       extraDesktopItem = {

@@ -31,5 +31,6 @@ in
       inherit pname version src meta;
 
       desktopName = "LCE Emerald Launcher";
+      icon = "emerald-legacy-launcher";
       categories = ["Game"];
     }

@@ -328,18 +328,44 @@
       extraInstallCommands =
         ''
           install -Dm444 ${desktopItem}/share/applications/*.desktop $out/share/applications/${desktopId}.desktop
+
           for iconsDir in ${contents}/usr/share/icons ${contents}/share/icons; do
             if [ -d "$iconsDir" ]; then
               cp -r "$iconsDir" $out/share/
               chmod -R u+w $out/share/icons
             fi
           done
-        ''
-        + lib.optionalString (icon == pname) ''
-          iconPath=$(find ${contents} -maxdepth 2 -xtype f -name "*.png" | head -n1)
-          if [ -n "$iconPath" ] && [ ! -e $out/share/icons/hicolor/512x512/apps/${pname}.png ]; then
-            install -Dm444 "$iconPath" $out/share/icons/hicolor/512x512/apps/${pname}.png
-          fi
+
+          installIcon() {
+            iconSrc=$1
+            [ -f "$iconSrc" ] || return 0
+
+            case "$iconSrc" in
+              *.svg) iconExt=svg ;;
+              *.png) iconExt=png ;;
+              *)
+                if [ "$(od -An -tx1 -N8 "$iconSrc" | tr -d ' \n')" = "89504e470d0a1a0a" ]; then
+                  iconExt=png
+                elif grep -aq "<svg" "$iconSrc"; then
+                  iconExt=svg
+                else
+                  return 0
+                fi
+                ;;
+            esac
+
+            case "$iconExt" in
+              svg) iconSubdir=scalable ;;
+              png) iconSubdir=512x512 ;;
+            esac
+
+            if [ -z "$(find $out/share/icons -path "*/apps/${icon}.*" -print -quit 2>/dev/null)" ]; then
+              install -Dm444 "$iconSrc" "$out/share/icons/hicolor/$iconSubdir/apps/${icon}.$iconExt"
+            fi
+          }
+
+          installIcon "$(readlink -f ${contents}/.DirIcon 2>/dev/null || true)"
+          installIcon "$(find ${contents} -maxdepth 1 -xtype f \( -name "*.png" -o -name "*.svg" \) -print -quit)"
         ''
         + extraInstallCommands;
     };

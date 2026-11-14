@@ -46,9 +46,7 @@ in
 
       nativeBuildInputs = [_7zz];
     })
-  else let
-    contents = appimageTools.extract {inherit pname version src;};
-  in
+  else
     lib.helper.mkAppImage {
       inherit pname version src meta;
 
@@ -76,8 +74,4 @@ in
         zlib
         icu
       ];
-
-      extraInstallCommands = ''
-        install -Dm444 ${contents}/io.github.hyprismteam.Hyprism.svg $out/share/icons/hicolor/scalable/apps/io.github.hyprismteam.Hyprism.svg
-      '';
     }
