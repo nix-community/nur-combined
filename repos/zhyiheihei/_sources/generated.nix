@@ -8,12 +8,12 @@
 {
   ai-usagebar = {
     pname = "ai-usagebar";
-    version = "v1.51.0";
+    version = "v1.52.0";
     src = fetchFromGitHub {
       owner = "akitaonrails";
       repo = "ai-usagebar";
-      tag = "v1.51.0";
-      hash = "sha256-UDIv3QZUvMG8HvEyWz8uFFOSVlJuZ88tiWpXSMYY+5E=";
+      tag = "v1.52.0";
+      hash = "sha256-QH7fgw1TAfaqboGkpV1sHQafj0nVEoj/3gDHbSm12Wk=";
     };
   };
   aioshutil = {
@@ -134,22 +134,22 @@
   };
   nexus-media = {
     pname = "nexus-media";
-    version = "v5.11.2";
+    version = "v5.12.1";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media";
-      tag = "v5.11.2";
-      hash = "sha256-JWGZ8rRGoff/FqfHFWZfWDC8xCPH/asrGOUiZwTB4Fo=";
+      tag = "v5.12.1";
+      hash = "sha256-GYuajZ1nAf1HWJNrmIaqsHlAyS3SkVprX/ul03nWIjg=";
     };
   };
   nexus-media-web = {
     pname = "nexus-media-web";
-    version = "v5.11.2";
+    version = "v5.12.1";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media-web";
-      tag = "v5.11.2";
-      hash = "sha256-9BL2Lp7yGNBTO8CP/eRIDMnjYTJzhNvKSKzHxGiaEAg=";
+      tag = "v5.12.1";
+      hash = "sha256-hH2FyVj0aHTu0B7ApUbJ5Q58SbZJuRlr9UQgQZjK1UM=";
     };
   };
   pinyin2hanzi = {
@@ -279,10 +279,10 @@
   };
   zcode = {
     pname = "zcode";
-    version = "3.17.2";
+    version = "3.18.2";
     src = fetchurl {
-      url = "https://cdn-zcode.z.ai/zcode/electron/releases/3.17.2/linux-x64/ZCode-3.17.2-linux-x64.deb";
-      hash = "sha256-hux7KnlcRq5W5zE1BDAKM3wzxoJnwo+WoDcmpPWv9XU=";
+      url = "https://cdn-zcode.z.ai/zcode/electron/releases/3.18.2/linux-x64/ZCode-3.18.2-linux-x64.deb";
+      hash = "sha256-p+Bm7rAY0V5ANUahTdNpIiD8mXZ2mx81JaBiDPqXT3M=";
     };
   };
   zhconv-rs = {

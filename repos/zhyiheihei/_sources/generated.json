@@ -13,12 +13,12 @@
             "name": null,
             "owner": "akitaonrails",
             "repo": "ai-usagebar",
-            "rev": "v1.51.0",
-            "sha256": "sha256-UDIv3QZUvMG8HvEyWz8uFFOSVlJuZ88tiWpXSMYY+5E=",
+            "rev": "v1.52.0",
+            "sha256": "sha256-QH7fgw1TAfaqboGkpV1sHQafj0nVEoj/3gDHbSm12Wk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.51.0"
+        "version": "v1.52.0"
     },
     "aioshutil": {
         "cargoLock": null,
@@ -266,12 +266,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media",
-            "rev": "v5.11.2",
-            "sha256": "sha256-JWGZ8rRGoff/FqfHFWZfWDC8xCPH/asrGOUiZwTB4Fo=",
+            "rev": "v5.12.1",
+            "sha256": "sha256-GYuajZ1nAf1HWJNrmIaqsHlAyS3SkVprX/ul03nWIjg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.11.2"
+        "version": "v5.12.1"
     },
     "nexus-media-web": {
         "cargoLock": null,
@@ -287,12 +287,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media-web",
-            "rev": "v5.11.2",
-            "sha256": "sha256-9BL2Lp7yGNBTO8CP/eRIDMnjYTJzhNvKSKzHxGiaEAg=",
+            "rev": "v5.12.1",
+            "sha256": "sha256-hH2FyVj0aHTu0B7ApUbJ5Q58SbZJuRlr9UQgQZjK1UM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.11.2"
+        "version": "v5.12.1"
     },
     "pinyin2hanzi": {
         "cargoLock": null,
@@ -548,11 +548,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-hux7KnlcRq5W5zE1BDAKM3wzxoJnwo+WoDcmpPWv9XU=",
+            "sha256": "sha256-p+Bm7rAY0V5ANUahTdNpIiD8mXZ2mx81JaBiDPqXT3M=",
             "type": "url",
-            "url": "https://cdn-zcode.z.ai/zcode/electron/releases/3.17.2/linux-x64/ZCode-3.17.2-linux-x64.deb"
+            "url": "https://cdn-zcode.z.ai/zcode/electron/releases/3.18.2/linux-x64/ZCode-3.18.2-linux-x64.deb"
         },
-        "version": "3.17.2"
+        "version": "3.18.2"
     },
     "zhconv-rs": {
         "cargoLock": null,
