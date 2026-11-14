@@ -74,8 +74,18 @@ class MeitouUpdaterTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertTrue(self.log.exists())
 
-    def test_sdk_rejects_prerelease_older_and_different_major_before_mutation(self):
-        for sdk in ("11.0.100-rc.3", "10.0.403", "11.0.99", "12.0.100"):
+    def test_sdk_accepts_prerelease_of_the_required_band(self):
+        # nixpkgs can pin a release candidate of the band until Microsoft's GA
+        # metadata lands; the package build ignores upstream's exact pin.
+        for sdk in ("11.0.100-rc.3.26522.148", "11.0.100-rc.1", "11.0.200-preview.1"):
+            with self.subTest(sdk=sdk):
+                result = self.run_updater("1.9.0", sdk_version=sdk)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertTrue(self.log.exists())
+                self.log.unlink()
+
+    def test_sdk_rejects_older_and_different_major_before_mutation(self):
+        for sdk in ("10.0.403", "11.0.99", "12.0.100"):
             with self.subTest(sdk=sdk):
                 result = self.run_updater("1.9.0", sdk_version=sdk)
                 self.assertNotEqual(result.returncode, 0)
@@ -86,6 +96,13 @@ class MeitouUpdaterTests(unittest.TestCase):
         self.global_json.write_text(json.dumps({"sdk": {"rollForward": "newPolicy", "version": "11.0.100"}}))
         result = self.run_updater("1.9.0", sdk_version="11.0.200")
         self.assertNotEqual(result.returncode, 0)
+        self.assertFalse(self.log.exists())
+
+    def test_sdk_rejects_prerelease_requirement_upstream(self):
+        self.global_json.write_text(json.dumps({"sdk": {"rollForward": "latestFeature", "version": "11.0.100-rc.1"}}))
+        result = self.run_updater("1.9.0", sdk_version="11.0.100-rc.3.26522.148")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("Unsupported upstream .NET SDK", result.stderr)
         self.assertFalse(self.log.exists())
 
     def test_upstream_global_json_sdk_must_match_package_sdk(self):

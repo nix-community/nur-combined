@@ -106,8 +106,12 @@ full package build must pass; `main` is protected for administrators too.
 .NET packages (`buildDotnetModule`) must use binary toolchains
 (`dotnetCorePackages.sdk_*-bin` / `runtime_*-bin`) and be listed in
 `scripts/refresh-dotnet-deps.sh`. The lock-update PR regenerates their
-`deps.json` for the new SDK automatically. CI rejects in seconds any build plan
-that would compile a compiler or SDK from source (`scripts/check-build-plan.py`);
+`deps.json` for the new SDK automatically. A package must survive any nixpkgs
+.NET state: it drops upstream's exact SDK pin (nixpkgs may pin a release
+candidate of the required band) and, when `deps.json` already pins the RID
+packs, it drops the duplicate target packs the binary SDK would add. CI rejects
+in seconds any build plan that would compile a compiler or SDK from source
+(`scripts/check-build-plan.py`);
 only a manual dispatch with `allow_heavy_builds` overrides it.
 The independently defined CachyOS packages keep source/config/patch metadata in
 `pkgs/<kernel>/source.json`; their version-only updater reads CachyOS directly.

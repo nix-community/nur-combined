@@ -12,8 +12,13 @@ if ! python3 -c 'import sys; sys.exit(0 if tuple(map(int,sys.argv[1].split("."))
 fi
 
 # Check the release SDK before mutating version/hash or fetching NuGet packages.
-# Honor upstream's latestFeature policy without accepting another major/minor,
-# a prerelease SDK or a downgrade. Unknown policies require explicit review.
+# Honor upstream's latestFeature policy without accepting another major/minor or
+# a downgrade. nixpkgs may pin a release candidate of the required band while
+# Microsoft's GA metadata is not imported yet, and the package builds against
+# whatever binary SDK nixpkgs provides (it drops upstream's exact pin), so a
+# prerelease suffix on the packaged SDK is compared by its GA-equivalent version.
+# A prerelease *requirement* upstream and an unknown policy still need review.
+
 sdk_config=$(curl -fsSL --retry 4 --retry-max-time 60 --max-time 30 \
   "https://raw.githubusercontent.com/VlcekM/MeitouClient/launcher-v${latest}/global.json")
 package_sdk=$(nix eval --raw --no-write-lock-file .#meitou-launcher.dotnetSdkVersion)
@@ -22,11 +27,13 @@ import json,re,sys
 sdk=json.loads(sys.argv[1])["sdk"]
 required=sdk["version"]
 actual=sys.argv[2]
-def stable(v):
+def stable(v, allow_prerelease=False):
+    if allow_prerelease:
+        v = re.sub(r"-(?:rc|preview|alpha|beta).*$", "", v)
     if not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", v):
         return None
     return tuple(map(int,v.split(".")))
-r,a=stable(required),stable(actual)
+r,a=stable(required),stable(actual, allow_prerelease=True)
 policy=sdk.get("rollForward", "patch")
 compatible = r is not None and a is not None and (a == r or (
     policy == "latestFeature" and a[:2] == r[:2] and a >= r))

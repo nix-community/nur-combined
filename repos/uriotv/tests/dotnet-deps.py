@@ -39,7 +39,9 @@ class DotnetPolicyTests(unittest.TestCase):
         for nix in dotnet_package_files():
             text = nix.read_text()
             with self.subTest(file=str(nix.relative_to(ROOT))):
-                self.assertRegex(text, r"dotnet-sdk\s*=\s*dotnetCorePackages\.sdk_[0-9_a-z]+-bin\s*;")
+                # A `-bin` SDK may carry trailing overrides (e.g. dropping the SDK's
+                # target packs because nugetDeps already pins those RID packages).
+                self.assertRegex(text, r"dotnet-sdk\s*=\s*dotnetCorePackages\.sdk_[0-9_a-z]+-bin\b")
                 self.assertRegex(text, r"dotnet-runtime\s*=\s*dotnetCorePackages\.runtime_[0-9_]+-bin\s*;")
 
     def test_flake_update_refreshes_locks_in_the_same_pr(self):

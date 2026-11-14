@@ -13,13 +13,20 @@ let
     inherit version src;
     projectFile = "launcher/Meitou.Launcher/Meitou.Launcher.csproj";
     nugetDeps = ./deps.json;
-    # Use Microsoft's stable binaries; avoid bootstrapping the entire .NET SDK.
+    # Use Microsoft's binaries; avoid bootstrapping the entire .NET SDK. The 11.0.1xx
+    # band is required by upstream (`dotnetSdkVersion` keeps the updater honest about
+    # the band, not about nixpkgs' GA/RC state).
     dotnet-sdk = dotnetCorePackages.sdk_11_0_1xx-bin;
     dotnet-runtime = dotnetCorePackages.runtime_11_0-bin;
     executables = [ "meitou-launcher" ];
     # Publish as framework-dependent .NET instead of upstream's single-file AOT.
     # Keep Avalonia/Skia native libraries alongside the managed executable.
     postPatch = ''
+      # Upstream's global.json pins the exact GA SDK (11.0.100). nixpkgs can ship a
+      # release candidate of the same band until Microsoft's GA metadata lands, and
+      # the pinned binary SDK is the only one on PATH, so drop the constraint instead
+      # of failing SDK resolution against a version we do not control.
+      rm global.json
       substituteInPlace launcher/Meitou.Launcher/Meitou.Launcher.csproj \
         --replace-fail '<PublishAot>true</PublishAot>' '<PublishAot>false</PublishAot>' \
         --replace-fail 'AfterTargets="ResolvePackageAssets" Condition=' 'Condition=' \
