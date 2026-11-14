@@ -9,13 +9,13 @@
 }:
 swiftPackages.stdenv.mkDerivation (finalAttrs: {
   pname = "apple-reminders-server";
-  version = "0-unstable-2026-11-13";
+  version = "0.1.0";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "apple-reminders-server";
-    rev = "b3858d8ef5c784ef5d1558d0e6cd306a7e585864";
-    hash = "sha256-bko8NEyWPrn45Ub4890hxhRfgat8hr+hoKaG+44bF1A=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-RY6xmqhfWLh9nAlfVx4TH0VmJJ0mEtHnTN2QAnqTxO8=";
   };
 
   nativeBuildInputs = [
@@ -34,7 +34,7 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {
     help =
