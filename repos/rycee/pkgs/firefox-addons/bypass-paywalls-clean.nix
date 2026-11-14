@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.4.9.2";
+  version = "4.4.9.4";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.9.2.xpi";
-  sha256 = "27a3f3bb2fa3517770345459d8f8ef91e221f1ccd6daef663030516cc0569ccd";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.9.4.xpi";
+  sha256 = "55a6ce2ceb93333acb0af6911e71aff31390d132197dac14c3069cae592d6450";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -31,7 +31,6 @@ buildFirefoxXpiAddon {
       "*://*.actu.fr/*"
       "*://*.ad.nl/*"
       "*://*.adage.com/*"
-      "*://*.adelaidenow.com.au/*"
       "*://*.adn.com/*"
       "*://*.adweek.com/*"
       "*://*.aerokurier.de/*"
@@ -151,7 +150,6 @@ buildFirefoxXpiAddon {
       "*://*.cnbc.com/*"
       "*://*.cnn.com/*"
       "*://*.cntraveler.com/*"
-      "*://*.codesports.com.au/*"
       "*://*.columbian.com/*"
       "*://*.commentary.org/*"
       "*://*.commercialappeal.com/*"
@@ -166,7 +164,6 @@ buildFirefoxXpiAddon {
       "*://*.countryliving.com/*"
       "*://*.courant.com/*"
       "*://*.courier-journal.com/*"
-      "*://*.couriermail.com.au/*"
       "*://*.courrier-picard.fr/*"
       "*://*.courrierinternational.com/*"
       "*://*.crainscleveland.com/*"
@@ -190,7 +187,6 @@ buildFirefoxXpiAddon {
       "*://*.dailymail.com/*"
       "*://*.dailypress.com/*"
       "*://*.dailyrecord.co.uk/*"
-      "*://*.dailytelegraph.com.au/*"
       "*://*.dallasnews.com/*"
       "*://*.daytondailynews.com/*"
       "*://*.decanter.com/*"
@@ -267,7 +263,6 @@ buildFirefoxXpiAddon {
       "*://*.esquire.com/*"
       "*://*.estadao.com.br/*"
       "*://*.estrepublicain.fr/*"
-      "*://*.euobserver.com/*"
       "*://*.european-rubber-journal.com/*"
       "*://*.exame.com/*"
       "*://*.examiner.com.au/*"
@@ -334,7 +329,6 @@ buildFirefoxXpiAddon {
       "*://*.hbvl.be/*"
       "*://*.hd.se/*"
       "*://*.heise.de/*"
-      "*://*.heraldsun.com.au/*"
       "*://*.hilltimes.com/*"
       "*://*.hindustantimes.com/*"
       "*://*.historia.fr/*"
@@ -871,7 +865,6 @@ buildFirefoxXpiAddon {
       "*://*.watoday.com.au/*"
       "*://*.waz.de/*"
       "*://*.weekendavisen.dk/*"
-      "*://*.weeklytimesnow.com.au/*"
       "*://*.wellandtribune.ca/*"
       "*://*.welt.de/*"
       "*://*.weltkunst.de/*"

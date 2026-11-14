@@ -1165,10 +1165,10 @@
     };
     "betterttv" = buildMozillaXpiAddon {
       pname = "betterttv";
-      version = "7.7.32";
+      version = "7.7.33";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5225307/betterttv-7.7.32.xpi";
-      sha256 = "f4c0b7e32c89d4a54d7ba131502046d9acca4938741b2cf466d06bdf4e664960";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5246581/betterttv-7.7.33.xpi";
+      sha256 = "531840dfcfc2c0f5901cfcf8782cd52b49ff3d51d7aa4e9cae9798d373d26afe";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -1485,10 +1485,10 @@
     };
     "bookmark-search-plus-2" = buildMozillaXpiAddon {
       pname = "bookmark-search-plus-2";
-      version = "2.0.139";
+      version = "2.0.140";
       addonId = "bookmarksearchplus2@aafn.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5163841/bookmark_search_plus_2-2.0.139.xpi";
-      sha256 = "8eb94bca2d4811f09d856d90b0b0175cae951530d66327b6f14da6da58e8a692";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5247896/bookmark_search_plus_2-2.0.140.xpi";
+      sha256 = "63ba3f75b9e2f8efc469d9d9db7587b29ce2d5a3f18ff9cee627d32b4d7dfbc1";
       meta = with lib;
       {
         homepage = "https://github.com/aaFn/Bookmark-search-plus-2/wiki";
@@ -3095,10 +3095,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "161.0.20261111.90329";
+      version = "161.0.20261113.104103";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5238425/dansk_da_language_pack-161.0.20261111.90329.xpi";
-      sha256 = "1025ab00e6bf31c28cb5a2babe6aa4b46d92a12faaf3777491254945c757e527";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5248229/dansk_da_language_pack-161.0.20261113.104103.xpi";
+      sha256 = "4c893efd00e3a1cb3d2936412bd24c19d0b6fdd1ecaed03049752ee80f9ccaae";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3311,10 +3311,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "161.0.20261111.90329";
+      version = "161.0.20261113.104103";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5238427/deutsch_de_language_pack-161.0.20261111.90329.xpi";
-      sha256 = "52e065d72a99fb0fbc08204911353aab8fc62a733a00df5237c8c7042152df51";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5248230/deutsch_de_language_pack-161.0.20261113.104103.xpi";
+      sha256 = "34819ab58c2bca104f6882fdd4a148f59926c14081718d97e31aa50bc4f98c45";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3828,10 +3828,10 @@
     };
     "duckduckgo-privacy-essentials" = buildMozillaXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2026.10.6";
+      version = "2026.11.12";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5112192/duckduckgo_for_firefox-2026.10.6.xpi";
-      sha256 = "3b95895abcace43a19a3737edeeb82bcdcec9ce37f765bea81718b97d6199001";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5248878/duckduckgo_for_firefox-2026.11.12.xpi";
+      sha256 = "23953cdbe0ed2dd8e49f03b130465b4b383ad383cbd52cddbefa6f5935f1d841";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -4808,10 +4808,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "161.0.20261111.90329";
+      version = "161.0.20261113.104103";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5238365/francais_language_pack-161.0.20261111.90329.xpi";
-      sha256 = "b901222f65636a3f121e406807d3d88d8f6202ed4ab7eab22417e7f9c8f7a881";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5248197/francais_language_pack-161.0.20261113.104103.xpi";
+      sha256 = "f4cbe6bdcc7c6de5db4e42253d84038fe04160a2b5134ec669af1d4e7a12f248";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4845,10 +4845,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "161.0.20261111.90329";
+      version = "161.0.20261113.104103";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5238352/gaidhlig_language_pack-161.0.20261111.90329.xpi";
-      sha256 = "03af48a2f138c6545eb3baf68b05ed19ed8942538b8b4d1dd82a4de3cddebfd9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5248145/gaidhlig_language_pack-161.0.20261113.104103.xpi";
+      sha256 = "4197c4e03ca12da3baabe4491043dcb0dd4b1d412a5a35879255fe6b1ba0ad47";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -5543,10 +5543,10 @@
     };
     "header-editor" = buildMozillaXpiAddon {
       pname = "header-editor";
-      version = "5.5.0";
+      version = "5.6.1";
       addonId = "headereditor-amo@addon.firefoxcn.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5124034/header_editor-5.5.0.xpi";
-      sha256 = "b2330426728b7eb0ccd2f63625e1f740c537a2cd7360f64c4775e79871a9fe05";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5246886/header_editor-5.6.1.xpi";
+      sha256 = "6f5a0cb4e1faf221a3710151cb144b66ffc12ce3be8f10eaa6e6f2cba05ffa03";
       meta = with lib;
       {
         homepage = "https://he.firefoxcn.net/en/";
@@ -6556,10 +6556,10 @@
     };
     "kiss-translator" = buildMozillaXpiAddon {
       pname = "kiss-translator";
-      version = "2.2.2";
+      version = "2.2.3";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5237439/kiss_translator-2.2.2.xpi";
-      sha256 = "77028206bfe5ae4734ae057458a681955aeecd8139de2308571f325d9a72d429";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5249272/kiss_translator-2.2.3.xpi";
+      sha256 = "eba5c1b18ca04505754925dc433592ee25579629345575a62252e2fac8d440c5";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -10552,10 +10552,10 @@
     };
     "print-friendly-pdf" = buildMozillaXpiAddon {
       pname = "print-friendly-pdf";
-      version = "7.5.0";
+      version = "7.6.0";
       addonId = "jid0-YQz0l1jthOIz179ehuitYAOdBEs@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5236795/print_friendly_pdf-7.5.0.xpi";
-      sha256 = "f7cca1b0dd394305a93c2f91087877d241d54674fca86bd8b42fd83c9c69ff96";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5249177/print_friendly_pdf-7.6.0.xpi";
+      sha256 = "45cbad654e1741705bbf11b87c54cd2f8b4fc11ad4001939944b984bc8f0fe3a";
       meta = with lib;
       {
         homepage = "https://www.printfriendly.com/";
@@ -11118,10 +11118,10 @@
     };
     "private-grammar-checker-harper" = buildMozillaXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "3.1.0";
+      version = "3.2.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5218868/private_grammar_checker_harper-3.1.0.xpi";
-      sha256 = "807d10dfce40fc3ea98218c54876734a3442eabe79499ced5963e7f86d95a234";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5249080/private_grammar_checker_harper-3.2.0.xpi";
+      sha256 = "fcd96c75efbd20dbe2ca78059ec0b2e87f10b46cb1d1985ef5a633b972eaef1e";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -11253,10 +11253,10 @@
     };
     "proton-vpn" = buildMozillaXpiAddon {
       pname = "proton-vpn";
-      version = "1.3.6";
+      version = "1.3.7";
       addonId = "vpn@proton.ch";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4951998/proton_vpn_firefox_extension-1.3.6.xpi";
-      sha256 = "552281ee274aeece0f83052f2fc6da3b526021b6739c3decb0390a9b5efc37a3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5247423/proton_vpn_firefox_extension-1.3.7.xpi";
+      sha256 = "0013ff6845012c746588f9164b3bb1d802aedcc73691e1ec07f21b3b96bca1d4";
       meta = with lib;
       {
         homepage = "https://protonvpn.com/";
@@ -13065,10 +13065,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "161.0.20261111.90329";
+      version = "161.0.20261113.104103";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5238359/scots_language_pack-161.0.20261111.90329.xpi";
-      sha256 = "83cf38798e7254b3401320175abe328cfb1f6bd765660f5ec0963ca67c1b0f78";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5248141/scots_language_pack-161.0.20261113.104103.xpi";
+      sha256 = "ff963e5764aba6f1dff7e41536db10152fb7ff34f043279f115b0c920098fe24";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -14760,10 +14760,10 @@
     };
     "time-zone-converter-savvy-time" = buildMozillaXpiAddon {
       pname = "time-zone-converter-savvy-time";
-      version = "2026.11.2";
+      version = "2026.11.3";
       addonId = "yuriy@savvytime.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5235673/time_zone_converter_savvy_time-2026.11.2.xpi";
-      sha256 = "ef5d3480a6a31d024c77feab50aa2da1f042737ec0ea22258ff7a741ab16b2b8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5249377/time_zone_converter_savvy_time-2026.11.3.xpi";
+      sha256 = "7150efeddea7660ac02dde85f8a15fae6c5e1f1b8fc33d6b637df6f0aa29a86e";
       meta = with lib;
       {
         homepage = "https://savvytime.com/converter";
@@ -15603,10 +15603,10 @@
     };
     "ublock-origin" = buildMozillaXpiAddon {
       pname = "ublock-origin";
-      version = "1.76.0";
+      version = "1.76.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5225273/ublock_origin-1.76.0.xpi";
-      sha256 = "6f20ff6749193599548770539103069c20948dfcd3e61c3089a67da7bfc3be39";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5250345/ublock_origin-1.76.2.xpi";
+      sha256 = "36320e4735818f4f9b5ac1506610590233f4b201ca50196c2834e30f3e808a1e";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -17331,10 +17331,10 @@
     };
     "xkit-rewritten" = buildMozillaXpiAddon {
       pname = "xkit-rewritten";
-      version = "1.3.8";
+      version = "1.4.0";
       addonId = "{6e710c58-36cc-49d6-b772-bfc3030fa56e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5173646/xkit_rewritten-1.3.8.xpi";
-      sha256 = "3e7281d23f285449a156647b280f56708838bdf7a2075a54a44fa8800e51ae11";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5248858/xkit_rewritten-1.4.0.xpi";
+      sha256 = "e06300b781d5a9917c80c294d70564b877b4e2e200ea7ded182f4a36ba27ca43";
       meta = with lib;
       {
         homepage = "https://github.com/AprilSylph/XKit-Rewritten/wiki";
@@ -17543,10 +17543,10 @@
     };
     "youtube-no-translation" = buildMozillaXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.26.1";
+      version = "2.26.2";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5178154/youtube_no_translation-2.26.1.xpi";
-      sha256 = "c850e92de937879067919eb7f683160e0159feb0271d2abc011a663481d50cf3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5246661/youtube_no_translation-2.26.2.xpi";
+      sha256 = "617c5b4c731616f4ae0bae789694e6158ed3c204c25e117a44056eaffc634367";
       meta = with lib;
       {
         description = "Keeps YouTube content in its original language (Titles, Audio Tracks, Descriptions...)";
