@@ -303,11 +303,13 @@ in
                 {
                   # No systemd timers in k8s: cron.php loop (upstream
                   # pattern), same image, same UID so state stays owned.
-                  # Uses the pristine /usr/src copy: the docroot copy can
-                  # be absent in a fresh writable layer, while /usr/src is
-                  # immutable and version-pinned with the image. Needs the
-                  # config mount too (cron.php bootstraps the full app,
-                  # DB included).
+                  # Overriding `command` bypasses the image entrypoint,
+                  # which is what normally syncs /usr/src/nextcloud into
+                  # the (initially empty) docroot — so the sidecar syncs
+                  # it itself first, excluding our two subPath mounts
+                  # (config is managed separately, custom_apps holds
+                  # store apps). Needs the config mount too (cron
+                  # bootstraps the full app, DB included).
                   name = "nextcloud-cron";
                   image = nextcloudImage;
                   imagePullPolicy = "IfNotPresent";
@@ -315,7 +317,7 @@ in
                   command = [
                     "/bin/sh"
                     "-c"
-                    "while true; do php -f /usr/src/nextcloud/cron.php; sleep 300; done"
+                    "rsync -a --delete --exclude=config --exclude=custom_apps /usr/src/nextcloud/ /var/www/html/ && while true; do php -f /var/www/html/cron.php; sleep 300; done"
                   ];
                   resources = {
                     requests = {
