@@ -1,0 +1,42 @@
+--- a/art/compiler/optimizing/code_generator_arm64.cc
++++ b/art/compiler/optimizing/code_generator_arm64.cc
+@@ -4202,6 +4202,9 @@
+       vixl::aarch64::Label* ldr_label = NewBootImageRelRoPatch(boot_image_offset, adrp_label);
+       // Note: Boot image is in the low 4GiB and the entry is 32-bit, so emit a 32-bit load.
+       EmitLdrOffsetPlaceholder(ldr_label, WRegisterFrom(temp), XRegisterFrom(temp));
++#if defined(ART_USE_RELATIVE_REFS)
++      MakeReferenceAbsolute(GetVIXLAssembler(), XRegisterFrom(temp));
++#endif
+       break;
+     }
+     case HInvokeStaticOrDirect::MethodLoadKind::kBssEntry: {
+@@ -4478,6 +4481,9 @@
+     DCHECK(!heap->GetBootImageSpaces().empty());
+     const uint8_t* address = heap->GetBootImageSpaces()[0]->Begin() + boot_image_reference;
+     __ Ldr(reg.W(), DeduplicateBootImageAddressLiteral(reinterpret_cast<uintptr_t>(address)));
++#if defined(ART_USE_RELATIVE_REFS)
++    MakeReferenceAbsolute(GetVIXLAssembler(), reg);
++#endif
+   }
+ }
+ 
+@@ -4959,6 +4965,9 @@
+       vixl::aarch64::Label* ldr_label =
+           codegen_->NewBootImageRelRoPatch(boot_image_offset, adrp_label);
+       codegen_->EmitLdrOffsetPlaceholder(ldr_label, out.W(), out.X());
++#if defined(ART_USE_RELATIVE_REFS)
++      MakeReferenceAbsolute(GetVIXLAssembler(), out);
++#endif
+       return;
+     }
+     case HLoadString::LoadKind::kBssEntry: {
+@@ -4990,6 +4999,9 @@
+       uint32_t address = reinterpret_cast32<uint32_t>(load->GetString().Get());
+       DCHECK_NE(address, 0u);
+       __ Ldr(out.W(), codegen_->DeduplicateBootImageAddressLiteral(address));
++#if defined(ART_USE_RELATIVE_REFS)
++      MakeReferenceAbsolute(GetVIXLAssembler(), out);
++#endif
+       return;
+     }
+     case HLoadString::LoadKind::kJitTableAddress: {

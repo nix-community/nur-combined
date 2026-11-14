@@ -1,0 +1,18 @@
+--- a/cmd/trayscale/trayscale.go	2026-11-14 17:45:30
++++ b/cmd/trayscale/trayscale.go	2026-11-14 17:45:30
+@@ -6,6 +6,7 @@
+ 	"log/slog"
+ 	"os"
+ 	"os/signal"
++	"runtime"
+ 	"runtime/pprof"
+ 
+ 	"deedles.dev/trayscale"
+@@ -43,6 +44,7 @@
+ }
+ 
+ func main() {
++	runtime.LockOSThread()
+ 	defer profile()()
+ 
+ 	locale.SanitizeEnvironment()

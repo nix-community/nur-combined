@@ -93,6 +93,9 @@ let
     # Compiled refs are offsets from g_reference_base. Materialize a pointer
     # before dereferencing, and keep boot-image ADRP addresses 64-bit.
     ./darwin-arm64-codegen-refs.patch
+    # kBootImageRelRo and the remaining boot-image address literal loads hand out
+    # compressed refs too (method entry points and string constants).
+    ./darwin-arm64-relro-refs.patch
     # Vector array loads add the index with a 32-bit add, which drops the high
     # half of the array pointer (System.arraycopy's byte copy loop).
     ./darwin-arm64-vector-refs.patch

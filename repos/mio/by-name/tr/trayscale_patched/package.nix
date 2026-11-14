@@ -7,6 +7,8 @@
 trayscale.overrideAttrs (
   old:
   lib.optionalAttrs stdenv.hostPlatform.isDarwin {
+    patches = (old.patches or [ ]) ++ [ ./trayscale-main-thread.patch ];
+
     # godbus v5.2.3 returns a single value from getSystemBusPlatformAddress,
     # which is declared to return (string, error), so every darwin build that
     # vendors it dies with "not enough return values have (string) want
