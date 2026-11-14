@@ -162,6 +162,7 @@ main() {
 
     # Offline workflow regression tests must never contact upstream or run Nix.
     python3 -B "$SCRIPT_DIR/update-workflow.py"
+    python3 -B "$SCRIPT_DIR/revert-updates.py"
     python3 -B "$SCRIPT_DIR/ci-workflow.py"
     python3 -B "$SCRIPT_DIR/storyforge-update.py"
     python3 -B "$SCRIPT_DIR/storyforge-compatibility.py"

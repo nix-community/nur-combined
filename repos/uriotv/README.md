@@ -138,7 +138,7 @@ Five workflows: one daily clock, one weekly lock update, and one branch that mar
 
 | Workflow | When | What it does |
 |---|---|---|
-| `update.yml` "Update packages" | every day at **02:00 `Europe/Warsaw`** (IANA timezone, follows DST), or manually | Checks every registered package for a newer upstream version and updates its pin. Successful changes go into one `auto-update-packages` PR with squash auto-merge. |
+| `update.yml` "Update packages" | every day at **02:00 `Europe/Warsaw`** (IANA timezone, follows DST), or manually | Checks every registered package for a newer upstream version, builds the changed packages and updates its pin. Updates that do not build are rolled back to the version on `main`; the rest go into one `auto-update-packages` PR with squash auto-merge. |
 | `build.yml` "Build and populate cache" | on PRs, on pushes to `main`, after a successful update run on `main`, or manually | Runs offline tests and Nix evaluation checks, then builds every eligible package on the self-hosted runner. On `main` it publishes eligible outputs to `uriotv` and verifies each `StorePath`; a package-only commit publishes what built, a `flake.lock` commit is all-or-nothing. |
 | `kernel.yml` "Build CachyOS kernel (self-hosted)" | on every push to `main`, after a successful update run, or manually | Builds the kernel from source on our self-hosted builder (or realises it when already published), then publishes it after a licence check. |
 | `flake-update.yml` "Update flake.lock" | every **Sunday 03:00 `Europe/Warsaw`**, or manually | Updates every flake input in one PR with squash auto-merge. Kernels and packages then rebuild against the new lock. |
@@ -155,9 +155,11 @@ Details:
 - **Publication:** only from `main`, only for eligible outputs. Pull requests and
   the updater have no cache write token. A package is eligible when its licence
   explicitly allows redistribution. Unknown or empty licence metadata fails closed.
-  One failing package never blocks the others: a package-only revision publishes
-  every package that built, while a revision that moves `flake.lock`/`flake.nix`
-  is published all-or-nothing, and the `cache` branch only follows complete builds.
+  A broken update is rolled back before it reaches `main` (see the update workflow),
+  so `main` normally builds everything and the cache is published in full. As a
+  safety net a package-only revision still publishes every package that built,
+  while a revision that moves `flake.lock`/`flake.nix` is published all-or-nothing;
+  the `cache` branch only follows complete builds.
   See [the licence policy](docs/adding-packages.md#licenses-and-public-cache).
 - **Kernel licence gate:** before the kernel is pushed, `scripts/check-kernel-closure.py`
   checks the whole runtime closure. Every path needs explicit licence evidence,

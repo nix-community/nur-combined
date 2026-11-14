@@ -157,9 +157,15 @@ them is published **all-or-nothing**: one failing package means nothing is pushe
   broken package does not hold back the rest of the cache. The run still fails and
   the `cache` branch only advances for a commit whose whole build succeeded.
 
-Package updates are per package in the same way: `scripts/update-packages.sh`
-restores only the failing updater's directory and keeps the remaining updates in
-the same PR.
+Package updates are per package in the same way:
+
+- `scripts/update-packages.sh` restores only the failing updater's directory and
+  keeps the remaining updates in the same PR.
+- `scripts/revert-broken-updates.sh` then builds every changed package and rolls
+  back the ones that do not build (including a plan that would compile a toolchain
+  from source). The rolled-back package keeps the version `main` already has and is
+  listed in the PR body; the rest merges and publishes normally, and the next
+  update run retries it.
 
 Public cache misses can still lead consumers to build locally; Cachix
 retention/availability and differing consumer nixpkgs are not guaranteed.

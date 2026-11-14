@@ -254,6 +254,17 @@ class WorkflowPolicyTests(unittest.TestCase):
                                         env={**os.environ, "UPDATE_RESULT": a, "TESTS_RESULT": b})
                 self.assertEqual(result.returncode == 0, a == b == "success")
 
+    def test_update_pr_rolls_back_broken_updates_before_the_pull_request(self):
+        body = (ROOT / ".github/workflows/update.yml").read_text()
+        update = body.index("run: bash scripts/update-packages.sh")
+        revert = body.index("run: bash scripts/revert-broken-updates.sh")
+        readme = body.index("scripts/readme-versions.py --write")
+        create = body.index("peter-evans/create-pull-request")
+        self.assertLess(update, revert)
+        self.assertLess(revert, readme)
+        self.assertLess(readme, create)
+        self.assertIn("UPDATE_BUILD_TIMEOUT_SECONDS", body)
+
     def test_update_jobs_force_english_git_and_provide_perl(self):
         workflows = ROOT / ".github/workflows"
         for name in ("update.yml", "flake-update.yml"):

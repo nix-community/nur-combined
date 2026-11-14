@@ -12,6 +12,11 @@ strict-Bash updater, then runs:
 - `update-workflow.py`: RimSort release/asset selection, mocked nix-update,
   package-directory rollback, partial failures, counters, missing-updater
   preflight, empty discovery and ScopeBuddy's version-linked tag.
+- `revert-updates.py`: throwaway git repo plus stubbed Nix; only the update that
+  does not build is reverted (tracked edits and new files), out-of-band packages
+  are left alone, a toolchain bootstrap plan is reverted without building, an
+  unevaluable package is decided by its build, and the rollback is reported in the
+  PR body/step summary.
 - `ci-workflow.py`: stubbed Nix/Cachix/curl; build every package and output,
   including non-cacheable ones; continue then fail on build errors; both Nix
   JSON output formats; malformed manifests/outputs; publication restrictions,

@@ -46,6 +46,15 @@ jobs:
           UPDATE_PACKAGE: ${{ inputs.package }}
           BUILD_LOG_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: bash scripts/update-packages.sh
+      - name: Roll back package updates that do not build
+        id: revert
+        # A broken update must not hold back the rest of the PR (and the cache
+        # publication that follows the merge). It is reverted here, before the
+        # README/PR steps, and retried by the next run.
+        env:
+          BUILD_LOG_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          UPDATE_BUILD_TIMEOUT_SECONDS: ${{ vars.UPDATE_BUILD_TIMEOUT_SECONDS }}
+        run: bash scripts/revert-broken-updates.sh
       - name: Refresh package versions in README
         run: python3 -B scripts/readme-versions.py --write
       - name: Check for changes
