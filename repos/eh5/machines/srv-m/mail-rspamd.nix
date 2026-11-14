@@ -68,8 +68,14 @@ in
             expression = "R_SPF_SOFTFAIL | R_SPF_DNSFAIL | R_SPF_NA | DMARC_POLICY_SOFTFAIL | DMARC_DNSFAIL | RDNS_DNSFAIL | RDNS_NONE";
             require_action = ["no action", "greylist"];
           }
+          
+          BAYES_SPAM_UPGRADE_L1 {
+            action = "greylist";
+            expression = "BAYES_SPAM";
+            require_action = ["no action"];
+          }
 
-          BAYES_SPAM_UPGRADE {
+          BAYES_SPAM_UPGRADE_L2 {
             action = "add header";
             expression = "BAYES_SPAM";
             require_action = ["greylist"];

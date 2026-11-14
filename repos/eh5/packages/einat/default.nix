@@ -12,16 +12,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "einat";
-  version = "0.1.11";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "EHfive";
     repo = "einat-ebpf";
     rev = "v${version}";
-    hash = "sha256-dyjDzg6kpqjcne1Zke2f7KxAJMp2vAbfeyFGXoH+siE=";
+    hash = "sha256-T2Agt3ojSQp2dvnm4XJtvDhWC5oK50hHHmUVw9ODFKM=";
   };
 
-  cargoHash = "sha256-27Ia3+QPVC4+1TVW31S+cI3edDq+gBRnznPniBnbe44=";
+  cargoHash = "sha256-S+/EidoH/nzlxdJWf5EnSfFC2oqm4j/fJ1pGxODCwQI=";
 
   nativeBuildInputs = [
     pkg-config
@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildFeatures = [
-    #"libbpf"
+    "libbpf"
   ]
   ++ lib.optionals enableIpv6 [ "ipv6" ];
 

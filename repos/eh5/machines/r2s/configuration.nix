@@ -66,6 +66,12 @@
     enableUserSlices = true;
   };
 
+  services.journald.settings.Journal = {
+    Storage = "volatile";
+    RuntimeMaxUse = "64M";
+    RuntimeMaxFileSize = "16M";
+  };
+
   services.openssh = {
     enable = true;
     settings.PermitRootLogin = "yes";
