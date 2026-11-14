@@ -61,6 +61,7 @@ let
     (trivial "lpac")
     (trivial "matrix-qq")
     (trivial "matrix-wechat")
+    (trivial "mautrix-telegram")
     (trivial "moe-koe-music")
     (trivial "mstickereditor")
     (trivial "nvfetcher-changes")
