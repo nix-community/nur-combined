@@ -12,11 +12,11 @@
     "npmDepsHash": "sha256-+CvS2GE74FsXSVs3E+0nqoOhMDhlJs/mkACD2EdS6ik="
   },
   "github:kingcharleslzy-ai/dsh-purge": {
-    "version": "1.6.101",
-    "rev": "25ee972e9c0cef07fc89eab76068c11ffb60daeb",
-    "url": "https://codeload.github.com/kingcharleslzy-ai/dsh-purge/tar.gz/25ee972e9c0cef07fc89eab76068c11ffb60daeb",
-    "hash": "sha256-8VCIDEj8HLNeu/W0s8Xcqs2UyXqrl2JE63PJNXUNzX8=",
-    "npmDepsHash": "sha256-Pr/JlhEYC8LMFafNIOYwdca2xQNIPoRztnXnyCK1QGY="
+    "version": "1.7.14",
+    "rev": "fe7d3c3621843c6a5240d8229770fdfffe79be44",
+    "url": "https://codeload.github.com/kingcharleslzy-ai/dsh-purge/tar.gz/fe7d3c3621843c6a5240d8229770fdfffe79be44",
+    "hash": "sha256-1M51z+AvyjtLle3pCLYK1T2vhgu1PG0I0gmLk7TLV5M=",
+    "npmDepsHash": "sha256-UeHgx9TBAIrR5O1LcawmeftPf2wytA+vgDSOTLIlpJM="
   },
   "npm:@anionex/dsh-turn-rewind": {
     "version": "0.3.13",
