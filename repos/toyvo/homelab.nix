@@ -162,25 +162,27 @@
     services = {
       nextcloud = {
         port = 80;
+        # Served from k3s via Traefik (cut over 2026-11-14). Keeps the old
+        # container IP documented for rollback; edge route is gone.
+        upstreams = [
+          "10.1.0.3:30080"
+          "10.1.0.12:30080"
+        ];
         displayName = "Nextcloud";
         description = "Cloud Storage";
         category = "Nextcloud";
         icon = "sh-nextcloud";
         widget = {
           type = "nextcloud";
-          # Direct internal address; see technitium widget comment above.
-          url = "http://10.200.0.10:80";
+          # Public hostname (like the container's old direct URL, the
+          # container IP dies with the retired container service).
+          url = "https://nextcloud.diekvoss.net";
           username = "{{HOMEPAGE_VAR_NEXTCLOUD_USERNAME}}";
           password = "{{HOMEPAGE_VAR_NEXTCLOUD_PASSWORD}}";
         };
       };
-      collabora = {
-        port = 9980;
-        displayName = "Collabora";
-        description = "Office Suite for Nextcloud";
-        category = "Nextcloud";
-        icon = "sh-docs-collaboration";
-      };
+      # Collabora retired with the container 2026-11-14 (dropped in favor
+      # of a future OnlyOffice integration); no k8s replacement.
     };
   };
   home-assistant = {

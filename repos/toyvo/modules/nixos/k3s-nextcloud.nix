@@ -303,6 +303,11 @@ in
                 {
                   # No systemd timers in k8s: cron.php loop (upstream
                   # pattern), same image, same UID so state stays owned.
+                  # Uses the pristine /usr/src copy: the docroot copy can
+                  # be absent in a fresh writable layer, while /usr/src is
+                  # immutable and version-pinned with the image. Needs the
+                  # config mount too (cron.php bootstraps the full app,
+                  # DB included).
                   name = "nextcloud-cron";
                   image = nextcloudImage;
                   imagePullPolicy = "IfNotPresent";
@@ -310,7 +315,7 @@ in
                   command = [
                     "/bin/sh"
                     "-c"
-                    "while true; do php -f /var/www/html/cron.php; sleep 300; done"
+                    "while true; do php -f /usr/src/nextcloud/cron.php; sleep 300; done"
                   ];
                   resources = {
                     requests = {
@@ -326,6 +331,11 @@ in
                     {
                       name = "state";
                       mountPath = "/var/lib/nextcloud";
+                    }
+                    {
+                      name = "state";
+                      mountPath = "/var/www/html/config";
+                      subPath = "config";
                     }
                   ];
                 }

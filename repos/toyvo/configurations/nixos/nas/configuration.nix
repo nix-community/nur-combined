@@ -378,7 +378,11 @@ in
       plugins = [ inputs.nixcfg.packages.${system}.jellyfin-plugin-ldap-authentication ];
     };
     nextcloud = {
-      enable = true;
+      # Retired to k3s 2026-11-14 (DB restored + counts verified, apps
+      # installed, repair clean). Disabled (not deleted) so rollback is one
+      # flag flip; POOL state dirs remain on disk either way. Collabora goes
+      # with it (dropped in favor of a future OnlyOffice integration).
+      enable = false;
       natInterface = "eno1";
       stateDir = "/mnt/POOL/nextcloud";
       mediaDir = "/mnt/POOL";
@@ -459,12 +463,10 @@ in
       ldap.tokenFile = config.sops.secrets."authentik-ldap-token".path;
     };
   };
-  # Relay the bridge's localhost-only SMTP port to the nextcloud container's veth address.
-  # The bridge listens on 127.0.0.1:1025; socat forwards connections from the container.
-  # Second relay for the k8s Nextcloud pod (pods can't reach the container
-  # veth address). Kept alongside the veth relay until the container retires
-  # (flip commit removes the veth one); the bridge itself enforces SMTP AUTH,
-  # so a LAN-bound relay is not an open relay.
+  # Relay the bridge's localhost-only SMTP port to the LAN for the k8s
+  # Nextcloud pod (pods can't reach a container veth). The veth relay was
+  # removed with the retired container; the bridge itself enforces SMTP
+  # AUTH, so a LAN-bound relay is not an open relay.
   systemd.services.protonmail-bridge-relay-lan = {
     description = "Relay protonmail-bridge SMTP to LAN for k3s nextcloud";
     after = [
@@ -480,24 +482,6 @@ in
       DynamicUser = true;
     };
   };
-  systemd.services.protonmail-bridge-relay = {
-    description = "Relay protonmail-bridge SMTP to nextcloud container";
-    after = [
-      "network.target"
-      "protonmail-bridge.service"
-    ];
-    wants = [ "protonmail-bridge.service" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:1025,bind=${config.nixcfg.containers.nextcloud.hostAddress},fork,reuseaddr TCP:127.0.0.1:1025";
-      Restart = "on-failure";
-      RestartSec = "5s";
-      DynamicUser = true;
-    };
-  };
-
-  networking.firewall.interfaces."ve-nextcloud".allowedTCPPorts = [ 1025 ];
-
   users.users.toyvo.extraGroups = [ "libvirtd" ];
   home-manager.users.toyvo.programs.beets.settings.directory = "/mnt/POOL/Public/Music";
   programs.dconf.enable = true;
