@@ -5,106 +5,128 @@
   fetchYarnDeps,
   yarnConfigHook,
   nodejs,
-  yarn,
   rustPlatform,
-  cargo,
-  rustc,
   pkg-config,
   openssl,
   sqlite,
-  electron,
+  oniguruma,
   onnxruntime,
-  node-gyp,
-  python3,
+  electron,
   makeWrapper,
   copyDesktopItems,
+  autoPatchelfHook,
   makeDesktopItem,
+  nix-update-script,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
-  pname = "deta-surf";
-  version = "1.4.7-beta.0.rc.1";
+let
+  version = "1.4.7-beta.0";
 
   src = fetchFromGitHub {
     owner = "deta";
     repo = "surf";
-    tag = finalAttrs.version;
+    tag = version;
     hash = "sha256-UW85VCgjuPFajLPajJ0SgW3RJ57UrKQ/OuXHVCa3AbM=";
   };
 
-  yarnOfflineCache = fetchYarnDeps {
+  # Node addon (`@deta/backend`), loaded from the preload script as `index.node`
+  backend = rustPlatform.buildRustPackage {
+    pname = "deta-surf-backend";
+    inherit version src;
+    sourceRoot = "${src.name}/packages/backend";
+
+    cargoHash = "sha256-Q350LqmHrZsFR8H/9qaCCb4LQouaIU1BlZ7TBhzazek=";
+
+    nativeBuildInputs = [ pkg-config ];
+    # Newer nixpkgs links libsqlite3-sys against the system library
+    buildInputs = [
+      openssl
+      sqlite
+    ];
+
+    # Node picks the loader by the resolved file extension
+    postInstall = ''
+      mv $out/lib/libbackend.so $out/lib/index.node
+    '';
+
+    doCheck = false;
+  };
+
+  # Standalone `surf-backend` server (embeddings / vector search), spawned by the main process
+  backend-server = rustPlatform.buildRustPackage {
+    pname = "deta-surf-backend-server";
+    inherit version src;
+    sourceRoot = "${src.name}/packages/backend-server";
+
+    cargoHash = "sha256-TuM9mR85mUmGjCVpEPjpcWW9gcuHDAnPOWN6H6Fa1H0=";
+
+    nativeBuildInputs = [ pkg-config ];
+    buildInputs = [
+      openssl
+      oniguruma # newer nixpkgs sets RUSTONIG_SYSTEM_LIBONIG
+      onnxruntime
+    ];
+
+    env = {
+      # Link against nixpkgs' onnxruntime instead of downloading prebuilt binaries
+      ORT_STRATEGY = "system";
+      ORT_LIB_LOCATION = "${lib.getLib onnxruntime}/lib";
+      ORT_PREFER_DYNAMIC_LINK = "1";
+    };
+
+    doCheck = false;
+  };
+in
+stdenv.mkDerivation (finalAttrs: {
+  pname = "deta-surf";
+  inherit version src;
+
+  offlineCache = fetchYarnDeps {
     yarnLock = "${finalAttrs.src}/yarn.lock";
     hash = "sha256-RpNTVG9rBpVOrgFqEj9YbsRQMdVjWYQk7SiWIvwZQ0M=";
-  };
-
-  cargoDepsBackend = rustPlatform.importCargoLock {
-    lockFile = "${finalAttrs.src}/packages/backend/Cargo.lock";
-  };
-
-  cargoDepsServer = rustPlatform.importCargoLock {
-    lockFile = "${finalAttrs.src}/packages/backend-server/Cargo.lock";
-    outputHashes = {
-      "fastembed-3.14.1" = "sha256-Y95XYR+FlDlNHqjID/G7LFfrD815Dns1ZiDTlkrEsgs=";
-      "usearch-2.14.0" = "sha256-Gy6J1gnQ1MPlF0Ejh2DP/f5OD1kAiqaKn3IQ20YEjB4=";
-    };
   };
 
   nativeBuildInputs = [
     yarnConfigHook
     nodejs
-    yarn
-    cargo
-    rustc
-    node-gyp
-    python3
-    pkg-config
     makeWrapper
     copyDesktopItems
+    autoPatchelfHook
   ];
 
-  buildInputs = [
-    openssl
-    sqlite
-    onnxruntime
-  ];
+  # For prebuilt native modules (sharp, @napi-rs/canvas)
+  buildInputs = [ (lib.getLib stdenv.cc.cc) ];
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
-    OPENSSL_NO_VENDOR = "1";
-    ORT_STRATEGY = "system";
-    ORT_LIB_LOCATION = "${lib.getLib onnxruntime}/lib";
-    npm_config_nodedir = "${electron.headers}";
+    SILENCE_WARNINGS = "true";
   };
 
   preBuild = ''
-    mkdir -p packages/backend/.cargo packages/backend-server/.cargo
-    ln -s ${finalAttrs.cargoDepsBackend} packages/backend/cargo-vendor-dir
-    cp ${finalAttrs.cargoDepsBackend}/.cargo/config.toml packages/backend/.cargo/config.toml
-    ln -s ${finalAttrs.cargoDepsServer} packages/backend-server/cargo-vendor-dir
-    cp ${finalAttrs.cargoDepsServer}/.cargo/config.toml packages/backend-server/.cargo/config.toml
+    # yarnConfigHook installs with --ignore-scripts, so apply upstream's patches manually
+    node node_modules/patch-package/dist/index.js
+
+    # yarnConfigHook only patches the root node_modules
+    patchShebangs packages/*/node_modules app/node_modules
   '';
 
   buildPhase = ''
     runHook preBuild
 
-    while IFS= read -r binDir; do
-      export PATH="$PWD/$binDir:$PATH"
-    done < <(find . -type d -path "*/node_modules/.bin")
+    # Same order as the `build:app:frontend` turbo task
+    yarn --offline workspace @deta/icons build
+    yarn --offline workspace @deta/types build
+    yarn --offline workspace @deta/utils build
+    yarn --offline workspace @deta/services build
+    yarn --offline workspace @deta/ui build:tailwind
+    yarn --offline workspace @deta/ui build
+    yarn --offline workspace @deta/dragcula build
+    yarn --offline workspace @deta/editor build
 
-    # 1. Build the Rust backend / N-API native addon
-    pushd packages/backend
-    cargo build --release --offline --frozen
-    popd
+    yarn --offline workspace desktop build
 
-    # 2. Build all workspace packages (check root/app package.json if script names differ)
-    yarn --offline build
-
-    # 3. Package the Electron app unpacked without downloading Electron
-    pushd app
-    yarn --offline electron-builder --dir \
-      -c.electronDist=${electron.dist} \
-      -c.electronVersion=${electron.version}
-    popd
+    # Everything except the runtime dependencies is bundled by electron-vite
+    yarn install --offline --frozen-lockfile --ignore-scripts --production --no-progress --non-interactive
 
     runHook postBuild
   '';
@@ -112,44 +134,73 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/share/surf
-    cp -r app/dist/linux-unpacked/resources/* $out/share/surf/
+    appdir=$out/share/deta-surf
+    mkdir -p $appdir
 
-    makeWrapper ${lib.getExe electron} $out/bin/surf \
-      --add-flags "$out/share/surf/app.asar" \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
-      --set-default ELECTRON_FORCE_IS_PACKAGED 1
+    # Symlinked, so autoPatchelf leaves it (and its RUNPATH) alone
+    ln -s ${backend}/lib/index.node packages/backend/index.node
+    rm -rf packages/backend/{src,target} packages/backend-server/{src,target}
 
-    install -Dm644 app/resources/icon.png $out/share/icons/hicolor/512x512/apps/surf.png
+    mkdir -p app/resources/bin
+    ln -s ${backend-server}/bin/backend-server app/resources/bin/surf-backend
+
+    cp -r package.json node_modules packages app $appdir/
+    find $appdir -name .bin -type d -prune -exec rm -rf {} +
+    # Prebuilt native modules for musl get installed too, but are unusable here
+    find $appdir/node_modules -maxdepth 2 -type d -name '*-linuxmusl-*' -o -maxdepth 2 -type d -name '*-linux-*-musl' | xargs rm -rf
+
+    # The app looks up unpacked resources at `<appPath>.unpacked` (normally `app.asar.unpacked`)
+    ln -s app $appdir/app.unpacked
+
+    install -Dm644 app/build/resources/prod/icon.png $out/share/icons/hicolor/512x512/apps/deta-surf.png
+
+    makeWrapper ${lib.getExe electron} $out/bin/deta-surf \
+      --add-flags $appdir/app \
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}" \
+      --inherit-argv0
 
     runHook postInstall
   '';
 
   desktopItems = [
     (makeDesktopItem {
-      name = "surf";
+      name = "deta-surf";
       desktopName = "Surf";
-      comment = "Personal AI Notebooks";
-      exec = "surf %U";
-      icon = "surf";
-      categories = [
-        "Office"
-        "Utility"
+      comment = finalAttrs.meta.description;
+      exec = "deta-surf %U";
+      icon = "deta-surf";
+      categories = [ "Network" "WebBrowser" ];
+      mimeTypes = [
+        "text/html"
+        "x-scheme-handler/http"
+        "x-scheme-handler/https"
       ];
       startupWMClass = "Surf";
     })
   ];
 
-  passthru.updateSrcipt = ./update.sh;
+  passthru = {
+    inherit backend backend-server;
+    updateScript = nix-update-script {
+      extraArgs = [
+        # Upstream only publishes `-beta.N` releases, skip the `.rc.N` pre-releases
+        "--version=unstable"
+        "--version-regex"
+        "^(\\d+\\.\\d+\\.\\d+-beta\\.\\d+)$"
+        "--subpackage"
+        "backend"
+        "--subpackage"
+        "backend-server"
+      ];
+    };
+  };
 
   meta = {
-    description = "Personal AI Notebooks";
+    description = "Personal AI notebooks: organize files & webpages and generate notes from them";
     homepage = "https://github.com/deta/surf";
+    changelog = "https://github.com/deta/surf/releases/tag/${version}";
     license = lib.licenses.asl20;
-    mainProgram = "surf";
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    mainProgram = "deta-surf";
+    platforms = lib.platforms.linux;
   };
 })
