@@ -3,43 +3,16 @@
 }:
 
 let
-  deepseek-harness = pkgs.callPackage ./pkgs/deepseek-harness { };
-  terracotta = pkgs.callPackage ./pkgs/terracotta { };
+  packages = builtins.mapAttrs (name: _: pkgs.callPackage (./pkgs + "/${name}") { }) (
+    pkgs.lib.filterAttrs (name: _: builtins.pathExists (./pkgs + "/${name}/default.nix")) (
+      builtins.readDir ./pkgs
+    )
+  );
 in
-{
-  ab-download-manager = pkgs.callPackage ./pkgs/ab-download-manager { };
-  alger-music-player = pkgs.callPackage ./pkgs/alger-music-player { };
-  baidunetdisk = pkgs.callPackage ./pkgs/baidunetdisk { };
-  baidupcs-go = pkgs.callPackage ./pkgs/baidupcs-go { };
-  bluez-5_86 = pkgs.callPackage ./pkgs/bluez-5_86 { };
-  caddy-naive = pkgs.callPackage ./pkgs/caddy-naive { };
-  cargo-pretty = pkgs.callPackage ./pkgs/cargo-pretty { };
-  inherit deepseek-harness;
-  dingtalk = pkgs.callPackage ./pkgs/dingtalk { };
-  dsh-plugins = pkgs.callPackage ./pkgs/dsh-plugins { inherit deepseek-harness; };
-  firefoxpwa-xwayland = pkgs.callPackage ./pkgs/firefoxpwa-xwayland { };
-  flutter-rust-bridge-codegen = pkgs.callPackage ./pkgs/flutter-rust-bridge-codegen { };
-  gradle-language-server = pkgs.callPackage ./pkgs/gradle-language-server { };
-  herdr = pkgs.callPackage ./pkgs/herdr { };
-  hmcl = pkgs.hmcl.override { inherit terracotta; };
-  kelivo = pkgs.callPackage ./pkgs/kelivo { };
-  kotlin-lsp = pkgs.callPackage ./pkgs/kotlin-lsp { };
-  magpie = pkgs.callPackage ./pkgs/magpie { };
-  niri = pkgs.callPackage ./pkgs/niri { };
-  peazip-rar = pkgs.callPackage ./pkgs/peazip-rar { };
-  pocket-id = pkgs.callPackage ./pkgs/pocket-id { };
-  r-maple-mono-nf-cn = pkgs.callPackage ./pkgs/r-maple-mono-nf-cn { };
-  rea = pkgs.callPackage ./pkgs/rea { };
-  rime-frost = pkgs.callPackage ./pkgs/rime-frost { };
-  rime-lmdg = pkgs.callPackage ./pkgs/rime-lmdg { };
-  rime-wanxiang = pkgs.callPackage ./pkgs/rime-wanxiang { };
-  sunloginclient = pkgs.callPackage ./pkgs/sunloginclient { };
-  yanhekt-autoslides = pkgs.callPackage ./pkgs/yanhekt-autoslides { };
-  waywallen = pkgs.callPackage ./pkgs/waywallen { };
-  winboat-unstable = pkgs.callPackage ./pkgs/winboat-unstable { };
-  inherit terracotta;
-  xwayland-satellite = pkgs.callPackage ./pkgs/xwayland-satellite { };
-  yesplaymusic = pkgs.callPackage ./pkgs/yesplaymusic { };
+packages
+// {
+  dsh-plugins = pkgs.callPackage ./pkgs/dsh-plugins { inherit (packages) deepseek-harness; };
+  hmcl = pkgs.hmcl.override { inherit (packages) terracotta; };
 
   homeModules = import ./home-modules;
   nixosModules = import ./nixos-modules;

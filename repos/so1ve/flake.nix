@@ -58,6 +58,10 @@
         };
     in
     {
+      overlays.default = final: _: {
+        so1ve = import ./default.nix { pkgs = final; };
+      };
+
       homeModules = import ./home-modules;
       nixosModules = import ./nixos-modules;
 

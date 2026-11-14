@@ -75,6 +75,16 @@ nix profile install github:so1ve/nur-packages#ab-download-manager
 }
 ```
 
+### Overlay
+
+```nix
+{ inputs, pkgs, ... }:
+{
+  nixpkgs.overlays = [ inputs.so1ve.overlays.default ];
+  environment.systemPackages = [ pkgs.so1ve.magpie ];
+}
+```
+
 ## Binary cache
 
 Packages are stored in `ghcr.io/so1ve/nur-cache` and served through
