@@ -19,16 +19,16 @@
   };
   baibot = {
     pname = "baibot";
-    version = "v2026.11.14.1";
+    version = "v2026.11.14.2";
     src = fetchFromGitHub {
       owner = "etkecc";
       repo = "baibot";
-      rev = "v2026.11.14.1";
+      rev = "v2026.11.14.2";
       fetchSubmodules = false;
-      sha256 = "sha256-rHkhJ8MdAEbyHjT39ku8K02URgaiz+1NFfV0VvJZi4Q=";
+      sha256 = "sha256-9Nl+EcBxfN2WqRI0rgFBswSCxHxtixYhDnMQcvmlsMs=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-rHkhJ8MdAEbyHjT39ku8K02URgaiz+1NFfV0VvJZi4Q=/Cargo.lock";
+      lockFile = ./. + "/sha256-9Nl+EcBxfN2WqRI0rgFBswSCxHxtixYhDnMQcvmlsMs=/Cargo.lock";
       outputHashes = {
 
       };
