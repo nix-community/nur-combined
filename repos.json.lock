@@ -1934,8 +1934,8 @@
             "url": "https://github.com/mzntori/nur-packages"
         },
         "mzwing": {
-            "rev": "7c9e43943dbec2dcbc09038bc0c1d9c10b920559",
-            "sha256": "0m2yyg49liawxsvkp4s3mvq1q88g8ilqhc7xa4pdc3hns7fagl4l",
+            "rev": "33480a19cb80230d7a28ff630e918ae7127aa695",
+            "sha256": "0qwgzy0w43vpy8sx9vywjwgk767vk5z3mjwg96y9298v5lvqjzy2",
             "url": "https://github.com/mzwing/nur-packages"
         },
         "n1kolasM": {
@@ -2702,8 +2702,8 @@
             "url": "https://github.com/tinybeachthor/nur-packages"
         },
         "tnmt": {
-            "rev": "5aad5f3bbbf5700cd44f2e0ce6cfc88ad07c460e",
-            "sha256": "0vd6d34ypxy81q356d2dzwvpdjf1n0l6ggvriqnfbamkip1gdxgp",
+            "rev": "15db91e3226165fc8280c9b2054acec2831698e9",
+            "sha256": "1dns1i8r17h0lmp2cgl4wdcmb2rp6m5z7v6bcw5iz1ijkprraazf",
             "url": "https://github.com/tnmt/nur-packages"
         },
         "tokudan": {
