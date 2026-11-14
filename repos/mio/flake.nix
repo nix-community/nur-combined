@@ -48,6 +48,8 @@
           miodroid-nixos-rootless-grow = self.legacyPackages.x86_64-linux.miodroid.tests.nixos-rootless-grow;
           miodroid-desktop-sockets = self.legacyPackages.x86_64-linux.miodroid.tests.desktop-sockets;
           cutefish = cutefishTests.basic;
+          cutefish-dm = cutefishTests.dm;
+          cutefish-dm-greeter = cutefishTests.greeter;
         };
       cached-cuda = forAllSystems (
         system:

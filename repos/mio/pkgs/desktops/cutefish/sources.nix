@@ -3,87 +3,87 @@
 {
   cutefish-toolkit = {
     repo = "cutefish-toolkit";
-    rev = "6106b198f0ecbf4889ad1cf07e147516767c44b1";
-    hash = "sha256-5lTdMcYVvsY10U57e4b4MEhxgvdka+7Bx3A/dEJDWHY=";
-    date = "2026-11-02";
+    rev = "75f71d7c020f437002a21f9b86e90720fa643fb0";
+    hash = "sha256-x7tUwJ9GjQsB+DiP3lh0YmO2Z7SAtCezGP3/RAg+WGo=";
+    date = "2026-11-13";
   };
   cutefish-framework = {
     repo = "cutefish-framework";
-    rev = "f06d612453e9c4dbbeb7b43c4bb0c3fc72c61000";
-    hash = "sha256-ZHNY/kS/kXWedaGZXCDRt+X62ggAyTBmZCp5tVdWlgE=";
-    date = "2026-11-03";
+    rev = "08517f49ae4a660f81273e52877618ce95ceea89";
+    hash = "sha256-eIY3gnz1ViNjpO3ozMaVek0n2Rio/PkeO9JVecPxA3c=";
+    date = "2026-11-13";
   };
   cutefish-core = {
     repo = "cutefish-core";
-    rev = "055d4bb804d160a0c98bdbdd8051a2715eee5f89";
-    hash = "sha256-1mD8cGa+fY8nqLT0APHTLaUjtvgDaMz+NwnwnkiN2HQ=";
-    date = "2026-11-03";
+    rev = "3876d9c4c21f7527a5391cf52a0c71fcd8d28972";
+    hash = "sha256-28+6gCK3qD7HyLNW68+1BjSV12QExg96rQqNJzdxtwo=";
+    date = "2026-11-13";
   };
   cutefish-compositor = {
     repo = "cutefish-compositor";
-    rev = "bf5d31501c9a0f8968f2373ac312575d3b01b292";
-    hash = "sha256-1wV9hvm/uY3IBltzPRLnYUZSi5f+PEyq4SqJ86UwIUc=";
-    date = "2026-11-03";
+    rev = "32d3f49877aeb4e763a400dc1ff6af6c88594886";
+    hash = "sha256-59ZaAA8otu87w/3wxB/mTlsDwJl00Gklykd7HUsJ3M4=";
+    date = "2026-11-13";
   };
   cutefish-settings = {
     repo = "settings";
-    rev = "ff636bcc20f8652983830db270bd5b7efd867fbf";
-    hash = "sha256-nv9nqXvQCRxwNEEUODU5EORy0ojAaDY3jGVWqxbOaPI=";
-    date = "2026-11-03";
+    rev = "9265d7e8f85231bdf8df06b2cc0f944e7d543379";
+    hash = "sha256-vy7wjF3mjui/N3N9kRn35//IyySuZFiVT9X2fwTGpSM=";
+    date = "2026-11-13";
   };
   cutefish-filemanager = {
     repo = "filemanager";
-    rev = "b9a271264531c8bafa14e6aa400fa3af1a3d7878";
-    hash = "sha256-SDEjypzlQUOdgRxTXqDsRoRKxfjUp0bzbrVlK4uIXrw=";
-    date = "2026-11-02";
+    rev = "4dd74697675622dff6666dbeb0d158c7ef41a733";
+    hash = "sha256-puxt+O335fIOxfvWUePDlIbEh8EyjA+IU60bVATEZyU=";
+    date = "2026-11-13";
   };
   cutefish-terminal = {
     repo = "terminal";
-    rev = "aae85843ffd3f1c68cc065ca9ef2302a15365853";
-    hash = "sha256-KAkrz+YuJZycM1VcgmHlMVO7sDxalSjFPnf5ecvXS4g=";
-    date = "2026-11-02";
+    rev = "0cfee93e8d7e637f8952321e7bc8e51c14e64512";
+    hash = "sha256-ukA0IodEs+on9uvR7G4bIB3bPOED8lE8KBvoO+RsxSY=";
+    date = "2026-11-13";
   };
   cutefish-text-editor = {
     repo = "text-editor";
-    rev = "fd51b28872db13548bfdd9223b06c916d65dbdef";
-    hash = "sha256-ZeJTCIXsCXdhl2srY7kx2JLwKtjHUhla0L3EUUp+fkg=";
-    date = "2026-11-02";
+    rev = "d9224b779f967420a0b50d866792c1f7a35aa438";
+    hash = "sha256-a/XCHG8JmgSNCenHnUXwjeMKOq6QrcWfNa/KESYsqqA=";
+    date = "2026-11-13";
   };
   cutefish-video-player = {
     repo = "video-player";
-    rev = "33db5e6c2db90088895962084e57731d03d7d85a";
-    hash = "sha256-m54sDovxcTaezZEjkscMez5RZOqZ23YYhpAS/N3CvFY=";
-    date = "2026-11-02";
+    rev = "0eb6080caa7928ccb6734d7041f245dd549fdb5c";
+    hash = "sha256-sODtstqflk5oBeNl/OEVahVcnA3ccbbvcxKjjAoAOQs=";
+    date = "2026-11-13";
   };
   cutefish-calendar = {
     repo = "calendar";
-    rev = "aa74cb66e9f6204c50452071caa51264e40b5a5b";
-    hash = "sha256-tf9bQ1R8ZMWTuex/NJocCL0dEiEjz+YXN+N/pXXRNLo=";
-    date = "2026-11-02";
+    rev = "2ae660c3ca19176324eb2531aaf0780d207ddb82";
+    hash = "sha256-gX45XE2s07qCGLVPKl3mLKa03VaeAOCnZ+LkdBJK2ZE=";
+    date = "2026-11-13";
   };
   cutefish-system-monitor = {
     repo = "system-monitor";
-    rev = "74068cb81393debe3ab1eaf166be064087f40d64";
-    hash = "sha256-PWfatvzG8nab7v35GldhFr7FsTdQCrk2BBjZxCiXBkc=";
-    date = "2026-11-02";
+    rev = "05ad64f46575a9b1c9cd59018d89daab955bd641";
+    hash = "sha256-xeBRi5YGknvvs/p4+H1yS+VsidsGHh4e55cIzVHBW3k=";
+    date = "2026-11-13";
   };
   cutefish-calculator = {
     repo = "calculator";
-    rev = "7994fab9ca65098305c7d1e5b2f0affcd7d9189e";
-    hash = "sha256-8xTwrG3aqDDKrROWpJUpWDkLYGItCKtA8GLWflAQm5E=";
-    date = "2026-10-23";
+    rev = "e15265975bf0579f1bcd50b51a039dc940f727aa";
+    hash = "sha256-zodNnwBP1ar0pdUGi9ek9Lu8s1IZd31QErQzWIELejc=";
+    date = "2026-11-13";
   };
   cutefish-icons = {
     repo = "icons";
-    rev = "a38be51fe7f6a87a9b2bb4928f8d96134a066848";
-    hash = "sha256-KgSxAv+OkDp7vtAhYJmh7VdBm2QlDdlo9ejxsqgPR7E=";
-    date = "2026-10-26";
+    rev = "46fdf103ba9912bb820f03ee6bfe1d6d3d4889ee";
+    hash = "sha256-JhAFEQDaJrtyvscu7Mh2hZLzluLaBZq584gm0KMEP/Y=";
+    date = "2026-11-13";
   };
   cutefish-wallpapers = {
     repo = "wallpapers";
-    rev = "ba6fbf6bd96536bbd9ef058fcb974b610dc0ca7b";
-    hash = "sha256-AWbIg1b33J85TlUGjhpoYN47VhtLoR0TzHBVAnIgdLQ=";
-    date = "2026-10-31";
+    rev = "d0e37fb7e9a6498b0d5f31c51a7df3facbae15c9";
+    hash = "sha256-vynkQpABKXa/tiv0IogOcthfeZiL8guYpeCw28bjpFw=";
+    date = "2026-11-13";
   };
   cutefish-qt-plugins = {
     repo = "qt-plugins";
@@ -93,14 +93,14 @@
   };
   cutefish-dm = {
     repo = "cutefish-dm";
-    rev = "77e122903da3d8a1afbd80a9f240b0f318539b17";
-    hash = "sha256-PgJGaDbnBSzO/EdThmqr00A1JxzoZ6IIwCPE7riY9K0=";
-    date = "2026-10-28";
+    rev = "d8574748931b20081fc5a959717c540bc9c0acf4";
+    hash = "sha256-/P8zAts6MRabzFRHdJ6NYWKJPJsBac+F2t8Mp2t6194=";
+    date = "2026-11-13";
   };
   xdg-desktop-portal-cutefish = {
     repo = "xdg-desktop-portal-cutefish";
-    rev = "03d019c0bf5cb875881f852b6a74e2b1670a5949";
-    hash = "sha256-x9RvruXCTrSY7lbpLf6rrcwxLUsAM35Cd9Gjvgqf+64=";
-    date = "2026-10-20";
+    rev = "19765bcce46880e36a8cfb6b7bdcc6bd09076b59";
+    hash = "sha256-y6I2vEuWIeZ5onV+LknRBheVdgKGje/ODMSyFeR/J14=";
+    date = "2026-11-04";
   };
 }

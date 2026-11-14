@@ -18,7 +18,7 @@ mkCutefishDerivation {
       --replace-fail 'DESTINATION /usr/lib/systemd/system' 'DESTINATION lib/systemd/system' \
       --replace-fail 'DESTINATION /usr/lib/systemd/user/''${unit}.d' 'DESTINATION lib/systemd/user/''${unit}.d'
     substituteInPlace data/cutefish-dm.service \
-      --replace-fail 'ExecStart=/usr/bin/cutefish-dm' "ExecStart=$out/bin/cutefish-dm"
+      --replace-fail 'ExecStart=/usr/bin/cutefish-dm' 'ExecStart=${placeholder "out"}/bin/cutefish-dm'
     substituteInPlace helper/main.cpp \
       --replace-fail 'PATH=/usr/local/bin:/usr/bin:/bin' \
         'PATH=/run/wrappers/bin:/run/current-system/sw/bin:/usr/local/bin:/usr/bin:/bin'
@@ -32,8 +32,8 @@ mkCutefishDerivation {
   meta = {
     description = "Display manager for the Cutefish desktop";
     longDescription = ''
-      The Wayland session also logs in through SDDM, GDM or LightDM.
-      services.desktopManager.cutefish does not enable this display manager.
+      Enable it with services.displayManager.cutefish-dm.enable; the Wayland
+      session also logs in through SDDM, GDM or LightDM.
     '';
     mainProgram = "cutefish-dm";
   };

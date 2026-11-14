@@ -1,6 +1,5 @@
-diff --git a/src/base/paths.cpp b/src/base/paths.cpp
---- a/src/base/paths.cpp
-+++ b/src/base/paths.cpp
+--- a/src/base/paths.cpp	2026-11-14 02:21:15.719554135 +1100
++++ b/src/base/paths.cpp	2026-11-14 02:21:15.787553811 +1100
 @@ -3,6 +3,7 @@
  
  #include "base/paths.h"
@@ -45,9 +44,9 @@ diff --git a/src/base/paths.cpp b/src/base/paths.cpp
 +    if (!fromEnv.empty())
 +        return fromEnv;
      // Where Flatpak exports its installed applications' entries and icons,
-     // ahead of the system's as Flatpak orders them.
-     return {dataHome() + "/flatpak/exports/share", "/var/lib/flatpak/exports/share", "/usr/local/share", "/usr/share"};
-@@ -59,6 +84,9 @@
+     // ahead of the system's as Flatpak orders them. Snap exports its entries
+     // and icons under /var/lib/snapd/desktop, after the system's directories.
+@@ -61,6 +86,9 @@
  
  std::vector<std::string> configDirectories()
  {
@@ -57,15 +56,15 @@ diff --git a/src/base/paths.cpp b/src/base/paths.cpp
      return {"/etc/xdg"};
  }
  
-@@ -125,8 +153,14 @@
+@@ -127,8 +155,14 @@
      if (program.find('/') != std::string::npos)
          return access(program.c_str(), X_OK) == 0 ? program : std::string();
  
 -    const std::string directories[] = {home() + "/.local/bin", "/usr/local/sbin", "/usr/local/bin",
--                                       "/usr/sbin", "/usr/bin", "/sbin", "/bin"};
+-                                       "/usr/sbin", "/usr/bin", "/sbin", "/bin", "/snap/bin"};
 +    std::vector<std::string> directories = splitColon(std::getenv("PATH"));
 +    if (directories.empty()) {
-+        directories = {"/usr/local/sbin", "/usr/local/bin", "/usr/sbin", "/usr/bin", "/sbin", "/bin"};
++        directories = {"/usr/local/sbin", "/usr/local/bin", "/usr/sbin", "/usr/bin", "/sbin", "/bin", "/snap/bin"};
 +    }
 +    // NixOS keeps system executables in the system profile, and the session is
 +    // the process that starts the rest of the desktop.
@@ -74,9 +73,8 @@ diff --git a/src/base/paths.cpp b/src/base/paths.cpp
      for (const std::string& directory : directories) {
          const std::string path = directory + "/" + program;
          if (access(path.c_str(), X_OK) == 0)
-diff --git a/src/base/paths.h b/src/base/paths.h
---- a/src/base/paths.h
-+++ b/src/base/paths.h
+--- a/src/base/paths.h	2026-11-14 02:21:15.719554135 +1100
++++ b/src/base/paths.h	2026-11-14 02:21:15.787553811 +1100
 @@ -6,8 +6,9 @@
  #include <string>
  #include <vector>
@@ -89,24 +87,26 @@ diff --git a/src/base/paths.h b/src/base/paths.h
  namespace cutefish::base::paths {
  
  std::string home();
-@@ -21,9 +22,9 @@
+@@ -21,10 +22,10 @@
  std::string stateHome();
  // /run/user/<uid>
  std::string runtimeDirectory();
--// The user's and the system's Flatpak exports, /usr/local/share and /usr/share
-+// XDG_DATA_DIRS, or the user's and system's Flatpak exports, /usr/local/share and /usr/share
+-// The user's and the system's Flatpak exports, /usr/local/share, /usr/share,
+-// then /var/lib/snapd/desktop for Snap entries and icons.
++// XDG_DATA_DIRS, or the user's and system's Flatpak exports, /usr/local/share,
++// /usr/share and /var/lib/snapd/desktop for Snap entries and icons.
  std::vector<std::string> dataDirectories();
 -// /etc/xdg
 +// XDG_CONFIG_DIRS, or /etc/xdg
  std::vector<std::string> configDirectories();
  // ~/.config/cutefish/<name>.conf, a Cutefish process's own settings.
  std::string cutefishConfig(const std::string& name);
-@@ -46,8 +47,8 @@
+@@ -47,8 +48,8 @@
  // The same from another user-dirs.dirs file, for tests.
  std::string userDirectory(UserDirectory directory, const std::string& userDirsFile);
  
 -// The program's path through ~/.local/bin and the system's binary
--// directories, or itself when it has a slash; empty when not executable.
+-// directories, then /snap/bin, or itself when it has a slash; empty when not executable.
 +// The program's path through ~/.local/bin, PATH and the NixOS system profile,
 +// or itself when it has a slash; empty when not executable.
  std::string findExecutable(const std::string& program);

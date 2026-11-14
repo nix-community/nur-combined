@@ -168,21 +168,32 @@ implemented as Nix update-script combinator lists are transparently wrapped and 
 ## More
 
 
-Cutefish (https://cutefish.org/) is a Wayland desktop. Enable the NixOS module; it registers the session, the lock-screen PAM service and the portals, and installs the shell plus the default applications. Installing one `pkgs.cutefish-*` package on its own does none of that. Pick **Cutefish (Wayland)** in SDDM, GDM or LightDM; the module does not enable a display manager. `cutefish-dm` stays packaged separately (`pkgs.cutefish-dm`) and is left disabled.
+Cutefish (https://cutefish.org/) is a Wayland desktop. Enable the NixOS module; it registers the session, the lock-screen PAM service and the portals, and installs the shell plus the default applications. Installing one `pkgs.cutefish-*` package on its own does none of that. Pick **Cutefish (Wayland)** in an existing display manager, or enable the packaged Cutefish display manager.
 
 ```nix
 imports = [ inputs.mio.nixosModules.cutefish ];
 # or inputs.mio.legacyPackages.${system}.modules.cutefish
 
 services.desktopManager.cutefish.enable = true;
-services.displayManager.sddm.enable = true; # or gdm / lightdm
+services.displayManager.sddm.enable = true; # or gdm / lightdm, or:
+# services.displayManager.cutefish-dm.enable = true;
 services.displayManager.sddm.wayland.enable = true;
+
+# Automatic login uses the shared display manager options:
+services.displayManager.autoLogin.enable = true;
+services.displayManager.autoLogin.user = "alice";
 
 # Optional applications (terminal, text editor, video player, calendar,
 # system monitor, calculator) can be dropped individually:
 environment.cutefish.excludePackages = [ pkgs.cutefish-video-player ];
 ```
 
-The desktop has a VM test (`nix build .#checks.x86_64-linux.cutefish`). It follows the NixOS desktop-manager tests: SDDM logs a user into the Wayland session on a virtio GPU, and the test checks the registered session file, the compositor, session and shell processes, the logind session type, the session environment, the portal backend, `environment.cutefish.excludePackages`, and that nothing coredumped. It boots a QEMU VM and saves a screenshot, so it is registered for x86_64-linux only.
+The desktop has three VM tests, all on a virtio GPU in QEMU with a screenshot:
+
+- `nix build .#checks.x86_64-linux.cutefish` follows the NixOS desktop-manager tests. SDDM logs a user into the Wayland session, and the test checks the registered session file, the compositor, session and shell processes, the logind session type, the session environment, the portal backend, `environment.cutefish.excludePackages`, and that nothing coredumped.
+- `nix build .#checks.x86_64-linux.cutefish-dm` does the same with `services.displayManager.cutefish-dm.enable` and automatic login, and also checks that the daemon owns `display-manager.service` and its PAM service.
+- `nix build .#checks.x86_64-linux.cutefish-dm-greeter` boots cutefish-dm without automatic login and checks the login-screen compositor, the greeter user, the greeter PAM service, and the logind greeter session.
+
+They boot QEMU VMs and are registered for x86_64-linux only.
 
 Languages besides the ones in `i18n.supportedLocales` are not generated into the NixOS locale archive.
