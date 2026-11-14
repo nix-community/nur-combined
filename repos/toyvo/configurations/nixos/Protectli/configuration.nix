@@ -206,6 +206,12 @@ in
   # (pid + logger lockfiles, control socket); declare it explicitly.
   systemd.services.kea-dhcp4-server.serviceConfig.RuntimeDirectory = "kea";
   systemd.services.kea-dhcp6-server.serviceConfig.RuntimeDirectory = "kea";
+  # The exporter shares kea's /run/kea runtime dir; a second DynamicUser
+  # identity fights over it (233/RUNTIME_DIRECTORY). Run it as the kea
+  # user too (stateless, only connects to kea's control socket).
+  systemd.services.prometheus-kea-exporter.serviceConfig.DynamicUser = lib.mkForce false;
+  systemd.services.prometheus-kea-exporter.serviceConfig.User = lib.mkForce "kea";
+  systemd.services.prometheus-kea-exporter.serviceConfig.Group = lib.mkForce "kea";
   # Activation scripts don't run at boot, so on tmpfs root nothing would
   # reinstall /run/secrets after a reboot (k3s then waits on the token
   # forever). The systemd unit installs them at every boot instead.
