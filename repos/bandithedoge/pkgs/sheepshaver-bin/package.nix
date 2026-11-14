@@ -6,10 +6,10 @@
 }:
 appimageTools.wrapType2 (finalAttrs: {
   pname = "sheepshaver-bin";
-  version = "2026-10-11";
+  version = "2026-11-11";
   src = fetchurl {
     url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/${finalAttrs.version}/SheepShaver-x86_64.AppImage";
-    sha256 = "sha256-8t1CzAz1u833jaZMPSXTQwuSFeyWkp894PNr1CFbvhg=";
+    sha256 = "sha256-otIBWgBy5yF8QKGyTodxPr7y8WTxMYLxF00gqY5YMVI=";
   };
 
   extraPkgs =

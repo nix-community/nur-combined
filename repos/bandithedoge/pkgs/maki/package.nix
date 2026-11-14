@@ -4,21 +4,30 @@
   nix-update-script,
   rustPlatform,
 
+  aws-lc,
   perl,
+  pkg-config,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "maki";
-  version = "0.7.1";
+  version = "0.7.2";
   src = fetchFromGitHub {
     owner = "tontinton";
     repo = "maki";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-Jtpi75JH2LIlrfNTVDwePYNqVuBYRPGyG/f1aZuTmUw=";
+    hash = "sha256-zV+J2fMaa8JUWyP0veQT6Le9s0t4iHHmKWhmPXPrATQ=";
   };
 
-  cargoHash = "sha256-5+hgRI3XyPdRcefSokYUXHrgjp2k8i1+9D3lCujm9uk=";
+  cargoHash = "sha256-Ld0mj+4URAUMjMyCfDW8dBK8dSse28c4FTcxkLh1mQY=";
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [
+    perl
+    pkg-config
+  ];
+
+  buildInputs = [
+    aws-lc
+  ];
 
   passthru.updateScript = nix-update-script { };
 

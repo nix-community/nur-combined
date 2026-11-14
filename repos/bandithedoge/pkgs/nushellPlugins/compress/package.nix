@@ -2,8 +2,11 @@
   fetchFromGitHub,
   lib,
   nix-update-script,
-  nushell,
   rustPlatform,
+
+  nushell,
+  pkg-config,
+  zstd,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "nu-plugin-compress";
@@ -16,6 +19,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-lNEKD3VVzi4KPMBEyZHb1LkZ5sRlYSLRM6cae4zv4uY=";
+
+  nativeBuildInputs = [
+    pkg-config
+  ];
+
+  buildInputs = [
+    zstd
+  ];
 
   passthru.updateScript = nix-update-script { };
 

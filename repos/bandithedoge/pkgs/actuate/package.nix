@@ -8,6 +8,7 @@
   libx11,
   libxcb,
   pkg-config,
+  zstd,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "actuate";
@@ -29,6 +30,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     libGL
     libx11
     libxcb
+    zstd
   ];
 
   postBuild = ''

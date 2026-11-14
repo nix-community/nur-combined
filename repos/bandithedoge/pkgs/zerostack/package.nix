@@ -11,20 +11,22 @@
   nix-update-script,
   rustPlatform,
 
+  aws-lc,
   mold,
+  pkg-config,
   writableTmpDirAsHomeHook,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "zerostack";
-  version = "1.8.5";
+  version = "1.8.6";
   src = fetchFromGitHub {
     owner = "gi-dellav";
     repo = "zerostack";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-i6J+7OxXa3tD0Yq/yfHmMPf5kMn51tWvaXYzgRj6YS8=";
+    hash = "sha256-lexZZHDAMsaRyoaa7ptxMUWNZmj/1Mv8apMhbBep6zU=";
   };
 
-  cargoHash = "sha256-zmVbxKETpuFgL9SUb2OCq/t80r2ai1tM/vpu4KhWf24=";
+  cargoHash = "sha256-szlDZa4Z9tG+YQWpwcAmjtZSo96ss7nBOLN8nZTb7no=";
   buildFeatures =
     lib.optional withAcp "acp"
     ++ lib.optional withAdvisor "advisor"
@@ -33,9 +35,18 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ++ lib.optional withMultimodal "multimodal"
     ++ lib.optional withPdf "pdf";
 
-  nativeBuildInputs = [ mold ];
+  nativeBuildInputs = [
+    mold
+    pkg-config
+  ];
 
-  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
+  buildInputs = [
+    aws-lc
+  ];
+
+  nativeCheckInputs = [
+    writableTmpDirAsHomeHook
+  ];
 
   doCheck = false;
 

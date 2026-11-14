@@ -4,6 +4,9 @@
   lib,
   nix-update-script,
   rustPlatform,
+
+  pkg-config,
+  sqlite,
   wild,
 }:
 rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } (finalAttrs: {
@@ -18,7 +21,14 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } (finalAttrs: {
 
   cargoHash = "sha256-twPCq6VEAWezccoP4c/UqIgIgseXwQa60zxHsZE4fbU=";
 
-  nativeBuildInputs = [ wild ];
+  nativeBuildInputs = [
+    pkg-config
+    wild
+  ];
+
+  buildInputs = [
+    sqlite
+  ];
 
   doCheck = false;
 

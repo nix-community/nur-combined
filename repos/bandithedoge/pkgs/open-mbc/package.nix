@@ -7,6 +7,7 @@
   alsa-lib,
   fontconfig,
   libGL,
+  libgit2,
   libjack2,
   libx11,
   libxcb,
@@ -30,11 +31,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   buildInputs = [
     alsa-lib
+    fontconfig
+    libGL
+    libgit2
     libjack2
     libx11
-    libGL
     libxcb
-    fontconfig
   ];
 
   installPhase = ''
