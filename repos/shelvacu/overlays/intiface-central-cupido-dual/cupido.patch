@@ -1,72 +1,56 @@
-From 0608b20ee67f689918889bdd90c4ecb81cff23de Mon Sep 17 00:00:00 2001
+From 21c704028239cbb951230fe7aefdfa31567f3c7f Mon Sep 17 00:00:00 2001
 From: Shelvacu <git@shelvacu.com>
 Date: Fri, 13 Nov 2026 11:53:55 -0800
-Subject: [PATCH] cupido: support second vibrator
+Subject: [PATCH] cupido: support second (vibration) motor
+
+The B0 03 frame only drives the tapping motor. The vendor app (ActiveJoy)
+drives the vibration motor with B0 01 00 00 <pattern> <strength 0-100>.
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 ---
- .../src/device/protocol_impl/cupido.rs        | 22 ++++++++++++++-----
- .../buttplug-device-config-v4.json            | 16 +++++++++++++-
- .../device-config-v4/protocols/cupido.yml     | 11 +++++++++-
- .../device-config-v4/version.yaml             |  2 +-
- .../tests/test_device_protocols.rs            |  4 ++--
- .../test_cupido_protocol.yaml                 | 15 ++++++++++++-
- 6 files changed, 58 insertions(+), 12 deletions(-)
+ .../src/device/protocol_impl/cupido.rs         | 18 ++++++++++--------
+ .../buttplug-device-config-v4.json             | 16 +++++++++++++++-
+ .../device-config-v4/protocols/cupido.yml      | 11 ++++++++++-
+ .../device-config-v4/version.yaml              |  2 +-
+ .../tests/test_device_protocols.rs             |  4 ++--
+ .../device_test_case/test_cupido_protocol.yaml | 17 +++++++++++++++++
+ 6 files changed, 55 insertions(+), 13 deletions(-)
 
 diff --git a/crates/buttplug_server/src/device/protocol_impl/cupido.rs b/crates/buttplug_server/src/device/protocol_impl/cupido.rs
-index 644392c..e2d360c 100644
+index 644392c4..cf394a49 100644
 --- a/crates/buttplug_server/src/device/protocol_impl/cupido.rs
 +++ b/crates/buttplug_server/src/device/protocol_impl/cupido.rs
-@@ -5,7 +5,9 @@
- // Licensed under the BSD 3-Clause license. See LICENSE file in the project root
- // for full license information.
- 
--use uuid::Uuid;
-+use std::sync::atomic::{AtomicU8, Ordering};
-+
-+use uuid::{Uuid, uuid};
- 
- use crate::device::{
-   hardware::{HardwareCommand, HardwareWriteCmd},
-@@ -14,23 +16,31 @@ use crate::device::{
- use buttplug_core::errors::ButtplugDeviceError;
- use buttplug_server_device_config::Endpoint;
- 
-+// Both motors share one frame, so they share a command id.
-+const MOTOR_COMMAND_ID: Uuid = uuid!("0a3f0c8e-5d6b-4a2f-9e43-6f1c7b2d8e51");
-+
- generic_protocol_setup!(Cupido, "cupido");
- 
- #[derive(Default)]
--pub struct Cupido {}
-+pub struct Cupido {
-+  motors: [AtomicU8; 2],
-+}
- 
+@@ -22,18 +22,20 @@ pub struct Cupido {}
  impl ProtocolHandler for Cupido {
    fn handle_output_vibrate_cmd(
      &self,
 -    _feature_index: u32,
--    feature_id: Uuid,
 +    feature_index: u32,
-+    _feature_id: Uuid,
+     feature_id: Uuid,
      speed: u32,
    ) -> Result<Vec<HardwareCommand>, ButtplugDeviceError> {
-+    self.motors[(feature_index as usize).min(1)].store(speed as u8, Ordering::Relaxed);
-+    let motor1 = self.motors[0].load(Ordering::Relaxed);
-+    let motor2 = self.motors[1].load(Ordering::Relaxed);
++    let data = if feature_index == 0 {
++      // Tapping motor, direct level (the vendor app's touch/music mode)
++      vec![0xb0, 0x03, 0, 0, 0, speed as u8, 0xaa]
++    } else {
++      // Vibration motor only takes pattern + strength; pattern 1 is steady
++      let pattern = if speed == 0 { 0 } else { 1 };
++      vec![0xb0, 0x01, 0, 0, pattern, speed as u8]
++    };
      Ok(vec![
-       HardwareWriteCmd::new(
+-      HardwareWriteCmd::new(
 -        &[feature_id],
-+        &[MOTOR_COMMAND_ID],
-         Endpoint::Tx,
+-        Endpoint::Tx,
 -        vec![0xb0, 0x03, 0, 0, 0, speed as u8, 0xaa],
-+        vec![0xb0, 0x03, 0, 0, motor2, motor1, 0xaa],
-         false,
-       )
-       .into(),
+-        false,
+-      )
+-      .into(),
++      HardwareWriteCmd::new(&[feature_id], Endpoint::Tx, data, false).into(),
+     ])
+   }
+ 
 diff --git a/crates/buttplug_server_device_config/build-config/buttplug-device-config-v4.json b/crates/buttplug_server_device_config/build-config/buttplug-device-config-v4.json
-index a85f6e0..585317c 100644
+index a85f6e07..0ad37c9d 100644
 --- a/crates/buttplug_server_device_config/build-config/buttplug-device-config-v4.json
 +++ b/crates/buttplug_server_device_config/build-config/buttplug-device-config-v4.json
 @@ -1,7 +1,7 @@
@@ -74,7 +58,7 @@ index a85f6e0..585317c 100644
    "version": {
      "major": 4,
 -    "minor": 189
-+    "minor": 190
++    "minor": 191
    },
    "protocols": {
      "activejoy": {
@@ -82,7 +66,7 @@ index a85f6e0..585317c 100644
        "defaults": {
          "features": [
            {
-+            "description": "Vibrator 1",
++            "description": "Tapping",
              "id": "7f645006-1074-415f-8b06-43aa473573c0",
              "index": 0,
              "output": {
@@ -92,14 +76,14 @@ index a85f6e0..585317c 100644
              }
 +          },
 +          {
-+            "description": "Vibrator 2",
++            "description": "Vibration",
 +            "id": "3b9e2d47-8c1a-4f6e-b5d0-92a7e4c61f38",
 +            "index": 1,
 +            "output": {
 +              "vibrate": {
 +                "value": [
 +                  0,
-+                  255
++                  100
 +                ]
 +              }
 +            }
@@ -107,7 +91,7 @@ index a85f6e0..585317c 100644
          ],
          "id": "8ef3fe28-6903-4418-9dd8-5323788ca961",
 diff --git a/crates/buttplug_server_device_config/device-config-v4/protocols/cupido.yml b/crates/buttplug_server_device_config/device-config-v4/protocols/cupido.yml
-index 893516e..692ccb1 100644
+index 893516e9..831de949 100644
 --- a/crates/buttplug_server_device_config/device-config-v4/protocols/cupido.yml
 +++ b/crates/buttplug_server_device_config/device-config-v4/protocols/cupido.yml
 @@ -2,13 +2,22 @@
@@ -115,7 +99,7 @@ index 893516e..692ccb1 100644
    name: Cupido Device
    features:
 -  - id: 7f645006-1074-415f-8b06-43aa473573c0
-+  - description: Vibrator 1
++  - description: Tapping
 +    id: 7f645006-1074-415f-8b06-43aa473573c0
      output:
        vibrate:
@@ -123,28 +107,28 @@ index 893516e..692ccb1 100644
          - 0
          - 255
      index: 0
-+  - description: Vibrator 2
++  - description: Vibration
 +    id: 3b9e2d47-8c1a-4f6e-b5d0-92a7e4c61f38
 +    output:
 +      vibrate:
 +        value:
 +        - 0
-+        - 255
++        - 100
 +    index: 1
    id: 8ef3fe28-6903-4418-9dd8-5323788ca961
  communication:
  - btle:
 diff --git a/crates/buttplug_server_device_config/device-config-v4/version.yaml b/crates/buttplug_server_device_config/device-config-v4/version.yaml
-index d9cf432..04e9442 100644
+index d9cf4324..aee9a8fe 100644
 --- a/crates/buttplug_server_device_config/device-config-v4/version.yaml
 +++ b/crates/buttplug_server_device_config/device-config-v4/version.yaml
 @@ -1,3 +1,3 @@
  version:
    major: 4
 -  minor: 189
-+  minor: 190
++  minor: 191
 diff --git a/crates/buttplug_tests/tests/test_device_protocols.rs b/crates/buttplug_tests/tests/test_device_protocols.rs
-index cb35d8c..877a693 100644
+index cb35d8c1..877a693d 100644
 --- a/crates/buttplug_tests/tests/test_device_protocols.rs
 +++ b/crates/buttplug_tests/tests/test_device_protocols.rs
 @@ -1024,7 +1024,7 @@ async fn test_device_protocols_json_v1(test_file: &str) {
@@ -166,7 +150,7 @@ index cb35d8c..877a693 100644
  #[test_case("test_feelingso.yaml" ; "FeelingSo Protocol")]
  #[test_case("test_fluffer_protocol.yaml" ; "Fluffer Protocol")]
 diff --git a/crates/buttplug_tests/tests/util/device_test/device_test_case/test_cupido_protocol.yaml b/crates/buttplug_tests/tests/util/device_test/device_test_case/test_cupido_protocol.yaml
-index d711a1f..4d28403 100644
+index d711a1f4..96ab977a 100644
 --- a/crates/buttplug_tests/tests/util/device_test/device_test_case/test_cupido_protocol.yaml
 +++ b/crates/buttplug_tests/tests/util/device_test/device_test_case/test_cupido_protocol.yaml
 @@ -16,6 +16,19 @@ device_commands:
@@ -184,20 +168,19 @@ index d711a1f..4d28403 100644
 +      commands:
 +        - !Write
 +          endpoint: tx
-+          data: [0xb0, 0x03, 0x00, 0x00, 0x40, 0x80, 0xaa]
++          data: [0xb0, 0x01, 0x00, 0x00, 0x01, 0x19]
 +          write_with_response: false
    - !Messages
        device_index: 0
        messages:
-@@ -27,7 +40,7 @@ device_commands:
-       commands:
-         - !Write
+@@ -40,3 +53,7 @@ device_commands:
            endpoint: tx
--          data: [0xb0, 0x03, 0x00, 0x00, 0x00, 0xc0, 0xaa]
-+          data: [0xb0, 0x03, 0x00, 0x00, 0x40, 0xc0, 0xaa]
+           data: [0xb0, 0x03, 0x00, 0x00, 0x00, 0x00, 0xaa]
            write_with_response: false
-   - !Messages
-       device_index: 0
++        - !Write
++          endpoint: tx
++          data: [0xb0, 0x01, 0x00, 0x00, 0x00, 0x00]
++          write_with_response: false
 -- 
 2.56.0
 
