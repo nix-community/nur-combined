@@ -303,25 +303,22 @@ def validate_package(package, system):
 
 def update_nix_package(package):
     print(f"==> Updating {package}", flush=True)
-    command = ["nix-update", package, "--flake", "--build", "--format"]
+    args = [package, "--flake", "--build", "--format"]
     extra = NIX_UPDATE_ARGS.get(package, ["--use-github-releases"])
     if package == "rea":
-        command = ["nix-update", package, "--flake", *extra]
+        args = [package, "--flake", *extra]
     else:
-        command.extend(extra)
-    # nix-update's own wrapper prepends its store nix, hiding PATH edits made
-    # before exec. Reapply the materializing nix after that wrapper runs.
-    env = nix_update_env()
-    wrap = env["PATH"].split(os.pathsep)[0]
-    command = [
-        "sh",
-        "-c",
-        'export PATH="$1:$PATH"; shift; exec "$@"',
-        "nur-nix-materialize",
-        wrap,
-        *command,
-    ]
-    run(command, cwd=REPO_ROOT, env=env)
+        args.extend(extra)
+    # The nix-update wrapper prepends its store nix immediately before exec,
+    # so a PATH edit around `nix-update` never reaches its subprocesses.
+    # Call the wrapped program directly and keep the materializing nix first.
+    launcher = shutil.which("nix-update")
+    if launcher is None:
+        raise UpdateError("nix-update not found on PATH")
+    wrapped = Path(launcher).resolve().parent / ".nix-update-wrapped"
+    if not wrapped.is_file():
+        raise UpdateError(f"nix-update wrapper target missing: {wrapped}")
+    run([str(wrapped), *args], cwd=REPO_ROOT, env=nix_update_env())
 
 
 def update_binary_package(package, system):
