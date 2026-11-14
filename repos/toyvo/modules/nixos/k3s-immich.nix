@@ -230,9 +230,9 @@ in
           resources.requests.storage = "100Gi";
         };
       };
-      # Server + ML stay at 0 replicas until cutover day (anti-goal: never
-      # run two servers against one library/DB). Task 3 scales them up
-      # after the container is stopped and the DB is restored.
+      # Replicas are 1 post-cutover (container retired 2026-11-14, DB
+      # restored + verified). Dark phase used 0 to enforce the
+      # never-run-two-servers anti-goal; do NOT scale back to 0.
       "immich-server-deployment.yaml".content = {
         apiVersion = "apps/v1";
         kind = "Deployment";
@@ -241,7 +241,7 @@ in
           labels.app = "immich-server";
         };
         spec = {
-          replicas = 0;
+          replicas = 1;
           selector.matchLabels.app = "immich-server";
           template = {
             metadata.labels.app = "immich-server";
@@ -366,7 +366,7 @@ in
           labels.app = "immich-machine-learning";
         };
         spec = {
-          replicas = 0;
+          replicas = 1;
           selector.matchLabels.app = "immich-machine-learning";
           template = {
             metadata.labels.app = "immich-machine-learning";

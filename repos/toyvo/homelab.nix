@@ -137,6 +137,12 @@
     ip = "10.200.0.12";
     services.immich = {
       port = 2283;
+      # Served from k3s via Traefik (cut over 2026-11-14). Keeps the old
+      # container IP documented for rollback; edge route is gone.
+      upstreams = [
+        "10.1.0.3:30080"
+        "10.1.0.12:30080"
+      ];
       # has oauth configured with authentik
       forwardAuthGate = false;
       displayName = "Immich";

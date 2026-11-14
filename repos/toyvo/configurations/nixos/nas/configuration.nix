@@ -347,7 +347,10 @@ in
   };
   nixcfg.containers = {
     immich = {
-      enable = true;
+      # Retired to k3s 2026-11-14 (DB restored + counts verified, server
+      # serving). Disabled (not deleted) so rollback is one flag flip;
+      # POOL state dirs remain on disk either way.
+      enable = false;
       natInterface = "eno1";
       stateDir = "/mnt/POOL/immich";
     };
