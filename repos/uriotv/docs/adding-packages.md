@@ -143,11 +143,26 @@ closures, so dependencies also must be redistributable. Never mislabel a package
 or dependency merely to make it upload. NMSSaveEditor currently stays unfree and
 is built for validation but never explicitly sent to the public cache.
 
-Publication is automatic, but only from a successful `main` run, after offline
-tests and all package builds pass. The helper cross-checks built outputs against
-the manifest and verifies public narinfo `StorePath` values. PRs/updaters have no
-Cachix write token. Public cache misses can still lead consumers to build locally;
-Cachix retention/availability and differing consumer nixpkgs are not guaranteed.
+Publication is automatic, but only from a trusted `main` run, after the offline
+tests pass. The helper cross-checks built outputs against the manifest and verifies
+public narinfo `StorePath` values. PRs/updaters have no Cachix write token.
+
+Publication granularity follows the shape of the revision (`build.yml` compares
+the commit with its parent; `scripts/build-ci.sh` applies the decision):
+
+- `flake.lock`/`flake.nix` are shared by every package, so a commit that moves
+them is published **all-or-nothing**: one failing package means nothing is pushed.
+  An unknown revision shape (no parent commit) counts as a shared change.
+- A **package-only** commit publishes exactly the packages that built, so one
+  broken package does not hold back the rest of the cache. The run still fails and
+  the `cache` branch only advances for a commit whose whole build succeeded.
+
+Package updates are per package in the same way: `scripts/update-packages.sh`
+restores only the failing updater's directory and keeps the remaining updates in
+the same PR.
+
+Public cache misses can still lead consumers to build locally; Cachix
+retention/availability and differing consumer nixpkgs are not guaranteed.
 
 ## Validate before submitting
 

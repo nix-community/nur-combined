@@ -15,9 +15,11 @@ strict-Bash updater, then runs:
 - `ci-workflow.py`: stubbed Nix/Cachix/curl; build every package and output,
   including non-cacheable ones; continue then fail on build errors; both Nix
   JSON output formats; malformed manifests/outputs; publication restrictions,
-  complete output matching, HTTP/upload failures and exact narinfo StorePath
-  validation; required gate handling all 16 success/failure/skip/cancel pairs;
-  fail-fast rejection of plans compiling a toolchain from source.
+  complete output matching, all-or-nothing publication for a shared flake-input
+  change, per-package publication for a package-only revision, HTTP/upload
+  failures and exact narinfo StorePath validation; required gate handling all 16
+  success/failure/skip/cancel pairs; fail-fast rejection of plans compiling a
+  toolchain from source.
 - `dotnet-deps.py`: every .NET package uses binary SDK/runtime and has its
   `deps.json` refreshed (stubbed fetch-deps) in the weekly flake.lock PR.
 

@@ -78,6 +78,24 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
+          # The publication granularity below needs the parent commit to tell a
+          # shared flake-input change from a package-only change.
+          fetch-depth: 2
+      - name: Detect shared flake input changes
+        run: |
+          # flake.lock/flake.nix are shared by every package: a revision that moves
+          # them is published all-or-nothing, a package-only revision is published
+          # per package. Without history, stay conservative (all-or-nothing).
+          if git rev-parse --quiet --verify 'HEAD^' > /dev/null 2>&1; then
+            if git diff --quiet HEAD^ HEAD -- flake.lock flake.nix; then
+              echo 'CI_SHARED_INPUTS_CHANGED=false' >> "$GITHUB_ENV"
+            else
+              echo 'CI_SHARED_INPUTS_CHANGED=true' >> "$GITHUB_ENV"
+            fi
+          else
+            echo '::notice::No parent commit available; treating shared flake inputs as changed.'
+            echo 'CI_SHARED_INPUTS_CHANGED=unknown' >> "$GITHUB_ENV"
+          fi
       - uses: ./.github/actions/setup-runner-tools
       # The NixOS runner already configures uriotv as a read-only substituter.
       - name: Evaluate CI manifest
@@ -101,8 +119,10 @@ jobs:
         run: bash scripts/build-ci.sh
       - name: Publish eligible outputs
         id: cachix
+        # Runs after a failed build too: the successful packages still warm the
+        # cache. Only a shared flake-input change makes publication all-or-nothing.
         if: >-
-          success() && github.ref == 'refs/heads/main' &&
+          !cancelled() && github.ref == 'refs/heads/main' &&
           (github.event_name == 'push' || github.event_name == 'workflow_dispatch' ||
            (github.event_name == 'workflow_run' && env.CI_TRUSTED_UPDATE_COMPLETION == 'true'))
         env:

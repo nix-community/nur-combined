@@ -124,7 +124,8 @@ sys.exit(22)
         self.assertEqual(self.built_names(), ["freepkg", "localpkg"])
         self.assertIn("would compile a toolchain from source", result.stdout)
         self.assertIn("dotnet-vmr-8.0.134.drv", result.stdout)
-        self.assertFalse(self.outputs.exists())
+        # The packages that built are still recorded; the refused one is not.
+        self.assertEqual(set(self.outputs.read_text().splitlines()), set(FREE + [LOCAL]))
         self.assertIn("| unfree | failed |", (self.root / "summary.md").read_text())
 
     def test_heavy_guard_can_be_overridden_and_ignores_fetched_paths(self):
@@ -143,12 +144,13 @@ sys.exit(22)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertEqual(self.built_names(), ["freepkg", "unfree", "localpkg"])
 
-    def test_build_failure_continues_other_packages_and_removes_output_list(self):
+    def test_build_failure_keeps_successful_outputs_for_publication(self):
         self.outputs.write_text("stale success\n")
         result = self.run_helper(FAIL_PACKAGE="freepkg")
         self.assertNotEqual(result.returncode, 0)
         self.assertEqual(self.built_names(), ["freepkg", "unfree", "localpkg"])
-        self.assertFalse(self.outputs.exists())
+        # The list records exactly what built: no stale entries, no failed package.
+        self.assertEqual(set(self.outputs.read_text().splitlines()), {UNFREE, LOCAL})
         self.assertFalse(self.cache_calls.exists())
         self.assertIn("| freepkg | failed |", (self.root / "summary.md").read_text())
 
@@ -157,7 +159,7 @@ sys.exit(22)
             with self.subTest(key=key):
                 result = self.run_helper(**{key: "freepkg"})
                 self.assertNotEqual(result.returncode, 0)
-                self.assertFalse(self.outputs.exists())
+                self.assertEqual(set(self.outputs.read_text().splitlines()), {UNFREE, LOCAL})
 
     def test_empty_or_invalid_manifest_fails_before_building(self):
         for value in ("[]", "not json", json.dumps([MANIFEST[0], MANIFEST[0]])):
@@ -180,10 +182,42 @@ sys.exit(22)
         self.assertTrue(all(re.fullmatch(r"https://uriotv.cachix.org/[a-z0-9]{32}\.narinfo", u) for u in urls))
         self.assertTrue(self.manifest.exists())
 
-    def test_publish_requires_complete_build_results(self):
+    def test_shared_input_revisions_publish_all_or_nothing(self):
+        # Without a reliable answer about the revision shape, stay conservative.
+        for shared in (None, "true", "unknown"):
+            with self.subTest(shared=shared):
+                self.run_helper()
+                self.outputs.write_text("\n".join(FREE))
+                extra = {} if shared is None else {"CI_SHARED_INPUTS_CHANGED": shared}
+                result = self.run_helper("push", "refs/heads/main", publish=True, **extra)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertFalse(self.cache_calls.exists())
+                self.assertIn("Refusing publication", result.stderr)
+
+    def test_package_only_revisions_publish_only_what_built(self):
+        self.run_helper(FAIL_PACKAGE="freepkg", CI_SHARED_INPUTS_CHANGED="false")
+        result = self.run_helper("push", "refs/heads/main", publish=True,
+                                 CI_SHARED_INPUTS_CHANGED="false")
+        # localpkg built and is cacheable; the unfree output never goes public.
+        pushed = json.loads(self.cache_calls.read_text())
+        self.assertEqual(pushed["paths"], [LOCAL])
+        self.assertEqual(len(self.curl_calls.read_text().splitlines()), 1)
+        # The run stays red: the cache branch only takes complete revisions.
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("Partial publication", result.stderr)
+        self.assertIn("Publication incomplete", result.stdout)
+
+    def test_package_only_revision_with_full_build_publishes_everything(self):
+        self.assertEqual(self.run_helper(CI_SHARED_INPUTS_CHANGED="false").returncode, 0)
+        result = self.run_helper("push", "refs/heads/main", publish=True,
+                                 CI_SHARED_INPUTS_CHANGED="false")
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(set(json.loads(self.cache_calls.read_text())["paths"]), set(FREE + [LOCAL]))
+
+    def test_invalid_shared_input_state_is_rejected(self):
         self.run_helper()
-        self.outputs.write_text("\n".join(FREE))
-        result = self.run_helper("push", "refs/heads/main", publish=True)
+        result = self.run_helper("push", "refs/heads/main", publish=True,
+                                 CI_SHARED_INPUTS_CHANGED="maybe")
         self.assertNotEqual(result.returncode, 0)
         self.assertFalse(self.cache_calls.exists())
 
@@ -239,6 +273,20 @@ class WorkflowPolicyTests(unittest.TestCase):
         self.assertIn("github.event.pull_request.user.login != github.repository_owner", rejection)
         self.assertIn("state: 'closed'", rejection)
         self.assertNotIn("actions/checkout", rejection)
+
+    def test_publication_granularity_follows_the_revision_shape(self):
+        body = (ROOT / ".github/workflows/build.yml").read_text()
+        self.assertIn("fetch-depth: 2", body)
+        detect = "Detect shared flake input changes"
+        self.assertIn(detect, body)
+        self.assertIn("CI_SHARED_INPUTS_CHANGED", body)
+        self.assertLess(body.index(detect), body.index("Build every eligible package output"))
+        self.assertLess(body.index(detect), body.index("Publish eligible outputs"))
+        # A failed build must not skip publication of the packages that did build.
+        publish = body.split("      - name: Publish eligible outputs\n", 1)[1]
+        condition = publish.split("        env:\n", 1)[0]
+        self.assertIn("!cancelled()", condition)
+        self.assertNotIn("success()", condition)
 
     def test_write_credentials_only_available_in_main_publish_step(self):
         body = (ROOT / ".github/workflows/build.yml").read_text()

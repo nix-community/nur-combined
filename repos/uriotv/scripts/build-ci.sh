@@ -47,7 +47,9 @@ assert any(p["buildable"] for p in rows), "No buildable packages"
 PY
 
 if [[ "$publish" != true ]]; then
-  # Never leave a successful-looking output list after a failed/partial build.
+  # The output list is a record of what actually built: it holds the outputs of
+  # every package that passed and nothing else. Publish mode compares it with the
+  # manifest, so a partial build can never look complete.
   rm -f "$outfile"
   : > "$work/outputs"
   : > "$work/statuses"
@@ -116,21 +118,74 @@ for p in json.load(open(sys.argv[1], encoding="utf-8")):
 PY
   cat "$work/summary"
   if [[ -n "${GITHUB_STEP_SUMMARY:-}" ]]; then cat "$work/summary" >> "$GITHUB_STEP_SUMMARY"; fi
-  (( status == 0 )) || { echo 'Build failures prevent publishing.'; exit 1; }
   sort -u "$work/outputs" > "$outfile"
+  if (( status != 0 )); then
+    # A failing package must not hide the outputs that did build; the publication
+    # step decides per package whether those may be pushed. The job still fails so
+    # the breakage stays visible and PRs stay blocked.
+    echo "$(wc -l < "$outfile") outputs built; some packages failed."
+    echo 'Publication is a separate gated step; successful packages may still publish.'
+    exit 1
+  fi
   echo 'All package outputs built; publication is a separate gated step.'
   exit 0
 fi
 
 : "${CACHIX_AUTH_TOKEN:?CACHIX_AUTH_TOKEN is required for main-branch publication}"
-python3 - "$manifest" "$outfile" > "$work/cacheable" <<'PY'
-import json, sys
-rows = json.load(open(sys.argv[1], encoding="utf-8"))
-built = set(open(sys.argv[2], encoding="utf-8").read().splitlines())
+
+# Publication granularity follows the shape of the revision. `flake.lock`/`flake.nix`
+# are shared by every package: moving them invalidates every output, so that
+# revision is published all-or-nothing (an unknown state is treated the same way).
+# A package-only revision publishes exactly the packages that built; the cache
+# branch still advances only for a commit whose whole build succeeded.
+shared_inputs=${CI_SHARED_INPUTS_CHANGED:-unknown}
+case "$shared_inputs" in
+  true | false | unknown) ;;
+  *) echo "::error::CI_SHARED_INPUTS_CHANGED must be true, false or unknown (got '$shared_inputs')"; exit 1 ;;
+esac
+
+python3 - "$manifest" "$outfile" "$shared_inputs" "$work" <<'PY'
+import json, os, sys
+
+def fail(message):
+    print(f"::error::{message}", file=sys.stderr)
+    sys.exit(1)
+
+try:
+    rows = json.load(open(sys.argv[1], encoding="utf-8"))
+except (OSError, ValueError) as error:
+    fail(f"Cannot read the CI manifest ({error}); refusing publication")
+try:
+    built = {line for line in open(sys.argv[2], encoding="utf-8").read().splitlines() if line}
+except FileNotFoundError:
+    built = set()
+shared_inputs, work = sys.argv[3], sys.argv[4]
 expected = {path for p in rows if p["buildable"] for path in p["outputs"]}
-assert built == expected, "Incomplete or unexpected built outputs; refusing publication"
-paths = {path for p in rows if p["cacheable"] for path in p["outputs"]}
-print("\n".join(sorted(paths)), end="\n" if paths else "")
+unexpected = built - expected
+if unexpected:
+    fail(f"Unexpected built outputs: {sorted(unexpected)}")
+missing = expected - built
+complete = not missing
+
+if shared_inputs != "false" and not complete:
+    names = ", ".join(p["name"] for p in rows
+                     if p["buildable"] and missing.intersection(p["outputs"]))
+    print(f"Refusing publication: shared flake inputs changed ({shared_inputs}) and only "
+          f"{len(built)} of {len(expected)} outputs were built (missing: {names}).", file=sys.stderr)
+    sys.exit(3)
+
+publishable = {p for p in rows if p["cacheable"] for p in p["outputs"]}
+paths = sorted(built & publishable)
+with open(os.path.join(work, "cacheable"), "w", encoding="utf-8") as f:
+    f.write("\n".join(paths) + ("\n" if paths else ""))
+with open(os.path.join(work, "decision"), "w", encoding="utf-8") as f:
+    f.write("complete\n" if complete else "partial\n")
+if not complete:
+    names = ", ".join(p["name"] for p in rows
+                     if p["buildable"] and missing.intersection(p["outputs"]))
+    print(f"::warning::Partial publication: {len(paths)} cacheable outputs of a package-only "
+          f"revision; not built: {names}. The cache branch keeps the last complete commit.",
+          file=sys.stderr)
 PY
 if [[ -s "$work/cacheable" ]]; then
   cachix push uriotv < "$work/cacheable"
@@ -141,5 +196,12 @@ if [[ -s "$work/cacheable" ]]; then
       "https://uriotv.cachix.org/${hash}.narinfo" > "$work/output.narinfo"
     grep -Fx "StorePath: $path" "$work/output.narinfo"
   done < "$work/cacheable"
+fi
+# Publishing is best effort for the packages that built, but the publication status
+# stays a failure until the whole revision builds: the cache branch is a promise
+# that every eligible output of that commit is available.
+if [[ "$(cat "$work/decision")" != complete ]]; then
+  echo '::error::Publication incomplete; the cache branch stays on the last complete commit.'
+  exit 1
 fi
 echo 'All redistributable roots published and their StorePath verified.'
