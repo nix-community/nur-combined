@@ -309,7 +309,19 @@ def update_nix_package(package):
         command = ["nix-update", package, "--flake", *extra]
     else:
         command.extend(extra)
-    run(command, cwd=REPO_ROOT, env=nix_update_env())
+    # nix-update's own wrapper prepends its store nix, hiding PATH edits made
+    # before exec. Reapply the materializing nix after that wrapper runs.
+    env = nix_update_env()
+    wrap = env["PATH"].split(os.pathsep)[0]
+    command = [
+        "sh",
+        "-c",
+        'export PATH="$1:$PATH"; shift; exec "$@"',
+        "nur-nix-materialize",
+        wrap,
+        *command,
+    ]
+    run(command, cwd=REPO_ROOT, env=env)
 
 
 def update_binary_package(package, system):
