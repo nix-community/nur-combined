@@ -1,0 +1,32 @@
+--- a/forge.config.ts
++++ b/forge.config.ts
+@@ -90,10 +90,6 @@
+   rebuildConfig: {},
+   hooks: {
+     generateAssets: async (forgeConfig, platform, arch) => {
+-      execFileSync(process.execPath, [
+-        path.join(__dirname, 'scripts/media-tools.mjs'), 'prepare',
+-        '--platform', platform, '--arch', arch,
+-      ], { stdio: 'inherit' });
+       const mediaRoot = path.join(__dirname, 'vendor/media-tools');
+       const resources = forgeConfig.packagerConfig.extraResource ?? [];
+       const existing = typeof resources === 'string' ? [resources] : resources;
+@@ -100,6 +96,5 @@
+       const extra = [
+         ...existing.filter(resource => !resource.startsWith(mediaRoot + path.sep) && resource !== SPARKLE_BRIDGE),
+-        path.join(mediaRoot, `${platform}-${arch}`, 'media-tools'),
+       ];
+       // macOS in-place updates: pinned Sparkle plus the bridge the main
+       // process loads from Contents/Resources. postPackage copies the
+@@ -128,11 +123,6 @@
+         const resources = platform === 'darwin'
+           ? path.join(appPath, 'Contents/Resources')
+           : path.join(outputPath, 'resources');
+-        execFileSync(process.execPath, [
+-          path.join(__dirname, 'scripts/media-tools.mjs'), 'verify',
+-          '--platform', platform, '--arch', arch,
+-          '--directory', path.join(resources, 'media-tools'),
+-        ], { stdio: 'inherit' });
+         if (platform === 'darwin') {
+           // ditto keeps the framework's symlinks. The re-sign below covers it
+           // ad-hoc; Sparkle only needs the new app's signature to be valid.

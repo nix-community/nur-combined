@@ -3,11 +3,11 @@
 { fetchurl }:
 
 let
-  version = "8.7.0";
+  version = "8.9.7";
   src = fetchurl {
     curlOptsList = [ "--compressed" ];
-    url = "https://pkg-ant.baidu.com/issue/netdisk/LinuxGuanjia/8.7.0/baidunetdisk_8.7.0_amd64.deb";
-    hash = "sha256-7HHCrRFRYJ/Q2LhtlRhMC0V9bbWqGIYeCxX8I8z+Afc=";
+    url = "https://pkg-ant.baidu.com/issue/netdisk/LinuxGuanjia/8.9.7/baidunetdisk_8.9.7_amd64.deb";
+    hash = "sha256-bApd9P6Q9/GqXgfppwROPk0bbMqnvqvcH3+cwl+jsxw=";
   };
 in
 {

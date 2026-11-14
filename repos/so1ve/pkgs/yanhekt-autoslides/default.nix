@@ -26,7 +26,10 @@ buildNpmPackage (finalAttrs: {
   npmRebuildFlags = [ "--ignore-scripts" ];
   npmBuildScript = "package";
 
-  env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
+  env = {
+    ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
+    ELECTRON_OVERRIDE_DIST_PATH = "${lib.getBin electron}/bin";
+  };
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -36,6 +39,9 @@ buildNpmPackage (finalAttrs: {
   ];
 
   buildInputs = [ stdenv.cc.cc.lib ];
+
+  # Nix supplies FFmpeg; the upstream hooks download a separate binary bundle.
+  patches = [ ./nix-media-tools.patch ];
 
   postPatch = ''
     substituteInPlace forge.config.ts \
@@ -50,7 +56,10 @@ buildNpmPackage (finalAttrs: {
       src/main/infra/ffmpegService.ts \
       src/main/infra/onnxModelService.ts \
       src/main/infra/sharpService.ts \
-      src/main/extraction/qtExtractorService.ts
+      src/main/extraction/qtExtractorService.ts \
+      src/main/platform/trayService.ts \
+      src/main/platform/courseIndex/courseIndex.ts \
+      src/main/platform/cliInstall/cliInstallService.ts
     do
       substituteInPlace "$file" \
         --replace-fail \
@@ -84,10 +93,8 @@ buildNpmPackage (finalAttrs: {
 
     mkdir -p "$out/share/yanhekt-autoslides"
     cp -r out/AutoSlides-linux-*/resources "$out/share/yanhekt-autoslides/"
-    rm -rf \
-      "$out/share/yanhekt-autoslides/resources/@img/"*linuxmusl* \
-      "$out/share/yanhekt-autoslides/resources/ffmpeg-static" \
-      "$out/share/yanhekt-autoslides/resources/ffprobe-static"
+    rm -rf "$out/share/yanhekt-autoslides/resources/@img/"*linuxmusl*
+    ln -s ${lib.getBin ffmpeg}/bin "$out/share/yanhekt-autoslides/resources/media-tools"
 
     makeWrapper ${lib.getExe electron} "$out/bin/autoslides" \
       --add-flags "$out/share/yanhekt-autoslides/resources/app.asar" \
@@ -107,6 +114,26 @@ buildNpmPackage (finalAttrs: {
       "$out/share/icons/hicolor/512x512/apps/autoslides.png"
 
     runHook postInstall
+  '';
+
+  doInstallCheck = true;
+  installCheckPhase = ''
+    runHook preInstallCheck
+
+    node --input-type=module <<'JS'
+    import { execFileSync } from 'node:child_process';
+    import { assertCapabilities, requirements } from './scripts/media-tools.mjs';
+    const directory = process.env.out + '/share/yanhekt-autoslides/resources/media-tools';
+    for (const tool of ['ffmpeg', 'ffprobe']) {
+      execFileSync(directory + '/' + tool, ['-version']);
+    }
+    const outputs = Object.fromEntries(Object.keys(requirements).map(kind => [
+      kind, execFileSync(directory + '/ffmpeg', ['-hide_banner', '-' + kind], { encoding: 'utf8' }),
+    ]));
+    assertCapabilities(outputs);
+    JS
+
+    runHook postInstallCheck
   '';
 
   # FIXME:

@@ -44,20 +44,12 @@ in (pkgs.caddy.withPlugins {
     hash = match[1];
   }
 
-  const patchUrl =
-    `https://raw.githubusercontent.com/klzgrad/forwardproxy/${rev}/caddy-read-idle-timeout.patch`;
-  const patch = await nix.prefetch(patchUrl);
-
   return {
-    "source.nix": `${nix.HEADER}{ fetchurl }:
+    "source.nix": `${nix.HEADER}{ }:
 
 {
   plugins = [ ${nix.string(plugin)} ];
   hash = ${nix.string(hash)};
-  patch = fetchurl {
-    url = ${nix.string(patchUrl)};
-    hash = ${nix.string(patch.hash)};
-  };
 }
 `,
   };

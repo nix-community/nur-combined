@@ -4,7 +4,7 @@
   atkmm,
   buildFHSEnv,
   cairo,
-  cairomm,
+  cairomm_1_0,
   callPackage,
   cups,
   dbus,
@@ -14,10 +14,9 @@
   freetype,
   gdk-pixbuf,
   glib,
-  glibmm,
+  glibmm_2_4,
   gtk2,
   gtk3,
-  gtkmm2,
   lib,
   libGL,
   libappindicator-gtk3,
@@ -27,7 +26,7 @@
   libnotify,
   libpulseaudio,
   libsecret,
-  libsigcxx,
+  libsigcxx_2_0,
   libva,
   libx11,
   libxcb,
@@ -49,7 +48,7 @@
   nspr,
   nss,
   pango,
-  pangomm,
+  pangomm_1_4,
   procps,
   runCommand,
   source ? callPackage ./source.nix { },
@@ -59,6 +58,17 @@
 }:
 
 let
+  # nixpkgs marks GTK 2 broken because it is deprecated, but the vendor's
+  # browser engine still requires its ABI and cannot be rebuilt against GTK 3.
+  gtk2ForBaidu = gtk2.overrideAttrs (previous: {
+    meta = previous.meta // {
+      problems = builtins.removeAttrs previous.meta.problems [ "broken" ];
+    };
+  });
+
+  # The vendor's libbrowserengine.so still links against GTKmm 2.4.
+  gtkmm2 = callPackage ./gtkmm2.nix { gtk2 = gtk2ForBaidu; };
+
   fontsConf = makeFontsConf {
     fontDirectories = [ noto-fonts-cjk-sans ];
     # Electron 22's bundled fontconfig cannot parse some rules from current
@@ -131,7 +141,7 @@ buildFHSEnv {
     at-spi2-atk
     atkmm
     cairo
-    cairomm
+    cairomm_1_0
     cups
     dbus
     expat
@@ -139,8 +149,8 @@ buildFHSEnv {
     freetype
     gdk-pixbuf
     glib
-    glibmm
-    gtk2
+    glibmm_2_4
+    gtk2ForBaidu
     gtk3
     gtkmm2
     libGL
@@ -151,7 +161,7 @@ buildFHSEnv {
     libnotify
     libpulseaudio
     libsecret
-    libsigcxx
+    libsigcxx_2_0
     libva
     libx11
     libxcb
@@ -170,7 +180,7 @@ buildFHSEnv {
     nspr
     nss
     pango
-    pangomm
+    pangomm_1_4
     procps
     systemdLibs
     xdg-utils
