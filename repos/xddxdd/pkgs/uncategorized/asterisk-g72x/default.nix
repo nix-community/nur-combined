@@ -26,7 +26,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [ ./remove-march.patch ];
 
-  configureFlags = [ "--with-bcg729" ];
+  configureFlags = [
+    "--with-bcg729"
+    "--with-asterisk-includes=${lib.getDev asterisk}/include"
+  ];
 
   passthru.updateScript = unstableGitUpdater {
     url = "https://github.com/arkadijs/asterisk-g72x";

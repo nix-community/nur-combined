@@ -24,8 +24,20 @@ let
       installPhase = ''
         runHook preInstall
 
-        mkdir -p $out
-        cp -r * $out/
+        mkdir -p "$out/share/doc/$pname"
+        for file in *; do
+          case "$file" in
+            *.so)
+              install -Dm755 "$file" "$out/lib/asterisk/modules/$file"
+              ;;
+            *_config-*.xml)
+              install -Dm644 "$file" "$out/var/lib/asterisk/documentation/thirdparty/$file"
+              ;;
+            *)
+              cp -r "$file" "$out/share/doc/$pname/"
+              ;;
+          esac
+        done
 
         runHook postInstall
       '';
