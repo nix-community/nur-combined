@@ -10,6 +10,6 @@
     "file": "Venture-{version}-linux-x86_64.AppImage",
     "unpack": false
   },
-  "version": "0.2.3.4",
-  "hash": "sha256-+Hinu5VEJTZ81qTZmMxToO8fyPR6h4ynGOFTNBfhfeE="
+  "version": "0.2.3.6",
+  "hash": "sha256-buCli390TM6Hd26ORhkEzWUJM/ToniNK2KoA4o9p/oE="
 }
