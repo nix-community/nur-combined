@@ -296,11 +296,11 @@ in
     nixpkgs.overlays = lib.mkIf cfg.useEmacsOverlay [
       (import (
         flakes.emacs-overlay or (builtins.fetchTarball {
-          # updated 2026-10-31
+          # updated 2026-11-14
           # to update: curl -s https://api.github.com/repos/nix-community/emacs-overlay/commits/master | head -2
-          url = "https://github.com/nix-community/emacs-overlay/archive/14c5c32cdc5804f17390919e75d05962bc7def09.tar.gz";
+          url = "https://github.com/nix-community/emacs-overlay/archive/f66d69338c96b2579c462574a1f02691afbc10ec.tar.gz";
           # Pinned, so pure evaluation works when the flake input is absent.
-          sha256 = "13qbpw4bcgl6y9ak1n2rdlq0w92zhr87i3rmw3lzd4fq01zmflgg";
+          sha256 = "0nxad4am8k8ahj32nf8hnvx7yvmjpbjry5x64ibr0s80z4fli11x";
         })
       ))
     ];
