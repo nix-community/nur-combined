@@ -1,0 +1,164 @@
+diff -ruN a/src/libandroid/looper.c b/src/libandroid/looper.c
+--- a/src/libandroid/looper.c	2026-11-14 16:12:04
++++ b/src/libandroid/looper.c	2026-11-14 16:16:19
+@@ -6,6 +6,27 @@
+ 
+ #include "looper.h"
+ 
++#if defined(__APPLE__)
++/* AOSP's C++ android::Looper is not part of the Darwin build, so back the native looper API
++ * with glib. Each thread gets an opaque handle that stands in for a Looper; the main thread's
++ * handle is the one glib sources get attached to. */
++#define ALOOPER_POLL_TIMEOUT (-3)
++
++static GPrivate darwin_looper_key = G_PRIVATE_INIT(g_free);
++
++static ALooper *darwin_looper_for_thread(void)
++{
++	ALooper *looper = g_private_get(&darwin_looper_key);
++
++	if (!looper) {
++		looper = g_malloc0(1);
++		g_private_set(&darwin_looper_key, looper);
++	}
++
++	return looper;
++}
++#endif
++
+ // dummy strong pointer class
+ struct sp {
+ 	ALooper *ptr;
+@@ -20,25 +41,42 @@
+ struct sp _ZN7android6Looper12getForThreadEv(void);
+ ALooper *ALooper_forThread(void)
+ {
++#if defined(__APPLE__)
++	return darwin_looper_for_thread();
++#else
+ 	return _ZN7android6Looper12getForThreadEv().ptr;
++#endif
+ }
+ 
+ struct sp _ZN7android6Looper7prepareEi(int opts);
+ ALooper *ALooper_prepare(int opts)
+ {
++#if defined(__APPLE__)
++	(void)opts;
++	return darwin_looper_for_thread();
++#else
+ 	return _ZN7android6Looper7prepareEi(opts).ptr;
++#endif
+ }
+ 
+ void _ZNK7android7RefBase9incStrongEPKv(ALooper *this, void *unused);
+ void ALooper_acquire(ALooper *looper)
+ {
++#if defined(__APPLE__)
++	(void)looper;
++#else
+ 	_ZNK7android7RefBase9incStrongEPKv(looper, (void *)ALooper_acquire);
++#endif
+ }
+ 
+ void _ZNK7android7RefBase9decStrongEPKv(ALooper *this, void *unused);
+ void ALooper_release(ALooper *looper)
+ {
++#if defined(__APPLE__)
++	(void)looper;
++#else
+ 	_ZNK7android7RefBase9decStrongEPKv(looper, (void *)ALooper_acquire);
++#endif
+ }
+ 
+ int _ZN7android6Looper7pollAllEiPiS1_PPv(ALooper *this, int timeoutMillis, int *outFd, int *outEvents, void **outData);
+@@ -50,7 +88,14 @@
+ 		return 0;
+ 	}
+ 
++#if defined(__APPLE__)
++	(void)looper;
++	if (timeoutMillis > 0)
++		g_usleep((gulong)timeoutMillis * 1000);
++	return ALOOPER_POLL_TIMEOUT;
++#else
+ 	return _ZN7android6Looper7pollAllEiPiS1_PPv(looper, timeoutMillis, outFd, outEvents, outData);
++#endif
+ }
+ 
+ int _ZN7android6Looper8pollOnceEiPiS1_PPv(ALooper *this, int timeoutMillis, int *outFd, int *outEvents, void **outData);
+@@ -62,7 +107,14 @@
+ 		return 0;
+ 	}
+ 
++#if defined(__APPLE__)
++	(void)looper;
++	if (timeoutMillis > 0)
++		g_usleep((gulong)timeoutMillis * 1000);
++	return ALOOPER_POLL_TIMEOUT;
++#else
+ 	return _ZN7android6Looper8pollOnceEiPiS1_PPv(looper, timeoutMillis, outFd, outEvents, outData);
++#endif
+ }
+ 
+ struct fd_source {
+@@ -90,7 +142,11 @@
+ int _ZN7android6Looper5addFdEiiiPFiiiPvES1_(ALooper *this, int fd, int ident, int events, Looper_callbackFunc callback, void *data);
+ int ALooper_addFd(ALooper *looper, int fd, int ident, int events, Looper_callbackFunc callback, void *data)
+ {
++#if defined(__APPLE__)
++	(void)looper; /* Every looper is driven by the glib main loop on Darwin. */
++#else
+ 	if (looper == main_thread_looper) {
++#endif
+ 		if (!callback) {
+ 			printf("ALooper_addFd without callback not yet implemented\n");
+ 			exit(0);
+@@ -105,14 +161,23 @@
+ 		g_source_set_callback(&source->source, NULL, GINT_TO_POINTER(fd), NULL); // func can be NULL, as we handle everything in the dispatch_func
+ 		g_source_attach(&source->source, NULL);
+ 		return 1;
++#if defined(__APPLE__)
++	return 0;
++#else
+ 	}
+ 	return _ZN7android6Looper5addFdEiiiPFiiiPvES1_(looper, fd, ident, events, callback, data);
++#endif
+ }
+ 
+ void _ZN7android6Looper4wakeEv(ALooper *this);
+ void ALooper_wake(ALooper *looper)
+ {
++#if defined(__APPLE__)
++	(void)looper;
++	g_main_context_wakeup(g_main_context_default());
++#else
+ 	_ZN7android6Looper4wakeEv(looper);
++#endif
+ }
+ 
+ int _ZN7android6Looper8removeFdEi(ALooper *this, int fd);
+@@ -120,7 +185,12 @@
+ {
+ 	if (looper == main_thread_looper)
+ 		return g_source_remove_by_funcs_user_data(&source_funcs, GINT_TO_POINTER(fd));
++#if defined(__APPLE__)
++	(void)looper;
++	return 0;
++#else
+ 	return _ZN7android6Looper8removeFdEi(looper, fd);
++#endif
+ }
+ 
+ /* this is not part of the android API, but we use it internally */
+@@ -128,5 +198,10 @@
+ bool _ZNK7android6Looper9isPollingEv(ALooper *this);
+ bool ALooper_isPolling(ALooper *looper)
+ {
++#if defined(__APPLE__)
++	(void)looper;
++	return false;
++#else
+ 	return _ZNK7android6Looper9isPollingEv(looper);
++#endif
+ }

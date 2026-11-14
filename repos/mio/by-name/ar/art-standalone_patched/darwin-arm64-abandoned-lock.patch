@@ -1,6 +1,41 @@
---- a/art/runtime/monitor.cc
-+++ b/art/runtime/monitor.cc
-@@ -1060,6 +1060,14 @@ void Monitor::InflateThinLocked(Thread* self, Handle<mirror::Object> obj, LockW
+diff -ruN a/art/runtime/monitor.cc b/art/runtime/monitor.cc
+--- a/art/runtime/monitor.cc	2026-11-14 15:58:52
++++ b/art/runtime/monitor.cc	2026-11-14 15:58:52
+@@ -44,6 +44,11 @@
+ 
+ namespace art {
+ 
++#if defined(__APPLE__)
++// How long Monitor::Lock waits on a held monitor before taking it over; see Lock().
++static constexpr int64_t kDarwinMonitorWaitTimeoutMs = 10000;
++#endif
++
+ using android::base::StringPrintf;
+ 
+ static constexpr uint64_t kDebugThresholdFudgeFactor = kIsDebugBuild ? 10 : 1;
+@@ -474,7 +479,21 @@
+         MutexLock mu2(self, monitor_lock_);
+         if (owner_ != nullptr) {  // Did the owner_ give the lock up?
+           original_owner_thread_id = owner_->GetThreadId();
++#if defined(__APPLE__)
++          // A monitor can stay inflated onto a thread that is no longer running Java code
++          // (for example a ThreadPool worker or a JNI thread that went away), and waiting
++          // without a timeout then blocks the app forever. Give the owner a bounded amount
++          // of time and take the monitor over if it never releases it.
++          if (monitor_contenders_.TimedWait(self, kDarwinMonitorWaitTimeoutMs, 0) &&
++              owner_ != nullptr) {
++            LOG(WARNING) << "Monitor " << this << " is still held by " << *owner_ << " after "
++                         << kDarwinMonitorWaitTimeoutMs << "ms, taking ownership";
++            owner_ = self;
++            lock_count_ = 0;
++          }
++#else
+           monitor_contenders_.Wait(self);  // Still contended so wait.
++#endif
+         }
+       }
+       if (original_owner_thread_id != 0u) {
+@@ -1060,6 +1079,15 @@
        }
        bool resumed = thread_list->Resume(owner, SuspendReason::kInternal);
        DCHECK(resumed);
@@ -9,9 +44,39 @@
 +      // The owner is not registered. Leaving the thin lock in place makes
 +      // MonitorEnter retry inflation forever. Drop it so the caller can
 +      // acquire the monitor.
++      LOG(WARNING) << "Clearing abandoned thin lock held by dead thread " << owner_thread_id;
 +      obj->CasLockWord(lock_word, LockWord::Default(), CASMode::kWeak,
 +                       std::memory_order_relaxed);
 +#endif
      }
      self->SetMonitorEnterObject(nullptr);
    }
+diff -ruN a/art/runtime/thread_list.cc b/art/runtime/thread_list.cc
+--- a/art/runtime/thread_list.cc	2026-11-14 15:58:52
++++ b/art/runtime/thread_list.cc	2026-11-14 15:58:52
+@@ -1542,8 +1542,25 @@
+   }
+ }
+ 
++#if defined(__APPLE__)
++// Ids of exited threads are reused. A thread that dies while holding a thin lock leaves the
++// lock word pointing at its id, and the next thread to get that id inherits a monitor it
++// never locked, which blocks MonitorEnter forever. Hand out unused ids first so such lock
++// words instead name no thread and are cleared as abandoned (see monitor.cc).
++static std::bitset<ThreadList::kMaxThreadId> darwin_ever_allocated_ids;
++#endif
++
+ uint32_t ThreadList::AllocThreadId(Thread* self) {
+   MutexLock mu(self, *Locks::allocated_thread_ids_lock_);
++#if defined(__APPLE__)
++  for (size_t i = 0; i < allocated_ids_.size(); ++i) {
++    if (!allocated_ids_[i] && !darwin_ever_allocated_ids[i]) {
++      allocated_ids_.set(i);
++      darwin_ever_allocated_ids.set(i);
++      return i + 1;  // Zero is reserved to mean "invalid".
++    }
++  }
++#endif
+   for (size_t i = 0; i < allocated_ids_.size(); ++i) {
+     if (!allocated_ids_[i]) {
+       allocated_ids_.set(i);

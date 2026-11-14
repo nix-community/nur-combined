@@ -88,6 +88,7 @@
         ./android-translation-layer-darwin-compat.patch
         ./android-translation-layer-darwin-runtime.patch
         ./android-translation-layer-darwin-api.patch
+        ./android-translation-layer-darwin-looper.patch
       ];
     preConfigure =
       (old.preConfigure or "")

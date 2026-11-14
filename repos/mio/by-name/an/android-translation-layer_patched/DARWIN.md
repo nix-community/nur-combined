@@ -73,3 +73,23 @@ playback correctness.
 `darwin-host-test` (installed under `libexec/atl-tests`) exercises AppKit text input
 and WKWebView HTML/JavaScript in a real window. It needs an Aqua session; it cannot
 run from an SSH/background launchd session even though it builds and installs.
+
+## Native looper
+
+AOSP's C++ `android::Looper` is not part of this build, so `libandroid` imported
+`android::Looper::prepare`, `getForThread`, `addFd`, `removeFd`, `wake`, `isPolling`,
+`pollOnce`, `pollAll` and `RefBase::incStrong`/`decStrong` without any provider. The
+first call (`ALooper_prepare` in `prepare_main_looper`) jumped through a lazy symbol
+stub to address 0 and killed the process.
+
+`android-translation-layer-darwin-looper.patch` backs the public looper API with glib
+instead: each thread gets an opaque looper handle, file-descriptor callbacks become
+`GSource`s on the default main context, `ALooper_wake` wakes that context, and the
+polling entry points sleep for their timeout and report `ALOOPER_POLL_TIMEOUT`. The
+Linux build keeps using the AOSP C++ implementation unchanged.
+
+With this and the ART monitor fixes, a NewPipe 0.29.3 run gets past `loadLibrary`,
+`prepare_main_looper` and GTK initialisation. It then crashes in JIT-compiled code
+(low-address fault) instead of hanging; see
+`by-name/ar/art-standalone_patched/DARWIN-ARM64.md` for the monitor analysis and the
+remaining fault.

@@ -453,6 +453,39 @@ dumps are unavailable here) and fixed by
 Open question to settle in step 2: whether the arm64 quick entrypoints can be
 left alone initially (interpreter-only) or must change immediately.
 
+## Monitor deadlock at startup
+
+A NewPipe run reached `JVM launched successfully` and then sat at 0% CPU in
+`art::Monitor::MonitorEnter` -> `Monitor::Lock` -> `ConditionVariable::WaitHoldingLocks`.
+JDWP showed the main thread blocked entering `DexPathList$NativeLibraryElement.maybeInit`,
+i.e. ATL's `Runtime.loadLibrary("translation_layer_main")` call. `sample` showed every
+other thread idle.
+
+The lock word of that object claimed a thin lock owned by thread id 3 while no such
+thread existed (`SuspendThreadByThreadId` logged "No such thread id for suspend: 3").
+Thread ids come from `ThreadList::AllocThreadId`, which reuses ids released by exited
+threads, so a thread that dies while holding a thin lock leaves a lock word that a
+later, live thread appears to own. Inflating such a lock hands the monitor to a thread
+that never releases it and the entrant blocks forever. Native-only internal threads
+(``Runtime worker thread 0``) are the visible owners here, and a monitor inflated onto
+one of them can only be resolved by force.
+
+`darwin-arm64-abandoned-lock.patch` now covers three things:
+
+- `thread_list.cc`: on Darwin, hand out never-used ids before reusing a released one,
+  so an abandoned lock word names no live thread and takes the abandoned-lock path.
+- `monitor.cc` `InflateThinLocked`: log and clear the lock word when its owner is not
+  registered (pre-existing behaviour, now logged).
+- `monitor.cc` `Monitor::Lock`: on Darwin wait with a 10 s timeout and take ownership
+  when the owner never releases, logging the owner. This is a safety net for monitors
+  that were already inflated onto an idle internal thread; it costs 10 s on startup.
+
+After these changes the app gets past `loadLibrary` and `prepare_main_looper`. It now
+crashes later, in JIT-compiled code, with a low-address fault
+(`fault addr 0xafeb8`, `pc` in an unnamed executable region) right after GTK
+initialisation. That fault is a separate defect, most likely in the relative-reference
+address-space setup described above, and is not addressed by these patches.
+
 ## References
 
 - Apple: "macOS 11 ARM64: allocate memory in 32-bit address space" —
