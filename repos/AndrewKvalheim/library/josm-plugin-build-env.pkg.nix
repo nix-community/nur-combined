@@ -58,8 +58,8 @@ in
     rev = josm-plugin-build-env.versionTools;
     ignoreExternals = true;
     hash = {
-      "19555" = "sha256-QVyVwS4hckTSI8/iFvawLqB83fcafTzKUlRd2FIo220=";
       "19613" = "sha256-QVyVwS4hckTSI8/iFvawLqB83fcafTzKUlRd2FIo220=";
+      "19678" = "sha256-6gqPdqpzvm0ZxFge+z9IcoT+dy+GOALlTwiNI82Ws2w=";
     }."${josm-plugin-build-env.versionTools}" or fakeHash;
   };
 

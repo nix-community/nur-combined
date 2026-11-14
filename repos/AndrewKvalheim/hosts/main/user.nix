@@ -3,7 +3,7 @@
 let
   inherit (config.home) homeDirectory;
   inherit (lib) escapeShellArg getExe getExe';
-  inherit (pkgs) makeAutostartItem writeShellScript;
+  inherit (pkgs) makeAutostartItem makeWrapper symlinkJoin writeShellScript;
   inherit (import <nixpkgs/nixos/lib/utils.nix> { inherit lib pkgs; inherit (system) config; }) escapeSystemdPath;
 
   system = import <nixpkgs/nixos> { };
@@ -75,7 +75,15 @@ in
     prusa-slicer
     qgis
     rapid-photo-downloader
-    signal-desktop
+    (symlinkJoin (wrapper: {
+      inherit (signal-desktop) meta pname version;
+      paths = [ signal-desktop ];
+      buildInputs = [ makeWrapper ];
+      postBuild = ''
+        wrapProgram "$out/bin/"${escapeShellArg wrapper.meta.mainProgram} \
+          --add-flags '--use-tray-icon'
+      '';
+    }))
     soundconverter
     tenacity
     thunderbird

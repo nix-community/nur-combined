@@ -1826,6 +1826,7 @@ XKB
 XMPP
 XPS
 XSLT
+Xwayland
 x-www-form-urlencoded
 xz
 YAML

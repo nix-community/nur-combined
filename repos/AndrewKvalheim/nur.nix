@@ -108,18 +108,6 @@ rec {
   spf-tree = callPackage ./library/spf-tree.pkg.nix { };
   stretch-break = callPackage ./library/stretch-break.pkg.nix { };
   tile-stitch = callPackage ./library/tile-stitch.pkg.nix { };
-  udon = callPackage ./library/udon.pkg.nix {
-    python3Packages = (pkgs.python3.override {
-      packageOverrides = _: pythonPackages: with pythonPackages; {
-        config = buildPythonPackage rec {
-          pname = "config";
-          version = "0.5.1";
-          src = pkgs.fetchPypi { inherit pname version; extension = "zip"; hash = "sha256-LdSgOqOD0wcR1aMyWhhY3iJTKNYZUKhb5bdMEA9jAW0="; };
-          format = "pyproject";
-          nativeBuildInputs = [ setuptools ];
-        };
-      };
-    }).pkgs;
-  };
+  udon = callPackage ./library/udon.pkg.nix { };
   wireguard-vanity-address = callPackage ./library/wireguard-vanity-address.pkg.nix { };
 }

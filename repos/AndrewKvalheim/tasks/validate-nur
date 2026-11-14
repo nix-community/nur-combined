@@ -74,6 +74,7 @@ handle_result() {
       ;;
     'EVAL')
       case "$(<<<"$line" jq --raw-output '.success')" in
+        'false') debug "failures ${line@A}"; failures+=("$line");;
         'true') ;;
         *) fail "Not implemented for success: ${line@A}";;
       esac
@@ -110,22 +111,33 @@ fi
 done
 
 for json in "${failures[@]}"; do
+  trace "${json@A}"
   attr="$(result_to_attr "$json")"
-  drv="$(get_drv "$attr")"
 
-  if [[ -v reasons["$drv"] ]]; then
-    reason="${reasons["$drv"]}"
-    if [[ "$reason" =~ dependenc(y|ies)\ failed ]]; then
-      echo "[33m$attr: $reason[39m"
-    else
-      echo "[31m$attr: $reason[39m"
-      return_code='1'
-    fi
-  else
-    warn "No reason detected for failure of $drv ($attr)"
-    echo "[31m$attr: $(<<<"$line" jq --raw-output '.error')[39m"
-    return_code='1'
-  fi
+  case "$(<<<"$json" jq --raw-output '.type')" in
+    'BUILD')
+      drv="$(get_drv "$attr")"
+
+      if [[ -v reasons["$drv"] ]]; then
+        reason="${reasons["$drv"]}"
+        if [[ "$reason" =~ dependenc(y|ies)\ failed ]]; then
+          echo "[33m$attr: $reason[39m"
+        else
+          echo "[31m$attr: $reason[39m"
+          return_code='1'
+        fi
+      else
+        warn "No reason detected for failure of $drv ($attr)"
+        echo "[31m$attr: $(<<<"$json" jq --raw-output '.error')[39m"
+        return_code='1'
+      fi
+      ;;
+    'EVAL')
+        echo "[31m$attr: $(<<<"$json" jq --raw-output '.error')[39m"
+        return_code='1'
+      ;;
+    *) fail "Not implemented for type: ${json@A}";;
+  esac
 done
 
 exit "$return_code"

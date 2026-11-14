@@ -17,7 +17,7 @@ let
 in
 python3Packages.buildPythonApplication (udon: {
   pname = "udon";
-  version = "0.04";
+  version = "0.05";
   meta = {
     description = "Network messaging library and tools";
     homepage = "https://github.com/treedavies/udon";
@@ -31,7 +31,7 @@ python3Packages.buildPythonApplication (udon: {
     owner = "treedavies";
     repo = "udon";
     rev = "refs/tags/udon-v${udon.version}";
-    hash = "sha256-dj2FLrgNLTN6yW/49Md/OUVZPpis3Fx+UoPMjT+IyDo=";
+    hash = "sha256-+DvLtSoyxnfGczZsw6L7YRnIRJWGTeI2r016PfWoA8o=";
   };
 
   patches = [
@@ -40,7 +40,7 @@ python3Packages.buildPythonApplication (udon: {
 
       --- a/src/libudon.py
       +++ b/src/libudon.py
-      @@ -1027 +1027 @@
+      @@ -1354 +1354 @@
       -		self.modules_path = f"/usr/bin/udon.d/modules/"
       +		self.modules_path = os.environ.get("UDON_MODULES_PATH", "/usr/bin/udon.d/modules/")
     '')
@@ -49,7 +49,7 @@ python3Packages.buildPythonApplication (udon: {
 
       --- a/src/udon
       +++ b/src/udon
-      @@ -463,2 +463,4 @@
+      @@ -452,2 +452,4 @@
        if __name__ == '__main__':
       +	import setproctitle
       +	setproctitle.setproctitle("udon") # Referenced by `is_udon_server_running`
@@ -58,7 +58,6 @@ python3Packages.buildPythonApplication (udon: {
   ];
 
   dependencies = with python3Packages; [
-    config
     cryptography
     grpcio
     psutil
