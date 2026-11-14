@@ -359,7 +359,10 @@ in
       stateDir = "/mnt/POOL/immich";
     };
     jellyfin = {
-      enable = true;
+      # Retired to k3s 2026-11-14 (state seeded + verified, DRI passed
+      # through). Disabled (not deleted) so rollback is one flag flip;
+      # POOL state dir remains on disk either way.
+      enable = false;
       natInterface = "eno1";
       stateDir = "/mnt/POOL/jellyfin";
       mediaDir = "/mnt/POOL/Public";
