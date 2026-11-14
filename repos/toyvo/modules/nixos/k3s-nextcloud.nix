@@ -115,7 +115,11 @@ in
                   volumeMounts = [
                     {
                       name = "pgdata";
-                      mountPath = "/var/lib/postgresql/data";
+                      # PG18+ images use pg_ctlcluster-style versioned
+                      # subdirs and REFUSE a mount directly on .../data
+                      # (CrashLoop with the pg_ctlcluster error). Mount the
+                      # parent and let the entrypoint manage the subdir.
+                      mountPath = "/var/lib/postgresql";
                     }
                   ];
                 }
@@ -169,7 +173,10 @@ in
         metadata = {
           name = "nextcloud-public";
         };
+        # Pinned: three identical RW PVs would otherwise bind by lottery
+        # (proven 2026-11-14: chloe/collin/public all cross-wired).
         spec = {
+          volumeName = "pool-media-nextcloud-public-rw";
           accessModes = [ "ReadWriteMany" ];
           storageClassName = "nfs-pool";
           resources.requests.storage = "100Gi";
@@ -182,6 +189,7 @@ in
           name = "nextcloud-collin";
         };
         spec = {
+          volumeName = "pool-media-nextcloud-collin-rw";
           accessModes = [ "ReadWriteMany" ];
           storageClassName = "nfs-pool";
           resources.requests.storage = "100Gi";
@@ -194,6 +202,7 @@ in
           name = "nextcloud-chloe";
         };
         spec = {
+          volumeName = "pool-media-nextcloud-chloe-rw";
           accessModes = [ "ReadWriteMany" ];
           storageClassName = "nfs-pool";
           resources.requests.storage = "100Gi";
@@ -265,6 +274,17 @@ in
                       # persist without a second PVC, and the store can
                       # write here as UID 360.
                       subPath = "custom_apps";
+                    }
+                    {
+                      name = "state";
+                      mountPath = "/var/www/html/config";
+                      # The official image reads config.php ONLY from its
+                      # docroot config dir, while the NixOS layout keeps it
+                      # under the datadir. Mount the seeded config subdir
+                      # here (read-write: occ writes here). The seeded
+                      # override.config.php is a dead /nix/store symlink —
+                      # removed at seed time, replaced by occ settings.
+                      subPath = "config";
                     }
                     {
                       name = "public";
