@@ -34,6 +34,7 @@ in
     inputs.nixcfg.modules.nixos.k3s-homepage
     inputs.nixcfg.modules.nixos.k3s-homeassistant
     inputs.nixcfg.modules.nixos.k3s-immich
+    inputs.nixcfg.modules.nixos.k3s-jellyfin
     inputs.nixcfg.modules.nixos.k3s-storage
     inputs.nixcfg.modules.nixos.k3s-starr
     inputs.nixcfg.modules.nixos.monitoring
@@ -151,6 +152,9 @@ in
     k3sHomeassistant.enable = true;
     # Immich (server + ML + Postgres + Valkey, live since 2026-11-14 cutover).
     k3sImmich.enable = true;
+    # Jellyfin (official image, UID 359, DRI passthrough); replicas 1 from
+    # the start (cold sqlite seed + RO media = no shared-state hazard).
+    k3sJellyfin.enable = true;
     # Shared NFS storage (csi-driver-nfs + static pool PVs).
     # Single writer: enable ONLY here, never on another server.
     k3sStorage.enable = true;

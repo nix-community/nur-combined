@@ -49,54 +49,51 @@ in
       # untouched; directories are untouched (they need x for traversal).
       fileAcl = uids: lib.concatMapStringsSep "," (uid: "u:${toString uid}:rw-") uids;
       continuousScript = lib.concatStringsSep "\n" (
-        lib.mapAttrsToList (
-          directory: uids: ''
-            if [ -d "${directory}" ]; then
-              find "${directory}" -type f -exec ${pkgs.acl}/bin/setfacl -m m::rw-,${fileAcl uids} {} + || true
-            fi
-          ''
-        ) continuous
+        lib.mapAttrsToList (directory: uids: ''
+          if [ -d "${directory}" ]; then
+            find "${directory}" -type f -exec ${pkgs.acl}/bin/setfacl -m m::rw-,${fileAcl uids} {} + || true
+          fi
+        '') continuous
       );
     in
     lib.mkIf (cfg != { }) {
-    # Access ACLs on the directories themselves + default ACLs for inheritance.
-    # IMPORTANT: systemd-tmpfiles a+ rules REPLACE the entire ACL via acl_set_file().
-    # If multiple a+ rules target the same path, the last one wins and wipes previous
-    # entries. We must generate a SINGLE a+ (and A+) rule per directory that includes
-    # ALL users, not one rule per user.
-    systemd.tmpfiles.rules = lib.concatLists (
-      lib.mapAttrsToList (
-        directory: uids:
-        let
-          userAcls = lib.concatMapStrings (uid: "u:${toString uid}:rwx,") uids;
-        in
-        [
-          "a+ ${directory} - - - - ${userAcls}g::---,m::rwx"
-          "A+ ${directory} - - - - ${userAcls}g::---,m::rwx"
-        ]
-      ) cfg
-    );
+      # Access ACLs on the directories themselves + default ACLs for inheritance.
+      # IMPORTANT: systemd-tmpfiles a+ rules REPLACE the entire ACL via acl_set_file().
+      # If multiple a+ rules target the same path, the last one wins and wipes previous
+      # entries. We must generate a SINGLE a+ (and A+) rule per directory that includes
+      # ALL users, not one rule per user.
+      systemd.tmpfiles.rules = lib.concatLists (
+        lib.mapAttrsToList (
+          directory: uids:
+          let
+            userAcls = lib.concatMapStrings (uid: "u:${toString uid}:rwx,") uids;
+          in
+          [
+            "a+ ${directory} - - - - ${userAcls}g::---,m::rwx"
+            "A+ ${directory} - - - - ${userAcls}g::---,m::rwx"
+          ]
+        ) cfg
+      );
 
-    # One-shot service to recursively apply ACLs to existing files/directories.
-    # This avoids the fragility of listing every subdirectory in generateRules.
-    # After applying, any '.ssh', '.config/sops', or '.config/sops-nix' directories
-    # under the target have the added ACLs stripped so private keys are never exposed.
-    systemd.services.apply-generated-acls = {
-      description = "Recursively apply ACLs from generateRules to existing files";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "local-fs.target" ];
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-      };
-      # Restart whenever generateRules changes so existing files get ACLs fixed
-      # after tmpfiles rules are updated.
-      restartTriggers = [
-        (builtins.toJSON cfg)
-        (builtins.toJSON continuous)
-      ];
-      script =
-        lib.concatStringsSep "\n" (
+      # One-shot service to recursively apply ACLs to existing files/directories.
+      # This avoids the fragility of listing every subdirectory in generateRules.
+      # After applying, any '.ssh', '.config/sops', or '.config/sops-nix' directories
+      # under the target have the added ACLs stripped so private keys are never exposed.
+      systemd.services.apply-generated-acls = {
+        description = "Recursively apply ACLs from generateRules to existing files";
+        wantedBy = [ "multi-user.target" ];
+        after = [ "local-fs.target" ];
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+        };
+        # Restart whenever generateRules changes so existing files get ACLs fixed
+        # after tmpfiles rules are updated.
+        restartTriggers = [
+          (builtins.toJSON cfg)
+          (builtins.toJSON continuous)
+        ];
+        script = lib.concatStringsSep "\n" (
           lib.concatLists (
             lib.mapAttrsToList (
               directory: uids:
@@ -116,22 +113,22 @@ in
             ) cfg
           )
         );
-    };
+      };
 
-    # Timer re-asserting file entries + display-clean mask under continuous
-    # dirs between boots (same semantics as the one-shot's file pass).
-    systemd.services.apply-generated-acls-continuous = lib.mkIf (continuous != { }) {
-      description = "Normalize ACLs under generateRulesContinuous dirs";
-      serviceConfig.Type = "oneshot";
-      script = continuousScript;
-    };
-    systemd.timers.apply-generated-acls-continuous = lib.mkIf (continuous != { }) {
-      wantedBy = [ "timers.target" ];
-      timerConfig = {
-        OnCalendar = "*:0/5";
-        Persistent = true;
-        RandomizedDelaySec = "60";
+      # Timer re-asserting file entries + display-clean mask under continuous
+      # dirs between boots (same semantics as the one-shot's file pass).
+      systemd.services.apply-generated-acls-continuous = lib.mkIf (continuous != { }) {
+        description = "Normalize ACLs under generateRulesContinuous dirs";
+        serviceConfig.Type = "oneshot";
+        script = continuousScript;
+      };
+      systemd.timers.apply-generated-acls-continuous = lib.mkIf (continuous != { }) {
+        wantedBy = [ "timers.target" ];
+        timerConfig = {
+          OnCalendar = "*:0/5";
+          Persistent = true;
+          RandomizedDelaySec = "60";
+        };
       };
     };
-  };
 }

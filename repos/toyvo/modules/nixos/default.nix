@@ -26,6 +26,7 @@
   k3s-homepage = ./k3s-homepage.nix;
   k3s-homeassistant = ./k3s-homeassistant.nix;
   k3s-immich = ./k3s-immich.nix;
+  k3s-jellyfin = ./k3s-jellyfin.nix;
   k3s-storage = ./k3s-storage.nix;
   k3s-starr = ./k3s-starr.nix;
   gaming = ./gaming.nix;
