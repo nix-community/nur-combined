@@ -195,7 +195,11 @@ in
     system.enable = true;
     boot.enable = true;
   };
+  sops.useSystemdActivation = true;
   sops.secrets."k3s-token" = { };
+  # Activation scripts don't run at boot, so on tmpfs root nothing would
+  # reinstall /run/secrets after a reboot (k3s then waits on the token
+  # forever). The systemd unit installs them at every boot instead.
   nixcfg.users.toyvo.enable = true;
   security.sudo.extraConfig = ''
     %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/nixos-container *
@@ -645,11 +649,13 @@ in
         ".ssh"
         "nixcfg"
         # herdr + herdr-core mutable settings, auth, and session state
-        # (XDG config + data; caches rebuild and are intentionally skipped).
+        # (XDG config + data + state; caches rebuild and are intentionally skipped).
         ".config/herdr"
         ".config/herdr-core"
         ".local/share/herdr"
         ".local/share/herdr-core"
+        ".local/state/herdr"
+        ".local/state/herdr-core"
       ];
       files = [
         # sops-nix age key (private key, must not be world-readable)
@@ -665,14 +671,9 @@ in
   systemd.tmpfiles.rules = [
     "d /persistent/etc/ssh 0755 root root -"
     "d /persistent/var/lib/kea 0755 kea kea -"
-    "d /persistent/var/lib/rancher 0755 root root -"
     "d /persistent/var/log 0755 root root -"
     "d /persistent/var/sops/age 0755 root root -"
     "d /persistent/home/toyvo/.config/sops/age 0755 toyvo toyvo -"
-    "d /persistent/home/toyvo/.config/herdr 0755 toyvo toyvo -"
-    "d /persistent/home/toyvo/.config/herdr-core 0755 toyvo toyvo -"
-    "d /persistent/home/toyvo/.local/share/herdr 0755 toyvo toyvo -"
-    "d /persistent/home/toyvo/.local/share/herdr-core 0755 toyvo toyvo -"
     "d /persistent/home/toyvo/nixcfg 0755 toyvo toyvo -"
   ];
 }
