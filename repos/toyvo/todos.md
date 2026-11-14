@@ -30,7 +30,7 @@
 - [x] Caddy ingress retired 2026-11-13 (Traefik DaemonSet edge live, virtual-hosts.nix deleted).
 - [ ] Edge LAN-client verification (from MacBook, not router — router-originated traffic takes a policy-routed path that lan-only correctly rejects): no-cookie gated URL (e.g. hermes-agent) → authentik challenge, with cookie → app; public URLs (git, apex) → 200.
 - [ ] hermes-agent backend down (noticed 2026-11-13 during edge verification): 10.1.0.3:8642 connection refused; edge correctly gates it, but the nas service needs attention.
-- [ ] In-cluster default-ns Ingresses lack edge middlewares (lan-only/forward-auth) — pre-existing shape (same exposure as old NodePort path, internal DNS only), harden the Ingress generator as follow-up.
+- [x] In-cluster default-ns Ingresses now carry edge middlewares (2026-11-13): shared `k3s-traefik-middlewares.nix` helper consumed by k3s-edge + homepage/homeassistant/starr generators; verified apex 200→302 (forward-auth challenge restored), \*arrs pass lan-only to their own logins.
 - [ ] Traefik forwardAuth tuning warnings from DaemonSet logs (2026-11-13): set maxResponseBodySize + trustForwardHeader=false on edge-authentik-forwardauth.
 - [ ] Remove TEMPORARY passwordless k3s/kubectl sudoers on router (`configurations/nixos/router/configuration.nix`, added 2026-11-13 for edge debugging; kept per user request — revisit when done).
 - [ ] aarch64 nodes (rpis) after x86_64 stable.

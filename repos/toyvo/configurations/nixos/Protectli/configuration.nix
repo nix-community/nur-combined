@@ -595,6 +595,10 @@ in
 
       # DHCP leases (kea)
       "/var/lib/kea"
+
+      # k3s agent state (node password, kubelet certs, containerd cache) —
+      # without this the node gets a new identity every boot and cannot rejoin.
+      "/var/lib/rancher"
     ];
 
     files = [
@@ -632,6 +636,12 @@ in
       directories = [
         ".ssh"
         "nixcfg"
+        # herdr + herdr-core mutable settings, auth, and session state
+        # (XDG config + data; caches rebuild and are intentionally skipped).
+        ".config/herdr"
+        ".config/herdr-core"
+        ".local/share/herdr"
+        ".local/share/herdr-core"
       ];
       files = [
         # sops-nix age key (private key, must not be world-readable)
@@ -647,9 +657,14 @@ in
   systemd.tmpfiles.rules = [
     "d /persistent/etc/ssh 0755 root root -"
     "d /persistent/var/lib/kea 0755 kea kea -"
+    "d /persistent/var/lib/rancher 0755 root root -"
     "d /persistent/var/log 0755 root root -"
     "d /persistent/var/sops/age 0755 root root -"
     "d /persistent/home/toyvo/.config/sops/age 0755 toyvo toyvo -"
+    "d /persistent/home/toyvo/.config/herdr 0755 toyvo toyvo -"
+    "d /persistent/home/toyvo/.config/herdr-core 0755 toyvo toyvo -"
+    "d /persistent/home/toyvo/.local/share/herdr 0755 toyvo toyvo -"
+    "d /persistent/home/toyvo/.local/share/herdr-core 0755 toyvo toyvo -"
     "d /persistent/home/toyvo/nixcfg 0755 toyvo toyvo -"
   ];
 }
