@@ -17,21 +17,23 @@ let
   # The patch is cut against one exact Asterisk release and will not apply to
   # another, so pin both and fail loudly on a nixpkgs bump rather than silently
   # building an unpatched asterisk under a patched name.
-  version = "22.8.2";
+  version = "22.12.0";
+  # No upstream patch for 22.12.0 yet; 22.11.0's applies with offsets only.
+  patchVersion = "22.11.0";
 
   # Pinned to a commit rather than master: the file at master is mutable, and a
   # silent change to a 1.4 MB patch is not something to discover at deploy time.
   patch = fetchurl {
     url =
       "https://raw.githubusercontent.com/usecallmanagernz/patches/"
-      + "259fdf79a7fdd56d69fe5a12fdf385f7fd31fd12/asterisk/cisco-usecallmanager-${version}.patch";
-    hash = "sha256-N0pwqj84KV2HIVNRo/iDt2nyVKIIPHHqMGTnEPIkC1E=";
+      + "259fdf79a7fdd56d69fe5a12fdf385f7fd31fd12/asterisk/cisco-usecallmanager-${patchVersion}.patch";
+    hash = "sha256-UEaRIXb2j5o8s4QeW99c6Wbwjd4CjhJI37f7gtCXrbo=";
   };
 in
 lib.throwIf (asterisk.version != version)
   ''
     asterisk-usecallmanager: nixpkgs now has asterisk ${asterisk.version}, but the
-    pinned usecallmanager patch is for ${version}. Patches for other releases are at
+    pinned usecallmanager patch was checked against ${version}. Patches for other releases are at
     https://github.com/usecallmanagernz/patches/tree/master/asterisk -- update the
     version, url and hash together.
   ''
