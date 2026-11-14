@@ -149,7 +149,7 @@ in
     k3sEdge.enable = true;
     # Home Assistant (not starr); same cluster-wide pattern.
     k3sHomeassistant.enable = true;
-    # Immich (server + ML + Postgres + Valkey); server/ML scaled 0 until cutover.
+    # Immich (server + ML + Postgres + Valkey, live since 2026-11-14 cutover).
     k3sImmich.enable = true;
     # Shared NFS storage (csi-driver-nfs + static pool PVs).
     # Single writer: enable ONLY here, never on another server.
@@ -674,6 +674,17 @@ in
       transmission
     ];
 
+  };
+  # The repo checkout: keep file ACLs VCS-clean between boots (new files
+  # are born without default ACLs; the 5-minute timer re-asserts entries).
+  # Scoped to the checkout only — never list media trees here (see option).
+  systemd.tmpfiles.generateRulesContinuous = {
+    "/home/toyvo/nixcfg" = with config.ids.uids; [
+      agent
+      toyvo
+    ];
+  };
+  systemd.tmpfiles.generateRules = {
     # Service-specific directories.
     "/mnt/POOL/home-assistant" = with config.ids.uids; [
       hass
