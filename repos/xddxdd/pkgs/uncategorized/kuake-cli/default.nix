@@ -8,16 +8,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "kuake-cli";
-  version = "1.5.0";
+  version = "1.6.0";
   src = fetchFromGitHub {
     owner = "zhangjingwei";
     repo = "kuake_cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-89XMY1UggK5X9rGdLRmC5brF/xrfmBI+vhJNy+oiRk0=";
+    hash = "sha256-T9GHSkbin/9F1ROxReH7oIL+TvIXy7seRa3yBeogNJU=";
   };
   __structuredAttrs = true;
   strictDeps = true;
-  vendorHash = "sha256-v/yHclHWgPWKNFEINmXc49aqYu1KBlKswdK61n3U2P8=";
+  vendorHash = "sha256-TLC+Vlyg/aplz+woGQ3fvnGZyModYsok/knl+xC92Ds=";
 
   doCheck = false;
 

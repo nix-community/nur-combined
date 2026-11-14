@@ -9,10 +9,10 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "peerbanhelper";
-  version = "9.5.4";
+  version = "9.5.5";
   src = fetchurl {
     url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v${finalAttrs.version}/PeerBanHelper_${finalAttrs.version}.zip";
-    hash = "sha256-3MRzAJQ/oLKxDUzzyCbDoQJIXHl8Way1QEDLtah4xH0=";
+    hash = "sha256-3UfBTAXZljA4kmkiiukV8EV452KUyW5XYXIAFkQ3CB4=";
   };
   __structuredAttrs = true;
   strictDeps = true;
