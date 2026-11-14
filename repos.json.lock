@@ -1944,8 +1944,8 @@
             "url": "https://github.com/n1kolasM/nur-packages"
         },
         "nagy": {
-            "rev": "879a9da3a4e9d52a1deccab5840201989baa3bab",
-            "sha256": "0gavqc1lfgqfccm74r88f9aq5mxxzb2ks8pfvxzmvcqgx8ni0a6s",
+            "rev": "4fe6f4eed0e6005cdc26772da0c52c4294bda89f",
+            "sha256": "0rdvf540jiwg9l6q9f907dpcbr2rm05dlq5silrp7wd9lcb3fqn3",
             "url": "https://github.com/nagy/nur-packages"
         },
         "nakido": {
@@ -2982,8 +2982,8 @@
             "url": "https://github.com/SamLukeYes/nix-custom-packages"
         },
         "ymstnt": {
-            "rev": "08c76624afc759a661a6718f319c7f459aaa4312",
-            "sha256": "1dcd7w5ymkahg3h90dcil2mk54446s4frlqf67n9gysla09gpinm",
+            "rev": "087f0249c30096dcd0980ae92e25bb069e57990f",
+            "sha256": "1k6zb1658firnnr31nqchbpi9fk83big0af0xr30928cv0jbvahf",
             "url": "https://github.com/ymstnt/nur-packages"
         },
         "ysndr": {
