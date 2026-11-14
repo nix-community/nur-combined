@@ -1,26 +1,2 @@
-queue_rules:
-  - name: default
-    # No queue_conditions: a maintainer enters the queue on demand with
-    # Mergify's check box (or `@mergifyio queue`), and the automated update PR
-    # is queued by the pull request rule below.
-    merge_conditions:
-      # `#check-pending=0` is deliberately not used: Mergify's own merge queue
-      # check run stays in progress for as long as the pull request is queued, so
-      # that condition never becomes true and the pull request is dequeued.
-      # The `ci-gate` and `tests-gate` jobs run after every job of their workflow
-      # and only succeed when all of them succeeded, so requiring them means CI
-      # finished, nothing is still pending and nothing failed.
-      - "#check-success>=1"
-      - "#check-failure=0"
-      - "check-success=ci-gate"
-      - "check-success=tests-gate"
-    merge_method: merge
-    update_method: merge
-
-pull_request_rules:
-  - name: Queue automated update PRs
-    conditions:
-      - "label=auto update"
-    actions:
-      queue:
-        name: default
+# yaml-language-server: $schema=https://docs.mergify.com/mergify-configuration-schema.json
+extends: mergify-config

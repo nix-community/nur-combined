@@ -107,6 +107,7 @@ jobs:
               --label 'auto update'
         else
           gh pr edit "$pr_number" \
+              --add-label 'auto update' \
               --body-file /tmp/body-file
         fi
       env:
