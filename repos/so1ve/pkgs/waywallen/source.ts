@@ -1,4 +1,4 @@
-import { defineSource, github } from "nix-repin";
+import { defineSource, github, Source } from "nix-repin";
 
 const waywallen = github.release({
   assets: {
@@ -26,21 +26,21 @@ const plugins = {
   },
 };
 
-export default defineSource(async (context) => {
+export default defineSource(waywallen, async (source) => {
   const entries = Object.entries(plugins);
-  const [app, ...sources] = await Promise.all([
-    waywallen(context),
-    ...entries.map(async ([name, { release }]) => {
-      const files = await github.release(release)(context);
-      return [`plugins/${name}.nix`, files["source.nix"]] as const;
+  const sources = await Promise.all(
+    entries.map(async ([name, { release }]) => {
+      const plugin = new Source(source.packageDirectory);
+      await plugin.apply(github.release(release));
+
+      return [`plugins/${name}.nix`, plugin.files()["source.nix"]] as const;
     }),
-  ]);
+  );
   const catalog = Object.fromEntries(
     entries.map(([name, { id, license }]) => [name, { id, license }]),
   );
 
   return {
-    ...app,
     ...Object.fromEntries(sources),
     "plugins/catalog.json": JSON.stringify(catalog, null, 2) + "\n",
   };

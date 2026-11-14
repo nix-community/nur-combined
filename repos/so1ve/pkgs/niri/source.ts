@@ -5,5 +5,5 @@ export default defineSource(
     branch: "feat/latchshot-support",
     repository: "so1ve/niri",
   }),
-  cargo.lock("Cargo.lock"),
+  cargo.lock(),
 );

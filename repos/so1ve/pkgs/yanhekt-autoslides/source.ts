@@ -5,5 +5,5 @@ export default defineSource(
     repository: "BIT-Admin/Yanhekt-AutoSlides",
     stripPrefix: "v",
   }),
-  npm.lock("autoslides/package-lock.json"),
+  npm.lock({ path: "autoslides/package-lock.json" }),
 );

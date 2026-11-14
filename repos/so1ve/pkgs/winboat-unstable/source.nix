@@ -6,6 +6,7 @@ let
   date = "2026-09-10";
   rev = "b9a2df2cc33b2a5e2dc95b3f0472d832f44e86d3";
   bunDepsHash = "sha256-Bta1tf1e34LoaOYhd/iN48LkCM7/jfTN4GHKHmi6758=";
+  vendorHash = "sha256-NjjQINg+qh5zsGoPlpbw9Ib29+KhIuSYXPr6fU+JZjg=";
   src = fetchzip {
     url = "https://codeload.github.com/TibixDev/winboat/tar.gz/b9a2df2cc33b2a5e2dc95b3f0472d832f44e86d3";
     hash = "sha256-5J51fByHKQG6XT8PQ4mUrcMKGnMgYDROEe+moifX20U=";
@@ -13,5 +14,5 @@ let
   };
 in
 {
-  inherit date rev bunDepsHash src;
+  inherit date rev bunDepsHash vendorHash src;
 }

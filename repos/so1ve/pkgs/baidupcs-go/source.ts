@@ -1,6 +1,9 @@
-import { github } from "nix-repin";
+import { defineSource, github, go } from "nix-repin";
 
-export default github.release({
-  repository: "qjfoidnh/BaiduPCS-Go",
-  stripPrefix: "v",
-});
+export default defineSource(
+  github.release({
+    repository: "qjfoidnh/BaiduPCS-Go",
+    stripPrefix: "v",
+  }),
+  go.lock(),
+);

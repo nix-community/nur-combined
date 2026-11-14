@@ -5,5 +5,5 @@ export default defineSource(
     branch: "main",
     repository: "Supreeeme/xwayland-satellite",
   }),
-  cargo.lock("Cargo.lock"),
+  cargo.lock(),
 );

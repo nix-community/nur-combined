@@ -6,6 +6,6 @@ export default defineSource(
     tagPattern: "v2\\.[0-9]+\\.[0-9]+",
     stripPrefix: "v",
   }),
-  pnpm.lock("frontend.pnpmDeps"),
+  pnpm.lock({ attribute: "frontend.pnpmDeps" }),
   go.lock(),
 );

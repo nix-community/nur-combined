@@ -5,6 +5,7 @@
 let
   version = "4.0.2";
   rev = "v4.0.2";
+  vendorHash = "sha256-3kvB5QxtWuElhDIFFr3Awf5myf6l2Hx0M2k53ltQYeQ=";
   src = fetchzip {
     url = "https://codeload.github.com/qjfoidnh/BaiduPCS-Go/tar.gz/v4.0.2";
     hash = "sha256-o0Oh6zLJT25+smEgWy7E8fTigJ2FLpBXoaZSYCRFvic=";
@@ -12,5 +13,5 @@ let
   };
 in
 {
-  inherit version rev src;
+  inherit version rev vendorHash src;
 }

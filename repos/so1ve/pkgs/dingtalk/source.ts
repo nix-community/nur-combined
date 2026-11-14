@@ -1,6 +1,6 @@
-import { defineSource, fetchurl, github } from "nix-repin";
+import { defineSource, fetchurl, github, nix } from "nix-repin";
 
-export default defineSource(async ({ packageDirectory }) => {
+export default defineSource(async () => {
   const response = await fetch(
     `https://www.dingtalk.com/win/d/qd=linux_amd64`,
   );
@@ -25,13 +25,15 @@ export default defineSource(async ({ packageDirectory }) => {
       "x86_64-linux": url,
     },
   });
-  const screenshare = await github.branch({
+  const repository = "lzl200110/dingtalk-wayland-screenshare";
+  const { date, rev } = await github.latestCommit({
     branch: "master",
-    repository: "lzl200110/dingtalk-wayland-screenshare",
-  })({ packageDirectory });
+    repository,
+  });
+  const screenshare = await github.prefetchArchive(repository, rev);
 
   return {
     ...dingtalk,
-    "screenshare-source.nix": screenshare["source.nix"],
+    "screenshare-source.nix": nix.renderArchive(screenshare, { date, rev }),
   };
 });

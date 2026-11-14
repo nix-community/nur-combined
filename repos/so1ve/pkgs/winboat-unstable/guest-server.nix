@@ -18,10 +18,9 @@ in
 buildGoModule.override { inherit go; } {
   pname = "winboat-guest-server";
   inherit version;
-  inherit (source) src;
+  inherit (source) src vendorHash;
 
   modRoot = "guest_server";
-  vendorHash = "sha256-NjjQINg+qh5zsGoPlpbw9Ib29+KhIuSYXPr6fU+JZjg=";
 
   env = {
     GOOS = "windows";

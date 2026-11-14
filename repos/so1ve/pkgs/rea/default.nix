@@ -25,7 +25,7 @@ buildNpmPackage {
 
   postConfigure = ''
     # Install Frida's pinned addon without its network-based install script.
-    tar -xzf ${frida.src} -C node_modules/frida
+    tar -xzf ${frida.src} -C node_modules/rea-agents/node_modules/frida
   '';
 
   installPhase = ''

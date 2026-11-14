@@ -8,9 +8,7 @@
 
 buildGoModule (finalAttrs: {
   pname = "baidupcs-go";
-  inherit (source) version src;
-
-  vendorHash = "sha256-3kvB5QxtWuElhDIFFr3Awf5myf6l2Hx0M2k53ltQYeQ=";
+  inherit (source) version src vendorHash;
 
   ldflags = [
     "-s"
