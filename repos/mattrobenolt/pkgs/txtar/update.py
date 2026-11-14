@@ -12,7 +12,7 @@ from updater import (
     fetch_text,
     hex_to_sri,
     load_hashes,
-    save_hashes,
+    save_if_changed,
     should_update,
 )
 
@@ -45,11 +45,18 @@ def main() -> None:
     current = data["version"]
     latest = fetch_github_latest_release("mattrobenolt", "txtar")
     print(f"Current: {current}, Latest: {latest}")
-    if not should_update(current, latest):
+
+    version = latest if should_update(current, latest) else current
+    hashes = fetch_checksums(version)
+
+    if not save_if_changed(HASHES_FILE, {"version": version, "hashes": hashes}):
         print("Already up to date")
         return
-    save_hashes(HASHES_FILE, {"version": latest, "hashes": fetch_checksums(latest)})
-    print(f"Updated txtar to {latest}")
+
+    if version != current:
+        print(f"Updated txtar to {version}")
+    else:
+        print(f"Repaired drifted hashes for txtar {version}")
 
 
 if __name__ == "__main__":

@@ -6,50 +6,44 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "scripts"))
 
-from updater import fetch_json, hex_to_sri, load_hashes, save_hashes, should_update
+from updater import (
+    fetch_release,
+    load_hashes,
+    release_asset_hashes,
+    save_if_changed,
+    should_update,
+)
 
 SCRIPT_DIR = Path(__file__).parent
 HASHES_FILE = SCRIPT_DIR / "hashes.json"
-RELEASE_URL = "https://api.github.com/repos/modem-dev/hunk/releases/latest"
-TARGETS = {
-    "x86_64-linux": "linux-x64",
-    "aarch64-linux": "linux-arm64",
-    "x86_64-darwin": "darwin-x64",
-    "aarch64-darwin": "darwin-arm64",
+OWNER = "modem-dev"
+REPO = "hunk"
+ASSETS = {
+    "x86_64-linux": "hunkdiff-linux-x64.tar.gz",
+    "aarch64-linux": "hunkdiff-linux-arm64.tar.gz",
+    "x86_64-darwin": "hunkdiff-darwin-x64.tar.gz",
+    "aarch64-darwin": "hunkdiff-darwin-arm64.tar.gz",
 }
-
-
-def fetch_latest_release() -> tuple[str, dict[str, str]]:
-    release = fetch_json(RELEASE_URL)
-    version = release["tag_name"].lstrip("v")
-    assets = {asset["name"]: asset for asset in release["assets"]}
-
-    hashes: dict[str, str] = {}
-    for system, target in TARGETS.items():
-        name = f"hunkdiff-{target}.tar.gz"
-        asset = assets.get(name)
-        if asset is None:
-            raise ValueError(f"Missing hunk release asset: {name}")
-
-        digest = asset.get("digest", "")
-        if not digest.startswith("sha256:"):
-            raise ValueError(f"Missing sha256 digest for hunk release asset: {name}")
-
-        hashes[system] = hex_to_sri(digest.removeprefix("sha256:"))
-
-    return version, hashes
 
 
 def main() -> None:
     data = load_hashes(HASHES_FILE)
     current = data["version"]
-    latest, hashes = fetch_latest_release()
+    latest = fetch_release(OWNER, REPO)["tag_name"].lstrip("v")
     print(f"Current: {current}, Latest: {latest}")
-    if not should_update(current, latest):
+
+    version = latest if should_update(current, latest) else current
+    release = fetch_release(OWNER, REPO, f"v{version}")
+    hashes = release_asset_hashes(release, ASSETS)
+
+    if not save_if_changed(HASHES_FILE, {"version": version, "hashes": hashes}):
         print("Already up to date")
         return
-    save_hashes(HASHES_FILE, {"version": latest, "hashes": hashes})
-    print(f"Updated hunk to {latest}")
+
+    if version != current:
+        print(f"Updated hunk to {version}")
+    else:
+        print(f"Repaired drifted hashes for hunk {version}")
 
 
 if __name__ == "__main__":

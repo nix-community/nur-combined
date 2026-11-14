@@ -17,3 +17,11 @@ def save_json(path: Path, data: dict[str, Any]) -> None:
 
 load_hashes = load_json
 save_hashes = save_json
+
+
+def save_if_changed(path: Path, data: dict[str, Any]) -> bool:
+    """Write data only when it differs from the file. Return True if written."""
+    if load_json(path) == data:
+        return False
+    save_json(path, data)
+    return True

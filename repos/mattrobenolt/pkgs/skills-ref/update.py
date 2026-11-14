@@ -8,7 +8,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "scripts"))
 
-from updater import fetch_json, fetch_text, load_hashes, save_hashes
+from updater import fetch_json, fetch_text, load_hashes, save_if_changed
 
 SCRIPT_DIR = Path(__file__).parent
 HASHES_FILE = SCRIPT_DIR / "hashes.json"
@@ -45,16 +45,26 @@ def prefetch_source(rev: str) -> str:
 
 def main() -> None:
     data = load_hashes(HASHES_FILE)
-    version, rev = fetch_latest()
-    print(f"Current: {data['version']} ({data['rev']}), Latest: {version} ({rev})")
-    if data["rev"] == rev:
+    latest_version, latest_rev = fetch_latest()
+    print(
+        f"Current: {data['version']} ({data['rev']}), "
+        f"Latest: {latest_version} ({latest_rev})"
+    )
+
+    if data["rev"] == latest_rev:
+        version, rev = data["version"], latest_rev
+    else:
+        version, rev = latest_version, latest_rev
+    payload = {"version": version, "rev": rev, "sourceHash": prefetch_source(rev)}
+
+    if not save_if_changed(HASHES_FILE, payload):
         print("Already up to date")
         return
-    save_hashes(
-        HASHES_FILE,
-        {"version": version, "rev": rev, "sourceHash": prefetch_source(rev)},
-    )
-    print(f"Updated skills-ref to {version}")
+
+    if rev != data["rev"]:
+        print(f"Updated skills-ref to {version}")
+    else:
+        print(f"Repaired drifted hashes for skills-ref {version}")
 
 
 if __name__ == "__main__":

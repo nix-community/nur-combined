@@ -154,6 +154,10 @@ Shared updater helpers live in `scripts/updater/`. Package registration and over
 
 GitHub Actions runs individual package updaters plus an `update-all` workflow. Updaters write JSON state (`versions.json` / `hashes.json`) instead of regex-editing derivations. The flake reads that state and creates package outputs from it.
 
+Each updater recomputes the hashes for the current version on every run. If a stored hash differs from the published artifact, the updater writes the corrected value and the workflow commits it. A re-uploaded release asset or a wrong hand edit therefore repairs itself on the next scheduled run, without a version bump. Release assets use the `digest` field from the GitHub API, so the updater does not download the artifact.
+
+`benchstat` and `qmd` stay version-gated. `benchstat` derives `vendorHash` from a failed build, and `qmd` needs a `bun install` for each platform.
+
 Go is the only multi-version package today. Its updater:
 
 1. Reads go.dev's download API

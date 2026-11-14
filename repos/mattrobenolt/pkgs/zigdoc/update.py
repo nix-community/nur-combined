@@ -7,7 +7,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "scripts"))
 
-from updater import fetch_github_latest_release, load_hashes, save_hashes, should_update
+from updater import (
+    fetch_github_latest_release,
+    load_hashes,
+    save_if_changed,
+    should_update,
+)
 
 SCRIPT_DIR = Path(__file__).parent
 HASHES_FILE = SCRIPT_DIR / "hashes.json"
@@ -34,11 +39,18 @@ def main() -> None:
     current = data["version"]
     latest = fetch_github_latest_release("rockorager", "zigdoc")
     print(f"Current: {current}, Latest: {latest}")
-    if not should_update(current, latest):
+
+    version = latest if should_update(current, latest) else current
+    payload = {"version": version, "sourceHash": prefetch_source(version)}
+
+    if not save_if_changed(HASHES_FILE, payload):
         print("Already up to date")
         return
-    save_hashes(HASHES_FILE, {"version": latest, "sourceHash": prefetch_source(latest)})
-    print(f"Updated zigdoc to {latest}")
+
+    if version != current:
+        print(f"Updated zigdoc to {version}")
+    else:
+        print(f"Repaired drifted hashes for zigdoc {version}")
 
 
 if __name__ == "__main__":

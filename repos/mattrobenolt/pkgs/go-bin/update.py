@@ -9,7 +9,7 @@ from typing import Any, cast
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "scripts"))
 
-from updater import fetch_json, hex_to_sri, load_json, save_json
+from updater import fetch_json, hex_to_sri, load_json, save_if_changed
 
 SCRIPT_DIR = Path(__file__).parent
 VERSIONS_FILE = SCRIPT_DIR / "versions.json"
@@ -110,18 +110,20 @@ def main() -> None:
     existing_hashes = load_json(HASHES_FILE)
     hashes: dict[str, Any] = {}
     for version in sorted(set(versions.values())):
-        if version in existing_hashes:
-            hashes[version] = existing_hashes[version]
-            continue
         release = releases_by_version.get(version)
         if release is None:
-            raise ValueError(f"Go API did not include release data for {version}")
-        print(f"Extracting hashes for Go {version}")
+            if version not in existing_hashes:
+                raise ValueError(f"Go API did not include release data for {version}")
+            print(f"Preserving hashes for Go {version}")
+            hashes[version] = existing_hashes[version]
+            continue
         hashes[version] = extract_hashes(release)
+        if version in existing_hashes and existing_hashes[version] != hashes[version]:
+            print(f"Repaired drifted hashes for Go {version}")
 
-    save_json(VERSIONS_FILE, versions)
-    save_json(HASHES_FILE, hashes)
-    print("Updated Go versions and hashes")
+    changed = save_if_changed(VERSIONS_FILE, versions)
+    changed |= save_if_changed(HASHES_FILE, hashes)
+    print("Updated Go versions and hashes" if changed else "Already up to date")
 
 
 if __name__ == "__main__":
