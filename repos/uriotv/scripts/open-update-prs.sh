@@ -32,6 +32,16 @@ trap 'rm -rf "$work"' EXIT
 base_sha=$(git rev-parse HEAD)
 git checkout --quiet --detach "$base_sha"
 
+# A dry-run push proves the token may write before any work is done: no ref is
+# created and no object is uploaded, but the server rejects a token without
+# contents: write. This runs on every update run, including runs without updates.
+if ! git push --dry-run --quiet origin "HEAD:refs/heads/auto-update/permission-probe" \
+  > /dev/null 2> "$work/push.log"; then
+  echo '::error::GH_TOKEN cannot push branches; give PAT_FOR_UPDATES contents: write on this repository'
+  cat "$work/push.log"
+  exit 1
+fi
+
 # Package directories the updaters changed: tracked edits plus new files.
 packages=()
 while IFS= read -r name; do

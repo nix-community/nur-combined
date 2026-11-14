@@ -126,6 +126,15 @@ sys.exit(0)
         self.assertEqual(len(edits), 1)
         self.assertIn("42", edits[0])
 
+    def test_unwritable_remote_fails_before_any_work(self):
+        self.edit("alpha")
+        self.git("remote", "set-url", "origin", str(self.root / "missing.git"))
+        result = self.run_script()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("cannot push branches", result.stdout)
+        self.assertEqual(self.calls(), [])
+        self.assertFalse((self.root / "github-output").exists())
+
     def test_no_changes_opens_nothing(self):
         result = self.run_script()
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
