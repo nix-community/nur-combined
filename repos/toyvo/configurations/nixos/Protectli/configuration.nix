@@ -597,6 +597,12 @@ in
       ];
     };
   };
+  # Static machine-id: tmpfs root + flaky inInitrd preservation minted a
+  # fresh id almost every boot, and herdr-core derives its identity from it
+  # (new machine-id -> regenerated core id -> "different core" mismatch).
+  # A fixed per-host id is exactly what machine-id is for; value adopted
+  # from the live system so the current herdr core stays valid.
+  environment.etc."machine-id".text = "7647ab6a7ede4c0db3d6fb1d3d3fbf9f";
   preservation.enable = true;
   preservation.preserveAt."/persistent" = {
     directories = [
@@ -614,10 +620,13 @@ in
     ];
 
     files = [
-      # Machine ID (for systemd, DHCP, etc.)
+      # k3s agent node identity: the agent mints it in tmpfs /etc on every
+      # boot and the server rejects mismatches, so the node can never
+      # rejoin. Persist the file; the password stabilizes after one last
+      # server-side clear + re-registration.
       {
-        file = "/etc/machine-id";
-        inInitrd = true;
+        file = "/etc/rancher/node/password";
+        mode = "0600";
       }
       # sops-nix age key (private key, must not be world-readable)
       {
