@@ -7,11 +7,15 @@ not stop the rest; the process exits nonzero after the full set.
 """
 
 import argparse
+import atexit
 import json
 import os
 import re
+import shlex
+import shutil
 import subprocess
 import sys
+import tempfile
 import time
 import urllib.error
 import urllib.parse
@@ -144,6 +148,51 @@ def run(command, **kwargs):
     return result
 
 
+_NIX_UPDATE_ENV = None
+
+
+def nix_update_env():
+    """Environment whose nix materializes flake metadata paths.
+
+    Nix 2.35+ reports a store path from `nix flake metadata` without copying
+    it. nix-update then passes that path to builtins.getFlake, which will not
+    copy it either. The lookup is repeated after the version file is rewritten,
+    so prefetching once beforehand leaves the new path missing.
+    """
+    global _NIX_UPDATE_ENV
+    if _NIX_UPDATE_ENV is not None:
+        return _NIX_UPDATE_ENV
+    real_nix = shutil.which("nix")
+    if real_nix is None:
+        raise UpdateError("nix not found on PATH")
+    wrap = Path(tempfile.mkdtemp(prefix="nur-nix-materialize-"))
+    atexit.register(shutil.rmtree, wrap, True)
+    script = wrap / "nix"
+    # nix-update runs `nix flake metadata` with cwd set to the flake.
+    script.write_text(
+        f"""#!/bin/sh
+set -eu
+real={shlex.quote(real_nix)}
+if [ "${{1-}}" = flake ] && [ "${{2-}}" = metadata ]; then
+  set +e
+  "$real" "$@"
+  status=$?
+  set -e
+  if [ "$status" -eq 0 ]; then
+    "$real" flake archive --no-write-lock-file . >/dev/null
+  fi
+  exit "$status"
+fi
+exec "$real" "$@"
+"""
+    )
+    script.chmod(0o755)
+    env = os.environ.copy()
+    env["PATH"] = f"{wrap}{os.pathsep}{env.get('PATH', '')}"
+    _NIX_UPDATE_ENV = env
+    return env
+
+
 def github_json(url):
     headers = {"User-Agent": "nur-packages-update"}
     if urllib.parse.urlparse(url).netloc == "api.github.com":
@@ -254,18 +303,13 @@ def validate_package(package, system):
 
 def update_nix_package(package):
     print(f"==> Updating {package}", flush=True)
-    # nix-update evaluates a store copy of the flake obtained from
-    # `nix flake metadata`, but Nix leaves that copy unmaterialized for dirty
-    # trees, which this workflow always has. Prefetch the current tree so the
-    # path nix-update reads exists.
-    run(["nix", "flake", "prefetch", "--json", "."], cwd=REPO_ROOT, stdout=subprocess.DEVNULL)
     command = ["nix-update", package, "--flake", "--build", "--format"]
     extra = NIX_UPDATE_ARGS.get(package, ["--use-github-releases"])
     if package == "rea":
         command = ["nix-update", package, "--flake", *extra]
     else:
         command.extend(extra)
-    run(command, cwd=REPO_ROOT)
+    run(command, cwd=REPO_ROOT, env=nix_update_env())
 
 
 def update_binary_package(package, system):
