@@ -16,7 +16,11 @@ strict-Bash updater, then runs:
   does not build is reverted (tracked edits and new files), out-of-band packages
   are left alone, a toolchain bootstrap plan is reverted without building, an
   unevaluable package is decided by its build, and the rollback is reported in the
-  PR body/step summary.
+  step summary.
+- `open-update-prs.py`: throwaway git repository with a real bare `origin` and a
+  stubbed `gh`; one branch and pull request per updated package (each carrying only
+  its own package plus the README row), an existing open PR is updated instead of
+  duplicated, no change opens nothing, and one failing PR does not stop the rest.
 - `ci-workflow.py`: stubbed Nix/Cachix/curl; build every package and output,
   including non-cacheable ones; continue then fail on build errors; both Nix
   JSON output formats; malformed manifests/outputs; publication restrictions,

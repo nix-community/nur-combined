@@ -152,7 +152,6 @@ class UpdateWorkflowTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
         self.summary = self.root / "summary.md"
-        self.body = self.root / "pr-body.md"
         self.outputs = self.root / "outputs"
 
     def package(self, name, commands):
@@ -172,7 +171,6 @@ class UpdateWorkflowTests(unittest.TestCase):
                 **os.environ,
                 "UPDATE_PACKAGE": package,
                 "GITHUB_STEP_SUMMARY": str(self.summary),
-                "PR_BODY_PATH": str(self.body),
                 "BUILD_LOG_URL": "https://example.org/build/123",
                 "GITHUB_OUTPUT": str(self.outputs),
             },
@@ -209,8 +207,7 @@ class UpdateWorkflowTests(unittest.TestCase):
         self.assertIn("| b-broken | ❌ Failed |", summary)
         self.assertIn("| c-good | ✅ Success |", summary)
         self.assertIn(r"download failed \| \<error\> \`EOF\`", summary)
-        self.assertIn(summary.strip(), self.body.read_text())
-        self.assertIn("https://example.org/build/123", self.body.read_text())
+        self.assertIn("https://example.org/build/123", summary)
 
     def test_all_failures_are_warnings_and_leave_no_partial_updates(self):
         for name in ("a", "b"):

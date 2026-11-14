@@ -55,36 +55,14 @@ jobs:
           BUILD_LOG_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           UPDATE_BUILD_TIMEOUT_SECONDS: ${{ vars.UPDATE_BUILD_TIMEOUT_SECONDS }}
         run: bash scripts/revert-broken-updates.sh
-      - name: Refresh package versions in README
-        run: python3 -B scripts/readme-versions.py --write
-      - name: Check for changes
-        id: changes
-        run: |
-          if [ -n "$(git status --porcelain -- pkgs/ README.md)" ]; then
-            echo 'has_changes=true' >> "$GITHUB_OUTPUT"
-          else
-            echo 'has_changes=false' >> "$GITHUB_OUTPUT"
-          fi
-      - name: Create Pull Request
-        id: cpr
-        if: steps.changes.outputs.has_changes == 'true'
-        uses: peter-evans/create-pull-request@v8
-        with:
-          token: ${{ secrets.PAT_FOR_UPDATES }}
-          add-paths: |
-            pkgs/
-            README.md
-          commit-message: 'chore: auto-update packages'
-          title: 'chore: Auto-update packages'
-          body-path: /tmp/pr-body.md
-          branch: auto-update-packages
-          delete-branch: true
-      - name: Enable auto-merge
-        if: steps.cpr.outputs.pull-request-number != ''
+      - name: Open one pull request per updated package
+        id: pull-requests
+        # One PR per package: build.yml builds it, test-gate gates its merge, and a
+        # package whose update fails never holds back the others (or the cache).
         env:
           GH_TOKEN: ${{ secrets.PAT_FOR_UPDATES }}
-          PR_NUMBER: ${{ steps.cpr.outputs.pull-request-number }}
-        run: gh pr merge "$PR_NUMBER" --squash --auto --delete-branch
+          BUILD_LOG_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: bash scripts/open-update-prs.sh
       - name: Fail when any package updater failed
         if: always() && steps.update.outputs.update_failures != '' && steps.update.outputs.update_failures != '0'
         env:

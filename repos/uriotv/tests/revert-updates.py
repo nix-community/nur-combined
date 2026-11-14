@@ -79,15 +79,13 @@ sys.exit(0)
     def run_script(self, **extra):
         self.outputs = self.repo / "github-output"
         self.summary = self.repo / "summary.md"
-        self.body = self.repo / "pr-body.md"
-        self.body.write_text("This PR was automatically created by the update workflow.\n")
         env = {
             **os.environ,
             "PATH": f"{self.bin}{os.pathsep}{os.environ['PATH']}",
             "NIX_CALLS": str(self.nix_calls),
+            "BUILD_LOG_URL": "https://example.invalid/run/1",
             "GITHUB_OUTPUT": str(self.outputs),
             "GITHUB_STEP_SUMMARY": str(self.summary),
-            "PR_BODY_PATH": str(self.body),
             **extra,
         }
         return subprocess.run(["bash", str(SCRIPT)], cwd=self.repo, env=env,
@@ -111,10 +109,11 @@ sys.exit(0)
         self.assertIn("beta update reverted", result.stdout)
         self.assertEqual(self.outputs.read_text().splitlines(),
                          ["reverted_count=1", "reverted_packages=beta"])
-        for report in (self.summary.read_text(), self.body.read_text()):
-            self.assertIn("Rolled back updates", report)
-            self.assertIn("`beta`", report)
-            self.assertNotIn("`alpha`", report)
+        report = self.summary.read_text()
+        self.assertIn("Rolled back updates", report)
+        self.assertIn("`beta`", report)
+        self.assertNotIn("`alpha`", report)
+        self.assertIn("Full log:", report)
 
     def test_toolchain_bootstrap_is_reverted_without_building(self):
         self.edit("alpha")
@@ -139,7 +138,7 @@ sys.exit(0)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("nothing rolled back", result.stdout)
         self.assertEqual(self.calls(), [])
-        self.assertNotIn("Rolled back updates", self.body.read_text())
+        self.assertFalse(self.summary.exists() and "Rolled back updates" in self.summary.read_text())
 
     def test_invalid_build_timeout_is_rejected(self):
         self.edit("alpha")

@@ -254,16 +254,19 @@ class WorkflowPolicyTests(unittest.TestCase):
                                         env={**os.environ, "UPDATE_RESULT": a, "TESTS_RESULT": b})
                 self.assertEqual(result.returncode == 0, a == b == "success")
 
-    def test_update_pr_rolls_back_broken_updates_before_the_pull_request(self):
+    def test_update_opens_one_pull_request_per_package(self):
         body = (ROOT / ".github/workflows/update.yml").read_text()
         update = body.index("run: bash scripts/update-packages.sh")
         revert = body.index("run: bash scripts/revert-broken-updates.sh")
-        readme = body.index("scripts/readme-versions.py --write")
-        create = body.index("peter-evans/create-pull-request")
+        prs = body.index("run: bash scripts/open-update-prs.sh")
         self.assertLess(update, revert)
-        self.assertLess(revert, readme)
-        self.assertLess(readme, create)
+        self.assertLess(revert, prs)
         self.assertIn("UPDATE_BUILD_TIMEOUT_SECONDS", body)
+        # No aggregate update PR: one branch/PR per package, opened by the script.
+        self.assertNotIn("peter-evans/create-pull-request", body)
+        self.assertNotIn("auto-update-packages", body)
+        step = body.split("      - name: Open one pull request per updated package\n", 1)[1]
+        self.assertIn("GH_TOKEN: ${{ secrets.PAT_FOR_UPDATES }}", step.split("run:", 1)[0])
 
     def test_update_jobs_force_english_git_and_provide_perl(self):
         workflows = ROOT / ".github/workflows"
@@ -311,7 +314,8 @@ class WorkflowPolicyTests(unittest.TestCase):
         update = (ROOT / ".github/workflows/update.yml").read_text()
         self.assertNotIn("CACHIX_AUTH_TOKEN", update)
         self.assertNotIn("|| secrets.GITHUB_TOKEN", update)
-        self.assertIn("steps.cpr.outputs.pull-request-number", update)
+        self.assertIn("scripts/open-update-prs.sh", update)
+        self.assertIn("GH_TOKEN: ${{ secrets.PAT_FOR_UPDATES }}", update)
         self.assertIn("steps.update.outputs.update_failures", update)
 
 

@@ -9,7 +9,6 @@
 # (meta.ciBuild = false, e.g. the kernel) are never touched here.
 set -euo pipefail
 
-PR_BODY_PATH=${PR_BODY_PATH:-/tmp/pr-body.md}
 BUILD_TIMEOUT_SECONDS=${UPDATE_BUILD_TIMEOUT_SECONDS:-1800}
 [[ "$BUILD_TIMEOUT_SECONDS" =~ ^[1-9][0-9]*$ ]] || {
   echo '::error::UPDATE_BUILD_TIMEOUT_SECONDS must be a positive integer'
@@ -87,9 +86,10 @@ for name in "${packages[@]}"; do
   echo '::endgroup::'
 done
 
-[[ -n ${GITHUB_OUTPUT:-} ]] &&
+if [[ -n ${GITHUB_OUTPUT:-} ]]; then
   printf 'reverted_count=%s\nreverted_packages=%s\n' \
     "${#reverted[@]}" "${reverted[*]:-}" >> "$GITHUB_OUTPUT"
+fi
 
 if (( ${#reverted[@]} == 0 )); then
   echo 'All updated packages build; nothing rolled back.'
@@ -101,13 +101,12 @@ fi
   echo "### Rolled back updates"
   echo
   echo "These updates did not build and were reverted to the version on \`main\`."
-  echo "The rest of this PR is unaffected; the next update run retries them."
+  echo "No pull request is opened for them; the next update run retries them."
   if [[ -n ${BUILD_LOG_URL:-} ]]; then echo; echo "Full log: $BUILD_LOG_URL"; fi
   echo
   for name in "${reverted[@]}"; do echo "- \`$name\`"; done
 } > "$work/section.md"
 
 cat "$work/section.md" >> "${GITHUB_STEP_SUMMARY:-/dev/null}"
-if [[ -f $PR_BODY_PATH ]]; then cat "$work/section.md" >> "$PR_BODY_PATH"; fi
 
 echo "::notice::Rolled back ${#reverted[@]} of ${#packages[@]} updated package(s): ${reverted[*]}. The remaining updates continue."

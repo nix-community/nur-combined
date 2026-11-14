@@ -57,7 +57,6 @@ UPDATE_TIMEOUT_SECONDS=${UPDATE_TIMEOUT_SECONDS:-900}
 [[ "$UPDATE_TIMEOUT_SECONDS" =~ ^[1-9][0-9]*$ ]] || {
   echo '::error::UPDATE_TIMEOUT_SECONDS must be a positive integer'; exit 1;
 }
-PR_BODY_PATH=${PR_BODY_PATH:-/tmp/pr-body.md}
 : "${GITHUB_STEP_SUMMARY:?GITHUB_STEP_SUMMARY must be set}"
 : "${BUILD_LOG_URL:?BUILD_LOG_URL must be set}"
 
@@ -140,24 +139,13 @@ else
   done
 fi
 
-# Write summary to the job step summary and the full PR body to a
-# file. Using body-path (not a workflow output) avoids heredoc
-# breakage when a log line is literally "EOF" and YAML/markdown
-# mangling of very long lines.
+# The summary goes to the job step summary (the update run opens one pull request
+# per package, so there is no aggregate PR body to fill).
 {
   echo "$summary"
-} >> "$GITHUB_STEP_SUMMARY"
-{
-  echo "This PR was automatically created by the update workflow."
   echo ""
   echo "See the [Build Log](${BUILD_LOG_URL}) for details."
-  echo ""
-  echo "<details><summary>Package Update Status</summary>"
-  echo ""
-  echo "$summary"
-  echo ""
-  echo "</details>"
-} > "$PR_BODY_PATH"
+} >> "$GITHUB_STEP_SUMMARY"
 
 # The workflow opens a PR for successful changes first, then marks an incomplete
 # update check as failed. Offline/local callers do not need GITHUB_OUTPUT.
