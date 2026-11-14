@@ -1,0 +1,38 @@
+From 6b56a95b125dd081b385d2cb89ae34e387cb3d4e Mon Sep 17 00:00:00 2001
+From: Shelvacu <git@shelvacu.com>
+Date: Fri, 13 Nov 2026 20:28:49 -0800
+Subject: [PATCH] btleplug: re-add devices seen only via advertisement updates
+
+On BlueZ a device that disconnects keeps its D-Bus object, so when it
+comes back btleplug only emits RssiUpdate/ManufacturerDataAdvertisement/
+ServicesAdvertisement for it, never DeviceDiscovered or DeviceUpdated.
+Reconnecting required restarting the server.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ .../src/btleplug_adapter_task.rs                         | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/crates/buttplug_server_hwmgr_btleplug/src/btleplug_adapter_task.rs b/crates/buttplug_server_hwmgr_btleplug/src/btleplug_adapter_task.rs
+index 031a378e..fab5eeb3 100644
+--- a/crates/buttplug_server_hwmgr_btleplug/src/btleplug_adapter_task.rs
++++ b/crates/buttplug_server_hwmgr_btleplug/src/btleplug_adapter_task.rs
+@@ -241,6 +241,15 @@ impl BtleplugAdapterTask {
+                 CentralEvent::DeviceDiscovered(peripheral_id) | CentralEvent::DeviceUpdated(peripheral_id) => {
+                   self.maybe_add_peripheral(&peripheral_id, &adapter, &mut tried_addresses).await;
+                 }
++                // BlueZ keeps devices around after they disconnect, so a device coming back only
++                // shows up as advertisement updates, never as DeviceDiscovered/DeviceUpdated.
++                CentralEvent::RssiUpdate { id: peripheral_id, .. }
++                | CentralEvent::ManufacturerDataAdvertisement { id: peripheral_id, .. }
++                | CentralEvent::ServicesAdvertisement { id: peripheral_id, .. } => {
++                  if !tried_addresses.iter().any(|info| info.peripheral_id == peripheral_id) {
++                    self.maybe_add_peripheral(&peripheral_id, &adapter, &mut tried_addresses).await;
++                  }
++                }
+                 CentralEvent::DeviceDisconnected(peripheral_id) => {
+                   debug!("BTLEPlug Device disconnected: {:?}", peripheral_id);
+                   tried_addresses.retain(|info| info.peripheral_id != peripheral_id);
+-- 
+2.56.0
+
