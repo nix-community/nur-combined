@@ -1,62 +1,54 @@
 {
-  autoPatchelfHook,
+  buildGoModule,
   callPackage,
   copyDesktopItems,
-  fetchurl,
   lib,
   makeDesktopItem,
-  stdenv,
+  pkg-config,
   wrapGAppsHook3,
-  gdk-pixbuf,
-  glib,
   gtk3,
-  libX11,
-  libsoup_3,
   source ? callPackage ./source.nix { },
   wayland,
   webkitgtk_4_1,
 }:
 
-let
+buildGoModule (finalAttrs: {
   pname = "magpie";
+  inherit (source) version src vendorHash;
 
-  # The Linux build links against WebKitGTK 4.1 and ships no icon of its own.
-  icon = fetchurl {
-    url = "https://usemagpie.ai/img/icon-256.png";
-    hash = "sha256-V0N8ZZbgWo/PxC1CiMAwqgDthraf411GTWnXAmFQxwQ=";
-  };
-in
-stdenv.mkDerivation (finalAttrs: {
-  inherit pname;
-  inherit (source) version src;
+  patches = [ ./desktop-registration.patch ];
+  subPackages = [ "." ];
+  tags = [
+    "production"
+    "gtk3"
+  ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${finalAttrs.version}"
+  ];
 
   nativeBuildInputs = [
-    autoPatchelfHook
+    pkg-config
     copyDesktopItems
     wrapGAppsHook3
   ];
 
   buildInputs = [
-    gdk-pixbuf
-    glib
     gtk3
-    libX11
-    libsoup_3
     wayland
     webkitgtk_4_1
   ];
 
-  dontUnpack = true;
-  dontConfigure = true;
-  dontBuild = true;
+  # The full upstream suite needs external agents and a desktop session.
+  checkPhase = ''
+    runHook preCheck
+    go test -tags=production,gtk3 ./internal/gui -run '^(TestRegisterScheme|TestKeepWebData)$'
+    runHook postCheck
+  '';
 
-  installPhase = ''
-    runHook preInstall
-
-    install -Dm755 $src $out/bin/magpie
-    install -Dm644 ${icon} $out/share/icons/hicolor/256x256/apps/magpie.png
-
-    runHook postInstall
+  postInstall = ''
+    install -Dm644 internal/gui/icon-256.png $out/share/icons/hicolor/256x256/apps/magpie.png
   '';
 
   desktopItems = [
@@ -73,6 +65,13 @@ stdenv.mkDerivation (finalAttrs: {
       ];
       mimeTypes = [ "x-scheme-handler/magpie" ];
     })
+    (makeDesktopItem {
+      name = "magpie-ccswitch";
+      exec = "magpie %u";
+      desktopName = "magpie (ccswitch:// links)";
+      noDisplay = true;
+      mimeTypes = [ "x-scheme-handler/ccswitch" ];
+    })
   ];
 
   doInstallCheck = true;
@@ -82,6 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
     test -x $out/bin/magpie
     test -f $out/share/applications/magpie.desktop
     test -f $out/share/icons/hicolor/256x256/apps/magpie.png
+    $out/bin/magpie --version
 
     runHook postInstallCheck
   '';
@@ -91,8 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://usemagpie.ai";
     changelog = "https://github.com/yetone/magpie-releases/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    mainProgram = pname;
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    mainProgram = "magpie";
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

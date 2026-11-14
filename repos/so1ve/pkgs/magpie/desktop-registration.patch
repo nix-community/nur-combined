@@ -1,0 +1,20 @@
+--- a/internal/gui/scheme_linux.go
++++ b/internal/gui/scheme_linux.go
+@@ -11,6 +11,7 @@
+ 
+ 	"github.com/yetone/magpie/internal/appdir"
+ 	"github.com/yetone/magpie/internal/proc"
++	"github.com/yetone/magpie/internal/update"
+ )
+ 
+ // desktopIcon is the entry's Icon=magpie, put in the user's icon theme: the
+@@ -44,6 +45,9 @@
+ 	if err != nil {
+ 		return err
+ 	}
++	if p := update.PackagedBy(exe); p != nil && p.Manager == "nix" {
++		return nil
++	}
+ 	data := dataHome()
+ 	iconErr := installIcon(data)
+ 	dir := filepath.Join(data, "applications")

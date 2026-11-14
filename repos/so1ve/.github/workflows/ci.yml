@@ -21,6 +21,9 @@ jobs:
 
   build:
     name: Build ${{ matrix.system }}
+    permissions:
+      contents: read
+      packages: write
     strategy:
       fail-fast: false
       matrix:
@@ -33,11 +36,12 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: cachix/install-nix-action@v31
-      - uses: cachix/cachix-action@v17
         with:
-          name: so1ve
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          skipPush: ${{ github.event_name == 'pull_request' }}
+          extra_nix_config: accept-flake-config = true
+      - uses: ./.github/actions/setup-cache
+        if: github.event_name != 'pull_request'
+        with:
+          signing-key: ${{ secrets.ORANC_SIGNING_KEY }}
       - uses: ./.github/actions/build-packages
         with:
           system: ${{ matrix.system }}

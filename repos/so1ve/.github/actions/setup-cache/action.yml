@@ -1,0 +1,40 @@
+name: Set up binary cache
+description: Run oranc from its Nix package and configure GHCR caching
+
+inputs:
+  signing-key:
+    description: Nix signing key for the cache
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Start oranc
+      id: oranc
+      shell: bash
+      run: |
+        package="$(
+          nix build --inputs-from . oranc \
+            --out-link "$RUNNER_TEMP/oranc" --print-out-paths \
+            --extra-substituters https://linyinfeng.cachix.org \
+            --extra-trusted-public-keys linyinfeng.cachix.org-1:sPYQXcNrnCf7Vr7T0YmjXz5dMZ7aOKG3EqLja0xr9MM=
+        )"
+        nohup "$package/bin/oranc" server \
+          --listen 127.0.0.1:8080 --upstream https://cache.nixos.org \
+          >"$RUNNER_TEMP/oranc.log" 2>&1 </dev/null &
+
+        if ! curl --fail --silent --show-error --output /dev/null \
+          --retry 15 --retry-connrefused --retry-delay 1 --retry-max-time 30 \
+          --max-time 2 http://127.0.0.1:8080/; then
+          cat "$RUNNER_TEMP/oranc.log" >&2
+          exit 1
+        fi
+        echo "package=$package" >>"$GITHUB_OUTPUT"
+
+    - uses: linyinfeng/oranc-action@v1
+      with:
+        orancServerType: url
+        orancServerUrl: http://127.0.0.1:8080
+        repositoryPart2: nur-cache
+        orancCli: ${{ steps.oranc.outputs.package }}
+        signingKey: ${{ inputs.signing-key }}

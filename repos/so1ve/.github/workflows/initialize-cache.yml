@@ -1,0 +1,25 @@
+name: Initialize Binary Cache
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  initialize:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ github.token }}
+          extra_nix_config: accept-flake-config = true
+      - name: Initialize GHCR cache
+        env:
+          ORANC_USERNAME: x-access-token
+          ORANC_PASSWORD: ${{ github.token }}
+        run: |
+          nix run --inputs-from . oranc -- \
+            push --repository so1ve/nur-cache initialize

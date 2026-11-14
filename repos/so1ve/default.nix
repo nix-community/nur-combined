@@ -27,6 +27,7 @@ in
   magpie = pkgs.callPackage ./pkgs/magpie { };
   niri = pkgs.callPackage ./pkgs/niri { };
   peazip-rar = pkgs.callPackage ./pkgs/peazip-rar { };
+  pocket-id = pkgs.callPackage ./pkgs/pocket-id { };
   r-maple-mono-nf-cn = pkgs.callPackage ./pkgs/r-maple-mono-nf-cn { };
   rea = pkgs.callPackage ./pkgs/rea { };
   rime-frost = pkgs.callPackage ./pkgs/rime-frost { };

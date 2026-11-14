@@ -2,9 +2,9 @@
   description = "Ray's personal NUR repository";
 
   nixConfig = {
-    extra-substituters = [ "https://so1ve.cachix.org" ];
+    extra-substituters = [ "https://cache.so1ve.dev" ];
     extra-trusted-public-keys = [
-      "so1ve.cachix.org-1:51jcW4FkJhiLcqPsiUx3nglRP469les8F9zjFxio1nw="
+      "cache.so1ve.dev-1:SijyzF9iE/VZwMXgMpd/HrNX9iItDZ1tdiNdeGakQGY="
     ];
   };
 
@@ -13,7 +13,11 @@
       url = "github:so1ve/nix-repin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    oranc.url = "github:linyinfeng/oranc";
+
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";

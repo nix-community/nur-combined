@@ -8,7 +8,6 @@
   imagemagick,
   lib,
   makeDesktopItem,
-  makeWrapper,
   nodejs_22,
   source ? callPackage ./source.nix { },
   stdenv,
@@ -33,7 +32,6 @@ buildNpmPackage (finalAttrs: {
     autoPatchelfHook
     copyDesktopItems
     imagemagick
-    makeWrapper
     zip
   ];
 

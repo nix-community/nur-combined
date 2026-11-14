@@ -2,7 +2,6 @@
   alsa-lib,
   apr,
   aprutil,
-  at-spi2-atk,
   at-spi2-core,
   autoPatchelfHook,
   callPackage,
@@ -90,7 +89,6 @@ let
     alsa-lib
     apr
     aprutil
-    at-spi2-atk
     at-spi2-core
     cairo
     cups

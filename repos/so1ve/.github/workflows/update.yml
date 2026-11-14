@@ -104,6 +104,9 @@ jobs:
     if: needs.prepare.outputs.changed == 'true'
     needs: prepare
     name: Validate ${{ matrix.package }} (${{ matrix.target.system }})
+    permissions:
+      contents: read
+      packages: write
     strategy:
       fail-fast: false
       matrix:
@@ -125,10 +128,9 @@ jobs:
       - name: Apply package update
         run: git apply "$RUNNER_TEMP/package-updates/${{ matrix.package }}.patch"
       - uses: cachix/install-nix-action@v31
-      - uses: cachix/cachix-action@v17
+      - uses: ./.github/actions/setup-cache
         with:
-          name: so1ve
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          signing-key: ${{ secrets.ORANC_SIGNING_KEY }}
       - name: Build package
         env:
           NIXPKGS_ALLOW_UNFREE: "1"

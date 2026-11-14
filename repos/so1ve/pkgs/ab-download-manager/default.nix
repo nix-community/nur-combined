@@ -3,12 +3,9 @@
   autoPatchelfHook,
   callPackage,
   fontconfig,
-  freetype,
   jdk25_headless,
   lib,
   libGL,
-  libX11,
-  libXext,
   libXi,
   libXrender,
   libXtst,
@@ -18,7 +15,6 @@
   stdenv,
   uiScale ? null,
   wayland,
-  zlib,
 }:
 
 assert lib.assertMsg (
@@ -43,17 +39,13 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     alsa-lib
     fontconfig
-    freetype
     libGL
-    libX11
-    libXext
     libXi
     libXrender
     libXtst
     libxkbcommon
     stdenv.cc.cc.lib
     wayland
-    zlib
   ];
 
   installPhase = ''

@@ -7,19 +7,12 @@
   makeWrapper,
   stdenv,
   wrapGAppsHook3,
-  atk,
-  cairo,
   callPackage,
-  fontconfig,
-  gdk-pixbuf,
-  glib,
   gst_all_1,
   gtk3,
-  harfbuzz,
   keybinder3,
   libayatana-appindicator,
   libepoxy,
-  pango,
 }:
 
 let
@@ -48,19 +41,11 @@ stdenv.mkDerivation {
   ];
 
   buildInputs = [
-    atk
-    cairo
-    fontconfig
-    gdk-pixbuf
-    glib
-    gst_all_1.gstreamer
     gst_all_1.gst-plugins-base
     gtk3
-    harfbuzz
     keybinder3
     libayatana-appindicator
     libepoxy
-    pango
     stdenv.cc.cc.lib
   ];
 

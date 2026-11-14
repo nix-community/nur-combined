@@ -6,8 +6,6 @@
   gitMinimal,
   nodejs_24,
   pnpm,
-  python3,
-  makeWrapper,
   source ? callPackage ./source.nix { },
   callPackage,
 }:
@@ -23,11 +21,6 @@ buildNpmPackage {
 
   npmFlags = [ "--ignore-scripts" ];
   dontNpmBuild = true;
-
-  nativeBuildInputs = [
-    makeWrapper
-    python3
-  ];
 
   dontPatchELF = true;
 

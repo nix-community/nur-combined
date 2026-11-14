@@ -3,7 +3,6 @@
   buildNpmPackage,
   callPackage,
   lib,
-  makeWrapper,
   nodejs_24,
   source ? callPackage ./source.nix { },
   stdenv,
@@ -21,10 +20,7 @@ buildNpmPackage {
   npmFlags = [ "--ignore-scripts" ];
   dontNpmBuild = true;
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoPatchelfHook ];
   buildInputs = [ stdenv.cc.cc.lib ];
 
   postConfigure = ''
