@@ -2600,8 +2600,8 @@
             "url": "https://github.com/splintah/nurpkgs"
         },
         "srcres258": {
-            "rev": "5949c190ebfbcb65a00fa4543f79a3988905c254",
-            "sha256": "02kxa80mmmadim2xk8zl05pawghgnhqqv1m1mggkvkl5vf80nh6k",
+            "rev": "9a59ccbc8c5939bd643985164a52e2327c0a7929",
+            "sha256": "17k1ply067rj9b6py2ih989j45kh7fh44jnfh4gr8j8fb9p0drh7",
             "url": "https://github.com/srcres258/nur-packages"
         },
         "stupremee": {
