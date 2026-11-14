@@ -72,10 +72,16 @@ def get_current_system() -> str:
     ).strip()
 
 
-def compute_deps_hash(repo_root: Path) -> str | None:
+def compute_deps_hash(repo_root: Path, *, refresh: bool) -> str | None:
     print("Building clice.deps to determine updated fixed-output hash...")
+    deps_expr = "pkgs.clice.deps"
+    if refresh:
+        deps_expr += '.overrideAttrs (_: { outputHash = ""; outputHashAlgo = "sha256"; })'
     proc = subprocess.run(
-        ["nix-build", "--no-out-link", str(repo_root), "-A", "clice.deps"],
+        [
+            "nix-build", "--no-out-link", "--expr",
+            f"let pkgs = import {repo_root} {{}}; in {deps_expr}",
+        ],
         text=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
@@ -132,14 +138,15 @@ def main() -> int:
     print(f"Current version: {current_version}")
     print(f"Target version:  {target_version}")
 
-    if current_version == target_version:
-        print(f"clice is already up to date ({current_version}).")
-        return 0
-
     src_hash = prefetch_src_hash(target_version)
     print(f"New source hash: {src_hash}")
 
-    registry_rev = get_registry_rev()
+    # Preserve the registry snapshot on retries, but still recalculate deps:
+    # an interrupted/failed run may have written the version before its hash.
+    registry_rev = (
+        get_registry_rev() if current_version != target_version
+        else re.search(r'registryRev = "([^"]+)";', content).group(1)
+    )
     print(f"New registryRev: {registry_rev}")
 
     content, n_ver = re.subn(
@@ -168,7 +175,7 @@ def main() -> int:
     pkg_nix.write_text(content, encoding="utf-8")
 
     system = get_current_system()
-    new_deps_hash = compute_deps_hash(repo_root)
+    new_deps_hash = compute_deps_hash(repo_root, refresh=current_version != target_version)
     if new_deps_hash:
         print(f"New depsHash for {system}: {new_deps_hash}")
         content, n_deps = re.subn(

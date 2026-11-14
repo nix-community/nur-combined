@@ -32,7 +32,7 @@ stdenv.mkDerivation (
     # needs its own hash. Kept outside the derivation attributes, which are
     # coerced to strings.
     depsHashes = {
-      x86_64-linux = "sha256-RH+YJX2SRs5ioL6fXpd8xRsxs/JSZgyu4d4G46e6g0c=";
+      x86_64-linux = "sha256-dfVTS+TqisVXiMnxz+G6pZRs0rxyC6nEPDuIBjXxULQ=";
       aarch64-darwin = "sha256-uAMod+qlqhfHAyjtsULDcZoVdBvEAxv5OJbVGGFR7WY=";
     };
 
@@ -40,7 +40,7 @@ stdenv.mkDerivation (
     # from. The branch is rewritten on every clice release, so a branch URL would
     # make the fixed-output hash stale within a day; the commit keeps the build
     # reproducible. Bump it together with the hash when updating clice.
-    registryRev = "7244a58ac60631642f07e0b5a931990d56af1107";
+    registryRev = "4fc69580a189409a7d99b36d6faca0f7a6da59b6";
 
     # Extra flags of the darwin build: the server cannot listen in the sandbox
     # (--batch) and links cache ThinLTO output in $TMPDIR. The link action does
@@ -62,13 +62,13 @@ stdenv.mkDerivation (
   in
   {
     pname = "clice";
-    version = "0.1.2026111107";
+    version = "0.1.2026111303";
 
     src = fetchFromGitHub {
       owner = "clice-io";
       repo = "clice";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-fJPtTpGfN3UKTEns1RbwWAeMJZiG2t4K/CtMoi/CFP4=";
+      hash = "sha256-pAOtT7DuBX3VD9F+qZ/W4ACeRSX9grQ3a00kTzQhr4o=";
     };
 
     deps = stdenv.mkDerivation {
@@ -85,6 +85,10 @@ stdenv.mkDerivation (
       ];
 
       dontCheckForBrokenSymlinks = true;
+
+      # Use the Bazel packaged by Nix instead of the version selected by
+      # upstream's .bazelversion; both vendoring and compilation must agree.
+      env.USE_BAZEL_VERSION = bazel_9.version;
 
       buildPhase = ''
                 runHook preBuild
@@ -173,6 +177,8 @@ stdenv.mkDerivation (
     buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ zlib ];
 
     strictDeps = true;
+
+    env.USE_BAZEL_VERSION = bazel_9.version;
 
     buildPhase = ''
       runHook preBuild

@@ -12,27 +12,27 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ublock-origin-firefox";
-  version = "1.76.0";
+  version = "1.76.2";
 
   src = fetchFromGitHub {
     owner = "gorhill";
     repo = "uBlock";
     rev = finalAttrs.version;
-    hash = "sha256-Wrl8B1Du7bcKtzevDgdbnLYoRCPJwpGXIiYUUROr73E=";
+    hash = "sha256-vMOnoFXJc4Xkk0DmEz+2wTGEzF+X9gbKx5OepQz4uAM=";
   };
 
   uAssetsMain = fetchFromGitHub {
     owner = "uBlockOrigin";
     repo = "uAssets";
-    rev = "ad622d1784cefd2ea1583ebd80960686fe12f5c7";
-    hash = "sha256-qT35wv3+yqFEjXCFYFn6sybedZVrFRbsx4O/0s7bjfE=";
+    rev = "33fd9cc411ec1715d1ad1a90bfd80f262b79a097";
+    hash = "sha256-a0NHJvHU3m/MVX4c2z7KLibCpDYUmrvtHtYURYfY7To=";
   };
 
   uAssetsProd = fetchFromGitHub {
     owner = "uBlockOrigin";
     repo = "uAssets";
-    rev = "1a810db14f852b7008638087f670705fcb30e393";
-    hash = "sha256-wEiYyP/OctpIk072cjy+0NFBLyy80zbWmMe7UCQsntg=";
+    rev = "b95e1fe15aa589fffba84b484d88d8330b11ef5c";
+    hash = "sha256-jePHiS5gYeJaPnvLDLi/1c7nmFtRgpqSLXm1truZ5ic=";
   };
 
   nativeBuildInputs = [

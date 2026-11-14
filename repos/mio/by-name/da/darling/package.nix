@@ -115,25 +115,17 @@ let
     pulseaudio
   ];
 
-  # The pinned darlingserver predates the DisablePointerAuthentication system
-  # setting that prefsd and mldr read.
-  darlingserverSrc = fetchFromGitHub {
-    owner = "darlinghq";
-    repo = "darlingserver";
-    rev = "1f39685b1c65b87978de3ed0d0d27b2d632d1a4e";
-    hash = "sha256-jNmbu+HC+wIvpVJLjN+odE39rwwhQwLALHiuyWZ78ww=";
-  };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "darling";
-  version = "0.1.20260608-unstable-2026-11-11";
+  version = "0.1.20260608-unstable-2026-11-13";
 
   src = fetchFromGitHub {
     owner = "darlinghq";
     repo = "darling";
-    rev = "f7fae379960fed66e33bab4a96b674652d8f4400";
+    rev = "36536a662356001194a7cfad2b42b509003d6bd8";
     fetchSubmodules = true;
-    hash = "sha256-syiyHD1V839Wpo7ttxt3PEL72CeEPxkuEZZ1cHHtl1o=";
+    hash = "sha256-npkHZaUBuVFBpVFNZSlzpAW6PCOBdCgFsQMCzLuiRIA=";
     # Remove 500MB of dependency test files to get under Hydra output limit
     postFetch = ''
       rm -r $out/src/external/openjdk/test
@@ -154,18 +146,6 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postPatch = ''
-            # The pinned darlingserver predates the DisablePointerAuthentication
-            # system setting that prefsd and mldr read, so take the tree that adds
-            # it. Swapping it here loses the tests/CMakeLists.txt hunk of
-            # ./host-test-headers.patch, which is reapplied in the submodule's own
-            # layout, and the swap comes before patchShebangs so its scripts are
-            # rewritten too.
-            chmod -R u+w src/external/darlingserver
-            rm -rf src/external/darlingserver
-            cp -a ${darlingserverSrc} src/external/darlingserver
-            chmod -R u+w src/external/darlingserver
-            patch -p4 -N -d src/external/darlingserver < ${./host-test-headers.patch}
-
             # We have to be careful - Patching everything indiscriminately
             # would affect Darwin scripts as well
             chmod +x src/external/bootstrap_cmds/migcom.tproj/mig.sh
@@ -299,12 +279,13 @@ stdenv.mkDerivation (finalAttrs: {
   postFixup = ''
     echo "Checking for references to $NIX_STORE in Darling root..."
 
-    set +e
-    grep -r --exclude=mldr --exclude=darpath "$NIX_STORE" $out/libexec/darling
-    ret=$?
-    set -e
+    # Upstream now installs the host (Linux ELF) ld64 as the CLT linker, so,
+    # like mldr, it legitimately links against the Nix store.
+    storeRefs=$(grep -rl --exclude=mldr --exclude=darpath "$NIX_STORE" $out/libexec/darling \
+      | grep -vxF "$out/libexec/darling/Library/Developer/DarlingCLT/usr/bin/ld" || true)
 
-    if [[ $ret == 0 ]]; then
+    if [[ -n $storeRefs ]]; then
+      echo "$storeRefs"
       echo "Found references to $NIX_STORE in Darling root (see above)"
       exit 1
     fi
