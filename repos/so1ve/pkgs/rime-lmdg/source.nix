@@ -3,11 +3,11 @@
 { fetchurl }:
 
 let
-  version = "0-unstable-2026-11-10";
+  version = "0-unstable-2026-11-12";
   src = fetchurl {
     curlOptsList = [ "--compressed" ];
-    url = "https://github.com/jetcookies/RIME-LMDG-tracker/releases/download/0-unstable-2026-11-10/wanxiang-lts-zh-hans.gram";
-    hash = "sha256-NFe2n1/g/E9dIRyHi7+i4jYbkGOZUsmEXI4x6dBHzeY=";
+    url = "https://github.com/jetcookies/RIME-LMDG-tracker/releases/download/0-unstable-2026-11-12/wanxiang-lts-zh-hans.gram";
+    hash = "sha256-ZRKIPE7AwgFb7sqQcV1NzXQ2ctg1iAxp6YGKaIYJuhk=";
   };
 in
 {

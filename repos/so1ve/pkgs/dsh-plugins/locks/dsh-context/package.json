@@ -3,6 +3,6 @@
   "private": true,
   "version": "1.0.0",
   "dependencies": {
-    "dsh-context": "0.82.2"
+    "dsh-context": "0.84.1"
   }
 }

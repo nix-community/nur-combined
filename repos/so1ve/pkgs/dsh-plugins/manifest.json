@@ -1,33 +1,33 @@
 {
   "npm:dsh-chat-import": {
-    "version": "0.26.4",
-    "url": "https://registry.npmjs.org/dsh-chat-import/-/dsh-chat-import-0.26.4.tgz",
-    "integrity": "sha512-+fAzz8otvWxMY2E20eck3mGSABssgDgqMvlAXmaxwql0W63uaqeAADPQyGtMwA8YHsJJffNMUrj82g3hQ94MwQ==",
-    "npmDepsHash": "sha256-nL82NJAwXMvT/wlpI1qo/sLNQXMhDGcloKHjJu0a024="
+    "version": "0.26.6",
+    "url": "https://registry.npmjs.org/dsh-chat-import/-/dsh-chat-import-0.26.6.tgz",
+    "integrity": "sha512-vxBzfhZLpWIgsJ+l1kZzuzOFilLYOUyzmzrHqAYKAvC/vmHhbVuycgle4KYMjsQsK7lrPcDFGQHYm6ND8ICiwA==",
+    "npmDepsHash": "sha256-mQMIKzkrjgXylYS0YeOo9n+/WiPRh7vPqJKYE/wb9kM="
   },
   "npm:dsh-context": {
-    "version": "0.82.2",
-    "url": "https://registry.npmjs.org/dsh-context/-/dsh-context-0.82.2.tgz",
-    "integrity": "sha512-myYjK6a79ZDJ1ALTI3hIBjVk2lsNCb3hUViSeS7Vjf+Xi2G8jkT1bi8+njyd77uOVDT6NYBPkjbf5bP5OXpafg==",
-    "npmDepsHash": "sha256-RYxer0VwwoWMO/nDfqqPjXS3CR2UQmuYWQD1vmv/+ak="
+    "version": "0.84.1",
+    "url": "https://registry.npmjs.org/dsh-context/-/dsh-context-0.84.1.tgz",
+    "integrity": "sha512-LK+4+cDgQ3Y1CuaOA2/86cy+8KMnKlnOTFnf1QK8TW7RXbzRq+8y4fiQodp4FG9yRahKbh6iuJX/+aO8Z6q6sw==",
+    "npmDepsHash": "sha256-+CvS2GE74FsXSVs3E+0nqoOhMDhlJs/mkACD2EdS6ik="
   },
   "github:kingcharleslzy-ai/dsh-purge": {
-    "version": "1.6.84",
-    "rev": "411f98c676e5ff5f400df78316c9bd056416a46d",
-    "url": "https://codeload.github.com/kingcharleslzy-ai/dsh-purge/tar.gz/411f98c676e5ff5f400df78316c9bd056416a46d",
-    "hash": "sha256-SnpY8eQ7bZT13xQhXgtmT1d7ece0IKP4e6g9hoe0enQ=",
-    "npmDepsHash": "sha256-ebs6OSdXuhIqE3En3lW/6e7ortOu08QRmuXF60Q/XDQ="
+    "version": "1.6.97",
+    "rev": "778928034e73994e866058dce963482c78802f11",
+    "url": "https://codeload.github.com/kingcharleslzy-ai/dsh-purge/tar.gz/778928034e73994e866058dce963482c78802f11",
+    "hash": "sha256-O9UETO+nObweMfg2mj8gc3POa2Oz/01q4VNO4j3amnY=",
+    "npmDepsHash": "sha256-2m1r2Pg6u4s58BWoEkzfuY35bGjNWM58lskPbCjFAb8="
   },
   "npm:@anionex/dsh-turn-rewind": {
-    "version": "0.3.12",
-    "url": "https://registry.npmjs.org/@anionex/dsh-turn-rewind/-/dsh-turn-rewind-0.3.12.tgz",
-    "integrity": "sha512-0Gik2CPPJWowklTkR16yP0DRwsWEHw5upUXKcrsTCNfEWH9A9iBRF7UJSUgTI8S7z+T1mbkl7OWqsxcKDfXJig==",
-    "npmDepsHash": "sha256-y4wEmJj/zlHOzpyL69lI0FhBXoL8u94mIq7IH8Oi41Y="
+    "version": "0.3.13",
+    "url": "https://registry.npmjs.org/@anionex/dsh-turn-rewind/-/dsh-turn-rewind-0.3.13.tgz",
+    "integrity": "sha512-BPP1AeaJSkdBCT/UrdCVnwpb4f0QKOABkOXQdCcIavbkY6SZYgCRKLAmMUojC+bgskJOf9gunD3Xm16kEKk68A==",
+    "npmDepsHash": "sha256-Wbhf/GUfftAvLIQLY68jOShuy3zGfbAhboiB4Jp7oL8="
   },
   "npm:@ychris12138/dsh-usage-stats": {
-    "version": "0.3.7",
-    "url": "https://registry.npmjs.org/@ychris12138/dsh-usage-stats/-/dsh-usage-stats-0.3.7.tgz",
-    "integrity": "sha512-F26ZV27zzfr+mqvZeX5f5tON5YqY5DXwWptetYnMawkHANtAlo4OZO1pG5nS+Y2IiApIT6xvwtke8gklGdVXqw==",
-    "npmDepsHash": "sha256-gjY028JDn9ZH+jaoCoCJLNsndQc0wlQpdKM4IJ2B/3E="
+    "version": "0.3.8",
+    "url": "https://registry.npmjs.org/@ychris12138/dsh-usage-stats/-/dsh-usage-stats-0.3.8.tgz",
+    "integrity": "sha512-2btqXqEKvElhPKW5du5Z+f5LIWGBSYZeq15Pq1gEyhTCbfohqFAfJIp4XMQ+xQQ8IqTNjZdoXb8RWTsz0m9S3w==",
+    "npmDepsHash": "sha256-XooLvEf5NNhrCMtx5793xlv6Ldyr1M3d6MurxXZfTMg="
   }
 }
