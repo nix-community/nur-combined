@@ -197,6 +197,69 @@ in
         {
           apiVersion = "v1";
           kind = "PersistentVolume";
+          metadata.name = "pool-media-nextcloud-public-rw";
+          spec = {
+            capacity.storage = "4Ti";
+            volumeMode = "Filesystem";
+            accessModes = [ "ReadWriteMany" ];
+            persistentVolumeReclaimPolicy = "Retain";
+            storageClassName = "nfs-pool";
+            mountOptions = [ "vers=4.2" ];
+            csi = {
+              driver = "nfs.csi.k8s.io";
+              volumeHandle = "nas-pool-media-nextcloud-public-rw";
+              volumeAttributes = {
+                server = "10.1.0.3";
+                share = "/mnt/POOL/Public";
+              };
+            };
+          };
+        }
+        {
+          apiVersion = "v1";
+          kind = "PersistentVolume";
+          metadata.name = "pool-media-nextcloud-collin-rw";
+          spec = {
+            capacity.storage = "4Ti";
+            volumeMode = "Filesystem";
+            accessModes = [ "ReadWriteMany" ];
+            persistentVolumeReclaimPolicy = "Retain";
+            storageClassName = "nfs-pool";
+            mountOptions = [ "vers=4.2" ];
+            csi = {
+              driver = "nfs.csi.k8s.io";
+              volumeHandle = "nas-pool-media-nextcloud-collin-rw";
+              volumeAttributes = {
+                server = "10.1.0.3";
+                share = "/mnt/POOL/Collin";
+              };
+            };
+          };
+        }
+        {
+          apiVersion = "v1";
+          kind = "PersistentVolume";
+          metadata.name = "pool-media-nextcloud-chloe-rw";
+          spec = {
+            capacity.storage = "4Ti";
+            volumeMode = "Filesystem";
+            accessModes = [ "ReadWriteMany" ];
+            persistentVolumeReclaimPolicy = "Retain";
+            storageClassName = "nfs-pool";
+            mountOptions = [ "vers=4.2" ];
+            csi = {
+              driver = "nfs.csi.k8s.io";
+              volumeHandle = "nas-pool-media-nextcloud-chloe-rw";
+              volumeAttributes = {
+                server = "10.1.0.3";
+                share = "/mnt/POOL/Chloe";
+              };
+            };
+          };
+        }
+        {
+          apiVersion = "v1";
+          kind = "PersistentVolume";
           metadata.name = "pool-media-immich-rw";
           spec = {
             capacity.storage = "4Ti";
