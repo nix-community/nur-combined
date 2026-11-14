@@ -197,6 +197,15 @@ in
   };
   sops.useSystemdActivation = true;
   sops.secrets."k3s-token" = { };
+  # DynamicUser tries to migrate the pre-existing (bind-mounted)
+  # /var/lib/kea to /var/lib/private and fails with EBUSY (status 238).
+  # Run as the kea system user against the persisted dir instead.
+  systemd.services.kea-dhcp4-server.serviceConfig.DynamicUser = lib.mkForce false;
+  systemd.services.kea-dhcp6-server.serviceConfig.DynamicUser = lib.mkForce false;
+  # With DynamicUser off nothing creates /run/kea owned by kea anymore
+  # (pid + logger lockfiles, control socket); declare it explicitly.
+  systemd.services.kea-dhcp4-server.serviceConfig.RuntimeDirectory = "kea";
+  systemd.services.kea-dhcp6-server.serviceConfig.RuntimeDirectory = "kea";
   # Activation scripts don't run at boot, so on tmpfs root nothing would
   # reinstall /run/secrets after a reboot (k3s then waits on the token
   # forever). The systemd unit installs them at every boot instead.
@@ -222,10 +231,14 @@ in
       };
       networks.lan0 = {
         matchConfig.Name = "enp2s0 enp3s0 enp4s0";
+        # Bridge ports only; never gate boot on their carrier (often unplugged).
+        linkConfig.RequiredForOnline = "no";
         networkConfig.Bridge = "br0";
       };
       networks.br0 = {
         matchConfig.Name = "br0";
+        # No slaves with carrier when LAN ports are empty; don't gate boot.
+        linkConfig.RequiredForOnline = "no";
         address = [
           "${ipv4NetworkPrefix}.0.1/24"
           "${ipv6NetworkPrefix}::1/64"
@@ -250,6 +263,7 @@ in
       };
       networks."br0.${homeVlanId}" = {
         matchConfig.Name = "br0.${homeVlanId}";
+        linkConfig.RequiredForOnline = "no";
         address = [
           "${ipv4NetworkPrefix}.${homeVlanId}.1/24"
           "${ipv6NetworkPrefix}:${homeVlanId}::1/64"
@@ -268,6 +282,7 @@ in
       };
       networks."br0.${guestVlanId}" = {
         matchConfig.Name = "br0.${guestVlanId}";
+        linkConfig.RequiredForOnline = "no";
         address = [
           "${ipv4NetworkPrefix}.${guestVlanId}.1/24"
           "${ipv6NetworkPrefix}:${guestVlanId}::1/64"
@@ -286,6 +301,7 @@ in
       };
       networks."br0.${iotVlanId}" = {
         matchConfig.Name = "br0.${iotVlanId}";
+        linkConfig.RequiredForOnline = "no";
         address = [
           "${ipv4NetworkPrefix}.${iotVlanId}.1/24"
           "${ipv6NetworkPrefix}:${iotVlanId}::1/64"
