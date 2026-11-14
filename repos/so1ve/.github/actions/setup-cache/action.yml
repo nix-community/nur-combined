@@ -2,6 +2,9 @@ name: Set up binary cache
 description: Run oranc from its Nix package and configure GHCR caching
 
 inputs:
+  registry-token:
+    description: GitHub token with write access to ghcr.io/so1ve/nur-cache
+    default: ${{ github.token }}
   signing-key:
     description: Nix signing key for the cache
     required: true
@@ -12,9 +15,11 @@ runs:
     - name: Start oranc
       id: oranc
       shell: bash
+      env:
+        ACTION_PATH: ${{ github.action_path }}
       run: |
         package="$(
-          nix build --inputs-from . oranc \
+          nix build --inputs-from "$ACTION_PATH/../../.." oranc \
             --out-link "$RUNNER_TEMP/oranc" --print-out-paths \
             --extra-substituters https://linyinfeng.cachix.org \
             --extra-trusted-public-keys linyinfeng.cachix.org-1:sPYQXcNrnCf7Vr7T0YmjXz5dMZ7aOKG3EqLja0xr9MM=
@@ -35,6 +40,10 @@ runs:
       with:
         orancServerType: url
         orancServerUrl: http://127.0.0.1:8080
+        repositoryPart1: so1ve
         repositoryPart2: nur-cache
+        username: so1ve
+        password: ${{ inputs.registry-token }}
+        initialize: true
         orancCli: ${{ steps.oranc.outputs.package }}
         signingKey: ${{ inputs.signing-key }}

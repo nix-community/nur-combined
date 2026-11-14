@@ -99,6 +99,38 @@ nix.settings = {
 };
 ```
 
+Other repositories can use the same upload action after installing Nix:
+
+```yaml
+permissions:
+  contents: read
+  packages: write
+steps:
+  - uses: so1ve/nur-packages/.github/actions/setup-cache@main
+    if: github.event_name != 'pull_request'
+    with:
+      signing-key: ${{ secrets.ORANC_SIGNING_KEY }}
+```
+
+All projects upload to `ghcr.io/so1ve/nur-cache`. Set `ORANC_SIGNING_KEY` in each
+uploading repository. The action uses its own locked oranc input and uploads new
+store paths at the end of the job.
+
+The `registry-token` input defaults to the workflow's `GITHUB_TOKEN`; grant the
+repository write access in the GHCR package's **Manage Actions access** settings
+to use it. Projects under another owner can pass a classic PAT with
+`write:packages` access to the cache package instead:
+
+```yaml
+with:
+  signing-key: ${{ secrets.ORANC_SIGNING_KEY }}
+  registry-token: ${{ secrets.GHCR_CACHE_TOKEN }}
+```
+
+Use a separate PAT for each project so it can be rotated independently. Workflows
+using a PAT do not need `packages: write` on their `GITHUB_TOKEN`. Downloads remain
+anonymous through `https://cache.so1ve.dev` and use the signing public key above.
+
 ## Update package sources
 
 ```bash
