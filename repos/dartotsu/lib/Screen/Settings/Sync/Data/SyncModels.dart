@@ -13,6 +13,8 @@ class SyncKey {
   static const mangabaka = 'mangabaka';
   static const mangaupdates = 'mangaupdates';
   static const animeplanet = 'animeplanet';
+  static const comick = 'comick';
+  static const trakt = 'trakt';
 }
 
 int syncSlugKey(String slug) {

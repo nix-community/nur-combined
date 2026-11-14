@@ -209,11 +209,23 @@ abstract class AppLocalizations {
   /// **'Simkl'**
   String get simkl;
 
+  /// No description provided for @trakt.
+  ///
+  /// In en, this message translates to:
+  /// **'Trakt'**
+  String get trakt;
+
   /// No description provided for @kitsu.
   ///
   /// In en, this message translates to:
   /// **'Kitsu'**
   String get kitsu;
+
+  /// No description provided for @comick.
+  ///
+  /// In en, this message translates to:
+  /// **'Comick'**
+  String get comick;
 
   /// No description provided for @mangaBaka.
   ///
@@ -3485,6 +3497,162 @@ abstract class AppLocalizations {
   /// **'MangaBaka login failed'**
   String get mangaBakaLoginFailed;
 
+  /// No description provided for @comickLoginFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Comick login failed'**
+  String get comickLoginFailed;
+
+  /// No description provided for @tagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Tagline'**
+  String get tagline;
+
+  /// No description provided for @trending.
+  ///
+  /// In en, this message translates to:
+  /// **'Trending'**
+  String get trending;
+
+  /// No description provided for @anticipated.
+  ///
+  /// In en, this message translates to:
+  /// **'Anticipated'**
+  String get anticipated;
+
+  /// No description provided for @watchlist.
+  ///
+  /// In en, this message translates to:
+  /// **'Watchlist'**
+  String get watchlist;
+
+  /// No description provided for @recommendedShows.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended Shows'**
+  String get recommendedShows;
+
+  /// No description provided for @recommendedMovies.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended Movies'**
+  String get recommendedMovies;
+
+  /// No description provided for @boxOffice.
+  ///
+  /// In en, this message translates to:
+  /// **'Box Office'**
+  String get boxOffice;
+
+  /// No description provided for @popularMovies.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular Movies'**
+  String get popularMovies;
+
+  /// No description provided for @popularShows.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular Shows'**
+  String get popularShows;
+
+  /// No description provided for @anticipatedMovies.
+  ///
+  /// In en, this message translates to:
+  /// **'Anticipated Movies'**
+  String get anticipatedMovies;
+
+  /// No description provided for @anticipatedShows.
+  ///
+  /// In en, this message translates to:
+  /// **'Anticipated Shows'**
+  String get anticipatedShows;
+
+  /// No description provided for @trendingShows.
+  ///
+  /// In en, this message translates to:
+  /// **'Trending Shows'**
+  String get trendingShows;
+
+  /// No description provided for @mostWatchedThisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Most Watched This Week'**
+  String get mostWatchedThisWeek;
+
+  /// No description provided for @sortMostViewed.
+  ///
+  /// In en, this message translates to:
+  /// **'Most viewed'**
+  String get sortMostViewed;
+
+  /// No description provided for @sortMostFollowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Most followed'**
+  String get sortMostFollowed;
+
+  /// No description provided for @sortLatestUpdates.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest updates'**
+  String get sortLatestUpdates;
+
+  /// No description provided for @translationStatusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation'**
+  String get translationStatusLabel;
+
+  /// No description provided for @weeklySchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Schedule'**
+  String get weeklySchedule;
+
+  /// No description provided for @mostFollowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Most Followed'**
+  String get mostFollowed;
+
+  /// No description provided for @latestUpdates.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest Updates'**
+  String get latestUpdates;
+
+  /// No description provided for @trendingAnime.
+  ///
+  /// In en, this message translates to:
+  /// **'Trending Anime'**
+  String get trendingAnime;
+
+  /// No description provided for @topRatedAnime.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Rated Anime'**
+  String get topRatedAnime;
+
+  /// No description provided for @mostFollowedAnime.
+  ///
+  /// In en, this message translates to:
+  /// **'Most Followed Anime'**
+  String get mostFollowedAnime;
+
+  /// No description provided for @comickProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Comick profile'**
+  String get comickProfile;
+
+  /// No description provided for @refreshFromComick.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh from Comick'**
+  String get refreshFromComick;
+
   /// No description provided for @mangaBakaProfile.
   ///
   /// In en, this message translates to:
@@ -3617,6 +3785,24 @@ abstract class AppLocalizations {
   /// **'MangaBaka account options'**
   String get mangaBakaAccountOptions;
 
+  /// No description provided for @comickAccountOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Comick account options'**
+  String get comickAccountOptions;
+
+  /// No description provided for @comickClientId.
+  ///
+  /// In en, this message translates to:
+  /// **'Comick Client ID'**
+  String get comickClientId;
+
+  /// No description provided for @comickClientIdDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom client ID registered on comick.dev'**
+  String get comickClientIdDesc;
+
   /// No description provided for @couldNotUpdateKitsuSettings.
   ///
   /// In en, this message translates to:
@@ -3748,6 +3934,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Simkl granted read-only access'**
   String get simklReadOnly;
+
+  /// No description provided for @traktReadOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Trakt granted read-only access'**
+  String get traktReadOnly;
 
   /// No description provided for @incognitoEditsBlocked.
   ///
@@ -3971,11 +4163,23 @@ abstract class AppLocalizations {
   /// **'Simkl profile'**
   String get simklProfile;
 
+  /// No description provided for @traktProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Trakt profile'**
+  String get traktProfile;
+
   /// No description provided for @refreshFromSimkl.
   ///
   /// In en, this message translates to:
   /// **'Refresh from Simkl'**
   String get refreshFromSimkl;
+
+  /// No description provided for @refreshFromTrakt.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh from Trakt'**
+  String get refreshFromTrakt;
 
   /// No description provided for @repullProfileLibrary.
   ///
@@ -4000,6 +4204,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Data and artwork provided by Simkl. View on Simkl'**
   String get simklAttribution;
+
+  /// No description provided for @traktAttribution.
+  ///
+  /// In en, this message translates to:
+  /// **'Data and artwork provided by Trakt. View on Trakt'**
+  String get traktAttribution;
+
+  /// No description provided for @traktVip.
+  ///
+  /// In en, this message translates to:
+  /// **'VIP'**
+  String get traktVip;
+
+  /// No description provided for @traktVipMember.
+  ///
+  /// In en, this message translates to:
+  /// **'Trakt VIP Member'**
+  String get traktVipMember;
 
   /// No description provided for @onHold.
   ///
@@ -6269,6 +6491,24 @@ abstract class AppLocalizations {
   /// **'Born'**
   String get born;
 
+  /// No description provided for @died.
+  ///
+  /// In en, this message translates to:
+  /// **'Died'**
+  String get died;
+
+  /// No description provided for @birthplace.
+  ///
+  /// In en, this message translates to:
+  /// **'Birthplace'**
+  String get birthplace;
+
+  /// No description provided for @department.
+  ///
+  /// In en, this message translates to:
+  /// **'Department'**
+  String get department;
+
   /// No description provided for @website.
   ///
   /// In en, this message translates to:
@@ -6316,6 +6556,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Shows'**
   String get shows;
+
+  /// No description provided for @moviesWatched.
+  ///
+  /// In en, this message translates to:
+  /// **'Movies Watched'**
+  String get moviesWatched;
+
+  /// No description provided for @showsWatched.
+  ///
+  /// In en, this message translates to:
+  /// **'Shows Watched'**
+  String get showsWatched;
+
+  /// No description provided for @moviesCollected.
+  ///
+  /// In en, this message translates to:
+  /// **'Movies Collected'**
+  String get moviesCollected;
+
+  /// No description provided for @showsCollected.
+  ///
+  /// In en, this message translates to:
+  /// **'Shows Collected'**
+  String get showsCollected;
 
   /// No description provided for @rewatching.
   ///
