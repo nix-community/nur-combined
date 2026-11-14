@@ -33,6 +33,7 @@ in
     inputs.nixcfg.modules.nixos.k3s-edge
     inputs.nixcfg.modules.nixos.k3s-homepage
     inputs.nixcfg.modules.nixos.k3s-homeassistant
+    inputs.nixcfg.modules.nixos.k3s-immich
     inputs.nixcfg.modules.nixos.k3s-storage
     inputs.nixcfg.modules.nixos.k3s-starr
     inputs.nixcfg.modules.nixos.monitoring
@@ -148,6 +149,8 @@ in
     k3sEdge.enable = true;
     # Home Assistant (not starr); same cluster-wide pattern.
     k3sHomeassistant.enable = true;
+    # Immich (server + ML + Postgres + Valkey); server/ML scaled 0 until cutover.
+    k3sImmich.enable = true;
     # Shared NFS storage (csi-driver-nfs + static pool PVs).
     # Single writer: enable ONLY here, never on another server.
     k3sStorage.enable = true;
@@ -291,6 +294,8 @@ in
         # Pod-level read-only is still enforced separately via the
         # pool-public-ro PV (mountOptions ro + csi.readOnly).
         /mnt/POOL/Public 10.1.0.0/24(rw,sync,no_subtree_check,root_squash)
+        # RW: k8s immich-server mounts the photo library here at /data.
+        /mnt/POOL/immich/library 10.1.0.0/24(rw,sync,no_subtree_check,root_squash)
       '';
     };
     spice-vdagentd.enable = true;
