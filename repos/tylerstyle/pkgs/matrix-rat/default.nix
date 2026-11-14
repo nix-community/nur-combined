@@ -7,11 +7,12 @@
   perl,
   aws-lc,
   sqlite,
+  zstd,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "matrix-rat";
-  version = "0.1.0";
+  version = "0.1.1";
 
   __structuredAttrs = true;
 
@@ -19,10 +20,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "tylerstyle";
     repo = "matrix-rat";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-w23FYUEQt5pcrJIRIOrHHwAG20fZatV1gGh/9Y19T6E=";
+    hash = "sha256-QodjqWeHtE3Dyn8stSMWfDzP05bA15vKF9tGK31sC3A=";
   };
 
-  cargoHash = "sha256-GvBENARy8PAzbVqLywWBQO1nvUcWei/3S6ooOGuuQMg=";
+  cargoHash = "sha256-s6pix/tCe6ty30Le6UdUaIUw9NlHzX9W0dapE/NhKfE=";
 
   nativeBuildInputs = [
     pkg-config
@@ -35,6 +36,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   buildInputs = [
     aws-lc
     sqlite
+    zstd
   ];
 
   # The test suite runs in the project's own CI script; skipping it here halves the build
