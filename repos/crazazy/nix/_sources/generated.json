@@ -7,11 +7,11 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "sha256": "sha256-JuzRkmroN4oprNIdUrvsejU8quAghaxNH4C3r0NXzfE=",
+            "sha256": "sha256-sHs/8L7mlCKWecTtFvmx0VXpg1iVeHAz2E7/qpUWZKM=",
             "type": "tarball",
-            "url": "https://github.com/CakeML/cakeml/releases/download/v3479/cake-x64-64.tar.gz"
+            "url": "https://github.com/CakeML/cakeml/releases/download/v3671/cake-x64-64.tar.gz"
         },
-        "version": "v3479"
+        "version": "v3671"
     },
     "enso": {
         "cargoLock": null,
