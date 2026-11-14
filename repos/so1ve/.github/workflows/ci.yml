@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   lint:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
       - uses: cachix/install-nix-action@v31
@@ -29,9 +29,9 @@ jobs:
       matrix:
         include:
           - system: x86_64-linux
-            runner: ubuntu-24.04
+            runner: ubuntu-26.04
           - system: aarch64-linux
-            runner: ubuntu-24.04-arm
+            runner: ubuntu-26.04-arm
     runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@v7

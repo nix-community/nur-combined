@@ -21,7 +21,7 @@ concurrency:
 
 jobs:
   prepare:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     outputs:
       base: ${{ steps.updates.outputs.base }}
       changed: ${{ steps.updates.outputs.changed }}
@@ -113,9 +113,9 @@ jobs:
         package: ${{ fromJSON(needs.prepare.outputs.packages) }}
         target:
           - system: x86_64-linux
-            runner: ubuntu-24.04
+            runner: ubuntu-26.04
           - system: aarch64-linux
-            runner: ubuntu-24.04-arm
+            runner: ubuntu-26.04-arm
     runs-on: ${{ matrix.target.runner }}
     steps:
       - uses: actions/checkout@v7
@@ -170,7 +170,7 @@ jobs:
     needs:
       - prepare
       - validate
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     outputs:
       changed: ${{ steps.collect.outputs.changed }}
       packages: ${{ steps.collect.outputs.packages }}
@@ -225,7 +225,7 @@ jobs:
     needs:
       - prepare
       - collect
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
         with:
@@ -262,7 +262,7 @@ jobs:
     needs:
       - prepare
       - publish
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Report updater failures
         run: |
