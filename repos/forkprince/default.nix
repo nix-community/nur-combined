@@ -52,11 +52,13 @@
     orbolay = lib.callPackage ./pkgs/orbolay {};
     wg-nord = lib.callPackage ./pkgs/wg-nord {};
     hyprism = lib.callPackage ./pkgs/hyprism {};
+    transit = lib.callPackage ./pkgs/transit {};
     sonora = lib.callPackage ./pkgs/sonora {};
     sonixd = lib.callPackage ./pkgs/sonixd {};
     hytale = lib.callPackage ./pkgs/hytale {};
     whisky = lib.callPackage ./pkgs/whisky {};
     armsx2 = lib.callPackage ./pkgs/armsx2 {};
+    prism = lib.callPackage ./pkgs/prism {};
     mcman = lib.callPackage ./pkgs/mcman {};
     nuvio = lib.callPackage ./pkgs/nuvio {};
     brisk = lib.callPackage ./pkgs/brisk {};

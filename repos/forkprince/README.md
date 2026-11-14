@@ -128,6 +128,7 @@ This repository contains three types of packages:
 | [`pixelflasher`](pkgs/pixelflasher/default.nix) | [pixelflasher](https://github.com/badabing2005/PixelFlasher), pixel™ phone flashing GUI utility with features |
 | [`playcover`](pkgs/playcover/default.nix) | [playcover](https://playcover.io/), sideload iOS apps and games |
 | [`pokemon-fulldex`](pkgs/pokemon-fulldex/default.nix) | [pokemon-fulldex](https://github.com/mamesj/pokemon-fulldex), launcher for Pokémon DS and GBA games in widescreen at 60 fps |
+| [`prism`](pkgs/prism/default.nix) | [prism](https://prismdl.site/), fast, free, open-source multi-connection download manager with browser integration and video downloads |
 | [`proton-cachyos-arm-bin`](pkgs/proton-cachyos-bin/default.nix) | [proton-cachyos-gi-cn-bin](https://github.com/CachyOS/proton-cachyos), compatibility tool for Steam Play based on Wine and additional components (This is intended for use in the `programs.steam.extraCompatPackages` option only.) |
 | [`proton-cachyos-v1-bin`](pkgs/proton-cachyos-bin/default.nix) | [proton-cachyos-gi-cn-bin](https://github.com/CachyOS/proton-cachyos), compatibility tool for Steam Play based on Wine and additional components (This is intended for use in the `programs.steam.extraCompatPackages` option only.) |
 | [`proton-cachyos-v3-bin`](pkgs/proton-cachyos-bin/default.nix) | [proton-cachyos-gi-cn-bin](https://github.com/CachyOS/proton-cachyos), compatibility tool for Steam Play based on Wine and additional components (This is intended for use in the `programs.steam.extraCompatPackages` option only.) |
@@ -161,6 +162,7 @@ This repository contains three types of packages:
 | [`tenacity`](pkgs/tenacity/default.nix) | [tenacity](https://tenacityaudio.org/), sound editor with graphical UI |
 | [`tiny-rdm`](pkgs/tiny-rdm/default.nix) | [tiny-rdm](https://github.com/tiny-craft/tiny-rdm), modern, colorful, super lightweight Redis GUI client |
 | [`tinywiibackupmanager`](pkgs/tinywiibackupmanager/default.nix) | [tinywiibackupmanager](https://github.com/mq1/TinyWiiBackupManager), a tiny game backup and homebrew app manager for the Wii |
+| [`transit`](pkgs/transit/default.nix) | [transit](https://github.com/transit-audio/transit), a free, open-source digital audio workstation (DAW) written in Rust |
 | [`twintaillauncher`](pkgs/twintaillauncher/default.nix) | [twintaillauncher](https://github.com/TwintailTeam/TwintailLauncher), a multi-platform launcher for your anime games |
 | [`vector-studio`](pkgs/vector-studio/default.nix) | [vector-studio](https://tenzen.studio/vector/), illustrator alternative for vector illustration and design |
 | [`vectorcraft`](pkgs/vectorcraft/default.nix) | [vectorcraft](https://getartcraft.com/apps/vectorcraft), vector graphics editor |
