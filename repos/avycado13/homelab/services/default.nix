@@ -83,6 +83,7 @@
   };
 
   imports = [
+    ./adguardhome
     ./miniflux
     ./shiori
     ./auth

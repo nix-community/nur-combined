@@ -5,6 +5,22 @@ let
 in
 removeAttrs nur [ "overlays" ]
 // {
+  # aws-lc-sys is forced to use a system library by nixpkgs' Cargo hook.
+  # Codex needs AWS-LC itself on Darwin; OpenSSL is not a compatible substitute.
+  codex =
+    let
+      hasAwsLc = builtins.any (
+        input: prev.lib.getName input == prev.lib.getName prev.aws-lc
+      ) (prev.codex.buildInputs or [ ]);
+    in
+    # Pass through upstream unchanged once it includes AWS-LC on Darwin.
+    if !prev.stdenv.hostPlatform.isDarwin || hasAwsLc then
+      prev.codex
+    else
+      prev.codex.overrideAttrs (old: {
+        buildInputs = (old.buildInputs or [ ]) ++ [ prev.aws-lc ];
+      });
+
   scooter =
     let
       hasInput = inputs: pkg: builtins.any (input: prev.lib.getName input == prev.lib.getName pkg) inputs;
