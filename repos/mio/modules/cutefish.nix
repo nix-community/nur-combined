@@ -218,6 +218,12 @@ in
       systemd.services.cutefish-dm = {
         aliases = [ "display-manager.service" ];
         wantedBy = [ "graphical.target" ];
+        # The daemon takes the boot splash over itself: it looks plymouth up in
+        # PATH, deactivates the splash and quits it with --retain-splash. A
+        # service does not inherit /run/current-system/sw/bin, so without this
+        # plymouth is never found, keeps DRM master, and the login screen's
+        # TakeDevice fails with EBUSY.
+        path = lib.optionals config.boot.plymouth.enable [ pkgs.plymouth ];
       };
       services.dbus.packages = [ cu.cutefish-dm ];
 

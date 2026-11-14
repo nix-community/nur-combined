@@ -50,6 +50,7 @@
           cutefish = cutefishTests.basic;
           cutefish-dm = cutefishTests.dm;
           cutefish-dm-greeter = cutefishTests.greeter;
+          cutefish-dm-splash = cutefishTests.splash;
         };
       cached-cuda = forAllSystems (
         system:

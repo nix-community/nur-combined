@@ -188,11 +188,12 @@ services.displayManager.autoLogin.user = "alice";
 environment.cutefish.excludePackages = [ pkgs.cutefish-video-player ];
 ```
 
-The desktop has three VM tests, all on a virtio GPU in QEMU with a screenshot:
+The desktop has four VM tests, all on a virtio GPU in QEMU with a screenshot:
 
 - `nix build .#checks.x86_64-linux.cutefish` follows the NixOS desktop-manager tests. SDDM logs a user into the Wayland session, and the test checks the registered session file, the compositor, session and shell processes, the logind session type, the session environment, the portal backend, `environment.cutefish.excludePackages`, and that nothing coredumped.
 - `nix build .#checks.x86_64-linux.cutefish-dm` does the same with `services.displayManager.cutefish-dm.enable` and automatic login, and also checks that the daemon owns `display-manager.service` and its PAM service.
 - `nix build .#checks.x86_64-linux.cutefish-dm-greeter` boots cutefish-dm without automatic login and checks the login-screen compositor, the greeter user, the greeter PAM service, and the logind greeter session.
+- `nix build .#checks.x86_64-linux.cutefish-dm-splash` enables `boot.plymouth` on top of that: the login screen has to take the display over from the boot splash, which keeps DRM master until cutefish-dm quits it.
 
 They boot QEMU VMs and are registered for x86_64-linux only.
 

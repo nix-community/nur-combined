@@ -258,4 +258,50 @@ in
             raise
       '';
   };
+
+  # The same login screen with the boot splash enabled, as on a normal boot.
+  # plymouth owns the DRM device until cutefish-dm takes it over, and the
+  # daemon only finds plymouth through PATH; without it the compositor's
+  # TakeDevice fails with EBUSY and the login screen restart-loops.
+  splash = testers.runNixOSTest {
+    name = "cutefish-dm-splash";
+
+    nodes.machine = pkgs.lib.recursiveUpdate nodeBase {
+      services.displayManager.cutefish-dm.enable = true;
+      boot.plymouth.enable = true;
+      # cutefish-dm.service conflicts with plymouth-quit.service, so a real
+      # boot still has the splash up when the daemon starts. Keep it that way
+      # here instead of letting the VM quit plymouth first.
+      systemd.services.plymouth-quit.wantedBy = pkgs.lib.mkForce [ ];
+    };
+
+    testScript =
+      { ... }:
+      prelude
+      + ''
+
+        try:
+            start_all()
+
+            with subtest("The boot splash is up"):
+                machine.wait_for_unit("plymouth-start.service")
+                machine.succeed("${pkgs.plymouth}/bin/plymouth --ping")
+
+            machine.wait_for_unit("display-manager.service")
+
+            check_dm()
+
+            with subtest("The login screen takes the display from the boot splash"):
+                # plymouth owns the DRM device until the daemon finds it in PATH
+                # and quits it; otherwise this fails with EBUSY.
+                machine.wait_until_succeeds("pgrep -f '[c]utefish-compositor --login'", timeout=120)
+                machine.wait_until_fails("${pkgs.plymouth}/bin/plymouth --ping", timeout=60)
+
+            machine.sleep(5)
+            machine.screenshot("cutefish-dm-splash")
+        except Exception:
+            diagnostics()
+            raise
+      '';
+  };
 }
