@@ -32,5 +32,6 @@ in
 
       desktopName = "Folio Studio";
       desktopId = "org.tenzen.folio-studio";
+      startupWMClass = "folio-studio";
       categories = ["Office"];
     }

@@ -18,7 +18,7 @@ in
     exec = "venture %U";
     categories = ["Game"];
     icon = "org.venture_emu.Venture";
-    startupWMClass = "venture";
+    startupWMClass = "org.venture_emu.Venture";
 
     meta = {
       description = "A Meta Quest emulator for PC VR";

@@ -26,4 +26,5 @@ in
     desktopComment = "Chat and voice for Matrix and Discord";
     categories = ["Network" "InstantMessaging" "Chat"];
     icon = "io.github.yapfast.Yapfast";
+    startupWMClass = "io.github.yapfast.Yapfast";
   }

@@ -32,5 +32,6 @@ in
 
       desktopName = "Light Studio";
       desktopId = "studio.light";
+      startupWMClass = "light-studio";
       categories = ["Graphics" "Photography"];
     }

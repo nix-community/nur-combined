@@ -1,143 +1,121 @@
-# NOTE
-# this was taken from https://github.com/NixOS/nixpkgs/pull/479368, credits to all people involved
-# then gepbird converted it to use buildFHSEnv which was done by AI and needs cleanup
-#
-# then I (prinky) took this from https://github.com/nix-community/nur-combined/blob/main/repos/gepbird/pkgs/hytale-launcher/default.nix#L95
-# and added auto updating
+# Originally from https://github.com/NixOS/nixpkgs/pull/479368, via gepbird's NUR package.
+# The launcher is unpatched, so Linux runs it inside an FHS environment that provides its runtime libraries.
 {
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-  buildFHSEnv,
-  makeWrapper,
   copyDesktopItems,
   makeDesktopItem,
-  gtk3,
-  nss,
-  libsecret,
-  libsoup_3,
-  gdk-pixbuf,
-  glib,
-  webkitgtk_4_1,
-  xdg-utils,
-  openssl,
-  SDL2,
-  libX11,
-  libXcursor,
-  libXext,
-  libXi,
-  libXinerama,
-  libXrandr,
-  libXxf86vm,
-  wayland,
-  libxkbcommon,
-  libdecor,
-  alsa-lib,
-  libpulseaudio,
+  buildFHSEnv,
+  stdenvNoCC,
+  fetchurl,
+  unzip,
+  lib,
 }: let
   ver = lib.helper.read ./version.json;
-  platform = stdenv.hostPlatform.system;
-  src = fetchurl (lib.helper.getPlatform platform ver);
-  inherit (ver) version;
 
   pname = "hytale-launcher";
+  inherit (ver) version;
 
-  unwrapped = stdenv.mkDerivation {
-    pname = "${pname}-unwrapped";
-    inherit version src;
+  src = fetchurl (lib.helper.getPlatform stdenvNoCC.hostPlatform.system ver);
 
-    sourceRoot = ".";
+  meta = {
+    description = "Official launcher for Hytale";
+    homepage = "https://hytale.com";
+    license = lib.licenses.unfreeRedistributable;
+    maintainers = with lib.maintainers; [Prinky gepbird];
+    mainProgram = pname;
+    platforms = lib.platforms.darwin ++ ["x86_64-linux"];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+  };
+in
+  if stdenvNoCC.hostPlatform.isDarwin
+  then
+    stdenvNoCC.mkDerivation (lib.helper.mkDarwin {
+      inherit pname version src meta;
 
-    unpackCmd = ''
-      LANG=C.UTF-8 unzip -qq "$curSrc" || [ $? -eq 1 ]
-    '';
+      nativeBuildInputs = [unzip];
 
-    nativeBuildInputs =
-      [
-        makeWrapper
-        unzip
-      ]
-      ++ lib.optionals stdenv.hostPlatform.isLinux [
+      unpackPhase = ''
+        runHook preUnpack
+        LANG=C.UTF-8 unzip -qq "$src" || [ $? -eq 1 ]
+        runHook postUnpack
+      '';
+    })
+  else let
+    unwrapped = stdenvNoCC.mkDerivation {
+      pname = "${pname}-unwrapped";
+      inherit version src;
+
+      sourceRoot = ".";
+
+      nativeBuildInputs = [
         copyDesktopItems
+        unzip
       ];
 
-    desktopItems = lib.optionals stdenv.hostPlatform.isLinux [
-      (makeDesktopItem {
-        name = "hytale-launcher";
-        exec = "hytale-launcher";
-        desktopName = "Hytale Launcher";
-        categories = ["Game"];
-        terminal = false;
-      })
-    ];
+      unpackCmd = ''
+        LANG=C.UTF-8 unzip -qq "$curSrc" || [ $? -eq 1 ]
+      '';
 
-    dontBuild = true;
-    dontFixup = stdenv.hostPlatform.isDarwin;
-    dontStrip = true;
+      desktopItems = [
+        (makeDesktopItem {
+          name = "com.hypixel.HytaleLauncher";
+          exec = "hytale-launcher";
+          desktopName = "Hytale Launcher";
+          comment = "Official launcher for Hytale";
+          icon = "com.hypixel.HytaleLauncher";
+          categories = ["Game"];
+          terminal = false;
+          startupWMClass = "com.hypixel.HytaleLauncher";
+        })
+      ];
 
-    installPhase =
-      ''
+      dontBuild = true;
+      dontStrip = true;
+
+      installPhase = ''
         runHook preInstall
-      ''
-      + lib.optionalString stdenv.hostPlatform.isLinux ''
-        mkdir -p "$out/bin"
-        install -Dm755 "hytale-launcher" "$out/bin/hytale-launcher"
-      ''
-      + lib.optionalString stdenv.hostPlatform.isDarwin ''
-        mkdir -p $out/Applications
-        app=$(find . -maxdepth 2 -name "*.app" -type d | head -n1)
-        cp -R "$app" $out/Applications/
-      ''
-      + ''
+
+        install -Dm755 hytale-launcher $out/bin/hytale-launcher
+
+        mkdir -p $out/share/icons
+        cp -r ${./icons}/hicolor $out/share/icons/
+
         runHook postInstall
       '';
 
-    meta = {
-      description = "Official launcher for Hytale";
-      homepage = "https://hytale.com";
-      license = lib.licenses.unfreeRedistributable;
-      maintainers = with lib.maintainers; [gepbird];
-      mainProgram = "hytale-launcher";
-      platforms = lib.platforms.darwin ++ ["x86_64-linux"];
-      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      inherit meta;
     };
-  };
-in
-  if stdenv.hostPlatform.isLinux
-  then
+  in
     buildFHSEnv {
-      name = pname;
-      inherit version;
+      inherit pname version;
 
       targetPkgs = pkgs: (with pkgs; [
+        webkitgtk_4_1
+        libpulseaudio
+        libxkbcommon
+        libXinerama
+        gdk-pixbuf
+        libXcursor
+        libXxf86vm
         unwrapped
-        gtk3
-        nss
         libsecret
         libsoup_3
-        gdk-pixbuf
-        glib
-        webkitgtk_4_1
         xdg-utils
-        mesa
-        libglvnd
-        libdrm
-        icu
-        openssl
-        SDL2
-        libX11
-        libXcursor
         libXrandr
-        libXext
-        libXi
-        libXinerama
-        libXxf86vm
-        wayland
-        libxkbcommon
+        libglvnd
         libdecor
         alsa-lib
-        libpulseaudio
+        openssl
+        libXext
+        wayland
+        libdrm
+        libX11
+        libXi
+        gtk3
+        glib
+        mesa
+        SDL2
+        nss
+        icu
       ]);
 
       profile = ''
@@ -148,10 +126,10 @@ in
       runScript = "hytale-launcher";
 
       extraInstallCommands = ''
-        mkdir -p "$out/share/applications"
-        ln -s "${unwrapped}/share/applications/hytale-launcher.desktop" "$out/share/applications/"
+        mkdir -p $out/share/applications $out/share/icons
+        ln -s ${unwrapped}/share/applications/com.hypixel.HytaleLauncher.desktop $out/share/applications/
+        ln -s ${unwrapped}/share/icons/hicolor $out/share/icons/
       '';
 
-      inherit (unwrapped) meta;
+      inherit meta;
     }
-  else unwrapped

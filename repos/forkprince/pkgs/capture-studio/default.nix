@@ -33,4 +33,6 @@ in
       desktopName = "Capture Studio";
       desktopId = "com.tenzen.desktop";
       categories = ["Video" "AudioVideoEditing"];
+      startupWMClass = "tenzen";
+      icon = "tenzen";
     }

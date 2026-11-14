@@ -32,5 +32,6 @@ in
 
       desktopName = "Photon Studio";
       desktopId = "com.tenzen.photon";
+      startupWMClass = "photon-studio";
       categories = ["Graphics" "Photography"];
     }

@@ -32,5 +32,6 @@ in
 
       desktopName = "Vector Studio";
       desktopId = "org.tenzen.vector-studio";
+      startupWMClass = "vector-studio";
       categories = ["Graphics" "2DGraphics"];
     }

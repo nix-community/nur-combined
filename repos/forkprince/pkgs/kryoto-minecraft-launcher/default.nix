@@ -45,6 +45,7 @@ in
       javaPaths = lib.makeSearchPath "bin/java" (builtins.attrValues javas);
     };
 
+    startupWMClass = "kryoto-minecraft-launcher";
     desktopName = "Kryoto Minecraft Launcher";
     categories = ["Game"];
 

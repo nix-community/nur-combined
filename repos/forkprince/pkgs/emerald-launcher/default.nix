@@ -30,6 +30,7 @@ in
     lib.helper.mkAppImage {
       inherit pname version src meta;
 
+      startupWMClass = "emerald-legacy-launcher";
       desktopName = "LCE Emerald Launcher";
       icon = "emerald-legacy-launcher";
       categories = ["Game"];
