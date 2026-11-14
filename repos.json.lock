@@ -26,8 +26,8 @@
             "url": "https://git.catgirl.cloud/999eagle/nur-packages"
         },
         "Adamekka": {
-            "rev": "09876db68158c44dc6f306c4523c20d231e44e99",
-            "sha256": "0pxdnbz06hzh0yblwalfl34q2ys4w2j9yws4gc7jvnjw97924n8r",
+            "rev": "0e43852c6cb4602d7f52edfc1f8fe1bf3884d598",
+            "sha256": "1p211bw4my05faa1l85vdjwdy4jblw6sx4x8kgsx3i4jjqwnkhrr",
             "url": "https://github.com/Adamekka/nur-packages"
         },
         "Alxandr": {
@@ -1045,8 +1045,8 @@
             "url": "https://github.com/foresense/nur-packages"
         },
         "forkprince": {
-            "rev": "c74737ac5dad53c94c1ceaedfa21cf8c448e3a09",
-            "sha256": "1yrlkwxlps14fhmyzf7px5mqsvm75nb04vx2mvq16238mswrlx9h",
+            "rev": "44c59868d511ed79fa6658dbca20ea201f538ce7",
+            "sha256": "0pa06hv8qvpifm0xr58888s6riavnvbw7b15qr58mpx212jm6672",
             "url": "https://github.com/forkprince/nur-packages"
         },
         "fortuneteller2k": {
