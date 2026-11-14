@@ -1,26 +1,23 @@
 {
   lib,
   php,
-  fetchFromGitHub,
+  fetchFromForgejo,
   nix-update-script,
 }:
 
 php.buildComposerProject2 (finalAttrs: {
-  pname = "wp-oidc-roles";
-  version = "1.0.0";
+  pname = "oidc-wp-roles";
+  version = "1.0.3";
 
-  __structuredAttrs = true;
-  strictDeps = true;
-
-  src = fetchFromGitHub {
-    owner = "oidc-wp";
+  src = fetchFromForgejo {
+    domain = "git.bartoostveen.nl";
+    owner = "bart";
     repo = "oidc-wp-roles";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-VMEx6LtcG//p3tXI/T8JLRd+ctqkbmfLN69VunSiH/s=";
+    hash = "sha256-8Ka/8se1Ga7a65tGKTuvq3IOcGOFlhWwc90a1VPPXmk=";
   };
 
-  vendorHash = "sha256-1sLJvhzSC/0DamHB9o1j3+HzZSLntMQG34RmmcJD8+k=";
-  composerStrictValidation = false;
+  vendorHash = "sha256-OaMAStgzzHwxrSzPOhI5H7J0GXsBU6nIBNqbJCWTtUY=";
 
   installPhase = ''
     runHook preInstall
@@ -28,12 +25,16 @@ php.buildComposerProject2 (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--url=\"https://git.bartoostveen.nl/bart/oidc-wp-roles.git\"" ];
+  };
 
   meta = {
-    description = "Open ID Connect - WordPress Roles";
-    homepage = "https://github.com/oidc-wp/oidc-wp-roles";
+    description = "Extension to oidc-wp/openid-connect-generic plugin that maps 3rd party service data as WordPress user data. Optionally restrict access to content";
+    homepage = "https://git.bartoostveen.nl/bart/oidc-wp-roles";
+    changelog = "https://git.bartoostveen.nl/bart/oidc-wp-roles/src/tag/v${finalAttrs.version}/CHANGELOG.md";
     maintainers = with lib.maintainers; [ bartoostveen ];
+    license = lib.licenses.unlicense;
     platforms = lib.platforms.all;
   };
 })
