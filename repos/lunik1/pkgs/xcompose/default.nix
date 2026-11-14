@@ -8,7 +8,7 @@
 
 stdenvNoCC.mkDerivation {
   pname = "xcompose";
-  version = "unstable-2026-06-17";
+  version = "0-unstable-2026-06-17";
 
   src = fetchFromGitHub {
     owner = "kragen";

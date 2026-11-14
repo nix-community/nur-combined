@@ -6,7 +6,7 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "ls-colors";
-  version = "unstable-2025-06-06";
+  version = "0-unstable-2025-06-06";
 
   src = fetchFromGitHub {
     owner = "trapd00r";

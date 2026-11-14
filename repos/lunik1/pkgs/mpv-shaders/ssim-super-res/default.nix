@@ -6,7 +6,7 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "ssim-super-res";
-  version = "unstable-2022-02-07";
+  version = "0-unstable-2022-02-07";
 
   src = fetchurl {
     url = "https://gist.githubusercontent.com/igv/2364ffa6e81540f29cb7ab4c9bc05b6b/raw/15d93440d0a24fc4b8770070be6a9fa2af6f200b/SSimSuperRes.glsl";

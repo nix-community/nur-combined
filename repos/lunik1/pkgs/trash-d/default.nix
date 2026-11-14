@@ -2,25 +2,31 @@
   lib,
   buildDubPackage,
   fetchFromGitHub,
-  dmd,
+  ldc,
 }:
 
 buildDubPackage rec {
   pname = "trash-d";
-  version = "19";
+  version = "21";
 
   src = fetchFromGitHub {
     owner = "rushsteve1";
     repo = "trash-d";
     rev = version;
-    hash = "sha256-jvtBbQSKKib+MkI39YRk9jAo4Ij2X5KViiX4RbELUtI=";
+    hash = "sha256-/spFB2/LUbf/uWAZQ88Y5HIPLCPmN/KJpyUTvzICyHM=";
   };
 
   dubLock = {
     dependencies = { };
   };
 
-  compiler = dmd;
+  compiler = ldc;
+
+  # disable static linking: stdenv has no static glibc/pthread
+  postPatch = ''
+    substituteInPlace dub.json \
+      --replace-fail '"dflags-linux-ldc": ["-static"]' '"dflags-linux-ldc": []'
+  '';
 
   doCheck = true;
 
@@ -35,6 +41,9 @@ buildDubPackage rec {
     homepage = "https://github.com/rushsteve1/trash-d";
     license = licenses.mit;
     maintainers = with maintainers; [ lunik1 ];
-    platforms = [ "x86_64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
   };
 }

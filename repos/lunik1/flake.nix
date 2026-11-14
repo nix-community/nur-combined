@@ -58,7 +58,16 @@
               pre-commit-check = pre-commit-hooks.lib.${system}.run {
                 src = ./.;
                 hooks = {
+                  actionlint.enable = true;
                   nixfmt-rfc-style.enable = true;
+                  shellcheck = {
+                    enable = true;
+                    excludes = [ "^\\.envrc$" ];
+                  };
+                  shfmt = {
+                    enable = true;
+                    settings.indent = 2;
+                  };
                   statix.enable = true;
                 };
               };

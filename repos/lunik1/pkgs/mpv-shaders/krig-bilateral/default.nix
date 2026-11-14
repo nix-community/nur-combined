@@ -6,7 +6,7 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "krig-bilateral";
-  version = "unstable-2023-10-26";
+  version = "0-unstable-2023-10-26";
 
   src = fetchurl {
     url = "https://gist.githubusercontent.com/igv/a015fc885d5c22e6891820ad89555637/raw/038064821c5f768dfc6c00261535018d5932cdd5/KrigBilateral.glsl";

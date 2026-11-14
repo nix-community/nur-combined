@@ -6,7 +6,7 @@
 
 stdenvNoCC.mkDerivation {
   pname = "ssim-downscaler";
-  version = "unstable-2024-09-05";
+  version = "0-unstable-2024-09-05";
 
   src = fetchurl {
     url = "https://gist.githubusercontent.com/igv/36508af3ffc84410fe39761d6969be10/raw/38992bce7f9ff844f800820df0908692b65bb74a/SSimDownscaler.glsl";
