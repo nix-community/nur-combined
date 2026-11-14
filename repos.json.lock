@@ -2550,8 +2550,8 @@
             "url": "https://github.com/sn0wm1x/ur"
         },
         "so1ve": {
-            "rev": "7fa8312bf26b917f3bd9b4669fca6626f96ec7e3",
-            "sha256": "1naxyilri6jzgrm7qvqgdakkn15ls41ds7n15dbyfiipw6d7842w",
+            "rev": "794900cfba85d499a095a1b3812d42b3c2c65bc1",
+            "sha256": "12b2xjfa1824ca0fn8h8gh5lis5d4qxlm7q8zmq4kqphnq0x8mzk",
             "url": "https://github.com/so1ve/nur-packages"
         },
         "some-pkgs": {
@@ -2742,8 +2742,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "7e27ff186544a9bfc733cead5d2d0e48bd367188",
-            "sha256": "0rfib6swdbl8416ww0zwnbmpm64f1za4xkhdqr4qxqm54gg66cv3",
+            "rev": "c5f50c3864350ddb3b70bcd594b996f6574f6cdd",
+            "sha256": "0iw87h4gabgjj7048rii63d696cqjdhwk4wq7yqzmbxnsyipps62",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
