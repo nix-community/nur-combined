@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index a52e8aa..ba449ef 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -49,7 +49,7 @@ else()
+     set(FIXTURE_ARGUMENTS --data-only)
+ endif()
+ execute_process(COMMAND ${Python3_EXECUTABLE} ${PROJECT_SOURCE_DIR}/scripts/provision-fixtures.py
+-    --output ${RAVEN_TESTDATA_DIR} ${FIXTURE_ARGUMENTS} RESULT_VARIABLE FIXTURE_RESULT)
++    --output ${RAVEN_TESTDATA_DIR} ${FIXTURE_ARGUMENTS} --skip-downloads RESULT_VARIABLE FIXTURE_RESULT)
+ if(NOT FIXTURE_RESULT EQUAL 0)
+     message(FATAL_ERROR "Test fixture provisioning failed")
+ endif()
