@@ -1,30 +1,30 @@
 {
   lib,
   buildGoModule,
-  fetchFromForgejo,
+  fetchFromGitLab,
   nix-update-script,
 }:
 
-buildGoModule {
+buildGoModule (finalAttrs: {
   pname = "alertmanager-matrix";
-  version = "0.1.0-unstable-2026-11-08";
+  version = "0.6.2";
 
   __structuredAttrs = true;
   strictDeps = true;
 
-  src = fetchFromForgejo {
-    domain = "git.bartoostveen.nl";
-    owner = "bart";
-    repo = "alertmanager-matrix";
-    rev = "d95de56cf94f8d52b50cd6dde018e887b73e968c";
-    hash = "sha256-GLhzx/7jcvNjZc5RH44NHXDBeaHvDukOFay78LMukEs=";
+  src = fetchFromGitLab {
+    group = "slxh";
+    owner = "matrix";
+    repo = "alertmanager_matrix";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-rQu7GQBzgc3320pdGoyQrH4S+UKTiOxGhoya16YxdJs=";
   };
 
-  vendorHash = "sha256-ehuyzdjPFd7qi2Vwu8d5pCDV1GyPmQAP9xgIGsOtqWU=";
+  vendorHash = "sha256-TI7zSMdnu0wWdzxtm00eM/F7HwjRh7IyBZy7VEUbbZQ=";
 
   ldflags = [ "-s" ];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch=master" ]; };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Service for managing and receiving Alertmanager alerts on Matrix";
@@ -34,4 +34,4 @@ buildGoModule {
     mainProgram = "alertmanager_matrix";
     platforms = lib.platforms.linux;
   };
-}
+})
