@@ -12,3 +12,44 @@ github-release-updater = "updaters.__main__:main"
 
 [tool.setuptools]
 packages = ["updaters"]
+
+[tool.uv]
+package = false
+# Keep this explicit so user-level cooldown settings do not break CI's --locked checks.
+# https://github.com/astral-sh/uv/issues/18775
+exclude-newer = "7 days"
+
+[tool.pyrefly]
+preset = "strict"
+min-severity = "warn"
+project-includes = ["**/*.py"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+
+[tool.ruff]
+target-version = "py314"
+
+[tool.ruff.lint]
+extend-select = [
+  "F", # Pyflakes
+  "W", # pycodestyle warnings
+  "E", # pycodestyle errors
+  "I", # Import sorting
+  "UP", # Python upgrades
+  "C4", # Comprehensions
+  "FA", # Future annotations
+  "ISC", # String concatenation
+  "ICN", # Import conventions
+  "RET", # Returns
+  "SIM", # Simplifications
+  "TID", # Import practices
+  "TC", # Type-checking imports
+  "PTH", # pathlib
+  "TD", # TODO comments
+  "NPY", # NumPy
+  "FURB", # Python idioms
+]
+
+[dependency-groups]
+dev = ["pyrefly>=1.3.2", "pytest>=9.1.1", "ruff>=0.16.10"]

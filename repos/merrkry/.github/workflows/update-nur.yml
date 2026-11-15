@@ -1,0 +1,329 @@
+name: Update NUR
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+    inputs:
+      packages:
+        description: Whitespace-separated package attributes; omit to update all eligible packages
+        type: string
+        required: false
+      target-branch:
+        description: Branch to update packages on; defaults to the repository default branch
+        type: string
+        required: false
+
+concurrency:
+  group: update-nur
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  actions: read
+  issues: read
+
+env:
+  TARGET_BRANCH: ${{ inputs.target-branch || github.event.repository.default_branch }}
+  NIX_CONFIG: |
+    accept-flake-config = true
+    access-tokens = github.com=${{ github.token }}
+
+jobs:
+  discover:
+    name: Discover packages
+    runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.discover.outputs.packages }}
+      revision: ${{ steps.verify.outputs.revision }}
+      ready: ${{ steps.verify.outputs.ready }}
+      failed-builds: ${{ steps.failures.outputs.builds }}
+    steps:
+      - name: Check out target branch
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ env.TARGET_BRANCH }}
+
+      - name: Install Nix
+        uses: NixOS/nix-installer-action@v1
+
+      - name: Require successful Build and Check
+        id: verify
+        uses: actions/github-script@v9
+        with:
+          retries: 3
+          script: |
+            const { stdout } = await exec.getExecOutput('git', ['rev-parse', 'HEAD']);
+            const revision = stdout.trim();
+            core.setOutput('revision', revision);
+            let ready = true;
+
+            for (const workflow of ['build.yml', 'check.yml']) {
+              const { data } = await github.rest.actions.listWorkflowRuns({
+                ...context.repo,
+                workflow_id: workflow,
+                branch: process.env.TARGET_BRANCH,
+                head_sha: revision,
+                per_page: 1,
+              });
+              const run = data.workflow_runs[0];
+              core.info(`${workflow}: ${run ? `${run.status}/${run.conclusion || 'pending'} (${run.html_url})` : 'no run found'}`);
+              if (run?.status !== 'completed' || run.conclusion !== 'success') {
+                ready = false;
+                const reason = `${workflow} must pass for ${revision} before updating packages`;
+                if (context.eventName === 'schedule') {
+                  core.info(`Skipping updates: ${reason}`);
+                } else {
+                  core.setFailed(reason);
+                }
+              }
+            }
+            core.setOutput('ready', String(ready));
+
+      - name: Discover updatable packages
+        if: steps.verify.outputs.ready == 'true' && inputs.packages == ''
+        run: nix run .#update-nur -- --list > "$RUNNER_TEMP/nur-inventory.json"
+
+      - name: Prepare package matrix
+        id: discover
+        if: steps.verify.outputs.ready == 'true'
+        uses: actions/github-script@v9
+        env:
+          PACKAGES: ${{ inputs.packages }}
+        with:
+          retries: 3
+          script: |
+            if (process.env.PACKAGES) {
+              const packages = [...new Set(process.env.PACKAGES.split(/\s+/).filter(Boolean))];
+              if (packages.length === 0) {
+                core.setFailed('Specify at least one package attribute or omit packages to update all');
+                return;
+              }
+              core.setOutput('packages', JSON.stringify(packages));
+              return;
+            }
+            const fs = require('node:fs');
+            const path = require('node:path');
+            const report = JSON.parse(fs.readFileSync(path.join(process.env.RUNNER_TEMP, 'nur-inventory.json'), 'utf8'));
+            const packages = Object.entries(report.packages)
+              .filter(([, info]) => info.updatable)
+              .map(([name]) => name);
+            core.setOutput('packages', JSON.stringify(packages));
+
+      - name: Read known build failures
+        id: failures
+        if: steps.verify.outputs.ready == 'true'
+        uses: actions/github-script@v9
+        with:
+          retries: 3
+          script: |
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              ...context.repo, state: 'open', per_page: 100,
+            });
+            const builds = {};
+            for (const issue of issues) {
+              if (issue.pull_request) continue;
+              const marker = issue.body?.match(/<!-- nur-update:([^\s<>]+) -->/);
+              const record = issue.body?.match(/<!-- nur-update-failure:(.+?) -->/);
+              if (!marker || !record) continue;
+              builds[marker[1]] = {
+                derivations: JSON.parse(record[1]),
+                issueUrl: issue.html_url,
+              };
+            }
+            core.setOutput('builds', JSON.stringify(builds));
+
+  update:
+    name: Update ${{ matrix.package }}
+    needs: discover
+    if: needs.discover.outputs.ready == 'true' && needs.discover.outputs.packages != '[]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJSON(needs.discover.outputs.packages) }}
+    env:
+      PACKAGE: ${{ matrix.package }}
+    steps:
+      - name: Check out validated commit
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.discover.outputs.revision }}
+
+      - name: Install Nix
+        uses: NixOS/nix-installer-action@v1
+
+      - name: Use niks3 as a substituter
+        uses: Mic92/niks3-action@01820a2b97ac01531ad9fb859db94af63ffcbd83 # v1.10.0
+        with:
+          server-url: https://niks3-api.tsubasa.moe
+          skip-push: true
+
+      - name: Update, build and test
+        id: update
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          FAILED_BUILDS: ${{ needs.discover.outputs.failed-builds || '{}' }}
+        run: |
+          mkdir -p .update-results
+          printf '%s\n' "$FAILED_BUILDS" > .update-results/failed-builds.json
+          nix run .#update-nur -- "$PACKAGE" --failed-builds "$GITHUB_WORKSPACE/.update-results/failed-builds.json" > .update-results/result.json
+
+      - name: Save source diff
+        if: ${{ !cancelled() && steps.update.outcome != 'skipped' }}
+        run: git diff --binary -- pkgs > .update-results/sources.patch
+
+      - name: Upload update results
+        id: artifact
+        if: ${{ !cancelled() && steps.update.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: nur-update-${{ matrix.package }}
+          path: .update-results/
+          include-hidden-files: true
+
+      - name: Generate bot token
+        id: bot-token
+        if: ${{ !cancelled() && steps.update.outcome != 'skipped' }}
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.BOT_APP_CLIENT_ID }}
+          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-issues: write
+          permission-pull-requests: write
+
+      - name: Report update result
+        id: report
+        if: ${{ !cancelled() && steps.update.outcome != 'skipped' }}
+        uses: actions/github-script@v9
+        env:
+          ARTIFACT_URL: ${{ steps.artifact.outputs.artifact-url }}
+        with:
+          github-token: ${{ steps.bot-token.outputs.token }}
+          retries: 3
+          script: |
+            const fs = require('node:fs');
+            const path = require('node:path');
+            const report = JSON.parse(fs.readFileSync('.update-results/result.json', 'utf8'));
+            const result = report.results[0];
+            if (report.error || report.results.length !== 1 || result.package !== process.env.PACKAGE) {
+              core.setFailed(report.error || 'Expected one result for the selected package');
+              return;
+            }
+
+            const changed = result.changedFiles.length > 0;
+            const updated = result.steps.update?.status === 'passed' && changed;
+            core.setOutput('built', result.steps.build?.status === 'passed' ? 'true' : 'false');
+            if (result.status === 'skipped') {
+              core.info(`${result.package}: ${result.reason} (${result.failureIssue})`);
+              return;
+            }
+            const title = `${result.package}: ${result.oldVersion} -> ${result.newVersion}`;
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const tests = Object.entries(result.tests)
+              .map(([name, test]) => `- Test \`${name}\`: ${test.status}`);
+            const upstream = [];
+            if (result.changelog) upstream.push(`[Upstream release / changelog](${result.changelog})`);
+            if (result.compare) upstream.push(`[Upstream changes](${result.compare})`);
+            const body = [
+              `Update \`${result.package}\`: \`${result.oldVersion}\` -> \`${result.newVersion}\`.`,
+              '',
+              ...upstream,
+              ...(upstream.length ? [''] : []),
+              `- Build: ${result.steps.build?.status || 'not run'}`,
+              ...tests,
+              '',
+              `[Workflow run](${runUrl})`,
+              `[Logs, result and source diff](${process.env.ARTIFACT_URL})`,
+            ].join('\n');
+
+            if (updated && result.status === 'updated') {
+              let branch = `nur-update/${result.package}`;
+              if (process.env.TARGET_BRANCH !== context.payload.repository.default_branch) {
+                branch = `nur-update/${process.env.TARGET_BRANCH}/${result.package}`;
+              }
+              const bodyPath = path.join(process.env.RUNNER_TEMP, 'nur-pr-body.md');
+              fs.writeFileSync(bodyPath, body);
+              core.setOutput('branch', branch);
+              core.setOutput('body-path', bodyPath);
+              core.setOutput('updated', 'true');
+              core.setOutput('title', title);
+              return;
+            }
+
+            if (updated && ['build', 'tests'].includes(result.failedStage)) {
+              const marker = `<!-- nur-update:${result.package} -->`;
+              const issues = await github.paginate(github.rest.issues.listForRepo, {
+                ...context.repo, state: 'open', per_page: 100,
+              });
+              const existing = issues.find(issue => !issue.pull_request && issue.body?.includes(marker));
+              const issue = {
+                ...context.repo,
+                title: `${title} failed`,
+                body: `${marker}\n<!-- nur-update-failure:${JSON.stringify(result.derivations)} -->\n\n${body}`,
+              };
+              let reportedIssue;
+              if (existing) {
+                reportedIssue = await github.rest.issues.update({ ...issue, issue_number: existing.number });
+              } else {
+                reportedIssue = await github.rest.issues.create(issue);
+              }
+              const issueUrl = reportedIssue.data.html_url;
+              core.warning(`${result.package}: update failed at ${result.failedStage}; tracked in ${issueUrl}`);
+              await core.summary
+                .addRaw(`Update \`${result.package}\` failed at \`${result.failedStage}\`. [Tracking issue](${issueUrl}).\n`)
+                .write();
+              return;
+            }
+
+            if (!report.success) {
+              core.setFailed(result.error || `Package update failed at ${result.failedStage}`);
+            }
+
+      - name: Cache updated package
+        if: ${{ !cancelled() && steps.report.outputs.built == 'true' }}
+        uses: merrkry/niks3-build-action@0a9ea9faad7933de3d7237b940a9421bff541abb # v0.1.0
+        with:
+          server-url: https://niks3-api.tsubasa.moe
+          flake: .#buildJobs.x86_64-linux.${{ matrix.package }}
+          args: --push-build-closure
+
+      - name: Create or update PR
+        id: pr
+        if: steps.report.outputs.updated == 'true'
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ steps.bot-token.outputs.token }}
+          sign-commits: true
+          branch: ${{ steps.report.outputs.branch }}
+          base: ${{ env.TARGET_BRANCH }}
+          add-paths: pkgs
+          title: ${{ steps.report.outputs.title }}
+          commit-message: ${{ steps.report.outputs.title }}
+          body-path: ${{ steps.report.outputs.body-path }}
+
+      - name: Close previous update failures
+        if: steps.pr.outputs.pull-request-number != '' && steps.pr.outputs.pull-request-operation != 'closed'
+        uses: actions/github-script@v9
+        with:
+          github-token: ${{ steps.bot-token.outputs.token }}
+          retries: 3
+          script: |
+            const marker = `<!-- nur-update:${process.env.PACKAGE} -->`;
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              ...context.repo, state: 'open', per_page: 100,
+            });
+            for (const issue of issues) {
+              if (issue.pull_request || !issue.body?.includes(marker)) continue;
+              await github.rest.issues.update({
+                ...context.repo,
+                issue_number: issue.number,
+                state: 'closed',
+                state_reason: 'completed',
+              });
+            }

@@ -1,0 +1,7 @@
+paths:
+  .github/workflows/update-nur.yml:
+    # actionlint 1.7.12 has stale inputs for create-github-app-token@v3.
+    # v3 accepts client-id and no longer requires app-id.
+    ignore:
+      - '^missing input "app-id" which is required by action "actions/create-github-app-token@v3"\.'
+      - '^input "client-id" is not defined in action "actions/create-github-app-token@v3"\.'

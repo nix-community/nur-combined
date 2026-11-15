@@ -7,6 +7,7 @@ let
     determinate-nix = pkgs.callPackage ./pkgs/determinate-nix { };
     fcitx5-vinput-lite = pkgs.callPackage ./pkgs/fcitx5-vinput-lite { };
     kvlibadwaita-kvantum = pkgs.callPackage ./pkgs/kvlibadwaita-kvantum.nix { };
+    nix-hash = pkgs.callPackage ./pkgs/nix-hash { };
     symseek = pkgs.callPackage ./pkgs/symseek.nix { };
     t3code-bin = pkgs.callPackage ./pkgs/t3code-bin { channel = "stable"; };
     t3code-nightly-bin = t3code-bin.override { channel = "nightly"; };

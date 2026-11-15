@@ -1,4 +1,44 @@
+[tools]
+actionlint = "1.7.12"
+shellcheck = "0.11.0"
+uv = "0.13.7"
+
+[tasks.check]
+description = "Run all static checks and tests"
+depends = ["check:actions", "check:nix", "check:python"]
+
+[tasks."check:actions"]
+description = "Check GitHub Actions workflows"
+run = "actionlint"
+
+[tasks."check:nix"]
+description = "Check Nix formatting, lints, and flake outputs"
+run = "nix run .#check-nix"
+
+[tasks."check:python"]
+description = "Run Python formatting, lint, type checks, and tests"
+depends = ["init"]
+run = [
+  "uv run --locked ruff format --check .",
+  "uv run --locked ruff check .",
+  "uv run --locked pyrefly check",
+  "uv run --locked pytest",
+]
+
+[tasks."test:nix-hash"]
+description = "Run nix-hash against real Nix builds"
+run = "nix run .#test-nix-hash"
+
+[tasks.format]
+description = "Format all source files"
+depends = ["init"]
+run = ["nix run .#format-nix", "uv run --locked ruff format ."]
+
+[tasks.init]
+description = "Install locked Python dependencies"
+run = "uv sync --locked"
+
 [tasks.update]
 description = "Update NUR packages and validate changes; print JSON results"
-dir = "{{config_root}}"
-run = "nix shell --impure --expr 'with import <nixpkgs> { }; [ nix-update python3 ]' --command python3 update.py"
+raw_args = true
+run = "nix run .#update-nur --"

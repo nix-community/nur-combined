@@ -1,0 +1,33 @@
+name: Check
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Install Nix
+        uses: NixOS/nix-installer-action@v1
+
+      - name: Install toolchain with mise
+        uses: jdx/mise-action@v5
+
+      - name: Run checks
+        run: mise run check
+
+      - name: Test nix-hash
+        run: mise run test:nix-hash

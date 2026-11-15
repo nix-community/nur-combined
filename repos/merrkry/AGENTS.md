@@ -1,8 +1,14 @@
 # Merrkry's NUR Repository
 
+## Tooling
+
+Mise installs the toolchain and runs tasks. `mise run check` runs all static checks and tests, and `mise run format` formats everything. `mise run test:nix-hash` runs `nix-hash` against real Nix builds.
+
+`default.nix` is the NUR entry point and must evaluate with only `pkgs`. NUR's index and downstream overlays import it directly; `flake.nix` only wraps it for CI and `nix run`.
+
 ## Updates
 
-Use `mise run update -- <package> [<package> ...]` to update packages.
+Use `mise run update -- <package> [<package> ...]` to update packages. The Update NUR workflow runs it daily for every updatable package once Build and Check pass on the default branch. It opens a PR per updated package and tracks build or test failures in issues.
 
 ## Packaging
 
@@ -14,8 +20,7 @@ Follow nixpkgs' packaging conventions, including its manual for the relevant pac
 - Set `meta.description` from the upstream GitHub "About" text. If there is none, summarize the introduction in the README. Follow nixpkgs' conventions: a short noun phrase, e.g. `CLI for XXX`, without a leading article, the package name, or trailing punctuation.
 - Keep packages compatible with the updater. In order of preference: the repository's default handling, `passthru.updateScript` with `nix-update` and extra arguments, a custom update script.
 - When supported by the build system, enable `strictDeps` and `__structuredAttrs`, and define the derivation with `finalAttrs`.
-- Keep this directory usable as a standalone NUR repository, independent of the rest of the parent folder, if working in a monorepo.
-- Primarily focus on `x86_64-linux`. No verifications for other platforms needed. When packaging requries extra effort for other platforms, e.g. platform-specific workarounds, maintaining hashes for and caching large binaries, drop the support for them.
+- Primarily focus on `x86_64-linux`. No verifications for other platforms needed. When packaging requires extra effort for other platforms, e.g. platform-specific workarounds, maintaining hashes for and caching large binaries, drop the support for them.
 
 ## Verification
 
