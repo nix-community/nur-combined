@@ -1,0 +1,21 @@
+--- a/art/runtime/fault_handler.cc
++++ b/art/runtime/fault_handler.cc
+@@ -72,6 +72,18 @@
+               (unsigned long long)uc->uc_mcontext->__ss.__lr,
+               (unsigned long long)uc->uc_mcontext->__ss.__sp,
+               (unsigned long long)uc->uc_mcontext->__ss.__pc);
++      {
++        uintptr_t cur_pc = static_cast<uintptr_t>(uc->uc_mcontext->__ss.__pc);
++        if (cur_pc >= 0x300000000ULL) {
++          const uint32_t* code = reinterpret_cast<const uint32_t*>(cur_pc);
++          fprintf(f, "code@pc:");
++          for (int i = 0; i < 10; ++i) fprintf(f, " %08x", code[i]);
++          fprintf(f, "\ncode@pc-16:");
++          const uint32_t* code2 = reinterpret_cast<const uint32_t*>(cur_pc - 16);
++          for (int i = 0; i < 10; ++i) fprintf(f, " %08x", code2[i]);
++          fprintf(f, "\n");
++        }
++      }
+       uintptr_t cur_fp = static_cast<uintptr_t>(uc->uc_mcontext->__ss.__fp);
+       int frame_idx = 0;
+       while (cur_fp != 0 && cur_fp % sizeof(void*) == 0 && frame_idx < 32) {

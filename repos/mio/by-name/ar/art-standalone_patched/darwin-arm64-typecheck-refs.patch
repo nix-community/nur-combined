@@ -1,0 +1,29 @@
+--- a/art/compiler/optimizing/code_generator_arm64.cc
++++ b/art/compiler/optimizing/code_generator_arm64.cc
+@@ -457,6 +457,13 @@
+   DISALLOW_COPY_AND_ASSIGN(SuspendCheckSlowPathARM64);
+ };
+ 
++#if defined(ART_USE_RELATIVE_REFS)
++// Defined further down with the other reference helpers; the type check slow
++// path below is emitted before that definition.
++void MakeReferenceAbsolute(vixl::aarch64::MacroAssembler* masm,
++                           vixl::aarch64::Register reg);
++#endif
++
+ class TypeCheckSlowPathARM64 : public SlowPathCodeARM64 {
+  public:
+   TypeCheckSlowPathARM64(HInstruction* instruction, bool is_fatal)
+@@ -485,6 +492,12 @@
+                                locations->InAt(1),
+                                LocationFrom(calling_convention.GetRegisterAt(1)),
+                                DataType::Type::kReference);
++#if defined(ART_USE_RELATIVE_REFS)
++    // The class argument may have been reloaded from a 32-bit slot; the
++    // runtime entrypoint dereferences it, so it must be absolute.
++    MakeReferenceAbsolute(arm64_codegen->GetVIXLAssembler(),
++                          calling_convention.GetRegisterAt(1));
++#endif
+     if (instruction_->IsInstanceOf()) {
+       arm64_codegen->InvokeRuntime(kQuickInstanceofNonTrivial, instruction_, dex_pc, this);
+       CheckEntrypointTypes<kQuickInstanceofNonTrivial, size_t, mirror::Object*, mirror::Class*>();

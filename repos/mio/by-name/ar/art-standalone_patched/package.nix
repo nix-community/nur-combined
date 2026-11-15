@@ -85,6 +85,7 @@ let
     ./darwin-arm64-relative-refs-unstarted.patch
     ./darwin-arm64-thread-pool-stack.patch
     ./fh-diagnostic.patch
+    ./fh-dump-code.patch
     # 16 KiB page-size: the heap does mprotect/madvise at page granularity, which macOS rejects at
     # ART's 4 KiB kPageSize.  See DARWIN-ARM64.md.
     ./darwin-arm64-page-size-mprotect.patch
@@ -96,6 +97,10 @@ let
     # kBootImageRelRo and the remaining boot-image address literal loads hand out
     # compressed refs too (method entry points and string constants).
     ./darwin-arm64-relro-refs.patch
+    # HInstanceOf/HCheckCast class inputs can arrive compressed (stack slot
+    # reload); the fast-path compare and the runtime type-check call need the
+    # absolute Class*.
+    ./darwin-arm64-typecheck-refs.patch
     # Vector array loads add the index with a 32-bit add, which drops the high
     # half of the array pointer (System.arraycopy's byte copy loop).
     ./darwin-arm64-vector-refs.patch
