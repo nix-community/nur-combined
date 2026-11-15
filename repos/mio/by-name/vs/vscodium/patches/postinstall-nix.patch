@@ -1,0 +1,81 @@
+--- a/build/npm/postinstall.ts
++++ b/build/npm/postinstall.ts
+@@ -88,6 +88,14 @@
+ 			'sh', '-c', `\"chown -R root:root ${path.resolve('/root/vscode', dir)} && export PATH="/root/vscode/.build/nodejs-musl/usr/local/bin:$PATH" && npm i -g node-gyp-build && npm ci\"`
+ 		], syncOpts);
+ 		run('sudo', ['chown', '-R', `${userinfo.uid}:${userinfo.gid}`, `${path.resolve(root, dir)}`], syncOpts);
++	} else if (process.env['npm_install_command']) {
++		log(dir, `Installing dependencies by ${process.env['npm_install_command']}...`);
++		const output = await spawnAsync(process.env['npm_install_command'], [], finalOpts);
++		if (output.trim()) {
++			for (const line of output.trim().split('\n')) {
++				log(dir, line);
++			}
++		}
+ 	} else {
+ 		log(dir, 'Installing dependencies...');
+ 		const output = await spawnAsync(npm, command.split(' '), finalOpts);
+@@ -107,16 +115,20 @@
+ 	for (const line of lines) {
+ 		const trimmedLine = line.trim();
+ 		if (trimmedLine && !trimmedLine.startsWith('#')) {
+-			const [key, value] = trimmedLine.split('=');
++			const eq = trimmedLine.indexOf('=');
++			const key = trimmedLine.slice(0, eq).trim().replace(/-/g, '_');
++			const value = trimmedLine.slice(eq + 1).trim();
+ 			env[`npm_config_${key}`] = value.replace(/^"(.*)"$/, '$1');
+ 		}
+ 	}
+ 
+-	// Use our bundled node-gyp version
+-	env['npm_config_node_gyp'] =
+-		process.platform === 'win32'
+-			? path.join(import.meta.dirname, 'gyp', 'node_modules', '.bin', 'node-gyp.cmd')
+-			: path.join(import.meta.dirname, 'gyp', 'node_modules', '.bin', 'node-gyp');
++	// Prefer an externally provided node-gyp (e.g. nixpkgs), else the bundled one.
++	if (!env['npm_config_node_gyp']) {
++		env['npm_config_node_gyp'] =
++			process.platform === 'win32'
++				? path.join(import.meta.dirname, 'gyp', 'node_modules', '.bin', 'node-gyp.cmd')
++				: path.join(import.meta.dirname, 'gyp', 'node_modules', '.bin', 'node-gyp');
++	}
+ 
+ 	// Force node-gyp to use process.config on macOS
+ 	// which defines clang variable as expected. Otherwise we
+@@ -245,8 +257,10 @@
+ 	if (!process.env['VSCODE_FORCE_INSTALL'] && isUpToDate()) {
+ 		finishCloudSandbox();
+ 		log('.', 'All dependencies up to date, skipping postinstall.');
+-		child_process.execSync('git config pull.rebase merges');
+-		child_process.execSync('git config blame.ignoreRevsFile .git-blame-ignore-revs');
++		if (fs.existsSync(path.join(root, '.git'))) {
++			child_process.execSync('git config pull.rebase merges');
++			child_process.execSync('git config blame.ignoreRevsFile .git-blame-ignore-revs');
++		}
+ 		return;
+ 	}
+ 
+@@ -264,10 +278,6 @@
+ 		if (dir === 'build') {
+ 			nativeTasks.push(() => {
+ 				const env: NodeJS.ProcessEnv = { ...process.env };
+-				if (process.env['CC']) { env['CC'] = 'gcc'; }
+-				if (process.env['CXX']) { env['CXX'] = 'g++'; }
+-				if (process.env['CXXFLAGS']) { env['CXXFLAGS'] = ''; }
+-				if (process.env['LDFLAGS']) { env['LDFLAGS'] = ''; }
+ 				setNpmrcConfig('build', env);
+ 				return npmInstallAsync('build', { env });
+ 			});
+@@ -318,8 +328,10 @@
+ 	log('.', `Running ${parallelTasks.length} npm installs with concurrency ${concurrency}...`);
+ 	await runWithConcurrency(parallelTasks, concurrency);
+ 
+-	child_process.execSync('git config pull.rebase merges');
+-	child_process.execSync('git config blame.ignoreRevsFile .git-blame-ignore-revs');
++	if (fs.existsSync(path.join(root, '.git'))) {
++		child_process.execSync('git config pull.rebase merges');
++		child_process.execSync('git config blame.ignoreRevsFile .git-blame-ignore-revs');
++	}
+ 
+ 	finishCloudSandbox();
+ 

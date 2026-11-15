@@ -1,0 +1,12 @@
+--- a/extensions/git/src/repository.ts
++++ b/extensions/git/src/repository.ts
+@@ -2730,7 +2730,8 @@
+ 			const ignoreFile = `${this.repository.root}${path.sep}.gitignore`;
+ 			const textToAppend = files
+ 				.map(uri => relativePath(this.repository.root, uri.fsPath)
+-					.replace(/\\|\[/g, match => match === '\\' ? '/' : `\\${match}`))
++					.replace(/\\|\[/g, match => match === '\\' ? '/' : `\\${match}`)
++					.replace(/^[#!]/, match => `\\${match}`))
+ 				.join('\n');
+ 
+ 			const document = await new Promise(c => fs.exists(ignoreFile, c))

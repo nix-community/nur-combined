@@ -1,0 +1,16 @@
+--- a/build/gulpfile.reh.ts
++++ b/build/gulpfile.reh.ts
+@@ -58,8 +58,11 @@
+ 
+ function getNodeVersion() {
+ 	const npmrc = fs.readFileSync(path.join(REPO_ROOT, 'remote', '.npmrc'), 'utf8');
+-	const nodeVersion = /^target="(.*)"$/m.exec(npmrc)![1];
+-	const internalNodeVersion = /^ms_build_id="(.*)"$/m.exec(npmrc)![1];
++	const nodeVersion = /^target="?([^"\n]+)"?$/m.exec(npmrc)?.[1];
++	const internalNodeVersion = /^ms_build_id="?([^"\n]+)"?$/m.exec(npmrc)?.[1];
++	if (!nodeVersion || !internalNodeVersion) {
++		throw new Error(`Failed to parse node version from remote/.npmrc:\n${npmrc}`);
++	}
+ 	return { nodeVersion, internalNodeVersion };
+ }
+ 
