@@ -1,0 +1,28 @@
+{
+  "name": "Motrix",
+  "source": {
+    "type": "github-release",
+    "repo": "agalwood/Motrix",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "2.4.2",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "Motrix-{version}-arm64.dmg",
+      "hash": "sha256-I4iJf4y+saJux0bT3nohXJwhudi5X1GlyK9YJ8r9/Yg="
+    },
+    "x86_64-darwin": {
+      "file": "Motrix-{version}-x64.dmg",
+      "hash": "sha256-uu+853CCaSFKLGX7gKXZl16OwwM5GagfuWW5je68sFE="
+    },
+    "x86_64-linux": {
+      "file": "Motrix-{version}-x86_64.AppImage",
+      "hash": "sha256-y9jAbJLzPSRUtzV4MdQHRiiZ2KoYRIVly/uQIiqanNk="
+    },
+    "aarch64-linux": {
+      "file": "Motrix-{version}-arm64.AppImage",
+      "hash": "sha256-amHzteha8BLg+xWtMn71mvfZLqQd2asobQGVlw2pEuc="
+    }
+  }
+}

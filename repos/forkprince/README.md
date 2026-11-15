@@ -94,6 +94,7 @@ This repository contains three types of packages:
 | [`micro`](pkgs/micro/default.nix) | micro |
 | [`mocktail`](pkgs/mocktail/default.nix) | [mocktail](https://github.com/komaruworld/mocktail), play Roblox on Linux |
 | [`moonplayer`](pkgs/moonplayer/default.nix) | [moonplayer](https://github.com/coslyk/moonplayer), video player that can play online videos from YouTube, Bilibili etc |
+| [`motrix`](pkgs/motrix/default.nix) | [motrix](https://motrix.app/), a full-featured download manager |
 | [`muxy`](pkgs/muxy/default.nix) | [muxy](https://muxy.app/), lightweight and Memory efficient terminal for Mac built with SwiftUI and libghostty |
 | [`nightcap`](pkgs/nightcap/default.nix) | [nightcap](https://github.com/CoderDayton/nightcap), roblox on Linux, tuned for desktop play |
 | [`nintoolbox`](pkgs/nintoolbox/default.nix) | [nintoolbox](https://github.com/quatric/nintoolbox), toolbox for Nintendo game file formats |

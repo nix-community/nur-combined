@@ -55,6 +55,7 @@
     transit = lib.callPackage ./pkgs/transit {};
     sonora = lib.callPackage ./pkgs/sonora {};
     sonixd = lib.callPackage ./pkgs/sonixd {};
+    motrix = lib.callPackage ./pkgs/motrix {};
     hytale = lib.callPackage ./pkgs/hytale {};
     whisky = lib.callPackage ./pkgs/whisky {};
     armsx2 = lib.callPackage ./pkgs/armsx2 {};
