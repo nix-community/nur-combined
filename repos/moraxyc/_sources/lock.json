@@ -392,6 +392,24 @@
       },
       "fingerprint": "sha256-4jCQslnqwTJoijYP2CKfwBZjAzj2BCR/xHV7lz2D//4="
     },
+    "horizon": {
+      "version": "0-unstable-2026-11-15",
+      "rawVersion": "f82620a74aa1b5bb5f9a46785828ec90ee24e435",
+      "date": "2026-11-15",
+      "src": {
+        "fetcher": "github",
+        "owner": "horizon-rust",
+        "repo": "horizon",
+        "rev": "f82620a74aa1b5bb5f9a46785828ec90ee24e435",
+        "hash": "sha256-FSGmt3ClsTaihUYQdLE1YS8PeaPBRtaotL3gm2HEkGA="
+      },
+      "derived": {
+        "cargoLock": {
+          "lockfile": "horizon/src/Cargo.lock"
+        }
+      },
+      "fingerprint": "sha256-dYHv5Zymlnd0tNrosXuyeSs8oGkhZXGnmNxg5VPYOWo="
+    },
     "hysteria-realm-server": {
       "version": "1.1.0",
       "rawVersion": "v1.1.0",
