@@ -139,6 +139,18 @@ let
         set -euo pipefail
         # Used by build/npm/postinstall.ts for each workspace package-lock.json.
         npm ci --ignore-scripts --legacy-peer-deps
+
+        # keytar pulls in node-addon-api 4.x, which initializes a static enum
+        # member with -1. Newer clang rejects that out-of-range enum conversion
+        # in a constant expression ("in-class initializer for static data member
+        # is not a constant expression"), breaking keytar's node-gyp build.
+        # Use a value inside the enum's range that Node-API never reports.
+        for napi_h in $(find node_modules -path '*/node-addon-api/napi.h'); do
+          substituteInPlace "$napi_h" \
+            --replace-quiet 'static const napi_typedarray_type unknown_array_type = static_cast<napi_typedarray_type>(-1);' \
+                      'static constexpr napi_typedarray_type unknown_array_type = static_cast<napi_typedarray_type>(15);'
+        done
+
         patchShebangs node_modules
         npm rebuild --legacy-peer-deps
         patchShebangs node_modules
@@ -316,7 +328,8 @@ buildVscode {
   vscodeVersion = "1.143.1";
 
   executableName = "codium";
-  sourceExecutableName = "codium";
+  # vscode's packaging step always writes the launcher as bin/code.
+  sourceExecutableName = "code";
   longName = "VSCodium";
   shortName = "vscodium";
   libraryName = "vscode";
