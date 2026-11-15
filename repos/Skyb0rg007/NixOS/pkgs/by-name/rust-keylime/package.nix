@@ -10,7 +10,7 @@
   nix-update-script,
 }:
 let
-  # Bug in tpm2-tss 4.2.0
+  # Bug in tpm2-tss 4.2.0, still present in 4.2.1
   # Remove once https://github.com/tpm2-software/tpm2-tss/pull/3123 is merged
   tpm2-tss-keylime = tpm2-tss.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [

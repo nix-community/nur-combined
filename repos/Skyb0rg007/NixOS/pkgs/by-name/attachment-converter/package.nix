@@ -18,22 +18,7 @@ let
   baseOcamlPackages = ocaml-ng.ocamlPackages_4_14;
   ocamlPackages = baseOcamlPackages.overrideScope (
     self: super: {
-      prettym = super.prettym.overrideAttrs (oldAttrs: {
-        name = "ocaml${super.ocaml.version}-prettym-0.0.5";
-        version = "0.0.5";
-        src = fetchurl {
-          url = "https://github.com/dinosaure/prettym/releases/download/0.0.5/prettym-0.0.5.tbz";
-          hash = "sha256-2sFZmW8HqSTF9UQZU6lcxipLX17txJwxZZIRr/CT1GI=";
-        };
-        propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ self.bstr ];
-      });
       keith-prelude = self.callPackage ./keith-prelude.nix { };
-      ocamlnet = super.ocamlnet.overrideAttrs (oldAttrs: {
-        buildInputs = lib.filter (
-          p: !(lib.hasPrefix "ocaml${super.ocaml.version}-pcre-" p.name)
-        ) oldAttrs.buildInputs;
-        preConfigure = lib.replaceStrings [ "-enable-pcre" ] [ "-disable-pcre" ] oldAttrs.preConfigure;
-      });
     }
   );
 in

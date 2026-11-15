@@ -80,9 +80,10 @@
               pkgs.nix
               nix-update.packages.${system}.nix-update
               pkgs.nix-fast-build
-              # pkgs.zizmor
+              pkgs.zizmor
             ];
             env.NIX_CONFIG = "extra-experimental-features = nix-command flakes";
+            env.NIX_PATH = "nixpkgs=flake:${nixpkgs}";
           };
         }
       );
