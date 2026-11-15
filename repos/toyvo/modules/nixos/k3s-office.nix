@@ -29,14 +29,18 @@ in
       # All-in-one image (bundled services, like upstream's docker run) —
       # deliberately NOT the Helm chart's split docservice/converter shape
       # (that's for scale-out; here one writer owns everything).
-      "euro-office-deployment.yaml".content = {
+      # StatefulSet, not Deployment: volumeClaimTemplates are a
+      # StatefulSet-only field (a Deployment carrying them is accepted
+      # but never provisions the claims — pod stays Pending forever).
+      "euro-office-statefulset.yaml".content = {
         apiVersion = "apps/v1";
-        kind = "Deployment";
+        kind = "StatefulSet";
         metadata = {
           name = "euro-office";
           labels.app = "euro-office";
         };
         spec = {
+          serviceName = "euro-office";
           replicas = 1;
           selector.matchLabels.app = "euro-office";
           template = {
