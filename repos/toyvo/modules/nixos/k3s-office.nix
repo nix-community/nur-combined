@@ -88,19 +88,39 @@ in
                       name = "ALLOW_PRIVATE_IP_ADDRESS";
                       value = "true";
                     }
+                    # Serve TLS itself (Traefik backends to :443): the DS
+                    # builds absolute file URLs from what it sees, ignoring
+                    # X-Forwarded-Proto, so plain-HTTP behind TLS produced
+                    # http:// URLs the browser blocks as mixed content.
+                    # Uses the cluster wildcard cert (publicly trusted).
+                    {
+                      name = "SSL_CERTIFICATE_PATH";
+                      value = "/tls/tls.crt";
+                    }
+                    {
+                      name = "SSL_KEY_PATH";
+                      value = "/tls/tls.key";
+                    }
                     {
                       name = "TZ";
                       value = "America/Chicago";
                     }
                   ];
-                  ports = [ { containerPort = officePort; } ];
+                  ports = [
+                    { containerPort = officePort; }
+                    {
+                      name = "https";
+                      containerPort = 443;
+                    }
+                  ];
                   # First boot does DB init + font/cache generation (minutes).
                   # Without initial delays the probes SIGKILL the pod mid-boot
                   # (exit 137 crashloop) before it can ever listen.
                   readinessProbe = {
                     httpGet = {
                       path = "/healthcheck";
-                      port = officePort;
+                      port = 443;
+                      scheme = "HTTPS";
                     };
                     initialDelaySeconds = 120;
                     periodSeconds = 30;
@@ -108,7 +128,8 @@ in
                   livenessProbe = {
                     httpGet = {
                       path = "/healthcheck";
-                      port = officePort;
+                      port = 443;
+                      scheme = "HTTPS";
                     };
                     initialDelaySeconds = 180;
                     periodSeconds = 60;
@@ -136,6 +157,11 @@ in
                       name = "shm";
                       mountPath = "/dev/shm";
                     }
+                    {
+                      name = "tls";
+                      mountPath = "/tls";
+                      readOnly = true;
+                    }
                   ];
                 }
               ];
@@ -156,6 +182,11 @@ in
                     medium = "Memory";
                     sizeLimit = "2Gi";
                   };
+                }
+                {
+                  # Cluster wildcard cert so the DS can serve TLS itself.
+                  name = "tls";
+                  secret.secretName = "wildcard-tls-diekvoss-net";
                 }
               ];
             };
@@ -188,10 +219,28 @@ in
           selector.app = "euro-office";
           ports = [
             {
-              port = officePort;
-              targetPort = officePort;
+              # Backend TLS: the DS serves https itself (see SSL_* env),
+              # so Traefik dials 443 and everything the DS builds is
+              # https-native. Plain :80 on the pod just redirects.
+              name = "https";
+              port = 443;
+              targetPort = 443;
             }
           ];
+        };
+      };
+      # Backend TLS transport: verify the DS's cert and SNI as the public
+      # hostname (the mounted wildcard cert is publicly trusted, so no
+      # insecureSkipVerify escape hatch needed).
+      "euro-office-transport.yaml".content = {
+        apiVersion = "traefik.io/v1alpha1";
+        kind = "ServersTransport";
+        metadata = {
+          name = "euro-office-transport";
+          namespace = "default";
+        };
+        spec = {
+          serverName = "office.diekvoss.net";
         };
       };
       "euro-office-ingress.yaml".content = {
@@ -208,6 +257,13 @@ in
               public = false;
               forwardAuthGate = false;
             };
+            # Backend speaks TLS (see SSL_* env + tls volume): tell
+            # Traefik to dial https, and to verify+SNI as the public
+            # hostname (the mounted cert is publicly trusted, no
+            # insecureSkipVerify needed).
+            "traefik.ingress.kubernetes.io/service.serversscheme" = "https";
+            "traefik.ingress.kubernetes.io/service.serverstransport" =
+              "default-euro-office-transport@kubernetescrd";
           };
         };
         spec = {
@@ -227,7 +283,7 @@ in
                   pathType = "Prefix";
                   backend.service = {
                     name = "euro-office";
-                    port.number = officePort;
+                    port.number = 443;
                   };
                 }
               ];
