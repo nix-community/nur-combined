@@ -93,8 +93,48 @@ export fn restrict(what: *resources::resources) void = {
           dbus_restrict(details.resources, details.outer_parent_fd, &details.session_path);
           // the bus at this path is now proxied, so grant access to the user.
           // safe to unwrap parent because we only allow absolute bus paths.
-          // append(what.paths, path::init(path::parent(&details.session_path)!)!)!;
-          append(what.paths, details.session_path)!;
+          // N.B.: we would ideally grant **just** the proxy's child-side socket
+          // rather than the entire directory. that does work in the majority of
+          // cases, however it fails in edge cases involving nested proxies:
+          // 1. bunpen1 opens /run/user/colin/dbus as fd11 then restricts mounts.
+          // 2. bunpen1 launches xdg-dbus-proxy1, pointed at /proc/self/fd11/bus.
+          // 3. xdg-dbus-proxy1 creates a socket at /run/user/colin/dbus/bus.
+          // 4. bunpen1 binds /run/user/colin/dbus/bus into the application.
+          // 5. bunpen1 execs into the application (bunpen2).
+          // 6. bunpen2 starts its own xdg-dbus-proxy2 in the same manner,
+          //    with the proxy's upstream as /proc/self/fd12/bus.
+          // 7. bunpen2 binds /run/user/colin/dbus/bus to the app, execs.
+          // 8. the application messages /run/user/colin/dbus/bus.
+          //    1. xdg-dbus-proxy2 receives the message, tries to open a
+          //       connection to /proc/self/fd12/bus.
+          //    2. that's a lookup on /proc/self/fd12, for dentry 'bus'.
+          //       linux considers the liveness of the various mounts as such:
+          //       - step 5: /run/user/colin/dbus is some uninteresting dir.
+          //                 /run/user/colin/dbus/bus is a mountpoint, which
+          //                 refers to xdg-dbus-proxy1's downstream.
+          //       - step 6: xdg-dbus-proxy2 retains a ref to /proc/self/fd12.
+          //                 that's just some uninteresting dir; it does not
+          //                 imply a ref to xdg-dbus-proxy1's downstream.
+          //       - step 7: the application execs with a ref to
+          //                 /run/user/colin/dbus/bus; xdg-dbus-proxy2's
+          //                 downstream.
+          //       by this point, nothing has a ref to xdg-dbus-proxy1's
+          //       downstream, i.e. its /run/user/colin/dbus/bus.
+          //       in fact, nothing holds a ref to anything in the mount
+          //       namespace to which xdg-dbus-proxy1's downstream belongs,
+          //       so Linux is free to reap that mount namespace, and the bind
+          //       mount which linked /run/user/colin/dbus/bus to
+          //       /proc/self/fd12/bus is destroyed.
+          //       so, /proc/self/fd12/bus is just a entry with nothing mounted
+          //       to it. xdg-dbus-proxy2 has no way to reach xdg-dbus-proxy1.
+          //
+          // the solution is to make sure steps 1 and 4 match:
+          // if the xdg-dbus-proxy retains a ref to its upstream
+          // /run/user/colin/dbus, then we have to make sure the application's
+          // /run/user/colin/dbus path represents a ref onto that
+          // xdg-dbus-proxy downstream.
+          append(what.paths, path::init(path::parent(&details.session_path)!)!)!;
+          // append(what.paths, details.session_path)!;
       };
   };
 

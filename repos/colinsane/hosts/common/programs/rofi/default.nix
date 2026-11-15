@@ -24,36 +24,48 @@
 # - <https://gitlab.com/DamienCassou/rofi-pulse-select>
 { lib, pkgs, ... }:
 let
-  rofi-unwrapped = pkgs.rofi-unwrapped.overrideAttrs (upstream: {
-    patches = (upstream.patches or []) ++ [
-      (pkgs.fetchpatch {
-        # so that i can open applications via the xdg-desktop-portal instead of by having rofi launch them directly.
-        # N.B.: since 1.7.6, rofi is able to dbus-activate applications as well
-        url = "https://git.uninsane.org/colin/rofi/commit/a86caf42f979a5ae7509a18e6a09e5fff125068e.patch";
-        name = "run-{shell-,}command: expand `{app_id}` inside the template string";
-        hash = "sha256-lcmVvDjVJsuamPtHVvRPQcELMMOa54/51+ibsVBVtSo=";
-      })
-      (pkgs.fetchpatch {
-        # workaround for <https://github.com/davatorium/rofi/issues/1954>
-        # which was only ever fixed for the *recursive* file browser.
-        # maintainer doesn't want to `stat` in non-recursive file browser yet; defer patching until filebrowser is made to be async
-        url = "https://git.uninsane.org/colin/rofi/commit/4660c31d0097f1edd36f7964cd402aaa936e6144.patch";
-        name = "filebrowser: include entries of d_type DT_UNKNOWN";
-        hash = "sha256-9J3z2lTPwOZxhmmG7FdlyiKkH9oqfDytNLPnXbqK5CA=";
-      })
-      # (lib.warnIf (lib.versionOlder "2.0.0" upstream.version) "rofi updated: remove natural ordering patch?" pkgs.fetchpatch {
-      #   # merged upstream: <https://github.com/davatorium/rofi/pull/2201>
-      #   url = "https://github.com/davatorium/rofi/pull/2201.patch?full_index=1";
-      #   # url = "https://git.uninsane.org/colin/rofi/commit/375e54332b9e269e3367c9724f8828534ffeb414.patch";
-      #   name = "filebrowser: sort based on natural ordering";
-      #   hash = "sha256-BzVAMBz4XSYLFN6Gz7HW+2ACrszvjCDK7RBt4rXxnOk=";
-      # })
+  rofi-unwrapped = pkgs.rofi-unwrapped.overrideAttrs (prevAttrs: {
+    # patches = (prevAttrs.patches or []) ++ [
+    #   (pkgs.fetchpatch {
+    #     # so that i can open applications via the xdg-desktop-portal instead of by having rofi launch them directly.
+    #     # N.B.: since 1.7.6, rofi is able to dbus-activate applications as well
+    #     url = "https://git.uninsane.org/colin/rofi/commit/a86caf42f979a5ae7509a18e6a09e5fff125068e.patch";
+    #     name = "run-{shell-,}command: expand `{app_id}` inside the template string";
+    #     hash = "sha256-lcmVvDjVJsuamPtHVvRPQcELMMOa54/51+ibsVBVtSo=";
+    #   })
+    #   (pkgs.fetchpatch {
+    #     # workaround for <https://github.com/davatorium/rofi/issues/1954>
+    #     # which was only ever fixed for the *recursive* file browser.
+    #     # maintainer doesn't want to `stat` in non-recursive file browser yet; defer patching until filebrowser is made to be async
+    #     url = "https://git.uninsane.org/colin/rofi/commit/4660c31d0097f1edd36f7964cd402aaa936e6144.patch";
+    #     name = "filebrowser: include entries of d_type DT_UNKNOWN";
+    #     hash = "sha256-9J3z2lTPwOZxhmmG7FdlyiKkH9oqfDytNLPnXbqK5CA=";
+    #   })
+    #   # (lib.warnIf (lib.versionOlder "2.0.0" prevAttrs.version) "rofi updated: remove natural ordering patch?" pkgs.fetchpatch {
+    #   #   # merged prevAttrs: <https://github.com/davatorium/rofi/pull/2201>
+    #   #   url = "https://github.com/davatorium/rofi/pull/2201.patch?full_index=1";
+    #   #   # url = "https://git.uninsane.org/colin/rofi/commit/375e54332b9e269e3367c9724f8828534ffeb414.patch";
+    #   #   name = "filebrowser: sort based on natural ordering";
+    #   #   hash = "sha256-BzVAMBz4XSYLFN6Gz7HW+2ACrszvjCDK7RBt4rXxnOk=";
+    #   # })
+    # ];
+
+    version = lib.warnIf (lib.versionOlder "2.1.1" prevAttrs.version) "rofi outdated: remove override?" "2.1.1";
+    src = prevAttrs.src.overrideAttrs {
+      hash = "sha256-5XFz01UtF1LUR5Hcvdcs+svSQGedzDYgnUSt7iN3cV4=";
+    };
+
+    mesonFlags = (prevAttrs.mesonFlags or []) ++ [
+      # i want `gio-launch: false`, so that rofi will use my `rofi-run-command`, but as of 2.1.1 that
+      # has buggy cache behavior (see comment in config.rasi).
+      # compiling out the gio-launch paths entirely fixes the cache.
+      "-Dgiolaunch=false"
     ];
 
-    nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+    nativeBuildInputs = (prevAttrs.nativeBuildInputs or []) ++ [
       pkgs.copyDesktopItems
     ];
-    desktopItems = (upstream.desktopItems or []) ++ [
+    desktopItems = (prevAttrs.desktopItems or []) ++ [
       (pkgs.makeDesktopItem {
         name = "rofi-filebrowser";
         # alternatively: `rofi -modes filebrowser -show`, however this would require theme tweaking to look good
@@ -159,6 +171,7 @@ in
       packages = {
         inherit (pkgs) sane-open;
       };
+      doInstallCheck = false;  # no --help option
     };
     # sandboxing options cribbed from sane-open
     sandbox.autodetectCliPaths = "existing";  # for when opening a file

@@ -32,7 +32,13 @@ configuration {
     display-name: "<span>";
     /* icons in /run/current-system/sw/share/icons/Adwaita/16x16/mimetypes */
     fallback-icon: "application-x-executable";
+    /* gio-launch: set false to use run-command, true to have rofi directly launch .desktop files */
+    gio-launch: false;
   }
+  /* TODO: enable. rofi 2.1.0 (2026-11-14) has a cache bug which causes gio-launch: false to be respected only on first run */
+  /* N.B.: rofi through at least 2.1.1 (2026-11-14) has a buggy cache interaction with `gio-launch: false` */
+  /* only enable the cache if (a) rofi was built with `-Dgiolaunch=false` or (b) `gio-launch` was not set false */
+  /* otherwise, rofi will only honor `gio-launch: false` on *first launch* and never again */
   drun-use-desktop-cache: true;
 
   filebrowser {
@@ -55,8 +61,8 @@ configuration {
     fallback-icon: "application-x-executable";
   }
   /* launch applications via my own launcher, which directs them through to xdg-desktop-portal */
-  run-command: "rofi-run-command '{app_id}.desktop' {cmd}";
-  run-shell-command: "rofi-run-command '{app_id}.desktop' {cmd}";
+  run-command: "rofi-run-command {cmd}";
+  run-shell-command: "rofi-run-command {cmd}";
 }
 
 /* theme */

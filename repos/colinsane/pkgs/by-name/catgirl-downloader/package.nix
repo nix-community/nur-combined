@@ -73,5 +73,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "GTK4 application that downloads images of catgirl based on https://nekos.moe";
     maintainers = with lib.maintainers; [ colinsane ];
     mainProgram = "catgirldownloader";
+    platforms = lib.platforms.linux;
   };
 })

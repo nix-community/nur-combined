@@ -404,6 +404,10 @@ super.lib.composeManyExtensions [
               " lld_path=\"${lldWithMimalloc}/bin\"";
           in {
             inherit gnFlags;
+            # libc++ mutex destruction is nontrivial on musl; OpenScreen's global mutex triggers -Werror.
+            env = (old.env or {}) // {
+              NIX_CFLAGS_COMPILE = (old.env.NIX_CFLAGS_COMPILE or "") + " -Wno-error=exit-time-destructors";
+            };
             configurePhase = builtins.replaceStrings [ old.gnFlags ] [ gnFlags ] old.configurePhase;
             passthru = (old.passthru or {}) // lib.optionalAttrs doForceMimalloc {
               inherit lldWithMimalloc;
@@ -411,9 +415,10 @@ super.lib.composeManyExtensions [
             # GNU find's -exec batching under musl rejects this build's large environment.
             nativeBuildInputs = [ final._pkgsGnu.findutils ] ++ old.nativeBuildInputs;
             postPatch = (old.postPatch or "") + ''
-              # Bundled fontconfig's generated configuration assumes glibc's random_r.
+              # Bundled fontconfig's generated configuration assumes glibc's APIs.
               substituteInPlace third_party/fontconfig/include/meson-config.h \
-                --replace-fail '#define HAVE_RANDOM_R 1' '/* #undef HAVE_RANDOM_R */'
+                --replace-fail '#define HAVE_RANDOM_R 1' '/* #undef HAVE_RANDOM_R */' \
+                --replace-fail '#define HAVE_GNU_STRERROR_R 1' '/* #undef HAVE_GNU_STRERROR_R */'
               # Electron includes a private glibc header; use the portable integer header instead.
               substituteInPlace electron/shell/browser/ui/file_dialog.h \
                 --replace-fail '#include <bits/stdint-uintn.h>' '#include <stdint.h>'

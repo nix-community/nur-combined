@@ -6,17 +6,17 @@
 }:
 mkPiExtension (finalAttrs: {
   pname = "pi-codex-goal";
-  version = "0.7.8";
+  version = "0.7.9";
 
   src = fetchFromGitHub {
     owner = "fitchmultz";
     repo = "pi-codex-goal";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-7vEkiLl8lf8tUtOugz1v34U6AjfNpw37i+wVg0N3cGY=";
+    hash = "sha256-Fxn59toCGu4TJamWDmuOMDuGLGeAc2PDz3rxkgQeoz8=";
   };
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-O/jCLR9IbAeAH0ufxk37swONUkcPfWizIEk5Mv+AbCk=";
+  npmDepsHash = "sha256-M3Z70OS4K391f/6bAIA/FrV6iUOb5W15LjJP329xgi0=";
 
   dontNpmBuild = true;  # package.json defines no build script
 
@@ -27,5 +27,6 @@ mkPiExtension (finalAttrs: {
     homepage = "https://github.com/fitchmultz/pi-codex-goal";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ colinsane ];
+    platforms = lib.platforms.linux;
   };
 })

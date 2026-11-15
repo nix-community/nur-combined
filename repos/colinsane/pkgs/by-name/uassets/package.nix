@@ -8,12 +8,12 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "uassets";
-  version = "0-unstable-2026-11-03";
+  version = "0-unstable-2026-11-13";
   src = fetchFromGitHub {
     owner = "uBlockOrigin";
     repo = "uAssets";
-    rev = "26b79a28ea16759cd9f28aa074e1a2bbf2457aaa";
-    hash = "sha256-U+6XkehE3mGhwZ4f8RyEzrWSPVeQW/kEHITDFRtg7lw=";
+    rev = "9d57eba52ae604f26ec751e3919b71d0e2f37a9d";
+    hash = "sha256-OLSA9ZgY2a/SYEvAYo1urPIMrqxMtlk0mrVuRCsUbfw=";
   };
 
   dontBuild = true;
@@ -37,8 +37,9 @@ stdenvNoCC.mkDerivation {
   ];
 
   meta = {
-    homepage = "https://github.com/uBlockOrigin/uAssets";
     description = "official uBlock Origin filter lists";
+    homepage = "https://github.com/uBlockOrigin/uAssets";
     maintainers = with lib.maintainers; [ colinsane ];
+    platforms = lib.platforms.linux;
   };
 }

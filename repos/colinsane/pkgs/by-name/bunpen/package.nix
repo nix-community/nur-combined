@@ -57,5 +57,6 @@
       selectively exposing the specific resources (paths, IPC) it needs.
     '';
     mainProgram = "bunpen";
+    inherit (hareHook.meta) badPlatforms platforms;
   };
 })

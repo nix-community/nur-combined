@@ -7,12 +7,12 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "kagi-search";
-  version = "0.7.7";
+  version = "0.7.8";
   src = fetchFromGitHub {
     owner = "kagisearch";
     repo = "browser_extensions";
     rev = "release/${finalAttrs.version}";
-    hash = "sha256-BXmL18+6QcGZD+ywWHODmACXKkJbXYZ0lQI1xe+OIps=";
+    hash = "sha256-dt+D7EjlX083rMteBKuzjrXmB1LdYVgjHfmmOVWpSpQ=";
   };
 
   buildPhase = ''

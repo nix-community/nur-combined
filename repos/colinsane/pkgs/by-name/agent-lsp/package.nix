@@ -43,5 +43,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/blackwell-systems/agent-lsp";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ colinsane ];
+    platforms = lib.platforms.linux;
   };
 })

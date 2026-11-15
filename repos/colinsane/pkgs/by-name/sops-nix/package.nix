@@ -5,12 +5,12 @@
   nix-update-script,
 }:
 let
-  version = "assets-unstable-2026-11-02";
+  version = "assets-unstable-2026-11-09";
   src = applyPatches {
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "sops-nix";
-      rev = "b18e01ce148eb3efff5de2f2d3181ca53b2b2a54";
+      rev = "fe7b4228405aeac2ce7192c2049a6e2bc8637082";
       hash = "sha256-Y/JIHTnMlOabDfyaSBubWGLDIVGihLEUuoMhFvQKaDo=";
     };
   };

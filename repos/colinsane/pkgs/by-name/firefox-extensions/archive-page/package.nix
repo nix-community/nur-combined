@@ -9,13 +9,13 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "archive-page";
-  version = "1.6.3";
+  version = "1.7.1";
 
   src = fetchFromGitHub {
     owner = "JNavas2";
     repo = "Archive-Page";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-F74YWHkP9wdMo2f81ghkQDbjlXVOP+mxA4bmh3vnd10=";
+    hash = "sha256-iWMYwj7fA+LYxdb25qj/md6c3SUTfdd5v79ZheG3U98=";
   };
 
   nativeBuildInputs = [

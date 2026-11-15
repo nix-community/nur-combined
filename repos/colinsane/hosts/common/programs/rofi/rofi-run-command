@@ -2,19 +2,22 @@
 #!nix-shell -i bash ../../../.. -A static-nix-shell.mkBash --arg packages 'ps: [ ps.bash ps.sane-open ]'
 
 # use:
-# rofi-run-command <handler>.desktop [cmd [args ...]]
+# DESKTOP_ENTRY_ID=<handler>.desktop rofi-run-command [cmd [args ...]]
 # if a non-empty desktop file is provided, we'll just launch that.
 # else, if the cmd is `xdg-open`, then we'll treat `args` as a URI and forward that to xdg-open.
 # nothing else is as-yet supported.
+#
+# N.B.: rofi also populates these env vars for us:
+# - DESKTOP_ENTRY_ID
+# - DESKTOP_ENTRY_PATH
+# - DESKTOP_ENTRY_NAME
 
-desktop="$1"
-shift
 binary="$1"
 shift
 binArgs=("$@")
 
-if [ "$desktop" != .desktop ]; then
-  exec sane-open --auto-keyboard --application "$desktop"
+if [ "${DESKTOP_ENTRY_ID:-.desktop}" != .desktop ]; then
+  exec sane-open --auto-keyboard --application "$DESKTOP_ENTRY_ID"
 elif [ "$binary" = "xdg-open" ]; then
   # the file we want to open could be a symlink to a .desktop file, so omit `--file` and let sane-open figure that part out for itself:
   exec sane-open --auto-keyboard "${binArgs[@]}"

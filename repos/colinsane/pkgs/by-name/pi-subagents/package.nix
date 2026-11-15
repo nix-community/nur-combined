@@ -6,17 +6,17 @@
 }:
 mkPiExtension (finalAttrs: {
   pname = "pi-subagents";
-  version = "0.86.0";
+  version = "0.88.0";
 
   src = fetchFromGitHub {
     owner = "nicobailon";
     repo = "pi-subagents";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Q0bR1/c5ybZjUnM+rzLyBDdFOhH8eAnmDGNgeqMQL4I=";
+    hash = "sha256-DPeu8UEl0Oq+m3YirA4vXOaDmyyIVMkxBzMXEWrmVHo=";
   };
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-XAI77j0ZyLlJsTIx6Zx1Njy9dLhTHGXq6B4oU4Pozuw=";
+  npmDepsHash = "sha256-u7gav2zboUp8XI7EVXIh1kO04xpv1CSgcU8psj65TAk=";
 
   dontNpmBuild = true;  # package.json defines no build script
 
@@ -33,5 +33,6 @@ mkPiExtension (finalAttrs: {
     homepage = "https://github.com/nicobailon/pi-subagents";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ colinsane ];
+    platforms = lib.platforms.linux;
   };
 })

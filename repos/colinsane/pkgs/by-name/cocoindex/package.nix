@@ -11,11 +11,11 @@
 
 python3.pkgs.buildPythonPackage rec {
   pname = "cocoindex";
-  version = "1.1.1";
+  version = "1.2.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-DRL8meaOVAoox5Yu3mBDIXPbHLWqEfezR+JuVSvW4zU=";
+    sha256 = "sha256-yrt+JFv9yu7xyACeC4wLCVtwJn1MyWNqYNQiOt7dM98=";
   };
 
   pyproject = true;
@@ -25,7 +25,7 @@ python3.pkgs.buildPythonPackage rec {
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit src;
     name = "${pname}-${version}";
-    hash = "sha256-IREP8v5XQ3zyy3IGKzSeaTlhA1y0k+pHurPGadFaVZ0=";
+    hash = "sha256-V1Ilhi0KW6dyMXEbxJaSHSRDwd02bTfLx7YezPkuzpg=";
   };
 
   nativeBuildInputs = with rustPlatform; [
@@ -53,5 +53,6 @@ python3.pkgs.buildPythonPackage rec {
     homepage = "https://github.com/cocoindex-io/cocoindex";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ colinsane ];
+    platforms = lib.platforms.linux;
   };
 }

@@ -33,5 +33,6 @@ static-nix-shell.mkPython3 {
     description = "Transparently-indexing code search MCP server, backed by the `zoekt` CLI";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ colinsane ];
+    platforms = lib.platforms.linux;
   };
 }

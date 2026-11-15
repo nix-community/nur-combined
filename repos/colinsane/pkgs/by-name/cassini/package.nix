@@ -92,5 +92,6 @@
     homepage = "https://github.com/vvuk/cassini";
     description = "ELEGOO 3D printer network protocol client";
     maintainers = with lib.maintainers; [ colinsane ];
+    platforms = lib.platforms.linux;
   };
 })

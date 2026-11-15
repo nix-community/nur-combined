@@ -9,7 +9,7 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "nanogpt-data";
-  version = "0-unstable-2026-11-09";
+  version = "0-unstable-2026-11-13";
 
   src = lib.fileset.toSource {
     root = ./.; fileset = ./models.json;
@@ -54,5 +54,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     ];
   };
 
-  meta.description = "Model pricing data specific to nano-gpt.com, for use by agent harnesses like Crush or Pi";
+  meta = {
+    description = "Model pricing data specific to nano-gpt.com, for use by agent harnesses like Crush or Pi";
+    platforms = lib.platforms.linux;
+  };
 })

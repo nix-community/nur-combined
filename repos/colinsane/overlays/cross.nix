@@ -123,51 +123,6 @@ let
   };
 in
 prev.lib.composeManyExtensions [
-(_: prev: let
-  electronNames = map (v: "electron_${toString v}") (prev.lib.range 1 99);
-in
-  builtins.foldl' (acc: name: acc // lib.optionalAttrs (prev ? "${name}") {
-    # 2026-10-25: still required
-    "${name}" = prev.${name}.override {
-      electron-unwrapped = (prev.${name}.unwrapped.override {
-        # Electron consumes Yarn's unspliced passthru hook, which otherwise runs target diff/node.
-        yarn-berry_4 = final.buildPackages.yarn-berry_4;
-        # TODO: does this chromium override belong at the toplevel?
-        chromium = final.chromium.override {
-          newScope = scope: final.newScope (scope // {
-            buildPackages = final.buildPackages // {
-              # Chromium uses bindgen for both target libraries and native Rust build tools.
-              rust-bindgen = final.buildPackages.rust-bindgen.overrideAttrs (old: {
-                buildCommand = old.buildCommand + ''
-                  mv "$out/bin/bindgen" "$out/bin/bindgen-target"
-                  cat > "$out/bin/bindgen" <<'EOF'
-                  #!${final.buildPackages.runtimeShell}
-                  for arg in "$@"; do
-                    case "$arg" in
-                      --target=${final.stdenv.buildPlatform.config})
-                        exec ${final.pkgsBuildBuild.rust-bindgen}/bin/bindgen "$@"
-                        ;;
-                    esac
-                  done
-                  exec "$(dirname "$0")/bindgen-target" "$@"
-                  EOF
-                  chmod +x "$out/bin/bindgen"
-                '';
-              });
-            };
-          });
-        };
-      }).overrideAttrs (old: {
-        # Dawn's Go generators run on the build machine and need no C interop.
-        env = (old.env or {}) // {
-          CGO_ENABLED = "0";
-          # The cross Go toolchain defaults to external linking even with CGO disabled.
-          GO_EXTLINK_ENABLED = "0";
-        };
-      });
-    };
-  }) {} electronNames
-)
 (_: prev: with final; {
   # default-gcc-version = 15;
 
@@ -210,6 +165,72 @@ in
       )}
     '';
   });
+
+  # 2026-11-13: still required
+  electron-source = lib.mapAttrs (k: v: (
+    if lib.hasPrefix "electron" k then
+      v.override (prevElectron: {
+        electron-unwrapped = (prevElectron.electron-unwrapped.override {
+          # Electron consumes Yarn's unspliced passthru hook, which otherwise runs target diff/node.
+          yarn-berry_4 = final.buildPackages.yarn-berry_4;
+          chromium = final.chromium.override {
+            newScope = scope: final.newScope (scope // {
+              rustPlatform = final.rustPlatform // {
+                buildRustPackage = args:
+                  let attrs = if builtins.isFunction args then args attrs else args;
+                  in if attrs.pname == "crubit" then
+                    # Crubit runs on the build machine and links native rustc-private libraries.
+                    final.pkgsBuildBuild.rustPlatform.buildRustPackage args
+                  else if attrs.pname == "gnrt" then
+                    final.pkgsBuildBuild.rustPlatform.buildRustPackage (nativeAttrs:
+                      (if builtins.isFunction args then args nativeAttrs else args) // {
+                        buildInputs = [ final.pkgsBuildBuild.openssl ];
+                        nativeBuildInputs = with final.pkgsBuildBuild; [ zstd pkg-config ];
+                      })
+                  else final.rustPlatform.buildRustPackage args;
+              };
+              buildGoModule = final.pkgsBuildBuild.buildGoModule;
+              buildPackages = final.buildPackages // {
+                # Chromium supplies --sysroot in response files, invisible to the wrapper.
+                rustc = final.buildPackages.rustc.unwrapped;
+                # Chromium uses bindgen for both target libraries and native Rust build tools.
+                rust-bindgen = final.buildPackages.rust-bindgen.overrideAttrs (old: {
+                  buildCommand = old.buildCommand + ''
+                    mv "$out/bin/bindgen" "$out/bin/bindgen-target"
+                    cat > "$out/bin/bindgen" <<'EOF'
+                    #!${final.buildPackages.runtimeShell}
+                    for arg in "$@"; do
+                      case "$arg" in
+                        --target=${final.stdenv.buildPlatform.config})
+                          exec ${final.pkgsBuildBuild.rust-bindgen}/bin/bindgen "$@"
+                          ;;
+                      esac
+                    done
+                    exec "$(dirname "$0")/bindgen-target" "$@"
+                    EOF
+                    chmod +x "$out/bin/bindgen"
+                  '';
+                });
+              };
+            });
+          };
+        }).overrideAttrs (old: {
+          # Thin archive offsets can have a slash after the space padding.
+          postPatch = (old.postPatch or "") + ''
+            substituteInPlace tools/resources/ar.py \
+              --replace-fail 'int(entry_name[1:])' "int(entry_name[1:].rstrip(b' /'))"
+          '';
+          # Dawn's Go generators run on the build machine and need no C interop.
+          env = (old.env or {}) // {
+            CGO_ENABLED = "0";
+            # The cross Go toolchain defaults to external linking even with CGO disabled.
+            GO_EXTLINK_ENABLED = "0";
+          };
+        });
+      })
+    else
+      v
+  )) prev.electron-source;
 
   # envelope = prev.envelope.override {
   #   cargo = crossCargo;
