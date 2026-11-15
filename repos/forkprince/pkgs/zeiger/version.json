@@ -5,11 +5,9 @@
     "url": "https://blickeditor.com/api/zeiger/latest-version",
     "version_path": ".version"
   },
-  "version": "0.3.0",
-  "platforms": {
-    "aarch64-darwin": {
-      "url": "https://zeigerviewer.com/dl/Zeiger_{version}_macos_arm64_portable.zip",
-      "hash": "sha256-8CjHA451Cr8PtLDLidNCwlujAYzXtf6BbT7F3WdGwb4="
-    }
-  }
+  "asset": {
+    "url": "https://zeigerviewer.com/dl/Zeiger_{version}_macos_arm64_portable.zip",
+    "hash": "sha256-8CjHA451Cr8PtLDLidNCwlujAYzXtf6BbT7F3WdGwb4="
+  },
+  "version": "0.3.0"
 }

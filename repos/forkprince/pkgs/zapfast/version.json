@@ -1,0 +1,28 @@
+{
+  "name": "ZapFast",
+  "source": {
+    "type": "github-release",
+    "repo": "crmne/zapfast",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.21.2",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "zapfast-v{version}-macos-universal.dmg",
+      "hash": "sha256-jr80f/4H69qEHQ1+0RNXdUeekUe0Jgz+OBqnXIq9SEc="
+    },
+    "x86_64-darwin": {
+      "file": "zapfast-v{version}-macos-universal.dmg",
+      "hash": "sha256-jr80f/4H69qEHQ1+0RNXdUeekUe0Jgz+OBqnXIq9SEc="
+    },
+    "aarch64-linux": {
+      "file": "zapfast-{version}-aarch64.AppImage",
+      "hash": "sha256-FUGuE3BU0xi3F2Cwpq2RJD/aJ6DiJafEs/drBMEPcIc="
+    },
+    "x86_64-linux": {
+      "file": "zapfast-{version}-x86_64.AppImage",
+      "hash": "sha256-qXk5oy16P9aR03g6aSloBMAVfZahVdguZrd/FFqCcXQ="
+    }
+  }
+}

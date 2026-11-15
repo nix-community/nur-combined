@@ -1,0 +1,28 @@
+{
+  "name": "Spotifast",
+  "source": {
+    "type": "github-release",
+    "repo": "crmne/spotifast",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.17.1",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "spotifast-v{version}-macos-universal.dmg",
+      "hash": "sha256-h00tttPu3FVeGhuUWCJKFZz3U6utKVs2+om9Ld47Ijg="
+    },
+    "x86_64-darwin": {
+      "file": "spotifast-v{version}-macos-universal.dmg",
+      "hash": "sha256-h00tttPu3FVeGhuUWCJKFZz3U6utKVs2+om9Ld47Ijg="
+    },
+    "aarch64-linux": {
+      "file": "spotifast-{version}-aarch64.AppImage",
+      "hash": "sha256-ZH4VDZwJahkq3PYAyuC54l7UHfv7Du5VS9gj34yIurc="
+    },
+    "x86_64-linux": {
+      "file": "spotifast-{version}-x86_64.AppImage",
+      "hash": "sha256-OeGODay0cJVz0oUTv4R6udJrSqNgyqyAP+ubhs/9wGI="
+    }
+  }
+}

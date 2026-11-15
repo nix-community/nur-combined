@@ -35,7 +35,7 @@
 }: let
   ver = lib.helper.read ./version.json;
 
-  src = fetchurl (lib.helper.getPlatform stdenvNoCC.hostPlatform.system ver);
+  src = fetchurl (lib.helper.getSingle ver);
   inherit (ver) version;
 in
   stdenvNoCC.mkDerivation rec {

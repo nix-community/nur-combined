@@ -6,11 +6,10 @@
     "skip_prerelease": false,
     "tag_prefix": "v"
   },
+  "asset": {
+    "file": "Yapfast-{version}-x86_64.AppImage",
+    "unpack": false
+  },
   "version": "0.4.1",
-  "platforms": {
-    "x86_64-linux": {
-      "file": "Yapfast-{version}-x86_64.AppImage",
-      "hash": "sha256-FT0loZpUtcmI5m6kn1tyZaNwezPe8cUEY3R60r5nFEw="
-    }
-  }
+  "hash": "sha256-FT0loZpUtcmI5m6kn1tyZaNwezPe8cUEY3R60r5nFEw="
 }

@@ -6,11 +6,10 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
+  "asset": {
+    "file": "nightcap_{version}_amd64.deb",
+    "unpack": false
+  },
   "version": "0.5.2",
-  "platforms": {
-    "x86_64-linux": {
-      "file": "nightcap_{version}_amd64.deb",
-      "hash": "sha256-k0t6IL9UclyXZew9/K/Twkqeb907SC+CbvZV4Wk9Gkw="
-    }
-  }
+  "hash": "sha256-k0t6IL9UclyXZew9/K/Twkqeb907SC+CbvZV4Wk9Gkw="
 }

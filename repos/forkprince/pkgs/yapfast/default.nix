@@ -1,5 +1,4 @@
 {
-  stdenvNoCC,
   fetchurl,
   lib,
 }: let
@@ -10,7 +9,7 @@ in
     inherit pname;
     inherit (ver) version;
 
-    src = fetchurl (lib.helper.getPlatform stdenvNoCC.hostPlatform.system ver);
+    src = fetchurl (lib.helper.getSingle ver);
 
     meta = {
       description = "Native Discord client that stays light on memory";

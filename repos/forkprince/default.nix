@@ -45,6 +45,7 @@
     altersend = lib.callPackage ./pkgs/altersend {};
     genoffice = lib.callPackage ./pkgs/genoffice {};
     opentubex = lib.callPackage ./pkgs/opentubex {};
+    spotifast = lib.callPackage ./pkgs/spotifast {};
     equicord = lib.callPackage ./pkgs/equicord {};
     sm64plus = lib.callPackage ./pkgs/sm64plus {};
     freebuff = lib.callPackage ./pkgs/freebuff {};
@@ -53,6 +54,7 @@
     wg-nord = lib.callPackage ./pkgs/wg-nord {};
     hyprism = lib.callPackage ./pkgs/hyprism {};
     transit = lib.callPackage ./pkgs/transit {};
+    zapfast = lib.callPackage ./pkgs/zapfast {};
     sonora = lib.callPackage ./pkgs/sonora {};
     sonixd = lib.callPackage ./pkgs/sonixd {};
     motrix = lib.callPackage ./pkgs/motrix {};
