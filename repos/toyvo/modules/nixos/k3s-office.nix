@@ -262,8 +262,11 @@ in
             # hostname (the mounted cert is publicly trusted, no
             # insecureSkipVerify needed).
             "traefik.ingress.kubernetes.io/service.serversscheme" = "https";
-            "traefik.ingress.kubernetes.io/service.serverstransport" =
-              "default-euro-office-transport@kubernetescrd";
+            # Same-namespace reference: plain name form. (The namespace-prefixed
+            # form used for cross-ns middlewares does NOT resolve here —
+            # Traefik looked for a transport literally named with the prefix,
+            # fell back to default, and failed IP-SAN verification.)
+            "traefik.ingress.kubernetes.io/service.serverstransport" = "euro-office-transport@kubernetescrd";
           };
         };
         spec = {
