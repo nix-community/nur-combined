@@ -57,6 +57,9 @@ buildPythonPackage (finalAttrs: {
   pname = "lada";
   inherit version src;
 
+  # PyAV 19 removed the metadata_errors keyword used by upstream 0.11.0.
+  patches = [ ./0001-pyav-19-compat.patch ];
+
   pyproject = true;
 
   build-system = [ setuptools ];
