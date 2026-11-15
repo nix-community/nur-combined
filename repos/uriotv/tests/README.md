@@ -50,7 +50,8 @@ strict-Bash updater, then runs:
   prevention and atomic rollback for ArtCraft packages.
 
 - `meitou-update.py`: stable launcher release selection, game and nightly
-  exclusion, downgrade prevention and NuGet lock regeneration.
+  exclusion, downgrade prevention, authenticated GitHub API calls, and the
+  AppImage wrapping (no .NET build, never run as a mounted AppImage).
 
 - `cachyos-kernel-update.py`: offline fixtures for direct CachyOS metadata,
   numeric version-only updates, coupled source/config/patch hashes, malformed

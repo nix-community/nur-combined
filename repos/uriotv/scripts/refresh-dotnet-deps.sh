@@ -11,7 +11,6 @@ set -euo pipefail
 # attribute (under packages.x86_64-linux) : lock file
 DOTNET_DEPS=(
   "lantern-engine.launcher:pkgs/lantern-engine/deps.json"
-  "meitou-launcher:pkgs/meitou-launcher/deps.json"
 )
 
 # The .NET CLI keeps named-mutex and first-use state in $TMPDIR/.dotnet and

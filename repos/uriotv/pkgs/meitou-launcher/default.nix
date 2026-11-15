@@ -1,58 +1,25 @@
-{ lib, buildDotnetModule, dotnetCorePackages, fetchFromGitHub, buildFHSEnv, makeDesktopItem,
-  copyDesktopItems, stdenv, libGL, libx11, libxcursor, libxext, libxi, libxrandr, libice, libsm, fontconfig, freetype, openal, libvpx, zlib }:
+{ lib, fetchurl, appimageTools, buildFHSEnv }:
 let
+  pname = "meitou-launcher";
   version = "1.12.0";
-  src = fetchFromGitHub {
-    owner = "VlcekM";
-    repo = "MeitouClient";
-    rev = "launcher-v${version}";
-    hash = "sha256-vIm75pXPyU2vVUwCi9hs/sNVPZkW6xMiBrrJ+6B9fTc=";
+  # Upstream's prebuilt launcher: a NativeAOT executable, so no .NET SDK, NuGet
+  # lock or source build is involved. The AppImage is only unpacked; it is never
+  # run as a mounted AppImage, so the bundled Velopack updater does not consider
+  # the launcher installed and leaves updates to Nix.
+  src = fetchurl {
+    url = "https://github.com/VlcekM/MeitouClient/releases/download/launcher-v${version}/MeitouLauncher-linux-x64.AppImage";
+    hash = "sha256-68tyu3WMWMKSbnNgiG3DOswCQZw/e1jTcuKazmdWgjM=";
   };
-  launcher = buildDotnetModule {
-    pname = "meitou-launcher-unwrapped";
-    inherit version src;
-    projectFile = "launcher/Meitou.Launcher/Meitou.Launcher.csproj";
-    nugetDeps = ./deps.json;
-    # Use Microsoft's binaries; avoid bootstrapping the entire .NET SDK. The 11.0.1xx
-    # band is required by upstream (`dotnetSdkVersion` keeps the updater honest about
-    # the band, not about nixpkgs' GA/RC state).
-    dotnet-sdk = dotnetCorePackages.sdk_11_0_1xx-bin;
-    dotnet-runtime = dotnetCorePackages.runtime_11_0-bin;
-    executables = [ "meitou-launcher" ];
-    # Publish as framework-dependent .NET instead of upstream's single-file AOT.
-    # Keep Avalonia/Skia native libraries alongside the managed executable.
-    postPatch = ''
-      # Upstream's global.json pins the exact GA SDK (11.0.100). nixpkgs can ship a
-      # release candidate of the same band until Microsoft's GA metadata lands, and
-      # the pinned binary SDK is the only one on PATH, so drop the constraint instead
-      # of failing SDK resolution against a version we do not control.
-      rm global.json
-      substituteInPlace launcher/Meitou.Launcher/Meitou.Launcher.csproj \
-        --replace-fail '<PublishAot>true</PublishAot>' '<PublishAot>false</PublishAot>' \
-        --replace-fail 'AfterTargets="ResolvePackageAssets" Condition=' 'Condition=' \
-        --replace-fail 'AfterTargets="ComputeResolvedFilesToPublishList" Condition=' 'Condition='
-    '';
-    runtimeDeps = [ libGL libx11 libxcursor libxext libxi libxrandr libice libsm fontconfig freetype openal libvpx zlib stdenv.cc.cc.lib ];
-    meta.platforms = [ "x86_64-linux" ];
-  };
-  desktop = makeDesktopItem {
-    name = "meitou-launcher";
-    desktopName = "Meitou Launcher";
-    comment = "Manage and launch Meitou; requires your own Kenshi installation";
-    exec = "meitou-launcher";
-    icon = "meitou-launcher";
-    categories = [ "Game" ];
-  };
+  contents = appimageTools.extractType2 { inherit pname version src; };
 in
 buildFHSEnv {
-  pname = "meitou-launcher";
-  inherit version;
-  # Game releases downloaded by the launcher are upstream's self-contained Linux
-  # binaries, which need an FHS loader and libraries on NixOS. No AppImage is used.
+  inherit pname version;
+  # The launcher and the game releases it downloads are upstream's Linux
+  # binaries; they need an FHS loader and libraries on NixOS.
   targetPkgs = pkgs: with pkgs; [
-    alsa-lib dbus fontconfig freetype glib gtk3 icu libGL libx11 libxcursor libxext
-    libxfixes libxi libxkbcommon libxrandr libxrender libvpx openal openssl
-    stdenv.cc.cc.lib vulkan-loader wayland zlib
+    alsa-lib dbus fontconfig freetype glib gtk3 icu libGL libice libsm libx11
+    libxcursor libxext libxfixes libxi libxkbcommon libxrandr libxrender libvpx
+    openal openssl stdenv.cc.cc.lib vulkan-loader wayland zlib
   ];
   # Meitou can score llvmpipe above an integrated GPU because it counts the
   # software driver's large RAM heap as VRAM. Exclude Mesa's CPU ICD by default,
@@ -63,27 +30,23 @@ buildFHSEnv {
           ! ''${VK_DRIVER_FILES+x} && ! ''${VK_ICD_FILENAMES+x} && ! ''${MESA_VK_DEVICE_SELECT+x} ]]; then
       export VK_LOADER_DRIVERS_DISABLE='*lvp*'
     fi
+    # Velopack treats the launcher as an installed AppImage only through $APPIMAGE.
+    unset APPIMAGE APPDIR
   '';
-  runScript = "${launcher}/bin/meitou-launcher";
-  nativeBuildInputs = [ copyDesktopItems ];
-  desktopItems = [ desktop ];
+  runScript = "${contents}/usr/bin/meitou-launcher";
   extraInstallCommands = ''
-    mkdir -p $out/share/applications
-    cp ${desktop}/share/applications/*.desktop $out/share/applications/
-    install -Dm644 ${src}/assets/branding/meitou-icon-2048.png $out/share/icons/hicolor/2048x2048/apps/meitou-launcher.png
-    install -Dm644 ${src}/LICENSE $out/share/licenses/meitou-launcher/LICENSE
-    install -Dm644 ${src}/LICENSE-EXCEPTION.md $out/share/licenses/meitou-launcher/LICENSE-EXCEPTION.md
-    install -Dm644 ${src}/THIRD_PARTY_NOTICES.md $out/share/licenses/meitou-launcher/THIRD_PARTY_NOTICES.md
+    install -Dm644 ${contents}/MeitouLauncher.desktop $out/share/applications/meitou-launcher.desktop
+    substituteInPlace $out/share/applications/meitou-launcher.desktop \
+      --replace-fail 'Icon=MeitouLauncher' 'Icon=meitou-launcher' \
+      --replace-fail 'Categories=Utility;' 'Categories=Game;'
+    install -Dm644 ${contents}/MeitouLauncher.png $out/share/icons/hicolor/64x64/apps/meitou-launcher.png
   '';
-  passthru = {
-    inherit src;
-    inherit (launcher) fetch-deps;
-    dotnetSdkVersion = dotnetCorePackages.sdk_11_0_1xx-bin.version;
-  };
+  passthru = { inherit src contents; };
   meta = {
-    description = "Meitou game launcher; downloads game versions and requires Kenshi";
+    description = "Meitou game launcher (upstream binary); downloads game versions and requires Kenshi";
     homepage = "https://github.com/VlcekM/MeitouClient";
     license = lib.licenses.gpl3Plus;
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "meitou-launcher";
   };
