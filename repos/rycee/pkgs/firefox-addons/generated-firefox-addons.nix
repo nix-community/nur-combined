@@ -1547,10 +1547,10 @@
     };
     "bramble" = buildMozillaXpiAddon {
       pname = "bramble";
-      version = "1.36.0";
+      version = "1.37.0";
       addonId = "firefox@bramble.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5246292/bramble-1.36.0.xpi";
-      sha256 = "0c0a41e9bcd01bcacb409965191a17269525b588a3b808cbf38ae05a4765e947";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5254582/bramble-1.37.0.xpi";
+      sha256 = "2842b8b4567c90e0f71c44ba69bd75af6b11c2abc83969dd021b458f638347d3";
       meta = with lib;
       {
         homepage = "https://bramble.sh";
@@ -1858,10 +1858,10 @@
     };
     "catppuccin-web-file-icons" = buildMozillaXpiAddon {
       pname = "catppuccin-web-file-icons";
-      version = "1.7.0";
+      version = "1.7.1";
       addonId = "{bbb880ce-43c9-47ae-b746-c3e0096c5b76}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5192809/catppuccin_web_file_icons-1.7.0.xpi";
-      sha256 = "7cd31912124af70627aee3de485afa251134a511fadae0fed1adad428780e2de";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5255034/catppuccin_web_file_icons-1.7.1.xpi";
+      sha256 = "4fb22f3f0fda7793eb1b4cd2dfcd7457acde3d63fae78a03f0ab6fd285238653";
       meta = with lib;
       {
         homepage = "https://github.com/catppuccin/web-file-explorer-icons";
@@ -3347,10 +3347,10 @@
     };
     "dictionaries" = buildMozillaXpiAddon {
       pname = "dictionaries";
-      version = "9.2.0";
+      version = "9.3.1";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5225773/dictionaries-9.2.0.xpi";
-      sha256 = "a28a6ead25c7d3cdb4304fe7150f16d73c39aadf1086a58e71efa8aaa9055d27";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5252095/dictionaries-9.3.1.xpi";
+      sha256 = "3ad65325f4428268770b97f84a7a938334f1a6c5e42d6a18c6de9bd0a26f3158";
       meta = with lib;
       {
         homepage = "https://dictionariez.pnl.dev";
@@ -4434,10 +4434,10 @@
     };
     "firemonkey" = buildMozillaXpiAddon {
       pname = "firemonkey";
-      version = "3.9";
+      version = "3.10";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5057239/firemonkey-3.9.xpi";
-      sha256 = "5b3cc911dc6b337d7965bbf46a42e317a70cde510922f0d8991f8594325b752d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5252405/firemonkey-3.10.xpi";
+      sha256 = "8b56a3b4ee79ee3f1c62faa2fa12b29335248b7b8a77fec463c655fee7d86e6c";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/firemonkey";
@@ -6556,10 +6556,10 @@
     };
     "kiss-translator" = buildMozillaXpiAddon {
       pname = "kiss-translator";
-      version = "2.2.3";
+      version = "2.2.4";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5249272/kiss_translator-2.2.3.xpi";
-      sha256 = "eba5c1b18ca04505754925dc433592ee25579629345575a62252e2fac8d440c5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5253016/kiss_translator-2.2.4.xpi";
+      sha256 = "05e7417ce83cca8bcb90c171ed3ba5fc28e86d1f004a4923602a8e505582b0ee";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -12985,10 +12985,10 @@
     };
     "save-all-images-webextension" = buildMozillaXpiAddon {
       pname = "save-all-images-webextension";
-      version = "1.1.2";
+      version = "1.1.4";
       addonId = "{32af1358-428a-446d-873e-5f8eb5f2a72e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5232036/save_all_images_webextension-1.1.2.xpi";
-      sha256 = "caedf2869abcfce7032119421df1e4d1abeaac521df20cd070bb7042559227d1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5252408/save_all_images_webextension-1.1.4.xpi";
+      sha256 = "5c6203b72c12ba6b8e448ac6fac5350e0123c52cb00f47bbbd96d348fefd6384";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/save-images.html";
@@ -14544,10 +14544,10 @@
     };
     "temporary-containers-plus" = buildMozillaXpiAddon {
       pname = "temporary-containers-plus";
-      version = "2.1.5";
+      version = "2.1.7";
       addonId = "{1ea2fa75-677e-4702-b06a-50fc7d06fe7e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4796436/temporary_containers_plus-2.1.5.xpi";
-      sha256 = "c80a73ee41302a7b34a73448e6f7f42c1fc684fb3e5b37fed0117e7ffcabbf19";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5254871/temporary_containers_plus-2.1.7.xpi";
+      sha256 = "cc64bd80def64be4afc1b9a38488377b7602830aa066b92efb4674464a53f341";
       meta = with lib;
       {
         homepage = "https://github.com/GodKratos/temporary-containers";
@@ -15869,10 +15869,10 @@
     };
     "v2ex-polish" = buildMozillaXpiAddon {
       pname = "v2ex-polish";
-      version = "2.5.10";
+      version = "2.5.11";
       addonId = "leokudev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5231818/v2ex_polish-2.5.10.xpi";
-      sha256 = "1a7c34b87f17e16566ff5bdf14ba5b0e7997f3fa000d27fcacb07c4661a8d3ee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5253990/v2ex_polish-2.5.11.xpi";
+      sha256 = "a0b0d0051170043459d57027b79290eb48e3e5d6ef73c90affb8b534bc713876";
       meta = with lib;
       {
         description = "专为 V2EX 用户设计，提供了丰富的扩展功能。";
@@ -17655,10 +17655,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.11.0";
+      version = "18.11.1";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5225493/youtube_subscription_groups-18.11.0.xpi";
-      sha256 = "92e5bc6e3c9e84f3967ae339b95a878996cfb8f2313004bd7d40fa947b7f02e2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5253229/youtube_subscription_groups-18.11.1.xpi";
+      sha256 = "a9ebfe9477fc4da4854084cfcc6fcfc1c1fa4aa716ea67a4ec26849af5f4e682";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
