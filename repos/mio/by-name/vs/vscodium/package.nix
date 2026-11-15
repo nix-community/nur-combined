@@ -221,15 +221,23 @@ let
     };
 
     postPatch = ''
-      # VSCodium branding (subset of prepare_vscode.sh product.json edits).
+      # VSCodium branding: the product.json keys prepare_vscode.sh sets for a
+      # stable build. darwinBundleIdentifier is what macOS keys the app identity
+      # on (preferences domain, LaunchServices, policy watcher), and the server
+      # and tunnel names decide the binaries used for remote sessions.
       jq \
         --arg nameShort "VSCodium" \
         --arg nameLong "VSCodium" \
         --arg applicationName "codium" \
+        --arg darwinBundleIdentifier "com.vscodium" \
+        --arg serverApplicationName "codium-server" \
+        --arg tunnelApplicationName "codium-tunnel" \
         --arg dataFolderName ".vscodium-server" \
         --arg linuxIconName "vscodium" \
         --arg urlProtocol "vscodium" \
         --arg quality "stable" \
+        --argjson linkProtectionTrustedDomains '["https://open-vsx.org"]' \
+        --argjson tunnelApplicationConfig '{}' \
         --argjson extensionsGallery '{"serviceUrl":"https://open-vsx.org/vscode/gallery","itemUrl":"https://open-vsx.org/vscode/item","latestUrlTemplate":"https://open-vsx.org/vscode/gallery/{publisher}/{name}/latest","controlUrl":"https://raw.githubusercontent.com/EclipseFdn/publish-extensions/refs/heads/master/extension-control/extensions.json"}' \
         '.nameShort=$nameShort
          | .nameLong=$nameLong
@@ -240,12 +248,31 @@ let
          | .urlProtocol=$urlProtocol
          | .quality=$quality
          | .extensionsGallery=$extensionsGallery
+         | .darwinBundleIdentifier=$darwinBundleIdentifier
+         | .serverApplicationName=$serverApplicationName
+         | .tunnelApplicationName=$tunnelApplicationName
+         | .tunnelApplicationConfig=$tunnelApplicationConfig
+         | .linkProtectionTrustedDomains=$linkProtectionTrustedDomains
          | .reportIssueUrl="https://github.com/VSCodium/vscodium/issues/new"
          | .licenseUrl="https://github.com/VSCodium/vscodium/blob/master/LICENSE"
          | .updateUrl=null
          | .backupUpdateUrl=null' \
         product.json > product.json.tmp
       mv product.json.tmp product.json
+
+      # The bundle's NSHumanReadableCopyright and the win32 installer metadata
+      # otherwise keep Microsoft's name; prepare_vscode.sh edits the same file.
+      substituteInPlace build/lib/electron.ts \
+        --replace-fail 'Microsoft Corporation' 'VSCodium'
+      # The copyright line is "Copyright (C) <year> Microsoft", which the
+      # company-name replacement above does not reach.
+      sed -i -E 's|([0-9]) Microsoft|\1 VSCodium|g' build/lib/electron.ts
+
+      # Like undo_telemetry.sh: point Microsoft's telemetry endpoints at a black
+      # hole instead of shipping code that reports to them.
+      while IFS= read -r telemetry_file; do
+        sed -i -E 's|//[^/]+\.data\.microsoft\.com|//0\.0\.0\.0|g' "$telemetry_file"
+      done < <(grep -rl --exclude-dir=.git -E '\.data\.microsoft\.com' . || true)
 
     '';
 
