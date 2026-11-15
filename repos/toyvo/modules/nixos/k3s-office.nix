@@ -94,11 +94,15 @@ in
                     }
                   ];
                   ports = [ { containerPort = officePort; } ];
+                  # First boot does DB init + font/cache generation (minutes).
+                  # Without initial delays the probes SIGKILL the pod mid-boot
+                  # (exit 137 crashloop) before it can ever listen.
                   readinessProbe = {
                     httpGet = {
                       path = "/healthcheck";
                       port = officePort;
                     };
+                    initialDelaySeconds = 120;
                     periodSeconds = 30;
                   };
                   livenessProbe = {
@@ -106,6 +110,7 @@ in
                       path = "/healthcheck";
                       port = officePort;
                     };
+                    initialDelaySeconds = 180;
                     periodSeconds = 60;
                   };
                   resources = {
