@@ -188,6 +188,20 @@ in
         };
         spec.forwardAuth = {
           address = "http://${homelab.authentik.ip}:9000/outpost.goauthentik.io/auth/traefik";
+          # Trust the X-Forwarded-* headers our own edge sets when calling
+          # the outpost. The edge terminates TLS and sets Proto=https;
+          # without this Traefik strips Proto and the outpost sees the
+          # internal plain-HTTP hop as scheme=http, so sessions minted over
+          # https never validate on subsequent checks (infinite login
+          # loop). This mirrors the old Caddy behavior, which forwarded the
+          # edge-terminated values verbatim. (A prior note suggested false;
+          # false recomputes Proto from the internal HTTP hop — always http
+          # — which is exactly the broken value. The only untrusted segment
+          # is public-internet→edge, which terminates TLS itself.)
+          trustForwardHeader = true;
+          # Auth responses are headers only (largest is the JWT); 1Mi is
+          # generous while ending the unlimited-body warning.
+          maxResponseBodySize = "1Mi";
           authResponseHeaders = [
             "X-Authentik-Username"
             "X-Authentik-Groups"

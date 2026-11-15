@@ -37,7 +37,7 @@
 - [ ] Edge LAN-client verification (from MacBook, not router — router-originated traffic takes a policy-routed path that lan-only correctly rejects): no-cookie gated URL (e.g. hermes-agent) → authentik challenge, with cookie → app; public URLs (git, apex) → 200.
 - [ ] hermes-agent backend down (noticed 2026-11-13 during edge verification): 10.1.0.3:8642 connection refused; edge correctly gates it, but the nas service needs attention.
 - [x] In-cluster default-ns Ingresses now carry edge middlewares (2026-11-13): shared `k3s-traefik-middlewares.nix` helper consumed by k3s-edge + homepage/homeassistant/starr generators; verified apex 200→302 (forward-auth challenge restored), \*arrs pass lan-only to their own logins.
-- [ ] Traefik forwardAuth tuning warnings from DaemonSet logs (2026-11-13): set maxResponseBodySize + trustForwardHeader=false on edge-authentik-forwardauth.
+- [x] Traefik forwardAuth tuning warnings from DaemonSet logs (2026-11-13): set maxResponseBodySize=1Mi + trustForwardHeader=true on edge-authentik-forwardauth (2026-11-14: proven necessary, not just tuning — unset trustForwardHeader strips X-Forwarded-Proto from the auth sub-request and the outpost 500s without it, which broke ALL forward-auth logins at the Traefik edge cutover; verified by header bisection against the live outpost: baseline 200, no-Proto 500, no-For 200). NOTE: deliberately true, not false — false recomputes proto from the internal plain-HTTP hop.
 - [ ] Remove TEMPORARY passwordless k3s/kubectl sudoers on router (`configurations/nixos/router/configuration.nix`, added 2026-11-13 for edge debugging; kept per user request — revisit when done).
 - [ ] aarch64 nodes (rpis) after x86_64 stable.
 
