@@ -80,6 +80,10 @@ jobs:
       if: always()
       run: devenv shell -- true
 
+    # Stop before pushing a tree that build.yml and gc-store would fail to evaluate
+    - name: Evaluate the updated packages
+      run: nix eval --json --impure --file ci/targets.nix >/dev/null
+
     - name: Commit and push changes
       uses: mzwing/nix-actions/git/commit-and-push@master
       with:

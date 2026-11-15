@@ -26,10 +26,13 @@
     gst-plugins-bad
   ];
 
-  # nixpkgs makes libsqlcipher an unconditional runtime dependency of pub `sqlite3` >=3.5.0 but only carries its hash for 3.5.0 on x86_64-linux, so every other version and system throws at evaluation time.
+  # nixpkgs makes libsqlcipher an unconditional runtime dependency of pub `sqlite3` >=3.5.0 but only carries its hashes for a few releases, so any other version throws at evaluation time.
   # kelivo drives drift against plain sqlite3 and never looks sqlcipher up, so drop it rather than pin hashes that the lockfile update workflow invalidates on each bump.
   sqlite3SourceBuilder = args:
-    (callPackage (path + "/pkgs/development/compilers/dart/package-source-builders/sqlite3") {} args).overrideAttrs {
+    (callPackage (path + "/pkgs/development/compilers/dart/package-source-builders/sqlite3") {} args).overrideAttrs (old: {
+      # A Git dependency checks out the whole sqlite3.dart monorepo, so patch and install only the package directory
+      sourceRoot = "${old.src.name}/${old.passthru.packageRoot}";
+      passthru = old.passthru // {packageRoot = ".";};
       setupHook = writeScript "sqlite3-setup-hook" ''
         sqliteFixupHook() {
           runtimeDependencies+=('${lib.getLib sqlite}')
@@ -37,12 +40,13 @@
 
         preFixupHooks+=(sqliteFixupHook)
       '';
-    };
+    });
 in
   flutter347.buildFlutterApplication {
     inherit pname src version;
 
     pubspecLock = lib.importJSON ./pubspec.lock.json;
+    gitHashes = lib.importJSON ./git-hashes.json;
 
     customSourceBuilders.sqlite3 = sqlite3SourceBuilder;
 

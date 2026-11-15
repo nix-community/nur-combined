@@ -11,7 +11,7 @@ For push-triggered runs, the workflow passes the pre-push revision as `UPDATE_BA
 
 ## Which mechanism owns what
 
-- **Anything derived from upstream metadata or the source tree** (versions, archives, lockfiles, pins, and an `npmDepsHash` computable from a complete lockfile): the package's `source.ts`, composed from nix-repin's providers and the `crate2nix` and `gomod2nix` providers in `internal/sources.ts`. nix-repin only lets a definition start the programs in the `--allow-run` list of its `default.nix`, so those two build their tool from the nixpkgs that `flake.lock` pins and run it through `nix shell`.
+- **Anything derived from upstream metadata or the source tree** (versions, archives, lockfiles, pins, an `npmDepsHash` computable from a complete lockfile, and `gitHashes` for pub Git dependencies): the package's `source.ts`, composed from nix-repin's providers and the `crate2nix`, `gomod2nix`, and `pubspecGitHashes` providers in `internal/sources.ts`. Composed after `pubspec.lock()`, `pubspecGitHashes()` reads the generated `pubspec.lock.json` and writes those hashes to `git-hashes.json`. nix-repin only lets a definition start the programs in the `--allow-run` list of its `default.nix`, so `crate2nix` and `gomod2nix` build their tool from the nixpkgs that `flake.lock` pins and run it through `nix shell`, while `pubspecGitHashes` runs `nix-prefetch-git`, which is already on that list.
 - **Hashes only a build reveals** (pnpm dependency FODs, and npm lockfiles that `internal/npm-lockfile-fix.nix` repairs inside the FOD): `update-hashes`. Convention: a `*Hash = "sha256-..."` attribute in `pkgs/<name>/default.nix`. Use `nix run .#update-hashes -- <name>` to force a package after external hash drift.
 
 Resolving a pub lock realises a multi-gigabyte Flutter SDK, so `scripts/ci/update-packages.sh` drops the SDK each `pubspec.lock` provider names right afterwards — `gc-store` roots every package's build closure, so an SDK left behind would ride the shared store cache from then on.
@@ -22,4 +22,4 @@ Commit `pkgs/<name>/source.ts` together with its `default.nix`. `packageDirs` in
 
 ## Failure handling
 
-`update-sources` exits on the first definition that fails, before `update-hashes` runs, so the workflow commits nothing from that run. Reproduce on Linux with `nix run .#update-sources -- <name>`; nix-repin builds for Linux only.
+`update-sources` exits on the first definition that fails, before `update-hashes` runs, so the workflow commits nothing from that run. Before committing, the workflow evaluates `ci/targets.nix` (the same evaluation `build.yml` runs), so a tree that no longer evaluates fails the run instead of being pushed to `main`. Reproduce on Linux with `nix run .#update-sources -- <name>`; nix-repin builds for Linux only.

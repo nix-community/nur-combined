@@ -95,3 +95,42 @@ export function gomod2nix(): SourceDefinition {
     }
   };
 }
+
+interface PubspecLock {
+  packages: Record<
+    string,
+    { source: string; description: { url: string; "resolved-ref": string } }
+  >;
+}
+
+/** Prefetch buildFlutterApplication's gitHashes for the Git dependencies in the pubspec.lock.json an earlier provider generated */
+export function pubspecGitHashes(): SourceDefinition {
+  return async (source) => {
+    const { packages } = JSON.parse(
+      source.files()["pubspec.lock.json"] as string,
+    ) as PubspecLock;
+    const hashes = await Promise.all(
+      Object.entries(packages)
+        .filter(([, dependency]) => dependency.source === "git")
+        .map(async ([name, { description }]) => {
+          // pub2nix fetches Git dependencies with fetchgit, which includes submodules by default
+          const output = await runCommand("nix-prefetch-git", [
+            "--quiet",
+            "--fetch-submodules",
+            "--url",
+            description.url,
+            "--rev",
+            description["resolved-ref"],
+          ]);
+
+          return [name, (JSON.parse(output) as { hash: string }).hash] as const;
+        }),
+    );
+
+    return {
+      "git-hashes.json": `${
+        JSON.stringify(Object.fromEntries(hashes), null, 2)
+      }\n`,
+    };
+  };
+}

@@ -1,4 +1,5 @@
 import { defineSource, github, pubspec } from "nix-repin";
+import { pubspecGitHashes } from "../../internal/sources.ts";
 
 export default defineSource(
   github.tag({
@@ -7,4 +8,5 @@ export default defineSource(
     stripPrefix: "v",
   }),
   pubspec.lock({ flutter: "flutter347" }),
+  pubspecGitHashes(),
 );
