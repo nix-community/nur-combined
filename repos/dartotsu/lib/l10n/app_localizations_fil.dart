@@ -283,6 +283,17 @@ class AppLocalizationsFil extends AppLocalizations {
   String get selectMediaService => 'Pumili ng media service';
 
   @override
+  String get manageServices => 'Media services';
+
+  @override
+  String get manageServicesDesc =>
+      'Reorder the services and choose which ones show in the picker';
+
+  @override
+  String get manageServicesHint =>
+      'Drag to reorder, switch off the ones you don\'t use';
+
+  @override
   String get pickColor => 'Pumili ng kulay';
 
   @override
@@ -360,6 +371,27 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String get customPath => 'Custom na storage path';
+
+  @override
+  String get stories => 'Stories';
+
+  @override
+  String get watchOrder => 'Watch order';
+
+  @override
+  String get watchOrderOpenSite => 'Open on chiaki.site';
+
+  @override
+  String get watchOrderUnavailable => 'No watch order was found for this title';
+
+  @override
+  String get watchOrderOpenFailed => 'Couldn\'t open that title';
+
+  @override
+  String get watchOrderCurrent => 'You are here';
+
+  @override
+  String get watchOrderCredit => 'Watch orders by chiaki.site';
 
   @override
   String get customPathDesc =>
@@ -2133,6 +2165,9 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String get followsMutual => 'Mutual';
+
+  @override
+  String get followsNotMutual => 'Not mutual';
 
   @override
   String get homeSections => 'Mga home section';
@@ -5389,6 +5424,25 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String get watchSource => 'Source';
+
+  @override
+  String get sourceTags => 'Tags';
+
+  @override
+  String get sourceTagsHint =>
+      'Tag what this source is for. A title lists the sources tagged for it first, then untagged ones. 18+ sources only show for adult titles.';
+
+  @override
+  String get sourceTagAnime => 'Anime';
+
+  @override
+  String get sourceTagMovies => 'Movies & Series';
+
+  @override
+  String get sourceTagAdult => '18+';
+
+  @override
+  String get sourceHiddenByTags => 'Hidden by tags';
 
   @override
   String get watchOptions => 'Mga opsyon';

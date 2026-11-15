@@ -282,6 +282,17 @@ class AppLocalizationsPs extends AppLocalizations {
   String get selectMediaService => 'د رسنۍ خدمت وټاکه';
 
   @override
+  String get manageServices => 'Media services';
+
+  @override
+  String get manageServicesDesc =>
+      'Reorder the services and choose which ones show in the picker';
+
+  @override
+  String get manageServicesHint =>
+      'Drag to reorder, switch off the ones you don\'t use';
+
+  @override
   String get pickColor => 'یو رنګ وټاکه';
 
   @override
@@ -358,6 +369,27 @@ class AppLocalizationsPs extends AppLocalizations {
 
   @override
   String get customPath => 'دودیز د ذخیرې لار';
+
+  @override
+  String get stories => 'Stories';
+
+  @override
+  String get watchOrder => 'Watch order';
+
+  @override
+  String get watchOrderOpenSite => 'Open on chiaki.site';
+
+  @override
+  String get watchOrderUnavailable => 'No watch order was found for this title';
+
+  @override
+  String get watchOrderOpenFailed => 'Couldn\'t open that title';
+
+  @override
+  String get watchOrderCurrent => 'You are here';
+
+  @override
+  String get watchOrderCredit => 'Watch orders by chiaki.site';
 
   @override
   String get customPathDesc =>
@@ -2120,6 +2152,9 @@ class AppLocalizationsPs extends AppLocalizations {
 
   @override
   String get followsMutual => 'Mutual';
+
+  @override
+  String get followsNotMutual => 'Not mutual';
 
   @override
   String get homeSections => 'د کور برخې';
@@ -5356,6 +5391,25 @@ class AppLocalizationsPs extends AppLocalizations {
 
   @override
   String get watchSource => 'سرچینه';
+
+  @override
+  String get sourceTags => 'Tags';
+
+  @override
+  String get sourceTagsHint =>
+      'Tag what this source is for. A title lists the sources tagged for it first, then untagged ones. 18+ sources only show for adult titles.';
+
+  @override
+  String get sourceTagAnime => 'Anime';
+
+  @override
+  String get sourceTagMovies => 'Movies & Series';
+
+  @override
+  String get sourceTagAdult => '18+';
+
+  @override
+  String get sourceHiddenByTags => 'Hidden by tags';
 
   @override
   String get watchOptions => 'غوراوي';
