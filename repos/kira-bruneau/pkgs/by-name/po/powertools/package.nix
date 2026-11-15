@@ -12,7 +12,7 @@
   pnpmBuildHook,
   rustc,
   pciutils,
-  nix-update-script,
+  gitUpdater,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -90,7 +90,9 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r dist main.py plugin.json translations "$out"
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = gitUpdater {
+    rev-prefix = "v";
+  };
 
   meta = {
     description = "Steam Deck power tweaks for power users";

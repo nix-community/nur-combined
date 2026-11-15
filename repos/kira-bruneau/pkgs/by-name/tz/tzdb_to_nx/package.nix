@@ -5,17 +5,18 @@
   cmake,
   ninja,
   tzdata,
+  unstableGitUpdater,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "tzdb_to_nx";
-  version = "230326";
+  version = "0-unstable-2026-03-23";
 
   src = fetchFromGitea {
     domain = "git.eden-emu.dev";
     owner = "eden-emu";
     repo = "tzdb_to_nx";
-    tag = finalAttrs.version;
+    rev = "d548b3bca566a5224468e77f275437b990bd147d";
     hash = "sha256-koz7C63oHVfrhrf9lfdUqw6idJWi21XRKQnb5PdoEb4=";
   };
 
@@ -38,6 +39,8 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
 
   meta = {
     description = "RFC 8536 time zone data converted to the Nintendo Switch format";

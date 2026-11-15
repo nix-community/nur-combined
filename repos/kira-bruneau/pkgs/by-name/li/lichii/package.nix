@@ -41,14 +41,12 @@
   xbyak,
   zlib,
   zstd,
-  writeScript,
-  callPackage,
+  tzdb_to_nx,
   wrapGAppsHook3,
+  gitUpdater,
 }:
 
 let
-  nx_tzdb = callPackage ./nx_tzdb.nix { };
-
   # eden broken by latest httplib version bump
   # upstream likely not interested in fixes, actively looking to remove the dependency (https://git.eden-emu.dev/eden-emu/eden/issues/4194)
   # pin httplib for now, hopefully can entirely drop in next eden release
@@ -73,12 +71,12 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lichii";
-  version = "build-93";
+  version = "93";
 
   src = fetchFromGitHub {
     owner = "zortos293";
     repo = "Lichii";
-    tag = finalAttrs.version;
+    tag = "build-${finalAttrs.version}";
     hash = "sha256-2UnbfvLqlgHdQh3m8YKXpOnXxHomshXiLUeb34REMl0=";
   };
 
@@ -163,7 +161,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     # use system libraries
     (lib.cmakeBool "CPMUTIL_FORCE_SYSTEM" true)
-    (lib.cmakeFeature "YUZU_TZDB_PATH" "${nx_tzdb}")
+    (lib.cmakeFeature "YUZU_TZDB_PATH" "${tzdb_to_nx}")
 
     # enable some optional features
     (lib.cmakeBool "YUZU_USE_QT_WEB_ENGINE" true)
@@ -197,18 +195,8 @@ stdenv.mkDerivation (finalAttrs: {
     })
   '';
 
-  passthru = {
-    inherit nx_tzdb;
-
-    updateScript = writeScript "update-lichii" ''
-      #!/usr/bin/env nix-shell
-      #!nix-shell -i bash -p nix-update
-
-      set -eu -o pipefail
-
-      nix-update lichii
-      nix-update lichii.nx_tzdb
-    '';
+  passthru.updateScript = gitUpdater {
+    rev-prefix = "build-";
   };
 
   meta = {
