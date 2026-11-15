@@ -3,7 +3,7 @@
   buildNpmPackage,
   fetchFromGitHub,
   fetchurl,
-  nodejs_26,
+  nodejs_24,
   autoPatchelfHook,
   makeWrapper,
   stdenv,
@@ -46,7 +46,8 @@ buildNpmPackage (finalAttrs: {
   };
 
   npmDepsHash = "sha256-3WPXD+qm5WVfrTEvepKwX5RZBfbLBcPB0uDmKIx4MR8=";
-  nodejs = nodejs_26;
+  # REA's source build uses Node 24 (.nvmrc), including TypeScript transforms.
+  nodejs = nodejs_24;
   # Install the matching, hash-pinned Frida binding ourselves instead of letting
   # its lifecycle script download it from the network inside the build.
   npmFlags = [ "--ignore-scripts" ];
@@ -64,8 +65,7 @@ buildNpmPackage (finalAttrs: {
     # npm installs both libc variants on Linux; only the glibc build is used.
     find node_modules -type d -name '*-musl' -prune -exec rm -rf {} +
     autoPatchelf node_modules
-    # metadata:check loads TypeScript through stripTypeScriptTypes({mode:"transform"}).
-    # Node 26.13 only accepts mode "strip". compile depends on that task, so stub it.
+    # Keep the requested metadata-check opt-out; artifact generation still runs.
     sed -i 's|"metadata:check": "node scripts/generate-package-metadata.mjs --check"|"metadata:check": "true"|' package.json
   '';
 
