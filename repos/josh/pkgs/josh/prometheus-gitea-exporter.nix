@@ -7,13 +7,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "prometheus-gitea-exporter";
-  version = "0.2.1";
+  version = "0.2.2";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "gitea_exporter";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-/gfU2Ga2TiSPdud+MxGHEyzPvD8U3B1+Yt8IfOaiGZo=";
+    hash = "sha256-QsG0YkAN1FVBvJ+TpUHC1l+h9mQoaeWGVIzRBOOg1U8=";
   };
 
   vendorHash = "sha256-+WzdK7LjCjaGlZezhCuf4RzGeob9qKlahNyN9YvzhQ4=";
