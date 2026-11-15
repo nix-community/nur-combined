@@ -5,6 +5,7 @@
   fetchFromGitHub,
   fetchurl,
   fetchzip,
+  git,
   nodejs_24,
   electron_43-bin,
   prefetch-npm-deps,
@@ -55,13 +56,57 @@ let
     else
       throw "Unsupported platform: ${platform}";
 
-  # VSCodium's own macOS app artwork. We build from microsoft/vscode sources, so
-  # the bundle would otherwise carry the plain Code OSS icon; prepare_vscode.sh
-  # normally drops this file in before building.
-  vscodium-icns = fetchurl {
-    url = "https://raw.githubusercontent.com/VSCodium/vscodium/${vscodiumTag}/src/stable/resources/darwin/code.icns";
-    hash = "sha256-HTJbTU27rfUKayRMeeFzY9hocXh8PpG+fc7maSIs5VM=";
+  # Upstream VSCodium repository at the release we track: the src/stable source
+  # overlay (branded icons, resources and vscode source replacements), the patch
+  # set, product.json additions and the welcome-page announcements.
+  vscodiumSrc = fetchFromGitHub {
+    owner = "VSCodium";
+    repo = "vscodium";
+    tag = vscodiumTag;
+    hash = "sha256-4zKukdMZewlsQqEGXhI5goAv9vo5WMwEsVm18hFzzUs=";
   };
+
+  # prepare_vscode.sh as a Nix string: lay VSCodium's source overlay over the
+  # vscode tree, remove what it deletes, then apply its patch set with the
+  # branding placeholders filled in. Both the npm dependency prefetch and the
+  # build apply it, because the patches swap packages for VSCodium's forks
+  # (@vscodium/policy-watcher, ...), which changes the lockfiles.
+  vscodium-prepare = ''
+    cp -R ${vscodiumSrc}/src/stable/. .
+    cp ${vscodiumSrc}/LICENSE LICENSE.txt
+
+    for actions in ${vscodiumSrc}/patches/*.json; do
+      [ -e "$actions" ] || continue
+      while IFS= read -r removal; do
+        if [ -e "$removal" ]; then
+          rm -rf -- "$removal"
+        else
+          echo "prePatch: '$removal' is already missing" >&2
+          exit 1
+        fi
+      done < <(jq -r '.[] | select(.action == "remove") | .paths[]' "$actions")
+    done
+
+    for upstream_patch in ${vscodiumSrc}/patches/*.patch ${vscodiumSrc}/patches/${
+      if hostPlatform.isDarwin then "osx" else "linux"
+    }/*.patch; do
+      [ -e "$upstream_patch" ] || continue
+      expanded_patch=$(mktemp)
+      sed -E \
+        -e 's|!!APP_NAME!!|VSCodium|g' \
+        -e 's|!!APP_NAME_LC!!|vscodium|g' \
+        -e 's|!!ASSETS_REPOSITORY!!|VSCodium/vscodium|g' \
+        -e 's|!!BINARY_NAME!!|codium|g' \
+        -e 's|!!GH_REPO_PATH!!|VSCodium/vscodium|g' \
+        -e 's|!!GLOBAL_DIRNAME!!|vscodium|g' \
+        -e 's|!!ORG_NAME!!|VSCodium|g' \
+        -e 's|!!RELEASE_VERSION!!|${vscodiumTag}|g' \
+        -e 's|!!TUNNEL_APP_NAME!!|codium-tunnel|g' \
+        "$upstream_patch" > "$expanded_patch"
+      git apply --ignore-whitespace "$expanded_patch"
+      rm -f "$expanded_patch"
+    done
+  '';
 
   # @vscode/ripgrep-universal postinstall looks for a pre-downloaded archive.
   # Point it at nixpkgs ripgrep instead of downloading.
@@ -84,6 +129,11 @@ let
   vscodium-build = stdenv.mkDerivation (finalAttrs: {
     pname = "${pname}-unwrapped";
     version = vscodiumTag;
+    # `reh` holds the remote server images; the app bundle stays in `out`.
+    outputs = [
+      "out"
+      "reh"
+    ];
 
     src = fetchFromGitHub {
       owner = "microsoft";
@@ -104,10 +154,13 @@ let
     npmDeps = stdenvNoCC.mkDerivation {
       name = "vscodium-${finalAttrs.version}-npm-deps";
       inherit (finalAttrs) src patches;
+      prePatch = vscodium-prepare;
 
       nativeBuildInputs = [
         prefetch-npm-deps
         npm-lockfile-fix
+        git
+        jq
       ];
 
       buildPhase = ''
@@ -124,7 +177,7 @@ let
       '';
 
       outputHashMode = "recursive";
-      outputHash = "sha256-miPmgWywubDqsEbz69MTGBrBz758Ibbq7QsoovS8nq4=";
+      outputHash = "sha256-CoJ6/T0ZgVJePMRovOI6DcaPZN+mNVBWKrznag5ByFY=";
     };
 
     buildInputs = [
@@ -144,6 +197,7 @@ let
       jq
       pkg-config
       node-gyp
+      git
       (writeShellScriptBin "npm-install-script" ''
         source "$stdenv/setup"
         set -euo pipefail
@@ -186,7 +240,9 @@ let
         # policies are never collected). Taking the address of element 0 of an
         # empty vector is undefined behaviour, and libc++'s hardening turns it
         # into a trap, so the app died at startup in PolicyWatcher::Execute.
-        for pw_cc in $(find node_modules -path '*/@vscode/policy-watcher/src/macos/PolicyWatcher.cc'); do
+        # (VSCodium replaces this package with @vscodium/policy-watcher, hence
+        # the loose path match.)
+        for pw_cc in $(find node_modules -path '*/policy-watcher/src/macos/PolicyWatcher.cc'); do
           if grep -q '&updatedPolicies\[0\]' "$pw_cc"; then
             substituteInPlace "$pw_cc" \
               --replace-fail 'progress.Send(&updatedPolicies[0], updatedPolicies.size());' \
@@ -213,12 +269,17 @@ let
       BUILD_DATE = commitInfo.committer.date;
       BUILD_SOURCEVERSION = commitInfo.sha;
       VSCODE_FORCE_INSTALL = "1";
+      VSCODE_PUBLISH_COUNTER = "1";
       VSCODE_QUALITY = "stable";
       npm_install_command = "npm-install-script";
       PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "true";
       ELECTRON_SKIP_BINARY_DOWNLOAD = "true";
       NODE_OPTIONS = "--max-old-space-size=8192";
     };
+
+    # Applied before `patches`, so our nix-specific adaptations land on top of
+    # the branded tree.
+    prePatch = vscodium-prepare;
 
     postPatch = ''
       # VSCodium branding: the product.json keys prepare_vscode.sh sets for a
@@ -260,6 +321,29 @@ let
         product.json > product.json.tmp
       mv product.json.tmp product.json
 
+      # VSCodium's own product.json contributes the extension allowlists.
+      jq -s '.[0] * .[1]' product.json ${vscodiumSrc}/product.json > product.json.tmp
+      mv product.json.tmp product.json
+
+      # The announcements patch left a marker in the welcome page; fill it in the
+      # way prepare_vscode.sh does.
+      node -e '
+        const fs = require("fs");
+        const file = "src/vs/workbench/contrib/welcomeGettingStarted/browser/gettingStarted.ts";
+        const marker = "[/* BUILTIN_ANNOUNCEMENTS */]";
+        const announcements = fs.readFileSync(process.argv[1], "utf8").replace(/\n/g, "");
+        fs.writeFileSync(file, fs.readFileSync(file, "utf8").replace(marker, announcements));
+      ' ${vscodiumSrc}/announcements-builtin.json
+
+      # Web app manifest served by the remote server.
+      jq '.name = "VSCodium" | .short_name = "VSCodium"' resources/server/manifest.json > manifest.json.tmp
+      mv manifest.json.tmp resources/server/manifest.json
+
+      substituteInPlace package.json --replace-fail 'Microsoft Corporation' 'VSCodium'
+      # prepare_vscode.sh sets the package version to the VSCodium release.
+      jq --arg version "${vscodiumTag}" '.version = $version' package.json > package.json.tmp
+      mv package.json.tmp package.json
+
       # The bundle's NSHumanReadableCopyright and the win32 installer metadata
       # otherwise keep Microsoft's name; prepare_vscode.sh edits the same file.
       substituteInPlace build/lib/electron.ts \
@@ -267,12 +351,6 @@ let
       # The copyright line is "Copyright (C) <year> Microsoft", which the
       # company-name replacement above does not reach.
       sed -i -E 's|([0-9]) Microsoft|\1 VSCodium|g' build/lib/electron.ts
-
-      # Like undo_telemetry.sh: point Microsoft's telemetry endpoints at a black
-      # hole instead of shipping code that reports to them.
-      while IFS= read -r telemetry_file; do
-        sed -i -E 's|//[^/]+\.data\.microsoft\.com|//0\.0\.0\.0|g' "$telemetry_file"
-      done < <(grep -rl --exclude-dir=.git -E '\.data\.microsoft\.com' . || true)
 
     '';
 
@@ -374,12 +452,44 @@ let
 
       patchShebangs node_modules build/node_modules || true
 
+      # undo_telemetry.sh, at the point upstream runs it: after the dependency
+      # install, over the whole tree, so vendored code is covered too.
+      while IFS= read -r telemetry_file; do
+        sed -i -E 's|//[^/]+\.data\.microsoft\.com|//0\.0\.0\.0|g' "$telemetry_file"
+      done < <(${ripgrep}/bin/rg --no-ignore --hidden -l '\.data\.microsoft\.com' . || true)
+
       if [ -f node_modules/@vscode/gulp-electron/src/download.js ]; then
         substituteInPlace node_modules/@vscode/gulp-electron/src/download.js \
           --replace-fail 'let downloadOpts = {' 'let downloadOpts = { unsafelyDisableChecksums: true,' || true
       fi
 
-      node --run gulp -- vscode-${platform}-${arch}-min
+      # build.sh: compile in a prepack step, then run the platform packaging.
+      node --run gulp -- vscode-min-prepack
+
+      # Remove the Windows-only debugger binaries from the mac/linux package.
+      rm -f .build/extensions/ms-vscode.js-debug/src/win32-app-container-tokens.*.node
+
+      # Group Policy / MDM definitions; the packaging below picks them up from
+      # .build/policies/${platform}.
+      npm run copy-policy-dto --prefix build
+      node build/lib/policies/policyGenerator.ts build/lib/policies/policyData.jsonc ${platform}
+
+      # The reh gulp task fetches Node from nodejs.org unless this directory is
+      # already populated; seed it with nixpkgs' Node to stay offline.
+      node_version=$(sed -nE 's/^target="?([^"]+)"?$/\1/p' remote/.npmrc | head -1)
+      node_seed=".build/node/v$node_version/${platform}-${arch}"
+      mkdir -p "$node_seed"
+      cp ${nodejs}/bin/node "$node_seed/node"
+      chmod +x "$node_seed/node"
+
+      node --run gulp -- vscode-${platform}-${arch}-min-packing
+
+      # Remote server and its web variant, packaged from the same sources.
+      node --run gulp -- vscode-reh-${platform}-${arch}-min-packing
+      node --run gulp -- vscode-reh-web-${platform}-${arch}-min-packing
+      mkdir -p "$reh/libexec"
+      mv "../vscode-reh-${platform}-${arch}" "$reh/libexec/codium-server"
+      mv "../vscode-reh-web-${platform}-${arch}" "$reh/libexec/codium-server-web"
     ''
     + lib.optionalString hostPlatform.isDarwin ''
       mv "../VSCode-${platform}-${arch}/VSCodium.app" $out \
@@ -407,8 +517,9 @@ in
   vscodeVersion = "1.143.1";
 
   executableName = "codium";
-  # vscode's packaging step always writes the launcher as bin/code.
-  sourceExecutableName = "code";
+  # VSCodium's 00-binary-fix-name.patch renames the launcher from bin/code to
+  # bin/${applicationName}.
+  sourceExecutableName = "codium";
   longName = "VSCodium";
   shortName = "vscodium";
   libraryName = "vscode";
@@ -437,13 +548,21 @@ in
     ];
   };
 }).overrideAttrs
-  (
-    old:
-    lib.optionalAttrs hostPlatform.isDarwin {
-      # fixup's strip leaves the launcher with an embedded signature that declares
-      # resources the bundle no longer has, so launchd refuses to start the app
-      # (no window, no crash report). Re-sign the bundle ad hoc afterwards.
-      postFixup = (old.postFixup or "") + ''
+  (old: {
+    postFixup =
+      (old.postFixup or "")
+      + ''
+        # Ship the locally built remote server, so Remote-SSH, dev containers and
+        # `codium serve-web` work without downloading a server at runtime.
+        mkdir -p "$out/libexec" "$out/bin"
+        cp -R ${vscodium-build.reh}/libexec/. "$out/libexec/"
+        ln -sfn "$out/libexec/codium-server/bin/codium-server" "$out/bin/codium-server"
+        ln -sfn "$out/libexec/codium-server-web/bin/codium-server" "$out/bin/codium-server-web"
+      ''
+      + lib.optionalString hostPlatform.isDarwin ''
+        # fixup's strip leaves the launcher with an embedded signature that declares
+        # resources the bundle no longer has, so launchd refuses to start the app
+        # (no window, no crash report). Re-sign the bundle ad hoc afterwards.
         chmod -R u+w "$out/Applications/VSCodium.app"
         # generic.nix symlinks vscode's bundled ripgrep to nixpkgs, and codesign
         # rejects symlinks escaping the bundle, so materialize the target first.
@@ -453,10 +572,6 @@ in
           cp ${ripgrep}/bin/rg "$rg_link"
           chmod +x "$rg_link"
         fi
-        # Use VSCodium's artwork instead of the Code OSS icon that the vscode
-        # sources ship; the bundle's icon file name follows product.json.
-        cp ${vscodium-icns} "$out/Applications/VSCodium.app/Contents/Resources/VSCodium.icns"
         /usr/bin/codesign --force --deep --sign - "$out/Applications/VSCodium.app"
       '';
-    }
-  )
+  })
