@@ -1,0 +1,26 @@
+{
+  "sdl3": {
+    "url": "https://github.com/libsdl-org/SDL/releases/download/release-3.4.18/SDL3-3.4.18.tar.gz",
+    "hash": "sha256-nHXPFjMDIsIX3t0uBgnxEk8bVLhjPnY0Z7RoTQ9DNKM="
+  },
+  "vulkan_headers": {
+    "url": "https://github.com/KhronosGroup/Vulkan-Headers/archive/refs/tags/vulkan-sdk-1.4.363.0.zip",
+    "hash": "sha256-9L6VIg/w7gscYgMB/0/prkhZLXH0ww8tXFcTUaFTroE="
+  },
+  "volk": {
+    "url": "https://github.com/zeux/volk/archive/refs/tags/vulkan-sdk-1.4.363.0.zip",
+    "hash": "sha256-iJuQ/cvpzuexGDOdZAxolbe+XJINMJxEt0RpIGMnWz0="
+  },
+  "vma": {
+    "url": "https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator/archive/refs/tags/v3.4.0.zip",
+    "hash": "sha256-zpph6l5yKErJzMFSwhTu84GrV7/XOD8gIy5aZS46/aY="
+  },
+  "imgui": {
+    "url": "https://github.com/ocornut/imgui/archive/refs/tags/v1.92.9b.zip",
+    "hash": "sha256-4cRtZ2wry3zthHuif1BVPjOhnbl7PK2ux/i+ZESROfg="
+  },
+  "zstd": {
+    "url": "https://github.com/facebook/zstd/releases/download/v1.5.7/zstd-1.5.7.tar.gz",
+    "hash": "sha256-6zPlH0mhXgI5UM14Jcp0pKK0Pbg1SCWsJPwbfuCeb6M="
+  }
+}
