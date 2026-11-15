@@ -40,6 +40,8 @@ let
   inherit (stdenv) hostPlatform;
   inherit (hostPlatform.node) arch platform;
   commitInfo = lib.importJSON ./commit.json;
+  # VSCodium release that our version tracks (used for branding assets).
+  vscodiumTag = "1.143.17232";
   nodejs = nodejs_24;
   electron = electron_43-bin;
   electron-dist-zip = electron_43-bin.src;
@@ -52,6 +54,14 @@ let
       "$HOME/.cache"
     else
       throw "Unsupported platform: ${platform}";
+
+  # VSCodium's own macOS app artwork. We build from microsoft/vscode sources, so
+  # the bundle would otherwise carry the plain Code OSS icon; prepare_vscode.sh
+  # normally drops this file in before building.
+  vscodium-icns = fetchurl {
+    url = "https://raw.githubusercontent.com/VSCodium/vscodium/${vscodiumTag}/src/stable/resources/darwin/code.icns";
+    hash = "sha256-HTJbTU27rfUKayRMeeFzY9hocXh8PpG+fc7maSIs5VM=";
+  };
 
   # @vscode/ripgrep-universal postinstall looks for a pre-downloaded archive.
   # Point it at nixpkgs ripgrep instead of downloading.
@@ -73,7 +83,7 @@ let
 
   vscodium-build = stdenv.mkDerivation (finalAttrs: {
     pname = "${pname}-unwrapped";
-    version = "1.143.17232";
+    version = vscodiumTag;
 
     src = fetchFromGitHub {
       owner = "microsoft";
@@ -416,6 +426,9 @@ in
           cp ${ripgrep}/bin/rg "$rg_link"
           chmod +x "$rg_link"
         fi
+        # Use VSCodium's artwork instead of the Code OSS icon that the vscode
+        # sources ship; the bundle's icon file name follows product.json.
+        cp ${vscodium-icns} "$out/Applications/VSCodium.app/Contents/Resources/VSCodium.icns"
         /usr/bin/codesign --force --deep --sign - "$out/Applications/VSCodium.app"
       '';
     }
