@@ -28,12 +28,37 @@ buildNpmPackage (finalAttrs: {
   # whenever it conflicts with the hoisted copy (see installPhase). Since
   # v5.0.0 that includes shared's build tool, and its unpatched
   # `#!/usr/bin/env node` failed the build with "bad interpreter".
+  #
+  # Install scripts run here too, not in npmConfigHook's own `npm rebuild`:
+  # that hook installs and rebuilds in one step, leaving no point in between
+  # to edit node_modules. Since v5.1.0 the client depends on plyr, whose
+  # published package keeps its maintainers' `npx only-allow pnpm` guard as
+  # an install script; npx then tries to fetch only-allow from the registry
+  # and the offline sandbox fails the build with ENOTCACHED. Drop that one
+  # guard and run the rest of the install scripts (better-sqlite3's native
+  # build among them) as the hook would have.
+  npmRebuildFlags = [ "--ignore-scripts" ];
+
   preBuild = ''
     for ws in shared server client; do
       if [ -d "$ws/node_modules" ]; then
         patchShebangs "$ws/node_modules"
       fi
     done
+
+    node -e '
+      const fs = require("fs");
+      for (const f of process.argv.slice(1)) {
+        if (!fs.existsSync(f)) continue;
+        const pkg = JSON.parse(fs.readFileSync(f, "utf8"));
+        for (const k of ["preinstall", "install", "postinstall"]) {
+          if (/^npx only-allow /.test(pkg.scripts?.[k] ?? "")) delete pkg.scripts[k];
+        }
+        fs.writeFileSync(f, JSON.stringify(pkg, null, 2));
+      }
+    ' node_modules/plyr/package.json
+    npm rebuild $npmFlags "''${npmFlagsArray[@]}"
+    patchShebangs node_modules
   '';
 
   # The root "build" script builds the npm workspaces in dependency order:
