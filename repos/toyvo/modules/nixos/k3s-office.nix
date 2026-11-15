@@ -266,7 +266,7 @@ in
             # form used for cross-ns middlewares does NOT resolve here —
             # Traefik looked for a transport literally named with the prefix,
             # fell back to default, and failed IP-SAN verification.)
-            "traefik.ingress.kubernetes.io/service.serverstransport" = "euro-office-transport@kubernetescrd";
+            "traefik.ingress.kubernetes.io/service.serverstransport" = "euro-office-transport";
           };
         };
         spec = {
