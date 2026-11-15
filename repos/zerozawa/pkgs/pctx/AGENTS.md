@@ -33,6 +33,8 @@ The build script supports `file:` URLs and copies/extracts the fixed archive int
 
 `doCheck = false` is intentional: the crate's default check phase re-runs the Swagger build script and tries to mutate an already-generated archive in a read-only target state. The release build and both CLI smoke tests are required instead.
 
+nixpkgs' `cargo-setup-hook.sh` runs `cargoUseSystemLibs` for every `buildRustPackage` build (added after nixpkgs `4fe25e12`): it exports `ZSTD_SYS_USE_PKG_CONFIG=1`, `AWS_LC_SYS_USE_SYSTEM=1` and a `JEMALLOC_OVERRIDE` pointing at a sentinel path that does not exist, among others. pctx's transitive `zstd-sys`, `aws-lc-sys` and `tikv-jemalloc-sys` then stop building their bundled C sources and fail (``Can't probe for zstd in pkg-config``, missing jemalloc path). `default-crate-overrides.nix` cannot help, because a real-cargo build never builds those crates as individual derivations, so the package sets `dontCargoUseSystemLibs = true` and keeps the hermetic bundled build. `pkg-config` stays in `nativeBuildInputs` for the V8/Swagger build scripts.
+
 ## Python SDK
 
 `python.nix` source-builds `pctx-client` from the independent `pctx-py-v${version}` tag and `pctx-py/` source subtree. Its runtime dependencies must continue to match the core upstream `pyproject.toml` list:

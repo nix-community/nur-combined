@@ -71,6 +71,15 @@ rustPlatform.buildRustPackage {
     pkg-config
   ];
 
+  # nixpkgs' cargoSetup hook forces system libraries for every
+  # buildRustPackage build (`cargoUseSystemLibs`: ZSTD_SYS_USE_PKG_CONFIG=1,
+  # AWS_LC_SYS_USE_SYSTEM=1, a JEMALLOC_OVERRIDE pointing at a sentinel path
+  # that does not exist, ...). pctx's transitive zstd-sys, aws-lc-sys and
+  # tikv-jemalloc-sys then fail instead of building their bundled C sources,
+  # and `crateOverrides` cannot supply them because a real-cargo build never
+  # builds those crates individually. Keep the previous hermetic behaviour.
+  dontCargoUseSystemLibs = true;
+
   passthru = { inherit py; };
 
   meta = with lib; {
