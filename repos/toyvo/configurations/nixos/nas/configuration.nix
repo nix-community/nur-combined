@@ -36,6 +36,7 @@ in
     inputs.nixcfg.modules.nixos.k3s-immich
     inputs.nixcfg.modules.nixos.k3s-jellyfin
     inputs.nixcfg.modules.nixos.k3s-nextcloud
+    inputs.nixcfg.modules.nixos.k3s-office
     inputs.nixcfg.modules.nixos.k3s-storage
     inputs.nixcfg.modules.nixos.k3s-starr
     inputs.nixcfg.modules.nixos.monitoring
@@ -157,6 +158,9 @@ in
     # Jellyfin (official image, UID 359, DRI passthrough); replicas 1 from
     # the start (cold sqlite seed + RO media = no shared-state hazard).
     k3sJellyfin.enable = true;
+    # Euro-Office Document Server (all-in-one image, JWT-secured, no
+    # forward-auth); greenfield, nothing to retire.
+    k3sOffice.enable = true;
     # Nextcloud core (official image, UID 360, bundled Postgres + cron
     # sidecar, Collabora dropped); replicas 1 from the start (fresh empty
     # DB + state pre-flip, edge still routes to the container).

@@ -199,9 +199,11 @@ in
           # — which is exactly the broken value. The only untrusted segment
           # is public-internet→edge, which terminates TLS itself.)
           trustForwardHeader = true;
-          # Auth responses are headers only (largest is the JWT); 1Mi is
-          # generous while ending the unlimited-body warning.
-          maxResponseBodySize = "1Mi";
+          # Auth responses are headers only (largest is the JWT); 1Mi in
+          # bytes is generous while ending the unlimited-body warning.
+          # NOTE: integer bytes, not a "1Mi" string — the CRD rejects
+          # strings (caught live: k3s applier failed validation in a loop).
+          maxResponseBodySize = 1048576;
           authResponseHeaders = [
             "X-Authentik-Username"
             "X-Authentik-Groups"
@@ -217,6 +219,12 @@ in
             "X-Forwarded-Host"
             "X-Forwarded-Uri"
             "X-Forwarded-For"
+            # The session lives in a Cookie. Traefik forwards ONLY listed
+            # headers to the auth server (unlike Caddy, which forwards
+            # everything) — omitting this means the outpost never sees the
+            # session and 302-loops forever. Verified live 2026-11-14:
+            # without Cookie the outpost 500s/denies; with it, 200.
+            "Cookie"
           ];
         };
       };

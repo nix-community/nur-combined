@@ -320,7 +320,7 @@ in
                   command = [
                     "/bin/sh"
                     "-c"
-                    "rsync -r --delete --exclude=config --exclude=custom_apps /usr/src/nextcloud/ /var/www/html/ && while true; do php -f /var/www/html/cron.php; sleep 300; done"
+                    "rsync -r --delete --exclude=config --exclude=custom_apps /usr/src/nextcloud/ /var/www/html/ || true; while true; do php -f /var/www/html/cron.php; sleep 300; done"
                   ];
                   resources = {
                     requests = {
