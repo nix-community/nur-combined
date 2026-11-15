@@ -307,6 +307,13 @@ jobs:
           commit-message: ${{ steps.report.outputs.title }}
           body-path: ${{ steps.report.outputs.body-path }}
 
+      - name: Enable auto-merge
+        if: steps.pr.outputs.pull-request-number != '' && steps.pr.outputs.pull-request-operation != 'closed'
+        env:
+          GH_TOKEN: ${{ steps.bot-token.outputs.token }}
+          PR_URL: ${{ steps.pr.outputs.pull-request-url }}
+        run: gh pr merge --auto --squash "$PR_URL"
+
       - name: Close previous update failures
         if: steps.pr.outputs.pull-request-number != '' && steps.pr.outputs.pull-request-operation != 'closed'
         uses: actions/github-script@v9
