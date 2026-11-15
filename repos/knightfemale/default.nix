@@ -12,6 +12,7 @@ in
     biu
     comfyui-workflow-mcp
     flake-show-ng
+    lada
     ;
 
   legacyPackages = {
@@ -26,5 +27,6 @@ in
 
   homeModules = {
     comfyui-workflow-mcp = ./outputs/_homeModules/comfyui-workflow-mcp;
+    lada = ./outputs/_homeModules/lada;
   };
 }

@@ -11,4 +11,5 @@ in
   deviceTrees =
     if (isLinux && isAarch64) then final.callPackage ../_legacyPackages/deviceTrees { } else null;
   flake-show-ng = final.callPackage ../_packages/flake-show-ng { };
+  lada = if isLinux then final.python3Packages.callPackage ../_packages/lada { } else null;
 }
