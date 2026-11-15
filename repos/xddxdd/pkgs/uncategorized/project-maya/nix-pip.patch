@@ -1,0 +1,24 @@
+--- a/setup.py
++++ b/setup.py
+@@ -648,6 +648,9 @@
+ 
+ def pip_install(packages, what):
+     """pip (uv on Linux ppc64le, pip_command) into .venv, skipped when the same list was installed before."""
++    if os.environ.get("MAYA_NO_PIP"):
++        ok(f"{what} come from the package")
++        return
+     stamp = Path(sys.prefix) / ".strata-pip.json"
+     try:
+         have = json.loads(stamp.read_text()) if stamp.exists() else []
+--- a/maya.py
++++ b/maya.py
+@@ -2177,7 +2177,8 @@
+     step(3, "Python packages and llama.cpp's source")
+     stamp = Path(sys.prefix) / ".strata-pip.json"          # S.pip_install's record of what it installed
+     have = read_json(stamp) if stamp.exists() else []
+-    need = [p for p in packages if p not in (have if isinstance(have, list) else [])]
++    need = [] if os.environ.get("MAYA_NO_PIP") else [
++        p for p in packages if p not in (have if isinstance(have, list) else [])]
+     llama = Path(a.llama_dir).expanduser().resolve() if a.llama_dir else ROOT / "third_party" / "llama.cpp"
+     llama_ok = (llama / "ggml" / "CMakeLists.txt").exists() and (llama / "gguf-py").is_dir()
+     if a.llama_dir and not llama_ok:
