@@ -4,6 +4,7 @@
   homepage = ./homepage.nix;
   hoyolab = ./hoyolab.nix;
   kes = ./kes.nix;
+  lanotifica = ./lanotifica.nix;
   mcp-gateway = ./mcp-gateway.nix;
   opencodex = ./opencodex.nix;
   prometheus-exporters = import ./prometheus-exporters;

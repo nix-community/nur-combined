@@ -21,6 +21,8 @@ Disables NixOS's homepage-dashboard service.
 
 * [kes](https://github.com/minio/kes), Key Managament Server for Object Storage and more. Available as [services.kes](modules/nixos/kes.nix).
 
+* [lanotifica](https://github.com/alessandrolattao/lanotifica), mirror Android notifications to your Linux desktop over the local network. Available as [services.lanotifica](modules/nixos/lanotifica.nix).
+
 * [mcp-gateway](https://github.com/MikkoParkkola/mcp-gateway), Universal MCP Gateway - single-port multiplexing with Meta-MCP for ~95% context token savings. Available as [services.mcp-gateway](modules/nixos/mcp-gateway.nix).
 
 * [prometheus-podman-exporter](https://github.com/containers/prometheus-podman-exporter), Prometheus exporter for podman environments. Available as [services.prometheus.exporters.podman](modules/nixos/prometheus-exporters/podman.nix).
