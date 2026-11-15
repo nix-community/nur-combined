@@ -308,8 +308,11 @@ in
                   # the (initially empty) docroot — so the sidecar syncs
                   # it itself first, excluding our two subPath mounts
                   # (config is managed separately, custom_apps holds
-                  # store apps). Needs the config mount too (cron
-                  # bootstraps the full app, DB included).
+                  # store apps). Plain -r (no -a): the docroot dir itself
+                  # is root-owned, so preserving times/owners fails
+                  # (rsync exit 23 aborts the && chain and cron never
+                  # runs); content is what matters here. Needs the config
+                  # mount too (cron bootstraps the full app, DB included).
                   name = "nextcloud-cron";
                   image = nextcloudImage;
                   imagePullPolicy = "IfNotPresent";
@@ -317,7 +320,7 @@ in
                   command = [
                     "/bin/sh"
                     "-c"
-                    "rsync -a --delete --exclude=config --exclude=custom_apps /usr/src/nextcloud/ /var/www/html/ && while true; do php -f /var/www/html/cron.php; sleep 300; done"
+                    "rsync -r --delete --exclude=config --exclude=custom_apps /usr/src/nextcloud/ /var/www/html/ && while true; do php -f /var/www/html/cron.php; sleep 300; done"
                   ];
                   resources = {
                     requests = {
