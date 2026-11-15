@@ -44,10 +44,10 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "revue-bin";
-  version = "0.44.1";
+  version = "0.44.2";
   src = fetchurl {
     url = "https://forgejo.cleangame.dev/thatrichan/revue/releases/download/v${version}/revue-v${version}-linux-x86_64.tar.gz";
-    sha256 = "332616e1d8b65a321a88a0374e19244607f0f816f4c539a506cf0c2de76a5180";
+    sha256 = "052f402fbee71450465aea84018bd623702691d4cedbcaaecfd783668f945124";
   };
   nativeBuildInputs = [
     autoPatchelfHook
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
       n=''${n%.png}
       install -Dm644 "$f" $out/share/icons/hicolor/''${n}x''${n}/apps/revue.png
     done
-    install -Dm644 -t $out/share/licenses/revue LICENSE-MIT LICENSE-APACHE
+    install -Dm644 -t $out/share/licenses/revue LICENSE-MIT LICENSE-APACHE THIRD-PARTY-LICENSES.md
     runHook postInstall
   '';
   # NixOS puts the GPU drivers in /run/opengl-driver. Revue runs git,
