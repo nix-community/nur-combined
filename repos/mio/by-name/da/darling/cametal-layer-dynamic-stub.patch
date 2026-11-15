@@ -1,0 +1,10 @@
+--- a/src/external/cocotron/QuartzCore/CAMetalLayer.mm
++++ b/src/external/cocotron/QuartzCore/CAMetalLayer.mm
+@@ -294,6 +294,7 @@
+ 
+ #else
+ 
++@dynamic device, preferredDevice, pixelFormat, colorspace, framebufferOnly, drawableSize, presentsWithTransaction, displaySyncEnabled, wantsExtendedDynamicRangeContent, EDRMetadata, maximumDrawableCount, allowsNextDrawableTimeout, developerHUDProperties;
+ MTL_UNSUPPORTED_CLASS
+ 
+ #endif

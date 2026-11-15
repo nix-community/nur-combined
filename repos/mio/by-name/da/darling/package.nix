@@ -118,14 +118,14 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "darling";
-  version = "0.1.20260608-unstable-2026-11-13";
+  version = "0.1.20260608-unstable-2026-11-14";
 
   src = fetchFromGitHub {
     owner = "darlinghq";
     repo = "darling";
-    rev = "36536a662356001194a7cfad2b42b509003d6bd8";
+    rev = "c8881689836465dd5cb22835e6e0a431fe0cfa1e";
     fetchSubmodules = true;
-    hash = "sha256-npkHZaUBuVFBpVFNZSlzpAW6PCOBdCgFsQMCzLuiRIA=";
+    hash = "sha256-l9JHkC3SuaI5BIlAvRS50LbIzVEgGqWfuxODaZNeiNk=";
     # Remove 500MB of dependency test files to get under Hydra output limit
     postFetch = ''
       rm -r $out/src/external/openjdk/test
@@ -143,6 +143,10 @@ stdenv.mkDerivation (finalAttrs: {
     ./fuse3.patch
     # Keep XNU headers from shadowing glibc headers in host unit tests.
     ./host-test-headers.patch
+    # Metal stubs (ENABLE_METAL=AUTO without Vulkan/LLVM) still need mslc headers.
+    ./mslc-include-without-metal.patch
+    # Avoid auto-synthesized CAMetalLayer ivars clashing with CAMetalLayerInternal.
+    ./cametal-layer-dynamic-stub.patch
   ];
 
   postPatch = ''

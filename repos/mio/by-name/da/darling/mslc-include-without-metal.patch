@@ -1,0 +1,10 @@
+--- a/src/external/metal/CMakeLists.txt
++++ b/src/external/metal/CMakeLists.txt
+@@ -145,6 +145,7 @@
+ 
+ target_include_directories(Metal PRIVATE
+ 	private-include
++	deps/mslc/include
+ )
+ 
+ # private API

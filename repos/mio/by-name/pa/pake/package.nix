@@ -102,13 +102,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "pake";
-  version = "3.18.0";
+  version = "3.19.0";
 
   src = fetchFromGitHub {
     owner = "tw93";
     repo = "Pake";
     rev = "V${finalAttrs.version}";
-    hash = "sha256-tC0rz3pFfGA2k+vxALOq68zDYLuiFWA/894dtEcYrLk=";
+    hash = "sha256-obLqThChZSwuth5Nrx0X1YudYdlaPHcNfXSi5TanLp4=";
   };
 
   patches = [
@@ -146,7 +146,7 @@ stdenv.mkDerivation (finalAttrs: {
           - arm64
       EOF
     '';
-    hash = "sha256-I4Qq6tvtQdbMABUJN+vYNjUSnu2+dWq0xUssc+HAk9o=";
+    hash = "sha256-U6EjX1Dwk4Re68fxKQxzKLc3rRtTHsfpmzBQcxj33hI=";
   };
 
   env = {
@@ -253,7 +253,7 @@ stdenv.mkDerivation (finalAttrs: {
       pname = "pake";
       inherit (finalAttrs) version src;
       cargoRoot = "src-tauri";
-      hash = "sha256-Evl5dQdnT9JwjfmTJFb0Zfj6GjdLldn1X8OZtvWfT7g=";
+      hash = "sha256-XrZiq84rtVS3je5lUYMnPBkAqVIOu/g7VMCgpHVIWKw=";
     };
     updateScript = writeShellApplication {
       name = "update-pake";
