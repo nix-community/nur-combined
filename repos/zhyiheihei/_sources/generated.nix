@@ -8,12 +8,12 @@
 {
   ai-usagebar = {
     pname = "ai-usagebar";
-    version = "v1.52.0";
+    version = "v1.52.1";
     src = fetchFromGitHub {
       owner = "akitaonrails";
       repo = "ai-usagebar";
-      tag = "v1.52.0";
-      hash = "sha256-QH7fgw1TAfaqboGkpV1sHQafj0nVEoj/3gDHbSm12Wk=";
+      tag = "v1.52.1";
+      hash = "sha256-i4WY1yB3cRl/MCInmQyShufWcw4Kzy+A7LUQSwj1qZI=";
     };
   };
   aioshutil = {
@@ -118,38 +118,38 @@
   };
   nexttodo-linux-arm64 = {
     pname = "nexttodo-linux-arm64";
-    version = "0.1.179";
+    version = "0.1.201";
     src = fetchurl {
-      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.179/nexttodo-linux-arm64";
-      hash = "sha256-bOcZASo64xRyF3dcqzcrwbmNoRwcqC87MOTZ4SImQHk=";
+      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.201/nexttodo-linux-arm64";
+      hash = "sha256-hgSXBpSgM5EQcl5OhhdErsn9tZFaGm1yjD+DiFvRJ5k=";
     };
   };
   nexttodo-linux-x64 = {
     pname = "nexttodo-linux-x64";
-    version = "0.1.179";
+    version = "0.1.201";
     src = fetchurl {
-      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.179/nexttodo-linux-x64";
-      hash = "sha256-Q1ypsf4tzWJ2nrW33txfsON7jAYZr0UR5XzAU1DybR8=";
+      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.201/nexttodo-linux-x64";
+      hash = "sha256-CXb56ZNKnTy9weMNW8slpPN6uQKT67yb7I/RhzxYUU0=";
     };
   };
   nexus-media = {
     pname = "nexus-media";
-    version = "v5.12.1";
+    version = "v5.12.2";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media";
-      tag = "v5.12.1";
-      hash = "sha256-GYuajZ1nAf1HWJNrmIaqsHlAyS3SkVprX/ul03nWIjg=";
+      tag = "v5.12.2";
+      hash = "sha256-oz0kZQrDlKYTnJQIrpJ0zUALdFuUDMjSFgEE5905V1U=";
     };
   };
   nexus-media-web = {
     pname = "nexus-media-web";
-    version = "v5.12.1";
+    version = "v5.12.2";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media-web";
-      tag = "v5.12.1";
-      hash = "sha256-hH2FyVj0aHTu0B7ApUbJ5Q58SbZJuRlr9UQgQZjK1UM=";
+      tag = "v5.12.2";
+      hash = "sha256-aI36j7MPKpLlK1CMaPJyFnSWBgBcpjNXgvEQIVCXH/w=";
     };
   };
   pinyin2hanzi = {
@@ -232,12 +232,12 @@
   };
   torrentool = {
     pname = "torrentool";
-    version = "v1.2.0";
+    version = "v1.3.0";
     src = fetchFromGitHub {
       owner = "idlesign";
       repo = "torrentool";
-      tag = "v1.2.0";
-      hash = "sha256-S7Cp5Qqk7/vaTbqiXfFSz8Kh5MSOYhNse8XRHkNy2Q0=";
+      tag = "v1.3.0";
+      hash = "sha256-Zshs6RbkYXGEkhOFWO+UJXpXmS6qUATQNbggb69J8cA=";
     };
   };
   vaults3-linux-amd64 = {
