@@ -8,7 +8,7 @@
 
 buildGoModule (finalAttrs: {
   pname = "alertmanager-matrix";
-  version = "0.6.1";
+  version = "0.6.2";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -18,10 +18,10 @@ buildGoModule (finalAttrs: {
     owner = "matrix";
     repo = "alertmanager_matrix";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-HzOS/fuGfNtvr8p+bAM5Ux3o7VGBTRYxroYEwvRdxeY=";
+    hash = "sha256-rQu7GQBzgc3320pdGoyQrH4S+UKTiOxGhoya16YxdJs=";
   };
 
-  vendorHash = "sha256-bdef/RitGyOKvyoRLIgRK4Y5Q23oSEUEtXvZrkurOhA=";
+  vendorHash = "sha256-TI7zSMdnu0wWdzxtm00eM/F7HwjRh7IyBZy7VEUbbZQ=";
 
   ldflags = [
     "-s"
