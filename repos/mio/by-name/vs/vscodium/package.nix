@@ -317,7 +317,7 @@ let
     dontInstall = true;
   });
 in
-buildVscode {
+(buildVscode {
   inherit
     commandLineArgs
     useVSCodeRipgrep
@@ -357,4 +357,24 @@ buildVscode {
       "aarch64-darwin"
     ];
   };
-}
+}).overrideAttrs
+  (
+    old:
+    lib.optionalAttrs hostPlatform.isDarwin {
+      # fixup's strip leaves the launcher with an embedded signature that declares
+      # resources the bundle no longer has, so launchd refuses to start the app
+      # (no window, no crash report). Re-sign the bundle ad hoc afterwards.
+      postFixup = (old.postFixup or "") + ''
+        chmod -R u+w "$out/Applications/VSCodium.app"
+        # generic.nix symlinks vscode's bundled ripgrep to nixpkgs, and codesign
+        # rejects symlinks escaping the bundle, so materialize the target first.
+        rg_link=$(find "$out/Applications/VSCodium.app" -type l -name rg | head -1)
+        if [ -n "$rg_link" ]; then
+          rm "$rg_link"
+          cp ${ripgrep}/bin/rg "$rg_link"
+          chmod +x "$rg_link"
+        fi
+        /usr/bin/codesign --force --deep --sign - "$out/Applications/VSCodium.app"
+      '';
+    }
+  )
