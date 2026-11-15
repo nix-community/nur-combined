@@ -128,10 +128,6 @@ in
                       mountPath = "/var/www/euro-office/Data";
                     }
                     {
-                      name = "logs";
-                      mountPath = "/var/log/euro-office/documentserver";
-                    }
-                    {
                       name = "shm";
                       mountPath = "/dev/shm";
                     }
@@ -146,10 +142,6 @@ in
                 {
                   name = "private";
                   persistentVolumeClaim.claimName = "euro-office-private";
-                }
-                {
-                  name = "logs";
-                  emptyDir = { };
                 }
                 {
                   # Document conversion is chromium-based and fails under
