@@ -17,13 +17,13 @@
 (util-linux.override { translateManpages = false; }).overrideAttrs (
   finalAttrs: prevAttrs: {
     pname = "util-linux-HEAD";
-    version = "2.43-devel-unstable-2026-11-05";
+    version = "2.43-devel-unstable-2026-11-11";
 
     src = fetchFromGitHub {
       owner = "util-linux";
       repo = "util-linux";
-      rev = "bd3a77c82ba7d88235e2d8942b248e0f69488f2e";
-      hash = "sha256-r0uOEW2s40PGNRJgipsqDKVtTN5Ow3JwXylVml9+11c=";
+      rev = "d6abbbab2cf284597720b8426fdd67c5cef7c9f8";
+      hash = "sha256-j04Fx0fe07cfo9Pn+Cp79UCAPu9gmpkIbV5Mfy/2dXE=";
     };
 
     # Replaces nixpkgs' postPatch, since its sys-utils/eject.c substitution no
