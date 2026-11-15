@@ -2,8 +2,10 @@
   lib,
   emacsPackages,
   fetchFromGitHub,
+  pkg-config,
   rustPlatform,
   stdenv,
+  zstd,
 }:
 
 let
@@ -24,7 +26,11 @@ let
     sourceRoot = "${src.name}/module";
     cargoHash = "sha256-R80YoFwYjHCe0EUl2gkPD0kJCkhcSZnYpn1TyfSQseI=";
 
-    nativeBuildInputs = [ rustPlatform.bindgenHook ];
+    nativeBuildInputs = [
+      rustPlatform.bindgenHook
+      pkg-config
+    ];
+    buildInputs = [ zstd ];
 
     postInstall = ''
       mkdir -p "$out/lib/modules"
