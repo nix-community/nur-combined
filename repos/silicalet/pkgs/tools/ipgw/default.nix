@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "NEU-ipgw-manager";
-  version = "3.3";
+  version = "3.4";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "Neboer";
     repo = "ipgw-py-manager";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-h+p/xNtYarew/A2RztV/rnsebIfdLFXgt1U3pF6xDCs=";
+    hash = "sha256-Jitz2uZaGzkdtdjtOndLgVh1xYY7PwchVS0AH+v3X+M=";
   };
 
   build-system = [ python3Packages.setuptools ];

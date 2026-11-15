@@ -10,13 +10,13 @@
 }:
 
 let
-  version = "0-unstable-2026-10-12";
+  version = "0-unstable-2026-11-12";
 
   src = fetchFromGitHub {
     owner = "silicalet";
     repo = "neu-cli";
-    rev = "031e32abd83bd39cb5721fe90634d61ab4159932";
-    hash = "sha256-iUxlcj61BXEDjfsKpR+0wtB6h1O+m7mcDYsNriqhdoQ=";
+    rev = "9d4968739aff0ba22514f1deb625079a5ec46639";
+    hash = "sha256-+7np6WpTVFXk8vSzKvIDL9/866a2kEHmzkWWwvvoSGE=";
   };
 
   # Match upstream's Cabal dependency: 0.12.6 re-exports hSetCookie.
