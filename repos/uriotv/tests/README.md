@@ -49,6 +49,10 @@ strict-Bash updater, then runs:
 - `artcraft-update.py`: official binary selection, hash verification, downgrade
   prevention and atomic rollback for ArtCraft packages.
 
+- `scopebuddy-package.py`: the statically linked ScopeBuddy entry point moves
+  Steam's `LD_PRELOAD` overlay out of the script's own environment and keeps it
+  for the game command.
+
 - `meitou-update.py`: stable launcher release selection, game and nightly
   exclusion, downgrade prevention, authenticated GitHub API calls, and the
   AppImage wrapping (no .NET build, never run as a mounted AppImage).

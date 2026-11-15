@@ -178,6 +178,7 @@ main() {
     python3 -B "$SCRIPT_DIR/cache-workflows.py"
     python3 -B "$SCRIPT_DIR/publication-cache.py"
     python3 -B "$SCRIPT_DIR/readme-versions.py"
+    python3 -B "$SCRIPT_DIR/scopebuddy-package.py"
 
     echo "======================================"
     echo "Test Summary"
