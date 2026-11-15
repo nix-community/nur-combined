@@ -16,7 +16,7 @@ in
       type = types.bool;
       default = false;
       description = ''
-        Whether to open the default LaNotifica server port (TCP 19420) in the firewall.
+        Whether to open the default LaNotifica server port (TCP 19420, UDP 5353) in the firewall.
         If you change the port in the application config (~/.config/lanotifica/config.json),
         open the new port manually instead.
       '';
@@ -25,6 +25,7 @@ in
 
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ 19420 ];
+    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ 5353 ];
 
     systemd.user.services.lanotifica = {
       description = "LaNotifica - Android notification forwarder";
