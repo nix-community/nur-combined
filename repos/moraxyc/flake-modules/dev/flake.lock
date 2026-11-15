@@ -8,16 +8,14 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "treefmt-nix": [
-          "treefmt-nix"
-        ]
+        "systems": "systems"
       },
       "locked": {
-        "lastModified": 1794531892,
-        "narHash": "sha256-IhXxl+nOEuGHh/OyhKd4kBSz+ygaU79XDx40lpuJQWE=",
+        "lastModified": 1794669121,
+        "narHash": "sha256-aKNd35sNqPfhTuPplVNmn6khkOKtv/7Mo1qhZKClZP8=",
         "owner": "Moraxyc",
         "repo": "fetchrix",
-        "rev": "c861414b3bdb0f882c775b01a305fd23fa2128f6",
+        "rev": "ee2d99302446c9b8298a590486f69741aa13c000",
         "type": "github"
       },
       "original": {
@@ -119,6 +117,21 @@
         "git-hooks-nix": "git-hooks-nix",
         "nixpkgs": "nixpkgs",
         "treefmt-nix": "treefmt-nix"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1791244623,
+        "narHash": "sha256-uuanbkFk8a313Zfrxdcz8Us/yQtaxNnKJtX8v0ZPpd8=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "d36eeed142f88b5a636f2e3856a53c61654cf29b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
       }
     },
     "treefmt-nix": {
