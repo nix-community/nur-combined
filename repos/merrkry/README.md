@@ -11,13 +11,15 @@ Binaries for `x86_64-linux` are cached at `https://niks3.tsubasa.moe`, which the
 
 ## nix-hash
 
-`nix-hash` checks or updates the fixed-output hashes of a flake's packages, such as `pnpmDeps`. List them in `nix/hash-targets.toml` at the flake root:
+`nix-hash` checks or updates the fixed-output hashes of a flake's packages, such as `pnpmDeps`. List them in `nix/hash-targets.toml` at the flake root, in the config format of [fod-hash-check](https://github.com/merrkry/fod-hash-check), which verifies them in CI:
 
 ```toml
 [my-package]
-attribute = "my-package.pnpmDeps"
-filename = "nix/package.nix"
+installable = ".#my-package.pnpmDeps"
+file = "nix/package.nix"
 ```
+
+`update` needs installables of the form `.#<attribute>`.
 
 Then run it from the flake root:
 

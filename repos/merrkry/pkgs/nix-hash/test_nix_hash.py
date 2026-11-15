@@ -27,8 +27,9 @@ class HashTasksTest(unittest.TestCase):
             root = Path(directory)
             (root / "nix").mkdir()
             (root / "nix/hash-targets.toml").write_text(
-                '[example]\nattribute = "example.pnpmDeps"\nfilename = "package.nix"\n'
-                '[bundle]\nattribute = "bundle"\nfilename = "hash.txt"\n'
+                '[example]\ninstallable = ".#example.pnpmDeps"\nfile = "package.nix"\n'
+                '[bundle]\ninstallable = ".#bundle"\nfile = "hash.txt"\n'
+                '[remote]\ninstallable = "nixpkgs#hello"\nfile = "hash.txt"\n'
             )
             (root / "content.txt").write_text("old")
             (root / "hash.txt").write_text(sri("old") + "\n")
@@ -98,17 +99,13 @@ class HashTasksTest(unittest.TestCase):
             def task(*args: str, success: bool = True) -> str:
                 return command(sys.executable, script, *args, success=success)
 
-            key = task("key").splitlines()[0]
-            self.assertRegex(key, r"^[a-f0-9]{64}$")
-            task("check")
+            task("check", "example", "bundle")
             original = package.read_bytes(), (root / "hash.txt").read_bytes()
-            (root / "unrelated.txt").write_text("unrelated change")
-            self.assertEqual(key, task("key").splitlines()[0])
             (root / "content.txt").write_text("new")
-            stale_key = task("key").splitlines()[0]
-            self.assertNotEqual(key, stale_key)
             command("nix", "build", "--no-link", ".#example.pnpmDeps", ".#bundle")
-            self.assertIn("hash mismatch", task("check", success=False))
+            self.assertIn(
+                "hash mismatch", task("check", "example", "bundle", success=False)
+            )
             self.assertEqual(
                 original, (package.read_bytes(), (root / "hash.txt").read_bytes())
             )
@@ -119,8 +116,7 @@ class HashTasksTest(unittest.TestCase):
             self.assertIn("hash mismatch", task("check", "bundle", success=False))
             task("update", "bundle")
             self.assertEqual((root / "hash.txt").read_text(), sri("new") + "\n")
-            self.assertNotEqual(stale_key, task("key").splitlines()[0])
-            task("check")
+            task("check", "example", "bundle")
 
             updated = package.read_bytes(), (root / "hash.txt").read_bytes()
             (root / "content.txt").write_text("broken")
@@ -129,6 +125,7 @@ class HashTasksTest(unittest.TestCase):
                 updated, (package.read_bytes(), (root / "hash.txt").read_bytes())
             )
             self.assertIn("Unknown packages", task("update", "missing", success=False))
+            self.assertIn(".#<attribute>", task("update", "remote", success=False))
 
 
 if __name__ == "__main__":

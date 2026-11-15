@@ -1,11 +1,13 @@
-"""Check or update fixed-output hashes for repository packages."""
+"""Check or update fixed-output hashes for repository packages.
+
+Targets are read from nix/hash-targets.toml, in the config format of
+merrkry/fod-hash-check: each table has an `installable` and the `file` that
+declares its hash.
+"""
 
 import argparse
-import hashlib
-import json
 import shlex
 import subprocess
-import sys
 import tomllib
 from pathlib import Path
 
@@ -15,41 +17,10 @@ def run(command: list[str]) -> None:
     subprocess.run(command, check=True)
 
 
-def cache_key(targets: dict[str, dict[str, str]]) -> str:
-    system = subprocess.check_output(
-        ["nix", "eval", "--impure", "--raw", "--expr", "builtins.currentSystem"],
-        text=True,
-    )
-    attributes = {name: target["attribute"] for name, target in targets.items()}
-    fields = []
-    for name, attribute in attributes.items():
-        path = ".".join(json.dumps(part) for part in attribute.split("."))
-        fields.append(f"{json.dumps(name)} = packages.{path}.drvPath;")
-    output = subprocess.check_output(
-        [
-            "nix",
-            "eval",
-            "--json",
-            "--no-write-lock-file",
-            f".#packages.{system}",
-            "--apply",
-            "packages: { " + " ".join(fields) + " }",
-        ],
-        text=True,
-    )
-    # The store path of this script identifies the checker and the tools it runs.
-    checker = str(Path(sys.argv[0]).resolve())
-    inputs = json.dumps(
-        {"system": system, "checker": checker, "drvs": json.loads(output)},
-        sort_keys=True,
-    )
-    return hashlib.sha256(inputs.encode()).hexdigest()
-
-
 def main() -> None:
     targets = tomllib.loads(Path("nix/hash-targets.toml").read_text())
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=["check", "update", "key"])
+    parser.add_argument("action", choices=["check", "update"])
     parser.add_argument(
         "packages", nargs="*", help="Packages to process (default: all)"
     )
@@ -60,14 +31,21 @@ def main() -> None:
         parser.error(f"Unknown packages: {', '.join(sorted(unknown))}")
 
     try:
-        if args.action == "key":
-            print(cache_key({name: targets[name] for name in names}))
-        elif args.action == "update":
+        if args.action == "update":
+            attributes = {}
+            for name in names:
+                installable = targets[name]["installable"]
+                # nix-update takes an attribute of the flake in the working
+                # directory.
+                if not installable.startswith(".#"):
+                    parser.error(
+                        f"{name}: update needs an installable of the form .#<attribute>"
+                    )
+                attributes[name] = installable.removeprefix(".#")
             # nix-update reads the flake source from the store, which lazy trees
             # leave unmaterialized.
             run(["nix", "flake", "archive", "--no-write-lock-file"])
             for name in names:
-                target = targets[name]
                 run(
                     [
                         "nix-update",
@@ -75,13 +53,13 @@ def main() -> None:
                         "--version=skip",
                         "--no-src",
                         "--override-filename",
-                        target["filename"],
-                        target["attribute"],
+                        targets[name]["file"],
+                        attributes[name],
                     ]
                 )
 
         else:
-            installables = [f".#{targets[name]['attribute']}" for name in names]
+            installables = [targets[name]["installable"] for name in names]
             command = ["nix", "build", "--no-link", "--no-write-lock-file"]
             # --rebuild requires valid outputs, including on a clean store.
             run([*command, *installables])
