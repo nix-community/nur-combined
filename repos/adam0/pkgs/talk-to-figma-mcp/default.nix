@@ -10,8 +10,8 @@
   inherit
     (lib)
     # keep-sorted start
-    getExe
     fetchers
+    getExe
     # keep-sorted end
     ;
 
@@ -24,25 +24,26 @@
     hash = "sha256-yc+uIHYHB/dWro7PlPjwkh2Hsz2FaKDy0ZXHJ8VkQJc=";
   };
 
-  dependencyHash = "sha256-VB4lv94qoghMqzN5VpSPSZ2fmWLImo1xY5CrldhSn9E=";
+  dependencyHash = "sha256-NHdKGVk3Me+2GVh3OT7kOzCcKBWyVgd62cU3NEtwXHk=";
 
   # Bun has no lockfile fetcher in nixpkgs, so a fixed-output install pins the modules.
   nodeModules = stdenvNoCC.mkDerivation {
     pname = "talk-to-figma-mcp-node-modules";
     inherit
       # keep-sorted start
-      version
       src
+      version
       # keep-sorted end
       ;
 
     nativeBuildInputs = [bun];
     impureEnvVars = fetchers.proxyImpureEnvVars;
 
+    # Bun releases hoist differently; the isolated layout follows the lockfile, keeping the hash stable.
     buildPhase = ''
       runHook preBuild
       export HOME=$TMPDIR
-      bun install --frozen-lockfile --production --ignore-scripts --no-progress
+      bun install --frozen-lockfile --production --ignore-scripts --no-progress --linker isolated
       runHook postBuild
     '';
 
@@ -64,8 +65,8 @@ in
     pname = "talk-to-figma-mcp";
     inherit
       # keep-sorted start
-      version
       src
+      version
       # keep-sorted end
       ;
 
