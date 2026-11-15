@@ -12,7 +12,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "matrix-rat";
-  version = "0.4.0";
+  version = "0.5.0";
 
   __structuredAttrs = true;
 
@@ -20,10 +20,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "tylerstyle";
     repo = "matrix-rat";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-JLg90Ds7NCdTkqrL9BDbOsB5PnzfqRLZcquqJ6dxlVM=";
+    hash = "sha256-TzVl2Q5iKglVA1xXXZBkQmU7l5bATy0O100BlZgT6P8=";
   };
 
-  cargoHash = "sha256-YQMgPwdols8ncBkexovjldXLyyG5eVZB3xthP/OOptg=";
+  cargoHash = "sha256-znak0jQJBdCfdS+1jNyu1KYAXlyHPBZ3oG80jzBSp0Y=";
 
   nativeBuildInputs = [
     pkg-config
@@ -41,6 +41,19 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   # The test suite runs in the project's own CI script; skipping it here halves the build
   doCheck = false;
+
+  # A launcher entry (it also offers matrix-rat for `matrix:` links) and the icon: in
+  # colour, and as a line drawing for places that want a symbolic one
+  postInstall = ''
+    install -Dm644 contrib/matrix-rat.desktop $out/share/applications/matrix-rat.desktop
+    install -Dm644 assets/icon.svg $out/share/icons/hicolor/scalable/apps/matrix-rat.svg
+    for size in 64 128 256 512; do
+      install -Dm644 assets/icon-$size.png \
+        $out/share/icons/hicolor/''${size}x''${size}/apps/matrix-rat.png
+    done
+    install -Dm644 assets/icon-outline.svg \
+      $out/share/icons/hicolor/symbolic/apps/matrix-rat-symbolic.svg
+  '';
 
   meta = {
     description = "Mouse-friendly, themeable Matrix client for the terminal";
