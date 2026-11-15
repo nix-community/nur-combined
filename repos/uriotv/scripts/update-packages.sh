@@ -60,10 +60,18 @@ UPDATE_TIMEOUT_SECONDS=${UPDATE_TIMEOUT_SECONDS:-900}
 : "${GITHUB_STEP_SUMMARY:?GITHUB_STEP_SUMMARY must be set}"
 : "${BUILD_LOG_URL:?BUILD_LOG_URL must be set}"
 
+repo_root=$(pwd)
+
 # Each updater owns its package directory. Preserve the complete directory,
 # including untracked files and modes, before an updater can partially edit it.
 backup_root=$(mktemp -d)
-trap 'rm -rf "$backup_root"' EXIT
+# Updaters run in a git-less copy of the tree: nix-update copies the flake into the
+# store and re-evaluates it there, and with nix 2.35.6 a *git* flake reports a store
+# path that is never materialized, so `nix-update --flake` dies right after the
+# version bump with "opening file /nix/store/...-source: No such file or directory".
+# Without `.git` the copy is a plain path flake, which nix does materialize.
+work_copy=$(mktemp -d)
+trap 'rm -rf "$backup_root" "$work_copy"' EXIT
 
 run_update() {
   local script=$1
@@ -121,7 +129,7 @@ if [ -n "$UPDATE_PACKAGE" ]; then
     exit 1
   fi
 
-  run_update "$script"
+  scripts=("$script")
 else
   # Same convention as pkgs/default.nix: immediate directories with default.nix.
   # Preflight the entire registry: never silently ignore a new package whose
@@ -133,11 +141,25 @@ else
     [[ -x "$script" ]] || { echo "::error::Missing executable updater: $script"; exit 1; }
     scripts+=("$script")
   done
-  [[ ${#scripts[@]} -gt 0 ]] || { echo '::error::No packages discovered'; exit 1; }
-  for script in "${scripts[@]}"; do
-    run_update "$script"
-  done
 fi
+[[ ${#scripts[@]} -gt 0 ]] || { echo '::error::No packages discovered'; exit 1; }
+
+tar -C "$repo_root" --exclude=.git -cf - . | tar -C "$work_copy" -xf -
+cd "$work_copy"
+for script in "${scripts[@]}"; do
+  run_update "$script"
+done
+
+# Publish the updaters' results back into the checkout; the git-based steps
+# (revert, PR creation) work on that tree.
+cd "$repo_root"
+for directory in "$work_copy"/pkgs/*/; do
+  name=$(basename "${directory%/}")
+  if ! diff -rq "$directory" "pkgs/$name" > /dev/null 2>&1; then
+    rm -rf -- "pkgs/$name"
+    cp -a "$directory" "pkgs/$name"
+  fi
+done
 
 # The summary goes to the job step summary (the update run opens one pull request
 # per package, so there is no aggregate PR body to fill).

@@ -63,12 +63,13 @@ jobs:
           GH_TOKEN: ${{ secrets.PAT_FOR_UPDATES }}
           BUILD_LOG_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: bash scripts/open-update-prs.sh
-      - name: Fail when any package updater failed
+      - name: Report failed package updaters
+        # Updates are independent, so one broken updater must not fail the run:
+        # that package simply keeps the version on main and is retried next run.
         if: always() && steps.update.outputs.update_failures != '' && steps.update.outputs.update_failures != '0'
         env:
           UPDATE_FAILURES: ${{ steps.update.outputs.update_failures }}
           SUCCESSFUL_UPDATES: ${{ steps.update.outputs.successful_updates }}
           FAILED_PACKAGES: ${{ steps.update.outputs.failed_packages }}
         run: |
-          echo "::error::$UPDATE_FAILURES package updater(s) failed (${FAILED_PACKAGES:-unknown}); successful updates: ${SUCCESSFUL_UPDATES:-unknown}."
-          exit 1
+          echo "::warning::$UPDATE_FAILURES package updater(s) failed (${FAILED_PACKAGES:-unknown}); successful updates: ${SUCCESSFUL_UPDATES:-unknown}. Those packages keep the version on main and are retried next run."

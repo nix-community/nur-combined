@@ -171,6 +171,13 @@ Package updates are per package in the same way — one pull request per package
   behind instead of blocking the others; the merged commit publishes exactly what
   built. An existing open PR for the same package is updated, not duplicated.
 
+Updaters run in a git-less copy of the tree and only their changes are copied back:
+`nix-update` re-evaluates the flake from a store copy, and nix 2.35.6 materializes
+that copy only for a plain path flake, not for a git flake (it fails with
+`opening file /nix/store/...-source: No such file or directory`). A run with a
+failing updater stays green: the package keeps the version on `main`, the summary
+lists it, and the next run retries it.
+
 Public cache misses can still lead consumers to build locally; Cachix
 retention/availability and differing consumer nixpkgs are not guaranteed.
 
