@@ -3,6 +3,12 @@
   fetchFromGitHub,
   rustPlatform,
 
+  # nativeBuildInputs
+  pkg-config,
+
+  # buildInputs
+  zstd,
+
   # nativeInstallCheckInputs
   versionCheckHook,
 }:
@@ -21,6 +27,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-M5dN+u6g+bY4uYbKKiCbJEFdxCbz41Zhlf0m2rYx6ps=";
+
+  nativeBuildInputs = [ pkg-config ];
+
+  buildInputs = [ zstd ];
 
   # Disable cargo-auditable until https://github.com/rust-secure-code/cargo-auditable/issues/124 is solved.
   auditable = false;

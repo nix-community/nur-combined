@@ -12,6 +12,8 @@
   re-plistbuddy,
 
   # buildInputs
+  aws-lc,
+  sqlite,
   zstd,
 
   # nativeInstallCheckInputs
@@ -20,7 +22,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "aven";
-  version = "0.1.54";
+  version = "0.1.56";
 
   __structuredAttrs = true;
 
@@ -28,10 +30,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "raine";
     repo = "aven";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-1hzCcMB1PakO7tOGnlB3fVbWwlvXYHaHfrQ9hrSUyO4=";
+    hash = "sha256-1If2URNOXgKxyisXqGLxCmeBF7n5BY7MOh35eLc6dz8=";
   };
 
-  cargoHash = "sha256-rJRzn+7ybisUa/4QckZUed+BVLI+/rNfAZ6nuKdMJMo=";
+  cargoHash = "sha256-pyOxHreqeO4fDI7pL6UjctOZhLayYQuCDpKIV5H4ILo=";
 
   nativeBuildInputs = [
     installShellFiles
@@ -43,11 +45,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
     re-plistbuddy
   ];
 
-  buildInputs = [ zstd ];
-
-  env = {
-    ZSTD_SYS_USE_PKG_CONFIG = 1;
-  };
+  buildInputs = [
+    aws-lc
+    sqlite
+    zstd
+  ];
 
   doCheck = false;
 
