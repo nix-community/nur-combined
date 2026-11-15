@@ -1,12 +1,12 @@
 {
   lib,
-  buildGoModule,
+  buildGo126Module,
   fetchFromGitHub,
 }:
 
-buildGoModule (finalAttrs: {
+buildGo126Module (finalAttrs: {
   pname = "jorge";
-  version = "0.10.1-unstable-2026-08-09";
+  version = "0.11.0";
 
   __structuredAttrs = true;
   strictDeps = true;
