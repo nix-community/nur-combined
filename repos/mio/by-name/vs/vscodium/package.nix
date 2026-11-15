@@ -152,8 +152,31 @@ let
         done
 
         patchShebangs node_modules
+
+        # The root workspace's own preinstall/postinstall are driven by the build
+        # itself (postinstall.ts skips the root dir), and npm rebuild would run
+        # them here, recursing into the per-directory installs, so hide them for
+        # the rebuild. Some dependencies also download binaries at install time,
+        # which cannot work in the sandbox.
+        root_pkg=0
+        if [ -f build/npm/postinstall.ts ] && [ -f package.json ]; then
+          cp package.json package.json.nix-orig
+          jq 'del(.scripts.preinstall, .scripts.postinstall)' package.json.nix-orig > package.json
+          root_pkg=1
+        fi
+        for pkg in foundry-local-sdk @vscode/ripgrep @vscode/ripgrep-universal @vscode/deviceid; do
+          for pj in $(find node_modules -maxdepth 5 -path "*/$pkg/package.json"); do
+            jq 'del(.scripts.preinstall, .scripts.install, .scripts.postinstall)' "$pj" > "$pj.nix-tmp"
+            mv "$pj.nix-tmp" "$pj"
+          done
+        done
+
         npm rebuild --legacy-peer-deps
         patchShebangs node_modules
+
+        if [ "$root_pkg" = 1 ]; then
+          mv package.json.nix-orig package.json
+        fi
       '')
     ]
     ++ lib.optionals hostPlatform.isDarwin [
@@ -200,6 +223,7 @@ let
          | .backupUpdateUrl=null' \
         product.json > product.json.tmp
       mv product.json.tmp product.json
+
     '';
 
     buildPhase = ''
@@ -279,17 +303,22 @@ let
       mkdir -p .build/typings
       cp ${electron-d-ts} .build/typings/electron.d.ts
 
-      # Root deps first (ignore scripts), then install the bundled node-gyp, then
-      # run vscode's multi-package postinstall which uses npm_install_command.
-      npm ci --ignore-scripts
-      patchShebangs node_modules || true
-
+      # preinstall.ts runs before every npm rebuild and installs the Electron
+      # headers through build/npm/gyp's own node-gyp, whose path it hardcodes, so
+      # that workspace has to be installed first.
       if [ -f build/npm/gyp/package-lock.json ]; then
         (cd build/npm/gyp && npm ci --ignore-scripts && patchShebangs node_modules || true)
       fi
 
-      # Point npm_config_node_gyp at nixpkgs node-gyp as a fallback.
+      # Points the rebuilds that honour it at nixpkgs' node-gyp.
       export npm_config_node_gyp="${lib.getExe node-gyp}"
+
+      # build/npm/postinstall.ts skips the root workspace (it assumes the root
+      # install already ran its scripts), so run the same script here as well;
+      # otherwise root's native modules (policy-watcher, native-keymap, ...)
+      # stay unbuilt and the app dies at startup looking for their .node files.
+      npm-install-script
+      patchShebangs node_modules build/node_modules || true
 
       node build/npm/postinstall.ts
 
