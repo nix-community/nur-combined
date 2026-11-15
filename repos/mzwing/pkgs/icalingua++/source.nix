@@ -3,11 +3,11 @@
 { fetchzip }:
 
 let
-  version = "2.26.9";
-  rev = "v2.26.9";
+  version = "2.26.10";
+  rev = "v2.26.10";
   src = fetchzip {
-    url = "https://codeload.github.com/Icalingua-plus-plus/Icalingua-plus-plus/tar.gz/v2.26.9";
-    hash = "sha256-mfB+2RdnyyVVRoVh7ckKfZCjHvhmV+rkN8RI1UEK8Cc=";
+    url = "https://codeload.github.com/Icalingua-plus-plus/Icalingua-plus-plus/tar.gz/v2.26.10";
+    hash = "sha256-lRk8eY/vWbiGZ4Q+kStH52ybbnadwuxivvcWcfIdCWU=";
     extension = "tar.gz";
   };
 in

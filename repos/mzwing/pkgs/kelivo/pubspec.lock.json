@@ -882,6 +882,66 @@
       "source": "hosted",
       "version": "2.0.35"
     },
+    "flutter_secure_storage": {
+      "dependency": "direct main",
+      "description": {
+        "name": "flutter_secure_storage",
+        "sha256": "fe638107c5f69119156ada2db5a57734385fac3f64430bd7252a00d3ead2ca4b",
+        "url": "https://pub.dev"
+      },
+      "source": "hosted",
+      "version": "10.3.4"
+    },
+    "flutter_secure_storage_darwin": {
+      "dependency": "transitive",
+      "description": {
+        "name": "flutter_secure_storage_darwin",
+        "sha256": "82329fa5cdf343773b1b6897dea959105a29f092454259edff92f9f6637e8149",
+        "url": "https://pub.dev"
+      },
+      "source": "hosted",
+      "version": "0.3.2"
+    },
+    "flutter_secure_storage_linux": {
+      "dependency": "transitive",
+      "description": {
+        "name": "flutter_secure_storage_linux",
+        "sha256": "caa75bd78f017422912e3a904933113b2428eb79f981ac37acd2dd2a700458ea",
+        "url": "https://pub.dev"
+      },
+      "source": "hosted",
+      "version": "3.0.3"
+    },
+    "flutter_secure_storage_platform_interface": {
+      "dependency": "transitive",
+      "description": {
+        "name": "flutter_secure_storage_platform_interface",
+        "sha256": "64951127f001f546891c86f414972bf49ef2c4c8a4c92c65f5790cc0c9100045",
+        "url": "https://pub.dev"
+      },
+      "source": "hosted",
+      "version": "2.1.1"
+    },
+    "flutter_secure_storage_web": {
+      "dependency": "transitive",
+      "description": {
+        "name": "flutter_secure_storage_web",
+        "sha256": "073a62b3aeb866ab4ce795f960413948e51e5a42a9b0c8333b6daf5bb3208a1c",
+        "url": "https://pub.dev"
+      },
+      "source": "hosted",
+      "version": "2.1.1"
+    },
+    "flutter_secure_storage_windows": {
+      "dependency": "transitive",
+      "description": {
+        "name": "flutter_secure_storage_windows",
+        "sha256": "3b7c8e068875dfd46719ff57c90d8c459c87f2302ed6b00ff006b3c9fcad1613",
+        "url": "https://pub.dev"
+      },
+      "source": "hosted",
+      "version": "4.1.0"
+    },
     "flutter_shaders": {
       "dependency": "transitive",
       "description": {
@@ -1013,11 +1073,11 @@
       "dependency": "transitive",
       "description": {
         "name": "hooks",
-        "sha256": "9a62a50b50b769a737bc0a8ff381f333529df3ab746b2f6b02e83760231455ba",
+        "sha256": "eaac480a35ec0814146c2c48d96aaa829e0e44a7662c88ae84c9edf4bc35651f",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "2.0.2"
+      "version": "2.2.0"
     },
     "hotkey_manager": {
       "dependency": "direct main",
@@ -1139,36 +1199,6 @@
       "source": "hosted",
       "version": "4.10.1"
     },
-    "image_cropper": {
-      "dependency": "direct main",
-      "description": {
-        "name": "image_cropper",
-        "sha256": "95782c9068ff09b95a5ece6a2b5fb31b18d8e544d79ebfa7bdafc08df39b3440",
-        "url": "https://pub.dev"
-      },
-      "source": "hosted",
-      "version": "12.2.1"
-    },
-    "image_cropper_for_web": {
-      "dependency": "transitive",
-      "description": {
-        "name": "image_cropper_for_web",
-        "sha256": "e09749714bc24c4e3b31fbafa2e5b7229b0ff23e8b14d4ba44bd723b77611a0f",
-        "url": "https://pub.dev"
-      },
-      "source": "hosted",
-      "version": "7.0.0"
-    },
-    "image_cropper_platform_interface": {
-      "dependency": "transitive",
-      "description": {
-        "name": "image_cropper_platform_interface",
-        "sha256": "886a30ec199362cdcc2fbb053b8e53347fbfb9dbbdaa94f9ff85622609f5e7ff",
-        "url": "https://pub.dev"
-      },
-      "source": "hosted",
-      "version": "8.0.0"
-    },
     "image_gallery_saver_plus": {
       "dependency": "direct main",
       "description": {
@@ -1240,7 +1270,7 @@
       "version": "0.2.2+1"
     },
     "image_picker_platform_interface": {
-      "dependency": "transitive",
+      "dependency": "direct dev",
       "description": {
         "name": "image_picker_platform_interface",
         "sha256": "567e056716333a1647c64bb6bd873cff7622233a5c3f694be28a583d4715690c",
@@ -1891,7 +1921,7 @@
       "version": "0.10.0"
     },
     "re_highlight": {
-      "dependency": "transitive",
+      "dependency": "direct main",
       "description": {
         "name": "re_highlight",
         "sha256": "6c4ac3f76f939fb7ca9df013df98526634e17d8f7460e028bd23a035870024f2",
@@ -1974,11 +2004,11 @@
       "dependency": "transitive",
       "description": {
         "name": "record_use",
-        "sha256": "2551bd8eecfe95d14ae75f6021ad0248be5c27f138c2ec12fcb52b500b3ba1ed",
+        "sha256": "1cb8564af8d43b464294411db9217f5ec04891c6f22ee2c32d73ae05e88a6bd2",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "0.6.0"
+      "version": "1.1.1"
     },
     "record_web": {
       "dependency": "transitive",
@@ -2339,12 +2369,13 @@
     "sqlite3": {
       "dependency": "direct main",
       "description": {
-        "name": "sqlite3",
-        "sha256": "4c7fe79840389aaeaf05fd093f795b631b5a98e2bd28d54e555c100f4a9c7a1c",
-        "url": "https://pub.dev"
+        "path": "sqlite3",
+        "ref": "8db87537775047cdde00353f09afb1521befbeec",
+        "resolved-ref": "8db87537775047cdde00353f09afb1521befbeec",
+        "url": "https://github.com/simolus3/sqlite3.dart.git"
       },
-      "source": "hosted",
-      "version": "3.5.2"
+      "source": "git",
+      "version": "3.9.1"
     },
     "sqlparser": {
       "dependency": "transitive",
