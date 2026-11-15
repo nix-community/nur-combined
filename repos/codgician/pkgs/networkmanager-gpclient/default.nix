@@ -30,8 +30,8 @@ let
   src = fetchFromGitHub {
     owner = "WMP";
     repo = "GlobalProtect-SAML-NetworkManager";
-    rev = "e696aec22b057e98c7937c927dea098b51d66836";
-    hash = "sha256-+fXd79V9hAC9u4M3NB4BbS3NoMptNjGtqY0eieRj3I0=";
+    rev = "ad46edd80a29ffde82161ab2c1314a625ec5a15b";
+    hash = "sha256-060iz738XMpLv2A4Q9rGxeC34w++E3ycv01uyXM7yjY=";
     # external/GlobalProtect-openconnect: the gpclient the service is written for
     fetchSubmodules = true;
   };
@@ -58,7 +58,7 @@ let
 in
 stdenv.mkDerivation {
   pname = "networkmanager-gpclient";
-  version = "1.5.0-unstable-2026-10-29";
+  version = "2.0.1-unstable-2026-11-13";
 
   inherit src;
 
