@@ -2,7 +2,6 @@
   lib,
   autoAddDriverRunpath,
   cmake,
-  cudaArchitectures ? "75;80;86;89;120",
   cudaPackages,
   fetchFromGitHub,
   makeWrapper,
@@ -13,6 +12,10 @@
 
 let
   version = "0.2.13.1";
+  cudaArchitectures = lib.concatMapStringsSep ";" (lib.replaceStrings
+    [ "." ]
+    [ "" ]
+  ) cudaPackages.backendStdenv.cudaCapabilities;
   llamaRev = "3cf03257f219afbe7334045ff7c6a06ac68c627d";
   llamaSrc = fetchFromGitHub {
     owner = "ggml-org";
@@ -117,9 +120,9 @@ let
       meta = {
           "source": "local",
           "version": "${finalAttrs.version}",
-          "archs": [int(a) for a in "${cudaArchitectures}".split(";")],
+          "archs": setup.arch_numbers("${cudaArchitectures}"),
           "vision": "gpu",
-          "vision_archs": [int(a) for a in "${cudaArchitectures}".split(";")],
+          "vision_archs": setup.arch_numbers("${cudaArchitectures}"),
           "vision_src": setup.source_hash(setup.VISION_SOURCES),
           "cuda": ${lib.versions.major cudaPackages.cuda_nvcc.version},
           "src": setup.source_hash(setup.ENGINE_SOURCES),

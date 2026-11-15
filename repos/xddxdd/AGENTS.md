@@ -22,7 +22,7 @@
 ### 最佳实践
 
 - **插件包自行提供宿主所需的标准目录布局**：模块、运行时文档与许可证应安装到各自正确的子目录，保留原始文件名和附带的许可证目录；宿主包不要在 `postInstall` 中逐个链接其他插件包的文件。由使用方通过 `buildEnv` 合并宿主与插件，并让需要编译的插件使用同一宿主包的头文件。
-- **CUDA 构建元数据必须跟随所选工具链**：CUDA 主版本应从所选 `cudaPackages.cuda_nvcc.version` 用 `lib.versions.major` 派生，不要硬编码。
+- **CUDA 构建元数据必须跟随所选工具链**：CUDA 主版本应从所选 `cudaPackages.cuda_nvcc.version` 用 `lib.versions.major` 派生，不要硬编码；架构列表同样从 `cudaPackages.backendStdenv.cudaCapabilities` 派生（`lib.concatMapStringsSep ";" (lib.replaceStrings [ "." ] [ "" ])`），不要为包另设 `cudaArchitectures` 参数，这样用户的 `config.cudaCapabilities` 能直接生效。把该字符串写进 JSON 等需要数字列表的地方时，应复用上游的 `arch_numbers` 一类解析函数而不是 `int()`，因为 capability 可能带 `a`/`f` 后缀（如 `10.0a`），直接取整会失败。
 - **固件中的 ELF 也是不透明数据**：固件包应关闭 `dontPatchELF` 对应的修补和 strip（设置 `dontPatchELF = true; dontStrip = true;`），避免签名或摘要失效；在安装检查中对最终产物重新校验上游固定的哈希，不能只校验生成步骤的临时文件。
 - **大型 CUDA fatbinary 可导致 x86_64 主机链接重定位溢出**：把多架构 CUDA 与主机代码链接进同一共享库时，超过 2 GiB 的 `.nv_fatbin` 可能被默认链接脚本放在主机代码与数据之间，触发 `R_X86_64_REX_GOTPCRELX` 或 PLT 的 PC-relative offset overflow。可用附加链接脚本将该节 `INSERT AFTER .bss`，仅在 CUDA 变体传入共享库链接参数；不要以减少支持的 GPU 架构掩盖问题。用完整构建和已安装 ELF 的节地址验证布局，再运行实际 CLI。参考 `pkgs/uncategorized/ik-llama-cpp/cuda-fatbin.ld`。
 - **上游源码为 CRLF 行尾时先转 LF 再打补丁**：上游仓库的文本文件可能带 CRLF 行尾（如 FlashBrowser 的 index.js），直接对原文件生成的补丁会整文件重写（diff 把每行都视为修改）。正确做法：补丁一律以 LF 内容生成，并在派生的 `prePatch` 中用 `sed -i 's/\r$//' <文件>` 把上游源码转为 LF——转换必须放在 `prePatch`，因为 patchPhase 在 prePatch 之后、postPatch 之前执行。本仓库内所有文件（补丁、脚本等）一律保持 LF 行尾
