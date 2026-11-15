@@ -8,5 +8,5 @@ export default defineSource(
     stripPrefix: "v",
   }),
   crate2nix({ manifest: "codegraph-kernel/Cargo.toml" }),
-  npm.lock("package-lock.json"),
+  npm.lock(),
 );

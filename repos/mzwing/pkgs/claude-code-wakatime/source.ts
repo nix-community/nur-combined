@@ -6,5 +6,5 @@ export default defineSource(
     tagPattern: "v[0-9]+\\.[0-9]+\\.[0-9]+",
     stripPrefix: "v",
   }),
-  npm.lock("package-lock.json"),
+  npm.lock(),
 );

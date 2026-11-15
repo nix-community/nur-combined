@@ -1,5 +1,5 @@
 import { compare, parse } from "@std/semver";
-import { github, nix, provider } from "nix-repin";
+import { github, nix } from "nix-repin";
 import { Octokit } from "octokit";
 
 const owner = "klzgrad";
@@ -18,7 +18,7 @@ const fetchzip = (archive: github.ArchiveSource) =>
 
 // The fork's go.mod keeps the module path without /v2, so Go refuses its v2 tags as versions; xcaddy gets the naive tag's commit as a pseudo-version instead.
 // Each tag also carries the Caddy patches its release builds apply, and names that Caddy release in CADDY_VERSION.
-export default provider(async () => {
+export default async () => {
   const tags = await octokit.paginate(octokit.rest.repos.listTags, {
     owner,
     repo,
@@ -64,4 +64,4 @@ export default provider(async () => {
 }
 `,
   };
-});
+};

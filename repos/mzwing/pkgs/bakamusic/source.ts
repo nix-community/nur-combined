@@ -1,4 +1,4 @@
-import { codeberg, defineSource, github, nix, provider } from "nix-repin";
+import { codeberg, defineSource, github, nix } from "nix-repin";
 
 export default defineSource(
   github.tag({
@@ -7,7 +7,7 @@ export default defineSource(
     stripPrefix: "v",
   }),
   // The release's media runtime manifest and npm lock name the LibreMPEG and koffi commits it builds against.
-  provider(async (source) => {
+  async (source) => {
     const { mpv } = JSON.parse(
       await Deno.readTextFile(
         source.sourceFile("scripts/media-runtime-manifest.json"),
@@ -61,5 +61,5 @@ export default defineSource(
     };
 
     return { "pins.json": `${JSON.stringify(pins, null, 2)}\n` };
-  }),
+  },
 );

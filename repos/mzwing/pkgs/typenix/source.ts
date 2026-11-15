@@ -1,4 +1,4 @@
-import { defineSource, github, nix, npm, provider } from "nix-repin";
+import { defineSource, github, nix, npm } from "nix-repin";
 import { gomod2nix } from "../../internal/sources.ts";
 
 export default defineSource(
@@ -8,9 +8,9 @@ export default defineSource(
   }),
   gomod2nix(),
   // typenix-vscode builds the editor extension from this tree.
-  npm.lock("_extension/package-lock.json"),
+  npm.lock({ path: "_extension/package-lock.json" }),
   // Build against the tree-sitter-nix revision typenix's own flake locks.
-  provider(async (source) => {
+  async (source) => {
     const lock = JSON.parse(
       await Deno.readTextFile(source.sourceFile("flake.lock")),
     );
@@ -22,5 +22,5 @@ export default defineSource(
         { rev },
       ),
     };
-  }),
+  },
 );

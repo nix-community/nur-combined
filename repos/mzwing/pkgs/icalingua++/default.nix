@@ -15,7 +15,7 @@
   inherit (source) src version;
 
   # Cross-platform pnpm store hash refreshed by update-hashes.
-  pnpmDepsHash = "sha256-7A1NOAo3Wle8VXJ6bzFFyfp9nj0zFaTcSr73+RyQCPM=";
+  pnpmDepsHash = "sha256-1f61aeJxiXt2Jfn9GGhGfWBl2qF9FoF3rY0z09Oynh0=";
 in
   stdenv.mkDerivation {
     inherit pname src version;

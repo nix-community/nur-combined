@@ -1,11 +1,5 @@
 import * as path from "@std/path";
-import {
-  copyTree,
-  nix,
-  provider,
-  runCommand,
-  type SourceDefinition,
-} from "nix-repin";
+import { copyTree, nix, runCommand, type SourceDefinition } from "nix-repin";
 
 // Read flake.lock directly; getFlake would copy the whole worktree into the store.
 async function build(
@@ -37,7 +31,7 @@ in
 export function crate2nix(
   options: { manifest?: string } = {},
 ): SourceDefinition {
-  return provider(async (source) => {
+  return async (source) => {
     const tools = await Promise.all([
       build(source.packageDirectory, "crate2nix"),
       build(source.packageDirectory, "cargo"),
@@ -69,12 +63,12 @@ export function crate2nix(
     } finally {
       await Deno.remove(directory, { recursive: true });
     }
-  });
+  };
 }
 
 /** Generate gomod2nix.toml, including the dependency cache list, from an archive source. */
 export function gomod2nix(): SourceDefinition {
-  return provider(async (source) => {
+  return async (source) => {
     const tool = await build(source.packageDirectory, "gomod2nix");
     const directory = await Deno.makeTempDir({ prefix: "gomod2nix-" });
     try {
@@ -99,5 +93,5 @@ export function gomod2nix(): SourceDefinition {
     } finally {
       await Deno.remove(directory, { recursive: true });
     }
-  });
+  };
 }
