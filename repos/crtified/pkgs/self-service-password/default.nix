@@ -1,26 +1,28 @@
-{ stdenv, fetchFromGitHub, fetchpatch, optipng, smarty3 }:
+{ stdenv, fetchurl, smarty3 }:
 
 stdenv.mkDerivation rec {
   pname = "self-service-password";
   version = "1.8.2";
 
-  src = fetchFromGitHub {
-    owner = "ltb-project";
-    repo = "self-service-password";
-    rev = "v${version}";
-    hash = "sha256:sha256-CNdUYbwoPb+QN0cBoBXfL/lb24mdvIY3UqDY1Tyilj8=";
+  src = fetchurl {
+    url = "https://ltb-project.org/archives/ltb-project-${pname}-${version}.tar.gz";
+    hash = "sha256-Ujq5fU7zU1weOCgGtxivh8rY2LvfwQP4h4JUGdcP/pc=";
   };
 
-  buildInputs = [ optipng ];
-  installInputs = [ smarty3 ];
+  dontBuild = true;
 
   installPhase = ''
-    find . -name '*.png' -print0 | xargs -0 optipng -quiet -force -fix
+    runHook preInstall
 
     mkdir -p $out/share/self-service-password
     cp -ra . $out/share/self-service-password
 
-    sed -i 's|/usr/share/php/smarty3|'${smarty3}'|g' $out/share/self-service-password/conf/config.inc.php
-    ln -s /etc/self-service-password/config.inc.local.php $out/share/self-service-password/conf/config.inc.local.php
+    substituteInPlace $out/share/self-service-password/conf/config.inc.php \
+      --replace-fail "/usr/share/php/smarty3" "${smarty3}"
+
+    ln -sf /etc/self-service-password/config.inc.local.php \
+      $out/share/self-service-password/conf/config.inc.local.php
+
+    runHook postInstall
   '';
 }

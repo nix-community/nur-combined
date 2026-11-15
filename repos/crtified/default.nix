@@ -17,7 +17,7 @@
   mfc_l2710dn = pkgs.callPackage ./pkgs/mfc_l2710dn { };
   hl_l2370dn = pkgs.callPackage ./pkgs/hl_l2370dn { };
 
-  python3Packages = pkgs.recurseIntoAttrs
+  python3Packages = pkgs.lib.recurseIntoAttrs
     (pkgs.python3Packages.callPackage ./pkgs/python-pkgs { });
 
   self-service-password = pkgs.callPackage ./pkgs/self-service-password { };
