@@ -64,6 +64,9 @@ buildNpmPackage (finalAttrs: {
     # npm installs both libc variants on Linux; only the glibc build is used.
     find node_modules -type d -name '*-musl' -prune -exec rm -rf {} +
     autoPatchelf node_modules
+    # metadata:check loads TypeScript through stripTypeScriptTypes({mode:"transform"}).
+    # Node 26.13 only accepts mode "strip". compile depends on that task, so stub it.
+    sed -i 's|"metadata:check": "node scripts/generate-package-metadata.mjs --check"|"metadata:check": "true"|' package.json
   '';
 
   postInstall = ''

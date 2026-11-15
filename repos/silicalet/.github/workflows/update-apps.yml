@@ -1,0 +1,22 @@
+name: Update apps packages
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: write
+
+jobs:
+  update:
+    uses: ./.github/workflows/update-packages.yml
+    with:
+      category: apps
+      packages: >-
+        craft-suite-bin folia-major-bin ghost-downloader-3 meatshell-bin
+        modeltrace neomacs-bin nyaterm-bin nyaterm-gpui-bin oh-dsh-bin
+        seekey winpodx-bin
+      arm-packages: >-
+        craft-suite-bin meatshell-bin neomacs-bin nyaterm-bin nyaterm-gpui-bin

@@ -1,0 +1,20 @@
+name: Update tools packages
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: write
+
+jobs:
+  update:
+    uses: ./.github/workflows/update-packages.yml
+    with:
+      category: tools
+      packages: >-
+        amber-lsp code996 dnspick ipgw kuake-cli neu-cli qrypt-bin
+        quarkpan quien uipro-cli zlib-cli
+      arm-packages: qrypt-bin

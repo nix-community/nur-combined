@@ -47,9 +47,9 @@
   qrypt-bin = pkgs.callPackage ./pkgs/tools/qrypt/binary.nix { };
   quarkpan = pkgs.callPackage ./pkgs/tools/quarkpan { };
   quien = pkgs.callPackage ./pkgs/tools/quien { };
-  rea = pkgs.callPackage ./pkgs/tools/rea { };
-  rea-full = pkgs.callPackage ./pkgs/tools/rea/full.nix {
-    rea = pkgs.callPackage ./pkgs/tools/rea { };
+  rea = pkgs.callPackage ./pkgs/ctf/rea { };
+  rea-full = pkgs.callPackage ./pkgs/ctf/rea/full.nix {
+    rea = pkgs.callPackage ./pkgs/ctf/rea { };
     reaDependencies = (import ./lib { inherit pkgs; }).reaDependencies;
   };
   seekey = pkgs.callPackage ./pkgs/apps/seekey { };

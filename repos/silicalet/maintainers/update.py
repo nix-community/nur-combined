@@ -393,7 +393,7 @@ def update_rea():
     ).stdout.strip()
     lock = json.loads((Path(source) / "package-lock.json").read_text())
     version = lock["packages"]["node_modules/frida"]["version"]
-    pins_path = REPO_ROOT / "pkgs/tools/rea/frida.json"
+    pins_path = REPO_ROOT / "pkgs/ctf/rea/frida.json"
     pins = json.loads(pins_path.read_text())
     if version == pins["version"]:
         run(["nix", "build", ".#rea", "--no-link"], cwd=REPO_ROOT)

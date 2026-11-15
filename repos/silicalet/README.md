@@ -261,15 +261,32 @@ vendor binary package remains available as `cangjie-bin`.
 
 ## Automatic updates
 
-The `Update NUR packages` GitHub Actions workflow runs daily at 03:17
-UTC (11:17 Asia/Shanghai) and can also be started manually. It updates the
-default package set, validates native x86_64 builds, updates the aarch64 source
-pins for binary packages, and commits successful changes directly to the
-repository's default branch.
+Package updates run in independent category workflows, daily at 03:17 UTC
+(11:17 Asia/Shanghai), or manually from the Actions page:
+
+| Workflow | Category | ARM64 binary updates |
+| --- | --- | --- |
+| `update-apps.yml` | `pkgs/apps` | craft-suite, meatshell, neomacs, nyaterm, nyaterm-gpui |
+| `update-tools.yml` | `pkgs/tools` | qrypt |
+| `update-ctf.yml` | `pkgs/ctf` (REA) | Frida bindings for both architectures are handled by the REA updater |
+
+These workflows call `update-packages.yml`, which is reusable rather than a
+standalone scheduled workflow. Each category validates its native x86_64 builds
+and configured ARM64 pins before committing only its own package directory.
+A failed category publishes nothing but does not block the other categories;
+in particular, a REA failure cannot prevent apps/tools updates. Failures within
+the same category still block that category's commit.
+
+Only the tools workflow updates and commits `flake.lock`. Categories have
+separate concurrency groups. Concurrent pushes fetch and rebase onto the default
+branch, retrying a rejected push up to five attempts; merge conflicts stop the
+job instead of overwriting changes. `rea` and `rea-full` keep their public Nix
+attribute names, with definitions under `pkgs/ctf/rea`.
+`lang/cangjie` remains manually maintained, as it was not in the automatic update set.
 
 Projects with maintained binary packages use `meatshell-bin`, `neomacs-bin`,
 and `nyaterm-bin`. MeatShell's source package is excluded from automatic updates;
-NyaTerm is exported only as `nyaterm-bin`. The workflow uses the repository-provided
+NyaTerm is exported only as `nyaterm-bin`. The workflows use the repository-provided
 `GITHUB_TOKEN` and therefore requires GitHub Actions to have read/write
 workflow permissions and permission to push to the default branch.
 After pushing an update, it explicitly dispatches the regular package build

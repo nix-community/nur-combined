@@ -1,0 +1,17 @@
+name: Update ctf packages
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: write
+
+jobs:
+  update:
+    uses: ./.github/workflows/update-packages.yml
+    with:
+      category: ctf
+      packages: rea

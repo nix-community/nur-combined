@@ -1,22 +1,32 @@
-name: Update NUR packages
+name: Update a NUR category
 
 on:
-  schedule:
-    # Daily at 11:17 Asia/Shanghai (03:17 UTC).
-    - cron: "17 3 * * *"
-  workflow_dispatch:
+  workflow_call:
+    inputs:
+      category:
+        required: true
+        type: string
+      packages:
+        required: true
+        type: string
+      arm-packages:
+        default: ""
+        type: string
 
 permissions:
   actions: write
   contents: write
 
 concurrency:
-  group: nur-package-updates
+  group: nur-package-updates-${{ inputs.category }}
   cancel-in-progress: false
 
 env:
   GITHUB_TOKEN: ${{ github.token }}
   UPDATE_BRANCH: ${{ github.event.repository.default_branch }}
+  UPDATE_CATEGORY: ${{ inputs.category }}
+  UPDATE_PACKAGES: ${{ inputs.packages }}
+  UPDATE_ARM_PACKAGES: ${{ inputs.arm-packages }}
   NIX_CONFIG: |
     experimental-features = nix-command flakes
     access-tokens = github.com=${{ github.token }}
@@ -27,7 +37,7 @@ env:
 
 jobs:
   update:
-    name: Update packages and push
+    name: Update ${{ inputs.category }} and push
     runs-on: ubuntu-latest
     timeout-minutes: 360
     container:
@@ -39,6 +49,13 @@ jobs:
         shell: bash
 
     steps:
+      - name: Validate category
+        run: |
+          case "$UPDATE_CATEGORY" in
+            apps|tools|ctf) ;;
+            *) echo "Unsupported category: $UPDATE_CATEGORY" >&2; exit 1 ;;
+          esac
+
       # nixos/nix cannot run actions/checkout (no host Node interpreter).
       - name: Install GitHub CLI
         run: nix-env -iA nixpkgs.gh
@@ -47,41 +64,57 @@ jobs:
         run: |
           # The bind-mounted workspace is owned by the host runner.
           git config --global --add safe.directory "$(pwd)"
-          git clone --depth 1 --branch "$UPDATE_BRANCH" \
+          git clone --branch "$UPDATE_BRANCH" \
             "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" .
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      # Keep nixpkgs fresh so package updates are not blocked by an outdated
-      # toolchain (e.g. go.mod requiring a newer Go than the pinned nixpkgs).
+      # Only tools owns flake.lock; parallel category commits touch disjoint paths.
       - name: Update nixpkgs input
+        if: inputs.category == 'tools'
         run: nix flake update nixpkgs
 
       - name: Update regular and x86_64 binary packages
-        run: nix run .#update -- --all
+        run: |
+          read -r -a packages <<< "$UPDATE_PACKAGES"
+          test "${#packages[@]}" -gt 0
+          nix run .#update -- "${packages[@]}"
 
       - name: Update aarch64 binary packages
-        run: >-
-          nix run .#update --
-          --arch aarch64-linux
-          craft-suite-bin meatshell-bin neomacs-bin nyaterm-bin nyaterm-gpui-bin qrypt-bin
+        if: inputs.arm-packages != ''
+        run: |
+          read -r -a packages <<< "$UPDATE_ARM_PACKAGES"
+          nix run .#update -- --arch aarch64-linux "${packages[@]}"
 
       - name: Commit and push updates
         id: commit
         run: |
-          if git diff --quiet; then
+          paths=("pkgs/$UPDATE_CATEGORY")
+          if [ "$UPDATE_CATEGORY" = tools ]; then
+            paths+=(flake.lock)
+          fi
+          git add -- "${paths[@]}"
+          if git diff --cached --quiet; then
             echo "All packages are already up to date."
             echo "updated=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          git diff --check
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add --all
-          git commit -m "chore: update packages"
-          git pull --rebase origin "$UPDATE_BRANCH"
-          git push origin "HEAD:$UPDATE_BRANCH"
+          git diff --cached --check
+          git commit -m "chore: update $UPDATE_CATEGORY packages"
+          # Other categories may push between fetch and push. Rebase only this
+          # category's commit; stop on conflicts instead of overwriting changes.
+          for attempt in 1 2 3 4 5; do
+            git fetch origin "$UPDATE_BRANCH"
+            git rebase "origin/$UPDATE_BRANCH"
+            if git push origin "HEAD:$UPDATE_BRANCH"; then
+              break
+            fi
+            if [ "$attempt" -eq 5 ]; then
+              echo "Could not push $UPDATE_CATEGORY updates" >&2
+              exit 1
+            fi
+          done
           echo "updated=true" >> "$GITHUB_OUTPUT"
 
       - name: Trigger package builds
