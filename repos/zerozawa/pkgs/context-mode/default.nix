@@ -12,20 +12,20 @@
 # and must be regenerated when `version` moves, so `npm ci` stays reproducible.
 buildNpmPackage rec {
   pname = "context-mode";
-  version = "2.1.8";
+  version = "2.2.0";
 
   src = fetchFromGitHub {
     owner = "mksglu";
     repo = "context-mode";
     rev = "v${version}";
-    hash = "sha256-i+HJloc7N8rChAW0tn/FcYt2r5G3XMIdC2tjleTZCDM=";
+    hash = "sha256-/mYhbn+P6Ao0Pwzt3FMqfsu/KKApspzL8KRXvwqlz28=";
   };
 
   postPatch = ''
     cp ${./package-lock.json} package-lock.json
   '';
 
-  npmDepsHash = "sha256-dLP3gUlSgZ/1PpdRaVYwQdIarioxkAJcpeF5099iXTY=";
+  npmDepsHash = "sha256-l+G+J830va0upyvX9pxrTsrI24L/nTySJ+QwZ695PCw=";
 
   nativeBuildInputs = [ makeBinaryWrapper ];
 
@@ -52,7 +52,7 @@ buildNpmPackage rec {
   '';
 
   meta = with lib; {
-    description = "Free, local plugin that keeps tool output out of your coding agent's context window.";
+    description = "A free, local plugin for 11 coding agents. It keeps tool output out of your agent's context window and keeps all usage data on your machine.";
     homepage = "https://github.com/mksglu/context-mode";
     license = licenses.elastic20;
     platforms = platforms.linux;

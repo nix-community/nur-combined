@@ -7,7 +7,7 @@
   buildNpmPackage,
   makeWrapper,
   autoPatchelfHook,
-  nodejs_26,
+  nodejs_22,
   python313,
   android-tools,
   apktool,
@@ -15,8 +15,10 @@
   binwalk,
   chromium,
   gdb,
+  ghidra,
+  git,
   ilspycmd,
-  jdk21_headless,
+  jdk25_headless,
   mitmproxy,
   procps,
   rizin,
@@ -68,20 +70,13 @@ let
       sha256 = "sha256-AqgkGHRrI6h/8FWuVbnkfFmXr4Bqsr4fV23aISqj/xg=";
     }) { system = stdenv.hostPlatform.system; }).sigrok-cli;
 
-  # Ghidra 12.2 (nixpkgs 9a6cbf4) declares `application.java.min=25` and sits
-  # past the 12.1 line REA 6.8.0 admits (`GhidraReleasePolicy` requires
-  # `minor === 12.1`; upstream only relaxed it in 0d1a454e, unreleased), so
-  # `rea doctor` rejects the whole provider and the installCheck below flips
-  # the build red. Keep REA's audited pair — Ghidra 12.1.4 with the packaged
-  # JDK 21 — by taking that Ghidra from the previous pin, exactly like
-  # sigrokCli above: one cached FOD download, no second flake input, and the
-  # rest of nixpkgs keeps rolling. Drop this pin once REA ships a release that
-  # accepts 12.2 (that release also wants JAVA_HOME at JDK 25 or newer).
-  ghidraPin =
-    (import (builtins.fetchTarball {
-      url = "https://github.com/NixOS/nixpkgs/archive/5c9de89ec55bff981cb8da1a4ee92b10f1438ffc.tar.gz";
-      sha256 = "sha256-WDValiY9se78X2Wh7aWWaq/c7HN29U555+OKbHEzYrw=";
-    }) { system = stdenv.hostPlatform.system; }).ghidra;
+  # REA 6.9.0's `GhidraReleasePolicy` admits the verified 12.1.4 build plus any
+  # newer release on the same major (12.2 lands as "compatible" and records an
+  # unverified-build limitation), so the wrapper can use nixpkgs' Ghidra
+  # instead of the 12.1.4 pin this package carried for 6.8.0. Ghidra 12.2
+  # declares `application.java.min=25`, which is why JAVA_HOME is the JDK 25
+  # below; the jadx provider reads the same variable.
+  ghidraPin = ghidra;
 
   # node_modules/frida is a source package: its install script runs
   # prebuild-install (or make) to place the N-API binding, which npmFlags
@@ -100,14 +95,14 @@ let
 in
 buildNpmPackage rec {
   pname = "rea-agents";
-  version = "6.8.0";
+  version = "6.9.0";
 
   # Build the pinned upstream source tag; leave its package manifest and lockfile pristine.
   src = fetchFromGitHub {
     owner = "morluto";
     repo = "rea";
     rev = "refs/tags/rea-agents-${version}";
-    hash = "sha256-2ADn3U3lvUoB4tCEpzO0rMfYE4sis+5uBiEazcp0gpI=";
+    hash = "sha256-n96fXl7OKRIlQ/nKGBDjN8kT4RIr2atgrQAU379lsoQ=";
   };
 
   # REPO PATCH: re-pin REA's audited jadx-headless-mcp release to the version
@@ -148,14 +143,14 @@ buildNpmPackage rec {
   # Skip dependency lifecycle scripts: frida's installer attempts a toolchain
   # network download, and no locked Linux x86_64 dependency needs these scripts.
   npmFlags = [ "--ignore-scripts" ];
-  npmDepsHash = "sha256-3WPXD+qm5WVfrTEvepKwX5RZBfbLBcPB0uDmKIx4MR8=";
+  npmDepsHash = "sha256-xFNYn2vxfk8unZyJQ3YWOO3fFb3iJVU6Alav0A+TiSI=";
 
   env = {
     HUSKY = "0";
     TURBO_TELEMETRY_DISABLED = "1";
   };
 
-  # 6.8.0's `npm run compile` drives the Rust TypeScript compiler through
+  # `npm run compile` drives the Rust TypeScript compiler through
   # @tsrs/linux-x64-gnu, a prebuilt glibc executable whose interpreter is
   # /lib64/ld-linux-x86-64.so.2; exec fails with ENOENT inside the sandbox.
   # fixupPhase's autoPatchelfHook only runs after the build script, so patch
@@ -169,10 +164,16 @@ buildNpmPackage rec {
     autoPatchelf "$tsrsDir"
   '';
 
-  nodejs = nodejs_26;
+  # nodejs_26 (26.13.0) rejects `module.stripTypeScriptTypes(..., { mode:
+  # "transform" })` — Node 26 dropped that mode — and 6.9.0's
+  # `metadata:check`/verifier loaders require it, so take the lowest engine the
+  # package admits (`^22.23.4`): nixpkgs' nodejs_22 is exactly 22.23.4, while
+  # nodejs_24 is 24.21.0 and misses the ^24.22.1 floor.
+  nodejs = nodejs_22;
 
   nativeBuildInputs = [
     autoPatchelfHook
+    git
     makeWrapper
     procps
   ];
@@ -185,7 +186,7 @@ buildNpmPackage rec {
     find "$packageDir" -mindepth 1 -maxdepth 1 -print0 |
       while IFS= read -r -d $'\0' path; do
         case "''${path##*/}" in
-          dist|skills|bridge|scripts|native|third_party|licenses|node_modules|package.json|README.md|LICENSE|DISCLAIMER.md|THIRD_PARTY_NOTICES.md|install.sh)
+          dist|skills|bridge|scripts|native|third_party|licenses|node_modules|assets|package.json|README.md|LICENSE|DISCLAIMER.md|THIRD_PARTY_NOTICES.md|install.sh|mcp.json|npm-shrinkwrap.json|.claude-plugin|.codex-plugin|.cursor-plugin)
             ;;
           *)
             rm -rf "$path"
@@ -203,7 +204,7 @@ buildNpmPackage rec {
       echo "the locked dependency tree no longer contains frida; drop fridaBinding and the frida installCheck" >&2
       exit 1
     fi
-    lockedFridaVersion=$(${nodejs_26}/bin/node -p "require('$fridaDir/package.json').version")
+    lockedFridaVersion=$(${nodejs_22}/bin/node -p "require('$fridaDir/package.json').version")
     if [ "$lockedFridaVersion" != "${fridaVersion}" ]; then
       echo "locked frida is $lockedFridaVersion but fridaBinding pins ${fridaVersion}; update pkgs/rea-agents" >&2
       exit 1
@@ -251,7 +252,7 @@ buildNpmPackage rec {
         --set-default REA_WABT_BIN_DIRECTORY ${wabt}/bin \
         --set-default REA_WAKARU_COMMAND ${lib.getExe wakaru} \
         --set-default GHIDRA_INSTALL_DIR ${ghidraPin}/lib/ghidra \
-        --set-default JAVA_HOME ${jdk21_headless}
+        --set-default JAVA_HOME ${jdk25_headless}
     done
   '';
 
@@ -341,7 +342,10 @@ buildNpmPackage rec {
     }
     sys.stdout.buffer.write(encode(record))
     PY
-    printf '{"snapshot_path":"%s","reply_path":"%s","sensitive_values":["cookie"]}' \
+    # 6.9.0 requires the admitted capture budgets in the request document
+    # (src/browser/history/HistoricalCaptureDecoder.ts); the defaults are
+    # 32 MiB input, 96 MiB reply and 64 nesting levels.
+    printf '{"snapshot_path":"%s","reply_path":"%s","sensitive_values":["cookie"],"budgets":{"inputBytes":33554432,"outputBytes":100663296,"depth":64}}' \
       "$PWD/mitmproxy-check/capture.mitm" "$PWD/mitmproxy-check/reply.json" \
       > mitmproxy-check/request.json
     timeout 120 ${lib.getExe' mitmproxy "mitmdump"} --no-server -q \
@@ -389,7 +393,7 @@ buildNpmPackage rec {
     # Loading frida's binding is what every REA frida tool does first
     # (node_modules/frida/build/src/frida.js resolves build/frida_binding.node);
     # it catches a missing artifact and an unpatched loader path alike.
-    ${nodejs_26}/bin/node --input-type=module -e "
+    ${nodejs_22}/bin/node --input-type=module -e "
     await import('file://$out/lib/node_modules/rea-agents/node_modules/frida/build/src/frida.js');
     " || { echo "frida failed to load its N-API binding — update pkgs/rea-agents" >&2; exit 1; }
     echo "frida binding: ok"
