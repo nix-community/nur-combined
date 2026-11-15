@@ -9,17 +9,17 @@
 
 pkgs.stdenv.mkDerivation rec {
   pname = "torrserver";
-  version = "MatriX.147.1";
+  version = "MatriX.150";
 
   src = pkgs.fetchgit {
     url = "https://github.com/YouROK/TorrServer.git";
     rev = "${version}";
-    hash = "sha256-Sgspk0KYTHqcytno2cmASgJQjYzH+qX/yL+qeC8DuvA=";
+    hash = "sha256-d/uRWZWCz5aQpSNHDJM1vnLtNxAY0AXUCITWFHg99H8=";
   };
 
   yarnOfflineCache = pkgs.fetchYarnDeps {
     yarnLock = "${src}/web/yarn.lock";
-    hash = "sha256-nKBJv7QvaGEAFYtXZ/eBxe2vmBx5P06f4zWxmCTfMxE=";
+    hash = "sha256-rUtD3odq16t3obHdvByM0annfURbNqURhzGuhElAIYY=";
   };
 
   goModules = pkgs.buildGoModule.override { go = pkgs.go_1_26; } {
