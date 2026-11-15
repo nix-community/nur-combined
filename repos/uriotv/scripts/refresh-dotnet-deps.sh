@@ -13,10 +13,10 @@ DOTNET_DEPS=(
   "lantern-engine.launcher:pkgs/lantern-engine/deps.json"
 )
 
-# The .NET CLI keeps named-mutex and first-use state in $TMPDIR/.dotnet and
-# $HOME/.dotnet. On the persistent, DynamicUser-sandboxed runner a leftover
-# state fails with "cannot open the device or file: 'NuGet-Migrations'", so
-# every refresh gets a fresh private TMPDIR/HOME that is removed afterwards.
+# Every refresh gets a fresh private TMPDIR/HOME that is removed afterwards, so
+# no .NET CLI first-use state leaks between runs. (The runner's former
+# "cannot open the device or file: 'NuGet-Migrations'" failure had another
+# cause: see the NuGet migration marker in the package's postPatch.)
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 export DOTNET_NOLOGO=1 DOTNET_CLI_TELEMETRY_OPTOUT=1

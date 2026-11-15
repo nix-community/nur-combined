@@ -45,6 +45,15 @@ class DotnetPolicyTests(unittest.TestCase):
                 self.assertRegex(text, r"dotnet-sdk\s*=\s*dotnetCorePackages\.sdk_[0-9_a-z]+-bin\s*;")
                 self.assertRegex(text, r"dotnet-runtime\s*=\s*dotnetCorePackages\.runtime_[0-9_]+-bin\s*;")
 
+    def test_fetch_deps_never_needs_the_nuget_migration_mutex(self):
+        # .NET 8 places named-mutex files under the passwd home, which is "/" for
+        # the CI runner's DynamicUser: the migration marker must exist up front.
+        for nix in dotnet_package_files():
+            text = nix.read_text()
+            with self.subTest(file=str(nix.relative_to(ROOT))):
+                self.assertIn('if [[ -w "$HOME" ]]; then', text)
+                self.assertIn(': > "$HOME/.local/share/NuGet/Migrations/1"', text)
+
     def test_flake_update_refreshes_locks_in_the_same_pr(self):
         text = WORKFLOW.read_text()
         update = text.index("run: nix flake update")

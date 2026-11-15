@@ -15,6 +15,18 @@ buildDotnetModule {
   patches = [ ./writable-data.patch ];
   # Nix owns updates: never replace the source-built engine with release binaries.
   postPatch = ''
+    # fetch-deps runs with a fresh, writable $HOME. The first .NET 8 CLI call then
+    # runs NuGet's one-time migration under a named mutex, and .NET 8 places named
+    # mutex files under the passwd home directory, not $HOME. A systemd DynamicUser
+    # (the CI runner) has home "/" on a read-only root, so the mutex cannot be
+    # created ("The system cannot open the device or file specified :
+    # 'NuGet-Migrations'"). The migration only fixes permissions of NuGet folders
+    # from older releases, which a fresh $HOME does not have: mark it done so the
+    # mutex is never needed. Sandbox builds have no writable $HOME and skip this.
+    if [[ -w "$HOME" ]]; then
+      mkdir -p "$HOME/.local/share/NuGet/Migrations"
+      : > "$HOME/.local/share/NuGet/Migrations/1"
+    fi
     substituteInPlace launcher/windows/LanternLauncher/MainWindow.cs \
       --replace-fail 'Title = "Lantern Engine";' 'Title = "Nix build based on Lantern Engine";' \
       --replace-fail 'new Run("Lantern Engine")' 'new Run("Nix build based on Lantern Engine")'
