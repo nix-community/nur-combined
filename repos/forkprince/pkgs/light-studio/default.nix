@@ -1,7 +1,7 @@
 {
   stdenvNoCC,
   fetchurl,
-  undmg,
+  _7zz,
   lib,
 }: let
   ver = lib.helper.read ./version.json;
@@ -24,7 +24,7 @@ in
     stdenvNoCC.mkDerivation (lib.helper.mkDarwin {
       inherit pname version src meta;
 
-      nativeBuildInputs = [undmg];
+      nativeBuildInputs = [_7zz];
     })
   else
     lib.helper.mkAppImage {
