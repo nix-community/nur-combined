@@ -8,17 +8,17 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "brush";
-  version = "0.4.0-unstable-2026-11-09";
+  version = "0.4.0-unstable-2026-11-14";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "reubeno";
     repo = "brush";
-    rev = "8adb6bc06815c34ccf6503902f6f292e04b1cbba";
-    hash = "sha256-wTcf3HTPkvph7hTXzpq4SXDXAiwr8RW3oRYZFlD6gaQ=";
+    rev = "6a688f192455f65ece4cfd7dd26300d06804d5ae";
+    hash = "sha256-TulrninEvQqRS0N5NacY+VPJP75miF64R8nc5LuHzB0=";
   };
 
-  cargoHash = "sha256-fQAYgQzB2okri3wglygjlp2/8L8izBAXV0WXyzPOFKQ=";
+  cargoHash = "sha256-vktxuwhYRNOGwHePIJmWZLOq13u2EIeIh02ZK78CvsA=";
 
   postPatch = ''
     rm brush-shell/tests/compat_tests.rs

@@ -8,17 +8,17 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "quarry";
-  version = "0-unstable-2026-11-04";
+  version = "0-unstable-2026-11-13";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "amutable-systems";
     repo = "quarry";
-    rev = "b055d7453d68ac2a84c5c73026f844ab5506b9b5";
-    hash = "sha256-DQWgGu6cuVSDUFlKZMSDMI9J4LJUisl3fED16utOniE=";
+    rev = "246d54407417f0844e1344cd421eda6d2f4fdcb6";
+    hash = "sha256-c5rly0thycdMSaDBTZ4iuGx43wI13GutyV/ub3JRONM=";
   };
 
-  vendorHash = "sha256-fKMoHjUXM1fEcl+EYyDnpz/CPIIa3nHOmkfJ3GirQNc=";
+  vendorHash = "sha256-/IcrtYF84Y55HSe/Slm1f0/aBbzPQ9TjzgCT6CxOihk=";
 
   nativeBuildInputs = [
     pkg-config
