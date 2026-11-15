@@ -27,13 +27,13 @@ jobs:
         uses: NixOS/nix-installer-action@v1
 
       - name: Use niks3 as a substituter
-        uses: Mic92/niks3-action@01820a2b97ac01531ad9fb859db94af63ffcbd83 # v1.10.0
+        uses: Mic92/niks3-action@v1.10.0
         with:
           server-url: https://niks3-api.tsubasa.moe
           skip-push: true
 
       - name: Build and cache outputs
-        uses: merrkry/niks3-build-action@0a9ea9faad7933de3d7237b940a9421bff541abb # v0.1.0
+        uses: merrkry/niks3-build-action@v0.1.0
         with:
           server-url: https://niks3-api.tsubasa.moe
           flake: .#buildJobs.x86_64-linux
