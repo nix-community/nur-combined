@@ -23,13 +23,13 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "waydroid-script";
-  version = "0-unstable-2026-09-11";
+  version = "0-unstable-2026-11-14";
 
   src = fetchFromGitHub {
     owner = "casualsnek";
     repo = "waydroid_script";
-    rev = "48dbfaf34a6ddbe78688c530f9ba1c26522aafb2";
-    hash = "sha256-UBbnYhiRCf4sMwpEDMlpJuTEsN66B2hZ8BPz6cCGXAc=";
+    rev = "4a50dabd97fcb632a608b1421105258862a5b994";
+    hash = "sha256-J6IMebq5WLRXHi9zV7wWX91JQkVVKevE1NfRm84Iids=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
