@@ -5,14 +5,11 @@ buildDotnetModule {
   projectFile = "launcher/windows/LanternLauncher/LanternLauncher.csproj";
   nugetDeps = ./deps.json;
   # Binary SDK/runtime: the source-built .NET 8 SDK at the current pin exceeds CI's time limit.
-  # deps.json already pins every RID pack the offline restore needs, so keep the
-  # binary SDK without its own target packs. Otherwise, whenever nixpkgs ships the
-  # same .NET patch level as the lock, the SDK and the lock both provide the same
-  # package id/version and configureNuget fails to link it twice into the fallback
-  # folder ("ln: failed to create symbolic link ...: File exists").
-  dotnet-sdk = dotnetCorePackages.sdk_8_0-bin // {
-    packages = [ ];
-  };
+  # deps.json must be exactly what `fetch-deps` writes: it leaves out every pack the
+  # SDK already ships. A hand-kept lock that also pins those packs collides with the
+  # SDK in configureNuget ("ln: failed to create symbolic link ...: File exists")
+  # as soon as nixpkgs ships the same .NET patch level.
+  dotnet-sdk = dotnetCorePackages.sdk_8_0-bin;
   dotnet-runtime = dotnetCorePackages.runtime_8_0-bin;
   # The engine is read-only; validate and log in BB_DATA_DIR / BB_OUT_DIR instead.
   patches = [ ./writable-data.patch ];

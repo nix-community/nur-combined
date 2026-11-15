@@ -71,6 +71,7 @@ backup_root=$(mktemp -d)
 # version bump with "opening file /nix/store/...-source: No such file or directory".
 # Without `.git` the copy is a plain path flake, which nix does materialize.
 work_copy=$(mktemp -d)
+mkdir "$work_copy/tree"
 trap 'rm -rf "$backup_root" "$work_copy"' EXIT
 
 run_update() {
@@ -144,8 +145,30 @@ else
 fi
 [[ ${#scripts[@]} -gt 0 ]] || { echo '::error::No packages discovered'; exit 1; }
 
-tar -C "$repo_root" --exclude=.git -cf - . | tar -C "$work_copy" -xf -
-cd "$work_copy"
+tar -C "$repo_root" --exclude=.git -cf - . | tar -C "$work_copy/tree" -xf -
+
+# nix-update still asks git for the pending diff of the file it edits ("git diff --
+# <file>", to recover the old version of an already bumped package) and crashes
+# outside a repository. Answer exactly that question from the checkout's history,
+# with the copy as the work tree; every other git call (ls-remote, clone,
+# nix-prefetch-git) reaches the real git untouched. Read-only: no index refresh.
+if real_git=$(command -v git) &&
+   git_dir=$(git -C "$repo_root" rev-parse --absolute-git-dir 2> /dev/null); then
+  mkdir "$work_copy/bin"
+  {
+    echo '#!/usr/bin/env bash'
+    printf 'real_git=%q\ngit_dir=%q\nwork_tree=%q\n' "$real_git" "$git_dir" "$work_copy/tree"
+    # shellcheck disable=SC2016 # expanded by the shim, not here
+    echo 'if [[ "${1:-}" == diff && "$PWD/" == "$work_tree"/* ]]; then
+  exec env GIT_OPTIONAL_LOCKS=0 "$real_git" --git-dir="$git_dir" --work-tree="$work_tree" "$@"
+fi
+exec "$real_git" "$@"'
+  } > "$work_copy/bin/git"
+  chmod +x "$work_copy/bin/git"
+  PATH="$work_copy/bin:$PATH"
+fi
+
+cd "$work_copy/tree"
 for script in "${scripts[@]}"; do
   run_update "$script"
 done
@@ -153,7 +176,7 @@ done
 # Publish the updaters' results back into the checkout; the git-based steps
 # (revert, PR creation) work on that tree.
 cd "$repo_root"
-for directory in "$work_copy"/pkgs/*/; do
+for directory in "$work_copy"/tree/pkgs/*/; do
   name=$(basename "${directory%/}")
   if ! diff -rq "$directory" "pkgs/$name" > /dev/null 2>&1; then
     rm -rf -- "pkgs/$name"

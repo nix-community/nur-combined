@@ -12,7 +12,10 @@ strict-Bash updater, then runs:
 - `update-workflow.py`: RimSort release/asset selection, mocked nix-update,
   package-directory rollback, partial failures, counters, missing-updater
   preflight, empty discovery, ScopeBuddy's version-linked tag and the git-less
-  work copy the updaters run in (changes are copied back).
+  work copy the updaters run in (changes are copied back, `git diff` of an
+  edited file still answers).
+- `refresh-update-prs.py`: which updater workflows are re-dispatched for open
+  update PRs after a push to `main`, and the workflow's trust/permissions.
 - `revert-updates.py`: throwaway git repo plus stubbed Nix; only the update that
   does not build is reverted (tracked edits and new files), out-of-band packages
   are left alone, a toolchain bootstrap plan is reverted without building, an

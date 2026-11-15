@@ -108,8 +108,11 @@ full package build must pass; `main` is protected for administrators too.
 `scripts/refresh-dotnet-deps.sh`. The lock-update PR regenerates their
 `deps.json` for the new SDK automatically. A package must survive any nixpkgs
 .NET state: it drops upstream's exact SDK pin (nixpkgs may pin a release
-candidate of the required band) and, when `deps.json` already pins the RID
-packs, it drops the duplicate target packs the binary SDK would add. CI rejects
+candidate of the required band) and keeps `deps.json` exactly as `fetch-deps`
+writes it, with the SDK used as shipped: `fetch-deps` leaves out the packs that
+SDK already provides, so a hand-edited lock or an SDK with overridden packs
+breaks either `configureNuget` (duplicate pack) or the offline restore (missing
+pack). CI rejects
 in seconds any build plan that would compile a compiler or SDK from source
 (`scripts/check-build-plan.py`);
 only a manual dispatch with `allow_heavy_builds` overrides it.
@@ -174,9 +177,18 @@ Package updates are per package in the same way — one pull request per package
 Updaters run in a git-less copy of the tree and only their changes are copied back:
 `nix-update` re-evaluates the flake from a store copy, and nix 2.35.6 materializes
 that copy only for a plain path flake, not for a git flake (it fails with
-`opening file /nix/store/...-source: No such file or directory`). A run with a
-failing updater stays green: the package keeps the version on `main`, the summary
-lists it, and the next run retries it.
+`opening file /nix/store/...-source: No such file or directory`). Inside the copy,
+`git diff -- <file>` (which `nix-update` runs on the file it edits) is answered from
+the checkout's history; every other git command is the real one.
+
+A failing updater blocks nothing: the other updates already have their pull
+requests. The run still ends red, so a package that silently stopped updating is
+noticed; it keeps the version on `main` and the next run retries it.
+
+`main` only merges pull requests that are up to date, so each merged update leaves
+the other open update PRs behind. `refresh-update-prs.yml` then re-dispatches the
+updater (and the lock update, if its PR is open) on every push to `main` while such
+PRs exist; they are rebuilt on the new base and merge one after another.
 
 Public cache misses can still lead consumers to build locally; Cachix
 retention/availability and differing consumer nixpkgs are not guaranteed.

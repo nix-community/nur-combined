@@ -5,7 +5,9 @@ name: "Update flake.lock"
 # and the build and kernel workflows then republish the new state.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  # Never cancel a run that is pushing branches or opening pull requests; a newer
+  # request (schedule, manual, refresh after a merge) waits for it instead.
+  cancel-in-progress: false
 
 on:
   schedule:

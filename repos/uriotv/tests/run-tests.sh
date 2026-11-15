@@ -164,6 +164,7 @@ main() {
     python3 -B "$SCRIPT_DIR/update-workflow.py"
     python3 -B "$SCRIPT_DIR/revert-updates.py"
     python3 -B "$SCRIPT_DIR/open-update-prs.py"
+    python3 -B "$SCRIPT_DIR/refresh-update-prs.py"
     python3 -B "$SCRIPT_DIR/ci-workflow.py"
     python3 -B "$SCRIPT_DIR/storyforge-update.py"
     python3 -B "$SCRIPT_DIR/storyforge-compatibility.py"

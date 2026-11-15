@@ -1,0 +1,37 @@
+name: "Refresh update pull requests"
+
+# main requires pull requests to be up to date before merging. When one automatic
+# update merges, every other open update PR falls behind and its auto-merge would
+# wait for the next scheduled run. Re-running the updater right away rebuilds those
+# PRs on the new main (and resolves README row conflicts), so they merge one after
+# another instead of one per day.
+#
+# Never runs PR code: it only dispatches workflows of the default branch.
+on:
+  push:
+    branches: [main]
+
+permissions: {}
+
+concurrency:
+  group: refresh-update-prs
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: [self-hosted, nixos, cachix-builder]
+    timeout-minutes: 10
+    permissions:
+      actions: write
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup-runner-tools
+      - name: Re-run the updaters for pull requests left behind
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: bash scripts/refresh-update-prs.sh
