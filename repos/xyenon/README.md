@@ -141,7 +141,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>magpie</code></strong> — Manage models, providers, and accounts for AI coding agents in one place</summary>
 
-- **Version:** `0.1.4226`
+- **Version:** `0.1.4259`
 - **License:** MIT
 - **Homepage:** [https://github.com/yetone/magpie](https://github.com/yetone/magpie)
 - **Build:** `nix build github:XYenon/nur-packages#magpie`
@@ -313,7 +313,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>catppuccin.kitty</code></strong> — 😽 Soothing pastel theme for Kitty</summary>
 
-- **Version:** `0-unstable-2026-01-16`
+- **Version:** `0-unstable-2026-11-15`
 - **License:** MIT
 - **Homepage:** [https://github.com/catppuccin/kitty](https://github.com/catppuccin/kitty)
 - **Build:** `nix build github:XYenon/nur-packages#catppuccin.kitty`

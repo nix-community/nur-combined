@@ -36,15 +36,15 @@
   };
   catppuccin-kitty = {
     pname = "catppuccin-kitty";
-    version = "43098316202b84d6a71f71aaf8360f102f4d3f1a";
+    version = "177d447f0c3626959ef001b4605f5d844541fd63";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "kitty";
-      rev = "43098316202b84d6a71f71aaf8360f102f4d3f1a";
+      rev = "177d447f0c3626959ef001b4605f5d844541fd63";
       fetchSubmodules = false;
-      sha256 = "sha256-akRkdq8l2opGIg3HZd+Y4eky6WaHgKFQ5+iJMC1bhnQ=";
+      sha256 = "sha256-bAu8gkP8lIXmg1+4xh5kSt2WIFJ5rhxGssVn9pxcyww=";
     };
-    date = "2026-01-16";
+    date = "2026-11-15";
   };
   catppuccin-zsh-fsh = {
     pname = "catppuccin-zsh-fsh";
