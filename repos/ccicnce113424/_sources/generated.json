@@ -417,7 +417,7 @@
     "open-orpheus-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-Fw_spW1xAVF18tG3ub59D33Zoi8evfQD+UmOC9bqKo0=/Cargo.lock",
+                "sha256-bYwpy7ANQv_C1Rd6MIPxcZIExEIID811rozLdRaduxM=/Cargo.lock",
                 {
                     "avs3a-0.1.0": "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI=",
                     "font-kit-0.14.3": "sha256-1/5w7y6XhNNg7jRZmJazM188v6vWkdYHn+94WqmJpMg=",
@@ -425,7 +425,7 @@
                 }
             ]
         },
-        "date": "2026-11-11",
+        "date": "2026-11-14",
         "extract": null,
         "name": "open-orpheus-dev",
         "passthru": null,
@@ -437,12 +437,12 @@
             "name": null,
             "owner": "YUCLing",
             "repo": "open-orpheus",
-            "rev": "deee97667e522ee3bfdca24abbe044ba4aaf8f35",
-            "sha256": "sha256-Fw/spW1xAVF18tG3ub59D33Zoi8evfQD+UmOC9bqKo0=",
+            "rev": "af01ec4b43c039102f914403672da3d7c5a2a0f8",
+            "sha256": "sha256-bYwpy7ANQv/C1Rd6MIPxcZIExEIID811rozLdRaduxM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "deee97667e522ee3bfdca24abbe044ba4aaf8f35"
+        "version": "af01ec4b43c039102f914403672da3d7c5a2a0f8"
     },
     "pilinara": {
         "cargoLock": null,
@@ -471,7 +471,7 @@
         "cargoLock": null,
         "date": null,
         "extract": {
-            "pubspec.lock": "sha256-UuJ3kmYqXGZ9HOii1oCvecm12SNwjrnpOzvhnETSihA=/pubspec.lock"
+            "pubspec.lock": "sha256-IhW0TKDf7Pfr7zD65SEF3eXzKwrkvBLX+7XhWEyiyD8=/pubspec.lock"
         },
         "name": "piliplus",
         "passthru": null,
@@ -483,12 +483,12 @@
             "name": null,
             "owner": "bggRGjQaUbCoE",
             "repo": "PiliPlus",
-            "rev": "2.2.0.2",
-            "sha256": "sha256-UuJ3kmYqXGZ9HOii1oCvecm12SNwjrnpOzvhnETSihA=",
+            "rev": "2.2.1",
+            "sha256": "sha256-IhW0TKDf7Pfr7zD65SEF3eXzKwrkvBLX+7XhWEyiyD8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2.2.0.2"
+        "version": "2.2.1"
     },
     "pipewire-bluez5-lhdc-git": {
         "cargoLock": null,
