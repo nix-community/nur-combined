@@ -1,4 +1,4 @@
-{ lib, rustPlatform, fetchFromGitHub, installShellFiles }:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles, pkg-config, libgit2 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "dogma";
@@ -13,7 +13,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoLock.lockFile = ./Cargo.lock;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [ installShellFiles pkg-config ];
+
+  buildInputs = [ libgit2 ];
 
   doCheck = false;
 
