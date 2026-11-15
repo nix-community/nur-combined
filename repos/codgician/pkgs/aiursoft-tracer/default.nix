@@ -15,17 +15,17 @@ let
   src = fetchFromGitHub {
     owner = "AiursoftWeb";
     repo = "Tracer";
-    rev = "6d3468eb2fc3889d7e932e09c775beaa419973a1";
-    hash = "sha256-q4SBUxPKGelq1pE8oDVT2sBT5spPkn21peIB24GE4UE=";
+    rev = "5d9a16eebfcce6b8d0c0dd6b1630a63f3c945318";
+    hash = "sha256-nqWmsjpwe3iGayAlu2xR09ohOnujKLqrW5DNlcJjZzc=";
   };
 
-  version = "0-unstable-2026-11-08";
+  version = "0-unstable-2026-11-15";
 
   wwwroot = buildNpmPackage {
     pname = "${pname}-wwwroot";
     src = "${src}/src/Aiursoft.Tracer/wwwroot";
     inherit version;
-    npmDepsHash = "sha256-CHI5QxKf6Kr+i7L2z/OJoEWtJhtdMN1UfAh/y3v7EKI=";
+    npmDepsHash = "sha256-hHoFAeTabq9AiH5WVBBD+NGd/zmjbUYT+YN5M2jAlHY=";
     dontNpmBuild = true;
 
     # Upstream .npmrc (and sometimes package-lock.json) may point at Aiursoft's
