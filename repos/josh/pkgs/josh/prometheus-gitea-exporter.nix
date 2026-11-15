@@ -7,16 +7,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "prometheus-gitea-exporter";
-  version = "0.1.1";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "gitea_exporter";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-PkFkstNEcuuPTZN5si2oOiF+F6oSZIaQDhbb2r8dhUY=";
+    hash = "sha256-hmPp1TEev/4yXT5Lz5cno3hSbA24z7Y3vfqm4FK0qZk=";
   };
 
-  vendorHash = "sha256-i5GRTFM5kvMWfPp99ji717Lt19Gtw8ttDxbJ3yn/K3I=";
+  vendorHash = "sha256-+WzdK7LjCjaGlZezhCuf4RzGeob9qKlahNyN9YvzhQ4=";
 
   env.CGO_ENABLED = 0;
   ldflags = [
