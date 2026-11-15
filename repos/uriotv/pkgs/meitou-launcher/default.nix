@@ -1,12 +1,12 @@
 { lib, buildDotnetModule, dotnetCorePackages, fetchFromGitHub, buildFHSEnv, makeDesktopItem,
   copyDesktopItems, stdenv, libGL, libx11, libxcursor, libxext, libxi, libxrandr, libice, libsm, fontconfig, freetype, openal, libvpx, zlib }:
 let
-  version = "1.10.0";
+  version = "1.12.0";
   src = fetchFromGitHub {
     owner = "VlcekM";
     repo = "MeitouClient";
     rev = "launcher-v${version}";
-    hash = "sha256-vx0HpriCnYURfTTYM7t1WfNXwtJ0nM6Wrovk4R8bw0E=";
+    hash = "sha256-vIm75pXPyU2vVUwCi9hs/sNVPZkW6xMiBrrJ+6B9fTc=";
   };
   launcher = buildDotnetModule {
     pname = "meitou-launcher-unwrapped";
