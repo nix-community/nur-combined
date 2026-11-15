@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<style-scheme id="coq_style_dark" _name="Coq style (dark)"
+              parent-scheme="oblivion" version="1.0">
+<author>nurpkgs3 (RocqIDE Plasma dark defaults)</author>
+<_description>Dark Coq/Ssreflect scheme based on Oblivion for Plasma/GTK dark mode</_description>
+
+<style name="coq:comment" foreground="#c4a000"/>
+<style name="coq:coqdoc" foreground="#c4a000" italic="true"/>
+<style name="coq:vernac-keyword" bold="true" foreground="#ad7fa8"/>
+<style name="coq:gallina-keyword" bold="true" foreground="#fcaf3e"/>
+<style name="coq:identifier" foreground="#729fcf"/>
+<style name="coq:constr-keyword" foreground="#8ae234"/>
+<style name="coq:constr-sort" foreground="#34e2e2"/>
+
+<style name="coq-ssreflect:comment" foreground="#ef2929"/>
+<style name="coq-ssreflect:coqdoc" foreground="#ef2929" italic="true"/>
+<style name="coq-ssreflect:vernac-keyword" bold="true" foreground="#ad7fa8"/>
+<style name="coq-ssreflect:gallina-keyword" bold="true" foreground="#ad7fa8"/>
+<style name="coq-ssreflect:identifier" bold="true" foreground="#729fcf"/>
+<style name="coq-ssreflect:constr-keyword" foreground="#8ae234"/>
+<style name="coq-ssreflect:constr-sort" foreground="#8ae234"/>
+<style name="coq-ssreflect:tactic" foreground="#729fcf"/>
+<style name="coq-ssreflect:endtactic" foreground="#ef2929"/>
+<style name="coq-ssreflect:iterator" foreground="#ad7fa8"/>
+<style name="coq-ssreflect:string" foreground="#fcaf3e"/>
+</style-scheme>

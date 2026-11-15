@@ -51,11 +51,11 @@ let
   };
   dragonbox = fetchurl {
     url = "https://chromium.googlesource.com/external/github.com/jk-jeon/dragonbox/+archive/beeeef91cf6fef89a4d4ba5e95d47ca64ccb3a44/include.tar.gz";
-    hash = "sha256-1IELvboD1zelDSLz7Gr7Sj/c2thxcGuM5WfCPV3JP4U=";
+    hash = "sha256-28EnYxl+qukWms1rpVzjHvp7ZgqmlV0ww+vf2FIIvjE=";
   };
   fastFloat = fetchurl {
     url = "https://chromium.googlesource.com/external/github.com/fastfloat/fast_float/+archive/42f254836ee416ffcf2f4e6576260003ac33d48c/include.tar.gz";
-    hash = "sha256-KPsxZk2LuMXudjL/KN+ebN2qar5oKI1wT4NmuOUp5sU=";
+    hash = "sha256-eKWjngdP5i7dY04DoT7HyjcZ8LAnozeyjpBe+WWSkPY=";
   };
 in
 mkCutefishDerivation {

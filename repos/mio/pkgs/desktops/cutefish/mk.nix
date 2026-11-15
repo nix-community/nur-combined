@@ -9,6 +9,7 @@
   ninja,
   pkg-config,
   gettext,
+  callPackage,
 }:
 let
   sources = import ./sources.nix;
@@ -23,6 +24,7 @@ in
   extraBuildInputs ? [ ],
   extraCmakeFlags ? [ ],
   meta ? { },
+  passthru ? { },
   ...
 }@args:
 let
@@ -35,6 +37,7 @@ let
     "extraBuildInputs"
     "extraCmakeFlags"
     "meta"
+    "passthru"
     "pname"
     "version"
     "src"
@@ -82,6 +85,10 @@ stdenv.mkDerivation (
       (lib.cmakeFeature "CMAKE_INSTALL_SYSCONFDIR" "${placeholder "out"}/etc")
     ]
     ++ extraCmakeFlags;
+
+    passthru = passthru // {
+      updateScript = callPackage ./update.nix { inherit pname; };
+    };
 
     meta = {
       homepage = "https://cutefish.org/";

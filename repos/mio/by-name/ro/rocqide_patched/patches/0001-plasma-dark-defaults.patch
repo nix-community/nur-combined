@@ -1,0 +1,120 @@
+--- a/ide/rocqide/preferences.ml
++++ b/ide/rocqide/preferences.ml
+@@ -8,6 +8,15 @@
+ (*         *     (see LICENSE file for the text of the license)         *)
+ (************************************************************************)
+ 
++(* Set by the packaging wrapper from the desktop color-scheme preference
++   (KDE Plasma / xdg-desktop-portal). Used only for built-in defaults when
++   the user has no coqiderc yet; an existing config always wins. *)
++let prefer_dark =
++  match Sys.getenv_opt "ROCQIDE_PREFER_DARK" with
++  | Some ("1" | "true" | "yes") -> true
++  | Some ("0" | "false" | "no") -> false
++  | Some _ | None -> false
++
+ let lang_manager = GSourceView3.source_language_manager ~default:true
+ let () = lang_manager#set_search_path
+   ((Minilib.rocqide_data_dirs ())@lang_manager#search_path)
+@@ -281,7 +290,9 @@
+   new preference ~name:["source_language"] ~init:"coq" ~repr:Repr.(string)
+ 
+ let source_style =
+-  new preference ~name:["source_style"] ~init:"coq_style" ~repr:Repr.(string)
++  new preference ~name:["source_style"]
++    ~init:(if prefer_dark then "coq_style_dark" else "coq_style")
++    ~repr:Repr.(string)
+ 
+ let global_auto_reload =
+   new preference ~name:["global_auto_reload"] ~init:false ~repr:Repr.(bool)
+@@ -503,41 +514,58 @@
+   let iter (name, tag) = create_tag name tag in
+   List.iter iter [
+     ("constr.evar", make_tag ());
+-    ("constr.keyword", make_tag ~fg:"dark green" ());
++    ("constr.keyword",
++      make_tag ~fg:(if prefer_dark then "#8ae234" else "dark green") ());
+     ("constr.notation", make_tag ());
+     ("constr.path", make_tag ());
+-    ("constr.reference", make_tag ~fg:"navy"());
+-    ("constr.type", make_tag ~fg:"#008080" ());
++    ("constr.reference",
++      make_tag ~fg:(if prefer_dark then "#729fcf" else "navy") ());
++    ("constr.type",
++      make_tag ~fg:(if prefer_dark then "#34e2e2" else "#008080") ());
+     ("constr.variable", make_tag ());
+     ("message.debug", make_tag ());
+     ("message.error", make_tag ());
+     ("message.warning", make_tag ());
+-    ("message.prompt", make_tag ~fg:"green" ());
+-    ("module.definition", make_tag ~fg:"orange red" ~bold:true ());
++    ("message.prompt",
++      make_tag ~fg:(if prefer_dark then "#8ae234" else "green") ());
++    ("module.definition",
++      make_tag ~fg:(if prefer_dark then "#fcaf3e" else "orange red") ~bold:true ());
+     ("module.keyword", make_tag ());
+     ("tactic.keyword", make_tag ());
+     ("tactic.primitive", make_tag ());
+     ("tactic.string", make_tag ());
+-    ("diff.added", make_tag ~bg:"#b6f1c0" ~underline:true ());
+-    ("diff.removed", make_tag ~bg:"#f6b9c1" ~strikethrough:true ());
+-    ("diff.added.bg", make_tag ~bg:"#e9feee" ());
+-    ("diff.removed.bg", make_tag ~bg:"#fce9eb" ());
++    ("diff.added",
++      make_tag ~bg:(if prefer_dark then "#2d4a22" else "#b6f1c0") ~underline:true ());
++    ("diff.removed",
++      make_tag ~bg:(if prefer_dark then "#5c2a2a" else "#f6b9c1") ~strikethrough:true ());
++    ("diff.added.bg",
++      make_tag ~bg:(if prefer_dark then "#1e3320" else "#e9feee") ());
++    ("diff.removed.bg",
++      make_tag ~bg:(if prefer_dark then "#3a1e20" else "#fce9eb") ());
+   ]
+ 
+ let processed_color =
+-  new preference ~name:["processed_color"] ~init:"light green" ~repr:Repr.(string)
++  new preference ~name:["processed_color"]
++    ~init:(if prefer_dark then "#2d4a22" else "light green")
++    ~repr:Repr.(string)
+ 
+ let _ = attach_bg processed_color Tags.Script.processed
+ let _ = attach_bg processed_color Tags.Proof.highlight
+ 
+ let processing_color =
+-  new preference ~name:["processing_color"] ~init:"light blue" ~repr:Repr.(string)
++  new preference ~name:["processing_color"]
++    ~init:(if prefer_dark then "#1a3a5c" else "light blue")
++    ~repr:Repr.(string)
+ 
+ let incompletely_processed_color =
+-  new preference ~name:["incompletely_processed_color"] ~init:"light sky blue" ~repr:Repr.(string)
++  new preference ~name:["incompletely_processed_color"]
++    ~init:(if prefer_dark then "#1a4a5c" else "light sky blue")
++    ~repr:Repr.(string)
+ 
+ let unjustified_conclusion_color =
+-  new preference ~name:["unjustified_conclusion_color"] ~init:"gold" ~repr:Repr.(string)
++  new preference ~name:["unjustified_conclusion_color"]
++    ~init:(if prefer_dark then "#5c4a1a" else "gold")
++    ~repr:Repr.(string)
+ 
+ let _ = attach_bg processing_color Tags.Script.to_process
+ let _ = attach_bg incompletely_processed_color Tags.Script.incomplete
+@@ -558,12 +586,16 @@
+ let _ = attach_fg white Tags.Script.debugging
+ 
+ let error_color =
+-  new preference ~name:["error_color"] ~init:"#FFCCCC" ~repr:Repr.(string)
++  new preference ~name:["error_color"]
++    ~init:(if prefer_dark then "#5c2a2a" else "#FFCCCC")
++    ~repr:Repr.(string)
+ 
+ let _ = attach_bg error_color Tags.Script.error_bg
+ 
+ let error_fg_color =
+-  new preference ~name:["error_fg_color"] ~init:"red" ~repr:Repr.(string)
++  new preference ~name:["error_fg_color"]
++    ~init:(if prefer_dark then "#ff6b6b" else "red")
++    ~repr:Repr.(string)
+ 
+ let _ = attach_fg error_fg_color Tags.Script.error
+ 
