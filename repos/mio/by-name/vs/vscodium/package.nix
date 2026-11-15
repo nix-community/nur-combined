@@ -171,6 +171,19 @@ let
           done
         done
 
+        # The macOS policy watcher sends `&updatedPolicies[0]` even when no
+        # managed preferences exist, which leaves the vector empty (NotSet
+        # policies are never collected). Taking the address of element 0 of an
+        # empty vector is undefined behaviour, and libc++'s hardening turns it
+        # into a trap, so the app died at startup in PolicyWatcher::Execute.
+        for pw_cc in $(find node_modules -path '*/@vscode/policy-watcher/src/macos/PolicyWatcher.cc'); do
+          if grep -q '&updatedPolicies\[0\]' "$pw_cc"; then
+            substituteInPlace "$pw_cc" \
+              --replace-fail 'progress.Send(&updatedPolicies[0], updatedPolicies.size());' \
+                             'progress.Send(updatedPolicies.data(), updatedPolicies.size());'
+          fi
+        done
+
         npm rebuild --legacy-peer-deps
         patchShebangs node_modules
 
