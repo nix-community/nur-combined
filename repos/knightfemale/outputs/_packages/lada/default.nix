@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   buildPythonPackage,
   fetchFromGitHub,
@@ -27,9 +28,10 @@
   torchvision,
   tqdm,
   ultralytics,
+  ultralytics-thop,
   wcwidth,
   wrapGAppsHook3,
-  modelWeights ? null,
+  cudaSupport ? config.cudaSupport,
 }:
 
 let
@@ -42,16 +44,26 @@ let
     hash = "sha256-9ZIGg7OhAOvt/6iyaVlpqMmiRjooVBe9KP7ly2wX8FQ=";
   };
 
+  # Keep torch, torchvision and ultralytics on the same torch variant.
+  # Ultralytics has its own torch/torchvision inputs;
+  # overriding only lada's dependencies would otherwise pull a second,
+  # CPU-only torch into the closure.
+  finalTorch = if cudaSupport then torch.override { inherit cudaSupport; } else torch;
+  finalTorchvision =
+    if cudaSupport then torchvision.override { torch = finalTorch; } else torchvision;
+  finalUltralyticsThop = ultralytics-thop.override { torch = finalTorch; };
   # Lada's inference code uses Ultralytics internals,
   # and upstream ships this patch to keep NMS from timing out on long videos.
   # It applies cleanly to the 8.4.x series, including nixpkgs' current 8.4.51.
-  ultralyticsPatched = ultralytics.overridePythonAttrs (old: {
-    patches = (old.patches or [ ]) ++ [ "${src}/patches/increase_mms_time_limit.patch" ];
-  });
-
-  modelWrapperArg = lib.optionalString (
-    modelWeights != null
-  ) "--set-default LADA_MODEL_WEIGHTS_DIR ${lib.escapeShellArg (toString modelWeights)}";
+  finalUltralytics =
+    (ultralytics.override {
+      torch = finalTorch;
+      torchvision = finalTorchvision;
+      ultralytics-thop = finalUltralyticsThop;
+    }).overridePythonAttrs
+      (old: {
+        patches = (old.patches or [ ]) ++ [ "${src}/patches/increase_mms_time_limit.patch" ];
+      });
 in
 buildPythonPackage (finalAttrs: {
   pname = "lada";
@@ -88,6 +100,9 @@ buildPythonPackage (finalAttrs: {
 
   dependencies = [
     av
+    finalTorch
+    finalTorchvision
+    finalUltralytics
     mmengine
     numpy
     opencv4
@@ -96,10 +111,7 @@ buildPythonPackage (finalAttrs: {
     pygobject3
     requests
     termcolor
-    torch
-    torchvision
     tqdm
-    ultralyticsPatched
     wcwidth
   ];
 
@@ -136,7 +148,6 @@ buildPythonPackage (finalAttrs: {
       }
       --set-default LOCALE_DIR "$out/share/lada/locale"
       --set-default YOLO_OFFLINE True
-      ${modelWrapperArg}
     )
   '';
 

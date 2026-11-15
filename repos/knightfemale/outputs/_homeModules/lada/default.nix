@@ -7,109 +7,157 @@
 let
   cfg = config.programs.lada;
 
-  # Defaults match Lada's CLI defaults.
-  # Model files are placed directly in the generated model directory;
-  # a model whose name contains a relative path (for example "3rd_party/clean_youknow_video.pth") is placed in that subdirectory.
-  defaultModels = [
-    {
-      name = "lada_mosaic_detection_model_v4_fast.pt";
-      url = "https://huggingface.co/ladaapp/lada/resolve/main/lada_mosaic_detection_model_v4_fast.pt?download=true";
-      hash = "sha256-mmtmDR0+N5fTlRXgiw5y/MWYFfOCefqnpKs3SrLB47Q=";
-    }
-    {
-      name = "lada_mosaic_restoration_model_generic_v1.2.pth";
-      url = "https://huggingface.co/ladaapp/lada/resolve/main/lada_mosaic_restoration_model_generic_v1.2.pth?download=true";
-      hash = "sha256-1AQVJXbOZPtbLzFcAwYnCdrE9fhUiTSGbNAcgjyBBO4=";
-    }
-  ];
+  jsonFormat = pkgs.formats.json { };
 
-  modelType = lib.types.submodule {
-    options = {
-      name = lib.mkOption {
-        type = lib.types.str;
-        description = ''
-          File name relative to the model directory.  A relative subdirectory
-          is allowed, e.g. `3rd_party/clean_youknow_video.pth` for the
-          DeepMosaics restoration model.
-        '';
-      };
-
-      url = lib.mkOption {
-        type = lib.types.str;
-        description = "Download URL of the model file.";
-      };
-
-      hash = lib.mkOption {
-        type = lib.types.str;
-        description = "SRI hash of the model file, e.g. `sha256-...`.";
-      };
-    };
-  };
-
-  modelDrvs = map (
-    model:
-    pkgs.fetchurl {
-      name = baseNameOf model.name;
-      inherit (model) url hash;
-    }
-  ) cfg.models;
-
-  modelWeights =
-    if cfg.models == [ ] then
-      null
+  package =
+    if cfg.acceleration == "cuda" then
+      cfg.package.override { cudaSupport = true; }
+    else if cfg.acceleration == false then
+      cfg.package.override { cudaSupport = false; }
     else
-      pkgs.linkFarm "lada-model-weights" (
-        lib.zipListsWith (model: drv: {
-          name = model.name;
-          path = drv;
-        }) cfg.models modelDrvs
-      );
+      cfg.package;
 
-  ladaPackage = cfg.package.override { inherit modelWeights; };
+  models = pkgs.linkFarm "lada-models" (
+    map (m: {
+      inherit (m) name;
+      path = pkgs.fetchurl {
+        name = baseNameOf m.name;
+        inherit (m) url hash;
+      };
+    }) cfg.models
+  );
 in
 {
   options.programs.lada = {
-    enable = lib.mkEnableOption "Lada, a video mosaic removal and restoration tool";
+    enable = lib.mkEnableOption "Lada";
 
     package = lib.mkPackageOption pkgs "lada" { };
 
-    models = lib.mkOption {
-      type = lib.types.listOf modelType;
-      default = defaultModels;
+    acceleration = lib.mkOption {
+      type = lib.types.nullOr (
+        lib.types.enum [
+          false
+          "cuda"
+        ]
+      );
+      default = null;
+      example = "cuda";
       description = ''
-        Model files fetched with `fetchurl` and linked into a read-only
-        directory passed to Lada through `LADA_MODEL_WEIGHTS_DIR`.
+        What interface to use for hardware acceleration.
 
-        The default contains Lada's CLI defaults: `v4-fast` detection and
-        `basicvsrpp-v1.2` restoration (about 84 MiB).  Set to `[ ]` to use
-        Lada's default `./model_weights` lookup instead.
+        - `null`: default behavior
+          - if `nixpkgs.config.cudaSupport` is enabled, uses `"cuda"`
+          - otherwise defaults to `false`
+        - `false`: disable GPU, only use CPU
+        - `"cuda"`: supported by most modern NVIDIA GPUs
       '';
+    };
+
+    models = lib.mkOption {
+      type = lib.types.listOf (
+        lib.types.submodule {
+          options = {
+            name = lib.mkOption {
+              type = lib.types.str;
+              description = ''
+                Path of the model file inside Lada's model directory.
+
+                For most models this is just the file name,
+                for example `lada_mosaic_detection_model_v4_fast.pt`.
+                DeepMosaics must use `3rd_party/clean_youknow_video.pth`,
+                because Lada looks for that model under `3rd_party/`.
+              '';
+            };
+
+            url = lib.mkOption {
+              type = lib.types.str;
+              description = ''
+                The download URL of the model file.
+                Pinned-resolve URLs (e.g. HuggingFace's `/resolve/<commit>/<file>`) are recommended to have a stable hash.
+              '';
+            };
+
+            hash = lib.mkOption {
+              type = lib.types.str;
+              example = lib.fakeHash;
+              description = ''
+                The SRI hash of the model file. Generate it with `nix-prefetch-url <url>`,
+                or set this to `lib.fakeHash`, build once and copy the hash from the error message.
+              '';
+            };
+          };
+        }
+      );
+      default = [ ];
       example = lib.literalExpression ''
         [
           {
-            name = "lada_mosaic_detection_model_v4_accurate.pt";
-            url = "https://huggingface.co/ladaapp/lada/resolve/main/lada_mosaic_detection_model_v4_accurate.pt?download=true";
-            hash = "sha256-wkTX5J2PiOJkuNwV+R+yH1kIrY+28wC3vIhGLQgBvB8=";
+            name = "lada_mosaic_detection_model_v4_fast.pt";
+            url = "https://huggingface.co/ladaapp/lada/resolve/main/lada_mosaic_detection_model_v4_fast.pt";
+            hash = "sha256-mmtmDR0+N5fTlRXgiw5y/MWYFfOCefqnpKs3SrLB47Q=";
           }
           {
-            name = "3rd_party/clean_youknow_video.pth";
-            url = "https://drive.usercontent.google.com/download?id=1ulct4RhRxQp1v5xwEmUH7xz7AK42Oqlw&export=download&confirm=t";
-            hash = "sha256-VkPKKXwTkguP/Tmg2FKW5JRoOmnl6CBNZiZT0kxYJ2Y=";
+            name = "lada_mosaic_restoration_model_generic_v1.2.pth";
+            url = "https://huggingface.co/ladaapp/lada/resolve/main/lada_mosaic_restoration_model_generic_v1.2.pth";
+            hash = "sha256-1AQVJXbOZPtbLzFcAwYnCdrE9fhUiTSGbNAcgjyBBO4=";
           }
         ]
+      '';
+      description = ''
+        Models to download and expose through `LADA_MODEL_WEIGHTS_DIR`.
+        The directory is read-only and lives in the Nix store;
+        Lada never writes to it.
+      '';
+    };
+
+    settings = lib.mkOption {
+      inherit (jsonFormat) type;
+      default = { };
+      description = ''
+        Lada GUI settings, merged into the writable JSON configuration at
+        `$XDG_CONFIG_HOME/lada/lada.conf` during Home Manager activation.
+
+        Lada owns this file and rewrites it when preferences change in the GUI.
+        Values declared here take precedence on activation,
+        while values not declared here are preserved.
+        Set to `{ }` (the default) to leave the configuration file entirely unmanaged.
+      '';
+      example = lib.literalExpression ''
+        {
+          color_scheme = "dark";
+          device = "cpu";
+        }
       '';
     };
 
     finalPackage = lib.mkOption {
       type = lib.types.package;
-      readOnly = true;
       internal = true;
-      description = "`package` with `models` linked in as `modelWeights`.";
+      readOnly = true;
+      default = package;
+      description = "The final Lada package which is being used.";
     };
   };
 
   config = lib.mkIf cfg.enable {
-    programs.lada.finalPackage = ladaPackage;
     home.packages = [ cfg.finalPackage ];
+
+    home.sessionVariables.LADA_MODEL_WEIGHTS_DIR = "${models}";
+
+    # Lada rewrites its config file at startup and when preferences change,
+    # so it must not be a read-only symlink into the Nix store.
+    # Merge the declared settings into the writable file instead of replacing it.
+    home.activation.ladaConfig = lib.mkIf (cfg.settings != { }) (
+      lib.hm.dag.entryAfter [ "linkGeneration" ] (
+        lib.hm.generators.mkImpureConfigMerger {
+          inherit pkgs;
+          format = "json";
+          empty = "{}";
+          jqOperation = "$dynamic + $static";
+          path = "${config.xdg.configHome}/lada/lada.conf";
+          staticSettings = jsonFormat.generate "lada.conf" cfg.settings;
+        }
+      )
+    );
   };
 }
