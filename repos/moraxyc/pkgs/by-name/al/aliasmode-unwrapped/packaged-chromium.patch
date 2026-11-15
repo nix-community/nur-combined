@@ -1,0 +1,14 @@
+diff --git a/aliasmode-chromium.ts b/aliasmode-chromium.ts
+--- a/aliasmode-chromium.ts
++++ b/aliasmode-chromium.ts
+@@ -79,4 +79,5 @@
+ }
+ const BUILD = chromiumBuild(process.platform);
++const NIX_CHROMIUM_EXECUTABLE = "@aliasmodeChromiumExecutable@";
+ export const ALIASMODE_CHROMIUM_ARCHIVE_URL = BUILD.url;
+ export const ALIASMODE_CHROMIUM_ARCHIVE_SHA256 = BUILD.archiveSha256;
+@@ -472,3 +473,4 @@
+ export function ensureAliasmodeChromium(root: string, deps: AliasmodeChromiumDeps = {}, platform = process.platform): Promise<string> {
++  if (platform === "linux") return Promise.resolve(NIX_CHROMIUM_EXECUTABLE);
+   return ensure(chromium155(platform), root, deps, platform);
+ }

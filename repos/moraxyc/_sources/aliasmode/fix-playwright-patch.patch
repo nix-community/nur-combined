@@ -1,0 +1,14 @@
+diff --git a/patches/playwright-core@1.58.2.patch b/patches/playwright-core@1.58.2.patch
+index dc7ee14..646ce5c 100644
+--- a/patches/playwright-core@1.58.2.patch
++++ b/patches/playwright-core@1.58.2.patch
+@@ -193,7 +193,8 @@ diff --git a/lib/server/chromium/crBrowser.js b/lib/server/chromium/crBrowser.js
+ +    const { targetId } = await this._browser._session.send("Target.createTarget", { url: "about:blank", browserContextId: this._browserContextId, background: true });
+      return this._browser._crPages.get(targetId)._page;
+    }
+-   async doGetCookies(urls) {diff --git a/lib/server/firefox/ffBrowser.js b/lib/server/firefox/ffBrowser.js
++   async doGetCookies(urls) {
++diff --git a/lib/server/firefox/ffBrowser.js b/lib/server/firefox/ffBrowser.js
+ --- a/lib/server/firefox/ffBrowser.js
+ +++ b/lib/server/firefox/ffBrowser.js
+ @@ -221,7 +221,8 @@ class FFBrowserContext extends import_browserContext.BrowserContext {

@@ -21,6 +21,7 @@ _: {
             pkgs.gnugrep
             pkgs.gnused
             pkgs.pnpm_11
+            pkgs.python3
           ]
         }:$PATH
 

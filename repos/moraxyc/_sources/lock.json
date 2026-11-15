@@ -33,6 +33,31 @@
       },
       "fingerprint": "sha256-cVQ7h55JChvA30nwu2Nmkypiz9ytWuPQd2UqxAacviU="
     },
+    "aliasmode": {
+      "version": "0.1.0-beta.74",
+      "rawVersion": "0.1.0-beta.74",
+      "date": "2026-11-07",
+      "src": {
+        "fetcher": "github",
+        "owner": "aliasmode",
+        "repo": "aliasmode",
+        "rev": "v0.1.0-beta.74",
+        "hash": "sha256-HCpxcY4CUqYvCBQ36Tb1lDx2I+yb1gAr65Nuo2p4KmM="
+      },
+      "derived": {
+        "cargoHash": {
+          "hash": "sha256-a01FVlPESTkF7yzY0vdOC9yhvcXRFKthDw1xjgTZygw="
+        },
+        "nodeModulesHash": {
+          "hash": "sha256-jHQQkz9HM8lGhDPPEY9Geps9nhs8G65In575zKciyQk="
+        }
+      },
+      "artifacts": {
+        "browser-runtime.json": "aliasmode/browser-runtime.json",
+        "fix-playwright-patch.patch": "aliasmode/fix-playwright-patch.patch"
+      },
+      "fingerprint": "sha256-BI8aXQTAHQ3gJqmQ3FLcDvw92RsLGHfhwhGj6mmjo7c="
+    },
     "aliyundrive-webdav": {
       "version": "2.3.3-unstable-2026-02-20",
       "rawVersion": "00caff62b55ae53327f1c8824b19b1c9532cc174",

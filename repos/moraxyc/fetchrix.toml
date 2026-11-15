@@ -16,6 +16,24 @@ artifacts."package-lock.json" = { type = "file", path = "package-lock.json" }
 strategy = "fod"
 attr = ".#airtrail.fetchrix.npmDeps"
 
+[packages.aliasmode]
+version = { source = "github-tag", repo = "aliasmode/aliasmode", strip_prefix = "v", filter = "^v[0-9]+\\.[0-9]+\\.[0-9]+(-beta\\.[0-9]+)?$" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "aliasmode/aliasmode", rev = "v{version}" }
+
+[packages.aliasmode.prepare]
+steps = [{ type = "hook", run = ["./pkgs/by-name/al/aliasmode/prepare.py"] }]
+artifacts."browser-runtime.json" = { type = "json", path = "browser-runtime.json" }
+artifacts."fix-playwright-patch.patch" = { type = "patch", paths = ["patches/playwright-core@1.58.2.patch"] }
+
+[packages.aliasmode.derive.cargoHash]
+strategy = "fod"
+attr = ".#aliasmode-unwrapped.cargoDeps.vendorStaging"
+
+[packages.aliasmode.derive.nodeModulesHash]
+strategy = "fod"
+attr = ".#aliasmode-unwrapped.fetchrix.nodeModules"
+
 [packages.aliyundrive-webdav]
 version = { source = "git", url = "https://github.com/messense/aliyundrive-webdav.git", unstable = { stable = { source = "github-release", repo = "messense/aliyundrive-webdav" } } }
 transform = ["strip-v"]

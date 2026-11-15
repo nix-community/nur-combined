@@ -1,0 +1,17 @@
+{
+  "chromium": {
+    "archiveRoot": "aliasmode-chromium-155.0.8059.85-linux-x64",
+    "archiveSha256": "86e6c4304161ece6628ceb79eb6c9e5f57a148f5bec211753b8b4399319220d0",
+    "executable": "chrome",
+    "sha256": "a49eb6c62fe794d9cf32d14ddfd59731a96074af02e5563da7b7fc800ffce2f1",
+    "url": "https://github.com/aliasmode/aliasmode-chromium/releases/download/v155.0.8059.85-aliasmode.5/aliasmode-chromium-155.0.8059.85-linux-x64.tar.zst",
+    "version": "155.0.8059.85-aliasmode.5"
+  },
+  "firefox": {
+    "archiveSha256": "33c976a7015a468f647e4cdd71c064e5a6e58c75d960ad74d48de755b4212f4b",
+    "executable": "aliasmode",
+    "sha256": "fba911c6baa1e73d19187bf5242faf42d33c22d5204ec761cb913f8818816bb7",
+    "url": "https://github.com/aliasmode/aliasmode-firefox/releases/download/aliasmode-runtime-156.0.1-beta.36-r14/aliasmode-156.0.1-beta.36-lin.x86_64.zip",
+    "version": "156.0.1-beta.36"
+  }
+}
