@@ -4,7 +4,7 @@
     "repo": "trycua/cua",
     "tagPrefix": "cua-driver-rs-v"
   },
-  "version": "0.52.1",
+  "version": "0.52.5",
   "url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v{version}/cua-driver-rs-{version}-{arch}.tar.gz",
   "arch": {
     "aarch64-darwin": "darwin-arm64",
@@ -13,15 +13,15 @@
     "x86_64-linux": "linux-x86_64"
   },
   "hash": {
-    "aarch64-darwin": "sha256-b5phpmd55pHuk9DqrrF42WEyDH/AJJZlXEZAMngZRfE=",
-    "x86_64-darwin": "sha256-cXQo3pYCHe1plpyppXqFTRIqqlmZo+vGDTiNH+mkPSk=",
-    "aarch64-linux": "sha256-6oIp9M7ihx3eHvlHMb/rI22An1lA3DZlOfMH5DWu3lU=",
-    "x86_64-linux": "sha256-deKKrKBzDiwya4uVIP+6OcVU+xn+DexlPSxTrQdglns="
+    "aarch64-darwin": "sha256-tesYFn7GFtcNFaEV366mZNhglToEO3EBzEg86W7qNQ4=",
+    "x86_64-darwin": "sha256-3/CvtFIOVWra+RCO5BYASYEweXq9tZf/fb3l0g75k7o=",
+    "aarch64-linux": "sha256-c3gd8UfnwM8USq2xjNimu5Db6Vg9LpxMsjgx3AK1HwY=",
+    "x86_64-linux": "sha256-eIfZuFQrXrXdV6Nz8KfXRWfjy7XJWPlnzX3Lseg0OZI="
   },
   "files": {
     "skills": {
       "url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v{version}/cua-driver-rs-v{version}-skills.tar.gz",
-      "hash": "sha256-SmyE36CxehfTtNbsu52nD+L/eoyWzwpm0TthUzBFh/s="
+      "hash": "sha256-Q5msuGH5McfSISkNyXZMarWp0PwP84Is+HjUpw9QTgQ="
     }
   }
 }
