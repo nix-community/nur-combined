@@ -94,12 +94,12 @@ let
 in
 stdenv.mkDerivation {
   pname = "raven";
-  version = "0-unstable-2026-11-14";
+  version = "0-unstable-2026-11-15";
 
   src = fetchFromGitHub {
     owner = "mirkobrombin";
     repo = "raven";
-    rev = "b20e69f5adb93a117e6d131fa9771561e5c7a89d";
+    rev = "6f82bda616df8f0154f432f6ea12575be26983f4";
     hash = "sha256-fCD0taV27lPzUBA3kMmcYsVgmM6P3dxhuso3UFR0omc=";
   };
 

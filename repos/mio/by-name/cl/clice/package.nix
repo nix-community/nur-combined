@@ -32,7 +32,7 @@ stdenv.mkDerivation (
     # needs its own hash. Kept outside the derivation attributes, which are
     # coerced to strings.
     depsHashes = {
-      x86_64-linux = "sha256-dfVTS+TqisVXiMnxz+G6pZRs0rxyC6nEPDuIBjXxULQ=";
+      x86_64-linux = "sha256-4bTvyioIu6oCZD7NRrgyhGZeCrtBHO5IT92ljiSPDAQ=";
       aarch64-darwin = "sha256-uAMod+qlqhfHAyjtsULDcZoVdBvEAxv5OJbVGGFR7WY=";
     };
 
@@ -62,13 +62,13 @@ stdenv.mkDerivation (
   in
   {
     pname = "clice";
-    version = "0.1.2026111303";
+    version = "1.0.0";
 
     src = fetchFromGitHub {
       owner = "clice-io";
       repo = "clice";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-pAOtT7DuBX3VD9F+qZ/W4ACeRSX9grQ3a00kTzQhr4o=";
+      hash = "sha256-z7BvAJp6C+8JyqoFcNZRPvFxatPMqDz9ajdpIBZZ8I0=";
     };
 
     deps = stdenv.mkDerivation {
