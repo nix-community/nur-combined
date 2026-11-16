@@ -63,6 +63,18 @@ through `gradle_9.fetchDeps` / `mitmCache`).
    # then run the script path printed above; it writes pkgs/jadx-headless-mcp/deps.json
    ```
 
+   On a network whose egress IP Maven Central blocks (this one: `403 open HTTP
+   or SOCKS proxy endpoint`, and aliyun-mirror-only access is not enough because
+   the artifacts are recorded against `repo.maven.apache.org` URLs), run the
+   `Regenerate Gradle dependency lock` workflow instead and commit the artifact
+   it uploads (`deps.json` + `flake.lock` — they must move together, since the
+   lock was recorded against that Gradle):
+
+   ```bash
+   gh workflow run update-gradle-deps.yml
+   gh run download -n gradle-deps-jadx-headless-mcp -D /tmp/gradle-deps
+   ```
+
    The script runs upstream's build inside a `bwrap` sandbox behind a recording
    HTTP proxy and rewrites `deps.json`. If the sandbox refuses to start, retry
    with `USE_BWRAP=0`.
@@ -81,6 +93,14 @@ through `gradle_9.fetchDeps` / `mitmCache`).
 
 ## Failure modes seen before
 
+- **`Could not find org.jetbrains.kotlin:kotlin-stdlib:<newer>` in
+  `https://plugins.gradle.org/m2` after a nixpkgs bump** → `gradle_9` moved
+  (9.8.2 → 9.9.1) and Gradle's *embedded* Kotlin moved with it (2.4.10 →
+  2.4.21), so the buildscript classpath suddenly asks for a `kotlin-stdlib` the
+  lock never saw from the plugin-portal URL. Not an upstream change: regenerate
+  the lock against the new Gradle and commit it together with `flake.lock`.
+  This is the standing cost of tracking nixpkgs `gradle_9`; the daily scheduled
+  CI run is what surfaces it.
 - Missing artifacts during the offline build → the configuration that pulls them
   was not resolved when `deps.json` was generated; extend the collection run
   (e.g. `gradleUpdateTask = "nixDownloadDeps installDist"`) and regenerate.

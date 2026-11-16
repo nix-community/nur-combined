@@ -1,0 +1,72 @@
+name: "Regenerate Gradle dependency lock"
+
+# Gradle lockfiles (`deps.json`) record the byte hash of every artifact the
+# build resolved, keyed by the repository URL it came from. They have to be
+# regenerated whenever the *build environment* changes — nixpkgs bumping
+# `gradle_9` changes Gradle's embedded Kotlin, which changes the buildscript
+# classpath. That cannot be done from a workstation behind Maven Central's
+# open-proxy blocklist (`403 open HTTP or SOCKS proxy endpoint`), so it runs
+# here and publishes the result as an artifact to commit.
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: "Flake attribute with a `.mitmCache.updateScript`"
+        required: true
+        default: jadx-headless-mcp
+      deps_path:
+        description: "Lockfile the update script writes"
+        required: true
+        default: pkgs/jadx-headless-mcp/deps.json
+      update_flake:
+        description: "Run `nix flake update` first (regenerate against the newest nixpkgs)"
+        type: boolean
+        required: true
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  update-deps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            trusted-users = root runner
+            accept-flake-config = true
+      - name: Update flake.lock
+        if: ${{ inputs.update_flake }}
+        run: nix flake update
+      - name: Show flake inputs
+        run: nix flake metadata
+      - name: Build the lock update script
+        id: script
+        run: |
+          path=$(nix build --no-link --print-out-paths ".#${{ inputs.package }}.mitmCache.updateScript")
+          echo "path=$path" >> "$GITHUB_OUTPUT"
+          echo "Running $path"
+      # The script starts a recording MITM proxy, runs the package's Gradle
+      # update task through it, and rewrites ${{ inputs.deps_path }} in place.
+      # bwrap is only there to keep the build script from touching $HOME, and
+      # GitHub's runner user cannot create user namespaces, so skip it.
+      - name: Record the dependency lock
+        env:
+          USE_BWRAP: "0"
+        run: bash "${{ steps.script.outputs.path }}"
+      - name: Show the diff
+        run: git --no-pager diff --stat
+      - name: Upload lockfile and flake.lock
+        uses: actions/upload-artifact@v7
+        with:
+          name: gradle-deps-${{ inputs.package }}
+          path: |
+            ${{ inputs.deps_path }}
+            flake.lock
+          if-no-files-found: error
