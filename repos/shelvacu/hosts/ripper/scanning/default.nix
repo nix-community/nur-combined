@@ -17,6 +17,7 @@ let
   flatfield-8400f = pkgs.writers.writePython3Bin "flatfield-8400f" {
     libraries = [ pkgs.python3Packages.numpy ];
     flakeIgnore = [
+      "E203"
       "E501"
       "W503"
     ];
