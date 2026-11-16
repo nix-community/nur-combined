@@ -29,7 +29,10 @@ in
 }@args:
 let
   source = sources.${pname} or (throw "cutefish source entry missing for ${pname}");
-  passthrough = lib.removeAttrs args [
+  # Attributes a package sets itself (patches, postPatch, postFixup, ...).
+  # The inputs and phases composed below are shared, so packages only add to
+  # them through the extra* arguments.
+  extraAttrs = lib.removeAttrs args [
     "stdenv"
     "withPkgConfig"
     "withGettext"
@@ -47,9 +50,11 @@ let
   ];
 in
 stdenv.mkDerivation (
-  passthrough
+  extraAttrs
   // {
     inherit pname;
+    # The suite is versioned 1.0 upstream (see cutefish-toolkit's CMake
+    # project VERSION); the pins track the development branch, hence -unstable.
     version = args.version or "1.0-unstable-${source.date}";
 
     src =

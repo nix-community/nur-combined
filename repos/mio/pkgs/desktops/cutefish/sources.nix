@@ -1,41 +1,46 @@
 # Pinned upstream revisions. Same role as pkgs/kde/generated/sources:
 # the derivation builder looks a package up by pname.
+#
+# repo: GitHub repository under cutefishos.
+# rev:  pinned commit.
+# hash: SRI hash of the GitHub tarball that fetchFromGitHub downloads.
+# date: committer date of the pinned commit, used in the -unstable version.
 {
   cutefish-toolkit = {
     repo = "cutefish-toolkit";
-    rev = "e274abfd2dee393a581ef1af3c7687695c6e8a6e";
-    hash = "sha256-QC1TF3Jw3CWA6oAUnmMplyTT+4fXuZCpFvJhVruKSf0=";
-    date = "2026-11-15";
+    rev = "d925c2460815f3ff44a737976325ac8cfe96f871";
+    hash = "sha256-Qwf7jS0j/PyGinzAVaAyN4B/lTVnVqQg8loopKfmMlw=";
+    date = "2026-11-16";
   };
   cutefish-framework = {
     repo = "cutefish-framework";
-    rev = "15174d3b9d76132dc5ffd82794f1f1cd617be8f2";
-    hash = "sha256-CzuHzYi2tYqysYEU+txxWP2mBRASuaR3kYZ7+I85vGQ=";
-    date = "2026-11-15";
+    rev = "7e95ae9eef4a065dc6b40b924be9b91a1ace59dc";
+    hash = "sha256-rU2NU5cf11m4CAlnAcz1NgmKpLFr1CWcJ3Olt7wEl94=";
+    date = "2026-11-16";
   };
   cutefish-core = {
     repo = "cutefish-core";
-    rev = "aee35e3d0b8340c2d21c933bf51561a6b1cb258a";
-    hash = "sha256-RXsZt2JALLatv9mi1J8fytih69mzmcDbfIgdmu6eaPI=";
-    date = "2026-11-15";
+    rev = "2e806b84b8b3374e3ad8abedc47ee41ee8bca24b";
+    hash = "sha256-QlNdTbnsNyxQiWdjjvZwTOBq2upwg9usGPmK+vTsMSA=";
+    date = "2026-11-16";
   };
   cutefish-compositor = {
     repo = "cutefish-compositor";
-    rev = "5a742122d027c024c84f7edff5f7559740fd2d12";
-    hash = "sha256-K/Oo8FvJrmB/SEFHb9+7pXIl993BP2m/HqzOMVXbWsQ=";
-    date = "2026-11-15";
+    rev = "77905d975f29268ccecf8d3279ad1adade2b4987";
+    hash = "sha256-2x0gwhq+TaHXmtUnHntRn49gcfua5Yef8O4iLhAADKI=";
+    date = "2026-11-16";
   };
   cutefish-settings = {
     repo = "settings";
-    rev = "ca2ff676e36ce781c900c160f9a88dca32453183";
-    hash = "sha256-Ya/RLkkv3L82vEDFYEpGM3/EE6E8ltnhN7O9LtLlTVk=";
-    date = "2026-11-15";
+    rev = "1fd0868446f491b25eba5ffa7f3247bbb36d9a21";
+    hash = "sha256-+mHz/KuQ22daryCi/1L717o8CvWdWyqF6UNX2ekRBWk=";
+    date = "2026-11-16";
   };
   cutefish-filemanager = {
     repo = "filemanager";
-    rev = "a0d8c6afb0efdf4c055c4ab8aba5804b1d85ac06";
-    hash = "sha256-oocdmwlfqlO/UBF3UkYL/cpr0xelzd9ibwS9OEHrvwM=";
-    date = "2026-11-15";
+    rev = "a047006acaebe04564956de79cc38d5254368465";
+    hash = "sha256-QgS6E5WFPGGyyE9rOUMWCk5ROxLa84w5rAPK/S2DmoI=";
+    date = "2026-11-16";
   };
   cutefish-terminal = {
     repo = "terminal";
@@ -51,20 +56,20 @@
   };
   cutefish-video-player = {
     repo = "video-player";
-    rev = "295c860368ca9938ff8ddc5a6f4f29dd000846d8";
-    hash = "sha256-WLP4Ca7lTzGeJvozKcfkEETmlr0m93K2vZ7OMIIKKOE=";
+    rev = "bfb4dca179d5f5f000c0eb1a4a1fc20c24f560d2";
+    hash = "sha256-9fkPK//d+b3MLzQ3RPBu0ECY00TO3bRyRunV4zQRU4o=";
     date = "2026-11-15";
   };
   cutefish-calendar = {
     repo = "calendar";
-    rev = "49cf3e96db53affdf2cafabc38042a07e6a5116f";
-    hash = "sha256-wPBn8UfLfgppr9UptL1WcaCnKjhIlXPCgpTMG9nJeLQ=";
+    rev = "4332987418637a78d3d302159ec74bb5de57d4e2";
+    hash = "sha256-KusBw20MuyLXywiskmadHdIEccc8Xt7ubrbCnLyWgaQ=";
     date = "2026-11-15";
   };
   cutefish-system-monitor = {
     repo = "system-monitor";
-    rev = "ba02af7dd3983249529cfab1eca566ffb445dbb4";
-    hash = "sha256-PlNUtXsgAfR+JifGZNLQbxLWMSAPfLF1FBAo1igcdPA=";
+    rev = "4bae09fed43ca46ec78a7672a4845f1c277be680";
+    hash = "sha256-6TC9a0Es3418lKsqzlqmIOoqTaRfBEpEWVgdTHdgls0=";
     date = "2026-11-15";
   };
   cutefish-calculator = {
@@ -75,9 +80,9 @@
   };
   cutefish-icons = {
     repo = "icons";
-    rev = "dac8649f60e7310c1721ccdb4e7e7b79d61c934f";
-    hash = "sha256-/sK59ATMAHr3fUaZX4QFlKSgrYbnKHb5T/IuO8FtR7E=";
-    date = "2026-11-14";
+    rev = "308488e092134ae2a1f346ab28ad8cec596c5cb5";
+    hash = "sha256-MywdtvWDQy47w3VInPIreP+xv8tripUNtXT4yPcdE10=";
+    date = "2026-11-15";
   };
   cutefish-wallpapers = {
     repo = "wallpapers";

@@ -3,7 +3,6 @@
   writeShellApplication,
   python3,
   nix,
-  nix-prefetch-scripts,
   git,
   cacert,
   pname,
@@ -11,10 +10,10 @@
 
 writeShellApplication {
   name = "update-${pname}";
+  # nix-prefetch-url is part of nix.
   runtimeInputs = [
     python3
     nix
-    nix-prefetch-scripts
     git
   ];
   text = ''
@@ -22,6 +21,8 @@ writeShellApplication {
     export SSL_CERT_FILE=${lib.escapeShellArg "${cacert}/etc/ssl/certs/ca-bundle.crt"}
     export NIX_SSL_CERT_FILE="$SSL_CERT_FILE"
     cd "$(git rev-parse --show-toplevel)"
-    exec python3 ${./update.py} ${lib.escapeShellArg pname} "$@"
+    # Without arguments update.py reads UPDATE_NIX_ATTR_PATH; --all and package
+    # names are passed through as given.
+    exec python3 ${./update.py} "$@"
   '';
 }

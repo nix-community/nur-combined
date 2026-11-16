@@ -65,13 +65,18 @@ def field(block: str, name: str) -> str:
     return match.group(1)
 
 
+def github_remote(repo: str) -> str:
+    return f"https://github.com/{OWNER}/{repo}.git"
+
+
 def latest_rev(repo: str) -> str:
-    remote = f"https://github.com/{OWNER}/{repo}.git"
-    return run("git", "ls-remote", remote, "HEAD", env=clean_env()).split()[0]
+    return run(
+        "git", "ls-remote", github_remote(repo), "HEAD", env=clean_env()
+    ).split()[0]
 
 
 def commit_date(repo: str, rev: str) -> str:
-    remote = f"https://github.com/{OWNER}/{repo}.git"
+    remote = github_remote(repo)
     env = clean_env()
     with tempfile.TemporaryDirectory() as temp_dir:
         checkout = Path(temp_dir) / "src"
@@ -129,11 +134,6 @@ def prefetch_hash(repo: str, rev: str) -> str:
     )
 
 
-def fetch_meta(repo: str, rev: str) -> tuple[str, str]:
-    """Return (commit_date, sri_hash) for a GitHub revision."""
-    return commit_date(repo, rev), prefetch_hash(repo, rev)
-
-
 def update_package(content: str, pname: str) -> tuple[str, bool, str]:
     match = entry_block(content, pname)
     block = match.group(0)
@@ -143,7 +143,7 @@ def update_package(content: str, pname: str) -> tuple[str, bool, str]:
     if rev == old_rev:
         return content, False, f"{pname} is already up to date ({rev[:7]})."
 
-    date, sri = fetch_meta(repo, rev)
+    date, sri = commit_date(repo, rev), prefetch_hash(repo, rev)
     new_block, n = re.subn(
         r'(?m)^(\s*rev = )"[^"]+";(\n\s*hash = )"[^"]+";(\n\s*date = )"[^"]+";',
         rf'\1"{rev}";\2"{sri}";\3"{date}";',

@@ -1,5 +1,4 @@
 {
-  lib,
   mkCutefishDerivation,
   cutefish-toolkit,
   fetchgit,
