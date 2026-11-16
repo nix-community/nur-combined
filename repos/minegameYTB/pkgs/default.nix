@@ -13,8 +13,12 @@ rec {
   kvm-archive = callPackage ./tools/kvm-archive { };
   rea = callPackage ./tools/rea { };
   rea-ghidra = rea.override (
-    { withGhidra = true; }
+    {
+      withGhidra = true;
+    }
     // lib.optionalAttrs (pkgs ? ghidra) { inherit (pkgs) ghidra; }
+    ### Ghidra 12.2 requires application.java.min=25; pkgs.jdk may be older.
+    // lib.optionalAttrs (pkgs ? jdk25) { jdk = pkgs.jdk25; }
   );
 
   ### dev set
