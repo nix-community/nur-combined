@@ -14,6 +14,32 @@ def directory(path):
     path.mkdir(parents=True, exist_ok=True)
 
 
+# The engine's freshness is a hash over its sources (setup.py ENGINE_SOURCES),
+# so those subtrees are mirrored, not merged: a merged copy keeps the files of
+# the previous version that the source no longer has, the hash then differs from
+# the one the prebuilt engine was built with, and setup refuses to use it.
+# Everything else (configs, models, packs, the data folder) is user data and is
+# left alone.
+CODE_DIRS = ("cmake", "src", "include", "third_party/ggml", "third_party/strata-ggml")
+
+
+def prune(source, dest):
+    for name in CODE_DIRS:
+        source_dir, dest_dir = source / name, dest / name
+        if not source_dir.is_dir() or dest_dir.is_symlink() or not dest_dir.is_dir():
+            continue
+        paths = sorted(dest_dir.rglob("*"), key=lambda p: len(p.parts), reverse=True)
+        for path in paths:
+            target = source / path.relative_to(dest)
+            if target.exists() or target.is_symlink():
+                continue
+            if path.is_dir() and not path.is_symlink():
+                if not any(path.iterdir()):
+                    path.rmdir()
+            else:
+                path.unlink()
+
+
 def hydrate(source, dest):
     source, dest = Path(source), Path(dest)
     directory(dest)
@@ -65,6 +91,7 @@ def hydrate(source, dest):
 
         for child in sorted(source.iterdir()):
             merge(child, dest / child.name, Path(child.name), child.name == "data")
+        prune(source, dest)
         fd, name = tempfile.mkstemp(prefix=".nix-marker-", dir=dest)
         with os.fdopen(fd, "w") as handle:
             handle.write(str(source) + "\n")
