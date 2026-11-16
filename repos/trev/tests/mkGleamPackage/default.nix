@@ -38,6 +38,14 @@ let
     '';
   };
 
+  # built and run with another OTP version
+  otp29 = mkFixture {
+    beamPackages = testPkgs.beamMinimal29Packages;
+    postInstall = ''
+      test "$(erl -noshell -eval 'io:put_chars(erlang:system_info(otp_release)), halt().')" = 29
+    '';
+  };
+
   javascript = mkFixture {
     gleamTarget = "javascript";
     postInstall = ''
@@ -99,6 +107,7 @@ in
 # the dependencies don't change with the version or the sources
 assert erlang.gleamDeps.outPath == bumped.gleamDeps.outPath;
 assert erlang.gleamDeps.outPath == javascript.gleamDeps.outPath;
+assert erlang.gleamDeps.outPath == otp29.gleamDeps.outPath;
 assert erlang.outPath != bumped.outPath;
 assert erlang.gleamDeps.outPath == withManifest.gleamDeps.outPath;
 assert !(builtins.tryEval invalidTarget.drvPath).success;
@@ -107,6 +116,7 @@ assert !(builtins.tryEval hashedWithManifest.drvPath).success;
 {
   mkGleamPackage-build = testPkgs.runCommand "mkGleamPackage-build" { } ''
     test "$(${erlang}/bin/fixture)" = "hello_from_dep"
+    test "$(${otp29}/bin/fixture)" = "hello_from_dep"
     test "$(${javascript}/bin/fixture)" = "hello_from_dep"
     test "$(${bumped}/bin/fixture)" = "hello_from_dep"
     test "$(${hashed}/bin/fixture)" = "hello_from_dep"

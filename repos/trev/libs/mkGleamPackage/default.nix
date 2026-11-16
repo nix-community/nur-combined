@@ -17,6 +17,9 @@
 #
 # With `gleamLibrary`, the package is built with `gleam build` and its HTML
 # docs are installed instead of an executable. `gleam test` runs by default.
+#
+# `beamPackages` (e.g. beamMinimal29Packages) sets the erlang and rebar3 used by
+# gleamErlangHook, to build with another OTP version.
 {
   beamMinimalPackages,
   callPackage,
@@ -29,10 +32,18 @@
 let
   gleamFetchDeps = callPackage ../gleamFetchDeps { };
 
-  hooks = {
-    erlang = callPackage ../gleamErlangHook { };
+  mkHooks = beamPackages: {
+    erlang = callPackage ../gleamErlangHook (
+      lib.optionalAttrs (beamPackages != null) {
+        beamMinimalPackages = beamPackages;
+        # rebar3 runs with the erlang it's built with
+        inherit (beamPackages) rebar3;
+      }
+    );
     javascript = callPackage ../gleamJavascriptHook { };
   };
+
+  hooks = mkHooks null;
 
   # path of a file relative to the unpacked source, inside `src`
   srcPath =
@@ -122,6 +133,7 @@ lib.extendMkDerivation {
   constructDrv = stdenv.mkDerivation;
 
   excludeDrvArgNames = [
+    "beamPackages"
     "gleamDepsHash"
     "gleamTarget"
     "manifest"
@@ -142,6 +154,9 @@ lib.extendMkDerivation {
       gleamDepsHash ? null,
       # build a library and install its docs, instead of an app
       gleamLibrary ? false,
+      # BEAM package set for gleamErlangHook's erlang and rebar3, e.g.
+      # beamMinimal29Packages. null uses the default hook.
+      beamPackages ? null,
       doCheck ? true,
       nativeBuildInputs ? [ ],
       ...
@@ -182,6 +197,8 @@ lib.extendMkDerivation {
 
       inherit gleamLibrary doCheck;
 
-      nativeBuildInputs = nativeBuildInputs ++ [ hooks.${gleamTarget} ];
+      nativeBuildInputs = nativeBuildInputs ++ [
+        (if beamPackages == null then hooks else mkHooks beamPackages).${gleamTarget}
+      ];
     };
 }

@@ -644,6 +644,17 @@ pkgs.mkGleamPackage (finalAttrs: {
 });
 ```
 
+`beamPackages` sets the erlang and rebar3 used to build with the erlang target, e.g. to use another OTP version.
+
+```nix
+pkgs.mkGleamPackage (finalAttrs: {
+  pname = "gleam-pkg";
+  version = "1.0.0";
+  src = ./.;
+  beamPackages = pkgs.beamMinimal29Packages;
+});
+```
+
 ### gleamFetchDeps, gleamErlangHook & gleamJavascriptHook
 
 - Creates a fixed-output derivation for [gleam](https://gleam.run/) dependencies
