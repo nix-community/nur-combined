@@ -97,27 +97,27 @@
   },
   {
     "pname": "Microsoft.AspNetCore.Authentication.Certificate",
-    "version": "11.0.0-rc.1.26425.128",
-    "hash": "sha256-EC1swDCENEDlItdEK+J6u29viE8uGymjfzEnG1Uzp+E=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.aspnetcore.authentication.certificate/11.0.0-rc.1.26425.128/microsoft.aspnetcore.authentication.certificate.11.0.0-rc.1.26425.128.nupkg"
+    "version": "11.0.0-rc.3.26522.148",
+    "hash": "sha256-85Uv6br9pnx7zH12WRth9guWp56FuzXMxh/xnstYTEQ=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.aspnetcore.authentication.certificate/11.0.0-rc.3.26522.148/microsoft.aspnetcore.authentication.certificate.11.0.0-rc.3.26522.148.nupkg"
   },
   {
     "pname": "Microsoft.AspNetCore.Authentication.OpenIdConnect",
-    "version": "11.0.0-rc.1.26425.128",
-    "hash": "sha256-8Aal12jlpKq95wQlWfmGJB499DebBAx5rVzb48PANDs=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.aspnetcore.authentication.openidconnect/11.0.0-rc.1.26425.128/microsoft.aspnetcore.authentication.openidconnect.11.0.0-rc.1.26425.128.nupkg"
+    "version": "11.0.0-rc.3.26522.148",
+    "hash": "sha256-aSx8JtyR4Uw3GGF6oHmcgaXt8fy9nGuiVD1FCNeUj/c=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.aspnetcore.authentication.openidconnect/11.0.0-rc.3.26522.148/microsoft.aspnetcore.authentication.openidconnect.11.0.0-rc.3.26522.148.nupkg"
   },
   {
     "pname": "Microsoft.Bcl.Cryptography",
-    "version": "10.0.12",
-    "hash": "sha256-DGpOj14Tsf8ZH1kPjSg/zV74tApYX8T39gpAtb/IL+Y=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.bcl.cryptography/10.0.12/microsoft.bcl.cryptography.10.0.12.nupkg"
+    "version": "10.0.14",
+    "hash": "sha256-vHktb3/ZYpDI1zACE7ZD5PFIzMM1zj09imAcAy24u6Y=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.bcl.cryptography/10.0.14/microsoft.bcl.cryptography.10.0.14.nupkg"
   },
   {
     "pname": "Microsoft.Data.Sqlite.Core",
-    "version": "10.0.12",
-    "hash": "sha256-Xo7TUwBtrfVdXH9W0jcyHCC7EMeGJi5rJVJnVuEDYzI=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.data.sqlite.core/10.0.12/microsoft.data.sqlite.core.10.0.12.nupkg"
+    "version": "10.0.14",
+    "hash": "sha256-3wgo44YaHgJAyaPsGJHNwZQs3Ee2HI0vs2ziVC8CsJI=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.data.sqlite.core/10.0.14/microsoft.data.sqlite.core.10.0.14.nupkg"
   },
   {
     "pname": "Microsoft.DotNet.Arcade.Sdk",
@@ -265,9 +265,9 @@
   },
   {
     "pname": "SQLitePCLRaw.core",
-    "version": "2.1.12",
-    "hash": "sha256-rwaQQTj/ptyVpZkTPWTSVHFtb6zHVDprO5EHk9rp3KU=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/sqlitepclraw.core/2.1.12/sqlitepclraw.core.2.1.12.nupkg"
+    "version": "2.1.13",
+    "hash": "sha256-2T1ferP4ZMR3IqLZAEjDGhqsdD4VPYe59KB1ie4vna8=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/sqlitepclraw.core/2.1.13/sqlitepclraw.core.2.1.13.nupkg"
   },
   {
     "pname": "SQLitePCLRaw.core",
@@ -295,8 +295,8 @@
   },
   {
     "pname": "System.IO.Hashing",
-    "version": "10.0.12",
-    "hash": "sha256-2RjeBEFopI4UinPoTG22+P6lcJY4SNxMA2MarZeVjdE=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/system.io.hashing/10.0.12/system.io.hashing.10.0.12.nupkg"
+    "version": "10.0.14",
+    "hash": "sha256-hpF7r7Y0xNBt1/B8X3RRQf6iIPZOE+dldoDoHaxo+UE=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/system.io.hashing/10.0.14/system.io.hashing.10.0.14.nupkg"
   }
 ]
