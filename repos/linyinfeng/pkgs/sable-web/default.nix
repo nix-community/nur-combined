@@ -6,7 +6,7 @@
 }:
 
 stdenvNoCC.mkDerivation rec {
-  pname = "stable-web";
+  pname = "sable-web";
   version = "26.11.0";
 
   src = fetchurl {

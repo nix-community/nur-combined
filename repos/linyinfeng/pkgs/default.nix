@@ -57,8 +57,8 @@ lib.makeScope newScope (
     rimePackages = lib.recurseIntoAttrs (self.rimePackagesFor pkgs.librime);
     rimePackagesFor = librime: callPackage ./rime-packages { inherit librime; };
     rlt = callPackage ./rlt { };
+    sable-web = callPackage ./sable-web { };
     ssl-handshake = callPackage ./ssl-handshake { };
-    stable-web = callPackage ./stable-web { };
     telegram-send = callPackage ./telegram-send { };
     tg-send = callPackage ./tg-send { };
     v86 = callPackage ./v86 { };

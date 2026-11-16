@@ -43,7 +43,7 @@ let
     (empty "rimePackages/rime-wubi")
     (empty "rimePackages/rime-wugniu")
     (empty "rimePackages/rimeDataBuildHook")
-    (empty "stable-web")
+    (empty "sable-web")
     (empty "v86")
     (empty "yacd")
     (trivial "activate-dpt")
