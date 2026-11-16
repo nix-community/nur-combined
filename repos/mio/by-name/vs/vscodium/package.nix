@@ -177,7 +177,7 @@ let
       '';
 
       outputHashMode = "recursive";
-      outputHash = "sha256-CoJ6/T0ZgVJePMRovOI6DcaPZN+mNVBWKrznag5ByFY=";
+      outputHash = "sha256-q2Y7ecerzB34BrnVVZf8uyqkr9PWX18a0MLDyqCLc7o=";
     };
 
     buildInputs = [
@@ -269,6 +269,8 @@ let
       BUILD_DATE = commitInfo.committer.date;
       BUILD_SOURCEVERSION = commitInfo.sha;
       VSCODE_FORCE_INSTALL = "1";
+      # prepare_vscode.sh / build.sh for linux.
+      VSCODE_SKIP_NODE_VERSION_CHECK = "1";
       VSCODE_PUBLISH_COUNTER = "1";
       VSCODE_QUALITY = "stable";
       npm_install_command = "npm-install-script";
@@ -464,7 +466,7 @@ let
       fi
 
       # build.sh: compile in a prepack step, then run the platform packaging.
-      node --run gulp -- vscode-min-prepack
+      npm run gulp -- vscode-min-prepack
 
       # Remove the Windows-only debugger binaries from the mac/linux package.
       rm -f .build/extensions/ms-vscode.js-debug/src/win32-app-container-tokens.*.node
@@ -476,17 +478,18 @@ let
 
       # The reh gulp task fetches Node from nodejs.org unless this directory is
       # already populated; seed it with nixpkgs' Node to stay offline.
+      # Copy (don't hardlink) so the packaged server owns a private writable binary.
       node_version=$(sed -nE 's/^target="?([^"]+)"?$/\1/p' remote/.npmrc | head -1)
       node_seed=".build/node/v$node_version/${platform}-${arch}"
       mkdir -p "$node_seed"
-      cp ${nodejs}/bin/node "$node_seed/node"
-      chmod +x "$node_seed/node"
+      cp --remove-destination --no-preserve=mode ${nodejs}/bin/node "$node_seed/node"
+      chmod u+w,a+x "$node_seed/node"
 
-      node --run gulp -- vscode-${platform}-${arch}-min-packing
+      npm run gulp -- vscode-${platform}-${arch}-min-packing
 
       # Remote server and its web variant, packaged from the same sources.
-      node --run gulp -- vscode-reh-${platform}-${arch}-min-packing
-      node --run gulp -- vscode-reh-web-${platform}-${arch}-min-packing
+      npm run gulp -- vscode-reh-${platform}-${arch}-min-packing
+      npm run gulp -- vscode-reh-web-${platform}-${arch}-min-packing
       mkdir -p "$reh/libexec"
       mv "../vscode-reh-${platform}-${arch}" "$reh/libexec/codium-server"
       mv "../vscode-reh-web-${platform}-${arch}" "$reh/libexec/codium-server-web"
@@ -554,8 +557,18 @@ in
       + ''
         # Ship the locally built remote server, so Remote-SSH, dev containers and
         # `codium serve-web` work without downloading a server at runtime.
+        # autoPatchelfPostFixup runs after this attribute hook: keep the tree
+        # writable, and point the packaged Node at nixpkgs' binary (symlink is
+        # skipped by auto-patchelf and already has the correct RPATH/libs).
         mkdir -p "$out/libexec" "$out/bin"
-        cp -R ${vscodium-build.reh}/libexec/. "$out/libexec/"
+        cp -R --no-preserve=mode ${vscodium-build.reh}/libexec/. "$out/libexec/"
+        chmod -R u+w "$out/libexec"
+        for n in "$out/libexec"/*/node; do
+          if [ -e "$n" ]; then
+            rm -f "$n"
+            ln -s ${nodejs}/bin/node "$n"
+          fi
+        done
         ln -sfn "$out/libexec/codium-server/bin/codium-server" "$out/bin/codium-server"
         ln -sfn "$out/libexec/codium-server-web/bin/codium-server" "$out/bin/codium-server-web"
       ''
