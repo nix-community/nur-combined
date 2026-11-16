@@ -31,10 +31,10 @@ jobs:
             nix-update-extra-args: "--version-regex 'bridge/v(.+)' --use-github-releases"
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v7
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
     - name: Install nix
-      uses: cachix/install-nix-action@v31
+      uses: cachix/install-nix-action@3dc140bfc76c49fbd4dd958429132e3746bcb086 # v31.11.5
       with:
         nix_path: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
         extra_nix_config: |
@@ -67,7 +67,7 @@ jobs:
     - name: Create Pull Request
       id: cpr
       if: steps.after.outputs.changed == 'true'
-      uses: peter-evans/create-pull-request@v8
+      uses: peter-evans/create-pull-request@3ffccacd46053766916f087ce41d627c0b8cf2d1 # v8.1.3
       with:
         token: ${{ secrets.NUR_UPDATE_PAT }}
         branch: update/${{ matrix.package }}-${{ steps.after.outputs.version }}
@@ -92,10 +92,10 @@ jobs:
       pull-requests: write
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v7
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
     - name: Install nix
-      uses: cachix/install-nix-action@v31
+      uses: cachix/install-nix-action@3dc140bfc76c49fbd4dd958429132e3746bcb086 # v31.11.5
       with:
         nix_path: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
         extra_nix_config: |
@@ -138,7 +138,7 @@ jobs:
     - name: Create Pull Request (version update)
       id: cpr_version
       if: steps.check.outputs.needs_update == 'true' && steps.check.outputs.version_changed == 'true'
-      uses: peter-evans/create-pull-request@v8
+      uses: peter-evans/create-pull-request@3ffccacd46053766916f087ce41d627c0b8cf2d1 # v8.1.3
       with:
         token: ${{ secrets.NUR_UPDATE_PAT }}
         branch: update/oneaws-${{ steps.check.outputs.version }}
@@ -153,7 +153,7 @@ jobs:
     - name: Create Pull Request (dependency update)
       id: cpr_deps
       if: steps.check.outputs.needs_update == 'true' && steps.check.outputs.version_changed == 'false'
-      uses: peter-evans/create-pull-request@v8
+      uses: peter-evans/create-pull-request@3ffccacd46053766916f087ce41d627c0b8cf2d1 # v8.1.3
       with:
         token: ${{ secrets.NUR_UPDATE_PAT }}
         branch: update/oneaws-deps
@@ -185,10 +185,10 @@ jobs:
       pull-requests: write
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v7
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
     - name: Install nix
-      uses: cachix/install-nix-action@v31
+      uses: cachix/install-nix-action@3dc140bfc76c49fbd4dd958429132e3746bcb086 # v31.11.5
       with:
         nix_path: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
         extra_nix_config: |
@@ -227,7 +227,7 @@ jobs:
     - name: Create Pull Request
       id: cpr
       if: steps.after.outputs.changed == 'true'
-      uses: peter-evans/create-pull-request@v8
+      uses: peter-evans/create-pull-request@3ffccacd46053766916f087ce41d627c0b8cf2d1 # v8.1.3
       with:
         token: ${{ secrets.NUR_UPDATE_PAT }}
         branch: update/proton-drive-cli-${{ steps.fetch.outputs.version }}
