@@ -11,6 +11,8 @@ Ray's personal [NUR](https://github.com/nix-community/NUR) repository
 | --- | --- |
 | `ab-download-manager` | [Usage](pkgs/ab-download-manager/README.md) |
 | `alger-music-player` | [Upstream](https://github.com/algerkong/AlgerMusicPlayer) |
+| `antigravity-cli` | [Upstream](https://antigravity.google/product/antigravity-cli) |
+| `antigravity-ide` | [Upstream](https://antigravity.google/product/antigravity-ide) |
 | `baidunetdisk` | [Upstream](https://pan.baidu.com/) |
 | `baidupcs-go` | [Upstream](https://github.com/qjfoidnh/BaiduPCS-Go) |
 | `bluez-5_86` | [Upstream](https://github.com/bluez/bluez) |

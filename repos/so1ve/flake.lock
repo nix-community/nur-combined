@@ -114,11 +114,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1794649249,
-        "narHash": "sha256-hyhRW11f9GbrhdVRTUM/ztV6ReLVHbUaZRa2cvLeUdM=",
+        "lastModified": 1794721901,
+        "narHash": "sha256-uWxhZr5oGOA27aI3/53VaSQjVC5Y+/RmS7PwUiSvSio=",
         "owner": "linyinfeng",
         "repo": "oranc",
-        "rev": "def6c0b749566cb07b5cfb26206f519b78345be8",
+        "rev": "e3b4d79b3cc74eeaf37b0585595c5010b3ac9013",
         "type": "github"
       },
       "original": {
