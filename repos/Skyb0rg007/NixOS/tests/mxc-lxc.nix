@@ -5,15 +5,25 @@
   imports = [ ./mxc-internet.nix ];
 
   nodes.machine =
-    { mxc, pkgs, ... }:
+    {
+      mxc,
+      pkgs,
+      lib,
+      ...
+    }:
     let
-      # The LXC backend creates every container with `lxc-create -t download
-      # -- -d alpine -r 3.23`. The test has no network, so seed the download
-      # template's cache, which it uses as-is when no expiry file is present.
-      # The minirootfs has no openrc, so boot it with busybox init and bring the
-      # network up with busybox ifup/udhcpc on lxcbr0.
-      alpineCache =
-        pkgs.runCommand "lxc-download-alpine-3.23"
+      # The LXC backend creates every container with `lxc-create -t download`,
+      # by default `-- -d alpine -r 3.23`. The test has no network, so seed the
+      # download template's cache, which it uses as-is when no expiry file is
+      # present. The minirootfs has no openrc, so boot it with busybox init and
+      # bring the network up with busybox ifup/udhcpc on lxcbr0.
+      mkDownloadCache =
+        {
+          name,
+          extraFiles ? "",
+          extraConfig ? "",
+        }:
+        pkgs.runCommand "lxc-download-${name}"
           {
             src = pkgs.fetchurl {
               url = "https://dl-cdn.alpinelinux.org/alpine/v3.23/releases/x86_64/alpine-minirootfs-3.23.6-x86_64.tar.gz";
@@ -34,20 +44,34 @@
             auto eth0
             iface eth0 inet dhcp
             EOF
+            ${extraFiles}
 
             # Appended entries replace the originals on extraction, and the
             # rest of the archive keeps its ownership.
             gzip -dc $src > rootfs.tar
-            tar --append -f rootfs.tar -C overlay --owner=0 --group=0 --numeric-owner \
-              ./etc/inittab ./etc/network/interfaces
+            (cd overlay && find . ! -type d) | sort > files
+            tar --append -f rootfs.tar -C overlay --owner=0 --group=0 --numeric-owner -T files
             xz -T0 < rootfs.tar > $out/rootfs.tar.xz
 
             cat > $out/config <<EOF
             lxc.include = LXC_TEMPLATE_CONFIG/common.conf
             lxc.arch = x86_64
             lxc.signal.halt = SIGUSR1
+            ${extraConfig}
             EOF
           '';
+      alpineCache = mkDownloadCache { name = "alpine-3.23"; };
+      # The GA egress test's io_uring case asks for Ubuntu Noble because Alpine
+      # ships no python3. Stand in the same Alpine rootfs with the host's
+      # python3 reachable through a read-only bind of /nix/store.
+      noblePythonCache = mkDownloadCache {
+        name = "ubuntu-noble-python3";
+        extraFiles = ''
+          mkdir -p overlay/usr/bin
+          ln -s ${lib.getExe pkgs.python3} overlay/usr/bin/python3
+        '';
+        extraConfig = "lxc.mount.entry = /nix/store nix/store none ro,bind,create=dir 0 0";
+      };
     in
     {
       virtualisation.memorySize = 2048;
@@ -67,6 +91,7 @@
       };
       systemd.tmpfiles.rules = [
         "L+ /var/cache/lxc/download/alpine/3.23/amd64/default - - - - ${alpineCache}"
+        "L+ /var/cache/lxc/download/ubuntu/noble/amd64/default - - - - ${noblePythonCache}"
       ];
 
       environment.systemPackages = with pkgs; [

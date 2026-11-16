@@ -45,6 +45,31 @@
             hash = "sha256-z2mw1L0umXCeLtSRt+sjH+WNSca2GsyVGDu7w0I9XUg=";
           })
         ];
+        postPatch = ''
+          # The baseline-alias test needs /bin and /lib to be merged-usr
+          # symlinks into /usr, which NixOS does not have, so it always skips.
+          substituteInPlace tests/scripts/run_bwrap_all_tests.sh \
+            --replace-fail '"Bubblewrap Inbound Deny") return 0 ;;' '"Bubblewrap Inbound Deny" | "Bubblewrap Baseline Aliases") return 0 ;;' \
+            --replace-fail '["Bubblewrap Baseline Aliases"]="Bubblewrap baseline-alias test complete."' ""
+
+          # The grant-alias test runs bwrap inside an outer bwrap that binds
+          # only the FHS directories, where nothing on NixOS can execute.
+          substituteInPlace tests/scripts/run_bwrap_grant_alias_test.sh \
+            --replace-fail 'OUTER=(bwrap --unshare-pid' 'OUTER=(bwrap --ro-bind /nix/store /nix/store --unshare-pid'
+
+          # The resolver-isolation test mounts over /run, which holds the system
+          # profile: forget the commands bash already found there, and give the
+          # workload python3 by store path, since the sandbox's default PATH
+          # looks for it in the system profile too.
+          substituteInPlace tests/scripts/run_bwrap_resolver_isolation_test.sh \
+            --replace-fail 'RUN_MOUNTED=1' 'RUN_MOUNTED=1; hash -r' \
+            --replace-fail '"commandLine": "python3 -c "' '"commandLine": shutil.which("python3") + " -c "'
+
+          # The version-gate test mirrors lxc-exec's fallback directories, which
+          # the package extends with NixOS's.
+          substituteInPlace tests/scripts/run_bwrap_version_gate_test.sh \
+            --replace-fail 'FALLBACK_DIRECTORIES=(' 'FALLBACK_DIRECTORIES=(/run/wrappers/bin /run/current-system/sw/bin '
+        '';
       };
       # The unwrapped executable: run_bwrap_version_gate_test.sh controls which
       # bwrap is on PATH, which the wrapper's PATH prefix would override.
@@ -76,10 +101,12 @@
     machine.wait_for_unit("multi-user.target")
 
     # The scripts expect a checkout with the binaries under src/target/release.
+    # Link them by store path: the resolver-isolation test mounts over /etc and
+    # /run.
     machine.succeed(
       "cp -rH --no-preserve=mode /etc/mxc-src /home/alice/mxc",
       "mkdir -p /home/alice/mxc/src/target/release",
-      "ln -s /etc/mxc-libexec/lxc-exec $(command -v unix-test-proxy) /home/alice/mxc/src/target/release/",
+      "ln -s $(readlink -f /etc/mxc-libexec/lxc-exec) $(readlink -f $(command -v unix-test-proxy)) /home/alice/mxc/src/target/release/",
       "sed -i \"s|^DEFAULT_PATH=.*|DEFAULT_PATH='$(cat /etc/mxc-default-path)'|\" /home/alice/mxc/tests/scripts/run_bwrap_environment_test.sh",
       "chown -R alice:alice /home/alice/mxc",
     )
@@ -90,9 +117,12 @@
       machine.succeed("bash /home/alice/mxc/tests/scripts/run_bwrap_inbound_deny_test.sh >&2")
 
     with subtest("unprivileged suite"):
-      # Strict mode fails on a skipped prerequisite instead of passing.
+      # Strict mode fails on a skipped prerequisite instead of passing. The
+      # resolver-isolation test mounts over /run and the grant-alias test's
+      # outer sandbox sees only /nix/store, both of which hide the system
+      # profile on PATH; its store path, appended last, stays reachable in both.
       machine.succeed(
-        "su -l alice -c 'MXC_BWRAP_TESTS_REQUIRE_EXECUTION=1 bash mxc/tests/scripts/run_bwrap_all_tests.sh' >&2"
+        "su -l alice -c 'PATH=$PATH:$(readlink -f /run/current-system/sw/bin) MXC_BWRAP_TESTS_REQUIRE_EXECUTION=1 bash mxc/tests/scripts/run_bwrap_all_tests.sh' >&2"
       )
   '';
 }

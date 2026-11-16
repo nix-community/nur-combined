@@ -1,7 +1,6 @@
 {
   lib,
   rustPlatform,
-  fetchzip,
   runCommand,
   lxc,
   bubblewrap,
@@ -11,11 +10,11 @@
   makeWrapper,
   pkg-config,
   libgit2,
+  openssl,
   zlib,
   coreutils,
   bash,
   wget,
-  patchelf,
   iproute2,
   python3,
   util-linux,
@@ -59,42 +58,17 @@ let
     "${coreutils}/bin"
   ];
 
-  # Taken from ./src/mxc-sdk/build/nanvix_binaries/versions.json
-  versions = builtins.fromJSON (builtins.readFile ./versions.json);
-  nanvixVersions = versions.nanvix_python;
-
-  # nanvixd.elf is the host-side microVM daemon and is linked against an FHS
-  # loader; everything under bin/ is guest code and must stay untouched.
-  nanvixBin =
-    runCommand "nanvix-python-${nanvixVersions.tag}"
-      {
-        src = fetchzip {
-          url = "https://github.com/nanvix/nanvix-python/releases/download/${nanvixVersions.tag}/${nanvixVersions.asset_linux}";
-          hash = "sha256-ud2quBPm8rP4AUV0edu0sbvgWpF6bLCxhJJvTkNm+wk=";
-          postFetch = ''
-            mv $out/bin/nanvixd.elf $out
-          '';
-        };
-        nativeBuildInputs = [ patchelf ];
-      }
-      ''
-        cp -r --no-preserve=mode $src $out
-        chmod +x $out/nanvixd.elf
-        patchelf $out/nanvixd.elf \
-          --set-interpreter ${stdenv.cc.bintools.dynamicLinker} \
-          --set-rpath ${lib.makeLibraryPath [ stdenv.cc.cc.lib ]}
-      '';
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mxc";
-  version = "1.0.1";
+  version = "1.1.0";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "microsoft";
     repo = "mxc";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-uqsF4b0GLvNJbtiUZ2Cq779rt7DFsB76I9TSQSq5bAg=";
+    hash = "sha256-74e6KZTaErXycDIB5LxQduNvLhv1ULHlHmjmEW7sNmk=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/src";
@@ -105,26 +79,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
     # it for its children, but the bubblewrap backend does not, so sandboxed
     # workloads cannot be stopped by timeout(1), kill or Ctrl-C.
     (fetchpatch {
-      url = "https://github.com/Skyb0rg007/mxc/commit/1575647bd662a4bf831806ffadf26ce5517cff5c.patch";
+      url = "https://github.com/Skyb0rg007/mxc/commit/c359d2212cb4bda53a3b96911e4278515dee4704.patch";
       relative = "src";
-      hash = "sha256-1gCweOVuBZK1F3PraNbBc/BO5WzPZxgjTG4qTKLRlGI=";
-    })
-    # The bubblewrap baseline binds /run/systemd/resolve whole, which includes
-    # systemd-resolved's varlink socket, so sandboxes resolve names through the
-    # host even when their network policy allows no DNS.
-    (fetchpatch {
-      url = "https://github.com/Skyb0rg007/mxc/commit/c074a5e3ec204f7e9b9588c61692a8e57f542624.patch";
-      relative = "src";
-      hash = "sha256-/Kr4iopgLdi8RfboG9Y35Q8pgsvCodQ8GBLEN2EKixs=";
+      hash = "sha256-cy9qj7fLqq8ISFAHBYFI7GCl41Z4XI0RxSoQMW9MxvU=";
     })
   ];
 
-  cargoHash = "sha256-zYRySwLZa8R8Wf3oelQSJdGDd6A+VblHU3wUQx9wwqk=";
+  cargoHash = "sha256-yuF5Dn0JnB+gt8mU8lI1exURMImexGNoKgg2zD+tJJc=";
 
-  env = {
-    RUST_BACKTRACE = "1";
-    NANVIX_BIN = if stdenv.hostPlatform.isLinux then nanvixBin else null;
-  };
+  env.RUST_BACKTRACE = "1";
 
   nativeBuildInputs = [
     makeWrapper
@@ -134,6 +97,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   buildInputs = [
     libgit2
     lxc
+    openssl
     zlib
   ];
 
@@ -160,6 +124,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=mxc_pty::tests::native_bridge_cancellation_does_not_inject_eof"
     # Spawns /bin/sleep, which the build sandbox lacks.
     "--skip=mxc_pty::tests::pty_fds_do_not_leak_into_child_across_exec"
+    # Sets the setuid bit on a scratch file, which the build sandbox forbids.
+    "--skip=bwrap_version::tests::setuid_mode_is_reported_from_the_selected_bwrap_file"
     # The process-with-wslc-section fixture expects the Windows error message;
     # on Linux `process` resolves to bubblewrap and is rejected with another.
     "--skip=sdk_v1_conformance::invalid_documents_are_rejected"
@@ -184,7 +150,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   # Both are bound read-only, matching the rest of the baseline.
   postPatch = ''
     substituteInPlace mxc-sdk/src/backends/bubblewrap/common/bwrap_command.rs \
-      --replace-fail '"/mnt/wsl/resolv.conf",' '"/mnt/wsl/resolv.conf", "/nix/store", "/run/current-system/sw",'
+      --replace-fail '"/etc",
+    ];' '"/etc", "/nix/store", "/run/current-system/sw",
+    ];'
 
     # Schema 0.9's default block: point its PATH at the store as well.
     substituteInPlace mxc-sdk/src/backends/bubblewrap/common/bwrap_command.rs \
@@ -198,36 +166,25 @@ rustPlatform.buildRustPackage (finalAttrs: {
     substituteInPlace mxc-sdk/src/backends/bubblewrap/common/bwrap_command.rs \
       --replace-fail 'args.push("--clearenv".into());' 'args.push("--clearenv".into()); if !resolved_env(request).iter().any(|entry| entry.starts_with("PATH=")) { args.extend(["--setenv".into(), "PATH".into(), DEFAULT_PATH.into()]); }'
 
+    # With PATH empty or unset, bwrap, iptables, slirp4netns and the other host
+    # tools are looked up in a fixed list of FHS directories, which hold none of
+    # them on NixOS. Search the setuid wrappers and the system profile first.
+    substituteInPlace mxc-sdk/src/backends/bubblewrap/common/host_tools.rs \
+      --replace-fail 'FALLBACK_DIRECTORIES: [&str; 6] = [' 'FALLBACK_DIRECTORIES: [&str; 8] = ["/run/wrappers/bin", "/run/current-system/sw/bin",'
+
     # The build sandbox has no /bin/sleep; let the sandbox PATH find it.
     substituteInPlace mxc-sdk/tests/wxc_e2e_tests_e2e_bubblewrap_characterization.rs \
       --replace-fail '(/bin/sleep ' '(sleep '
-  ''
-  + lib.optionalString (stdenv.hostPlatform.isLinux && withMicrovm) ''
-    # The build script verifies NANVIX_BIN against checksums.json; record the
-    # hash of the patchelf'd nanvixd.elf so the check still applies.
-    sed -i -E "s|(\"nanvixd.elf\": \")[0-9a-f]{64}|\1$(sha256sum ${nanvixBin}/nanvixd.elf | cut -d' ' -f1)|" \
-      mxc-sdk/build/nanvix_binaries/checksums.json
-    grep -qF "$(sha256sum ${nanvixBin}/nanvixd.elf | cut -d' ' -f1)" mxc-sdk/build/nanvix_binaries/checksums.json
   '';
 
-  # The microVM backend looks for the NanVix binaries next to the running
-  # executable, so lxc-exec lives beside them in libexec.
-  postInstall = lib.optionalString stdenv.hostPlatform.isLinux (
-    lib.optionalString withMicrovm ''
-      mkdir -p $out/libexec/mxc/bin
-      mv $out/bin/lxc-exec $out/libexec/mxc/
-      # Staged into the target dir by the build script; linked below instead.
-      rm $out/bin/nanvixd.elf
-      ln -s ${nanvixBin}/{nanvixd.elf,nanvix_rootfs.img,python3.initrd} $out/libexec/mxc/
-      ln -s ${nanvixBin}/bin/kernel.elf $out/libexec/mxc/bin/
-      makeWrapper $out/libexec/mxc/lxc-exec $out/bin/lxc-exec \
-        --prefix PATH : ${lib.makeBinPath [ bubblewrap ]}
-    ''
-    + lib.optionalString (!withMicrovm) ''
-      wrapProgram $out/bin/lxc-exec \
-        --prefix PATH : ${lib.makeBinPath [ bubblewrap ]}
-    ''
-  );
+  # The unwrapped executable stays in libexec, so that callers can control
+  # which bwrap it finds (the NixOS test's version-gate script does).
+  postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
+    mkdir -p $out/libexec/mxc
+    mv $out/bin/lxc-exec $out/libexec/mxc/
+    makeWrapper $out/libexec/mxc/lxc-exec $out/bin/lxc-exec \
+      --prefix PATH : ${lib.makeBinPath [ bubblewrap ]}
+  '';
 
   # The bubblewrap sandbox's PATH when a request supplies none.
   passthru.defaultSandboxPath = defaultSandboxPath;
