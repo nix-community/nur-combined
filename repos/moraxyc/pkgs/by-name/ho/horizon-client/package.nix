@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage {
   cargoLock = source.cargoLock;
 
   cargoBuildFlags = [
-    "--package=horizon-client"
+    "--package=horizon-game"
     "--bin=horizon-client"
     "--package=horizon-client-lib"
     "--bin=horizon-ctl"
