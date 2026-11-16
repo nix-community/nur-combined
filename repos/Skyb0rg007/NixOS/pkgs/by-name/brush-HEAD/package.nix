@@ -8,14 +8,14 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "brush";
-  version = "0.4.0-unstable-2026-11-14";
+  version = "0.4.0-unstable-2026-11-15";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "reubeno";
     repo = "brush";
-    rev = "6a688f192455f65ece4cfd7dd26300d06804d5ae";
-    hash = "sha256-TulrninEvQqRS0N5NacY+VPJP75miF64R8nc5LuHzB0=";
+    rev = "fbd1eb36158384bbd5ad542445a5324bebefce78";
+    hash = "sha256-Sn7APltB7DDKanTdV15/qinuCNXR/HB4PLsvXwUe/Ao=";
   };
 
   cargoHash = "sha256-vktxuwhYRNOGwHePIJmWZLOq13u2EIeIh02ZK78CvsA=";
