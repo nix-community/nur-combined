@@ -248,3 +248,87 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: gh pr merge --squash --auto "${{ steps.cpr.outputs.pull-request-number }}"
+
+  update-plannotator:
+    # nix-update cannot refresh the per-platform hashes of a prebuilt
+    # binary, so read them from the .sha256 files upstream attaches to
+    # each GitHub release.
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+
+    - name: Install nix
+      uses: cachix/install-nix-action@3dc140bfc76c49fbd4dd958429132e3746bcb086 # v31.11.5
+      with:
+        nix_path: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+
+    - name: Capture current version
+      id: before
+      run: echo "version=$(jq -r .version pkgs/plannotator/sources.json)" >> "$GITHUB_OUTPUT"
+
+    - name: Update sources.json from the latest release
+      id: fetch
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        TAG=$(gh api repos/backnotprop/plannotator/releases/latest --jq .tag_name)
+        if ! [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          echo "unexpected tag: $TAG" >&2
+          exit 1
+        fi
+        VERSION=${TAG#v}
+        HASHES='{}'
+        for platform in linux-x64 linux-arm64 darwin-x64 darwin-arm64; do
+          HASH=$(curl -fsSL "https://github.com/backnotprop/plannotator/releases/download/${TAG}/plannotator-${platform}.sha256" | awk '{print $1}')
+          if ! [[ "$HASH" =~ ^[0-9a-f]{64}$ ]]; then
+            echo "unexpected hash for ${platform}: $HASH" >&2
+            exit 1
+          fi
+          HASHES=$(jq --arg k "$platform" --arg v "$HASH" '. + {($k): $v}' <<< "$HASHES")
+        done
+        jq -n --arg version "$VERSION" --argjson hashes "$HASHES" \
+          '{version: $version, hashes: ($hashes | to_entries | sort_by(.key) | from_entries)}' \
+          > pkgs/plannotator/sources.json
+        echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+    - name: Detect changes
+      id: after
+      run: |
+        if git diff --quiet pkgs/plannotator/; then
+          echo "changed=false" >> "$GITHUB_OUTPUT"
+        else
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+        fi
+
+    - name: Build package
+      if: steps.after.outputs.changed == 'true'
+      run: nix-build -E 'with import <nixpkgs> { }; callPackage ./pkgs/plannotator { }'
+
+    - name: Create Pull Request
+      id: cpr
+      if: steps.after.outputs.changed == 'true'
+      uses: peter-evans/create-pull-request@3ffccacd46053766916f087ce41d627c0b8cf2d1 # v8.1.3
+      with:
+        token: ${{ secrets.NUR_UPDATE_PAT }}
+        branch: update/plannotator-${{ steps.fetch.outputs.version }}
+        commit-message: "plannotator: ${{ steps.before.outputs.version }} -> ${{ steps.fetch.outputs.version }}"
+        title: "plannotator: ${{ steps.before.outputs.version }} -> ${{ steps.fetch.outputs.version }}"
+        body: |
+          Automated update of plannotator from `${{ steps.before.outputs.version }}` to `${{ steps.fetch.outputs.version }}`.
+
+          Release: https://github.com/backnotprop/plannotator/releases/tag/v${{ steps.fetch.outputs.version }}
+        labels: automated
+
+    - name: Enable auto-merge
+      if: steps.after.outputs.changed == 'true'
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: gh pr merge --squash --auto "${{ steps.cpr.outputs.pull-request-number }}"

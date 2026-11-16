@@ -40,4 +40,5 @@
   op-cached = pkgs.callPackage ./pkgs/op-cached { };
   symbol-desktop-wallet = pkgs.callPackage ./pkgs/symbol-desktop-wallet { };
   proton-drive-cli = pkgs.callPackage ./pkgs/proton-drive-cli { };
+  plannotator = pkgs.callPackage ./pkgs/plannotator { };
 }
