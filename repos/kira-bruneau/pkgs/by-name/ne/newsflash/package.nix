@@ -18,8 +18,8 @@
   gtksourceview5,
   libadwaita,
   libglycin,
-  libxml2,
   openssl,
+  aws-lc,
   sqlite,
   webkitgtk_6_0,
   glib-networking,
@@ -77,8 +77,8 @@ stdenv.mkDerivation (finalAttrs: {
     gtksourceview5
     libadwaita
     libglycin
-    libxml2
     openssl
+    aws-lc
     sqlite
     webkitgtk_6_0
 

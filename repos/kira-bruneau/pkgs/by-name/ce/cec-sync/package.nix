@@ -6,6 +6,7 @@
   libcec,
   udev,
   wayland,
+  zstd,
   nix-update-script,
 }:
 
@@ -28,6 +29,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     libcec
     udev
     wayland
+    zstd
   ];
 
   env.C_INCLUDE_PATH = "${libcec.dev}/include/libcec";
