@@ -7,7 +7,7 @@
 
 php.buildComposerProject2 (finalAttrs: {
   pname = "roundcube-oidc-unwrapped";
-  version = "1.3.5";
+  version = "1.3.6";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -17,11 +17,10 @@ php.buildComposerProject2 (finalAttrs: {
     owner = "bart";
     repo = "roundcube-oidc";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-BV0bLWbXXT5mkChTBSeV6b3cSecKvYbRU2+E/pdYIO8=";
+    hash = "sha256-7BhXh2qTnhLob+Wd57wXgESWSbc38l7jYXat1dzQoxY=";
   };
 
-  vendorHash = "sha256-RUlMbu4ckyVoj4R2uCcw/XdOJZ/phwY4SDrzLTmHZtc=";
-  composerStrictValidation = false;
+  vendorHash = "sha256-bRPmwZS6orMjsnW/yklcWUY2mA03gDYml9Iu4X6aRI0=";
 
   installPhase = ''
     runHook preInstall
