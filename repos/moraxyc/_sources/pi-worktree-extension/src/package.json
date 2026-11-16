@@ -1,0 +1,58 @@
+{
+  "name": "pi-worktree-extension",
+  "version": "2.0.5",
+  "description": "Run multiple Pi coding agents in parallel with isolated worktrees and resumable sessions",
+  "author": "Ajay Poshak",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AjayPoshak/pi-worktree-extension.git"
+  },
+  "homepage": "https://ajayposhak.github.io/pi-worktree-extension/",
+  "bugs": {
+    "url": "https://github.com/AjayPoshak/pi-worktree-extension/issues"
+  },
+  "keywords": [
+    "pi-package",
+    "pi",
+    "git",
+    "worktree",
+    "parallel-agents",
+    "ai-coding-agent",
+    "sessions"
+  ],
+  "type": "module",
+  "license": "MIT",
+  "files": [
+    "bin",
+    "dist/src",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "bin": {
+    "pi-worktree": "bin/pi-worktree"
+  },
+  "pi": {
+    "extensions": [
+      "./src/extension.ts"
+    ]
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit",
+    "build": "npm run clean && tsc",
+    "test": "npm run build && node --test dist/test/*.test.js",
+    "prepack": "npm run build"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "0.83.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0"
+  }
+}

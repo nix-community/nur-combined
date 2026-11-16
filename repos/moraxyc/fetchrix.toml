@@ -484,6 +484,15 @@ fetch = { type = "github", repo = "nicobailon/pi-web-access", rev = "{version}" 
 kind = "npm-deps"
 strategy = "lockfile"
 
+[packages.pi-worktree-extension]
+version = { source = "github-release", repo = "AjayPoshak/pi-worktree-extension" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "AjayPoshak/pi-worktree-extension", rev = "{version}" }
+
+[packages.pi-worktree-extension.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"
+
 [packages.picoclaw]
 version = { source = "github-tag", repo = "sipeed/picoclaw", strip_prefix = "v" }
 transform = ["strip-v"]

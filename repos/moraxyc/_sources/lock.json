@@ -961,6 +961,24 @@
       },
       "fingerprint": "sha256-ZLANG+YUxoldl5tAV33NSy4/DlHWaRPvmBuTGTHhJwI="
     },
+    "pi-worktree-extension": {
+      "version": "2.0.5",
+      "rawVersion": "v2.0.5",
+      "date": "2026-10-30",
+      "src": {
+        "fetcher": "github",
+        "owner": "AjayPoshak",
+        "repo": "pi-worktree-extension",
+        "rev": "v2.0.5",
+        "hash": "sha256-CapK6FIlxGCZPGh3L6iuxiOu0aZHhak7Ho2Gn6Wr3aA="
+      },
+      "derived": {
+        "npmDeps": {
+          "lockfile": "pi-worktree-extension/src/package-lock.json"
+        }
+      },
+      "fingerprint": "sha256-fzEfbyGcAWo1XqMNhhLmUnmGWW/LG8LG850bpXmXg+8="
+    },
     "picoclaw": {
       "version": "0.3.1",
       "rawVersion": "0.3.1",
