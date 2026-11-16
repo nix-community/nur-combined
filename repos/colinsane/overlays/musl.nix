@@ -108,7 +108,7 @@ super.lib.composeManyExtensions [
     #
     # XXX(2026-01-21): in fact some things *rely* on pkgsStatic being static, e.g. `lix` which needs a static, embeddable `busybox`.
     # so create a real + working pkgsStatic set, by recreating it with a gnu build machine.
-    # 2026-04-30: still required
+    # 2026-11-14: still required
     pkgsStatic = import pkgs.path {
       overlays = [
         (self': super': {
@@ -275,15 +275,15 @@ super.lib.composeManyExtensions [
     # it's wrapped onto PATH by nixpkgs. so hopefully aerc doesn't _truly_ need it.
     # 2026-03-22: aerc -> notmuch -> emacs -> mailutils fails build
     aerc = prev.aerc.override {
-      # 2026-10-03: still required
+      # 2026-11-14: still required
       dante = null;
-      # 2026-10-03: still required
+      # 2026-11-14: still required
       notmuch = prev.notmuch.override {
         withEmacs = false;
       };
     };
 
-    # 2026-10-03: still required
+    # 2026-11-14: still required
     apparmor-parser = prev.apparmor-parser.overrideAttrs (prevAttrs: {
       postPatch = prevAttrs.postPatch + ''
         # LLM claims:
@@ -296,6 +296,7 @@ super.lib.composeManyExtensions [
       '';
     });
 
+    # 2026-11-14: still required
     # 2026-11-09: fixes "methods/aptmethod.h:189:52: error: '__SNR_prlimit' was not declared in this scope".
     # musl's <sys/resource.h> does `#define prlimit64 prlimit`, which mangles `SCMP_SYS(prlimit64)`.
     apt = prev.apt.overrideAttrs (upstream: {
@@ -305,18 +306,7 @@ super.lib.composeManyExtensions [
       '';
     });
 
-    # 2026-10-03: this is no longer enough to fix the build
-    # 2026-08-30: still required
-    # audacity = prev.audacity.overrideAttrs (upstream: {
-    #   # 2026-02-16: fixes "/build/source/libraries/lib-sqlite-helpers/sqlite/Statement.h:55:4: error: ‘int64_t’ does not name a type"
-    #   patches = (upstream.patches or []) ++ [
-    #     (fetchAports {
-    #       path = "community/audacity/add-cstdint.patch";
-    #       hash = "sha256-OoUI7L1L8N//tTzGWe2Xl5Cr3qx4eHjm9JyRBxAro5s=";
-    #     })
-    #   ];
-    # });
-
+    # 2026-11-14: still required
     # Rust's musl target links statically, so system zstd needs libzstd.a.
     cargo-nextest = prev.cargo-nextest.override {
       zstd = final.zstd.override { enableStatic = true; };
@@ -331,7 +321,8 @@ super.lib.composeManyExtensions [
     #   });
     # };
 
-    # 2026-10-03: still required
+    # 2026-11-14: still required
+    # claude-code is distributed as a binary and assumes the libc is glibc.
     claude-code = final._pkgsGnu.claude-code;
 
     # claude-code = (prev.claude-code.override {
@@ -342,20 +333,6 @@ super.lib.composeManyExtensions [
     #     final._pkgsGnu.glibc
     #   ];
     # };
-
-    coreutils = prev.coreutils.overrideAttrs (upstream: {
-      # write-errors probes --version, then allows only 12 MiB for actual I/O.
-      # mimalloc may need another 64 MiB segment (plus alignment); otherwise
-      # the test diagnoses ENOMEM instead of the intended ENOSPC/EBADF.
-      # This also covers fetchurl's bootstrap coreutils override, which disables
-      # gmp/acl/attr and is distinct from pkgsMusl.coreutils.
-      preCheck = (upstream.preCheck or "") + lib.optionalString
-        ((stdenv.cc.libc.allocatorModel or "malloc-ng") == "mimalloc")
-        ''
-          substituteInPlace tests/misc/write-errors.sh \
-            --replace-fail '$base_mem+12000' '$base_mem+131072'
-        '';
-    });
 
     # 2026-01-29: tried, but could not fix build
     # dante = prev.dante.overrideAttrs (upstream: {
@@ -494,6 +471,8 @@ super.lib.composeManyExtensions [
         v
     )) prev.electron-source;
 
+    # 2026-11-14: still required
+    # without this, the IMAP test fails to compile due to non-POSIX strcasestr.
     evolution-data-server = prev.evolution-data-server.overrideAttrs (prevAttrs: {
       patches = (prevAttrs.patches or []) ++ [
         (fetchpatch {
@@ -504,33 +483,12 @@ super.lib.composeManyExtensions [
       ];
     });
 
-    # 2026-10-03: still required
+    # 2026-11-14: still required
+    # 2026-02-03: two tests fail: tests/data/hls-list.append.m3u8, tests/data/hls-list.m3u8
+    # Alpine disables check because "tests/data/hls-lists.append.m3u8 [sic] fails".
     ffmpeg_7 = prev.ffmpeg_7.overrideAttrs {
-      # 2026-02-03: two tests fail: tests/data/hls-list.append.m3u8, tests/data/hls-list.m3u8
-      # Alpine disables check because "tests/data/hls-lists.append.m3u8 [sic] fails".
-      # only applies to ffmpeg_7: nix ffmpeg (8) builds fine.
       doCheck = false;
     };
-
-    # 2026-10-03: still required
-    # 2026-08-27: the same HLS FATE tests segfault on musl in ffmpeg 9.
-    ffmpeg_9 = prev.ffmpeg_9.overrideAttrs {
-      doCheck = false;
-    };
-
-    # 2026-10-03: still required
-    # 2026-08-13: Alpine disables checks because the HLS FATE tests fail on musl.
-    # Its musl ioctl fix is also applied here for the libv4l2 build.
-    ffmpeg = prev.ffmpeg.overrideAttrs (upstream: {
-      patches = (upstream.patches or []) ++ [
-        (fetchAports {
-          path = "community/ffmpeg/posix-ioctl.patch";
-          rev = "7ca9594090928aeac18de3caf4c8002109e70445";
-          hash = "sha256-vwOxK3xmwssUNrExPMotaS+y23ZM1QvYXEk/izfpS6w=";
-        })
-      ];
-      doCheck = false;
-    });
 
     # 2026-08-30: still required
     ffmpeg-headless = prev.ffmpeg-headless.overrideAttrs (upstream: {
@@ -563,7 +521,7 @@ super.lib.composeManyExtensions [
         #   hash = "sha256-oD/UdVfvOtY+HR5mLExf7ARQfvjpaMd2rOf0EBQ5TyM=";
         # })
         (fetchAports {
-          # 2026-08-31: still required
+          # 2026-11-14: still required
           # 2026-02-03: fixes "/nix/store/hsvrmvp1i7k326fpvdrg99gmka863fwi-musl-1.2.5-dev/include/sys/prctl.h:88:8: error: redefinition of 'prctl_mm_map'"
           path = "community/firefox/musl-no-linux-prctl.patch";
           hash = "sha256-Mwyvdqc//WvSn7HqbkCILipl2C9Qo0T3ZQWbYPtGK8A=";
@@ -856,13 +814,14 @@ super.lib.composeManyExtensions [
       ];
     });
 
-    # 2026-10-03: still required
+    # 2026-11-14: still required
     # 2026-01-28: disable malcontent to unblock flatpak: it's some "parental controls" thing?
     # flatpak -> malcontent -> accountsservice (broken).
     flatpak = prev.flatpak.override {
       withMalcontent = false;
     };
 
+    # 2026-11-14: still required
     glslang = prev.glslang.overrideAttrs (prevAttrs: {
       env = (prevAttrs.env or {}) // {
         # 2026-10-18: the multithreaded CLI test overflows musl's default thread stack.
@@ -876,8 +835,9 @@ super.lib.composeManyExtensions [
     # is this sensible? should rather patch those out...
     # glibcLocales = pkgsCross.gnu64.glibcLocales;
 
-    # 2026-10-03: still required
+    # 2026-11-14: still required
     gmime3 = prev.gmime3.overrideAttrs {
+      # test-iconv and test-filters fail on musl.
       # alpine builds w/ tests disabled, since 2019.
       # see: <https://github.com/jstedfast/gmime/issues/63>
       doCheck = false;
@@ -888,7 +848,7 @@ super.lib.composeManyExtensions [
     # Google does not appear to distribute musl .debs, nor does any musl-based distro have a google-chrome package.
     google-chrome = final._pkgsGnu.google-chrome;
 
-    # 2026-10-17: still required
+    # 2026-11-14: still required
     gparted = prev.gparted.override {
       # 2026-01-29: `gpart` (binary which is placed on runtime PATH) does not build for musl.
       # > In file included from gpart.h:23,
@@ -902,7 +862,7 @@ super.lib.composeManyExtensions [
     };
 
     gst_all_1 = prev.gst_all_1.overrideScope (_final': prev': {
-      # 2026-10-17: still required
+      # 2026-11-14: still required
       # XXX(2026-01-28): ffv1 tests timeout. it's some new codec, just disable it.
       # <https://github.com/FFmpeg/FFV1>
       #
@@ -969,14 +929,15 @@ super.lib.composeManyExtensions [
     # 2026-08-31: still required
     # 2026-01-27: fails hyprland -> hyprcursor -> tomlplusplus (locale tests fail)
     # only `nwg-panel` uses hyprland; `null`ing it seems to Just Work.
-    hyprland = null;
+    # hyprland = null;
 
+    # 2026-11-14: still required
     # 2026-10-02: jemalloc's test suite hangs on musl during checkPhase.
     jemalloc = prev.jemalloc.overrideAttrs {
       doCheck = false;
     };
 
-    # 2026-10-17: still required
+    # 2026-11-14: still required
     # knot-dns tests fail because musl doesn't find its tzdata in the nix build sandbox
     # > not ok 47 - time_print isoZ result '1970-01-01T12:13:20+00:00' == '1970-01-01T13:13:20+01:00'
     # > not ok 49 - time_print isoZ_ex result '1970-01-01T12:13:20.012+00:00
@@ -988,7 +949,7 @@ super.lib.composeManyExtensions [
       '';
     });
 
-    # 2026-10-17: still required
+    # 2026-11-14: still required
     # 2026-01-25: fails building a test, so disable that test. probably not suitable for upstream.
     ldb = prev.ldb.overrideAttrs (upstream: {
       patches = (upstream.patches or []) ++ [
@@ -1017,7 +978,7 @@ super.lib.composeManyExtensions [
     #   # ];
     # });
 
-    # 2026-10-17: still required
+    # 2026-11-14: still required
     # XXX(2026-01-29): one of the tests fail; alpine builds without tests claiming
     # "probably fpmath=sse related failures"
     # > [  FAILED  ] LineTest.CoincidingIntersect
@@ -1025,7 +986,7 @@ super.lib.composeManyExtensions [
       doCheck = false;
     };
 
-    # 2026-10-03: still required
+    # 2026-11-14: still required
     # 2026-01-29: fails tests
     # > # Begin functests/test_walkone.sh
     # > # PLATFORM=linuxlike
@@ -1057,11 +1018,13 @@ super.lib.composeManyExtensions [
       doCheck = false;
     });
 
+    # 2026-11-14: still required
     # 2026-10-02: pseudotcp and gstreamer tests fail
     libnice = prev.libnice.overrideAttrs {
       doCheck = false;
     };
 
+    # 2026-11-14: required; without this, secret-file-collection.c fails to compile on musl (open, O_CREAT, and O_RDWR undeclared).
     libsecret = prev.libsecret.overrideAttrs (prevAttrs: {
       patches = (prevAttrs.patches or []) ++ [
         (fetchpatch {
@@ -1072,7 +1035,7 @@ super.lib.composeManyExtensions [
       ];
     });
 
-    # 2026-10-17: still required
+    # 2026-11-14: still required
     lixPackageSets = prev.lixPackageSets.extend (_: lixPrev: {
       lix_2_95 = lixPrev.lix_2_95.overrideScope (_: compsPrev: {
         lix = compsPrev.lix.overrideAttrs (prevAttrs: {
@@ -1083,7 +1046,7 @@ super.lib.composeManyExtensions [
       });
     });
 
-    # 2026-10-03: still required
+    # 2026-11-14: still required
     # XXX(2026-01-22): fix broken 0122 test:
     # > FAIL: test-0112.sh
     # > ==================
@@ -1102,6 +1065,7 @@ super.lib.composeManyExtensions [
       ];
     });
 
+    # 2026-11-14: still required
     # XXX(2026-07-16): patch lttng-ust so that wireplumber (pipewire) doesn't crash on launch.
     lttng-ust = prev.lttng-ust.overrideAttrs (prevAttrs: {
       patches = (prevAttrs.patches or []) ++ [
@@ -1113,7 +1077,7 @@ super.lib.composeManyExtensions [
       ];
     });
 
-    # 2026-10-03: still required
+    # 2026-11-14: still required
     mesa-demos = prev.mesa-demos.overrideAttrs (upstream: {
       # fixes:
       # > ../src/vulkan/wsi/wayland.c:217:13: error: ‘enter’ undeclared here (not in a function)
@@ -1126,15 +1090,7 @@ super.lib.composeManyExtensions [
       ];
     });
 
-    # 2026-10-16: NetBSD 11.0 removed trailing whitespace that getent.patch still contains.
-    # TODO: send to upstream nixpkgs
-    netbsd = prev.netbsd.overrideScope (_: netbsdPrev: {
-      getent = netbsdPrev.getent.overrideAttrs (prevAttrs: {
-        patchFlags = (prevAttrs.patchFlags or [ "-p1" ]) ++ [ "--ignore-whitespace" ];
-      });
-    });
-
-    # 2026-10-03: still required
+    # 2026-11-14: still required
     nfs-utils = (prev.nfs-utils.override {
       # 2026-04-30: still required, out for PR: <https://github.com/NixOS/nixpkgs/pull/515858>
       # TODO: figure out whether this is should be conditioned by musl, or universal.
@@ -1337,7 +1293,7 @@ super.lib.composeManyExtensions [
       # ];
     });
 
-    # 2026-10-17: still required
+    # 2026-11-14: still required
     # 2026-10-02: musl lacks close_range(), and nix relies on glibc transitively including <sys/syscall.h> for the fallback:
     # > ../unix/file-descriptor.cc:82:20: error: ‘SYS_close_range’ was not declared in this scope
     # upstream issue: <https://github.com/NixOS/nix/issues/11931>
@@ -1349,16 +1305,16 @@ super.lib.composeManyExtensions [
           };
         });
       });
-      nixComponents_2_35 = nixPrev.nixComponents_2_35.overrideScope (_: componentsPrev: {
-        nix-util = componentsPrev.nix-util.overrideAttrs (prevAttrs: {
-          env = (prevAttrs.env or {}) // {
-            NIX_CFLAGS_COMPILE = (lib.optionalString ((prevAttrs.env.NIX_CFLAGS_COMPILE or "") != "") "${prevAttrs.env.NIX_CFLAGS_COMPILE} ") + "-include sys/syscall.h";
-          };
-        });
-      });
+      # nixComponents_2_35 = nixPrev.nixComponents_2_34.overrideScope (_: componentsPrev: {
+      #   nix-util = componentsPrev.nix-util.overrideAttrs (prevAttrs: {
+      #     env = (prevAttrs.env or {}) // {
+      #       NIX_CFLAGS_COMPILE = (lib.optionalString ((prevAttrs.env.NIX_CFLAGS_COMPILE or "") != "") "${prevAttrs.env.NIX_CFLAGS_COMPILE} ") + "-include sys/syscall.h";
+      #     };
+      #   });
+      # });
     });
 
-    # 2026-10-03: still required
+    # 2026-11-14: still required
     nmon = prev.nmon.overrideAttrs (upstream:
       # nmon is a single-file project,
       # compiled in nixpkgs in an extremely non-patchable manner.
@@ -1388,9 +1344,8 @@ super.lib.composeManyExtensions [
       }
     );
 
-    # 2026-08-30: still required
     onnxruntime = (prev.onnxruntime.override {
-      # 2026-10-03: still required
+      # 2026-11-14: still required
       # XXX(2026-07-01): pkgsMusl.openvino doesn't compile
       openvinoSupport = false;
     }).overrideAttrs (upstream: {
@@ -1419,6 +1374,7 @@ super.lib.composeManyExtensions [
     #   level-zero = null;
     # };
 
+    # 2026-11-14: still required
     # 2026-06-22: playwright-driver.passthru.browsers would appear to be **vendored** browsers, hence glibc-only.
     playwright-driver = final._pkgsGnu.playwright-driver;
     playwright-test = final._pkgsGnu.playwright-test;
@@ -1433,11 +1389,11 @@ super.lib.composeManyExtensions [
         #   ];
         # });
 
-        # 2026-08-31: still required
+        # 2026-11-14: still required
         crawl4ai = (pysuper.crawl4ai.override {
           alphashape = null;
           shapely = null;
-          # optional deps which don't build for musl
+          # optional deps which don't build (or even eval!) for musl
           sentence-transformers = null;
           tokenizers = null;
           torch = null;
@@ -1454,6 +1410,7 @@ super.lib.composeManyExtensions [
         });
 
         cryptography = pysuper.cryptography.overridePythonAttrs (prevAttrs: {
+          # 2026-11-14: still required
           # Chimera also disables this ~4 TiB allocation test with mimalloc:
           # https://github.com/chimera-linux/cports/commit/45b26b7673b53291b09b8d27fe54e124882c888d
           disabledTests = (prevAttrs.disabledTests or []) ++ lib.optional
@@ -1467,29 +1424,19 @@ super.lib.composeManyExtensions [
           doCheck = false;
         });
 
-        # 2026-10-03: still required
+        # 2026-11-14: still required
         cyclopts = pysuper.cyclopts.override {
           # XXX(2026-06-22): nativeCheckInputs; optional dep.
           fish = null;
         };
 
-        # 2026-10-16: SIGINT does not interrupt lock acquisition on musl, so
-        # both test_interrupt variants hang waiting for the scheduler's queue.
-        # https://github.com/python/cpython/issues/78185
-        # Alpine also deselects this test in community/py3-dask/APKBUILD.
-        dask = pysuper.dask.overrideAttrs (prevAttrs: {
-          disabledTestPaths = (prevAttrs.disabledTestPaths or []) ++ [
-            "dask/tests/test_threaded.py::test_interrupt"
-          ];
-        });
-
-        # 2026-10-03: still required
+        # 2026-11-14: still required
         # XXX(2026-06-22): timezone tests fail
         django = pysuper.django.overridePythonAttrs {
           doCheck = false;
         };
 
-        # 2026-10-03: still required
+        # 2026-11-14: still required
         joblib = pysuper.joblib.overridePythonAttrs {
           # XXX(2026-07-27): several test failures, unknown cause
           # > python3.14-joblib> FAILED joblib/test/test_parallel.py::test_threadpool_limitation_in_child_override[parallel_config-OPENBLAS_NUM_THREADS-2] - OSError: [Errno 24] No file descriptors available
@@ -1499,7 +1446,7 @@ super.lib.composeManyExtensions [
           # checkPhaseThreadLimitHook = null;
         };
 
-        # 2026-10-03: still required
+        # 2026-11-14: still required
         netifaces = pysuper.netifaces.overrideAttrs (upstream: {
           patches = (upstream.patches or []) ++ [
             (fetchAports {
@@ -1509,11 +1456,11 @@ super.lib.composeManyExtensions [
           ];
         });
 
-        # 2026-10-03: still required
+        # 2026-11-14: still required
         ml-dtypes = pysuper.ml-dtypes.overridePythonAttrs (prevAttrs: {
-          # musl's libm returns different NaN and infinity components for complex
-          # functions than glibc, so these upstream comparisons are not portable.
           disabledTestPaths = (prevAttrs.disabledTestPaths or []) ++ [
+            # 2026-10-03: musl's libm returns different NaN and infinity components for complex
+            # functions than glibc, so these upstream comparisons are not portable.
             "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arcsin-complex32]"
             "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arcsin-bcomplex32]"
             "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arccos-complex32]"
@@ -1548,13 +1495,8 @@ super.lib.composeManyExtensions [
         #   # };
         # });
         #
-        # 2026-10-13: ThinLTO spends over an hour optimizing the musl runtime.
-        # Keep release optimization, but avoid the pathological LTO build time.
-        polars = pysuper.polars.overrideAttrs {
-          CARGO_PROFILE_RELEASE_LTO = "false";
-        };
 
-        # 2026-10-03: still required
+        # 2026-11-14: still required
         # 2026-08-30: nixpkgs' ctypes patch assumes glibc's libc.so.6 name.
         psycopg = pysuper.psycopg.overridePythonAttrs (upstream: {
           postPatch = upstream.postPatch + ''
@@ -1574,6 +1516,7 @@ super.lib.composeManyExtensions [
         });
 
         shtab = pysuper.shtab.override {
+          # 2026-11-14: still required
           # XXX(2026-10-18): nativeCheckInputs; optional dep.
           fish = null;
         };
@@ -1584,7 +1527,7 @@ super.lib.composeManyExtensions [
           doCheck = false;
         };
 
-        # 2026-10-03: still required
+        # 2026-11-14: still required
         twisted = pysuper.twisted.overrideAttrs (upstream: {
           # 2026-01-22: no explanation; alpine just hard-disables this hanging test, quite intrusively.
           # the test *does* seem to be flakey? but builds (eventually?) w/o this.
@@ -1611,6 +1554,7 @@ super.lib.composeManyExtensions [
       })
     ];
 
+    # 2026-11-14: still required
     # ripgrep enables jemalloc on 64-bit musl; Cargo's setup hook requires a system library.
     ripgrep = prev.ripgrep.overrideAttrs (prevAttrs: let
       jemalloc = final.rust-jemalloc-sys.overrideAttrs {
@@ -1623,7 +1567,7 @@ super.lib.composeManyExtensions [
       };
     });
 
-    # 2026-10-03: still required
+    # 2026-11-14: still required
     rpm = prev.rpm.overrideAttrs (upstream: {
       patches = (upstream.patches or []) ++ [
         # (fetchAports {
@@ -1640,6 +1584,7 @@ super.lib.composeManyExtensions [
       ];
     });
 
+    # 2026-11-14: still required
     rofi-unwrapped = prev.rofi-unwrapped.overrideAttrs (upstream: {
       # Chimera disables this libnkutils suite due to a heap-buffer overflow:
       # https://github.com/chimera-linux/cports/commit/5173df6c22771e556b72787e1670c9a451c0d3d0
@@ -1649,6 +1594,7 @@ super.lib.composeManyExtensions [
         "--no-suite=format-string";
     });
 
+    # 2026-11-14: still required
     # 2026-10-25: Signal's native dependencies assume glibc.
     signal-desktop = (prev.signal-desktop.override {
       # The native dependencies are private to Signal's callPackage scope.
@@ -1698,7 +1644,7 @@ super.lib.composeManyExtensions [
       '';
     });
 
-    # 2026-04-30: still required
+    # 2026-11-14: still required
     # XXX(2026-02-03): default `pkgsMusl.slack` fails at launch:
     # > Error loading shared library ld-linux-x86-64.so.2: No such file or directory (needed by /nix/store/d2xqw8dspwxk2bnvgnwfzqj534rvfdj8-slack-4.47.72/lib/slack/slack)
     # > Error loading shared library ld-linux-x86-64.so.2: No such file or directory (needed by /nix/store/d2xqw8dspwxk2bnvgnwfzqj534rvfdj8-slack-4.47.72/lib/slack/libffmpeg.so)
@@ -1739,7 +1685,7 @@ super.lib.composeManyExtensions [
     # };
     slack = final._pkgsGnu.slack;
 
-    # 2026-10-17: still required
+    # 2026-11-14: still required
     # XXX(2026-01-21): fortify failures only on musl:
     # > In file included from /nix/store/a7ijnxh5xvipgfx2j4wn7p6ff2an966p-fortify-headers-1.1alpine3/include/strings.h:23,
     # >                  from /nix/store/ci8sxhmyzz9pgqidk2z9zh6ycgcr72bd-musl-1.2.5-dev/include/string.h:59,
@@ -1803,42 +1749,13 @@ super.lib.composeManyExtensions [
     #   doCheck = false;
     # });
 
-    # 2026-10-03: still required
+    # 2026-11-14: still required
     # 2026-01-29: fish fails checkPhase on musl, but swaync doesn't seem to actually need it?
     swaynotificationcenter = prev.swaynotificationcenter.override {
       fish = null;
     };
 
-    # 2026-10-03: still required
-    # 2026-07-28: tor package tests fail on musl (test-memwipe exits with status 139/segfault)
-    tor = prev.tor.overrideAttrs (upstream: {
-      doCheck = false;
-    });
-
-    # 2026-04-30: still required
-    # nixpkgs actually just wraps tor's prebuilt releases.
-    # neither alpine, arch, void, appear to build tor from source.
-    # guix might be the *only* distro that _appears_ to do a from-source build.
-    # tor-browser = final._pkgsGnu.tor-browser;
-
-    tor-browser-from-src = prev.tor-browser-from-src.overrideAttrs (upstream: {
-      patches = (upstream.patches or []) ++ [
-        (fetchAports {
-          # 2026-07-28: fixes "/nix/store/hsvrmvp1i7k326fpvdrg99gmka863fwi-musl-1.2.5-dev/include/sys/prctl.h:88:8: error: redefinition of 'prctl_mm_map'"
-          path = "community/firefox/musl-no-linux-prctl.patch";
-          hash = "sha256-Mwyvdqc//WvSn7HqbkCILipl2C9Qo0T3ZQWbYPtGK8A=";
-        })
-      ];
-    });
-
-    # 2026-10-03: still required
-    # 2026-06-19: fixes "could not find libSDL3.so" during installCheckPhase.
-    # possibly addressed by <https://github.com/NixOS/nixpkgs/pull/500935>
-    waybar = prev.waybar.override {
-      cavaSupport = false;
-    };
-
-    # 2026-10-03: still required
+    # 2026-11-14: still required
     # 2026-01-29: build failure due to missing include
     # > ifrename.c: In function ‘mapping_getsysfs’:
     # > ifrename.c:1816:15: error: implicit declaration of function ‘basename’ [-Wimplicit-function-declaration]
@@ -1857,7 +1774,7 @@ super.lib.composeManyExtensions [
     #   mesonFlags = (upstream.mesonFlags or []) ++ [ "-Ddoc=disabled" ];
     # });
 
-    # 2026-10-03: still required
+    # 2026-11-14: still required
     # 2026-01-28: fix build failure on both nixpkgs master, and on 0.52.0.
     # alpine doesn't need this patch -- why?
     # > ../src/xdg-desktop-portal-phosh.c: In function ‘main’:
@@ -1875,6 +1792,7 @@ super.lib.composeManyExtensions [
       '';
     });
 
+    # 2026-11-14: still required
     # XXX(2026-06-17): nixpkgs adds absolute libEGL/libvulkan DT_NEEDED entries to
     # wezterm-gui in preFixup. that makes the dynamic linker load them at program
     # start, but wezterm later dlopen()s libEGL.so.1 by soname. glibc returns the
@@ -1902,21 +1820,18 @@ super.lib.composeManyExtensions [
   })
 
   (_: prev: prev.lib.optionalAttrs (prev.stdenv.buildPlatform != prev.stdenv.hostPlatform) {
-    # this portion of the overlay only applies to musl -> musl cross compilation (e.g. x86_64 -> aarch64)
+    # this portion of the overlay only applies to musl -> musl cross compilation
+    # e.g. pkgsMusl.pkgsCross.aarch64-multiplatform-musl.PNAME (x86_64 -> aarch64)
 
+    # 2026-11-14: still required
     # XXX(2026-05-24): fixes security wrappers for `moby-musl` (pkgsCross.aarch64-multiplatform.pkgsStatic).
     # security wrappers want to access `srcOnly glibc`; default cross glibc uses a custom stdenv
     # which does not build on musl -> patch by using a compatible stdenv.
     # N.B.: the resulting glibc is not statically linked. that's OK because we only use its src.
     glibc = final._pkgsGnu.glibc;
 
-    gvfs = prev.gvfs.override {
-      # XXX(2026-05-26): samba compilation is blocked on master (on potrace i think?);
-      # disable it until the upstreaming path is more clear.
-      samba = null;
-    };
-
     perlInterpreters = {
+      # 2026-11-14: still required
       # XXX(2026-05-24): LC_ALL=C for perl fixes pkgsMusl.pkgsCross.aarch64-multiplatform-musl.perl;
       #                  LC_ALL=C for each perl package fixes `pkgsMusl.pkgsCross.aarch64-multiplatform-musl.perl.withPackages (ps: [ ps.PACKAGE ])`
       perl5 = (prev.perlInterpreters.perl5.override (prevArgs: {
@@ -1948,36 +1863,21 @@ super.lib.composeManyExtensions [
 
     potrace = prev.potrace.overrideAttrs (prevAttrs: {
       env = (prevAttrs.env or {}) // {
+        # 2026-11-14: still required
         # XXX(2026-05-25): it bundles getopt.c, i'm actually not sure why building to an older C spec fixes it.
         NIX_CFLAGS_COMPILE = (lib.optionalString ((prevAttrs.env.NIX_CFLAGS_COMPILE or "") != "") "${prevAttrs.env.NIX_CFLAGS_COMPILE} ") + "-std=gnu17";
       };
     });
 
+    # 2026-11-14: still required
     sshpass = prev.sshpass.overrideAttrs (prevAttrs: {
       configureFlags = (prevAttrs.configureFlags or []) ++ [ "ac_cv_func_malloc_0_nonnull=yes" ];
     });
 
-    thin-provisioning-tools = prev.thin-provisioning-tools.overrideAttrs (prevAttrs: {
-      preBuild = (prevAttrs.preBuild or "") + ''
-        export BINDGEN_EXTRA_CLANG_ARGS="$BINDGEN_EXTRA_CLANG_ARGS --target=${stdenv.hostPlatform.config}"
-      '';
-    });
-
+    # 2026-11-14: still required
     # XXX(2026-10-16): unifont only needs perl at build time; this can maybe be upstreamed?
     # fixes: `nix-build -A pkgsMusl.pkgsCross.aarch64-multiplatform-musl.unifont`
     unifont = prev.unifont.override { perl = final.buildPackages.perl; };
   })
 
-  (_: prev: prev.lib.optionalAttrs prev.stdenv.buildPlatform.isGnu {
-    # this portion of the overlay only applies to glibc -> musl cross compilation
-    pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-      (pyself: pysuper: {
-        # > ModuleNotFoundError: No module named '_dbus_bindings'
-        dbus-python = pysuper.dbus-python.overrideAttrs {
-          doCheck = false;
-          doInstallCheck = false;
-        };
-      })
-    ];
-  })
 ] final super
