@@ -10,17 +10,17 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rublk";
-  version = "0.2.15";
+  version = "0.2.16";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "ublk-org";
     repo = "rublk";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-TOIgYJmKyn0ezsqky42SoqrRheL5H7ZPjUo980naJ/Y=";
+    hash = "sha256-x5KAhEjI6GCeRcCnVDjb5Na+cDxguGFnCu/3ArRZAPs=";
   };
 
-  cargoHash = "sha256-6bjyE/K+l6uvkjBZuRpZyCnL8D/uT8LVi9Q1l7TtU58=";
+  cargoHash = "sha256-EltVI0JHFD7XqfXl1sVafCSpij4Qis1lDwYm332dNb4=";
 
   nativeBuildInputs = [
     rustPlatform.bindgenHook
