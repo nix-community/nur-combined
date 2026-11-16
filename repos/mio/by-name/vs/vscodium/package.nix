@@ -56,6 +56,19 @@ let
     else
       throw "Unsupported platform: ${platform}";
 
+  # The VSCodium repo's linux-only dependency patch
+  # (patches/linux/31-build-fix-dependencies.patch) drops @electron/osx-sign from
+  # build/, which darwin's packaging needs
+  # (build/darwin/sign.ts), so the prefetched npm cache and the lockfiles we
+  # copy back into the tree differ per platform. A single fixed-output hash
+  # would make the darwin build reuse a linux-built cache and fail offline in
+  # `npm ci` (ENOTCACHED for @electron/osx-sign).
+  npmDepsHash =
+    if hostPlatform.isDarwin then
+      "sha256-CoJ6/T0ZgVJePMRovOI6DcaPZN+mNVBWKrznag5ByFY="
+    else
+      "sha256-q2Y7ecerzB34BrnVVZf8uyqkr9PWX18a0MLDyqCLc7o=";
+
   # Upstream VSCodium repository at the release we track: the src/stable source
   # overlay (branded icons, resources and vscode source replacements), the patch
   # set, product.json additions and the welcome-page announcements.
@@ -177,7 +190,7 @@ let
       '';
 
       outputHashMode = "recursive";
-      outputHash = "sha256-q2Y7ecerzB34BrnVVZf8uyqkr9PWX18a0MLDyqCLc7o=";
+      outputHash = npmDepsHash;
     };
 
     buildInputs = [
@@ -288,6 +301,10 @@ let
       # stable build. darwinBundleIdentifier is what macOS keys the app identity
       # on (preferences domain, LaunchServices, policy watcher), and the server
       # and tunnel names decide the binaries used for remote sessions.
+      # dataFolderName stays vscode's ".vscode-oss" (upstream VSCodium stable
+      # does not override it either): it is where argv.json and the user
+      # extensions live, and home-manager's programs.vscodium writes to
+      # ~/.vscode-oss/extensions, so changing it hides HM's extensions.
       jq \
         --arg nameShort "VSCodium" \
         --arg nameLong "VSCodium" \
@@ -305,7 +322,7 @@ let
         '.nameShort=$nameShort
          | .nameLong=$nameLong
          | .applicationName=$applicationName
-         | .dataFolderName=".vscodium"
+         | .dataFolderName=".vscode-oss"
          | .serverDataFolderName=$dataFolderName
          | .linuxIconName=$linuxIconName
          | .urlProtocol=$urlProtocol
