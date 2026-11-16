@@ -20,7 +20,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "futo-notes";
-  version = "1.9.3";
+  version = "1.9.4";
 
   strictDeps = true;
 
@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "futo-notes";
     repo = "futo-notes";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-U7QRKDaeaUnNS9Mkog4FD4+otZjuOqbJLOLBOWr5PD4=";
+    hash = "sha256-U4tp4zrgdtJ8WHmry4KqxyE31RJxaufi3fmfeog80J8=";
   };
 
   pnpmDeps = fetchPnpmDeps {

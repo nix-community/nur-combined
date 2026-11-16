@@ -6,16 +6,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "hanga-signal";
-  version = "0.14.0";
+  version = "0.15.0";
 
   src = fetchFromGitHub {
     owner = "johanhelsing";
     repo = "matchbox";
     rev = "v${version}";
-    hash = "sha256-NlmGUXroKh+SXvXSecjNka0t4SaxWbUL8XFXkkXKK+U=";
+    hash = "sha256-apmA6agWeqrzRmWhtn4vAGw6u9FAqZ188QtWViQVrh0=";
   };
 
-  cargoHash = "sha256-YeCncI51oO2r2gphdtQ3GRulu7x2XeXiSrcWxn3J+dE=";
+  cargoHash = "sha256-xncSQ7ZIwUfRH94NMXz8etQNfappucVcby87+OeWzRk=";
 
   buildAndTestSubdir = "matchbox_server";
 

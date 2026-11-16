@@ -26,21 +26,21 @@
 }:
 
 let
-  kotlinVersion = "2.4.10";
+  kotlinVersion = "2.4.21";
 
   kotlinStdlibWasmWasi = fetchurl {
     url = "https://repo1.maven.org/maven2/org/jetbrains/kotlin/kotlin-stdlib-wasm-wasi/${kotlinVersion}/kotlin-stdlib-wasm-wasi-${kotlinVersion}.klib";
-    hash = "sha256-zCXEaVtGb2XNVSB1C465JV4+BO/mchbZmD2Zq2hBn5M=";
+    hash = "sha256-q9lRrNda7vKgjwGzsEN6+gS6BaO37s9EdIqy+Aoua/g=";
   };
 
   witBindgenKotlin = rustPlatform.buildRustPackage {
     pname = "wit-bindgen-kotlin";
-    version = "0-unstable-2026-08-05";
+    version = "0-unstable-2026-11-04";
     src = fetchFromGitHub {
       owner = "Kotlin";
       repo = "wit-bindgen";
-      rev = "700f2db";
-      hash = "sha256-Hfhy+b+MFspQMPMeVycSaltxsl7PV8ZJtxRs1AN/ins=";
+      rev = "932f7d5734485450e371a4afcab17e354ef3cbea";
+      hash = "sha256-aJ24Ut5i/FV6M5bo786Opw/WzEgcDkC+6OJsrN+Js/M=";
     };
     cargoHash = "sha256-UrwzUcAJWGNo68d8toYgJbvOB5p5iABARwNpubh7n40=";
     doCheck = false;
@@ -77,7 +77,7 @@ let
 in
 stdenv.mkDerivation {
   pname = "hanga-contrib";
-  version = "700f2db";
+  version = "0-unstable-2026-11-04";
 
   src = ./.;
 
@@ -139,7 +139,7 @@ stdenv.mkDerivation {
         ${witBindgenKotlin}/bin/wit-bindgen kotlin --kotlin-imports 'impl.*' wit --out-dir bindings
 
         kotlinc-wasm -Xwasm-target=wasm-wasi \
-          -ir-output-dir klib/lab_tile.klib -ir-output-name lab_tile \
+          -ir-output-dir klib -ir-output-name lab_tile \
           -libraries ${kotlinStdlibWasmWasi} \
           -kotlin-home ${kotlin} \
           -main noCall \
