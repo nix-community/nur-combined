@@ -10,7 +10,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mirroir-mcp";
-  version = "0.48.0";
+  version = "0.49.0";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -19,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "jfarcand";
     repo = "mirroir-mcp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-1FgWlxjRrrx2KpfOByZEG1h8U839s8UAXEZcRkgkWCs=";
+    hash = "sha256-hrdlcotC7S+pUmDAYl/EpsWYKAJXUhEE6xUNceO58yU=";
   };
 
   nativeBuildInputs = [
@@ -48,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://mirroir.dev/";
     downloadPage = "https://github.com/jfarcand/mirroir-mcp/releases";
     changelog = "https://github.com/jfarcand/mirroir-mcp/releases/tag/v${finalAttrs.version}";
-    license = lib.licenses.mit;
+    license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ prince213 ];
     mainProgram = "mirroir-mcp";
     platforms = lib.platforms.darwin;
