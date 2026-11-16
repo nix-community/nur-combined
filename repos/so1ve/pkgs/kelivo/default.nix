@@ -13,6 +13,7 @@
   keybinder3,
   libayatana-appindicator,
   libepoxy,
+  libsecret,
 }:
 
 let
@@ -46,6 +47,7 @@ stdenv.mkDerivation {
     keybinder3
     libayatana-appindicator
     libepoxy
+    libsecret
     stdenv.cc.cc.lib
   ];
 

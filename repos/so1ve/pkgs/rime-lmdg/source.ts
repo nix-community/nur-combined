@@ -4,5 +4,5 @@ export default github.release({
   assets: {
     default: "wanxiang-lts-zh-hans\\.gram",
   },
-  repository: "jetcookies/RIME-LMDG-tracker",
+  repository: "OrdChaos/RIME-LMDG.snapshot",
 });
