@@ -107,7 +107,7 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "voice-studio";
-  version = "0.5.7";
+  version = "0.5.8";
   __structuredAttrs = true;
   strictDeps = true;
 
@@ -115,7 +115,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "debpalash";
     repo = "VoiceStudio";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-VsOqIIxUmk0ewOQt1vQRZ1JmEpuBLlbX4fgvEf4ZzEU=";
+    hash = "sha256-i6/8SR9jisXKpEhQV1AXVQgj4tZy/uYD0VJ+XMCswqQ=";
   };
 
   # finalPackage so that overriding src propagates.

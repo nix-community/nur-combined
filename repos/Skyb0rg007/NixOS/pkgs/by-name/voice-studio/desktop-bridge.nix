@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage {
 
   cargoRoot = "native/desktop-bridge";
   buildAndTestSubdir = "native/desktop-bridge";
-  cargoHash = "sha256-rCHKKRP7l2x9qPHtFUAQ8YwigG1B8oruvlW5/xJAirw=";
+  cargoHash = "sha256-8Xonev0TStHtZvqWk38V7XgvK8//UQFuL0ZYYWiTPgc=";
 
   nativeBuildInputs = [ pkg-config ];
 

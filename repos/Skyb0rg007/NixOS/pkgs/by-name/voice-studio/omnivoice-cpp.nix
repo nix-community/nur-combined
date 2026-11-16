@@ -16,17 +16,17 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "omnivoice-cpp";
-  version = "0-unstable-2026-05-17";
+  version = "0-unstable-2026-09-05";
   __structuredAttrs = true;
   strictDeps = true;
 
   src = fetchFromGitHub {
     owner = "ServeurpersoCom";
     repo = "omnivoice.cpp";
-    rev = "886fc079838ca7400cb2b42b36e2a65aa1daabe8";
+    rev = "040c8b344d8c670ce1475194751d119b5ef82c78";
     # ggml fork
     fetchSubmodules = true;
-    hash = "sha256-8PSwpMAnqXXt5P9iRhO+alvndeu5aunGKMokkZYdGyw=";
+    hash = "sha256-S98EY2wCVkJJwXTj2qIVDgYBQ9NAM254/of2q4QPLow=";
   };
 
   # The version banner is read from git.
