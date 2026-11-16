@@ -14,10 +14,18 @@
 
 let
   version = "1.1.64";
+  cudaCapabilities = cudaPackages.backendStdenv.cudaCapabilities;
   cudaArchitectures = lib.concatMapStringsSep ";" (lib.replaceStrings
     [ "." ]
     [ "" ]
-  ) cudaPackages.backendStdenv.cudaCapabilities;
+  ) cudaCapabilities;
+  sm70 = lib.any (capability: lib.versionAtLeast capability "7.0") cudaCapabilities;
+  preSm70 = lib.any (capability: lib.versionOlder capability "7.0") cudaCapabilities;
+  targets = [
+    "maya"
+  ]
+  ++ lib.optional (cudaCapabilities == [ ] || !preSm70) "maya-ds4"
+  ++ lib.optional (cudaCapabilities == [ ] || sm70) "maya-mm3";
   llamaRev = "3cf03257f219afbe7334045ff7c6a06ac68c627d";
   llamaSrc = fetchFromGitHub {
     owner = "ggml-org";
@@ -100,11 +108,7 @@ let
       cmakeFlagsArray+=("-DSTRATA_GGML_DIR=$PWD/third_party/llama.cpp")
     '';
 
-    ninjaFlags = [
-      "maya"
-      "maya-ds4"
-      "maya-mm3"
-    ];
+    ninjaFlags = targets;
 
     postBuild = ''
       cmake -S "$cmakeDir/tools/vision" -B "$cmakeDir/build-vision" -G Ninja \
@@ -126,8 +130,12 @@ let
       rm -rf "$out/share/project-maya/build" "$out/share/project-maya/build-vision"
 
       install -Dm755 build/maya "$out/share/project-maya/build/maya"
-      install -Dm755 build/maya-ds4 "$out/share/project-maya/build/maya-ds4"
-      install -Dm755 build/maya-mm3 "$out/share/project-maya/build/maya-mm3"
+      ${lib.optionalString (builtins.elem "maya-ds4" targets) ''
+        install -Dm755 build/maya-ds4 "$out/share/project-maya/build/maya-ds4"
+      ''}
+      ${lib.optionalString (builtins.elem "maya-mm3" targets) ''
+        install -Dm755 build/maya-mm3 "$out/share/project-maya/build/maya-mm3"
+      ''}
       install -Dm755 build-vision/bin/maya-vision "$out/share/project-maya/build-vision/bin/maya-vision"
       install -Dm644 ${./hydrate.py} "$out/libexec/project-maya/hydrate.py"
 
@@ -141,7 +149,7 @@ let
           json.dump({
               "src": setup.source_hash(setup.ENGINE_SOURCES),
               "archs": archs,
-              "targets": ["maya", "maya-ds4", "maya-mm3"],
+              "targets": ${builtins.toJSON targets},
           }, f, indent=1)
       with open("build-vision/MAYA-BUILD.json", "w", encoding="utf-8") as f:
           json.dump({

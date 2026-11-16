@@ -12,10 +12,12 @@
 
 let
   version = "0.2.13.1";
+  cudaCapabilities = cudaPackages.backendStdenv.cudaCapabilities;
   cudaArchitectures = lib.concatMapStringsSep ";" (lib.replaceStrings
     [ "." ]
     [ "" ]
-  ) cudaPackages.backendStdenv.cudaCapabilities;
+  ) cudaCapabilities;
+  experimentalSm60 = lib.any (capability: lib.versionOlder capability "7.5") cudaCapabilities;
   llamaRev = "3cf03257f219afbe7334045ff7c6a06ac68c627d";
   llamaSrc = fetchFromGitHub {
     owner = "ggml-org";
@@ -76,6 +78,7 @@ let
     cmakeFlags = [
       (lib.cmakeBool "STRATA_ENABLE_CUDA" true)
       (lib.cmakeBool "STRATA_BUILD_TESTS" false)
+      (lib.cmakeBool "STRATA_EXPERIMENTAL_SM60" experimentalSm60)
       (lib.cmakeBool "STRATA_PORTABLE" false)
       (lib.cmakeFeature "STRATA_GGML_DIR" "${llamaSrc}")
       (lib.cmakeFeature "CMAKE_CUDA_ARCHITECTURES" cudaArchitectures)
