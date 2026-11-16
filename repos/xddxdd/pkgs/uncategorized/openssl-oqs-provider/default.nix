@@ -16,12 +16,12 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "openssl-oqs-provider";
-  version = "0.12.0-unstable-2026-11-13";
+  version = "0.12.0-unstable-2026-11-15";
   src = fetchFromGitHub {
     owner = "open-quantum-safe";
     repo = "oqs-provider";
-    rev = "69a6746cd753b7428ae163fc749b98acd56d8529";
-    hash = "sha256-jE3uQs242pyMZLMbSSVP6euJF0WMMfPJkIL5Tems/Zs=";
+    rev = "b2b2396abdb689619c4fde44b2a86f91534dc1b1";
+    hash = "sha256-HQebq/dO5dp5sM4qGNTIJlllHfPC5Q6CHv/s7zijKK4=";
   };
   __structuredAttrs = true;
   strictDeps = true;

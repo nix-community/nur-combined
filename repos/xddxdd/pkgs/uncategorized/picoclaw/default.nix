@@ -9,12 +9,12 @@
 
 buildGo127Module (finalAttrs: {
   pname = "picoclaw";
-  version = "0.5.4";
+  version = "0.5.5";
   src = fetchFromGitHub {
     owner = "afjcjsbx";
     repo = "picoclaw";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-nehfbZaGXaseNEOaOO4Q2/NfTBnQQwSPAosHGMIzz68=";
+    hash = "sha256-Y+OWgcXXfHYdiwmZmebUbXSH6ZBhfQNy2LGwoZCb/bY=";
   };
   __structuredAttrs = true;
   strictDeps = true;
