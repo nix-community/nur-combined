@@ -57,6 +57,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--pop-state"
   ];
 
+  patches = [
+    ./fix-wayland-scale-factor.patch
+  ];
+
   # Force zarchive to dynamically link zstd
   postPatch = ''
     substituteInPlace ../ukmm-*-vendor/*/zarchive-*/build.rs \

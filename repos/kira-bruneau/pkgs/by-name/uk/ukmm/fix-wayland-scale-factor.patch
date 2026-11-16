@@ -1,0 +1,20 @@
+diff --git a/src/gui.rs b/src/gui.rs
+index df2861b..c0bf1cd 100644
+--- a/src/gui.rs
++++ b/src/gui.rs
+@@ -278,15 +278,6 @@ pub struct App {
+ 
+ impl App {
+     fn new(cc: &eframe::CreationContext) -> Self {
+-        #[cfg(not(windows))]
+-        if std::env::var("XDG_SESSION_TYPE").unwrap_or_default() == "wayland" {
+-            cc.egui_ctx.set_pixels_per_point(
+-                std::env::var("WINIT_X11_SCALE_FACTOR")
+-                    .ok()
+-                    .and_then(|v| v.parse().ok())
+-                    .unwrap_or(1.0),
+-            );
+-        }
+         uk_ui::icons::load_icons(&cc.egui_ctx);
+         uk_ui::load_fonts(&cc.egui_ctx);
+         let core = Arc::new(Manager::init().unwrap());
