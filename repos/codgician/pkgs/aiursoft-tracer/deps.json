@@ -61,33 +61,33 @@
   },
   {
     "pname": "Aiursoft.CSTools",
-    "version": "10.0.8",
-    "hash": "sha256-PhshHmfrrukmjFRD6utPAE4JvXE2IbC2zlE0Zvff7II="
+    "version": "10.0.9",
+    "hash": "sha256-J7Rhg4k4PFesmSRLSTMM+3Z5pSUO2g1Xkn00nCVB05Y="
   },
   {
     "pname": "Aiursoft.DbTools",
-    "version": "10.0.31",
-    "hash": "sha256-gjmNP8OXEJbIezaxTtIk/nWa2JaM47JKi3KrX/dE4a4="
+    "version": "10.0.32",
+    "hash": "sha256-QIUTNn4n8UJ6q9iEOhXxcd1Pctk6NKKp3LmBO2KEhwI="
   },
   {
     "pname": "Aiursoft.DbTools.InMemory",
-    "version": "10.0.31",
-    "hash": "sha256-vXyZUAjMcOnT+f+0nv+siyFdjyl63flMi+sG7iPkuWc="
+    "version": "10.0.32",
+    "hash": "sha256-NJSDsCuf+rnW1iDAllWCRck9JK3MHOudRzlgErbksKE="
   },
   {
     "pname": "Aiursoft.DbTools.MySql",
-    "version": "10.0.45",
-    "hash": "sha256-EJmKqSsw4Sxtm5kv7xFu2EooODmgh1M+cqZrPiwPYrc="
+    "version": "10.0.46",
+    "hash": "sha256-nOIlVScpgncUPdOB8uxOCXYgnGitlQZVTEOODXUxlbo="
   },
   {
     "pname": "Aiursoft.DbTools.Sqlite",
-    "version": "10.0.45",
-    "hash": "sha256-JlXPwhc+epHkkpIGFLHQ6dTh5NJjWbr1TYpbXV1FewM="
+    "version": "10.0.46",
+    "hash": "sha256-/e9Czdr5YKdU8p7b9kep97FlLfwtFepLng2h+txJ4v8="
   },
   {
     "pname": "Aiursoft.DbTools.Switchable",
-    "version": "10.0.31",
-    "hash": "sha256-eBM4wyLoZ7VIoAuW5ijDhQ17fhRiFMy3pdib4g88opg="
+    "version": "10.0.32",
+    "hash": "sha256-GCa2HeO7kcB07lerNoTtWwOfdI4J9I8ziyUOA7unoYM="
   },
   {
     "pname": "Aiursoft.Scanner",
@@ -101,13 +101,13 @@
   },
   {
     "pname": "Aiursoft.UiStack",
-    "version": "10.0.53",
-    "hash": "sha256-VVn725xfajGOaVD6Vs5hqwOn6bXJMyjI2w0SSEMWejc="
+    "version": "10.0.56",
+    "hash": "sha256-t1FZRLDxiUEIPlDrZRtJldftYZ4QRE3Oe8zy68VvkpI="
   },
   {
     "pname": "Aiursoft.WebTools",
-    "version": "10.0.21",
-    "hash": "sha256-X9uCs0HMxtWvjYoptEDEKpKAOMWQTqpwxe0dWFeZhGY="
+    "version": "10.0.22",
+    "hash": "sha256-lma8+7+6mQYY0JMB0hSOyPbnftSRMArd0IQFRgNftXE="
   },
   {
     "pname": "Aiursoft.WebTools.Abstractions",
@@ -126,8 +126,8 @@
   },
   {
     "pname": "coverlet.collector",
-    "version": "10.1.0",
-    "hash": "sha256-5Gb/tG/PFbiN4YPyFLrMzszGJCBcbsYECEj5DsyWL8s="
+    "version": "10.1.1",
+    "hash": "sha256-F0O0zDHnAzm6egECpM/PG2MPuVIaVdpgOTUZVyRh1cI="
   },
   {
     "pname": "EFCoreSecondLevelCacheInterceptor",
