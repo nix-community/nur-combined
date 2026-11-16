@@ -1,19 +1,19 @@
 {
   lib,
   stdenv,
+  pkgs,
   raven,
   fetchurl,
   copyDesktopItems,
   makeDesktopItem,
   unzip,
   writeShellScriptBin,
+  testers,
 }:
 
 # Raven is tested against the official MSVC Notepad++ builds (installer/portable).
 # Our MinGW PE currently fails under Raven (msvcrt.dll!__wargv), so this variant
 # ships the upstream portable x64 zip and launches it with raven.
-assert lib.assertMsg stdenv.hostPlatform.isLinux "notepad-plus-plus-raven is Linux-only";
-
 let
   pname = "notepad-plus-plus-raven";
   version = "8.9.9.1";
@@ -74,7 +74,7 @@ let
       "$desktop_flag" "$app" -- "$@"
   '';
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   inherit pname version;
 
   dontUnpack = true;
@@ -104,6 +104,13 @@ stdenv.mkDerivation {
     })
   ];
 
+  passthru.tests.nixos = testers.runNixOSTest (
+    import ./test.nix {
+      notepad-plus-plus-raven = finalAttrs.finalPackage;
+      nixpkgsPath = pkgs.path;
+    }
+  );
+
   meta = with lib; {
     mainProgram = pname;
     homepage = "https://notepad-plus-plus.org/";
@@ -118,4 +125,4 @@ stdenv.mkDerivation {
     maintainers = [ "maydayv7" ];
     platforms = [ "x86_64-linux" ];
   };
-}
+})

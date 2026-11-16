@@ -9,6 +9,7 @@
   fetchurl,
   makeDesktopItem,
   writeShellApplication,
+  testers,
   ...
 }:
 
@@ -79,7 +80,9 @@ let
     winAppInstall = ''
       mkdir -p "$WINEPREFIX/drive_c/Program Files/Notepad++"
       cp -r ${src}/* "$WINEPREFIX/drive_c/Program Files/Notepad++/"
-      winetricks --unattended cjkfonts
+      if [ "''${NOTEPADPP_SKIP_CJKFONTS:-}" != 1 ]; then
+        winetricks --unattended cjkfonts
+      fi
     '';
 
     winAppRun = ''
@@ -106,6 +109,13 @@ let
         ];
       })
     ];
+
+    passthru.tests.nixos = testers.runNixOSTest (
+      import ./test.nix {
+        notepad-plus-plus = linux;
+        nixpkgsPath = pkgs.path;
+      }
+    );
   };
 
   # Darwin cannot use mkWindowsApp (Linux overlayfs). Launch via Gcenx Wine.
