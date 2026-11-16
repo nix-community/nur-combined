@@ -7,13 +7,13 @@
 
 buildGo126Module (finalAttrs: {
   pname = "cli-proxy-api";
-  version = "8.0.61";
+  version = "8.0.74";
 
   src = fetchFromGitHub {
     owner = "router-for-me";
     repo = "CLIProxyAPI";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-BRezOk6KmDx2ujHP8blWWoDS1kDL4XD+5sc04/nADNg=";
+    hash = "sha256-5mrbx4TLDbJO6v11IVuzvdK2jqrL6xbvTUFWzXLTM6A=";
     # Populate values from the git repository; by doing this in 'postFetch' we
     # can delete '.git' afterwards and the 'src' should stay reproducible.
     leaveDotGit = true;
@@ -26,7 +26,7 @@ buildGo126Module (finalAttrs: {
     '';
   };
 
-  vendorHash = "sha256-02Qqrs9lQ0kE+Tnk/SWvlkLXGSh8RQPxRawFZogRYNc=";
+  vendorHash = "sha256-GlQG6N6m2AwWn0wtM97LLKAxr2kxQTloCB8NgjUwBh4=";
 
   subPackages = [ "./cmd/server" ];
 
