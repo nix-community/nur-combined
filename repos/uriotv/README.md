@@ -43,7 +43,7 @@ redistribution.
 | `pig` | `0.7.0` | Pi coding agent rebuilt in Go as a native binary | Yes |
 | `rimsort-appimage` | `1.17.4` | RimWorld mod manager | Yes |
 | `scopebuddy` | `1.5.0` | Gamescope manager | Yes |
-| `storyforge` | `2.0.11` | Story Forge desktop application, built independently of the upstream flake | Yes |
+| `storyforge` | `2.0.12` | Story Forge desktop application, built independently of the upstream flake | Yes |
 | `wowup-cf` | `2.25.5` | World of Warcraft addon manager with CurseForge support | Yes |
 | `linux-cachyos-latest-x86_64-v3` | `7.3.4` | CachyOS kernel, x86-64-v3, non-LTO | Yes |
 
