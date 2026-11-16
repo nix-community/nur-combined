@@ -1,0 +1,29 @@
+--- a/prepare_vscode.sh
++++ b/prepare_vscode.sh
+@@ -185,6 +185,7 @@
+ set -x
+ 
+ # {{{ install dependencies
++if [[ "${SKIP_NPM:-}" != "1" ]]; then
+ export ELECTRON_SKIP_BINARY_DOWNLOAD=1
+ export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+ 
+@@ -222,6 +223,7 @@
+   sleep $(( 15 * (i + 1)))
+ done
+ # }}}
++fi
+ 
+ # package.json
+ cp package.json{,.bak}
+@@ -244,7 +246,9 @@
+ # announcements
+ replace "s|\\[\\/\\* BUILTIN_ANNOUNCEMENTS \\*\\/\\]|$( tr -d '\n' < ../announcements-builtin.json )|" src/vs/workbench/contrib/welcomeGettingStarted/browser/gettingStarted.ts
+ 
+-../undo_telemetry.sh
++if [[ "${SKIP_NPM:-}" != "1" ]]; then
++  ../undo_telemetry.sh
++fi
+ 
+ replace 's|Microsoft Corporation|VSCodium|' build/lib/electron.ts
+ replace 's|([0-9]) Microsoft|\1 VSCodium|' build/lib/electron.ts

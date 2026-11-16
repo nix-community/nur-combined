@@ -1,8 +1,7 @@
-{
-  writeScript,
-  rsync,
-}:
-writeScript "filemap.bash" ''
+# Returns a bash snippet (string). Do not wrap in writeScript + builtins.readFile:
+# that would be IFD and breaks NUR no-ifd evaluation.
+{ rsync }:
+''
   map_file () {
     local s=$1
     local d="$WINEPREFIX/$2"

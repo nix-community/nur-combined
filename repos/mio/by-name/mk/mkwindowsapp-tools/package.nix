@@ -1,13 +1,15 @@
 {
   stdenv,
   lib,
-  wrapProgram,
+  makeWrapper,
   gnugrep,
 }:
 stdenv.mkDerivation rec {
   pname = "mkwindows-tools";
   version = "1.0.0";
   src = ./.;
+
+  nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
     mkdir -p $out/bin

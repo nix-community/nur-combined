@@ -79,46 +79,40 @@ let
     hash = "sha256-4zKukdMZewlsQqEGXhI5goAv9vo5WMwEsVm18hFzzUs=";
   };
 
-  # prepare_vscode.sh as a Nix string: lay VSCodium's source overlay over the
-  # vscode tree, remove what it deletes, then apply its patch set with the
-  # branding placeholders filled in. Both the npm dependency prefetch and the
-  # build apply it, because the patches swap packages for VSCodium's forks
-  # (@vscodium/policy-watcher, ...), which changes the lockfiles.
+  # Run upstream prepare_vscode.sh against a nested vscode/ tree (the layout
+  # that script expects). SKIP_NPM skips its npm ci / undo_telemetry; Nix owns
+  # those later. DISABLE_UPDATE=yes matches our old updateUrl=null and also
+  # applies upstream's update-disable patch. Stable prepare leaves
+  # dataFolderName as vscode's ".vscode-oss" (argv.json / user extensions;
+  # home-manager's programs.vscodium uses ~/.vscode-oss/extensions). Both the
+  # npm-deps prefetch and the build apply this, because the patches swap
+  # packages for VSCodium's forks (@vscodium/policy-watcher, ...), which
+  # changes the lockfiles.
   vscodium-prepare = ''
-    cp -R ${vscodiumSrc}/src/stable/. .
-    cp ${vscodiumSrc}/LICENSE LICENSE.txt
+    srcRoot="$PWD"
+    prepRoot=$(mktemp -d)
+    cp -a ${vscodiumSrc}/. "$prepRoot/"
+    chmod -R u+w "$prepRoot"
+    patch -p1 -d "$prepRoot" < ${./patches/prepare-vscode-skip-npm.patch}
 
-    for actions in ${vscodiumSrc}/patches/*.json; do
-      [ -e "$actions" ] || continue
-      while IFS= read -r removal; do
-        if [ -e "$removal" ]; then
-          rm -rf -- "$removal"
-        else
-          echo "prePatch: '$removal' is already missing" >&2
-          exit 1
-        fi
-      done < <(jq -r '.[] | select(.action == "remove") | .paths[]' "$actions")
-    done
+    mkdir "$prepRoot/vscode"
+    find "$srcRoot" -mindepth 1 -maxdepth 1 -exec mv {} "$prepRoot/vscode/" \;
 
-    for upstream_patch in ${vscodiumSrc}/patches/*.patch ${vscodiumSrc}/patches/${
-      if hostPlatform.isDarwin then "osx" else "linux"
-    }/*.patch; do
-      [ -e "$upstream_patch" ] || continue
-      expanded_patch=$(mktemp)
-      sed -E \
-        -e 's|!!APP_NAME!!|VSCodium|g' \
-        -e 's|!!APP_NAME_LC!!|vscodium|g' \
-        -e 's|!!ASSETS_REPOSITORY!!|VSCodium/vscodium|g' \
-        -e 's|!!BINARY_NAME!!|codium|g' \
-        -e 's|!!GH_REPO_PATH!!|VSCodium/vscodium|g' \
-        -e 's|!!GLOBAL_DIRNAME!!|vscodium|g' \
-        -e 's|!!ORG_NAME!!|VSCodium|g' \
-        -e 's|!!RELEASE_VERSION!!|${vscodiumTag}|g' \
-        -e 's|!!TUNNEL_APP_NAME!!|codium-tunnel|g' \
-        "$upstream_patch" > "$expanded_patch"
-      git apply --ignore-whitespace "$expanded_patch"
-      rm -f "$expanded_patch"
-    done
+    (
+      cd "$prepRoot"
+      export VSCODE_QUALITY=stable
+      export DISABLE_UPDATE=yes
+      export SKIP_NPM=1
+      export RELEASE_VERSION=${vscodiumTag}
+      export MAX_OLD_SPACE_SIZE=8192
+      export OS_NAME=${if hostPlatform.isDarwin then "osx" else "linux"}
+      export CI_BUILD=no
+      bash ./prepare_vscode.sh
+    )
+
+    find "$prepRoot/vscode" -mindepth 1 -maxdepth 1 -exec mv {} "$srcRoot/" \;
+    cd "$srcRoot"
+    rm -rf "$prepRoot"
   '';
 
   # @vscode/ripgrep-universal postinstall looks for a pre-downloaded archive.
@@ -293,85 +287,9 @@ let
     };
 
     # Applied before `patches`, so our nix-specific adaptations land on top of
-    # the branded tree.
+    # the branded tree. Branding (product.json, patches, announcements, …) is
+    # entirely upstream prepare_vscode.sh; see vscodium-prepare.
     prePatch = vscodium-prepare;
-
-    postPatch = ''
-      # VSCodium branding: the product.json keys prepare_vscode.sh sets for a
-      # stable build. darwinBundleIdentifier is what macOS keys the app identity
-      # on (preferences domain, LaunchServices, policy watcher), and the server
-      # and tunnel names decide the binaries used for remote sessions.
-      # dataFolderName stays vscode's ".vscode-oss" (upstream VSCodium stable
-      # does not override it either): it is where argv.json and the user
-      # extensions live, and home-manager's programs.vscodium writes to
-      # ~/.vscode-oss/extensions, so changing it hides HM's extensions.
-      jq \
-        --arg nameShort "VSCodium" \
-        --arg nameLong "VSCodium" \
-        --arg applicationName "codium" \
-        --arg darwinBundleIdentifier "com.vscodium" \
-        --arg serverApplicationName "codium-server" \
-        --arg tunnelApplicationName "codium-tunnel" \
-        --arg dataFolderName ".vscodium-server" \
-        --arg linuxIconName "vscodium" \
-        --arg urlProtocol "vscodium" \
-        --arg quality "stable" \
-        --argjson linkProtectionTrustedDomains '["https://open-vsx.org"]' \
-        --argjson tunnelApplicationConfig '{}' \
-        --argjson extensionsGallery '{"serviceUrl":"https://open-vsx.org/vscode/gallery","itemUrl":"https://open-vsx.org/vscode/item","latestUrlTemplate":"https://open-vsx.org/vscode/gallery/{publisher}/{name}/latest","controlUrl":"https://raw.githubusercontent.com/EclipseFdn/publish-extensions/refs/heads/master/extension-control/extensions.json"}' \
-        '.nameShort=$nameShort
-         | .nameLong=$nameLong
-         | .applicationName=$applicationName
-         | .dataFolderName=".vscode-oss"
-         | .serverDataFolderName=$dataFolderName
-         | .linuxIconName=$linuxIconName
-         | .urlProtocol=$urlProtocol
-         | .quality=$quality
-         | .extensionsGallery=$extensionsGallery
-         | .darwinBundleIdentifier=$darwinBundleIdentifier
-         | .serverApplicationName=$serverApplicationName
-         | .tunnelApplicationName=$tunnelApplicationName
-         | .tunnelApplicationConfig=$tunnelApplicationConfig
-         | .linkProtectionTrustedDomains=$linkProtectionTrustedDomains
-         | .reportIssueUrl="https://github.com/VSCodium/vscodium/issues/new"
-         | .licenseUrl="https://github.com/VSCodium/vscodium/blob/master/LICENSE"
-         | .updateUrl=null
-         | .backupUpdateUrl=null' \
-        product.json > product.json.tmp
-      mv product.json.tmp product.json
-
-      # VSCodium's own product.json contributes the extension allowlists.
-      jq -s '.[0] * .[1]' product.json ${vscodiumSrc}/product.json > product.json.tmp
-      mv product.json.tmp product.json
-
-      # The announcements patch left a marker in the welcome page; fill it in the
-      # way prepare_vscode.sh does.
-      node -e '
-        const fs = require("fs");
-        const file = "src/vs/workbench/contrib/welcomeGettingStarted/browser/gettingStarted.ts";
-        const marker = "[/* BUILTIN_ANNOUNCEMENTS */]";
-        const announcements = fs.readFileSync(process.argv[1], "utf8").replace(/\n/g, "");
-        fs.writeFileSync(file, fs.readFileSync(file, "utf8").replace(marker, announcements));
-      ' ${vscodiumSrc}/announcements-builtin.json
-
-      # Web app manifest served by the remote server.
-      jq '.name = "VSCodium" | .short_name = "VSCodium"' resources/server/manifest.json > manifest.json.tmp
-      mv manifest.json.tmp resources/server/manifest.json
-
-      substituteInPlace package.json --replace-fail 'Microsoft Corporation' 'VSCodium'
-      # prepare_vscode.sh sets the package version to the VSCodium release.
-      jq --arg version "${vscodiumTag}" '.version = $version' package.json > package.json.tmp
-      mv package.json.tmp package.json
-
-      # The bundle's NSHumanReadableCopyright and the win32 installer metadata
-      # otherwise keep Microsoft's name; prepare_vscode.sh edits the same file.
-      substituteInPlace build/lib/electron.ts \
-        --replace-fail 'Microsoft Corporation' 'VSCodium'
-      # The copyright line is "Copyright (C) <year> Microsoft", which the
-      # company-name replacement above does not reach.
-      sed -i -E 's|([0-9]) Microsoft|\1 VSCodium|g' build/lib/electron.ts
-
-    '';
 
     buildPhase = ''
       runHook preBuild

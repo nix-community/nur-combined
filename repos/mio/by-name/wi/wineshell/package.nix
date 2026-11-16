@@ -1,13 +1,18 @@
 {
-  stdenv,
   lib,
-  mkWindowsApp,
-  wine,
-  wineArch,
-  wineFlavor,
+  pkgs,
+  wineWow64Packages,
+  wine ? wineWow64Packages.stableFull,
+  wineArch ? "win64",
+  wineFlavor ? "wineWow64",
   enableVulkan ? false,
   enableMonoBootPrompt ? true,
 }:
+
+let
+  myLib = import ../../../lib { inherit pkgs; };
+  inherit (myLib) mkWindowsApp;
+in
 mkWindowsApp rec {
   inherit
     wine

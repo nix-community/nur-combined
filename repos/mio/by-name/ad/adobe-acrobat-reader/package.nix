@@ -1,18 +1,22 @@
 {
   lib,
-  mkWindowsAppNoCC,
-  wine,
+  pkgs,
+  winePackages,
+  wine ? winePackages.full,
   fetchurl,
   makeDesktopItem,
-  makeDesktopIcon,
   copyDesktopItems,
-  copyDesktopIcons,
   p7zip,
   gawk,
   xrandr,
   virtualDesktop ? false,
 }:
+
 # Based on AUR acroread-dc-wine (maintainer Smoolak), adapted for mkWindowsAppNoCC. https://aur.archlinux.org/packages/acroread-dc-wine
+let
+  myLib = import ../../../lib { inherit pkgs; };
+  inherit (myLib) mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
+in
 mkWindowsAppNoCC rec {
   inherit wine;
 

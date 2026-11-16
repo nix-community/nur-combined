@@ -27,12 +27,9 @@ let
 in
 {
   map_file = pkgs.writeShellScript "map-file-test.bash" ''
-    ${builtins.readFile (
-      import ./filemap.nix {
-        inherit writeScript;
-        rsync = pkgs.rsync;
-      }
-    )}
+    ${import ./filemap.nix {
+      rsync = pkgs.rsync;
+    }}
 
     declare -i count
     count=1

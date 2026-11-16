@@ -1,13 +1,16 @@
 {
   lib,
-  build,
   pkgs,
-  wine,
-  ...
+  wineWow64Packages,
+  wine ? wineWow64Packages.full,
+  copyDesktopItems,
+  fetchurl,
+  makeDesktopItem,
 }:
+
 let
-  inherit (pkgs) copyDesktopItems fetchurl makeDesktopItem;
-  inherit (build) copyDesktopIcons makeDesktopIcon mkWindowsAppNoCC;
+  myLib = import ../../../lib { inherit pkgs; };
+  inherit (myLib) copyDesktopIcons makeDesktopIcon mkWindowsAppNoCC;
 in
 mkWindowsAppNoCC rec {
   inherit wine;

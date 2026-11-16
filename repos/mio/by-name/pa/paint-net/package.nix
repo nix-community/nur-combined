@@ -1,27 +1,32 @@
 {
   lib,
-  build,
   pkgs,
-  wine,
-  ...
+  wineWow64Packages,
+  wine ? wineWow64Packages.full,
+  copyDesktopItems,
+  fetchurl,
+  makeDesktopItem,
+  libarchive,
+  stdenv,
 }:
+
 let
-  inherit (pkgs) copyDesktopItems fetchurl makeDesktopItem;
-  inherit (build) makeDesktopIcon mkWindowsAppNoCC;
+  myLib = import ../../../lib { inherit pkgs; };
+  inherit (myLib) mkWindowsAppNoCC;
 in
 mkWindowsAppNoCC rec {
   inherit wine;
   pname = "paint-net";
   version = "5.1.12";
 
-  src = pkgs.stdenv.mkDerivation {
+  src = stdenv.mkDerivation {
     pname = "${pname}-src";
     inherit version;
     src = fetchurl {
       url = "https://github.com/paintdotnet/release/releases/download/v${version}/paint.net.${version}.portable.x64.zip";
       hash = "sha256-1a5wQ/L7nTZbSN/iQ6KsocdJJN6ZsEtkRZFslTVK76M=";
     };
-    nativeBuildInputs = [ pkgs.libarchive ];
+    nativeBuildInputs = [ libarchive ];
     unpackPhase = ''
       mkdir -p source
       bsdtar -xf $src -C source

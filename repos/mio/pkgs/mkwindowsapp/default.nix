@@ -15,7 +15,6 @@
   mangohud,
   util-linux,
   coreutils,
-  writeScript,
   rsync,
   systemd,
   pkgs,
@@ -287,7 +286,7 @@ let
       }
     }
 
-    ${builtins.readFile (import ./filemap.nix { inherit writeScript rsync; })}
+    ${import ./filemap.nix { inherit rsync; }}
 
     mk_windows_layer () {
       echo "Building a Windows $WINEARCH layer at $WINEPREFIX..."

@@ -1,22 +1,21 @@
 {
   lib,
-  build,
   pkgs,
-  wine,
-  ...
+  wineWow64Packages,
+  wine ? wineWow64Packages.full,
+  copyDesktopItems,
+  fetchurl,
+  makeDesktopItem,
+  p7zip,
+  unzip,
+  wget,
 }:
+
 # https://github.com/microsoft/winget-pkgs/blob/master/manifests/c/Canva/Affinity/3.0.2.3912/Canva.Affinity.installer.yaml
 # https://github.com/ryzendew/Linux-Affinity-Installer/blob/main/AffinityScripts/Affinityv3.sh
 let
-  inherit (pkgs)
-    copyDesktopItems
-    fetchurl
-    makeDesktopItem
-    p7zip
-    unzip
-    wget
-    ;
-  inherit (build) copyDesktopIcons makeDesktopIcon mkWindowsAppNoCC;
+  myLib = import ../../../lib { inherit pkgs; };
+  inherit (myLib) copyDesktopIcons makeDesktopIcon mkWindowsAppNoCC;
 in
 mkWindowsAppNoCC rec {
   inherit wine;

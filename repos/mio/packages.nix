@@ -293,6 +293,76 @@ exportedByName
       (old.nativeBuildInputs or [ ])
       ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isDarwin pkgs.desktopToDarwinBundle;
   });
+
+  # Wine app variants (bases live in by-name; mkWindowsAppNoCC is no-IFD).
+  # https://github.com/NixOS/nixpkgs/issues/10165
+  # https://discourse.nixos.org/t/what-is-your-approach-to-packaging-wine-applications-with-nix-derivations/12799/1
+  adobe-acrobat-reader_virtualDesktop = adobe-acrobat-reader.override {
+    virtualDesktop = true;
+  };
+
+  wineshell-wine64 = wineshell.override {
+    wine = pkgs.wine64Packages.stableFull;
+    wineArch = "win64";
+    wineFlavor = "wine64";
+  };
+
+  wineshell-wineWow64 = wineshell.override {
+    wine = pkgs.wineWow64Packages.stableFull;
+    wineArch = "win64";
+    wineFlavor = "wineWow64";
+  };
+
+  wineshell-wine = wineshell.override {
+    wine = pkgs.winePackages.stableFull;
+    wineArch = "win32";
+    wineFlavor = "wine";
+  };
+
+  wineshell-wine64-base = wineshell.override {
+    wine = pkgs.wine64Packages.base;
+    wineArch = "win64";
+    wineFlavor = "wine64";
+    enableMonoBootPrompt = false;
+  };
+
+  wineshell-wineWow64-base = wineshell.override {
+    wine = pkgs.wineWow64Packages.base;
+    wineArch = "win64";
+    wineFlavor = "wineWow64";
+    enableMonoBootPrompt = false;
+  };
+
+  wineshell-wine-base = wineshell.override {
+    wine = pkgs.winePackages.base;
+    wineArch = "win32";
+    wineFlavor = "wine";
+    enableMonoBootPrompt = false;
+  };
+
+  wineshell-wine64-vulkan = wineshell-wine64.override {
+    enableVulkan = true;
+  };
+
+  wineshell-wineWow64-vulkan = wineshell-wineWow64.override {
+    enableVulkan = true;
+  };
+
+  wineshell-wine-vulkan = wineshell-wine.override {
+    enableVulkan = true;
+  };
+
+  wineshell-wine64-base-vulkan = wineshell-wine64-base.override {
+    enableVulkan = true;
+  };
+
+  wineshell-wineWow64-base-vulkan = wineshell-wineWow64-base.override {
+    enableVulkan = true;
+  };
+
+  wineshell-wine-base-vulkan = wineshell-wine-base.override {
+    enableVulkan = true;
+  };
 })
 // (lib.optionalAttrs (!no-ifd) (
   with byName;
@@ -305,121 +375,6 @@ exportedByName
     supertuxkart-evolution = v3override (
       pkgs.callPackage ./pkgs/supertuxkart-evolution/default.nix { }
     );
-
-    mkwindowsapp-tools = callPackage ./pkgs/mkwindowsapp-tools { wrapProgram = pkgs.wrapProgram; };
-
-    line = callPackage ./pkgs/line.nix {
-      inherit (lib) mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
-      wine = pkgs.wineWow64Packages.full; # enableMonoBootPrompt is broken rightnow. use full to avoid boot prompt
-    };
-    adobe-acrobat-reader = callPackage ./pkgs/adobe-acrobat-reader.nix {
-      inherit (lib) mkWindowsAppNoCC makeDesktopIcon copyDesktopIcons;
-      inherit (pkgs)
-        copyDesktopItems
-        makeDesktopItem
-        p7zip
-        gawk
-        ;
-      wine = pkgs.winePackages.full;
-    };
-    adobe-acrobat-reader_virtualDesktop = adobe-acrobat-reader.override {
-      virtualDesktop = true;
-    };
-
-    affinity-v3 = callPackage ./pkgs/affinity-v3 {
-      inherit pkgs;
-      build = lib;
-      wine = pkgs.wineWow64Packages.full;
-    };
-
-    wineshell-wine64 = callPackage ./pkgs/wineshell/default.nix {
-      inherit (lib) mkWindowsApp;
-      wine = pkgs.wine64Packages.stableFull;
-      wineArch = "win64";
-      wineFlavor = "wine64";
-    };
-
-    wineshell-wineWow64 = callPackage ./pkgs/wineshell/default.nix {
-      inherit (lib) mkWindowsApp;
-      wine = pkgs.wineWow64Packages.stableFull;
-      wineArch = "win64";
-      wineFlavor = "wineWow64";
-    };
-
-    wineshell-wine = callPackage ./pkgs/wineshell/default.nix {
-      inherit (lib) mkWindowsApp;
-      wine = pkgs.winePackages.stableFull;
-      wineArch = "win32";
-      wineFlavor = "wine";
-    };
-
-    wineshell-wine64-base = callPackage ./pkgs/wineshell/default.nix {
-      inherit (lib) mkWindowsApp;
-      wine = pkgs.wine64Packages.base;
-      wineArch = "win64";
-      wineFlavor = "wine64";
-      enableMonoBootPrompt = false;
-    };
-
-    wineshell-wineWow64-base = callPackage ./pkgs/wineshell/default.nix {
-      inherit (lib) mkWindowsApp;
-      wine = pkgs.wineWow64Packages.base;
-      wineArch = "win64";
-      wineFlavor = "wineWow64";
-      enableMonoBootPrompt = false;
-    };
-
-    wineshell-wine-base = callPackage ./pkgs/wineshell/default.nix {
-      inherit (lib) mkWindowsApp;
-      wine = pkgs.winePackages.base;
-      wineArch = "win32";
-      wineFlavor = "wine";
-      enableMonoBootPrompt = false;
-    };
-
-    wineshell-wine64-vulkan = wineshell-wine64.override {
-      enableVulkan = true;
-    };
-
-    wineshell-wineWow64-vulkan = wineshell-wineWow64.override {
-      enableVulkan = true;
-    };
-
-    wineshell-wine-vulkan = wineshell-wine.override {
-      enableVulkan = true;
-    };
-
-    wineshell-wine64-base-vulkan = wineshell-wine64-base.override {
-      enableVulkan = true;
-    };
-
-    wineshell-wineWow64-base-vulkan = wineshell-wineWow64-base.override {
-      enableVulkan = true;
-    };
-
-    wineshell-wine-base-vulkan = wineshell-wine-base.override {
-      enableVulkan = true;
-    };
-
-    # https://github.com/NixOS/nixpkgs/issues/10165
-    # https://discourse.nixos.org/t/what-is-your-approach-to-packaging-wine-applications-with-nix-derivations/12799/1
-    notepad-plus-plus = callPackage ./pkgs/notepad++.nix {
-      inherit pkgs;
-      build = lib;
-      wine = pkgs.wineWow64Packages.full; # enableMonoBootPrompt is broken rightnow. use full to avoid boot prompt
-    };
-
-    paint-net = callPackage ./pkgs/paint-net.nix {
-      inherit pkgs;
-      build = lib;
-      wine = pkgs.wineWow64Packages.full;
-    };
-
-    insta360-studio = callPackage ./pkgs/insta360-studio.nix {
-      inherit pkgs;
-      build = lib;
-      wine = pkgs.wineWow64Packages.full;
-    };
 
     forku-chatgpt = v3overrideAttrs (pkgs.callPackage ./pkgs/forku-chatgpt/package.nix { });
   }

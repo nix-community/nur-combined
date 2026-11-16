@@ -1,13 +1,18 @@
 {
   lib,
-  mkWindowsAppNoCC,
-  wine,
+  pkgs,
+  wineWow64Packages,
+  # enableMonoBootPrompt is broken with base Wine right now; full avoids the boot prompt.
+  wine ? wineWow64Packages.full,
   fetchurl,
   makeDesktopItem,
-  makeDesktopIcon,
   copyDesktopItems,
-  copyDesktopIcons,
 }:
+
+let
+  myLib = import ../../../lib { inherit pkgs; };
+  inherit (myLib) mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
+in
 mkWindowsAppNoCC rec {
   inherit wine;
 
