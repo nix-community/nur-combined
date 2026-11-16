@@ -415,6 +415,15 @@ version = { source = "github-release", repo = "dimk90/pi-context-view" }
 transform = ["strip-v"]
 fetch = { type = "github", repo = "dimk90/pi-context-view", rev = "{version}" }
 
+[packages.pi-live-terminal]
+version = { source = "git", url = "https://github.com/tanishqkancharla/pi-live-terminal.git", unstable = { stable = { source = "github-tag", repo = "tanishqkancharla/pi-live-terminal", strip_prefix = "v" } } }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "tanishqkancharla/pi-live-terminal", rev = "{version}" }
+
+[packages.pi-live-terminal.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"
+
 [packages.pi-lsp-client]
 version = { source = "github-tag", repo = "code-yeongyu/pi-lsp-client", strip_prefix = "v" }
 transform = ["strip-v"]

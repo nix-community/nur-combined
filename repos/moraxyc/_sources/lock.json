@@ -820,6 +820,24 @@
       },
       "fingerprint": "sha256-2iQIwkuhuI6JIwGrLvC4r49EzdZp07VUvbXFvxjHU3o="
     },
+    "pi-live-terminal": {
+      "version": "0.2.4-unstable-2026-08-30",
+      "rawVersion": "43949547ee4c07ff8cc7bfe88d67214d9ef05021",
+      "date": "2026-08-30",
+      "src": {
+        "fetcher": "github",
+        "owner": "tanishqkancharla",
+        "repo": "pi-live-terminal",
+        "rev": "43949547ee4c07ff8cc7bfe88d67214d9ef05021",
+        "hash": "sha256-xdawdvjArHwtM3GE62XoGJvCvVrqDPXzXSPKCPgqzcM="
+      },
+      "derived": {
+        "npmDeps": {
+          "lockfile": "pi-live-terminal/src/package-lock.json"
+        }
+      },
+      "fingerprint": "sha256-j6skWAFuwnb1T2AZwHstQddeqFJtqV/w8aOIkKDm+hM="
+    },
     "pi-lsp-client": {
       "version": "0.2.0",
       "rawVersion": "0.2.0",
