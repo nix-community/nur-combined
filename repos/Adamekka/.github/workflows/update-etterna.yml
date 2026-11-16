@@ -48,7 +48,7 @@ jobs:
           # missing path. `nix flake archive` reports the same path and copies it.
           nix_update_expr=$(cat <<'EOF'
           let
-            flake = builtins.getFlake ("git+file://" + builtins.getEnv "PWD");
+            flake = builtins.getFlake ("git+file://" + builtins.getEnv "PWD" + "?shallow=1");
             pkgs = flake.inputs.nixpkgs.legacyPackages.${builtins.currentSystem};
           in
           pkgs.nix-update.overridePythonAttrs (old: {
