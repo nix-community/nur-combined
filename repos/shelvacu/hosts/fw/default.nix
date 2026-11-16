@@ -59,6 +59,7 @@
   vacu.packages = ''
     _2ship2harkinian
     android-studio
+    darktable
     framework-tool
     fw-ectool
     headsetcontrol
