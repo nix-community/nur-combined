@@ -124,8 +124,8 @@ let
     root_url = https://grafana.diekvoss.net/
     [security]
     admin_user = admin
-    admin_password = $__file{/run/secrets/admin-password}
-    secret_key = $__file{/run/secrets/secret-key}
+    admin_password = $__file{/etc/grafana/secrets/admin-password}
+    secret_key = $__file{/etc/grafana/secrets/secret-key}
     [paths]
     provisioning = /etc/grafana/provisioning
   '';
@@ -290,9 +290,13 @@ in
                       mountPath = "/etc/grafana/dashboards";
                       readOnly = true;
                     }
+                    # NOTE: never mount at /run/secrets — it shadows the
+                    # directory where kubelet places the serviceaccount token
+                    # (/run/secrets/kubernetes.io/serviceaccount) and the
+                    # container fails to start (read-only filesystem).
                     {
                       name = "secrets";
-                      mountPath = "/run/secrets";
+                      mountPath = "/etc/grafana/secrets";
                       readOnly = true;
                     }
                   ];
@@ -523,11 +527,14 @@ in
                     initialDelaySeconds = 60;
                     periodSeconds = 30;
                   };
+                  # Liveness is a TCP aliveness check, NOT /ready: the
+                  # single-binary ring needs ~10m to stabilize
+                  # (table-manager waits for ring stability) and /ready
+                  # correctly reports unready during that window — killing
+                  # on it resets the window forever (restart loop).
+                  # Readiness (below) already gates traffic on /ready.
                   livenessProbe = {
-                    httpGet = {
-                      path = "/ready";
-                      port = lokiPort;
-                    };
+                    tcpSocket.port = lokiPort;
                     initialDelaySeconds = 120;
                     periodSeconds = 60;
                   };
