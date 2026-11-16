@@ -38,8 +38,6 @@ rustPlatform.buildRustPackage {
 
   cargoLock = source.cargoLock;
 
-  patches = [ ./tests-ignore-terminal-notifications.patch ];
-
   postPatch = ''
     substituteInPlace src/terminal.rs \
       --replace-fail '"/bin/bash"' '"${lib.getExe bash}"'
