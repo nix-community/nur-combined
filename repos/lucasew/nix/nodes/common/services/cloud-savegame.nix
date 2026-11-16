@@ -72,7 +72,7 @@ in
 
     outputDir = mkOption {
       type = types.str;
-      default = "~/SavedGames";
+      default = "~/.personal/personal-savegames/";
       description = ''
         Where the savegame repo will be stored
       '';
