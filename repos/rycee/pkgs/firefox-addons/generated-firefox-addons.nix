@@ -2558,10 +2558,10 @@
     };
     "control-panel-for-twitter" = buildMozillaXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.25.1";
+      version = "4.99.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5115146/control_panel_for_twitter-4.25.1.xpi";
-      sha256 = "8af1388ce0c9edf27fad3d2fac480591c03389fa7090029a718b63eee14f5d6c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5259115/control_panel_for_twitter-4.99.0.xpi";
+      sha256 = "9c2053058195f4722c8ea14eb463f7e0768d004da8d0616f6f9902a7dd2c2086";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-twitter";
@@ -2570,9 +2570,7 @@
         mozPermissions = [
           "storage"
           "https://twitter.com/*"
-          "https://mobile.twitter.com/*"
           "https://x.com/*"
-          "https://mobile.x.com/*"
         ];
         platforms = platforms.all;
       };
@@ -4489,10 +4487,10 @@
     };
     "flagfox" = buildMozillaXpiAddon {
       pname = "flagfox";
-      version = "7.0.1";
+      version = "7.0.2";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5200634/flagfox-7.0.1.xpi";
-      sha256 = "b50c3827f697ce32d73592ea731b56316426dfdd175ccb846bad1df20eebb9bc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5258874/flagfox-7.0.2.xpi";
+      sha256 = "cecf54e590df1e3a378bde19ce831ff6ff436773baa85787db6e482289250c11";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -10005,10 +10003,10 @@
     };
     "ophirofox" = buildMozillaXpiAddon {
       pname = "ophirofox";
-      version = "2.6.11104.1003";
+      version = "2.6.11115.2229";
       addonId = "{cfd3c5c2-31ec-4c1b-a28e-df38357d02d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5206961/ophirofox-2.6.11104.1003.xpi";
-      sha256 = "0396dd1a5410b8b8ba16c3983f11450e618e0b82eab4eef84be5855a8769cf10";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5258554/ophirofox-2.6.11115.2229.xpi";
+      sha256 = "ad2ac2f2a53aa665ac8cdb4441ca53a1a5e0b7e5ba004f11c44c6ae1da76b1e7";
       meta = with lib;
       {
         homepage = "https://ophirofox.ophir.dev/";
@@ -13105,10 +13103,10 @@
     };
     "scriptcat" = buildMozillaXpiAddon {
       pname = "scriptcat";
-      version = "1.5.1";
+      version = "1.5.2";
       addonId = "{8e515334-52b5-4cc5-b4e8-675d50af677d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5227788/scriptcat-1.5.1.xpi";
-      sha256 = "50a0202071939544bf7971c63f92f797f9ed2d705b828b471c71b588c0b494c5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5259254/scriptcat-1.5.2.xpi";
+      sha256 = "a12473363458d02da841f3b523ece6d70f9355e265938dba853953b46c1e7b27";
       meta = with lib;
       {
         homepage = "https://docs.scriptcat.org/";
@@ -14341,10 +14339,10 @@
     };
     "tab-stash" = buildMozillaXpiAddon {
       pname = "tab-stash";
-      version = "3.5";
+      version = "3.5.1";
       addonId = "tab-stash@condordes.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5028003/tab_stash-3.5.xpi";
-      sha256 = "27471446d599cdc626f91fedf6b572fb4b1c4964e9b2c2b47169d7537c3c9524";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5258416/tab_stash-3.5.1.xpi";
+      sha256 = "6b89c985b4792e5453db856e7ab8289e2bb0530f7109183fbed042377ed37e0e";
       meta = with lib;
       {
         homepage = "https://josh-berry.github.io/tab-stash/";
@@ -16457,10 +16455,10 @@
     };
     "vimium-c" = buildMozillaXpiAddon {
       pname = "vimium-c";
-      version = "2.13.1";
+      version = "2.13.3";
       addonId = "vimium-c@gdh1995.cn";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5257214/vimium_c-2.13.1.xpi";
-      sha256 = "11a48e347ce8817cb243accca08c5977eba781f7b449efbcfa92cf65bb70a49d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5259148/vimium_c-2.13.3.xpi";
+      sha256 = "f3ef055f60fda19bab7dd93d59c3b29714ee309621d50787a2adbfc2a622aa22";
       meta = with lib;
       {
         homepage = "https://github.com/gdh1995/vimium-c";
@@ -16471,7 +16469,6 @@
           "clipboardWrite"
           "history"
           "notifications"
-          "scripting"
           "search"
           "sessions"
           "storage"
