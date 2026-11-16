@@ -3,8 +3,11 @@
   nixpkgsPath,
 }:
 
+let
+  mainProgram = capcut.meta.mainProgram or "capcut";
+in
 {
-  name = "capcut";
+  name = mainProgram;
 
   meta.timeout = 2400;
 
@@ -41,7 +44,7 @@
           export DISPLAY=:0
           log=''${1:-/tmp/capcut-wine.log}
           pidfile=''${2:-/tmp/capcut.pid}
-          nohup capcut >"$log" 2>&1 &
+          nohup ${mainProgram} >"$log" 2>&1 &
           echo $! >"$pidfile"
         '')
         (pkgs.writeShellScriptBin "capcut-vm-stop" ''
@@ -49,8 +52,8 @@
           # Match Wine PE only — avoid killing this helper via a broad 'capcut' regex (exit 143).
           pkill -f '/Apps/.*/CapCut\.exe' || true
           pkill -f '/Apps/CapCut\.exe' || true
-          pkill -x capcut || true
-          wineserver -k || true
+          pkill -x ${mainProgram} || true
+          command -v wineserver >/dev/null 2>&1 && wineserver -k || true
           exit 0
         '')
       ];
@@ -60,9 +63,9 @@
         "render"
       ];
 
-      # CapCut payload + Wine layers need room.
+      # CapCut payload + Wine layers need room (5.x payload is larger).
       virtualisation.memorySize = 8192;
-      virtualisation.diskSize = 20480;
+      virtualisation.diskSize = 24576;
       virtualisation.cores = 4;
     };
 
@@ -123,7 +126,7 @@
         machine.execute("su - alice -c capcut-vm-stop || true")
         machine.wait_until_succeeds(
             "grep -q 'App exited' /tmp/capcut-wine.log || "
-            "! pgrep -x capcut >/dev/null",
+            "! pgrep -x '${mainProgram}' >/dev/null",
             timeout=180,
         )
         machine.succeed(
@@ -141,7 +144,7 @@
         machine.execute("su - alice -c capcut-vm-stop || true")
         machine.wait_until_succeeds(
             "grep -q 'App exited' /tmp/capcut-wine2.log || "
-            "! pgrep -x capcut >/dev/null",
+            "! pgrep -x '${mainProgram}' >/dev/null",
             timeout=180,
         )
         machine.screenshot("capcut-wine-relaunch")

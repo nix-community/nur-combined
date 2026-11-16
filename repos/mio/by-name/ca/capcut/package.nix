@@ -11,38 +11,48 @@
   gawk,
   xrandr,
   testers,
-  # Virtual desktop avoids the black preview overlay reported under Wine.
-  # See: https://www.reddit.com/r/linux/comments/1mt3em7/running_capcut_on_linux_now_working_update/
+  # Virtual desktop mitigates black preview / transparent child-window overlays under Wine
+  # (WineHQ Bronze report for 5.7; Reddit/CapNoeh guidance for 3.9).
   virtualDesktop ? true,
+  # Default channel: CapCut 3.9 (CapNoeh / WineHQ Silver). Override for 5.x.
+  pname ? "capcut",
+  version ? "3.9.0.1459",
+  installerName ? "CapCut_3_9_0_1459_capcutpc_0_creatortool.exe",
+  installerUrls ? [
+    "https://web.archive.org/web/20240623100008if_/https://lf16-capcut.faceulv.com/obj/capcutpc-packages-us/packages/CapCut_3_9_0_1459_capcutpc_0_creatortool.exe"
+    "https://lf16-capcut.faceulv.com/obj/capcutpc-packages-us/packages/CapCut_3_9_0_1459_capcutpc_0_creatortool.exe"
+  ],
+  hash ? "sha256-f4wpuEM0t21KCvhnS2PHo8ZMw6A1Ga4OVS1bqqEVdV0=",
+  # XDG config leaf under ~/.config (keep 3.9 / 5.x prefixes separate).
+  configLeaf ? "capcut",
+  desktopName ? "CapCut",
+  downloadPage ? "https://appdb.winehq.org/objectManager.php?sClass=version&iId=42555",
+  # Always block silent upgrade into CapCut 9.x (CEF zombie under Wine; CapNoeh).
+  blockAutoUpdate ? true,
 }:
 
-# CapCut 3.9.0.1459 under Wine. Newer CapCut 9.x leaves CrBrowserMain as a zombie
-# under Wine (see CapNoeh). Setup adapted from:
+# CapCut under Wine. Setup adapted from:
 # - https://www.reddit.com/r/linux/comments/1mt3em7/running_capcut_on_linux_now_working_update/ (u/LinsaFTW)
 # - https://github.com/Noehnoe/CapNoeh
 # - https://github.com/smallmonk67-gif/Capcut-wineprefix
-# - https://appdb.winehq.org/objectManager.php?sClass=version&iId=42555
+# - WineHQ AppDB 3.9: https://appdb.winehq.org/objectManager.php?sClass=version&iId=42555
+# - WineHQ AppDB 5.7: https://appdb.winehq.org/objectManager.php?sClass=version&iId=42553
+# - Official installer index: https://gist.github.com/HungHT1890/5b325526eca01011a1d8bd929c7dffbb
 let
   myLib = import ../../../lib { inherit pkgs; };
   inherit (myLib) mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
   wine = wineStaging;
 
-  # CapNoeh expected size/sha256 for 3.9.0.1459 (550534120 bytes).
-  # Prefer Wayback `if_/` (raw binary); CDN may 404 for this old build.
   src = fetchurl {
-    name = "CapCut_3_9_0_1459_capcutpc_0_creatortool.exe";
-    urls = [
-      "https://web.archive.org/web/20240623100008if_/https://lf16-capcut.faceulv.com/obj/capcutpc-packages-us/packages/CapCut_3_9_0_1459_capcutpc_0_creatortool.exe"
-      "https://lf16-capcut.faceulv.com/obj/capcutpc-packages-us/packages/CapCut_3_9_0_1459_capcutpc_0_creatortool.exe"
-    ];
-    hash = "sha256-f4wpuEM0t21KCvhnS2PHo8ZMw6A1Ga4OVS1bqqEVdV0=";
+    name = installerName;
+    urls = installerUrls;
+    inherit hash;
   };
 
-  # Extract JYPacket once into the Nix store (avoids a 1.3 GiB copy through unionfs).
+  # Extract JYPacket once into the Nix store (avoids a large copy through unionfs).
   capcutApp = pkgs.stdenvNoCC.mkDerivation {
-    pname = "capcut-app";
-    version = "3.9.0.1459";
-    inherit src;
+    pname = "${pname}-app";
+    inherit version src;
     nativeBuildInputs = [ p7zip ];
     dontUnpack = true;
     installPhase = ''
@@ -55,43 +65,58 @@ let
   };
 
   # CRLF INI as CapNoeh seeds it (QSettings).
-  globalSettingFile = pkgs.writeText "capcut-globalSetting" (
-    lib.concatStringsSep "\r\n" [
-      "[General]"
-      "enableAutoUpdate=false"
-      "totalSilentUpgradeSwitch=false"
-      "localTestSilentUpdateSwtich=false"
-      "debugSilentUpgradeSwitch=false"
-      "user_license_agreed=true"
-      "privacy_policy_update_time=9999999999"
-      ""
-    ]
+  globalSettingFile = pkgs.writeText "${pname}-globalSetting" (
+    lib.concatStringsSep "\r\n" (
+      [
+        "[General]"
+      ]
+      ++ lib.optionals blockAutoUpdate [
+        "enableAutoUpdate=false"
+        "totalSilentUpgradeSwitch=false"
+        "localTestSilentUpdateSwtich=false"
+        "debugSilentUpgradeSwitch=false"
+      ]
+      ++ [
+        "user_license_agreed=true"
+        "privacy_policy_update_time=9999999999"
+        ""
+      ]
+    )
   );
 
   icon = pkgs.stdenvNoCC.mkDerivation {
-    name = "capcut-logo";
+    name = "${pname}-logo";
     nativeBuildInputs = [ p7zip ];
     dontUnpack = true;
-    # Prefer the already-extracted tree when available.
     src = capcutApp;
     installPhase = ''
       mkdir -p $out
-      cp ${capcutApp}/3.9.0.1459/Resources/logo_cc.png $out/icon.png
+      # Versioned Resources path differs slightly across CapCut channels.
+      if [ -f ${capcutApp}/${version}/Resources/logo_cc.png ]; then
+        cp ${capcutApp}/${version}/Resources/logo_cc.png $out/icon.png
+      else
+        logo=$(find ${capcutApp} -type f -name 'logo_cc.png' | head -n1)
+        cp "$logo" $out/icon.png
+      fi
     '';
   };
+
   package = mkWindowsAppNoCC rec {
-    inherit wine;
+    inherit
+      wine
+      pname
+      version
+      src
+      ;
 
-    pname = "capcut";
-    version = "3.9.0.1459";
-
-    inherit src;
     dontUnpack = true;
     # App binary is PE32+; payload is extracted at build time (skip PE32 GUI installer).
     wineArch = "win64";
     persistRegistry = true;
     persistRuntimeLayer = true;
     enableMonoBootPrompt = false;
+    # WineHQ 5.7: DXVK/Vulkan backend crashes CapCut — stay on Wine's default GL path.
+    enableVulkan = false;
     graphicsDriver = "auto";
 
     nativeBuildInputs = [
@@ -105,17 +130,20 @@ let
 
     # Persist projects/settings; Apps/ is copied into the install layer (writable).
     fileMap = {
-      "$HOME/.config/capcut" = "drive_c/users/$USER/AppData/Local/CapCut/User Data";
+      "$HOME/.config/${configLeaf}" = "drive_c/users/$USER/AppData/Local/CapCut/User Data";
     };
 
     winAppInstall = ''
       export WINEDEBUG="-all"
 
+      # WineHQ / CapNoeh: installer needs these dirs before first run.
       capcut_root="$WINEPREFIX/drive_c/users/$USER/AppData/Local/CapCut"
       mkdir -p "$capcut_root/Apps" "$capcut_root/User Data/Config" "$capcut_root/User Data/Log"
 
-      # Block auto-update into broken 9.x before first launch (CapNoeh).
-      cp ${globalSettingFile} "$capcut_root/User Data/Config/globalSetting"
+      ${lib.optionalString blockAutoUpdate ''
+        # Block auto-update into broken CapCut 9.x before first launch (CapNoeh).
+        cp ${globalSettingFile} "$capcut_root/User Data/Config/globalSetting"
+      ''}
 
       # Places bar so the Wine file dialog is usable (CapNoeh).
       places='HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Comdlg32\Placesbar'
@@ -137,7 +165,7 @@ let
       fi
     '';
 
-    winAppPreRun = ''
+    winAppPreRun = lib.optionalString blockAutoUpdate ''
       capcut_root="$WINEPREFIX/drive_c/users/$USER/AppData/Local/CapCut"
       cfg="$capcut_root/User Data/Config"
       mkdir -p "$cfg" "$capcut_root/User Data/Log"
@@ -182,14 +210,18 @@ let
         name = pname;
         exec = pname;
         icon = pname;
-        desktopName = "CapCut";
+        inherit desktopName;
         genericName = "Video Editor";
         categories = [
           "AudioVideo"
           "Video"
           "AudioVideoEditing"
         ];
-        comment = "CapCut 3.9 (Wine) — pinned build; auto-update blocked";
+        comment =
+          if blockAutoUpdate then
+            "${desktopName} ${version} (Wine) — pinned; auto-update blocked"
+          else
+            "${desktopName} ${version} (Wine)";
       })
     ];
 
@@ -199,30 +231,35 @@ let
     };
 
     meta = with lib; {
-      description = "CapCut video editor 3.9.0.1459 (Wine; auto-update blocked)";
+      description = "CapCut video editor ${version} (Wine${lib.optionalString blockAutoUpdate "; auto-update blocked"})";
       longDescription = ''
-        Packages CapCut 3.9.0.1459 under wine-staging. Newer CapCut 9.x is known to
-        crash under Wine (main CEF process becomes a zombie). This package:
+        Packages CapCut ${version} under wine-staging.
 
         - extracts the installer payload (JYPacket) into the Nix store
-        - pre-creates CapCut AppData directories (Reddit/CapNoeh installer workaround)
-        - seeds globalSetting to disable auto-update into 9.x
-        - defaults to a Wine virtual desktop (mitigates black preview overlay)
+        - pre-creates CapCut AppData directories (WineHQ / CapNoeh installer workaround)
+        ${lib.optionalString blockAutoUpdate "- seeds globalSetting to disable auto-update into CapCut 9.x (CEF zombie under Wine)\n"}
+        - defaults to a Wine virtual desktop (mitigates black preview overlay; WineHQ 5.7 / Reddit 3.9)
+        - keeps enableVulkan=false (WineHQ: DXVK crashes CapCut 5.7)
 
-        Based on community work (please credit the originals):
+        CapCut 3.9 is the CapNoeh-recommended default. CapCut 5.7 is WineHQ Bronze
+        (editing/export work; preview transparency/black overlay remains). CapCut 9.x
+        is not packaged here.
+
+        Credits / references:
         - u/LinsaFTW — https://www.reddit.com/r/linux/comments/1mt3em7/running_capcut_on_linux_now_working_update/
         - CapNoeh — https://github.com/Noehnoe/CapNoeh
         - Capcut-wineprefix — https://github.com/smallmonk67-gif/Capcut-wineprefix
-        - WineHQ AppDB — https://appdb.winehq.org/objectManager.php?sClass=version&iId=42555
+        - WineHQ AppDB — ${downloadPage}
+        - Installer index — https://gist.github.com/HungHT1890/5b325526eca01011a1d8bd929c7dffbb
 
         CapCut is proprietary software by ByteDance; this package is not affiliated
         with or endorsed by ByteDance.
       '';
       homepage = "https://www.capcut.com/";
-      downloadPage = "https://appdb.winehq.org/objectManager.php?sClass=version&iId=42555";
+      inherit downloadPage;
       license = licenses.unfree;
       platforms = [ "x86_64-linux" ];
-      mainProgram = "capcut";
+      mainProgram = pname;
       sourceProvenance = [ sourceTypes.binaryNativeCode ];
     };
 

@@ -302,7 +302,29 @@ exportedByName
   };
 
   # CapCut defaults to virtualDesktop=true (black preview overlay workaround).
+  # Default `capcut` is 3.9.0.1459 (CapNoeh / WineHQ Silver).
   capcut_noVirtualDesktop = capcut.override {
+    virtualDesktop = false;
+  };
+
+  # CapCut 5.7.0.2112 — WineHQ Bronze (iId=42553; AppDB lists nearby 5.7.1.2152).
+  # Same folder pre-create + virtual desktop; keep auto-update blocked vs CapCut 9.x.
+  # Installer index: https://gist.github.com/HungHT1890/5b325526eca01011a1d8bd929c7dffbb
+  capcut_5 = capcut.override {
+    pname = "capcut-5";
+    version = "5.7.0.2112";
+    installerName = "CapCut_5_7_0_2112_capcutpc_0_creatortool.exe";
+    installerUrls = [
+      "https://web.archive.org/web/20250217121038if_/https://lf16-capcut.faceulv.com/obj/capcutpc-packages-us/packages/CapCut_5_7_0_2112_capcutpc_0_creatortool.exe"
+      "https://lf16-capcut.faceulv.com/obj/capcutpc-packages-us/packages/CapCut_5_7_0_2112_capcutpc_0_creatortool.exe"
+    ];
+    hash = "sha256-7tHtNZoU+RQpgQZRD2xe7dzz+anWCOhCiooHp26bFvs=";
+    configLeaf = "capcut-5";
+    desktopName = "CapCut 5";
+    downloadPage = "https://appdb.winehq.org/objectManager.php?sClass=version&iId=42553";
+  };
+
+  capcut_5_noVirtualDesktop = capcut_5.override {
     virtualDesktop = false;
   };
 
