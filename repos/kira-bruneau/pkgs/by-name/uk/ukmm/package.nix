@@ -4,38 +4,41 @@
   rustPlatform,
   fetchFromGitHub,
   cmake,
+  copyDesktopItems,
   pkg-config,
   wrapGAppsHook3,
+  aws-lc,
   libglvnd,
   libxkbcommon,
   openssl,
   zstd,
   makeDesktopItem,
-  copyDesktopItems,
   nix-update-script,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ukmm";
-  version = "0.17.1";
+  version = "0.17.3";
 
   src = fetchFromGitHub {
     owner = "NiceneNerd";
     repo = "ukmm";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-1qhBBa6Mzo8XqvzwiHKnP0W9Oo26nvMiwZTzRAnLtfs=";
+    hash = "sha256-6oScJDuxEfYNfrWL2kakTs3wKNju8mcGb7SozR9berc=";
   };
 
-  cargoHash = "sha256-I39SPTBH4JUx5z65eD2w2ntWKfjWSxweSco6QE9V5sM=";
+  cargoHash = "sha256-L55bxQLoeaPELhDhxyYSQBtNs4IYlNPebryhy6SgH6E=";
 
   nativeBuildInputs = [
     cmake
-    pkg-config
-    wrapGAppsHook3
     copyDesktopItems
+    pkg-config
+    rustPlatform.bindgenHook
+    wrapGAppsHook3
   ];
 
   buildInputs = [
+    aws-lc
     libglvnd
     libxkbcommon
     openssl
@@ -78,8 +81,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=bnp::test_convert"
   ];
 
-  passthru.updateScript = nix-update-script { };
-
   postInstall = ''
     install -Dm444 assets/ukmm.png  $out/share/icons/hicolor/256x256/apps/ukmm.png
   '';
@@ -98,6 +99,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
       comment = "Breath of the Wild Mod Manager";
     })
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "New mod manager for The Legend of Zelda: Breath of the Wild";
