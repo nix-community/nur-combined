@@ -3,7 +3,6 @@
   stdenv,
   fetchzip,
   bmake,
-  installShellFiles,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "udfclient";
@@ -14,24 +13,14 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-1/QyFylUiEhP5VlaDt1OkwPg2gBfnSpuGqj5nY2yGDQ=";
   };
 
-  outputs = [
-    "out"
-    "man"
-  ];
-
   nativeBuildInputs = [
     bmake
-    installShellFiles
   ];
 
   strictDeps = true;
   __structuredAttrs = true;
 
   enableParallelBuilding = true;
-
-  postInstall = ''
-    installManPage mmc_format.8 newfs_udf.8
-  '';
 
   meta = {
     description = "Userland tools for reading and writing UDF filesystems";
