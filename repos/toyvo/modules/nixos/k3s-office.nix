@@ -5,7 +5,6 @@
 }:
 let
   cfg = config.nixcfg.k3sOffice;
-  middlewaresLib = import ./k3s-traefik-middlewares.nix { inherit lib; };
 
   # Pinned to the release verified 2026-11-14 against the ghcr manifest API
   # (200 on ghcr.io/euro-office/documentserver:v9.3.1) — no version drift.
@@ -62,6 +61,9 @@ in
                   name = "euro-office";
                   image = officeImage;
                   imagePullPolicy = "IfNotPresent";
+                  securityContext = {
+                    runAsUser = 0;
+                  };
                   env = [
                     {
                       name = "JWT_ENABLED";
@@ -88,11 +90,11 @@ in
                       name = "ALLOW_PRIVATE_IP_ADDRESS";
                       value = "true";
                     }
-                    # Serve TLS itself (Traefik backends to :443): the DS
-                    # builds absolute file URLs from what it sees, ignoring
-                    # X-Forwarded-Proto, so plain-HTTP behind TLS produced
-                    # http:// URLs the browser blocks as mixed content.
-                    # Uses the cluster wildcard cert (publicly trusted).
+                    # Serve TLS itself (Traefik backends to :443): the DS builds
+                    # absolute file URLs from the connection it sees, ignoring
+                    # X-Forwarded-Proto, so plain-HTTP behind TLS terminates
+                    # would emit http:// URLs forever. Uses the cluster
+                    # wildcard cert (publicly trusted).
                     {
                       name = "SSL_CERTIFICATE_PATH";
                       value = "/tls/tls.crt";
@@ -229,9 +231,82 @@ in
           ];
         };
       };
+      # IngressRoute (not Ingress): the only way to attach a
+      # ServersTransport to the backend. The plain-Ingress
+      # `service.serverstransport` annotation was silently ignored by
+      # Traefik, which kept the default transport and failed IP-SAN
+      # verification against the pod IP. Shape mirrors k3s-edge.nix.
+      "euro-office-ingressroute.yaml".content = {
+        apiVersion = "traefik.io/v1alpha1";
+        kind = "IngressRoute";
+        metadata = {
+          name = "euro-office";
+        };
+        spec = {
+          entryPoints = [ "websecure" ];
+          routes = [
+            {
+              match = "Host(`office.diekvoss.net`)";
+              kind = "Rule";
+              # No forward-auth middleware: the Document Server authenticates
+              # via its own JWT (gating it would break DS<->Nextcloud callbacks).
+              # Local copies of the shared edge middlewares (see above): this
+              # Traefik runs with allowCrossNamespace disabled, which rejects
+              # cross-namespace refs entirely.
+              middlewares = [
+                { name = "euro-office-headers"; }
+                { name = "euro-office-lanonly"; }
+              ];
+              services = [
+                {
+                  name = "euro-office";
+                  port = 443;
+                  serversTransport = "euro-office-transport";
+                }
+              ];
+            }
+          ];
+          tls.secretName = "wildcard-tls-diekvoss-net";
+        };
+      };
       # Backend TLS transport: verify the DS's cert and SNI as the public
       # hostname (the mounted wildcard cert is publicly trusted, so no
-      # insecureSkipVerify escape hatch needed).
+      # insecureSkipVerify escape hatch needed). Referenced by name from
+      # the IngressRoute above (same namespace).
+      # Local copies of the shared edge middlewares: this Traefik
+      # instance runs with allowCrossNamespace DISABLED, so the
+      # cross-namespace refs (edge-NAME@kubernetescrd) that work for
+      # annotation-based references are rejected here. Same semantics,
+      # same namespace => plain short names resolve fine.
+      "euro-office-mw-headers.yaml".content = {
+        apiVersion = "traefik.io/v1alpha1";
+        kind = "Middleware";
+        metadata = {
+          name = "euro-office-headers";
+        };
+        spec.headers = {
+          customResponseHeaders.Server = "";
+          forceSTSHeader = true;
+          stsSeconds = 15552000;
+          stsIncludeSubdomains = true;
+          stsPreload = true;
+        };
+      };
+      "euro-office-mw-lanonly.yaml".content = {
+        apiVersion = "traefik.io/v1alpha1";
+        kind = "Middleware";
+        metadata = {
+          name = "euro-office-lanonly";
+        };
+        spec.ipAllowList.sourceRange = [
+          "127.0.0.0/8"
+          "::1/128"
+          "10.0.0.0/8"
+          "172.16.0.0/12"
+          "192.168.0.0/16"
+          "fc00::/7"
+        ];
+      };
       "euro-office-transport.yaml".content = {
         apiVersion = "traefik.io/v1alpha1";
         kind = "ServersTransport";
@@ -241,57 +316,6 @@ in
         };
         spec = {
           serverName = "office.diekvoss.net";
-        };
-      };
-      "euro-office-ingress.yaml".content = {
-        apiVersion = "networking.k8s.io/v1";
-        kind = "Ingress";
-        metadata = {
-          name = "euro-office";
-          # No forward-auth annotation on purpose: the Document Server
-          # authenticates via its own JWT (like the *arrs/Immich opt-outs —
-          # and gating it would break DS<->Nextcloud callbacks).
-          annotations = {
-            "traefik.ingress.kubernetes.io/router.middlewares" = middlewaresLib.ingressMiddlewareAnnotation {
-              domain = "diekvoss.net";
-              public = false;
-              forwardAuthGate = false;
-            };
-            # Backend speaks TLS (see SSL_* env + tls volume): tell
-            # Traefik to dial https, and to verify+SNI as the public
-            # hostname (the mounted cert is publicly trusted, no
-            # insecureSkipVerify needed).
-            "traefik.ingress.kubernetes.io/service.serversscheme" = "https";
-            # Same-namespace reference: plain name form. (The namespace-prefixed
-            # form used for cross-ns middlewares does NOT resolve here —
-            # Traefik looked for a transport literally named with the prefix,
-            # fell back to default, and failed IP-SAN verification.)
-            "traefik.ingress.kubernetes.io/service.serverstransport" = "euro-office-transport";
-          };
-        };
-        spec = {
-          ingressClassName = "traefik";
-          tls = [
-            {
-              hosts = [ "office.diekvoss.net" ];
-              secretName = "wildcard-tls-diekvoss-net";
-            }
-          ];
-          rules = [
-            {
-              host = "office.diekvoss.net";
-              http.paths = [
-                {
-                  path = "/";
-                  pathType = "Prefix";
-                  backend.service = {
-                    name = "euro-office";
-                    port.number = 443;
-                  };
-                }
-              ];
-            }
-          ];
         };
       };
     };

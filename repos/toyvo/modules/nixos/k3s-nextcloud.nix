@@ -388,6 +388,54 @@ in
           ];
         };
       };
+      # Euro-Office server-to-server endpoints bypass forward-auth: the DS
+      # pod carries no authentik session, so the gate 302s its file download
+      # and save-callback calls to the login page and opens/saves die.
+      # The Nextcloud app validates the JWT in the query itself, so the
+      # bypass is safe. A separate Ingress (same host, more specific paths)
+      # because one Ingress carries exactly one middleware chain; longest
+      # prefix wins, so these two paths skip the gate while everything else
+      # keeps it.
+      "nextcloud-eurooffice-bypass.yaml".content = {
+        apiVersion = "networking.k8s.io/v1";
+        kind = "Ingress";
+        metadata = {
+          name = "nextcloud-eurooffice-bypass";
+          annotations = {
+            "traefik.ingress.kubernetes.io/router.middlewares" = middlewaresLib.ingressMiddlewareAnnotation (
+              homelab.nextcloud.services.nextcloud // { forwardAuthGate = false; }
+            );
+          };
+        };
+        spec = {
+          ingressClassName = "traefik";
+          tls = [
+            {
+              hosts = [ "nextcloud.diekvoss.net" ];
+              secretName = "wildcard-tls-diekvoss-net";
+            }
+          ];
+          rules = [
+            {
+              host = "nextcloud.diekvoss.net";
+              http.paths =
+                map
+                  (p: {
+                    path = p;
+                    pathType = "Prefix";
+                    backend.service = {
+                      name = "nextcloud";
+                      port.number = nextcloudPort;
+                    };
+                  })
+                  [
+                    "/index.php/apps/eurooffice/download"
+                    "/index.php/apps/eurooffice/track"
+                  ];
+            }
+          ];
+        };
+      };
       "nextcloud-ingress.yaml".content = {
         apiVersion = "networking.k8s.io/v1";
         kind = "Ingress";
