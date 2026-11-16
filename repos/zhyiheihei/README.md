@@ -67,12 +67,12 @@ Build artifacts are cached in the Attic binary cache:
 | - [x] |  | `jieba-next` | [jieba-next](https://github.com/mxcoras/jieba-next) | 1.0.0rc1 | Modern jieba fork with Rust speedups |
 | - [ ] |  | `navdash` | [navdash](https://github.com/zhyiheihei/navdash) | 0.7.1 | Personal service portal with native OIDC login and Nix-generated service cards |
 | - [ ] |  | `nexttodo` | [nexttodo](https://github.com/JunieXD/NextTodo) | 0.1.201 | Dependency-aware todo client: shows what can be done right now |
-| - [x] |  | `nexus-media` | [nexus-media](https://github.com/linyuan0213/nexus-media) | 5.12.2 | Media library manager with automated downloading, media organization and subscription workflows |
-| - [ ] |  | `nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 5.12.2 | Vue 3 web frontend for the Nexus Media media library manager |
+| - [x] |  | `nexus-media` | [nexus-media](https://github.com/linyuan0213/nexus-media) | 5.12.3 | Media library manager with automated downloading, media organization and subscription workflows |
+| - [ ] |  | `nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 5.12.3 | Vue 3 web frontend for the Nexus Media media library manager |
 | - [x] |  | `pinyin2hanzi` | [Pinyin2Hanzi](https://github.com/someus/Pinyin2Hanzi) | 0.1.1 | Pinyin to Chinese character conversion engine |
 | - [x] |  | `proces` | [proces](https://github.com/Ailln/proces) | 0.1.7 | Text preprocess utilities |
 | - [x] |  | `pypika-tortoise` | [pypika-tortoise](https://github.com/tortoise/pypika-tortoise) | 0.6.5 | SQL query builder fork streamlined for tortoise-orm |
-| - [x] |  | `pyromark` | [pyromark](https://github.com/monosans/pyromark) | 0.10.4 | Blazingly fast Markdown parser |
+| - [x] |  | `pyromark` | [pyromark](https://github.com/monosans/pyromark) | 0.10.6 | Blazingly fast Markdown parser |
 | - [ ] | `x86_64-linux` | `qingjian` | [qingjian](https://qingjian.app) | 0.3.3 | Pinyin input method with translation hints for language learners |
 | - [ ] |  | `rtkbt` | [rtkbt](https://github.com/radxa/rtkbt) | 2022-06-07 | Realtek Bluetooth UART attach tool and RTL8852BS firmware |
 | - [x] |  | `sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.3.0 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
@@ -100,7 +100,7 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `python3Packages.pinyin2hanzi` | [Pinyin2Hanzi](https://github.com/someus/Pinyin2Hanzi) | 0.1.1 | Pinyin to Chinese character conversion engine |
 | - [ ] |  | `python3Packages.proces` | [proces](https://github.com/Ailln/proces) | 0.1.7 | Text preprocess utilities |
 | - [ ] |  | `python3Packages.pypika-tortoise` | [pypika-tortoise](https://github.com/tortoise/pypika-tortoise) | 0.6.5 | SQL query builder fork streamlined for tortoise-orm |
-| - [ ] |  | `python3Packages.pyromark` | [pyromark](https://github.com/monosans/pyromark) | 0.10.4 | Blazingly fast Markdown parser |
+| - [ ] |  | `python3Packages.pyromark` | [pyromark](https://github.com/monosans/pyromark) | 0.10.6 | Blazingly fast Markdown parser |
 | - [ ] |  | `python3Packages.telegramify-markdown` | [telegramify-markdown](https://github.com/sudoskys/telegramify-markdown) | 1.4.1 | Convert Markdown to Telegram plain text and entities |
 | - [ ] |  | `python3Packages.torrentool` | [torrentool](https://github.com/idlesign/torrentool) | 1.3.0 | Tool to work with torrent files |
 | - [ ] |  | `python3Packages.tortoise-orm` | [tortoise-orm](https://github.com/tortoise/tortoise-orm) | 0.25.3 | Easy async ORM for Python with relations in mind |
@@ -121,8 +121,8 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `uncategorized.imou-bridge` | [imou-bridge](https://github.com/home-assistant-tools/imou-life) | 2026-08-16 | Imou/Lechange P2P bridge for Home Assistant and Frigate (go2rtc RTSP restream) |
 | - [ ] |  | `uncategorized.navdash` | [navdash](https://github.com/zhyiheihei/navdash) | 0.7.1 | Personal service portal with native OIDC login and Nix-generated service cards |
 | - [ ] |  | `uncategorized.nexttodo` | [nexttodo](https://github.com/JunieXD/NextTodo) | 0.1.201 | Dependency-aware todo client: shows what can be done right now |
-| - [ ] |  | `uncategorized.nexus-media` | [nexus-media](https://github.com/linyuan0213/nexus-media) | 5.12.2 | Media library manager with automated downloading, media organization and subscription workflows |
-| - [ ] |  | `uncategorized.nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 5.12.2 | Vue 3 web frontend for the Nexus Media media library manager |
+| - [ ] |  | `uncategorized.nexus-media` | [nexus-media](https://github.com/linyuan0213/nexus-media) | 5.12.3 | Media library manager with automated downloading, media organization and subscription workflows |
+| - [ ] |  | `uncategorized.nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 5.12.3 | Vue 3 web frontend for the Nexus Media media library manager |
 | - [ ] | `x86_64-linux` | `uncategorized.qingjian` | [qingjian](https://qingjian.app) | 0.3.3 | Pinyin input method with translation hints for language learners |
 | - [ ] |  | `uncategorized.rtkbt` | [rtkbt](https://github.com/radxa/rtkbt) | 2022-06-07 | Realtek Bluetooth UART attach tool and RTL8852BS firmware |
 | - [ ] |  | `uncategorized.sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.3.0 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
