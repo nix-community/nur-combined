@@ -27,6 +27,7 @@
   k3s-homeassistant = ./k3s-homeassistant.nix;
   k3s-immich = ./k3s-immich.nix;
   k3s-jellyfin = ./k3s-jellyfin.nix;
+  k3s-monitoring = ./k3s-monitoring.nix;
   k3s-nextcloud = ./k3s-nextcloud.nix;
   k3s-office = ./k3s-office.nix;
   k3s-storage = ./k3s-storage.nix;

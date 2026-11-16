@@ -37,6 +37,7 @@ in
     inputs.nixcfg.modules.nixos.k3s-jellyfin
     inputs.nixcfg.modules.nixos.k3s-nextcloud
     inputs.nixcfg.modules.nixos.k3s-office
+    inputs.nixcfg.modules.nixos.k3s-monitoring
     inputs.nixcfg.modules.nixos.k3s-storage
     inputs.nixcfg.modules.nixos.k3s-starr
     inputs.nixcfg.modules.nixos.monitoring
@@ -165,6 +166,9 @@ in
     # sidecar, Collabora dropped); replicas 1 from the start (fresh empty
     # DB + state pre-flip, edge still routes to the container).
     k3sNextcloud.enable = true;
+    # Monitoring stack (Grafana + Prometheus + Loki + Tempo); backends seed
+    # from the container's private state at Task 4 (POOL copies are stale).
+    k3sMonitoring.enable = true;
     # Shared NFS storage (csi-driver-nfs + static pool PVs).
     # Single writer: enable ONLY here, never on another server.
     k3sStorage.enable = true;
