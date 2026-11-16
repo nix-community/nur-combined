@@ -24,8 +24,6 @@
   #example-package = pkgs.callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
-  playlist-dir-conf = pkgs.callPackage ./pkgs/playlist-dir-conf { };
-  home-assistant-custom-components.yahoofinance =
-    pkgs.callPackage ./pkgs/home-assistant-yahoofinance
-      { };
+  mpvScripts.playlist-dir-conf = pkgs.callPackage ./pkgs/playlist-dir-conf { };
+  home-assistant-custom-components.ha-easy-stock = pkgs.callPackage ./pkgs/ha-easy-stock { };
 }
