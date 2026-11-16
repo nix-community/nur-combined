@@ -79,14 +79,15 @@ let
 
     winAppInstall = ''
       mkdir -p "$WINEPREFIX/drive_c/Program Files/Notepad++"
-      cp -r ${src}/* "$WINEPREFIX/drive_c/Program Files/Notepad++/"
+      cp -r --no-preserve=mode ${src}/. "$WINEPREFIX/drive_c/Program Files/Notepad++/"
+      chmod -R u+rwX "$WINEPREFIX/drive_c/Program Files/Notepad++"
       if [ "''${NOTEPADPP_SKIP_CJKFONTS:-}" != 1 ]; then
         winetricks --unattended cjkfonts
       fi
     '';
 
     winAppRun = ''
-      $WINE start /unix "$WINEPREFIX/drive_c/Program Files/Notepad++/notepad++.exe" "$ARGS"
+      $WINE "$WINEPREFIX/drive_c/Program Files/Notepad++/notepad++.exe" "''${ARGS[@]}"
     '';
 
     installPhase = ''

@@ -45,7 +45,7 @@ mkWindowsAppNoCC rec {
   '';
 
   winAppRun = ''
-    $WINE start /unix "$WINEPREFIX/drive_c/Program Files/Insta360 Studio/Insta360 Studio.exe" "$ARGS"
+    $WINE start /unix "$WINEPREFIX/drive_c/Program Files/Insta360 Studio/Insta360 Studio.exe" "''${ARGS[@]}"
   '';
 
   installPhase = ''

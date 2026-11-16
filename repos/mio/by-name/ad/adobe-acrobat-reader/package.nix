@@ -101,10 +101,10 @@ mkWindowsAppNoCC rec {
       if [ -z "$res" ]; then
         res="1920x1080"
       fi
-      $WINE explorer /desktop=AcroRead,"$res" "$reader" "$ARGS"
+      $WINE explorer /desktop=AcroRead,"$res" "$reader" "''${ARGS[@]}"
     else
       $WINE reg add "HKCU\Software\Wine\X11 Driver" /v Decorated /t REG_SZ /d N /f
-      $WINE "$reader" "$ARGS"
+      $WINE "$reader" "''${ARGS[@]}"
     fi
   '';
 

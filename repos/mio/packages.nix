@@ -301,6 +301,11 @@ exportedByName
     virtualDesktop = true;
   };
 
+  # CapCut defaults to virtualDesktop=true (black preview overlay workaround).
+  capcut_noVirtualDesktop = capcut.override {
+    virtualDesktop = false;
+  };
+
   wineshell-wine64 = wineshell.override {
     wine = pkgs.wine64Packages.stableFull;
     wineArch = "win64";

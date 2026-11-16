@@ -115,7 +115,7 @@ mkWindowsAppNoCC rec {
       exit 1
     fi
 
-    $WINE start /unix "$affinity_exe" "$ARGS"
+    $WINE start /unix "$affinity_exe" "''${ARGS[@]}"
   '';
 
   installPhase = ''

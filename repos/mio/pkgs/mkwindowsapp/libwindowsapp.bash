@@ -149,8 +149,23 @@ wa_remove_bottle () {
 
     if [ "$type" = "overlay" ]
     then
-      fusermount -u $wineprefix
-      rm -fR "$bottle_dir"
+      # Prefer the setuid NixOS wrapper; store fusermount3 cannot unmount.
+      local fusermount_bin=""
+      if [ -x /run/wrappers/bin/fusermount3 ]; then
+        fusermount_bin=/run/wrappers/bin/fusermount3
+      elif [ -x /run/wrappers/bin/fusermount ]; then
+        fusermount_bin=/run/wrappers/bin/fusermount
+      elif command -v fusermount >/dev/null 2>&1; then
+        fusermount_bin=$(command -v fusermount)
+      elif command -v fusermount3 >/dev/null 2>&1; then
+        fusermount_bin=$(command -v fusermount3)
+      fi
+      if [ -n "$fusermount_bin" ]; then
+        "$fusermount_bin" -u "$wineprefix" || "$fusermount_bin" -uz "$wineprefix" || true
+      else
+        echo "warning: fusermount not found; cannot unmount $wineprefix" >&2
+      fi
+      rm -fR "$bottle_dir" 2>/dev/null || true
     else
       rm -fR "$bottle_dir"
     fi

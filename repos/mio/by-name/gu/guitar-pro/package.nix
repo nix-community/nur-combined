@@ -93,7 +93,7 @@ let
     '';
 
     winAppRun = ''
-      $WINE start /unix "$WINEPREFIX/drive_c/Program Files/Arobas Music/Guitar Pro 8/GuitarPro.exe" "$ARGS"
+      $WINE start /unix "$WINEPREFIX/drive_c/Program Files/Arobas Music/Guitar Pro 8/GuitarPro.exe" "''${ARGS[@]}"
     '';
 
     installPhase = ''

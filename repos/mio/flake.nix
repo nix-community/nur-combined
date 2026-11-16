@@ -51,6 +51,9 @@
           cutefish-dm = cutefishTests.dm;
           cutefish-dm-greeter = cutefishTests.greeter;
           cutefish-dm-splash = cutefishTests.splash;
+          # Wine mkWindowsApp packages: X11 + FUSE overlay smoke tests.
+          notepad-plus-plus = self.legacyPackages.x86_64-linux.notepad-plus-plus.tests.nixos;
+          capcut = self.legacyPackages.x86_64-linux.capcut.tests.nixos;
         };
       cached-cuda = forAllSystems (
         system:

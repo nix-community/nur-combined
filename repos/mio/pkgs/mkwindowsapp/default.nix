@@ -250,7 +250,8 @@ let
     }:$PATH"
     MY_PATH="@MY_PATH@"
     OUT_PATH="@out@"
-    ARGS="$@"
+    # Bash array so empty args expand to nothing (not an empty string) in winAppRun.
+    ARGS=( "$@" )
     # Pick wine64 if present, else wine. Done at runtime (bash) instead of with
     # builtins.pathExists to avoid IFD: pathExists on "${wine}/bin/wine64" would
     # force realizing (building) the wine derivation during evaluation.
@@ -280,7 +281,8 @@ let
 
       ${
         if enableInstallNotification then
-          "notify-send -i $icon \"$msg\""
+          # Cap dbus wait so a missing notification daemon cannot stall Wine layer builds.
+          "timeout 2s notify-send -i \"$icon\" \"$msg\" >/dev/null 2>&1 || true"
         else
           "echo 'Notifications are disabled. Ignoring.'"
       }
@@ -322,8 +324,9 @@ let
       if [ $WA_RUN_APP -eq 1 ]
       then
         ${lib.optionalString enableHUD "export MANGOHUD=\"${hudCommand}\""}
-        DPI=$(${lib.getExe pkgs.xrdb} -query | ${lib.getExe pkgs.gawk} '/Xft.dpi/ {print int($2)}')
-        $WINE reg add "HKCU\Control Panel\Desktop" /v LogPixels /t REG_DWORD /d $DPI /f
+        DPI=$(${lib.getExe pkgs.xrdb} -query 2>/dev/null | ${lib.getExe pkgs.gawk} '/Xft.dpi/ {print int($2)}')
+        DPI=''${DPI:-96}
+        $WINE reg add "HKCU\Control Panel\Desktop" /v LogPixels /t REG_DWORD /d "$DPI" /f
         $WINE reg add "HKCU\Control Panel\Desktop" /v Win8DpiScaling /t REG_DWORD /d 1 /f
         ${winAppRun}
         ${lib.optionalString inhibitIdle "${systemd}/bin/systemd-inhibit --no-ask-password --what=idle --who=\"${attrs.pname}\" --why=\"To prevent the screen from turning off.\" --mode=block"} wineserver -w

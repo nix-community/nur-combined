@@ -30,9 +30,12 @@
        local base_dir=$(dirname "$d")
        local base_name=$(basename "$d")
 
-       mv -v "$d" "$base_dir/$base_name.$(uuidgen | head -c 8)"
        mkdir -p "$base_dir"
-       ln -s -v "$s" "$d"
+       if [ -e "$d" ] || [ -L "$d" ]
+       then
+         mv -v "$d" "$base_dir/$base_name.$(uuidgen | head -c 8)"
+       fi
+       ln -sfn -v "$s" "$d"
      fi
   }
 
