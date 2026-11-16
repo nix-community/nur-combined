@@ -16,6 +16,7 @@
   patchelf,
   dotnet-runtime_9,
   electron_44,
+  wine,
   fontconfig,
   makeWrapper,
   xdg-utils,
@@ -27,12 +28,20 @@
 let
   pname = "vortex";
   version = "2.10.1";
+  vortexLinuxVersion = "2.10.1-2";
 
   src = fetchFromGitHub {
     owner = "Nexus-Mods";
     repo = "Vortex";
     tag = "v${version}";
     hash = "sha256-U/OBN6kpc3gu22sWC/ZeUfX347aelqd26SWq+feHVCs=";
+  };
+
+  vortexLinux = fetchFromGitHub {
+    owner = "Arkazzae";
+    repo = "VortexLinux";
+    tag = "v${vortexLinuxVersion}";
+    hash = "sha256-sU8PT6I9fh7oBLbnI0jqizoCksNN4VFiRL1TqN0Azxw=";
   };
 
   patchWorkspace = ''
@@ -106,6 +115,27 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   postPatch = patchWorkspace + ''
+    for compatibilityPatch in ${vortexLinux}/patches/*.patch; do
+      patch -p1 --batch < "$compatibilityPatch"
+    done
+
+    jq '.version = "${version}"' src/main/package.json > package.json.tmp
+    mv package.json.tmp src/main/package.json
+    jq '.version = "${version}"' packages/vortex-api/package.json > package.json.tmp
+    mv package.json.tmp packages/vortex-api/package.json
+
+    substituteInPlace src/main/src/cli.ts \
+      --replace-fail '.opts() as IParameters;' '.opts() as IParameters; const positionalNxm = argv.find((arg) => arg.startsWith("nxm://")); if (commandLine.download === undefined && commandLine.install === undefined && positionalNxm !== undefined) { commandLine.download = positionalNxm; }'
+
+    substituteInPlace src/renderer/src/extensions/profile_management/index.ts \
+      --replace-fail 'if (store === undefined || getGame(gameId) === undefined) {' \
+      'if (store === undefined || getGame(gameId) === undefined || getGameStubDownloadInfo(gameId) !== undefined) {'
+
+    substituteInPlace src/renderer/src/util/storeLookup.ts \
+      --replace-fail 'appId: string | string[],' 'appId: string | string[] | number,' \
+      --replace-fail 'if (!validInput(appId)) {' 'if (!validInput(typeof appId === "number" ? String(appId) : appId)) {' \
+      --replace-fail 'findGameEntry(stores, "id", appId, storeId)' 'findGameEntry(stores, "id", typeof appId === "number" ? String(appId) : appId, storeId)'
+
     jq '.platforms = [ "linux_amd64" ]' src/main/duckdb-extensions.json > duckdb.json
     mv duckdb.json src/main/duckdb-extensions.json
     mkdir -p src/main/build/duckdb-extensions/v${duckdbVersion}/linux_amd64
@@ -186,9 +216,12 @@ stdenv.mkDerivation (finalAttrs: {
         lib.makeBinPath [
           dotnet-runtime_9
           xdg-utils
+          wine
         ]
       } \
-      --set DOTNET_ROOT "${dotnet-runtime_9}/share/dotnet"
+      --set DOTNET_ROOT "${dotnet-runtime_9}/share/dotnet" \
+      --set VORTEX_WINE "${lib.getExe wine}" \
+      --prefix LD_LIBRARY_PATH : ${stdenv.cc.cc.lib}/lib
 
     runHook postInstall
   '';
@@ -196,6 +229,11 @@ stdenv.mkDerivation (finalAttrs: {
   postFixup = ''
     gunzip -c ${duckdbExtension} > \
       "$out/lib/vortex/resources/app/duckdb-extensions/v${duckdbVersion}/linux_amd64/level_pivot.duckdb_extension"
+
+    find "$out/lib/vortex/resources/app" -name '*.node' -print0 |
+      while IFS= read -r -d "" f; do
+        patchelf --set-rpath '$ORIGIN:${fontconfig.lib}/lib:${stdenv.cc.cc.lib}/lib' "$f" 2>/dev/null || true
+      done
   '';
 
   desktopItems = [
@@ -219,8 +257,8 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    description = "Mod manager from Nexus Mods";
-    homepage = "https://www.nexusmods.com/about/vortex/";
+    description = "Mod manager from Nexus Mods with VortexLinux compatibility patches";
+    homepage = "https://github.com/Arkazzae/VortexLinux";
     changelog = "https://github.com/Nexus-Mods/Vortex/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
     mainProgram = "vortex";
