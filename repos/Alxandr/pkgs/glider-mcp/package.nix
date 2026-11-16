@@ -7,9 +7,9 @@
 
 buildDotnetGlobalTool {
   pname = "glider";
-  version = "14.0.1";
+  version = "16.0.0";
 
-  nugetHash = "sha256-NlgI3Vk085qUiCWkkf5tAZpmd6YUaWRb4YN71muelL8=";
+  nugetHash = "sha256-jkDys0Z5Y3kCDmlALo9IXs6lued0SFKnOee4oTHZYpg=";
 
   dotnet-sdk = dotnetCorePackages.dotnet_10.sdk;
   dotnet-runtime = dotnetCorePackages.dotnet_10.runtime;
