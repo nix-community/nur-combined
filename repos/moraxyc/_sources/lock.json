@@ -967,6 +967,56 @@
       },
       "fingerprint": "sha256-H7/fT4nfEg6N60/hpZLT4tL2Ehl2w1jA42zyrihYhcA="
     },
+    "sable-next": {
+      "version": "26.11.0",
+      "rawVersion": "26.11.0",
+      "date": "2026-11-15",
+      "src": {
+        "fetcher": "git",
+        "url": "https://git.sable.moe/SableClient/sable-next.git",
+        "tag": "v26.11.0",
+        "hash": "sha256-3ndyjU2/oBpBWGJPkPoynQm7uCzSmYFGDCvzMUmS7qw="
+      },
+      "derived": {
+        "cargoLock": {
+          "lockfile": "sable-next/src/Cargo.lock",
+          "outputHashes": {
+            "matrix-sdk-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
+            "matrix-sdk-base-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
+            "matrix-sdk-common-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
+            "matrix-sdk-crypto-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
+            "matrix-sdk-indexeddb-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
+            "matrix-sdk-qrcode-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
+            "matrix-sdk-sqlite-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
+            "matrix-sdk-store-encryption-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
+            "matrix-sdk-test-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
+            "matrix-sdk-test-macros-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
+            "matrix-sdk-test-utils-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
+            "matrix-sdk-ui-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
+            "ruma-0.17.2": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
+            "ruma-appservice-api-0.17.1": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
+            "ruma-client-api-0.25.2": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
+            "ruma-common-0.20.2": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
+            "ruma-events-0.35.2": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
+            "ruma-federation-api-0.16.1": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
+            "ruma-html-0.9.0": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
+            "ruma-identifiers-validation-0.14.0": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
+            "ruma-macros-0.20.2": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
+            "ruma-signatures-0.22.1": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
+            "sable-link-preview-0.1.0": "sha256-fCaSl4BU6Y/zElutdXuaD4G5mnpZ1v34pIdXZ5Q8mpM=",
+            "tauri-plugin-app-icon-0.1.0": "sha256-LFVRZmNry4PN4B058pTG6UYTQcg1j2Otv9EkEU+rAEc=",
+            "tauri-plugin-auth-session-0.2.2": "sha256-hXJkjX0hDSFw6M4iQXRvGD9fnMR0aN7rU5IBNh0kChQ=",
+            "tauri-plugin-edge-to-edge-0.3.3": "sha256-ttcVPLCkcChkSnNE5jkpS0zz7sflzPD9rhOVOqosTeA=",
+            "tauri-plugin-livekit-mobile-0.2.0": "sha256-TGDcz9S4dmW/bxOkT04Zsl2Tx8OVFborSVUjgrujcH4=",
+            "tauri-plugin-notifications-0.5.0": "sha256-xB+9Zvqbp5RMoF6mC+3YvTnpG+uG0/PgYzyaRKSR9h0="
+          }
+        },
+        "pnpmDepsHash": {
+          "hash": "sha256-MW4yLXBuEJr4zk3536jHMO752ozYSe9ynSwWyUxcEdY="
+        }
+      },
+      "fingerprint": "sha256-2YVZK9SaKstbB8g+Fzhd3oIQeuoEzz5l9AUGzESdLWE="
+    },
     "shard": {
       "version": "0.1.28-unstable-2026-10-21",
       "rawVersion": "cf184267f48bc25774c47b3530b7418524813c2b",

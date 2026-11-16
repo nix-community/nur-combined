@@ -485,6 +485,19 @@ version = { source = "git", url = "https://github.com/charmedlabs/pixy2", unstab
 transform = ["strip-v"]
 fetch = { type = "git", url = "https://github.com/charmedlabs/pixy2", rev = "{version}" }
 
+[packages.sable-next]
+version = { source = "git-tag", url = "https://git.sable.moe/SableClient/sable-next.git", strip_prefix = "v", filter = "^v[0-9]+\\.[0-9]+\\.[0-9]+$" }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://git.sable.moe/SableClient/sable-next.git", tag = "v{version}" }
+
+[packages.sable-next.derive.cargoLock]
+kind = "cargo-vendor"
+strategy = "lockfile"
+
+[packages.sable-next.derive.pnpmDepsHash]
+strategy = "fod"
+attr = ".#sable-next-unwrapped.pnpmDeps"
+
 [packages.shard]
 version = { source = "git", url = "https://github.com/Th0rgal/shard.git", unstable = { stable = { source = "github-release", repo = "Th0rgal/shard" } } }
 transform = ["strip-v"]
