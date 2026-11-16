@@ -9,9 +9,9 @@
   },
   "platforms": {
     "x86_64-linux": {
-      "version": "1.3.7",
+      "version": "1.3.8",
       "url": "https://download.helixnotes.com/releases/v{version}/HelixNotes_{version}_amd64.AppImage",
-      "hash": "sha256-LbPivstGlYtH2QFNTii0qmcXUd6aMnDN7t8Do6dYp00="
+      "hash": "sha256-rsGCLjrZ92jwMtA+EYF+1CAiHUr2/Kh7FprdDCh6aAQ="
     },
     "x86_64-darwin": {
       "version": "1.3.6",
