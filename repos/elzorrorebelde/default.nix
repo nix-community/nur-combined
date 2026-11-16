@@ -14,7 +14,27 @@
   fenixRustPlatform ? null,
 }:
 
-rec {
+let
+  # Rustel's Nix build uses this toolchain, independently of the host's Rust.
+  rustelRustPlatform =
+    if fenixRustPlatform != null then
+      fenixRustPlatform
+    else
+      let
+        fenixLock = (builtins.fromJSON (builtins.readFile ./flake.lock)).nodes.fenix.locked;
+        fenixSrc = fetchTarball {
+          url = "https://github.com/${fenixLock.owner}/${fenixLock.repo}/archive/${fenixLock.rev}.tar.gz";
+          sha256 = fenixLock.narHash;
+        };
+        fenix = import fenixSrc { inherit pkgs system; };
+        rustToolchain = fenix.stable.minimalToolchain;
+      in
+      pkgs.makeRustPlatform {
+        cargo = rustToolchain;
+        rustc = rustToolchain;
+      };
+in
+{
   abw-abcde = pkgs.callPackage ./packages/abw-abcde { };
   ngpost = pkgs.libsForQt5.callPackage ./packages/ngpost { };
   gtkcsslanguageserver = pkgs.callPackage ./packages/gtk-css-language-server { };
@@ -24,7 +44,7 @@ rec {
 
   # rustel - Strudel pattern language engine
   rustel = pkgs.callPackage ./packages/rustel {
-    rustPlatform = if fenixRustPlatform != null then fenixRustPlatform else pkgs.rustPlatform;
+    rustPlatform = rustelRustPlatform;
   };
 
   # Redot Engine
