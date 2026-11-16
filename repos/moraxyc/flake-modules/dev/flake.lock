@@ -11,11 +11,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1794721870,
-        "narHash": "sha256-D0qtwRpr0NR3YCoc7CkGAiRFXS0++kDOzXbQVOHbdYU=",
+        "lastModified": 1794790851,
+        "narHash": "sha256-IZ1weGFBn2yhe03uvP6z+Z0ZurI3qnWhrPkTxHMSJC0=",
         "owner": "Moraxyc",
         "repo": "fetchrix",
-        "rev": "4c103bb155f5735f76cb6c6390f58d49bad874bb",
+        "rev": "9d2d14b6678bc7ef6b18c2d186e6cc2028495d80",
         "type": "github"
       },
       "original": {

@@ -27,7 +27,7 @@ index 1eb1a9a..5d024c1 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 606ba80..5d77bcd 100644
+index b0033ac..2aec486 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -449,6 +449,12 @@ importers:
@@ -239,7 +239,7 @@ index 606ba80..5d77bcd 100644
    node-releases@2.0.63:
      resolution: {integrity: sha512-6li2QanLsAXpIH2R6j77MzRyvOyrvdTqlKtO4CgBdHGNvN99ZZfyxszHc5o5+IZBWD5u6Hzwg83JoGXmqZNG9Q==}
      engines: {node: '>=18'}
-@@ -6572,6 +6604,10 @@ packages:
+@@ -6566,6 +6598,10 @@ packages:
      resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
      engines: {node: '>= 0.4'}
  
@@ -250,7 +250,7 @@ index 606ba80..5d77bcd 100644
    svg-parser@2.0.4:
      resolution: {integrity: sha512-e4hG1hRwoOdRb37cIMSgzNsxyzKfayW6VOflrwvR+/bzrkyxY/31WkbgnQpgtrNp1SdpJvpUAGTa/ZoiPNDuRQ==}
  
-@@ -6868,12 +6904,6 @@ packages:
+@@ -6862,12 +6898,6 @@ packages:
        webpack:
          optional: true
  
@@ -263,7 +263,7 @@ index 606ba80..5d77bcd 100644
    update-browserslist-db@1.3.4:
      resolution: {integrity: sha512-t8wonIOdQyOjtPd2VktlBu6QjTVTks6v8bSi7kd0r2Vll8TK1JYDZtRRdbmCHOAMphkZgrzK+L+vXK4pyZ8t4A==}
      hasBin: true
-@@ -6958,6 +6988,8 @@ packages:
+@@ -6952,6 +6982,8 @@ packages:
        esbuild: ^0.27.0 || ^0.28.0
        jiti: '>=1.21.0'
        less: ^4.0.0
@@ -272,7 +272,7 @@ index 606ba80..5d77bcd 100644
        stylus: '>=0.54.8'
        sugarss: ^5.0.0
        terser: ^5.16.0
-@@ -6974,6 +7006,10 @@ packages:
+@@ -6968,6 +7000,10 @@ packages:
          optional: true
        less:
          optional: true
@@ -283,7 +283,7 @@ index 606ba80..5d77bcd 100644
        stylus:
          optional: true
        sugarss:
-@@ -7148,6 +7184,9 @@ packages:
+@@ -7142,6 +7178,9 @@ packages:
      resolution: {integrity: sha512-4UEqdc2RYGHZc7Doyqkrqiln3p9X2DZVxaGbwhn2pi7MrRagKaOcIKe8L3OxYcbhXLgLFUS3zAYuQjKBQgmuNg==}
      engines: {node: ^20.19.0 || ^22.12.0 || >=23}
  
@@ -293,7 +293,7 @@ index 606ba80..5d77bcd 100644
    zod@4.6.7:
      resolution: {integrity: sha512-g8W2D2kU6a8untc053fX1uVBKzM7yqAxW/3zwk83+6RyF2+SKOuV+c0wBDhUwzV1PaGapmZH+rmcUzPf+3CGwg==}
  
-@@ -7215,7 +7254,7 @@ snapshots:
+@@ -7209,7 +7248,7 @@ snapshots:
        '@babel/parser': 7.29.8
        '@babel/types': 7.29.8
        '@jridgewell/gen-mapping': 0.3.12
@@ -302,7 +302,7 @@ index 606ba80..5d77bcd 100644
        jsesc: 3.1.0
  
    '@babel/helper-annotate-as-pure@7.29.7':
-@@ -7226,7 +7265,7 @@ snapshots:
+@@ -7220,7 +7259,7 @@ snapshots:
      dependencies:
        '@babel/compat-data': 7.29.7
        '@babel/helper-validator-option': 7.29.7
@@ -311,7 +311,7 @@ index 606ba80..5d77bcd 100644
        lru-cache: 5.1.1
        semver: 6.3.1
  
-@@ -8263,6 +8302,19 @@ snapshots:
+@@ -8257,6 +8296,19 @@ snapshots:
        typescript: 7.0.2
        vite: 8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1)
  
@@ -331,7 +331,7 @@ index 606ba80..5d77bcd 100644
    '@inlang/recommend-sherlock@0.2.1':
      dependencies:
        comment-json: 4.5.0
-@@ -8274,6 +8326,13 @@ snapshots:
+@@ -8268,6 +8320,13 @@ snapshots:
        kysely: 0.28.14
        uuid: 14.0.0
  
@@ -345,7 +345,7 @@ index 606ba80..5d77bcd 100644
    '@internationalized/date@3.12.4':
      dependencies:
        '@swc/helpers': 0.5.23
-@@ -8288,20 +8347,20 @@ snapshots:
+@@ -8282,20 +8341,20 @@ snapshots:
  
    '@jridgewell/gen-mapping@0.3.12':
      dependencies:
@@ -370,7 +370,7 @@ index 606ba80..5d77bcd 100644
  
    '@jridgewell/sourcemap-codec@1.5.5': {}
  
-@@ -8310,7 +8369,7 @@ snapshots:
+@@ -8304,7 +8363,7 @@ snapshots:
    '@jridgewell/trace-mapping@0.3.29':
      dependencies:
        '@jridgewell/resolve-uri': 3.1.2
@@ -379,7 +379,7 @@ index 606ba80..5d77bcd 100644
  
    '@jridgewell/trace-mapping@0.3.31':
      dependencies:
-@@ -9704,6 +9763,10 @@ snapshots:
+@@ -9698,6 +9757,10 @@ snapshots:
  
    '@standard-schema/utils@0.3.0': {}
  
@@ -390,7 +390,7 @@ index 606ba80..5d77bcd 100644
    '@svgr/babel-plugin-add-jsx-attribute@8.0.0(@babel/core@7.29.7(supports-color@7.2.0))':
      dependencies:
        '@babel/core': 7.29.7(supports-color@7.2.0)
-@@ -10247,6 +10310,8 @@ snapshots:
+@@ -10241,6 +10304,8 @@ snapshots:
      dependencies:
        '@types/estree': 1.0.8
  
@@ -399,7 +399,7 @@ index 606ba80..5d77bcd 100644
    '@types/estree@1.0.8': {}
  
    '@types/figlet@1.7.0': {}
-@@ -10501,6 +10566,8 @@ snapshots:
+@@ -10495,6 +10560,8 @@ snapshots:
      dependencies:
        tslib: 2.8.1
  
@@ -408,7 +408,7 @@ index 606ba80..5d77bcd 100644
    array-timsort@1.0.3: {}
  
    assertion-error@2.0.1: {}
-@@ -10511,6 +10578,8 @@ snapshots:
+@@ -10505,6 +10572,8 @@ snapshots:
  
    async@3.2.6: {}
  
@@ -417,7 +417,7 @@ index 606ba80..5d77bcd 100644
    babel-dead-code-elimination@1.0.12(supports-color@7.2.0):
      dependencies:
        '@babel/core': 7.29.7(supports-color@7.2.0)
-@@ -10550,8 +10619,6 @@ snapshots:
+@@ -10544,8 +10613,6 @@ snapshots:
  
    base64-js@1.5.1: {}
  
@@ -426,7 +426,7 @@ index 606ba80..5d77bcd 100644
    baseline-browser-mapping@2.11.35: {}
  
    before-after-hook@4.0.0: {}
-@@ -10582,14 +10649,6 @@ snapshots:
+@@ -10576,14 +10643,6 @@ snapshots:
        browserslist: 4.29.5
        meow: 13.2.0
  
@@ -441,7 +441,7 @@ index 606ba80..5d77bcd 100644
    browserslist@4.29.5:
      dependencies:
        baseline-browser-mapping: 2.11.35
-@@ -10620,8 +10679,6 @@ snapshots:
+@@ -10614,8 +10673,6 @@ snapshots:
  
    camelcase@6.3.0: {}
  
@@ -450,7 +450,7 @@ index 606ba80..5d77bcd 100644
    caniuse-lite@1.0.30001820: {}
  
    ccount@2.0.1: {}
-@@ -11057,6 +11114,8 @@ snapshots:
+@@ -11051,6 +11108,8 @@ snapshots:
  
    detect-node-es@1.1.0: {}
  
@@ -459,7 +459,7 @@ index 606ba80..5d77bcd 100644
    devlop@1.1.0:
      dependencies:
        dequal: 2.0.3
-@@ -11118,8 +11177,6 @@ snapshots:
+@@ -11112,8 +11171,6 @@ snapshots:
      dependencies:
        jake: 10.9.2
  
@@ -468,7 +468,7 @@ index 606ba80..5d77bcd 100644
    electron-to-chromium@1.5.477: {}
  
    elkjs@0.12.1: {}
-@@ -11180,6 +11237,8 @@ snapshots:
+@@ -11174,6 +11231,8 @@ snapshots:
  
    escape-string-regexp@5.0.0: {}
  
@@ -477,7 +477,7 @@ index 606ba80..5d77bcd 100644
    esniff@2.0.1:
      dependencies:
        d: 1.0.2
-@@ -11189,6 +11248,10 @@ snapshots:
+@@ -11183,6 +11242,10 @@ snapshots:
  
    esprima@4.0.1: {}
  
@@ -488,7 +488,7 @@ index 606ba80..5d77bcd 100644
    estree-util-is-identifier-name@3.0.0: {}
  
    estree-walker@2.0.2: {}
-@@ -11499,6 +11562,10 @@ snapshots:
+@@ -11493,6 +11556,10 @@ snapshots:
  
    is-plain-obj@4.1.0: {}
  
@@ -499,7 +499,7 @@ index 606ba80..5d77bcd 100644
    is-typedarray@1.0.0: {}
  
    is-what@4.1.16: {}
-@@ -11687,6 +11754,8 @@ snapshots:
+@@ -11681,6 +11748,8 @@ snapshots:
        pkg-types: 2.3.0
        quansync: 0.2.11
  
@@ -508,7 +508,7 @@ index 606ba80..5d77bcd 100644
    lodash-es@4.18.1: {}
  
    lodash.debounce@4.0.8: {}
-@@ -12250,8 +12319,6 @@ snapshots:
+@@ -12244,8 +12313,6 @@ snapshots:
      dependencies:
        write-file-atomic: 1.3.4
  
@@ -517,7 +517,7 @@ index 606ba80..5d77bcd 100644
    node-releases@2.0.63: {}
  
    npm-normalize-package-bin@6.0.0: {}
-@@ -13121,6 +13188,26 @@ snapshots:
+@@ -13111,6 +13178,26 @@ snapshots:
  
    supports-preserve-symlinks-flag@1.0.0: {}
  
@@ -544,7 +544,7 @@ index 606ba80..5d77bcd 100644
    svg-parser@2.0.4: {}
  
    systemjs@6.15.1: {}
-@@ -13376,7 +13463,7 @@ snapshots:
+@@ -13366,7 +13453,7 @@ snapshots:
        - vite
        - webpack
  
@@ -553,7 +553,7 @@ index 606ba80..5d77bcd 100644
      dependencies:
        '@antfu/install-pkg': 1.1.0
        '@iconify/utils': 3.1.7
-@@ -13385,6 +13472,7 @@ snapshots:
+@@ -13375,6 +13462,7 @@ snapshots:
        unplugin: 3.3.0(rolldown@1.2.18)(vite@8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1))
      optionalDependencies:
        '@svgr/core': 8.1.0(supports-color@7.2.0)(typescript@7.0.2)
@@ -561,7 +561,7 @@ index 606ba80..5d77bcd 100644
      transitivePeerDependencies:
        - '@farmfe/core'
        - '@rspack/core'
-@@ -13427,12 +13515,6 @@ snapshots:
+@@ -13417,12 +13505,6 @@ snapshots:
        rolldown: 1.2.18
        vite: 8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1)
  
@@ -574,7 +574,7 @@ index 606ba80..5d77bcd 100644
    update-browserslist-db@1.3.4(browserslist@4.29.5):
      dependencies:
        browserslist: 4.29.5
-@@ -13670,6 +13752,8 @@ snapshots:
+@@ -13660,6 +13742,8 @@ snapshots:
        y18n: 5.0.8
        yargs-parser: 22.0.0
  
