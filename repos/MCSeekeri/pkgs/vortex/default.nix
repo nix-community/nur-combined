@@ -37,6 +37,8 @@ let
 
   patchWorkspace = ''
     ${lib.getExe yq-go} -i '.engineStrict = false' pnpm-workspace.yaml
+    ${lib.getExe yq-go} -i 'del(.engines.runtime) | del(.devEngines.runtime)' package.json
+    ${lib.getExe yq-go} -i 'del(.importers.".".dependencies.node) | del(.packages."node@runtime:24.22.1") | del(.snapshots."node@runtime:24.22.1")' pnpm-lock.yaml
   '';
 
   pnpmDeps = fetchPnpmDeps {
@@ -46,10 +48,10 @@ let
     prePnpmInstall = patchWorkspace + ''
       export ELECTRON_SKIP_BINARY_DOWNLOAD=1
       export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
-      pnpm fetch --frozen-lockfile || true
+      pnpm fetch --frozen-lockfile --ignore-scripts || true
     '';
     nativeBuildInputs = [ yq-go ];
-    hash = "sha256-+Nw1yDIxZ4mAHIF4GSkiZPpY06ineR5q5zlvClb8zqo=";
+    hash = "sha256-nMr9rZh9MgPCv8krahooeTY0+bSwDdCWuo0NmSevyuE=";
   };
 
   duckdbVersion = "1.5.1";
