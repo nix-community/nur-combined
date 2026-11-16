@@ -62,6 +62,7 @@
     - `goodtop-firmware`
     - `inv6`
     - `labelwriter-re`
+    - `postcards`
     - `scanitall`
     - `toyota-navdisc`
 

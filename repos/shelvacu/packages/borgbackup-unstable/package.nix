@@ -34,6 +34,14 @@ python.pkgs.buildPythonApplication rec {
 
   patches = [ ./fix-s3.patch ];
 
+  # same bump as upstream 2.0.0b20
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace-fail '"msgpack >=1.0.3, <=1.1.1"' '"msgpack >=1.0.3, <=1.1.2"'
+    substituteInPlace src/borg/helpers/msgpack.py \
+      --replace-fail '<= (1, 1, 1)' '<= (1, 1, 2)'
+  '';
+
   build-system = with python.pkgs; [
     cython
     setuptools-scm
