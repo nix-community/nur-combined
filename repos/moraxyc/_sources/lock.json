@@ -115,13 +115,13 @@
     },
     "clash-nyanpasu": {
       "version": "2.0.1-unstable-2026-11-16",
-      "rawVersion": "372030bba54d7e271e8d4da2a942ca56e1200dca",
+      "rawVersion": "6fd186ab1d23f001f835d5fda964ac8413d61ce0",
       "date": "2026-11-16",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/libnyanpasu/clash-nyanpasu",
-        "rev": "372030bba54d7e271e8d4da2a942ca56e1200dca",
-        "hash": "sha256-1A+fxTTsYE+ybRuLqKVDqCncB8kl5n4XHI1fMT7OizQ="
+        "rev": "6fd186ab1d23f001f835d5fda964ac8413d61ce0",
+        "hash": "sha256-VocT0yhkJV7xbaJk1sGXzMpdgr1LMJwlQz05i5tc2jQ="
       },
       "derived": {
         "cargoLock": {
@@ -152,15 +152,15 @@
       "fingerprint": "sha256-K5Nl/4GSel7c9aczwmNlX4Feo1YsgSJbvSsGdY/yIXA="
     },
     "cliproxyapi": {
-      "version": "8.0.74",
-      "rawVersion": "v8.0.74",
+      "version": "8.0.75",
+      "rawVersion": "v8.0.75",
       "date": "2026-11-16",
       "src": {
         "fetcher": "github",
         "owner": "router-for-me",
         "repo": "cliproxyapi",
-        "rev": "v8.0.74",
-        "hash": "sha256-/gcFFPKZg2uJyNMOfpVPz1P8Ccc4ca38bd273zcOXIo="
+        "rev": "v8.0.75",
+        "hash": "sha256-3FujIFPmn4s6LAMoftpnqo33gAI6R20q3v/NVLz0YNI="
       },
       "derived": {
         "vendorHash": {
@@ -307,32 +307,32 @@
       "fingerprint": "sha256-towcatrM+06L5DicpsZfVGQtyJY6jfzlWnl5JtIKcs4="
     },
     "geolite2-asn": {
-      "version": "2026.11.13",
-      "rawVersion": "2026.11.13",
+      "version": "2026.11.16",
+      "rawVersion": "2026.11.16",
       "src": {
         "fetcher": "url",
-        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.13/GeoLite2-ASN.mmdb",
-        "hash": "sha256-8tTDzQddYDeKF3rdJ8CStTay7VqmUaH4uaYVb25SCFw="
+        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.16/GeoLite2-ASN.mmdb",
+        "hash": "sha256-arDctgF7Dl81bUrBYHQn/F1Np6hGXLEjPoqcBN8bSIU="
       },
       "fingerprint": "sha256-0ToZa+2Em+tnyn9CPCmAPlp6lIcX7/Merx+CDKFXW1M="
     },
     "geolite2-city": {
-      "version": "2026.11.13",
-      "rawVersion": "2026.11.13",
+      "version": "2026.11.16",
+      "rawVersion": "2026.11.16",
       "src": {
         "fetcher": "url",
-        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.13/GeoLite2-City.mmdb",
-        "hash": "sha256-H/wuPiwNg6Ectk36oxjm8Q90quEx3RiJnVJD6vgcA2Q="
+        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.16/GeoLite2-City.mmdb",
+        "hash": "sha256-uY4cS5qQ7EZgSJFRBr7ALuPU8OXxH1nyMuDwJlqUL1Y="
       },
       "fingerprint": "sha256-463eu1xFZXCx4oz8SRSvBA0hvpJyFhic5DHxAO5Hvus="
     },
     "geolite2-country": {
-      "version": "2026.11.13",
-      "rawVersion": "2026.11.13",
+      "version": "2026.11.16",
+      "rawVersion": "2026.11.16",
       "src": {
         "fetcher": "url",
-        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.13/GeoLite2-Country.mmdb",
-        "hash": "sha256-vbKz+G3CeOWl32S8b7494D9IRKXpeUWpTfdudwSe54g="
+        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.16/GeoLite2-Country.mmdb",
+        "hash": "sha256-w+oPh2OnLAgdSrrzNmJw1GQUxV9uNjIWIca1nVP5sXw="
       },
       "fingerprint": "sha256-J85WDuNyYNUaddQZHQiF6elxX2H2Ai5xb/pLo1lio2E="
     },
@@ -699,14 +699,14 @@
       "fingerprint": "sha256-9uEqj0SD5VQ2MS+9WTPJ6Ak8K1ljl4wOHXvMEHZhhv8="
     },
     "nyanpasu-service": {
-      "version": "2.0.3-unstable-2026-11-15",
-      "rawVersion": "33dcece7e0ef4c0d8eb0bb1b4e58eb32a2dfcda1",
-      "date": "2026-11-15",
+      "version": "2.0.3-unstable-2026-11-16",
+      "rawVersion": "61ae3eaba830de8fb08c98aaf8daaf46997ce677",
+      "date": "2026-11-16",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/libnyanpasu/nyanpasu-service.git",
-        "rev": "33dcece7e0ef4c0d8eb0bb1b4e58eb32a2dfcda1",
-        "hash": "sha256-df7ilBSsJY2ZOQK1OIQbf8i9dHW2pkyaxwTj/jWuET4="
+        "rev": "61ae3eaba830de8fb08c98aaf8daaf46997ce677",
+        "hash": "sha256-vyoUS1nUCfgUd1wmvHZDp3Cnv7BjeVxEwFN9UBs1rn0="
       },
       "derived": {
         "cargoLock": {
