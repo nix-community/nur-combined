@@ -273,7 +273,7 @@ def _run_nix_update(ref: PackageRef, version_mode: str, *, timeout: str | None) 
         command = [
             "nix",
             "run",
-            "nixpkgs#nix-update",
+            ".#nix-update",
             "--",
             "--flake",
             "--use-github-releases",
@@ -284,7 +284,7 @@ def _run_nix_update(ref: PackageRef, version_mode: str, *, timeout: str | None) 
         command = [
             "nix",
             "run",
-            "nixpkgs#nix-update",
+            ".#nix-update",
             "--",
             "-f",
             "default.nix",
