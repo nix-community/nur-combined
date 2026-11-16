@@ -4,7 +4,7 @@
   wineWow64Packages,
   # Named wineStaging (not `wine`) so callPackage does not inject pkgs.wine (32-bit).
   wineStaging ? wineWow64Packages.stagingFull,
-  requireFile,
+  fetchurl,
   makeDesktopItem,
   copyDesktopItems,
   p7zip,
@@ -27,30 +27,15 @@ let
   inherit (myLib) mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
   wine = wineStaging;
 
-  installerName = "CapCut_3_9_0_1459_capcutpc_0_creatortool.exe";
-
-  # CapNoeh expected size/sha256 for 3.9.0.1459.
-  src = requireFile {
-    name = installerName;
+  # CapNoeh expected size/sha256 for 3.9.0.1459 (550534120 bytes).
+  # Prefer Wayback `if_/` (raw binary); CDN may 404 for this old build.
+  src = fetchurl {
+    name = "CapCut_3_9_0_1459_capcutpc_0_creatortool.exe";
+    urls = [
+      "https://web.archive.org/web/20240623100008if_/https://lf16-capcut.faceulv.com/obj/capcutpc-packages-us/packages/CapCut_3_9_0_1459_capcutpc_0_creatortool.exe"
+      "https://lf16-capcut.faceulv.com/obj/capcutpc-packages-us/packages/CapCut_3_9_0_1459_capcutpc_0_creatortool.exe"
+    ];
     hash = "sha256-f4wpuEM0t21KCvhnS2PHo8ZMw6A1Ga4OVS1bqqEVdV0=";
-    message = ''
-      CapCut is proprietary and ByteDance no longer publishes 3.9.0.1459.
-
-      Obtain CapCut_3_9_0_1459_capcutpc_0_creatortool.exe (525 MiB) yourself and verify:
-
-        size    550534120
-        sha256  7f8c29b84334b76d4a0af8674b63c7a3c64cc3a03519ae0e552d5baaa115755d
-
-      Possible sources (not redistributed here):
-        - WineHQ AppDB: https://appdb.winehq.org/objectManager.php?sClass=version&iId=42555
-        - Wayback: https://web.archive.org/web/20240623100008id_/https://lf16-capcut.faceulv.com/obj/capcutpc-packages-us/packages/CapCut_3_9_0_1459_capcutpc_0_creatortool.exe
-        - CapNoeh docs: https://github.com/Noehnoe/CapNoeh
-
-      Then add it to the Nix store:
-
-        nix-store --add-fixed sha256 ${installerName}
-        # or: nix-prefetch-url file://$PWD/${installerName}
-    '';
   };
 
   # Extract JYPacket once into the Nix store (avoids a 1.3 GiB copy through unionfs).
