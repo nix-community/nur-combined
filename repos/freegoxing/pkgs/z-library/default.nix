@@ -13,7 +13,7 @@
 }:
 
 stdenv.mkDerivation {
-  pname = "z-library-desktop";
+  pname = "z-library";
   version = "3.2.1";
 
   src = fetchurl {
@@ -83,7 +83,6 @@ stdenv.mkDerivation {
     description = "Client for the online library Z-Library";
     license = lib.licenses.unfree; # Maintainers on AUR emailed the dev to confirm: https://pastebin.com/ss4Nr8pW
     platforms = [ "x86_64-linux" ];
-    maintainers = with lib.maintainers; [ ulysseszhan ];
     sourceProvenance = with lib.sourceTypes; [ obfuscatedCode ];
     mainProgram = "Z-Library";
   };
