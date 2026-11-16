@@ -1,0 +1,14 @@
+--- a/3rdparty/CMakeLists.txt
++++ b/3rdparty/CMakeLists.txt
+@@ -46,6 +46,11 @@
+ set(KYTY_NOTO_SANS_DIR "${FETCHCONTENT_BASE_DIR}/noto-sans")
+ function(kyty_fetch_noto_sans path sha256)
+ 	get_filename_component(name "${path}" NAME)
++	if(EXISTS "$ENV{KYTY_NOTO_SANS_SRC}/${name}")
++		file(MAKE_DIRECTORY "${KYTY_NOTO_SANS_DIR}")
++		file(COPY "$ENV{KYTY_NOTO_SANS_SRC}/${name}" DESTINATION "${KYTY_NOTO_SANS_DIR}")
++		return()
++	endif()
+ 	file(DOWNLOAD "${KYTY_NOTO_SANS_BASE_URL}/${path}" "${KYTY_NOTO_SANS_DIR}/${name}"
+ 		EXPECTED_HASH SHA256=${sha256})
+ endfunction()
