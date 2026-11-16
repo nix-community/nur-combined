@@ -25,8 +25,8 @@
 }:
 
 let
-  version = "13.1.0-unstable-2026-11-13";
-  rev = "246e3e957ae5cea1ecff6d7a6a6db3e47be69bb5";
+  version = "13.1.0-unstable-2026-11-15";
+  rev = "4f71cdd5925c19f4174cae39412247feac3f73dc";
 
   arch = stdenvNoCC.hostPlatform.darwinArch;
   rustTarget = stdenvNoCC.hostPlatform.rust.rustcTarget;
@@ -51,7 +51,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "TelegramMessenger";
     repo = "telegram-macos";
     inherit rev;
-    hash = "sha256-zNK+vJXLKR7+Sf+ZaZ5Orm4LqhgcgSp32GEmh0Cko3M=";
+    hash = "sha256-/r8MLewHvrOSROiraW8OBB07X+gbRnspYBDim5UfSCM=";
     # The widget submodules are referenced from the SwiftPM manifests, so they
     # have to be resolved before fetchgit removes all Git metadata.
     postCheckout = ''

@@ -26,8 +26,6 @@
 
 let
   version = "1.0.2379";
-  # Commit of the upstream v1.0.2379 release tag.
-  rev = "153968c83524c40abaef96cd35ab5d73cbbbc3d9";
 
   # Android 16 (API 36) AOSP frameworks/base/core/res source tree (Apache-2.0).
   # Google's gitiles +archive tarballs embed request-time timestamps in gzip/tar
@@ -58,7 +56,7 @@ clangStdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "kksimp";
     repo = "Mac.apk";
-    inherit rev;
+    tag = "v${version}";
     hash = "sha256-3dj7MzVlK0MKdXeyacYFBkMpCqKKOfGu/eDyL7CtJw4=";
   };
 
@@ -216,7 +214,6 @@ clangStdenv.mkDerivation {
     export MACAPK_NO_SDK_FALLBACK=1
     export MACAPK_NO_BUNDLE_SYNC=1
     export MACAPK_BUILD_STAMP="261029.0000"
-    export MACAPK_GIT_HASH="${builtins.substring 0 7 rev}"
 
     # Pre-populate the AOSP core/res source tree so build_framework_res.sh
     # builds framework-res-api36.apk offline using aapt2.
