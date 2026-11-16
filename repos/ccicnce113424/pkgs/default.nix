@@ -240,6 +240,8 @@ lib.makeScope pkgs.newScope (
       version = stableVersion sources;
     };
 
+    udfclient = self.callPackage ./udfclient/package.nix { };
+
     uosc-danmaku-git =
       let
         sources = fetchedSrc.uosc-danmaku-git;
