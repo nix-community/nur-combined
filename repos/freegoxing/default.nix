@@ -23,6 +23,7 @@
 
   baidunetdisk = pkgs.callPackage ./pkgs/baidunetdisk { };
   chatgpt = pkgs.callPackage ./pkgs/chatgpt/package.nix { };
+  equation-exporter = pkgs.callPackage ./pkgs/equation-exporter { };
   lceda-pro = pkgs.callPackage ./pkgs/lceda-pro { };
   qq = pkgs.callPackage ./pkgs/qq { };
   z-library = pkgs.callPackage ./pkgs/z-library { };
