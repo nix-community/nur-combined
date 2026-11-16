@@ -1,6 +1,6 @@
 {
   lib,
-  pnpm_11,
+  pnpm_12,
   stdenv,
   fetchFromGitHub,
   fetchPnpmDeps,
@@ -28,7 +28,8 @@
 }:
 let
   pname = "pear-desktop";
-  version = "3.12.0";
+  version = "3.12.1";
+  pnpm = pnpm_12;
   icons = [
     "16"
     "24"
@@ -48,14 +49,14 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "pear-devs";
     repo = "pear-desktop";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-RSQPwsED3YK5VScVAXH3f8Lz74v1b2448gro1Vo22hg=";
+    hash = "sha256-Xea/MC/UgmCZfljRKe7MTER6uHdXYEAD7FNUT0OEoHU=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
-    pnpm = pnpm_11;
+    inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-y4eLjikf9X/682RdK0ZvW7+GR1Ei82UJ5SVop09B9wg=";
+    hash = "sha256-c3aq2c3Ajm9u5u4Ap7piRmjGXMsE7mFRBzIzfDZPbyk=";
   };
 
   buildInputs = [
@@ -79,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
     electron
     makeWrapper
     nodejs
-    pnpm_11
+    pnpm
     pnpmConfigHook
     copyDesktopItems
   ];
