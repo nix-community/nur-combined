@@ -29,6 +29,7 @@
   pkg-config,
   python3,
   qt6,
+  rt,
   simpleini,
   sirit,
   spirv-headers,
@@ -47,19 +48,12 @@
 }:
 
 let
-  # eden broken by latest httplib version bump
-  # upstream likely not interested in fixes, actively looking to remove the dependency (https://git.eden-emu.dev/eden-emu/eden/issues/4194)
-  # pin httplib for now, hopefully can entirely drop in next eden release
-  httplib' = httplib.overrideAttrs (finalAttrs: {
-    version = "0.30.2";
-
-    src = fetchFromGitHub {
-      owner = "yhirose";
-      repo = "cpp-httplib";
-      rev = "v${finalAttrs.version}";
-      hash = "sha256-psVyn14QHMXG/x9SOOiR7ZBt8dHqa2A/w92WQQDukKM=";
-    };
-  });
+  xxhash = fetchFromGitHub {
+    owner = "Cyan4973";
+    repo = "xxHash";
+    tag = "v0.8.3";
+    hash = "sha256-h6kohM+NxvQ89R9NEXZcYBG2wPOuB4mcyPfofKrx9wQ=";
+  };
 
   zbic = fetchFromGitHub {
     owner = "kinnay";
@@ -71,13 +65,13 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lichii";
-  version = "93";
+  version = "228";
 
   src = fetchFromGitHub {
     owner = "zortos293";
     repo = "Lichii";
     tag = "build-${finalAttrs.version}";
-    hash = "sha256-2UnbfvLqlgHdQh3m8YKXpOnXxHomshXiLUeb34REMl0=";
+    hash = "sha256-7BzjWq+sGHDQBSsEgLlokexKtzDzl70ftIoL1wtk9T8=";
   };
 
   strictDeps = true;
@@ -103,7 +97,7 @@ stdenv.mkDerivation (finalAttrs: {
     fmt_11
     frozen-containers
     gamemode
-    httplib'
+    httplib
     kdePackages.quazip
     libopus
     libusb1
@@ -118,6 +112,7 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.qtwebengine
     qt6.qtcharts
     # intentionally omitted: renderdoc - heavy, developer only
+    rt
     sdl3
     stb
     simpleini
@@ -142,9 +137,9 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail 'set(zstd_FORCE_BUNDLED ON)' ""
 
     substituteInPlace externals/CMakeLists.txt \
-      --replace-fail 'AddJsonPackage(NAME zbic DOWNLOAD_ONLY)' ""
-
-    substituteInPlace externals/CMakeLists.txt \
+      --replace-fail 'AddJsonPackage(NAME xxhash DOWNLOAD_ONLY)' "" \
+      --replace-fail ''\'''${xxhash_SOURCE_DIR}' ${xxhash} \
+      --replace-fail 'AddJsonPackage(NAME zbic DOWNLOAD_ONLY)' "" \
       --replace-fail ''\'''${zbic_SOURCE_DIR}' ${zbic}
   '';
 
@@ -156,30 +151,29 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   cmakeFlags = [
-    (lib.cmakeBool "BUILD_TESTING" finalAttrs.finalPackage.doCheck)
-    (lib.cmakeBool "YUZU_TESTS" false) # some timer tests are flaky
+    # don't treat warnings as errors
+    (lib.cmakeBool "ENABLE_WERROR" false)
 
     # use system libraries
     (lib.cmakeBool "CPMUTIL_FORCE_SYSTEM" true)
-    (lib.cmakeFeature "YUZU_TZDB_PATH" "${tzdb_to_nx}")
-
-    # enable some optional features
-    (lib.cmakeBool "YUZU_USE_QT_WEB_ENGINE" true)
-    (lib.cmakeBool "YUZU_USE_QT_MULTIMEDIA" true)
-    (lib.cmakeBool "ENABLE_QT_TRANSLATION" true)
-    (lib.cmakeBool "ENABLE_LTO" true)
-
-    # don't treat warnings as errors
-    (lib.cmakeBool "ENABLE_WERROR" false)
+    (lib.cmakeFeature "LICHII_TZDB_PATH" "${tzdb_to_nx}")
 
     # disable features not packaged in Nix
     (lib.cmakeBool "ENABLE_RESHADE" false)
 
-    # We dont want to bother upstream with potentially outdated compat reports
-    (lib.cmakeBool "YUZU_ENABLE_COMPATIBILITY_REPORTING" false)
+    # enable some optional features
+    (lib.cmakeBool "LICHII_USE_QT_WEB_ENGINE" true)
+    (lib.cmakeBool "LICHII_USE_QT_MULTIMEDIA" true)
+    (lib.cmakeBool "ENABLE_QT_TRANSLATION" true)
+    (lib.cmakeBool "ENABLE_LTO" true)
 
+    # title formats
     (lib.cmakeFeature "TITLE_BAR_FORMAT_IDLE" "${finalAttrs.pname} | ${finalAttrs.version} (nixpkgs) {}")
     (lib.cmakeFeature "TITLE_BAR_FORMAT_RUNNING" "${finalAttrs.pname} | ${finalAttrs.version} (nixpkgs) | {}")
+
+    # tests
+    (lib.cmakeBool "BUILD_TESTING" finalAttrs.finalPackage.doCheck)
+    (lib.cmakeBool "LICHII_TESTS" false) # some timer tests are flaky
   ];
 
   postInstall = ''
