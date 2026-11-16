@@ -101,6 +101,8 @@ jobs:
         git config user.name "github-actions[bot]"
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git pull
+    - name: Check and repair Nix store
+      run: nix-store --verify --check-contents --repair
     - name: Run nix-update
       env:
         AUTO_COMMIT: "1"
