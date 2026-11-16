@@ -15,8 +15,8 @@
   testDocuments = fetchFromGitHub {
     owner = "xberg-io";
     repo = "test_documents";
-    rev = "4139c3b5ad3cbcfca23e181a8b188062ce5f930e";
-    hash = "sha256-f4yiBNkRi1tHBYTbP8KWQEvaKSrY9EAELWQj0hLMH1Y=";
+    rev = "385ddd5f11cddae0ef2b6146f800176206c0f0fd";
+    hash = "sha256-TpZhHw2yFYfnb3vT/zNcfL1moEo0OdPAv1tiA2mjkmY=";
   };
 
   # Hydrate the binary fixtures from the release's content-addressed corpus manifest.
@@ -31,19 +31,18 @@
 in
   rustPlatform.buildRustPackage (finalAttrs: {
     pname = "xberg";
-    version = "1.3.10";
+    version = "1.4.1";
 
     src = fetchFromGitHub {
       owner = "xberg-io";
       repo = "xberg";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-hrEt50Nlx2TsMFWVVrzs01P1RpNK7No3lrTxVTAOmhw=";
+      hash = "sha256-XaNbwESH8qYYugUbO4fDYDc6pS+MF8SjZ8Dls8TSKfo=";
     };
 
     # Align upstream tests with the selected features and current config schema.
     patches = [
       # keep-sorted start
-      ./current-chunking-config-test.patch
       ./feature-gated-cli-help-tests.patch
       ./nonnegative-batch-timing-test.patch
       ./profile-aware-server-help-tests.patch
@@ -59,7 +58,7 @@ in
       cp ${pdfFixture} test_documents/pdf/pdfa_001.pdf
     '';
 
-    cargoHash = "sha256-KhekMHpRIDgJFyJeaiWT3UsFV5WduH6HH1Sn3LvenxA=";
+    cargoHash = "sha256-am/kvs+AUc+vsPTCL3hC2ZzYD7kfMEhGhgwj+z4Pb4U=";
     cargoBuildFlags = ["--package" "xberg-cli"];
     # Report failures across all test targets in one remote build.
     cargoTestFlags = ["--no-fail-fast" "--package" "xberg-cli"];
@@ -105,6 +104,8 @@ in
     '';
 
     meta = {
+      # The 1.4 workspace declares rust-version 1.99.
+      broken = lib.versionOlder rustPlatform.rust.rustc.version "1.99";
       # keep-sorted start
       description = "Document text extractor without OCR or ML runtimes";
       homepage = "https://xberg.io";
