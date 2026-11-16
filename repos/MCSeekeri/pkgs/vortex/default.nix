@@ -1,0 +1,229 @@
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  fetchPnpmDeps,
+  pnpmConfigHook,
+  pnpm_11,
+  nodejs_24,
+  python3,
+  gnumake,
+  pkg-config,
+  jq,
+  yq-go,
+  gzip,
+  patchelf,
+  dotnet-runtime_9,
+  electron_44,
+  fontconfig,
+  makeWrapper,
+  xdg-utils,
+  makeDesktopItem,
+  copyDesktopItems,
+  nix-update-script,
+}:
+
+let
+  pname = "vortex";
+  version = "2.10.1";
+
+  src = fetchFromGitHub {
+    owner = "Nexus-Mods";
+    repo = "Vortex";
+    tag = "v${version}";
+    hash = "sha256-U/OBN6kpc3gu22sWC/ZeUfX347aelqd26SWq+feHVCs=";
+  };
+
+  patchWorkspace = ''
+    ${lib.getExe yq-go} -i '.engineStrict = false' pnpm-workspace.yaml
+  '';
+
+  pnpmDeps = fetchPnpmDeps {
+    inherit pname version src;
+    pnpm = pnpm_11;
+    fetcherVersion = 5;
+    prePnpmInstall = patchWorkspace + ''
+      export ELECTRON_SKIP_BINARY_DOWNLOAD=1
+      export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+      pnpm fetch --frozen-lockfile || true
+    '';
+    nativeBuildInputs = [ yq-go ];
+    hash = "sha256-+Nw1yDIxZ4mAHIF4GSkiZPpY06ineR5q5zlvClb8zqo=";
+  };
+
+  duckdbVersion = "1.5.1";
+  duckdbExtension = fetchurl {
+    url = "https://nexus-mods.github.io/duckdb-level-pivot/current_release/v${duckdbVersion}/linux_amd64/level_pivot.duckdb_extension.gz";
+    hash = "sha256-+CKjeCbhl1VXrv+7MPwaea1KEEi0VaQpugtr8DEBMGU=";
+  };
+in
+stdenv.mkDerivation (finalAttrs: {
+  inherit
+    pname
+    version
+    src
+    pnpmDeps
+    ;
+
+  nativeBuildInputs = [
+    nodejs_24
+    pnpm_11
+    pnpmConfigHook
+    (python3.withPackages (ps: [ ps.setuptools ]))
+    gnumake
+    pkg-config
+    jq
+    yq-go
+    gzip
+    patchelf
+    makeWrapper
+    copyDesktopItems
+    electron_44.headers
+  ];
+
+  buildInputs = [
+    fontconfig.dev
+    fontconfig.lib
+  ];
+
+  env = {
+    ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
+    PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
+    VORTEX_ELECTRON_REBUILD = "skip";
+    VORTEX_SKIP_SUBMODULES = "1";
+    NX_DAEMON = "false";
+    NX_NO_CLOUD = "true";
+    NX_TUI = "false";
+    pnpm_config_pm_on_fail = "ignore";
+    pnpm_config_trust_lockfile = "true";
+    pnpm_config_offline = "true";
+    CI = "1";
+    HUSKY = "0";
+    NODE_ENV = "production";
+  };
+
+  postPatch = patchWorkspace + ''
+    jq '.platforms = [ "linux_amd64" ]' src/main/duckdb-extensions.json > duckdb.json
+    mv duckdb.json src/main/duckdb-extensions.json
+    mkdir -p src/main/build/duckdb-extensions/v${duckdbVersion}/linux_amd64
+    gunzip -c ${duckdbExtension} > \
+      src/main/build/duckdb-extensions/v${duckdbVersion}/linux_amd64/level_pivot.duckdb_extension
+
+    mkdir -p extensions/quickbms-support/dependencies
+
+    install -Dm755 ${./dotnetprobe.sh} tools/dotnetprobe/dist/dotnetprobe
+    : > tools/dotnetprobe/build.mjs
+    jq '.targets.build.inputs = [
+          "{projectRoot}/dotnetprobe.csproj",
+          "{projectRoot}/Program.cs"
+        ]' tools/dotnetprobe/project.json > dotnetprobe-project.json
+    mv dotnetprobe-project.json tools/dotnetprobe/project.json
+  '';
+
+  buildPhase = ''
+    runHook preBuild
+
+    export HOME="$TMPDIR/home"
+    mkdir -p "$HOME"
+    export PATH="$PWD/node_modules/.bin:$PATH"
+    export pnpm_config_store_dir="$STORE_PATH"
+    find . -path '*/node_modules/.bin/node' -delete
+
+    cat > "$HOME/.npmrc" <<NPMRC
+    nodedir=${electron_44.headers}
+    runtime=electron
+    target=${electron_44.version}
+    build_from_source=true
+    NPMRC
+
+    for spec in font-scanner @nexusmods/fomod-installer-native loot drivelist xxhash-addon; do
+      prefix=$(echo "$spec" | tr '/' '+')
+      dir=$(find node_modules/.pnpm -maxdepth 1 -type d -name "$prefix@*" | head -n 1)
+      (cd "$dir/node_modules/$spec" && npm rebuild --foreground-scripts)
+    done
+
+    pnpm nx run @vortex/main:build --output-style=static
+
+    pnpm_config_ignore_scripts=true pnpm nx run @vortex/main:publish --output-style=static
+    patchShebangs src/main/dist/node_modules
+    for spec in @nexusmods/fomod-installer-native drivelist xxhash-addon leveldown @parcel/watcher winapi-bindings; do
+      (cd "src/main/dist/node_modules/$spec" && npm rebuild --foreground-scripts)
+    done
+
+    runHook postBuild
+  '';
+
+  installPhase = ''
+    runHook preInstall
+
+    appdir="$out/lib/vortex/resources/app"
+    mkdir -p "$appdir" "$out/lib/vortex/resources/locales"
+    cp -r src/main/dist/build/. "$appdir/"
+    mv src/main/dist/node_modules "$appdir/node_modules"
+    cp -r locales/. "$out/lib/vortex/resources/locales/"
+
+    gccLib="${stdenv.cc.cc.lib}/lib"
+    fomod="$appdir/node_modules/@nexusmods/fomod-installer-native/build/Release"
+    loot="$appdir/assets/loot/build/Release"
+    if [ ! -f "$fomod/modinstaller.node" ] || [ ! -f "$loot/node-loot.node" ]; then
+      echo "native addons were not built" >&2
+      exit 1
+    fi
+    patchelf --set-rpath "\$ORIGIN:$gccLib" "$fomod/modinstaller.node" "$loot/node-loot.node"
+    find "$appdir" -name fontmanager.node \
+      -exec patchelf --set-rpath "\$ORIGIN:${fontconfig.lib}/lib:$gccLib" {} +
+
+    install -Dm644 assets/images/vortex.png \
+      "$out/share/icons/hicolor/512x512/apps/vortex.png"
+
+    makeWrapper ${lib.getExe electron_44} "$out/bin/vortex" \
+      --add-flags "--app=$appdir" \
+      --set CHROME_DESKTOP com.nexusmods.vortex.desktop \
+      --prefix PATH : ${
+        lib.makeBinPath [
+          dotnet-runtime_9
+          xdg-utils
+        ]
+      } \
+      --set DOTNET_ROOT "${dotnet-runtime_9}/share/dotnet"
+
+    runHook postInstall
+  '';
+
+  postFixup = ''
+    gunzip -c ${duckdbExtension} > \
+      "$out/lib/vortex/resources/app/duckdb-extensions/v${duckdbVersion}/linux_amd64/level_pivot.duckdb_extension"
+  '';
+
+  desktopItems = [
+    (makeDesktopItem {
+      name = "com.nexusmods.vortex";
+      desktopName = "Vortex";
+      genericName = "Mod Manager";
+      comment = "Mod manager from Nexus Mods";
+      exec = "vortex %U";
+      icon = "vortex";
+      categories = [
+        "Game"
+        "Utility"
+      ];
+      extraConfig = {
+        MimeType = "x-scheme-handler/nxm;";
+      };
+    })
+  ];
+
+  passthru.updateScript = nix-update-script { };
+
+  meta = {
+    description = "Mod manager from Nexus Mods";
+    homepage = "https://www.nexusmods.com/about/vortex/";
+    changelog = "https://github.com/Nexus-Mods/Vortex/releases/tag/v${finalAttrs.version}";
+    license = lib.licenses.gpl3Only;
+    mainProgram = "vortex";
+    platforms = [ "x86_64-linux" ];
+    sourceProvenance = with lib.sourceTypes; [ fromSource ];
+    maintainers = with lib.maintainers; [ MCSeekeri ];
+  };
+})
