@@ -17,10 +17,10 @@
     };
     "flagfox" = buildMozillaXpiAddon {
       pname = "flagfox";
-      version = "7.0.1";
+      version = "7.0.2";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5200634/flagfox-7.0.1.xpi";
-      sha256 = "b50c3827f697ce32d73592ea731b56316426dfdd175ccb846bad1df20eebb9bc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5258874/flagfox-7.0.2.xpi";
+      sha256 = "cecf54e590df1e3a378bde19ce831ff6ff436773baa85787db6e482289250c11";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -172,10 +172,10 @@
     };
     "ublock-origin" = buildMozillaXpiAddon {
       pname = "ublock-origin";
-      version = "1.76.2";
+      version = "1.76.4";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5250345/ublock_origin-1.76.2.xpi";
-      sha256 = "36320e4735818f4f9b5ac1506610590233f4b201ca50196c2834e30f3e808a1e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5257481/ublock_origin-1.76.4.xpi";
+      sha256 = "66d0e3f21ce3b32b1bc0a9399b93cb2c9aa598ef18805d92118c76f66e266c1e";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
