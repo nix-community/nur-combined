@@ -31,7 +31,11 @@ rustPlatform.buildRustPackage {
     "--bin=horizon-ctl"
   ];
 
-  env.HORIZON_VERSION = source.version;
+  env = {
+    HORIZON_VERSION = source.version;
+    # horizon-mod-host's build script falls back to `git rev-parse HEAD`, but the source has no .git.
+    HORIZON_GAME_BUILD_ID = source.rawVersion;
+  };
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
