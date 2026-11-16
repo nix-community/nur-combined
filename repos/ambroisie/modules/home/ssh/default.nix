@@ -25,6 +25,12 @@ in
         ];
 
         settings = {
+          "codeberg.com" = {
+            HostName = "codeberg.com";
+            IdentityFile = "~/.ssh/shared_rsa";
+            User = "git";
+          };
+
           "github.com" = {
             HostName = "github.com";
             IdentityFile = "~/.ssh/shared_rsa";
