@@ -33,17 +33,20 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postPatch = ''
-     # sed -i "1i #define _POSIX_C_SOURCE 200809L" ENet/host.c
-     # sed -i "1i #define _GNU_SOURCE 1" ENet/host.c
-     # sed -i "1i #define _XOPEN_SOURCE 600" ENet/host.c
-     # sed -i "10i #include <time.h>" ENet/host.c
-     # i don't know why it fails to resolve the `time` symbol, but it's only used for seeding the RNG.
-     substituteInPlace ENet/host.c \
-       --replace-fail 'time(NULL)' 'enet_time_get()'
+    # sed -i "1i #define _POSIX_C_SOURCE 200809L" ENet/host.c
+    # sed -i "1i #define _GNU_SOURCE 1" ENet/host.c
+    # sed -i "1i #define _XOPEN_SOURCE 600" ENet/host.c
+    # sed -i "10i #include <time.h>" ENet/host.c
+    # i don't know why it fails to resolve the `time` symbol, but it's only used for seeding the RNG.
+    substituteInPlace ENet/host.c \
+      --replace-fail 'time(NULL)' 'enet_time_get()'
   '';
 
   # puyovs looks for its assets in $PWD, so launch it from its share directory
-  qtWrapperArgs = [ "--chdir" "${placeholder "out"}/share/puyovs" ];
+  qtWrapperArgs = [
+    "--chdir"
+    "${placeholder "out"}/share/puyovs"
+  ];
 
   NIX_CFLAGS_COMPILE = "-Wno-format-security";
 

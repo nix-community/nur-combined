@@ -242,7 +242,7 @@ let
         # hence do that early:
         # TODO: consider moving XDG_RUNTIME_DIR to $HOME/.run
         environment.HOME = config.home;
-        environment.USER = name;  #< something sets this by default; importing it into Nix here lets me use it in my service manager though.
+        environment.USER = name;  # something sets this by default; importing it into Nix here lets me use it in my service manager though.
         environment.XDG_RUNTIME_DIR = "/run/user/${name}";
         # XDG_DATA_DIRS gets set by shell init somewhere, but needs to be explicitly set here so it's available to services too.
         environment.XDG_DATA_DIRS = "/etc/profiles/per-user/${name}/share:/run/current-system/sw/share";

@@ -2,7 +2,7 @@
 {
   sane.programs.kagimcp = {
     packageUnwrapped = pkgs.kagimcp.overrideAttrs (upstream: {
-      nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+      nativeBuildInputs = (upstream.nativeBuildInputs or [ ]) ++ [
         pkgs.makeWrapper
       ];
       postFixup = upstream.postFixup or "" + ''

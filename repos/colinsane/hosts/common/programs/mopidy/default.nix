@@ -15,38 +15,44 @@
 let
   # TODO: upstream this as `mopidy.withExtensions`
   # this is borrowed from the nixos mopidy service
-  mopidyWithExtensions = extensions: with pkgs; buildEnv {
-    name = "mopidy-with-extensions-${mopidy.version}";
+  mopidyWithExtensions =
+    extensions:
+    with pkgs;
+    buildEnv {
+      name = "mopidy-with-extensions-${mopidy.version}";
 
-    paths = lib.closePropagation extensions;
-    pathsToLink = [ "/${mopidyPackages.python.sitePackages}" ];
-    nativeBuildInputs = [ makeWrapper ];
-    postBuild = ''
-      makeWrapper ${lib.getExe mopidy} $out/bin/mopidy \
-        --prefix PYTHONPATH : $out/${mopidyPackages.python.sitePackages}
-    '';
-  };
+      paths = lib.closePropagation extensions;
+      pathsToLink = [ "/${mopidyPackages.python.sitePackages}" ];
+      nativeBuildInputs = [ makeWrapper ];
+      postBuild = ''
+        makeWrapper ${lib.getExe mopidy} $out/bin/mopidy \
+          --prefix PYTHONPATH : $out/${mopidyPackages.python.sitePackages}
+      '';
+    };
 in
 {
   sane.programs.mopidy = {
-    packageUnwrapped = mopidyWithExtensions (with pkgs; [
-      mopidy-iris  # web client: <https://github.com/jaedb/Iris>
-      mopidy-jellyfin
-      mopidy-local
-      mopidy-mpd
-      mopidy-mpris
-      mopidy-spotify
-      # TODO: mopidy-podcast, mopidy-youtube
+    packageUnwrapped = mopidyWithExtensions (
+      with pkgs;
+      [
+        mopidy-iris # web client: <https://github.com/jaedb/Iris>
+        mopidy-jellyfin
+        mopidy-local
+        mopidy-mpd
+        mopidy-mpris
+        mopidy-spotify
+        # TODO: mopidy-podcast, mopidy-youtube
 
-      # alternate web clients:
-      # mopidy-moped: <https://github.com/martijnboland/moped>
-      # mopidy-muse: <https://github.com/cristianpb/muse>
-    ]);
+        # alternate web clients:
+        # mopidy-moped: <https://github.com/martijnboland/moped>
+        # mopidy-muse: <https://github.com/cristianpb/muse>
+      ]
+    );
     persist.byStore.plaintext = [
-      ".local/share/mopidy/local"  # thumbs, library db
+      ".local/share/mopidy/local" # thumbs, library db
     ];
     persist.byStore.private = [
-      ".local/share/mopidy/http"  # cookie
+      ".local/share/mopidy/http" # cookie
     ];
     secrets.".config/mopidy/mopidy.conf" = ../../../../secrets/common/mopidy.conf.bin;
     # other folders:

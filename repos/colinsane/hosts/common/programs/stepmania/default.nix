@@ -21,7 +21,7 @@
 
     sandbox.whitelistAudio = true;
     sandbox.whitelistDri = true;
-    sandbox.whitelistX = true;  #< TODO: is this needed? try QT_QPA_PLATFORM=wayland or SDL_VIDEODRIVER=wayland
+    sandbox.whitelistX = true; # TODO: is this needed? try QT_QPA_PLATFORM=wayland or SDL_VIDEODRIVER=wayland
     sandbox.extraPaths = [
       # for the pad input (/dev/input/js*)
       "/dev/input"
@@ -33,7 +33,7 @@
     ];
 
     persist.byStore.plaintext = [
-      ".stepmania-5.1/Cache"  #< otherwise gotta index all the songs every launch
+      ".stepmania-5.1/Cache" # otherwise gotta index all the songs every launch
       ".stepmania-5.1/Save"
     ];
 

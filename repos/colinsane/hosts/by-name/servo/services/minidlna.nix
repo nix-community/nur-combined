@@ -9,7 +9,7 @@
 # - LG TV: music: all working
 # - LG TV: videos: mixed. i can't see the pattern; HEVC works; H.264 sometimes works.
 { lib, ... }:
-lib.mkIf false  #< XXX(2024-11-17): WORKS, but i'm trying gerbera instead for hopefully better transcoding
+lib.mkIf false  # XXX(2024-11-17): WORKS, but i'm trying gerbera instead for hopefully better transcoding
 {
   sane.ports.ports."1900" = {
     protocol = [ "udp" ];

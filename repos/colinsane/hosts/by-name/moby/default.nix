@@ -39,7 +39,7 @@
   sane.services.rsync-net.enable = true;
 
   sane.programs.sway.enableFor.user.colin = true;
-  sane.programs.sway.config.mod = "Mod1";  #< alt key instead of Super
+  sane.programs.sway.config.mod = "Mod1";  # alt key instead of Super
 
   # enabled for easier debugging
   sane.programs.eg25-control.enableFor.user.colin = true;

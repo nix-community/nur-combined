@@ -24,15 +24,15 @@ mkPiExtension (finalAttrs: {
     pandoc
   ];
 
-  dontNpmBuild = true;  # package.json defines no build script
+  dontNpmBuild = true; # package.json defines no build script
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Rendered markdown + LaTeX preview for pi, with terminal, browser, and PDF output";
     homepage = "https://github.com/omaclaren/pi-markdown-preview";
     maintainers = with lib.maintainers; [ colinsane ];
     platforms = lib.platforms.linux;
-    broken = stdenv.hostPlatform.isAarch64 && stdenv.hostPlatform != stdenv.buildPlatform;  #< XXX(2026-11-13): cross is broken by lua
+    broken = stdenv.hostPlatform.isAarch64 && stdenv.hostPlatform != stdenv.buildPlatform; # XXX(2026-11-13): cross is broken by lua
   };
 })

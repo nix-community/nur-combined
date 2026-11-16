@@ -200,7 +200,7 @@ in
     # enable nixpkgs' hickory-dns so that i get its config generation
     # but don't actually enable the systemd service... i'll instantiate *multiple* instances per interface further below
     services.hickory-dns.enable = true;
-    services.hickory-dns.settings.zones = [];  #< TODO: remove once upstreamed (bad default)
+    services.hickory-dns.settings.zones = [];  # TODO: remove once upstreamed (bad default)
 
     # don't bind to IPv6 until i explicitly test that stack
     services.hickory-dns.settings.listen_addrs_ipv6 = [];
@@ -214,9 +214,9 @@ in
     #   rustPlatform.buildRustPackage = args: pkgs.rustPlatform.buildRustPackage (args // {
     #     buildFeatures = [
     #       # to find available features: `rg 'feature ='`
-    #       "dnssec"  #< else the recursor doesn't compile
-    #       # "dnssec-openssl"  #< else dnssec doesn't compile
-    #       "dnssec-ring"  #< else dnssec doesn't compile
+    #       "dnssec"  # else the recursor doesn't compile
+    #       # "dnssec-openssl"  # else dnssec doesn't compile
+    #       "dnssec-ring"  # else dnssec doesn't compile
     #       "recursor"
     #       # "backtrace"
     #       # "dns-over-h3"

@@ -112,7 +112,7 @@ tryGitPatch() {
     git init --quiet
     git remote add origin "$repo_url"
     if git fetch --depth=2 origin "$commit" >/dev/null 2>&1; then
-      git -c core.abbrev=12 format-patch -1 --stdout --no-signature --unified=3 "$commit" > "$output"
+      git -c core.abbrev=12 format-patch -1 --stdout --no-signature --unified=3 "$commit" >"$output"
       test -s "$output"
     else
       false
@@ -140,14 +140,14 @@ main() {
   esac
   # N.B.: github's commit endpoint replies to short hashes; a PR number may also be a value short hash,
   # so try the GH commit endpoint *last*. Gitea does not have this problem.
-  tryGitPatch "$scratch" "git@git.uninsane.org:colin/nixpkgs.git" "$ident" || \
-    tryUri "$scratch" "https://github.com/NixOS/nixpkgs/pull/$ident.patch?full_index=1" || \
+  tryGitPatch "$scratch" "git@git.uninsane.org:colin/nixpkgs.git" "$ident" ||
+    tryUri "$scratch" "https://github.com/NixOS/nixpkgs/pull/$ident.patch?full_index=1" ||
     tryUri "$scratch" "https://github.com/uninsane/nixpkgs/commit/$ident.patch?full_index=1"
 
   if [ -n "$revert" ]; then
-    interdiff "$scratch" /dev/null > "$output_"
+    interdiff "$scratch" /dev/null >"$output_"
   else
-    cat "$scratch" > "$output_" && rm "$scratch"
+    cat "$scratch" >"$output_" && rm "$scratch"
   fi
 }
 

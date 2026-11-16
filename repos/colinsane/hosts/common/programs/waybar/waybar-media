@@ -1,12 +1,12 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
 #!nix-shell -i bash ../../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.jq ps.playerctl ]'
-status=$(playerctl status 2> /dev/null | tr 'A-Z' 'a-z')
+status=$(playerctl status 2>/dev/null | tr 'A-Z' 'a-z')
 if [ -z "$status" ]; then
   status="inactive"
 fi
 
-artist=$(playerctl metadata artist 2> /dev/null)
-title=$(playerctl metadata title 2> /dev/null)
+artist=$(playerctl metadata artist 2>/dev/null)
+title=$(playerctl metadata title 2>/dev/null)
 
 text=
 if [ -n "$title" ]; then

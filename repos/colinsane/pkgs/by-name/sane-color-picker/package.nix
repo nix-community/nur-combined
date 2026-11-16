@@ -14,7 +14,7 @@ static-nix-shell.mkBash {
       gnugrep
       wl-clipboard-rs
       zenity
-    ;
+      ;
   };
   nativeBuildInputs = [
     copyDesktopItems
@@ -27,4 +27,3 @@ static-nix-shell.mkBash {
     })
   ];
 }
-

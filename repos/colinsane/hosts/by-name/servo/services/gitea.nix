@@ -19,7 +19,7 @@
   services.gitea.database.user = "git";
   # createDatabase=false means manually specify the connection; see: <https://github.com/NixOS/nixpkgs/pull/268849>
   services.gitea.database.name = "gitea";
-  services.gitea.database.socket = "/run/postgresql";  #< would have been set if createDatabase = true
+  services.gitea.database.socket = "/run/postgresql";  # would have been set if createDatabase = true
 
   services.postgresql.enable = true;
   services.postgresql.ensureDatabases = [ "gitea" ];
@@ -53,8 +53,8 @@
       # timeout for email approval. 5760 = 4 days. 10080 = 7 days
       ACTIVE_CODE_LIVE_MINUTES = 10080;
       # REGISTER_EMAIL_CONFIRM = false;
-      # REGISTER_EMAIL_CONFIRM = true;  #< override REGISTER_MANUAL_CONFIRM
-      DISABLE_REGISTRATION = false;  #< nixpkgs defaults this to true
+      # REGISTER_EMAIL_CONFIRM = true;  # override REGISTER_MANUAL_CONFIRM
+      DISABLE_REGISTRATION = false;  # nixpkgs defaults this to true
       REGISTER_MANUAL_CONFIRM = true;
       # not sure what this notifies *on*...
       ENABLE_NOTIFY_MAIL = true;
@@ -123,7 +123,7 @@
     RestartSteps = 5;
   };
 
-  # services.openssh.settings.UsePAM = true;  #< required for `git` user to authenticate
+  # services.openssh.settings.UsePAM = true;  # required for `git` user to authenticate
 
   services.anubis.instances."git.uninsane.org" = {
     settings.TARGET = "http://127.0.0.1:3000";
@@ -225,8 +225,8 @@
     policy.settings = {
       openGraph = {
         # TODO: it would be nice to enable openGraph for non-heavy paths; not sure how to do that except separate anubis instances.
-        # enabled = true;  #< allow IM clients/etc to show embeds/previews. DON'T ENABLE without measuring first.
-        enabled = false;  #< embeds are just "please verify you aren't a bot...".
+        # enabled = true;  # allow IM clients/etc to show embeds/previews. DON'T ENABLE without measuring first.
+        enabled = false;  # embeds are just "please verify you aren't a bot...".
         considerHost = false;
         ttl = "24h";
       };

@@ -13,13 +13,13 @@ let
   };
   pkg = callPackage "${src}/default.nix" { };
 in
-  pkg.overrideAttrs (base: {
-    inherit src;
-    pname = "uninsane-dot-org";
-    version = "0-unstable-2026-09-02";
-    passthru = (base.passthru or {}) // {
-      updateScript = unstableGitUpdater {
-        shallowClone = false;  # shallowClone doesn't work with anubis
-      };
+pkg.overrideAttrs (base: {
+  inherit src;
+  pname = "uninsane-dot-org";
+  version = "0-unstable-2026-09-02";
+  passthru = (base.passthru or { }) // {
+    updateScript = unstableGitUpdater {
+      shallowClone = false; # shallowClone doesn't work with anubis
     };
-  })
+  };
+})

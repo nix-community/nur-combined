@@ -1,5 +1,6 @@
 # <https://huggingface.co/InternScience/Sage-A1.5-Q4_K_M-GGUF>
-{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
+{ fetchFromHuggingFaceSane }:
+fetchFromHuggingFaceSane {
   owner = "InternScience";
   repo = "Sage-A1.5-Q4_K_M-GGUF";
   path = "Sage-A1.5-Q4_K_M.gguf";

@@ -43,7 +43,7 @@ stdenvNoCC.mkDerivation {
     python3.pkgs.faust-cchardet
     python3.pkgs.feedparser
     python3.pkgs.python-dateutil
-    python3.pkgs.standard-cgi  # alternately: `legacy-cgi`
+    python3.pkgs.standard-cgi # alternately: `legacy-cgi`
     python3.pkgs.uvloop
     python3.pkgs.w3lib
     python3.pkgs.yarl

@@ -82,7 +82,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   buildInputs = [
     # TODO: does it really need all of these?
     # i guess most of them are thumbnail related.
-    bash  #< for runtime scripts
+    bash # for runtime scripts
     ffmpeg_8
     gmp
     lame
@@ -91,11 +91,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
     libvdpau
     openapv
     poppler
-    (python3.withPackages (ps: with ps; [
-      # for $out/share/xdg-desktop-portal-pikeru/img_indexer.py,
-      # though unclear if img_indexer.py is actually used
-      requests
-    ]))
+    (python3.withPackages (
+      ps: with ps; [
+        # for $out/share/xdg-desktop-portal-pikeru/img_indexer.py,
+        # though unclear if img_indexer.py is actually used
+        requests
+      ]
+    ))
     soxr
     sqlite
     xvidcore

@@ -7,7 +7,7 @@
 
     sandbox.whitelistPwd = true;
     sandbox.extraPaths = [
-      "/nix/var"  # to prevent complaints about it not finding build logs
+      "/nix/var" # to prevent complaints about it not finding build logs
     ];
   };
 }

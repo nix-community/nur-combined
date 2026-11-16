@@ -5,7 +5,12 @@
 # - note that `rtkit-daemon` can be launched with a lot of config
 #   - suggest using a much less aggressive canary. maybe try that?
 #   - see: <https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Performance-tuning>
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.rtkit;
 in
@@ -26,7 +31,7 @@ in
         "${cfg.package}/libexec/rtkit-daemon"
         "--scheduling-policy=FIFO"
         "--our-realtime-priority=79"
-        "--max-realtime-priority=78"  # N.B.: setting this too aggressively can hang weak devices!
+        "--max-realtime-priority=78" # N.B.: setting this too aggressively can hang weak devices!
         "--min-nice-level=-19"
         "--rttime-usec-max=2000000"
         "--users-max=100"
@@ -54,8 +59,7 @@ in
     group = "rtkit";
     description = "RealtimeKit daemon";
   };
-  users.groups.rtkit = lib.mkIf cfg.enabled {};
-
+  users.groups.rtkit = lib.mkIf cfg.enabled { };
 
   environment.systemPackages = lib.mkIf cfg.enabled [
     # for /share/polkit-1, but unclear if actually needed

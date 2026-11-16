@@ -1,7 +1,8 @@
 # <https://huggingface.co/LiquidAI/LFM2-24B-A2B-GGUF>
 # - but their .gitattributes LFS links are broken; wish people would stop using fucking LFS.
 # <https://huggingface.co/bartowski/LiquidAI_LFM2-24B-A2B-GGUF>
-{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
+{ fetchFromHuggingFaceSane }:
+fetchFromHuggingFaceSane {
   owner = "bartowski";
   repo = "LiquidAI_LFM2-24B-A2B-GGUF";
   path = "LiquidAI_LFM2-24B-A2B-IQ4_XS.gguf";

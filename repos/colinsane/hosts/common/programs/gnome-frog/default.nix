@@ -24,8 +24,8 @@
       "Pictures/servo-macros"
     ];
     persist.byStore.ephemeral = [
-      ".local/share/tessdata"  # 15M; dunno what all it is.
+      ".local/share/tessdata" # 15M; dunno what all it is.
     ];
-    sandbox.mesaCacheDir = ".cache/gnome-frog/mesa";  # TODO: is this the correct app-id?
+    sandbox.mesaCacheDir = ".cache/gnome-frog/mesa"; # TODO: is this the correct app-id?
   };
 }

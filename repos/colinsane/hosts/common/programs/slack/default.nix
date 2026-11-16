@@ -17,11 +17,11 @@
       # - replace `NIXOS_OZONE_WL` non-empty check with `WAYLAND_DISPLAY`
       # - use `wayland` instead of `auto` because --ozone-platform-hint=auto still prefers X over wayland when both are available
       # alternatively, set env var: `ELECTRON_OZONE_PLATFORM_HINT=wayland` and ignore all of this
-      installPhase = lib.replaceStrings
-        [ "NIXOS_OZONE_WL" "--ozone-platform-hint=auto" ]
-        [ "WAYLAND_DISPLAY" "--ozone-platform-hint=wayland" ]
-        prevAttrs.installPhase
-      ;
+      installPhase =
+        lib.replaceStrings
+          [ "NIXOS_OZONE_WL" "--ozone-platform-hint=auto" ]
+          [ "WAYLAND_DISPLAY" "--ozone-platform-hint=wayland" ]
+          prevAttrs.installPhase;
 
       # - disable Ctrl+W = Close shortcut
       # - ~fix downloads directory.~
@@ -49,15 +49,15 @@
 
     # sandbox.whitelistDbus.user = true;
     sandbox.net = "clearnet";
-    sandbox.whitelistAudio = true;  #< for calls, media
-    sandbox.whitelistAvDev = true;  #< for webcam access
+    sandbox.whitelistAudio = true; # for calls, media
+    sandbox.whitelistAvDev = true; # for webcam access
     sandbox.whitelistDri = true;
     sandbox.whitelistPortal = [
-      "Camera"  # not sure if used
-      "DynamicLauncher"  #< used to launch file browser when viewing downloads
-      "FileChooser"  #< seems to not actually be used though
+      "Camera" # not sure if used
+      "DynamicLauncher" # used to launch file browser when viewing downloads
+      "FileChooser" # seems to not actually be used though
       "OpenURI"
-      "ScreenCast"  # not sure if used
+      "ScreenCast" # not sure if used
     ];
     sandbox.extraHomePaths = [
       "tmp"
@@ -65,7 +65,7 @@
     sandbox.whitelistSendNotifications = true;
     sandbox.whitelistWayland = true;
     # mime.urlAssociations."^slack://.*$" = "slack.desktop";
-    mime.associations."x-scheme-handler/slack" = "slack.desktop";  #< required as part of auth flow
+    mime.associations."x-scheme-handler/slack" = "slack.desktop"; # required as part of auth flow
     persist.byStore.private = [
       # ~/.config/Slack contains everything:
       # - Cookies
@@ -76,7 +76,6 @@
       # TODO: don't persist this entire directory
       ".config/Slack"
     ];
-    sandbox.tmpDir = ".config/Slack/tmp";  #< tmpdir needs to be shared between instances, for the singleton socket to work
+    sandbox.tmpDir = ".config/Slack/tmp"; # tmpdir needs to be shared between instances, for the singleton socket to work
   };
 }
-

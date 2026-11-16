@@ -21,6 +21,6 @@
 { ... }:
 {
   sane.programs.pine64-alsa-ucm = {
-    sandbox.enable = false;  #< only provides /share/alsa
+    sandbox.enable = false; # only provides /share/alsa
   };
 }

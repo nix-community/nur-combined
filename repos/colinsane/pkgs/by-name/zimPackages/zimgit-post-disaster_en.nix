@@ -1,4 +1,5 @@
-{ mkVersionedHttpZim }: mkVersionedHttpZim {
+{ mkVersionedHttpZim }:
+mkVersionedHttpZim {
   owner = "other";
   pname = "zimgit-post-disaster_en";
   version = "2024-05";

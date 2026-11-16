@@ -83,18 +83,21 @@ let
   # added by tor-browser-build's "fonts" project when the release tarballs
   # are assembled. Extract the font bundle from the official tarball of the
   # same version so this build ships the exact upstream font set.
-  bundledFonts = runCommand "tor-browser-${version}-fonts" {
-    src = officialBundleSrc;
-  } ''
-    mkdir -p $out/fonts
-    tar -xJf $src -C $out/fonts --strip-components=3 tor-browser/Browser/fonts
-    # fonts.conf locates the font directory relative to the process working
-    # directory, which only works when launched from the directory containing
-    # fonts/. Point it at the store path instead (same substitution as the
-    # binary tor-browser package in nixpkgs).
-    substituteInPlace $out/fonts/fonts.conf \
-      --replace-fail '<dir prefix="cwd">fonts</dir>' "<dir>$out/fonts</dir>"
-  '';
+  bundledFonts =
+    runCommand "tor-browser-${version}-fonts"
+      {
+        src = officialBundleSrc;
+      }
+      ''
+        mkdir -p $out/fonts
+        tar -xJf $src -C $out/fonts --strip-components=3 tor-browser/Browser/fonts
+        # fonts.conf locates the font directory relative to the process working
+        # directory, which only works when launched from the directory containing
+        # fonts/. Point it at the store path instead (same substitution as the
+        # binary tor-browser package in nixpkgs).
+        substituteInPlace $out/fonts/fonts.conf \
+          --replace-fail '<dir prefix="cwd">fonts</dir>' "<dir>$out/fonts</dir>"
+      '';
 
   # Official Tor Browser bundles the NoScript WebExtension (added by
   # tor-browser-build's "noscript" project; not part of the firefox source
@@ -105,13 +108,16 @@ let
   # messaging the extension with id {73a6fe31-595d-460b-a920-fcc0f8843232}.
   # Without NoScript the "Safer"/"Safest" levels do not disable JavaScript.
   # Extract the exact XPI shipped in the official bundle of this version.
-  bundledNoScript = runCommand "tor-browser-${version}-noscript" {
-    src = officialBundleSrc;
-  } ''
-    mkdir -p $out
-    tar -xJf $src -C $out --strip-components=6 \
-      'tor-browser/Browser/TorBrowser/Data/Browser/profile.default/extensions/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi'
-  '';
+  bundledNoScript =
+    runCommand "tor-browser-${version}-noscript"
+      {
+        src = officialBundleSrc;
+      }
+      ''
+        mkdir -p $out
+        tar -xJf $src -C $out --strip-components=6 \
+          'tor-browser/Browser/TorBrowser/Data/Browser/profile.default/extensions/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi'
+      '';
 
   # Official builds ship NoScript inside the bundled profile
   # (TorBrowser/Data/Browser/profile.default/extensions), which works
@@ -129,7 +135,12 @@ let
   # start. Runs in the wrapper before exec'ing the browser; must never
   # fail the launch.
   noScriptSeed = writeShellScript "tor-browser-noscript-seed" ''
-    PATH=${lib.makeBinPath [ coreutils gawk ]}:$PATH
+    PATH=${
+      lib.makeBinPath [
+        coreutils
+        gawk
+      ]
+    }:$PATH
     xpi=${bundledNoScript}/extensions/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi
     [ -n "''${HOME:-}" ] || exit 0
     profileRoot="$HOME/.tor project/firefox"
@@ -289,14 +300,16 @@ let
     configured.overrideAttrs (oldAttrs: {
       # The vendored bindgen predates libclang 22's type representation
       # changes, which otherwise produce opaque/incomplete NSS bindings.
-      configureFlags = builtins.filter (
-        flag:
-        flag != "--with-system-nss"
-        && flag != "--with-system-nspr"
-        && !(lib.hasPrefix "--with-libclang-path=" flag)
-      ) oldAttrs.configureFlags ++ [
-        "--with-libclang-path=${lib.getLib buildPackages.llvmPackages_21.libclang}/lib"
-      ];
+      configureFlags =
+        builtins.filter (
+          flag:
+          flag != "--with-system-nss"
+          && flag != "--with-system-nspr"
+          && !(lib.hasPrefix "--with-libclang-path=" flag)
+        ) oldAttrs.configureFlags
+        ++ [
+          "--with-libclang-path=${lib.getLib buildPackages.llvmPackages_21.libclang}/lib"
+        ];
       # Extra branding/provenance settings to match the official builds;
       # appended after buildMozillaMach's preConfigure on purpose so they
       # take precedence.
@@ -310,8 +323,7 @@ let
         export MOZ_SOURCE_CHANGESET="b98a4b6556beae53c84f445dfcc3d60784399c76"
       '';
     });
-in
-let
+
   wrapped = wrapFirefox unwrapped {
     pname = "tor-browser-from-src";
     wmClass = "tor-browser";

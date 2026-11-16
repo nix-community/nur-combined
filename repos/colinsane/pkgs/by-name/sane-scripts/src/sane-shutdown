@@ -33,8 +33,7 @@ parseArgs() {
 main() {
   local target="$1"
   local host="$(hostname)"
-  if [ "$host" = "$target" ]
-  then
+  if [ "$host" = "$target" ]; then
     shutdown now "$@"
   else
     echo "WRONG MACHINE. you're on $host."

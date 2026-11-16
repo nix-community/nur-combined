@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   declPackageSet = pkgs: {
     packageUnwrapped = null;
@@ -14,7 +19,7 @@ in
       "sane-scripts.bt-show"
     ];
     "sane-scripts.dev" = declPackageSet [
-      # "sane-scripts.clone"  #< TODO: make `sane_clone` a shell alias
+      # "sane-scripts.clone"  # TODO: make `sane_clone` a shell alias
       # "sane-scripts.dev-cargo-loop"
       "sane-scripts.profile"
     ];
@@ -44,7 +49,7 @@ in
 
     "sane-scripts.bt-add".sandbox = {
       method = "bunpen";
-      autodetectCliPaths = "existing";  #< for adding a .torrent from disk
+      autodetectCliPaths = "existing"; # for adding a .torrent from disk
       net = "clearnet";
       # TODO: migrate `transmission_passwd` to `secrets` api
       extraPaths = [ "/run/secrets/transmission_passwd" ];
@@ -73,7 +78,7 @@ in
 
     # the idea of this script is to `cd` into a fresh clone...
     # but that's an ephemeral operation that would be lost when the sandbox closes.
-    "sane-scripts.clone".sandbox.method = null;  #< TODO: sandbox
+    "sane-scripts.clone".sandbox.method = null; # TODO: sandbox
 
     "sane-scripts.date-set".sandbox = {
       method = "bunpen";
@@ -119,7 +124,7 @@ in
       net = "all";
     };
 
-    "sane-scripts.ip-port-forward" = {};
+    "sane-scripts.ip-port-forward" = { };
 
     "sane-scripts.private-do".sandbox = {
       # because `mount` is a cap_sys_admin syscall, there's no great way to mount stuff dynamically like this.
@@ -148,7 +153,7 @@ in
       extraPaths = [ "/boot" ];
     };
 
-    "sane-scripts.rcp".sandbox.enable = false;  # it's just a thin wrapper around rsync, which is already sandboxed
+    "sane-scripts.rcp".sandbox.enable = false; # it's just a thin wrapper around rsync, which is already sandboxed
     # but make sure rsync is always on PATH, so that we actually do get sandboxing :)
     "sane-scripts.rcp".suggestedPrograms = [ "rsync" ];
 
@@ -158,18 +163,19 @@ in
       capabilities = [
         "sys_admin"
       ];
-      tryKeepUsers = true;  #< allow `sudo sane-reboot`, for the case where the service manager is unreachable
+      tryKeepUsers = true; # allow `sudo sane-reboot`, for the case where the service manager is unreachable
     };
 
-    "sane-scripts.reclaim-disk-space".packageUnwrapped = (pkgs.sane-scripts.override {
-      nix = config.sane.programs.nix.packageUnwrapped;
-    }).reclaim-disk-space;
+    "sane-scripts.reclaim-disk-space".packageUnwrapped =
+      (pkgs.sane-scripts.override {
+        nix = config.sane.programs.nix.packageUnwrapped;
+      }).reclaim-disk-space;
     "sane-scripts.reclaim-disk-space".sandbox = {
       method = "bunpen";
       extraPaths = [ "/nix/var/nix" ];
       capabilities = [
-        "dac_override"  # some packages have files which aren't `w`
-        "sys_admin"  # for it to remount /nix/store
+        "dac_override" # some packages have files which aren't `w`
+        "sys_admin" # for it to remount /nix/store
       ];
       tryKeepUsers = true;
     };
@@ -202,40 +208,41 @@ in
     # if `tee` isn't trustworthy we have bigger problems
     "sane-scripts.sudo-redirect".sandbox.enable = false;
 
-    "sane-scripts.sync-music" = {};
-    "sane-scripts.sync-from-iphone".sandbox.method = null;  #< TODO
+    "sane-scripts.sync-music" = { };
+    "sane-scripts.sync-from-iphone".sandbox.method = null; # TODO
 
     "sane-scripts.tag-media".suggestedPrograms = [
-      "exiftool"  #< for (slightly) better sandboxing than default exiftool
+      "exiftool" # for (slightly) better sandboxing than default exiftool
     ];
     "sane-scripts.tag-media".sandbox = {
       method = "bunpen";
       autodetectCliPaths = "existing";
-      whitelistPwd = true;  # for music renaming
+      whitelistPwd = true; # for music renaming
     };
 
-    "sane-scripts.vpn".fs = lib.foldl'
-      (acc: vpn:
-        let
-          vpnCfg = config.sane.vpn."${vpn}";
-        in acc // {
-          ".config/sane-vpn/vpns/${vpn}".symlink.text = ''
-            id=${toString vpnCfg.id}
-            fwmark=${toString vpnCfg.fwmark}
-            priorityMain=${toString vpnCfg.priorityMain}
-            priorityFwMark=${toString vpnCfg.priorityFwMark}
-            addrV4=${vpnCfg.addrV4}
-            name=${vpnCfg.name}
-            dns=(${lib.concatStringsSep " " vpnCfg.dns})
-          '';
-        } // (lib.optionalAttrs vpnCfg.isDefault {
-          ".config/sane-vpn/default".symlink.text = vpn;
-        })
-      )
-      {}
-      (builtins.attrNames config.sane.vpn);
+    "sane-scripts.vpn".fs = lib.foldl' (
+      acc: vpn:
+      let
+        vpnCfg = config.sane.vpn."${vpn}";
+      in
+      acc
+      // {
+        ".config/sane-vpn/vpns/${vpn}".symlink.text = ''
+          id=${toString vpnCfg.id}
+          fwmark=${toString vpnCfg.fwmark}
+          priorityMain=${toString vpnCfg.priorityMain}
+          priorityFwMark=${toString vpnCfg.priorityFwMark}
+          addrV4=${vpnCfg.addrV4}
+          name=${vpnCfg.name}
+          dns=(${lib.concatStringsSep " " vpnCfg.dns})
+        '';
+      }
+      // (lib.optionalAttrs vpnCfg.isDefault {
+        ".config/sane-vpn/default".symlink.text = vpn;
+      })
+    ) { } (builtins.attrNames config.sane.vpn);
     "sane-scripts.vpn".sandbox = {
-      enable = false;  #< `sane-vpn do ...` wraps arbitrary commands; can't sandbox
+      enable = false; # `sane-vpn do ...` wraps arbitrary commands; can't sandbox
       # method = "bunpen";
       # net = "all";
       # capabilities = [ "net_admin" ];
@@ -249,13 +256,13 @@ in
       "sane-scripts.ip-check"
     ];
 
-    "sane-scripts.which" = {};
+    "sane-scripts.which" = { };
 
     "sane-scripts.wipe".sandbox = {
       method = "bunpen";
-      whitelistDbus.user.call."org.freedesktop.secrets" = "*";  #< for `secret-tool` (TODO: reduce)
+      whitelistDbus.user.call."org.freedesktop.secrets" = "*"; # for `secret-tool` (TODO: reduce)
       whitelistSystemctl = true;
-      keepPidsAndProc = true;  #< so that it can `kill` the programs being wiped
+      keepPidsAndProc = true; # so that it can `kill` the programs being wiped
       extraHomePaths = [
         # could be more specific, but at a maintenance cost.
         # TODO: needs updating, now that persisted data lives behind symlinks!

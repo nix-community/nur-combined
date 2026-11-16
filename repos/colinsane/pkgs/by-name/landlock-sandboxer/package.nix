@@ -7,18 +7,16 @@
   stdenv,
 }:
 let
-
   linuxHeaders = makeLinuxHeaders {
     inherit (linux_latest) src version;
   };
 in
 stdenv.mkDerivation {
+  inherit (linux_latest) src version;
   pname = "landlock-sandboxer";
-  version = linux_latest.version;
-  src = linux_latest.src;
 
   buildInputs = [
-    linuxHeaders  # to get the right linux headers!
+    linuxHeaders # to get the right linux headers!
   ];
 
   patches = [

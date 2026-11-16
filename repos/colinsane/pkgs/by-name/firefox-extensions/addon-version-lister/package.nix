@@ -7,7 +7,7 @@
 static-nix-shell.mkYsh {
   pname = "addon-version-lister";
   packages = {
-    inherit 
+    inherit
       common-updater-scripts
       coreutils
       curl

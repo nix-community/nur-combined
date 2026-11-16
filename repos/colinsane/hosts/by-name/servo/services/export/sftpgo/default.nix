@@ -192,7 +192,7 @@ in
   ];
 
   systemd.services.sftpgo = {
-    after = [ "network-online.target" ];  #< so that it reliably binds to all interfaces/netns's?
+    after = [ "network-online.target" ];  # so that it reliably binds to all interfaces/netns's?
     wants = [ "network-online.target" ];
     unitConfig.RequiresMountsFor = [
       "/var/export/media"

@@ -13,11 +13,11 @@
     #   buildInputs = upstream.buildInputs ++ [ pkgs.glib-networking ];
     # });
 
-    buildCost = 2;  #< webkitgtk
-    sandbox.whitelistDri = true;  #< speedier
+    buildCost = 2; # webkitgtk
+    sandbox.whitelistDri = true; # speedier
     sandbox.whitelistWayland = true;
     sandbox.autodetectCliPaths = "existingFile";
-    sandbox.mesaCacheDir = ".cache/papers/mesa";  # TODO: is this the correct app-id?
+    sandbox.mesaCacheDir = ".cache/papers/mesa"; # TODO: is this the correct app-id?
 
     sandbox.whitelistPortal = [ "OpenURI" ];
 

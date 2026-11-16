@@ -51,27 +51,28 @@ let
         cp ${verifySymbols} "$sourceRoot/mimalloc-verify-syms.sh"
       '';
 
-      postPatch = (prevAttrs.postPatch or "") + lib.optionalString musl.stdenv.cc.isGNU
-      ''
-        # Chimera's patch adds a redundant static variable; clang simply warns on this, GCC aborts
-        # > In file included from ./mimalloc/src/static.c:32:
-        # > ./mimalloc/src/os.c:735:1: error: duplicate 'static'
-        # >   735 | static _Atomic(size_t) mi_numa_node_count; // = 0   // cache the node count
-        # >       | ^~~~~~
-        #
-        # This substitution is safer than it looks: `mimalloc-verify-syms.sh` errors the build if we were to get it wrong.
-        substituteInPlace mimalloc/src/os.c --replace-fail \
-          $'#ifdef MI_LIBC_BUILD\nstatic\n#endif\nstatic _Atomic(size_t) mi_numa_node_count' \
-          'static _Atomic(size_t) mi_numa_node_count'
+      postPatch =
+        (prevAttrs.postPatch or "")
+        + lib.optionalString musl.stdenv.cc.isGNU ''
+          # Chimera's patch adds a redundant static variable; clang simply warns on this, GCC aborts
+          # > In file included from ./mimalloc/src/static.c:32:
+          # > ./mimalloc/src/os.c:735:1: error: duplicate 'static'
+          # >   735 | static _Atomic(size_t) mi_numa_node_count; // = 0   // cache the node count
+          # >       | ^~~~~~
+          #
+          # This substitution is safer than it looks: `mimalloc-verify-syms.sh` errors the build if we were to get it wrong.
+          substituteInPlace mimalloc/src/os.c --replace-fail \
+            $'#ifdef MI_LIBC_BUILD\nstatic\n#endif\nstatic _Atomic(size_t) mi_numa_node_count' \
+            'static _Atomic(size_t) mi_numa_node_count'
 
-        # `-print-resource-dir` seems to include c std headers only in clang; `-print-file-name=include` supports clang and gcc
-        # > ./mimalloc/src/mimalloc.c:40:10: fatal error: stdatomic.h: No such file or directory
-        # >    40 | #include <stdatomic.h>
-        # >       |          ^~~~~~~~~~~~~
-        substituteInPlace Makefile --replace-fail \
-          '-isystem `$(CC) -print-resource-dir`/include' \
-          '-isystem `$(CC) -print-file-name=include`'
-      '';
+          # `-print-resource-dir` seems to include c std headers only in clang; `-print-file-name=include` supports clang and gcc
+          # > ./mimalloc/src/mimalloc.c:40:10: fatal error: stdatomic.h: No such file or directory
+          # >    40 | #include <stdatomic.h>
+          # >       |          ^~~~~~~~~~~~~
+          substituteInPlace Makefile --replace-fail \
+            '-isystem `$(CC) -print-resource-dir`/include' \
+            '-isystem `$(CC) -print-file-name=include`'
+        '';
 
       configureFlags = (prevAttrs.configureFlags or [ ]) ++ [
         # Chimera ships malloc/calloc/etc entrypoints in src/malloc/external
@@ -93,69 +94,78 @@ let
         # for downstream inspection, like `threadModel`
         allocatorModel = "mimalloc";
 
-        tests = let
-          checkFor = testName: { none ? [], some ? [] }:
-            runCommandCC "musl-mimalloc-${testName}" {
-              __structuredAttrs = true;
-              EXPECT_NONE = none;
-              EXPECT_SOME = some;
-              EXPECT_NUM_CHECKED = 4 * (lib.length none + lib.length some);
-            }
-            ''
-              set -euo pipefail
-              num_checked=0
-              not() {
-                ! "$@"
-              }
-              checkPresence() {
-                local maybeNot=$1
-                local expr=$2
-                local file=$3
-                if ! $maybeNot grep -E "$expr" "$file"; then
-                  cat "$file"
-                  echo "match failed: $maybeNot grep -E $expr $file" 2>&1
-                  exit 1
-                fi
-                num_checked=$((num_checked + 1))
-              }
+        tests =
+          let
+            checkFor =
+              testName:
+              {
+                none ? [ ],
+                some ? [ ],
+              }:
+              runCommandCC "musl-mimalloc-${testName}"
+                {
+                  __structuredAttrs = true;
+                  EXPECT_NONE = none;
+                  EXPECT_SOME = some;
+                  EXPECT_NUM_CHECKED = 4 * (lib.length none + lib.length some);
+                }
+                ''
+                  set -euo pipefail
+                  num_checked=0
+                  not() {
+                    ! "$@"
+                  }
+                  checkPresence() {
+                    local maybeNot=$1
+                    local expr=$2
+                    local file=$3
+                    if ! $maybeNot grep -E "$expr" "$file"; then
+                      cat "$file"
+                      echo "match failed: $maybeNot grep -E $expr $file" 2>&1
+                      exit 1
+                    fi
+                    num_checked=$((num_checked + 1))
+                  }
 
-              for library in libc.{a,so}; do
-                nm --defined-only "${musl}/lib/$library" > stock-symbols
-                nm --defined-only "${finalAttrs.finalPackage}/lib/$library" > symbols
-                for expr in "''${EXPECT_NONE[@]}"; do
-                  checkPresence not "$expr" symbols
-                  checkPresence "" "$expr" stock-symbols
-                done
-                for expr in "''${EXPECT_SOME[@]}"; do
-                  checkPresence "" "$expr" symbols
-                  checkPresence not "$expr" stock-symbols
-                done
-              done
-              echo "num_checked: $num_checked"
-              echo "expected:    $EXPECT_NUM_CHECKED"
-              [[ "$num_checked" -eq "$EXPECT_NUM_CHECKED" ]] && touch $out
-            '';
-        in (prevAttrs.passthru.tests or { }) // {
-          # a stock musl build would export:
-          # malloc.lo:
-          # 0000000000000000 T __libc_malloc_impl
-          # 0000000000000000 T __malloc_alloc_meta
-          # 0000000000000000 T __malloc_allzerop
-          # 0000000000000000 T __malloc_atfork
-          # 0000000000000000 B __malloc_lock
-          # 0000000000000000 t alloc_slot
-          # 0000000000000000 r med_cnt_tab
-          # 0000000000000000 r small_cnt_tab
-          no-sign-of-malloc-ng = checkFor "no-sign-of-malloc-ng" {
-            none = [
-              " __malloc_lock$"  #< the direct cause of perf issues in malloc-ng
-              # "^malloc.lo:"  #< only present in libc.a
-            ];
+                  for library in libc.{a,so}; do
+                    nm --defined-only "${musl}/lib/$library" > stock-symbols
+                    nm --defined-only "${finalAttrs.finalPackage}/lib/$library" > symbols
+                    for expr in "''${EXPECT_NONE[@]}"; do
+                      checkPresence not "$expr" symbols
+                      checkPresence "" "$expr" stock-symbols
+                    done
+                    for expr in "''${EXPECT_SOME[@]}"; do
+                      checkPresence "" "$expr" symbols
+                      checkPresence not "$expr" stock-symbols
+                    done
+                  done
+                  echo "num_checked: $num_checked"
+                  echo "expected:    $EXPECT_NUM_CHECKED"
+                  [[ "$num_checked" -eq "$EXPECT_NUM_CHECKED" ]] && touch $out
+                '';
+          in
+          (prevAttrs.passthru.tests or { })
+          // {
+            # a stock musl build would export:
+            # malloc.lo:
+            # 0000000000000000 T __libc_malloc_impl
+            # 0000000000000000 T __malloc_alloc_meta
+            # 0000000000000000 T __malloc_allzerop
+            # 0000000000000000 T __malloc_atfork
+            # 0000000000000000 B __malloc_lock
+            # 0000000000000000 t alloc_slot
+            # 0000000000000000 r med_cnt_tab
+            # 0000000000000000 r small_cnt_tab
+            no-sign-of-malloc-ng = checkFor "no-sign-of-malloc-ng" {
+              none = [
+                " __malloc_lock$" # the direct cause of perf issues in malloc-ng
+                # "^malloc.lo:"  # only present in libc.a
+              ];
+            };
+            signs-of-mimalloc = checkFor "signs-of-mimalloc" {
+              some = [ " _mi_heap_main$" ];
+            };
           };
-          signs-of-mimalloc = checkFor "signs-of-mimalloc" {
-            some = [ " _mi_heap_main$" ];
-          };
-        };
       };
 
       meta = prevAttrs.meta // {
@@ -166,33 +176,33 @@ let
     }
   );
 in
-  # wrap in a "lazy derivation" to break out of common infinite recursion cases surrounding libc.
-  # e.g. this allows for an overlay to set `musl = self.musl-mimalloc.override { musl = super.musl; }`.
-  lib.lazyDerivation {
-    derivation = drv;
-    outputs = [
-      # don't worry about drift: lazyDerivation enforces equality here
-      "out"
-      "bin"
-      "dev"
-      "debug"
-    ];
-    passthru = {
-      inherit (drv)
-        # src
-        overrideAttrs
-        passthru
-        pname # convenience
-        stdenv  # required by isBuiltByNixpkgsCompiler check (pkgs/stdenv/linux/default.nix)
-        version  # required by versionOk check (pkgs/stdenv/linux/stage0.nix)
-        # actual passthru attrs; try to keep in sync with the above drv.
-        allocatorModel
-        linuxHeaders  # nixpkgs internals access `stdenv.cc.libc.threadModel` directly, not `passthru.threadModel`
-        tests
-        threadModel  # nixpkgs internals access `libc.threadModel` directly, not `libc.passthru.threadModel`
-        mimallocSrc
-        unifiedSource
-        verifySymbols
-        ;
-    };
-  }
+# wrap in a "lazy derivation" to break out of common infinite recursion cases surrounding libc.
+# e.g. this allows for an overlay to set `musl = self.musl-mimalloc.override { musl = super.musl; }`.
+lib.lazyDerivation {
+  derivation = drv;
+  outputs = [
+    # don't worry about drift: lazyDerivation enforces equality here
+    "out"
+    "bin"
+    "dev"
+    "debug"
+  ];
+  passthru = {
+    inherit (drv)
+      # src
+      overrideAttrs
+      passthru
+      pname # convenience
+      stdenv # required by isBuiltByNixpkgsCompiler check (pkgs/stdenv/linux/default.nix)
+      version # required by versionOk check (pkgs/stdenv/linux/stage0.nix)
+      # actual passthru attrs; try to keep in sync with the above drv.
+      allocatorModel
+      linuxHeaders # nixpkgs internals access `stdenv.cc.libc.threadModel` directly, not `passthru.threadModel`
+      tests
+      threadModel # nixpkgs internals access `libc.threadModel` directly, not `libc.passthru.threadModel`
+      mimallocSrc
+      unifiedSource
+      verifySymbols
+      ;
+  };
+}

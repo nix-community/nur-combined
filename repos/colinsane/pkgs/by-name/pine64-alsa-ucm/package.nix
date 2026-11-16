@@ -3,7 +3,7 @@
   gnused,
   lib,
   stdenvNoCC,
-  withVoiceCall ? false,  #< enable the "Voice Call" audio variants, which frequently don't work and idk what they're *supposed* to do
+  withVoiceCall ? false, # enable the "Voice Call" audio variants, which frequently don't work and idk what they're *supposed* to do
 }:
 stdenvNoCC.mkDerivation {
   pname = "pine64-alsa-ucm";

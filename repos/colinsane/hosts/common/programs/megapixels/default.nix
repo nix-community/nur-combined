@@ -31,7 +31,7 @@
     #   "bwrap: failed to make / slave: Operation not permitted"
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< so that it can in theory open the image viewer using fdo portal... but it doesn't :|
+    sandbox.whitelistDbus.user = true; # TODO: reduce  # so that it can in theory open the image viewer using fdo portal... but it doesn't :|
     sandbox.extraHomePaths = [
       # ".config/megapixels"
       "Pictures/Photos"
@@ -40,17 +40,17 @@
     sandbox.extraPaths = [
       # it passes the raw .dng files to a post-processor, via /tmp
       "/tmp"
-      "/sys/class/leds"  #< for flash, presumably
+      "/sys/class/leds" # for flash, presumably
     ];
     sandbox.whitelistAvDev = true;
-    sandbox.mesaCacheDir = ".cache/megapixels/mesa";  # TODO: is this the correct app-id?
+    sandbox.mesaCacheDir = ".cache/megapixels/mesa"; # TODO: is this the correct app-id?
     gsettingsPersist = [
-      "org/postmarketos/megapixels"  #< needs to set `postprocessor` else it will segfault during post-process
+      "org/postmarketos/megapixels" # needs to set `postprocessor` else it will segfault during post-process
     ];
     # source code references /proc/device-tree/compatible, but it seems to be alright either way
     # sandbox.keepPidsAndProc = true;
 
-    mime.priority = 200;  #< fallback; prefer `megapixels-next` if it's installed
+    mime.priority = 200; # fallback; prefer `megapixels-next` if it's installed
     env.CAMERA = lib.mkDefault "org.postmarketos.Megapixels.desktop";
   };
 }

@@ -32,9 +32,9 @@ main() {
   # `-i`: case insensitive filtering
   # `-sync -ellipsize-mode middle`: for lengthy entries, replace the *middle* with an ellipsis instead of the end
   #   requires rofi 1.7.6, and `-sync`, wich must come *before* the `-dmenu` flag
-  cat ~/.config/rofi-snippets/public.txt ~/.config/rofi-snippets/private.txt | \
-    rofi -sync -ellipsize-mode middle -dmenu -i | \
-    sed -z -e 's/  *#.*$//' -e 's/\n$//' | \
+  cat ~/.config/rofi-snippets/public.txt ~/.config/rofi-snippets/private.txt |
+    rofi -sync -ellipsize-mode middle -dmenu -i |
+    sed -z -e 's/  *#.*$//' -e 's/\n$//' |
     wtype -
 }
 

@@ -12,7 +12,7 @@ parseArgs() {
     local arg=$1
     shift
     case $arg in
-      (-h|--help)
+      (-h | --help)
         usage
         exit 0
         ;;
@@ -20,7 +20,7 @@ parseArgs() {
         if [ -n "$pr_num" ]; then
           usage
           exit 1
-        fi;
+        fi
         pr_num="$arg"
         ;;
     esac

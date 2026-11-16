@@ -128,40 +128,41 @@ logger = logging.getLogger(__name__)
 kks = pykakasi.kakasi()
 
 AUDIO_EXTENSIONS = [
-  "aac",
-  "flac",
-  "m4a",
-  "mp3",
-  "mp4",
-  "ogg",
-  "opus",
+    "aac",
+    "flac",
+    "m4a",
+    "mp3",
+    "mp4",
+    "ogg",
+    "opus",
 ]
 IMAGE_EXTENSIONS = [
-  # "bmp",  # Writing of BMP files is not yet supported
-  "gif",
-  "jpg",
-  "jpeg",
-  "png",
+    # "bmp",  # Writing of BMP files is not yet supported
+    "gif",
+    "jpg",
+    "jpeg",
+    "png",
 ]
 TEXT_EXTENSIONS = [
-  # "epub",  #< TODO: support using https://pypi.org/project/ebookmeta/  (not packaged, nor any equivalent, in nixpkgs as of 2024-07-23)
-  "pdf",
+    # "epub",  # TODO: support using https://pypi.org/project/ebookmeta/  (not packaged, nor any equivalent, in nixpkgs as of 2024-07-23)
+    "pdf",
 ]
 
 # some software encodes its name in the "producer" metadata field,
 # whereas i use that field to mean "producer" as "which studio produced this".
 KNOWN_SOFTWARE_PRODUCERS = [
-  "Acrobat Distiller",
-  "Adobe Acrobat",
-  "Adobe PDF",
-  "Adobe Photoshop",
-  "IJ Scan Utility",
-  "LibreOffice",
-  "OpenOffice.org",
-  "PDFContext",
-  "QuarkXPress",
-  "Xerox",
+    "Acrobat Distiller",
+    "Adobe Acrobat",
+    "Adobe PDF",
+    "Adobe Photoshop",
+    "IJ Scan Utility",
+    "LibreOffice",
+    "OpenOffice.org",
+    "PDFContext",
+    "QuarkXPress",
+    "Xerox",
 ]
+
 
 class MediaType(Enum):
     Audio = "audio"
@@ -169,28 +170,40 @@ class MediaType(Enum):
     Text = "text"
     Other = "other"
 
+
 class PathStyle(Enum):
     Music = "music"
     Video = "video"
 
-def maybe_romanize(a: str) -> str|None:
-    if a == "( ͡° ͜ʖ ͡°)": return "Lenny"
-    if a == "かめりあ": return "Camellia"
-    if a == "お握り": return "onigiri"
-    if a == "存流": return "ARU"
-    if a.lower() == "жужжалка": return "zhuzhzhalka"  # Russian
-    if a == "♞": return "knight"
-    if a == "+": return "."
-    if a == "&": return "and"
+
+def maybe_romanize(a: str) -> str | None:
+    if a == "( ͡° ͜ʖ ͡°)":
+        return "Lenny"
+    if a == "かめりあ":
+        return "Camellia"
+    if a == "お握り":
+        return "onigiri"
+    if a == "存流":
+        return "ARU"
+    if a.lower() == "жужжалка":
+        return "zhuzhzhalka"  # Russian
+    if a == "♞":
+        return "knight"
+    if a == "+":
+        return "."
+    if a == "&":
+        return "and"
 
     # jp kanji -> romanization
     # pykakasi does word breaking, only return the conversion if on an actual word boundary
-    romaji = [r['hepburn'] for r in kks.convert(a)]
+    romaji = [r["hepburn"] for r in kks.convert(a)]
     if len(romaji) == 1 and romaji[0] != "" and romaji[0] != a:
         return romaji[0]
 
     # catchall/fallback
-    if len(a) == 1: return unidecode(a).strip()
+    if len(a) == 1:
+        return unidecode(a).strip()
+
 
 def romanize(a: str) -> str:
     """
@@ -205,7 +218,7 @@ def romanize(a: str) -> str:
             index += 1
             continue
         for segment_len in range(16, 0, -1):
-            r = maybe_romanize(a[index : index+segment_len])
+            r = maybe_romanize(a[index : index + segment_len])
             if r is not None:
                 if len(r) > 1:
                     r = r[0].upper() + r[1:]
@@ -217,6 +230,7 @@ def romanize(a: str) -> str:
                 index += segment_len
     return romanized
 
+
 def clean_for_loose_compare(a: str) -> str:
     a = romanize(a)
     a = a.strip().lower()
@@ -226,8 +240,8 @@ def clean_for_loose_compare(a: str) -> str:
     # goal is to help merge path-extracted tags with embedded tags.
     # it's common for a tag to have some rich characters which can't be represented in a file.
     # so just remove rich characters, but in a way which doesn't become useless when faced with primarily non-latin names
-    omitable = '.- &()[];:/'
-    unomitable = 'abcdefghijklmnopqrstuvwxyz0123456789'
+    omitable = ".- &()[];:/"
+    unomitable = "abcdefghijklmnopqrstuvwxyz0123456789"
 
     a = "".join(c for c in a if c not in omitable)
     cleaned = "".join(c for c in a if c in unomitable)
@@ -238,13 +252,16 @@ def clean_for_loose_compare(a: str) -> str:
         # likely a non-english album/artist/track
         return a
 
+
 def loose_compare_str(a: str, b: str) -> bool:
     return clean_for_loose_compare(a) == clean_for_loose_compare(b)
+
 
 def loose_compare_lists(a: list[str], b: list[str]) -> bool:
     a = sorted(clean_for_loose_compare(i) for i in a)
     b = sorted(clean_for_loose_compare(i) for i in b)
     return a == b
+
 
 def choose_best(a: list[str], b: list[str]) -> list[str]:
     primary = a[:]
@@ -253,6 +270,7 @@ def choose_best(a: list[str], b: list[str]) -> list[str]:
         primary, secondary = secondar, primary
 
     return substitute_from_if_better(primary, secondary)
+
 
 def substitute_from_if_better(primary: list[str], secondary: list[str]) -> list[str]:
     """
@@ -267,8 +285,9 @@ def substitute_from_if_better(primary: list[str], secondary: list[str]) -> list[
 
     return substituted
 
-def clean_for_fs(a: str, single_field: bool=False) -> str:
-    preserve = 'abcdefghijklmnopqrstuvwxyz0123456789._-'
+
+def clean_for_fs(a: str, single_field: bool = False) -> str:
+    preserve = "abcdefghijklmnopqrstuvwxyz0123456789._-"
     a = romanize(a)
     a = a.strip()
     a = a.replace(" ", ".")
@@ -286,13 +305,15 @@ def clean_for_fs(a: str, single_field: bool=False) -> str:
         a = a[1:]
     return a
 
-def clean_fields_for_fs(a: list[str], single_fields: bool=True) -> str:
+
+def clean_fields_for_fs(a: list[str], single_fields: bool = True) -> str:
     """
     like `clean_for_fs`, but each element of `a` represents its own field and the result is joined by hyphens.
     e.g. `clean_fields_for_fs(["R.Q.", "butt-secks"])` -> `"R.Q.-butt.secks"`
     """
     cleaned_fields = [clean_for_fs(i, single_field=single_fields) for i in a]
     return "-".join(f for f in cleaned_fields if f)
+
 
 @dataclass
 class Tags:
@@ -325,7 +346,7 @@ class Tags:
     def __repr__(self) -> str:
         return f"artist=({self.producer},{self.albumartist},{self.artist}), album={self.album}, title={self.title}, trackno={self.tracknumber}"
 
-    def clone(self) -> 'Tags':
+    def clone(self) -> "Tags":
         return Tags(
             album=self.album,
             albumartist=self.albumartist,
@@ -335,17 +356,17 @@ class Tags:
             tracknumber=self.tracknumber,
         )
 
-    def merge(self, other: 'Tags', merge_field) -> 'Tags':
+    def merge(self, other: "Tags", merge_field) -> "Tags":
         new_tags = self.clone()
         new_tags.merge_in_place(other, merge_field)
         return new_tags
 
-    def map(self, f) -> 'Tags':
+    def map(self, f) -> "Tags":
         new_tags = self.clone()
         new_tags.update(f)
         return new_tags
 
-    def merge_in_place(self, other: 'Tags', merge_field) -> None:
+    def merge_in_place(self, other: "Tags", merge_field) -> None:
         self.album = merge_field(self.album, other.album)
         self.albumartist = merge_field(self.albumartist, other.albumartist)
         self.artist = merge_field(self.artist, other.artist)
@@ -356,14 +377,14 @@ class Tags:
     def update(self, f) -> None:
         self.merge_in_place(self, lambda v, _: f(v))
 
-    def or_(self, other: 'Tags') -> 'Tags':
+    def or_(self, other: "Tags") -> "Tags":
         """
         substitute any tags missing tags in `self` with those from `fallback`.
         i.e. `self` takes precedence over `fallback`.
         """
         return self.merge(other, lambda a, b: a or b)
 
-    def extrapolate_from(self, other: 'Tags') -> 'Tags':
+    def extrapolate_from(self, other: "Tags") -> "Tags":
         """
         if anything in @other looks like a better version of the same data in @self,
         then use the better version.
@@ -372,12 +393,13 @@ class Tags:
         """
         return self.merge(other, substitute_from_if_better)
 
-    def union(self, other: 'Tags') -> 'Tags':
+    def union(self, other: "Tags") -> "Tags":
         def merge_field(a: list[str], b: list[str]) -> list[str]:
             return a + [i for i in b if i not in a]
+
         return self.merge(other, merge_field)
 
-    def unambiguous(self) -> 'Tags':
+    def unambiguous(self) -> "Tags":
         return self.map(lambda f: f if len(f) == 1 else [])
 
     # def intersection(self, other: 'Tags') -> 'Tags':
@@ -391,12 +413,13 @@ class Tags:
     def trim_fields(self) -> None:
         def trim(field: list[str]):
             # \u200b is non-breaking space
-            stripped = [ i.strip().replace('\u200b', '') for i in field ]
+            stripped = [i.strip().replace("\u200b", "") for i in field]
             unique = []
             for i in stripped:
                 if i and i not in unique:
                     unique.append(i)
             return unique
+
         self.update(lambda f: trim(f))
 
     def cleanup_trackno(self) -> None:
@@ -408,11 +431,12 @@ class Tags:
                 try:
                     if int(trackno) == int(last) == 1:
                         # track 1/1: useless; clear the field
-                        self.tracknumber[i] = ''
+                        self.tracknumber[i] = ""
                     if int(trackno) <= int(last):
-                        self.tracknumber[i] = trackno.lstrip('0')
-                except: pass
-        self.tracknumber = [ t for t in self.tracknumber if t != '' ]
+                        self.tracknumber[i] = trackno.lstrip("0")
+                except:
+                    pass
+        self.tracknumber = [t for t in self.tracknumber if t != ""]
 
     def expand_shorthands(self) -> None:
         va = ["V.A.", "VA", "Various", "Various.Artists"]
@@ -445,7 +469,7 @@ class Tags:
     def demote_producer(self) -> None:
         producers = []
         for p in self.producer:
-            if self.albumartist == [ p ]:
+            if self.albumartist == [p]:
                 # it's mostly just noise to have producer when not actually needed
                 continue
             if any(soft.lower() in p.lower() for soft in KNOWN_SOFTWARE_PRODUCERS):
@@ -471,35 +495,39 @@ class Tags:
         it's tough to distinguish such an item from an incomplete tag,
         so we special-case them.
         """
-        is_associated_with_artist = \
-            not self.producer \
-            and (self.albumartist or self.artist) \
-            and not self.album
+        is_associated_with_artist = (
+            not self.producer and (self.albumartist or self.artist) and not self.album
+        )
         if not is_associated_with_artist:
             return False
 
         title = self.title[0].lower() if len(self.title) == 1 else ""
         if ext.lower() in IMAGE_EXTENSIONS and title == "artist":
             return True
-        if ext.lower() in [ "md", "txt" ] and title == "info":
+        if ext.lower() in ["md", "txt"] and title == "info":
             return True
 
         return False
 
     def to_path(self, style: PathStyle, ext: str) -> str | None:
         is_artist_item = self.is_artist_item(ext)
-        artist = clean_fields_for_fs(self.albumartist or self.artist, single_fields=False)
+        artist = clean_fields_for_fs(
+            self.albumartist or self.artist, single_fields=False
+        )
         album = clean_fields_for_fs(self.album)
         trackno = clean_fields_for_fs(self.tracknumber)
         trackno = [f"{trackno:>02}"] if trackno else []
-        if self.artist and self.albumartist == [ "Various Artists" ] \
-                and self.artist != [ "Various Artists" ] \
-                and self.artist != self.album:
+        if (
+            self.artist
+            and self.albumartist == ["Various Artists"]
+            and self.artist != ["Various Artists"]
+            and self.artist != self.album
+        ):
             artist_prefix = self.artist
         else:
             artist_prefix = []
         title = clean_fields_for_fs(self.title)
-        filename = clean_fields_for_fs(trackno + artist_prefix + [ f"{title}.{ext}" ])
+        filename = clean_fields_for_fs(trackno + artist_prefix + [f"{title}.{ext}"])
 
         if is_artist_item:
             return os.path.join(artist, filename)
@@ -508,7 +536,9 @@ class Tags:
             return os.path.join(artist, filename)
         elif style == PathStyle.Music:
             if not (artist and album and title):
-                logger.warning(f"missing artist/album/title after cleaning path: {self} ({artist!r}, {album!r}, {title!r})")
+                logger.warning(
+                    f"missing artist/album/title after cleaning path: {self} ({artist!r}, {album!r}, {title!r})"
+                )
                 return None
 
             if self.producer:
@@ -522,7 +552,7 @@ class Tags:
             assert False, f"unknown PathStyle: {style}"
 
     @staticmethod
-    def from_path(p: str) -> 'Tags':
+    def from_path(p: str) -> "Tags":
         """
         path cases:
         - artist/album/track
@@ -544,38 +574,46 @@ class Tags:
         - ./artist/album/track -> artist/album/track
         """
         tags = Tags()
+
         def parse_trackno(trackno: str) -> None:
-            tags.tracknumber = [trackno.lstrip('0')]
+            tags.tracknumber = [trackno.lstrip("0")]
 
         def parse_title(title: str) -> None:
             new_title = title
             # maybe the filename has some identifier (e.g. soundcloud): remove it
-            while new_title and new_title[-1] in '0123456789':
+            while new_title and new_title[-1] in "0123456789":
                 new_title = new_title[:-1]
-            if new_title and new_title[-1] == '-':
+            if new_title and new_title[-1] == "-":
                 new_title = new_title[:-1]
             if len(title) - len(new_title) < 5:
                 # we stripped too little, probably not an identifier. undo it.
                 new_title = title
-            tags.title = [ new_title ]
+            tags.title = [new_title]
 
         def parse_track(track: str) -> None:
             basename = os.path.splitext(track)[0]
-            track_parts = [p.strip() for p in basename.split(' - ')]
+            track_parts = [p.strip() for p in basename.split(" - ")]
             if len(track_parts) == 1:
                 parse_title(track_parts[0])
-                if len(track) > 2 and track[0] in "0123456789" and track[1] in "0123456789" and track[2] == "-":
+                if (
+                    len(track) > 2
+                    and track[0] in "0123456789"
+                    and track[1] in "0123456789"
+                    and track[2] == "-"
+                ):
                     # parse this as a track i've already encoded.
                     # this is necessary for files which don't support metadata, like lyric files.
                     parse_track(track.replace("-", " - "))
             elif len(track_parts) == 2:
-                if tags.albumartist and loose_compare_str(track_parts[0], tags.albumartist[0]):
+                if tags.albumartist and loose_compare_str(
+                    track_parts[0], tags.albumartist[0]
+                ):
                     # `AlbumArtist - track`
                     parse_title(track_parts[1])
                 elif tags.album and loose_compare_str(track_parts[0], tags.album[0]):
                     # `album - track` (less common)
                     parse_title(track_parts[1])
-                elif all(l in '0123456789-' for l in track_parts[0]):
+                elif all(l in "0123456789-" for l in track_parts[0]):
                     # `trackno - track`
                     parse_trackno(track_parts[0])
                     parse_title(track_parts[1])
@@ -584,23 +622,28 @@ class Tags:
                     tags.artist = [track_parts[0]]
                     parse_title(track_parts[1])
             elif len(track_parts) == 3:
-                if all(l in '0123456789-' for l in track_parts[0]):
+                if all(l in "0123456789-" for l in track_parts[0]):
                     # `trackno - track artist - track`
                     parse_trackno(track_parts[0])
-                    tags.artist = [track_parts[1]]  # explicitly not album artist, but track artist
+                    tags.artist = [
+                        track_parts[1]
+                    ]  # explicitly not album artist, but track artist
                     parse_title(track_parts[2])
                 elif tags.album and loose_compare_str(track_parts[0], tags.album[0]):
                     # `album - track artist - track`
                     tags.artist = [track_parts[1]]
                     parse_title(track_parts[2])
-                elif tags.albumartist and tags.album and \
-                        loose_compare_str(track_parts[0], tags.albumartist[0]) and \
-                        loose_compare_str(track_parts[1], tags.album[0]):
+                elif (
+                    tags.albumartist
+                    and tags.album
+                    and loose_compare_str(track_parts[0], tags.albumartist[0])
+                    and loose_compare_str(track_parts[1], tags.album[0])
+                ):
                     # `album artist - album - track`
                     parse_title(track_parts[2])
 
         def parse_album(album: str) -> None:
-            album_parts = [p.strip() for p in album.split(' - ')]
+            album_parts = [p.strip() for p in album.split(" - ")]
             if len(album_parts) == 1:
                 # artist/album/track
                 tags.album = [album]
@@ -614,7 +657,7 @@ class Tags:
                 tags.albumartist = albumartist
                 tags.album = [album_parts[1]]
 
-        comps = [c for c in p.split('/') if c != '.']
+        comps = [c for c in p.split("/") if c != "."]
 
         if len(comps) == 3:
             tags.albumartist = [comps[0]]
@@ -626,15 +669,20 @@ class Tags:
 
         return tags
 
+
 class MetadataImpl:
     def __init__(self, path_: str):
         self.path_ = path_
+
     def get_tag(self, name: str) -> list[str]:
         raise NotImplementedError()
+
     def set_tag(self, name: str, value: list[str]) -> None:
         raise NotImplementedError()
+
     def flush(self) -> None:
         raise NotImplementedError()
+
 
 class InMemoryMetadata(MetadataImpl):
     def __init__(self, path_: str):
@@ -650,12 +698,13 @@ class InMemoryMetadata(MetadataImpl):
     def flush(self) -> None:
         logger.debug(f"not writing tags for unsupported file {self.path_}")
 
+
 class MutagenMetadata(MetadataImpl):
     def __init__(self, path_: str, muta):
         super().__init__(path_=path_)
         self.muta = muta
 
-    def new(path_: str, opener) -> 'MutagenMetadata | None':
+    def new(path_: str, opener) -> "MutagenMetadata | None":
         muta = None
         try:
             muta = opener(path_)
@@ -679,6 +728,7 @@ class MutagenMetadata(MetadataImpl):
         logger.debug(f"writing full tags: {self.muta}")
         self.muta.save()
 
+
 class ExiftoolMetadata(MetadataImpl):
     _exiftool = None  # static, lazy init
     TAG_PREFIXES = ("", "EXIF:", "PNG:", "XMP:")
@@ -687,10 +737,10 @@ class ExiftoolMetadata(MetadataImpl):
         super().__init__(path_=path_)
         self.exif = exif
 
-    def new(path_: str) -> 'ExiftoolMetadata | None':
+    def new(path_: str) -> "ExiftoolMetadata | None":
         exif = None
         try:
-            exif, = ExiftoolMetadata.get_exiftool().get_metadata([path_])
+            (exif,) = ExiftoolMetadata.get_exiftool().get_metadata([path_])
         except Exception as e:
             logger.warning(f"failed to open {path_}: {e}")
 
@@ -707,9 +757,10 @@ class ExiftoolMetadata(MetadataImpl):
     def get_tag(self, name: str) -> list[str]:
         def get_tag_(name: str) -> list:
             if self.exif.get(name) is not None:
-                return [ str(self.exif[name]) ]
+                return [str(self.exif[name])]
             else:
                 return []
+
         def append_tags(acc: list[str], new: list[str]):
             acc += [t for t in new if t not in acc]
 
@@ -733,9 +784,12 @@ class ExiftoolMetadata(MetadataImpl):
 
     def flush(self) -> None:
         logger.debug(f"writing full tags: {self.exif}")
-        self.get_exiftool().set_tags([ self.path_ ], tags=self.exif, params=["-P", "-overwrite_original"])
+        self.get_exiftool().set_tags(
+            [self.path_], tags=self.exif, params=["-P", "-overwrite_original"]
+        )
         # exiftool likes to use mode `0340`... ??? k.
         os.chmod(self.path_, 0o644)
+
 
 @dataclass
 class TagFieldNames:
@@ -746,9 +800,11 @@ class TagFieldNames:
     title = "title"
     tracknumber = "tracknumber"
 
+
 class MediaFile:
     def __init__(self, path_: str):
-        path_ = os.path.normpath(path_)  #< transform "./artist/album/file" -> "artist/album/file", so that path-based parsing doesn't have to care
+        # transform "./artist/album/file" -> "artist/album/file", so that path-based parsing doesn't have to care:
+        path_ = os.path.normpath(path_)
         ext = os.path.splitext(path_)[1][1:].lower()
         tag_field_names = TagFieldNames()
         meta = None
@@ -761,22 +817,23 @@ class MediaFile:
         elif ext == "mp3":
             tag_field_names.producer = "grouping"
             meta = MutagenMetadata.new(path_, mutagen.mp3.EasyMP3)
-        elif ext in [ "m4a", "mp4" ]:
+        elif ext in ["m4a", "mp4"]:
             tag_field_names.producer = "grouping"
             meta = MutagenMetadata.new(path_, mutagen.easymp4.EasyMP4)
         elif ext in "ogg":
-            meta = MutagenMetadata.new(path_, mutagen.oggvorbis.OggVorbis) \
-                or MutagenMetadata.new(path_, mutagen.oggopus.OggOpus)
+            meta = MutagenMetadata.new(
+                path_, mutagen.oggvorbis.OggVorbis
+            ) or MutagenMetadata.new(path_, mutagen.oggopus.OggOpus)
         elif ext == "opus":
             meta = MutagenMetadata.new(path_, mutagen.oggopus.OggOpus)
-        elif ext in [ "gif", "pdf" ]:
+        elif ext in ["gif", "pdf"]:
             tag_field_names.album = "XMP:Album"
             tag_field_names.albumartist = "XMP:Author"
             tag_field_names.artist = "Artist"
             tag_field_names.producer = "XMP:Producer"
             tag_field_names.title = "Title"
             meta = ExiftoolMetadata.new(path_)
-        elif ext in [ "jpg", "jpeg", "png" ]:
+        elif ext in ["jpg", "jpeg", "png"]:
             tag_field_names.album = "XMP:Album"
             tag_field_names.artist = "Photographer"
             tag_field_names.albumartist = "Artist"
@@ -811,7 +868,12 @@ class MediaFile:
         want_text = ty == MediaType.Text
         want_other = ty == MediaType.Other
 
-        return is_audio == want_audio and is_image == want_image and is_text == want_text and is_other == want_other
+        return (
+            is_audio == want_audio
+            and is_image == want_image
+            and is_text == want_text
+            and is_other == want_other
+        )
 
     def tags_on_disk(self) -> Tags:
         return Tags(
@@ -832,14 +894,23 @@ class MediaFile:
         self.meta.set_tag(self.tag_field_names.tracknumber, tags.tracknumber)
         self.meta.flush()
 
+
 class MediaFileWithNeighbors(MediaFile):
     """
     a MediaFile, augmented with tags that are common to all of its neighbors
     """
+
     neighbor_tags: Tags = Tags()
 
+
 class TagsProvider:
-    def __init__(self, ignore_existing: bool, override_existing: bool, derive: bool, manual_tags: Tags):
+    def __init__(
+        self,
+        ignore_existing: bool,
+        override_existing: bool,
+        derive: bool,
+        manual_tags: Tags,
+    ):
         self.ignore_existing = ignore_existing
         self.override_existing = override_existing
         self.derive = derive
@@ -874,6 +945,7 @@ class TagsProvider:
             return my_derived_tags.or_(neighbor_tags)
         else:
             return neighbor_tags.or_(my_derived_tags)
+
 
 class Tagger:
     def __init__(self, dry_run: bool, tags_provider: TagsProvider):
@@ -944,12 +1016,14 @@ class Tagger:
         self.show_pathdif(file_.path_, new_path)
 
         if self.guard_dry_run(f"moving file"):
-            assert not os.path.exists(new_path), f"{file_.path_} -> {new_path} would clobber destination!"
+            assert not os.path.exists(new_path), (
+                f"{file_.path_} -> {new_path} would clobber destination!"
+            )
             # os.renames creates the necessary parents, and then prunes leaf directories
             os.renames(file_.path_, new_path)
 
     def show_pathdif(self, old_path: str, new_path: str):
-        logger.info( "updating path:")
+        logger.info("updating path:")
         logger.info(f"    {old_path}")
         logger.info(f" -> {new_path}")
 
@@ -969,8 +1043,14 @@ class Tagger:
 
         return True
 
+
 class Gatherer:
-    def __init__(self, roots: list[str], media_type: MediaType|None, tags_provider: TagsProvider):
+    def __init__(
+        self,
+        roots: list[str],
+        media_type: MediaType | None,
+        tags_provider: TagsProvider,
+    ):
         self.roots = roots
         self.media_type = media_type
         self.tags_provider = tags_provider
@@ -996,7 +1076,7 @@ class Gatherer:
         if not os.path.isdir(root):
             # single file
             file_ = MediaFileWithNeighbors(root)
-            return self.tags_provider.on_disk(file_), [ file_ ]
+            return self.tags_provider.on_disk(file_), [file_]
 
         if not self.tags_provider.can_derive_from_neighbors():
             # directory, but don't derive any tags
@@ -1004,6 +1084,7 @@ class Gatherer:
                 for filename in os.listdir(root):
                     _tags, files = self.files_below(os.path.join(root, filename))
                     yield from files
+
             return Tags(), _gen()
 
         # yield from each child -- after summing all their tags
@@ -1019,6 +1100,7 @@ class Gatherer:
         derived_tags.artist = []
         derived_tags.title = []
         derived_tags.tracknumber = []
+
         def _gen():
             for files_below in filelists:
                 for file_ in files_below:
@@ -1033,37 +1115,71 @@ def main():
     logging.getLogger().setLevel(logging.INFO)
 
     parser = argparse.ArgumentParser(usage=USAGE)
-    parser.add_argument('--dry-run', action='store_true')
-    parser.add_argument('--verbose', action='store_true')
-    parser.add_argument('--album', help="manually specify the tag")
-    parser.add_argument('--album-artist', help="manually specify the tag")
-    parser.add_argument('--artist', help="manually specify the tag")
-    parser.add_argument('--ignore-existing', action='store_true', default=False, help="completely ignore existing tags")
-    parser.add_argument('--override-existing', action='store_true', default=False, help="give higher precedence to derived tags than to existing tags")
-    parser.add_argument('--producer', help="manually specify the tag")
-    parser.add_argument('--title', help="manually specify the tag")
-    parser.add_argument('--trackno', help="manually specify the tag")
-    parser.add_argument('--derive', action='store_true', default=False, help="apply tags already existing in one file (e.g. album tag) to adjacent files in the set")
-    parser.add_argument('--style', type=PathStyle, default=PathStyle.Music, help="how files should be organized into folders/paths")
-    parser.add_argument('--type', type=MediaType, help="only apply operation to a specific type of media")
+    parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("--album", help="manually specify the tag")
+    parser.add_argument("--album-artist", help="manually specify the tag")
+    parser.add_argument("--artist", help="manually specify the tag")
+    parser.add_argument(
+        "--ignore-existing",
+        action="store_true",
+        default=False,
+        help="completely ignore existing tags",
+    )
+    parser.add_argument(
+        "--override-existing",
+        action="store_true",
+        default=False,
+        help="give higher precedence to derived tags than to existing tags",
+    )
+    parser.add_argument("--producer", help="manually specify the tag")
+    parser.add_argument("--title", help="manually specify the tag")
+    parser.add_argument("--trackno", help="manually specify the tag")
+    parser.add_argument(
+        "--derive",
+        action="store_true",
+        default=False,
+        help="apply tags already existing in one file (e.g. album tag) to adjacent files in the set",
+    )
+    parser.add_argument(
+        "--style",
+        type=PathStyle,
+        default=PathStyle.Music,
+        help="how files should be organized into folders/paths",
+    )
+    parser.add_argument(
+        "--type",
+        type=MediaType,
+        help="only apply operation to a specific type of media",
+    )
 
     subparsers = parser.add_subparsers(help="what to do")
 
     show_parser = subparsers.add_parser("show")
     show_parser.set_defaults(subcommand="show")
-    show_parser.add_argument("path", nargs="+", help="relative path to a file or directory to show")
+    show_parser.add_argument(
+        "path", nargs="+", help="relative path to a file or directory to show"
+    )
 
     show_missing_parser = subparsers.add_parser("show-missing")
     show_missing_parser.set_defaults(subcommand="show_missing")
-    show_missing_parser.add_argument("path", nargs="+", help="relative path to a file or directory to validate tags for")
+    show_missing_parser.add_argument(
+        "path",
+        nargs="+",
+        help="relative path to a file or directory to validate tags for",
+    )
 
     fix_tags_parser = subparsers.add_parser("fix-tags")
     fix_tags_parser.set_defaults(subcommand="fix_tags")
-    fix_tags_parser.add_argument("path", nargs="+", help="relative path to a file to tag")
+    fix_tags_parser.add_argument(
+        "path", nargs="+", help="relative path to a file to tag"
+    )
 
     fix_paths_parser = subparsers.add_parser("fix-paths")
     fix_paths_parser.set_defaults(subcommand="fix_paths")
-    fix_paths_parser.add_argument("path", nargs="+", help="relative path to a file to tag")
+    fix_paths_parser.add_argument(
+        "path", nargs="+", help="relative path to a file to tag"
+    )
 
     args = parser.parse_args()
 
@@ -1083,7 +1199,7 @@ def main():
         ignore_existing=args.ignore_existing,
         override_existing=args.override_existing,
         derive=args.derive,
-        manual_tags=manual_tags
+        manual_tags=manual_tags,
     )
 
     gatherer = Gatherer(args.path, args.type, tags_provider)
@@ -1108,6 +1224,5 @@ def main():
         assert False, f"unrecognized command {args.subcommand}"
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

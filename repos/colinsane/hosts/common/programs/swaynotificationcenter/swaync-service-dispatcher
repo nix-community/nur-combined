@@ -49,7 +49,7 @@ log() {
 }
 
 checkActive() {
-  systemctl is-active "$service" > /dev/null && echo true || echo false
+  systemctl is-active "$service" >/dev/null && echo true || echo false
 }
 startService() {
   log "startService: $service"
@@ -67,10 +67,10 @@ main() {
       ;;
     (toggle)
       case "$(checkActive)" in
-        false)
+        (false)
           startService
           ;;
-        true)
+        (true)
           stopService
           ;;
       esac

@@ -1,25 +1,32 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.nix;
 in
 {
   sane.programs.nix = {
-    configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options.packageSet = mkOption {
-          default = pkgs.lixPackageSets.latest;
+    configOption =
+      with lib;
+      mkOption {
+        default = { };
+        type = types.submodule {
+          options.packageSet = mkOption {
+            default = pkgs.lixPackageSets.latest;
+          };
         };
       };
-    };
     packageUnwrapped = cfg.config.packageSet.nix or cfg.config.packageSet.lix;
-    # packageUnwrapped = pkgs.nixVersions.latest; #< XXX(2025-03-17): sometimes `nixVersions.latest` fails to eval T_T
+    # packageUnwrapped = pkgs.nixVersions.latest; # XXX(2025-03-17): sometimes `nixVersions.latest` fails to eval T_T
     # packageUnwrapped = pkgs.nix.overrideAttrs (_: {
     #   # ship debug info, used by gdb (/run/current-system/sw/lib/debug)
     #   separateDebugInfo = true;
     # });
-    sandbox.method = null;  #< TODO: sandbox ?
-    env.NIXPKGS_ALLOW_UNFREE = "1";  #< FUCK OFF YOU'RE SO ANNOYING
+    sandbox.method = null; # TODO: sandbox ?
+    env.NIXPKGS_ALLOW_UNFREE = "1"; # FUCK OFF YOU'RE SO ANNOYING
 
     # XXX(2025-12-21): set `env.NIX_PATH` instead of `nix.nixPath` as the latter applies to the daemon as well;
     # only the former allows `NIX_PATH= nix-build ...` to actually do a build w/o overlays.
@@ -47,9 +54,7 @@ in
   };
 
   # TODO: move the rest of the nix program config out of hosts/common/nix.nix, to here?
-  nix.package = lib.mkIf cfg.enabled (
-    cfg.package
-  );
+  nix.package = lib.mkIf cfg.enabled cfg.package;
 
   # environment.sessionVariables = lib.mkIf cfg.enabled {
   #   # XXX(2025-12-21): nixpkgs forcibly assigns `NIX_PATH = config.nix.nixPath` if `config.nix.enable` is true.

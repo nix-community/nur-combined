@@ -3,14 +3,13 @@
   buildUBoot,
   crust-firmware-pinephone,
 }:
-
-(buildUBoot {
+buildUBoot {
   defconfig = "pinephone_defconfig";
   filesToInstall = [
-    "u-boot"  #< ELF file
-    "u-boot.bin"  #< raw binary, load it into RAM and jump to it
-    "u-boot-sunxi-with-spl.bin"  #< this is what Tow-Boot releases appear to be
-    "u-boot.cfg"  #< copy of Kconfig which this u-boot was compiled with
+    "u-boot" # ELF file
+    "u-boot.bin" # raw binary, load it into RAM and jump to it
+    "u-boot-sunxi-with-spl.bin" # this is what Tow-Boot releases appear to be
+    "u-boot.cfg" # copy of Kconfig which this u-boot was compiled with
     "u-boot.dtb"
     "u-boot.map"
     "u-boot-nodtb.bin"
@@ -36,10 +35,9 @@
   #   #   hash = "sha256-64pFPYDZPTkIjmqQiqrPTxbK5b7TlKTZ3R0Ufe2+w+s=";
   #   # })
   # ];
-}).overrideAttrs (base: {
   # postPatch = (base.postPatch or "") + ''
   #   substituteInPlace configs/pinephone_defconfig \
   #     --replace 'CONFIG_DEFAULT_DEVICE_TREE="sun50i-a64-pinephone-1.2"' 'CONFIG_DEFAULT_DEVICE_TREE="sun50i-a64-pinephone-1.2b"' \
   #     --replace 'CONFIG_OF_LIST="sun50i-a64-pinephone-1.1 sun50i-a64-pinephone-1.2"' 'CONFIG_OF_LIST="sun50i-a64-pinephone-1.1 sun50i-a64-pinephone-1.2b"'
   # '';
-})
+}

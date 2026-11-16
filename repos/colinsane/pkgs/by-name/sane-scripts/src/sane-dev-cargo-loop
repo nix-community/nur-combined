@@ -6,8 +6,7 @@
 set -eu
 
 external_cmd="cargo build --all"
-if [ -n "$1" ]
-then
+if [ -n "$1" ]; then
   external_cmd=$1
 fi
 
@@ -26,8 +25,7 @@ $external_cmd
 inotifywait --monitor --recursive \
   --timefmt '%d/%m/%y %H:%M' --format '%T %w %f' \
   -e modify ./ |
-while read -r date time dir file
-do
-  tput reset
-  $external_cmd
-done
+  while read -r date time dir file; do
+    tput reset
+    $external_cmd
+  done

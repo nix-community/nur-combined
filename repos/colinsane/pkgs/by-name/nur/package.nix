@@ -23,22 +23,28 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-859Epq6BKEzaC8nI3KbMwLFdSkh2AUXGOB3jALwIRPg=";
   };
 
-  passthru = let
-    nurOutputs = import finalAttrs.src {
-      nurpkgs = pkgs;
-      pkgs = pkgs;
+  passthru =
+    let
+      nurOutputs = import finalAttrs.src {
+        inherit pkgs;
+        nurpkgs = pkgs;
+      };
+    in
+    nurOutputs
+    // {
+      unlocked = callPackage ./unlocked.nix {
+        nur = finalAttrs.finalPackage;
+      };
+      updateScript = updater-tools.requireAll [
+        update-guard.weekly
+        (nix-update-script {
+          extraArgs = [
+            "--version"
+            "branch"
+          ];
+        })
+      ];
     };
-  in nurOutputs // {
-    unlocked = callPackage ./unlocked.nix {
-      nur = finalAttrs.finalPackage;
-    };
-    updateScript = updater-tools.requireAll [
-      update-guard.weekly
-      (nix-update-script {
-        extraArgs = [ "--version" "branch" ];
-      })
-    ];
-  };
 
   meta = {
     documentation = "https://nur.nix-community.org/documentation";

@@ -22,7 +22,7 @@ let
     after = toUnitNames depends;
     wantedBy = (toUnitNames dependencyOf) ++ (toUnitNames partOf);
     before = (toUnitNames dependencyOf) ++ (toUnitNames partOf);
-    unitConfig.X-OnlyManualStart = lib.mkDefault true;  #< NixOS attribute, so we don't start the service or target on deploy if it wasn't previously running
+    unitConfig.X-OnlyManualStart = lib.mkDefault true;  # NixOS attribute, so we don't start the service or target on deploy if it wasn't previously running
   };
   mkSystemdService = userName: userConfig: _serviceName: {
     # description,
@@ -40,7 +40,7 @@ let
   }: lib.mkMerge [
     {
       # serviceConfig.BoundBy = toUnitNames partOf;
-      # serviceConfig.Restart = restartCondition;  #< not allowed for `oneshot` types
+      # serviceConfig.Restart = restartCondition;  # not allowed for `oneshot` types
 
       serviceConfig.KillMode = if reapChildren then
         "control-group"  # (default)
@@ -51,7 +51,7 @@ let
       serviceConfig.User = userName;
       serviceConfig.Group = "users";
       serviceConfig.WorkingDirectory = "~";
-      serviceConfig.X-RestartIfChanged = lib.mkDefault false;  #< NixOS attribute, so we don't restart the DE on activation
+      serviceConfig.X-RestartIfChanged = lib.mkDefault false;  # NixOS attribute, so we don't restart the DE on activation
 
       serviceConfig.ExecSearchPath = [
         "/etc/profiles/per-user/${userName}/bin"
@@ -74,15 +74,15 @@ let
     (lib.mkIf (command != null && readiness.waitCommand == null) {
       serviceConfig.Type = "simple";
       serviceConfig.Restart = restartCondition;
-      startLimitIntervalSec = 0;  #< disable restart limit
+      startLimitIntervalSec = 0;  # disable restart limit
       serviceConfig.ExecStart = command;
     })
     (lib.mkIf (command != null && readiness.waitCommand != null) {
       serviceConfig.Type = "notify";
       serviceConfig.Restart = restartCondition;
-      startLimitIntervalSec = 0;  #< disable restart limit
-      # serviceConfig.NotifyAccess = "exec";  #< allow anything in Exec* to invoke systemd-notify
-      serviceConfig.NotifyAccess = "all";  #< allow anything in Exec* to invoke systemd-notify
+      startLimitIntervalSec = 0;  # disable restart limit
+      # serviceConfig.NotifyAccess = "exec";  # allow anything in Exec* to invoke systemd-notify
+      serviceConfig.NotifyAccess = "all";  # allow anything in Exec* to invoke systemd-notify
       script = ''
         isReady() {
           echo "checking readiness..."
@@ -118,7 +118,7 @@ let
     })
     (lib.mkIf (cleanupCommand != null) {
       serviceConfig.ExecStopPost = cleanupCommand;
-      serviceConfig.TimeoutStopSec = "30s";  #< system-wide default is closer to 10s, but eg25-control-powered takes longer than that
+      serviceConfig.TimeoutStopSec = "30s";  # system-wide default is closer to 10s, but eg25-control-powered takes longer than that
     })
   ];
 

@@ -16,7 +16,7 @@
 #       one must install it as a "plugin", which can be done through the UI.
 { config, lib, pkgs, ... }:
 
-# lib.mkIf false  #< XXX(2024-11-17): disabled because it hasn't been working for months; web UI hangs on load, TVs see no files
+# lib.mkIf false  # XXX(2024-11-17): disabled because it hasn't been working for months; web UI hangs on load, TVs see no files
 {
   config = lib.mkIf (config.sane.maxBuildCost >= 2) {
     # https://jellyfin.org/docs/general/networking/index.html
@@ -53,7 +53,7 @@
     sane.persist.sys.byStore.ephemeral = [
       { user = "jellyfin"; group = "jellyfin"; mode = "0700"; path = "/var/cache/jellyfin/transcodes"; method = "bind"; }
       { user = "jellyfin"; group = "jellyfin"; mode = "0700"; path = "/var/lib/jellyfin/log"; method = "bind"; }
-      { user = "jellyfin"; group = "jellyfin"; mode = "0700"; path = "/var/lib/jellyfin/transcodes"; method = "bind"; }  #< XXX(2025-12-28): is this an old directory (moved to /var/cache)?
+      { user = "jellyfin"; group = "jellyfin"; mode = "0700"; path = "/var/lib/jellyfin/transcodes"; method = "bind"; }  # XXX(2025-12-28): is this an old directory (moved to /var/cache)?
     ];
 
     services.jellyfin.enable = true;

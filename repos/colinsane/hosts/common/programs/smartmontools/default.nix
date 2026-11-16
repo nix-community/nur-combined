@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.smartmontools;
   usePostfix = config.services.postfix.enable;
@@ -6,7 +11,7 @@ in
 {
   sane.programs.smartmontools = {
     # use like `sudo smartctl /dev/sda -a`
-    sandbox.wrapperType = "inplace";  # ships a script in /etc that calls into its bin
+    sandbox.wrapperType = "inplace"; # ships a script in /etc that calls into its bin
     sandbox.autodetectCliPaths = "existing";
     sandbox.capabilities = [ "sys_rawio" ];
     sandbox.tryKeepUsers = true;
@@ -49,18 +54,18 @@ in
 
   users.users.smartd = lib.mkIf cfg.enabled {
     isSystemUser = true;
-    group = "disk";  # for access to /dev/sd*
-    extraGroups = [ "postdrop" ];  # for mail delivery
+    group = "disk"; # for access to /dev/sd*
+    extraGroups = [ "postdrop" ]; # for mail delivery
   };
   systemd.services.smartd = lib.mkIf cfg.enabled {
     # hardening options (`systemd-analyze security smartd`)
     serviceConfig.User = "smartd";
     serviceConfig.AmbientCapabilities = [
-      "CAP_SYS_ADMIN"  #< only needed for nvme devices
+      "CAP_SYS_ADMIN" # only needed for nvme devices
       "CAP_SYS_RAWIO"
     ];
     serviceConfig.CapabilityBoundingSet = [
-      "CAP_SYS_ADMIN"  #< only needed for nvme devices
+      "CAP_SYS_ADMIN" # only needed for nvme devices
       "CAP_SYS_RAWIO"
     ];
     serviceConfig.NoNewPrivileges = true;
@@ -86,7 +91,7 @@ in
     serviceConfig.ProtectKernelTunables = true;
     serviceConfig.ProtectProc = "invisible";
     serviceConfig.ProtectSystem = "strict";
-    serviceConfig.RestrictAddressFamilies = [ "AF_UNIX" ];  # AF_UNIX required for systemd to know the service has started
+    serviceConfig.RestrictAddressFamilies = [ "AF_UNIX" ]; # AF_UNIX required for systemd to know the service has started
     serviceConfig.RestrictRealtime = true;
     serviceConfig.RestrictSUIDSGID = true;
     serviceConfig.SystemCallArchitectures = "native";

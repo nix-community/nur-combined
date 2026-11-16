@@ -23,7 +23,7 @@ in
       # "::1"
     ];
 
-    networking.resolvconf.useLocalResolver = false;  #< we manage resolvconf explicitly, above
+    networking.resolvconf.useLocalResolver = false;  # we manage resolvconf explicitly, above
     networking.resolvconf.extraConfig = ''
       # DNS serviced by `knot-resolver` recursive resolver
       name_servers='127.0.0.1'
@@ -74,12 +74,12 @@ in
       # hardening (systemd-analyze security knot-resolver)
       # upstream .service file sets AmbientCapabilities, CapabilityBoundingSet
       serviceConfig.LockPersonality = true;
-      # serviceConfig.MemoryDenyWriteExecute = true;  #< XXX(2025-12-27): required
+      # serviceConfig.MemoryDenyWriteExecute = true;  # XXX(2025-12-27): required
       serviceConfig.NoNewPrivileges = true;
       serviceConfig.PrivateDevices = true;
       serviceConfig.PrivateMounts = true;
       serviceConfig.PrivateTmp = true;
-      # serviceConfig.PrivateUsers = true;  #< XXX(2025-12-27): required
+      # serviceConfig.PrivateUsers = true;  # XXX(2025-12-27): required
       serviceConfig.ProcSubset = "pid";
       serviceConfig.ProtectClock = true;
       serviceConfig.ProtectControlGroups = true;
@@ -97,7 +97,7 @@ in
       serviceConfig.SystemCallArchitectures = "native";
       serviceConfig.SystemCallFilter = [
         "@system-service"
-        # "~@privileged"  #< XXX(2025-12-27): required
+        # "~@privileged"  # XXX(2025-12-27): required
         "~@resources"
       ];
     };

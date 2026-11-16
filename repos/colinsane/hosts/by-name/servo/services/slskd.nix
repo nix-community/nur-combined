@@ -24,7 +24,7 @@
 
   sane.ports.ports."50300" = {
     protocol = [ "tcp" ];
-    # visibleTo.ovpns = true;  #< not needed: it runs in the ovpns namespace
+    # visibleTo.ovpns = true;  # not needed: it runs in the ovpns namespace
     description = "colin-soulseek";
   };
 
@@ -85,14 +85,14 @@
     # hardening (systemd-analyze security slskd)
     # upstream nixpkgs specifies moderate defaults; these are supplementary
     serviceConfig.CapabilityBoundingSet = "";
-    # serviceConfig.MemoryDenyWriteExecute = true;  #< XXX 2025-12-02: required
+    # serviceConfig.MemoryDenyWriteExecute = true;  # XXX 2025-12-02: required
     serviceConfig.ProcSubset = "pid";
     serviceConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
     serviceConfig.SystemCallArchitectures = "native";
     serviceConfig.SystemCallFilter = [
       "@system-service"
       "~@privileged"
-      # "~@resources"  #< XXX 2025-12-02: required
+      # "~@resources"  # XXX 2025-12-02: required
     ];
   };
 }

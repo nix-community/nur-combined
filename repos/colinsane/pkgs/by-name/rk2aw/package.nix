@@ -1,7 +1,8 @@
 {
   fetchurl,
   linkFarmFromDrvs,
-}: (linkFarmFromDrvs "rk2aw" [
+}:
+(linkFarmFromDrvs "rk2aw" [
   (fetchurl {
     name = "README";
     url = "https://xff.cz/kernels/rk2aw/rk2aw-rk3399-pinephone-pro/README";
@@ -38,7 +39,8 @@
     url = "https://xff.cz/kernels/rk2aw/rk2aw-rk3399-pinephone-pro/rk2aw-spi-flasher";
     hash = "sha256-knYWVuplkHVyU/w6ftfpO+MCLMFNIWX6jO8wdqBsIC0=";
   })
-]).overrideAttrs {
-  meta.description = ''rk2aw loader program can be used on various modern Rockchip SoCs to change apparent boot ROM bootloader load order from original and inflexible "SPI NOR flash -> eMMC -> SD card" to "SD card -> eMMC -> SPI NOR flash" and to implement robust, seamless A/B bootloader updates in SPI NOR flash with user selectable fallback (via a pre-boot menu)'';
-  meta.homepage = "https://xnux.eu/rk2aw/";
-}
+]).overrideAttrs
+  {
+    meta.description = ''rk2aw loader program can be used on various modern Rockchip SoCs to change apparent boot ROM bootloader load order from original and inflexible "SPI NOR flash -> eMMC -> SD card" to "SD card -> eMMC -> SPI NOR flash" and to implement robust, seamless A/B bootloader updates in SPI NOR flash with user selectable fallback (via a pre-boot menu)'';
+    meta.homepage = "https://xnux.eu/rk2aw/";
+  }

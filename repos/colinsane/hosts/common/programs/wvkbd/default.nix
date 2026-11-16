@@ -9,7 +9,7 @@
     });
 
     sandbox.whitelistWayland = true;
-    sandbox.mesaCacheDir = ".cache/wvkbd/mesa";  # TODO: is this the correct app-id?
+    sandbox.mesaCacheDir = ".cache/wvkbd/mesa"; # TODO: is this the correct app-id?
 
     env.KEYBOARD = "wvkbd-mobintl";
 
@@ -36,8 +36,8 @@
         # - georgian
         "WVKBD_LANDSCAPE_LAYERS=landscape,special,emoji"
         "WVKBD_LAYERS=full,special,emoji"
-        "WVKBD_HEIGHT=216"  #< default: 250 (pixels)
-        # "WVKBD_LANDSCAPE_HEIGHT=??"  #< default: 120 (pixels)
+        "WVKBD_HEIGHT=216" # default: 250 (pixels)
+        # "WVKBD_LANDSCAPE_HEIGHT=??"  # default: 120 (pixels)
         # more settings tunable inside config.h when compiling:
         # - KBD_KEY_BORDER = 2
         "wvkbd-mobintl"

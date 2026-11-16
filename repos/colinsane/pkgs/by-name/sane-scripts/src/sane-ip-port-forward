@@ -2,7 +2,7 @@
 #!nix-shell -i python3 ../../../.. -A static-nix-shell.mkPython3 --arg packages 'ps: [ ps.inetutils ps.miniupnpc ps.python3 ps.sane-scripts.lib.ssdp ]'
 # vim: set filetype=python :
 
-USAGE = '''
+USAGE = """
 USAGE: sane-ip-port-forward [options] [proto:port[:desc]]*
 
 options:
@@ -15,7 +15,7 @@ proto:port[:desc]:
   proto is `udp` or `tcp` (case insensitive)
   port is any integer 1-65535 inclusive
   desc is some public description of the port forward (for humans trying to understand a network config)
-'''
+"""
 
 DEFAULT_LEASE_SEC = 86400
 
@@ -30,6 +30,7 @@ from sane_ssdp import get_any_wan, forward_port
 
 logger = logging.getLogger(__name__)
 
+
 class Usage(Exception):
     def __init__(self, msg: str = None):
         helpstr = USAGE.format(DEFAULT_LEASE_SEC=DEFAULT_LEASE_SEC).strip()
@@ -40,12 +41,14 @@ class Usage(Exception):
             super().__init__(helpstr)
             self.exit_ = 0
 
+
 @dataclass
 class PortForward:
     proto: str  # udp or tcp
     port: int
     external_port: int  # usually same as `port`
     description: str
+
 
 def try_parse_port(s: str) -> Optional[PortForward]:
     """
@@ -59,9 +62,10 @@ def try_parse_port(s: str) -> Optional[PortForward]:
 
     def split_at_colon(s_: str) -> Tuple[str, str]:
         next_colon = s_.find(":")
-        return s_[:next_colon], s_[next_colon+1:]
+        return s_[:next_colon], s_[next_colon + 1 :]
 
-    if ":" not in s: return  # invalid format
+    if ":" not in s:
+        return  # invalid format
     proto, rest = split_at_colon(s)
 
     if ":" in rest:
@@ -70,7 +74,7 @@ def try_parse_port(s: str) -> Optional[PortForward]:
         portstr = rest
         rest = ""
 
-    if ":" in rest and all(c in "0123456789" for c in rest[:rest.find(":")]):
+    if ":" in rest and all(c in "0123456789" for c in rest[: rest.find(":")]):
         external_portstr, rest = split_at_colon(rest)
     else:
         external_portstr = ""
@@ -78,12 +82,19 @@ def try_parse_port(s: str) -> Optional[PortForward]:
     desc = rest
 
     try:
-        proto, port, external_port = proto.lower(), int(portstr), int(external_portstr or portstr)
+        proto, port, external_port = (
+            proto.lower(),
+            int(portstr),
+            int(external_portstr or portstr),
+        )
         assert proto in ["tcp", "udp"]
         assert 0 < port < 65536
-        return PortForward(proto=proto, port=port, external_port=external_port, description=desc)
+        return PortForward(
+            proto=proto, port=port, external_port=external_port, description=desc
+        )
     except Exception:
         pass
+
 
 def parse_args(argv: List[str]) -> List[PortForward]:
     """
@@ -115,7 +126,8 @@ def parse_args(argv: List[str]) -> List[PortForward]:
             raise Usage(f"invalid CLI argument: {arg!r}")
     return forwards, duration
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     logging.basicConfig()
 
     try:
@@ -128,4 +140,12 @@ if __name__ == '__main__':
 
     root_device, lan, _wan = get_any_wan(cached=True)
     for f in forwards:
-        forward_port(root_device, f.proto, f.port, f.external_port, lan_ip=lan, reason=f.description, duration=duration)
+        forward_port(
+            root_device,
+            f.proto,
+            f.port,
+            f.external_port,
+            lan_ip=lan,
+            reason=f.description,
+            duration=duration,
+        )

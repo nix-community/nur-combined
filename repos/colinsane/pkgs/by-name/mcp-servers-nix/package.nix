@@ -19,23 +19,27 @@ let
     inherit src;
   };
   overlay = flake.overlays.default;
-  packages = let
-    self = pkgs.extend overlay;
-  in
+  packages =
+    let
+      self = pkgs.extend overlay;
+    in
     overlay self pkgs;
-in src.overrideAttrs (base: {
+in
+src.overrideAttrs (base: {
   # attributes required by update scripts.
   # the main output of this derivation is `pkgs.mcp-servers-nix.flake.outputs`.
+  inherit src version;
   pname = "mcp-servers-nix";
-  src = src;
-  version = version;
 
   passthru = base.passthru // {
     inherit flake overlay packages;
     updateScript = updater-tools.requireAll [
       (update-guard.days 2)
       (nix-update-script {
-        extraArgs = [ "--version" "branch" ];
+        extraArgs = [
+          "--version"
+          "branch"
+        ];
       })
     ];
   };

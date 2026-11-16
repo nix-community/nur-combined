@@ -69,7 +69,7 @@ let
   };
 
 in
-rustPlatform.buildRustPackage (finalAttrs: {
+rustPlatform.buildRustPackage {
   inherit pname src version;
 
   cargoHash = "sha256-iMTd+hIuhcjiZWyWrVJDSNBIP+JgbCyS3I7YjQ1emDw=";
@@ -107,7 +107,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     typescript
   ];
   buildInputs = [
-    glib-networking  # else "TLS is not available"
+    glib-networking # else "TLS is not available"
     openssl
     webkitgtk_4_1
   ];
@@ -122,4 +122,4 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ colinsane ];
   };
-})
+}

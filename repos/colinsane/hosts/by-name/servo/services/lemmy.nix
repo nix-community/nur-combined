@@ -123,7 +123,7 @@ in {
       # TODO: upstream into nixpkgs
       serviceConfig.LockPersonality = true;
       serviceConfig.NoNewPrivileges = true;
-      # serviceConfig.MemoryDenyWriteExecute = true;  #< it uses v8, JIT
+      # serviceConfig.MemoryDenyWriteExecute = true;  # it uses v8, JIT
       serviceConfig.PrivateDevices = true;
       serviceConfig.PrivateMounts = true;
       serviceConfig.PrivateTmp = true;

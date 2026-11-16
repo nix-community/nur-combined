@@ -7,7 +7,12 @@
 #
 # it creates a config dir, `~/.config/com.jeffser.Alpaca`, but apparently empty.
 # the actual config (and chat state) is held in a relatively simple sqlite database.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   # deskoHostname = if config.networking.hostName == "desko" then
   #   "127.0.0.1"
@@ -54,96 +59,105 @@ let
     title_model = null;
     url = llamaCppHost;
   };
-  defaultDb = pkgs.runCommand "alpaca-default-db" {
-    nativeBuildInputs = with pkgs; [
-      sqlite
-    ];
-  } ''
-    set -x
-    # schema taken from <repo:jeffser/Alpaca:src/sql_manager.py>
-    cat <<EOF >> create.sql
-    CREATE TABLE instance (
-      id TEXT NOT NULL PRIMARY KEY,
-      pinned INTEGER NOT NULL,
-      type TEXT NOT NULL,
-      properties TEXT NOT NULL
-    );
-    CREATE TABLE online_instance_model_list (
-      id TEXT NOT NULL PRIMARY KEY,
-      list TEXT NOT NULL
-    );
-    INSERT INTO instance (id, pinned, type, properties) VALUES (
-      '${llamaCppInstanceId}',
-      0,
-      '${llamaCppType}',
-      '${builtins.toJSON llamaCppProperties}'
-    );
-    INSERT INTO online_instance_model_list (id, list) VALUES (
-      '${llamaCppInstanceId}',
-      '${builtins.toJSON llamaCppModels}'
-    );
-    EOF
-    sqlite3 alpaca.db "$(cat create.sql)"
+  defaultDb =
+    pkgs.runCommand "alpaca-default-db"
+      {
+        nativeBuildInputs = with pkgs; [
+          sqlite
+        ];
+      }
+      ''
+        set -x
+        # schema taken from <repo:jeffser/Alpaca:src/sql_manager.py>
+        cat <<EOF >> create.sql
+        CREATE TABLE instance (
+          id TEXT NOT NULL PRIMARY KEY,
+          pinned INTEGER NOT NULL,
+          type TEXT NOT NULL,
+          properties TEXT NOT NULL
+        );
+        CREATE TABLE online_instance_model_list (
+          id TEXT NOT NULL PRIMARY KEY,
+          list TEXT NOT NULL
+        );
+        INSERT INTO instance (id, pinned, type, properties) VALUES (
+          '${llamaCppInstanceId}',
+          0,
+          '${llamaCppType}',
+          '${builtins.toJSON llamaCppProperties}'
+        );
+        INSERT INTO online_instance_model_list (id, list) VALUES (
+          '${llamaCppInstanceId}',
+          '${builtins.toJSON llamaCppModels}'
+        );
+        EOF
+        sqlite3 alpaca.db "$(cat create.sql)"
 
-    mkdir $out
-    cp alpaca.db $out
-  '';
+        mkdir $out
+        cp alpaca.db $out
+      '';
 in
 {
   sane.programs.alpaca = {
-    packageUnwrapped = (pkgs.alpaca.override {
-      # ollama is only added to `PATH`; since i'm using it via http, remove it here.
-      # fixes cross compilation & simplifies closure.
-      ollama = null;
-      python3Packages = pkgs.python3Packages.overrideScope (self: super: {
-        #v XXX(2025-12-07): does not cross compile (markitdown -> speechrecognition -> onnxruntime)
-        #v XXX(2026-10-06): alpaca references `markitdown.optional-dependencies.<...>` though, so plumb the attrnames.
-        markitdown = pkgs.emptyDirectory // { optional-dependencies = lib.mapAttrs (_: _: []) super.markitdown.optional-dependencies; };
-        opencv4 = null;  #< XXX(2025-10-11): doesn't cross compile. or, fails at import time: "OpenCV loader: missing configuration file: ..."
-        rembg = null;  #< XXX(2025-10-11): pulls in opencv, which doesn't cross compile; marked as optional-dependency
-        openai-whisper = null;  #< XXX(2025-10-11): doesn't cross compile; marked as optional-dependency
-        spacy-models.en_core_web_sm = null;  #< XXX(2025-10-11): doesn't cross compile; marked as optional-dependency
-        kokoro = null;  #< XXX(2025-10-11): doesn't cross compile; marked as optional-dependency
-      });
-    }).overrideAttrs (upstream: {
-      # add missing direct dependencies that were previously smuggled via
-      # one of the null'd dependencies above.
-      propagatedBuildInputs = upstream.propagatedBuildInputs ++ [
-        pkgs.python3Packages.beautifulsoup4
-      ];
+    packageUnwrapped =
+      (pkgs.alpaca.override {
+        # ollama is only added to `PATH`; since i'm using it via http, remove it here.
+        # fixes cross compilation & simplifies closure.
+        ollama = null;
+        python3Packages = pkgs.python3Packages.overrideScope (
+          _self: super: {
+            #v XXX(2025-12-07): does not cross compile (markitdown -> speechrecognition -> onnxruntime)
+            #v XXX(2026-10-06): alpaca references `markitdown.optional-dependencies.<...>` though, so plumb the attrnames.
+            markitdown = pkgs.emptyDirectory // {
+              optional-dependencies = lib.mapAttrs (_: _: [ ]) super.markitdown.optional-dependencies;
+            };
+            opencv4 = null; # XXX(2025-10-11): doesn't cross compile. or, fails at import time: "OpenCV loader: missing configuration file: ..."
+            rembg = null; # XXX(2025-10-11): pulls in opencv, which doesn't cross compile; marked as optional-dependency
+            openai-whisper = null; # XXX(2025-10-11): doesn't cross compile; marked as optional-dependency
+            spacy-models.en_core_web_sm = null; # XXX(2025-10-11): doesn't cross compile; marked as optional-dependency
+            kokoro = null; # XXX(2025-10-11): doesn't cross compile; marked as optional-dependency
+          }
+        );
+      }).overrideAttrs
+        (upstream: {
+          # add missing direct dependencies that were previously smuggled via
+          # one of the null'd dependencies above.
+          propagatedBuildInputs = upstream.propagatedBuildInputs ++ [
+            pkgs.python3Packages.beautifulsoup4
+          ];
 
-      postPatch = (upstream.postPatch or "") + ''
-        substituteInPlace data/meson.build \
-          --replace-fail \
-            "('glib-compile-schemas', required: true, disabler: true)" \
-            "('glib-compile-schemas', required: true, disabler: true, native: true)"
+          postPatch = (upstream.postPatch or "") + ''
+            substituteInPlace data/meson.build \
+              --replace-fail \
+                "('glib-compile-schemas', required: true, disabler: true)" \
+                "('glib-compile-schemas', required: true, disabler: true, native: true)"
 
-        # for nulled dependencies (above), patch so the application only errors
-        # at runtime, on first attempted use.
-        substituteInPlace src/widgets/attachments.py \
-          --replace-fail 'from markitdown'  '# from markitdown'
-        substituteInPlace src/widgets/activities/web_browser.py \
-          --replace-fail 'from markitdown'  '# from markitdown'
-        substituteInPlace src/widgets/blocks/table.py \
-          --replace-fail 'import pandas'  '# inport pandas'
+            # for nulled dependencies (above), patch so the application only errors
+            # at runtime, on first attempted use.
+            substituteInPlace src/widgets/attachments.py \
+              --replace-fail 'from markitdown'  '# from markitdown'
+            substituteInPlace src/widgets/activities/web_browser.py \
+              --replace-fail 'from markitdown'  '# from markitdown'
+            substituteInPlace src/widgets/blocks/table.py \
+              --replace-fail 'import pandas'  '# inport pandas'
 
-        substituteInPlace src/widgets/activities/camera.py \
-          --replace-fail 'import cv2,'  'import'
-      '';
+            substituteInPlace src/widgets/activities/camera.py \
+              --replace-fail 'import cv2,'  'import'
+          '';
 
-      # XXX(2026-10-18): upstream `makeWrapperArgs` expression appears to assume makeShellWrapper and fails;
-      # recreate the intent here until they fix it.
-      preFixup = (upstream.preFixup or "") + ''
-        makeWrapperArgs=("''${gappsWrapperArgs[@]}")
-      '';
+          # XXX(2026-10-18): upstream `makeWrapperArgs` expression appears to assume makeShellWrapper and fails;
+          # recreate the intent here until they fix it.
+          preFixup = (upstream.preFixup or "") + ''
+            makeWrapperArgs=("''${gappsWrapperArgs[@]}")
+          '';
 
-      passthru = (upstream.passthru or {}) // {
-        inherit defaultDb;
-      };
-    });
-    buildCost = 2;  #< liable to break cross during updates; not important enough to block deploy over
+          passthru = (upstream.passthru or { }) // {
+            inherit defaultDb;
+          };
+        });
+    buildCost = 2; # liable to break cross during updates; not important enough to block deploy over
 
-    sandbox.net = "all";  # should be `vpn.wg-home` but would require bunpen to forward ports to the host, for desko.
+    sandbox.net = "all"; # should be `vpn.wg-home` but would require bunpen to forward ports to the host, for desko.
     sandbox.whitelistWayland = true;
     sandbox.matplotlibCacheDir = ".cache/com.jeffser.Alpaca/matplotlib";
     sandbox.mesaCacheDir = ".cache/com.jeffser.Alpaca/mesa";

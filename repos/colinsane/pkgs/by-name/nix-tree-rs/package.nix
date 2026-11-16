@@ -4,7 +4,7 @@
   nix-update-script,
   rustPlatform,
 }:
-rustPlatform.buildRustPackage (finalAttrs: {
+rustPlatform.buildRustPackage {
   pname = "nix-tree-rs";
   version = "0-unstable-2025-07-26";
 
@@ -20,7 +20,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doCheck = false;
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version" "branch" ];
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
   };
 
   meta = {
@@ -28,4 +31,4 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/lonerOrz/nix-tree-rs";
     maintainers = with lib.maintainers; [ colinsane ];
   };
-})
+}

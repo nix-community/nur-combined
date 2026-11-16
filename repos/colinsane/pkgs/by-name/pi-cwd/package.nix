@@ -4,7 +4,7 @@
   mkPiExtension,
   nix-update-script,
 }:
-mkPiExtension (finalAttrs: {
+mkPiExtension {
   pname = "pi-cwd";
   version = "1.0.0";
 
@@ -18,7 +18,7 @@ mkPiExtension (finalAttrs: {
   npmDepsFetcherVersion = 2;
   npmDepsHash = "sha256-zYZWyeX/B0+UfHnnp/AXv9cFw9lJJOMH4tQVHAKmC2o=";
 
-  dontNpmBuild = true;  # package.json defines no build script
+  dontNpmBuild = true; # package.json defines no build script
 
   passthru.updateScript = nix-update-script { };
 
@@ -28,4 +28,4 @@ mkPiExtension (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ colinsane ];
   };
-})
+}

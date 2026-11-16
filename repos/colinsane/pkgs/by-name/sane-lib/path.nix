@@ -23,15 +23,17 @@ lib.makeScope newScope (self: {
 
   # removes ".." and "." components from a path component list, by evaluating them logically.
   # Type realpathArray: [ str ] -> [ str ]
-  realpathArray = arr: lib.foldl'
-    (acc: next:
-      if next == ".." then lib.init acc
-      else if next == "." then acc
-      else acc ++ [ next ]
-    )
-    []
-    arr
-    ;
+  realpathArray =
+    arr:
+    lib.foldl' (
+      acc: next:
+      if next == ".." then
+        lib.init acc
+      else if next == "." then
+        acc
+      else
+        acc ++ [ next ]
+    ) [ ] arr;
   # removes ".." and "." from a path, by evaluating them logically.
   # has the effect of also normalizing the path, in the process.
   # Type realpath: str -> str
@@ -47,27 +49,25 @@ lib.makeScope newScope (self: {
 
   # return the path from `from` to `to`, but keeping absolute form
   # e.g. `pathFrom "/home/colin" "/home/colin/foo/bar"` -> "/foo/bar"
-  from = start: end: let
-    s = self.norm start;
-    e = self.norm end;
-  in (
+  from =
+    start: end:
+    let
+      s = self.norm start;
+      e = self.norm end;
+    in
     assert self.isChild start end;
-    "/" + lib.removePrefix s e
-  );
+    "/" + lib.removePrefix s e;
 
-  isChild = parent: child:
-    lib.any
-      (p: p == self.norm parent)
-      (self.walk "/" child)
-  ;
+  isChild = parent: child: lib.any (p: p == self.norm parent) (self.walk "/" child);
 
   # yield every node between start and end, including each of the endpoints
   # e.g. walk "/foo" "/foo/bar/baz" => [ "/foo" "/foo/bar" "/foo/bar/baz" ]
   # XXX: assumes input paths are normalized
-  walk = start: end: if start == end then
-    [ start ]
-  else
-    assert end != "/";  # else there's no path from `start` to `end`!
-    (self.walk start (self.parent end)) ++ [ end ]
-  ;
+  walk =
+    start: end:
+    if start == end then
+      [ start ]
+    else
+      assert end != "/"; # else there's no path from `start` to `end`!
+      (self.walk start (self.parent end)) ++ [ end ];
 })

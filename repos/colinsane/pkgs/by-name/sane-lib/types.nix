@@ -9,7 +9,7 @@ lib.makeScope newScope (self: {
   aclMod = {
     options = {
       user = lib.mkOption {
-        type = lib.types.str;  # TODO: use uid?
+        type = lib.types.str; # TODO: use uid?
       };
       group = lib.mkOption {
         type = lib.types.str;

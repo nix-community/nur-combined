@@ -4,7 +4,7 @@ let
 in
 {
   sane.programs.libcamera = {
-    sandbox.method = null;  #< TODO: sandbox
+    sandbox.method = null; # TODO: sandbox
   };
   services.udev.extraRules = lib.mkIf cfg.enabled ''
     # libcamera (snapshot, millipixels, ...)

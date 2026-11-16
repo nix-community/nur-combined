@@ -43,7 +43,8 @@ stdenv.mkDerivation {
     # M
     # KBUILD_EXTMOD
     # KBUILD_OUTPUT
-  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+  ]
+  ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
   ];
 
@@ -70,9 +71,9 @@ stdenv.mkDerivation {
   # certain mainline drivers (rk8xx-i2c) can't be compiled as module without also compiling
   # their runtime dependencies (rk8xx-core), so i end up disabling the whole tree in Kconfig.
   passthru.moduleNames = [
-    "rk818_battery"    #< new module
-    "rk818_charger"    #< new module
-    "rk8xx-core"       #< mainline, patched
-    "rk8xx-i2c"        #< mainline, patched
+    "rk818_battery" # new module
+    "rk818_charger" # new module
+    "rk8xx-core" # mainline, patched
+    "rk8xx-i2c" # mainline, patched
   ];
 }

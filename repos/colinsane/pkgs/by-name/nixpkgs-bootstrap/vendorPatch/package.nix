@@ -2,7 +2,8 @@
   stdenv,
   vendor-patch-updater,
 }:
-{ name }@args: stdenv.mkDerivation {
+{ name }@args:
+stdenv.mkDerivation {
   inherit name;
   src = ../patches/${name}.patch;
   dontUnpack = true;

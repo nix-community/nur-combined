@@ -41,7 +41,7 @@ let
     owner = "tianocore";
     repo = "edk2-platforms";
     name = "edk2-platforms";
-    rev = "d6eb4de31701a50b26da061919565c3a3460db88";  # 2025-08-04
+    rev = "d6eb4de31701a50b26da061919565c3a3460db88"; # 2025-08-04
     hash = "sha256-mpvfQGqk+kJeJpgiKRveg3Xcsi+WZK79ERjM4U65NCM=";
   };
   # edk2-src = fetchFromGitHub {
@@ -60,7 +60,8 @@ let
   #   hash = "sha256-09D1p7xHT6rLxgdw7flT3gEWNKqxOhM2Q643t0nw9ww=";
   #   # rev = "3415f616e08a0d9c7bd264cab674929a7b0f5e33";  # 2025-08-04
   # };
-in edk2.mkDerivation "Platform/RaspberryPi/RPi4/RPi4.dsc" {
+in
+edk2.mkDerivation "Platform/RaspberryPi/RPi4/RPi4.dsc" {
   pname = "edk2-rpi4";
   inherit (edk2) version;
 
@@ -102,7 +103,7 @@ in edk2.mkDerivation "Platform/RaspberryPi/RPi4/RPi4.dsc" {
   '';
 
   buildFlags = [
-    "-DTFA_BUILD_ARTIFACTS=${armTrustedFirmwareRpi4}"  #< or, place bl31.bin at Platform/RaspberryPi/RPi4/TrustedFirmware
+    "-DTFA_BUILD_ARTIFACTS=${armTrustedFirmwareRpi4}" # or, place bl31.bin at Platform/RaspberryPi/RPi4/TrustedFirmware
     # default boot order is:
     # 1. PXEv4
     # 2. PXEv6
@@ -133,7 +134,7 @@ in edk2.mkDerivation "Platform/RaspberryPi/RPi4/RPi4.dsc" {
       edk2-platforms
       # edk2-src
       armTrustedFirmwareRpi4
-    ;
+      ;
   };
 
   meta = {

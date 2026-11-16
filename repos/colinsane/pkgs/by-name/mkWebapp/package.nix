@@ -10,12 +10,12 @@
   static-nix-shell,
 }:
 {
-  appName,  # e.g. "Kagi"
-  baseUrl,  # e.g. "https://kagi.com/
+  appName, # e.g. "Kagi"
+  baseUrl, # e.g. "https://kagi.com/
   appId ? "org.gnome.Epiphany.WebApp_${appName}",
   # .desktop fields:
-  comment ? appName,  # e.g. "Search with Kagi"
-  desktopName ? appName,  # e.g. "Search Engine"
+  comment ? appName, # e.g. "Search with Kagi"
+  desktopName ? appName, # e.g. "Search Engine"
   ...
 }@attrs:
 let
@@ -27,7 +27,7 @@ let
     "desktopName"
   ];
   epiphanyForApp = epiphany.overrideAttrs (upstream: {
-    patches = (upstream.patches or []) ++ [
+    patches = (upstream.patches or [ ]) ++ [
       # 2026-06-25: when an Epiphany webapp is invoked a second time with a URL,
       # it normally just presents the existing window and discards the URL.
       # allow the remote instance to pass its URL through to the running app.
@@ -42,57 +42,68 @@ let
     postInstall = (upstream.postInstall or "") + ''
       mv $out/bin/epiphany $out/bin/_${appId}-epiphany
     '';
-    meta = (upstream.meta or {}) // {
+    meta = (upstream.meta or { }) // {
       mainProgram = "_${appId}-epiphany";
     };
   });
 in
 # TODO: this doesn't really benefit from using static-nix-shell: port to something simpler/faster
-static-nix-shell.mkBash (extraAttrs // {
-  pname = appId;
-  src = ./src;
-  srcPath = "launcher";
-  packages = {
-    epiphany = epiphanyForApp;
-  };
-  # the `epiphany` we provide here will differ from the `epiphany` the script would see
-  # if invoked directly from the repo, like `./launcher`
-  relaxPackageConsistency = true;
+static-nix-shell.mkBash (
+  extraAttrs
+  // {
+    pname = appId;
+    src = ./src;
+    srcPath = "launcher";
+    packages = {
+      epiphany = epiphanyForApp;
+    };
+    # the `epiphany` we provide here will differ from the `epiphany` the script would see
+    # if invoked directly from the repo, like `./launcher`
+    relaxPackageConsistency = true;
 
-  nativeBuildInputs = [
-    copyDesktopItems
-  ];
-  desktopItems = [
-    (makeDesktopItem {
-      inherit comment desktopName;
-      name = appId;  # must match --profile option
-      exec = "${appId} ${baseUrl} %U";
-      terminal = false;
-      type = "Application";
-      categories = [ "Network" "WebBrowser" "GNOME" "GTK" ];
-      startupNotify = true;
-      startupWMClass = appId;
-      icon = "web-browser";
-    })
-  ];
+    nativeBuildInputs = [
+      copyDesktopItems
+    ];
+    desktopItems = [
+      (makeDesktopItem {
+        inherit comment desktopName;
+        name = appId; # must match --profile option
+        exec = "${appId} ${baseUrl} %U";
+        terminal = false;
+        type = "Application";
+        categories = [
+          "Network"
+          "WebBrowser"
+          "GNOME"
+          "GTK"
+        ];
+        startupNotify = true;
+        startupWMClass = appId;
+        icon = "web-browser";
+      })
+    ];
 
-  postPatch = ''
-    substituteInPlace launcher \
-      --replace-fail '@appId@' '${appId}' \
-      --replace-fail '@baseUrl@' '${baseUrl}' \
-      --replace-fail '@epiphany@' '${lib.getExe epiphanyForApp}' \
-  '';
+    postPatch = ''
+      substituteInPlace launcher \
+        --replace-fail '@appId@' '${appId}' \
+        --replace-fail '@baseUrl@' '${baseUrl}' \
+        --replace-fail '@epiphany@' '${lib.getExe epiphanyForApp}' \
+    '';
 
-  doInstallCheck = extraAttrs.doInstallCheck or false;  # would need xvfb
-  # preInstallCheck = ''
-  #   export HOME=$(mktemp -d)
-  # '';
+    doInstallCheck = extraAttrs.doInstallCheck or false; # would need xvfb
+    # preInstallCheck = ''
+    #   export HOME=$(mktemp -d)
+    # '';
 
-  passthru = {
-    inherit appId;
-    epiphany = epiphanyForApp;
-  } // (extraAttrs.passthru or {});
-  meta = {
-    mainProgram = appId;
-  } // (extraAttrs.meta or {});
-} // extraAttrs)
+    passthru = {
+      inherit appId;
+      epiphany = epiphanyForApp;
+    }
+    // (extraAttrs.passthru or { });
+    meta = {
+      mainProgram = appId;
+    }
+    // (extraAttrs.meta or { });
+  }
+  // extraAttrs
+)

@@ -37,7 +37,12 @@
 # usage tips:
 # - `<` or `>` to navigate prev/next-file-in-folder  (uosc)
 # - shift+enter to view the playlist, then arrow-keys to navigate (mpv-playlistmanager)
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.sane.programs.mpv;
@@ -141,7 +146,7 @@ let
     '';
   });
   mpv-gallery-view = pkgs.mpvScripts.mpv-gallery-view.overrideAttrs (upstream: {
-    patches = (upstream.patches or []) ++ [
+    patches = (upstream.patches or [ ]) ++ [
       # default behavior is like double-click thumbnail to navigate (1 click to select, 2nd click to navigate).
       # patch to be single-click.
       # TODO: send this upstream (as a script option)
@@ -190,8 +195,7 @@ let
                      end
                  end
                  bindings["WHEEL_UP"]   = function() increment_func(- gallery.geometry.columns, false) end
-        ''
-      )
+      '')
     ];
   });
   # visualizer = pkgs.mpvScripts.visualizer.overrideAttrs (upstream: {
@@ -206,51 +210,66 @@ let
 in
 {
   sane.programs.mpv = {
-    configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options = {
-          defaultProfile = mkOption {
-            type = types.enum [ "high-quality" "mid-range" "fast" ];
-            default = "mid-range";
-            description = ''
-              default mpv profile to use. this effects defaults such as:
-              - youtube stream settings.
-              - demuxer read-ahead (i.e. how much of the file/stream to read into RAM).
-              see my `mpv.conf` for details
-            '';
+    configOption =
+      with lib;
+      mkOption {
+        default = { };
+        type = types.submodule {
+          options = {
+            defaultProfile = mkOption {
+              type = types.enum [
+                "high-quality"
+                "mid-range"
+                "fast"
+              ];
+              default = "mid-range";
+              description = ''
+                default mpv profile to use. this effects defaults such as:
+                - youtube stream settings.
+                - demuxer read-ahead (i.e. how much of the file/stream to read into RAM).
+                see my `mpv.conf` for details
+              '';
+            };
           };
         };
       };
-    };
     packageUnwrapped = pkgs.mpv.override {
       mpv-unwrapped = pkgs.mpv-unwrapped.override rec {
         # N.B.: populating `self` to `lua5_2_compat` is necessary for the resulting `lua.withPackages` function to preserve my override.
         # i use enable52Compat in order to get `table.unpack`.
         # i think using `luajit` here instead of `lua5_2_compat` is optional, just i get better perf with it :)
-        lua5_2_compat = pkgs.luajit.override { enable52Compat = true; self = lua5_2_compat; };
+        lua5_2_compat = pkgs.luajit.override {
+          enable52Compat = true;
+          self = lua5_2_compat;
+        };
       };
-      scripts = let inherit (pkgs) mpvScripts; in [
-        mpvScripts.mpris
-        (mpv-gallery-view.override {
-          # mpv-gallery-view: press `g` for grid view of the playlist, with thumbnails.
-          # extraThumbgens = how many images to generate thumbnails for in parallel (+1 implied)
-          extraThumbgens = {
-            fast = 1;
-            mid-range = 7;
-            high-quality = 15;
-          }.${cfg.config.defaultProfile};
-        })
-        mpvScripts.mpv-image-viewer.image-positioning
-        mpvScripts.mpv-playlistmanager
-        mpvScripts.mpv-webm
-        mpvScripts.sane_cast
-        mpvScripts.sane_sysvol
-        mpvScripts.sponsorblock
-        uosc
-        # visualizer  #< XXX(2024-07-23): `visualizer` breaks auto-play-next-track (only when visualizations are disabled)
-        # pkgs.mpv-uosc-latest
-      ];
+      scripts =
+        let
+          inherit (pkgs) mpvScripts;
+        in
+        [
+          mpvScripts.mpris
+          (mpv-gallery-view.override {
+            # mpv-gallery-view: press `g` for grid view of the playlist, with thumbnails.
+            # extraThumbgens = how many images to generate thumbnails for in parallel (+1 implied)
+            extraThumbgens =
+              {
+                fast = 1;
+                mid-range = 7;
+                high-quality = 15;
+              }
+              .${cfg.config.defaultProfile};
+          })
+          mpvScripts.mpv-image-viewer.image-positioning
+          mpvScripts.mpv-playlistmanager
+          mpvScripts.mpv-webm
+          mpvScripts.sane_cast
+          mpvScripts.sane_sysvol
+          mpvScripts.sponsorblock
+          uosc
+          # visualizer  # XXX(2024-07-23): `visualizer` breaks auto-play-next-track (only when visualizations are disabled)
+          # pkgs.mpv-uosc-latest
+        ];
     };
 
     suggestedPrograms = [
@@ -260,16 +279,19 @@ in
       "yt-dlp"
     ];
 
-    sandbox.autodetectCliPaths = "existingDirOrParent";  #< especially for subtitle downloader; also nice for viewing albums
+    sandbox.autodetectCliPaths = "existingDirOrParent"; # especially for subtitle downloader; also nice for viewing albums
     sandbox.net = "all";
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus.user.own = [ "org.mpris.MediaPlayer2.mpv" "org.mpris.MediaPlayer2.mpv.*" ];
-    sandbox.whitelistDri = true;  #< mpv has excellent fallbacks to non-DRI, but DRI offers a good 30%-50% reduced CPU
+    sandbox.whitelistDbus.user.own = [
+      "org.mpris.MediaPlayer2.mpv"
+      "org.mpris.MediaPlayer2.mpv.*"
+    ];
+    sandbox.whitelistDri = true; # mpv has excellent fallbacks to non-DRI, but DRI offers a good 30%-50% reduced CPU
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
-      ".config/mpv"  #< else mpris plugin crashes on launch
+      ".config/mpv" # else mpris plugin crashes on launch
       ".config/yt-dlp"
-      ".local/share/applications"  #< for xdg-terminal-exec (sane-cast)
+      ".local/share/applications" # for xdg-terminal-exec (sane-cast)
       # it's common for album (or audiobook, podcast) images/lyrics/metadata to live adjacent to the primary file.
       # CLI detection is too poor to pick those up, so expose the common media dirs to the sandbox to make that *mostly* work.
       "Books/Audiobooks"
@@ -284,7 +306,7 @@ in
     sandbox.mesaCacheDir = ".cache/mpv/mesa";
 
     persist.byStore.ephemeral = [
-      ".cache/thumbnails/mpv-gallery"  # only if mpv-gallery-view is enabled
+      ".cache/thumbnails/mpv-gallery" # only if mpv-gallery-view is enabled
     ];
     persist.byStore.plaintext = [
       # for `watch_later`
@@ -307,8 +329,8 @@ in
     fs.".config/mpv/script-opts/webm.conf".symlink.target = ./webm.conf;
 
     # mime.priority = 200;  # default = 100; 200 means to yield to other apps
-    mime.priority = 50;  # default = 100; 50 in order to take precedence over vlc.
-    mime.associations."audio/amr" = "mpv.desktop";  #< GSM, e.g. voicemail files
+    mime.priority = 50; # default = 100; 50 in order to take precedence over vlc.
+    mime.associations."audio/amr" = "mpv.desktop"; # GSM, e.g. voicemail files
     mime.associations."audio/flac" = "mpv.desktop";
     mime.associations."audio/mpeg" = "mpv.desktop";
     mime.associations."audio/x-opus+ogg" = "mpv.desktop";
@@ -321,10 +343,12 @@ in
     #v be the opener for YouTube videos
     mime.urlAssociations."^https?://(m\\.)?(www\\.)?(music\\.)?youtu.be/.+$" = "mpv.desktop";
     mime.urlAssociations."^https?://(m\\.)?(www\\.)?(music\\.)?youtube.com/embed/.+$" = "mpv.desktop";
-    mime.urlAssociations."^https?://(m\\.)?(www\\.)?(music\\.)?youtube.com/playlist\\?.*list=.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\\.)?(www\\.)?(music\\.)?youtube.com/playlist\\?.*list=.+$" =
+      "mpv.desktop";
     mime.urlAssociations."^https?://(m\\.)?(www\\.)?(music\\.)?youtube.com/shorts/.+$" = "mpv.desktop";
     mime.urlAssociations."^https?://(m\\.)?(www\\.)?(music\\.)?youtube.com/v/.+$" = "mpv.desktop";
-    mime.urlAssociations."^https?://(m\\.)?(www\\.)?(music\\.)?youtube.com/watch\\?.*v=.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\\.)?(www\\.)?(music\\.)?youtube.com/watch\\?.*v=.+$" =
+      "mpv.desktop";
     mime.urlAssociations."^https?://(m\\.)?(www\\.)?facebook.com/reel/.+$" = "mpv.desktop";
     #v be the opener for Tiktok
     mime.urlAssociations."^https?://(www\\.)?tiktok.com/@.*/video/.+$" = "mpv.desktop";

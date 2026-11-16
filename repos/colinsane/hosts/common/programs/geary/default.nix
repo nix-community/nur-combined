@@ -9,32 +9,38 @@ let
 in
 {
   sane.programs."geary" = {
-    configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options.autostart = mkOption {
-          type = types.bool;
-          default = true;
+    configOption =
+      with lib;
+      mkOption {
+        default = { };
+        type = types.submodule {
+          options.autostart = mkOption {
+            type = types.bool;
+            default = true;
+          };
         };
       };
-    };
 
-    # packageUnwrapped = pkgs.geary-gtk4;  #< XXX(2026-04-01): not ready yet; quietly stops receiving mail
+    # packageUnwrapped = pkgs.geary-gtk4;  # XXX(2026-04-01): not ready yet; quietly stops receiving mail
 
     suggestedPrograms = [
       "gnome-keyring"
     ];
 
-    sandbox.wrapperType = "inplace";  #< XXX(2024-08-20): if executed from a directory different than the configured prefix, it fails to locate its sql migration files
+    sandbox.wrapperType = "inplace"; # XXX(2024-08-20): if executed from a directory different than the configured prefix, it fails to locate its sql migration files
     sandbox.net = "clearnet";
-    # sandbox.whitelistDbus.user = true;  #< N.B.: geary does its own sandboxing; uncomment if not using nesting-capable xdg-dbus-proxy.
-    sandbox.whitelistDbus.user.call."org.freedesktop.secrets" = "*";  #< TODO: restrict to a subset of secrets
+    # sandbox.whitelistDbus.user = true;  # N.B.: geary does its own sandboxing; uncomment if not using nesting-capable xdg-dbus-proxy.
+    sandbox.whitelistDbus.user.call."org.freedesktop.secrets" = "*"; # TODO: restrict to a subset of secrets
     sandbox.whitelistDbus.user.call."org.gnome.evolution.dataserver.*" = "*";
     sandbox.whitelistDbus.user.own = [ "org.gnome.Geary" ];
-    sandbox.whitelistPortal = [ "FileChooser" "OpenURI" "Print" ];  #< unsure if all these are actually used
+    sandbox.whitelistPortal = [
+      "FileChooser"
+      "OpenURI"
+      "Print"
+    ]; # unsure if all these are actually used
     sandbox.whitelistWayland = true;
-    sandbox.extraEnv.GIO_USE_NETWORK_MONITOR = "netlink";  #< required if portal NetworkMonitor isn't exposed (probably?)
-    sandbox.extraEnv.GIO_USE_PROXY_RESOLVER = "dummy";  #< required if portal NetworkMonitor isn't exposed
+    sandbox.extraEnv.GIO_USE_NETWORK_MONITOR = "netlink"; # required if portal NetworkMonitor isn't exposed (probably?)
+    sandbox.extraEnv.GIO_USE_PROXY_RESOLVER = "dummy"; # required if portal NetworkMonitor isn't exposed
     sandbox.extraHomePaths = [
       # it shouldn't need these, but portal integration seems incomplete?
       "tmp"
@@ -56,7 +62,7 @@ in
     # fs.".config/geary".dir = {};
     # fs.".local/share/folks".dir = {};
 
-    buildCost = 3;  # uses webkitgtk 4.1
+    buildCost = 3; # uses webkitgtk 4.1
     sandbox.mesaCacheDir = ".cache/geary/mesa";
     persist.byStore.private = [
       # attachments, and email -- contained in a sqlite db

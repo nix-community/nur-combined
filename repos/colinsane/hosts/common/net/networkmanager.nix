@@ -29,30 +29,30 @@
 
   # fixup the services to run as `networkmanager` and with less permissions
   systemd.services.NetworkManager = {
-    serviceConfig.RuntimeDirectory = "NetworkManager";  #< tells systemd to create /run/NetworkManager
-    # serviceConfig.StateDirectory = "NetworkManager";  #< tells systemd to create /var/lib/NetworkManager
+    serviceConfig.RuntimeDirectory = "NetworkManager";  # tells systemd to create /run/NetworkManager
+    # serviceConfig.StateDirectory = "NetworkManager";  # tells systemd to create /var/lib/NetworkManager
     serviceConfig.User = "networkmanager";
     serviceConfig.Group = "networkmanager";
     serviceConfig.AmbientCapabilities = [
-      "CAP_KILL"  #< required, else `nmcli d disconnect blah` says "Unable to determine UID of the request"
+      "CAP_KILL"  # required, else `nmcli d disconnect blah` says "Unable to determine UID of the request"
       "CAP_NET_ADMIN"
       "CAP_NET_RAW"
       "CAP_NET_BIND_SERVICE"
 
       # "CAP_DAC_OVERRIDE"
       # "CAP_SYS_MODULE"
-      # "CAP_AUDIT_WRITE"  #< allow writing to the audit log (optional)
+      # "CAP_AUDIT_WRITE"  # allow writing to the audit log (optional)
       # "CAP_KILL"
     ];
     serviceConfig.CapabilityBoundingSet = [
-      "CAP_KILL"  #< required, else `nmcli d disconnect blah` says "Unable to determine UID of the request"
+      "CAP_KILL"  # required, else `nmcli d disconnect blah` says "Unable to determine UID of the request"
       "CAP_NET_ADMIN"
-      "CAP_NET_RAW"  #< required, else `libndp: ndp_sock_open: Failed to create ICMP6 socket.`
-      "CAP_NET_BIND_SERVICE"  #< this *does* seem to be necessary, though i don't understand why. DHCP?
+      "CAP_NET_RAW"  # required, else `libndp: ndp_sock_open: Failed to create ICMP6 socket.`
+      "CAP_NET_BIND_SERVICE"  # this *does* seem to be necessary, though i don't understand why. DHCP?
 
       # "CAP_DAC_OVERRIDE"
       # "CAP_SYS_MODULE"
-      # "CAP_AUDIT_WRITE"  #< allow writing to the audit log (optional)
+      # "CAP_AUDIT_WRITE"  # allow writing to the audit log (optional)
       # "CAP_KILL"
     ];
     serviceConfig.LockPersonality = true;
@@ -61,7 +61,7 @@
     serviceConfig.PrivateDevices = true;  # remount /dev with just the basics, syscall filter to block @raw-io
     serviceConfig.PrivateIPC = true;
     serviceConfig.PrivateTmp = true;
-    # serviceConfig.PrivateUsers = true;  #< BREAKS NetworkManager (presumably, it causes a new user namespace, breaking CAP_NET_ADMIN & others).  "platform-linux: do-change-link[3]: failure 1 (Operation not permitted)"
+    # serviceConfig.PrivateUsers = true;  # BREAKS NetworkManager (presumably, it causes a new user namespace, breaking CAP_NET_ADMIN & others).  "platform-linux: do-change-link[3]: failure 1 (Operation not permitted)"
     serviceConfig.ProtectClock = true;  # syscall filter to prevent changing the RTC
     serviceConfig.ProtectControlGroups = true;
     serviceConfig.ProtectHome = true;  # makes empty: /home, /root, /run/user
@@ -102,7 +102,7 @@
     # - "/sys/class"
     # - "/sys/devices"
     # - "/var/lib/NetworkManager"
-    # - "/var/lib/hickory-dns"  #< for hickory-dns-nmhook
+    # - "/var/lib/hickory-dns"  # for hickory-dns-nmhook
     # - "/run/systemd"
   };
 
@@ -127,7 +127,7 @@
     # serviceConfig.Restart = "always";
     # serviceConfig.RestartSec = "1s";
 
-    # serviceConfig.DynamicUser = true;  #< not possible, else we lose group perms (so can't write to `hickory-dns`'s files in the nm hook)
+    # serviceConfig.DynamicUser = true;  # not possible, else we lose group perms (so can't write to `hickory-dns`'s files in the nm hook)
     serviceConfig.User = "networkmanager";  # TODO: should arguably use `DynamicUser`
     serviceConfig.Group = "networkmanager";
     serviceConfig.LockPersonality = true;
@@ -164,21 +164,21 @@
   #   # serviceConfig.PrivateDevices = true;  # untried, not likely to work. remount /dev with just the basics, syscall filter to block @raw-io
   #   serviceConfig.PrivateIPC = true;
   #   serviceConfig.PrivateTmp = true;
-  #   # serviceConfig.PrivateUsers = true;  #< untried, not likely to work
+  #   # serviceConfig.PrivateUsers = true;  # untried, not likely to work
   #   serviceConfig.ProtectClock = true;  # syscall filter to prevent changing the RTC
   #   serviceConfig.ProtectControlGroups = true;
   #   serviceConfig.ProtectHome = true;  # makes empty: /home, /root, /run/user
   #   serviceConfig.ProtectHostname = true;  # prevents changing hostname
   #   serviceConfig.ProtectKernelLogs = true;  # disable /proc/kmsg, /dev/kmsg
   #   serviceConfig.ProtectKernelModules = true;  # syscall filter to prevent module calls
-  #   serviceConfig.ProtectKernelTunables = true;  #< N.B.: i think this makes certain /proc writes fail
+  #   serviceConfig.ProtectKernelTunables = true;  # N.B.: i think this makes certain /proc writes fail
   #   serviceConfig.ProtectSystem = "strict";  # makes read-only: all but /dev, /proc, /sys.
   #   serviceConfig.RestrictAddressFamilies = [
-  #     "AF_INET"  #< required
+  #     "AF_INET"  # required
   #     "AF_INET6"
-  #     "AF_NETLINK"  #< required
-  #     "AF_PACKET"  #< required
-  #     "AF_UNIX"  #< required (wpa_supplicant wants to use dbus)
+  #     "AF_NETLINK"  # required
+  #     "AF_PACKET"  # required
+  #     "AF_UNIX"  # required (wpa_supplicant wants to use dbus)
   #   ];
   #   serviceConfig.RestrictSUIDSGID = true;
   #   serviceConfig.SystemCallArchitectures = "native";  # prevents e.g. aarch64 syscalls in the event that the kernel is multi-architecture.
@@ -197,13 +197,13 @@
     # keyfile.path = where networkmanager should look for connection credentials
     keyfile.path = "/var/lib/NetworkManager/system-connections";
 
-    # wifi.backend = "wpa_supplicant";  #< default
-    # wifi.scan-rand-mac-address = true;  #< default
+    # wifi.backend = "wpa_supplicant";  # default
+    # wifi.scan-rand-mac-address = true;  # default
 
-    # logging.audit = false;  #< default
+    # logging.audit = false;  # default
     logging.level = "INFO";
 
-    # main.dhcp = "internal";  #< default
+    # main.dhcp = "internal";  # default
     # main.dns controls what to do when NM gets a DNS server via DHCP
     # - "default": NM manages /etc/resolv.conf itself.
     # - "none": NM doesn't manage /etc/resolv.conf, but does populate /run/NetworkManager/resolv.conf with DHCP settings

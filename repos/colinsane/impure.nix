@@ -39,7 +39,7 @@ let
     configuration = {
       imports = [
         ./hosts/by-name/${name}
-        nixpkgs.pkgs.sops-nix.nixosModules.sops  #< XXX should be `pkgs` from module arg, not `nixpkgs`.
+        nixpkgs.pkgs.sops-nix.nixosModules.sops  # XXX should be `pkgs` from module arg, not `nixpkgs`.
       ];
 
       sane.hostVariant = lib.mkIf (variant != null) variant;
@@ -99,7 +99,7 @@ let
       plainHost = evalHost args';
     in {
       inherit (plainHost) config options pkgs;
-      inherit (plainHost.system) drvPath name outputName outPath type;  #< support `nix-build -A hosts.FOO`
+      inherit (plainHost.system) drvPath name outputName outPath type;  # support `nix-build -A hosts.FOO`
       inherit (plainHost.config.sane) fs;
       inherit (plainHost.config.system.build) img;
       programs = builtins.mapAttrs (_: p: p.package) plainHost.config.sane.programs;

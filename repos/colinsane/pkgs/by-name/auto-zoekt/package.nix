@@ -8,7 +8,10 @@
 let
   zoekt' = zoekt.overrideAttrs (prevAttrs: {
     # XXX(2026-08-01): build a more recent version than nixpkgs ships so that it works on git-cinnabar repos
-    version = lib.warnIf (lib.versionOlder "0-unstable-2026-07-29" prevAttrs.version) "zoekt outdated: remove override?" "0-unstable-2026-07-29";
+    version =
+      lib.warnIf (lib.versionOlder "0-unstable-2026-07-29" prevAttrs.version)
+        "zoekt outdated: remove override?"
+        "0-unstable-2026-07-29";
     src = prevAttrs.src.overrideAttrs {
       rev = "2cb19912a4073e5a9895658b7cb135ee4b35733b";
       hash = "sha256-unNxPyfnx7uzHKUnM7JbSSueUU361MueR3XiTqr7UHc=";

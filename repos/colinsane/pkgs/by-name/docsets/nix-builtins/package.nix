@@ -11,17 +11,23 @@ let
   # this is a json dictionary with each entry like:
   #   "abort": { "args": [ "s" ], "doc": "Abort Nix expression evaluation and print the error message *s*." }
 
-  builtins-locations = runCommand "nix-locations.json" {
-    preferLocalBuild = true;
-    nativeBuildInputs = [ jq nix ];
-  } ''
-    mkdir $out
-    nix __dump-language | jq . > $out/locations.json
-  '';
+  builtins-locations =
+    runCommand "nix-locations.json"
+      {
+        preferLocalBuild = true;
+        nativeBuildInputs = [
+          jq
+          nix
+        ];
+      }
+      ''
+        mkdir $out
+        nix __dump-language | jq . > $out/locations.json
+      '';
 
   docset = stdenvNoCC.mkDerivation {
+    inherit (nix) version;
     pname = "nix-builtins";
-    version = nix.version;
 
     nativeBuildInputs = [ make-docset-index ];
 
@@ -54,4 +60,4 @@ let
     };
   };
 in
-  docset
+docset

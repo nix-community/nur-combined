@@ -41,7 +41,7 @@
   incoming-im-known-app-name = {
     # trigger notification sound on behalf of these IM clients.
     app-name = "(Chats|Dino|discord|dissent|Element|Fractal)";
-    body = "^(?!Incoming call).*$";  #< don't match Dino Incoming calls
+    body = "^(?!Incoming call).*$"; # don't match Dino Incoming calls
     exec = "swaync-fbcli start proxied-message-new-instant";
   };
   incoming-im-known-desktop-entry = {

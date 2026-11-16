@@ -26,7 +26,8 @@ let
   #   rev = "e3bf558ff63d002d3c15f2ce966071f04fada306";
   #   sha256 = "sha256-dSRZ2ToEOPhzHNvlG8qdewa7689gT8cNB7nXkN3/Avo=";
   # };
-in stdenvNoCC.mkDerivation {
+in
+stdenvNoCC.mkDerivation {
   inherit pname src version;
 
   yarnOfflineCache = fetchYarnDeps {
@@ -72,7 +73,7 @@ in stdenvNoCC.mkDerivation {
     "clipboardRead"
     "clipboardWrite"
     "nativeMessaging"
-    # "notifications"  #< remove `notifications` perm, else it spams info for where to file bug reports, etc, on first launch
+    # "notifications"  # remove `notifications` perm, else it spams info for where to file bug reports, etc, on first launch
     "scripting"
     "storage"
     "webRequest"

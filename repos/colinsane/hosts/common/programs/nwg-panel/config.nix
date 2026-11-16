@@ -20,11 +20,11 @@
 }:
 [
   {
+    inherit height;
     controls = "right";
     css-name = "panel-top";
     exclusive-zone = true;
-    height = height;
-    homogeneous = false;  #< homogenous=false means to not force modules-{left,center,right} to an inflexible 33%/33%/33% real-estate split.
+    homogeneous = false; # homogenous=false means to not force modules-{left,center,right} to an inflexible 33%/33%/33% real-estate split.
     icons = "light";
     items-padding = 0;
     layer = "bottom";
@@ -78,16 +78,16 @@
       tooltip-text = "%a; %d %b  %H:%M:%S";
     };
     controls-settings = {
-      battery-low-interval = 4;  #< notify every N minutes when battery continues to remain low
-      battery-low-level = 15;  #< notify if battery is lower than this percent
-      # commands.battery = "";  #< optional action to perform when battery icon is clicked in the drop-down menu
+      battery-low-interval = 4; # notify every N minutes when battery continues to remain low
+      battery-low-level = 15; # notify if battery is lower than this percent
+      # commands.battery = "";  # optional action to perform when battery icon is clicked in the drop-down menu
       components = controlsSettingsComponents;
       click-closes = false;
       custom-items = controlsSettingsCustomItems;
       css-name = "controls-window";
       hover-opens = false;
       icon-size = 16;
-      interval = 60;  #< volume/brightness refresh. when dropdown is revealed, this is forced to 500ms.
+      interval = 60; # volume/brightness refresh. when dropdown is revealed, this is forced to 500ms.
       leave-closes = false;
       menu.icon = "system-shutdown-symbolic";
       menu.items = [
@@ -113,7 +113,7 @@
         }
       ];
       menu.name = "Exit";
-      output-switcher = true;  #< allow changing the default audio sink
+      output-switcher = true; # allow changing the default audio sink
       #v `show-<x>` means "show the NUMERICAL VALUE corresponding to <x>"
       #  e.g. show-battery means "show the battery _percentage_ next to its icon".
       show-battery = true;
@@ -132,7 +132,7 @@
       interval = 2;
       label-css-name = "playerctl-label";
       scroll = false;
-      show-cover = false;  #< don't show the little music-note icon
+      show-cover = false; # don't show the little music-note icon
       show-previous = mediaPrevNext;
       show-next = mediaPrevNext;
       show-name = mediaPrevNext;
@@ -152,8 +152,8 @@
     };
     sway-workspaces = {
       angle = 0.0;
-      custom-labels = [];
-      focused-labels = [];
+      custom-labels = [ ];
+      focused-labels = [ ];
       hide-empty = workspaceHideEmpty;
       image-size = 16;
       mark-autotiling = true;
@@ -180,16 +180,15 @@
     };
 
     # unused modules:
-    brightness-slider = {};
-    dwl-tags = {};
-    hyprland-taskbar = {};
-    hyprland-workspaces = {};
-    keyboard-layout = {};
-    openweather = {};
-    scratchpad = {};
-    sway-mode = {};
-    sway-taskbar = {}; #< windows-style taskbar, usually placed at the bottom of the screen, to show open windows & tab to them on click
-    tray = {};
+    brightness-slider = { };
+    dwl-tags = { };
+    hyprland-taskbar = { };
+    hyprland-workspaces = { };
+    keyboard-layout = { };
+    openweather = { };
+    scratchpad = { };
+    sway-mode = { };
+    sway-taskbar = { }; # windows-style taskbar, usually placed at the bottom of the screen, to show open windows & tab to them on click
+    tray = { };
   }
 ]
-

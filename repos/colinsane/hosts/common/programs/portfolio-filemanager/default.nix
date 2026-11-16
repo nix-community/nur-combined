@@ -31,7 +31,7 @@
       "/mnt/moby"
       "/mnt/servo"
       # "nix"
-      "/run/media"  # for mounted devices
+      "/run/media" # for mounted devices
       "/tmp"
       "/var"
     ];
@@ -40,11 +40,11 @@
     #   "gvfs"
     #   "gvfsd"
     # ];
-    sandbox.mesaCacheDir = ".cache/portfolio/mesa";  # TODO: is this the correct app-id?
+    sandbox.mesaCacheDir = ".cache/portfolio/mesa"; # TODO: is this the correct app-id?
 
-    # suggestedPrograms = [ "gvfs" ];  #< TODO: fix (ftp:// share, USB drive browsing)
+    # suggestedPrograms = [ "gvfs" ];  # TODO: fix (ftp:// share, USB drive browsing)
 
-    mime.priority = 160;  #< default is 100, so higher means we fall-back to other apps that might be more specialized
+    mime.priority = 160; # default is 100, so higher means we fall-back to other apps that might be more specialized
     mime.associations = {
       "inode/directory" = "dev.tchx84.Portfolio.desktop";
     };

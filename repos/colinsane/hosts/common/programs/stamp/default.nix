@@ -34,21 +34,23 @@
 #   just edit the keyring file with vim, and choose any secret id (`[99]`) not in use.
 # - `systemctl start gnome-keyring`
 # - `systemctl start stamp`
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   cfg = config.sane.programs."stamp";
 in
 {
   sane.programs.stamp = {
-    configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options.autostart = mkOption {
-          type = types.bool;
-          default = true;
+    configOption =
+      with lib;
+      mkOption {
+        default = { };
+        type = types.submodule {
+          options.autostart = mkOption {
+            type = types.bool;
+            default = true;
+          };
         };
       };
-    };
 
     # packageUnwrapped = pkgs.stamp.overrideAttrs (prevAttrs:
     #   lib.warnIf (lib.versionOlder "0-unstable-2026-11-12" prevAttrs.version) "new stamp release: drop override?"
@@ -73,17 +75,17 @@ in
     # });
 
     sandbox.net = "clearnet";
-    sandbox.whitelistDbus.user.call."org.freedesktop.secrets" = "*";  #< TODO: restrict to a subset of secrets
+    sandbox.whitelistDbus.user.call."org.freedesktop.secrets" = "*"; # TODO: restrict to a subset of secrets
     sandbox.whitelistDbus.user.call."org.gnome.evolution.dataserver.*" = "*";
     sandbox.whitelistDbus.user.own = [ "org.tabos.stamp" ];
     sandbox.whitelistPortal = [
-      "FileChooser"  #< likely unused
+      "FileChooser" # likely unused
       "OpenURI"
     ];
     sandbox.whitelistSendNotifications = true;
     sandbox.whitelistWayland = true;
-    sandbox.extraEnv.GIO_USE_NETWORK_MONITOR = "netlink";  #< required if portal NetworkMonitor isn't exposed (probably?)
-    sandbox.extraEnv.GIO_USE_PROXY_RESOLVER = "dummy";  #< required if portal NetworkMonitor isn't exposed
+    sandbox.extraEnv.GIO_USE_NETWORK_MONITOR = "netlink"; # required if portal NetworkMonitor isn't exposed (probably?)
+    sandbox.extraEnv.GIO_USE_PROXY_RESOLVER = "dummy"; # required if portal NetworkMonitor isn't exposed
 
     sandbox.extraHomePaths = [
       # it shouldn't need these, but portal integration seems incomplete?
@@ -123,10 +125,14 @@ in
     fs.".config/evolution/sources/stamp-colin_uninsane_org-transport.source".symlink.target =
       ./stamp-colin_uninsane_org-transport.source;
 
-    secrets.".config/evolution/sources/stamp-02-account.source" = ../../../../secrets/common/stamp/stamp-02-account.source.bin;
-    secrets.".config/evolution/sources/stamp-02-collection.source" = ../../../../secrets/common/stamp/stamp-02-collection.source.bin;
-    secrets.".config/evolution/sources/stamp-02-identity.source" = ../../../../secrets/common/stamp/stamp-02-identity.source.bin;
-    secrets.".config/evolution/sources/stamp-02-transport.source" = ../../../../secrets/common/stamp/stamp-02-transport.source.bin;
+    secrets.".config/evolution/sources/stamp-02-account.source" =
+      ../../../../secrets/common/stamp/stamp-02-account.source.bin;
+    secrets.".config/evolution/sources/stamp-02-collection.source" =
+      ../../../../secrets/common/stamp/stamp-02-collection.source.bin;
+    secrets.".config/evolution/sources/stamp-02-identity.source" =
+      ../../../../secrets/common/stamp/stamp-02-identity.source.bin;
+    secrets.".config/evolution/sources/stamp-02-transport.source" =
+      ../../../../secrets/common/stamp/stamp-02-transport.source.bin;
 
     services.stamp = {
       description = "stamp email client";

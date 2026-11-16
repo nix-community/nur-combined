@@ -36,123 +36,171 @@
 # - staging-next: if testing stuff that's been PR'd into staging, i.e. base library updates.
 # - staging: maybe if no staging-next -> master PR has been cut yet?
 {
-#VVV these may or may not be available when called. VVV
+  #VVV these may or may not be available when called. VVV
   applyPatches ? null,
   fetchzip ? null,
   nixpkgs-bootstrap-updater ? null,
   stdenv ? null,
   vendorPatch ? null,
-#VVV config
+  #VVV config
   localSystem ? {
-    system = if stdenv != null then stdenv.buildPlatform.system else builtins.currentSystem;  #< not available in pure mode
+    system = if stdenv != null then stdenv.buildPlatform.system else builtins.currentSystem; # not available in pure mode
   },
 }:
 let
   # inlined from <repo:nixos/nixpkgs:lib/attrsets.nix>
-  filterAttrs = pred: set: removeAttrs set (builtins.filter (name: !pred name set.${name}) (builtins.attrNames set));
-  optionalAttrs = cond: attrs: if cond then attrs else {};
+  filterAttrs =
+    pred: set:
+    removeAttrs set (builtins.filter (name: !pred name set.${name}) (builtins.attrNames set));
+  optionalAttrs = cond: attrs: if cond then attrs else { };
 
   # nixpkgs' update-source-version (updateScript) calculates the new hash for a `src` by specifying this hardcoded bogus hash and then attempting to realize it.
   sentinelSha256 = "sha256-AzH1rZFqEH8sovZZfJykvsEmCedEZWigQFHWHl6/PdE=";
-  fetchBootstrap = { url, pname, version, ... }@args: {
-    # N.B. `outPath` is a special attr name which nix consults when coercing an attrset to a string.
-    outPath = fetchTarball ({
-      inherit url;
-      name = if version != "" then "${pname}-${version}" else pname;
-    } // (
-      removeAttrs args [ "url" "pname" "version" ]
-    ));
-    inherit pname version;
-  };
-
-  mkNixpkgs = {
-    branch,
-    rev ? "",
-    sha256 ? "",
-    version ? "",
-  }@args: let
-    url = "https://github.com/NixOS/nixpkgs/archive/${rev}.tar.gz";
-    pname = "nixpkgs-${branch}";
-    commonNixpkgsArgs = {
-      inherit localSystem;
-      # reset impurities
-      config = {};
-      overlays = [];
-    };
-    # first, fetch the unpatched nixpkgs src:
-    src' = if fetchzip != null then
-      fetchzip { inherit url pname version sha256; }
-    else if sha256 != "" && sha256 != sentinelSha256 then
-      # fetch nixpkgs using `builtins.fetchTarball`.
-      # a proper bootstrap would be to return `(import (fetchBootstrap src) {}).fetchzip src`.
-      # this would be more immune to bugs like <https://github.com/NixOS/nixpkgs/pull/404702#issuecomment-2861798821>,
-      # however it would force an extra eval of nixpkgs for _every_ user invocation of `nix`.
-      fetchBootstrap { inherit url pname version sha256; }
-    else
-      # we don't know the hash for our nixpkgs.
-      # likely that an updateScript is running, and attempting to discover the new hash.
-      # then, use an impure bootstrap to fetch nixpkgs, and then invoke that nixpkgs' `fetchzip`.
-      # this is expected to fail, however by failing inside a nixpkgs' fetcher, we allow the updateScript to complete.
-      let
-        impureNixpkgsSrc = fetchBootstrap { inherit url pname version; };
-        impureNixpkgs = import impureNixpkgsSrc commonNixpkgsArgs;
-      in
-        impureNixpkgs.fetchzip { inherit url pname version sha256; }
-    ;
-
-    unpatchedNixpkgs = import src' commonNixpkgsArgs;
-
-    applyPatches' = if applyPatches != null then applyPatches else unpatchedNixpkgs.applyPatches;
-    stdenv' = if stdenv != null then stdenv else unpatchedNixpkgs.stdenv;
-    vendorPatch' = if vendorPatch != null then vendorPatch else import ./vendorPatch/package.nix { stdenv = stdenv'; vendor-patch-updater = null; };
-
-    srcMeta = (src'.meta or {}) // {
-      position = let
-        position = builtins.unsafeGetAttrPos "rev" args;
-      in
-        "${position.file}:${toString position.line}";
+  fetchBootstrap =
+    {
+      url,
+      pname,
+      version,
+      ...
+    }@args:
+    {
+      # N.B. `outPath` is a special attr name which nix consults when coercing an attrset to a string.
+      outPath = fetchTarball (
+        {
+          inherit url;
+          name = if version != "" then "${pname}-${version}" else pname;
+        }
+        // (removeAttrs args [
+          "url"
+          "pname"
+          "version"
+        ])
+      );
+      inherit pname version;
     };
 
-    patchesScope = import ./patches/package.nix { vendorPatch = vendorPatch'; };
-    patches = filterAttrs (name: value: value.type or null == "derivation") patchesScope;
-
-    patchedSrc = applyPatches' {
-      name = "nixpkgs-${branch}-sane";
-      inherit version;
-
-      src = {
-        # required by unstableGitUpdater
-        gitRepoUrl = "https://github.com/NixOS/nixpkgs.git";
-        inherit rev;
-      } // src' // {
-        meta = srcMeta;
-        passthru = (src'.passthru or {}) // {
-          # required so that unstableGitUpdater can know in which file the `rev` variable can be updated in:
-          # N.B.: declare `meta` in passthru instead of toplevel, so that it takes precedence over the default calculated by `mkDerivation`/`applyPatches`
-          meta = srcMeta;
-          # for convenience:
-          pkgs = import patchedSrc commonNixpkgsArgs;
-          inherit unpatchedNixpkgs;
-          unpatchedSrc = src';
-          patches = patches;
-        } // optionalAttrs (nixpkgs-bootstrap-updater != null) {
-          updateScript = nixpkgs-bootstrap-updater.makeUpdateScript {
-            inherit branch;
+  mkNixpkgs =
+    {
+      branch,
+      rev ? "",
+      sha256 ? "",
+      version ? "",
+    }@args:
+    let
+      url = "https://github.com/NixOS/nixpkgs/archive/${rev}.tar.gz";
+      pname = "nixpkgs-${branch}";
+      commonNixpkgsArgs = {
+        inherit localSystem;
+        # reset impurities
+        config = { };
+        overlays = [ ];
+      };
+      # first, fetch the unpatched nixpkgs src:
+      src' =
+        if fetchzip != null then
+          fetchzip {
+            inherit
+              url
+              pname
+              version
+              sha256
+              ;
+          }
+        else if sha256 != "" && sha256 != sentinelSha256 then
+          # fetch nixpkgs using `builtins.fetchTarball`.
+          # a proper bootstrap would be to return `(import (fetchBootstrap src) {}).fetchzip src`.
+          # this would be more immune to bugs like <https://github.com/NixOS/nixpkgs/pull/404702#issuecomment-2861798821>,
+          # however it would force an extra eval of nixpkgs for _every_ user invocation of `nix`.
+          fetchBootstrap {
+            inherit
+              url
+              pname
+              version
+              sha256
+              ;
+          }
+        else
+          # we don't know the hash for our nixpkgs.
+          # likely that an updateScript is running, and attempting to discover the new hash.
+          # then, use an impure bootstrap to fetch nixpkgs, and then invoke that nixpkgs' `fetchzip`.
+          # this is expected to fail, however by failing inside a nixpkgs' fetcher, we allow the updateScript to complete.
+          let
+            impureNixpkgsSrc = fetchBootstrap { inherit url pname version; };
+            impureNixpkgs = import impureNixpkgsSrc commonNixpkgsArgs;
+          in
+          impureNixpkgs.fetchzip {
+            inherit
+              url
+              pname
+              version
+              sha256
+              ;
           };
-        };
+
+      unpatchedNixpkgs = import src' commonNixpkgsArgs;
+
+      applyPatches' = if applyPatches != null then applyPatches else unpatchedNixpkgs.applyPatches;
+      stdenv' = if stdenv != null then stdenv else unpatchedNixpkgs.stdenv;
+      vendorPatch' =
+        if vendorPatch != null then
+          vendorPatch
+        else
+          import ./vendorPatch/package.nix {
+            stdenv = stdenv';
+            vendor-patch-updater = null;
+          };
+
+      srcMeta = (src'.meta or { }) // {
+        position =
+          let
+            position = builtins.unsafeGetAttrPos "rev" args;
+          in
+          "${position.file}:${toString position.line}";
       };
 
-      patches = builtins.attrValues patches;
-      # skip applied patches
-      prePatch = ''
-        realpatch=$(command -v patch)
-        patch() {
-           OUT=$($realpatch "$@") || echo "$OUT" | grep "Skipping patch" -q
+      patchesScope = import ./patches/package.nix { vendorPatch = vendorPatch'; };
+      patches = filterAttrs (_: value: value.type or null == "derivation") patchesScope;
+
+      patchedSrc = applyPatches' {
+        name = "nixpkgs-${branch}-sane";
+        inherit version;
+
+        src = {
+          # required by unstableGitUpdater
+          gitRepoUrl = "https://github.com/NixOS/nixpkgs.git";
+          inherit rev;
         }
-      '';
-    };
-  in
-    patchedSrc
-  ;
+        // src'
+        // {
+          meta = srcMeta;
+          passthru =
+            (src'.passthru or { })
+            // {
+              inherit patches unpatchedNixpkgs;
+              # required so that unstableGitUpdater can know in which file the `rev` variable can be updated in:
+              # N.B.: declare `meta` in passthru instead of toplevel, so that it takes precedence over the default calculated by `mkDerivation`/`applyPatches`
+              meta = srcMeta;
+              # for convenience:
+              pkgs = import patchedSrc commonNixpkgsArgs;
+              unpatchedSrc = src';
+            }
+            // optionalAttrs (nixpkgs-bootstrap-updater != null) {
+              updateScript = nixpkgs-bootstrap-updater.makeUpdateScript {
+                inherit branch;
+              };
+            };
+        };
+
+        patches = builtins.attrValues patches;
+        # skip applied patches
+        prePatch = ''
+          realpatch=$(command -v patch)
+          patch() {
+             OUT=$($realpatch "$@") || echo "$OUT" | grep "Skipping patch" -q
+          }
+        '';
+      };
+    in
+    patchedSrc;
 in
-  mkNixpkgs
+mkNixpkgs

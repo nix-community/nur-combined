@@ -13,6 +13,7 @@
 makeSetupHook {
   name = "cargo-docset-hook";
   propagatedBuildInputs = [
-    cargo cargo-docset
+    cargo
+    cargo-docset
   ];
 } ./hook.sh

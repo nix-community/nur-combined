@@ -21,7 +21,12 @@
 #     - it's loaded by default. i can either provide a custom pipewire.conf which doesn't load it, or adjust its config so that it intentionally fails.
 #     - without rtkit working, pipewire's module-rt doesn't allow niceness < -11. adjusting `nice`ness here seems to have little effect anyway.
 # - longer term, rtkit (or just rlimit based pipewire module-rt) would be cool to enable: it *does* reduce underruns.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.pipewire;
 in
@@ -31,19 +36,21 @@ in
   ];
 
   sane.programs.pipewire = {
-     configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options.min-quantum = mkOption {
-          type = types.int;
-          default = 16;
-        };
-        options.max-quantum = mkOption {
-          type = types.int;
-          default = 2048;
+    configOption =
+      with lib;
+      mkOption {
+        default = { };
+        type = types.submodule {
+          options.min-quantum = mkOption {
+            type = types.int;
+            default = 16;
+          };
+          options.max-quantum = mkOption {
+            type = types.int;
+            default = 2048;
+          };
         };
       };
-    };
 
     packageUnwrapped = pkgs.pipewire.override {
       # disabling systemd causes pipewire to be built with direct udev support instead.
@@ -64,10 +71,10 @@ in
     # therefore, user bus should be all that's needed, but...
     # xdg-desktop-portal-wlr depends on pipewire, hence pipewire has to start before xdg-desktop-portal.
     # then, pipewire has to talk specifically to rtkit (system) and not go through xdp.
-    # "system"  #< not required UNLESS i want rtkit integration
-    sandbox.whitelistDbus.user = true;  #< required for camera sharing, especially through xdg-desktop-portal, e.g. `snapshot` application  (TODO: reduce)
-    sandbox.wrapperType = "inplace";  #< its config files refer to its binaries by full path
-    sandbox.keepPidsAndProc = true;  #< TODO: why?
+    # "system"  # not required UNLESS i want rtkit integration
+    sandbox.whitelistDbus.user = true; # required for camera sharing, especially through xdg-desktop-portal, e.g. `snapshot` application  (TODO: reduce)
+    sandbox.wrapperType = "inplace"; # its config files refer to its binaries by full path
+    sandbox.keepPidsAndProc = true; # TODO: why?
     sandbox.whitelistAvDev = true;
     sandbox.capabilities = [
       # if rtkit isn't present, and sandboxing is via landlock, these capabilities allow pipewire to claim higher scheduling priority
@@ -103,7 +110,8 @@ in
     '';
     # fs.".config/pipewire/pipewire.conf.d/20-augmented-mic.conf".symlink.target = ./20-augmented-mic.conf;
     fs.".config/pipewire/pipewire.conf.d/20-mic-effects.conf".symlink.target = ./20-mic-effects.conf;
-    fs.".config/pipewire/pipewire.conf.d/20-spatializer-7.1.conf".symlink.target = ./20-spatializer-7.1.conf;
+    fs.".config/pipewire/pipewire.conf.d/20-spatializer-7.1.conf".symlink.target =
+      ./20-spatializer-7.1.conf;
     fs.".config/pipewire/pipewire.conf.d/20-virtual-sink.conf".symlink.target = ./20-virtual-sink.conf;
 
     # reduce realtime scheduling priority to prevent GPU instability,
@@ -163,8 +171,8 @@ in
         PIPEWIRE_DEBUG=3 exec nice -n -21 pipewire
       '';
       readiness.waitExists = [
-        ''''${PIPEWIRE_RUNTIME_DIR}/pipewire-0''
-        ''''${PIPEWIRE_RUNTIME_DIR}/pipewire-0-manager''
+        "\${PIPEWIRE_RUNTIME_DIR}/pipewire-0"
+        "\${PIPEWIRE_RUNTIME_DIR}/pipewire-0-manager"
       ];
       cleanupCommand = ''rm -f "''${PIPEWIRE_RUNTIME_DIR}/{pipewire-0,pipewire-0.lock,pipewire-0-manager,pipewire-0-manager.lock}"'';
     };
@@ -177,8 +185,8 @@ in
         exec nice -n -21 pipewire-pulse
       '';
       readiness.waitExists = [
-        ''''${XDG_RUNTIME_DIR}/pulse/native''
-        ''''${XDG_RUNTIME_DIR}/pulse/pid''
+        "\${XDG_RUNTIME_DIR}/pulse/native"
+        "\${XDG_RUNTIME_DIR}/pulse/pid"
       ];
       cleanupCommand = ''rm -f "''${XDG_RUNTIME_DIR}/pulse/{native,pid}"'';
     };
@@ -200,7 +208,8 @@ in
     '';
 
     "alsa/conf.d/50-pipewire.conf".source = "${cfg.package}/share/alsa/alsa.conf.d/50-pipewire.conf";
-    "alsa/conf.d/99-pipewire-default.conf".source = "${cfg.package}/share/alsa/alsa.conf.d/99-pipewire-default.conf";
+    "alsa/conf.d/99-pipewire-default.conf".source =
+      "${cfg.package}/share/alsa/alsa.conf.d/99-pipewire-default.conf";
   };
 
   services.udev.packages = lib.mkIf cfg.enabled [

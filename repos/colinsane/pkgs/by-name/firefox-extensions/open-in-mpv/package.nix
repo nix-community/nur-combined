@@ -1,5 +1,5 @@
 {
-  pkgs,  # for outer `open-in-mpv`
+  pkgs, # for outer `open-in-mpv`
   stdenvNoCC,
   wrapFirefoxAddonsHook,
   zip,

@@ -6,10 +6,10 @@ let
   patched = fuse3.overrideAttrs (upstream: {
     outputs = upstream.outputs ++ [ "sane" ];
     defaultOutput = "sane";
-    patches = (upstream.patches or []) ++ [
+    patches = (upstream.patches or [ ]) ++ [
       ./pass_fuse_fd.patch
     ];
-    nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+    nativeBuildInputs = (upstream.nativeBuildInputs or [ ]) ++ [
       makeBinaryWrapper
     ];
     # wrap so that it looks for mount helpers in /run/current-system/sw/bin,
@@ -22,7 +22,7 @@ let
       ln -s $bin/bin/mount.fuse3 $bin/bin/mount.fuse3.sane
       moveToOutput bin/mount.fuse3.sane "$sane"
     '';
-    meta = (upstream.meta or {}) // {
+    meta = (upstream.meta or { }) // {
       mainProgram = "mount.fuse3.sane";
       description = ''
         provides `mount.fuse3.sane`, which behaves identically to `mount.fuse3` except
@@ -38,4 +38,5 @@ let
       '';
     };
   });
-in patched.sane
+in
+patched.sane

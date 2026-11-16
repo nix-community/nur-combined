@@ -4,7 +4,7 @@
   mkPiExtension,
   nix-update-script,
 }:
-mkPiExtension (finalAttrs: {
+mkPiExtension {
   pname = "pi-vim";
   version = "0.1.4-unstable-2026-07-08";
 
@@ -18,7 +18,7 @@ mkPiExtension (finalAttrs: {
   npmDepsFetcherVersion = 2;
   npmDepsHash = "sha256-OnqJOisa+0Sz0ls7JTxeGcTjU9diXXoABLcTpZqbzLI=";
 
-  dontNpmBuild = true;  # package.json defines no build script
+  dontNpmBuild = true; # package.json defines no build script
 
   passthru.updateScript = nix-update-script { };
 
@@ -28,4 +28,4 @@ mkPiExtension (finalAttrs: {
     maintainers = with lib.maintainers; [ colinsane ];
     license = lib.licenses.mit;
   };
-})
+}

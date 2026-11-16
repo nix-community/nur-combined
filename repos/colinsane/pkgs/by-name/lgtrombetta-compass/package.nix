@@ -13,7 +13,8 @@
   stdenv,
   versionCheckHook,
   wrapGAppsHook3,
-}: stdenv.mkDerivation (finalAttrs: {
+}:
+stdenv.mkDerivation (finalAttrs: {
   pname = "lgtrombetta-compass";
   version = "0.4.0";
 
@@ -26,10 +27,10 @@
 
   nativeBuildInputs = [
     desktop-file-utils # for update-desktop-database
-    gettext  # for msgfmt
-    glib  # for glib-compile-resources
-    gobject-introspection  # for setup-hook that populates GI_TYPELIB_PATH
-    gtk3  # for gtk-update-icon-cache
+    gettext # for msgfmt
+    glib # for glib-compile-resources
+    gobject-introspection # for setup-hook that populates GI_TYPELIB_PATH
+    gtk3 # for gtk-update-icon-cache
     meson
     ninja
     python3
@@ -38,7 +39,7 @@
   ];
 
   buildInputs = [
-    glib  # for gio
+    glib # for gio
     gtk3
     libhandy
     python3

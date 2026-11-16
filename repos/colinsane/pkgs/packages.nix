@@ -7,55 +7,54 @@
   lib,
   linuxPackages,
   mpvScripts,
-  vimPlugins,
+  # vimPlugins,
   newScope,
-#--- optionals, if you want to support cross compilation ---
-  pkgsBuildBuild ? {},
-  pkgsBuildHost ? {},
-  pkgsBuildTarget ? {},
-  pkgsHostHost ? {},
-  pkgsHostTarget ? {},
-  pkgsTargetTarget ? {},
+  #--- optionals, if you want to support cross compilation ---
+  pkgsBuildBuild ? { },
+  pkgsBuildHost ? { },
+  pkgsBuildTarget ? { },
+  pkgsHostHost ? { },
+  pkgsHostTarget ? { },
+  pkgsTargetTarget ? { },
   ...
 }:
 lib.recurseIntoAttrs (
-  lib.makeScope newScope (self:
-  let
-    sane = import ./unfixed.nix {
-      inherit (self) callPackage newScope;
-      inherit lib;
-      otherSplices = lib.mapAttrs
-        (_: pkgs: lib.optionalAttrs (pkgs ? lib) (import ./packages.nix pkgs))
-        {
+  lib.makeScope newScope (
+    self:
+    let
+      sane = import ./unfixed.nix {
+        inherit (self) callPackage newScope;
+        inherit lib;
+        otherSplices = lib.mapAttrs (_: pkgs: lib.optionalAttrs (pkgs ? lib) (import ./packages.nix pkgs)) {
           selfBuildBuild = pkgsBuildBuild;
           selfBuildHost = pkgsBuildHost;
           selfBuildTarget = pkgsBuildTarget;
           selfHostHost = pkgsHostHost;
           selfHostTarget = pkgsHostTarget;
           selfTargetTarget = pkgsTargetTarget;
-        }
-      ;
-    };
-  in
-    sane // {
+        };
+      };
+    in
+    sane
+    // {
       linuxPackages =
-      let
-        linuxPackagesAll = linuxPackages.extend (linuxFinal: _linuxPrev:
-          sane.linuxPackages.packages linuxFinal
-        );
-      in
-        sane.linuxPackages.overrideScope (_linuxFinal: _linuxPrev:
-          sane.linuxPackages.packages linuxPackagesAll
+        let
+          linuxPackagesAll = linuxPackages.extend (
+            linuxFinal: _linuxPrev: sane.linuxPackages.packages linuxFinal
+          );
+        in
+        sane.linuxPackages.overrideScope (
+          _linuxFinal: _linuxPrev: sane.linuxPackages.packages linuxPackagesAll
         );
 
       mpvScripts =
-      let
-        mpvScriptsAll = mpvScripts.overrideScope (mpvScriptsFinal: _mpvScriptsPrev:
-          sane.mpvScripts.packages mpvScriptsFinal
-        );
-      in
-        sane.mpvScripts.overrideScope (_mpvScriptsFinal: _mpvScriptsPrev:
-          sane.mpvScripts.packages mpvScriptsAll
+        let
+          mpvScriptsAll = mpvScripts.overrideScope (
+            mpvScriptsFinal: _mpvScriptsPrev: sane.mpvScripts.packages mpvScriptsFinal
+          );
+        in
+        sane.mpvScripts.overrideScope (
+          _mpvScriptsFinal: _mpvScriptsPrev: sane.mpvScripts.packages mpvScriptsAll
         );
 
       # vimPlugins = ...  # XXX(2026-04-20): not needed because nixpkgs `vimPlugins` is an attrset, not a scope

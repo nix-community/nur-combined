@@ -43,7 +43,13 @@ stdenv.mkDerivation (finalAttrs: {
   postFixup = ''
     patchShebangs $out/bin/nixpkgs-whereis
     wrapProgram $out/bin/nixpkgs-whereis \
-      --prefix PATH : ${lib.makeBinPath [ nix coreutils fish ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          nix
+          coreutils
+          fish
+        ]
+      }
   '';
 
   passthru.tests.version = testers.testVersion {

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.firefox.config;
 in
@@ -45,7 +50,7 @@ in
       #   enable = lib.mkDefault config.services.i2p.enable;
       # };
       i-still-dont-care-about-cookies = {
-        enable = lib.mkDefault false;  #< obsoleted by uBlock Origin annoyances/cookies lists
+        enable = lib.mkDefault false; # obsoleted by uBlock Origin annoyances/cookies lists
       };
       kagi-search = {
         enable = lib.mkDefault true;
@@ -79,33 +84,37 @@ in
     };
 
     # uBlock configuration:
-    fs.".mozilla/managed-storage/uBlock0@raymondhill.net.json".symlink.target = cfg.addons.ublock-origin.package.makeConfig {
-      # more filter lists are available here:
-      # - <https://easylist.to>
-      #   - <https://github.com/easylist/easylist.git>
-      # - <https://github.com/yokoffing/filterlists>
-      filterFiles = let
-        getUasset = n: "${pkgs.uassets}/share/filters/${n}.txt";
-      in [
-        # default ublock filters:
-        (getUasset "ublock-filters")
-        (getUasset "ublock-badware")
-        (getUasset "ublock-privacy")
-        (getUasset "ublock-quick-fixes")
-        (getUasset "ublock-unbreak")
-        (getUasset "easylist")
-        (getUasset "easyprivacy")
-        # (getUasset "urlhaus-1")  #< TODO: i think this is the same as urlhaus-filter-online
-        (getUasset "urlhaus-filter-online")
-        # (getUasset "plowe-0")   #< TODO: where does this come from?
-        # (getUasset "ublock-cookies-adguard")  #< TODO: where does this come from?
-        # filters i've added:
-        (getUasset "easylist-annoyances")  #< blocks in-page popups, "social media content" (e.g. FB like button; improves loading time)
-        (getUasset "easylist-cookies")  #< blocks GDPR cookie consent popovers (e.g. at stackoverflow.com)
-        # (getUasset "ublock-annoyances-others")
-        # (getUasset "ublock-annoyances-cookies")
-      ];
-    };
+    fs.".mozilla/managed-storage/uBlock0@raymondhill.net.json".symlink.target =
+      cfg.addons.ublock-origin.package.makeConfig
+        {
+          # more filter lists are available here:
+          # - <https://easylist.to>
+          #   - <https://github.com/easylist/easylist.git>
+          # - <https://github.com/yokoffing/filterlists>
+          filterFiles =
+            let
+              getUasset = n: "${pkgs.uassets}/share/filters/${n}.txt";
+            in
+            [
+              # default ublock filters:
+              (getUasset "ublock-filters")
+              (getUasset "ublock-badware")
+              (getUasset "ublock-privacy")
+              (getUasset "ublock-quick-fixes")
+              (getUasset "ublock-unbreak")
+              (getUasset "easylist")
+              (getUasset "easyprivacy")
+              # (getUasset "urlhaus-1")  # TODO: i think this is the same as urlhaus-filter-online
+              (getUasset "urlhaus-filter-online")
+              # (getUasset "plowe-0")   # TODO: where does this come from?
+              # (getUasset "ublock-cookies-adguard")  # TODO: where does this come from?
+              # filters i've added:
+              (getUasset "easylist-annoyances") # blocks in-page popups, "social media content" (e.g. FB like button; improves loading time)
+              (getUasset "easylist-cookies") # blocks GDPR cookie consent popovers (e.g. at stackoverflow.com)
+              # (getUasset "ublock-annoyances-others")
+              # (getUasset "ublock-annoyances-cookies")
+            ];
+        };
 
     fs.".mozilla/managed-storage/default-zoom@uninsane.org.json".symlink.text = ''
       {

@@ -11,18 +11,20 @@ let
 in
 {
   sane.programs.schlock = {
-    configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options.autolock = mkOption {
-          type = types.bool;
-          default = true;
-          description = ''
-            integrate with things like `swayidle` to auto-lock when appropriate.
-          '';
+    configOption =
+      with lib;
+      mkOption {
+        default = { };
+        type = types.submodule {
+          options.autolock = mkOption {
+            type = types.bool;
+            default = true;
+            description = ''
+              integrate with things like `swayidle` to auto-lock when appropriate.
+            '';
+          };
         };
       };
-    };
 
     sandbox.whitelistWayland = true;
     sandbox.mesaCacheDir = ".cache/schlock/mesa";

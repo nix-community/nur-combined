@@ -14,24 +14,28 @@ let
   # nixpkgs has logic to build an attrset of all the items which make it into nixpkgs-manual.
   # this is a json dictionary with each entry like:
   # - `"lib.asserts.assertEachOneOf": "[lib/asserts.nix:135](https://github.com/NixOS/nixpkgs/blob/master/lib/asserts.nix#L135) in `<nixpkgs>`"`
-  lib-locations = runCommand "nixpkgs-lib-locations.json" {
-    nativeBuildInputs = [
-      jq
-    ];
-  } ''
-    jq '
-     .entries
-     | map({
-         key: .attrPath,
-         value: "[\(.source.file):\(.source.line)](https://github.com/NixOS/nixpkgs/blob/master/\(.source.file)#L\(.source.line)) in `<nixpkgs>`"
-       })
-     | from_entries
-   ' < ${nixpkgs-manual.lib-docs}/lib-functions.json > $out
-  '';
+  lib-locations =
+    runCommand "nixpkgs-lib-locations.json"
+      {
+        nativeBuildInputs = [
+          jq
+        ];
+      }
+      ''
+         jq '
+          .entries
+          | map({
+              key: .attrPath,
+              value: "[\(.source.file):\(.source.line)](https://github.com/NixOS/nixpkgs/blob/master/\(.source.file)#L\(.source.line)) in `<nixpkgs>`"
+            })
+          | from_entries
+        ' < ${nixpkgs-manual.lib-docs}/lib-functions.json > $out
+      '';
 
-in stdenvNoCC.mkDerivation {
+in
+stdenvNoCC.mkDerivation {
+  inherit (lib) version;
   pname = "nixpkgs-lib";
-  version = lib.version;
 
   nativeBuildInputs = [ make-docset-index ];
 

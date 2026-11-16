@@ -3,7 +3,7 @@
   sane.programs.spotify = {
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # mpris
+    sandbox.whitelistDbus.user = true; # TODO: reduce  # mpris
     sandbox.whitelistWayland = true;
 
     persist.byStore.plaintext = [
@@ -16,4 +16,3 @@
     ];
   };
 }
-

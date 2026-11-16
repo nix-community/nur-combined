@@ -2,7 +2,7 @@
 {
   # tun-sea config
   sane.dns.zones."uninsane.org".inet.A."doof.tunnel" = "205.201.63.12";
-  # sane.dns.zones."uninsane.org".inet.AAAA."doof.tunnel" = "2602:fce8:106::51";  #< TODO: enable IPv6 (i have /128)
+  # sane.dns.zones."uninsane.org".inet.AAAA."doof.tunnel" = "2602:fce8:106::51";  # TODO: enable IPv6 (i have /128)
 
   # if the tunnel breaks, restart it manually:
   # - `systemctl restart netns-doof.service`

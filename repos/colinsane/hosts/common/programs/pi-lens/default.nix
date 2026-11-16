@@ -1,7 +1,7 @@
 { ... }:
 {
   sane.programs.pi-lens = {
-    packageUnwrapped = null;  # installed directly by pi.
+    packageUnwrapped = null; # installed directly by pi.
     suggestedPrograms = [ "nixd" ];
 
     fs.".pi-lens/lsp.json".symlink.text = builtins.toJSON {

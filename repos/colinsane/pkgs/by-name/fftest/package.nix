@@ -1,12 +1,13 @@
 {
   linkBinIntoOwnPackage,
   linuxConsoleTools,
-}: linkBinIntoOwnPackage linuxConsoleTools "fftest"
+}:
+linkBinIntoOwnPackage linuxConsoleTools "fftest"
 #
 # XXX(2025-03-24): upstream `linuxConsoleTools` depends on SDL, which doesn't cross compile.
 # but `fftest` component doesn't use SDL, so if we build only that then it can cross compile:
 # linuxConsoleTools.overrideAttrs (upstream: {
-#   buildInputs = [ ];  #< disable SDL
+#   buildInputs = [ ];  # disable SDL
 #   buildFlags = (upstream.buildFlags or []) ++ [
 #     "-C" "utils" "fftest"
 #   ];

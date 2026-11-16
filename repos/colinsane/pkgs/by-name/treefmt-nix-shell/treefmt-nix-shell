@@ -1,0 +1,29 @@
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../.. -A static-nix-shell.mkBash --arg packages 'ps: [ ps.bash ps.coreutils ps.gnugrep ps.ruff ps.shfmt-sane ]'
+
+set -euo pipefail
+
+python_files=()
+bash_files=()
+for file in "$@"; do
+  if [[ -f "$file" ]]; then
+    if grep -q '^#[!]nix-shell -i python3' "$file"; then
+      python_files+=("$file")
+    elif grep -q '^#[!]nix-shell -i bash' "$file"; then
+      bash_files+=("$file")
+    fi
+  fi
+done
+
+if ((${#python_files[@]})); then
+  tmp=$(mktemp)
+  trap 'rm -f "$tmp"' EXIT
+  for file in "${python_files[@]}"; do
+    ruff format --stdin-filename "$file" - <"$file" >"$tmp"
+    cat "$tmp" >"$file"
+  done
+fi
+
+if ((${#bash_files[@]})); then
+  shfmt -w -i 2 -ci -- "${bash_files[@]}"
+fi

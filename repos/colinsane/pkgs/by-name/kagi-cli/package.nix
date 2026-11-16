@@ -36,14 +36,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=mcp_tool_call_error_returns_json_rpc_error_and_keeps_server_alive"
   ];
 
-  postInstall = let
-    emulator = stdenv.hostPlatform.emulator buildPackages;
-  in lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) ''
-    installShellCompletion --cmd kagi \
-      --bash <(${emulator} $out/bin/kagi completion generate bash) \
-      --fish <(${emulator} $out/bin/kagi completion generate fish) \
-      --zsh <(${emulator} $out/bin/kagi completion generate zsh)
-  '';
+  postInstall =
+    let
+      emulator = stdenv.hostPlatform.emulator buildPackages;
+    in
+    lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) ''
+      installShellCompletion --cmd kagi \
+        --bash <(${emulator} $out/bin/kagi completion generate bash) \
+        --fish <(${emulator} $out/bin/kagi completion generate fish) \
+        --zsh <(${emulator} $out/bin/kagi completion generate zsh)
+    '';
 
   passthru.updateScript = nix-update-script { };
 

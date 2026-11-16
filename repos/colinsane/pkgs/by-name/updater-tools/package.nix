@@ -5,62 +5,62 @@
 }:
 lib.makeScope newScope (self: {
   # The actual shell command (argv) which can run the provided updateScript, after an environment has been configured for the updater:
-  updateScriptToArgv = updateScript:
+  updateScriptToArgv =
+    updateScript:
     if builtins.isList updateScript then
       updateScript
     else if updateScript ? command then
       map toString updateScript.command
-    else if (updateScript.meta or {}) ? mainProgram then
+    else if (updateScript.meta or { }) ? mainProgram then
       # raw derivation like `writeShellScriptBin`
       [ (lib.getExe updateScript) ]
     else if builtins.isPath updateScript then
       # in-tree update script like `updateScript = ./update.sh`
       [ updateScript ]
     else
-      null
-  ;
+      null;
 
-  updateArgvForPkg = pkg:
-    if pkg ? updateScript then
-      self.updateScriptToArgv pkg.updateScript
-    else
-      null
-  ;
+  updateArgvForPkg =
+    pkg: if pkg ? updateScript then self.updateScriptToArgv pkg.updateScript else null;
 
-  updateScriptToShellcode = updateScript:
-    lib.escapeShellArgs (self.updateScriptToArgv updateScript);
+  updateScriptToShellcode = updateScript: lib.escapeShellArgs (self.updateScriptToArgv updateScript);
 
   # try the first updateScript, if that one fails then try the next, and so on.
   # exits once the first updateScript succeeds.
-  requireAny = updateScripts:
-  let
-    shellCode = lib.concatMapStringsSep " || " self.updateScriptToShellcode updateScripts;
-  in
-  {
-    command = [(
-      lib.getExe (writeScriptBin "try-in-sequence" shellCode)
-    )];
-  };
+  requireAny =
+    updateScripts:
+    let
+      shellCode = lib.concatMapStringsSep " || " self.updateScriptToShellcode updateScripts;
+    in
+    {
+      command = [
+        (lib.getExe (writeScriptBin "try-in-sequence" shellCode))
+      ];
+    };
 
   # execute all updateScripts in sequence, aborting on the first failure.
   # TODO: i think there's an _experimentalUpdateCombinators in nixpkgs specifically for this?
-  requireAll = updateScripts:
-  let
-    shellCode = lib.concatMapStringsSep " && " self.updateScriptToShellcode updateScripts;
-  in
-  {
-    command = [(
-      lib.getExe (writeScriptBin "requireAll" shellCode)
-    )];
-  };
+  requireAll =
+    updateScripts:
+    let
+      shellCode = lib.concatMapStringsSep " && " self.updateScriptToShellcode updateScripts;
+    in
+    {
+      command = [
+        (lib.getExe (writeScriptBin "requireAll" shellCode))
+      ];
+    };
 
-  applyAll = updateScripts:
-  let
-    shellCode = lib.concatMapStringsSep " ; " (s: "( ${self.updateScriptToShellcode s} )") updateScripts;
-  in
-  {
-    command = [(
-      lib.getExe (writeScriptBin "apply-all" shellCode)
-    )];
-  };
+  applyAll =
+    updateScripts:
+    let
+      shellCode = lib.concatMapStringsSep " ; " (
+        s: "( ${self.updateScriptToShellcode s} )"
+      ) updateScripts;
+    in
+    {
+      command = [
+        (lib.getExe (writeScriptBin "apply-all" shellCode))
+      ];
+    };
 })

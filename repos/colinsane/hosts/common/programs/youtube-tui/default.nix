@@ -19,10 +19,10 @@
     buildCost = 1;
     packageUnwrapped = pkgs.youtube-tui.overrideAttrs (upstream: {
       # give the package a .desktop item.
-      nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+      nativeBuildInputs = (upstream.nativeBuildInputs or [ ]) ++ [
         pkgs.copyDesktopItems
       ];
-      desktopItems = (upstream.desktopItems or []) ++ [
+      desktopItems = (upstream.desktopItems or [ ]) ++ [
         (pkgs.makeDesktopItem {
           name = "youtube-tui";
           exec = "youtube-tui";
@@ -65,9 +65,9 @@
     '';
     sandbox.net = "all";
     sandbox.extraHomePaths = [
-      # ".config/youtube-tui"  #< it populates its own config, other than just main.yml
+      # ".config/youtube-tui"  # it populates its own config, other than just main.yml
       "tmp/youtube-tui"
     ];
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< xdg-open via portal
+    sandbox.whitelistDbus.user = true; # TODO: reduce  # xdg-open via portal
   };
 }

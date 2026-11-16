@@ -4,6 +4,8 @@ https://github.com/NixOS/nixpkgs/pulls?q=label%3A%2211.by%3A%20package-maintaine
 https://github.com/NixOS/nixpkgs/pulls?q=state%3Aopen%20label%3A%2212.approved-by%3A%20package-maintainer%22  # Nixpkgs Trivial PRs no.3
 https://github.com/nixos/nixpkgs/pulls?q=label%3A%226.topic%3A+cross-compilation%22  # Nixpkgs Cross Compilation PRs
 https://github.com/nixos/nixpkgs/pulls?q=label%3A%226.topic%3A+musl%22  # Nixpkgs musl PRs
+https://github.com/nixos/nixpkgs/pulls?q=label%3A%226.topic%3A+stdenv%22  # Nixpkgs stdenv PRs
+https://github.com/nixos/nixpkgs/pulls?q=state%3Aopen+AND+%28author%3Ahaylinmoore+OR+author%3Anettika-cat+OR+author%3Aphiliptaron+OR+author%3Ashelvacu%29  # Nixpkgs friends PRs
 https://nixos.org/manual/nix/stable/language/builtins.html
 https://nur.nix-community.org/
 https://repology.org/projects/?maintainer=colin@uninsane.org&inrepo=nix_unstable&outdated=1

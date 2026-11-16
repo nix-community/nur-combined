@@ -27,29 +27,31 @@ in
   ];
 
   sane.programs.zsh = {
-    configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options.starship = mkOption {
-          type = types.bool;
-          default = true;
-          description = "enable starship prompt";
-        };
-        options.guiIntegrations = mkOption {
-          type = types.bool;
-          default = config.sane.programs.guiApps.enabled;
-          description = ''
-            integrate with things like VTE, so that windowing systems can show the PWD in the title.
-            drags in gtk+3.
-          '';
+    configOption =
+      with lib;
+      mkOption {
+        default = { };
+        type = types.submodule {
+          options.starship = mkOption {
+            type = types.bool;
+            default = true;
+            description = "enable starship prompt";
+          };
+          options.guiIntegrations = mkOption {
+            type = types.bool;
+            default = config.sane.programs.guiApps.enabled;
+            description = ''
+              integrate with things like VTE, so that windowing systems can show the PWD in the title.
+              drags in gtk+3.
+            '';
+          };
         };
       };
-    };
 
     # XXX(2025-12-08): statically compiled zsh loads faster than glibc
     # packageUnwrapped = pkgs.pkgsStatic.zsh;
 
-    sandbox.enable = false;  # TODO: i could at least sandbox the prompt (starship)!
+    sandbox.enable = false; # TODO: i could at least sandbox the prompt (starship)!
     persist.byStore.private = [
       # we don't need to full zsh dir -- just the history file --
       # but zsh will sometimes backup the history file and symlinking just the file messes things up
@@ -58,7 +60,6 @@ in
 
     fs.".config/zsh/.zshrc".symlink.target = ./zshrc;
   };
-
 
   # enable zsh completions
   environment.pathsToLink = lib.mkIf cfg.enabled [ "/share/zsh" ];
@@ -78,33 +79,33 @@ in
       "exi5" = "exit";
       "exiy" = "exit";
       # overcome poor defaults
-      "lsof" = "lsof -P";  #< lsof: use port *numbers*, not names
+      "lsof" = "lsof -P"; # lsof: use port *numbers*, not names
       "quit" = "exit";
-      "tcpdump" = "tcpdump -n";  #< tcpdump: use port *numbers*, not names
+      "tcpdump" = "tcpdump -n"; # tcpdump: use port *numbers*, not names
     };
     setOptions = [
       # docs: `man zshoptions`
       # customizations:
-      "AUTO_CD"  # type directory name to go there
-      "AUTO_MENU"  # show auto-complete menu on double-tab
-      "CDABLE_VARS"  # allow auto-cd to use my `hash` aliases -- not just immediate subdirs
+      "AUTO_CD" # type directory name to go there
+      "AUTO_MENU" # show auto-complete menu on double-tab
+      "CDABLE_VARS" # allow auto-cd to use my `hash` aliases -- not just immediate subdirs
       # "CLOBBER"  # (zsh default) allow `foo > bar.txt` to overwrite bar.txt
       # "CORRECT"  # try to correct typo'd commands
       # "EXTENDED_HISTORY"  # save timestamps and duration in history file
-      "GLOB_DOTS"  # make `echo ~/*` include "hidden" .-prefixed entries
-      "GLOB_STAR_SHORT"  # allow `**` as shorthand for `**/*` (i.e. recursive glob)
-      "HIST_EXPIRE_DUPS_FIRST"  # when history file needs to be trimmed, remove oldest _non-unique_ entry instead of just the oldest entry.
-      "HIST_FCNTL_LOCK"  # (nixos default) more reliable locking/concurrency over history file
-      "HIST_FIND_NO_DUPS"  # when searching history, skip over entries which have already been shown
-      "HIST_IGNORE_DUPS"  # (nixos default) when a command is invoked twice in a row, only add it to history file once
-      "INTERACTIVE_COMMENTS"  # allow comments even in interactive shells
-      "NO_BEEP"  # don't beep on invalid line-editor operations (e.g. bad completions)
-      "NO_CORRECT"  # don't try to correct commands
+      "GLOB_DOTS" # make `echo ~/*` include "hidden" .-prefixed entries
+      "GLOB_STAR_SHORT" # allow `**` as shorthand for `**/*` (i.e. recursive glob)
+      "HIST_EXPIRE_DUPS_FIRST" # when history file needs to be trimmed, remove oldest _non-unique_ entry instead of just the oldest entry.
+      "HIST_FCNTL_LOCK" # (nixos default) more reliable locking/concurrency over history file
+      "HIST_FIND_NO_DUPS" # when searching history, skip over entries which have already been shown
+      "HIST_IGNORE_DUPS" # (nixos default) when a command is invoked twice in a row, only add it to history file once
+      "INTERACTIVE_COMMENTS" # allow comments even in interactive shells
+      "NO_BEEP" # don't beep on invalid line-editor operations (e.g. bad completions)
+      "NO_CORRECT" # don't try to correct commands
       # "NULL_GLOB"  # make globs which yield 0 results not be an error
-      "PIPE_FAIL"  # when `cmd_a | cmd_b`, make $? be non-zero if *any* of cmd_a or cmd_b fail
-      "PUSHD_SILENT"  # `pushd`: don't print directory stack
-      "RM_STAR_SILENT"  # disable `rm *` confirmations
-      "SHARE_HISTORY"  # share history across all zsh instances
+      "PIPE_FAIL" # when `cmd_a | cmd_b`, make $? be non-zero if *any* of cmd_a or cmd_b fail
+      "PUSHD_SILENT" # `pushd`: don't print directory stack
+      "RM_STAR_SILENT" # disable `rm *` confirmations
+      "SHARE_HISTORY" # share history across all zsh instances
     ];
 
     # .zshenv config:

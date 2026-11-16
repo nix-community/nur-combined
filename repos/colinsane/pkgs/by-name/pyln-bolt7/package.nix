@@ -23,7 +23,7 @@ stdenv.mkDerivation {
     python3.pkgs.hatchling
     python3.pkgs.pypaBuildHook
     python3.pkgs.pypaInstallHook
-    unzip  # used by `unpackPhase`
+    unzip # used by `unpackPhase`
   ];
   propagatedBuildInputs = [
     pyln-proto

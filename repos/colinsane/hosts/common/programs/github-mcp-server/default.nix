@@ -2,7 +2,7 @@
 {
   sane.programs.github-mcp-server = {
     packageUnwrapped = pkgs.github-mcp-server.overrideAttrs (prevAttrs: {
-      nativeBuildInputs = (prevAttrs.nativeBuildInputs or []) ++ [
+      nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [
         pkgs.makeWrapper
       ];
 
@@ -12,6 +12,7 @@
       '';
     });
     sandbox.net = "clearnet";
-    secrets.".config/github-mcp-server/access_token" = ../../../../secrets/common/github_mcp_server_access_token.bin;
+    secrets.".config/github-mcp-server/access_token" =
+      ../../../../secrets/common/github_mcp_server_access_token.bin;
   };
 }

@@ -12,23 +12,26 @@
         )
       '';
     });
-    sandbox.net = "all";  # for tiles *and* for localhost comm to gpsd
+    sandbox.net = "all"; # for tiles *and* for localhost comm to gpsd
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
-    sandbox.whitelistDbus.system = true;  # system is required for non-portal location services
-    sandbox.whitelistDbus.user = true;  #< TODO: not sure if "user" is necessary?
+    sandbox.whitelistDbus.system = true; # system is required for non-portal location services
+    sandbox.whitelistDbus.user = true; # TODO: not sure if "user" is necessary?
     sandbox.mesaCacheDir = ".cache/mepo/mesa";
 
     persist.byStore.plaintext = [ ".cache/mepo/tiles" ];
     # ~/.cache/mepo/savestate has precise coordinates and pins: keep those private
     persist.byStore.private = [
-      { type = "file"; path = ".cache/mepo/savestate"; }
+      {
+        type = "file";
+        path = ".cache/mepo/savestate";
+      }
     ];
 
     # enable geoclue2 and gpsd for location data.
     suggestedPrograms = [
       "geoclue2"
-      # "gpsd"  #< not required, and mepo only uses it if geoclue is unavailable
+      # "gpsd"  # not required, and mepo only uses it if geoclue is unavailable
     ];
   };
 

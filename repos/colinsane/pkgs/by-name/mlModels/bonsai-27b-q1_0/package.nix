@@ -1,4 +1,5 @@
-{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
+{ fetchFromHuggingFaceSane }:
+fetchFromHuggingFaceSane {
   owner = "prism-ml";
   repo = "Bonsai-27B-gguf";
   path = "Bonsai-27B-Q1_0.gguf";

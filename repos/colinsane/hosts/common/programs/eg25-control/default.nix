@@ -7,17 +7,17 @@ in
     suggestedPrograms = [ "mmcli" ];
 
     sandbox.extraPaths = [
-      "/dev/gpiochip0"  # Pinephone Pro
-      "/dev/gpiochip1"  # Pinephone
-      "/dev/gpiochip3"  # Pinephone Pro
+      "/dev/gpiochip0" # Pinephone Pro
+      "/dev/gpiochip1" # Pinephone
+      "/dev/gpiochip3" # Pinephone Pro
       # "/sys/class/modem-power"
       "/sys/bus/gpio"
       "/sys/dev/char"
       "/sys/devices"
       # "/var/lib/eg25-control"
     ];
-    sandbox.net = "all";  #< for downloading the almanac
-    sandbox.whitelistDbus.system = true;  #< used by `mmcli`
+    sandbox.net = "all"; # for downloading the almanac
+    sandbox.whitelistDbus.system = true; # used by `mmcli`
 
     services.eg25-control-powered = {
       description = "eg25-control-powered: power to the Qualcomm eg25 modem used by PinePhone";
@@ -37,7 +37,7 @@ in
       partOf = [ "gps" ];
     };
 
-    persist.byStore.plaintext = [ ".cache/eg25-control" ];  #< for cached agps data
+    persist.byStore.plaintext = [ ".cache/eg25-control" ]; # for cached agps data
   };
 
   # TODO: port to s6
@@ -56,8 +56,11 @@ in
 
       User = "colin";
     };
-    startAt = "hourly";  # this is a bit more than necessary, but idk systemd calendar syntax
-    after = [ "network-online.target" "nss-lookup.target" ];
+    startAt = "hourly"; # this is a bit more than necessary, but idk systemd calendar syntax
+    after = [
+      "network-online.target"
+      "nss-lookup.target"
+    ];
     requires = [ "network-online.target" ];
     # wantedBy = [ "network-online.target" ]; # auto-start immediately after boot
   };

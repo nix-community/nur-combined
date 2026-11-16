@@ -89,7 +89,7 @@ let
       before = [ "netns-${name}.target" ];
       serviceConfig.Type = "oneshot";
       serviceConfig.RemainAfterExit = true;
-      serviceConfig.X-RestartIfChanged = false;  #< never restart on deploy
+      serviceConfig.X-RestartIfChanged = false;  # never restart on deploy
       script = ''
         ${ip} netns add ${name} || (test -e /run/netns/${name} && echo "${name} already exists")
       '';

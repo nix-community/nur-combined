@@ -36,11 +36,18 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru = {
     updateFromMirror = nix-update-script {
-      extraArgs = [ "--version" "branch" ];
+      extraArgs = [
+        "--version"
+        "branch"
+      ];
     };
     opencellid-update-script = writeShellApplication {
       name = "opencellid-update-script";
-      runtimeInputs = [ curl git gzip ];
+      runtimeInputs = [
+        curl
+        git
+        gzip
+      ];
       text = ''
         set -x
         pushd "$(mktemp -d opencellid.XXXXXXXX --tmpdir)"

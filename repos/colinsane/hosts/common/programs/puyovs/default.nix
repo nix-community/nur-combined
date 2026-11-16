@@ -7,7 +7,7 @@
     sandbox.whitelistWayland = true;
 
     persist.byStore.private = [
-      ".local/share/PuyoVS"  # /Settings.json; includes user/pw
+      ".local/share/PuyoVS" # /Settings.json; includes user/pw
     ];
   };
 }

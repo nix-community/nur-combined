@@ -22,12 +22,12 @@
 }:
 stdenv.mkDerivation {
   pname = "sxmo_swaylock";
-  version = "1.6.11-unstable-2023-04-26";  #< from meson.build
+  version = "1.6.11-unstable-2023-04-26"; # from meson.build
 
   src = fetchFromGitHub {
     owner = "KaffeinatedKat";
     repo = "sxmo_swaylock";
-    rev = "63619c857d9fb5f8976f0380c6670123a4028211";  # 2023-04-26
+    rev = "63619c857d9fb5f8976f0380c6670123a4028211"; # 2023-04-26
     hash = "sha256-vs0VHO1QBstwLXyLJ/6SSypQmh2DyFJZd40+73JsIaQ=";
     # rev = "e33d885beddd34ea6ce5e854df6ab2ae554adcf2";  # 2023-04-04
     # hash = "sha256-ouCzHAuZWNF7o/tpcvWzaBsH/7WRrQwUaOKuxDbCsr4=";

@@ -4,7 +4,7 @@
 set -xeu
 
 case "${1-}" in
-  (-h|--help)
+  (-h | --help)
     echo "usage: UPDATE_NIX_OLD_VERSION=VERSION update-guard DAYS" >&2
     echo "  where UPDATE_NIX_OLD_VERSION contains a YYYY-MM-DD date, e.g. 0-unstable-2026-02-03" >&2
     exit 0
@@ -31,4 +31,4 @@ cadence_seconds=$((cadence * 24 * 60 * 60))
 now_seconds=$(date '+%s')
 next_update_seconds=$((old_seconds + cadence_seconds))
 
-(( now_seconds > next_update_seconds ))
+((now_seconds > next_update_seconds))

@@ -5,12 +5,12 @@
 
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< to open https:// links in portal
+    sandbox.whitelistDbus.user = true; # TODO: reduce  # to open https:// links in portal
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
     sandbox.whitelistX = true;
     sandbox.extraPaths = [
-      "/dev/input"  #< for controllers (Steam, Switch, ...)
+      "/dev/input" # for controllers (Steam, Switch, ...)
     ];
 
     persist.byStore.plaintext = [
@@ -19,7 +19,7 @@
     ];
 
     suggestedPrograms = [
-      "xwayland"  #< XXX(2024-11-10): fails to start without X(wayland)
+      "xwayland" # XXX(2024-11-10): fails to start without X(wayland)
       "xdg-open"
       # "xdg-settings"
     ];

@@ -432,20 +432,20 @@ var Responses = {
 
 func Handler_exec(self) {
   var resp = self.response
-  resp  #< this executes the response
+  resp  # this executes the response
 }
 
 var Handler = Object(null, {
   # methods
   exec: Handler_exec,
   # instance state
-  trigger: null, #< name of action the _user_ performed
-  response: null, #< bound proc to invoke in response to the trigger
-  name: null, #< friendly name of response; should just be the stringified form of `response`
-  screen: false, #< screen must be on for this response to trigger
-  fullscreen: false, #< desktop view must be fullscreen for this response to trigger
-  sys_menu: false, #< system menu must be active for this response to trigger
-  off: false, #< screen must be off for this response to trigger
+  trigger: null, # name of action the _user_ performed
+  response: null, # bound proc to invoke in response to the trigger
+  name: null, # friendly name of response; should just be the stringified form of `response`
+  screen: false, # screen must be on for this response to trigger
+  fullscreen: false, # desktop view must be fullscreen for this response to trigger
+  sys_menu: false, # system menu must be active for this response to trigger
+  off: false, # screen must be off for this response to trigger
 })
 
 func Dispatcher_add_handler(self, trigger, response; screen=false, fullscreen=false, sys_menu=false, off=false) {

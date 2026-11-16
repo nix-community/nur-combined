@@ -39,7 +39,7 @@ rec {
     # with default_permissions, sshfs doesn't tunnel file ops from users until checking that said user could perform said op on an equivalent local fs.
     "default_permissions"
     "drop_privileges"
-    "auto_unmount"  #< ensures that when the fs exits, it releases its mountpoint. then systemd can recognize it as failed.
+    "auto_unmount"  # ensures that when the fs exits, it releases its mountpoint. then systemd can recognize it as failed.
   ];
   fuseColin = fuse ++ [
     "uid=1000"
@@ -88,12 +88,12 @@ rec {
       (o != "gid=100")
       (o != "drop_privileges")
       # (o != "user")
-      # (o != "auto_unmount")  #< `fuser` then trampolines through `fusermount3`, breaks shit
+      # (o != "auto_unmount")  # `fuser` then trampolines through `fusermount3`, breaks shit
     ])
     (
       common ++ fuseColin ++ [
-        # "username=colin:ipauth"  #< TODO: specify user option with a password from file
-        "rw"  #< not default
+        # "username=colin:ipauth"  # TODO: specify user option with a password from file
+        "rw"  # not default
         "security=plain"
         "pass_fuse_fd"  # instead of drop_privileges
       ]

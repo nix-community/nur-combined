@@ -24,7 +24,7 @@ buildGoModule (finalAttrs: {
     rev = finalAttrs.version;
     sha256 = "sha256-xMXi+AJjbKX7RlcUAutbL/Gfg+DoltSldQza7YMgUWU=";
   };
-  proxyVendor = true;  #< ??
+  proxyVendor = true; # ??
   vendorHash = "sha256-Vamrw5f8wm+0FY3Cd1ye6A5xQ5Tw5yvcEGvS55/7zus=";
 
   # XXX: starting with 21c4a125 (2026-02-27) easylpac vendors eum-registry.json and ci-registry.json.
@@ -42,7 +42,8 @@ buildGoModule (finalAttrs: {
     gtk3
     libglvnd
     libxxf86vm
-  ] ++ glfw.buildInputs;
+  ]
+  ++ glfw.buildInputs;
 
   postInstall = ''
     ln -s "${lpac}/bin/lpac" "$out/bin/lpac"
@@ -55,6 +56,9 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/creamlike1024/EasyLPAC";
     mainProgram = "EasyLPAC";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ colinsane yinfeng ];
+    maintainers = with lib.maintainers; [
+      colinsane
+      yinfeng
+    ];
   };
 })

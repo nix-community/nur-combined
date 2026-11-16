@@ -2,7 +2,7 @@
 {
   sane.programs.pwsp = {
     packageUnwrapped = pkgs.pwsp.overrideAttrs (upstream: {
-      patches = (upstream.patches or []) ++ [
+      patches = (upstream.patches or [ ]) ++ [
         # TODO(2025-12-06): both of these are upstreamable
         (pkgs.fetchpatch {
           name = "attach-to-system-default-mic";
@@ -21,7 +21,7 @@
       "sane-dtmf"
     ];
 
-    sandbox.method = null;  #< TODO: sandbox
+    sandbox.method = null; # TODO: sandbox
 
     # fs.".config/pwsp/daemon.json".symlink.text = ''
     #   {
@@ -58,7 +58,7 @@
     services.pwsp-daemon = {
       description = "pwsp-daemon (provides a virtual Pipewire mic, which mixes a real mic with a soundboard, controlled by pwsp-gui)";
       command = "pwsp-daemon";
-      depends = [ "wireplumber" ];  # or maybe just "pipewire"
+      depends = [ "wireplumber" ]; # or maybe just "pipewire"
       partOf = [ "sound" ];
     };
   };

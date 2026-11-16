@@ -6,7 +6,11 @@
 }:
 
 # feed-specific args
-{ feedName, jsonPath, url }:
+{
+  feedName,
+  jsonPath,
+  url,
+}:
 
 stdenvNoCC.mkDerivation {
   pname = feedName;
@@ -15,7 +19,9 @@ stdenvNoCC.mkDerivation {
     inherit url;
   };
   passthru.updateScript = [
-    (lib.getExe update-feed) url jsonPath
+    (lib.getExe update-feed)
+    url
+    jsonPath
   ];
   meta = {
     description = "metadata about any feeds available at ${feedName}";
@@ -29,4 +35,3 @@ stdenvNoCC.mkDerivation {
     platforms = lib.platforms.all;
   };
 }
-

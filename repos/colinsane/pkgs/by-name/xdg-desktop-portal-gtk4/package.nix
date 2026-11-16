@@ -14,14 +14,14 @@ let
   };
   pkg = callPackage "${src}/packaging/nix/package.nix" { };
 in
-  pkg.overrideAttrs (base: {
-    inherit src version;
-    # inherit version;
-    # __intentionallyOverridingVersion = true;
-    passthru = (base.passthru or {}) // {
-      updateScript = gitUpdater {
-        rev-prefix = "v";
-      };
+pkg.overrideAttrs (base: {
+  inherit src version;
+  # inherit version;
+  # __intentionallyOverridingVersion = true;
+  passthru = (base.passthru or { }) // {
+    updateScript = gitUpdater {
+      rev-prefix = "v";
     };
-    meta.platforms = lib.platforms.linux;
-  })
+  };
+  meta.platforms = lib.platforms.linux;
+})

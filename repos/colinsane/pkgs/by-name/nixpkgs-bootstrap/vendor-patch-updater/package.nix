@@ -23,4 +23,5 @@ let
       ident
     ];
   };
-in self
+in
+self

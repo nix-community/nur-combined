@@ -1,6 +1,6 @@
 { ... }:
 {
   sane.programs.pandoc = {
-    sandbox.method = null;  #< TODO: enable sandboxing
+    sandbox.method = null; # TODO: enable sandboxing
   };
 }

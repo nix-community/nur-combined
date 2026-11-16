@@ -23,7 +23,6 @@ stdenv.mkDerivation {
     cp -R src/raspberryPi-aarch64-2021.10-004/binaries/* "$out"/
   '';
 
-
   meta = {
     description = "An opinionated distribution of U-Boot";
     homepage = "https://tow-boot.org/";

@@ -26,14 +26,14 @@ lib.extendMkDerivation {
         inherit (finalAttrs) src;
         inherit forceEmptyCache;
         nativeBuildInputs = [
-          cacert  # else `nix-update-script` fails to update the npmDepsHash
+          cacert # else `nix-update-script` fails to update the npmDepsHash
           curl
           moreutils
           openssl
           jq
         ];
         prePatch = finalAttrs.prePatch or "";
-        patches = finalAttrs.patches or [];
+        patches = finalAttrs.patches or [ ];
         # the pi-monorepo shrinkwrap doesn't specify integrity hashes for its @earendil-works/* dependencies;
         # probably because they're all built together, so they can't specify those without circularity.
         # the effect is that any package which places `pi-coding-assistant` into `peerDependencies`
@@ -107,4 +107,4 @@ lib.extendMkDerivation {
         ${postInstall}
       '';
     };
-  }
+}

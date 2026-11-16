@@ -56,10 +56,10 @@ self: super:
     # - e.g. via patching (below)
     # - e.g. via `--js-runtimes node` CLI argument (or added to ~/.config/yt-dlp/config)
     #
-    # jsRuntime = final.deno;  #< 2026-02-04: doesn't cross compile, nor build for musl
+    # jsRuntime = final.deno;  # 2026-02-04: doesn't cross compile, nor build for musl
     jsRuntime = self.nodejs;
     # jsRuntime = final.quickjs-ng;
-    # jsRuntime = final.bun;  #< 2026-02-04: doesn't cross compile
+    # jsRuntime = final.bun;  # 2026-02-04: doesn't cross compile
     jsRuntimeYtdlpName = {
       deno = "deno";
       node = "node";

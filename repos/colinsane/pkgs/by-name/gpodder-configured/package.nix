@@ -22,28 +22,28 @@ let
     };
   };
 in
-  gpodder.overrideAttrs (upstream: {
-    # use `makeShellWrapper` here so that we can get expansion of env vars like `$HOME`, at runtime
-    nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
-      makeShellWrapper
-    ];
+gpodder.overrideAttrs (upstream: {
+  # use `makeShellWrapper` here so that we can get expansion of env vars like `$HOME`, at runtime
+  nativeBuildInputs = (upstream.nativeBuildInputs or [ ]) ++ [
+    makeShellWrapper
+  ];
 
-    dontWrapGApps = true;
-    postFixup = (upstream.postFixup or "") + ''
-      # XXX(2025-03-21): splat the makeWrapperArgs here because upstream gpodder specifies
-      # `--suffix PATH ...` all as _one_ argument, but makeShellWrapper requires it to be multiple :(
-      # splat `extraMakeWrapperArgs` because nix passes that through as a single string instead of as a bash array.
-      # be careful when changing this: we rely on `~` being expanded at the right time (i.e. by the python interpreter),
-      # and never before that (e.g. the makePythonApplication c wrapper)
-      makeWrapperArgs=(''${makeWrapperArgs[*]} "''${gappsWrapperArgs[@]}" ''${extraMakeWrapperArgs[@]})
+  dontWrapGApps = true;
+  postFixup = (upstream.postFixup or "") + ''
+    # XXX(2025-03-21): splat the makeWrapperArgs here because upstream gpodder specifies
+    # `--suffix PATH ...` all as _one_ argument, but makeShellWrapper requires it to be multiple :(
+    # splat `extraMakeWrapperArgs` because nix passes that through as a single string instead of as a bash array.
+    # be careful when changing this: we rely on `~` being expanded at the right time (i.e. by the python interpreter),
+    # and never before that (e.g. the makePythonApplication c wrapper)
+    makeWrapperArgs=(''${makeWrapperArgs[*]} "''${gappsWrapperArgs[@]}" ''${extraMakeWrapperArgs[@]})
 
-      for f in $out/bin/*; do
-        wrapProgramShell "$f" "''${makeWrapperArgs[@]}"
-      done
-      makeShellWrapper ${lib.getExe remove-extra} "$out/bin/${remove-extra.meta.mainProgram}" "''${makeWrapperArgs[@]}"
-    '';
+    for f in $out/bin/*; do
+      wrapProgramShell "$f" "''${makeWrapperArgs[@]}"
+    done
+    makeShellWrapper ${lib.getExe remove-extra} "$out/bin/${remove-extra.meta.mainProgram}" "''${makeWrapperArgs[@]}"
+  '';
 
-    passthru = (upstream.passthru or {}) // {
-      inherit remove-extra;
-    };
-  })
+  passthru = (upstream.passthru or { }) // {
+    inherit remove-extra;
+  };
+})

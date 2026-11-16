@@ -7,17 +7,19 @@
         #             XDG_SESSION_DESKTOP is used similarly in debug_info.py.
         #             TODO: patch/upstream Komikku
         gappsWrapperArgs+=(--set-default XDG_SESSION_TYPE "unknown" --set-default XDG_SESSION_DESKTOP "unknown")
-      '' + (upstream.preFixup or "");
+      ''
+      + (upstream.preFixup or "");
     });
 
     sandbox.net = "clearnet";
-    sandbox.whitelistDbus.user.own = [ "info.febvre.Komikku" ];  #< fails to start if it can't connect to dbus
-    sandbox.whitelistDri = true;  #< required
+    sandbox.whitelistDbus.user.own = [ "info.febvre.Komikku" ]; # fails to start if it can't connect to dbus
+    sandbox.whitelistDri = true; # required
     sandbox.whitelistWayland = true;
 
-    buildCost = 2;  # webkitgtk
+    buildCost = 2; # webkitgtk
 
-    secrets.".local/share/komikku/keyrings/plaintext.keyring" = ../../../../secrets/common/komikku_accounts.json.bin;
+    secrets.".local/share/komikku/keyrings/plaintext.keyring" =
+      ../../../../secrets/common/komikku_accounts.json.bin;
     # downloads end up here, and without the toplevel database komikku doesn't know they exist.
     persist.byStore.plaintext = [
       # also writes to ~/.cache/komikku

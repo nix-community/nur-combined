@@ -20,7 +20,7 @@ mkPiExtension (finalAttrs: {
   npmDepsFetcherVersion = 2;
   npmDepsHash = "sha256-aTPDIK8yuNtgcteESbIgBOuGdpO2RnpajpcInuiBnmw=";
 
-  dontNpmBuild = true;  # package.json defines no build script
+  dontNpmBuild = true; # package.json defines no build script
 
   postPatch = ''
     # needs to be executable to have its shebang patched
@@ -29,7 +29,7 @@ mkPiExtension (finalAttrs: {
 
   passthru.updateScript = updater-tools.requireAll [
     (update-guard.days 3)
-    (nix-update-script {})
+    (nix-update-script { })
   ];
 
   meta = {

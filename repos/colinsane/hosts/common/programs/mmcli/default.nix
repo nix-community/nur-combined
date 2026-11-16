@@ -27,4 +27,3 @@
     sandbox.whitelistDbus.system = true;
   };
 }
-

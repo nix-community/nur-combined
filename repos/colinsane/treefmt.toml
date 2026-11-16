@@ -1,0 +1,8 @@
+[formatter.nixfmt]
+command = "nixfmt"
+includes = ["*.nix"]
+
+[formatter.nix-shell-python]
+command = "treefmt-nix-shell"
+includes = ["*"]
+excludes = ["*.nix"]

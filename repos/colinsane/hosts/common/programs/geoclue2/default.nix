@@ -21,7 +21,12 @@
 # - geoclue users like gnome-maps somehow depend on an "agent",
 #   a user service which launches the geoclue system service on-demand (via dbus activation).
 #
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.geoclue2;
 in
@@ -31,13 +36,13 @@ in
     # packageUnwrapped = pkgs.geoclue2.override { withDemoAgent = true; };
     packageUnwrapped = pkgs.geoclue2-with-demo-agent;
     suggestedPrograms = [
-      "avahi"  #< to discover LAN gps devices
+      "avahi" # to discover LAN gps devices
       "geoclue-demo-agent"
       # "gps-share"
       "iio-sensor-proxy"
-      "ols"  #< WiFi SSID -> lat/long lookups
-      "satellite"  #< graphical view into GPS fix data
-      "where-am-i"  #< handy debugging/testing tool
+      "ols" # WiFi SSID -> lat/long lookups
+      "satellite" # graphical view into GPS fix data
+      "where-am-i" # handy debugging/testing tool
     ];
 
     # XXX(2024/07/05): no way to plumb my sandboxed geoclue into `services.geoclue2`.
@@ -55,7 +60,7 @@ in
 
   services.geoclue2 = lib.mkIf cfg.enabled {
     enable = true;
-    geoProviderUrl = "http://127.0.0.1:8088/v1/geolocate";  #< ols
+    geoProviderUrl = "http://127.0.0.1:8088/v1/geolocate"; # ols
     # XXX(2024/06/25): when Geoclue uses ModemManager's GPS API, it wants to enable GPS
     # tracking at the start, and disable it at the end. that causes tracking to be lost, regularly.
     # this is not optional behavior: if Geoclue fails to control modem manager (because of a polkit policy, say),

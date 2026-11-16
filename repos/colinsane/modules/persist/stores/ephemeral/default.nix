@@ -34,7 +34,7 @@ lib.mkIf config.sane.persist.enable
 
     sandbox.autodetectCliPaths = "existing";
     sandbox.capabilities = [
-      "sys_admin"  #< XXX: this is required to keep user mappings; for single-user it's actually not necessary if using fuse3-sane with -o pass_fuse_fd
+      "sys_admin"  # XXX: this is required to keep user mappings; for single-user it's actually not necessary if using fuse3-sane with -o pass_fuse_fd
       "chown"
       "dac_override"
       "dac_read_search"
@@ -79,7 +79,7 @@ lib.mkIf config.sane.persist.enable
       "emergency.service"
     ];
 
-    mountConfig.LazyUnmount = true;  #< else it usually fails "target is busy"
+    mountConfig.LazyUnmount = true;  # else it usually fails "target is busy"
 
     # hardening (systemd-analyze security mnt-persist-ephemeral.mount)
     mountConfig.AmbientCapabilities = "CAP_SYS_ADMIN CAP_DAC_OVERRIDE CAP_DAC_READ_SEARCH CAP_CHOWN CAP_MKNOD CAP_LEASE CAP_SETGID CAP_SETUID CAP_FOWNER";

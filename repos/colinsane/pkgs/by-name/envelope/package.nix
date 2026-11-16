@@ -68,11 +68,11 @@ stdenv.mkDerivation (finalAttrs: {
         "'src' / '${stdenv.hostPlatform.rust.cargoShortTarget}' / rust_target / meson.project_name()"
   '';
 
-  env."CC_${stdenv.buildPlatform.rust.rustcTarget}" = rust.envVars.ccForBuild;  #< fixes cross build of sql-macros proc-macro
+  env."CC_${stdenv.buildPlatform.rust.rustcTarget}" = rust.envVars.ccForBuild; # fixes cross build of sql-macros proc-macro
   env.CARGO_BUILD_TARGET = stdenv.hostPlatform.rust.rustcTargetSpec;
-  env.OPENSSL_NO_VENDOR = true;  #< speculative, to use the nixos openssl
-  env.RUSTC_BOOTSTRAP = 1;  #< fixes 'error[E0554]: `#![feature]` may not be used on the stable release channel'
-  # env.LIBSQLITE3_SYS_USE_PKG_CONFIG = 1;  #< TODO: use nixos libsqlite instead of pre-packaged one
+  env.OPENSSL_NO_VENDOR = true; # speculative, to use the nixos openssl
+  env.RUSTC_BOOTSTRAP = 1; # fixes 'error[E0554]: `#![feature]` may not be used on the stable release channel'
+  # env.LIBSQLITE3_SYS_USE_PKG_CONFIG = 1;  # TODO: use nixos libsqlite instead of pre-packaged one
 
   passthru.updateScript = nix-update-script { };
 

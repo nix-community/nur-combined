@@ -7,7 +7,7 @@
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
     sandbox.extraPaths = [
-      "/dev/input"  #< for controllers
+      "/dev/input" # for controllers
     ];
 
     persist.byStore.plaintext = [

@@ -9,7 +9,7 @@
     sandbox.extraRuntimePaths = [
       "sway"
     ];
-    sandbox.keepPidsAndProc = true;  #< it's required (to copy to the clipboard), but unsure why
+    sandbox.keepPidsAndProc = true; # it's required (to copy to the clipboard), but unsure why
     suggestedPrograms = [
       "grim"
       "jq"

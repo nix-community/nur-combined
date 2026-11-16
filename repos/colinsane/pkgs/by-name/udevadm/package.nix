@@ -43,7 +43,8 @@ stdenv.mkDerivation {
     (lib.mesonBool "tests" false)
     (lib.mesonBool "man" false)
     (lib.mesonBool "html" false)
-  ] ++ lib.optionals stdenv.hostPlatform.isMusl [
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isMusl [
     (lib.mesonOption "libc" "musl")
     (lib.mesonBool "gshadow" false)
   ];

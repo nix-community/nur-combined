@@ -81,33 +81,33 @@ let
       spark-x2_6-4b-q4_k_m
       # step3_7-flash-iq4_xs
       ternary-bonsai-2-27b-ptq1_0
-    ;
+      ;
   };
-  models' = lib.mapAttrs (k: drv: drv.overrideAttrs (prevAttrs': {
-    passthru = (prevAttrs'.passthru or {}) // {
-      id = lib.removeSuffix ".gguf" drv.name;
-    };
-  })) models;
-  presets = lib.mapAttrs' (k: model: {
+  models' = lib.mapAttrs (
+    _name: drv:
+    drv.overrideAttrs (prevAttrs': {
+      passthru = (prevAttrs'.passthru or { }) // {
+        id = lib.removeSuffix ".gguf" drv.name;
+      };
+    })
+  ) models;
+  presets = lib.mapAttrs' (_name: model: {
     name = model.id;
-    value = model.preset or {};
+    value = model.preset or { };
   }) models';
 in
 (linkFarm "llama-cpp-models" (
   {
     "presets.ini" = writeText "presets.ini" (lib.generators.toINI { } presets);
-  } //
-  (lib.mapAttrs'
-    (k: value: {
-      inherit value;
-      inherit (value) name;
-    })
-    models'
-  )
-)).overrideAttrs (prevAttrs: {
-  passthru = (prevAttrs.passthru or {}) // {
-    inherit presets;
-    models = models';
-  };
-})
-
+  }
+  // (lib.mapAttrs' (_name: value: {
+    inherit value;
+    inherit (value) name;
+  }) models')
+)).overrideAttrs
+  (prevAttrs: {
+    passthru = (prevAttrs.passthru or { }) // {
+      inherit presets;
+      models = models';
+    };
+  })

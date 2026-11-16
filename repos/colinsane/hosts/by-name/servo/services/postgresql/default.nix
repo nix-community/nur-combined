@@ -77,7 +77,7 @@
   systemd.services.postgresql.serviceConfig.RestartMaxDelaySec = 10;
   systemd.services.postgresql.serviceConfig.RestartSteps = 4;
   systemd.services.postgresql.serviceConfig.StartLimitBurst = 120;
-  # systemd.services.postgresql.serviceConfig.TimeoutStartSec = "14400s";  #< 14400 = 4 hours; recoveries are long
+  # systemd.services.postgresql.serviceConfig.TimeoutStartSec = "14400s";  # 14400 = 4 hours; recoveries are long
 
   # daily backups to /var/backup
   services.postgresqlBackup.enable = true;

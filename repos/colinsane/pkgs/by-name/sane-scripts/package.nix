@@ -190,7 +190,7 @@ let
           coreutils
           systemdMinimal
           ;
-        };
+      };
     };
     private-unlock-remote = static-nix-shell.mkBash {
       pname = "sane-private-unlock-remote";
@@ -362,10 +362,14 @@ let
       };
     };
   };
-in lib.recurseIntoAttrs (sane-bin // {
-  lib = sane-lib;
-  all = symlinkJoin {
-    name = "sane-scripts";
-    paths = lib.attrValues sane-bin;
-  };
-})
+in
+lib.recurseIntoAttrs (
+  sane-bin
+  // {
+    lib = sane-lib;
+    all = symlinkJoin {
+      name = "sane-scripts";
+      paths = lib.attrValues sane-bin;
+    };
+  }
+)

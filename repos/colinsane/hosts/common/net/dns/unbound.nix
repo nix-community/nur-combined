@@ -2,7 +2,7 @@
 # it's REALLY EASY to combine settings in a way that produce bad effects.
 # generally, prefer to stay close to defaults unless there's a compelling reason to differ.
 { config, lib, ... }:
-lib.optionalAttrs false  #< XXX(2024-12-29): unbound caches failed DNS resolutions, just randomly breaks connectivity daily
+lib.optionalAttrs false  # XXX(2024-12-29): unbound caches failed DNS resolutions, just randomly breaks connectivity daily
 {
   config = lib.mkIf (!config.sane.services.hickory-dns.asSystemResolver) {
     services.resolved.enable = lib.mkForce false;
@@ -23,7 +23,7 @@ lib.optionalAttrs false  #< XXX(2024-12-29): unbound caches failed DNS resolutio
 
     # resolve DNS recursively with Unbound.
     services.unbound.enable = lib.mkDefault true;
-    services.unbound.resolveLocalQueries = false;  #< disable, so that i can manage networking.nameservers manually
+    services.unbound.resolveLocalQueries = false;  # disable, so that i can manage networking.nameservers manually
     services.unbound.settings.server.interface = [ "127.0.0.1" ];
     services.unbound.settings.server.access-control = [ "127.0.0.0/8 allow" ];
 
@@ -44,10 +44,10 @@ lib.optionalAttrs false  #< XXX(2024-12-29): unbound caches failed DNS resolutio
     # the closest fix is to reduce the TTL of the infra-cache (`infra-host-ttl`) so as to limit the duration of this error.
     # tried, but failed fixes:
     # - server.harden-dnssec-stripped = false
-    # - services.unbound.enableRootTrustAnchor = false;  #< disable DNSSEC
-    #   - server.trust-anchor-file = "${pkgs.dns-root-data}/root.key";  #< hardcode root keys instead of dynamically probing them
+    # - services.unbound.enableRootTrustAnchor = false;  # disable DNSSEC
+    #   - server.trust-anchor-file = "${pkgs.dns-root-data}/root.key";  # hardcode root keys instead of dynamically probing them
     # - server.disable-dnssec-lame-check = true;
-    # - server.infra-keep-probing = true;  #< if unbound fails to reach a host (NS), it by default *does not try again* for 900s. keep-probing tells it to keep trying, with a backoff.
+    # - server.infra-keep-probing = true;  # if unbound fails to reach a host (NS), it by default *does not try again* for 900s. keep-probing tells it to keep trying, with a backoff.
     # - server.infra-cache-min-rtt = 1000;
     # - server.infra-cache-max-rtt = 1000;
     #
@@ -55,7 +55,7 @@ lib.optionalAttrs false  #< XXX(2024-12-29): unbound caches failed DNS resolutio
     # - <https://forum.opnsense.org/index.php?topic=32852.0>
     # - <https://unbound.docs.nlnetlabs.nl/en/latest/reference/history/info-timeout-server-selection.html>
     #
-    services.unbound.settings.server.infra-host-ttl = 30;  #< cache each NS's liveness for a max of 30s
+    services.unbound.settings.server.infra-host-ttl = 30;  # cache each NS's liveness for a max of 30s
 
     # perf tuning; see: <https://unbound.docs.nlnetlabs.nl/en/latest/topics/core/performance.html>
     # resource usage:
@@ -80,8 +80,8 @@ lib.optionalAttrs false  #< XXX(2024-12-29): unbound caches failed DNS resolutio
     # if a resolution fails, or takes excessively long, reply with expired cache entries
     # see: <https://unbound.docs.nlnetlabs.nl/en/latest/topics/core/serve-stale.html#rfc-8767>
     services.unbound.settings.server.serve-expired = true;
-    services.unbound.settings.server.serve-expired-ttl = 86400;  #< don't serve any records more outdated than this
-    services.unbound.settings.server.serve-expired-client-timeout = 2800;  #< only serve expired records if the client has been waiting this long, ms
+    services.unbound.settings.server.serve-expired-ttl = 86400;  # don't serve any records more outdated than this
+    services.unbound.settings.server.serve-expired-client-timeout = 2800;  # only serve expired records if the client has been waiting this long, ms
 
     # `cache-max-negative-ttl`: intended to limit damage during networking flakes, but instead seems to cause unbound to cache error responses it *wouldn't* otherwise cache
     # services.unbound.settings.server.cache-max-negative-ttl = 60;

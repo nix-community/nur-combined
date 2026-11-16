@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   sane.programs.bubblewrap = {
-    sandbox.enable = false;  # don't sandbox the sandboxer :)
+    sandbox.enable = false; # don't sandbox the sandboxer :)
     packageUnwrapped = pkgs.bubblewrap.overrideAttrs (base: {
       # patches = (base.patches or []) ++ [
       #   (pkgs.fetchpatch {

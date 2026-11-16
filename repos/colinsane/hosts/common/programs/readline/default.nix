@@ -3,7 +3,7 @@
 { ... }:
 {
   sane.programs.readline = {
-    packageUnwrapped = null;  # this 'program' is a library: we only care to ship the _config_.
+    packageUnwrapped = null; # this 'program' is a library: we only care to ship the _config_.
     fs.".inputrc".symlink.target = ".config/readline/inputrc";
     fs.".config/readline/inputrc".symlink.text = ''
       # docs: <https://tiswww.case.edu/php/chet/readline/readline.html>

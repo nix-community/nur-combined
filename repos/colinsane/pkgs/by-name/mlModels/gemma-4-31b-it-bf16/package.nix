@@ -1,5 +1,6 @@
 # <https://huggingface.co/unsloth/gemma-4-31B-it-GGUF>
-{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
+{ fetchFromHuggingFaceSane }:
+fetchFromHuggingFaceSane {
   owner = "unsloth";
   repo = "gemma-4-31B-it-GGUF";
   path = "BF16";

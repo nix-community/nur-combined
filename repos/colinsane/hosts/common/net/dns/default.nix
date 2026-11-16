@@ -71,5 +71,5 @@
     '';
   })];
   environment.variables.LD_LIBRARY_PATH = [ "/run/current-system/sw/lib/nss" ];
-  systemd.globalEnvironment.LD_LIBRARY_PATH = "/run/current-system/sw/lib/nss";  #< specifically for `geoclue.service`
+  systemd.globalEnvironment.LD_LIBRARY_PATH = "/run/current-system/sw/lib/nss";  # specifically for `geoclue.service`
 }

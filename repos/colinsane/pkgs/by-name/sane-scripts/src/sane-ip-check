@@ -24,6 +24,7 @@ logger = logging.getLogger(__name__)
 # not a strict deadline/timeout
 MAX_DURATION = 45.0
 
+
 def get_wan_fallback():
     "untrusted method in which to get the WAN IP"
     r = requests.get("https://ipinfo.io/ip")
@@ -34,7 +35,8 @@ def get_wan_fallback():
     else:
         return ip
 
-def try_get_once(try_upnp: bool) -> tuple[str|None, str]:
+
+def try_get_once(try_upnp: bool) -> tuple[str | None, str]:
     upnp_details = get_any_wan() if try_upnp else None
     if upnp_details:
         root_dev, _lan_ip, wan_ip = upnp_details
@@ -43,7 +45,8 @@ def try_get_once(try_upnp: bool) -> tuple[str|None, str]:
 
     return root_dev, wan_ip
 
-def get_fault_tolerant(try_upnp: bool, retry_duration: float) -> tuple[str|None, str]:
+
+def get_fault_tolerant(try_upnp: bool, retry_duration: float) -> tuple[str | None, str]:
     start = time.time()
     while True:
         try:
@@ -54,7 +57,10 @@ def get_fault_tolerant(try_upnp: bool, retry_duration: float) -> tuple[str|None,
                 raise
         time.sleep(1.0)
 
-def main(format: str, try_upnp: bool, retry_duration: float, expect: str|None) -> None:
+
+def main(
+    format: str, try_upnp: bool, retry_duration: float, expect: str | None
+) -> None:
     root_dev, wan_ip = get_fault_tolerant(try_upnp, retry_duration)
 
     if expect:
@@ -63,21 +69,41 @@ def main(format: str, try_upnp: bool, retry_duration: float, expect: str|None) -
     if format == "plaintext":
         print(wan_ip)
     elif format == "json":
-        print(json.dumps(dict(
-            wan=wan_ip,
-            upnp=root_dev,
-        )))
+        print(
+            json.dumps(
+                dict(
+                    wan=wan_ip,
+                    upnp=root_dev,
+                )
+            )
+        )
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     logging.basicConfig()
 
     parser = argparse.ArgumentParser(description=USAGE)
     parser.add_argument("-v", action="store_true", help="be verbose")
     parser.add_argument("-vv", action="store_true", help="be more verbose")
-    parser.add_argument("--json", action="store_true", help="output results in json format")
-    parser.add_argument("--no-upnp", action="store_true", help="instead of asking the gateway for its IP address, discover my IP by querying a third-party public service")
-    parser.add_argument("--expect", default=None, help="exit with error if IP address isn't as specified")
-    parser.add_argument("--retry-duration", default=MAX_DURATION, type=float, help="if the query fails, retry so long as we haven't already used this much time (soft timeout)")
+    parser.add_argument(
+        "--json", action="store_true", help="output results in json format"
+    )
+    parser.add_argument(
+        "--no-upnp",
+        action="store_true",
+        help="instead of asking the gateway for its IP address, discover my IP by querying a third-party public service",
+    )
+    parser.add_argument(
+        "--expect",
+        default=None,
+        help="exit with error if IP address isn't as specified",
+    )
+    parser.add_argument(
+        "--retry-duration",
+        default=MAX_DURATION,
+        type=float,
+        help="if the query fails, retry so long as we haven't already used this much time (soft timeout)",
+    )
 
     format = "plaintext"
     try_upnp = True
@@ -92,4 +118,9 @@ if __name__ == '__main__':
     if args.no_upnp:
         try_upnp = False
 
-    main(format=format, try_upnp=try_upnp, retry_duration=args.retry_duration, expect=args.expect)
+    main(
+        format=format,
+        try_upnp=try_upnp,
+        retry_duration=args.retry_duration,
+        expect=args.expect,
+    )

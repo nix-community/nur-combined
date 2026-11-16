@@ -1,6 +1,7 @@
 {
   common-updater-scripts,
-}: common-updater-scripts.overrideAttrs (upstream: {
+}:
+common-updater-scripts.overrideAttrs (upstream: {
   name = "update-source-version";
   # XXX(2026-01-23): upstream package does not follow standard packaging idioms; no opportunity to patch earlier.
   #

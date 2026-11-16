@@ -21,7 +21,7 @@ parseArgs() {
     local arg=$1
     shift
     case "$arg" in
-      (browser|dino|discord|flare|fractal|rofi)
+      (browser | dino | discord | flare | fractal | rofi)
         resources+=("$arg")
         ;;
       (--help)
@@ -31,7 +31,7 @@ parseArgs() {
       (--verbose)
         VERBOSE=1
         ;;
-      *)
+      (*)
         usage
         exit 1
         ;;
@@ -68,8 +68,8 @@ wipe_browser() {
     ~/.config/chromium/* \
     ~/.librewolf/default/* \
     ~/.local/share/epiphany/* \
-    ~/.mozilla/firefox/default/* \
-    || true  # in case no matches
+    ~/.mozilla/firefox/default/* ||
+    true # in case no matches
 
   # browsers like to stick around in the background so they can load faster
   pkill brave || true

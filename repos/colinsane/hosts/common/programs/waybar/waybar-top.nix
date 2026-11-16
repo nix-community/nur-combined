@@ -20,7 +20,12 @@ let
     };
   };
 in
-{ height, modules, persistWorkspaces, torch }:
+{
+  height,
+  modules,
+  persistWorkspaces,
+  torch,
+}:
 let
   torchToggle = pkgs.writeShellApplication {
     name = "torch-toggle";
@@ -39,10 +44,17 @@ in
   inherit height;
   modules-left = [ "sway/workspaces" ];
   modules-center = lib.mkIf modules.windowTitle [ "sway/window" ];
-  modules-right = lib.flatten [  # XXX can't use lib.mkMerge here without error ??
+  modules-right = lib.flatten [
+    # XXX can't use lib.mkMerge here without error ??
     (lib.optionals modules.media [ "custom/media" ])
-    [ "custom/swaync" "clock" ]
-    (lib.optionals modules.perf [ "memory" "cpu" ])
+    [
+      "custom/swaync"
+      "clock"
+    ]
+    (lib.optionals modules.perf [
+      "memory"
+      "cpu"
+    ])
     (lib.optionals modules.network [ "network" ])
     (lib.optionals (torch != null) [ "custom/torch" ])
     (lib.optionals modules.battery [ "battery" ])
@@ -52,8 +64,8 @@ in
     max-length = 50;
   };
 
-  "sway/workspaces".persistent-workspaces = lib.mkIf (persistWorkspaces != []) (
-    lib.genAttrs persistWorkspaces (_: [])
+  "sway/workspaces".persistent-workspaces = lib.mkIf (persistWorkspaces != [ ]) (
+    lib.genAttrs persistWorkspaces (_: [ ])
   );
 
   "custom/media" = {
@@ -87,7 +99,7 @@ in
     exec = "swaync-client -swb";
     return-type = "json";
     escape = true;
-    format = "{icon}";  # or "{icon} {}" to include notif count
+    format = "{icon}"; # or "{icon} {}" to include notif count
     format-icons = {
       notification = "<span foreground='#ff968b'><sup></sup></span>";
       none = "";

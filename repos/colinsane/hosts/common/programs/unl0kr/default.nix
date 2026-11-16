@@ -1,23 +1,30 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.unl0kr;
 in
 {
   sane.programs.unl0kr = {
-    configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options.autostart = mkOption {
-          type = types.bool;
-          default = true;
-          description = ''
-            whether to launch unl0kr at boot.
-            unl0kr takes the role of a greeter, presenting a virtual keyboard to the framebuffer
-            and allowing password auth via either keyboard, mouse, or touch.
-          '';
+    configOption =
+      with lib;
+      mkOption {
+        default = { };
+        type = types.submodule {
+          options.autostart = mkOption {
+            type = types.bool;
+            default = true;
+            description = ''
+              whether to launch unl0kr at boot.
+              unl0kr takes the role of a greeter, presenting a virtual keyboard to the framebuffer
+              and allowing password auth via either keyboard, mouse, or touch.
+            '';
+          };
         };
       };
-    };
 
     # pkgs.unl0kr works fine, but the newer version packaged as part of buffybox is way more performant
     packageUnwrapped = pkgs.buffybox;
@@ -77,7 +84,7 @@ in
     # LOGIN_RETRIES=1 ensures that if the password is wrong, then login exits and the whole service restarts so unl0kr re-appears.
     # docs mention `UNIX_MAX_RETRIES` setting within pam_unix (hardcoded to 3): seems that's an upper-limit to this value, but no lower limit.
     LOGIN_RETRIES = 1;
-    FAIL_DELAY = 1;  #< delay this long after failed loging before allowing retry
+    FAIL_DELAY = 1; # delay this long after failed loging before allowing retry
   };
 
   environment.etc."unl0kr.conf" = lib.mkIf cfg.enabled {

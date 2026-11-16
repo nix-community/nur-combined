@@ -4,7 +4,7 @@
     sandbox.net = "all";
     sandbox.whitelistPwd = true;
     sandbox.extraHomePaths = [
-      ".config/git"  #< for `git commit` to have my author name
+      ".config/git" # for `git commit` to have my author name
       ".vibe"
     ];
 

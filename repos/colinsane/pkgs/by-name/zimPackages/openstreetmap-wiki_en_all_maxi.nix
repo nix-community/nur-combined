@@ -1,4 +1,5 @@
-{ mkVersionedHttpZim }: mkVersionedHttpZim {
+{ mkVersionedHttpZim }:
+mkVersionedHttpZim {
   owner = "other";
   pname = "openstreetmap-wiki_en_all_maxi";
   version = "2026-07";

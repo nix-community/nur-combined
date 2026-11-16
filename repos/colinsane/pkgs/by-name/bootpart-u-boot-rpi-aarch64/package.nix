@@ -11,8 +11,8 @@ stdenv.mkDerivation {
 
   buildInputs = [
     ubootRaspberryPi4_64bit
-    raspberrypifw  # for bootcode.bin, *.dat, *.elf, *.dtb
-    raspberrypi-armstubs  # for armstub*
+    raspberrypifw # for bootcode.bin, *.dat, *.elf, *.dtb
+    raspberrypi-armstubs # for armstub*
   ];
 
   dontUnpack = true;
@@ -37,4 +37,3 @@ stdenv.mkDerivation {
     platforms = [ "aarch64-linux" ];
   };
 }
-

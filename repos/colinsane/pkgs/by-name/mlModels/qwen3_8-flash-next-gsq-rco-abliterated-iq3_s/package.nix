@@ -1,6 +1,7 @@
 # SC117's abliterated Qwen3.8-Flash-Next GSQ-RCO model, IQ3_S quantization.
 # <https://huggingface.co/SC117/Qwen3.8-Flash-Next-GSQ-RCO-abliterated-GGUF/tree/main/IQ3_S>
-{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
+{ fetchFromHuggingFaceSane }:
+fetchFromHuggingFaceSane {
   owner = "SC117";
   repo = "Qwen3.8-Flash-Next-GSQ-RCO-abliterated-GGUF";
   path = "IQ3_S";

@@ -7,12 +7,13 @@
   updater-tools,
   writeShellApplication,
 }:
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation {
   pname = "nanogpt-data";
   version = "0-unstable-2026-11-13";
 
   src = lib.fileset.toSource {
-    root = ./.; fileset = ./models.json;
+    root = ./.;
+    fileset = ./models.json;
   };
 
   nativeBuildInputs = [
@@ -35,22 +36,24 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   passthru = {
     updateScript = updater-tools.requireAll [
       (update-guard.days 2)
-      [(lib.getExe (writeShellApplication {
-        name = "nanogpt-data-update";
-        runtimeInputs = [
-          gnused
-          nanogpt-api
-        ];
-        text = ''
-          SELF_PATH=$(nix-instantiate --raw --eval -A "$UPDATE_NIX_ATTR_PATH".meta.position)
-          PACKAGE_DIR=$(dirname "$SELF_PATH")
-          nanogpt-api models > "$PACKAGE_DIR/models.json"
-          now=$(date +'%Y-%m-%d')
-          slug=0-unstable-
-          sed 's/version = "'"$slug"'.*";/version = "'"$slug$now"'";/' \
-            -i "$PACKAGE_DIR/package.nix"
-        '';
-      }))]
+      [
+        (lib.getExe (writeShellApplication {
+          name = "nanogpt-data-update";
+          runtimeInputs = [
+            gnused
+            nanogpt-api
+          ];
+          text = ''
+            SELF_PATH=$(nix-instantiate --raw --eval -A "$UPDATE_NIX_ATTR_PATH".meta.position)
+            PACKAGE_DIR=$(dirname "$SELF_PATH")
+            nanogpt-api models > "$PACKAGE_DIR/models.json"
+            now=$(date +'%Y-%m-%d')
+            slug=0-unstable-
+            sed 's/version = "'"$slug"'.*";/version = "'"$slug$now"'";/' \
+              -i "$PACKAGE_DIR/package.nix"
+          '';
+        }))
+      ]
     ];
   };
 
@@ -58,4 +61,4 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Model pricing data specific to nano-gpt.com, for use by agent harnesses like Crush or Pi";
     platforms = lib.platforms.linux;
   };
-})
+}

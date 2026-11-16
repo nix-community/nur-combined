@@ -1,22 +1,29 @@
 # discord gtk3 client
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.abaddon;
 in
 {
   sane.programs.abaddon = {
-    configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options.autostart = mkOption {
-          type = types.bool;
-          default = false;
+    configOption =
+      with lib;
+      mkOption {
+        default = { };
+        type = types.submodule {
+          options.autostart = mkOption {
+            type = types.bool;
+            default = false;
+          };
         };
       };
-    };
 
     packageUnwrapped = pkgs.abaddon.overrideAttrs (upstream: {
-      patches = (upstream.patches or []) ++ [
+      patches = (upstream.patches or [ ]) ++ [
         (pkgs.fetchpatch {
           url = "https://git.uninsane.org/colin/abaddon/commit/eb551f188d34679f75adcbc83cb8d5beb4d19fd6.patch";
           name = ''"view members" default to false'';

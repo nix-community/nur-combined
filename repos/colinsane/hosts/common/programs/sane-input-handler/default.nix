@@ -1,10 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.sane-input-handler;
   doExec = inputName: transitions: {
     type = "exec";
     command = [
-      "setsid" "-f"  #< fork before invoking the input handler, else it runs synchronously
+      "setsid"
+      "-f" # fork before invoking the input handler, else it runs synchronously
       "sane-input-handler"
       inputName
     ];
@@ -20,76 +26,122 @@ let
     event_name = eventName;
     inherit transitions;
   };
-  friendlyToBonsai = { trigger ? null, terminal ? false, timeout ? {}, power_pressed ? {}, power_released ? {}, voldown_pressed ? {}, voldown_released ? {}, volup_pressed ? {}, volup_released ? {} }@args:
-  if trigger != null then [
-    (doExec trigger (friendlyToBonsai (removeAttrs args ["trigger"])))
-  ] else let
-    events = [ ]
-      ++ (lib.optional (timeout != {})          (onDelay (timeout.ms or 400) (friendlyToBonsai (removeAttrs timeout ["ms"]))))
-      ++ (lib.optional (power_pressed != {})    (onEvent "power_pressed" (friendlyToBonsai power_pressed)))
-      ++ (lib.optional (power_released != {})   (onEvent "power_released" (friendlyToBonsai power_released)))
-      ++ (lib.optional (voldown_pressed != {})  (onEvent "voldown_pressed" (friendlyToBonsai voldown_pressed)))
-      ++ (lib.optional (voldown_released != {}) (onEvent "voldown_released" (friendlyToBonsai voldown_released)))
-      ++ (lib.optional (volup_pressed != {})    (onEvent "volup_pressed" (friendlyToBonsai volup_pressed)))
-      ++ (lib.optional (volup_released != {})   (onEvent "volup_released" (friendlyToBonsai volup_released)))
-    ;
-    in assert terminal -> events == []; events;
+  friendlyToBonsai =
+    {
+      trigger ? null,
+      terminal ? false,
+      timeout ? { },
+      power_pressed ? { },
+      power_released ? { },
+      voldown_pressed ? { },
+      voldown_released ? { },
+      volup_pressed ? { },
+      volup_released ? { },
+    }@args:
+    if trigger != null then
+      [
+        (doExec trigger (friendlyToBonsai (removeAttrs args [ "trigger" ])))
+      ]
+    else
+      let
+        events =
+          (lib.optional (timeout != { }) (
+            onDelay (timeout.ms or 400) (friendlyToBonsai (removeAttrs timeout [ "ms" ]))
+          ))
+          ++ (lib.optional (power_pressed != { }) (onEvent "power_pressed" (friendlyToBonsai power_pressed)))
+          ++ (lib.optional (power_released != { }) (
+            onEvent "power_released" (friendlyToBonsai power_released)
+          ))
+          ++ (lib.optional (voldown_pressed != { }) (
+            onEvent "voldown_pressed" (friendlyToBonsai voldown_pressed)
+          ))
+          ++ (lib.optional (voldown_released != { }) (
+            onEvent "voldown_released" (friendlyToBonsai voldown_released)
+          ))
+          ++ (lib.optional (volup_pressed != { }) (onEvent "volup_pressed" (friendlyToBonsai volup_pressed)))
+          ++ (lib.optional (volup_released != { }) (
+            onEvent "volup_released" (friendlyToBonsai volup_released)
+          ));
+      in
+      assert terminal -> events == [ ];
+      events;
 
   # trigger ${button}_hold_N repeatedly for as long as ${button} is held.
   # ${holdTimes[N]}: how long to wait after the N'th event before firing the event again.
   #   if the holdTimes list has fewer items than `maxHolds`, then the list is extended by duplicating its last item.
-  recurseHold = button: { count ? 1, maxHolds ? 8, holdTimes ? [ 500 2500 ] }@opts: {
-    trigger = "${button}_hold_${toString count}";
-    ms = builtins.elemAt holdTimes (count - 1);
-  } // lib.optionalAttrs (count < maxHolds) {
-    timeout = recurseHold button (opts // { count = count+1; holdTimes = holdTimes ++ [(lib.last holdTimes)]; });
-    # end the hold -> back to root state
-    # take care to omit this on the last hold though, so that there's always a strictly delay-driven path back to root
-    "${button}_released".terminal = true;
-  };
+  recurseHold =
+    button:
+    {
+      count ? 1,
+      maxHolds ? 8,
+      holdTimes ? [
+        500
+        2500
+      ],
+    }@opts:
+    {
+      trigger = "${button}_hold_${toString count}";
+      ms = builtins.elemAt holdTimes (count - 1);
+    }
+    // lib.optionalAttrs (count < maxHolds) {
+      timeout = recurseHold button (
+        opts
+        // {
+          count = count + 1;
+          holdTimes = holdTimes ++ [ (lib.last holdTimes) ];
+        }
+      );
+      # end the hold -> back to root state
+      # take care to omit this on the last hold though, so that there's always a strictly delay-driven path back to root
+      "${button}_released".terminal = true;
+    };
 in
 {
   sane.programs.sane-input-handler = {
-    configOption = with lib; mkOption{
-      default = {};
-      type = types.submodule {
-        options = {
-          devices = mkOption {
-            type = types.listOf types.str;
-            default = [
-              "0:1:Power_Button"  #< Thinkpad power button
-              "1:1:AT_Translated_Set_2_keyboard"  #< Thinkpad volume buttons (plus all its other buttons)
-              "0:0:axp20x-pek"  #< Pinephone power button
-              "1:1:1c21800.lradc"  #< Pinephone volume buttons
-              "1:1:gpio-keys"  #< Pinephone Pro power button; Pocophone vol-up
-              "1:1:adc-keys"  #< Pinephone Pro volume buttons
-              "0:0:pm8941_resin"  #< Pocophone vol-down
-              "0:0:pm8941_pwrkey"  #< Pocophone power button
-            ];
-            description = ''
-              list of devices which we should listen for special inputs from.
-              find these names with:
-              `swaymsg -t get_inputs --raw | jq 'map(.identifier)'`
-            '';
+    configOption =
+      with lib;
+      mkOption {
+        default = { };
+        type = types.submodule {
+          options = {
+            devices = mkOption {
+              type = types.listOf types.str;
+              default = [
+                "0:1:Power_Button" # Thinkpad power button
+                "1:1:AT_Translated_Set_2_keyboard" # Thinkpad volume buttons (plus all its other buttons)
+                "0:0:axp20x-pek" # Pinephone power button
+                "1:1:1c21800.lradc" # Pinephone volume buttons
+                "1:1:gpio-keys" # Pinephone Pro power button; Pocophone vol-up
+                "1:1:adc-keys" # Pinephone Pro volume buttons
+                "0:0:pm8941_resin" # Pocophone vol-down
+                "0:0:pm8941_pwrkey" # Pocophone power button
+              ];
+              description = ''
+                list of devices which we should listen for special inputs from.
+                find these names with:
+                `swaymsg -t get_inputs --raw | jq 'map(.identifier)'`
+              '';
+            };
           };
         };
       };
-    };
-    packageUnwrapped = (pkgs.sane-input-handler.override {
-      sway = config.sane.programs.sway.package;
-    }).overrideAttrs {
-      # the `sway` we build with here will differ from the `sway` which
-      # pkgs/by-name/sane-input-handler/sane-input-handler would receive if invoked directly.
-      relaxPackageConsistency = true;
-    };
+    packageUnwrapped =
+      (pkgs.sane-input-handler.override {
+        sway = config.sane.programs.sway.package;
+      }).overrideAttrs
+        {
+          # the `sway` we build with here will differ from the `sway` which
+          # pkgs/by-name/sane-input-handler/sane-input-handler would receive if invoked directly.
+          relaxPackageConsistency = true;
+        };
     suggestedPrograms = [
       "bonsai"
       # dependencies which get pulled in unconditionally:
       "killall"
       "playerctl"
-      "procps"  #< TODO: reduce to just those parts of procps which are really needed
+      "procps" # TODO: reduce to just those parts of procps which are really needed
       "sane-open"
-      # "sway"  #< TODO: circular dependency :-(
+      # "sway"  # TODO: circular dependency :-(
       "wireplumber"
       # optional integrations:
       "megapixels"
@@ -98,14 +150,14 @@ in
       "wvkbd"
     ];
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< to launch applications
+    sandbox.whitelistDbus.user = true; # TODO: reduce  # to launch applications
     # sandbox.whitelistMpris.controlPlayers = true;
     # sandbox.whitelistPortal = [
     #   "DynamicLauncher"
     # ];
-    sandbox.whitelistSystemctl = true;  #< to restart bonsaid on failure
+    sandbox.whitelistSystemctl = true; # to restart bonsaid on failure
     sandbox.extraRuntimePaths = [ "sway" ];
-    sandbox.keepPidsAndProc = true;  #< for toggling the keyboard
+    sandbox.keepPidsAndProc = true; # for toggling the keyboard
   };
 
   # sane.programs.actkbd = {
@@ -130,20 +182,20 @@ in
 
   # TODO: duplicated sandboxing here is just ugly
   sane.programs.bonsai.sandbox = lib.mkIf cfg.enabled (
-    removeAttrs cfg.sandbox [ "method" ]  #< else infinite recursion
+    removeAttrs cfg.sandbox [ "method" ] # else infinite recursion
   );
   sane.programs.bonsai.config.transitions = lib.mkIf cfg.enabled (friendlyToBonsai {
     # map sequences of "events" to an argument to pass to sane-input-handler
 
     # map: power (tap), power (tap) x2
     power_pressed.power_released.trigger = "power_tap_1";
-    power_pressed.power_released.timeout.ms = 825;  # max time within which a second power press will be recognized
+    power_pressed.power_released.timeout.ms = 825; # max time within which a second power press will be recognized
     power_pressed.power_released.power_pressed.power_released.trigger = "power_tap_2";
     # map power (hold), power tap -> hold:
     power_pressed.timeout.trigger = "power_hold";
     power_pressed.timeout.ms = 500;
     power_pressed.power_released.power_pressed.timeout.trigger = "power_tap_1_hold";
-    power_pressed.power_released.power_pressed.timeout.ms = 875;  # this is a long timeout because it's tied to the "kill window" action.
+    power_pressed.power_released.power_pressed.timeout.ms = 875; # this is a long timeout because it's tied to the "kill window" action.
 
     # map: power (tap) -> volup/voldown
     power_pressed.power_released.volup_pressed.trigger = "power_then_volup";
@@ -156,11 +208,11 @@ in
     # map: volume taps and holds
     volup_pressed.trigger = "volup_start";
     volup_pressed.volup_released.trigger = "volup_tap_1";
-    volup_pressed.timeout = recurseHold "volup" {};
+    volup_pressed.timeout = recurseHold "volup" { };
 
     voldown_pressed.trigger = "voldown_start";
     voldown_pressed.voldown_released.trigger = "voldown_tap_1";
-    voldown_pressed.timeout = recurseHold "voldown" {};
+    voldown_pressed.timeout = recurseHold "voldown" { };
   });
 
   sane.programs.sway.sandbox.extraRuntimePaths = lib.mkIf cfg.enabled [ "bonsai" ];
@@ -174,13 +226,16 @@ in
       # however, this is considered a BUG. i am relying on a bug here that may be fixed in future sway versions:
       # - <https://github.com/swaywm/sway/issues/6961>
       # if so, migrate this to an evdev daemon, such as `evdevremapkeys` or `actkbd`
-    '' + lib.concatStringsSep "\n" (lib.forEach cfg.config.devices (dev: ''
-      bindsym --locked --input-device=${dev} --no-repeat XF86PowerOff exec bonsaictl -e power_pressed
-      bindsym --locked --input-device=${dev} --release XF86PowerOff exec bonsaictl -e power_released
-      bindsym --locked --input-device=${dev} --no-repeat XF86AudioRaiseVolume exec bonsaictl -e volup_pressed
-      bindsym --locked --input-device=${dev} --release XF86AudioRaiseVolume exec bonsaictl -e volup_released
-      bindsym --locked --input-device=${dev} --no-repeat XF86AudioLowerVolume exec bonsaictl -e voldown_pressed
-      bindsym --locked --input-device=${dev} --release XF86AudioLowerVolume exec bonsaictl -e voldown_released
-    ''))
+    ''
+    + lib.concatStringsSep "\n" (
+      lib.forEach cfg.config.devices (dev: ''
+        bindsym --locked --input-device=${dev} --no-repeat XF86PowerOff exec bonsaictl -e power_pressed
+        bindsym --locked --input-device=${dev} --release XF86PowerOff exec bonsaictl -e power_released
+        bindsym --locked --input-device=${dev} --no-repeat XF86AudioRaiseVolume exec bonsaictl -e volup_pressed
+        bindsym --locked --input-device=${dev} --release XF86AudioRaiseVolume exec bonsaictl -e volup_released
+        bindsym --locked --input-device=${dev} --no-repeat XF86AudioLowerVolume exec bonsaictl -e voldown_pressed
+        bindsym --locked --input-device=${dev} --release XF86AudioLowerVolume exec bonsaictl -e voldown_released
+      '')
+    )
   );
 }

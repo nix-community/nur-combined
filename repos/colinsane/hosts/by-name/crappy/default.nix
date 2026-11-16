@@ -29,9 +29,9 @@
   sane.programs.dino.config.autostart = false;
   sane.programs.dissent.config.autostart = false;
   sane.programs.fractal.config.autostart = false;
-  sane.programs.sway.config.mod = "Mod1";  #< alt key instead of Super
+  sane.programs.sway.config.mod = "Mod1";  # alt key instead of Super
 
   # sane.programs.guiApps.enableFor.user.colin = false;
 
-  # sane.programs.pcGuiApps.enableFor.user.colin = false;  #< errors!
+  # sane.programs.pcGuiApps.enableFor.user.colin = false;  # errors!
 }

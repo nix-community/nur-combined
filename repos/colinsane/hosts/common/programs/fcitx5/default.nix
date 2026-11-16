@@ -37,10 +37,10 @@
     #   ];
     # };
 
-    sandbox.wrapperType = "inplace";  #< $out/etc/xdg/Xwayland-session.d/20-fcitx refers to bins by absolute path
+    sandbox.wrapperType = "inplace"; # $out/etc/xdg/Xwayland-session.d/20-fcitx refers to bins by absolute path
 
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce
-    sandbox.whitelistWayland = true;  # for `fcitx5-configtool, if nothing else`
+    sandbox.whitelistDbus.user = true; # TODO: reduce
+    sandbox.whitelistWayland = true; # for `fcitx5-configtool, if nothing else`
     sandbox.extraHomePaths = [
       # ".config/fcitx"
       ".config/fcitx5"

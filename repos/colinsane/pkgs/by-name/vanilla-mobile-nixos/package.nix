@@ -22,17 +22,20 @@ let
   # confusingly, `pkgs/default.nix` takes `pkgs: self:` -- i.e. the *reverse* order of a typical overlay.
   pkgsOverlay = self: super: import "${src}/pkgs" super self;
   pkgsFinal = pkgs.extend pkgsOverlay;
-in src.overrideAttrs (base: {
+in
+src.overrideAttrs (base: {
   # attributes required by update scripts.
+  inherit src version;
   pname = "vanilla-mobile-nixos";
-  src = src;
-  version = version;
 
   passthru = base.passthru // {
     inherit flake pkgsOverlay;
     pkgs = pkgsOverlay pkgsFinal pkgs;
     updateScript = nix-update-script {
-      extraArgs = [ "--version" "branch" ];
+      extraArgs = [
+        "--version"
+        "branch"
+      ];
     };
   };
 })

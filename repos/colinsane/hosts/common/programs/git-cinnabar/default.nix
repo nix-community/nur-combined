@@ -1,6 +1,6 @@
 { ... }:
 {
   sane.programs.git-cinnabar = {
-    sandbox.method = null;  #< TODO: sandbox
+    sandbox.method = null; # TODO: sandbox
   };
 }

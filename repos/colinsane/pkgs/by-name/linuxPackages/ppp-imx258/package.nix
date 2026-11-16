@@ -19,7 +19,7 @@ stdenv.mkDerivation {
   patches = [
     ./drop-interface-speed-to-1224-mbps.patch
     ./add-i2c-supply.patch
-    # ./add-reset-gpio.patch  #< breaks mainline rt5640 module
+    # ./add-reset-gpio.patch  # breaks mainline rt5640 module
   ];
 
   postPatch = ''
@@ -41,7 +41,8 @@ stdenv.mkDerivation {
     "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc"
     "HOSTLD=${buildPackages.stdenv.cc.bintools}/bin/${buildPackages.stdenv.cc.targetPrefix}ld"
     "ARCH=${stdenv.hostPlatform.linuxArch}"
-  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+  ]
+  ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
   ];
 
@@ -57,7 +58,6 @@ stdenv.mkDerivation {
   '';
 
   passthru.moduleNames = [
-    "imx258"    #< mainline, patched module
+    "imx258" # mainline, patched module
   ];
 }
-

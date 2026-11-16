@@ -20,11 +20,16 @@ lib.makeScope newScope (self: {
 
   # merges N attrsets
   # Type: joinAttrsets :: [AttrSet] -> AttrSet
-  joinAttrsets = l: lib.foldl' lib.attrsets.unionOfDisjoint {} l;
+  joinAttrsets = l: lib.foldl' lib.attrsets.unionOfDisjoint { } l;
 
   # merges N attrsets, recursively
   # Type: joinAttrsetsRecursive :: [AttrSet] -> AttrSet
-  joinAttrsetsRecursive = l: lib.foldl' (lib.attrsets.recursiveUpdateUntil (path: lhs: rhs: false)) {} l;
+  joinAttrsetsRecursive =
+    l:
+    lib.foldl' (lib.attrsets.recursiveUpdateUntil (
+      _path: _lhs: _rhs:
+      false
+    )) { } l;
 
   # evaluate a `{ name, value }` pair in the same way that `listToAttrs` does.
   # Type: nameValueToAttrs :: { name :: String, value :: Any } -> Any
@@ -33,20 +38,15 @@ lib.makeScope newScope (self: {
   };
 
   # if `maybe-null` is non-null, yield that. else, return the `default`.
-  withDefault = default: maybe-null: if maybe-null != null then
-    maybe-null
-  else
-    default;
+  withDefault = default: maybe-null: if maybe-null != null then maybe-null else default;
 
   # removes null entries from the provided AttrSet. acts recursively.
   # Type: filterNonNull :: AttrSet -> AttrSet
-  filterNonNull = attrs: lib.filterAttrsRecursive (n: v: v != null) attrs;
+  filterNonNull = attrs: lib.filterAttrsRecursive (_: v: v != null) attrs;
 
   # return only the subset of `attrs` whose name is in the provided set.
   # Type: filterByName :: [String] -> AttrSet
-  filterByName = names: attrs: lib.filterAttrs
-    (name: value: builtins.elem name names)
-    attrs;
+  filterByName = names: attrs: lib.filterAttrs (name: _: builtins.elem name names) attrs;
 
   # transform a list into an AttrSet via a function which maps an element to a { name, value } pair.
   # it's an error for the same name to be specified more than once
@@ -59,33 +59,31 @@ lib.makeScope newScope (self: {
   # but e.g. { a.b = {}; } -> []
   #
   # Type: flattenAttrs :: AttrSet[AttrSet|Any] -> [{ path :: String, value :: Any }]
-  flattenAttrs = self.flattenAttrs' [];
-  flattenAttrs' = path: value: if builtins.isAttrs value then (
-    builtins.concatLists (
-      lib.mapAttrsToList
-        (name: self.flattenAttrs' (path ++ [ name ]))
-        value
-    )
-  ) else [
-    {
-      inherit path value;
-    }
-  ];
-
+  flattenAttrs = self.flattenAttrs' [ ];
+  flattenAttrs' =
+    path: value:
+    if builtins.isAttrs value then
+      (builtins.concatLists (lib.mapAttrsToList (name: self.flattenAttrs' (path ++ [ name ])) value))
+    else
+      [
+        {
+          inherit path value;
+        }
+      ];
 
   # like `lib.listFilesRecursive` but does not mangle paths.
   #
   # Type: enumerateFilePaths :: path -> [String]
-  enumerateFilePaths = base:
+  enumerateFilePaths =
+    base:
     builtins.concatLists (
-      lib.mapAttrsToList
-        (name: type:
-          if type == "directory" then
-            # enumerate this directory and then prefix each result with the directory's name
-            map (e: "${name}/${e}") (self.enumerateFilePaths (base + "/${name}"))
-          else
-            [ name ]
-        )
-        (builtins.readDir base)
+      lib.mapAttrsToList (
+        name: type:
+        if type == "directory" then
+          # enumerate this directory and then prefix each result with the directory's name
+          map (e: "${name}/${e}") (self.enumerateFilePaths (base + "/${name}"))
+        else
+          [ name ]
+      ) (builtins.readDir base)
     );
 })

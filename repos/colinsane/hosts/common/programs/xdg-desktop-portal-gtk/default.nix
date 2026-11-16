@@ -7,10 +7,10 @@ in
     # rmDbusServices: because we care about ordering with the rest of the desktop, and don't want something else to auto-start this.
     packageUnwrapped = pkgs.rmDbusServicesInPlace pkgs.xdg-desktop-portal-gtk;
 
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # speak to main xdg-desktop-portal
+    sandbox.whitelistDbus.user = true; # TODO: reduce  # speak to main xdg-desktop-portal
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
-      ".local/share/applications"  # file opener needs to find .desktop files, for their icon/name.
+      ".local/share/applications" # file opener needs to find .desktop files, for their icon/name.
       # for file-chooser portal users (fractal, firefox, ...), need to provide anything they might want.
       # i think (?) portal users can only access the files here interactively, i.e. by me interacting with the portal's visual filechooser,
       # so shoving stuff here is trusting the portal but not granting any trust to the portal user.

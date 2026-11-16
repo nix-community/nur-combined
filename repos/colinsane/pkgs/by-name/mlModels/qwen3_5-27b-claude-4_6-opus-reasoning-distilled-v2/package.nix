@@ -1,6 +1,7 @@
 # Alibaba's model, fine-tuned to behave like Claude, supposedly optimized for self-hosting; 2026-03-18-ish
 # <https://huggingface.co/Jackrong/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-v2-GGUF>
-{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
+{ fetchFromHuggingFaceSane }:
+fetchFromHuggingFaceSane {
   owner = "Jackrong";
   repo = "Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-v2-GGUF";
   path = "Qwen3.5-27B.Q4_K_M.gguf";

@@ -16,10 +16,9 @@
     ];
     # rsyslogd can't handle $HOME or ~ or anything like that,
     # so assume a single-user install and just substitute the default user:
-    fs.".config/rsyslog/rsyslog.conf".symlink.text = lib.replaceStrings
-      [ "$HOME" ]
-      [ "/home/${config.sane.defaultUser}" ]
-      (builtins.readFile ./rsyslog.conf);
+    fs.".config/rsyslog/rsyslog.conf".symlink.text =
+      lib.replaceStrings [ "$HOME" ] [ "/home/${config.sane.defaultUser}" ]
+        (builtins.readFile ./rsyslog.conf);
 
     services.rsyslogd = {
       description = "rsyslogd: ingests journald (system log) messages into persistent storage";

@@ -18,7 +18,8 @@
   unstableGitUpdater,
   webkitgtk_6_0,
   wrapGAppsHook4,
-}: stdenv.mkDerivation (finalAttrs: {
+}:
+stdenv.mkDerivation {
   pname = "reminders";
   version = "5.0.rc-unstable-2023-05-03";
 
@@ -30,10 +31,10 @@
   };
 
   nativeBuildInputs = [
-    appstream  # for appstreamcli
-    desktop-file-utils  # for desktop-file-validate
-    glib  # for glib-compile-schemas
-    gtk4  # for gtk-update-icon-cache
+    appstream # for appstreamcli
+    desktop-file-utils # for desktop-file-validate
+    glib # for glib-compile-schemas
+    gtk4 # for gtk-update-icon-cache
     meson
     ninja
     pkg-config
@@ -86,7 +87,10 @@
     homepage = "https://github.com/remindersdevs/Reminders";
     license = with lib.licenses; [ gpl3Plus ];
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ colinsane pluiedev ];
+    maintainers = with lib.maintainers; [
+      colinsane
+      pluiedev
+    ];
     mainProgram = "reminders";
   };
-})
+}

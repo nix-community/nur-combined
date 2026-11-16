@@ -1,5 +1,5 @@
 {
-  mkNixpkgs ? import ./mkNixpkgs.nix {},
+  mkNixpkgs ? import ./mkNixpkgs.nix { },
 }:
 mkNixpkgs {
   rev = "c608b274c77f47f0d790f5942f0ffa259a02a798";

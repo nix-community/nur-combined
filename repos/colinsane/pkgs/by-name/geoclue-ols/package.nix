@@ -4,7 +4,8 @@
   fastcluster,
   python3,
   stdenvNoCC,
-}: stdenvNoCC.mkDerivation {
+}:
+stdenvNoCC.mkDerivation {
   pname = "ols";
   version = "0.1.0-unstable-2024-06-30";
 

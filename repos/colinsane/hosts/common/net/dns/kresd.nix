@@ -4,7 +4,7 @@
 let
   hostCfg = config.sane.hosts.by-name."${config.networking.hostName}" or null;
 in
-lib.optionalAttrs false  #< XXX(2025-12-27): using knot-resolver (successor to kresd) now
+lib.optionalAttrs false  # XXX(2025-12-27): using knot-resolver (successor to kresd) now
 {
   config = lib.mkIf (!config.sane.services.hickory-dns.asSystemResolver) {
     services.resolved.enable = lib.mkForce false;
@@ -19,7 +19,7 @@ lib.optionalAttrs false  #< XXX(2025-12-27): using knot-resolver (successor to k
       # "::1"
     ];
 
-    networking.resolvconf.useLocalResolver = false;  #< we manage resolvconf explicitly, above
+    networking.resolvconf.useLocalResolver = false;  # we manage resolvconf explicitly, above
     networking.resolvconf.extraConfig = ''
       # DNS serviced by `kresd` (knot-resolver) recursive resolver
       name_servers='127.0.0.1'
@@ -58,12 +58,12 @@ lib.optionalAttrs false  #< XXX(2025-12-27): using knot-resolver (successor to k
       # hardening (systemd-analyze security kresd@)
       # upstream .service file sets AmbientCapabilities, CapabilityBoundingSet
       serviceConfig.LockPersonality = true;
-      # serviceConfig.MemoryDenyWriteExecute = true;  #< XXX(2025-12-02): required
+      # serviceConfig.MemoryDenyWriteExecute = true;  # XXX(2025-12-02): required
       serviceConfig.NoNewPrivileges = true;
       serviceConfig.PrivateDevices = true;
       serviceConfig.PrivateMounts = true;
       serviceConfig.PrivateTmp = true;
-      # serviceConfig.PrivateUsers = true;  #< XXX(2025-12-02): required
+      # serviceConfig.PrivateUsers = true;  # XXX(2025-12-02): required
       serviceConfig.ProcSubset = "pid";
       serviceConfig.ProtectClock = true;
       serviceConfig.ProtectControlGroups = true;
@@ -81,8 +81,8 @@ lib.optionalAttrs false  #< XXX(2025-12-27): using knot-resolver (successor to k
       serviceConfig.SystemCallArchitectures = "native";
       serviceConfig.SystemCallFilter = [
         "@system-service"
-        # "~@privileged"  #< XXX(2025-12-02): required
-        # "~@resources"  #< XXX(2025-12-02): required
+        # "~@privileged"  # XXX(2025-12-02): required
+        # "~@resources"  # XXX(2025-12-02): required
       ];
     };
 
@@ -106,7 +106,7 @@ lib.optionalAttrs false  #< XXX(2025-12-27): using knot-resolver (successor to k
       serviceConfig.ProtectKernelModules = true;
       serviceConfig.ProtectKernelTunables = true;
       serviceConfig.ProtectProc = "invisible";
-      serviceConfig.ProtectSystem = "full";  #< XXX(2025-12-02): can't be strict
+      serviceConfig.ProtectSystem = "full";  # XXX(2025-12-02): can't be strict
       serviceConfig.RemoveIPC = true;
       serviceConfig.RestrictAddressFamilies = "AF_UNIX";
       serviceConfig.RestrictNamespaces = true;

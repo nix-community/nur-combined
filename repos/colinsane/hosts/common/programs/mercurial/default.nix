@@ -2,10 +2,10 @@
 {
   sane.programs.mercurial = {
     packageUnwrapped = pkgs.mercurialFull;
-    sandbox.wrapperType = "inplace";  # etc/mercurial/hgrc refers to hg python-path (to define an extension)
+    sandbox.wrapperType = "inplace"; # etc/mercurial/hgrc refers to hg python-path (to define an extension)
     suggestedPrograms = [
-      "colordiff"  #< optional, for my hgrc aliases
-      "less"  #< TODO: this might be a missing dependency on the nix side of things?
+      "colordiff" # optional, for my hgrc aliases
+      "less" # TODO: this might be a missing dependency on the nix side of things?
     ];
     sandbox.net = "clearnet";
     sandbox.whitelistPwd = true;

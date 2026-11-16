@@ -20,22 +20,24 @@
 { pkgs, ... }:
 {
   sane.programs.gnome-maps = {
-    packageUnwrapped = pkgs.rmDbusServicesInPlace (pkgs.gnome-maps.overrideAttrs (base: {
-      # TODO: set up portal-based location services, but until that works, explicitly disable portals here.
-      preFixup = (base.preFixup or "") + ''
-        gappsWrapperArgs+=(
-          --unset GIO_USE_PORTALS
-        )
-      '';
-    }));
+    packageUnwrapped = pkgs.rmDbusServicesInPlace (
+      pkgs.gnome-maps.overrideAttrs (base: {
+        # TODO: set up portal-based location services, but until that works, explicitly disable portals here.
+        preFixup = (base.preFixup or "") + ''
+          gappsWrapperArgs+=(
+            --unset GIO_USE_PORTALS
+          )
+        '';
+      })
+    );
     suggestedPrograms = [
       "geoclue2"
     ];
 
-    sandbox.wrapperType = "inplace";  #< /share directory contains Gir info which references libgnome-maps.so by path
-    sandbox.whitelistDri = true;  # for perf
-    sandbox.whitelistDbus.system = true;  #< system is required for non-portal location services
-    sandbox.whitelistDbus.user = true;  #< TODO: not sure if "user" is necessary?
+    sandbox.wrapperType = "inplace"; # /share directory contains Gir info which references libgnome-maps.so by path
+    sandbox.whitelistDri = true; # for perf
+    sandbox.whitelistDbus.system = true; # system is required for non-portal location services
+    sandbox.whitelistDbus.user = true; # TODO: not sure if "user" is necessary?
     sandbox.whitelistWayland = true;
     sandbox.net = "clearnet";
 
@@ -45,7 +47,7 @@
     # TODO: building in "developer mode" causes gnome-maps to pretty-print the .json instead of minifying it
     persist.byStore.private = [ ".local/share/gnome-maps" ];
 
-    mime.associations."x-scheme-handler/maps" = "org.gnome.Maps.desktop";  # e.g. `maps:q=1600%20Pennsylvania%20Ave`
-    mime.associations."x-scheme-handler/geo" = "org.gnome.Maps.desktop";  # e.g. `geo:50.812375,4.38073;u=100`
+    mime.associations."x-scheme-handler/maps" = "org.gnome.Maps.desktop"; # e.g. `maps:q=1600%20Pennsylvania%20Ave`
+    mime.associations."x-scheme-handler/geo" = "org.gnome.Maps.desktop"; # e.g. `geo:50.812375,4.38073;u=100`
   };
 }

@@ -19,7 +19,7 @@ parseArgs() {
     local arg=$1
     shift
     case $arg in
-      (-h|--help)
+      (-h | --help)
         usage
         exit 0
         ;;
@@ -42,7 +42,7 @@ parseArgs "$@"
 
 if [ -n "$todoFile" ]; then
   # prepend our picks to git's todo file (dropping its "noop"), then hand off to the user's editor
-  mapfile -t gitTodo < "$todoFile"
+  mapfile -t gitTodo <"$todoFile"
   {
     printf '%s\n' "$GIT_CHERRY_PICK_INTERACTIVE_TODO"
     for line in "${gitTodo[@]}"; do
@@ -50,7 +50,7 @@ if [ -n "$todoFile" ]; then
         printf '%s\n' "$line"
       fi
     done
-  } > "$todoFile"
+  } >"$todoFile"
   eval "$GIT_CHERRY_PICK_INTERACTIVE_EDITOR \"\$todoFile\""
   exit
 fi
@@ -82,6 +82,6 @@ if [ -z "$todo" ]; then
 fi
 
 GIT_CHERRY_PICK_INTERACTIVE_TODO="$todo" \
-GIT_CHERRY_PICK_INTERACTIVE_EDITOR="$(git var GIT_SEQUENCE_EDITOR)" \
-GIT_SEQUENCE_EDITOR="$(printf '%q' "$0") --edit-todo" \
+  GIT_CHERRY_PICK_INTERACTIVE_EDITOR="$(git var GIT_SEQUENCE_EDITOR)" \
+  GIT_SEQUENCE_EDITOR="$(printf '%q' "$0") --edit-todo" \
   exec git rebase -i HEAD

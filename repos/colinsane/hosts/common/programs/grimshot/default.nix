@@ -9,13 +9,13 @@
       # runtime dependencies (grimshot is just a trivial shell script)
       "grim"
       "jq"
-      "libnotify"  # only if invoked with `-n`
+      "libnotify" # only if invoked with `-n`
       "slurp"
       # "sway"
       "wl-clipboard"
     ];
-    sandbox.keepPids = true;  #< needed by wl-clipboard
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce
+    sandbox.keepPids = true; # needed by wl-clipboard
+    sandbox.whitelistDbus.user = true; # TODO: reduce
     sandbox.whitelistWayland = true;
     sandbox.extraRuntimePaths = [
       "sway"

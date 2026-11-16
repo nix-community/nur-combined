@@ -19,29 +19,38 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-kqOfUQTHQIKmASqRhIvBUhrTGFvSG4qtmYAQg4ceyxE=";
   };
 
-  postPatch = let
-    # e.g. `linux-x86_64` or `linux-aarch64`
-    # lowercase form of `python -c 'import platform; print(f"{platform.system()}-{platform.machine()}")'
-    platform = "${stdenv.hostPlatform.parsed.kernel.name}-${stdenv.hostPlatform.parsed.cpu.name}";
-    manifest = writeText "manifest.json" (builtins.toJSON {
-      inherit platform;
-      archive = "";
-      languages = lib.listToAttrs (map (pkg:
-        let language = lib.replaceStrings [ "-" ] [ "_" ] (lib.removePrefix "tree-sitter-" pkg.pname);
-        in {
-          name = language;
-          value = {
-            file = "${pkg}/parser";
-            symbol = "tree_sitter_${language}";
-            sha256 = "";
-          };
+  postPatch =
+    let
+      # e.g. `linux-x86_64` or `linux-aarch64`
+      # lowercase form of `python -c 'import platform; print(f"{platform.system()}-{platform.machine()}")'
+      platform = "${stdenv.hostPlatform.parsed.kernel.name}-${stdenv.hostPlatform.parsed.cpu.name}";
+      manifest = writeText "manifest.json" (
+        builtins.toJSON {
+          inherit platform;
+          archive = "";
+          languages = lib.listToAttrs (
+            map (
+              pkg:
+              let
+                language = lib.replaceStrings [ "-" ] [ "_" ] (lib.removePrefix "tree-sitter-" pkg.pname);
+              in
+              {
+                name = language;
+                value = {
+                  file = "${pkg}/parser";
+                  symbol = "tree_sitter_${language}";
+                  sha256 = "";
+                };
+              }
+            ) tree-sitter-grammars.allGrammars
+          );
         }
-      ) tree-sitter-grammars.allGrammars);
-    });
-  in ''
-    mkdir -p src/semble_grammars/grammars/${platform}
-    ln -s ${manifest} src/semble_grammars/grammars/${platform}/manifest.json
-  '';
+      );
+    in
+    ''
+      mkdir -p src/semble_grammars/grammars/${platform}
+      ln -s ${manifest} src/semble_grammars/grammars/${platform}/manifest.json
+    '';
 
   nativeBuildInputs = [
     python3.pkgs.pypaBuildHook

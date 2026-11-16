@@ -8,7 +8,6 @@
   desktop-file-utils,
   fetchFromGitHub,
   fetchpatch,
-  gitUpdater,
   gobject-introspection,
   gtk4,
   lib,
@@ -18,17 +17,18 @@
   pkg-config,
   python3,
   stdenv,
-  testers,
   unstableGitUpdater,
   wrapGAppsHook4,
 }:
 let
-  pythonEnv = python3.withPackages (ps: with ps; [
-    pygobject3
-    requests
-  ]);
+  pythonEnv = python3.withPackages (
+    ps: with ps; [
+      pygobject3
+      requests
+    ]
+  );
 in
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (_finalAttrs: {
   pname = "waifu-downloader";
   version = "0-unstable-2026-03-05";
 
@@ -98,7 +98,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     gtk4
     libadwaita
-    # pythonEnv  #< not needed as we patch it in directly
+    # pythonEnv  # not needed as we patch it in directly
   ];
 
   strictDeps = true;

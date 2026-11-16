@@ -1,21 +1,28 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.swaylock;
 in
 {
   sane.programs.swaylock = {
-    configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options.autolock = mkOption {
-          type = types.bool;
-          default = true;
-          description = ''
-            integrate with things like `swayidle` to auto-lock when appropriate.
-          '';
+    configOption =
+      with lib;
+      mkOption {
+        default = { };
+        type = types.submodule {
+          options.autolock = mkOption {
+            type = types.bool;
+            default = true;
+            description = ''
+              integrate with things like `swayidle` to auto-lock when appropriate.
+            '';
+          };
         };
       };
-    };
 
     # packageUnwrapped = pkgs.swaylock.overrideAttrs (upstream: {
     #   # XXX(2026-01-01): swaylock performs `shadow`-based auth iff built without pam.
@@ -69,12 +76,12 @@ in
     # XXX(2026-01-29): tcb pam is PROBABLY only needed for non-musl platforms, as pam_unix invokes getspnam (which does tcb lookups on musl).
     # but this is yet-untested.
     swaylock.rules.auth.tcb = lib.mkIf (!pkgs.stdenv.hostPlatform.isMusl) {
-      order = 10900;  # pam_unix order is 11600: we'll be earlier
+      order = 10900; # pam_unix order is 11600: we'll be earlier
       modulePath = "${pkgs.tcb}/lib/security/pam_tcb.so";
-      control = "sufficient";  # if pam_tcb passes auth, short-circuit & grant the user access
-      settings.likeauth = true;  #< taken from pam_unix defaults
-      settings.shadow = true;  #< use getspnam (not just getpwname) for passwd queries (i.e. actually do consult /etc/shadow, /etc/tcb/$user/shadow).
-      settings.try_first_pass = true;  #< taken from pam_unix defaults
+      control = "sufficient"; # if pam_tcb passes auth, short-circuit & grant the user access
+      settings.likeauth = true; # taken from pam_unix defaults
+      settings.shadow = true; # use getspnam (not just getpwname) for passwd queries (i.e. actually do consult /etc/shadow, /etc/tcb/$user/shadow).
+      settings.try_first_pass = true; # taken from pam_unix defaults
     };
   };
 }

@@ -37,7 +37,7 @@
   # enables gzip and sets gzip_comp_level = 5
   services.nginx.recommendedGzipSettings = true;
   # enables zstd and sets zstd_comp_level = 9
-  # services.nginx.recommendedZstdSettings = true;  #< XXX(2025-07-18): nginx zstd integration is unmaintained in NixOS
+  # services.nginx.recommendedZstdSettings = true;  # XXX(2025-07-18): nginx zstd integration is unmaintained in NixOS
   # enables OCSP stapling (so clients don't need contact the OCSP server -- i do instead)
   # - doesn't seem to, actually: <https://www.ssllabs.com/ssltest/analyze.html?d=uninsane.org>
   # caches TLS sessions for 10m

@@ -37,7 +37,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   nativeBuildInputs = [
-    unzip  # for unpackPhase
+    unzip # for unpackPhase
     wrapFirefoxAddonsHook
     zip
   ];
@@ -56,37 +56,42 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     #
     # a large part of why i do this is to configure the filters statically,
     # so that they don't have to be fetched on every boot.
-    makeConfig = { filterFiles }: let
-      mergedFilters = concatTextFile {
-        name = "ublock-origin-filters-merged.txt";
-        files = filterFiles;
-        destination = "/share/filters/ublock-origin-filters-merged.txt";
-      };
-      baseConfig = writers.writeJSON "uBlock0@raymondhill.net.json" {
-        name = "uBlock0@raymondhill.net";
-        description = "ignored";
-        type = "storage";
-        data = {
-          adminSettings = {
-            #^ adminSettings dictionary uses the same schema as the "backup to file" option in settings.
-            userSettings = {
-              # default settings are found: <repo:gorhill/uBlock:src/js/background.js>  (userSettingsDefault)
-              advancedUserEnabled = true;
-              autoUpdate = false;
-              # don't block page load when waiting for filter load
-              suspendUntilListsAreLoaded = false;
+    makeConfig =
+      { filterFiles }:
+      let
+        mergedFilters = concatTextFile {
+          name = "ublock-origin-filters-merged.txt";
+          files = filterFiles;
+          destination = "/share/filters/ublock-origin-filters-merged.txt";
+        };
+        baseConfig = writers.writeJSON "uBlock0@raymondhill.net.json" {
+          name = "uBlock0@raymondhill.net";
+          description = "ignored";
+          type = "storage";
+          data = {
+            adminSettings = {
+              #^ adminSettings dictionary uses the same schema as the "backup to file" option in settings.
+              userSettings = {
+                # default settings are found: <repo:gorhill/uBlock:src/js/background.js>  (userSettingsDefault)
+                advancedUserEnabled = true;
+                autoUpdate = false;
+                # don't block page load when waiting for filter load
+                suspendUntilListsAreLoaded = false;
+              };
+              selectedFilterLists = [ "user-filters" ];
+              # there's an array version of this field too, if preferable
+              filters = ""; # WILL BE SUBSTITUTED DURING BUILD
             };
-            selectedFilterLists = [ "user-filters" ];
-            # there's an array version of this field too, if preferable
-            filters = "";  #< WILL BE SUBSTITUTED DURING BUILD
           };
         };
-      };
-    in runCommand "ublock-origin-config" {
-      preferLocalBuild = true;
-      nativeBuildInputs = [ jq ];
-    } ''
-      cat ${baseConfig} | jq 'setpath(["data", "adminSettings", "userFilters"]; $filterText)' --rawfile filterText ${mergedFilters}/share/filters/ublock-origin-filters-merged.txt > $out
-    '';
+      in
+      runCommand "ublock-origin-config"
+        {
+          preferLocalBuild = true;
+          nativeBuildInputs = [ jq ];
+        }
+        ''
+          cat ${baseConfig} | jq 'setpath(["data", "adminSettings", "userFilters"]; $filterText)' --rawfile filterText ${mergedFilters}/share/filters/ublock-origin-filters-merged.txt > $out
+        '';
   };
 })

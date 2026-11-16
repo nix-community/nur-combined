@@ -1,5 +1,5 @@
 { lib, pkgs, ... }:
-lib.mkIf false  #< 2024/09/30: disabled because i haven't used it in several months
+lib.mkIf false  # 2024/09/30: disabled because i haven't used it in several months
 {
   # based on <https://bytes.fyi/real-time-goaccess-reports-with-nginx/>
   # log-format setting can be derived with this tool if custom:

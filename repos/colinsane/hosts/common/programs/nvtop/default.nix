@@ -3,7 +3,7 @@
 {
   sane.programs.nvtop = {
     packageUnwrapped = pkgs.nvtopPackages.full.override {
-      nvidia = false;  #< cuda_compat fails to build
+      nvidia = false; # cuda_compat fails to build
     };
     sandbox.keepPidsAndProc = true;
     sandbox.tryKeepUsers = true;

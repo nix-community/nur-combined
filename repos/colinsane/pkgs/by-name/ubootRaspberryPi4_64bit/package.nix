@@ -29,7 +29,10 @@
     "u-boot.dtb"
     "u-boot.bin"
   ];
-  filesToInstall = [ "u-boot.bin" "u-boot.dtb" ];
+  filesToInstall = [
+    "u-boot.bin"
+    "u-boot.dtb"
+  ];
   postInstall = ''
     mv $out/u-boot.dtb $out/bcm2711-rpi-4-b.dtb
   '';

@@ -10,8 +10,7 @@
     sandbox.net = "clearnet";
     sandbox.whitelistPwd = true;
     sandbox.whitelistPortal = [
-      "OpenURI"  # for auth
+      "OpenURI" # for auth
     ];
   };
 }
-

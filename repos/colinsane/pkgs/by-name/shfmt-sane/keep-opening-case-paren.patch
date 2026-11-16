@@ -1,0 +1,77 @@
+diff --git a/syntax/printer.go b/syntax/printer.go
+--- a/syntax/printer.go
++++ b/syntax/printer.go
+@@ -1347,6 +1347,7 @@
+ 			}
+ 			p.newlines(ci.Pos())
+ 			p.spacePad(ci.Pos())
++			p.w.WriteByte('(')
+ 			p.casePatternJoin(ci.Patterns)
+ 			p.w.WriteByte(')')
+ 			if !p.minify {
+diff --git a/cmd/shfmt/testdata/script/flags.txtar b/cmd/shfmt/testdata/script/flags.txtar
+--- a/cmd/shfmt/testdata/script/flags.txtar
++++ b/cmd/shfmt/testdata/script/flags.txtar
+@@ -201,7 +201,7 @@
+   baz
+ 
+   case $i in
+-  j)
++  (j)
+     z
+     ;;
+   esac
+@@ -216,7 +216,7 @@
+ 	&& baz
+ 
+ 	case $i in
+-	j)
++	(j)
+ 		z
+ 		;;
+ 	esac
+@@ -231,7 +231,7 @@
+ 		baz
+ 
+ 	case $i in
+-		j)
++		(j)
+ 			z
+ 			;;
+ 	esac
+@@ -246,7 +246,7 @@
+ 		baz
+ 
+ 	case $i in
+-	j)
++	(j)
+ 		z
+ 		;;
+ 	esac
+@@ -261,7 +261,7 @@
+ 		baz
+ 
+ 	case $i in
+-	j)
++	(j)
+ 		z
+ 		;;
+ 	esac
+@@ -276,7 +276,7 @@
+ 		baz
+ 
+ 	case $i in
+-	j)
++	(j)
+ 		z
+ 		;;
+ 	esac
+diff --git a/cmd/shfmt/testdata/script/editorconfig.txtar b/cmd/shfmt/testdata/script/editorconfig.txtar
+--- a/cmd/shfmt/testdata/script/editorconfig.txtar
++++ b/cmd/shfmt/testdata/script/editorconfig.txtar
+@@ -194,4 +194,4 @@
+ -- otherknobs/switch_case_indent.sh --
+ case "$1" in
+-	A) echo foo ;;
++	(A) echo foo ;;
+ esac

@@ -3,7 +3,8 @@
   fetchFromGitHub,
   python3,
   stdenv,
-}: stdenv.mkDerivation (finalAttrs: {
+}:
+stdenv.mkDerivation (finalAttrs: {
   pname = "depthcharge-tools";
   version = "0.6.2";
 
@@ -21,7 +22,7 @@
   ];
 
   propagatedBuildInputs = [
-    python3.pkgs.setuptools  #< needs `pkg_resources` at runtime
+    python3.pkgs.setuptools # needs `pkg_resources` at runtime
   ];
 
   nativeCheckInputs = [

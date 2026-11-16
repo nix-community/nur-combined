@@ -1,6 +1,7 @@
 # mradermacher's uncensored Qwen3-Next-80B-A3B Thinking GRPO model, i1-Q4_K_S quantization.
 # <https://huggingface.co/mradermacher/Qwen3-Next-80B-A3B-Thinking-GRPO-Uncensored-i1-GGUF>
-{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
+{ fetchFromHuggingFaceSane }:
+fetchFromHuggingFaceSane {
   owner = "mradermacher";
   repo = "Qwen3-Next-80B-A3B-Thinking-GRPO-Uncensored-i1-GGUF";
   path = "Qwen3-Next-80B-A3B-Thinking-GRPO-Uncensored.i1-Q4_K_S.gguf";

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.sane-private-unlock-remote;
 in
@@ -16,29 +21,31 @@ in
       "ssh"
     ];
 
-    configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options.interval = mkOption {
-          type = types.int;
-          default = 60;
-          description = ''
-            how frequently to check in on the remote hosts (in seconds)
-          '';
-        };
-        options.hosts = mkOption {
-          type = types.listOf types.str;
-          default = [];
-          description = ''
-            list of hosts which should be remotely unlocked automatically
-          '';
+    configOption =
+      with lib;
+      mkOption {
+        default = { };
+        type = types.submodule {
+          options.interval = mkOption {
+            type = types.int;
+            default = 60;
+            description = ''
+              how frequently to check in on the remote hosts (in seconds)
+            '';
+          };
+          options.hosts = mkOption {
+            type = types.listOf types.str;
+            default = [ ];
+            description = ''
+              list of hosts which should be remotely unlocked automatically
+            '';
+          };
         };
       };
-    };
 
     services.sane-private-unlock-remote = {
       description = "private-unlock-remote: unlock the 'private' store of trusted remote machines";
-      partOf = lib.mkIf (cfg.config.hosts != []) [ "default" ];
+      partOf = lib.mkIf (cfg.config.hosts != [ ]) [ "default" ];
       command = pkgs.writeShellScript "private-unlock-remote-loop" ''
         hosts=(${lib.escapeShellArgs cfg.config.hosts})
         interval=${toString cfg.config.interval}

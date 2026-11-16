@@ -7,29 +7,33 @@ let
   # the .json file could be empty, in which case we make assumptions about the feed based
   # on its fs path.
   # Type: feedFromSourcePath :: String -> { name = String; value = feed; }
-  feedFromSourcePath = json-path:
+  feedFromSourcePath =
+    json-path:
     assert lib.hasSuffix "/default.json" json-path;
     let
       canonical-name = lib.removeSuffix "/default.json" json-path;
       default-url = "https://${canonical-name}";
-      feed-details = { url = default-url; } // (tryImportJson ./sources/${json-path});
-    in { name = canonical-name; value = mkFeed feed-details; };
-
-  # TODO: for now, feeds are just ordinary Attrs.
-  # in the future, we'd like to set them up with an update script.
-  mkFeed = { url, ... }@details: details;
+      feed-details = {
+        url = default-url;
+      }
+      // (tryImportJson ./sources/${json-path});
+    in
+    {
+      name = canonical-name;
+      # TODO: for now, feeds are just ordinary Attrs.
+      # in the future, we'd like to set them up with an update script.
+      value = feed-details;
+    };
 
   # return an AttrSet representing the json at the provided path,
   # or {} if the path is empty.
-  tryImportJson = path:
+  tryImportJson =
+    path:
     let
       as-str = builtins.readFile path;
     in
-      if as-str == "" then
-        {}
-      else
-        builtins.fromJSON as-str;
+    if as-str == "" then { } else builtins.fromJSON as-str;
 
   sources = sane-lib.enumerateFilePaths ./sources;
 in
-  lib.listToAttrs (map feedFromSourcePath sources)
+lib.listToAttrs (map feedFromSourcePath sources)

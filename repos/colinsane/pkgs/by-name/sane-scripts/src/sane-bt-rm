@@ -14,7 +14,11 @@ def main():
 
     parser = argparse.ArgumentParser(description="remove a torrent and trash its data")
     TransmissionApi.add_arguments(parser)
-    parser.add_argument("torrent", help="numerical ID of the torrent in the transmission list (see sane-bt-show)", nargs="+")
+    parser.add_argument(
+        "torrent",
+        help="numerical ID of the torrent in the transmission list (see sane-bt-show)",
+        nargs="+",
+    )
 
     args = parser.parse_args()
     bt_api = TransmissionApi.from_arguments(args)
@@ -22,6 +26,7 @@ def main():
 
     for torrent in torrents:
         bt_api.rm_torrent(torrent)
+
 
 if __name__ == "__main__":
     main()

@@ -34,54 +34,59 @@ let
     "userspace"
   ];
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "qmk-firmware-${keyboard}-${keymap}";
-  version = "0.32.9";
+stdenv.mkDerivation (
+  finalAttrs:
+  {
+    pname = "qmk-firmware-${keyboard}-${keymap}";
+    version = "0.32.9";
 
-  src = fetchFromGitHub {
-    owner = "qmk";
-    repo = "qmk_firmware";
-    rev = finalAttrs.version;
-    hash = "sha256-xuJbhqyrO8+DGWzzG1qLzByXQyHU7oB/6HW/sg7ZiZ4=";
-    fetchSubmodules = true;
-  };
+    src = fetchFromGitHub {
+      owner = "qmk";
+      repo = "qmk_firmware";
+      rev = finalAttrs.version;
+      hash = "sha256-xuJbhqyrO8+DGWzzG1qLzByXQyHU7oB/6HW/sg7ZiZ4=";
+      fetchSubmodules = true;
+    };
 
-  nativeBuildInputs = [
-    rsync
-    qmk
-    # (python3.withPackages (ps: [ ps.appdirs ]))
-  ];
+    nativeBuildInputs = [
+      rsync
+      qmk
+      # (python3.withPackages (ps: [ ps.appdirs ]))
+    ];
 
-  makeFlags = [ "${keyboard}:${keymap}" ];
+    makeFlags = [ "${keyboard}:${keymap}" ];
 
-  # env = {
-  #   SKIP_GIT = true;
-  #   SKIP_VERSION = true;
-  # };
+    # env = {
+    #   SKIP_GIT = true;
+    #   SKIP_VERSION = true;
+    # };
 
-  # seems to still use just one core, so don't try to build all keyboards unless you hate yourself.
-  enableParallelBuilding = true;
+    # seems to still use just one core, so don't try to build all keyboards unless you hate yourself.
+    enableParallelBuilding = true;
 
-  postPatch = ''
-    patchShebangs util/uf2conv.py
-  '' + lib.optionalString (userspace != null) ''
-    # XXX: `export QMK_USERSPACE={userspace}` SHOULD work instead, but does not.
-    rsync -rv ${userspace}/keyboards/ ./keyboards/
-  '';
+    postPatch = ''
+      patchShebangs util/uf2conv.py
+    ''
+    + lib.optionalString (userspace != null) ''
+      # XXX: `export QMK_USERSPACE={userspace}` SHOULD work instead, but does not.
+      rsync -rv ${userspace}/keyboards/ ./keyboards/
+    '';
 
-  # alternatively to `makeFlags = [ "${keyboard}:${keymap}" ];`:
-  # buildPhase = ''
-  #   runHook preBuild
-  #   qmk compile -kb "${keyboard}" -km "${keymap}"
-  #   runHook postBuild
-  # '';
+    # alternatively to `makeFlags = [ "${keyboard}:${keymap}" ];`:
+    # buildPhase = ''
+    #   runHook preBuild
+    #   qmk compile -kb "${keyboard}" -km "${keymap}"
+    #   runHook postBuild
+    # '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/share/qmk
-    install -Dm644 *.hex *.elf *.uf2 $out/share/qmk
+      mkdir -p $out/share/qmk
+      install -Dm644 *.hex *.elf *.uf2 $out/share/qmk
 
-    runHook postInstall
-  '';
-} // extraDrvAttrs)
+      runHook postInstall
+    '';
+  }
+  // extraDrvAttrs
+)

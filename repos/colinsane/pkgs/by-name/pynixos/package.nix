@@ -29,16 +29,19 @@ let
   finalPkgs = pkgs.extend overlay;
   inherit (finalPkgs.python314Packages) pynixos;
 in
-  src.overrideAttrs (base: {
-    # attributes required by update scripts
-    pname = "pynixos";
-    inherit src version;
+src.overrideAttrs (base: {
+  # attributes required by update scripts
+  pname = "pynixos";
+  inherit src version;
 
-    passthru = base.passthru // {
-      inherit overlay pynixos;
-      pkgs = overlay finalPkgs pkgs;
-      updateScript = nix-update-script {
-        extraArgs = [ "--version" "branch" ];
-      };
+  passthru = base.passthru // {
+    inherit overlay pynixos;
+    pkgs = overlay finalPkgs pkgs;
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--version"
+        "branch"
+      ];
     };
-  })
+  };
+})

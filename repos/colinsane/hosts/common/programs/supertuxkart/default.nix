@@ -3,7 +3,7 @@
   sane.programs.supertuxkart = {
     buildCost = 1;
 
-    sandbox.net = "clearnet";  # net play
+    sandbox.net = "clearnet"; # net play
     sandbox.whitelistAudio = true;
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;

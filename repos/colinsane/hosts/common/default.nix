@@ -73,7 +73,7 @@
   # document my own, custom (non-nixpkgs) options in `man configuration.nix`:
   documentation.nixos = lib.mkIf (config.sane.maxBuildCost >= 3) {
     includeAllModules = true;
-    options.warningsAreErrors = false;  #< TODO: fix all my options to have `description`, then enable.
+    options.warningsAreErrors = false;  # TODO: fix all my options to have `description`, then enable.
   };
   # disable nixos-manual-html because it takes WAY TOO LONG to build (also disables `nixos-help`)
   documentation.doc.enable = false;

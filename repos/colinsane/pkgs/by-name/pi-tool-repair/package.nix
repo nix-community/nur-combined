@@ -28,7 +28,12 @@ mkPiExtension (finalAttrs: {
 
   npmDeps = null;
   pnpmDeps = fetchPnpmDeps {
-    inherit (finalAttrs) pname version src postPatch;
+    inherit (finalAttrs)
+      pname
+      version
+      src
+      postPatch
+      ;
     inherit pnpm;
     fetcherVersion = 4;
     # XXX(2026-10-03): this hash does not seem to be 100% reproducible -- it was found to be invalidated ~10 days after computation
@@ -40,7 +45,7 @@ mkPiExtension (finalAttrs: {
     pnpm
   ];
 
-  dontNpmBuild = true;  # no build action in package.json
+  dontNpmBuild = true; # no build action in package.json
   dontNpmPrune = true;
 
   passthru.updateScript = nix-update-script {

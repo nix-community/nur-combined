@@ -8,7 +8,7 @@
 # - LG TV: music: all working
 # - LG TV: videos: mixed
 { lib, ... }:
-lib.mkIf false  #< XXX(2024-11-17): WORKS, but no better than any other service; slow to index and transcoding doesn't work
+lib.mkIf false  # XXX(2024-11-17): WORKS, but no better than any other service; slow to index and transcoding doesn't work
 {
   sane.ports.ports."1900" = {
     protocol = [ "udp" ];

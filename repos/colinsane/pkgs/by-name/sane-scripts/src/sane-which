@@ -26,11 +26,10 @@ getWrapped() {
 }
 
 getNext() {
-  getSymlinked \
-    || getWrapped "%s/.sandboxed/%s" \
-    || getWrapped "%s/.%s-wrapped"
+  getSymlinked ||
+    getWrapped "%s/.sandboxed/%s" ||
+    getWrapped "%s/.%s-wrapped"
 }
-
 
 echo "$cur"
 while [ -n "$next" ]; do

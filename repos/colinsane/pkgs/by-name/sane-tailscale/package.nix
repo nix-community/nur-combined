@@ -21,12 +21,13 @@ let
   # then re-wrap the binaries with my custom iproute2, separately.
   tailscaleNoIproute2 = tailscale.override {
     iproute2 = null;
-    makeWrapper = makeBinaryWrapper;  #< only BinaryWrapper handles `--inherit-argv0` correctly
+    makeWrapper = makeBinaryWrapper; # only BinaryWrapper handles `--inherit-argv0` correctly
   };
-in stdenvNoCC.mkDerivation {
+in
+stdenvNoCC.mkDerivation {
   inherit (tailscaleNoIproute2) pname version;
   nativeBuildInputs = [
-    makeBinaryWrapper  #< only BinaryWrapper handles `--inherit-argv0` correctly
+    makeBinaryWrapper # only BinaryWrapper handles `--inherit-argv0` correctly
   ];
   dontUnpack = true;
   dontBuild = true;

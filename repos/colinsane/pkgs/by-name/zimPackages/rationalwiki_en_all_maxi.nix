@@ -1,4 +1,5 @@
-{ mkVersionedHttpZim }: mkVersionedHttpZim {
+{ mkVersionedHttpZim }:
+mkVersionedHttpZim {
   owner = "other";
   pname = "rationalwiki_en_all_maxi";
   version = "2025-05";

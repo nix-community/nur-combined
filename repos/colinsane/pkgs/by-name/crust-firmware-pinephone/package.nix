@@ -29,7 +29,8 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     bison
     flex
-  ] ++ (with or1k-toolchain; [
+  ]
+  ++ (with or1k-toolchain; [
     binutils
     gcc
   ]);
@@ -40,8 +41,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.CROSS_COMPILE = "or1k-elf-";
   env.HOST_COMPILE = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}";
-  env.HOSTCC       = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}gcc";
-  env.HOSTLD       = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}ld";
+  env.HOSTCC = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}gcc";
+  env.HOSTLD = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}ld";
   buildPhase = ''
     # make pinephone_defconfig HOST_COMPILE=$HOST_COMPILE HOSTCC=''${HOST_COMPILE}gcc
     # export HOSTCC=''${HOST_COMPILE}gcc
@@ -58,7 +59,11 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Libre SCP firmware for Allwinner sunxi SoCs";
     homepage = "https://github.com/crust-firmware/crust";
-    license = with lib.licenses; [ bsd3 gpl2Only mit ];
+    license = with lib.licenses; [
+      bsd3
+      gpl2Only
+      mit
+    ];
     maintainers = with lib.maintainers; [ colinsane ];
     platforms = lib.platforms.all;
   };

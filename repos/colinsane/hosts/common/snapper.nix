@@ -54,7 +54,7 @@
   # then, create a subvolume to contain the snapshots -- else snapshot meta data (info.xml) will itself be snapshotted.
   #   ```
   #   sudo btrfs subvolume create /nix/persist/.snapshots
-  #   reboot  #< else all snapper calls will fail due to dbus errors
+  #   reboot  # else all snapper calls will fail due to dbus errors
   #   ```
   services.snapper.configs.root = {
     SUBVOLUME = "/nix/persist";

@@ -40,14 +40,16 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    v0_6 = finalAttrs.finalPackage.overrideAttrs (final': _prev: {
-      version = "0.6";
-      src = fetchgit {
-        url = "git://git.codemadness.org/frontends";
-        rev = final'.version;
-        hash = "sha256-VDHUY9xb6WyVQ/PcEJuo1HQTW1oox9yvVq0Xd7OGAt0=";
-      };
-    });
+    v0_6 = finalAttrs.finalPackage.overrideAttrs (
+      final': _prev: {
+        version = "0.6";
+        src = fetchgit {
+          url = "git://git.codemadness.org/frontends";
+          rev = final'.version;
+          hash = "sha256-VDHUY9xb6WyVQ/PcEJuo1HQTW1oox9yvVq0Xd7OGAt0=";
+        };
+      }
+    );
   };
 
   meta = {
@@ -58,4 +60,3 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.isc;
   };
 })
-

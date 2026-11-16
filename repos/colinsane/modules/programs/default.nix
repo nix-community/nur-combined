@@ -67,19 +67,19 @@ let
           "/nix/store"
           "/bin/sh"
 
-          "/etc"  #< especially for /etc/profiles/per-user/$USER/bin
-          "/run/current-system"  #< for basics like `ls`, and all this program's `suggestedPrograms` (/run/current-system/sw/bin)
-          # "/run/wrappers"  #< SUID wrappers. they don't mean much inside a namespace.
+          "/etc"  # especially for /etc/profiles/per-user/$USER/bin
+          "/run/current-system"  # for basics like `ls`, and all this program's `suggestedPrograms` (/run/current-system/sw/bin)
+          # "/run/wrappers"  # SUID wrappers. they don't mean much inside a namespace.
           # /run/opengl-driver is a symlink into /nix/store; needed by e.g. mpv
           # "/run/opengl-driver"
-          # "/run/opengl-driver-32"  #< XXX: doesn't exist on aarch64?
+          # "/run/opengl-driver-32"  # XXX: doesn't exist on aarch64?
           "/usr/bin/env"
         ] ++ lib.optionals (sandbox.net == "all" && config.services.resolved.enable) [
-          "/run/systemd/resolve"  #< to allow reading /etc/resolv.conf, which ultimately symlinks here (if using systemd-resolved)
+          "/run/systemd/resolve"  # to allow reading /etc/resolv.conf, which ultimately symlinks here (if using systemd-resolved)
         ] ++ lib.optionals (sandbox.net == "all" && config.services.avahi.enable) [
-          "/var/run/avahi-daemon"  #< yes, it has to be "/var/run/...". required for nss (e.g. `getent hosts desko.local`)
+          "/var/run/avahi-daemon"  # yes, it has to be "/var/run/...". required for nss (e.g. `getent hosts desko.local`)
         ] ++ lib.optionals sandbox.whitelistDbus.system [
-          "/var/run/dbus/system_bus_socket"  #< XXX: use /var/run/..., for the rare program which requires that (i.e. avahi users)
+          "/var/run/dbus/system_bus_socket"  # XXX: use /var/run/..., for the rare program which requires that (i.e. avahi users)
         ] ++ sandbox.extraPaths
         ;
       in
@@ -729,7 +729,7 @@ let
     config = let
       enabledForUser = builtins.any (en: en) (lib.attrValues config.enableFor.user);
       passesSlowTest = config.buildCost <= saneCfg.maxBuildCost;
-      mkWeakDefault = lib.mkOverride 2000; #< even weaker than `mkDefault`
+      mkWeakDefault = lib.mkOverride 2000; # even weaker than `mkDefault`
     in {
       enableFor.system = mkWeakDefault defaultEnables."${name}".system;
       enableFor.user = mkWeakDefault defaultEnables."${name}".user;
@@ -756,22 +756,22 @@ let
       sandbox.whitelistDbus.user.call = lib.mkMerge ([
         (lib.mkIf config.sandbox.whitelistSendNotifications {
           "org.freedesktop.Notifications" = "*";  # Notify, NotificationClosed, NotificationReplied, ActionInvoked
-          "org.erikreider.swaync.cc" = "*";  #< probably overkill
+          "org.erikreider.swaync.cc" = "*";  # probably overkill
         })
         (lib.mkIf config.sandbox.whitelistMpris.controlPlayers {
           # "org.mpris.MediaPlayer2.playerctld" = "*";
           # `org.mpris.MediaPlayer2.*` acts recursively, granting access to e.g.:
           # - org.mpris.MediaPlayer2.mpv  (which mpv claims by default)
           # - org.mpris.MediaPlayer2.mpv.instance2  (which mpv claims when the former is already taken)
-          "org.mpris.MediaPlayer2.*" = "*";  #< TODO: limit to only being able to call actual interface members, otherise this may inadvertently grant access to other dbus controls of the player (which could be large, e.g. a IM client or web browser)
+          "org.mpris.MediaPlayer2.*" = "*";  # TODO: limit to only being able to call actual interface members, otherise this may inadvertently grant access to other dbus controls of the player (which could be large, e.g. a IM client or web browser)
         })
       ] ++ lib.forEach config.sandbox.whitelistPortal (p: {
         "org.freedesktop.portal.Desktop" = [
           "org.freedesktop.portal.${p}.*"
-          # "org.freedesktop.DBus.Peer"  #< seems to not be needed
-          "org.freedesktop.DBus.Properties.Get"  #< REQUIRED, for e.g. `kagi-epiphany`
+          # "org.freedesktop.DBus.Peer"  # seems to not be needed
+          "org.freedesktop.DBus.Properties.Get"  # REQUIRED, for e.g. `kagi-epiphany`
           # "org.freedesktop.DBus.Properties.GetAll"
-          "org.freedesktop.DBus.Introspectable.Introspect"  #< REQUIRED, for e.g. `sane-open`
+          "org.freedesktop.DBus.Introspectable.Introspect"  # REQUIRED, for e.g. `sane-open`
         ];
       }));
 
@@ -890,12 +890,12 @@ let
 
           # specifically for pipewire + wireplumber (for cameras on moby, they seem to both need these identical paths)
           "/run/udev"
-          "/sys/bus/media"  #< for moby camera
+          "/sys/bus/media"  # for moby camera
           "/sys/class/sound"
-          "/sys/class/video4linux"  #< for lappy camera
-          "/sys/dev/char"  #< for moby camera
+          "/sys/class/video4linux"  # for lappy camera
+          "/sys/dev/char"  # for moby camera
           "/sys/devices"
-          "/sys/firmware"  #< for moby camera, to parse its devicetree
+          "/sys/firmware"  # for moby camera, to parse its devicetree
           # "/dev"
         ] ++ lib.optionals config.sandbox.whitelistSecurityKeys [
           "/dev/hidraw0"

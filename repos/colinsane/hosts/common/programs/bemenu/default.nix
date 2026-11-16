@@ -62,26 +62,26 @@
 # --tf "#eeeeee"
 # --wrap
 let
-  bg = "#1d1721";       # slight purple
-  fg0 = "#d8d8d8";      # inactive text (light grey)
-  fg1 = "#ffffff";      # active text   (white)
-  accent0 = "#1f5e54";  # darker but saturated teal
-  accent1 = "#418379";  # teal (matches nixos-bg)
-  accent2 = "#5b938a";  # brighter but muted teal
+  bg = "#1d1721"; # slight purple
+  fg0 = "#d8d8d8"; # inactive text (light grey)
+  fg1 = "#ffffff"; # active text   (white)
+  accent0 = "#1f5e54"; # darker but saturated teal
+  accent1 = "#418379"; # teal (matches nixos-bg)
+  accent2 = "#5b938a"; # brighter but muted teal
   bemenuArgs = [
     "--wrap --scrollbar autohide --fixed-height"
     "--center --margin 45"
     "--no-spacing"
     # XXX: font size doesn't seem to take effect (would prefer larger)
     "--fn 'monospace 14' --line-height 22 --border 3"
-    "--bdr '${accent0}'"                     # border
-    "--scf '${accent2}' --scb '${accent0}'"  # scrollbar
-    "--tb '${accent0}' --tf '${fg0}'"        # title
-    "--fb '${accent0}' --ff '${fg1}'"        # filter (i.e. text that's been entered)
-    "--hb '${accent1}' --hf '${fg1}'"        # selected item
-    "--nb '${bg}' --nf '${fg0}'"             # normal lines (even)
-    "--ab '${bg}' --af '${fg0}'"             # alternated lines (odd)
-    "--cf '${accent0}' --cb '${accent0}'"    # cursor (not very useful)
+    "--bdr '${accent0}'" # border
+    "--scf '${accent2}' --scb '${accent0}'" # scrollbar
+    "--tb '${accent0}' --tf '${fg0}'" # title
+    "--fb '${accent0}' --ff '${fg1}'" # filter (i.e. text that's been entered)
+    "--hb '${accent1}' --hf '${fg1}'" # selected item
+    "--nb '${bg}' --nf '${fg0}'" # normal lines (even)
+    "--ab '${bg}' --af '${fg0}'" # alternated lines (odd)
+    "--cf '${accent0}' --cb '${accent0}'" # cursor (not very useful)
   ];
   bemenuOpts = lib.concatStringsSep " " bemenuArgs;
 in

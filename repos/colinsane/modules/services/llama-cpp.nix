@@ -401,8 +401,8 @@ in
       # but not always supported by model -- check logs:
       # > srv    load_model: swa_full is not supported by this model, it will be disabled
       # swa-full = true;
-      cache-ram = 32768;  #< prompt cache (applies iff swa-full not supported by model?). default is 8192 (MiB)
-      # ctx-checkpoints = 128;  #< experimental. each checkpoint is 50 MiB. defaults to 32 checkpoints.
+      cache-ram = 32768;  # prompt cache (applies iff swa-full not supported by model?). default is 8192 (MiB)
+      # ctx-checkpoints = 128;  # experimental. each checkpoint is 50 MiB. defaults to 32 checkpoints.
       # ubatch-size is how many tokens to process simultaneously?
       # default: 512. higher values generally increase throughput, but also increase memory use.
       ubatch-size = 128;
@@ -418,25 +418,25 @@ in
       # cache-k,v = q5_1,q5_1: maybe a slight bias toward looping?
       # cache-type-k = "f16";
       # cache-type-v = "q8_0";
-      no-warmup = true;  #< faster load -> eval, by not feeding it a dummy prompt on load
-      no-mmproj = true;  #< don't load vision weights
+      no-warmup = true;  # faster load -> eval, by not feeding it a dummy prompt on load
+      no-mmproj = true;  # don't load vision weights
       # parallel = 1;
 
       # coherence (keep the model from becoming pathological)
       # in actuality, tweaking DRY settings seems to induce typos in non-quantized models!
       # "--dry-multiplier" "0.6"  # how much influence the Don't Repeat Yourself filter has on overall token output (?)
-      # "--dry-base" "2.0"  #< exponential penalization ramp
+      # "--dry-base" "2.0"  # exponential penalization ramp
       # "--dry-penalty-last-n" "512"
       # "--dry-sequence-breaker" "none"
       # "--dry-penalty-last-n" "512"
-      # "--reasoning-budget" "1536"  #< new models sometimes get stuck in <thought>...</thought> loops: force a maximum.
-      # "--reasoning-format" "none"  #< disable server-side parsing of <thought>...</thought>; let them show up inline.
+      # "--reasoning-budget" "1536"  # new models sometimes get stuck in <thought>...</thought> loops: force a maximum.
+      # "--reasoning-format" "none"  # disable server-side parsing of <thought>...</thought>; let them show up inline.
 
       # TODO: potential performance optimizations:
       # "--slot-save-path" "PATH"  # persist KV cache to disk
       # "--lookup-cache-dynamic" "FNAME"
       # "--flash-attn" [on|off|auto]
-      # "--no-kv-offload"  #< XXX(2026-04-01) this would SIGNIFICANTLY reduce GPU memory usage, but breaks Claude tool use: "failed to parse grammar".
+      # "--no-kv-offload"  # XXX(2026-04-01) this would SIGNIFICANTLY reduce GPU memory usage, but breaks Claude tool use: "failed to parse grammar".
       # "--spec-default"  # speculative decoding
       # "--no-host"
       # "--no-repack"
@@ -449,7 +449,7 @@ in
       isSystemUser = true;
     };
 
-    systemd.services.llama-cpp.serviceConfig.DynamicUser = lib.mkForce false;  #< not required, but DynamicUser is confusing
+    systemd.services.llama-cpp.serviceConfig.DynamicUser = lib.mkForce false;  # not required, but DynamicUser is confusing
     systemd.services.llama-cpp.serviceConfig.User = "llama-cpp";
     systemd.services.llama-cpp.environment.MESA_SHADER_CACHE_DIR = "/var/cache/llama-cpp";
     # networking isn't required for anything but accepting client connections (wireguard),
@@ -468,7 +468,7 @@ in
 
     sane.ports.ports."11435" = {
       protocol = [ "tcp" ];
-      visibleTo.lan = true;  #< TODO: restrict to just wireguard clients
+      visibleTo.lan = true;  # TODO: restrict to just wireguard clients
       description = "colin-llama-cpp";
     };
   };

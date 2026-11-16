@@ -120,16 +120,16 @@ in
   #v disable to allow unauthenticated access (or set `services.coturn.no-auth = true`)
   services.coturn.use-auth-secret = true;
   services.coturn.static-auth-secret-file = "/run/secrets/coturn_shared_secret";
-  services.coturn.lt-cred-mech = true; #< XXX: use-auth-secret overrides lt-cred-mech
+  services.coturn.lt-cred-mech = true; # XXX: use-auth-secret overrides lt-cred-mech
 
   services.coturn.min-port = turnPortLow;
   services.coturn.max-port = turnPortHigh;
   # services.coturn.secure-stun = true;
   services.coturn.extraConfig = lib.concatStringsSep "\n" [
     "verbose"
-    # "Verbose"  #< even MORE verbosity than "verbose"  (it's TOO MUCH verbosity really)
+    # "Verbose"  # even MORE verbosity than "verbose"  (it's TOO MUCH verbosity really)
     "no-multicast-peers"  # disables sending to IPv4 broadcast addresses (e.g. 224.0.0.0/3)
-    # "listening-ip=${config.sane.netns.ovpns.veth.initns.ipv4}" "external-ip=${config.sane.netns.ovpns.wg.address.ipv4}"  #< 2024/04/25: works, if running in root namespace
+    # "listening-ip=${config.sane.netns.ovpns.veth.initns.ipv4}" "external-ip=${config.sane.netns.ovpns.wg.address.ipv4}"  # 2024/04/25: works, if running in root namespace
     "listening-ip=${config.sane.netns.ovpns.wg.address.ipv4}" "external-ip=${config.sane.netns.ovpns.wg.address.ipv4}"
 
     # old attempts:

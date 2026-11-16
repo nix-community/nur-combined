@@ -1,4 +1,5 @@
-{ mkVersionedHttpZim }: mkVersionedHttpZim {
+{ mkVersionedHttpZim }:
+mkVersionedHttpZim {
   owner = "other";
   pname = "bitcoin_en_all_maxi";
   version = "2021-03";

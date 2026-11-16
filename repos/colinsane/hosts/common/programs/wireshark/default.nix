@@ -7,22 +7,22 @@
     packageUnwrapped = pkgs.linkIntoOwnPackage pkgs.wireshark [
       "bin/wireshark"
       "share"
-    ] {};
+    ] { };
 
-    sandbox.autodetectCliPaths = "existingFile";  #< for loading pcap files on CLI
+    sandbox.autodetectCliPaths = "existingFile"; # for loading pcap files on CLI
     sandbox.whitelistWayland = true;
     sandbox.net = "all";
     sandbox.capabilities = [
-      "dac_override"  #< this wasn't needed with landlock; only bunpen
+      "dac_override" # this wasn't needed with landlock; only bunpen
       "net_admin"
       "net_raw"
     ];
     sandbox.tryKeepUsers = true;
     # sandbox.extraPaths = [
-    #   "/proc/net"  #< only needed if using landlock
+    #   "/proc/net"  # only needed if using landlock
     # ];
 
-    fs.".config/wireshark".dir = {};
+    fs.".config/wireshark".dir = { };
     buildCost = 2;
   };
 }

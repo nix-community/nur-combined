@@ -9,6 +9,7 @@
     #   possible to pass config as a CLI arg (sublime-music -c config.json)
     persist.byStore.plaintext = [ ".local/share/sublime-music" ];
 
-    secrets.".config/sublime-music/config.json" = ../../../../secrets/common/sublime_music_config.json.bin;
+    secrets.".config/sublime-music/config.json" =
+      ../../../../secrets/common/sublime_music_config.json.bin;
   };
 }

@@ -1,7 +1,12 @@
 # test with e.g.
 # - `fbcli --event proxied-message-new-instant`
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.feedbackd;
 in
@@ -9,20 +14,22 @@ in
   sane.programs.feedbackd = {
     packageUnwrapped = pkgs.rmDbusServices pkgs.feedbackd;
 
-    configOption = with lib; mkOption {
-      type = types.submodule {
-        options.proxied = mkOption {
-          type = types.bool;
-          default = false;
-          description = ''
-          whether to use a sound theme in which common application events are muted
-          with the intent that a proxy (notification daemon) with knowledge of this
-          modification will "speak" on behalf of all applications.
-          '';
+    configOption =
+      with lib;
+      mkOption {
+        type = types.submodule {
+          options.proxied = mkOption {
+            type = types.bool;
+            default = false;
+            description = ''
+              whether to use a sound theme in which common application events are muted
+              with the intent that a proxy (notification daemon) with knowledge of this
+              modification will "speak" on behalf of all applications.
+            '';
+          };
         };
+        default = { };
       };
-      default = {};
-    };
 
     sandbox.whitelistDbus.user.own = [ "org.sigxcpu.Feedback" ];
     sandbox.whitelistAudio = true;
@@ -107,7 +114,7 @@ in
             {
               event-name = "proxied-message-new-instant";
               type = "VibraRumble";
-              duration = 200;  # ms
+              duration = 200; # ms
             }
             {
               event-name = "phone-incoming-call";
@@ -153,14 +160,18 @@ in
       description = "feedbackd audio/vibration/led controller";
       depends = [ "sound" ];
       partOf = [ "default" ];
-      command = lib.concatStringsSep " " ([
-        "env"
-        "G_MESSAGES_DEBUG=all"
-      ] ++ lib.optionals cfg.config.proxied [
-        ''FEEDBACK_THEME=''${HOME}/.config/feedbackd/themes/proxied.json''
-      ] ++ [
-        "${cfg.package}/libexec/feedbackd"
-      ]);
+      command = lib.concatStringsSep " " (
+        [
+          "env"
+          "G_MESSAGES_DEBUG=all"
+        ]
+        ++ lib.optionals cfg.config.proxied [
+          "FEEDBACK_THEME=\${HOME}/.config/feedbackd/themes/proxied.json"
+        ]
+        ++ [
+          "${cfg.package}/libexec/feedbackd"
+        ]
+      );
     };
   };
 
@@ -169,6 +180,6 @@ in
     cfg.package
   ];
   users.groups = lib.mkIf cfg.enabled {
-    feedbackd = {};
+    feedbackd = { };
   };
 }

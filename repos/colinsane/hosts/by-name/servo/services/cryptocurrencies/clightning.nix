@@ -93,7 +93,7 @@
       # so if this port is the same as clightning would natively use, then no further config is needed here.
       # see: <https://2019.www.torproject.org/docs/tor-manual.html.en#HiddenServicePort>
       port = 9735;
-      # target.port; target.addr;  #< set if tor port != clightning port
+      # target.port; target.addr;  # set if tor port != clightning port
     }];
     # allow "tor" group (i.e. clightning) to read /var/lib/tor/onion/clightning/hostname
     settings.HiddenServiceDirGroupReadable = true;

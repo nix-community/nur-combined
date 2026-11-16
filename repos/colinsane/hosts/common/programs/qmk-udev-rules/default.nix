@@ -6,4 +6,3 @@ in
   sane.programs.qmk-udev-rules.sandbox.enable = false;
   services.udev.packages = lib.mkIf cfg.enabled [ cfg.package ];
 }
-

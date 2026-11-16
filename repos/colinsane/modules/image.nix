@@ -251,7 +251,7 @@ in
       partImage = config.system.build.platformPartition;
       # from: <https://www.chromium.org/chromium-os/chromiumos-design-docs/disk-format>
       partitionType = "FE3A2A5D-4F32-41A7-B725-ACCC3285A309";  # "ChromeOS Kernel"
-      partitionLabel = "kernel";  #< TODO: is it safe to rename this?
+      partitionLabel = "kernel";  # TODO: is it safe to rename this?
     } ''
       mkdir $out
       truncate -s $partSize $out/partition.img
@@ -369,7 +369,7 @@ in
       preferLocalBuild = true;
       passthru = {
         inherit bootFsImg nixFsImg;
-        withoutBootloader = img;  #< XXX: this derivation places the image at $out/disk.img
+        withoutBootloader = img;  # XXX: this derivation places the image at $out/disk.img
       };
     } (
       if cfg.installBootloader == null then ''

@@ -18,7 +18,7 @@ mkPiExtension (finalAttrs: {
   npmDepsFetcherVersion = 2;
   npmDepsHash = "sha256-u7gav2zboUp8XI7EVXIh1kO04xpv1CSgcU8psj65TAk=";
 
-  dontNpmBuild = true;  # package.json defines no build script
+  dontNpmBuild = true; # package.json defines no build script
 
   postInstall = ''
     # the binary is an "installer", not useful.

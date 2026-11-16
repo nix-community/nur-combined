@@ -3,46 +3,53 @@
 # and from there it dispatches specialized rules, falling back to the original http/https handler if no URL specialization exists
 #
 # alternative to mimeo is jaro: <https://github.com/isamert/jaro>
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   # [ProgramConfig]
-  enabledPrograms = builtins.filter
-    (p: p.enabled)
-    (builtins.attrValues config.sane.programs);
+  enabledPrograms = builtins.filter (p: p.enabled) (builtins.attrValues config.sane.programs);
 
   # [ProgramConfig]
-  sortedPrograms = builtins.sort
-    (l: r: l.priority or 1000 < r.priority or 1000)
-    enabledPrograms;
+  sortedPrograms = builtins.sort (l: r: l.priority or 1000 < r.priority or 1000) enabledPrograms;
 
   fmtAssoc = regex: desktop: ''
     ${lib.getExe pkgs.mimeo-open-desktop} ${desktop} %U
       ${regex}
   '';
-  assocs = map
-    (program: lib.mapAttrsToList fmtAssoc program.mime.urlAssociations)
-    sortedPrograms;
+  assocs = map (program: lib.mapAttrsToList fmtAssoc program.mime.urlAssociations) sortedPrograms;
   assocs' = lib.flatten assocs;
 
-  fmtFallbackAssoc = mimeType: desktop: if mimeType == "x-scheme-handler/http" then ''
-    ${lib.getExe pkgs.mimeo-open-desktop} ${desktop} %U
-      ^http://.*
-  '' else if mimeType == "x-scheme-handler/https" then ''
-    ${lib.getExe pkgs.mimeo-open-desktop} ${desktop} %U
-      ^https://.*
-  '' else "";
-  fmtFallbackAssoc' = mimeType: desktop:
+  fmtFallbackAssoc =
+    mimeType: desktop:
+    if mimeType == "x-scheme-handler/http" then
+      ''
+        ${lib.getExe pkgs.mimeo-open-desktop} ${desktop} %U
+          ^http://.*
+      ''
+    else if mimeType == "x-scheme-handler/https" then
+      ''
+        ${lib.getExe pkgs.mimeo-open-desktop} ${desktop} %U
+          ^https://.*
+      ''
+    else
+      "";
+  fmtFallbackAssoc' =
+    mimeType: desktop:
     lib.optionalString (desktop != "mimeo.desktop") (fmtFallbackAssoc mimeType desktop);
 
-  fallbackAssocs = map
-    (program: lib.mapAttrsToList fmtFallbackAssoc' program.mime.associations)
-    sortedPrograms;
+  fallbackAssocs = map (
+    program: lib.mapAttrsToList fmtFallbackAssoc' program.mime.associations
+  ) sortedPrograms;
   fallbackAssocs' = lib.flatten fallbackAssocs;
 in
 {
   sane.programs.mimeo = {
     packageUnwrapped = pkgs.mimeo.overridePythonAttrs (upstream: {
-      nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+      nativeBuildInputs = (upstream.nativeBuildInputs or [ ]) ++ [
         pkgs.copyDesktopItems
       ];
       desktopItems = [
@@ -55,14 +62,16 @@ in
         })
       ];
 
-      passthru = (upstream.passthru or {}) // {
+      passthru = (upstream.passthru or { }) // {
         inherit (pkgs) mimeo-open-desktop;
       };
     });
 
-    sandbox.enable = false;  # could technically sandbox with `capsh`, but that breaks the abstraction.
+    sandbox.enable = false; # could technically sandbox with `capsh`, but that breaks the abstraction.
 
-    fs.".config/mimeo/associations.txt".symlink.text = lib.concatStringsSep "\n" (assocs' ++ fallbackAssocs');
+    fs.".config/mimeo/associations.txt".symlink.text = lib.concatStringsSep "\n" (
+      assocs' ++ fallbackAssocs'
+    );
     mime.priority = 20;
     mime.associations."x-scheme-handler/http" = "mimeo.desktop";
     mime.associations."x-scheme-handler/https" = "mimeo.desktop";

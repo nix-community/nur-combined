@@ -231,7 +231,7 @@ in
       # see: <https://prosody.im/doc/modules/mod_admin_shell>
       # see: <https://prosody.im/doc/console>
       "admin_shell"
-      "admin_telnet"  #< needed by admin_shell
+      "admin_telnet"  # needed by admin_shell
       # lastactivity: XEP-0012: allow users to query how long another user has been idle for
       # - not sure why i enabled this; think it was in someone's config i referenced
       "lastactivity"
@@ -244,7 +244,7 @@ in
     ] ++ lib.optionals config.services.ntfy-sh.enable [
       "sane_ntfy"
     ] ++ lib.optionals enableDebug [
-      "stanza_debug"  #< logs EVERY stanza as debug: <https://prosody.im/doc/modules/mod_stanza_debug>
+      "stanza_debug"  # logs EVERY stanza as debug: <https://prosody.im/doc/modules/mod_stanza_debug>
     ];
 
     extraConfig = ''

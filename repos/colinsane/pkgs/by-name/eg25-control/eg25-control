@@ -77,9 +77,10 @@ GPS_STREAM_ENDPOINT = "/dev/ttyUSB1"
 # also at xtrapath5 and xtrapath6 subdomains.
 # the AGPS data here is an almanac good for 7 days.
 AGPS_DATA_URI_BASE = "https://xtrapath4.izatcloud.net"
-ON_DISK_TIME_FMT = '%Y/%m/%d,%H:%M:%S'
+ON_DISK_TIME_FMT = "%Y/%m/%d,%H:%M:%S"
 AGPS_CACHE_REFRESH_AFTER = datetime.timedelta(days=1)
 DEFAULT_AGPS_DATA_VARIANT = lambda: AgpsDataVariant.gps_glonass_beidou
+
 
 class AgpsDataVariant:
     # GNSS-AP-Note 1.4:
@@ -89,43 +90,51 @@ class AgpsDataVariant:
     # on stock Pinephone, ModemManager gives "LOC service: general failure"
     gps_glonass_beidou_galileo = "xtra3grcej.bin"
 
+
 logger = logging.getLogger(__name__)
 
-def destructive(fn: callable = None, return_ = None):
-    """ decorate `fn` so that it becomes a no-op when --dry-run is active """
+
+def destructive(fn: callable = None, return_=None):
+    """decorate `fn` so that it becomes a no-op when --dry-run is active"""
+
     def wrapped(self, *args, **kwargs):
         if self.dry_run:
             fmt_args = ", ".join(
-                [repr(a) for a in args] +
-                [f"{k}={v}" for k,v in kwargs.items()]
+                [repr(a) for a in args] + [f"{k}={v}" for k, v in kwargs.items()]
             )
             logger.info(f"[dry run] {fn.__name__}({fmt_args})")
             return return_
         else:
             return fn(self, *args, **kwargs)
+
     if fn:
         return wrapped
     else:
         return lambda fn: destructive(fn, return_=return_)
 
+
 def log_scope(at_enter: str, at_exit: str):
-    """ decorate a function so that it logs at start and end """
+    """decorate a function so that it logs at start and end"""
+
     def decorator(fn: callable):
         def wrapped(*args, **kwargs):
             logger.info(at_enter)
             ret = fn(*args, **kwargs)
             logger.info(at_exit)
             return ret
+
         return wrapped
+
     return decorator
+
 
 class Executor:
     def __init__(self, dry_run: bool = False):
         self.dry_run = dry_run
 
-    def read_file(self, path: str, default: bytes = b'') -> bytes:
+    def read_file(self, path: str, default: bytes = b"") -> bytes:
         try:
-            with open(path, 'rb') as f:
+            with open(path, "rb") as f:
                 return f.read()
         except FileNotFoundError as e:
             logger.debug(f"failed to read {path}: {e}")
@@ -140,7 +149,7 @@ class Executor:
     @destructive
     def write_file(self, path: str, data: bytes) -> None:
         logger.debug(f"echo {data!r} > {path}")
-        with open(path, 'wb') as f:
+        with open(path, "wb") as f:
             f.write(data)
 
     @destructive
@@ -158,7 +167,7 @@ class Executor:
         logger.debug(f"rm {p}")
         os.remove(p)
 
-    @destructive(return_=b'')
+    @destructive(return_=b"")
     def exec(self, cmd: list[str], check: bool = True) -> bytes:
         logger.debug(" ".join(cmd))
         res = subprocess.run(cmd, capture_output=True)
@@ -169,17 +178,18 @@ class Executor:
             res.check_returncode()
         return res.stdout
 
+
 class Filesystem:
     def __init__(self, executor: Executor, root: str):
         self.executor = executor
         self.root = root
 
     def translate_out(self, rel_path) -> str:
-        """ given a path rooted in this filesystem, translate it to an absolute path for use outside the FS """
+        """given a path rooted in this filesystem, translate it to an absolute path for use outside the FS"""
         return os.path.join(self.root, rel_path)
 
     ## wrapped methods around Executor internals
-    def read_file(self, path: str, default: bytes = b'') -> bytes:
+    def read_file(self, path: str, default: bytes = b"") -> bytes:
         return self.executor.read_file(self.translate_out(path), default)
 
     def ctime(self, path: str):
@@ -196,6 +206,7 @@ class Filesystem:
 
     def rm(self, p: str) -> None:
         self.executor.rm(self.translate_out(p))
+
 
 class GNSSConfig:
     # GNSS-AP-Note 2.2.7
@@ -217,6 +228,7 @@ class GNSSConfig:
     gps_galileo = "6"
     gps_beidou = "7"
 
+
 class ODPControl:
     # GNSS-AP-Note 2.2.8
     #   0 Disable ODP
@@ -235,6 +247,7 @@ class ODPControl:
     lower_power_mode = "1"
     ready_mode = "2"
 
+
 class DPOEnable:
     # GNSS-AP-Note 2.2.9
     #   0 Disable DPO
@@ -245,6 +258,7 @@ class DPOEnable:
     # more info: <https://sixfab.com/wp-content/uploads/2018/09/Quectel_UC20_GNSS_AT_Commands_Manual_V1.1.pdf> 1.4.1
     disable = "0"
     enable = "1"
+
 
 class GPSNMEAType:
     # GNSS-AP-Note 2.2.3
@@ -257,6 +271,7 @@ class GPSNMEAType:
     gpvtg = 16
     all = 31
 
+
 class GlonassNmeaType:
     # GNSS-AP-Note 2.2.4
     #   Configure output type of GLONASS NMEA sentences in ORed
@@ -266,11 +281,13 @@ class GlonassNmeaType:
     gngns = 4
     all = 7
 
+
 class GalileoNmeaType:
     # GNSS-AP-Note 2.2.5
     disable = 0
     gagsv = 1
     all = 1
+
 
 class BeiDouNmeaType:
     # GNSS-AP-Note 2.2.6
@@ -279,37 +296,45 @@ class BeiDouNmeaType:
     pqgsv = 2
     all = 3
 
+
 class AutoGps:
     # GNSS-AP-Note 2.2.12
     #    Enable/disable GNSS to run automatically after the module is powered on.
     disable = "0"
     enable = "1"
 
+
 class Phy:
     """
     abstract base class for interfaceing with the modem on the physical layer.
     i.e. powering on/off, and potentially gpio-level signalling.
     """
+
     def power_on(self) -> None:
         raise NotImplementedError()
+
     def power_off(self) -> None:
         raise NotImplementedError()
+
     def dump_debug_info(self) -> None:
         pass
+
 
 class MegiPhy(Phy):
     """
     Phy implementation built on megi's modem-power driver (requires megi kernel patches)
     """
+
     def __init__(self, executor: Executor, power_endpoint: str):
         self.executor = executor
         self.power_endpoint = power_endpoint
 
     def power_on(self) -> None:
-        self.executor.write_file(self.power_endpoint, b'1')
+        self.executor.write_file(self.power_endpoint, b"1")
 
     def power_off(self) -> None:
-        self.executor.write_file(self.power_endpoint, b'0')
+        self.executor.write_file(self.power_endpoint, b"0")
+
 
 class GpioPhy:
     # power-on/off sequence documented in a few places:
@@ -333,6 +358,7 @@ class GpioPhy:
     DISABLE = None, None
     # STATUS line: HIGH means powered off
     STATUS = None, None
+
     def __init__(self):
         gpios = dict(
             DTR=self.DTR,
@@ -345,12 +371,24 @@ class GpioPhy:
         num_lines = 1 + max(chip for (chip, _) in gpios.values())
         line_configs = [dict() for _ in range(num_lines)]
 
-        line_configs[self.DTR[0]][self.DTR[1]] = gpiod.LineSettings(direction=gpiod.line.Direction.OUTPUT)
-        line_configs[self.PWRKEY[0]][self.PWRKEY[1]] = gpiod.LineSettings(direction=gpiod.line.Direction.OUTPUT)
-        line_configs[self.RESET[0]][self.RESET[1]] = gpiod.LineSettings(direction=gpiod.line.Direction.OUTPUT)
-        line_configs[self.APREADY[0]][self.APREADY[1]] = gpiod.LineSettings(direction=gpiod.line.Direction.OUTPUT)
-        line_configs[self.DISABLE[0]][self.DISABLE[1]] = gpiod.LineSettings(direction=gpiod.line.Direction.OUTPUT)
-        line_configs[self.STATUS[0]][self.STATUS[1]] = gpiod.LineSettings(direction=gpiod.line.Direction.INPUT, bias=gpiod.line.Bias.PULL_UP)
+        line_configs[self.DTR[0]][self.DTR[1]] = gpiod.LineSettings(
+            direction=gpiod.line.Direction.OUTPUT
+        )
+        line_configs[self.PWRKEY[0]][self.PWRKEY[1]] = gpiod.LineSettings(
+            direction=gpiod.line.Direction.OUTPUT
+        )
+        line_configs[self.RESET[0]][self.RESET[1]] = gpiod.LineSettings(
+            direction=gpiod.line.Direction.OUTPUT
+        )
+        line_configs[self.APREADY[0]][self.APREADY[1]] = gpiod.LineSettings(
+            direction=gpiod.line.Direction.OUTPUT
+        )
+        line_configs[self.DISABLE[0]][self.DISABLE[1]] = gpiod.LineSettings(
+            direction=gpiod.line.Direction.OUTPUT
+        )
+        line_configs[self.STATUS[0]][self.STATUS[1]] = gpiod.LineSettings(
+            direction=gpiod.line.Direction.INPUT, bias=gpiod.line.Bias.PULL_UP
+        )
 
         self.lines = [None] * num_lines
         for line, config in enumerate(line_configs):
@@ -370,14 +408,16 @@ class GpioPhy:
         line, index = gpio
         return self.lines[line].get_value(index)
 
-    def power_toggle(self, disable = gpiod.line.Value.INACTIVE) -> None:
+    def power_toggle(self, disable=gpiod.line.Value.INACTIVE) -> None:
         # power-on is signalled by toggling the PWRKEY, and the modem interprets that as either a power-up OR a power-down request.
         self.dump_debug_info()
 
         if self.get_gpio(self.STATUS) == disable:
             # i wouldn't be surprised if the modem can get "stuck" in some state such that this early return always hits,
             # if that's the case add some `--force` flag or verify against `mmcli -m any` report, etc.
-            logger.info("modem appears physically to already be in the desired state: not changing")
+            logger.info(
+                "modem appears physically to already be in the desired state: not changing"
+            )
             return
 
         self.set_gpio(self.APREADY, gpiod.line.Value.ACTIVE)
@@ -430,6 +470,7 @@ class GpioPhy:
             f"  STATUS: {STATUS}"
         )
 
+
 class PinePhoneGpioPhy(GpioPhy):
     # PLEASE NOTE THAT THIS REQUIRES THE AXP REGULATOR TO BE POWERING VBAT-BB.
     # as of 2024-09-19, that's not mainline; it still requires a handful of patches.
@@ -446,16 +487,23 @@ class PinePhoneGpioPhy(GpioPhy):
     # STATUS line: HIGH means powered off
     STATUS = 1, 233  # PH9
 
+
 class PinePhoneProGpioPhy(GpioPhy):
+    # fmt: off
+    # XXX ruff likes to trash these aligned comments
     DTR = 0, 3  # gpio0, RK_PA3      (AKA "4G_DTR"; RK3399 -> EG25)
     PWRKEY = 0, 13  # gpio0, RK_PB5  (more accurately, this is "4G_REG_ON", which pulls PWRKEY *low* when driven *high*)
     RESET = 3, 8  # gpio3, RK_PB0    (more accurately, this is "4G_RST", which pulls RESET_N *low* when driven *high*)
     APREADY = 0, 12  # gio0, RK_RB4  ('host-ready-gpios'. AKA "AP_READY")
     DISABLE = 0, 8  # gpio0, RK_PB0  (NB: megi has this (incorrectly) marked active HIGH, not LOW)
     STATUS = 3, 6  # gpio3, RK_PA6   (AKA "4G_Status"; EG25 -> RK3399)
+    # fmt: on
+
 
 class Sequencer:
-    def __init__(self, executor: Executor, modem: str, modem_phy: Phy, state_fs: Filesystem):
+    def __init__(
+        self, executor: Executor, modem: str, modem_phy: Phy, state_fs: Filesystem
+    ):
         self.executor = executor
         self.modem = modem
         self.modem_phy = modem_phy
@@ -463,9 +511,8 @@ class Sequencer:
 
     def _mmcli(self, args: list[str], check: bool = True) -> str:
         return self.executor.exec(
-            ["mmcli", "--modem", self.modem] + args,
-            check=check
-        ).decode('utf-8')
+            ["mmcli", "--modem", self.modem] + args, check=check
+        ).decode("utf-8")
 
     def _try_mmcli(self, args: list[str]) -> str:
         try:
@@ -481,15 +528,21 @@ class Sequencer:
         # if you don't have mmcli, for some reason, an alternative would be `atinout`
         return self._mmcli([f"--command=+{cmd}"], check=check)
 
-    def _at_structured_cmd(self, cmd: str, subcmd: str | None = None, value: str | None = None, check: bool = True) -> str:
+    def _at_structured_cmd(
+        self,
+        cmd: str,
+        subcmd: str | None = None,
+        value: str | None = None,
+        check: bool = True,
+    ) -> str:
         if not subcmd and not value:
             return self._at_cmd(cmd, check=check)
         elif not subcmd and value:
             return self._at_cmd(f"{cmd}={value}", check=check)
         elif subcmd and not value:
-            return self._at_cmd(f"{cmd}=\"{subcmd}\"", check=check)
+            return self._at_cmd(f'{cmd}="{subcmd}"', check=check)
         else:
-            return self._at_cmd(f"{cmd}=\"{subcmd}\",{value}", check=check)
+            return self._at_cmd(f'{cmd}="{subcmd}",{value}', check=check)
 
     def _at_gnssconfig(self, cfg: GNSSConfig, **kwargs) -> str:
         return self._at_structured_cmd("QGPSCFG", "gnssconfig", cfg, **kwargs)
@@ -525,22 +578,24 @@ class Sequencer:
         self.state_fs.mkdir("new")
         out_path = f"new/{variant}"
         try:
-            self.executor.exec([
-                "curl",
-                f"{AGPS_DATA_URI_BASE}/{variant}",
-                "-o",
-                self.state_fs.translate_out(out_path)
-            ])
+            self.executor.exec(
+                [
+                    "curl",
+                    f"{AGPS_DATA_URI_BASE}/{variant}",
+                    "-o",
+                    self.state_fs.translate_out(out_path),
+                ]
+            )
             return out_path
         except subprocess.CalledProcessError as e:
             logger.warning(f"AGPS data download failed: {e}")
             return None
 
     def _mark_assistance_data(self, locdata_path: str, good: bool) -> None:
-        '''
+        """
         call after attempted upload to indicate if locdata is good/bad.
         locdata_path might be a cached locdata or a new locdata.
-        '''
+        """
         variant = os.path.basename(locdata_path)
 
         if good:
@@ -551,13 +606,14 @@ class Sequencer:
         else:
             self.state_fs.rm(locdata_path)
 
-
-    def _get_cached_assistance_data(self, variant: AgpsDataVariant, cache_dir: str = "cache") -> tuple[bool, str | None]:
-        '''
+    def _get_cached_assistance_data(
+        self, variant: AgpsDataVariant, cache_dir: str = "cache"
+    ) -> tuple[bool, str | None]:
+        """
         returns:
         - whether cached data is fresh (i.e. won't benefit from an update)
         - a path to the cached AGPS data, or None if no valid cached entry
-        '''
+        """
 
         locdata_path = f"{cache_dir}/{variant}"
 
@@ -568,15 +624,19 @@ class Sequencer:
         is_fresh = datetime.datetime.now() - last_cache_date < AGPS_CACHE_REFRESH_AFTER
         return is_fresh, locdata_path
 
-    def _get_any_assistance_data(self, variant: AgpsDataVariant) -> tuple[bool, list[str]]:
-        '''
+    def _get_any_assistance_data(
+        self, variant: AgpsDataVariant
+    ) -> tuple[bool, list[str]]:
+        """
         checks if we have fresh cached data.
         - if not, tries to download fresh AGPS data
         returns a list of location data paths to try, in order
         - because new data might not necessarily be valid (download error).
         - and stale data might still have *some* use.
-        '''
-        is_fresh_untested, untested_path = self._get_cached_assistance_data(variant, cache_dir="new")
+        """
+        is_fresh_untested, untested_path = self._get_cached_assistance_data(
+            variant, cache_dir="new"
+        )
         is_fresh_cached, cached_path = self._get_cached_assistance_data(variant)
 
         paths_to_try = []
@@ -592,7 +652,6 @@ class Sequencer:
             paths_to_try.append(cached_path)
 
         return is_fresh_untested or is_fresh_cached, paths_to_try
-
 
     @log_scope("powering modem...", "modem powered")
     def power_on(self) -> None:
@@ -615,31 +674,33 @@ class Sequencer:
             time.sleep(1)  # wait for modem to disappear
 
     def at_check(self) -> None:
-        """ sanity check that the modem is listening for AT commands and responding reasonably """
+        """sanity check that the modem is listening for AT commands and responding reasonably"""
         hw = self._at_cmd("QGMR")
-        assert 'EG25GGBR07A08M2G' in hw or self.executor.dry_run, hw
+        assert "EG25GGBR07A08M2G" in hw or self.executor.dry_run, hw
 
     def dump_debug_info(self) -> None:
         self.modem_phy.dump_debug_info()
-        logger.debug('checking if AGPS is enabled (1) or not (0)')
-        self._at_structured_cmd('QGPSXTRA?')
+        logger.debug("checking if AGPS is enabled (1) or not (0)")
+        self._at_structured_cmd("QGPSXTRA?")
         # see if the GPS assistance data is still within valid range
-        logger.debug('QGPSXTRADATA: <valid_duration_minutes>,<start_time_of_agps_data>')
-        self._at_structured_cmd('QGPSXTRADATA?')
-        logger.debug('checking what time the modem last synchronized with the network')
-        self._at_structured_cmd('QLTS')
-        logger.debug('checking what time the modem thinks it is (extrapolated from sync)')
-        self._at_structured_cmd('QLTS', value=1)
-        logger.debug('checking what time the modem thinks it is (from RTC)')
-        self._at_structured_cmd('CCLK?')
-        logger.debug('checking if nmea GPS source is enabled')
-        self._at_structured_cmd('QGPSCFG', 'nmeasrc')
-        logger.debug('checking if GPS is enabled (1) or not (0)')
-        self._at_structured_cmd('QGPS?')
-        logger.debug('checking if GPS has a fix. Error 516 if not')
-        self._at_structured_cmd('QGPSLOC', value='0', check=False)
-        logger.debug('dumping AGPS positioning mode bitfield')
-        self._at_structured_cmd('QGPSCFG', 'agpsposmode')
+        logger.debug("QGPSXTRADATA: <valid_duration_minutes>,<start_time_of_agps_data>")
+        self._at_structured_cmd("QGPSXTRADATA?")
+        logger.debug("checking what time the modem last synchronized with the network")
+        self._at_structured_cmd("QLTS")
+        logger.debug(
+            "checking what time the modem thinks it is (extrapolated from sync)"
+        )
+        self._at_structured_cmd("QLTS", value=1)
+        logger.debug("checking what time the modem thinks it is (from RTC)")
+        self._at_structured_cmd("CCLK?")
+        logger.debug("checking if nmea GPS source is enabled")
+        self._at_structured_cmd("QGPSCFG", "nmeasrc")
+        logger.debug("checking if GPS is enabled (1) or not (0)")
+        self._at_structured_cmd("QGPS?")
+        logger.debug("checking if GPS has a fix. Error 516 if not")
+        self._at_structured_cmd("QGPSLOC", value="0", check=False)
+        logger.debug("dumping AGPS positioning mode bitfield")
+        self._at_structured_cmd("QGPSCFG", "agpsposmode")
 
         # N.B.: /dev/ttyUSB1 can block indefinitely on reads (particularly when competing with another consumer)
         # logger.debug('dumping last modem GPS output, if available')
@@ -654,7 +715,7 @@ class Sequencer:
         # - <https://xnux.eu/devices/feature/modem-pp.html>
         self._at_structured_cmd("QDAI", value="1,1,0,1,0,0,1,1")
         # RI signaling using physical RI pin
-        self._at_structured_cmd("QCFG", "risignaltype", "\"physical\"")
+        self._at_structured_cmd("QCFG", "risignaltype", '"physical"')
         # Enable VoLTE support
         self._at_structured_cmd("QCFG", "ims", "1")
         # Enable APREADY for PP 1.2
@@ -670,13 +731,13 @@ class Sequencer:
         #   * Report URCs on all ports (serial and USB) for FOSS firmware
         #   * Reporting of URCs without any delay
         #   * Configure URC pin to UART Ring Indicator
-        self._at_structured_cmd("QCFG", "urc/ri/ring", "\"pulse\",120,1000,5000,\"off\",1")
-        self._at_structured_cmd("QCFG", "urc/ri/smsincoming", "\"pulse\",120,1")
-        self._at_structured_cmd("QCFG", "urc/ri/other", "\"off\",1,1")
+        self._at_structured_cmd("QCFG", "urc/ri/ring", '"pulse",120,1000,5000,"off",1')
+        self._at_structured_cmd("QCFG", "urc/ri/smsincoming", '"pulse",120,1')
+        self._at_structured_cmd("QCFG", "urc/ri/other", '"off",1,1')
         self._at_structured_cmd("QCFG", "urc/delay", "0")
         self._at_structured_cmd("QCFG", "urc/cache", "0")
         self._at_structured_cmd("QCFG", "urc/ri/pin", "uart_ri")
-        self._at_structured_cmd("QURCCFG", "urcport", "\"all\"")
+        self._at_structured_cmd("QURCCFG", "urcport", '"all"')
 
     @log_scope("ensuring on-disk AGPS...", "AGPS is available on-disk")
     def ensure_agps_cache(self) -> None:
@@ -696,7 +757,11 @@ class Sequencer:
         # self._at_structured_cmd("QGPSXTRATIME", value=f"0,\"{now}\"")
         is_fresh, locdatas = self._get_any_assistance_data(DEFAULT_AGPS_DATA_VARIANT())
         for locdata in locdatas:
-            ret = self._try_mmcli([f"--location-inject-assistance-data={self.state_fs.translate_out(locdata)}"])
+            ret = self._try_mmcli(
+                [
+                    f"--location-inject-assistance-data={self.state_fs.translate_out(locdata)}"
+                ]
+            )
             is_success = ret is not None
             self._mark_assistance_data(locdata, is_success)
             if is_success:
@@ -704,12 +769,14 @@ class Sequencer:
 
         self._at_gnssconfig(GNSSConfig.gps_glonass_beidou_galileo)
         self._at_odpcontrol(ODPControl.disable, check=False)
-        self._at_dpoenable(DPOEnable.disable, check=False)  # N.B.: eg25-manager uses `DPOEnable.enable`
+        self._at_dpoenable(
+            DPOEnable.disable, check=False
+        )  # N.B.: eg25-manager uses `DPOEnable.enable`
         self._at_gpsnmeatype(GPSNMEAType.all)
         self._at_glonassnmeatype(GlonassNmeaType.all)
         self._at_galileonmeatype(GalileoNmeaType.all)
         self._at_beidounmeatype(BeiDouNmeaType.all)
-        self._at_autogps(AutoGps.disable, check=False)  #< don't start GPS on modem boot
+        self._at_autogps(AutoGps.disable, check=False)  # don't start GPS on modem boot
         # configure so GPS output is readable via /dev/ttyUSB1
         # self._mmcli(["--location-enable-gps-unmanaged"])
         # TODO: tune/document these QGPS values; a smarter setting here might reduce jitter?
@@ -737,23 +804,69 @@ def main():
     logging.basicConfig()
     logging.getLogger().setLevel(logging.INFO)
 
-    parser = argparse.ArgumentParser(description="initialize the eg25 Pinephone modem for GPS tracking")
-    parser.add_argument('--modem', default='any', help="name of modem to configure (see mmcli --list-modems)")
-    parser.add_argument('--power-endpoint', default='', help="sysfs endpoint that can turn the modem on/off (if using megi's modem-power), e.g. /sys/class/modem-power/modem-power/device/powered")
-    parser.add_argument('--state-dir', default='')
+    parser = argparse.ArgumentParser(
+        description="initialize the eg25 Pinephone modem for GPS tracking"
+    )
+    parser.add_argument(
+        "--modem",
+        default="any",
+        help="name of modem to configure (see mmcli --list-modems)",
+    )
+    parser.add_argument(
+        "--power-endpoint",
+        default="",
+        help="sysfs endpoint that can turn the modem on/off (if using megi's modem-power), e.g. /sys/class/modem-power/modem-power/device/powered",
+    )
+    parser.add_argument("--state-dir", default="")
 
-    parser.add_argument("--dry-run", action='store_true', help="print commands instead of executing them")
-    parser.add_argument("--verbose", action='store_true', help="log each command before executing")
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="print commands instead of executing them",
+    )
+    parser.add_argument(
+        "--verbose", action="store_true", help="log each command before executing"
+    )
 
-    parser.add_argument('--power-on', action='store_true', help="enable power to the modem")
-    parser.add_argument('--enable-audio', action='store_true', help="configure audio for calling (?)")
-    parser.add_argument('--enable-urc', action='store_true', help="enable support for Unsolicited Return Codes (?)")
-    parser.add_argument('--ensure-agps-cache', action='store_true', help="ensure we have fresh assisted-GPS data available")
-    parser.add_argument('--enable-gps', action='store_true', help="enable the GPS and acquire tracking until asked to stop")
-    parser.add_argument('--enable-powersave', action='store_true', help="configure modem to sleep when possible")
-    parser.add_argument('--disable-gps', action='store_true', help="disable the GPS and stop any tracking")
-    parser.add_argument('--power-off', action='store_true', help="disable power to the modem")
-    parser.add_argument('--dump-debug-info', action='store_true', help="don't initialize anything, just dump debugging data")
+    parser.add_argument(
+        "--power-on", action="store_true", help="enable power to the modem"
+    )
+    parser.add_argument(
+        "--enable-audio", action="store_true", help="configure audio for calling (?)"
+    )
+    parser.add_argument(
+        "--enable-urc",
+        action="store_true",
+        help="enable support for Unsolicited Return Codes (?)",
+    )
+    parser.add_argument(
+        "--ensure-agps-cache",
+        action="store_true",
+        help="ensure we have fresh assisted-GPS data available",
+    )
+    parser.add_argument(
+        "--enable-gps",
+        action="store_true",
+        help="enable the GPS and acquire tracking until asked to stop",
+    )
+    parser.add_argument(
+        "--enable-powersave",
+        action="store_true",
+        help="configure modem to sleep when possible",
+    )
+    parser.add_argument(
+        "--disable-gps",
+        action="store_true",
+        help="disable the GPS and stop any tracking",
+    )
+    parser.add_argument(
+        "--power-off", action="store_true", help="disable power to the modem"
+    )
+    parser.add_argument(
+        "--dump-debug-info",
+        action="store_true",
+        help="don't initialize anything, just dump debugging data",
+    )
 
     args = parser.parse_args()
     if args.verbose or args.dump_debug_info:
@@ -761,7 +874,9 @@ def main():
 
     state_dir = args.state_dir
     if not state_dir:
-        state_dir = os.path.join(os.getenv("HOME", "/var/lib/eg25-control"), ".cache/eg25-control")
+        state_dir = os.path.join(
+            os.getenv("HOME", "/var/lib/eg25-control"), ".cache/eg25-control"
+        )
 
     executor = Executor(dry_run=args.dry_run)
     state_fs = Filesystem(executor, root=state_dir)
@@ -773,7 +888,9 @@ def main():
         # don't initialize the Gpio PHY unless absolutely necessary, since it has to (re-)configure GPIOs just to show debug info
         modem_phy = PinePhoneProGpioPhy()
 
-    sequencer = Sequencer(executor, modem=args.modem, modem_phy=modem_phy, state_fs=state_fs)
+    sequencer = Sequencer(
+        executor, modem=args.modem, modem_phy=modem_phy, state_fs=state_fs
+    )
 
     if args.power_on:
         sequencer.power_on()
@@ -796,5 +913,6 @@ def main():
     if args.dump_debug_info:
         sequencer.dump_debug_info()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

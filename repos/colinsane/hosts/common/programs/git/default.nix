@@ -13,13 +13,13 @@ in
     suggestedPrograms = [
       "difftastic"
       "git-cinnabar"
-      "git-lfs"  # LLMs like to use it
+      "git-lfs" # LLMs like to use it
       "git-sane"
       "ssh"
     ];
     sandbox.net = "clearnet";
     sandbox.whitelistPwd = true;
-    sandbox.autodetectCliPaths = "parent";  # autodetection is necessary for git-upload-pack; "parent" so that `git mv` works
+    sandbox.autodetectCliPaths = "parent"; # autodetection is necessary for git-upload-pack; "parent" so that `git mv` works
     sandbox.extraHomePaths = [
       ".config/git"
       # even with `whitelistPwd`, git has to crawl *up* the path -- which isn't necessarily in the sandbox -- to locate parent .git files
@@ -40,36 +40,36 @@ in
     fs.".config/git/config.prefs".symlink.target = gitIni.generate "git-config.prefs" {
       # top-level options documented:
       # - <https://git-scm.com/docs/git-config#_variables>
-      alias.ad      = "add";
-      alias.amend   = "commit --amend --no-edit";
-      alias.blog    = "log --decorate --pretty=format:'%C(auto)%h %s%d' --abbrev";  #< brief log (like `git log --oneline` but better)
-      alias.br      = "branch";
-      alias.co      = "checkout";
-      alias.com     = "commit";
-      alias.comit   = "commit";  # common typo
-      alias.cp      = "cherry-pick";
-      alias.dif     = "diff";  # common typo
-      alias.difsum  = "diff --compact-summary";  #< show only the list of files which changed, not contents
-      alias.format-diff = "diff --no-color --no-ext-diff --src-prefix=a/ --dst-prefix=b/ --unified=3 --binary";  # `git format-diff > WIP.diff` to create standard .diff files from the working tree
-      alias.pdiff   = "difftool";  # equivalent to `GIT_EXTERNAL_DIFF=difft git diff`
-      alias.plog    = "!GIT_EXTERNAL_DIFF=difft DFT_IGNORE_COMMENTS=true git log --patch --ext-diff";
+      alias.ad = "add";
+      alias.amend = "commit --amend --no-edit";
+      alias.blog = "log --decorate --pretty=format:'%C(auto)%h %s%d' --abbrev"; # brief log (like `git log --oneline` but better)
+      alias.br = "branch";
+      alias.co = "checkout";
+      alias.com = "commit";
+      alias.comit = "commit"; # common typo
+      alias.cp = "cherry-pick";
+      alias.dif = "diff"; # common typo
+      alias.difsum = "diff --compact-summary"; # show only the list of files which changed, not contents
+      alias.format-diff = "diff --no-color --no-ext-diff --src-prefix=a/ --dst-prefix=b/ --unified=3 --binary"; # `git format-diff > WIP.diff` to create standard .diff files from the working tree
+      alias.pdiff = "difftool"; # equivalent to `GIT_EXTERNAL_DIFF=difft git diff`
+      alias.plog = "!GIT_EXTERNAL_DIFF=difft DFT_IGNORE_COMMENTS=true git log --patch --ext-diff";
       # alias.pshow   = "!GIT_EXTERNAL_DIFF=difft DFT_IGNORE_COMMENTS=true git show --ext-diff";
-      alias.pul     = "pull";  # common typo
-      alias.rb      = "rebase";
+      alias.pul = "pull"; # common typo
+      alias.rb = "rebase";
       alias.reset-head = "reset --hard HEAD";
-      alias.shoe    = "show";  # common typo
-      alias.st      = "status";
-      alias.stat    = "status";
+      alias.shoe = "show"; # common typo
+      alias.st = "status";
+      alias.stat = "status";
       alias.uncommit = "reset HEAD~1";
       alias.unstage = "restore --staged :/";
 
-      cinnabar.check = "no-version-check";  #< git-cinnabar: don't check for new release every invocation :(
+      cinnabar.check = "no-version-check"; # git-cinnabar: don't check for new release every invocation :(
 
-      commit.verbose = true;  #< have `git commit` populate both status *and* diff to the editor
+      commit.verbose = true; # have `git commit` populate both status *and* diff to the editor
 
-      diff.context = 8;  #< default 3 lines of context
-      diff.interHunkContext = 8;  #< include up to this many extra lines to merge diff hunks
-      diff.noPrefix = true;  #< don't show a/ or b/ prefixes in diffs
+      diff.context = 8; # default 3 lines of context
+      diff.interHunkContext = 8; # include up to this many extra lines to merge diff hunks
+      diff.noPrefix = true; # don't show a/ or b/ prefixes in diffs
       # difftastic docs:
       # - <https://difftastic.wilfred.me.uk/git.html>
       diff.tool = "difftastic";
@@ -77,8 +77,8 @@ in
       "difftool \"difftastic\"".cmd = ''difft "$LOCAL" "$REMOTE"'';
       # now run `git difftool` to use difftastic git
 
-      log.date = "iso";  #< render dates as YYYY-MM-DD HH:MM:SS +TZ
-      log.follow = true;  #< make `git log PATH` behave like `git log --follow PATH`
+      log.date = "iso"; # render dates as YYYY-MM-DD HH:MM:SS +TZ
+      log.follow = true; # make `git log PATH` behave like `git log --follow PATH`
       log.showSignature = false;
 
       # the default yellow commit header is unreadable
@@ -88,18 +88,18 @@ in
       merge.autoStash = true;
       merge.conflictStyle = "zdiff3";
 
-      pull.autoStash = true;  # `git pull` on a dirty tree will stash, pull, then `stash apply`
-      pull.rebase = true;  # make `git pull` behave like `git pull --rebase`.
+      pull.autoStash = true; # `git pull` on a dirty tree will stash, pull, then `stash apply`
+      pull.rebase = true; # make `git pull` behave like `git pull --rebase`.
 
       push.autoSetupRemote = true;
-      push.default = "current";  #< `git push origin` will push the current branch to origin
+      push.default = "current"; # `git push origin` will push the current branch to origin
 
-      rebase.autoStash = true;  #< make `git rebase FOO` behave as `git stash && git rebase FOO && git stash apply`
+      rebase.autoStash = true; # make `git rebase FOO` behave as `git stash && git rebase FOO && git stash apply`
 
       sendemail.annotate = "yes";
       sendemail.confirm = "always";
 
-      status.short = true;  #< make `git statues` behave as `git status --short`
+      status.short = true; # make `git statues` behave as `git status --short`
 
       stash.showPatch = true;
 

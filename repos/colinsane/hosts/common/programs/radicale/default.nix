@@ -24,13 +24,13 @@ in
   services.radicale = lib.mkIf cfg.enabled {
     enable = true;
     settings.storage.type = "multifilesystem_nolock";
-    settings.storage.use_cache_subfolder_for_history = true;  #< requires radicale > 3.3.1
+    settings.storage.use_cache_subfolder_for_history = true; # requires radicale > 3.3.1
     settings.storage.use_cache_subfolder_for_item = true;
     settings.storage.use_cache_subfolder_for_synctoken = true;
     # settings.storage.filesystem_cache_folder = "/var/lib/radicale/cache";
     # settings.storage.filesystem_folder = "/path/to/storage"
     # auth options: none, remote_user, http_x_remote_user, denyall, htpasswd, ldap, imap, dovecot
-    settings.auth.type = "none";  # "none" = allow unrestricted access to any client who can connect
+    settings.auth.type = "none"; # "none" = allow unrestricted access to any client who can connect
   };
 
   # TODO: service is considered 'up' too early: we should wait, and notify once the http port is bound/listening
@@ -46,6 +46,7 @@ in
   };
 
   sane.fs = lib.optionalAttrs cfg.enabled {
-    "/var/lib/radicale/collections/collection-root/colin/pkm".symlink.target = "/mnt/persist/private/home/colin/knowledge/social/contacts/db";
+    "/var/lib/radicale/collections/collection-root/colin/pkm".symlink.target =
+      "/mnt/persist/private/home/colin/knowledge/social/contacts/db";
   };
 }

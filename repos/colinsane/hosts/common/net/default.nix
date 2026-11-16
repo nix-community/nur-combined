@@ -14,7 +14,7 @@
 
   systemd.network.enable = true;
   networking.useNetworkd = true;
-  networking.usePredictableInterfaceNames = false;  #< set false to get `eth0`, `wlan0`, etc instead of `enp3s0`/etc
+  networking.usePredictableInterfaceNames = false;  # set false to get `eth0`, `wlan0`, etc instead of `enp3s0`/etc
 
   # view refused/dropped packets with: `sudo journalctl -k`
   # networking.firewall.logRefusedPackets = true;
@@ -23,7 +23,7 @@
   # linux will drop inbound packets if it thinks a reply to that packet wouldn't exit via the same interface (rpfilter).
   #   that heuristic fails for complicated VPN-style routing, especially with SNAT.
   # networking.firewall.checkReversePath = false;  # or "loose" to keep it partially.
-  # networking.firewall.enable = false;  #< set false to debug
+  # networking.firewall.enable = false;  # set false to debug
   # networking.firewall.backend = "nftables";
 
   # this is needed to forward packets from the VPN to the host.

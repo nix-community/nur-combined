@@ -2,7 +2,7 @@
 {
   sane.programs.nanogpt-mcp = {
     packageUnwrapped = pkgs.nanogpt-mcp.overrideAttrs (prevAttrs: {
-      nativeBuildInputs = prevAttrs.nativeBuildInputs or [] ++ [
+      nativeBuildInputs = prevAttrs.nativeBuildInputs or [ ] ++ [
         pkgs.makeWrapper
       ];
       postFixup = prevAttrs.postFixup or "" + ''

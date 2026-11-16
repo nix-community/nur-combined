@@ -84,9 +84,9 @@ let
   serviceToFs'= {
     name,
     type,
-    check ? null,  #< command to poll to check for service readiness
+    check ? null,  # command to poll to check for service readiness
     consumerFor ? null,
-    contents ? null,  #< bundle contents
+    contents ? null,  # bundle contents
     depends ? [],
     up ? null,
     finish ? null,
@@ -372,7 +372,7 @@ in
           wait "$SVSCAN"
         }
         function startS6WithLogging() {
-          mkdir -p "${logBase}"  #< needs to exist for parallel s6-log call
+          mkdir -p "${logBase}"  # needs to exist for parallel s6-log call
           # disable input echoing, so that user can use framebuffer applications (unl0kr) without keyboard echo characters writing to the same framebuffer
           stty -echo
           startS6 2>&1 | s6-log -- T "${logBase}/catchall"

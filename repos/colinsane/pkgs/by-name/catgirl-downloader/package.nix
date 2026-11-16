@@ -12,14 +12,15 @@
   pkg-config,
   python3,
   stdenv,
-  testers,
   wrapGAppsHook4,
 }:
 let
-  pythonEnv = python3.withPackages (ps: with ps; [
-    pygobject3
-    requests
-  ]);
+  pythonEnv = python3.withPackages (
+    ps: with ps; [
+      pygobject3
+      requests
+    ]
+  );
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "catgirl-downloader";
@@ -54,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     gtk4
     libadwaita
-    # pythonEnv  #< not needed as we patch it in directly
+    # pythonEnv  # not needed as we patch it in directly
   ];
 
   strictDeps = true;

@@ -1,9 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   # [ ProgramConfig ]
-  enabledPrograms = builtins.filter
-    (p: p.enabled && p.gsettings != {})
-    (builtins.attrValues config.sane.programs);
+  enabledPrograms = builtins.filter (p: p.enabled && p.gsettings != { }) (
+    builtins.attrValues config.sane.programs
+  );
 
   keyfileTexts = lib.map (p: lib.generators.toDconfINI p.gsettings) enabledPrograms;
 

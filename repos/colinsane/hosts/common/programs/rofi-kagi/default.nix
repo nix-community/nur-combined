@@ -9,7 +9,7 @@
     sandbox.extraHomePaths = [
       ".config/mimeo"
       ".config/rofi"
-      ".local/share/applications"  #< to locate .desktop files
+      ".local/share/applications" # to locate .desktop files
     ];
     sandbox.whitelistPortal = [
       "OpenURI"

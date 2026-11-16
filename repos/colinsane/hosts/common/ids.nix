@@ -5,7 +5,7 @@
 
 {
   # partially supported in nixpkgs  <repo:nixos/nixpkgs:nixos/modules/misc/ids.nix>
-  sane.ids.networkmanager.uid = 57;  #< nixpkgs unofficially reserves this, to match networkmanager's gid
+  sane.ids.networkmanager.uid = 57;  # nixpkgs unofficially reserves this, to match networkmanager's gid
   sane.ids.mediatomb.uid = 187;  # <repo:nixos/nixpkgs:nixos/modules/misc/ids.nix>
 
   # these ids are "required" to be "system users" (400..999).
@@ -54,8 +54,8 @@
   sane.ids.pict-rs.gid = 2409;
   sane.ids.sftpgo.uid = 2410;
   sane.ids.sftpgo.gid = 2410;
-  sane.ids.hickory-dns.uid = 2411;  #< previously "trust-dns"
-  sane.ids.hickory-dns.gid = 2411;  #< previously "trust-dns"
+  sane.ids.hickory-dns.uid = 2411;  # previously "trust-dns"
+  sane.ids.hickory-dns.gid = 2411;  # previously "trust-dns"
   sane.ids.export.gid = 2412;
   sane.ids.nfsuser.uid = 2413;
   sane.ids.media.gid = 2414;

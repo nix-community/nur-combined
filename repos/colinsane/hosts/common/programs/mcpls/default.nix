@@ -2,46 +2,63 @@
 # <https://github.com/bug-ops/mcpls>
 { lib, pkgs, ... }:
 let
-  configFile = (pkgs.formats.toml {}).generate "mcpls.toml" {
+  configFile = (pkgs.formats.toml { }).generate "mcpls.toml" {
     workspace = {
-      roots = [];  # auto-detect from cwd
-      position_encodings = [ "utf-8" "utf-16" ];
+      roots = [ ]; # auto-detect from cwd
+      position_encodings = [
+        "utf-8"
+        "utf-16"
+      ];
     };
     lsp_servers = [
       {
         language_id = "nix";
         command = lib.getExe pkgs.nixd;
-        args = [];
+        args = [ ];
         file_patterns = [ "**/*.nix" ];
       }
       {
         language_id = "rust";
         command = lib.getExe pkgs.rust-analyzer;
-        args = [];
+        args = [ ];
         file_patterns = [ "**/*.rs" ];
       }
       {
         language_id = "python";
         command = "${lib.getExe' pkgs.pyright "pyright-langserver"}";
         args = [ "--stdio" ];
-        file_patterns = [ "**/*.py" "**/*.pyw" "**/*.pyi" ];
+        file_patterns = [
+          "**/*.py"
+          "**/*.pyw"
+          "**/*.pyi"
+        ];
       }
       {
         language_id = "typescript";
         command = lib.getExe pkgs.typescript-language-server;
         args = [ "--stdio" ];
-        file_patterns = [ "**/*.ts" "**/*.mts" "**/*.cts" "**/*.tsx" ];
+        file_patterns = [
+          "**/*.ts"
+          "**/*.mts"
+          "**/*.cts"
+          "**/*.tsx"
+        ];
       }
       {
         language_id = "javascript";
         command = lib.getExe pkgs.typescript-language-server;
         args = [ "--stdio" ];
-        file_patterns = [ "**/*.js" "**/*.mjs" "**/*.cjs" "**/*.jsx" ];
+        file_patterns = [
+          "**/*.js"
+          "**/*.mjs"
+          "**/*.cjs"
+          "**/*.jsx"
+        ];
       }
       {
         language_id = "lua";
         command = lib.getExe pkgs.lua-language-server;
-        args = [];
+        args = [ ];
         file_patterns = [ "**/*.lua" ];
       }
     ];

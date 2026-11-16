@@ -50,22 +50,24 @@ let
     #   # })
     # ];
 
-    version = lib.warnIf (lib.versionOlder "2.1.1" prevAttrs.version) "rofi outdated: remove override?" "2.1.1";
+    version =
+      lib.warnIf (lib.versionOlder "2.1.1" prevAttrs.version) "rofi outdated: remove override?"
+        "2.1.1";
     src = prevAttrs.src.overrideAttrs {
       hash = "sha256-5XFz01UtF1LUR5Hcvdcs+svSQGedzDYgnUSt7iN3cV4=";
     };
 
-    mesonFlags = (prevAttrs.mesonFlags or []) ++ [
+    mesonFlags = (prevAttrs.mesonFlags or [ ]) ++ [
       # i want `gio-launch: false`, so that rofi will use my `rofi-run-command`, but as of 2.1.1 that
       # has buggy cache behavior (see comment in config.rasi).
       # compiling out the gio-launch paths entirely fixes the cache.
       "-Dgiolaunch=false"
     ];
 
-    nativeBuildInputs = (prevAttrs.nativeBuildInputs or []) ++ [
+    nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [
       pkgs.copyDesktopItems
     ];
-    desktopItems = (prevAttrs.desktopItems or []) ++ [
+    desktopItems = (prevAttrs.desktopItems or [ ]) ++ [
       (pkgs.makeDesktopItem {
         name = "rofi-filebrowser";
         # alternatively: `rofi -modes filebrowser -show`, however this would require theme tweaking to look good
@@ -118,14 +120,14 @@ in
       "rofi-run-command"
     ];
 
-    sandbox.whitelistDbus.user = true;  #< TODO: should only need DynamicLauncher / OpenURI  (nested xdg-dbus-proxy issue?)
+    sandbox.whitelistDbus.user = true; # TODO: should only need DynamicLauncher / OpenURI  (nested xdg-dbus-proxy issue?)
     # sandbox.whitelistPortal = [
     #   "DynamicLauncher"
     #   "OpenURI"
     # ];
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
-      ".local/share/applications"  #< to locate .desktop files
+      ".local/share/applications" # to locate .desktop files
       "Books/Articles"
       "Books/Audiobooks"
       "Books/Books"
@@ -152,8 +154,8 @@ in
     sandbox.keepPidsAndProc = true; # for sane-open to toggle keyboard
 
     fs.".config/rofi/config.rasi".symlink.target = ./config.rasi;
-    fs."Apps".symlink.target = ".local/share/applications/rofi-applications.desktop";  #< provide a means to transition from the filebrowser to the app launcher
-    fs."Cancel".symlink.target = ".local/share/applications/rofi-cancel.desktop";  #< provide an escape from the file browser
+    fs."Apps".symlink.target = ".local/share/applications/rofi-applications.desktop"; # provide a means to transition from the filebrowser to the app launcher
+    fs."Cancel".symlink.target = ".local/share/applications/rofi-cancel.desktop"; # provide an escape from the file browser
     fs."WiFi".symlink.target = ".local/share/applications/networkmanager_dmenu.desktop";
     persist.byStore.ephemeral = [
       # this gets us a few things:
@@ -171,10 +173,10 @@ in
       packages = {
         inherit (pkgs) sane-open;
       };
-      doInstallCheck = false;  # no --help option
+      doInstallCheck = false; # no --help option
     };
     # sandboxing options cribbed from sane-open
-    sandbox.autodetectCliPaths = "existing";  # for when opening a file
+    sandbox.autodetectCliPaths = "existing"; # for when opening a file
     sandbox.whitelistPortal = [
       "DynamicLauncher"
       "OpenURI"
@@ -189,38 +191,47 @@ in
   };
 
   sane.programs.rofi-snippets = {
-    packageUnwrapped = let
-      rofi' = pkgs.rofi.override {
-        inherit rofi-unwrapped;
-      };
-    in (pkgs.static-nix-shell.override (prev: {
-      pkgs = prev.pkgs // { rofi = rofi'; };
-    })).mkBash {
-      pname = "rofi-snippets";
-      srcRoot = ./.;
-      packages = {
-        inherit (pkgs) gnused wtype;
-        rofi = rofi';
-      };
-      nativeBuildInputs = [
-        pkgs.copyDesktopItems
-      ];
-      desktopItems = [
-        (pkgs.makeDesktopItem {
-          name = "rofi-snippets";
-          exec = "rofi-snippets";
-          # rofi macro to insert common texts
-          desktopName = "Snippets";
-        })
-      ];
-    };
+    packageUnwrapped =
+      let
+        rofi' = pkgs.rofi.override {
+          inherit rofi-unwrapped;
+        };
+      in
+      (pkgs.static-nix-shell.override (prev: {
+        pkgs = prev.pkgs // {
+          rofi = rofi';
+        };
+      })).mkBash
+        {
+          pname = "rofi-snippets";
+          srcRoot = ./.;
+          packages = {
+            inherit (pkgs) gnused wtype;
+            rofi = rofi';
+          };
+          nativeBuildInputs = [
+            pkgs.copyDesktopItems
+          ];
+          desktopItems = [
+            (pkgs.makeDesktopItem {
+              name = "rofi-snippets";
+              exec = "rofi-snippets";
+              # rofi macro to insert common texts
+              desktopName = "Snippets";
+            })
+          ];
+        };
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       # ".cache/rofi"
       ".config/rofi/config.rasi"
     ];
 
-    suggestedPrograms = [ "gnused" "rofi" "wtype" ];
+    suggestedPrograms = [
+      "gnused"
+      "rofi"
+      "wtype"
+    ];
 
     fs.".config/rofi-snippets/public.txt".symlink.target = ./snippets.txt;
     secrets.".config/rofi-snippets/private.txt" = ../../../../secrets/common/snippets.txt.bin;

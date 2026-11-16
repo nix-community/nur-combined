@@ -16,13 +16,17 @@
   unstableGitUpdater,
   wrapGAppsHook4,
   zbar,
-# optional runtime dependencies, used for post-processing .dng -> .jpg
+  # optional runtime dependencies, used for post-processing .dng -> .jpg
   exiftool,
   graphicsmagick,
   libraw,
 }:
 let
-  runtimePath = lib.makeBinPath [ libraw graphicsmagick exiftool ];
+  runtimePath = lib.makeBinPath [
+    libraw
+    graphicsmagick
+    exiftool
+  ];
 in
 stdenv.mkDerivation {
   pname = "megapixels-next";

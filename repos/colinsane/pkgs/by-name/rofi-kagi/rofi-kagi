@@ -15,7 +15,7 @@ usage() {
 main() {
   while [ "$#" -gt 0 ]; do
     case "$1" in
-      (-h|--help)
+      (-h | --help)
         usage 0
         ;;
       (*)
@@ -26,11 +26,11 @@ main() {
   done
 
   local query
-  query=$(\
+  query=$(
     rofi -dmenu \
-    -p ' [query]' \
-    -theme-str 'prompt { text-color: var(fg0); } textbox-prompt-colon { text-color: var(accent0); }' \
-    </dev/null \
+      -p ' [query]' \
+      -theme-str 'prompt { text-color: var(fg0); } textbox-prompt-colon { text-color: var(accent0); }' \
+      </dev/null
   ) || true
   if [ -z "${query:-}" ]; then
     exit 0

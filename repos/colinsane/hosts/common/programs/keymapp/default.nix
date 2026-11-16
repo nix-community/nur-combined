@@ -4,5 +4,5 @@
 # - "Error connecting to the keyboard, make sure the layout flashed on your keyboard was recently compiled with Oryx and that the [Live training] option is toggled on in the advanced settings."
 { ... }:
 {
-  sane.programs.keymapp = {};
+  sane.programs.keymapp = { };
 }

@@ -2,8 +2,12 @@
   deepLinkIntoOwnPackage,
   modemmanager,
 }:
-(deepLinkIntoOwnPackage modemmanager {}).overrideAttrs (base: {
-  outputs = [ "out" "daemon" "mmcli" ];
+(deepLinkIntoOwnPackage modemmanager { }).overrideAttrs (base: {
+  outputs = [
+    "out"
+    "daemon"
+    "mmcli"
+  ];
   postFixup = ''
     moveToOutput "" "$daemon"
     for f in bin/mmcli man/man1/mmcli.1.gz share/bash-completion/completions/mmcli; do

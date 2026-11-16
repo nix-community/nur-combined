@@ -30,19 +30,29 @@
 {
   sane.programs.claude-code = {
     packageUnwrapped = pkgs.claude-code.overrideAttrs (prevAttrs: {
-      makeWrapperArgs = (prevAttrs.makeWrapperArgs or []) ++ [
-        "--set-default" "ANTHROPIC_BASE_URL" "http://${config.sane.hosts.by-name.desko.wg-home.ip}:11435"
+      makeWrapperArgs = (prevAttrs.makeWrapperArgs or [ ]) ++ [
+        "--set-default"
+        "ANTHROPIC_BASE_URL"
+        "http://${config.sane.hosts.by-name.desko.wg-home.ip}:11435"
         # XXX(2026-04-01): CLAUDE_CODE_ATTRIBUTION_HEADER=0 allegedly reduces randomness in the system prompt, making it more cacheable
-        "--set-default" "CLAUDE_CODE_ATTRIBUTION_HEADER" "0"
+        "--set-default"
+        "CLAUDE_CODE_ATTRIBUTION_HEADER"
+        "0"
         # XXX(2026-04-03): self-hosted models take >= 20s to reach first token, making it likely
         # that the first tool call will timeout at the default 20s
-        "--set-default" "CLAUDE_CODE_GLOB_TIMEOUT_SECONDS" "120000"
+        "--set-default"
+        "CLAUDE_CODE_GLOB_TIMEOUT_SECONDS"
+        "120000"
         # "--set-default" "USE_BUILTIN_RIPGREP" "0"
-        "--set-default" "DISABLE_TELEMETRY" "1"
+        "--set-default"
+        "DISABLE_TELEMETRY"
+        "1"
         # this should disable the secondary "generate a title for this prompt" eval.
-        "--set-default" "CLAUDE_CODE_DISABLE_TERMINAL_TITLE" "1"
+        "--set-default"
+        "CLAUDE_CODE_DISABLE_TERMINAL_TITLE"
+        "1"
         # CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1
-        # CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1  #< includes `DISABLE_TLEMETRY=1` + some others
+        # CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1  # includes `DISABLE_TLEMETRY=1` + some others
         # CLAUDE_CODE_DISABLE_NONSTREAMING_FALLBACK=1
         # CLAUDE_CODE_MAX_TOOL_USE_CONCURRENCY=1
         # CLAUDE_STREAM_IDLE_TIMEOUT_MS=900000
@@ -55,11 +65,11 @@
 
     sandbox.net = "all";
     sandbox.whitelistPortal = [
-      "OpenURI"  #< for initial browser-based auth
+      "OpenURI" # for initial browser-based auth
     ];
     sandbox.whitelistPwd = true;
     sandbox.extraHomePaths = [
-      ".config/git"  #< it needs to know commiter name/email for `git commit` to work
+      ".config/git" # it needs to know commiter name/email for `git commit` to work
     ];
     # sandbox.net = "vpn.wg-home";
 
@@ -81,8 +91,8 @@
     # fs.".local/share/claude/settings.json".symlink.text = builtins.toJSON {
     #   # settings.json docs: <https://code.claude.com/docs/en/settings#available-settings>
     #   effortLevel = "medium";
-    #   model = lib.removeSuffix ".gguf" pkgs.mlModels.qwen3_5-9b-claude-4_6-opus-reasoning-distilled-v2-q4_k_m.name;  #< only 79616 context, but reliable & fast enough
-    #   # model = lib.removeSuffix ".gguf" pkgs.mlModels.qwen3_5-9b-q4_k_m.name;  #< only 102k context, but reliable
+    #   model = lib.removeSuffix ".gguf" pkgs.mlModels.qwen3_5-9b-claude-4_6-opus-reasoning-distilled-v2-q4_k_m.name;  # only 79616 context, but reliable & fast enough
+    #   # model = lib.removeSuffix ".gguf" pkgs.mlModels.qwen3_5-9b-q4_k_m.name;  # only 102k context, but reliable
     #   # model = lib.removeSuffix ".gguf" pkgs.mlModels.qwen3_5-9b-claude-4_6-opus-reasoning-distilled-q3_k_m.name;
     #   sandbox = {
     #     # N.B.: `sandbox` was originally seen in `settings.local.json`. dunno the difference with that.
@@ -93,7 +103,7 @@
 
     # $100B company SELLING TO DEVS can't even figure out how to follow XDG specs, what a glorious future.
     fs.".claude".symlink.target = ".local/share/claude";
-    fs.".claude.json".symlink.target = ".config/claude/claude.json";  #< API keys, granted perms
+    fs.".claude.json".symlink.target = ".config/claude/claude.json"; # API keys, granted perms
 
     persist.byStore.ephemeral = [
       # ".local/share/claude"

@@ -12,12 +12,12 @@ linux_latest.override {
   # - one _can_ manually gzip the result, and it's about 20% the size, and u-boot boots it *much* faster.
   #   - unsure if u-boot cares about the name of the image (`Image` v.s. `Image.gz`)
   #   - u-boot decompression does not fix size constraints (e.g. >64 MiB decompressed image may still be a problem)
-  # target = "Image.gz";  #< this doesn't have effect, have to use manual-config for it
-  # DTB = true;  #< this doesn't have effect, but is default
+  # target = "Image.gz";  # this doesn't have effect, have to use manual-config for it
+  # DTB = true;  # this doesn't have effect, but is default
 
   autoModules = true;
   preferBuiltin = false;
-  enableCommonConfig = true;  #< enable nixpkgs config options
+  enableCommonConfig = true; # enable nixpkgs config options
 
   kernelPatches = [
     # {
@@ -129,9 +129,9 @@ linux_latest.override {
       patch = null;
       structuredExtraConfig = with lib.kernel; {
         # XXX(2024-09-18): megapixels(-next) on OG PP fails to open the camera without this option:
-        ARM64_VA_BITS_48 = yes;  #< 48 (not 52) bits for virtual addresses. the other bit widths (ARM64_VA*, ARM64_PA_*, PGTABLE_LEVELS) are then derived/implied same as pmos config
-        BACKLIGHT_CLASS_DEVICE = yes;  #< required for display initialization on OG PP (adding "backlight" to initrd does not fix display)
-        VIDEO_SUNXI = yes;  #< VIDEO_SUNXI defaults to `n` since the driver is in staging (as of 2024-09-26)
+        ARM64_VA_BITS_48 = yes; # 48 (not 52) bits for virtual addresses. the other bit widths (ARM64_VA*, ARM64_PA_*, PGTABLE_LEVELS) are then derived/implied same as pmos config
+        BACKLIGHT_CLASS_DEVICE = yes; # required for display initialization on OG PP (adding "backlight" to initrd does not fix display)
+        VIDEO_SUNXI = yes; # VIDEO_SUNXI defaults to `n` since the driver is in staging (as of 2024-09-26)
       };
     }
     # {
@@ -195,7 +195,7 @@ linux_latest.override {
     #     CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE = no;
     #     CONFIG_CC_OPTIMIZE_FOR_SIZE = yes;
 
-    #     DEBUG_KERNEL = lib.mkForce no;  #< TODO: something re-enabled this...
+    #     DEBUG_KERNEL = lib.mkForce no;  # TODO: something re-enabled this...
     #     # DEBUG_FS = no;
     #     # DEBUG_FS_ALLOW_ALL = no;
     #     DEBUG_MISC = no;
@@ -212,36 +212,36 @@ linux_latest.override {
     #     SUNRPC_DEBUG = lib.mkForce no;
 
     #     # these particular options bloat the kernel and are almost *surely* unused.
-    #     CORESIGHT = no;  #< CPU tracing
-    #     COMEDI = no;  #< data acquisition devices
-    #     DAMON = lib.mkForce no;  #< perf-based monitoring, to see how frequently different memory regions are accessed
+    #     CORESIGHT = no;  # CPU tracing
+    #     COMEDI = no;  # data acquisition devices
+    #     DAMON = lib.mkForce no;  # perf-based monitoring, to see how frequently different memory regions are accessed
     #     DRM_AMDGPU = no;
     #     DRM_NOUVEAU = no;
     #     DRM_RADEON = no;
-    #     DRM_XE = no;   #< intel graphics
-    #     DVB_CORE  = no;  #< digial video (tuners)
+    #     DRM_XE = no;   # intel graphics
+    #     DVB_CORE  = no;  # digial video (tuners)
     #     # FPGA = no;
-    #     INFINIBAND = lib.mkForce no;  #< networking protocol
-    #     IWLWIFI = no;  #< intel wireless
+    #     INFINIBAND = lib.mkForce no;  # networking protocol
+    #     IWLWIFI = no;  # intel wireless
     #     MEDIA_ANALOG_TV_SUPPORT = lib.mkForce no;
     #     MEDIA_DIGITAL_TV_SUPPORT = lib.mkForce no;
     #     MEDIA_RADIO_SUPPORT = no;  # AM/FM tuners
     #     MEDIA_SDR_SUPPORT = no;  # without this, `CONFIG_MEDIA_TUNER` spontaneously re-appears...
     #     MEDIA_TUNER = no;
     #     # NET_VENDOR_INTEL = no;  # TODO: does this impact e.g. USB-eth adapters?
-    #     SPEAKUP = no;  #< text to speech
+    #     SPEAKUP = no;  # text to speech
 
     #     PCI = no;
-    #     # SCSI = no;  #< USB_STORAGE depends on SCSI?...
+    #     # SCSI = no;  # USB_STORAGE depends on SCSI?...
 
     #     # net stuff, disabled as much to save space as to be hardened
     #     DNS_RESOLVER = no;
     #     MPLS = no;  # "MultiProtocol Label Switching"
     #     OPENVSWITCH = no;
-    #     TLS = lib.mkForce no;  #< TLS can be done in userspace (and more safely)
+    #     TLS = lib.mkForce no;  # TLS can be done in userspace (and more safely)
     #     # weird networking protocols nothing on my PCs are going to be using:
     #     ATM = no;
-    #     IP_VS = no;  #< weird load balancing thing for server farms
+    #     IP_VS = no;  # weird load balancing thing for server farms
     #     LAPB = no;
     #     RDS = no;  # "Reliable Datagram Sockets Protocol"
     #     TIPC = no;  # "Transparent Inter Process Communication" (net proto)
@@ -320,7 +320,7 @@ linux_latest.override {
     #     SCHED_CORE = lib.mkForce no;
     #     BPF_JIT_ALWAYS_ON = lib.mkForce yes;
     #     PARAVIRT_TIME_ACCOUNTING = lib.mkForce no;
-    #     ARCH_HAS_GENERIC_CRASHKERNEL_RESERVATION = yes;  #< does not take effect
+    #     ARCH_HAS_GENERIC_CRASHKERNEL_RESERVATION = yes;  # does not take effect
     #     COMPAT_ALIGNMENT_FIXUPS = lib.mkForce no;
     #     IDLE_PAGE_TRACKING = lib.mkForce no;
     #     PAGE_IDLE_FLAG = no;
@@ -342,15 +342,15 @@ linux_latest.override {
     #     # EXTCON_USBC_CROS_EC = yes;
 
     #     # TODO: at least one of these is required for boot
-    #     # UNINLINE_SPIN_UNLOCK = yes;  #< DOESN'T TAKE EFFECT
+    #     # UNINLINE_SPIN_UNLOCK = yes;  # DOESN'T TAKE EFFECT
     #     # CMA_SIZE_MBYTES = lib.mkForce (freeform "256");
     #     SOFTLOCKUP_DETECTOR_INTR_STORM = no;
     #     LDM_PARTITION = lib.mkForce no;
     #     DAMON = lib.mkForce no;
-    #     SKB_DECRYPTED = no;  #< does not take effect
+    #     SKB_DECRYPTED = no;  # does not take effect
     #     CFG80211_CERTIFICATION_ONUS = lib.mkForce no;
     #     MAC80211_DEBUGFS = lib.mkForce no;
-    #     SOCK_VALIDATE_XMIT = no;  #< does not take effect
+    #     SOCK_VALIDATE_XMIT = no;  # does not take effect
     #     ACCESSIBILITY = lib.mkForce no;
     #     VIRTIO_MMIO_CMDLINE_DEVICES = lib.mkForce no;
     #     DEBUG_INFO = no;
@@ -368,7 +368,7 @@ linux_latest.override {
     #     RTW88 = lib.mkForce no;
     #     MEDIA_CEC_RC = lib.mkForce no;
     #     CRYPTO_TEST = lib.mkForce module;
-    #     PROC_VMCORE = yes;  #< does not take effect ??
+    #     PROC_VMCORE = yes;  # does not take effect ??
     #     # or maybe it's one of these?
     #     FUSION = lib.mkForce no;
     #     HIPPI = lib.mkForce no;
@@ -388,7 +388,7 @@ linux_latest.override {
     #   structuredExtraConfig = with lib.kernel; {
     #     # MFD_RK8XX = no;
     #     # MFD_RK8XX_I2C = no;
-    #     # MFD_RK8XX_SPI = no;  #< necessary for MFD_RK8XX=... to apply
+    #     # MFD_RK8XX_SPI = no;  # necessary for MFD_RK8XX=... to apply
     #     MFD_RK8XX = module;
     #     MFD_RK8XX_I2C = module;
     #     MFD_RK8XX_SPI = module;

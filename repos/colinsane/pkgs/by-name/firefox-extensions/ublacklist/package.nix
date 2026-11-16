@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   nativeBuildInputs = [
-    unzip  # for unpackPhase
+    unzip # for unpackPhase
     wrapFirefoxAddonsHook
     zip
   ];

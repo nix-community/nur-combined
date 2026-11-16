@@ -9,5 +9,5 @@ static-nix-shell.mkPython3 {
     inherit sblast;
   };
   srcRoot = ./.;
-  doInstallCheck = false;  # TODO: fix parser to support --help
+  doInstallCheck = false; # TODO: fix parser to support --help
 }

@@ -1,46 +1,55 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.dissent;
 in
 {
   sane.programs.dbus = {
-    configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options.autostart = mkOption {
-          type = types.bool;
-          default = true;
+    configOption =
+      with lib;
+      mkOption {
+        default = { };
+        type = types.submodule {
+          options.autostart = mkOption {
+            type = types.bool;
+            default = true;
+          };
         };
       };
-    };
 
-    packageUnwrapped = (pkgs.dbus.override {
-      # remove features i don't want. mostly to avoid undesired interactions, but also it reduces the closure by 55 MB :)
-      enableSystemd = false;
-      x11Support = false;
-    }).overrideAttrs (upstream: {
-      mesonFlags = upstream.mesonFlags ++ [
-        # "Build support for service activation without using SystemdService"
-        # i.e. disable dbus's ability to auto-launch things
-        "-Dtraditional_activation=false"
-      ];
-      postFixup = (upstream.postFixup or "") + ''
-        # the XML docs have a URI field which points to self,
-        # and that breaks the sandbox checker
-        substituteInPlace $out/share/xml/dbus-1/catalog.xml \
-          --replace-fail "$out" "/run/current-system/sw"
+    packageUnwrapped =
+      (pkgs.dbus.override {
+        # remove features i don't want. mostly to avoid undesired interactions, but also it reduces the closure by 55 MB :)
+        enableSystemd = false;
+        x11Support = false;
+      }).overrideAttrs
+        (upstream: {
+          mesonFlags = upstream.mesonFlags ++ [
+            # "Build support for service activation without using SystemdService"
+            # i.e. disable dbus's ability to auto-launch things
+            "-Dtraditional_activation=false"
+          ];
+          postFixup = (upstream.postFixup or "") + ''
+            # the XML docs have a URI field which points to self,
+            # and that breaks the sandbox checker
+            substituteInPlace $out/share/xml/dbus-1/catalog.xml \
+              --replace-fail "$out" "/run/current-system/sw"
 
-        # conf file points to dbus-daemon-launch-helper by absolute path,
-        # which breaks sandboxing. i don't want dbus auto-launching stuff anyway though.
-        substituteInPlace $out/share/dbus-1/system.conf \
-          --replace-fail "$out/libexec/dbus-daemon-launch-helper" "false"
-      '';
-    });
+            # conf file points to dbus-daemon-launch-helper by absolute path,
+            # which breaks sandboxing. i don't want dbus auto-launching stuff anyway though.
+            substituteInPlace $out/share/dbus-1/system.conf \
+              --replace-fail "$out/libexec/dbus-daemon-launch-helper" "false"
+          '';
+        });
 
     sandbox.extraRuntimePaths = [
       "dbus"
     ];
-    sandbox.keepPidsAndProc = true;  #< without this, callers report errors like "GDBus.Error:org.freedesktop.DBus.Error.UnixProcessIdUnknown: Could not determine PID for ':1.118'"
+    sandbox.keepPidsAndProc = true; # without this, callers report errors like "GDBus.Error:org.freedesktop.DBus.Error.UnixProcessIdUnknown: Could not determine PID for ':1.118'"
 
     env.DBUS_SESSION_BUS_ADDRESS = "unix:path=$XDG_RUNTIME_DIR/dbus/bus";
 

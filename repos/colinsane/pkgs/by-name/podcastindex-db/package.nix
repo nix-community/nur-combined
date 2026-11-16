@@ -20,7 +20,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     domain = "git.uninsane.org";
     owner = "colin";
     repo = "podcastindex-db-mirror";
-    forceFetchGit = true;  #< XXX(2026-03-27): else the archive .tar.gz as returned by gitea may be truncated.
+    forceFetchGit = true; # XXX(2026-03-27): else the archive .tar.gz as returned by gitea may be truncated.
     rev = "67711664e896bc3f01e28dd83d63daa8f6bdae65";
     hash = "sha256-heW/Z3MEoW/5bv9qUSVlEGBGuV4nSCwoJrsx84qTH40=";
   };
@@ -45,7 +45,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru = {
     updateNixFromMirror = nix-update-script {
-      extraArgs = [ "--version" "branch" ];
+      extraArgs = [
+        "--version"
+        "branch"
+      ];
     };
     mirror-update-script = writeShellApplication {
       name = "mirror-update-script";

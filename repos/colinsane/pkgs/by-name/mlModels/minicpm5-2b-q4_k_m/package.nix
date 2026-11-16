@@ -1,4 +1,5 @@
-{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
+{ fetchFromHuggingFaceSane }:
+fetchFromHuggingFaceSane {
   owner = "bartowski";
   repo = "MiniCPM5-2B-GGUF";
   path = "MiniCPM5-2B-Q4_K_M.gguf";

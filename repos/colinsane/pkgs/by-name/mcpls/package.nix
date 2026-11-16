@@ -29,10 +29,19 @@ rustPlatform.buildRustPackage (finalAttrs: {
       crates/mcpls-core/src/runtime/untrusted.rs \
       --replace-fail '/usr/bin/env' '${coreutils}/bin/env' \
       --replace-fail '/bin/sh' '${bash}/bin/sh' \
-      --replace-fail '{}:/usr/bin:/bin' '{}:${lib.makeBinPath [ bash coreutils ]}'
+      --replace-fail '{}:/usr/bin:/bin' '{}:${
+        lib.makeBinPath [
+          bash
+          coreutils
+        ]
+      }'
   '';
 
-  nativeCheckInputs = [ git perl procps ];
+  nativeCheckInputs = [
+    git
+    perl
+    procps
+  ];
 
   dontUseCargoParallelTests = true;
 

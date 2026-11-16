@@ -20,11 +20,12 @@ let
         jq
         nix-prefetch-git
         nix-prefetch-github
-      ;
+        ;
     };
     passthru.makeUpdateScript = { branch }: [
       (lib.getExe self)
       branch
     ];
   };
-in self
+in
+self

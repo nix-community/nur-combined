@@ -20,7 +20,7 @@ parseArgs() {
   while [ "$#" -ne 0 ]; do
     local arg=$1
     shift
-    if (( ${#cmd[@]} )); then
+    if ((${#cmd[@]})); then
       # all remaining arguments are to be forwarded to the subcommand
       cmd+=("$arg")
     else
@@ -45,7 +45,7 @@ main() {
   fi
 
   local external_cmd=("${cmd[@]}")
-  if ! (( ${#x[@]} )); then
+  if ! ((${#x[@]})); then
     external_cmd=("${SHELL:-/bin/sh}" "-i")
   fi
 

@@ -16,11 +16,13 @@
 { pkgs, ... }:
 {
   sane.programs.animatch = {
-    packageUnwrapped = with pkgs; animatch.override {
-      # allegro has no native wayland support, and so by default crashes when run without Xwayland.
-      # enable the allegro SDL backend, and achieve Wayland support via SDL's Wayland support.
-      allegro5 = allegro5.override { useSDL = true; };
-    };
+    packageUnwrapped =
+      with pkgs;
+      animatch.override {
+        # allegro has no native wayland support, and so by default crashes when run without Xwayland.
+        # enable the allegro SDL backend, and achieve Wayland support via SDL's Wayland support.
+        allegro5 = allegro5.override { useSDL = true; };
+      };
     # nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
     #   makeWrapper
     # ];
@@ -34,8 +36,8 @@
     sandbox.whitelistWayland = true;
 
     persist.byStore.plaintext = [
-      # ".config/Holy Pangolin/Animatch"  #< used for SuperDerpy config (e.g. debug, disableTouch, fullscreen, enable sound, etc). SuperDerpy.ini
-      ".local/share/Holy Pangolin/Animatch"  #< used for game state (level clears). SuperDerpy.ini
+      # ".config/Holy Pangolin/Animatch"  # used for SuperDerpy config (e.g. debug, disableTouch, fullscreen, enable sound, etc). SuperDerpy.ini
+      ".local/share/Holy Pangolin/Animatch" # used for game state (level clears). SuperDerpy.ini
     ];
   };
 }

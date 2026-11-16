@@ -2,20 +2,20 @@
   fetchgit,
   lib,
   stdenv,
-  anx7688 ? true,  # USB-C chip (pinephone)
-  ov5640 ? true,   # camera (pinephone: rear camera)
-  rtl_bt ? true,   # rtl8723cs bluetooth (pinephone)
-# other files in megi's repo:
-# - brcm/
-#   - brcmfmac43362-*
-#   - brcmfmac43455-sdio-*: BCM43455 WiFi/BT (raspberry pi 4b)
-#   - brcmfmac43456-*
-# - hm5065-*.bin:  5 MP sensor used in the pine devboards (likely not in the phones)
-# - regulatory.db
-# - rockchip/dptx.bin
-# - rtlwifi/rtl8188eufw.bin
-# - rtw88/rtw8822c-*.bin
-# - rtw89/rtw8852a_fw.bin
+  anx7688 ? true, # USB-C chip (pinephone)
+  ov5640 ? true, # camera (pinephone: rear camera)
+  rtl_bt ? true, # rtl8723cs bluetooth (pinephone)
+  # other files in megi's repo:
+  # - brcm/
+  #   - brcmfmac43362-*
+  #   - brcmfmac43455-sdio-*: BCM43455 WiFi/BT (raspberry pi 4b)
+  #   - brcmfmac43456-*
+  # - hm5065-*.bin:  5 MP sensor used in the pine devboards (likely not in the phones)
+  # - regulatory.db
+  # - rockchip/dptx.bin
+  # - rtlwifi/rtl8188eufw.bin
+  # - rtw88/rtw8822c-*.bin
+  # - rtw89/rtw8852a_fw.bin
 }:
 stdenv.mkDerivation {
   name = "linux-firmware-megous";

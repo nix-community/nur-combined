@@ -11,17 +11,17 @@ let
 in
 {
   sane.programs.cups = {
-    sandbox.method = null;  #< TODO: sandbox
+    sandbox.method = null; # TODO: sandbox
     suggestedPrograms = [
       "system-config-printer"
-      "xdg-open"  #< required by `cups.desktop`
+      "xdg-open" # required by `cups.desktop`
     ];
   };
-  sane.programs.system-config-printer.sandbox.method = null;  #< TODO: sandbox
+  sane.programs.system-config-printer.sandbox.method = null; # TODO: sandbox
 
   services.printing = lib.mkIf cfg.enabled {
     enable = true;
-    startWhenNeeded = false;  #< a.k.a. socket activated?
+    startWhenNeeded = false; # a.k.a. socket activated?
     # webInterface = false;
     # logLevel = "debug";  # default: "info"
     # extraConfig = "<lines ... >";

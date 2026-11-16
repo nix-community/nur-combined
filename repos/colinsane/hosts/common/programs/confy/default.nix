@@ -10,11 +10,11 @@
       # "NetworkMonitor"
       "OpenURI"
     ];
-    sandbox.extraEnv.GIO_USE_NETWORK_MONITOR = "netlink";  #< required if portal NetworkMonitor isn't exposed
+    sandbox.extraEnv.GIO_USE_NETWORK_MONITOR = "netlink"; # required if portal NetworkMonitor isn't exposed
 
     persist.byStore.private = [
       ".cache/net.kirgroup.confy"
-      # ".local/share/net.kirgroup.confy"  #< empty
+      # ".local/share/net.kirgroup.confy"  # empty
     ];
   };
 }

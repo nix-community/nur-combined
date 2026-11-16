@@ -27,7 +27,7 @@ in
     serviceConfig.StateDirectory = "jackett";
     serviceConfig.LockPersonality = true;
     serviceConfig.NoNewPrivileges = true;
-    # serviceConfig.MemoryDenyWriteExecute = true;  #< Failed to create CoreCLR, HRESULT: 0x80004005
+    # serviceConfig.MemoryDenyWriteExecute = true;  # Failed to create CoreCLR, HRESULT: 0x80004005
     serviceConfig.PrivateDevices = true;
     serviceConfig.PrivateMounts = true;
     serviceConfig.PrivateTmp = true;

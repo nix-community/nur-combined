@@ -25,7 +25,7 @@ parseArgs() {
   while [ "$#" -ne 0 ]; do
     local arg=$1
     shift
-    if (( ${#cmd[@]} )); then
+    if ((${#cmd[@]})); then
       # all remaining arguments are to be forwarded to the subcommand
       cmd+=("$arg")
     else
@@ -43,4 +43,4 @@ parseArgs() {
 }
 
 parseArgs "$@"
-exec sudo tee "${cmd[@]}" > /dev/null
+exec sudo tee "${cmd[@]}" >/dev/null

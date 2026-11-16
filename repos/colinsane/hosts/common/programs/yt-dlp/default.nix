@@ -6,23 +6,29 @@ let
 in
 {
   sane.programs.yt-dlp = {
-    configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options = {
-          defaultProfile = mkOption {
-            type = types.enum [ "high-quality" "mid-range" "fast" ];
-            default = "mid-range";
-            description = ''
-              exchange quality for size/cpu/power requirements.
-            '';
+    configOption =
+      with lib;
+      mkOption {
+        default = { };
+        type = types.submodule {
+          options = {
+            defaultProfile = mkOption {
+              type = types.enum [
+                "high-quality"
+                "mid-range"
+                "fast"
+              ];
+              default = "mid-range";
+              description = ''
+                exchange quality for size/cpu/power requirements.
+              '';
+            };
           };
         };
       };
-    };
 
     sandbox.net = "all";
-    sandbox.whitelistPwd = true;  # saves to pwd by default
+    sandbox.whitelistPwd = true; # saves to pwd by default
     fs.".config/yt-dlp/config".symlink.text = ''
       # this config file is CLI options, with whitespace and comments.
       # see the CONFIGURATION section of `man yt-dlp`.

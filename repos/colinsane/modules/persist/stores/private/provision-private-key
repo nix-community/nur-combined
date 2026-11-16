@@ -42,7 +42,7 @@ waitForPassfileOnce() {
     # wait for some file to be created inside the directory.
     # inotifywait returns 0 if the file was created. 1 or 2 if timeout was hit or it was interrupted by a different event.
     inotifywait --timeout "$timeout" --event create "$passdir"
-    return 1  #< maybe it was created; we'll pick that up immediately, on next check
+    return 1  # maybe it was created; we'll pick that up immediately, on next check
   fi
 }
 waitForPassfile() {

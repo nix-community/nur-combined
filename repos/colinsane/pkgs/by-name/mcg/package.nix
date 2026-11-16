@@ -14,7 +14,12 @@
 }:
 let
   # optional deps: avahi, python-keyring
-  pythonEnv = python3.withPackages (ps: with ps; [ python-dateutil pygobject3 ]);
+  pythonEnv = python3.withPackages (
+    ps: with ps; [
+      python-dateutil
+      pygobject3
+    ]
+  );
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "mcg";
@@ -32,11 +37,11 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   nativeBuildInputs = [
-    gtk3  # for gtk-update-icon-cache
-    desktop-file-utils  # for update-desktop-database
-    gettext  # for msgfmt
-    glib  # for glib-compile-resources
-    gobject-introspection  # needed so wrapGAppsHook3 includes GI_TYPEPATHS for gtk3
+    gtk3 # for gtk-update-icon-cache
+    desktop-file-utils # for update-desktop-database
+    gettext # for msgfmt
+    glib # for glib-compile-resources
+    gobject-introspection # needed so wrapGAppsHook3 includes GI_TYPEPATHS for gtk3
     meson
     ninja
     wrapGAppsHook3

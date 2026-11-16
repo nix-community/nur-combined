@@ -61,21 +61,21 @@ let
   #   - was tested for exynos5-peach -- which worked with the patch and uses panel_simple
   #   - snow was *not* tested, but previously used panel_edp
   linuxSourceHashes = {
-    "6.2.16" = "sha256-dC5lp45tU4JgHS8VWezLM/z8C8UMxaIdj5I2DleMv8c=";  #< boots
-    "6.3.13" = "sha256-bGNcuEYBHaY34OeGkqb58dXV+JF2XY3bpBtLhg634xA=";  #< boots
-    "6.4.16" = "sha256-hDhelVL20AMzQeT7IDVDI35uoGEyroVPjiszO2JZzO8=";  #< boots
-    "6.5.13" = "sha256-lCTwq+2RyZTIX1YQa/riHf1KCnS8dTrLlljjKAXudz4=";  #< boots
-    "6.6.0-rc1" = "sha256-DRai7HhWVtRB0GiRCvCv2JM2TFKRsZ60ohD6GW0b8As=";  #< boots. upstream/torvalds' tag is `v6.6-rc1`
+    "6.2.16" = "sha256-dC5lp45tU4JgHS8VWezLM/z8C8UMxaIdj5I2DleMv8c=";  # boots
+    "6.3.13" = "sha256-bGNcuEYBHaY34OeGkqb58dXV+JF2XY3bpBtLhg634xA=";  # boots
+    "6.4.16" = "sha256-hDhelVL20AMzQeT7IDVDI35uoGEyroVPjiszO2JZzO8=";  # boots
+    "6.5.13" = "sha256-lCTwq+2RyZTIX1YQa/riHf1KCnS8dTrLlljjKAXudz4=";  # boots
+    "6.6.0-rc1" = "sha256-DRai7HhWVtRB0GiRCvCv2JM2TFKRsZ60ohD6GW0b8As=";  # boots. upstream/torvalds' tag is `v6.6-rc1`
     "6.6.0-rc3" = "sha256-/YcuQ5UsSObqOZ0YIbcNex5HJAL8eneDDzIiTEuMDsQ=";
-    "6.6.0-rc4" = "sha256-Kbv+jU2IoC4soT3ma1ZV8Un4rTQakNjut5nlA1907GQ=";  #< boots. upstream/torvalds' tag is `v6.6-rc4`
+    "6.6.0-rc4" = "sha256-Kbv+jU2IoC4soT3ma1ZV8Un4rTQakNjut5nlA1907GQ=";  # boots. upstream/torvalds' tag is `v6.6-rc4`
     "6.6.0-rc5" = "sha256-ia0F/W3BR+gD8qE5LEwUcJCqwBs3c5kj80DbeDzFFqY=";
-    "6.6.0-rc6" = "sha256-HIrn3fkoCqVSSJ0gxY6NO8I3M8P7BD5XzQpjrhdw//s=";  #< boots. upstream/torvalds' tag is `v6.6-rc6`
-    "6.6.0-rc6-bi-5188" = "sha256-TmRrPy2IhnvTVlq5bNhzsvNPgRg0qk1u2Mh3q/lBask=";  #< boots
+    "6.6.0-rc6" = "sha256-HIrn3fkoCqVSSJ0gxY6NO8I3M8P7BD5XzQpjrhdw//s=";  # boots. upstream/torvalds' tag is `v6.6-rc6`
+    "6.6.0-rc6-bi-5188" = "sha256-TmRrPy2IhnvTVlq5bNhzsvNPgRg0qk1u2Mh3q/lBask=";  # boots
     "6.6.0-rc6-bi-5264" = "sha256-BXt5O9hUC9lYITBO56Rzb9XJHThjt6DuiXizUi2G6/0=";  # *does not boot*. this is commit ad3e33fe071dffea07279f96dab4f3773c430fe2; actually 6.6.0-rc1, because of merge order
-    "6.6.0-rc7" = "sha256-u+seQp82USt63zgMlvDRIpDmmWD2Pha5d41CorwY7f8=";  #< *does not boot*. upstream/torvalds' tag is `v6.6-rc7`
-    "6.6.0" = "sha256-iUTHPMbELhtRogbrKr3n2FBwj8mbGYGacy2UgjPZZNg=";  #< *does not boot*. upstream/torvalds' tag is `v6.6`
-    "6.7.12" = "sha256-6Fm7lC2bwk+wYYGeasr+6tcSw+n3VE4d9JWbc9jN6fA=";  #< *does not boot*
-    "6.10.0-rc3" = "sha256-k9Mpff96xgfTyjRMn0wOQBOm7NKZ7IDtJBRYwrnccoY=";  #< *does not boot*. upstream/torvalds' tag is `v6.10-rc3`
+    "6.6.0-rc7" = "sha256-u+seQp82USt63zgMlvDRIpDmmWD2Pha5d41CorwY7f8=";  # *does not boot*. upstream/torvalds' tag is `v6.6-rc7`
+    "6.6.0" = "sha256-iUTHPMbELhtRogbrKr3n2FBwj8mbGYGacy2UgjPZZNg=";  # *does not boot*. upstream/torvalds' tag is `v6.6`
+    "6.7.12" = "sha256-6Fm7lC2bwk+wYYGeasr+6tcSw+n3VE4d9JWbc9jN6fA=";  # *does not boot*
+    "6.10.0-rc3" = "sha256-k9Mpff96xgfTyjRMn0wOQBOm7NKZ7IDtJBRYwrnccoY=";  # *does not boot*. upstream/torvalds' tag is `v6.10-rc3`
   };
 in
 {
@@ -119,9 +119,9 @@ in
     #   preferBuiltin = false;
     #   extraConfig = "";
     #   structuredExtraConfig = with lib.kernel; {
-    #     SUN8I_DE2_CCU = lib.mkForce no;  #< nixpkgs' option parser gets confused on this one, somehow
-    #     NET_VENDOR_MICREL = no;  #< to overcome broken KS8851_MLL (broken by nixpkgs' `extraConfig`)
-    #     # KS8851_MLL = lib.mkForce module;  #< nixpkgs' option parser gets confused on this one, somehow
+    #     SUN8I_DE2_CCU = lib.mkForce no;  # nixpkgs' option parser gets confused on this one, somehow
+    #     NET_VENDOR_MICREL = no;  # to overcome broken KS8851_MLL (broken by nixpkgs' `extraConfig`)
+    #     # KS8851_MLL = lib.mkForce module;  # nixpkgs' option parser gets confused on this one, somehow
     #     #v XXX: required for e.g. SECURITY_LANDLOCK (specified by upstream nixpkgs) to take effect if `autoModules = false`
     #     #v seems that upstream linux (the defconfigs?), it defaults to Yes for:
     #     # - arch/x86/configs/x86_64_defconfig

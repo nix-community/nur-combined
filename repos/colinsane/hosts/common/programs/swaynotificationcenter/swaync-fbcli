@@ -8,7 +8,6 @@
 action="$1"
 event="$2"
 
-
 log() {
   if [ -n "$SWAYNC_DEBUG" ]; then
     printf "%s\n" "$1" >&2
@@ -22,16 +21,16 @@ cleanup() {
   trap - SIGINT SIGQUIT SIGTERM
   # "kill 0" means kill the current process group (i.e. all descendants)
   kill 0
-  exit 0  # exit cleanly to avoid swaync alerting a script failure
+  exit 0 # exit cleanly to avoid swaync alerting a script failure
 }
 
 startInline() {
   local timeout=
   case "$event" in
-    phone-incoming-call)
+    (phone-incoming-call)
       timeout=20
       ;;
-    *)
+    (*)
       ;;
   esac
 
@@ -64,22 +63,21 @@ start() {
 
   log "$0 start-inline $event"
   # XXX(2024/04/15): don't pass stdin/stdout/stderr, else swaync is liable to get confused and peg CPU to 100%
-  setsid -f "$0" start-inline "$event"  > /dev/null 2> /dev/null < /dev/null || true
+  setsid -f "$0" start-inline "$event" >/dev/null 2>/dev/null </dev/null || true
 }
 
 stop() {
   pkill --echo --full "swaync-fbcli(-wrapped)? start-inline $event" || true
 }
 
-
 case "$action" in
-  start)
+  (start)
     start
     ;;
-  start-inline)
-    startInline  # used internally by the `start` action
+  (start-inline)
+    startInline # used internally by the `start` action
     ;;
-  stop)
+  (stop)
     stop
     ;;
 esac

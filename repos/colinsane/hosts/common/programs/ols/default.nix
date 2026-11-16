@@ -15,12 +15,15 @@
   sane.programs.ols = {
     packageUnwrapped = pkgs.geoclue-ols;
 
-    fs.".config/ols/cell.db".symlink.target = pkgs.runCommand "cell.db" {
-      preferLocalBuild = true;
-      nativeBuildInputs = [ pkgs.geoclue-ols ];
-    } ''
-      cellid-ols-import -o "$out" "${pkgs.opencellid}/share/opencellid/cell_towers.csv"
-    '';
+    fs.".config/ols/cell.db".symlink.target =
+      pkgs.runCommand "cell.db"
+        {
+          preferLocalBuild = true;
+          nativeBuildInputs = [ pkgs.geoclue-ols ];
+        }
+        ''
+          cellid-ols-import -o "$out" "${pkgs.opencellid}/share/opencellid/cell_towers.csv"
+        '';
 
     persist.byStore.private = [
       ".local/share/ols"

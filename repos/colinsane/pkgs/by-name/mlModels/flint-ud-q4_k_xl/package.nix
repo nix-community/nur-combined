@@ -1,5 +1,6 @@
 # <https://huggingface.co/unsloth/flint-GGUF>
-{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
+{ fetchFromHuggingFaceSane }:
+fetchFromHuggingFaceSane {
   owner = "unsloth";
   repo = "flint-GGUF";
   path = "flint-UD-Q4_K_XL.gguf";

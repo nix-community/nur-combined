@@ -12,4 +12,3 @@ static-nix-shell.mkPython3 {
     inherit hostname-debian iw wirelesstools;
   };
 }
-

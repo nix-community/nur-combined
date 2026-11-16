@@ -22,7 +22,7 @@ let
   hostCfg = config.sane.hosts.by-name."${config.networking.hostName}" or null;
   bindCfg = config.services.bind;
 in
-lib.optionalAttrs false  #< XXX(2025-09-08): using kresd / knot-resolver now
+lib.optionalAttrs false  # XXX(2025-09-08): using kresd / knot-resolver now
 {
   config = lib.mkIf (!config.sane.services.hickory-dns.asSystemResolver) {
     services.resolved.enable = lib.mkForce false;
@@ -43,11 +43,11 @@ lib.optionalAttrs false  #< XXX(2025-09-08): using kresd / knot-resolver now
     '';
 
     services.bind.enable = lib.mkDefault true;
-    services.bind.forwarders = [];  #< don't forward queries to upstream resolvers
+    services.bind.forwarders = [];  # don't forward queries to upstream resolvers
     services.bind.cacheNetworks = [
       "127.0.0.0/24"
       "::1/128"
-      "10.0.10.0/24"  #< wireguard clients (servo)
+      "10.0.10.0/24"  # wireguard clients (servo)
     ];
     services.bind.listenOn = [
       "127.0.0.1"
@@ -73,7 +73,7 @@ lib.optionalAttrs false  #< XXX(2025-09-08): using kresd / knot-resolver now
     #   "-L" "/var/log/named/named.log"
     # ];
 
-    networking.resolvconf.useLocalResolver = false;  #< we manage resolvconf explicitly, above
+    networking.resolvconf.useLocalResolver = false;  # we manage resolvconf explicitly, above
 
     # TODO: how to exempt `pool.ntp.org` from DNSSEC checks, as i did when using unbound?
 

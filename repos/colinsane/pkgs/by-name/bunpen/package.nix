@@ -11,7 +11,8 @@
   util-linux,
   which,
   xdg-dbus-proxy,
-}: stdenv.mkDerivation (finalAttrs: {
+}:
+stdenv.mkDerivation (finalAttrs: {
   pname = "bunpen";
   version = "0.2.0";
   src = ./.;
@@ -30,11 +31,11 @@
   ];
 
   nativeCheckInputs = [
-    dbus  # for `dbus-daemon`
-    iproute2  # for `ip`
-    procps  # for `ps`
-    systemdMinimal  # for `busctl`
-    util-linux  # for `setsid`
+    dbus # for `dbus-daemon`
+    iproute2 # for `ip`
+    procps # for `ps`
+    systemdMinimal # for `busctl`
+    util-linux # for `setsid`
     which
   ];
 

@@ -4,6 +4,6 @@
 { ... }:
 {
   sane.programs.ipmitool = {
-    sandbox.method = null;  #< TODO: sandbox
+    sandbox.method = null; # TODO: sandbox
   };
 }

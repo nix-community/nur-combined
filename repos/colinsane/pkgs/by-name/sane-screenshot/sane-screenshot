@@ -23,7 +23,7 @@ parseArgs() {
     local arg=$1
     shift
     case $arg in
-      (-h|--help)
+      (-h | --help)
         usage
         exit 0
         ;;
@@ -75,7 +75,7 @@ takeInitialShot() {
   if [ -f "$dest" ]; then
     # conditional to avoid clearing the clipboard on error
     log "copying image/png to clipboard"
-    wl-copy --type image/png < "$dest"
+    wl-copy --type image/png <"$dest"
   fi
 }
 
@@ -86,7 +86,7 @@ notify() {
 
   # --transient means that the notification won't appear in any notification centers (only on-screen)
   action=$(notify-send --icon="$fullPath" \
-    --expire-time="$(( 1000*$TIMEOUT ))" --transient --urgency=normal \
+    --expire-time="$((1000 * $TIMEOUT))" --transient --urgency=normal \
     --action=Edit=Edit --action=CopyPath='Copy Path' \
     'Screenshot Captured' "Copied and saved to $shortPath")
 
@@ -98,7 +98,7 @@ handleAction() {
   local action="$1"
   local fullPath="$2"
   case "$action" in
-    Edit)
+    (Edit)
       # if the user's editing the image, then the image-data we just copied to the clipboard will be stale.
       # copy the image path instead, so that we give them an object that will reflect the edited image.
       # if they want image-data on the clipboard, they can use the button inside swappy.
@@ -107,13 +107,13 @@ handleAction() {
       # but with --output-file it'll save on exit.
       swappy --file "$fullPath" --output-file "$fullPath"
       ;;
-    CopyPath)
+    (CopyPath)
       wl-copy "$fullPath"
       ;;
-    "")
+    ("")
       # action was dismissed
       ;;
-    *)
+    (*)
       printf "sane-screenshot: unknown action %q\n" "$action" >&2
       ;;
   esac
@@ -123,8 +123,8 @@ delayedCancel() {
   # kill the given pid after the given timeout in seconds.
   # if the pid exits, then this function returns early.
   local pid="$1"
-  waitpid --timeout="$2" "$pid" || \
-    kill "$pid" || \
+  waitpid --timeout="$2" "$pid" ||
+    kill "$pid" ||
     true
 }
 
@@ -137,4 +137,4 @@ takeInitialShot "$dest"
 
 notify "$dest" &
 printf "screenshot copied and saved to %q\n" "$dest"
-delayedCancel "$!" "$(( $TIMEOUT + 1 ))"
+delayedCancel "$!" "$(($TIMEOUT + 1))"

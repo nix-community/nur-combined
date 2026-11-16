@@ -47,7 +47,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   keepFirefoxPermissions = [
     "activeTab"
     "contextMenus"
-    # "notifications"  #< remove `notifications` perm else it (appears to) spams you when "updated"
+    # "notifications"  # remove `notifications` perm else it (appears to) spams you when "updated"
     "storage"
   ];
 

@@ -1,21 +1,28 @@
 # FIRST-TIME SETUP:
 # - disable notification sounds: hamburger menu in bottom-left -> preferences
 #   - notification sounds can be handled by swaync
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.dissent;
 in
 {
   sane.programs.dissent = {
-    configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options.autostart = mkOption {
-          type = types.bool;
-          default = true;
+    configOption =
+      with lib;
+      mkOption {
+        default = { };
+        type = types.submodule {
+          options.autostart = mkOption {
+            type = types.bool;
+            default = true;
+          };
         };
       };
-    };
 
     packageUnwrapped = pkgs.dissent.overrideAttrs (upstream: {
       postConfigure = (upstream.postConfigure or "") + ''
@@ -38,7 +45,7 @@ in
 
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus.user.call."org.freedesktop.secrets" = "*";  #< TODO: restrict secrets
+    sandbox.whitelistDbus.user.call."org.freedesktop.secrets" = "*"; # TODO: restrict secrets
     sandbox.whitelistDbus.user.own = [ "so.libdb.dissent" ];
     sandbox.whitelistDri = true;
     sandbox.whitelistPortal = [
@@ -64,7 +71,7 @@ in
 
     persist.byStore.private = [
       ".cache/dissent"
-      ".config/dissent"  # empty?
+      ".config/dissent" # empty?
     ];
 
     services.dissent = {

@@ -155,8 +155,8 @@ fn attach_pasta(net: resources::net_subset, netns_fd: io::file, notify_fd: io::f
   append(pasta_args, "none")!;
   append(pasta_args, "-T")!;
   append(pasta_args, "none")!;
-  // "-U", "53",  #< if using the host's DNS
-  // "-T", "53",  #< if using the host's DNS
+  // "-U", "53",  # if using the host's DNS
+  // "-T", "53",  # if using the host's DNS
   append(pasta_args, "--outbound-if4")!;
   append(pasta_args, net.dev)!;
   append(pasta_args, "--gateway")!;

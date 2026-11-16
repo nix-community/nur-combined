@@ -20,8 +20,8 @@ in
       # XXX: gc2145_mipi must be blacklisted for the camera (front *or* rear) to function.
       # the others are related (they did not appear when running megi's kernel, but now do),
       # but apparently OK
-      "gc2145_mipi"  #< only present in megi's patches. gc2145_mipi is actually the *mainline* gc2145 driver
-      # "gc2145"  #< this could be the mainline, or megi's, driver, based on compilation flags. disable both for now.
+      "gc2145_mipi"  # only present in megi's patches. gc2145_mipi is actually the *mainline* gc2145 driver
+      # "gc2145"  # this could be the mainline, or megi's, driver, based on compilation flags. disable both for now.
       # "leds_group_multicolor"
       # "pinctrl_axp209"
       # "led_class_multicolor"

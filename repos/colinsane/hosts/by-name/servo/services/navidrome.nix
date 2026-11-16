@@ -1,6 +1,6 @@
 { lib, ... }:
 
-lib.mkIf false  #< i don't actively use navidrome
+lib.mkIf false  # i don't actively use navidrome
 {
   sane.persist.sys.byStore.plaintext = [
     { user = "navidrome"; group = "navidrome"; path = "/var/lib/navidrome"; method = "bind"; }

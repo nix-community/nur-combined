@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.ssh;
 in
@@ -8,7 +13,7 @@ in
     sandbox.net = "all";
     sandbox.whitelistSsh = true;
     # sandbox.autodetectCliPaths = "existingFile";  # to support `-o 'UserKnownHostsFile /path/...'`
-    sandbox.extraPaths = [ "/var/run/tailscale" ];  # `tailscale ssh` invokes ssh in a way that somehow calls _back_ into ts, not clear how.
+    sandbox.extraPaths = [ "/var/run/tailscale" ]; # `tailscale ssh` invokes ssh in a way that somehow calls _back_ into ts, not clear how.
     sandbox.extraHomePaths = [ ".config/tailscale/ssh_known_hosts" ];
     suggestedPrograms = [ "ssh-agent" ];
   };
@@ -49,7 +54,7 @@ in
     services.ssh-add = {
       description = "import keys to ssh-agent";
       startCommand = "ssh-add";
-      cleanupCommand = "ssh-add -d";  # `ssh-add -d` undo's `ssh-add`, but leaves keys added to the agent through other means still available
+      cleanupCommand = "ssh-add -d"; # `ssh-add -d` undo's `ssh-add`, but leaves keys added to the agent through other means still available
       depends = [
         "gocryptfs-private"
         "ssh-agent"

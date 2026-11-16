@@ -34,7 +34,7 @@ let
       cp $out/lib/browserpass/hosts/firefox/*.json $out/lib/mozilla/native-messaging-hosts/
     '';
 
-    passthru = (upstream.passthru or {}) // {
+    passthru = (upstream.passthru or { }) // {
       inherit sops-gpg-adapter;
     };
   });
@@ -49,8 +49,8 @@ in
     ];
 
     # firefox learns about this package by looking in ~/.mozilla/native-messaging-hosts
-    fs.".mozilla/native-messaging-hosts/com.github.browserpass.native.json".symlink.target
-      = "${browserpass}//lib/mozilla/native-messaging-hosts/com.github.browserpass.native.json";
+    fs.".mozilla/native-messaging-hosts/com.github.browserpass.native.json".symlink.target =
+      "${browserpass}//lib/mozilla/native-messaging-hosts/com.github.browserpass.native.json";
 
     # TODO: env.PASSWORD_STORE_DIR only needs to be present within the browser session.
     # alternative to PASSWORD_STORE_DIR:

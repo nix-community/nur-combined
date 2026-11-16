@@ -14,9 +14,10 @@ let
         ;
     };
     srcRoot = ./.;
-    doInstallCheck = false;  #< doesn't implement required `--help` command
+    doInstallCheck = false; # doesn't implement required `--help` command
   };
-in symlinkJoin {
+in
+symlinkJoin {
   name = "tailscale-iproute2";
   paths = [
     ipCmd

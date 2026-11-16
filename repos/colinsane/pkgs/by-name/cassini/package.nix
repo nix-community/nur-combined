@@ -1,11 +1,10 @@
 {
   lib,
-  fetchFromGitHub,
   fetchFromGitea,
-  fetchpatch,
   python3,
   stdenvNoCC,
-}: stdenvNoCC.mkDerivation (finalAttrs: {
+}:
+stdenvNoCC.mkDerivation {
   pname = "cassini";
   version = "0-unstable-2024-03-30";
 
@@ -94,4 +93,4 @@
     maintainers = with lib.maintainers; [ colinsane ];
     platforms = lib.platforms.linux;
   };
-})
+}

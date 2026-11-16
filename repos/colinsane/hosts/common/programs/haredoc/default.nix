@@ -2,7 +2,7 @@
 { pkgs, ... }:
 {
   sane.programs.haredoc = {
-    sandbox.whitelistPwd = true;  #< search for function documentation below the current directory
+    sandbox.whitelistPwd = true; # search for function documentation below the current directory
     env.HAREPATH = toString pkgs.hare.src;
   };
 }

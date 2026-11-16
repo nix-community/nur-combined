@@ -23,14 +23,19 @@
 #   - WIP PR to support magnetometers: <https://gitlab.freedesktop.org/hadess/iio-sensor-proxy/-/merge_requests/316>
 #     - after rebase, it *functions*, but does not scale the readings correctly
 #       heading changes only over the range of 50 - 70 deg.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.iio-sensor-proxy;
 in
 {
   sane.programs.iio-sensor-proxy = {
     packageUnwrapped = pkgs.iio-sensor-proxy.overrideAttrs (upstream: {
-      patches = (upstream.patches or []) ++ [
+      patches = (upstream.patches or [ ]) ++ [
         (pkgs.fetchpatch {
           name = "WIP:compass: Add support for polling uncalibrated devices";
           # url = "https://gitlab.freedesktop.org/hadess/iio-sensor-proxy/-/merge_requests/316.diff";
@@ -39,7 +44,7 @@ in
         })
       ];
     });
-    enableFor.system = lib.mkIf (builtins.any (en: en) (builtins.attrValues cfg.enableFor.user)) true;  #< for dbus/polkit policies
+    enableFor.system = lib.mkIf (builtins.any (en: en) (builtins.attrValues cfg.enableFor.user)) true; # for dbus/polkit policies
 
     sandbox.whitelistDbus.system = true;
     sandbox.extraPaths = [
@@ -49,6 +54,6 @@ in
     ];
   };
   services.udev.packages = lib.mkIf cfg.enabled [ cfg.package ];
-  # services.dbus.packages = lib.mkIf cfg.enabled [ cfg.package ];  #< for bus ownership policy
-  systemd.packages = lib.mkIf cfg.enabled [ cfg.package ];  #< for iio-sensor-proxy.service
+  # services.dbus.packages = lib.mkIf cfg.enabled [ cfg.package ];  # for bus ownership policy
+  systemd.packages = lib.mkIf cfg.enabled [ cfg.package ]; # for iio-sensor-proxy.service
 }

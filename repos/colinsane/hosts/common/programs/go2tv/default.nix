@@ -42,7 +42,12 @@
 # - mkv container + H.265 video + E-AC-3/48k stereo audio:
 #   - LGTV: no transcoding needed
 #
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.go2tv;
 in

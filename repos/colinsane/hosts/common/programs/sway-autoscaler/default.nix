@@ -1,27 +1,34 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.sway-autoscaler;
 in
 {
   sane.programs.sway-autoscaler = {
-    configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options.autostart = mkOption {
-          type = types.bool;
-          default = false;
-        };
+    configOption =
+      with lib;
+      mkOption {
+        default = { };
+        type = types.submodule {
+          options.autostart = mkOption {
+            type = types.bool;
+            default = false;
+          };
 
-        options.defaultScale = mkOption {
-          type = types.number;
-          default = 1;
-        };
-        options.interval = mkOption {
-          type = types.number;
-          default = 5;
+          options.defaultScale = mkOption {
+            type = types.number;
+            default = 1;
+          };
+          options.interval = mkOption {
+            type = types.number;
+            default = 5;
+          };
         };
       };
-    };
 
     packageUnwrapped = pkgs.static-nix-shell.mkBash {
       pname = "sway-autoscaler";

@@ -142,8 +142,8 @@ in
   };
   config = lib.mkIf cfg.enable {
     systemd.services.clightning = {
-      # path = [ config.sane.programs.bitcoin-cli.package ];  #< use sandboxed bitcoin-cli, but frail
-      path = [ pkgs.bitcoind ];  #< use non-sandboxed bitcoin-cli (from pkgs.bitcoind); rely on this service's own sandboxing.
+      # path = [ config.sane.programs.bitcoin-cli.package ];  # use sandboxed bitcoin-cli, but frail
+      path = [ pkgs.bitcoind ];  # use non-sandboxed bitcoin-cli (from pkgs.bitcoind); rely on this service's own sandboxing.
       # note the wantedBy bitcoind: this should make it so that a bitcoind restart causes clightning to also restart (instead of to only stop)
       wantedBy = [ "bitcoind-${cfg.bitcoindName}.service" "multi-user.target" ];
       requires = [ "bitcoind-${cfg.bitcoindName}.service" ];
@@ -155,7 +155,7 @@ in
       serviceConfig.RestartSec = "30s";
 
       serviceConfig.ReadWritePaths = [ cfg.dataDir ];
-      serviceConfig.TimeoutStartSec = "600s";  #< give some chance in case bitcoind needs to sync
+      serviceConfig.TimeoutStartSec = "600s";  # give some chance in case bitcoind needs to sync
       # hardening (systemd-analyze security clightning)
       serviceConfig.LockPersonality = true;
       serviceConfig.MemoryDenyWriteExecute = true;

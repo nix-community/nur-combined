@@ -60,4 +60,3 @@ stdenv.mkDerivation {
     mainProgram = "wvkbd-anihortes";
   };
 }
-

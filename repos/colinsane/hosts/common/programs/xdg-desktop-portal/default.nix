@@ -18,7 +18,12 @@
 #
 # debugging:
 # - show available portals: <https://codeberg.org/tytan652/door-knocker>
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.xdg-desktop-portal;
 in
@@ -77,11 +82,11 @@ in
       command = lib.concatStringsSep " " [
         "env"
         # ''XDG_DESKTOP_PORTAL_DIR=''${HOME}/.config/xdg-desktop-portal''
-        ''NIX_XDG_DESKTOP_PORTAL_DIR=/etc/profiles/per-user/''${USER}/share/xdg-desktop-portal/portals''
+        "NIX_XDG_DESKTOP_PORTAL_DIR=/etc/profiles/per-user/\${USER}/share/xdg-desktop-portal/portals"
         "G_MESSAGES_DEBUG=xdg-desktop-portal=all"
         "${cfg.package}/libexec/xdg-desktop-portal"
       ];
-      reapChildren = false;  # let spawned processes survive restarts or crashes
+      reapChildren = false; # let spawned processes survive restarts or crashes
       readiness.waitDbus = "org.freedesktop.portal.Desktop";
     };
 
@@ -95,7 +100,7 @@ in
       command = lib.concatStringsSep " " [
         "env"
         # ''XDG_DESKTOP_PORTAL_DIR=''${HOME}/.config/xdg-desktop-portal/portal''
-        ''NIX_XDG_DESKTOP_PORTAL_DIR=/etc/profiles/per-user/''${USER}/share/xdg-desktop-portal/portals''
+        "NIX_XDG_DESKTOP_PORTAL_DIR=/etc/profiles/per-user/\${USER}/share/xdg-desktop-portal/portals"
         "${cfg.package}/libexec/xdg-permission-store"
       ];
       readiness.waitDbus = "org.freedesktop.impl.portal.PermissionStore";

@@ -16,7 +16,7 @@
     buildCost = 1;
 
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # mpris
+    sandbox.whitelistDbus.user = true; # TODO: reduce  # mpris
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       "Books/Audiobooks"
@@ -26,8 +26,8 @@
 
     # cozy uses a sqlite db for its config and exposes no CLI options other than --help and --debug
     persist.byStore.plaintext = [
-      ".local/share/cozy"  # sqlite db (config & index?)
-      ".cache/cozy"  # offline cache
+      ".local/share/cozy" # sqlite db (config & index?)
+      ".cache/cozy" # offline cache
     ];
   };
 }

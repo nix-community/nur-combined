@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.bunpen;
 in
@@ -13,7 +18,7 @@ in
       '';
     });
     sandbox.enable = false;
-    sandbox.method = null;  #< TODO: avoids infinite recursion in the sane.programs system
+    sandbox.method = null; # TODO: avoids infinite recursion in the sane.programs system
   };
 
   environment.pathsToLink = lib.mkIf cfg.enabled [ "/libexec/bunpen" ];

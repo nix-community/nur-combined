@@ -1,7 +1,7 @@
 { ... }:
 {
   sane.programs.passff-host = {
-    sandbox.method = null;  #< TODO: enable sandboxing
+    sandbox.method = null; # TODO: enable sandboxing
     sandbox.extraHomePaths = [
       ".config/sops"
       "knowledge/secrets/accounts"

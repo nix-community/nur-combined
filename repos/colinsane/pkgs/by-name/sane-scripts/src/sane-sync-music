@@ -15,86 +15,89 @@ from unidecode import unidecode
 logger = logging.getLogger(__name__)
 
 LOSSLESS_FMTS = [
-    '.flac',
-    '.wav',
+    ".flac",
+    ".wav",
 ]
 
 MAYBE_LOSSY_FMTS = [
     # WMA can be lossy or lossless
-    '.wma',
+    ".wma",
 ]
 
 LOSSY_FMTS = [
-    '.aac',
-    '.m4a',
-    '.mp3',
-    '.oga',
-    '.ogg',
-    '.opus',
+    ".aac",
+    ".m4a",
+    ".mp3",
+    ".oga",
+    ".ogg",
+    ".opus",
 ]
 
 COMPAT_AUDIO_FMTS = [
-    '.flac',
-    '.mp3',
-    '.oga',
-    '.ogg',
-    '.opus',
+    ".flac",
+    ".mp3",
+    ".oga",
+    ".ogg",
+    ".opus",
 ]
 
 AUDIO_FMTS = LOSSLESS_FMTS + MAYBE_LOSSY_FMTS + LOSSY_FMTS
 
 IMAGE_FMTS = [
-    '.bmp',
-    '.gif',
-    '.jpeg',
-    '.jpg',
-    '.png',
+    ".bmp",
+    ".gif",
+    ".jpeg",
+    ".jpg",
+    ".png",
 ]
 
 VIDEO_FMTS = [
-    '.avi',
-    '.mkv',
-    '.mov',
-    '.mp4',
-    '.webm',
+    ".avi",
+    ".mkv",
+    ".mov",
+    ".mp4",
+    ".webm",
 ]
 
 METADATA_FMTS = [
-    '.inf',
-    '.lrc',
-    '.lyrics',
-    '.nfo',
-    '.pdf',
-    '.toc',
-    '.txt',
+    ".inf",
+    ".lrc",
+    ".lyrics",
+    ".nfo",
+    ".pdf",
+    ".toc",
+    ".txt",
 ]
 
 NON_AUDIO_FMTS = IMAGE_FMTS + VIDEO_FMTS + METADATA_FMTS
 
 IGNORE = [
-    '.nsf_',  #< "NES Sound File"
+    ".nsf_",  # "NES Sound File"
 ]
 
 # mp3 doesn't support surround sound (by default).
 # opus supports at least 5.1 and 7.1
-PREFERRED_LOSSY_FMT = '.opus'
+PREFERRED_LOSSY_FMT = ".opus"
+
 
 def approx_eq(a: float, b: float, threshold: float) -> bool:
     return abs(b - a) <= threshold
 
+
 def clean_name(path: Path) -> Path:
-    '''
+    """
     transform a path into something which most filesystems/protocols can reliably support.
     also removes irregularities like uppercase file extensions.
-    '''
+    """
     out_path = Path()
     for part in path.parts:
-        blacklisted = '"\'!@#$%^&*()[]{};:,<>?`~|\\/'
+        blacklisted = "\"'!@#$%^&*()[]{};:,<>?`~|\\/"
         part = unidecode(part)
-        part = ''.join(c for c in part if c not in blacklisted)
+        part = "".join(c for c in part if c not in blacklisted)
         out_path /= part
 
     return out_path.with_suffix(out_path.suffix.lower())
+
 
 class TranscodePreferences:
     def __init__(self, compress: bool, compat: bool):
@@ -129,11 +132,11 @@ class TranscodePreferences:
     def desired_samplerate(self, input_samplerate: int | None) -> int | None:
         samplerate_map = {
             192000: 48000 if self.compress else 192000,
-            96000:  48000 if self.compress else 96000,
-            88200:  44100 if self.compress else 88200,
+            96000: 48000 if self.compress else 96000,
+            88200: 44100 if self.compress else 88200,
             # preserve as-is
-            48000:  48000,
-            44100:  44100,
+            48000: 48000,
+            44100: 44100,
         }
         return samplerate_map.get(input_samplerate)
 
@@ -160,8 +163,7 @@ class Encoder:
     def destructive(self, default_, f, *args, **kwargs):
         if self.dry_run:
             pretty_args = ", ".join(
-               [repr(a) for a in args]
-               + [f"{k}={v!r}" for k, v in kwargs.items()]
+                [repr(a) for a in args] + [f"{k}={v!r}" for k, v in kwargs.items()]
             )
             logger.debug(f"[dry-run: not invoking]: {f.__name__}({pretty_args})")
             return default_
@@ -180,13 +182,13 @@ class Encoder:
 
     def check_output(self, args: list[str], has_side_effect=True, **kwargs) -> str:
         if has_side_effect:
-            return self.destructive(b'', self._check_output, args, **kwargs)
+            return self.destructive(b"", self._check_output, args, **kwargs)
         else:
             return self._check_output(args, **kwargs)
 
     def cp(self, source: Path, dest: Path) -> None:
-        logger.info(f'copying {source} -> {dest}')
-        self.check_output(['cp', str(source), str(dest)])
+        logger.info(f"copying {source} -> {dest}")
+        self.check_output(["cp", str(source), str(dest)])
 
     def ensure_dir(self, dir: Path) -> None:
         self.destructive(None, os.makedirs, str(dir), exist_ok=True)
@@ -194,16 +196,24 @@ class Encoder:
     def remove(self, path: Path) -> None:
         self.destructive(None, os.remove, path)
 
-    def convert(self, source: Path, dest: Path, target_samplerate: int | None, target_chancount: int | None) -> None:
-        logger.info(f'converting {source} -> {dest}')
+    def convert(
+        self,
+        source: Path,
+        dest: Path,
+        target_samplerate: int | None,
+        target_chancount: int | None,
+    ) -> None:
+        logger.info(f"converting {source} -> {dest}")
 
         codec_flags = []
-        if dest.suffix == '.mp3':
+        if dest.suffix == ".mp3":
             codec_flags = [
-                '-codec:a', 'libmp3lame',
-                '-qscale:a', '0',  # VBR0
+                "-codec:a",
+                "libmp3lame",
+                "-qscale:a",
+                "0",  # VBR0
             ]
-        elif dest.suffix == '.opus':
+        elif dest.suffix == ".opus":
             # opus defaults to 96 kbps for stereo (which is not enough IMO). 300-something for 5.1.
             # recs: <https://wiki.xiph.org/Opus_Recommended_Settings>
             # my chosen numbers don't have any particular significance, they just look nice :)
@@ -212,8 +222,10 @@ class Encoder:
             else:
                 bps = 72000 * target_chancount
             codec_flags = [
-                '-codec:a', 'libopus',
-                '-b:a', str(bps),
+                "-codec:a",
+                "libopus",
+                "-b:a",
+                str(bps),
             ]
             if target_samplerate is not None:
                 # opus doesn't support 44.1 kHz, so use 48kHz instead.
@@ -225,20 +237,27 @@ class Encoder:
                 else:
                     target_samplerate = 48000
         else:
-            assert False, f'conversion to {dest.suffix} not yet supported'
+            assert False, f"conversion to {dest.suffix} not yet supported"
 
-        samplerate_flags = ['-ar', str(target_samplerate)] if target_samplerate else []
-        chancount_flags = [ '-ac', str(target_chancount)] if target_chancount else []
+        samplerate_flags = ["-ar", str(target_samplerate)] if target_samplerate else []
+        chancount_flags = ["-ac", str(target_chancount)] if target_chancount else []
 
-        self.check_output([
-            'ffmpeg',
-            '-loglevel', 'warning',
-            '-y',  # force overwrite
-            '-i', str(source),
-            '-codec:v', 'copy',
-        ] + codec_flags + samplerate_flags + chancount_flags + [
-          str(dest)
-        ])
+        self.check_output(
+            [
+                "ffmpeg",
+                "-loglevel",
+                "warning",
+                "-y",  # force overwrite
+                "-i",
+                str(source),
+                "-codec:v",
+                "copy",
+            ]
+            + codec_flags
+            + samplerate_flags
+            + chancount_flags
+            + [str(dest)]
+        )
 
     def cp_or_convert(self, source: Path, dest: Path) -> None:
         source_samplerate = None
@@ -247,29 +266,37 @@ class Encoder:
             try:
                 source_samplerate = int(
                     self.check_output(
-                        ['soxi', '-r', str(source)],
+                        ["soxi", "-r", str(source)],
                         has_side_effect=False,
                         quiet=True,
-                    ).decode("utf-8").strip()
+                    )
+                    .decode("utf-8")
+                    .strip()
                 )
                 source_chancount = int(
                     self.check_output(
-                        ['soxi', '-c', str(source)],
+                        ["soxi", "-c", str(source)],
                         has_side_effect=False,
                         quiet=True,
-                    ).decode("utf-8").strip()
+                    )
+                    .decode("utf-8")
+                    .strip()
                 )
             except:
-                if source.suffix.lower() in ['.aac', '.m4a', '.wma']:
+                if source.suffix.lower() in [".aac", ".m4a", ".wma"]:
                     # sox is known to not support these formats
-                    logging.debug(f'unsupported extension for samplerate/channelcount: {source}')
+                    logging.debug(
+                        f"unsupported extension for samplerate/channelcount: {source}"
+                    )
                 else:
-                    logging.warning(f'unable to obtain samplerate/channelcount for {source}')
+                    logging.warning(
+                        f"unable to obtain samplerate/channelcount for {source}"
+                    )
 
         target_samplerate = self.prefs.desired_samplerate(source_samplerate)
         target_chancount = source_chancount
         if source_samplerate and not target_samplerate:
-            logging.warning(f'unable to map source sample rate: {source_samplerate}')
+            logging.warning(f"unable to map source sample rate: {source_samplerate}")
 
         if source_samplerate != target_samplerate:
             # resampling -> convert
@@ -287,8 +314,11 @@ class Encoder:
         atime = datetime.datetime.now().timestamp()
         self.destructive(None, os.utime, str(dest), (atime, mtime))
 
+
 class Sync:
-    def __init__(self, encoder: Encoder, in_dir: str, out_dir: str, force_copy: bool = False):
+    def __init__(
+        self, encoder: Encoder, in_dir: str, out_dir: str, force_copy: bool = False
+    ):
         self.encoder = encoder
         self.in_dir = in_dir
         self.out_dir = out_dir
@@ -299,7 +329,9 @@ class Sync:
         output_type = self.encoder.prefs.get_output(n.suffix)
 
         if output_type is None:
-            logger.warning(f"skipping {source_name} because i don't recognize its filetype ({n.suffix})")
+            logger.warning(
+                f"skipping {source_name} because i don't recognize its filetype ({n.suffix})"
+            )
             return None
 
         if output_type == ".null":
@@ -309,62 +341,74 @@ class Sync:
         else:
             return Path(str(n) + output_type)
 
-    def calculate_delta(self) -> tuple[set[Path], set[tuple[Path, Path]], set[tuple[Path, Path]]]:
-        '''
+    def calculate_delta(
+        self,
+    ) -> tuple[set[Path], set[tuple[Path, Path]], set[tuple[Path, Path]]]:
+        """
         Returns, as a tuple:
         - dest files which need to be deleted
         - new files to copy (in-path/out-path pairs)
         - existing files which need to be updated (in-path/out-path pairs)
 
         all returned paths are relative to in_dir/out_dir.
-        '''
-        in_files = { p.relative_to(self.in_dir) for p in Path(self.in_dir).rglob("*") if not p.is_dir() }
-        logger.info(f'found {len(in_files)} files in source')
+        """
+        in_files = {
+            p.relative_to(self.in_dir)
+            for p in Path(self.in_dir).rglob("*")
+            if not p.is_dir()
+        }
+        logger.info(f"found {len(in_files)} files in source")
 
         # create a map from source path to dest path
         in_out_map = ((in_f, self.target_name(in_f)) for in_f in in_files)
-        in_out_map = dict((in_f, out_f) for (in_f, out_f) in in_out_map if out_f is not None)
-        logger.info(f'recognized {len(in_files)} source files as media')
+        in_out_map = dict(
+            (in_f, out_f) for (in_f, out_f) in in_out_map if out_f is not None
+        )
+        logger.info(f"recognized {len(in_files)} source files as media")
 
-        existing_out_files = { p.relative_to(self.out_dir) for p in Path(self.out_dir).rglob("*") if not p.is_dir() }
-        logger.info(f'found {len(existing_out_files)} files in dest')
+        existing_out_files = {
+            p.relative_to(self.out_dir)
+            for p in Path(self.out_dir).rglob("*")
+            if not p.is_dir()
+        }
+        logger.info(f"found {len(existing_out_files)} files in dest")
 
         expected_out_files = in_out_map.values()
 
-        to_del = {
-          f for f in existing_out_files
-          if f not in expected_out_files
-        }
-        logger.info(f'found {len(to_del)} files to delete')
+        to_del = {f for f in existing_out_files if f not in expected_out_files}
+        logger.info(f"found {len(to_del)} files to delete")
 
         to_copy = {
-          (in_f, out_f) for (in_f, out_f) in in_out_map.items()
-          if out_f not in existing_out_files
+            (in_f, out_f)
+            for (in_f, out_f) in in_out_map.items()
+            if out_f not in existing_out_files
         }
-        logger.info(f'found {len(to_copy)} files to copy')
+        logger.info(f"found {len(to_copy)} files to copy")
 
         to_update = {
-          (in_f, out_f) for (in_f, out_f) in in_out_map.items()
-          if (in_f, out_f) not in to_copy and (self.force_copy or self.needs_update(in_f, out_f))
+            (in_f, out_f)
+            for (in_f, out_f) in in_out_map.items()
+            if (in_f, out_f) not in to_copy
+            and (self.force_copy or self.needs_update(in_f, out_f))
         }
-        logger.info(f'found {len(to_update)} files to update')
+        logger.info(f"found {len(to_update)} files to update")
 
         return to_del, to_copy, to_update
 
     def needs_update(self, src: Path, dest: Path) -> bool:
-        '''
+        """
         files are relative to in_dir/out_dir
-        '''
+        """
         src_stat = os.stat(self.in_dir / src)
         dest_stat = os.stat(self.out_dir / dest)
         return not approx_eq(src_stat.st_mtime, dest_stat.st_mtime, threshold=120.0)
 
     def rm_dest_files(self, files: list[Path]) -> None:
-        '''
+        """
         files are relative to out_dir
-        '''
+        """
         for f in files:
-            logger.info(f'removing {f}')
+            logger.info(f"removing {f}")
             f = Path(self.out_dir) / f
             self.encoder.remove(f)
             # if the directory is empty after removing this file, then remove the directory (and possibly prune its parents too)
@@ -372,9 +416,9 @@ class Sync:
                 os.removedirs(f.parent)
 
     def copy_one(self, src_name: Path, dest_name: Path) -> None:
-        '''
+        """
         path names are relative to in_dir/out_dir
-        '''
+        """
         source = Path(self.in_dir) / src_name
         dest = Path(self.out_dir) / dest_name
 
@@ -393,7 +437,7 @@ class Sync:
             logger.error(f"task failed: {e}")
 
     def cp_files(self, file_pairs: list[tuple[Path, Path]], jobs: int):
-        logger.info(f'using {jobs} jobs to copy {len(file_pairs)} files')
+        logger.info(f"using {jobs} jobs to copy {len(file_pairs)} files")
         with concurrent.futures.ThreadPoolExecutor(max_workers=jobs) as executor:
             for src_f, dest_f in file_pairs:
                 executor.submit(self.try_invoke, self.copy_one, src_f, dest_f)
@@ -414,22 +458,44 @@ def sync_all(
     to_del, to_copy, to_update = sync.calculate_delta()
 
     sync.rm_dest_files(sorted(to_del))
-    sync.cp_files(sorted(to_copy) + sorted(to_update), jobs = jobs or multiprocessing.cpu_count())
+    sync.cp_files(
+        sorted(to_copy) + sorted(to_update), jobs=jobs or multiprocessing.cpu_count()
+    )
+
 
 def main() -> None:
     logging.basicConfig()
     logger.setLevel(logging.INFO)
 
-    parser = argparse.ArgumentParser(description="synchronize music from one directory to another, possibly compressing it")
+    parser = argparse.ArgumentParser(
+        description="synchronize music from one directory to another, possibly compressing it"
+    )
     parser.add_argument("src", help="source directory")
     parser.add_argument("dest", help="destination directory")
-    parser.add_argument("--compress", action='store_true', help="compress audio files (to mp3)")
-    parser.add_argument("--compat", action='store_true', help="convert poorly supported file formats to better-supported formats (e.g. avoid wma)")
-    parser.add_argument("--jobs", help="number of cores to compress music with. N.B.: some remote filesystems (e.g. curlftpfs) suffer degraded perf when multithreading!", default=1, type=int)
-    parser.add_argument("--dry-run", action='store_true', help="don't actually run any commands")
-    parser.add_argument("--verbose", action='store_true', help="more logging")
-    parser.add_argument("--quiet", action='store_true', help="less logging")
-    parser.add_argument("--force-copy", action='store_true', help="copy over files that already exist (in case metadata needs updating)")
+    parser.add_argument(
+        "--compress", action="store_true", help="compress audio files (to mp3)"
+    )
+    parser.add_argument(
+        "--compat",
+        action="store_true",
+        help="convert poorly supported file formats to better-supported formats (e.g. avoid wma)",
+    )
+    parser.add_argument(
+        "--jobs",
+        help="number of cores to compress music with. N.B.: some remote filesystems (e.g. curlftpfs) suffer degraded perf when multithreading!",
+        default=1,
+        type=int,
+    )
+    parser.add_argument(
+        "--dry-run", action="store_true", help="don't actually run any commands"
+    )
+    parser.add_argument("--verbose", action="store_true", help="more logging")
+    parser.add_argument("--quiet", action="store_true", help="less logging")
+    parser.add_argument(
+        "--force-copy",
+        action="store_true",
+        help="copy over files that already exist (in case metadata needs updating)",
+    )
 
     args = parser.parse_args()
 
@@ -448,5 +514,6 @@ def main() -> None:
         jobs=args.jobs if args.jobs else None,
     )
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

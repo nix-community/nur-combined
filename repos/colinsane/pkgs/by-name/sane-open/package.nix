@@ -22,7 +22,7 @@ static-nix-shell.mkBash {
       procps
       sway
       util-linux
-    ;
+      ;
   };
   nativeBuildInputs = [
     copyDesktopItems
@@ -44,7 +44,7 @@ static-nix-shell.mkBash {
       inherit
         sane-open
         wl-clipboard-rs
-      ;
+        ;
     };
     nativeBuildInputs = [
       copyDesktopItems

@@ -5,8 +5,8 @@
 {
   sane.programs.cantata = {
     persist.byStore.plaintext = [
-      ".cache/cantata"  # album art
-      ".local/share/cantata/library"  # library index (?)
+      ".cache/cantata" # album art
+      ".local/share/cantata/library" # library index (?)
     ];
     fs.".config/cantata/cantata.conf".symlink.text = ''
       [General]

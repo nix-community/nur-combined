@@ -26,7 +26,7 @@
     "Pictures/albums"
     "Pictures/cat"
     "Pictures/from"
-    "Pictures/Screenshots"  #< XXX: something is case-sensitive about this?
+    "Pictures/Screenshots"  # XXX: something is case-sensitive about this?
     "Pictures/Photos"
     "records"
     "tmp"

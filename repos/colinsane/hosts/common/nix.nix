@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  nix.checkConfig = false;  #< don't error the build if we specify unknown settings; nix/lix handles those gracefully at runtime.
+  nix.checkConfig = false;  # don't error the build if we specify unknown settings; nix/lix handles those gracefully at runtime.
   nix.settings = {
     # see: `man nix.conf`
 

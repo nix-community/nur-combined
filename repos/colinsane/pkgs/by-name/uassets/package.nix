@@ -32,7 +32,10 @@ stdenvNoCC.mkDerivation {
     update-guard.weekly
     (nix-update-script {
       # XXX(2024/05/26): why does `--version unstable` not work, but `--version branch` *does*??
-      extraArgs = [ "--version" "branch" ];
+      extraArgs = [
+        "--version"
+        "branch"
+      ];
     })
   ];
 

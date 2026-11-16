@@ -7,7 +7,7 @@ backing=$1
 # facing=$2
 
 # backing might exist from the last boot, so wipe it:
-# mkdir -p "$backing"  #< sane.fs should ensure this already exists
+# mkdir -p "$backing"  # sane.fs should ensure this already exists
 rm -fr "$backing"/*
 
 # the password shows up in /proc/.../env, briefly.

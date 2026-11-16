@@ -126,7 +126,7 @@
 
   sane.users.colin.default = true;
   services.getty.autologinUser = lib.mkDefault "colin";
-  # security.pam.services.login.startSession = lib.mkForce false;  #< disable systemd integration
+  # security.pam.services.login.startSession = lib.mkForce false;  # disable systemd integration
 
   # disable the `systemd --user` instance for colin.
   # systemd still starts a user.slice  when logging in via PAM (e.g. `ssh`, `login`),

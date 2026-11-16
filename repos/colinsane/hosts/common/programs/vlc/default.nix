@@ -1,12 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   feeds = pkgs.sane-lib.feeds;
   all-feeds = config.sane.feeds;
-  wanted-feeds = feeds.filterByFormat ["podcast"] all-feeds;
-  podcast-urls = lib.concatStringsSep "|" (
-    map (feed: feed.url) wanted-feeds
-  );
+  wanted-feeds = feeds.filterByFormat [ "podcast" ] all-feeds;
+  podcast-urls = lib.concatStringsSep "|" (map (feed: feed.url) wanted-feeds);
 in
 {
   sane.programs.vlc = {
@@ -17,12 +20,15 @@ in
     sandbox.net = "clearnet";
     sandbox.autodetectCliPaths = "existing";
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # mpris
+    sandbox.whitelistDbus.user = true; # TODO: reduce  # mpris
     sandbox.whitelistWayland = true;
     persist.byStore.private = [
       # vlc remembers play position in ~/.config/vlc/vlc-qt-interface.conf
       # filenames are stored in plaintext (unlike mpv, which i think hashes them)
-      { path = ".config/vlc/vlc-qt-interface.conf"; type = "file"; }
+      {
+        path = ".config/vlc/vlc-qt-interface.conf";
+        type = "file";
+      }
       # vlc caches artwork. i'm not sure where it gets the artwork (internet? embedded metadata?)
       ".cache/vlc"
     ];

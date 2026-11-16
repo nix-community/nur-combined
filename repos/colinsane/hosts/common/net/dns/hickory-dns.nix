@@ -1,5 +1,5 @@
 { config, lib, ... }:
-lib.mkIf false  #< XXX(2024-10-xx): hickory-dns recursive resolution is too immature; switched to `unbound`
+lib.mkIf false  # XXX(2024-10-xx): hickory-dns recursive resolution is too immature; switched to `unbound`
 (lib.mkMerge [
  {
    sane.services.hickory-dns.enable = lib.mkDefault config.sane.services.hickory-dns.asSystemResolver;
@@ -12,7 +12,7 @@ lib.mkIf false  #< XXX(2024-10-xx): hickory-dns recursive resolution is too imma
    # in servo's ovnps namespace to use the provider's DNS resolvers.
    # a weakness is we can only query 1 NS at a time (unless we were to clone the packets?)
    # TODO: improve hickory-dns recursive resolver and then remove this
-   services.resolved.enable = true;  #< to disable, set ` = lib.mkForce false`, as other systemd features default to enabling `resolved`.
+   services.resolved.enable = true;  # to disable, set ` = lib.mkForce false`, as other systemd features default to enabling `resolved`.
    # without DNSSEC:
    # - dig matrix.org => works
    # - curl https://matrix.org => works

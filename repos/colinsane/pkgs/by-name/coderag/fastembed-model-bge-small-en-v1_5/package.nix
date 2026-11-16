@@ -40,7 +40,9 @@ let
     };
   };
 
-  fetchBlob = name: { sha256, hash, file }:
+  fetchBlob =
+    _name:
+    { hash, file, ... }:
     fetchurl {
       url = "https://huggingface.co/qdrant/bge-small-en-v1.5-onnx-q/resolve/${revision}/${file}";
       inherit hash;
@@ -54,7 +56,7 @@ stdenvNoCC.mkDerivation {
   pname = "fastembed-model-bge-small-en-v1.5";
   version = "1.5";
 
-  srcs = [];
+  srcs = [ ];
   unpackPhase = ":";
 
   allowSubstitutes = false;
@@ -82,13 +84,17 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: { sha256, ... }: ''
-      install -Dm444 "${fetchedBlobs.${name}}" "$out/models--qdrant--bge-small-en-v1.5-onnx-q/blobs/${sha256}"
-    '') blobs)}
+    ${lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (name: { sha256, ... }: ''
+        install -Dm444 "${fetchedBlobs.${name}}" "$out/models--qdrant--bge-small-en-v1.5-onnx-q/blobs/${sha256}"
+      '') blobs
+    )}
 
-    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: { sha256, file, ... }: ''
-      ln -s "../../blobs/${sha256}" "$out/models--qdrant--bge-small-en-v1.5-onnx-q/snapshots/${revision}/${file}"
-    '') blobs)}
+    ${lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (_name: { sha256, file, ... }: ''
+        ln -s "../../blobs/${sha256}" "$out/models--qdrant--bge-small-en-v1.5-onnx-q/snapshots/${revision}/${file}"
+      '') blobs
+    )}
 
     mkdir -p "$out/models--qdrant--bge-small-en-v1.5-onnx-q/.locks"
     touch "$out/CACHEDIR.TAG"

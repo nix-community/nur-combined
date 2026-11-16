@@ -46,7 +46,7 @@ in
 
   sane.persist.sys.byStore.private = [
     # TODO: mode? could be more granular
-    { user = "opendkim"; group = "opendkim"; path = "/var/lib/opendkim"; method = "bind"; }  #< TODO: migrate to secrets
+    { user = "opendkim"; group = "opendkim"; path = "/var/lib/opendkim"; method = "bind"; }  # TODO: migrate to secrets
     { user = "root"; group = "root"; path = "/var/spool/mail"; method = "bind"; }
     # *probably* don't need these dirs:
     # "/var/lib/dhparams"          # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/security/dhparams.nix
@@ -82,7 +82,7 @@ in
 
   sane.dns.zones."uninsane.org".inet = {
     MX."@" = "10 mx.uninsane.org.";
-    A."mx" = "%AOVPNS%"; #< XXX: RFC's specify that the MX record CANNOT BE A CNAME. TODO: use "%AOVPNS%?
+    A."mx" = "%AOVPNS%"; # XXX: RFC's specify that the MX record CANNOT BE A CNAME. TODO: use "%AOVPNS%?
 
     # Sender Policy Framework:
     #   +mx     => mail passes if it originated from the MX
@@ -142,7 +142,7 @@ in
 
   services.postfix.settings.main = {
     myhostname = "mx.uninsane.org";
-    myorigin = "uninsane.org";  #< not nullable :(
+    myorigin = "uninsane.org";  # not nullable :(
     # mydestination = [ "localhost" "uninsane.org" ];
     mydestination = [ "uninsane.org" ];
     smtpd_tls_chain_files = [
@@ -175,16 +175,16 @@ in
     # dont_remove = true;  # move delivered mail to "saved" mail queue instead of deleting
     # forward_path = "";  # disable user-specific `.forward` file parsing
     # local_login_sender_maps = ...  # TODO: don't allow all unix users to send mail anywhere
-    # smtp_enforce_tls = true;  #< TODO
-    # smtp_requiretls_policy = "enforce";  #< TODO
-    # smtpd_enforce_tls = true;  #< TODO
-    # smtpd_hide_client_session = true;  #< TODO: enable, for 587/submission only
+    # smtp_enforce_tls = true;  # TODO
+    # smtp_requiretls_policy = "enforce";  # TODO
+    # smtpd_enforce_tls = true;  # TODO
+    # smtpd_hide_client_session = true;  # TODO: enable, for 587/submission only
 
     # hand received mail over to dovecot so that it can run sieves & such
     # mailbox_command = ''${config.services.dovecot2.package}/libexec/dovecot/dovecot-lda -f "$SENDER" -a "$RECIPIENT"'';
     # mailbox_transport = "lmtp:unix:/run/dovecot2/dovecot-lmtp";
     local_transport = "lmtp:unix:/run/dovecot2/dovecot-lmtp";
-    local_recipient_maps = [];  #< prevent postfix from delivering based on /etc/passwd contents
+    local_recipient_maps = [];  # prevent postfix from delivering based on /etc/passwd contents
     # local_recipient_maps = [
     #   "hash:/etc/postfix/virtual"
     # ];
@@ -226,7 +226,7 @@ in
   #   "submissions".privileged = true;
   # };
 
-  services.postfix.enableSubmission = true;  #< TODO: disable; only allow port 587
+  services.postfix.enableSubmission = true;  # TODO: disable; only allow port 587
   services.postfix.submissionOptions = submissionOptions;
   services.postfix.enableSubmissions = true;
   services.postfix.submissionsOptions = submissionOptions;

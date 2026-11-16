@@ -57,6 +57,6 @@
   # but it decreases working memory under the heaviest of loads by however much space the compressed memory occupies (e.g. 50% if 2:1; 25% if 4:1)
   zramSwap.memoryPercent = 100;
 
-  programs.fuse.userAllowOther = true;  #< necessary for `allow_other` or `allow_root` options.
+  programs.fuse.userAllowOther = true;  # necessary for `allow_other` or `allow_root` options.
 }
 

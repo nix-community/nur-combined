@@ -3,7 +3,8 @@
   fetchFromGitHub,
   python3,
   stdenv,
-}: stdenv.mkDerivation (finalAttrs: {
+}:
+stdenv.mkDerivation (finalAttrs: {
   pname = "fastcluster";
   version = "1.2.6";
 

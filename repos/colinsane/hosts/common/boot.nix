@@ -19,12 +19,12 @@
 
   boot.initrd.availableKernelModules = [
     # "dm_mod"
-    "mmc_block"  #< required to load stage2 from SD card (PPP)
+    "mmc_block"  # required to load stage2 from SD card (PPP)
     # "mmc_core"
     # "sdhci"
     # "sdhci_pci"
     # "uas"
-    "usb_storage"  #< required to load stage2 from SD card (MeLE quieter 4C, rpi400)
+    "usb_storage"  # required to load stage2 from SD card (MeLE quieter 4C, rpi400)
   ];
 
   # ships initrd kernel modules relevant to boot/display for common SBCs

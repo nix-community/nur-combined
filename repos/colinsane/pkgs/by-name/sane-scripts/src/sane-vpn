@@ -61,9 +61,11 @@ VPN_CONFIG_DIR = os.path.join(HOME, ".config/sane-vpn")
 VPN_DIR = os.path.join(VPN_CONFIG_DIR, "vpns")
 VPN_DEFAULT_FILE = os.path.join(VPN_CONFIG_DIR, "default")
 
+
 class ToggleDir(Enum):
     Up = "up"
     Down = "down"
+
 
 @dataclass
 class VpnConfig:
@@ -74,6 +76,7 @@ class VpnConfig:
     id_: Optional[int] = None
     priority_fwmark: Optional[int] = None
     priority_main: Optional[int] = None
+
 
 def load_vpns() -> dict[str, VpnConfig]:
     """
@@ -96,7 +99,7 @@ def load_vpns() -> dict[str, VpnConfig]:
             line = line.rstrip()  # remove trailing newline
             sep = line.index("=")
             fieldname = line[:sep]
-            value = line[sep+1:]
+            value = line[sep + 1 :]
             if fieldname == "addrV4":
                 config.addr_v4 = value
             elif fieldname == "dns":
@@ -117,18 +120,20 @@ def load_vpns() -> dict[str, VpnConfig]:
 
     return vpns
 
+
 def get_default_dev() -> Optional[str]:
     """
     return the device name over which packets are sent by default
     """
-    default_route = subprocess.check_output([
-      "ip", "-j", "route", "get", "255"
-    ]).decode("utf-8")
+    default_route = subprocess.check_output(["ip", "-j", "route", "get", "255"]).decode(
+        "utf-8"
+    )
     logger.debug(f"default route: {default_route}")
     # looks like [{"dst":"255.0.0.0","gateway":"10.78.79.1","dev":"eth0","prefsrc":"10.78.79.52","flags":[],"uid":1000,"cache":[]}]
 
     for r in json.loads(default_route):
         return r["dev"]
+
 
 def nameservers_from_resolvconf(resolv_conf_path: str) -> list[str]:
     """
@@ -146,11 +151,12 @@ def nameservers_from_resolvconf(resolv_conf_path: str) -> list[str]:
 
     nameservers = []
     for line in open(resolv_conf_path, "r").readlines():
-        line = line.rstrip()  #< remove trailing '\n'
+        line = line.rstrip()  # remove trailing '\n'
         if line.startswith("nameserver "):
-            nameservers.append(line[len("nameserver "):].strip())
+            nameservers.append(line[len("nameserver ") :].strip())
 
     return nameservers
+
 
 def get_dns_resolvers_for_dev(dev: str) -> list[str]:
     """
@@ -158,9 +164,9 @@ def get_dns_resolvers_for_dev(dev: str) -> list[str]:
     """
 
     # output looks like IP4.DNS[1]:192.168.0.1
-    nmcli_stdout = subprocess.check_output([
-        "nmcli", "-t", "-f", "IP4.DNS", "device", "show", dev
-    ]).decode("utf-8")
+    nmcli_stdout = subprocess.check_output(
+        ["nmcli", "-t", "-f", "IP4.DNS", "device", "show", dev]
+    ).decode("utf-8")
     nameservers = []
     for line in nmcli_stdout.splitlines():
         line = line.strip()
@@ -172,7 +178,7 @@ def get_dns_resolvers_for_dev(dev: str) -> list[str]:
     if nameservers == []:
         nameservers = nameservers_from_resolvconf(RESOLVCONF)
         if nameservers == []:
-            nameservers = [ "127.0.0.1 "]  #< libc default if unspecified
+            nameservers = ["127.0.0.1 "]  # libc default if unspecified
 
     # old logic from when i was using systemd-resolved (127.0.0.53, which pasta couldn't reach). safe to remove?
     # if "127.0.0.1" in nameservers:
@@ -180,11 +186,12 @@ def get_dns_resolvers_for_dev(dev: str) -> list[str]:
 
     return nameservers
 
+
 def get_addr_v4_for_dev(dev: str) -> Optional[str]:
     # output looks like IP4.ADDRESS[1]:192.168.1.72
-    nmcli_stdout = subprocess.check_output([
-        "nmcli", "-t", "-f", "IP4.ADDRESS", "device", "show", dev
-    ]).decode("utf-8")
+    nmcli_stdout = subprocess.check_output(
+        ["nmcli", "-t", "-f", "IP4.ADDRESS", "device", "show", dev]
+    ).decode("utf-8")
     addrs = []
     for line in nmcli_stdout.splitlines():
         line = line.strip()
@@ -201,16 +208,24 @@ def get_addr_v4_for_dev(dev: str) -> Optional[str]:
 
     return addrs[0] if len(addrs) else None
 
+
 def get_connected_networks() -> list[str]:
     # output looks like:
-    # 
+    #
     # eth0:ethernet:connected
     # lo:loopback:connected (externally)
     # ovpnd-us:wireguard:connected (externally)
     # wg-home:wireguard:connected (externally)
     # wlan0:wifi:unmanaged
     ok_networks = []
-    nmcli_stdout = subprocess.check_output(["nmcli", "--get-values", "DEVICE,TYPE,STATE", "device",]).decode("utf-8")
+    nmcli_stdout = subprocess.check_output(
+        [
+            "nmcli",
+            "--get-values",
+            "DEVICE,TYPE,STATE",
+            "device",
+        ]
+    ).decode("utf-8")
     logger.debug(f"nmcli output: {nmcli_stdout}")
     for line in nmcli_stdout.splitlines():
         line = line.strip()
@@ -224,17 +239,18 @@ def get_connected_networks() -> list[str]:
             continue
         if type_ == "ethernet":
             # ethernet gets high precedence
-            ok_networks = [ device ] + ok_networks
+            ok_networks = [device] + ok_networks
         elif type_ == "wifi":
             # wifi gets low precedence
-            ok_networks += [ device ]
+            ok_networks += [device]
         else:
             logger.debug(f"skipping {device}: not ethernet/wifi")
 
     return ok_networks
 
+
 def get_vpn(vpn_name: str) -> VpnConfig:
-    if vpn_name in ( "default", "", "-", "--" ):
+    if vpn_name in ("default", "", "-", "--"):
         vpn_name = open(VPN_DEFAULT_FILE, "r").read().strip()
         logger.debug(f"loading default VPN: {vpn_name}")
         return load_vpns()[vpn_name]
@@ -255,25 +271,32 @@ def get_vpn(vpn_name: str) -> VpnConfig:
 
     assert False, f"failed to get vpn {vpn_name}"
 
+
 def vpn_do(config: VpnConfig, cmd: list[str]) -> None:
     net_flags = []
-    net_flags += [ "--bunpen-net-dev", config.dev ]
+    net_flags += ["--bunpen-net-dev", config.dev]
     for d in config.dns:
-        net_flags += [ "--bunpen-dns", d ]
+        net_flags += ["--bunpen-dns", d]
     if config.addr_v4:
-        net_flags += [ "--bunpen-net-gateway", config.addr_v4 ]
+        net_flags += ["--bunpen-net-gateway", config.addr_v4]
 
-    wrapped_cmd = [
-        "bunpen",
-        "--bunpen-keep-ipc",
-        "--bunpen-keep-pid",
-        "--bunpen-try-keep-users",
-        "--bunpen-path", "/",
-    ] + net_flags + cmd
+    wrapped_cmd = (
+        [
+            "bunpen",
+            "--bunpen-keep-ipc",
+            "--bunpen-keep-pid",
+            "--bunpen-try-keep-users",
+            "--bunpen-path",
+            "/",
+        ]
+        + net_flags
+        + cmd
+    )
 
     logger.debug(f"exec {wrapped_cmd}")
     # exec instead of subprocess so that (hopefully) the process inherits stdin/stdout.
     os.execvp("bunpen", wrapped_cmd)
+
 
 def vpn_toggle(config: VpnConfig, dir_: ToggleDir, do_ip_check: bool = True) -> None:
     if do_ip_check:
@@ -288,22 +311,30 @@ def vpn_toggle(config: VpnConfig, dir_: ToggleDir, do_ip_check: bool = True) -> 
         # first, allow all non-default routes (prefix-length != 0) a chance to route the packet.
         # - this allows the wireguard tunnel itself to pass traffic via our LAN gateway.
         # - incidentally, it allows traffic to LAN devices and other machine-local or virtual networks.
-        subprocess.check_call([
-            "ip", "rule", verb,
-            "from", "all",
-            "lookup", "main",
-            "suppress_prefixlength", "0",
-            "priority", str(config.priority_main),
-        ])
+        # fmt: off
+        subprocess.check_call(
+            [
+                "ip", "rule", verb,
+                "from", "all",
+                "lookup", "main",
+                "suppress_prefixlength", "0",
+                "priority", str(config.priority_main),
+            ]
+        )
+        # fmt: on
 
         # if packet hasn't gone through the wg device yet (fwmark), then move it to the table which will cause it to.
-        subprocess.check_call([
-            "ip", "rule", verb,
-            "not", "from", "all",
-            "fwmark", str(config.fwmark),
-            "lookup", str(config.id_),
-            "priority", str(config.priority_fwmark),
-        ])
+        # fmt: off
+        subprocess.check_call(
+            [
+                "ip", "rule", verb,
+                "not", "from", "all",
+                "fwmark", str(config.fwmark),
+                "lookup", str(config.id_),
+                "priority", str(config.priority_fwmark),
+            ]
+        )
+        # fmt: on
 
     dns_toggle(config.dns, dir_)
 
@@ -311,10 +342,11 @@ def vpn_toggle(config: VpnConfig, dir_: ToggleDir, do_ip_check: bool = True) -> 
         print("new IP address ...")
         subprocess.check_call(["sane-ip-check", "--no-upnp"])
 
+
 def dns_toggle_bind(dns: list[str], dir_: ToggleDir) -> None:
     if dir_ == ToggleDir.Up:
         formatted_nameservers = "\n".join(f"{ns};" for ns in dns)
-        text = f'''
+        text = f"""
 zone . {{
   //v XXX(2025-01-30): BIND9 doesn't allow dnssec-validation per-zone. put this in toplevel `options` instead.
   // dnssec-validation no;  // compatibility: many network-specific DNS servers fail DNSSEC, by design
@@ -324,7 +356,7 @@ zone . {{
     {formatted_nameservers}
   }};
 }};
-'''
+"""
     elif dir_ == ToggleDir.Down:
         text = ""
 
@@ -334,22 +366,25 @@ zone . {{
 
     with open("/run/named/dhcp-configs/210-sane-vpn.conf", "w") as f:
         f.write(text)
-    subprocess.check_call([ "systemctl", "restart", "bind.service" ])
+    subprocess.check_call(["systemctl", "restart", "bind.service"])
+
 
 def dns_toggle_hickory(dns: list[str], dir_: ToggleDir) -> None:
     if dir_ == ToggleDir.Up:
         formatted_nameservers = ",\n".join(
-            '{ socket_addr = "{ns}:53", protocol = "udp", trust_nx_responses = false }'.replace("{ns}", ns)
+            '{ socket_addr = "{ns}:53", protocol = "udp", trust_nx_responses = false }'.replace(
+                "{ns}", ns
+            )
             for ns in dns
         )
-        text = f'''
+        text = f"""
 [[zones]]
 zone = "."
 zone_type = "Forward"
 stores = {{ type = "forward", name_servers = [
     {formatted_nameservers}
 ]}}
-'''
+"""
     elif dir_ == ToggleDir.Down:
         text = ""
 
@@ -359,15 +394,27 @@ stores = {{ type = "forward", name_servers = [
 
     with open("/var/lib/hickory-dns/dhcp-configs/sane-vpn.toml", "w") as f:
         f.write(text)
-    subprocess.check_call([ "systemctl", "restart", "hickory-dns-localhost.service" ])
+    subprocess.check_call(["systemctl", "restart", "hickory-dns-localhost.service"])
+
 
 def dns_toggle_knot_resolver(dns: list[str], dir_: ToggleDir) -> None:
     if dir_ == ToggleDir.Up:
-        assert len(dns) == 0, f"DNS forwarding not yet implemented for knot-resolver (TODO). in the meantime, manually edit /etc/resolv.conf for nameserver={dns}"
-    subprocess.check_call([ "systemctl", "restart", "knot-resolver.service" ])
+        assert len(dns) == 0, (
+            f"DNS forwarding not yet implemented for knot-resolver (TODO). in the meantime, manually edit /etc/resolv.conf for nameserver={dns}"
+        )
+    subprocess.check_call(["systemctl", "restart", "knot-resolver.service"])
+
 
 def is_service_enabled(s: str) -> bool:
-    return subprocess.call([ "systemctl", "is-enabled", s ], stdout=subprocess.PIPE, stderr=subprocess.PIPE) == 0
+    return (
+        subprocess.call(
+            ["systemctl", "is-enabled", s],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        == 0
+    )
+
 
 def dns_toggle(dns: list[str], dir_: ToggleDir) -> None:
     if is_service_enabled("bind.service"):
@@ -377,7 +424,9 @@ def dns_toggle(dns: list[str], dir_: ToggleDir) -> None:
     elif is_service_enabled("knot-resolver.service"):
         dns_toggle_knot_resolver(dns, dir_)
     else:
-        logger.warning("no active DNS service recognized: consider manually restarting your DNS resolver")
+        logger.warning(
+            "no active DNS service recognized: consider manually restarting your DNS resolver"
+        )
 
 
 def main():
@@ -387,24 +436,42 @@ def main():
     parser = argparse.ArgumentParser(usage=USAGE)
     parser.add_argument("--verbose", action="store_true")
     parser.add_argument("--no-proxy-dns", action="store_true")
-    parser.add_argument("--addr-v4", nargs="?", type=str, help="ip address to use within the VPN")
-    parser.add_argument("--dev", nargs="?", type=str, help="ip device over which to route traffic")
-    parser.add_argument("--dns", nargs="?", type=str, help="DNS server(s) to use")  #< TODO: should allow multiple DNS
-    parser.add_argument("--no-check-ip", action="store_true", help="Don't query the device's externally-visible IP address before/after")
+    parser.add_argument(
+        "--addr-v4", nargs="?", type=str, help="ip address to use within the VPN"
+    )
+    parser.add_argument(
+        "--dev", nargs="?", type=str, help="ip device over which to route traffic"
+    )
+    parser.add_argument(
+        "--dns", nargs="?", type=str, help="DNS server(s) to use"
+    )  # TODO: should allow multiple DNS
+    parser.add_argument(
+        "--no-check-ip",
+        action="store_true",
+        help="Don't query the device's externally-visible IP address before/after",
+    )
     subparsers = parser.add_subparsers(help="what to do")
 
     up_parser = subparsers.add_parser("up")
     up_parser.set_defaults(subcommand="up")
-    up_parser.add_argument("region", nargs="?", default="default", help="which vpn to connect to")
+    up_parser.add_argument(
+        "region", nargs="?", default="default", help="which vpn to connect to"
+    )
 
     down_parser = subparsers.add_parser("down")
     down_parser.set_defaults(subcommand="down")
-    down_parser.add_argument("region", nargs="?", default="default", help="which vpn to connect to")
+    down_parser.add_argument(
+        "region", nargs="?", default="default", help="which vpn to connect to"
+    )
 
     do_parser = subparsers.add_parser("do")
     do_parser.set_defaults(subcommand="do")
-    do_parser.add_argument("region", nargs="?", default="default", help="which vpn to connect to")
-    do_parser.add_argument("command", nargs="*", default=[ SHELL ], help="command to run inside the VPN")
+    do_parser.add_argument(
+        "region", nargs="?", default="default", help="which vpn to connect to"
+    )
+    do_parser.add_argument(
+        "command", nargs="*", default=[SHELL], help="command to run inside the VPN"
+    )
 
     args = parser.parse_args()
 
@@ -431,7 +498,7 @@ def main():
         vpn_config.dev = args.dev
 
     if args.dns:
-        vpn_config.dns = [ args.dns ]
+        vpn_config.dns = [args.dns]
 
     if subcommand == "do":
         vpn_do(vpn_config, args.command)
@@ -444,5 +511,5 @@ def main():
         sys.exit(1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

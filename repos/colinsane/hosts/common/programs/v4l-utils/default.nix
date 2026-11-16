@@ -18,6 +18,6 @@
     #   # XXX(2025-08-06): v4l-utils cross compiles, thanks to <https://github.com/NixOS/nixpkgs/pull/429900>
     #   withGUI = false;
     # };
-    sandbox.method = null;  #< TODO: sandbox
+    sandbox.method = null; # TODO: sandbox
   };
 }

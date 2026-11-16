@@ -4,7 +4,7 @@ let
 in
 {
   sane.programs.blueman = {
-    sandbox.method = null;  #< TODO: sandbox
+    sandbox.method = null; # TODO: sandbox
   };
 
   # TODO: hardware.bluetooth puts like 100 binaries from `bluez` onto PATH;

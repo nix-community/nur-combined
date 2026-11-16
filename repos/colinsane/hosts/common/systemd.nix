@@ -8,10 +8,10 @@ let
 in
 {
   # sane.persist.sys.byStore.ephemeral = [
-  #   "/var/lib/systemd/coredump"  #< persist if coredump.conf's `Storage` != `none`
+  #   "/var/lib/systemd/coredump"  # persist if coredump.conf's `Storage` != `none`
   # ];
 
-  # systemd.coredump.enable = false;  #< disable because when system is unstable, coredumpctl can bring it to its knees (saturates I/O)
+  # systemd.coredump.enable = false;  # disable because when system is unstable, coredumpctl can bring it to its knees (saturates I/O)
   systemd.coredump.settings.Coredump = {
     # man 5 coredump.conf
     # Storage = none  => don't persist coredumps to disk; but still log their stack trace.
@@ -90,7 +90,7 @@ in
   # no way to _remove_ an upstream `Before` attribute.
   # instead, neuter the service and re-implement the key bits.
   systemd.services.systemd-journal-flush.serviceConfig.ExecStart = [
-    ""  #< clear original `ExecStart`
+    ""  # clear original `ExecStart`
   ];
 
   systemd.services.systemd-journal-flush-sane = {

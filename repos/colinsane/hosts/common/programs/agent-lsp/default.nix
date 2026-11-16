@@ -4,6 +4,6 @@
 {
   sane.programs.agent-lsp = {
     sandbox.whitelistPwd = true;
-    # sandbox.net = "clearnet";  #< for `agent-lsp update` subcommand?
+    # sandbox.net = "clearnet";  # for `agent-lsp update` subcommand?
   };
 }

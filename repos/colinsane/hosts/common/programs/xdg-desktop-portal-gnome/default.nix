@@ -8,15 +8,15 @@ in
 {
   sane.programs.xdg-desktop-portal-gnome = {
     packageUnwrapped = pkgs.xdg-desktop-portal-gnome.overrideAttrs (base: {
-      patches = (base.patches or []) ++ [
+      patches = (base.patches or [ ]) ++ [
         ./init_display_no_mutter.diff
       ];
     });
 
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # speak to main xdg-desktop-portal
+    sandbox.whitelistDbus.user = true; # TODO: reduce  # speak to main xdg-desktop-portal
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
-      ".local/share/applications"  # file opener needs to find .desktop files, for their icon/name.
+      ".local/share/applications" # file opener needs to find .desktop files, for their icon/name.
       # for file-chooser portal users (fractal, firefox, ...), need to provide anything they might want.
       # i think (?) portal users can only access the files here interactively, i.e. by me interacting with the portal's visual filechooser,
       # so shoving stuff here is trusting the portal but not granting any trust to the portal user.

@@ -6,6 +6,6 @@
   # wl-clipboard-rs is a near drop-in replacement.
   sane.programs.wl-clipboard-rs = {
     sandbox.whitelistWayland = true;
-    sandbox.keepPids = true;  #< this is needed ONLY for `wl-copy` (not `wl-paste`), but not sure why?
+    sandbox.keepPids = true; # this is needed ONLY for `wl-copy` (not `wl-paste`), but not sure why?
   };
 }

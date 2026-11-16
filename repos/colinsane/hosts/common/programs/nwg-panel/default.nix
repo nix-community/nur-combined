@@ -4,13 +4,20 @@
 #
 # interactively configure with: `nwg-panel-config`
 # ^ note that this may interfere with the `nwg-panel` service
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.nwg-panel;
-  mkEnableOption' = default: description: lib.mkOption {
-    type = lib.types.bool;
-    inherit default description;
-  };
+  mkEnableOption' =
+    default: description:
+    lib.mkOption {
+      type = lib.types.bool;
+      inherit default description;
+    };
 in
 {
   sane.programs.torch-toggle = {
@@ -29,75 +36,86 @@ in
   };
 
   sane.programs.nwg-panel = {
-    configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options = {
-          clockFontSize = mkOption {
-            type = types.int;
-            # what looks good:
-            # - 15px on moby
-            # - 24px on lappy
-            # there's about 10px padding total around this (above + below)
-            default = lib.min 24 (cfg.config.height - 11);
-          };
-          fontSize = mkOption {
-            type = types.int;
-            default = 16;
-          };
-          height = mkOption {
-            type = types.int;
-            default = 40;
-            description = ''
-              height of the top bar in px.
-            '';
-          };
-          locker = mkOption {
-            type = types.str;
-            default = config.sane.programs.swayidle.config.actions.lock.service;
-            description = ''
-              service to start which can lock the screen
-            '';
-          };
-          torch = mkOption {
-            type = types.nullOr types.str;
-            default = null;
-            description = ''
-              device name for the torch (flashlight), if any.
-              find with `brightnessctl -l`
-            '';
-            example = "white:flash";
-          };
-          battery = mkEnableOption' true "display battery status";
-          brightness = mkEnableOption' true "display backlight level and slider";
-          mediaTitle = mkEnableOption' true "display title of current song/media";
-          mediaPrevNext = mkEnableOption' true "display prev/next button in media";
-          sysload = mkEnableOption' true "display system load info (cpu/memory)";
-          windowIcon = mkEnableOption' true "display icon of active window";
-          windowTitle = mkEnableOption' true "display title of active window";
-          workspaceNumbers = mkOption {
-            type = types.listOf types.str;
-            default = [
-              # TODO: workspace 10 should be rendered as "TV"
-              "1" "2" "3" "4" "5" "6" "7" "8" "9" "10"
-            ];
-            description = ''
-              workspaces to monitor
-            '';
-          };
-          workspaceHideEmpty = mkOption {
-            type = types.bool;
-            default = true;
+    configOption =
+      with lib;
+      mkOption {
+        default = { };
+        type = types.submodule {
+          options = {
+            clockFontSize = mkOption {
+              type = types.int;
+              # what looks good:
+              # - 15px on moby
+              # - 24px on lappy
+              # there's about 10px padding total around this (above + below)
+              default = lib.min 24 (cfg.config.height - 11);
+            };
+            fontSize = mkOption {
+              type = types.int;
+              default = 16;
+            };
+            height = mkOption {
+              type = types.int;
+              default = 40;
+              description = ''
+                height of the top bar in px.
+              '';
+            };
+            locker = mkOption {
+              type = types.str;
+              default = config.sane.programs.swayidle.config.actions.lock.service;
+              description = ''
+                service to start which can lock the screen
+              '';
+            };
+            torch = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              description = ''
+                device name for the torch (flashlight), if any.
+                find with `brightnessctl -l`
+              '';
+              example = "white:flash";
+            };
+            battery = mkEnableOption' true "display battery status";
+            brightness = mkEnableOption' true "display backlight level and slider";
+            mediaTitle = mkEnableOption' true "display title of current song/media";
+            mediaPrevNext = mkEnableOption' true "display prev/next button in media";
+            sysload = mkEnableOption' true "display system load info (cpu/memory)";
+            windowIcon = mkEnableOption' true "display icon of active window";
+            windowTitle = mkEnableOption' true "display title of active window";
+            workspaceNumbers = mkOption {
+              type = types.listOf types.str;
+              default = [
+                # TODO: workspace 10 should be rendered as "TV"
+                "1"
+                "2"
+                "3"
+                "4"
+                "5"
+                "6"
+                "7"
+                "8"
+                "9"
+                "10"
+              ];
+              description = ''
+                workspaces to monitor
+              '';
+            };
+            workspaceHideEmpty = mkOption {
+              type = types.bool;
+              default = true;
+            };
           };
         };
       };
-    };
 
     packageUnwrapped = pkgs.nwg-panel.overrideAttrs (base: {
       # patches = (base.patches or []) ++ lib.optionals (!cfg.config.mediaPrevNext) [
       #   ./playerctl-no-prev-next.diff
       # ];
-      patches = (base.patches or []) ++ [
+      patches = (base.patches or [ ]) ++ [
         (pkgs.fetchpatch {
           # upstreaming: <https://github.com/nwg-piotr/nwg-panel/pull/309>
           url = "https://git.uninsane.org/colin/nwg-panel/commit/a714e4100c409feb02c454874d030d192bfb0ae5.patch";
@@ -143,10 +161,11 @@ in
 
     suggestedPrograms = [
       "brightnessctl"
-      "pactl"  # pactl required by `per-app-volume` component.
+      "pactl" # pactl required by `per-app-volume` component.
       "sane-open"
       "xdg-terminal-exec"
-    ] ++ lib.optionals (cfg.config.torch != null) [
+    ]
+    ++ lib.optionals (cfg.config.torch != null) [
       "torch-toggle"
     ];
 
@@ -154,42 +173,54 @@ in
       inherit (cfg.config) fontSize clockFontSize;
     };
     fs.".config/nwg-panel/common-settings.json".symlink.target = ./common-settings.json;
-    fs.".config/nwg-panel/config".symlink.target = pkgs.writers.writeJSON "config" (import ./config.nix {
-      inherit (cfg.config) locker height mediaPrevNext windowIcon windowTitle workspaceHideEmpty workspaceNumbers;
-      # component order matters, mostly for the drop-down.
-      # default for most tools (e.g. swaync) is brightness control above volume.
-      controlsSettingsComponents =
-        lib.optionals cfg.config.brightness [
-          "brightness"
-        ] ++ [
-          "volume"
-          # "per-app-volume"
-        ] ++ lib.optionals cfg.config.battery [
-          "battery"
+    fs.".config/nwg-panel/config".symlink.target = pkgs.writers.writeJSON "config" (
+      import ./config.nix {
+        inherit (cfg.config)
+          locker
+          height
+          mediaPrevNext
+          windowIcon
+          windowTitle
+          workspaceHideEmpty
+          workspaceNumbers
+          ;
+        # component order matters, mostly for the drop-down.
+        # default for most tools (e.g. swaync) is brightness control above volume.
+        controlsSettingsComponents =
+          lib.optionals cfg.config.brightness [
+            "brightness"
+          ]
+          ++ [
+            "volume"
+            # "per-app-volume"
+          ]
+          ++ lib.optionals cfg.config.battery [
+            "battery"
+          ];
+        controlsSettingsCustomItems = lib.optionals (cfg.config.torch != null) [
+          {
+            name = "Torch";
+            # icons: find them in /etc/profiles/per-user/colin/share/icons
+            # display-brightness-symbolic, keyboard-brightness-symbolic, night-light-symbolic
+            icon = "display-brightness-symbolic";
+            cmd = "torch-toggle ${cfg.config.torch}";
+          }
+        ];
+        modulesRight = [
+          "playerctl"
         ]
-      ;
-      controlsSettingsCustomItems = lib.optionals (cfg.config.torch != null) [
-        {
-          name = "Torch";
-          # icons: find them in /etc/profiles/per-user/colin/share/icons
-          # display-brightness-symbolic, keyboard-brightness-symbolic, night-light-symbolic
-          icon = "display-brightness-symbolic";
-          cmd = "torch-toggle ${cfg.config.torch}";
-        }
-      ];
-      modulesRight = [
-        "playerctl"
-      ] ++ lib.optionals cfg.config.sysload [
-        "executor-sysload"
-      ];
-      playerctlChars = if cfg.config.mediaTitle then 60 else 0;
-    });
+        ++ lib.optionals cfg.config.sysload [
+          "executor-sysload"
+        ];
+        playerctlChars = if cfg.config.mediaTitle then 60 else 0;
+      }
+    );
 
     sandbox.whitelistAudio = true;
     sandbox.whitelistDri = true;
     sandbox.whitelistMpris.controlPlayers = true;
     sandbox.whitelistPortal = [
-      "DynamicLauncher"  # for sane-open xdg-terminal-exec
+      "DynamicLauncher" # for sane-open xdg-terminal-exec
     ];
     sandbox.whitelistSendNotifications = true;
     sandbox.whitelistSystemctl = true;
@@ -197,12 +228,12 @@ in
     sandbox.extraHomePaths = config.sane.programs.mimeo-query-desktop.sandbox.extraHomePaths;
     sandbox.extraPaths = [
       "/sys/class/backlight"
-      "/sys/class/leds"  #< for torch/flashlight on moby
-      "/sys/class/power_supply"  #< for the battery indicator
+      "/sys/class/leds" # for torch/flashlight on moby
+      "/sys/class/power_supply" # for the battery indicator
       "/sys/devices"
     ];
     sandbox.extraRuntimePaths = [ "sway" ];
-    sandbox.keepPidsAndProc = true;  #< nwg-panel restarts itself on display dis/connect, by killing all other instances (TODO: fix to just exit on display attach?)
+    sandbox.keepPidsAndProc = true; # nwg-panel restarts itself on display dis/connect, by killing all other instances (TODO: fix to just exit on display attach?)
 
     services.nwg-panel = {
       description = "nwg-panel status/topbar for wayland";

@@ -4,7 +4,7 @@ let
 in
 {
   sane.programs.fuseftp = {
-    sandbox.method = null;  #< TODO: sandbox
+    sandbox.method = null; # TODO: sandbox
   };
 
   system.fsPackages = lib.mkIf cfg.enabled [ cfg.package ];

@@ -120,7 +120,7 @@ in
       #   ];
       #   # RequiredForOnline => should `systemd-networkd-wait-online` fail if this network can't come up?
       #   linkConfig.RequiredForOnline = false;
-      #   linkConfig.Unmanaged = lib.mkForce false;  #< tailscale nixos module declares this as unmanaged
+      #   linkConfig.Unmanaged = lib.mkForce false;  # tailscale nixos module declares this as unmanaged
       # };
 
       # services.tailscale.useRoutingFeatures = "client";
@@ -130,7 +130,7 @@ in
         # 2. instructs tailscale to tell the kernel to route discovered routes through the tailscale0 device.
         # even if i disable #2, i still need --accept-routes to provide #1.
         "--accept-routes"
-        # "--operator=colin"  #< this *should* allow non-root control, but fails: <https://github.com/tailscale/tailscale/issues/16080>
+        # "--operator=colin"  # this *should* allow non-root control, but fails: <https://github.com/tailscale/tailscale/issues/16080>
         # lock the preferences i care about, because even if they're default i think they _might_ be conditional on admin policy:
         # --accept-dns=false:
         # 1. i manage DNS (/etc/resolv.conf) manually, with BIND/nixos
@@ -173,7 +173,7 @@ in
         # serviceConfig.PrivateIPC = true;
         serviceConfig.PrivateTmp = true;
 
-        # serviceConfig.RemoveIPC = true;  #< does not apply to root
+        # serviceConfig.RemoveIPC = true;  # does not apply to root
         serviceConfig.RestrictAddressFamilies = "AF_INET AF_INET6 AF_NETLINK AF_UNIX";
         # #VVV this includes anything it reads from, e.g. /bin/sh; /nix/store/...
         # # see `systemd-analyze filesystems` for a full list
@@ -211,7 +211,7 @@ in
         package = config.services.kresd.package;
       in {
         ExecStart = lib.mkForce [
-          ""  #< clear previous assignment
+          ""  # clear previous assignment
           (
             # override default CLI so as to inject `-c` for secret config portion
             # TODO: refactor for cleaner integration with hosts/common/net/dns/kresd.nix

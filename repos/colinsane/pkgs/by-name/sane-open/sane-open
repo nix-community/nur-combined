@@ -126,7 +126,7 @@ open_desktopFile() {
 open_file() {
   # open the file, and then pass the fd to dbus
   log "open_file: '$1'"
-  exec 3< "$1"
+  exec 3<"$1"
   gdbus wait --session --timeout 5 org.freedesktop.portal.Desktop
   gdbus call --session --timeout 10 \
     --dest org.freedesktop.portal.Desktop \
@@ -197,7 +197,7 @@ coerceToUri() {
   if [[ "$uri" == /* ]]; then
     log "$uri looks file-like: defaulting to file://"
     uri="file://$uri"
-  elif [ -n "$scheme" ] && (( ${#scheme} < 20 )); then
+  elif [ -n "$scheme" ] && ((${#scheme} < 20)); then
     # valid scheme -> no-op
     :
   else
@@ -207,12 +207,11 @@ coerceToUri() {
   echo "$uri"
 }
 
-
 isLandscape() {
   # success if all outputs are landscape
-  swaymsg -t get_outputs --raw \
-    | jq --exit-status '. | all(.rect.width > .rect.height)' \
-    > /dev/null
+  swaymsg -t get_outputs --raw |
+    jq --exit-status '. | all(.rect.width > .rect.height)' \
+      >/dev/null
 }
 
 _keyboardPid=
@@ -232,7 +231,7 @@ setKeyboard() {
 }
 _setKeyboard() {
   case "$1" in
-    "show")
+    ("show")
       log "show keyboard $_keyboardPid"
       for p in $_keyboardPid; do
         # `env` so that we get the util-linux `kill` binary instead of bash's builtin
@@ -242,10 +241,10 @@ _setKeyboard() {
         fi
       done
       ;;
-    "showIfRoom")
+    ("showIfRoom")
       isLandscape && _setKeyboard "hide" || _setKeyboard "show"
       ;;
-    "hide")
+    ("hide")
       log "hide keyboard $_keyboardPid"
       for p in $_keyboardPid; do
         if env kill -s USR1 "$p"; then
@@ -255,7 +254,6 @@ _setKeyboard() {
       ;;
   esac
 }
-
 
 ## ARGUMENT PARSING
 
@@ -316,7 +314,6 @@ if [ -z "$resourceType" ]; then
     resource=$asUri
   fi
 fi
-
 
 ## TOPLEVEL LOGIC
 

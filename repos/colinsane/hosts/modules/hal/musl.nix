@@ -24,48 +24,48 @@ in
   # ];
 
   config = lib.mkIf cfg.enable {
-    services.dbus.implementation = "dbus";  #< 2026-04-26 - 2026-05-23: `pkgsMusl.dbus-broker` fails to build
+    services.dbus.implementation = "dbus";  # 2026-04-26 - 2026-05-23: `pkgsMusl.dbus-broker` fails to build
 
-    documentation.nixos.enable = false;  #< fails building `nix-expr`
+    documentation.nixos.enable = false;  # fails building `nix-expr`
 
-    hardware.amdgpu.opencl.enable = false;  #< fails build rocmPackages.*
+    hardware.amdgpu.opencl.enable = false;  # fails build rocmPackages.*
 
-    environment.sessionVariables.VK_LOADER_DRIVERS_DISABLE = "*nouveau*";  #< 2026-03-02: fixes gtk apps to not segfault. unsure if musl, or all nvidia
+    environment.sessionVariables.VK_LOADER_DRIVERS_DISABLE = "*nouveau*";  # 2026-03-02: fixes gtk apps to not segfault. unsure if musl, or all nvidia
     sane.users.colin.environment.VK_LOADER_DRIVERS_DISABLE = "*nouveau*";
 
-    sane.programs.audacity.enableFor.user.colin = false;  #< 2026-09-16: does not compile
-    sane.programs.avahi.enableFor.user.colin = false;  #< 2026-01-25: causes `nss-mdns` to be on nssModules; not supported. long-term: enable mdns via a dns proxy -- not nss
-    sane.programs.binwalk.enableFor = { system = false; user.colin = false; };  #< 2026-07-01: blocked on sleuthkit
-    sane.programs.brave.enableFor.user.colin = false;  #< 2026-01-29: links against libgcc_s.so.1, etc: lots of undefined symbols during installCheckPhase
-    sane.programs.celeste64.enableFor.user.colin = false;  #< 2026-01-26 - 2026-05-23: blocked on dotnet-sdk
-    sane.programs.ctags-lsp.enableFor = { system = false; user.colin = false; };  #< 2026-02-26 - 2026-05-23: blocked on universal-ctags ("Failed tests ... sandbox*")
-    # sane.programs.discord.enableFor.user.colin = false; #< 2026-01-29: links against libc.so.6, etc.
-    sane.programs.docsets.enableFor = { system = false; user.colin = false; }; #< 2026-01-24: fails building `nix-expr`
-    sane.programs.element-desktop.enableFor.user.colin = false;  #< 2026-02-15: blocked by electron
-    sane.programs.gnome-frog.enableFor.user.colin = false;  #< 2026-03-27 - 2026-09-02: blocked on zbar
-    sane.programs.itgmania.enableFor.user.colin = false;  #< 2026-02-03 - 2026-09-02: fails build "error: conflicting declaration of C function ‘void __assert_fail(...)"
-    sane.programs.krita.enableFor.user.colin = false;  #< 2026-02-03 - 2026-05-23: blocked on opencolorio (which fails tests)
-    sane.programs.libreoffice.enableFor.user.colin = false;  #< 2026-02-03: blocked on rhino -> gradle: "libc.so.6 -> not found"
-    sane.programs.losslesscut.enableFor.user.colin = false;  #< 2026-05-26: blocked by electron_39
-    sane.programs.mepo.enableFor.user.colin = false;  #< 2026-01-29 - 2026-05-23: fails installPhase: "Failed loading SDL3 library."
-    sane.programs.mumble.enableFor.user.colin = false;  #< 2026-08-01: blocked on poco
-    sane.programs.newsflash.enableFor.user.colin = false;  #< 2026-05-23: fails build "error[E0425]: cannot find function `malloc_trim` in crate `libc`"
-    # sane.programs.nix.packageUnwrapped = lib.mkForce pkgs.nixVersions.latest;  #< 2026-02-28 - 2026-03-27: `pkgsMusl.lix` fails several unit tests right now
-    # sane.programs.nix.packageUnwrapped = lib.mkForce pkgs.pkgsStatic.lixPackageSets.latest.lix;  #< 2026-02-28 - 2026-09-02: `pkgsMusl.lix` fails building docs
-    # sane.programs.nix.config.packageSet = pkgs.pkgsStatic.lixPackageSets.latest;  #< 2026-02-28 - 2026-09-02: `pkgsMusl.lix` fails building docs
-    # sane.programs.nix.config.packageSet = pkgs.lixPackageSets.lix_2_94;  #< 2026-10-02: `pkgsMusl.lix` fails buildings docs; `pkgsStatic.lix` fails to find rnix
-    sane.programs.openscad-lsp.enableFor = { system = false; user.colin = false; };  #< 2026-01-24 - 2026-09-02: fails rust linking
-    sane.programs.papers.enableFor.user.colin = false;  #< 2026-03-01: papers crashes on launch (even just `papers --version`)
+    sane.programs.audacity.enableFor.user.colin = false;  # 2026-09-16: does not compile
+    sane.programs.avahi.enableFor.user.colin = false;  # 2026-01-25: causes `nss-mdns` to be on nssModules; not supported. long-term: enable mdns via a dns proxy -- not nss
+    sane.programs.binwalk.enableFor = { system = false; user.colin = false; };  # 2026-07-01: blocked on sleuthkit
+    sane.programs.brave.enableFor.user.colin = false;  # 2026-01-29: links against libgcc_s.so.1, etc: lots of undefined symbols during installCheckPhase
+    sane.programs.celeste64.enableFor.user.colin = false;  # 2026-01-26 - 2026-05-23: blocked on dotnet-sdk
+    sane.programs.ctags-lsp.enableFor = { system = false; user.colin = false; };  # 2026-02-26 - 2026-05-23: blocked on universal-ctags ("Failed tests ... sandbox*")
+    # sane.programs.discord.enableFor.user.colin = false; # 2026-01-29: links against libc.so.6, etc.
+    sane.programs.docsets.enableFor = { system = false; user.colin = false; }; # 2026-01-24: fails building `nix-expr`
+    sane.programs.element-desktop.enableFor.user.colin = false;  # 2026-02-15: blocked by electron
+    sane.programs.gnome-frog.enableFor.user.colin = false;  # 2026-03-27 - 2026-09-02: blocked on zbar
+    sane.programs.itgmania.enableFor.user.colin = false;  # 2026-02-03 - 2026-09-02: fails build "error: conflicting declaration of C function ‘void __assert_fail(...)"
+    sane.programs.krita.enableFor.user.colin = false;  # 2026-02-03 - 2026-05-23: blocked on opencolorio (which fails tests)
+    sane.programs.libreoffice.enableFor.user.colin = false;  # 2026-02-03: blocked on rhino -> gradle: "libc.so.6 -> not found"
+    sane.programs.losslesscut.enableFor.user.colin = false;  # 2026-05-26: blocked by electron_39
+    sane.programs.mepo.enableFor.user.colin = false;  # 2026-01-29 - 2026-05-23: fails installPhase: "Failed loading SDL3 library."
+    sane.programs.mumble.enableFor.user.colin = false;  # 2026-08-01: blocked on poco
+    sane.programs.newsflash.enableFor.user.colin = false;  # 2026-05-23: fails build "error[E0425]: cannot find function `malloc_trim` in crate `libc`"
+    # sane.programs.nix.packageUnwrapped = lib.mkForce pkgs.nixVersions.latest;  # 2026-02-28 - 2026-03-27: `pkgsMusl.lix` fails several unit tests right now
+    # sane.programs.nix.packageUnwrapped = lib.mkForce pkgs.pkgsStatic.lixPackageSets.latest.lix;  # 2026-02-28 - 2026-09-02: `pkgsMusl.lix` fails building docs
+    # sane.programs.nix.config.packageSet = pkgs.pkgsStatic.lixPackageSets.latest;  # 2026-02-28 - 2026-09-02: `pkgsMusl.lix` fails building docs
+    # sane.programs.nix.config.packageSet = pkgs.lixPackageSets.lix_2_94;  # 2026-10-02: `pkgsMusl.lix` fails buildings docs; `pkgsStatic.lix` fails to find rnix
+    sane.programs.openscad-lsp.enableFor = { system = false; user.colin = false; };  # 2026-01-24 - 2026-09-02: fails rust linking
+    sane.programs.papers.enableFor.user.colin = false;  # 2026-03-01: papers crashes on launch (even just `papers --version`)
     sane.programs.guiBaseApps.suggestedPrograms = [ "evince" ];  # instead of papers
-    # sane.programs.python3-repl.enableFor = { system = false; user.colin = false; };  #< 2026-01-24: fails building xsimd
+    # sane.programs.python3-repl.enableFor = { system = false; user.colin = false; };  # 2026-01-24: fails building xsimd
     sane.programs.marksman.enableFor = { system = false; user.colin = false; };  # blocked on dotnet-sdk
-    sane.programs.resources.enableFor.user.colin = false;  #< 2026-02-09 - 2026-03-27: "libc::ioctl(fd, ioctl_cmd, &mut get_info): expected i32, found u64"
-    sane.programs.sm64coopdx.enableFor.user.colin = false;  #< 2026-01-29: `src/pc/crash_handler.c:157:10: fatal error: execinfo.h: No such file or directory`
+    sane.programs.resources.enableFor.user.colin = false;  # 2026-02-09 - 2026-03-27: "libc::ioctl(fd, ioctl_cmd, &mut get_info): expected i32, found u64"
+    sane.programs.sm64coopdx.enableFor.user.colin = false;  # 2026-01-29: `src/pc/crash_handler.c:157:10: fatal error: execinfo.h: No such file or directory`
     sane.programs.steam.enableFor.user.colin = false;
-    sane.programs.supertux.enableFor.user.colin = false;  #< 2026-03-17: `error_handler.cpp:53:10: fatal error: execinfo.h: No such file or directory`
-    sane.programs.zelda64recomp.enableFor.user.colin = false;  #< 2026-01-28: blocked on directx-shader-compiler
+    sane.programs.supertux.enableFor.user.colin = false;  # 2026-03-17: `error_handler.cpp:53:10: fatal error: execinfo.h: No such file or directory`
+    sane.programs.zelda64recomp.enableFor.user.colin = false;  # 2026-01-28: blocked on directx-shader-compiler
 
-    sane.programs.pi-coding-agent.config.semble = false;  #< 2026-09-04: blocked on pytorch
+    sane.programs.pi-coding-agent.config.semble = false;  # 2026-09-04: blocked on pytorch
     sane.programs.pi-coding-agent.config.auto-zoekt = true;
   };
 }

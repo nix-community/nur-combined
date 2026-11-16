@@ -2,7 +2,7 @@
 {
   sane.programs.ha-mcp = {
     packageUnwrapped = pkgs.ha-mcp.overrideAttrs (prevAttrs: {
-      nativeBuildInputs = (prevAttrs.nativeBuildInputs or []) ++ [
+      nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [
         pkgs.makeWrapper
       ];
       postFixup = prevAttrs.postFixup or "" + ''

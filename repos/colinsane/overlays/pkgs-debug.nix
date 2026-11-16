@@ -56,11 +56,11 @@ let
   # ];
   # doEnableDebug = pname: !(prev.lib.elem pname bootstrapPnames);
   dontDebug = [
-    "libgcrypt"  #< very picky about its compiler flags (wants -O0, nothing else)
+    "libgcrypt"  # very picky about its compiler flags (wants -O0, nothing else)
     "python3"
-    "systemd"  #< fails to compile with -fsanitize=undefined
+    "systemd"  # fails to compile with -fsanitize=undefined
     "systemd-minimal" "systemd-minimal-libs"
-    "valgrind"  #< need the perf benefit
+    "valgrind"  # need the perf benefit
 
     # just to speed things up
     # "appstream"
@@ -71,14 +71,14 @@ let
     "cups"
     "e2fsprogs"
     "elfutils"
-    "ffmpeg" "openal-soft" "pipewire" #< slow to compile
+    "ffmpeg" "openal-soft" "pipewire" # slow to compile
     "gcc" "gfortran"
     # "flite"
     # "gspell"
     "kexec-tools"
     "kmod"
     "libarchive"
-    "libqmi" "modemmanager" "networkmanager"  #< libqmi is SLOW to compile
+    "libqmi" "modemmanager" "networkmanager"  # libqmi is SLOW to compile
     "libtool"
     "libusb"
     "linux-headers"

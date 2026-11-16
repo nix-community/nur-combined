@@ -40,7 +40,7 @@ in
       type = types.bool;
     };
     sane.nixcache.remote-builders.servo = mkOption {
-      default = false;  #< XXX(2025-11-01): servo is too often overloaded with asshole AI crawlers => not useful
+      default = false;  # XXX(2025-11-01): servo is too often overloaded with asshole AI crawlers => not useful
       type = types.bool;
     };
   };
@@ -84,7 +84,7 @@ in
         sshKey = config.sops.secrets."nixremote_ssh_key".path;
       })
       (lib.mkIf cfg.remote-builders.desko {
-        hostName = "desko";  #< non-wireguard, so as to not depend on servo liveness
+        hostName = "desko";  # non-wireguard, so as to not depend on servo liveness
         system = "x86_64-linux";
         protocol = "ssh-ng";
         maxJobs = 32; # constrained by ram, for things like webkitgtk, etc.

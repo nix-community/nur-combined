@@ -6,7 +6,7 @@
   # wl-clipboard-rs is a near drop-in replacement.
   sane.programs.wl-clipboard = {
     sandbox.whitelistWayland = true;
-    sandbox.keepPids = true;  #< this is needed, but not sure why?
+    sandbox.keepPids = true; # this is needed, but not sure why?
     suggestedPrograms = [
       "xdg-mime"
     ];

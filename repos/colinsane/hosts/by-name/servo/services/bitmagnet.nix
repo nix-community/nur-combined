@@ -15,7 +15,7 @@
   sane.netns.ovpns.services = [ "bitmagnet" ];
   sane.ports.ports."3334" = {
     protocol = [ "tcp" "udp" ];
-    # visibleTo.ovpns = true;  #< not needed: it runs in the ovpns namespace
+    # visibleTo.ovpns = true;  # not needed: it runs in the ovpns namespace
     description = "colin-bitmagnet";
   };
 

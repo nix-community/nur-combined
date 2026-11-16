@@ -13,6 +13,15 @@ static-nix-shell.mkYsh {
   pname = "sane-input-handler";
   srcRoot = ./.;
   packages = {
-    inherit coreutils killall playerctl procps sane-open sway util-linux wireplumber;
+    inherit
+      coreutils
+      killall
+      playerctl
+      procps
+      sane-open
+      sway
+      util-linux
+      wireplumber
+      ;
   };
 }

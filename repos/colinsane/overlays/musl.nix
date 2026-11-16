@@ -146,7 +146,7 @@ super.lib.composeManyExtensions [
       };
     };
     # inherit (final._pkgsGnu)
-    #   glibc  #< don't inherit this here: causes mass rebuild
+    #   glibc  # don't inherit this here: causes mass rebuild
     # ;
 
     # 2026-10-16: still required
@@ -178,7 +178,7 @@ super.lib.composeManyExtensions [
     # - <https://github.com/NixOS/nixpkgs/pull/475746>
     _pkgsSystemd = prev._pkgsSystemd or pkgs.extend
       (final': prev': {
-        _pkgsSystemd = prev;  #< prevents infinite recursion; avoid re-defining _pkgsSystemd if we're already inside it.
+        _pkgsSystemd = prev;  # prevents infinite recursion; avoid re-defining _pkgsSystemd if we're already inside it.
         musl = prev'.musl.overrideAttrs (upstream: {
           patches = (upstream.patches or []) ++ [
             (prev.fetchpatch {
@@ -198,7 +198,7 @@ super.lib.composeManyExtensions [
 
     inherit (final._pkgsSystemd) systemd;
     # _pkgsSystemd = prev.extend (final': prev': {
-    #   # _pkgsSystemd = final';  #< prevents infinite recursion; avoid re-defining _pkgsSystemd if we're already inside it.
+    #   # _pkgsSystemd = final';  # prevents infinite recursion; avoid re-defining _pkgsSystemd if we're already inside it.
     #   # _pkgsSystemd = null;
     #   musl = prev'.musl.overrideAttrs (upstream: {
     #     patches = (upstream.patches or []) ++ [
@@ -215,7 +215,7 @@ super.lib.composeManyExtensions [
     #       })
     #     ];
     #   });
-    #   # systemd = prev.systemd; #< doesn't actually reduce rebuilds
+    #   # systemd = prev.systemd; # doesn't actually reduce rebuilds
     # });
     #
     # systemd = prev.systemd.override {

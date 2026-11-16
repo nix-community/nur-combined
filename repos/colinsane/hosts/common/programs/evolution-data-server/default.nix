@@ -96,8 +96,8 @@ in
       "radicale"
     ];
 
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce
-    sandbox.net = "localhost";  #< to reach radicale  (TODO: restrict further)
+    sandbox.whitelistDbus.user = true; # TODO: reduce
+    sandbox.net = "localhost"; # to reach radicale  (TODO: restrict further)
 
     sandbox.extraHomePaths = [
       # other programs may populate config files here for us
@@ -189,6 +189,6 @@ in
       command = "${cfg.package}/libexec/evolution-source-registry";
       readiness.waitDbus = "org.gnome.evolution.dataserver.Sources5";
     };
-    # services."evolution-user-prompter" = ...  #< seems to not be required
+    # services."evolution-user-prompter" = ...  # seems to not be required
   };
 }

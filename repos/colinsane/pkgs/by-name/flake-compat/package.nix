@@ -32,19 +32,26 @@ let
   # - useBuiltinsFetchTree ? false
   # - system
   # i'm just re-exporting this with a better default for `system`.
-  main = args: import "${src}" ({
-    system = stdenv.hostPlatform.system;
-  } // args);
+  main =
+    args:
+    import "${src}" (
+      {
+        system = stdenv.hostPlatform.system;
+      }
+      // args
+    );
 
   flake-compat = src.overrideAttrs (base: {
     # attributes required by update scripts
+    inherit src version;
     pname = "flake-compat";
-    src = src;
-    version = version;
 
     passthru = base.passthru // {
       updateScript = nix-update-script {
-        extraArgs = [ "--version" "branch" ];
+        extraArgs = [
+          "--version"
+          "branch"
+        ];
       };
     };
 
@@ -83,11 +90,12 @@ let
     };
   });
 in
-  # make it so `pkgs.flake-compat` is callable directly, while also being a derivation
-  flake-compat // lib.setFunctionArgs main {
-    # the following arguments do (true) or don't (false) have defaults
-    src = false;
-    copySourceTreeToStore = true;
-    useBuiltinsFetchTree = true;
-    system = true;
-  }
+# make it so `pkgs.flake-compat` is callable directly, while also being a derivation
+flake-compat
+// lib.setFunctionArgs main {
+  # the following arguments do (true) or don't (false) have defaults
+  src = false;
+  copySourceTreeToStore = true;
+  useBuiltinsFetchTree = true;
+  system = true;
+}

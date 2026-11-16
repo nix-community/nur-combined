@@ -47,7 +47,7 @@
   let
     passwdFile = config.sops.secrets.dovecot_passwd.path;
   in {
-    dovecot_config_version = config.services.dovecot2.package.version;  #< .... wow. this is a fragile module :|
+    dovecot_config_version = config.services.dovecot2.package.version;  # .... wow. this is a fragile module :|
     dovecot_storage_version = config.services.dovecot2.package.version;
 
     ssl_server_cert_file = "/var/lib/acme/imap.uninsane.org/fullchain.pem";

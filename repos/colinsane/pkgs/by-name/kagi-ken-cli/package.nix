@@ -50,13 +50,17 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   pnpmDeps = fetchPnpmDeps {
-    inherit (finalAttrs) pname postPatch src version;
+    inherit (finalAttrs)
+      pname
+      postPatch
+      src
+      version
+      ;
     inherit pnpm;
     # <https://nixos.org/manual/nixpkgs/stable/#javascript-pnpm-fetcherVersion-versionHistory>
     fetcherVersion = 3;
     hash = "sha256-+Oy6xjjUuTU83xw5FidvgjXDPu/0xufeUyoCqvkR2xY=";
   };
-
 
   nativeBuildInputs = [
     makeWrapper

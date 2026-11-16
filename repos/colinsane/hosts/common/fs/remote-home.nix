@@ -36,7 +36,7 @@ let
         "emergency.service"
       ];
 
-      # mountConfig.LazyUnmount = true;  #< else it _ocassionally_ fails "target is busy"
+      # mountConfig.LazyUnmount = true;  # else it _ocassionally_ fails "target is busy"
 
       mountConfig.ExecSearchPath = [ "/run/current-system/sw/bin" ];
       mountConfig.User = "colin";
@@ -71,7 +71,7 @@ let
       mountConfig.IPAddressAllow = "10.0.0.0/8";
       mountConfig.DevicePolicy = "closed";  # only allow /dev/{null,zero,full,random,urandom}
       mountConfig.DeviceAllow = "/dev/fuse";
-      # mount.mountConfig.RestrictNamespaces = true;  #< my sshfs sandboxing uses bwrap
+      # mount.mountConfig.RestrictNamespaces = true;  # my sshfs sandboxing uses bwrap
     }];
   };
 in

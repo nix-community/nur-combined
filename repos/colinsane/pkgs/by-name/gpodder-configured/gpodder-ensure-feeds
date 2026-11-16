@@ -8,28 +8,33 @@ import listparser
 import subprocess
 import sys
 
+
 @dataclass(repr=True)
 class Feed:
     url: str
     title: Optional[str]
+
     def __init__(self, url: str, title: Optional[str]):
         self.url = url
         self.title = title if title else None  # coerce title="" -> None
 
     def __eq__(self, other: "Feed") -> bool:
-        return self.url == other.url and \
-            (self.title == other.title or None in [self.title, other.title])
+        return self.url == other.url and (
+            self.title == other.title or None in [self.title, other.title]
+        )
+
 
 @dataclass(init=True)
 class Partitioned:
     has_not_wanted: list[Feed] = field(default_factory=list)
     wanted_not_has: list[Feed] = field(default_factory=list)
-    intersection:   list[Feed] = field(default_factory=list)
+    intersection: list[Feed] = field(default_factory=list)
 
 
 def wanted_feeds(opml_file: str):
     parsed = listparser.parse(open(opml_file).read())
     return [Feed(url=p["url"], title=p["title"]) for p in parsed.feeds]
+
 
 def has_feeds():
     listing = subprocess.check_output(["gpo", "list"]).decode()
@@ -45,6 +50,7 @@ def has_feeds():
 
     return feeds
 
+
 def partition_feeds(wanted: list[Feed], has: list[Feed]) -> Partitioned:
     p = Partitioned()
     for f in wanted + has:
@@ -59,8 +65,10 @@ def partition_feeds(wanted: list[Feed], has: list[Feed]) -> Partitioned:
 
     return p
 
+
 def remove_feed(feed: Feed):
     subprocess.check_output(["gpo", "unsubscribe", feed.url])
+
 
 def remove_feeds(feeds: list[Feed]):
     if not feeds:
@@ -72,6 +80,7 @@ def remove_feeds(feeds: list[Feed]):
     for f in feeds:
         remove_feed(f)
 
+
 def add_feeds(opml_path: str, feeds: list[Feed]):
     if not feeds:
         print("adding missing feeds: (none)")
@@ -81,6 +90,7 @@ def add_feeds(opml_path: str, feeds: list[Feed]):
 
     # i *think* it's about as fast to import the whole OPML as it is just one file?
     subprocess.check_output(["gpo", "import", opml_path])
+
 
 def sync_feeds(opml_path: str, do_remove: bool, do_add: bool):
     wanted = wanted_feeds(opml_path)
@@ -93,18 +103,26 @@ def sync_feeds(opml_path: str, do_remove: bool, do_add: bool):
     if do_add:
         add_feeds(opml_path, partitioned.wanted_not_has)
 
+
 def main():
-    parser = argparse.ArgumentParser(usage="remove gpodder feeds which have been removed from nix config since last launch, and add missing feeds")
+    parser = argparse.ArgumentParser(
+        usage="remove gpodder feeds which have been removed from nix config since last launch, and add missing feeds"
+    )
     parser.add_argument("opml_path", help="path to the OPML feeds definition")
-    parser.add_argument("--no-sync", action="store_true", help="don't add or remove any feeds")
-    parser.add_argument("--no-remove", action="store_true", help="don't remove old feeds")
+    parser.add_argument(
+        "--no-sync", action="store_true", help="don't add or remove any feeds"
+    )
+    parser.add_argument(
+        "--no-remove", action="store_true", help="don't remove old feeds"
+    )
     parser.add_argument("--no-add", action="store_true", help="don't add new feeds")
 
     # ignore everything at/after an optional `--`.
     # seemingly no way to do this with `argparse` proper, since for it `--` means "all following arguments are positionals"
     argv = []
     for i in sys.argv[1:]:
-        if i == "--": break
+        if i == "--":
+            break
         argv.append(i)
 
     args = parser.parse_args(argv)
@@ -114,6 +132,7 @@ def main():
 
     if do_remove or do_add:
         sync_feeds(args.opml_path, do_remove, do_add)
+
 
 if __name__ == "__main__":
     main()

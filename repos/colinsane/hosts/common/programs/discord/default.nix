@@ -1,18 +1,25 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.discord;
 in
 {
   sane.programs.discord = {
-    configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options.autostart = mkOption {
-          type = types.bool;
-          default = true;
+    configOption =
+      with lib;
+      mkOption {
+        default = { };
+        type = types.submodule {
+          options.autostart = mkOption {
+            type = types.bool;
+            default = true;
+          };
         };
       };
-    };
 
     # nixpkgs' discord defaults to X11 backend isntead of wayland, UNLESS NIXOS_OZONE_WL is specified.
     # better to enable wayland support via package override instead of polluting the global env.
@@ -24,12 +31,12 @@ in
     # creds, but also 200 MB of node modules, etc
     persist.byStore.private = [ ".config/discord" ];
     sandbox.whitelistAudio = true;
-    # sandbox.whitelistDbus.user.own = [ ":*" ];  #< does not own any well-known name
+    # sandbox.whitelistDbus.user.own = [ ":*" ];  # does not own any well-known name
     sandbox.whitelistPortal = [
-      # "FileChooser"  #< does not use file chooser
+      # "FileChooser"  # does not use file chooser
       "OpenURI"
     ];
-    sandbox.whitelistDri = true;  #< required for even basic graphics (e.g. rendering a window)
+    sandbox.whitelistDri = true; # required for even basic graphics (e.g. rendering a window)
     sandbox.whitelistWayland = true;
     sandbox.net = "clearnet";
     sandbox.extraHomePaths = [
@@ -41,7 +48,7 @@ in
       "Videos/servo"
       "tmp"
     ];
-    sandbox.extraEnv.DISPLAY = "$DISPLAY";  #< despite not requiring X11, it hangs if DISPLAY is cleared.
+    sandbox.extraEnv.DISPLAY = "$DISPLAY"; # despite not requiring X11, it hangs if DISPLAY is cleared.
 
     services.discord = {
       description = "official Discord client";

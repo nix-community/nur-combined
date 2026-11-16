@@ -24,7 +24,7 @@ in
         note that this module does NOT add any encryption to the files (layer that yourself).
       '';
       default = lib.optionals config.sane.persist.enable [
-        "/nix/persist/private"  #< XXX: make sure to do the encrypted version, not /mnt/persist/private!
+        "/nix/persist/private"  # XXX: make sure to do the encrypted version, not /mnt/persist/private!
       ];
     };
   };
@@ -85,11 +85,11 @@ in
         "~@setuid"
       ];
       # hardening exceptions:
-      serviceConfig.PrivateUsers = false;  #< CAP_DAC_READ_SEARCH in the root namespace means we can't do any user namespacing
-      # serviceConfig.NoNewPrivileges = false;  #< bwrap'd dac_read_search
-      # serviceConfig.PrivateDevices = false;  #< passt/pasta
-      # serviceConfig.RestrictNamespaces = false;  #< bwrap
-      # serviceConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";  #< AF_NETLINK is for passt/pasta
+      serviceConfig.PrivateUsers = false;  # CAP_DAC_READ_SEARCH in the root namespace means we can't do any user namespacing
+      # serviceConfig.NoNewPrivileges = false;  # bwrap'd dac_read_search
+      # serviceConfig.PrivateDevices = false;  # passt/pasta
+      # serviceConfig.RestrictNamespaces = false;  # bwrap
+      # serviceConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";  # AF_NETLINK is for passt/pasta
     };
     systemd.timers.rsync-net = {
       wantedBy = [ "multi-user.target" ];

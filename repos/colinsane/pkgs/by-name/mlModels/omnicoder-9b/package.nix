@@ -1,5 +1,6 @@
 # released 2026-03-12
-{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
+{ fetchFromHuggingFaceSane }:
+fetchFromHuggingFaceSane {
   owner = "Tesslate";
   repo = "OmniCoder-9B-GGUF";
   path = "omnicoder-9b-q4_k_m.gguf";

@@ -1,10 +1,10 @@
 self: super: {
   alacritty = super.alacritty.override {
-    xdg-utils = self.xdg-open;  #< it only uses xdg-open
+    xdg-utils = self.xdg-open;  # it only uses xdg-open
   };
 
   alpaca = super.alpaca.override {
-    xdg-utils = self.emptyDirectory;  #< not actually used
+    xdg-utils = self.emptyDirectory;  # not actually used
   };
 
   blueman = super.blueman.override {
@@ -28,7 +28,7 @@ self: super: {
   });
 
   gpodder = super.gpodder.override {
-    xdg-utils = self.xdg-open;  #< it only uses xdg-open
+    xdg-utils = self.xdg-open;  # it only uses xdg-open
   };
 
   google-chrome = super.google-chrome.override {
@@ -44,8 +44,8 @@ self: super: {
     inherit (self.extend (_: super': {
       # appimageTools = super'.appimageTools.override {
       pkgs = super'.pkgs // {
-          xdg-utils = null;  #< not used
-          # which = null;  #< not used
+          xdg-utils = null;  # not used
+          # which = null;  # not used
       };
       # };
     })) callPackage;
@@ -101,14 +101,14 @@ self: super: {
           #     # self.xdg-settings
           #   ];
           # };
-          # which = null;  #< unsure if used
+          # which = null;  # unsure if used
         };
       })) callPackage;
     };
   };
 
   wl-clipboard = super.wl-clipboard.override {
-    xdg-utils = self.xdg-mime;  #< it only uses xdg-mime
+    xdg-utils = self.xdg-mime;  # it only uses xdg-mime
   };
 
   wrapFirefox = super.wrapFirefox.override {
@@ -120,6 +120,6 @@ self: super: {
   };
 
   wrapNeovimUnstable = super.wrapNeovimUnstable.override {
-    wl-clipboard = self.wl-clipboard-rs;  #< drop-in compat; avoids xdg-mime
+    wl-clipboard = self.wl-clipboard-rs;  # drop-in compat; avoids xdg-mime
   };
 }

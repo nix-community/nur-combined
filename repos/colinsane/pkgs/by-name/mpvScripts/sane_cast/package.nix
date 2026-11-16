@@ -1,5 +1,5 @@
 {
-  buildLua,  #< part of the mpvScripts scope
+  buildLua, # part of the mpvScripts scope
   lib,
   sane-cast,
   xdg-terminal-exec,
@@ -19,6 +19,9 @@ buildLua {
     "--suffix"
     "PATH"
     ":"
-    (lib.makeBinPath [ sane-cast xdg-terminal-exec ])
+    (lib.makeBinPath [
+      sane-cast
+      xdg-terminal-exec
+    ])
   ];
 }

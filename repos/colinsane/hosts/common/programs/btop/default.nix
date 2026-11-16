@@ -8,6 +8,6 @@
       "/sys/class/net"
       "/sys/devices"
     ];
-    sandbox.net = "all";  # otherwise it can't show net stats
+    sandbox.net = "all"; # otherwise it can't show net stats
   };
 }

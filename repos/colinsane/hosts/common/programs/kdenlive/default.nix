@@ -12,16 +12,16 @@
 
     sandbox.extraHomePaths = [
       "Music"
-      "Pictures/from"  # e.g. Videos taken from my phone
+      "Pictures/from" # e.g. Videos taken from my phone
       "Pictures/servo-macros"
       "Videos/local"
       "Videos/servo"
       "tmp"
     ];
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  # notifications
+    sandbox.whitelistDbus.user = true; # TODO: reduce  # notifications
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
-    # sandbox.whitelistX = true;  #< or run with `QT_QPA_PLATFORM=wayland`, without X(wayland)
+    # sandbox.whitelistX = true;  # or run with `QT_QPA_PLATFORM=wayland`, without X(wayland)
   };
 }

@@ -13,4 +13,3 @@ static-nix-shell.mkPython3 {
   };
   srcRoot = ./.;
 }
-

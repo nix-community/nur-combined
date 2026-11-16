@@ -50,14 +50,20 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace src/greetd.c \
       --replace-fail '/usr/share/wayland-sessions' '/run/current-system/sw/share/wayland-sessions/' \
       --replace-fail '/usr/share/xsessions' '/run/current-system/sw/share/xsessions'
-  '' + lib.optionalString (squeekboard == null) ''
+  ''
+  + lib.optionalString (squeekboard == null) ''
     substituteInPlace data/phog.in \
       --replace-fail " & squeekboard" ""
   '';
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : ${lib.makeBinPath [ bash squeekboard ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          bash
+          squeekboard
+        ]
+      }
       --prefix XDG_DATA_DIRS : "${gnome-shell}/share/gsettings-schemas/${gnome-shell.name}"
     )
   '';
@@ -95,7 +101,7 @@ stdenv.mkDerivation (finalAttrs: {
     wrapGAppsHook3
   ];
 
-  passthru.updateScript = gitUpdater {};
+  passthru.updateScript = gitUpdater { };
 
   meta = {
     description = "Greetd-compatible greeter for mobile phones";

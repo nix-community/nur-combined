@@ -56,7 +56,10 @@ stdenvNoCC.mkDerivation {
           "x-scheme-handler/xdg-open"
           "application/xdg-open"
         ];
-        categories = [ "Network" "Application" ];  #< TODO: remove
+        categories = [
+          "Network"
+          "Application"
+        ]; # TODO: remove
         extraConfig = {
           X-KDE-Protocols = "xdg-open;";
         };

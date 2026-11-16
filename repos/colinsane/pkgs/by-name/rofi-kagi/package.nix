@@ -12,7 +12,7 @@ static-nix-shell.mkBash {
     inherit
       rofi
       sane-open
-    ;
+      ;
   };
   nativeBuildInputs = [
     copyDesktopItems

@@ -12,6 +12,6 @@
     # but until then it needs this to not lose its notes
     gsettingsPersist = [ "io/github/alainm23/planify" ];
 
-    buildCost = 2;  # webkitgtk-6.0; slow for desktop
+    buildCost = 2; # webkitgtk-6.0; slow for desktop
   };
 }

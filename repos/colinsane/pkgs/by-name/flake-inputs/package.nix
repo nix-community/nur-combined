@@ -23,11 +23,11 @@ let
     hash = "sha256-dSECtDeIOGKGsbEOOcOHbZ2NYDy0D/x0hlbiKvpWp8g=";
   };
   defaultNix = import src;
-in src.overrideAttrs (base: {
+in
+src.overrideAttrs (base: {
   # attributes required by update scripts
+  inherit src version;
   pname = "flake-inputs";
-  src = src;
-  version = version;
   # make it so `pkgs.flake-inputs` is callable directly, while also being a derivation
   passthru = base.passthru // {
     inherit defaultNix;

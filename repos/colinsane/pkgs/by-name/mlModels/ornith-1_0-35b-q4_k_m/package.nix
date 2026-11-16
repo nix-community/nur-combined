@@ -1,6 +1,7 @@
 # deepreinforce-ai's model, released 2026-06-25
 # <https://huggingface.co/deepreinforce-ai/Ornith-1.0-35B-GGUF/blob/main/ornith-1.0-35b-Q4_K_M.gguf>
-{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
+{ fetchFromHuggingFaceSane }:
+fetchFromHuggingFaceSane {
   owner = "deepreinforce-ai";
   repo = "Ornith-1.0-35B-GGUF";
   path = "ornith-1.0-35b-Q4_K_M.gguf";

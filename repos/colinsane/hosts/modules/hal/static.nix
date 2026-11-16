@@ -10,13 +10,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    documentation.nixos.enable = false;  #< stack overflow when building nixos-configuration-reference-manpage -> man-paths -> man-cache
+    documentation.nixos.enable = false;  # stack overflow when building nixos-configuration-reference-manpage -> man-paths -> man-cache
 
     hardware.enableAllFirmware = false;  # blocked on bluez -> pygobject, which fails eval when hasSharedLibraries == false
 
     networking.networkmanager.enable = false;  # blocked on networkmanager -> gobject-introspection, which fails eval when hasSharedLibraries == false
     # networking.networkmanager.package = null;
-    users.groups.networkmanager = { gid = 57; };  #< `networking.networkmanager.enable` would normally provide this for us
+    users.groups.networkmanager = { gid = 57; };  # `networking.networkmanager.enable` would normally provide this for us
 
     security.apparmor.enable = false;  # blocked on apparmor-utils -> pygobject, which fails eval when hasSharedLibraries == false
 

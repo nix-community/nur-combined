@@ -1,10 +1,10 @@
 { ... }:
 {
   sane.programs.conky = {
-    sandbox.net = "clearnet";  #< for the scripts it calls (weather)
+    sandbox.net = "clearnet"; # for the scripts it calls (weather)
     sandbox.extraPaths = [
       "/sys/class/power_supply"
-      "/sys/devices"  # needed by sane-sysload
+      "/sys/devices" # needed by sane-sysload
       # "/sys/devices/cpu"
       # "/sys/devices/system"
     ];

@@ -22,11 +22,11 @@ buildUBoot {
       --replace-fail 'bootcmd=bootefi bootmgr;' 'bootcmd=bootflow scan -lb;'
   '';
   filesToInstall = [
-    "u-boot"  #< ELF file
+    "u-boot" # ELF file
     "u-boot-dtb.bin"
     "u-boot-nodtb.bin"
     "u-boot.bin"
-    "u-boot.cfg"  #< copy of Kconfig which this u-boot was compiled with
+    "u-boot.cfg" # copy of Kconfig which this u-boot was compiled with
     "u-boot.dtb"
     # "dts/upstream/src/arm64/qcom/sdm845-xiaomi-beryllium-tianma.dtb"  # same as u-boot.dtb
   ];

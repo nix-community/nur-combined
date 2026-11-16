@@ -18,8 +18,8 @@
       # MANPAGER = "less";
       PAGER = "less";
       LESS = "--incsearch --LONG-PROMPT --quit-if-one-screen --quit-on-intr --RAW-CONTROL-CHARS --shift=.2 --use-color";
-      SYSTEMD_LESS = LESS;  #< used by journalctl
+      SYSTEMD_LESS = LESS; # used by journalctl
     };
-    mime.priority = 200;  # fallback to more specialized pagers where exists
+    mime.priority = 200; # fallback to more specialized pagers where exists
   };
 }

@@ -8,7 +8,7 @@
     sandbox.whitelistDbus.user.own = [ "org.gnome.clocks" ];
     sandbox.whitelistSendNotifications = true;
     sandbox.whitelistWayland = true;
-    sandbox.mesaCacheDir = ".cache/gnome-clocks/mesa";  # TODO: is this the correct app-id?
+    sandbox.mesaCacheDir = ".cache/gnome-clocks/mesa"; # TODO: is this the correct app-id?
     gsettingsPersist = [ "org/gnome/clocks" ];
   };
 }

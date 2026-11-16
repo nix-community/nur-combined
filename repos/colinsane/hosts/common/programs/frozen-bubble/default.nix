@@ -11,12 +11,12 @@
     });
     buildCost = 1;
 
-    sandbox.net = "clearnet";  # net play
+    sandbox.net = "clearnet"; # net play
     sandbox.whitelistAudio = true;
     sandbox.whitelistWayland = true;
 
     persist.byStore.plaintext = [
-      ".local/share/frozen-bubble"  # preferences, high scores
+      ".local/share/frozen-bubble" # preferences, high scores
     ];
   };
 }

@@ -36,12 +36,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  doCheck = true;  # XXX(2025-10-23): checkPhase is a no-op
+  doCheck = true; # XXX(2025-10-23): checkPhase is a no-op
 
   passthru = {
     tests.pkg-config = testers.hasPkgConfigModules {
       package = finalAttrs.finalPackage;
-      versionCheck = false;  #< pc version won't match for unstable versions
+      versionCheck = false; # pc version won't match for unstable versions
     };
     # TODO: enable updateScript?
     # updateScript = unstableGitUpdater { };
@@ -58,4 +58,3 @@ stdenv.mkDerivation (finalAttrs: {
     ];
   };
 })
-

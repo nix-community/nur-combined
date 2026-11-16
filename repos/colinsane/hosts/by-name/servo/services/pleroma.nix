@@ -144,7 +144,7 @@ in
       pkgs.bash
       # used by Pleroma to strip geo tags from uploads
       pkgs.exiftool
-      # config.sane.programs.exiftool.package  #< XXX(2024-10-20): breaks image uploading
+      # config.sane.programs.exiftool.package  # XXX(2024-10-20): breaks image uploading
       # i saw some errors when pleroma was shutting down about it not being able to find `awk`. probably not critical
       # config.sane.programs.gawk.package
       # needed for email operations like password reset
@@ -165,13 +165,13 @@ in
       serviceConfig.LockPersonality = true;
       serviceConfig.NoNewPrivileges = true;
       serviceConfig.MemoryDenyWriteExecute = true;
-      serviceConfig.PrivateDevices = lib.mkForce true;  #< dunno why nixpkgs has this set false; it seems to work as true
+      serviceConfig.PrivateDevices = lib.mkForce true;  # dunno why nixpkgs has this set false; it seems to work as true
       serviceConfig.PrivateMounts = true;
       serviceConfig.PrivateTmp = true;
       serviceConfig.PrivateUsers = true;
 
       serviceConfig.ProtectProc = "invisible";
-      serviceConfig.ProcSubset = "all";  #< needs /proc/sys/kernel/overflowuid for bwrap
+      serviceConfig.ProcSubset = "all";  # needs /proc/sys/kernel/overflowuid for bwrap
 
       serviceConfig.ProtectClock = true;
       serviceConfig.ProtectControlGroups = true;
@@ -183,11 +183,11 @@ in
 
       serviceConfig.RestrictSUIDSGID = true;
       serviceConfig.SystemCallArchitectures = "native";
-      serviceConfig.SystemCallFilter = [ "@system-service" "@mount" "@sandbox" ];  #< "sandbox" might not actually be necessary
+      serviceConfig.SystemCallFilter = [ "@system-service" "@mount" "@sandbox" ];  # "sandbox" might not actually be necessary
 
-      serviceConfig.ProtectHostname = false;  #< else brap can't mount /proc
-      serviceConfig.ProtectKernelLogs = false;  #< else breaks exiftool  ("bwrap: Can't mount proc on /newroot/proc: Operation not permitted")
-      serviceConfig.ProtectKernelTunables = false;  #< else breaks exiftool
+      serviceConfig.ProtectHostname = false;  # else brap can't mount /proc
+      serviceConfig.ProtectKernelLogs = false;  # else breaks exiftool  ("bwrap: Can't mount proc on /newroot/proc: Operation not permitted")
+      serviceConfig.ProtectKernelTunables = false;  # else breaks exiftool
       serviceConfig.RestrictNamespaces = false;  # media uploads require bwrap
     };
 

@@ -1,4 +1,5 @@
-{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
+{ fetchFromHuggingFaceSane }:
+fetchFromHuggingFaceSane {
   owner = "XHToken";
   repo = "Spark-X2.6-4B-GGUF";
   path = "Spark-X2.6-4B-Q4_K_M.gguf";

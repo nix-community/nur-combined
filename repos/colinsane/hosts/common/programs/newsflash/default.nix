@@ -9,13 +9,14 @@
 
 let
   all-feeds = config.sane.feeds;
-in {
+in
+{
   sane.programs.newsflash = {
-    buildCost = 2;  # mainly for desktop: webkitgtk-6.0
+    buildCost = 2; # mainly for desktop: webkitgtk-6.0
 
     sandbox.net = "clearnet";
-    sandbox.whitelistAudio = true;  #< for embedded videos
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce
+    sandbox.whitelistAudio = true; # for embedded videos
+    sandbox.whitelistDbus.user = true; # TODO: reduce
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
     sandbox.extraPaths = [
@@ -29,12 +30,12 @@ in {
 
     sandbox.mesaCacheDir = ".cache/nesh_flash/mesa";
     persist.byStore.plaintext = [
-      ".local/share/news-flash" #< sqlite database, the actually important stuff
-      # ".local/share/news_flash"  #< device IDs (?)
-      ".config/news-flash"  #< includes `"backend": "local_rss"`
+      ".local/share/news-flash" # sqlite database, the actually important stuff
+      # ".local/share/news_flash"  # device IDs (?)
+      ".config/news-flash" # includes `"backend": "local_rss"`
     ];
     persist.byStore.ephemeral = [
-      ".cache/news_flash"  #< WebKit cache
+      ".cache/news_flash" # WebKit cache
     ];
     #v for *manual* use:
     # text/image: newsflash renders these natively
@@ -42,7 +43,12 @@ in {
     fs.".config/newsflashFeeds.opml".symlink.target = pkgs.feedsToOpml {
       name = "newsflashFeeds.opml";
       feeds = all-feeds;
-      formats = [ "text" "image" "podcast" "video" ];
+      formats = [
+        "text"
+        "image"
+        "podcast"
+        "video"
+      ];
     };
   };
 }

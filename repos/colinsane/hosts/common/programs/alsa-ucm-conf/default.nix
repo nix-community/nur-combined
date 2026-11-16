@@ -1,12 +1,19 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.alsa-ucm-conf;
-  deprioritize = pkg: pkg.overrideAttrs (base: {
-      meta = (base.meta or {}) // {
+  deprioritize =
+    pkg:
+    pkg.overrideAttrs (base: {
+      meta = (base.meta or { }) // {
         # let the other alsa ucm packages override configs from this one
-        priority = ((base.meta or {}).priority or 10) + 20;
+        priority = ((base.meta or { }).priority or 10) + 20;
       };
-  });
+    });
   # alsa-ucm-latest = pkgs.alsa-ucm-conf.overrideAttrs (upstream: rec {
   #   # XXX(2025-07-18): see <https://github.com/NixOS/nixpkgs/pull/414818>
   #   version = "1.2.14";
@@ -25,7 +32,7 @@ in
   sane.programs.alsa-ucm-conf = {
     packageUnwrapped = deprioritize pkgs.alsa-ucm-conf;
     # packageUnwrapped = deprioritize alsa-ucm-latest;
-    sandbox.enable = false;  #< only provides $out/share/alsa
+    sandbox.enable = false; # only provides $out/share/alsa
 
     # alsa-lib package only looks in its $out/share/alsa to find runtime config data, by default.
     # but ALSA_CONFIG_UCM2 is an env var that can override that.
@@ -44,7 +51,7 @@ in
       partOf = [ "sound" ];
       # AFAICT, `alsactl init` can be run before *or* after wireplumber loads, but i'd worry about latent bugs in the after case
       dependencyOf = [ "wireplumber" ];
-      startCommand = "alsactl init";  # ALSA_DEBUG=1
+      startCommand = "alsactl init"; # ALSA_DEBUG=1
     };
   };
 

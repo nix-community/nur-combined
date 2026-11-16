@@ -1,15 +1,29 @@
-{ pkgs ? import <nixpkgs> {
-  overlays = [ (import ../../overlays/pkgs.nix) ]; }
+# use like:
+# ```
+# $ nix-shell
+# [nix-shell:~/nixos/master/pkgs/by-name/mx-sanebot]$ cargo build
+# [nix-shell:~/nixos/master/pkgs/by-name/mx-sanebot]$ exit
+# ```
+{
+  pkgs ? import ../../../. { },
 }:
 
 let
-  mx-sanebot = pkgs.callPackage ./. { };
+  inherit (pkgs)
+    cacert
+    cargo
+    mkShell
+    mx-sanebot
+    ;
 in
-  pkgs.mkShell {
-    nativeBuildInputs = mx-sanebot.buildInputs ++ mx-sanebot.nativeBuildInputs ++ [
-      pkgs.cargo
+mkShell {
+  nativeBuildInputs =
+    mx-sanebot.buildInputs
+    ++ mx-sanebot.nativeBuildInputs
+    ++ [
+      cargo
     ];
 
-    # Allow cargo to download crates.
-    SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-  }
+  # Allow cargo to download crates.
+  SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
+}

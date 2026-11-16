@@ -41,8 +41,8 @@ logger = logging.getLogger(__name__)
 # these icons may only render in nerdfonts
 ICON_BAT_CHG = ["󰢟", "󱊤", "󱊥", "󰂅"]
 ICON_BAT_DIS = ["󰂎", "󱊡", "󱊢", "󱊣"]
-ICON_CPU=""
-ICON_MEM="☵"
+ICON_CPU = ""
+ICON_MEM = "☵"
 SUFFIX_ICON = " "  # thin space
 SUFFIX_PERCENT = "%"
 # SUFFIX_ICON=" "
@@ -65,8 +65,8 @@ SUFFIX_PERCENT = "%"
 # SUFFIX_MIN=
 
 # render time like: 2꞉08⧗
-SUFFIX_HR="꞉"
-SUFFIX_MIN="⧗"
+SUFFIX_HR = "꞉"
+SUFFIX_MIN = "⧗"
 # variants:
 # SUFFIX_HR=":"
 # SUFFIX_MIN="⧖"
@@ -76,9 +76,11 @@ SUFFIX_MIN="⧗"
 # SUFFIX_HR="'"
 # SUFFIX_MIN='"'
 
+
 class ChargeDirection(Enum):
     Charging = "Charging"
     Discharging = "Discharging"
+
 
 @dataclass
 class Formatter:
@@ -118,10 +120,12 @@ class Formatter:
 
         raise RuntimeError(f"invalid ChargeDirection {direction}")
 
+
 class MemInfo:
     """
     reads values from /proc/meminfo
     """
+
     def __init__(self):
         try:
             lines = open("/proc/meminfo").readlines()
@@ -134,14 +138,18 @@ class MemInfo:
         # HugePages_Total:       0
         self.entries = {}
         for l in lines:
-            if ":" not in l: continue
+            if ":" not in l:
+                continue
             key_len = l.index(":")
-            key, value_str = l[:key_len].strip(), l[key_len+1:].strip()
+            key, value_str = l[:key_len].strip(), l[key_len + 1 :].strip()
 
             unit_str = ""
             if " " in value_str:
                 value_len = value_str.index(" ")
-                value_str, unit_str = value_str[:value_len].strip(), value_str[value_len+1:].strip()
+                value_str, unit_str = (
+                    value_str[:value_len].strip(),
+                    value_str[value_len + 1 :].strip(),
+                )
 
             try:
                 value = int(value_str)
@@ -158,10 +166,12 @@ class MemInfo:
         logger.debug(f"/proc/meminfo: {entry}={v}")
         return v
 
+
 class ProcStat:
     """
     reads vaues from /proc/stat, mostly CPU-related.
     """
+
     # /proc/stat format is documented here: <https://www.linuxhowtos.org/System/procstat.htm>
     # these are AGGREGATES SINCE SYSTEM BOOT
     # to measure current CPU usage, need to take multiple samples
@@ -202,7 +212,7 @@ class ProcStat:
         sample2 = ProcStat()
         return sample2 - sample1
 
-    def __sub__(self, other: 'ProcStat') -> 'ProcStat':
+    def __sub__(self, other: "ProcStat") -> "ProcStat":
         entries = {}
         for k in self.entries:
             entries[k] = [i - j for i, j in zip(self.entries[k], other.entries[k])]
@@ -211,21 +221,27 @@ class ProcStat:
     @property
     def cpu_user(self) -> int:
         return self.entries["cpu"][0]
+
     @property
     def cpu_system(self) -> int:
         return self.entries["cpu"][1]
+
     @property
     def cpu_nice(self) -> int:
         return self.entries["cpu"][2]
+
     @property
     def cpu_idle(self) -> int:
         return self.entries["cpu"][3]
+
     @property
     def cpu_iowait(self) -> int:
         return self.entries["cpu"][4]
+
     @property
     def cpu_irq(self) -> int:
         return self.entries["cpu"][5]
+
     @property
     def cpu_softirq(self) -> int:
         return self.entries["cpu"][6]
@@ -233,12 +249,22 @@ class ProcStat:
     @property
     def cpu_total(self) -> int:
         # TODO: not sure if i'm supposed to include irq stuff here?
-        return self.cpu_user + self.cpu_system + self.cpu_nice + self.cpu_idle + self.cpu_iowait + self.cpu_irq + self.cpu_softirq
+        return (
+            self.cpu_user
+            + self.cpu_system
+            + self.cpu_nice
+            + self.cpu_idle
+            + self.cpu_iowait
+            + self.cpu_irq
+            + self.cpu_softirq
+        )
+
 
 class PowerSupply:
     """
     reads values from /sys/class/power_supply/$dev/ API
     """
+
     def __init__(self, sysfs_node: str):
         self.sysfs_node = sysfs_node
         self._cached_reads = {}
@@ -259,7 +285,8 @@ class PowerSupply:
 
     def try_read_int(self, rel_path: str) -> int | None:
         s = self.try_read(rel_path)
-        if s is None: return None
+        if s is None:
+            return None
         return int(s)
 
     @property
@@ -299,11 +326,14 @@ class BatteryInfo:
     """
     higher-level battery info derived from the underlying power supply
     """
-    percent_charged: int  #< always available
+
+    percent_charged: int  # always available
     minutes_to_charged: int | None = None
     minutes_to_discharged: int | None = None
 
-    def __init__(self, capacity: int, charges_per_hour: float | None, status: str | None):
+    def __init__(
+        self, capacity: int, charges_per_hour: float | None, status: str | None
+    ):
         self.percent_charged = capacity
 
         # correct some batteries which flip signs in places
@@ -316,15 +346,11 @@ class BatteryInfo:
 
         if charges_per_hour is not None and charges_per_hour < 0:
             self.minutes_to_discharged = int(
-                60
-                * self.percent_charged/100
-                / -charges_per_hour
+                60 * self.percent_charged / 100 / -charges_per_hour
             )
         if charges_per_hour is not None and charges_per_hour > 0:
             self.minutes_to_charged = int(
-                60
-                * (100-self.percent_charged)/100
-                / charges_per_hour
+                60 * (100 - self.percent_charged) / 100 / charges_per_hour
             )
 
 
@@ -347,6 +373,7 @@ def try_battery_path(p: str) -> BatteryInfo | None:
 
     return BatteryInfo(ps.capacity, charges_per_hour, ps.status)
 
+
 def try_all_batteries() -> BatteryInfo | None:
     # Pinephone: /sys/class/power_supply/axp20x-battery
     # Pinephone Pro: /sys/class/power_supply/rk818-battery
@@ -363,9 +390,12 @@ def try_all_batteries() -> BatteryInfo | None:
 
     logger.debug(f"perc: {p.percent_charged if p else None}")
     logger.debug(f"charge: {p.percent_charged if p else None}")
-    logger.debug(f"min-to-charge: {p.minutes_to_charged if p else None}, min-to-discharge: {p.minutes_to_discharged if p else None}")
+    logger.debug(
+        f"min-to-charge: {p.minutes_to_charged if p else None}, min-to-discharge: {p.minutes_to_discharged if p else None}"
+    )
 
     return p
+
 
 @dataclass
 class AllInfo:
@@ -380,11 +410,13 @@ class AllInfo:
         if self.__bat is None:
             self.__bat = try_all_batteries()
         return self.__bat
+
     @property
     def _cpu(self):
         if self.__cpu is None:
             self.__cpu = ProcStat.sample()
         return self.__cpu
+
     @property
     def _mem(self):
         if self.__mem is None:
@@ -395,12 +427,15 @@ class AllInfo:
     @property
     def all(self) -> str:
         return f"{self.bat_pct} {self.bat} {self.mem} {self.cpu}"
+
     @property
     def bat(self) -> str:
         return f"{self.bat_icon}{self.bat_time}"
+
     @property
     def cpu(self) -> str:
         return f"{self.cpu_icon}{self.cpu_pct}"
+
     @property
     def mem(self) -> str:
         return f"{self.mem_icon}{self.mem_pct}"
@@ -408,12 +443,14 @@ class AllInfo:
     # manual/low-level fields
     @property
     def mem_icon(self) -> str:
-        if self._mem is None: return ""
+        if self._mem is None:
+            return ""
         return self._fmt.render_mem_icon()
 
     @property
     def mem_pct(self) -> str:
-        if self._mem is None: return ""
+        if self._mem is None:
+            return ""
 
         total = self._mem.get("MemTotal")
         free = self._mem.get("MemAvailable")
@@ -426,22 +463,29 @@ class AllInfo:
 
     @property
     def bat_icon(self) -> str:
-        if self._bat is None: return ""
+        if self._bat is None:
+            return ""
         elif self._bat.minutes_to_charged != None:
             logger.debug("bat_icon: charging")
-            return self._fmt.render_charge_icon(ChargeDirection.Charging, self._bat.percent_charged)
+            return self._fmt.render_charge_icon(
+                ChargeDirection.Charging, self._bat.percent_charged
+            )
         else:
             logger.debug("bat_icon: discharging")
-            return self._fmt.render_charge_icon(ChargeDirection.Discharging, self._bat.percent_charged)
+            return self._fmt.render_charge_icon(
+                ChargeDirection.Discharging, self._bat.percent_charged
+            )
 
     @property
     def bat_pct(self) -> str:
-        if self._bat is None: return ""
+        if self._bat is None:
+            return ""
         return self._fmt.render_percent(self._bat.percent_charged)
 
     @property
     def bat_time(self) -> str:
-        if self._bat is None: return ""
+        if self._bat is None:
+            return ""
         elif self._bat.minutes_to_charged != None:
             duration = self._bat.minutes_to_charged
         else:
@@ -454,7 +498,8 @@ class AllInfo:
 
     @property
     def cpu_icon(self) -> str:
-        if self._cpu is None: return ""
+        if self._cpu is None:
+            return ""
         return self._fmt.render_cpu_icon()
 
     @property
@@ -480,6 +525,7 @@ class LazyFormatter:
     def __str__(self) -> str:
         return str(getattr(self.obj, self.attr))
 
+
 def main() -> None:
     logging.basicConfig()
     logging.getLogger().setLevel(logging.INFO)
@@ -504,19 +550,22 @@ def main() -> None:
 
     info = AllInfo(f)
     formatstr = " ".join(args.formatstr)
-    print(formatstr.format(
-      all=LazyFormatter(info, "all"),
-      bat=LazyFormatter(info, "bat"),
-      bat_icon=LazyFormatter(info, "bat_icon"),
-      bat_pct=LazyFormatter(info, "bat_pct"),
-      bat_time=LazyFormatter(info, "bat_time"),
-      cpu=LazyFormatter(info, "cpu"),
-      cpu_icon=LazyFormatter(info, "cpu_icon"),
-      cpu_pct=LazyFormatter(info, "cpu_pct"),
-      mem=LazyFormatter(info, "mem"),
-      mem_icon=LazyFormatter(info, "mem_icon"),
-      mem_pct=LazyFormatter(info, "mem_pct"),
-    ))
+    print(
+        formatstr.format(
+            all=LazyFormatter(info, "all"),
+            bat=LazyFormatter(info, "bat"),
+            bat_icon=LazyFormatter(info, "bat_icon"),
+            bat_pct=LazyFormatter(info, "bat_pct"),
+            bat_time=LazyFormatter(info, "bat_time"),
+            cpu=LazyFormatter(info, "cpu"),
+            cpu_icon=LazyFormatter(info, "cpu_icon"),
+            cpu_pct=LazyFormatter(info, "cpu_pct"),
+            mem=LazyFormatter(info, "mem"),
+            mem_icon=LazyFormatter(info, "mem_icon"),
+            mem_pct=LazyFormatter(info, "mem_pct"),
+        )
+    )
+
 
 if __name__ == "__main__":
     main()

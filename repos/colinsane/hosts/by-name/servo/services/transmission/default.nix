@@ -23,7 +23,7 @@ let
         --replace-fail 'set(TR_USER_AGENT_PREFIX "''${TR_SEMVER}")' 'set(TR_USER_AGENT_PREFIX "3.00")'
     '';
   });
-  download-dir = "/var/media/torrents";  #< keep in sync with consts embedded in `torrent-done`
+  download-dir = "/var/media/torrents";  # keep in sync with consts embedded in `torrent-done`
   torrent-done = pkgs.static-nix-shell.mkBash {
     pname = "torrent-done";
     srcRoot = ./.;
@@ -61,7 +61,7 @@ in
   services.transmission.settings = {
     # DOCUMENTATION/options list: <https://github.com/transmission/transmission/blob/main/docs/Editing-Configuration-Files.md#options>
 
-    # message-level = 3;  #< enable for debug logging. 0-3, default is 2.
+    # message-level = 3;  # enable for debug logging. 0-3, default is 2.
     # ovpns.veth.netns.ipv4 => allow rpc only from the root servo ns. it'll tunnel things to the net, if need be.
     rpc-bind-address = config.sane.netns.ovpns.veth.netns.ipv4;
     #rpc-host-whitelist = "bt.uninsane.org";
@@ -78,7 +78,7 @@ in
     port-forwarding-enabled = false;
 
     # hopefully, make the downloads world-readable
-    # umask = 0;  #< default is 2: i.e. deny writes from world
+    # umask = 0;  # default is 2: i.e. deny writes from world
 
     # force peer connections to be encrypted
     encryption = 2;
@@ -122,7 +122,7 @@ in
 
     serviceConfig.Restart = "on-failure";
     serviceConfig.RestartSec = "30s";
-    serviceConfig.BindPaths = [ "/var/media" ];  #< so it can move completed torrents into the media library
+    serviceConfig.BindPaths = [ "/var/media" ];  # so it can move completed torrents into the media library
     unitConfig.RequiresMountsFor = [ "/var/media" ];  # ensure the media is available *before* binding /var/media into the mount ns else the actual media will never appear in the daemon's namespace.
     serviceConfig.SystemCallFilter = lib.mkForce [
       # the torrent-done script does stuff which fails the nixos default syscall filter.
@@ -171,7 +171,7 @@ in
   sane.dns.zones."uninsane.org".inet.CNAME."bt" = "native";
   sane.ports.ports."51413" = {
     protocol = [ "tcp" "udp" ];
-    # visibleTo.ovpns = true;  #< not needed: it runs in the ovpns namespace
+    # visibleTo.ovpns = true;  # not needed: it runs in the ovpns namespace
     description = "colin-bittorrent";
   };
 

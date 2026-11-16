@@ -2,7 +2,8 @@
 # <https://huggingface.co/unsloth/GLM-4.7-Flash-GGUF>
 # <https://unsloth.ai/docs/models/glm-4.7-flash>
 # <https://docs.z.ai/guides/llm/glm-4.7#glm-4-7-flash>
-{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
+{ fetchFromHuggingFaceSane }:
+fetchFromHuggingFaceSane {
   owner = "unsloth";
   repo = "GLM-4.7-Flash-GGUF";
   path = "GLM-4.7-Flash-Q4_K_M.gguf";

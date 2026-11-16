@@ -25,7 +25,7 @@ let
   cfg = config.sane.programs.gpsd;
 in
 {
-  sane.programs.gpsd = {};
+  sane.programs.gpsd = { };
   services.gpsd = lib.mkIf cfg.enabled {
     enable = true;
     devices = [ "/dev/ttyUSB1" ];

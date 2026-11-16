@@ -8,9 +8,20 @@ let
     pname = "feeds-to-opml";
     srcRoot = ./.;
   };
-  formatArgs = formats: lib.escapeShellArgs (lib.concatMap (format: [ "--format" format ]) formats);
+  formatArgs =
+    formats:
+    lib.escapeShellArgs (
+      lib.concatMap (format: [
+        "--format"
+        format
+      ]) formats
+    );
 in
-{ feeds, formats ? [], name ? "feeds.opml" }:
+{
+  feeds,
+  formats ? [ ],
+  name ? "feeds.opml",
+}:
 stdenv.mkDerivation {
   inherit name;
 

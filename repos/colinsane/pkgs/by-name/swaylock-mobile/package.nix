@@ -21,7 +21,7 @@
 }:
 stdenv.mkDerivation {
   pname = "swaylock-mobile";
-  version = "1.6-unstable-2022-05-01";  #< from meson.build
+  version = "1.6-unstable-2022-05-01"; # from meson.build
 
   src = fetchFromGitea {
     domain = "codeberg.org";

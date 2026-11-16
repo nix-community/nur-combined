@@ -20,7 +20,7 @@
     sandbox.tryKeepUsers = true;
     sandbox.keepPids = true;
     suggestedPrograms = [
-      "util-linux"  #< gocryptfs complains that it can't exec `logger`, otherwise. TODO(2024-09-09): is this still needed?
+      "util-linux" # gocryptfs complains that it can't exec `logger`, otherwise. TODO(2024-09-09): is this still needed?
     ];
   };
 }

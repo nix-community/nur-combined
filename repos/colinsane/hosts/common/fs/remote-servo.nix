@@ -5,7 +5,7 @@ let
   systemdName = utils.escapeSystemdPath mountpoint;
 
   curlftpfs = {
-    enable = false;  #< XXX(2025-11-16): curlftpfs no longer even mounts successfully, against latest sftpgo.
+    enable = false;  # XXX(2025-11-16): curlftpfs no longer even mounts successfully, against latest sftpgo.
     device = "curlftpfs#ftp://servo-hn:/";
     fsType = "fuse3";
     options = fsOpts.curlftpfs ++ fsOpts.noauto ++ [
@@ -16,12 +16,12 @@ let
   };
   fuseftp = {
     enable = false;
-    # device = "servo-hn";  #< TODO: mount the /var/export/ subdirectory of servo-hn
-    # fsType = "fuse.ftp-daemon";  #< `systemctl start mnt-.servo_ftp.mount` hangs unless the mount is daemonized
-    fsType = "fuse3.sane";  #< not sure why this works with `fuse3.sane` but not plain `fuse3`. related to `fusermount3` and PATH?
+    # device = "servo-hn";  # TODO: mount the /var/export/ subdirectory of servo-hn
+    # fsType = "fuse.ftp-daemon";  # `systemctl start mnt-.servo_ftp.mount` hangs unless the mount is daemonized
+    fsType = "fuse3.sane";  # not sure why this works with `fuse3.sane` but not plain `fuse3`. related to `fusermount3` and PATH?
     device = "mount.fuse.ftp-daemon#servo-hn";
     options = fsOpts.fuseftp ++ fsOpts.noauto ++ [
-      # "verbose"  #< N.B.: incompatible with `-daemon` wrapper, unless i pipe the output somewhere (maybe `setsid --ctty` fixes that?)
+      # "verbose"  # N.B.: incompatible with `-daemon` wrapper, unless i pipe the output somewhere (maybe `setsid --ctty` fixes that?)
     ];
   };
   sshfs = {
@@ -40,8 +40,8 @@ let
       type = "auto";
 
       after = [ "${systemdName}.mount" ];
-      upheldBy = [ "${systemdName}.mount" ];  #< start this mount whenever the underlying becomes available
-      bindsTo = [ "${systemdName}.mount" ];  #< stop this mount whenever the underlying disappears
+      upheldBy = [ "${systemdName}.mount" ];  # start this mount whenever the underlying becomes available
+      bindsTo = [ "${systemdName}.mount" ];  # stop this mount whenever the underlying disappears
 
       # XXX(2025-10-07): lazy is required for when the underlying /mnt/.servo_ftp has hung,
       # else `systemctl stop mnt-servo-...mount` fails "umount: target is busy."
@@ -68,7 +68,7 @@ lib.mkMerge [
       what = curlftpfs.device;
       type = curlftpfs.fsType;
       options = lib.concatStringsSep "," curlftpfs.options;
-      # wantedBy = [ "default.target" ];  #< TODO(2025-10-25): re-enable once failed mounts are made to not hang the whole system
+      # wantedBy = [ "default.target" ];  # TODO(2025-10-25): re-enable once failed mounts are made to not hang the whole system
       after = [ "network-online.target" ];
       requires = [ "network-online.target" ];
 
@@ -132,7 +132,7 @@ lib.mkMerge [
       what = fuseftp.device;
       type = fuseftp.fsType;
       options = lib.concatStringsSep "," fuseftp.options;
-      # wantedBy = [ "default.target" ];  #< TODO(2026-02-13): enable if failed mounts don't hang the whole system
+      # wantedBy = [ "default.target" ];  # TODO(2026-02-13): enable if failed mounts don't hang the whole system
       after = [ "network-online.target" ];
       requires = [ "network-online.target" ];
 
@@ -142,7 +142,7 @@ lib.mkMerge [
 
       mountConfig.TimeoutSec = "10s";
       mountConfig.ExecSearchPath = [ "/run/current-system/sw/bin" ];
-      # mountConfig.User = "colin";  #< TODO
+      # mountConfig.User = "colin";  # TODO
       mountConfig.AmbientCapabilities = "CAP_SETPCAP CAP_SYS_ADMIN";
       # TODO: systemd hardening
     }];
@@ -164,7 +164,7 @@ lib.mkMerge [
       what = sshfs.device;
       type = sshfs.fsType;
       options = lib.concatStringsSep "," sshfs.options;
-      # wantedBy = [ "default.target" ];  #< TODO(2025-10-25): re-enable once failed mounts are made to not hang the whole system (?)
+      # wantedBy = [ "default.target" ];  # TODO(2025-10-25): re-enable once failed mounts are made to not hang the whole system (?)
       after = [ "network-online.target" ];
       requires = [ "network-online.target" ];
 

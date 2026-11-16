@@ -1,4 +1,5 @@
-{ mkVersionedHttpZim }: mkVersionedHttpZim {
+{ mkVersionedHttpZim }:
+mkVersionedHttpZim {
   owner = "wikipedia";
   pname = "wikipedia_en_all_mini";
   version = "2026-09";

@@ -44,7 +44,7 @@ in
     #   name = "aarch64-multiplatform";
     #   # baseConfig: defaults to "defconfig";
     #   # baseConfig = "pinephone_defconfig";
-    #   DTB = true;  #< DTB: compile device tree blobs
+    #   DTB = true;  # DTB: compile device tree blobs
     #   # autoModules (default: true): for config options not manually specified, answer `m` to anything which supports it.
     #   # - this effectively builds EVERY MODULE SUPPORTED.
     #   autoModules = true;
@@ -58,13 +58,13 @@ in
     # };
 
     # boot.initrd.kernelModules = [
-    #   "drm"  #< force drm to be plugged
+    #   "drm"  # force drm to be plugged
     # ];
     boot.initrd.availableKernelModules = [
       # see <repo:postmarketOS/pmaports:device/main/device-pine64-pinephone/modules-initfs>
       # - they include sun6i_mipi_dsi sun4i_drm pwm_sun4i sun8i_mixer anx7688 gpio_vibra pinephone_keyboard
-      # "anx7688" #< historically required for display initialization and functional cameras (pre-2024-09-18)
-      "axp20x_adc"  #< required for display initialization (if not compiled in)
+      # "anx7688" # historically required for display initialization and functional cameras (pre-2024-09-18)
+      "axp20x_adc"  # required for display initialization (if not compiled in)
 
       # full list of modules active post-boot with EITHER of:
       # - the linux-megous kernel + autoModules=true:
@@ -90,27 +90,27 @@ in
       # "crc_ccitt"
       # "crct10dif_ce"
       # "crypto_engine"
-      # "display_connector"  #< NOT FOUND in pmos
+      # "display_connector"  # NOT FOUND in pmos
       # "drm"
       # "drm_display_helper"
       # "drm_dma_helper"
       # "drm_kms_helper"
       # "drm_shmem_helper"
       # "dw_hdmi"
-      # "dw_hdmi_cec"  #< NOT FOUND in pmos
+      # "dw_hdmi_cec"  # NOT FOUND in pmos
       # "dw_hdmi_i2s_audio"
       # "ecc"
       # "ecdh_generic"
       # "fuse"
-      # "gc2145"  #< NOT FOUND in megous-no-autoModules
+      # "gc2145"  # NOT FOUND in megous-no-autoModules
       # "goodix_ts"
-      # "gpio_vibra"  #< NOT FOUND in megous-no-autoModules
+      # "gpio_vibra"  # NOT FOUND in megous-no-autoModules
       # "gpu_sched"
       # "hci_uart"
       # "i2c_gpio"
-      # "inv_mpu6050"  #< NOT FOUND in megous-no-autoModules
-      # "inv_mpu6050_i2c"  #< NOT FOUND in megous-no-autoModules
-      # "inv_sensors_timestamp"  #< NOT FOUND in megous-no-autoModules
+      # "inv_mpu6050"  # NOT FOUND in megous-no-autoModules
+      # "inv_mpu6050_i2c"  # NOT FOUND in megous-no-autoModules
+      # "inv_sensors_timestamp"  # NOT FOUND in megous-no-autoModules
       # "ip6_udp_tunnel"
       # "ip6t_rpfilter"
       # "ip_set"
@@ -118,11 +118,11 @@ in
       # "ip_tables"
       # "ipt_rpfilter"
       # "joydev"
-      # "led_class_flash"  #< NOT FOUND in megous-no-autoModules
+      # "led_class_flash"  # NOT FOUND in megous-no-autoModules
       # "led_class_multicolor"
       # "leds_group_multicolor"
-      # "leds_sgm3140"  #< NOT FOUND in megous-no-autoModules
-      # "ledtrig_pattern"  #< NOT FOUND in megous-no-autoModules
+      # "leds_sgm3140"  # NOT FOUND in megous-no-autoModules
+      # "ledtrig_pattern"  # NOT FOUND in megous-no-autoModules
       # "libarc4"
       # "libchacha"
       # "libchacha20poly1305"
@@ -150,12 +150,12 @@ in
       # "ov5640"
       # "panel_sitronix_st7703"
       # "phy_sun6i_mipi_dphy"
-      # "pinctrl_axp209"  #< NOT FOUND in pmos
-      # "pinephone_keyboard"  #< NOT FOUND in megous-no-autoModules
+      # "pinctrl_axp209"  # NOT FOUND in pmos
+      # "pinephone_keyboard"  # NOT FOUND in megous-no-autoModules
       # "poly1305_neon"
       # "polyval_ce"
       # "polyval_generic"
-      # "ppkb_manager"  #< NOT FOUND in megous-no-autoModules
+      # "ppkb_manager"  # NOT FOUND in megous-no-autoModules
       # "pwm_bl"
       # "pwm_sun4i"
       # "qrtr"
@@ -173,48 +173,48 @@ in
       # "snd_seq_device"
       # "snd_seq_dummy"
       # "snd_soc_bt_sco"
-      # "snd_soc_ec25"  #< NOT FOUND in megous-no-autoModules
+      # "snd_soc_ec25"  # NOT FOUND in megous-no-autoModules
       # "snd_soc_hdmi_codec"
       # "snd_soc_simple_amplifier"
       # "snd_soc_simple_card"
       # "snd_soc_simple_card_utils"
       # "st_magn"
       # "st_magn_i2c"
-      # "st_magn_spi"  #< NOT FOUND in pmos
+      # "st_magn_spi"  # NOT FOUND in pmos
       # "st_sensors"
       # "st_sensors_i2c"
-      # "st_sensors_spi"  #< NOT FOUND in pmos
-      # "stk3310"  #< NOT FOUND in megous-no-autoModules
+      # "st_sensors_spi"  # NOT FOUND in pmos
+      # "stk3310"  # NOT FOUND in megous-no-autoModules
       # "stp"
       # "sun4i_drm"
       # "sun4i_i2s"
-      # "sun4i_lradc_keys"  #< NOT FOUND in megous-no-autoModules
+      # "sun4i_lradc_keys"  # NOT FOUND in megous-no-autoModules
       # "sun4i_tcon"
       # "sun50i_codec_analog"
       # "sun6i_csi"
       # "sun6i_dma"
       # "sun6i_mipi_dsi"
-      # "sun8i_a33_mbus"  #< NOT FOUND in megous-no-autoModules
+      # "sun8i_a33_mbus"  # NOT FOUND in megous-no-autoModules
       # "sun8i_adda_pr_regmap"
-      # "sun8i_ce"  #< NOT FOUND in pmos
-      # "sun8i_codec"  #< NOT FOUND in megous-no-autoModules
-      # "sun8i_di"  #< NOT FOUND in megous-no-autoModules
+      # "sun8i_ce"  # NOT FOUND in pmos
+      # "sun8i_codec"  # NOT FOUND in megous-no-autoModules
+      # "sun8i_di"  # NOT FOUND in megous-no-autoModules
       # "sun8i_drm_hdmi"
       # "sun8i_mixer"
-      # "sun8i_rotate"  #< NOT FOUND in megous-no-autoModules
+      # "sun8i_rotate"  # NOT FOUND in megous-no-autoModules
       # "sun8i_tcon_top"
-      # "sun9i_hdmi_audio"  #< NOT FOUND in megous-no-autoModules
+      # "sun9i_hdmi_audio"  # NOT FOUND in megous-no-autoModules
       # "sunxi_cedrus"
-      # "sunxi_wdt"  #< NOT FOUND in pmos
+      # "sunxi_wdt"  # NOT FOUND in pmos
       # "tap"
-      # "typec"  #< NOT FOUND in pmos
+      # "typec"  # NOT FOUND in pmos
       # "udp_tunnel"
-      # "uio"  #< NOT FOUND in pmos
+      # "uio"  # NOT FOUND in pmos
       # "uio_pdrv_genirq"
       # "usbnet"
       # "v4l2_async"
-      # "v4l2_cci" #< NOT FOUND in pmos
-      # "v4l2_flash_led_class"  #< NOT FOUND in megous-no-autoModules
+      # "v4l2_cci" # NOT FOUND in pmos
+      # "v4l2_flash_led_class"  # NOT FOUND in megous-no-autoModules
       # "v4l2_fwnode"
       # "v4l2_mem2mem"
       # "videobuf2_common"

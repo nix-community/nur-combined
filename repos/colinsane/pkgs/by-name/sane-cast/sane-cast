@@ -21,12 +21,14 @@ import tempfile
 
 logger = logging.getLogger(__name__)
 
+
 class Compat(Enum):
     Default = "default"
     # RenameToMp4: ensure the name of the file sent ends in ".mp4".
     # this does not *transcode*. it doesn't modify the contents of the file at all. it just changes the name.
     # some devices are just so dumb that they'll only render a mkv file if it ends in .mp4.
     RenameToMp4 = "RenameToMp4"
+
 
 @dataclass
 class Device:
@@ -38,21 +40,25 @@ class Device:
 
     def augmented(self, other: "Device") -> "Device":
         return Device(
-            model = self.model or other.model,
-            compat = self.compat or other.compat,
-            url = self.url or other.url,
+            model=self.model or other.model,
+            compat=self.compat or other.compat,
+            url=self.url or other.url,
         )
 
     def matches(self, filter: str) -> bool:
-        """ return True if the filter string occurs inside the identifier for this device """
-        clean = lambda s: "".join(c for c in s.lower() if c in "abcdefghijklmnopqrstuvwxyz0123456789")
+        """return True if the filter string occurs inside the identifier for this device"""
+        clean = lambda s: "".join(
+            c for c in s.lower() if c in "abcdefghijklmnopqrstuvwxyz0123456789"
+        )
         return clean(filter) in clean(self.model)
+
 
 # ranked in order of preference
 KNOWN_DEVICES = [
     Device("Theater TV", Compat.RenameToMp4),
     Device("Cuddlevision", Compat.Default),
 ]
+
 
 class MorselParser:
     def __init__(self, morsel: str) -> None:
@@ -88,7 +94,7 @@ class MorselParser:
             return token
 
     def chomp(self) -> Optional[str]:
-        if self.unparsed == '':
+        if self.unparsed == "":
             return None
         char = self.unparsed[0]
         self.unparsed = self.unparsed[1:]
@@ -96,14 +102,17 @@ class MorselParser:
 
     def expect_chomp(self) -> str:
         char = self.chomp()
-        assert char is not None, f'unexpected EOF when parsing morsel {self.morsel!r}'
+        assert char is not None, f"unexpected EOF when parsing morsel {self.morsel!r}"
         return char
 
     def eof(self) -> bool:
         return self.unparsed == ""
 
     def expect_eof(self) -> None:
-        assert self.eof(), f'trailing tokens when parsing morsel {self.morsel!r}: {self.unparsed!r}'
+        assert self.eof(), (
+            f"trailing tokens when parsing morsel {self.morsel!r}: {self.unparsed!r}"
+        )
+
 
 class Go2TvParser:
     def __init__(self) -> None:
@@ -117,25 +126,28 @@ class Go2TvParser:
         mparser.sanitize()
         logger.debug(repr(mparser.unparsed))
 
-        if mparser.take('Scanning devices... (q to quit)'):
+        if mparser.take("Scanning devices... (q to quit)"):
             pass
-        elif mparser.take('• '):
+        elif mparser.take("• "):
             # examples:
             # `• Cuddlevision [http://10.78.78.27:1328/]`
             # `• Theater TV [http://10.78.78.10:52323/MediaRenderer.xml]`
-            partial_model = ''
-            partial_url = ''
-            while not mparser.take(' ['):
+            partial_model = ""
+            partial_url = ""
+            while not mparser.take(" ["):
                 partial_model += mparser.expect_chomp()
-            while not mparser.take(']'):
+            while not mparser.take("]"):
                 partial_url += mparser.expect_chomp()
 
-            self.parsed_devices.append(Device(
-                model=partial_model,
-                url=partial_url,
-            ))
+            self.parsed_devices.append(
+                Device(
+                    model=partial_model,
+                    url=partial_url,
+                )
+            )
 
         mparser.expect_eof()
+
 
 class Executor:
     def __init__(self, dry_run: bool) -> None:
@@ -151,6 +163,7 @@ class Executor:
             logger.info(f"exec {cmdstr}")
             os.execvp(argv[0], argv)
 
+
 class Go2TvDriver:
     def __init__(self, executor: Executor, timeout: int) -> None:
         self.executor = executor
@@ -165,14 +178,16 @@ class Go2TvDriver:
             "--preserve-status",
             str(self.timeout),
             "go2tv",
-            "-l"
+            "-l",
         ]
         logger.debug(" ".join(args))
         go2tv = subprocess.Popen(args, stdout=subprocess.PIPE)
 
         parser = Go2TvParser()
-        assert go2tv.stdout is not None  # else type check for `go2tv.stdout.readline` fails
-        for line in iter(go2tv.stdout.readline, b''):
+        assert (
+            go2tv.stdout is not None
+        )  # else type check for `go2tv.stdout.readline` fails
+        for line in iter(go2tv.stdout.readline, b""):
             parser.feed_line(line.decode("utf-8"))
 
         return parser.into_devices()
@@ -193,41 +208,53 @@ class Go2TvDriver:
                     media = new_name
 
         if media.startswith("http://") or media.startswith("https://"):
-            media_args = [ "-u", media ]
+            media_args = ["-u", media]
         else:
-            media_args = [ "-v", media ]
+            media_args = ["-v", media]
 
-        self.executor.exec([ "go2tv", "-t", dev.url ] + media_args)
+        self.executor.exec(["go2tv", "-t", dev.url] + media_args)
+
 
 class BlastDriver:
     def __init__(self, executor: Executor) -> None:
         self.executor = executor
 
     def cast_to(self, dev: Device) -> NoReturn:
-        logger.info(f"casting audio to {dev.model} at {dev.url} with compat {dev.compat}")
+        logger.info(
+            f"casting audio to {dev.model} at {dev.url} with compat {dev.compat}"
+        )
 
         cli_args = [
             "sblast",
             # "blast.monitor" source will create a new output, or we can do that in pipewire config for better predictability.
-            "-source", "effect_input.virtual_sink.monitor",
-            "-device", dev.model,
-            "-ip", get_ranked_ip_addrs()[0],
+            "-source",
+            "effect_input.virtual_sink.monitor",
+            "-device",
+            dev.model,
+            "-ip",
+            get_ranked_ip_addrs()[0],
         ]
         if dev.compat != Compat.RenameToMp4:
-            cli_args += [ "-usewav" ];
+            cli_args += ["-usewav"]
 
         self.executor.exec(cli_args)
+
 
 def get_ranked_ip_addrs():
     """
     return the IP addresses most likely to be LAN addresses
     based on: <https://stackoverflow.com/a/1267524>
     """
-    __unused_name__, __unused_aliases__, static_addrs = socket.gethostbyname_ex(socket.gethostname())
+    __unused_name__, __unused_aliases__, static_addrs = socket.gethostbyname_ex(
+        socket.gethostname()
+    )
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(("1", 53))
     con_addr, __unused_port__ = s.getsockname()
-    return sorted(set(static_addrs + [ con_addr ]), key=lambda a: (a.startswith("127"), a))
+    return sorted(
+        set(static_addrs + [con_addr]), key=lambda a: (a.startswith("127"), a)
+    )
+
 
 def filter_devices(devices: list[Device], filter: str) -> list[Device]:
     return [d for d in devices if d.matches(filter)]
@@ -268,6 +295,7 @@ def ask_device(devices: list[Device]) -> Optional[Device]:
 
     return dev
 
+
 def get_default_device(devices: list[Device]) -> Optional[Device]:
     if not devices:
         logger.info("no devices found!")
@@ -275,17 +303,40 @@ def get_default_device(devices: list[Device]) -> Optional[Device]:
     if len(devices) == 1:
         return devices[0]
 
+
 def main():
     logging.basicConfig()
     logging.getLogger().setLevel(logging.INFO)
 
-    parser = argparse.ArgumentParser(description="cast media to a DLNA receiver in range")
+    parser = argparse.ArgumentParser(
+        description="cast media to a DLNA receiver in range"
+    )
     parser.add_argument("--verbose", action="store_true", help="more logging")
-    parser.add_argument("--always-ask", action="store_true", help="always ask which device to cast to, regardless how many are available")
-    parser.add_argument("--device", help="filter devices based on if this string is contained in their name (case-insensitive)")
-    parser.add_argument("--dry-run", action="store_true", help="always ask which device to cast to, regardless how many are available")
-    parser.add_argument("--scan-timeout", type=int, default=10, help="how many seconds to spend scanning for devices")
-    parser.add_argument("media", nargs="?", help="file or URL to send to the DLNA device. empty to cast just an audio stream")
+    parser.add_argument(
+        "--always-ask",
+        action="store_true",
+        help="always ask which device to cast to, regardless how many are available",
+    )
+    parser.add_argument(
+        "--device",
+        help="filter devices based on if this string is contained in their name (case-insensitive)",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="always ask which device to cast to, regardless how many are available",
+    )
+    parser.add_argument(
+        "--scan-timeout",
+        type=int,
+        default=10,
+        help="how many seconds to spend scanning for devices",
+    )
+    parser.add_argument(
+        "media",
+        nargs="?",
+        help="file or URL to send to the DLNA device. empty to cast just an audio stream",
+    )
 
     args = parser.parse_args()
 
@@ -310,6 +361,7 @@ def main():
             go2tv.cast_to(dev, args.media)
         else:
             blast.cast_to(dev)
+
 
 if __name__ == "__main__":
     main()

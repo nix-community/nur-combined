@@ -71,7 +71,7 @@ in
     turn_uris = [
       "turn:turn.uninsane.org?transport=udp"
       "turn:turn.uninsane.org?transport=tcp"
-      # "turns:turn.uninsane.org:5349?transport=tcp"  #< coturn advertises this; untested
+      # "turns:turn.uninsane.org:5349?transport=tcp"  # coturn advertises this; untested
     ];
 
     turn_shared_secret_path = "/run/secrets/coturn_shared_secret";
@@ -184,8 +184,8 @@ in
     owner = config.users.users.matrix-synapse.name;
   };
   users.users.matrix-synapse.extraGroups = [
-    "turnserver"  #< to access the coturn shared secret
+    "turnserver"  # to access the coturn shared secret
   ] ++ lib.optionals ntfy [
-    "ntfy-sh"  #< provide access to ntfy-sh-topic secret
+    "ntfy-sh"  # provide access to ntfy-sh-topic secret
   ];
 }

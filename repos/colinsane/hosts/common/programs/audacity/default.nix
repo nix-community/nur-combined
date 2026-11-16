@@ -10,9 +10,9 @@ let
   wxwidgets_3_2 = pkgs.wxwidgets_3_2.override {
     withWebKit = false;
   };
-  # basePkg = pkgs.audacity;  #< nixpkgs maintainenance taken over by LLM slop + apple: breaks frequently.
+  # basePkg = pkgs.audacity;  # nixpkgs maintainenance taken over by LLM slop + apple: breaks frequently.
   basePkg = pkgs.audacity_3;
-  # basePkg = pkgs.tenacity;  #< uncomment if the audacity build breaks
+  # basePkg = pkgs.tenacity;  # uncomment if the audacity build breaks
   appId = basePkg.pname;
 in
 {
@@ -34,7 +34,7 @@ in
       ".config/${appId}"
     ];
     sandbox.extraPaths = [
-      "/dev/snd"  # for recording audio inputs to work
+      "/dev/snd" # for recording audio inputs to work
     ];
 
     # disable first-run splash screen

@@ -36,7 +36,7 @@ if recurseForDerivations then
       ;
     localSystem = stdenv.buildPlatform.system;
     crossSystem = stdenv.hostPlatform.config;
-    crossOverlays = [(_self: _super: {})];
+    crossOverlays = [ (_self: _super: { }) ];
   }
 else
   pkgs

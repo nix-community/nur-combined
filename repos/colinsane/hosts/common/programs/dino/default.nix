@@ -40,15 +40,17 @@ let
 in
 {
   sane.programs.dino = {
-    configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options.autostart = mkOption {
-          type = types.bool;
-          default = true;
+    configOption =
+      with lib;
+      mkOption {
+        default = { };
+        type = types.submodule {
+          options.autostart = mkOption {
+            type = types.bool;
+            default = true;
+          };
         };
       };
-    };
 
     # packageUnwrapped = pkgs.dino.override {
     #   # XXX(2024/04/24): build without echo cancelation (i.e. force WITH_VOICE_PROCESSOR to be undefined).
@@ -65,18 +67,18 @@ in
 
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
-    # sandbox.whitelistDbus.user.call."org.freedesktop.secrets" = "*";  #< apparently not needed?
+    # sandbox.whitelistDbus.user.call."org.freedesktop.secrets" = "*";  # apparently not needed?
     sandbox.whitelistDbus.user.own = [ "im.dino.Dino" ];
-    sandbox.whitelistDri = true;  #< not strictly necessary, but we need all the perf we can get on moby
+    sandbox.whitelistDri = true; # not strictly necessary, but we need all the perf we can get on moby
     sandbox.whitelistSendNotifications = true;
     sandbox.whitelistPortal = [
       # "FileChooser"
-      # "NetworkMonitor"  #< stderr message if omitted, but non-fatal
+      # "NetworkMonitor"  # stderr message if omitted, but non-fatal
       "OpenURI"
       # "ProxyResolver"
     ];
-    sandbox.extraEnv.GIO_USE_NETWORK_MONITOR = "netlink";  #< required if portal NetworkMonitor isn't exposed (probably?)
-    sandbox.extraEnv.GIO_USE_PROXY_RESOLVER = "dummy";  #< required if portal NetworkMonitor isn't exposed
+    sandbox.extraEnv.GIO_USE_NETWORK_MONITOR = "netlink"; # required if portal NetworkMonitor isn't exposed (probably?)
+    sandbox.extraEnv.GIO_USE_PROXY_RESOLVER = "dummy"; # required if portal NetworkMonitor isn't exposed
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       "Music"
@@ -92,7 +94,7 @@ in
     ];
 
     # persist.byStore.ephemeral = [
-    #   ".cache/gstreamer-1.0"  # 1.3 MB  #< TODO: place the gst cache in ~/.cache/dino/gstreamer-1.0
+    #   ".cache/gstreamer-1.0"  # 1.3 MB  # TODO: place the gst cache in ~/.cache/dino/gstreamer-1.0
     # ];
     persist.byStore.private = [ ".local/share/dino" ];
     sandbox.mesaCacheDir = ".cache/dino/mesa";

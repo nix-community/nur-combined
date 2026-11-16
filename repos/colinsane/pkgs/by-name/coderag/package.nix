@@ -90,13 +90,15 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   # all extras except gpu (onnxruntime-gpu is not typically in nixpkgs)
-  propagatedBuildInputs = with python3.pkgs; lib.optionals (!stdenv.hostPlatform.isAarch32) (
-    optional-dependencies.server
-    ++ optional-dependencies.ui
-    ++ optional-dependencies.mcp
-    ++ optional-dependencies.openai
-    ++ optional-dependencies.anthropic
-  );
+  propagatedBuildInputs =
+    with python3.pkgs;
+    lib.optionals (!stdenv.hostPlatform.isAarch32) (
+      optional-dependencies.server
+      ++ optional-dependencies.ui
+      ++ optional-dependencies.mcp
+      ++ optional-dependencies.openai
+      ++ optional-dependencies.anthropic
+    );
 
   pythonImportsCheck = [
     "coderag"

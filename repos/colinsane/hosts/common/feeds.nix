@@ -161,8 +161,8 @@ let
     # (fromDb "rss.acast.com/intercepted-with-jeremy-scahill")  # The Intercept - Intercepted
     # (fromDb "rss.art19.com/60-minutes" // pol)
     # (fromDb "rss.art19.com/your-welcome" // pol)  # Michael Malice - Your Welcome -- also available here: <https://origin.podcastone.com/podcast?categoryID2=2232>
-    # (fromDb "rss.prod.firstlook.media/deconstructed/podcast.rss" // pol)  #< possible URL rot
-    # (fromDb "rss.prod.firstlook.media/intercepted/podcast.rss" // pol)  #< possible URL rot
+    # (fromDb "rss.prod.firstlook.media/deconstructed/podcast.rss" // pol)  # possible URL rot
+    # (fromDb "rss.prod.firstlook.media/intercepted/podcast.rss" // pol)  # possible URL rot
     # (fromDb "sites.libsyn.com/438684" // humor)  # Quorators - digging up *weird* Quota questions
     # (fromDb "srslywrong.com" // pol)
     # (fromDb "techwontsave.us" // pol)  # rec by Cory Doctorow, but way too info-sparse

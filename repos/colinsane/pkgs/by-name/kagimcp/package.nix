@@ -5,7 +5,8 @@
   lib,
   python3,
   stdenv,
-}: stdenv.mkDerivation (finalAttrs: {
+}:
+stdenv.mkDerivation (finalAttrs: {
   pname = "kagimcp";
   version = "0.1.5";
 

@@ -109,13 +109,13 @@ in
     apply = lib.filterAttrs (name: _: !(builtins.elem name [
       # from <repo:nixos/nixpkgs:nixos/modules/security/polkit.nix>
       "pkexec"
-      "polkit-agent-helper-1"  #< used by systemd; without this you'll have to `sudo systemctl daemon-reload` instead of unauth'd `systemctl daemon-reload`
+      "polkit-agent-helper-1"  # used by systemd; without this you'll have to `sudo systemctl daemon-reload` instead of unauth'd `systemctl daemon-reload`
       # from <repo:nixos/nixpkgs:nixos/modules/services/system/dbus.nix>
       "dbus-daemon-launch-helper"
       # from <repo:nixos/nixpkgs:nixos/modules/security/wrappers/default.nix>
-      "fusermount"  #< only needed if you want to mount entries declared in /etc/fstab or mtab as unprivileged user
+      "fusermount"  # only needed if you want to mount entries declared in /etc/fstab or mtab as unprivileged user
       "fusermount3"
-      "mount"  #< only needed if you want to mount entries declared in /etc/fstab or mtab as unprivileged user
+      "mount"  # only needed if you want to mount entries declared in /etc/fstab or mtab as unprivileged user
       "umount"
       # from <repo:nixos/nixpkgs:nixos/modules/programs/shadow.nix>
       "newgidmap"
@@ -150,7 +150,7 @@ in
       "userdel"
       "usermod"
       # from <repo:nixos/nixpkgs:nixos/modules/system/boot/systemd/user.nix>
-      # "systemd-user"  #< N.B.: this causes the `systemd --user` service manager to fail 224/PAM!
+      # "systemd-user"  # N.B.: this causes the `systemd --user` service manager to fail 224/PAM!
     ]));
   };
 
@@ -162,9 +162,9 @@ in
     # TODO: see which more of these i can remove (or shadow/sandbox)
     apply = let
       pkgsToRemove = [
-        pkgs.wirelesstools  #< assigned: <repo:nixos/nixpkgs:nixos/modules/tasks/network-interfaces.nix>
-        # pkgs.stdenv.cc.libc #< assigned: <repo:nixos/nixpkgs:nixos/modules/config/system-path.nix>
-        # config.programs.ssh.package  #< assigned: <repo:nixos/nixpkgs:nixos/modules/programs/ssh.nix>
+        pkgs.wirelesstools  # assigned: <repo:nixos/nixpkgs:nixos/modules/tasks/network-interfaces.nix>
+        # pkgs.stdenv.cc.libc # assigned: <repo:nixos/nixpkgs:nixos/modules/config/system-path.nix>
+        # config.programs.ssh.package  # assigned: <repo:nixos/nixpkgs:nixos/modules/programs/ssh.nix>
       ];
       lowPrioPkgsToRemove = map (pkg: lib.setPrio ((pkg.meta.priority or lib.meta.defaultPriority) + 3) pkg) [
         # pkgs.acl
@@ -186,7 +186,7 @@ in
         # pkgs.gzip
         # pkgs.xz
         pkgs.less
-        # pkgs.libcap  #< implicitly required by NetworkManager/wpa_supplicant!
+        # pkgs.libcap  # implicitly required by NetworkManager/wpa_supplicant!
         # pkgs.ncurses
         pkgs.netcat
         # pkgs.mkpasswd
@@ -252,7 +252,7 @@ in
     # disable nixos' portal module, otherwise /share/applications gets linked into the system and complicates things (sandboxing).
     # instead, i manage portals myself via the sane.programs API (e.g. sane.programs.xdg-desktop-portal).
     xdg.portal.enable = false;
-    xdg.menus.enable = false;  #< links /share/applications, and a bunch of other empty (i.e. unused) dirs
+    xdg.menus.enable = false;  # links /share/applications, and a bunch of other empty (i.e. unused) dirs
 
     # xdg.autostart.enable defaults to true, and links /etc/xdg/autostart into the environment, populated with .desktop files.
     # see: <repo:nixos/nixpkgs:nixos/modules/config/xdg/autostart.nix>
@@ -324,7 +324,7 @@ in
     # lvm places `pkgs.lvm2` onto PATH, which has like 100 binaries.
     # it is, actually, needed for some userspace tools (cryptsetup). probably just the udev rules. try to reduce this set?
     services.lvm.enable = lib.mkDefault false;
-    services.udev.packages = [ pkgs.lvm2.out ];  #< N.B. `lvm2.out` != `lvm2`
+    services.udev.packages = [ pkgs.lvm2.out ];  # N.B. `lvm2.out` != `lvm2`
     # systemd.packages = [ pkgs.lvm2 ];
     # systemd.tmpfiles.packages = [ pkgs.lvm2.out ];
     # environment.systemPackages = [ pkgs.lvm2 ];

@@ -4,7 +4,8 @@
   python3,
   stdenv,
   unstableGitUpdater,
-}: stdenv.mkDerivation (finalAttrs: {
+}:
+stdenv.mkDerivation {
   pname = "kagiapi";
   version = "0-unstable-2025-04-18";
 
@@ -37,11 +38,11 @@
   doCheck = true;
   strictDeps = true;
 
-  passthru.updateScript = unstableGitUpdater {};
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     homepage = "https://github.com/kagisearch/kagiapi";
     description = "A Python package for Kagi Search API";
     maintainers = with lib.maintainers; [ colinsane ];
   };
-})
+}

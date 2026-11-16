@@ -1,6 +1,11 @@
 # config docs:
 # - `man 5 mako`
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   sane.programs.mako = {
     # we control mako as a systemd service, so have dbus not automatically activate it.

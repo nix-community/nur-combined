@@ -21,7 +21,12 @@
 #   - could be made to work, by writing to /sys/class/backlight/... (the file it reads)
 # - MPRIS media controls work, but in the presence of multiple mpv players it ignores all but the first one launched
 #
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.swaynotificationcenter;
   buttons = import ./buttons.nix;
@@ -37,7 +42,7 @@ in
       };
     };
     sandbox.whitelistSystemctl = true;
-    sandbox.keepPidsAndProc = true;  #< XXX: not sure why, but swaync segfaults under load without this!
+    sandbox.keepPidsAndProc = true; # XXX: not sure why, but swaync segfaults under load without this!
 
     suggestedPrograms = [
       "systemctl"
@@ -54,57 +59,65 @@ in
           procps
           swaynotificationcenter
           util-linux
-        ;
+          ;
       };
     };
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce
+    sandbox.whitelistDbus.user = true; # TODO: reduce
     # sandbox.whitelistDbus.user.call."org.sigxcpu.Feedback" = "*";
-    sandbox.keepPidsAndProc = true;  # `swaync-fbcli stop` needs to be able to find the corresponding `swaync-fbcli start` process
+    sandbox.keepPidsAndProc = true; # `swaync-fbcli stop` needs to be able to find the corresponding `swaync-fbcli start` process
   };
 
   sane.programs.swaynotificationcenter = {
-    configOption = with lib; mkOption {
-      type = types.submodule {
-        options = {
-          backlight = mkOption {
-            type = types.str;
-            default = "intel_backlight";
-            description = ''
-              name of entry in /sys/class/backlight which indicates the primary backlight.
-            '';
+    configOption =
+      with lib;
+      mkOption {
+        type = types.submodule {
+          options = {
+            backlight = mkOption {
+              type = types.str;
+              default = "intel_backlight";
+              description = ''
+                name of entry in /sys/class/backlight which indicates the primary backlight.
+              '';
+            };
+            enableBacklight = mkEnableOption "include a backlight slider in the swaync dropdown (requires an active session with systemd-logind)";
+            enableMpris =
+              (mkEnableOption "show the currently playing media in the swaync dropdown, and navigation buttons")
+              // {
+                default = true;
+              };
           };
-          enableBacklight = mkEnableOption "include a backlight slider in the swaync dropdown (requires an active session with systemd-logind)";
-          enableMpris = (mkEnableOption "show the currently playing media in the swaync dropdown, and navigation buttons") // { default = true; };
         };
+        default = { };
       };
-      default = {};
-    };
 
-    name = "swaync";  # let sandboxer know it places config/cache in $DIR/swaync
+    name = "swaync"; # let sandboxer know it places config/cache in $DIR/swaync
 
     # prevent dbus from automatically activating swaync so i can manage it as a service instead
-    packageUnwrapped = pkgs.rmDbusServices (pkgs.swaynotificationcenter.overrideAttrs (upstream: {
-      postPatch = (upstream.postPatch or "") + ''
-        # Gtk3 by default won't pack more than 7 items into one row of a FlowBox.
-        # but i want tighter control over my icon placement than that:
-        substituteInPlace src/controlCenter/widgets/buttonsGrid/buttonsGrid.vala --replace-fail \
-          'container.set_selection_mode' \
-          'container.max_children_per_line = 8; container.set_selection_mode'
+    packageUnwrapped = pkgs.rmDbusServices (
+      pkgs.swaynotificationcenter.overrideAttrs (upstream: {
+        postPatch = (upstream.postPatch or "") + ''
+          # Gtk3 by default won't pack more than 7 items into one row of a FlowBox.
+          # but i want tighter control over my icon placement than that:
+          substituteInPlace src/controlCenter/widgets/buttonsGrid/buttonsGrid.vala --replace-fail \
+            'container.set_selection_mode' \
+            'container.max_children_per_line = 8; container.set_selection_mode'
         '';
-    }));
+      })
+    );
 
     suggestedPrograms = [
       "feedbackd"
-      "swaync-fbcli"  #< used to sound ringer
-      "swaync-service-dispatcher"  #< used when toggling buttons
+      "swaync-fbcli" # used to sound ringer
+      "swaync-service-dispatcher" # used when toggling buttons
     ];
 
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus.user = true;  # mpris; portal (TODO: reduce)
+    sandbox.whitelistDbus.user = true; # mpris; portal (TODO: reduce)
     # sandbox.whitelistDbus.user.own = [ "org.erikreider.swaync.cc" "org.freedesktop.Notifications" ];
     # sandbox.whitelistDbus.user.call."org.sigxcpu.Feedback" = "*";  # for swaync-fbcli
     # sandbox.whitelistMpris.controlPlayers = true;
-    sandbox.whitelistDbus.system = true;  # backlight
+    sandbox.whitelistDbus.system = true; # backlight
     sandbox.whitelistSystemctl = true;
     sandbox.whitelistWayland = true;
     sandbox.extraPaths = [
@@ -136,10 +149,10 @@ in
       # - for compositor scale=1.6 => 450
       # if it's set to something wider than the screen, then it overflows and items aren't visible.
       control-center-width = 360;
-      cssPriority = "user";  # "application"|"user". "user" in order to override the system gtk theme.
-      fit-to-screen = true;  #< have notification center take full vertical screen space
+      cssPriority = "user"; # "application"|"user". "user" in order to override the system gtk theme.
+      fit-to-screen = true; # have notification center take full vertical screen space
       hide-on-action = true;
-      hide-on-clear = true;  #< hide control center when clicking "clear all"
+      hide-on-clear = true; # hide control center when clicking "clear all"
       image-visibility = "when-available";
       keyboard-shortcuts = true;
       layer = "overlay";
@@ -170,13 +183,17 @@ in
         "dnd"
         "inhibitors"
         "buttons-grid"
-      ] ++ lib.optionals cfg.config.enableBacklight [
+      ]
+      ++ lib.optionals cfg.config.enableBacklight [
         "backlight"
-      ] ++ [
+      ]
+      ++ [
         "volume"
-      ] ++ lib.optionals cfg.config.enableMpris [
+      ]
+      ++ lib.optionals cfg.config.enableMpris [
         "mpris"
-      ] ++ [
+      ]
+      ++ [
         "notifications"
       ];
       widget-config = {
@@ -186,30 +203,38 @@ in
         };
         buttons-grid = {
           actions =
-          lib.optionals config.sane.programs.eg25-control.enabled [
-            buttons.gps
-            buttons.cell-modem
-          ] ++ lib.optionals config.sane.programs.calls.config.autostart [
-            buttons.gnome-calls
-          ] ++ lib.optionals config.sane.programs.dino.enabled [
-            buttons.dino
-          ] ++ lib.optionals config.sane.programs.fractal.enabled [
-            buttons.fractal
-          # ] ++ lib.optionals config.sane.programs.abaddon.enabled [
-          #   # XXX: disabled in favor of dissent: abaddon has troubles auto-connecting at start
-          #   buttons.abaddon
-          ] ++ lib.optionals config.sane.programs.dissent.enabled [
-            buttons.dissent
-          ] ++ lib.optionals (config.sane.programs.discord.enabled && !config.sane.programs.dissent.enabled) [
-            # only enable button for official client if an alternate client isn't installed.
-            buttons.discord
-          ] ++ lib.optionals config.sane.programs.signal-desktop.enabled [
-            buttons.signal-desktop
-          ] ++ lib.optionals config.sane.programs.stamp.enabled [
-            buttons.stamp
-          ] ++ lib.optionals config.sane.programs.geary.enabled [
-            buttons.geary
-          ];
+            lib.optionals config.sane.programs.eg25-control.enabled [
+              buttons.gps
+              buttons.cell-modem
+            ]
+            ++ lib.optionals config.sane.programs.calls.config.autostart [
+              buttons.gnome-calls
+            ]
+            ++ lib.optionals config.sane.programs.dino.enabled [
+              buttons.dino
+            ]
+            ++ lib.optionals config.sane.programs.fractal.enabled [
+              buttons.fractal
+              # ] ++ lib.optionals config.sane.programs.abaddon.enabled [
+              #   # XXX: disabled in favor of dissent: abaddon has troubles auto-connecting at start
+              #   buttons.abaddon
+            ]
+            ++ lib.optionals config.sane.programs.dissent.enabled [
+              buttons.dissent
+            ]
+            ++ lib.optionals (config.sane.programs.discord.enabled && !config.sane.programs.dissent.enabled) [
+              # only enable button for official client if an alternate client isn't installed.
+              buttons.discord
+            ]
+            ++ lib.optionals config.sane.programs.signal-desktop.enabled [
+              buttons.signal-desktop
+            ]
+            ++ lib.optionals config.sane.programs.stamp.enabled [
+              buttons.stamp
+            ]
+            ++ lib.optionals config.sane.programs.geary.enabled [
+              buttons.geary
+            ];
         };
         dnd = {
           text = "Do Not Disturb";
@@ -240,7 +265,7 @@ in
       # swaync ships its own service, but i want to add `environment` variables and flags for easier debugging.
       # seems that's not possible without defining an entire nix-native service (i.e. this).
       description = "swaynotificationcenter (swaync) desktop notification daemon";
-      depends = [ "sound" ]; #< TODO: else it will NEVER see the pulse socket in its sandbox
+      depends = [ "sound" ]; # TODO: else it will NEVER see the pulse socket in its sandbox
       partOf = [ "graphical-session" ];
 
       # N.B.: G_MESSAGES_DEBUG=all breaks DND mode:

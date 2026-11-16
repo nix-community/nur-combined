@@ -9,7 +9,7 @@
     sandbox.mesaCacheDir = ".cache/catgirldownloader/mesa";
 
     sandbox.extraHomePaths = [
-      "tmp"  # for saving photos
+      "tmp" # for saving photos
     ];
 
     persist.byStore.ephemeral = [

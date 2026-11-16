@@ -20,7 +20,7 @@ buildGoModule (finalAttrs: {
   subPackages = [
     "cmd/peerswaplnd/peerswapd"
     "cmd/peerswaplnd/pscli"
-    "cmd/peerswap-plugin"  # this becomes the actual `peerswap` binary
+    "cmd/peerswap-plugin" # this becomes the actual `peerswap` binary
   ];
 
   vendorHash = "sha256-OOwXWsFVxieOtzF7arXVNeWo4YB/EQbxQMAIxDVIhfg=";

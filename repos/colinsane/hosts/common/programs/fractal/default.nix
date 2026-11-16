@@ -24,29 +24,31 @@ let
 in
 {
   sane.programs.fractal = {
-    configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options.autostart = mkOption {
-          type = types.bool;
-          default = true;
+    configOption =
+      with lib;
+      mkOption {
+        default = { };
+        type = types.submodule {
+          options.autostart = mkOption {
+            type = types.bool;
+            default = true;
+          };
         };
       };
-    };
 
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus.user.own = [ "org.gnome.Fractal" ];
-    sandbox.whitelistDbus.user.call."org.freedesktop.secrets" = "*";  #< TODO: restrict to a subset of secrets
-    sandbox.whitelistDri = true;  # otherwise video playback buuuuurns CPU
+    sandbox.whitelistDbus.user.call."org.freedesktop.secrets" = "*"; # TODO: restrict to a subset of secrets
+    sandbox.whitelistDri = true; # otherwise video playback buuuuurns CPU
     sandbox.whitelistPortal = [
       "FileChooser"
       # "NetworkMonitor"  # if portals are enabled, but NetworkMonitor *isn't*, then it'll hang on launch
       "OpenURI"
       # "ProxyResolver"
     ];
-    sandbox.extraEnv.GIO_USE_NETWORK_MONITOR = "netlink";  #< required if portal NetworkMonitor isn't exposed
-    sandbox.extraEnv.GIO_USE_PROXY_RESOLVER = "dummy";  #< required if portal NetworkMonitor isn't exposed
+    sandbox.extraEnv.GIO_USE_NETWORK_MONITOR = "netlink"; # required if portal NetworkMonitor isn't exposed
+    sandbox.extraEnv.GIO_USE_PROXY_RESOLVER = "dummy"; # required if portal NetworkMonitor isn't exposed
     sandbox.whitelistSendNotifications = true;
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
@@ -63,7 +65,7 @@ in
       "tmp"
     ];
     sandbox.mesaCacheDir = ".cache/fractal/mesa";
-    sandbox.tmpDir = ".cache/fractal/tmp";  # 10MB+ avatar caches (grows seemingly unbounded during runtime)
+    sandbox.tmpDir = ".cache/fractal/tmp"; # 10MB+ avatar caches (grows seemingly unbounded during runtime)
 
     persist.byStore.ephemeral = [
       ".cache/fractal" # ~3MB matrix-sdk-event-cache.sqlite3

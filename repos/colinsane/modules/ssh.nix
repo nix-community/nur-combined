@@ -107,8 +107,8 @@ in
         # so create the dir ourselves early, without taking a dep on local-fs.target.
         "-${lib.getExe' pkgs.systemd "systemd-tmpfiles"} --prefix=/var/empty --boot --create --graceful"
       ];
-      unitConfig.DefaultDependencies = false;  #< don't depend on `basic.target`
-      unitConfig.StartLimitIntervalSec = 0;  #< restart *forever*
+      unitConfig.DefaultDependencies = false;  # don't depend on `basic.target`
+      unitConfig.StartLimitIntervalSec = 0;  # restart *forever*
       serviceConfig.Restart = "always";
       serviceConfig.RestartSec = "2s";
     };

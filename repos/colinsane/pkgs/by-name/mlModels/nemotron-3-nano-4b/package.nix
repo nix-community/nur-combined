@@ -1,4 +1,5 @@
-{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
+{ fetchFromHuggingFaceSane }:
+fetchFromHuggingFaceSane {
   owner = "nvidia";
   repo = "NVIDIA-Nemotron-3-Nano-4B-GGUF";
   path = "NVIDIA-Nemotron3-Nano-4B-Q4_K_M.gguf";

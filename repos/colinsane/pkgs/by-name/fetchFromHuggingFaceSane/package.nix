@@ -10,8 +10,14 @@
   rev,
   hash ? lib.fakeHash,
   ...
-}@args: fetchgit (
-  (lib.removeAttrs args [ "owner" "repo" "path" ]) // {
+}@args:
+fetchgit (
+  (lib.removeAttrs args [
+    "owner"
+    "repo"
+    "path"
+  ])
+  // {
     inherit name rev hash;
     url = "https://huggingface.co/${owner}/${repo}";
     rootDir = path;

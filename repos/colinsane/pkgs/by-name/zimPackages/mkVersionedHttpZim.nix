@@ -11,7 +11,7 @@
 {
   pname,
   version,
-  owner ? null,  #< same meaning as in e.g. `fetchFromGitHub`
+  owner ? null, # same meaning as in e.g. `fetchFromGitHub`
   hash ? lib.fakeHash,
 }@args:
 let
@@ -50,13 +50,17 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     # attempt an update from each directory: hopefully _one_ of them will work.
     # maybe multiple work, as zims migrate between hosts (e.g. mature from dev to public):
     # `applyAll` means we get the most up-to-date one.
-    map (url: directoryListingUpdater {
-      inherit url;
-    }) directories
+    map (
+      url:
+      directoryListingUpdater {
+        inherit url;
+      }
+    ) directories
   );
   # required so that directoryListingUpdater can know in which file the `version` variable can be updated in.
-  passthru.meta.position = let
-    position = builtins.unsafeGetAttrPos "version" args;
-  in
+  passthru.meta.position =
+    let
+      position = builtins.unsafeGetAttrPos "version" args;
+    in
     "${position.file}:${toString position.line}";
 })

@@ -2,9 +2,8 @@
 #!nix-shell -i bash ../../../.. -A static-nix-shell.mkBash --arg packages 'ps: [ ps.bash ps.gnused ps.sops ]'
 
 # browserpass "validates" the gpg binary by invoking it with --version
-if [ "$1" = "--version" ]
-then
-  echo "sops-gpg-adapter 0.1";
+if [ "$1" = "--version" ]; then
+  echo "sops-gpg-adapter 0.1"
   exit 0
 fi
 

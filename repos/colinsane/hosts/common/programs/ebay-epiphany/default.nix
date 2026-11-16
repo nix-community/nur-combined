@@ -7,7 +7,7 @@ in
   sane.programs.ebay-epiphany = {
     sandbox.net = "clearnet";
     sandbox.whitelistPortal = [
-      "Camera"  # otherwise it pegs the CPU and is unusable
+      "Camera" # otherwise it pegs the CPU and is unusable
       "DynamicLauncher"
       "OpenURI"
     ];

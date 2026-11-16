@@ -20,7 +20,7 @@ usage() {
 }
 
 keepDays=10
-maxFreed=500000000000  # 500 GB
+maxFreed=500000000000 # 500 GB
 parseArgs() {
   while [ "$#" -ne 0 ]; do
     local arg=$1
@@ -55,12 +55,12 @@ main() {
   # nix-store --optimise
 
   local gcArgs=(--delete-older-than "$keepDays"d)
-  if (( $maxFreed != 0 )); then
+  if (($maxFreed != 0)); then
     gcArgs+=(--max-freed "$maxFreed")
   fi
   (
-    set -x;
-    nix-env --profile /nix/var/nix/profiles/system --delete-generations "$keepDays"d;
+    set -x
+    nix-env --profile /nix/var/nix/profiles/system --delete-generations "$keepDays"d
     nix-collect-garbage "${gcArgs[@]}"
   )
 

@@ -2,7 +2,7 @@
 {
   sane.programs.kagi = {
     packageUnwrapped = pkgs.kagi.overrideAttrs (upstream: {
-      nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+      nativeBuildInputs = (upstream.nativeBuildInputs or [ ]) ++ [
         pkgs.makeShellWrapper
       ];
       postInstall = ''

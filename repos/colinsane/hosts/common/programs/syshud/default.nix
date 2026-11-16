@@ -4,8 +4,8 @@
     sandbox.whitelistAudio = true;
     sandbox.whitelistWayland = true;
     sandbox.extraPaths = [
-      "/sys/class/backlight"  #< crashes if unable to access this directory
-      # "/sys/devices"  #< only if you want it to actually show when the backlight changes
+      "/sys/class/backlight" # crashes if unable to access this directory
+      # "/sys/devices"  # only if you want it to actually show when the backlight changes
     ];
     sandbox.mesaCacheDir = ".cache/sys64/hud/mesa";
 
@@ -77,7 +77,7 @@
 
     services."syshud" = {
       description = "syshud: volume monitor/notifier";
-      depends = [ "sound" ];  #< specifically wireplumber-pulse
+      depends = [ "sound" ]; # specifically wireplumber-pulse
       partOf = [ "graphical-session" ];
       command = "syshud";
     };

@@ -7,6 +7,6 @@
 { ... }:
 
 {
-  sane.programs.offlineimap.secrets.".config/offlineimap/config" = ../../../../secrets/common/offlineimaprc.bin;
+  sane.programs.offlineimap.secrets.".config/offlineimap/config" =
+    ../../../../secrets/common/offlineimaprc.bin;
 }
-

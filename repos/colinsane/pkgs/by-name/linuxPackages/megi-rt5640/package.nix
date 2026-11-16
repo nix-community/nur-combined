@@ -32,7 +32,8 @@ stdenv.mkDerivation {
     "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc"
     "HOSTLD=${buildPackages.stdenv.cc.bintools}/bin/${buildPackages.stdenv.cc.targetPrefix}ld"
     "ARCH=${stdenv.hostPlatform.linuxArch}"
-  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+  ]
+  ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
   ];
 
@@ -50,7 +51,6 @@ stdenv.mkDerivation {
   '';
 
   passthru.moduleNames = [
-    "sound-soc-rt5640"    #< mainline, patched module
+    "sound-soc-rt5640" # mainline, patched module
   ];
 }
-

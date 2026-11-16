@@ -14,7 +14,7 @@
       default = {
         auth = true;
         tls = true;
-        tls_starttls = false;  # needed else sendmail hangs
+        tls_starttls = false; # needed else sendmail hangs
         from = "Colin <colin@uninsane.org>";
         host = "mx.uninsane.org";
         user = "colin";

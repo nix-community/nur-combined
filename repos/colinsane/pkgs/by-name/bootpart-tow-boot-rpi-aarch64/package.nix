@@ -10,9 +10,9 @@ stdenv.mkDerivation {
   version = "1";
 
   buildInputs = [
-    tow-boot-rpi4  # for Tow-Boot.*.bin
-    raspberrypifw  # for bootcode.bin, *.dat, *.elf, *.dtb
-    raspberrypi-armstubs  # for armstub*
+    tow-boot-rpi4 # for Tow-Boot.*.bin
+    raspberrypifw # for bootcode.bin, *.dat, *.elf, *.dtb
+    raspberrypi-armstubs # for armstub*
   ];
 
   src = ./config.txt;
@@ -32,10 +32,8 @@ stdenv.mkDerivation {
     cp $src "$out"/config.txt
   '';
 
-
   meta = {
     description = "unmanaged files to place in /boot on a raspberry pi system";
     platforms = [ "aarch64-linux" ];
   };
 }
-

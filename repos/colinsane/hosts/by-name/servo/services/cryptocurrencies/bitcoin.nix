@@ -51,7 +51,7 @@ in
       # so if this port is the same as clightning would natively use, then no further config is needed here.
       # see: <https://2019.www.torproject.org/docs/tor-manual.html.en#HiddenServicePort>
       port = 8333;
-      # target.port; target.addr;  #< set if tor port != clightning port
+      # target.port; target.addr;  # set if tor port != clightning port
     }];
     # allow "tor" group (i.e. bitcoind-mainnet) to read /var/lib/tor/onion/bitcoind/hostname
     settings.HiddenServiceDirGroupReadable = true;
@@ -93,7 +93,7 @@ in
   systemd.services.bitcoind-mainnet = {
     after = [ "tor.service" ];
     requires = [ "tor.service" ];
-    serviceConfig.RestartSec = "30s";  #< default is 0
+    serviceConfig.RestartSec = "30s";  # default is 0
 
     # hardening (systemd-analyze security bitcoind-mainnet)
     serviceConfig.StateDirectory = "bitcoind-mainnet";

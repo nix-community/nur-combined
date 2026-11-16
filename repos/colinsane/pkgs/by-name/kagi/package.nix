@@ -27,13 +27,13 @@ buildGoModule (finalAttrs: {
   meta = {
     description = "A fast, simple command-line interface for Kagi FastGPT - AI-powered search with web context";
     longDescription = ''
-    Features:
-    - Simple Interface: Just type your query and get AI-powered answers
-    - Multiple Output Formats: Plain text, Markdown, or JSON
-    - Smart Color Output: Automatically detects terminals and pipes
-    - Web References: Includes sources with every response
-    - Flexible Input: Accept queries from arguments or stdin
-    - AI Agent Friendly: Clean output formats for automation
+      Features:
+      - Simple Interface: Just type your query and get AI-powered answers
+      - Multiple Output Formats: Plain text, Markdown, or JSON
+      - Smart Color Output: Automatically detects terminals and pipes
+      - Web References: Includes sources with every response
+      - Flexible Input: Accept queries from arguments or stdin
+      - AI Agent Friendly: Clean output formats for automation
     '';
     mainProgram = "kagi";
     homepage = "https://github.com/grantcarthew/kagi";

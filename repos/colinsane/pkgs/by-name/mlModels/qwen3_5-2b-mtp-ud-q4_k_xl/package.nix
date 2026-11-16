@@ -1,4 +1,5 @@
-{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
+{ fetchFromHuggingFaceSane }:
+fetchFromHuggingFaceSane {
   owner = "unsloth";
   repo = "Qwen3.5-2B-MTP-GGUF";
   path = "Qwen3.5-2B-UD-Q4_K_XL.gguf";

@@ -17,7 +17,7 @@
       '';
     };
 
-    sandbox.net = "all";  # TODO: why does it require this? i think it just needs *some* net dev and any will do.
-    sandbox.whitelistDbus.system = true;  # system is required for non-portal location services
+    sandbox.net = "all"; # TODO: why does it require this? i think it just needs *some* net dev and any will do.
+    sandbox.whitelistDbus.system = true; # system is required for non-portal location services
   };
 }

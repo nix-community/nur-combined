@@ -48,13 +48,13 @@ tree-sitter.buildGrammar {
   doInstallCheck = true;
 
   passthru = {
-    generated = tree-sitter-nix-shell.overrideAttrs (orig: {
+    generated = tree-sitter-nix-shell.overrideAttrs {
       # provide a package which has the output of `tree-sitter generate`, but not the binary compiled parser
       dontBuild = true;
       installPhase = "cp -r . $out";
       doCheck = false;
       doInstallCheck = false;
-    });
+    };
     # see comment in <repo:nixos/nixpkgs:pkgs/applications/editors/neovim/utils.nix>
     nvimPlugin = neovimUtils.grammarToPlugin tree-sitter-nix-shell;
   };

@@ -11,16 +11,16 @@
 buildUBoot {
   defconfig = "pinephone-pro-rk3399_defconfig";
   filesToInstall = [
-    "idbloader.img" #< entry point: place it at sector 64 & it'll load whatever's at sector 16384 into RAM and jump to it
-    "idbloader-spi.img"  #< idbloader, if you want to flash that to SPI. BROM has a glitch where it fetches 4 KiB blocks from SPI, but loads them into RAM in 2 KiB strides, so this is idbloader.img with 2KiB of zeros after each 2KiB of data.
-    "u-boot"  #< ELF file
-    "u-boot.bin"  #< raw binary; on an ordinary platform (not RK3399), this would be loaded into ram and jumped to.
+    "idbloader.img" # entry point: place it at sector 64 & it'll load whatever's at sector 16384 into RAM and jump to it
+    "idbloader-spi.img" # idbloader, if you want to flash that to SPI. BROM has a glitch where it fetches 4 KiB blocks from SPI, but loads them into RAM in 2 KiB strides, so this is idbloader.img with 2KiB of zeros after each 2KiB of data.
+    "u-boot" # ELF file
+    "u-boot.bin" # raw binary; on an ordinary platform (not RK3399), this would be loaded into ram and jumped to.
     "u-boot-rockchip.bin"
     # "u-boot-rockchip-spi.bin"
     # no toplevel spl, but check spl/u-boot-spl.bin
-    "u-boot.cfg"  #< copy of Kconfig which this u-boot was compiled with
+    "u-boot.cfg" # copy of Kconfig which this u-boot was compiled with
     "u-boot.dtb"
-    "u-boot.itb"  #< itb binary? the idbloader should load it into RAM and jump to it
+    "u-boot.itb" # itb binary? the idbloader should load it into RAM and jump to it
     "u-boot.map"
     "u-boot-nodtb.bin"
     "u-boot.sym"

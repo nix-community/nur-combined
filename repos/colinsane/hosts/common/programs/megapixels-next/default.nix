@@ -32,18 +32,18 @@ in
           --replace-fail "Name=Megapixels" "Name=Megapixels-Next"
       '';
 
-      meta = (base.meta or {}) // {
+      meta = (base.meta or { }) // {
         # give weaker priority to ourselves, to avoid shadowing `megapixels` exe name
         # if co-installed with stock `megapixels`
-        priority = ((base.meta or {}).priority or 0) + 1;
+        priority = ((base.meta or { }).priority or 0) + 1;
       };
     });
 
     # this sandboxing was derived from original megapixels: possibly inaccurate
-    sandbox.wrapperType = "inplace";  #< for share/megapixels/movie.sh
+    sandbox.wrapperType = "inplace"; # for share/megapixels/movie.sh
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
-    sandbox.whitelistDbus.user = true;  #< TODO: reduce  #< so that it can open the image viewer using fdo portal...
+    sandbox.whitelistDbus.user = true; # TODO: reduce  # so that it can open the image viewer using fdo portal...
     sandbox.extraHomePaths = [
       # ".config/megapixels"
       "Pictures/Photos"
@@ -52,10 +52,10 @@ in
     sandbox.extraPaths = [
       # it passes the raw .dng files to a post-processor, via /tmp
       "/tmp"
-      "/sys/class/leds"  #< for flash, presumably
+      "/sys/class/leds" # for flash, presumably
     ];
     sandbox.whitelistAvDev = true;
-    sandbox.mesaCacheDir = ".cache/megapixels/mesa";  # TODO: is this the correct app-id?
+    sandbox.mesaCacheDir = ".cache/megapixels/mesa"; # TODO: is this the correct app-id?
     gsettings."me/gapixels/megapixels" = {
       # **required** for it to find its postprocess script
       postprocessor = "${cfg.package}/share/megapixels/postprocess.sh";

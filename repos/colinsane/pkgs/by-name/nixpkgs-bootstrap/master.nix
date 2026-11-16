@@ -4,7 +4,7 @@
 #   => it will fail, `hash mismatch ... got: sha256-xyz`
 # - past that hash back into the `sha256` field
 {
-  mkNixpkgs ? import ./mkNixpkgs.nix {},
+  mkNixpkgs ? import ./mkNixpkgs.nix { },
 }:
 mkNixpkgs {
   rev = "6f173c330b0fe1a22fd15cf5528538103f0b0a08";

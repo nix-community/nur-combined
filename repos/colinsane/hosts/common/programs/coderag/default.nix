@@ -11,7 +11,7 @@
       ".cache/coderag"
     ];
     suggestedPrograms = [
-      "ripgrep"  # search_files uses this internally, allegedly?
+      "ripgrep" # search_files uses this internally, allegedly?
     ];
 
     sandbox.extraHomePaths = [

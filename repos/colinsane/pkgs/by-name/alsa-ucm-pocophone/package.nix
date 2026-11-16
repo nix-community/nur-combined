@@ -33,13 +33,13 @@ stdenvNoCC.mkDerivation {
 #     sed -i '/JackControl "Headphone Jack"/d' \
 #       ucm2/Xiaomi/beryllium/HiFi.conf \
 #       ucm2/Xiaomi/beryllium/VoiceCall.conf
-# 
+#
 #     # XXX(2026-08-28): jack detection is not working, so the profile would default to Speaker+Phone Mic.
 #     # instead, default it to Headset by decreasing Speaker/Phone-Bottom-Mic priority to be below Headphones/Headset-Mic priority.
 #     substituteInPlace ucm2/Xiaomi/beryllium/{HiFi.conf,VoiceCall.conf} \
 #       --replace-fail 'PlaybackPriority 100' 'PlaybackPriority 20' \
 #       --replace-fail 'CapturePriority 100' 'CapturePriority 20'
-# 
+#
 #     # XXX(2026-08-28): headphones are quiet; make louder.
 #     # manually debug these with:
 #     # > amixer -c 0 scontrols | grep -Ei 'RX[12]|HP|headphone'
@@ -49,7 +49,7 @@ stdenvNoCC.mkDerivation {
 #       --replace-fail 'cset "name='"'"'RX1 Digital Volume'"'"' 80"'   'cset "name='"'"'RX1 Mix Digital Volume'"'"' 100"' \
 #       --replace-fail 'cset "name='"'"'RX2 Digital Volume'"'"' 80"'   'cset "name='"'"'RX2 Mix Digital Volume'"'"' 100"'
 #   '';
-# 
+#
 #   postInstall = ''
 #     # we only want the pocophone bits -- avoid overriding any other alsa ucms
 #     mkdir -p staging/share/alsa/ucm2/conf.d/sdm845 staging/share/alsa/ucm2/Xiaomi/beryllium
@@ -58,7 +58,7 @@ stdenvNoCC.mkDerivation {
 #     rm -rf $out
 #     mv staging $out
 #   '';
-# 
+#
 #   meta = (prevAttrs.meta) // {
 #     platforms = lib.platforms.linux;
 #   };

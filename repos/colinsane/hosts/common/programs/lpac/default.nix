@@ -32,7 +32,7 @@ in
   sane.programs.lpac = {
     buildCost = 1;
     sandbox.extraPaths = [
-      "/run/pcscd"  #< to communicate with the daemon
+      "/run/pcscd" # to communicate with the daemon
     ];
 
     # settings for using the eSIM adapter (will likely need changing for physical SIM or eSIM)

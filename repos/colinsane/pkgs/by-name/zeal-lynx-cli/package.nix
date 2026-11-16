@@ -5,7 +5,8 @@
   python3,
   stdenv,
   unstableGitUpdater,
-}: stdenv.mkDerivation (finalAttrs: {
+}:
+stdenv.mkDerivation {
   pname = "zeal-lynx-cli";
   version = "0-unstable-2023-02-27";
 
@@ -55,4 +56,4 @@
     mainProgram = "zeal-cli";
     maintainers = with lib.maintainers; [ colinsane ];
   };
-})
+}

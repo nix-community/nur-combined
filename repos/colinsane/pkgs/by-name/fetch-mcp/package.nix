@@ -6,7 +6,7 @@
   nix-update-script,
 }:
 
-buildNpmPackage (finalAttrs: {
+buildNpmPackage {
   pname = "fetch-mcp";
   version = "1.1.2-unstable-2026-06-29";
 
@@ -52,4 +52,4 @@ buildNpmPackage (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ colinsane ];
   };
-})
+}

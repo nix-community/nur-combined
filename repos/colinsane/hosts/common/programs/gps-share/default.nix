@@ -15,7 +15,12 @@
 # - `nc localhost 10110`
 #   should stream GPS NMEA output to the console
 # - `avahi-browse --resolve _nmea-0183._tcp`: should show hosts on the local network which provide GPS info
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.gps-share;
 in
@@ -27,8 +32,8 @@ in
     ];
 
     sandbox.net = "all";
-    sandbox.autodetectCliPaths = "existing";  #< N.B.: `test -f /dev/ttyUSB1` fails, we can't use `existingFile`
-    sandbox.whitelistDbus.system = true;  #< to register with Avahi
+    sandbox.autodetectCliPaths = "existing"; # N.B.: `test -f /dev/ttyUSB1` fails, we can't use `existingFile`
+    sandbox.whitelistDbus.system = true; # to register with Avahi
 
     services.gps-share = {
       description = "gps-share: make local GPS serial readings available over Avahi";

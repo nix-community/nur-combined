@@ -94,7 +94,7 @@ in
     '';
 
     boot.extraModulePackages = [
-      config.boot.kernelPackages.rk818-charger  #< rk818 battery/charger isn't mainline as of 2024-10-01
+      config.boot.kernelPackages.rk818-charger  # rk818 battery/charger isn't mainline as of 2024-10-01
       #v XXX(???? - 2025-07-18): mainline imx258 camera driver has some power-on issues on PPP  (imx258 1-001a: Error reading reg 0x0016: -6)
       #v XXX(2025-07-18): megi's imx258 breaks mainline audio, though
       # config.boot.kernelPackages.megi-imx258
@@ -279,7 +279,7 @@ in
     # });
 
     # boot.blacklistedKernelModules = [
-    #   "rt5640"  #< doesn't seem to actually prevent rt5640 from being loaded?..
+    #   "rt5640"  # doesn't seem to actually prevent rt5640 from being loaded?..
     # ];
 
     # boot.kernelModules = [
@@ -305,11 +305,11 @@ in
       "clk_rk808"
       "rk808_regulator"
       "rk8xx_core"
-      "rk8xx_i2c"  #< required to read from sd card
+      "rk8xx_i2c"  # required to read from sd card
 
       # these were found to be loaded after the initrd, and at least one is needed.
       # TODO: reduce this!
-      "8250_dw"  #< needed for early serial output (over the 3.5mm plug)
+      "8250_dw"  # needed for early serial output (over the 3.5mm plug)
       # "adc_keys"
       # "aes_ce_blk"
       # "af_packet"
@@ -345,29 +345,29 @@ in
       # "dw_mipi_dsi"
       # "dw_mmc"
       # "dw_mmc_pltfm"
-      "dw_mmc_rockchip"  #< required to load stage2 from SD card
+      "dw_mmc_rockchip"  # required to load stage2 from SD card
       # "dw_wdt"
       # "ecc"
       # "ecdh_generic"
       # "efi_pstore"
       # "evdev"
-      "fan53555"  #< likely needed for early boot (before serial)
+      "fan53555"  # likely needed for early boot (before serial)
       # "fat"
       # "ff_memless"
-      "fixed"  #< fixed-voltage regulators; likely needed for early boot (before serial)
+      "fixed"  # fixed-voltage regulators; likely needed for early boot (before serial)
       # "fuse"
       # "gf128mul"
       # "ghash_ce"
       # "goodix_ts"
       # "governor_simpleondemand"
       # "gpio_keys"
-      "gpio_rockchip"  #< required to bring up regulators during initrd
+      "gpio_rockchip"  # required to bring up regulators during initrd
       # "gpio_vibra"
       # "gpu_sched"
       # "hantro_vpu"
       # "hci_uart"
       # "i2c_mux"
-      "i2c_rk3x"  #< required to load stage2 from SD card
+      "i2c_rk3x"  # required to load stage2 from SD card
       # "industrialio"
       # "industrialio_triggered_buffer"
       # "inv_mpu6050"
@@ -396,7 +396,7 @@ in
       # "loop"
       # "mc"
       # "md5"
-      "mmc_block"  #< required to load stage2 from SD card
+      "mmc_block"  # required to load stage2 from SD card
       # "mmc_core"
       # "mousedev"
       # "mtd"
@@ -416,13 +416,13 @@ in
       # "panel_himax_hx8394"
       # "panfrost"
       # "phy_rockchip_emmc"
-      "pinctrl_rockchip"  #< required by early boot (even before serial is available)
+      "pinctrl_rockchip"  # required by early boot (even before serial is available)
       # "pl330"
       # "poly1305_neon"
       # "polyval_ce"
       # "polyval_generic"
       # "pwm_bl"
-      "pwm_rockchip"  #< i *think* this is needed for display out in initrd
+      "pwm_rockchip"  # i *think* this is needed for display out in initrd
       # "pwrseq_core"
       # "pwrseq_simple"
       # "qrtr"

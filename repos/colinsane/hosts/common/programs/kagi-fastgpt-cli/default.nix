@@ -4,4 +4,3 @@
     secrets.".config/fastgpt/config.toml" = ../../../../secrets/common/kagi-fastgpt-cli-config.toml.bin;
   };
 }
-

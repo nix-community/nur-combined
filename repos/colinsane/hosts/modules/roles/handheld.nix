@@ -91,7 +91,7 @@
       actions.screenoff.enable = true;
     };
     sane.programs.swaynotificationcenter.config = {
-      enableMpris = false;  #< consumes too much screen real-estate
+      enableMpris = false;  # consumes too much screen real-estate
     };
 
     sane.programs.waybar.config = {

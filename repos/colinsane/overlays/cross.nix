@@ -941,10 +941,10 @@ prev.lib.composeManyExtensions [
   #   # - bun
   #   # nixpkgs allows providing any of these simply by overriding the `deno` callpackage argument,
   #   # but yt-dlp only actually checks for `deno` unless configured otherwise (i guess there's some runtime config?)
-  #   # jsRuntime = final.deno;  #< 2026-02-04: doesn't cross compile
-  #   jsRuntime = final.nodejs;  #< 2026-02-04: runtime error: "WARNING: [youtube] [jsc] Error solving n challenge request using "node" provider: Error running node process (returncode: 1): found 0 sig function possibilities."
-  #   # jsRuntime = final.quickjs-ng; #< 2026-02-04: runtime error: "WARNING: [youtube] [jsc] Error solving n challenge request using "quickjs" provider: Error running QuickJS process (returncode: 1): found 0 sig function possibilities"
-  #   # jsRuntime = final.bun;  #< 2026-02-04: doesn't cross compile
+  #   # jsRuntime = final.deno;  # 2026-02-04: doesn't cross compile
+  #   jsRuntime = final.nodejs;  # 2026-02-04: runtime error: "WARNING: [youtube] [jsc] Error solving n challenge request using "node" provider: Error running node process (returncode: 1): found 0 sig function possibilities."
+  #   # jsRuntime = final.quickjs-ng; # 2026-02-04: runtime error: "WARNING: [youtube] [jsc] Error solving n challenge request using "quickjs" provider: Error running QuickJS process (returncode: 1): found 0 sig function possibilities"
+  #   # jsRuntime = final.bun;  # 2026-02-04: doesn't cross compile
   #   #
   #   # TODO: just fix deno cross compilation and drop this overlay: it's unclear if it actually works.
   #   jsRuntimeYtdlpName = {

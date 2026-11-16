@@ -20,11 +20,11 @@ in
       # TODO: remove as many of these entries as possible, without breaking boot
       # see: <repo:NixOS/nixos-hardware:raspberry-pi/4/default.nix>
       # they ship `usbhid`, `usb_storage`, `vc4`, `pcie_brcmstb`, `reset-raspberrypi`
-      "pcie_brcmstb"  #< nixos-hardware says "required for the pcie bus to work"
+      "pcie_brcmstb"  # nixos-hardware says "required for the pcie bus to work"
       # from <https://github.com/reckenrode/nixos-configs/blob/f711febde4bfc54778fe0ab69dc68d2930d50e79/hosts/aarch64-linux/khloe/hardware-configuration.nix#L14>
       # context: <https://discourse.nixos.org/t/how-to-install-a-flake-onto-a-raspberry-pi/18200/7>
-      "reset_raspberrypi"  #< nixos-hardware says "required for vl805 firmware to load"
-      # "usbhid"  #< nixos default
+      "reset_raspberrypi"  # nixos-hardware says "required for vl805 firmware to load"
+      # "usbhid"  # nixos default
       "usb_storage"
       "vc4"
 
@@ -47,16 +47,16 @@ in
     #     name = "experimental-fix-sdcard-init-with-systemd-boot";
     #     patch = null;
     #     structuredExtraConfig = with lib.kernel; {
-    #       # ACPI = no;  #< TODO: try if still broken
+    #       # ACPI = no;  # TODO: try if still broken
     #       DMI = no;
-    #       # EFI = no;  #< TODO: try if still broken
-    #       KUNIT = no;  #< not needed if using nixpkgs kernels
+    #       # EFI = no;  # TODO: try if still broken
+    #       KUNIT = no;  # not needed if using nixpkgs kernels
     #     };
     #   }
     # ];
 
     boot.kernelParams = [
-      "cma=512M"  #< speculative
+      "cma=512M"  # speculative
     ];
 
     # XXX(2025-10-16): stock kernel boots to initrd, but appears (?) to fail to mount root:

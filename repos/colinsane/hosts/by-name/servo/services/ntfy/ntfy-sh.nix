@@ -29,7 +29,7 @@ let
   # at the IP layer, to enable e.g. wake-on-lan.
   altPort = 2587;
 in
-lib.mkIf false  #< 2024/09/30: disabled because i haven't used it in several months
+lib.mkIf false  # 2024/09/30: disabled because i haven't used it in several months
 {
   sane.persist.sys.byStore.private = [
     # not 100% necessary to persist this, but ntfy does keep a 12hr (by default) cache
@@ -73,8 +73,8 @@ lib.mkIf false  #< 2024/09/30: disabled because i haven't used it in several mon
     ];
     locations."/" = {
       proxyPass = "http://127.0.0.1:2586";
-      proxyWebsockets = true;  #< support websocket upgrades. without that, `ntfy sub` hangs silently
-      recommendedProxySettings = true; #< adds headers so ntfy logs include the real IP
+      proxyWebsockets = true;  # support websocket upgrades. without that, `ntfy sub` hangs silently
+      recommendedProxySettings = true; # adds headers so ntfy logs include the real IP
       extraConfig = ''
         # absurdly long timeout (86400s=24h) so that we never hang up on clients.
         # make sure the client is smart enough to detect a broken proxy though!

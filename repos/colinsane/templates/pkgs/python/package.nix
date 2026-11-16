@@ -43,7 +43,7 @@
 
   nativeCheckInputs = [
     # python3.pkgs.pytestCheckHook
-    # python3.pkgs.pythonImportsCheckHook  #< or put in `nativeInstallCheckInputs` and set `doInstallCheck = true;`
+    # python3.pkgs.pythonImportsCheckHook  # or put in `nativeInstallCheckInputs` and set `doInstallCheck = true;`
   ];
 
   pythonImportsCheck = [

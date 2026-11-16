@@ -1,5 +1,5 @@
 {
-  buildLua,  #< part of the mpvScripts scope
+  buildLua, # part of the mpvScripts scope
   lib,
   pipewire,
   sane-die-with-parent,
@@ -21,7 +21,10 @@ buildLua {
     "--suffix"
     "PATH"
     ":"
-    (lib.makeBinPath [ pipewire sane-die-with-parent wireplumber ])
+    (lib.makeBinPath [
+      pipewire
+      sane-die-with-parent
+      wireplumber
+    ])
   ];
 }
-

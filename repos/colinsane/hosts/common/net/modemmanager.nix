@@ -13,7 +13,7 @@
     # aliases = [ "dbus-org.freedesktop.ModemManager1.service" ];
     # after = [ "polkit.service" ];
     # requires = [ "polkit.service" ];
-    wantedBy = [ "network.target" ];  #< default is `multi-user.target`, somehow it doesn't auto-start with that...
+    wantedBy = [ "network.target" ];  # default is `multi-user.target`, somehow it doesn't auto-start with that...
 
     # serviceConfig.Type = "dbus";
     # serviceConfig.BusName = "org.freedesktop.ModemManager1";
@@ -38,12 +38,12 @@
     # serviceConfig.NoNewPrivileges = true;
 
     serviceConfig.CapabilityBoundingSet = [
-      ""  #< reset upstream capabilities
+      ""  # reset upstream capabilities
       "CAP_NET_ADMIN"
-      "CAP_SYS_ADMIN"  #< TODO: remove CAP_SYS_ADMIN!
+      "CAP_SYS_ADMIN"  # TODO: remove CAP_SYS_ADMIN!
     ];
     serviceConfig.LockPersonality = true;
-    # serviceConfig.PrivateUsers = true;  #< untried, not likely to work since it needs capabilities
+    # serviceConfig.PrivateUsers = true;  # untried, not likely to work since it needs capabilities
     serviceConfig.PrivateTmp = true;
     serviceConfig.ProtectClock = true;  # syscall filter to prevent changing the RTC
     serviceConfig.ProtectControlGroups = true;

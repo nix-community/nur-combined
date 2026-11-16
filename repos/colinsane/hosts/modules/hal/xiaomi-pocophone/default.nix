@@ -139,9 +139,9 @@ in
       # the two would compete for the same service-registry endpoint.
       # "qcom_pd_mapper"
       # these are likely not *all* necessary
-      "fastrpc"  #< disable logspam: `qcom,fastrpc 5c00000.remote_proc:glink-edge.fastrpcglink-apps-dsp.-1.-1: rpmsg_dev_probe: failed: -22`
-      "qcom_fastrpc"  #< disable logspam: `qcom,fastrpc 5c00000.remote_proc:glink-edge.fastrpcglink-apps-dsp.-1.-1: rpmsg_dev_probe: failed: -22`
-      "ipa"  #< causes a kernel panic on boot (vanilla-mobile-nixos knows about this and i've reproduced the bug on their 7.1 kernel)
+      "fastrpc"  # disable logspam: `qcom,fastrpc 5c00000.remote_proc:glink-edge.fastrpcglink-apps-dsp.-1.-1: rpmsg_dev_probe: failed: -22`
+      "qcom_fastrpc"  # disable logspam: `qcom,fastrpc 5c00000.remote_proc:glink-edge.fastrpcglink-apps-dsp.-1.-1: rpmsg_dev_probe: failed: -22`
+      "ipa"  # causes a kernel panic on boot (vanilla-mobile-nixos knows about this and i've reproduced the bug on their 7.1 kernel)
     ];
 
     sane.programs.alsa-ucm-conf.suggestedPrograms = [

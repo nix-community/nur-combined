@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   sane.programs.zelda64recomp = {
-    buildCost = 1;  # directx-shader-compiler
+    buildCost = 1; # directx-shader-compiler
     # upstream package places non-binaries (e.g. art assets) in `bin/`;
     # this especially confuses my sandboxer.
     # so link only the files i want to be visible:
@@ -9,14 +9,14 @@
       "bin/Zelda64Recompiled"
       "share/applications"
       "share/icons"
-    ] {};
+    ] { };
     sandbox.whitelistAudio = true;
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
-    sandbox.whitelistX = true;  #< TODO: it uses SDL; i might be able to get it to run on wayland only
+    sandbox.whitelistX = true; # TODO: it uses SDL; i might be able to get it to run on wayland only
 
     sandbox.extraPaths = [
-      "/dev/input"  #< for controllers (speculative)
+      "/dev/input" # for controllers (speculative)
     ];
 
     sandbox.mesaCacheDir = ".cache/Zelda64Recompiled/mesa";

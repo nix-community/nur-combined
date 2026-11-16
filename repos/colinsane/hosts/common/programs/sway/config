@@ -220,7 +220,7 @@ for_window [app_id="Celeste64|mpv"] {
   move to output $out_cuddlevision
   move to output $out_theater
   move to output $out_projector
-  fullscreen enable  #< should be redundant with the rules for TV, but isn't for some reason
+  fullscreen enable  # should be redundant with the rules for TV, but isn't for some reason
 }
 
 # swaymsg --pretty -t get_tree | grep -i itgmania:

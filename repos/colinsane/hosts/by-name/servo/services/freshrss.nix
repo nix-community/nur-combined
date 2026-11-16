@@ -10,7 +10,7 @@
 # ```
 
 { config, lib, pkgs, ... }:
-lib.mkIf false  #< 2024/07/04: i haven't actively used this for months
+lib.mkIf false  # 2024/07/04: i haven't actively used this for months
 {
   sops.secrets."freshrss_passwd" = {
     owner = config.users.users.freshrss.name;

@@ -16,11 +16,11 @@
       # - replace `NIXOS_OZONE_WL` non-empty check with `WAYLAND_DISPLAY`
       # - use `wayland` instead of `auto` because --ozone-platform-hint=auto still prefers X over wayland when both are available
       # alternatively, set env var: `ELECTRON_OZONE_PLATFORM_HINT=wayland` and ignore all of this
-      installPhase = lib.replaceStrings
-        [ "NIXOS_OZONE_WL" "--ozone-platform-hint=auto" ]
-        [ "WAYLAND_DISPLAY" "--ozone-platform-hint=wayland" ]
-        upstream.installPhase
-      ;
+      installPhase =
+        lib.replaceStrings
+          [ "NIXOS_OZONE_WL" "--ozone-platform-hint=auto" ]
+          [ "WAYLAND_DISPLAY" "--ozone-platform-hint=wayland" ]
+          upstream.installPhase;
     });
     suggestedPrograms = [
       "gnome-keyring"
@@ -31,9 +31,9 @@
     sandbox.wrapperType = "inplace";
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus.user.call."org.freedesktop.secrets" = "*";  #< TODO: restrict to a subset of secrets
+    sandbox.whitelistDbus.user.call."org.freedesktop.secrets" = "*"; # TODO: restrict to a subset of secrets
     sandbox.whitelistPortal = [
-      "FileChooser"  # not sure this is actually used
+      "FileChooser" # not sure this is actually used
       "OpenURI"
     ];
     sandbox.whitelistSendNotifications = true;
@@ -52,7 +52,7 @@
       "tmp"
     ];
     sandbox.extraPaths = [
-      "/dev/snd"  #< needed only when playing embedded audio (not embedded video!)
+      "/dev/snd" # needed only when playing embedded audio (not embedded video!)
     ];
 
     sandbox.mesaCacheDir = ".cache/Element/mesa";

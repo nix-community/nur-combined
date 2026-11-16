@@ -9,9 +9,9 @@ in
     sandbox.whitelistAudio = true;
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
-    # sandbox.whitelistX = true;  #< XXX(2024-11-10): why was this enabled?
+    # sandbox.whitelistX = true;  # XXX(2024-11-10): why was this enabled?
     sandbox.extraPaths = [
-      "/dev/input"  #< for controllers
+      "/dev/input" # for controllers
     ];
 
     sandbox.mesaCacheDir = ".cache/sm64ex-coop/mesa";

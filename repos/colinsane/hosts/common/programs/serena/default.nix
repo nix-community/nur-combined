@@ -2,6 +2,6 @@
 {
   sane.programs.serena = {
     packageUnwrapped = pkgs.mcp-servers-nix.packages.serena;
-    sandbox.method = null;  #< TODO: sandbox
+    sandbox.method = null; # TODO: sandbox
   };
 }

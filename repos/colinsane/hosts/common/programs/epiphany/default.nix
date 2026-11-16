@@ -11,7 +11,7 @@
 { lib, ... }:
 {
   sane.programs.epiphany = {
-    sandbox.wrapperType = "inplace";  # /share/epiphany/default-bookmarks.rdf refers back to /share; dbus files to /libexec
+    sandbox.wrapperType = "inplace"; # /share/epiphany/default-bookmarks.rdf refers back to /share; dbus files to /libexec
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus.user.own = [
@@ -25,10 +25,10 @@
       "Location"
       "OpenURI"
       "Print"
-      # "ProxyResolver"  #< required else it doesn't load websites
+      # "ProxyResolver"  # required else it doesn't load websites
       "ScreenCast"
     ];
-    # sandbox.extraEnv.GIO_USE_NETWORK_MONITOR = "netlink";  #< required if portal NetworkMonitor isn't exposed (probably?)
+    # sandbox.extraEnv.GIO_USE_NETWORK_MONITOR = "netlink";  # required if portal NetworkMonitor isn't exposed (probably?)
     sandbox.extraEnv.GIO_USE_PROXY_RESOLVER = "dummy";
 
     # default sandboxing breaks rendering in weird ways. sites are super zoomed in / not scaled.
@@ -36,7 +36,7 @@
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
-      ".config/epiphany"  #< else it gets angry at launch
+      ".config/epiphany" # else it gets angry at launch
       "tmp"
       #v these are only used for epiphany "webapps" (e.g. kagi-epiphany)
       ".local/share/applications"
@@ -49,7 +49,7 @@
       "/sys/bus"
       "/sys/class"
     ];
-    sandbox.autodetectCliPaths = "existing";  # for --profile option
+    sandbox.autodetectCliPaths = "existing"; # for --profile option
 
     buildCost = lib.mkDefault 2;
 
@@ -58,16 +58,18 @@
       ".local/share/epiphany"
       # also .config/epiphany, but appears empty
     ];
-    mime.priority = 200;  # default priority is 100: install epiphany only as a fallback
-    mime.associations = let
-      desktop = "org.gnome.Epiphany.desktop";
-    in {
-      "text/html" = desktop;
-      "x-scheme-handler/http" = desktop;
-      "x-scheme-handler/https" = desktop;
-      "x-scheme-handler/about" = desktop;
-      "x-scheme-handler/unknown" = desktop;
-    };
+    mime.priority = 200; # default priority is 100: install epiphany only as a fallback
+    mime.associations =
+      let
+        desktop = "org.gnome.Epiphany.desktop";
+      in
+      {
+        "text/html" = desktop;
+        "x-scheme-handler/http" = desktop;
+        "x-scheme-handler/https" = desktop;
+        "x-scheme-handler/about" = desktop;
+        "x-scheme-handler/unknown" = desktop;
+      };
     gsettings."org/gnome/epiphany" = with lib.gvariant; {
       ask-for-default = false;
       # homepage-url = "about:newtab";

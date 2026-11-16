@@ -60,7 +60,7 @@ in
     axfr_policy = "AllowAll";
   }) config.sane.dns.zones;
 
-  networking.nat.enable = true;  #< TODO: try removing this?
+  networking.nat.enable = true;  # TODO: try removing this?
   # networking.nat.extraCommands = ''
   #   # redirect incoming DNS requests from LAN addresses
   #   #   to the LAN-specialized DNS service
@@ -108,7 +108,7 @@ in
     # hn = {
     #   substitutions = mkSubstitutions "hn";
     #   listenAddrsIpv4 = [ nativeAddrs."servo.hn" ];
-    #   enableRecursiveResolver = true;  #< allow wireguard clients to use this as their DNS resolver
+    #   enableRecursiveResolver = true;  # allow wireguard clients to use this as their DNS resolver
     #   # extraConfig = {
     #   #   zones = [
     #   #     {

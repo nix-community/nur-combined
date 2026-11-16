@@ -1,6 +1,7 @@
 # HauhauCS's uncensored Qwen3.6-35B-A3B, Q3_K_P quantization.
 # <https://huggingface.co/HauhauCS/Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive>
-{ fetchFromHuggingFaceSane }: fetchFromHuggingFaceSane {
+{ fetchFromHuggingFaceSane }:
+fetchFromHuggingFaceSane {
   owner = "HauhauCS";
   repo = "Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive";
   path = "Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive-Q3_K_P.gguf";

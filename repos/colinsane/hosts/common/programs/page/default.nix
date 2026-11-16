@@ -8,7 +8,12 @@
 # USAGE:
 # - `cmd | page -t FILETYPE`
 # - `cmd | page -o`: force interactive mode (i.e. never `cat`; overrides `-O`)
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.page;
   inherit (config.sane.programs.neovim.config) scrollbackMax;
@@ -16,7 +21,7 @@ let
     extraHomePaths = [
       ".config/nvim"
     ];
-    whitelistWayland = true;  # for system clipboard integration
+    whitelistWayland = true; # for system clipboard integration
   };
 in
 {
@@ -36,7 +41,7 @@ in
           --replace-fail ' 100000,' ' ${toString scrollbackMax},'
       '';
 
-      nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+      nativeBuildInputs = (upstream.nativeBuildInputs or [ ]) ++ [
         pkgs.makeBinaryWrapper
       ];
 
@@ -69,6 +74,6 @@ in
   sane.programs.git.sandbox = lib.mkIf cfg.enabled sandboxPropagated;
   sane.programs.git-sane.sandbox = lib.mkIf cfg.enabled sandboxPropagated;
   sane.programs.man-db.sandbox = lib.mkIf cfg.enabled sandboxPropagated;
-  sane.programs.neovim.sandbox.extraPaths = lib.mkIf cfg.enabled [ "/dev/pts" ];  #< XXX(2026-01-27): alternative is to re-wrap neovim just for page.
+  sane.programs.neovim.sandbox.extraPaths = lib.mkIf cfg.enabled [ "/dev/pts" ]; # XXX(2026-01-27): alternative is to re-wrap neovim just for page.
   sane.programs.mercurial.sandbox = lib.mkIf cfg.enabled sandboxPropagated;
 }

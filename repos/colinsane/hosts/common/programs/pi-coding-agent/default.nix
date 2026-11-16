@@ -19,23 +19,31 @@
 # - find   - Find files by glob pattern (read-only, off by default)
 # - ls     - List directory contents (read-only, off by default)
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.sane.programs.pi-coding-agent.config;
   deskoHostname = config.sane.hosts.by-name.desko.wg-home.ip;
   llamaCppModels = pkgs.llama-cpp-models.models;
   llamaCppModelList = builtins.attrValues llamaCppModels;
   offlineModels = pkgs.llama-cpp-models;
-  llamaCppModelsJson = (pkgs.formats.json {}).generate "llama-cpp-models.json" {
+  llamaCppModelsJson = (pkgs.formats.json { }).generate "llama-cpp-models.json" {
     providers.llama-cpp = {
       baseUrl = "http://${deskoHostname}:11435";
       api = "openai-completions";
       apiKey = "none";
-      models = lib.map (p: { id = p.id; name = p.id; }) llamaCppModelList;
+      models = lib.map (p: {
+        inherit (p) id;
+        name = p.id;
+      }) llamaCppModelList;
     };
   };
 
-  pollinationsModelsJson = (pkgs.formats.json {}).generate "pollination-models.json" {
+  pollinationsModelsJson = (pkgs.formats.json { }).generate "pollination-models.json" {
     providers.poll = {
       baseUrl = "https://text.pollinations.ai/v1";
       api = "openai-completions";
@@ -64,7 +72,7 @@ let
   # schema is similar to pi-mcp-adapter's: <https://github.com/nicobailon/pi-mcp-adapter#config>
   # - but `exposure = "direct"` instead of `directTools = true`
   # - lives at ~/.config/pi/mcp.json instead of ~/.config/pi/mcp-adapter.json
-  mcpConfig = (pkgs.formats.json {}).generate "mcp.json" {
+  mcpConfig = (pkgs.formats.json { }).generate "mcp.json" {
     mcpServers = {
       # agent-lsp = {
       #   command = "agent-lsp";
@@ -156,7 +164,8 @@ let
           # from <repo:NixOS/nixpkgs:pkgs/by-name/pl/playwright-mcp/package.nix>
           "--headless"
           "--isolated"
-          "--output-dir"  "/tmp"
+          "--output-dir"
+          "/tmp"
         ];
         toolExposure = {
           # models don't know to load the playwright MCP unless aggressively prompted;
@@ -179,9 +188,9 @@ let
           # "kagi_news" # Fetch Kagi News stories for a category
           kagi_news_search = "direct"; # Search the News tab of kagi.com
           # ----
-          kagi_enrich_web = "hidden";  #< "this command requires KAGI_API_TOKEN"
+          kagi_enrich_web = "hidden"; # "this command requires KAGI_API_TOKEN"
           kagi_extract = "hidden"; # Extract a page's full content as markdown (requires KAGI_API_KEY)
-          kagi_fastgpt = "hidden";  #< "this command requires KAGI_API_TOKEN"
+          kagi_fastgpt = "hidden"; # "this command requires KAGI_API_TOKEN"
           kagi_summarize = "hidden"; # Summarize a URL or text (requires KAGI_API_KEY)
         };
       };
@@ -199,38 +208,40 @@ let
 in
 {
   sane.programs.pi-coding-agent = {
-    configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options = {
-          auto-zoekt = mkOption {
-            type = types.bool;
-            default = false;
-          };
-          coderag = mkOption {
-            type = types.bool;
-            default = false;
-          };
-          ha-mcp = mkOption {
-            type = types.bool;
-            default = false;
-          };
-          pi-offline-provider = mkOption {
-            type = types.bool;
-            default = false;
-          };
-          semble = mkOption {
-            type = types.bool;
-            default = true;
+    configOption =
+      with lib;
+      mkOption {
+        default = { };
+        type = types.submodule {
+          options = {
+            auto-zoekt = mkOption {
+              type = types.bool;
+              default = false;
+            };
+            coderag = mkOption {
+              type = types.bool;
+              default = false;
+            };
+            ha-mcp = mkOption {
+              type = types.bool;
+              default = false;
+            };
+            pi-offline-provider = mkOption {
+              type = types.bool;
+              default = false;
+            };
+            semble = mkOption {
+              type = types.bool;
+              default = true;
+            };
           };
         };
       };
-    };
 
     buildCost = 1;
 
     packageUnwrapped = pkgs.pi-coding-agent.overrideAttrs (prevAttrs: {
-      nativeBuildInputs = prevAttrs.nativeBuildInputs or [] ++ [
+      nativeBuildInputs = prevAttrs.nativeBuildInputs or [ ] ++ [
         pkgs.makeWrapper
       ];
       # upstream package wraps the program to add rg to PATH;
@@ -272,19 +283,23 @@ in
       # "mcp-server-fetch"
       "nanogpt-api"
       # "nanogpt-mcp"
-      "nix-prefetch-git"  # agents make use of this
+      "nix-prefetch-git" # agents make use of this
       # "pandoc"  # for pi-markdown-preview
       # "pi-lens"
       "playwright-mcp"
       "sane-fetch"
       # "serena"
-    ] ++ lib.optionals cfg.auto-zoekt [
+    ]
+    ++ lib.optionals cfg.auto-zoekt [
       "auto-zoekt"
-    ] ++ lib.optionals cfg.coderag [
+    ]
+    ++ lib.optionals cfg.coderag [
       "coderag"
-    ] ++ lib.optionals cfg.ha-mcp [
+    ]
+    ++ lib.optionals cfg.ha-mcp [
       "ha-mcp"
-    ] ++ lib.optionals cfg.semble [
+    ]
+    ++ lib.optionals cfg.semble [
       "semble"
     ];
 
@@ -304,18 +319,18 @@ in
       ".config/nanogpt/nanogpt_api_key"
       ".config/pi"
       # ".pi-lens"
-      # ".pi"  #< default for if my `PI_CODING_AGENT_DIR` override doesn't take everywhere
+      # ".pi"  # default for if my `PI_CODING_AGENT_DIR` override doesn't take everywhere
       # for convenience
       "dev"
       "ref"
     ];
     sandbox.extraPaths = [
-      "/nix/var/log/nix"  #< for `nix log ...`
-      "/nix/var/nix/daemon-socket"  #< for `nix-build ...`
+      "/nix/var/log/nix" # for `nix log ...`
+      "/nix/var/nix/daemon-socket" # for `nix-build ...`
     ];
 
     # sandbox.whitelistWayland = true;  # for pi-md-export -> wl-copy
-    # sandbox.keepPidsAndProc = true;  #< likely required for wl-copy to work
+    # sandbox.keepPidsAndProc = true;  # likely required for wl-copy to work
 
     persist.byStore.private = [
       ".config/pi/sessions"
@@ -327,27 +342,29 @@ in
     fs.${if cfg.pi-offline-provider then ".config/pi/offline-provider/models" else null} = {
       symlink.target = offlineModels;
     };
-    fs.".config/pi/pi-speeed.json".symlink.target = (pkgs.formats.json {}).generate "pi-speeed.json" {
-      footer = false;  #< save 1 line of chrome
+    fs.".config/pi/pi-speeed.json".symlink.target = (pkgs.formats.json { }).generate "pi-speeed.json" {
+      footer = false; # save 1 line of chrome
       persistStats = false;
     };
 
     fs.".pi/agent/claude-bridge.json".symlink.target = "../../.config/pi/claude-bridge.json";
-    fs.".config/pi/claude-bridge.json".symlink.target = (pkgs.formats.json {}).generate "pi-claude-bridge.json" {
-      askClaude = {
-        enabled = false;  #< otherwise weaker models will just defer to Claude.
-        allowFullMode = true;
-        defaultIsolated = false;
-        description = "Custom tool description override";
-      };
-      provider = {
-        plan = "max";
-        appendSystemPrompt = false;  #< XXX recommended so that we don't send Anthropic a "you are an agent in the Pi coding harness..." portion of the system prompt
-        longContextExtraUsage = false;
-        strictMcpConfig = true;
-        # pathToClaudeCodeExecutable = lib.getExe pkgs.claude;
-      };
-    };
+    fs.".config/pi/claude-bridge.json".symlink.target =
+      (pkgs.formats.json { }).generate "pi-claude-bridge.json"
+        {
+          askClaude = {
+            enabled = false; # otherwise weaker models will just defer to Claude.
+            allowFullMode = true;
+            defaultIsolated = false;
+            description = "Custom tool description override";
+          };
+          provider = {
+            plan = "max";
+            appendSystemPrompt = false; # XXX recommended so that we don't send Anthropic a "you are an agent in the Pi coding harness..." portion of the system prompt
+            longContextExtraUsage = false;
+            strictMcpConfig = true;
+            # pathToClaudeCodeExecutable = lib.getExe pkgs.claude;
+          };
+        };
 
     # fs.".config/pi/auth.json".symlink.target = let
     #   auth = pkgs.writers.writeJSON "pi-auth.json" {
@@ -369,16 +386,19 @@ in
     #   '';
     # in "${authDir}/auth.json";
 
-    fs.".config/pi/models.json".symlink.target = pkgs.runCommand "pi-models.json" {
-      nativeBuildInputs = [ pkgs.jq ];
-    } ''
-      jq --slurp '.[0] * .[1] * .[2]' \
-        ${pkgs.nanogpt-data}/share/pi/models-nanogpt.json \
-        ${llamaCppModelsJson} \
-        ${pollinationsModelsJson} \
-        > $out
-    '';
-    fs.".config/pi/settings.json".symlink.target = (pkgs.formats.json {}).generate "pi-settings.json" {
+    fs.".config/pi/models.json".symlink.target =
+      pkgs.runCommand "pi-models.json"
+        {
+          nativeBuildInputs = [ pkgs.jq ];
+        }
+        ''
+          jq --slurp '.[0] * .[1] * .[2]' \
+            ${pkgs.nanogpt-data}/share/pi/models-nanogpt.json \
+            ${llamaCppModelsJson} \
+            ${pollinationsModelsJson} \
+            > $out
+        '';
+    fs.".config/pi/settings.json".symlink.target = (pkgs.formats.json { }).generate "pi-settings.json" {
       # defaultModel = "google/gemma-4-31b-it";
       # defaultProvider = "nano-gpt";
       # defaultModel = llamaCppModels.gemma-4-26b-a4b-it-qat-ud-q4_k_xl.id;
@@ -386,87 +406,91 @@ in
       # defaultModel = llamaCppModels.qwen3_5-122b-a10b-ud-iq4_xs.id;
       # defaultModel = llamaCppModels.qwen-agentworld-35b-a3b-ud-iq3_s.id;
       # defaultModel = llamaCppModels.qwen3_6-35b-a3b-mtp-ud-q4_k_m.id;
-      # defaultModel = llamaCppModels.spark-x2_6-4b-q4_k_m.id;  #< about 2x faster than qwen3.6
-      defaultModel = llamaCppModels.nvidia-nemotron-3_5-bolt-e4b-ud-iq3_xxs.id;  #< less capable than Qwen-based models, but much faster
+      # defaultModel = llamaCppModels.spark-x2_6-4b-q4_k_m.id;  # about 2x faster than qwen3.6
+      defaultModel = llamaCppModels.nvidia-nemotron-3_5-bolt-e4b-ud-iq3_xxs.id; # less capable than Qwen-based models, but much faster
       defaultProvider = "llama-cpp";
       defaultThinkingLevel = "medium";
       editorPaddingX = 0;
       enableInstallTelemetry = false;
       fullscreenScrollbar = "always";
       terminal.showTerminalProgress = true;
-      theme = "system";  #< v.s. "light";
+      theme = "system"; # v.s. "light";
       # default tuiMode is "fullscreen", which is actually not bad, except that:
       # - it has worse scrolling than native terminal scrolling (no fractional scrolling)
       # - scroll area is comparatively smaller, due to the large amount of chrome in the fixed input area (7-8 lines)
       # - doesn't inherit (i.e. blocks) native TUI scroll bindings (add Ctrl+PgUp/PgDown to keybindings.json to fix)
       # - breaks terminal-native URL handling (i.e. can't click-to-open links)
       # - breaks terminal-native selection copy
-      tuiMode = "regular";  #< v.s. "fullscreen"
+      tuiMode = "regular"; # v.s. "fullscreen"
       outputPad = 0;
       packages = [
-        # pkgs.pi-caveman  #< adds `/caveman` slash command
-        pkgs.edb-context-viewer  #< adds `/context` slash command
-        # pkgs.edb-diff-files  #< adds `/diff-files` slash command
+        # pkgs.pi-caveman  # adds `/caveman` slash command
+        pkgs.edb-context-viewer # adds `/context` slash command
+        # pkgs.edb-diff-files  # adds `/diff-files` slash command
         # pkgs.leohenon-pi-vim
         pkgs.pi-claude-bridge
         pkgs.pi-claude-usage
         pkgs.pi-codex-goal
-        # pkgs.pi-cwd   #< doesn't work when using the pi-claude-bridge provider
-        # pkgs.pi-goal  #< adds `/goal` slash command
-        # pkgs.pi-kagi  #< adds `web_search` tool
-        # pkgs.pi-lens  #< adds LSP support, but also a lot of tool noise
-        # pkgs.pi-mcp-adapter  #< adds MCP (Model Context Protocol) support
-        # pkgs.pi-md-export  #< adds `/md` slash command
-        # pkgs.pi-move-session  #< adds `/move-session` slash command
+        # pkgs.pi-cwd   # doesn't work when using the pi-claude-bridge provider
+        # pkgs.pi-goal  # adds `/goal` slash command
+        # pkgs.pi-kagi  # adds `web_search` tool
+        # pkgs.pi-lens  # adds LSP support, but also a lot of tool noise
+        # pkgs.pi-mcp-adapter  # adds MCP (Model Context Protocol) support
+        # pkgs.pi-md-export  # adds `/md` slash command
+        # pkgs.pi-move-session  # adds `/move-session` slash command
         pkgs.pi-sane
         pkgs.pi-speeed
         pkgs.pi-subagents
-        pkgs.pi-tool-repair  #< repairs "Error: Upstream emitted malformed tool call data that could not be repaired"
-        # pkgs.pi-simplify  #< adds `/simplify` slash command
-        pkgs.pi-vim  #< makes the input textarea behave like vim
-        # pkgs.pi-markdown-preview  #< renders $LaTeX$, etc, but needs more deps (puppeteer?)
-      ] ++ lib.optionals cfg.pi-offline-provider [
-        pkgs.pi-offline-provider  #< provides `offline/*` models
+        pkgs.pi-tool-repair # repairs "Error: Upstream emitted malformed tool call data that could not be repaired"
+        # pkgs.pi-simplify  # adds `/simplify` slash command
+        pkgs.pi-vim # makes the input textarea behave like vim
+        # pkgs.pi-markdown-preview  # renders $LaTeX$, etc, but needs more deps (puppeteer?)
+      ]
+      ++ lib.optionals cfg.pi-offline-provider [
+        pkgs.pi-offline-provider # provides `offline/*` models
       ];
-      enabledModels = lib.mapAttrsToList (_: m: m.id) llamaCppModels ++
-        (lib.optionals cfg.pi-offline-provider (lib.mapAttrsToList (_: m: "offline/${m.id}") offlineModels.models)) ++
-        [
-        # default set for Ctrl+P cycling
-        # # "llama-cpp/${llamaCppModels.gemma-4-12b-it-qat-ud-q4_k_xl.id}"
-        # # "llama-cpp/${llamaCppModels.gemma-4-e4b-it-qat-ud-q4_k_xl.id}"
-        # "llama-cpp/${llamaCppModels.gemma-4-26b-a4b-it-qat-ud-q4_k_xl.id}"
-        # "llama-cpp/${llamaCppModels.gemma-4-31b-it-qat-ud-q4_k_xl.id}"
-        # "llama-cpp/${llamaCppModels.qwen-agentworld-35b-a3b-ud-iq2_m.id}"
-        # "llama-cpp/${llamaCppModels.qwen-agentworld-35b-a3b-ud-iq3_s.id}"
-        # "llama-cpp/${llamaCppModels.qwen-agentworld-35b-a3b-iq4_nl.id}"
-        # "llama-cpp/${llamaCppModels.qwen3_6-35b-a3b-mtp-ud-q4_k_m.id}"
-        # "llama-cpp/${llamaCppModels.qwen3_6-27b-mtp-q4_k_m.id}"
-        # "llama-cpp/${llamaCppModels.qwen3_5-9b-q4_k_m.id}"
-        # "llama-cpp/${llamaCppModels.qwen3_5-122b-a10b-ud-iq4_xs.id}"
-        # # "llama-cpp/${llamaCppModels.qwen3_5-122b-a10b-ud-q4_k_xl.id}"
-        # "llama-cpp/${llamaCppModels.step3_7-flash-iq4_xs.id}"
-        # "poll/gpt-oss-20b"
-        # "qwen3.5-122b-a10b"
-        # "google/gemma-4-31b-it"
-        # "moonshotai/kimi-k2.6"
-        # "moonshotai/kimi-k3"  #< N.B.: k3 is worse than terra in most measures (cost, capability, speed)
-        "z-ai/glm-5.3-flash"  # $0.30/1M output <https://nano-gpt.com/models/text/z-ai/glm-5.3-flash>
-        "openai/gpt-6-luna"  # $0.50/1M output <https://nano-gpt.com/models/text/openai/gpt-6-luna>
-        "openai/gpt-6.1-sol"  # $10/1M output <https://nano-gpt.com/models/text/openai/gpt-6.1-sol>
-        "anthropic/claude-sonnet-5.5"  # $10/1M output <https://nano-gpt.com/models/text/anthropic/claude-sonnet-5.5>
-        "anthropic/claude-opus-5.5"  # $20/1M output <https://nano-gpt.com/models/text/anthropic/claude-opus-5.5>
-        # "deepseek/deepseek-latest"
-        # "zai-org/glm-latest"
-        # "x-ai/grok-latest"
-        # "openai/gpt-chat-latest"
-        # "google/gemini-pro-latest"
-        # "anthropic/claude-opus-latest"
-        # "mercury-2"
-        # "google/gemini-flash-latest"
-        # "moonshotai/kimi-latest"
-        # "openai/gpt-oss-120b"
-        # "auto-model-basic" 
-      ];
+      enabledModels =
+        lib.mapAttrsToList (_: m: m.id) llamaCppModels
+        ++ (lib.optionals cfg.pi-offline-provider (
+          lib.mapAttrsToList (_: m: "offline/${m.id}") offlineModels.models
+        ))
+        ++ [
+          # default set for Ctrl+P cycling
+          # # "llama-cpp/${llamaCppModels.gemma-4-12b-it-qat-ud-q4_k_xl.id}"
+          # # "llama-cpp/${llamaCppModels.gemma-4-e4b-it-qat-ud-q4_k_xl.id}"
+          # "llama-cpp/${llamaCppModels.gemma-4-26b-a4b-it-qat-ud-q4_k_xl.id}"
+          # "llama-cpp/${llamaCppModels.gemma-4-31b-it-qat-ud-q4_k_xl.id}"
+          # "llama-cpp/${llamaCppModels.qwen-agentworld-35b-a3b-ud-iq2_m.id}"
+          # "llama-cpp/${llamaCppModels.qwen-agentworld-35b-a3b-ud-iq3_s.id}"
+          # "llama-cpp/${llamaCppModels.qwen-agentworld-35b-a3b-iq4_nl.id}"
+          # "llama-cpp/${llamaCppModels.qwen3_6-35b-a3b-mtp-ud-q4_k_m.id}"
+          # "llama-cpp/${llamaCppModels.qwen3_6-27b-mtp-q4_k_m.id}"
+          # "llama-cpp/${llamaCppModels.qwen3_5-9b-q4_k_m.id}"
+          # "llama-cpp/${llamaCppModels.qwen3_5-122b-a10b-ud-iq4_xs.id}"
+          # # "llama-cpp/${llamaCppModels.qwen3_5-122b-a10b-ud-q4_k_xl.id}"
+          # "llama-cpp/${llamaCppModels.step3_7-flash-iq4_xs.id}"
+          # "poll/gpt-oss-20b"
+          # "qwen3.5-122b-a10b"
+          # "google/gemma-4-31b-it"
+          # "moonshotai/kimi-k2.6"
+          # "moonshotai/kimi-k3"  # N.B.: k3 is worse than terra in most measures (cost, capability, speed)
+          "z-ai/glm-5.3-flash" # $0.30/1M output <https://nano-gpt.com/models/text/z-ai/glm-5.3-flash>
+          "openai/gpt-6-luna" # $0.50/1M output <https://nano-gpt.com/models/text/openai/gpt-6-luna>
+          "openai/gpt-6.1-sol" # $10/1M output <https://nano-gpt.com/models/text/openai/gpt-6.1-sol>
+          "anthropic/claude-sonnet-5.5" # $10/1M output <https://nano-gpt.com/models/text/anthropic/claude-sonnet-5.5>
+          "anthropic/claude-opus-5.5" # $20/1M output <https://nano-gpt.com/models/text/anthropic/claude-opus-5.5>
+          # "deepseek/deepseek-latest"
+          # "zai-org/glm-latest"
+          # "x-ai/grok-latest"
+          # "openai/gpt-chat-latest"
+          # "google/gemini-pro-latest"
+          # "anthropic/claude-opus-latest"
+          # "mercury-2"
+          # "google/gemini-flash-latest"
+          # "moonshotai/kimi-latest"
+          # "openai/gpt-oss-120b"
+          # "auto-model-basic"
+        ];
       treeFilterMode = "user-only";
       branchSummary.skipPrompt = true;
     };

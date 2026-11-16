@@ -13,7 +13,8 @@ static-nix-shell.mkPython3 {
       util-linux
       ;
   };
-  extraMakeWrapperArgs = [ "--add-flag" "--verbose" ];
+  extraMakeWrapperArgs = [
+    "--add-flag"
+    "--verbose"
+  ];
 }
-
-

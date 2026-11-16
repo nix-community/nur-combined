@@ -1,0 +1,15 @@
+# run `statix list` to map code -> name
+disabled = [
+  # empty_pattern would turn `{}: ...` callArgs into `_: ...`
+  # which would lose introspection
+  "empty_pattern",
+  # this flags `{...}@args: ...` and suggests to use `args: ...` instead.
+  # it's wrong for the same as empty_pattern.
+  "redundant_pattern_bind",
+  # repeated_keys would flag transparent attr merging, like
+  # ```
+  # env.FIRST = 1;
+  # env.SECOND = 2;
+  # ```
+  "repeated_keys",
+]

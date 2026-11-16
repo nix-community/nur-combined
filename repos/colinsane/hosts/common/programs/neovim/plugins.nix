@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (pkgs) vimPlugins;
 in
@@ -97,7 +102,8 @@ in
       -- see: <https://neovim.io/doc/user/lsp.html>
       vim.api.nvim_set_keymap("n", "<C-w>a", "", { callback=function() vim.lsp.buf.code_action{ apply=true } end, desc = "apply LSP suggestion" })
       vim.api.nvim_set_keymap("n", "<C-w>n", "", { callback=vim.diagnostic.goto_next, desc = "go next diagnostic" })
-    '' + lib.optionalString config.sane.programs.bash-language-server.enabled ''
+    ''
+    + lib.optionalString config.sane.programs.bash-language-server.enabled ''
       -- bash language server
       -- repo: <https://github.com/bash-lsp/bash-language-server>
       vim.lsp.config('bashls', {
@@ -113,7 +119,8 @@ in
       })
       vim.lsp.enable('bashls')
 
-    '' + lib.optionalString config.sane.programs.ccls.enabled ''
+    ''
+    + lib.optionalString config.sane.programs.ccls.enabled ''
       -- c/c++ language server
       vim.lsp.config('ccls', {
         -- more options: <https://github.com/MaskRay/ccls/wiki/Customization#initialization-options>
@@ -121,14 +128,16 @@ in
       })
       vim.lsp.enable('ccls')
 
-    '' + lib.optionalString config.sane.programs.clang-tools.enabled ''
+    ''
+    + lib.optionalString config.sane.programs.clang-tools.enabled ''
       -- c/c++ language server
       vim.lsp.config('clangd', {
         capabilities = capabilities,
       })
       vim.lsp.enable('clangd')
 
-    '' + lib.optionalString config.sane.programs.ctags-lsp.enabled ''
+    ''
+    + lib.optionalString config.sane.programs.ctags-lsp.enabled ''
       -- serves `tags` file (ctags) over LSP protocol: <https://github.com/netmute/ctags-lsp>
       -- optionally, creates a temporary `ctags` on launch (default if no --tagfile specified)
       vim.lsp.config('ctags-lsp', {
@@ -140,7 +149,8 @@ in
       })
       vim.lsp.enable('ctags-lsp')
 
-    '' + lib.optionalString config.sane.programs.ltex-ls.enabled ''
+    ''
+    + lib.optionalString config.sane.programs.ltex-ls.enabled ''
       -- LaTeX / html / markdown spellchecker
       -- repo: <https://github.com/valentjn/ltex-ls>
       vim.lsp.config('ltex', {
@@ -148,14 +158,16 @@ in
       })
       vim.lsp.enable('ltex')
 
-    '' + lib.optionalString config.sane.programs.lua-language-server.enabled ''
+    ''
+    + lib.optionalString config.sane.programs.lua-language-server.enabled ''
       -- Lua language server
       vim.lsp.config('lua_ls', {
         capabilities = capabilities,
       })
       vim.lsp.enable('lua_ls')
 
-    '' + lib.optionalString config.sane.programs.marksman.enabled ''
+    ''
+    + lib.optionalString config.sane.programs.marksman.enabled ''
       -- Markdown language server
       -- repo: <https://github.com/artempyanykh/marksman>
       -- an alternative, specialized for PKMs: <https://github.com/Feel-ix-343/markdown-oxide>
@@ -164,7 +176,8 @@ in
       })
       vim.lsp.enable('marksman')
 
-    '' + lib.optionalString config.sane.programs.mesonlsp.enabled ''
+    ''
+    + lib.optionalString config.sane.programs.mesonlsp.enabled ''
       -- meson language server
       -- repo: <https://github.com/JCWasmx86/mesonlsp>
       vim.lsp.config('mesonlsp', {
@@ -172,7 +185,8 @@ in
       })
       vim.lsp.enable('mesonlsp')
 
-    '' + lib.optionalString config.sane.programs.nil.enabled ''
+    ''
+    + lib.optionalString config.sane.programs.nil.enabled ''
       -- nix language server
       -- repo: <https://github.com/oxalica/nil>
       -- features: <https://github.com/oxalica/nil/blob/main/docs/features.md>
@@ -182,7 +196,8 @@ in
       })
       vim.lsp.enable('nil_ls')
 
-    '' + lib.optionalString config.sane.programs.nixd.enabled ''
+    ''
+    + lib.optionalString config.sane.programs.nixd.enabled ''
       -- nix language server
       -- repo: <https://github.com/nix-community/nixd>
       -- this is a bit nicer than `nil`, noting things like redundant parens, unused args, ...
@@ -206,7 +221,8 @@ in
       })
       vim.lsp.enable('nixd')
 
-    '' + lib.optionalString config.sane.programs.openscad-lsp.enabled ''
+    ''
+    + lib.optionalString config.sane.programs.openscad-lsp.enabled ''
       -- openscad (.scad) language server
       -- repo: <https://github.com/Leathong/openscad-LSP>
       vim.lsp.config('openscad_lsp', {
@@ -214,14 +230,16 @@ in
       })
       vim.lsp.enable('openscad_lsp')
 
-    '' + lib.optionalString config.sane.programs.pyright.enabled ''
+    ''
+    + lib.optionalString config.sane.programs.pyright.enabled ''
       -- python language server
       vim.lsp.config('pyright', {
         capabilities = capabilities,
       })
       vim.lsp.enable('pyright')
 
-    '' + lib.optionalString config.sane.programs.rust-analyzer.enabled ''
+    ''
+    + lib.optionalString config.sane.programs.rust-analyzer.enabled ''
       -- Rust language server
       -- note: this requires `cargo`, and features are a bit eh...
       -- - thinks that `None` doesn't exist
@@ -232,20 +250,23 @@ in
       })
       vim.lsp.enable('rust_analyzer')
 
-    '' + lib.optionalString config.sane.programs.sourcekit-lsp.enabled ''
+    ''
+    + lib.optionalString config.sane.programs.sourcekit-lsp.enabled ''
       -- Swift/C/C++ language server
       vim.lsp.config('sourcekit', {
         capabilities = capabilities,
       })
       vim.lsp.enable('sourcekit')
 
-    '' + lib.optionalString config.sane.programs.systemd-lsp.enabled ''
+    ''
+    + lib.optionalString config.sane.programs.systemd-lsp.enabled ''
       vim.lsp.config('systemd_lsp', {
         capabilities = capabilities,
       })
       vim.lsp.enable('systemd_lsp')
 
-    '' + lib.optionalString config.sane.programs.typescript-language-server.enabled ''
+    ''
+    + lib.optionalString config.sane.programs.typescript-language-server.enabled ''
       -- Typescript language server
       -- repo: <https://github.com/typescript-language-server/typescript-language-server>
       -- requires tsconfig.json or jsconfig.json in the toplevel of the project directory
@@ -254,7 +275,8 @@ in
       })
       vim.lsp.enable('ts_ls')
 
-    '' + lib.optionalString config.sane.programs.vala-language-server.enabled ''
+    ''
+    + lib.optionalString config.sane.programs.vala-language-server.enabled ''
       -- Vala (gtk gui language) language server
       vim.lsp.config('vala_ls', {
         capabilities = capabilities,
@@ -274,11 +296,12 @@ in
   # see: `:checkhealth vim.treesitter`.
   # see: <https://github.com/nixos/nixpkgs/blob/master/doc/languages-frameworks/neovim.section.md>
   {
-    plugins = let
-      grammars = lib.filter lib.isDerivation (lib.attrValues vimPlugins.nvim-treesitter-parsers);
-      # queries are needed for treesitter based syntax highlighting and folds.
-      queries = map (p: p.associatedQuery) grammars;
-    in
+    plugins =
+      let
+        grammars = lib.filter lib.isDerivation (lib.attrValues vimPlugins.nvim-treesitter-parsers);
+        # queries are needed for treesitter based syntax highlighting and folds.
+        queries = map (p: p.associatedQuery) grammars;
+      in
       grammars ++ queries;
   }
   # {

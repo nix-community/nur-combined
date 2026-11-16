@@ -12,7 +12,7 @@ let
   #       --replace '/* #define PAM_DEBUG */' '#define PAM_DEBUG'
   #   '';
   # });
-in lib.mkIf false  #< XXX(2024-11-17): i haven't been using pam_cap, because namespace-based sandboxing (bubblewrap) loses capabilities
+in lib.mkIf false  # XXX(2024-11-17): i haven't been using pam_cap, because namespace-based sandboxing (bubblewrap) loses capabilities
 {
   # pam.d ordering (auth section only):
   # /etc/pam.d/login:
@@ -65,7 +65,7 @@ in lib.mkIf false  #< XXX(2024-11-17): i haven't been using pam_cap, because nam
   security.pam.services.login.rules = {
     # keepcaps + defer WORKS
     auth.pam_cap = {
-      order = 10100;  #< must be early, before "auth sufficient pam_unix.so"
+      order = 10100;  # must be early, before "auth sufficient pam_unix.so"
       control = "optional";
       modulePath = "${libcapForPam.pam}/lib/security/pam_cap.so";
       args = [ "keepcaps" "defer" ];
@@ -78,13 +78,13 @@ in lib.mkIf false  #< XXX(2024-11-17): i haven't been using pam_cap, because nam
   #     order = 12300;
   #     control = "optional";
   #     modulePath = "${libcapForPam.pam}/lib/security/pam_cap.so";
-  #     args = [ "keepcaps" "defer" "debug" ];  #< doesn't take effect
+  #     args = [ "keepcaps" "defer" "debug" ];  # doesn't take effect
   #   };
   # };
   security.pam.services.su.rules = {
     # keepcaps + defer WORKS
     auth.pam_cap = {
-      order = 10100;  #< must be early, before "auth sufficient pam_rootok.so"!
+      order = 10100;  # must be early, before "auth sufficient pam_rootok.so"!
       control = "optional";
       modulePath = "${libcapForPam.pam}/lib/security/pam_cap.so";
       args = [ "keepcaps" "defer" ];
@@ -98,7 +98,7 @@ in lib.mkIf false  #< XXX(2024-11-17): i haven't been using pam_cap, because nam
   #     order = 12700;
   #     control = "optional";
   #     modulePath = "${libcapForPam.pam}/lib/security/pam_cap.so";
-  #     args = [ "keepcaps" "defer" "debug" ];  #< doesn't take effect
+  #     args = [ "keepcaps" "defer" "debug" ];  # doesn't take effect
   #   };
   # };
   # security.pam.services.systemd-user.rules = {
@@ -107,7 +107,7 @@ in lib.mkIf false  #< XXX(2024-11-17): i haven't been using pam_cap, because nam
   #     order = 11500;
   #     control = "optional";
   #     modulePath = "${libcapForPam.pam}/lib/security/pam_cap.so";
-  #     args = [ "keepcaps" "defer" "debug" ];  #< doesn't take effect
+  #     args = [ "keepcaps" "defer" "debug" ];  # doesn't take effect
   #   };
   # };
 }

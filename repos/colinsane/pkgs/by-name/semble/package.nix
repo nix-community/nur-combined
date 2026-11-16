@@ -60,8 +60,12 @@ stdenv.mkDerivation (finalAttrs: {
   pythonImportsCheck = [ "semble" ];
 
   makeWrapperArgs = [
-    "--set" "SEMBLE_MODEL_NAME" "${potion-code-16M-v2}"
-    "--set" "SEMBLE_GRAMMARS_CACHE_DIR" "${semble-grammars}/lib/${python3.libPrefix}/site-packages/semble_grammars/grammars"
+    "--set"
+    "SEMBLE_MODEL_NAME"
+    "${potion-code-16M-v2}"
+    "--set"
+    "SEMBLE_GRAMMARS_CACHE_DIR"
+    "${semble-grammars}/lib/${python3.libPrefix}/site-packages/semble_grammars/grammars"
   ];
 
   postFixup = ''

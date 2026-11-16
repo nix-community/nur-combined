@@ -94,10 +94,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   extid = "privacypass@kagi.com";
 
-  meta.broken = true;  # XXX(2026-02-23): blind-rsa-signatures dependency fails build. this is why you use lockfiles.
+  meta.broken = true; # XXX(2026-02-23): blind-rsa-signatures dependency fails build. this is why you use lockfiles.
 
   passthru = {
-    skipBulkUpdate = true;  # no way to validate any update, since the deps are broken (no lockfile).
+    skipBulkUpdate = true; # no way to validate any update, since the deps are broken (no lockfile).
     updateScript = nix-update-script {
       extraArgs = [
         "--generate-lockfile"

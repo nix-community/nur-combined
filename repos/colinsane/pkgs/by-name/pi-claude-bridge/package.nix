@@ -18,9 +18,9 @@ mkPiExtension (finalAttrs: {
   npmDepsFetcherVersion = 2;
   npmDepsHash = "sha256-aSRdyvZyiAjkqmdUNdijQLVCmxxymFjqx91xW/bRq7M=";
 
-  dontNpmBuild = true;  # package.json defines no build script
+  dontNpmBuild = true; # package.json defines no build script
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Pi extension that uses Claude Code (via Agent SDK) as a model provider and adds an AskClaude tool";

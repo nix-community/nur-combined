@@ -216,7 +216,7 @@ let
     #   wantedBy = [ "network.target" ];
     #   path = [ config.sane.programs.wireguard-tools.package ];
     #   serviceConfig.Restart = "always";
-    #   serviceConfig.RestartSec = "60"; #< retry delay when we fail (because e.g. there's no network)
+    #   serviceConfig.RestartSec = "60"; # retry delay when we fail (because e.g. there's no network)
     #   serviceConfig.Type = "simple";
     #   unitConfig.StartLimitIntervalSec = 0;
     #   script = ''

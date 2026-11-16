@@ -58,14 +58,16 @@
   xvfb-run,
   chromecastSupport ? false,
   keyringSupport ? true,
-  networkSupport ? true, networkmanager,
-  notifySupport ? true, libnotify,
+  networkSupport ? true,
+  networkmanager,
+  notifySupport ? true,
+  libnotify,
   serverSupport ? false,
 }:
 
 let
   python = python3.override {
-    packageOverrides = self: super: {
+    packageOverrides = _self: super: {
       semver = super.semver.overridePythonAttrs rec {
         version = "2.13.0";
         src = fetchFromGitHub {
@@ -103,15 +105,14 @@ python.pkgs.buildPythonApplication {
     sha256 = "sha256-jyC3Fh+b+MBLjHlFr3nOOM7eT/3PPF7dynHsPJaIzLU=";
   };
 
-  nativeBuildInputs =
-    [
-      gobject-introspection
-      wrapGAppsHook3
-    ]
-    ++ (with python.pkgs; [
-      poetry-core
-      pythonRelaxDepsHook
-    ]);
+  nativeBuildInputs = [
+    gobject-introspection
+    wrapGAppsHook3
+  ]
+  ++ (with python.pkgs; [
+    poetry-core
+    pythonRelaxDepsHook
+  ]);
 
   # Can be removed in later versions (probably > 0.11.16)
   pythonRelaxDeps = [
@@ -119,28 +120,27 @@ python.pkgs.buildPythonApplication {
     "python-mpv"
   ];
 
-  buildInputs =
-    [
-      gtk3
-      pango
-      (libhandy.overrideAttrs (superhandy: {
-        version = "1.5.0";
-        src = fetchFromGitLab {
-          domain = "gitlab.gnome.org";
-          owner = "BenjaminSchaaf";
-          repo = "libhandy";
-          rev = "0557503278a099c1b9999ceebb7c21fa9c15a3a5";
-          sha256 = "sha256-MwOnQ2h1ypSvxOSaXDdSFoMKOMr9DonTCMNT796kaQs=";
-        };
-        nativeBuildInputs = superhandy.nativeBuildInputs ++ [
-          docbook_xml_dtd_43
-          docbook-xsl-nons
-          gtk-doc
-        ];
-      }))
-    ]
-    ++ lib.optional notifySupport libnotify
-    ++ lib.optional networkSupport networkmanager;
+  buildInputs = [
+    gtk3
+    pango
+    (libhandy.overrideAttrs (superhandy: {
+      version = "1.5.0";
+      src = fetchFromGitLab {
+        domain = "gitlab.gnome.org";
+        owner = "BenjaminSchaaf";
+        repo = "libhandy";
+        rev = "0557503278a099c1b9999ceebb7c21fa9c15a3a5";
+        sha256 = "sha256-MwOnQ2h1ypSvxOSaXDdSFoMKOMr9DonTCMNT796kaQs=";
+      };
+      nativeBuildInputs = superhandy.nativeBuildInputs ++ [
+        docbook_xml_dtd_43
+        docbook-xsl-nons
+        gtk-doc
+      ];
+    }))
+  ]
+  ++ lib.optional notifySupport libnotify
+  ++ lib.optional networkSupport networkmanager;
 
   propagatedBuildInputs =
     with python.pkgs;
