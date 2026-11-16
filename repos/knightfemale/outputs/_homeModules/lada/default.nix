@@ -9,14 +9,6 @@ let
 
   jsonFormat = pkgs.formats.json { };
 
-  package =
-    if cfg.acceleration == "cuda" then
-      cfg.package.override { cudaSupport = true; }
-    else if cfg.acceleration == false then
-      cfg.package.override { cudaSupport = false; }
-    else
-      cfg.package;
-
   models = pkgs.linkFarm "lada-models" (
     map (m: {
       inherit (m) name;
@@ -32,26 +24,6 @@ in
     enable = lib.mkEnableOption "Lada";
 
     package = lib.mkPackageOption pkgs "lada" { };
-
-    acceleration = lib.mkOption {
-      type = lib.types.nullOr (
-        lib.types.enum [
-          false
-          "cuda"
-        ]
-      );
-      default = null;
-      example = "cuda";
-      description = ''
-        What interface to use for hardware acceleration.
-
-        - `null`: default behavior
-          - if `nixpkgs.config.cudaSupport` is enabled, uses `"cuda"`
-          - otherwise defaults to `false`
-        - `false`: disable GPU, only use CPU
-        - `"cuda"`: supported by most modern NVIDIA GPUs
-      '';
-    };
 
     models = lib.mkOption {
       type = lib.types.listOf (
@@ -129,18 +101,10 @@ in
         }
       '';
     };
-
-    finalPackage = lib.mkOption {
-      type = lib.types.package;
-      internal = true;
-      readOnly = true;
-      default = package;
-      description = "The final Lada package which is being used.";
-    };
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ cfg.finalPackage ];
+    home.packages = [ cfg.package ];
 
     home.sessionVariables.LADA_MODEL_WEIGHTS_DIR = "${models}";
 

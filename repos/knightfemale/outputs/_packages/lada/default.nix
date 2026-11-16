@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   buildPythonPackage,
   fetchFromGitHub,
@@ -31,7 +30,6 @@
   ultralytics-thop,
   wcwidth,
   wrapGAppsHook3,
-  cudaSupport ? config.cudaSupport,
 }:
 
 let
@@ -45,23 +43,18 @@ let
   };
 
   # Keep torch, torchvision and ultralytics on the same torch variant.
-  # Ultralytics has its own torch/torchvision inputs;
-  # overriding only lada's dependencies would otherwise pull a second,
-  # CPU-only torch into the closure.
-  finalTorch = if cudaSupport then torch.override { inherit cudaSupport; } else torch;
-  finalTorchvision =
-    if cudaSupport then torchvision.override { torch = finalTorch; } else torchvision;
-  finalUltralyticsThop = ultralytics-thop.override { torch = finalTorch; };
-  # Lada's inference code uses Ultralytics internals,
-  # and upstream ships this patch to keep NMS from timing out on long videos.
-  # It applies cleanly to the 8.4.x series, including nixpkgs' current 8.4.51.
-  finalUltralytics =
+  # Ultralytics has its own torch/torchvision inputs,
+  # overriding only lada's dependencies would otherwise pull a second.
+  ultralytics-thop' = ultralytics-thop.override { inherit torch; };
+  ultralytics' =
     (ultralytics.override {
-      torch = finalTorch;
-      torchvision = finalTorchvision;
-      ultralytics-thop = finalUltralyticsThop;
+      inherit torch torchvision;
+      ultralytics-thop = ultralytics-thop';
     }).overridePythonAttrs
       (old: {
+        # Lada's inference code uses Ultralytics internals,
+        # and upstream ships this patch to keep NMS from timing out on long videos.
+        # It applies cleanly to the 8.4.x series, including nixpkgs' current 8.4.51.
         patches = (old.patches or [ ]) ++ [ "${src}/patches/increase_mms_time_limit.patch" ];
       });
 in
@@ -100,9 +93,6 @@ buildPythonPackage (finalAttrs: {
 
   dependencies = [
     av
-    finalTorch
-    finalTorchvision
-    finalUltralytics
     mmengine
     numpy
     opencv4
@@ -111,7 +101,10 @@ buildPythonPackage (finalAttrs: {
     pygobject3
     requests
     termcolor
+    torch
+    torchvision
     tqdm
+    ultralytics'
     wcwidth
   ];
 
