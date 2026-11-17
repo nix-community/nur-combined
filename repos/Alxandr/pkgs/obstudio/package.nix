@@ -5,12 +5,21 @@
   fetchFromGitHub,
   makeWrapper,
   weaver,
+  zstd,
   curl,
   versionCheckHook,
   nix-update-script,
 }:
 
 let
+  # autoreview: 2026-11-17-weaver-zstd
+  weaverWithZstd =
+    if weaver.version == "0.25.1" then
+      weaver.overrideAttrs (old: {
+        buildInputs = (old.buildInputs or [ ]) ++ [ zstd ];
+      })
+    else
+      weaver;
   version = "0.1.4";
   src = fetchFromGitHub {
     owner = "signalfx";
@@ -66,7 +75,7 @@ buildGoModule {
   postInstall = ''
     mkdir -p "$skill"
     cp -r cmd/obstudio/_skills/. "$skill/"
-    wrapProgram "$out/bin/obstudio" --prefix PATH : ${lib.makeBinPath [ weaver ]}
+    wrapProgram "$out/bin/obstudio" --prefix PATH : ${lib.makeBinPath [ weaverWithZstd ]}
   '';
 
   doInstallCheck = true;
