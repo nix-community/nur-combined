@@ -4,27 +4,27 @@
     "type": "redirect",
     "version_regex": "([0-9]+\\.[0-9]+\\.[0-9]+)"
   },
-  "version": "0.1.14",
+  "version": "0.1.15",
   "platforms": {
     "aarch64-darwin": {
       "redirect_url": "https://tenzen.studio/api/v1/folio-studio/download?platform=darwin&arch=arm64&kind=dmg",
-      "url": "https://downloads.tenzen.studio/folio-studio/stable/darwin/0.1.13/Folio-Studio-0.1.13-mac-arm64.dmg",
-      "hash": "sha256-RvmurrGZi0YgXdCNensR8zNEDvOb1UlSskS0V+w8Huo="
+      "url": "https://downloads.tenzen.studio/folio-studio/stable/darwin/0.1.15/Folio-Studio-0.1.15-mac-arm64.dmg",
+      "hash": "sha256-in6GPyDUN3X4uX6K1sXEad01Hy1OMpkFe3vfCFob7jo="
     },
     "x86_64-darwin": {
       "redirect_url": "https://tenzen.studio/api/v1/folio-studio/download?platform=darwin&arch=x64&kind=dmg",
-      "url": "https://downloads.tenzen.studio/folio-studio/stable/darwin/0.1.14/Folio-Studio-0.1.14-mac-x64.dmg",
-      "hash": "sha256-Xqp5dFtXbShF4coXXaS0+BYHYt1i8fWQLX7zue3Lwdo="
+      "url": "https://downloads.tenzen.studio/folio-studio/stable/darwin/0.1.15/Folio-Studio-0.1.15-mac-x64.dmg",
+      "hash": "sha256-EU29+kUont+paz4BhJ1QM4ABSiVKuyXU6L9AskprbKo="
     },
     "aarch64-linux": {
       "redirect_url": "https://tenzen.studio/api/v1/folio-studio/download?platform=linux&arch=arm64&kind=appimage",
-      "url": "https://downloads.tenzen.studio/folio-studio/stable/linux/0.1.14/Folio-Studio-0.1.14-linux-arm64.AppImage",
-      "hash": "sha256-8ADR9kWnPPbQmbJXbWotyQUBu+xTrbRDiz2zLofyOO8="
+      "url": "https://downloads.tenzen.studio/folio-studio/stable/linux/0.1.15/Folio-Studio-0.1.15-linux-arm64.AppImage",
+      "hash": "sha256-JDkgVOk0mJ87ff2KWkzmk9OUspQh5e1fw8bBUW40kms="
     },
     "x86_64-linux": {
       "redirect_url": "https://tenzen.studio/api/v1/folio-studio/download?platform=linux&arch=x64&kind=appimage",
-      "url": "https://downloads.tenzen.studio/folio-studio/stable/linux/0.1.14/Folio-Studio-0.1.14-linux-x64.AppImage",
-      "hash": "sha256-7xNXMm0oWcC998VoilVc0lsTnhcuGUoze4/DyTWeJNk="
+      "url": "https://downloads.tenzen.studio/folio-studio/stable/linux/0.1.15/Folio-Studio-0.1.15-linux-x64.AppImage",
+      "hash": "sha256-VRNkZS1HWsIh68qg8sQmUGILYi51k+wSaH9VEr0KVSo="
     }
   }
 }
