@@ -9,7 +9,7 @@
   fetchzip,
   antigravity-cli,
   source,
-  unlockContext ? stdenvNoCC.hostPlatform.isDarwin,
+  unlockContext ? stdenvNoCC.hostPlatform.isDarwin || stdenvNoCC.hostPlatform.isLinux,
   prompts ? {},
 }: let
   pins = builtins.fromJSON (builtins.readFile ./pins.json);
@@ -34,8 +34,16 @@ in
       runHook preInstall
 
       install -Dm755 ${antigravity-cli}/bin/agy $out/bin/agy
+      ${lib.optionalString (unlockContext && stdenvNoCC.hostPlatform.isLinux) ''
+        install -m 644 ${source.src}/scripts/agy-patch.py $TMPDIR/agy-patch.py
+        patch $TMPDIR/agy-patch.py < ${./linux-pie-go-text-start.patch}
+      ''}
       ${lib.optionalString unlockContext ''
-        PATH=${lib.makeBinPath [pgrep codesign]}:$PATH ${lib.getExe python3} ${source.src}/scripts/agy-patch.py --binary $out/bin/agy --limit 0 --in-place --no-backup --no-env-fix
+        PATH=${lib.makeBinPath [pgrep codesign]}:$PATH ${lib.getExe python3} ${
+          if stdenvNoCC.hostPlatform.isLinux
+          then "$TMPDIR/agy-patch.py"
+          else "${source.src}/scripts/agy-patch.py"
+        } --binary $out/bin/agy --limit 0 --in-place --no-backup --no-env-fix
       ''}
       ${lib.optionalString (prompts != {}) ''
         ${lib.getExe nodejs_24} --input-type=module -e '

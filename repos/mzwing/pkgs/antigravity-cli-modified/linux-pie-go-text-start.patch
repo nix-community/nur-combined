@@ -1,0 +1,77 @@
+--- a/scripts/agy-patch.py
++++ b/scripts/agy-patch.py
+@@ -149,6 +149,42 @@
+     raise PatchError(".text section not found in ELF")
+ 
+ 
++def _elf_go_text_start(data, pclntab_off):
++    shoff = struct.unpack_from("<Q", data, 40)[0]
++    shentsize, shnum = struct.unpack_from("<HH", data, 58)
++    relas = []
++    pclntab_va = None
++    for i in range(shnum):
++        sh = shoff + i * shentsize
++        sh_type = struct.unpack_from("<I", data, sh + 4)[0]
++        addr, offset, size = struct.unpack_from("<QQQ", data, sh + 16)
++        if offset <= pclntab_off < offset + size:
++            pclntab_va = addr + pclntab_off - offset
++        if sh_type == 4:  # SHT_RELA
++            relas.append((offset, size, struct.unpack_from("<Q", data, sh + 56)[0]))
++    if pclntab_va is None:
++        raise PatchError("pclntab virtual address not found")
++
++    def relocations():
++        for offset, size, entsize in relas:
++            for rel in range(offset, offset + size, entsize):
++                r_offset, _r_info, addend = struct.unpack_from("<QQq", data, rel)
++                yield r_offset, addend
++
++    # PIE leaves pcHeader.textStart zero; recover runtime.text from firstmoduledata
++    moduledata_candidates = [r_off for r_off, addend in relocations() if addend == pclntab_va]
++    targets = {md + delta for md in moduledata_candidates for delta in (8, 176)}
++    addends = {r_off: addend for r_off, addend in relocations() if r_off in targets}
++    text_starts = {
++        addends[md + 176]
++        for md in moduledata_candidates
++        if addends.get(md + 8) == pclntab_va + 72 and addends.get(md + 176, 0)
++    }
++    if len(text_starts) != 1:
++        raise PatchError(f"expected 1 Go text start, found {len(text_starts)}")
++    return text_starts.pop()
++
++
+ def _pe_text(data):
+     pe = struct.unpack_from("<I", data, 0x3C)[0]
+     if data[pe:pe + 4] != b"PE\0\0":
+@@ -197,9 +233,13 @@
+         return i, nfunc
+ 
+ 
+-def build_functions(data):
++def build_functions(data, text_va):
+     """Map trailing Go func name -> (entryoff, size)."""
+     base, nfunc = find_pclntab(data)
++    text_start = struct.unpack_from("<Q", data, base + 24)[0]
++    if text_start == 0:
++        text_start = (_elf_go_text_start(data, base) if data[:4] == b"\x7fELF"
++                      else text_va)
+     fnstart = base + struct.unpack_from("<Q", data, base + 32)[0]
+     pcln = base + struct.unpack_from("<Q", data, base + 64)[0]
+ 
+@@ -223,6 +263,7 @@
+         except UnicodeDecodeError:
+             continue
+         size = max(0, next_entryoff - entryoff)
++        entryoff += text_start - text_va
+         funcs.setdefault(name.rsplit("/", 1)[-1], (entryoff, size))
+     if not funcs:
+         raise PatchError("functab produced no symbols")
+@@ -883,7 +924,7 @@
+                   f"copy keeps executing the old code")
+ 
+     text_va, text_off, arch = find_text_section(data)
+-    funcs = build_functions(bytes(data))
++    funcs = build_functions(bytes(data), text_va)
+     print(f"[i] binary : {src}")
+     print(f"[i] target : arch={arch} text_va={text_va:#x} text_off={text_off:#x} "
+           f"symbols={len(funcs)}")
