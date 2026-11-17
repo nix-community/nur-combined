@@ -61,6 +61,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mainProgram = "lltop";
     maintainers = [ lib.maintainers.skyesoss ];
     platforms = lib.platforms.linux;
-    broken = true;
+    badPlatforms = [ "aarch64-linux" ];
   };
 })
