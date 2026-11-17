@@ -1,0 +1,190 @@
+diff --git c/legacy/core/src/main/java/com/fsck/k9/helper/IdentityHelper.kt w/legacy/core/src/main/java/com/fsck/k9/helper/IdentityHelper.kt
+index 3ad02044de..24bfdd440f 100644
+--- c/legacy/core/src/main/java/com/fsck/k9/helper/IdentityHelper.kt
++++ w/legacy/core/src/main/java/com/fsck/k9/helper/IdentityHelper.kt
+@@ -35,9 +35,38 @@ object IdentityHelper {
+             .filterNotNull()
+             .firstOrNull()
+ 
+-        return recipient ?: account.getIdentity(0)
++        return recipient ?: getCatchAllIdentity(account, message) ?: account.getIdentity(0)
+     }
+ 
++    private val CATCH_ALL_RECIPIENT_TYPES = listOf(
++        RecipientType.X_ENVELOPE_TO,
++        RecipientType.X_ORIGINAL_TO,
++        RecipientType.TO,
++        RecipientType.CC,
++    )
++
++    /**
++     * Identities with an email of the form `*@example.com` are catch-all identities. If the message was sent to an
++     * address in that domain, return the identity with its email replaced by that address.
++     */
++    private fun getCatchAllIdentity(account: LegacyAccountDto, message: Message): Identity? {
++        val catchAllIdentities = account.identities.filter { isCatchAll(it) }
++        if (catchAllIdentities.isEmpty()) return null
++
++        return CATCH_ALL_RECIPIENT_TYPES.asSequence()
++            .flatMap { recipientType -> message.getRecipients(recipientType).asSequence() }
++            .mapNotNull { address ->
++                val domain = address.hostname ?: return@mapNotNull null
++                catchAllIdentities
++                    .find { it.email!!.substring(2).equals(domain, ignoreCase = true) }
++                    ?.withEmail(address.address)
++            }
++            .firstOrNull()
++    }
++
++    @JvmStatic
++    fun isCatchAll(identity: Identity): Boolean = identity.email?.startsWith("*@") == true
++
+     /**
+      * Find the identity a message was sent from.
+      *
+diff --git c/legacy/core/src/test/java/com/fsck/k9/helper/IdentityHelperTest.kt w/legacy/core/src/test/java/com/fsck/k9/helper/IdentityHelperTest.kt
+index 49b6d754c5..6268053c10 100644
+--- c/legacy/core/src/test/java/com/fsck/k9/helper/IdentityHelperTest.kt
++++ w/legacy/core/src/test/java/com/fsck/k9/helper/IdentityHelperTest.kt
+@@ -118,6 +118,49 @@ class IdentityHelperTest : RobolectricTest() {
+         assertThat(identity.email).isEqualTo(DEFAULT_ADDRESS)
+     }
+ 
++    @Test
++    fun getRecipientIdentityFromMessage_catchAll_usesRecipientAddress() {
++        val catchAllAccount = createDummyAccount().apply {
++            replaceIdentities(identities + newIdentity("Catch-all", "*@catchall.example"))
++        }
++        val message = messageWithRecipients(
++            RecipientType.TO to "unrelated1@example.org",
++            RecipientType.X_ENVELOPE_TO to "feet@CatchAll.example",
++        )
++
++        val identity = IdentityHelper.getRecipientIdentityFromMessage(catchAllAccount, message)
++
++        assertThat(identity.email).isEqualTo("feet@CatchAll.example")
++        assertThat(identity.name).isEqualTo("Catch-all")
++    }
++
++    @Test
++    fun getRecipientIdentityFromMessage_catchAll_prefersExactMatch() {
++        val catchAllAccount = createDummyAccount().apply {
++            replaceIdentities(identities + newIdentity("Catch-all", "*@example.org"))
++        }
++        val message = messageWithRecipients(
++            RecipientType.TO to "feet@example.org",
++            RecipientType.CC to IDENTITY_2_ADDRESS,
++        )
++
++        val identity = IdentityHelper.getRecipientIdentityFromMessage(catchAllAccount, message)
++
++        assertThat(identity.email).isEqualTo(IDENTITY_2_ADDRESS)
++    }
++
++    @Test
++    fun getRecipientIdentityFromMessage_catchAll_otherDomain_returnsFirstIdentity() {
++        val catchAllAccount = createDummyAccount().apply {
++            replaceIdentities(identities + newIdentity("Catch-all", "*@catchall.example"))
++        }
++        val message = messageWithRecipients(RecipientType.TO to "feet@other.example")
++
++        val identity = IdentityHelper.getRecipientIdentityFromMessage(catchAllAccount, message)
++
++        assertThat(identity.email).isEqualTo(DEFAULT_ADDRESS)
++    }
++
+     @Test
+     fun getSenderIdentityFromMessage_withKnownSender_returnsMatchingIdentity() {
+         val message = messageWithSender(IDENTITY_1_ADDRESS)
+diff --git c/legacy/ui/legacy/src/main/java/com/fsck/k9/activity/MessageCompose.java w/legacy/ui/legacy/src/main/java/com/fsck/k9/activity/MessageCompose.java
+index 8051d42c46..0a3e420bfc 100644
+--- c/legacy/ui/legacy/src/main/java/com/fsck/k9/activity/MessageCompose.java
++++ w/legacy/ui/legacy/src/main/java/com/fsck/k9/activity/MessageCompose.java
+@@ -30,6 +30,7 @@ import android.os.Build;
+ import android.os.Bundle;
+ import android.os.Handler;
+ import android.os.Parcelable;
++import android.text.InputType;
+ import android.text.TextUtils;
+ import android.text.TextWatcher;
+ import android.view.ContextThemeWrapper;
+@@ -110,6 +111,7 @@ import com.fsck.k9.helper.SimpleTextWatcher;
+ import com.fsck.k9.helper.Utility;
+ import net.thunderbird.core.android.network.ConnectivityManager;
+ import net.thunderbird.core.common.mail.Flag;
++import com.fsck.k9.mail.Address;
+ import com.fsck.k9.mail.Message;
+ import com.fsck.k9.mail.Message.RecipientType;
+ import net.thunderbird.core.common.exception.MessagingException;
+@@ -366,6 +368,10 @@ public class MessageCompose extends BaseActivity implements OnClickListener,
+ 
+         chooseIdentityView = findViewById(R.id.identity);
+         chooseIdentityView.setOnClickListener(this);
++        chooseIdentityView.setOnLongClickListener(v -> {
++            showCustomFromDialog(account, identity, identity.getEmail());
++            return true;
++        });
+ 
+         ReplyToView replyToView = new ReplyToView(this);
+         replyToPresenter = new ReplyToPresenter(replyToView);
+@@ -1125,6 +1131,34 @@ public class MessageCompose extends BaseActivity implements OnClickListener,
+         switchToIdentity(identity);
+     }
+ 
++    private void showCustomFromDialog(LegacyAccountDto account, Identity baseIdentity, String prefill) {
++        EditText input = new EditText(this);
++        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
++        input.setSingleLine(true);
++        input.setText(prefill);
++        input.setSelection(prefill.startsWith("@") ? 0 : prefill.length());
++
++        new MaterialAlertDialogBuilder(this)
++                .setTitle(R.string.send_as)
++                .setView(input)
++                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
++                    Address[] addresses = Address.parseUnencoded(input.getText().toString().trim());
++                    if (addresses.length != 1 || addresses[0].getHostname() == null ||
++                            addresses[0].getAddress().startsWith("*@")) {
++                        Toast.makeText(this, R.string.custom_from_invalid, Toast.LENGTH_LONG).show();
++                        return;
++                    }
++                    Identity newIdentity = baseIdentity.withEmail(addresses[0].getAddress());
++                    String personal = addresses[0].getPersonal();
++                    if (personal != null && !personal.isEmpty()) {
++                        newIdentity = newIdentity.withName(personal);
++                    }
++                    onAccountChosen(account, newIdentity);
++                })
++                .setNegativeButton(android.R.string.cancel, null)
++                .show();
++    }
++
+     private void showPopupMenu(View view) {
+         PopupMenu popup = new PopupMenu(this, view);
+         MenuInflater inflater = popup.getMenuInflater();
+@@ -1449,7 +1483,12 @@ public class MessageCompose extends BaseActivity implements OnClickListener,
+                     @Override
+                     public void onClick(DialogInterface dialog, int which) {
+                         IdentityContainer container = (IdentityContainer) adapter.getItem(which);
+-                        onAccountChosen(container.account, container.identity);
++                        if (IdentityHelper.isCatchAll(container.identity)) {
++                            showCustomFromDialog(container.account, container.identity,
++                                    container.identity.getEmail().substring(1));
++                        } else {
++                            onAccountChosen(container.account, container.identity);
++                        }
+                     }
+                 });
+ 
+diff --git c/legacy/ui/legacy/src/main/res/values/strings.xml w/legacy/ui/legacy/src/main/res/values/strings.xml
+index 3148331964..c3be5997ba 100644
+--- c/legacy/ui/legacy/src/main/res/values/strings.xml
++++ w/legacy/ui/legacy/src/main/res/values/strings.xml
+@@ -636,6 +636,7 @@
+     <string name="default_identity_description">Initial identity</string>
+     <string name="choose_identity_title">Choose identity</string>
+     <string name="send_as">Send as</string>
++    <string name="custom_from_invalid">Invalid email address</string>
+ 
+     <string name="no_removable_identity">You can\'t remove your only identity</string>
+     <string name="identity_has_no_email">You can\'t use an identity without an email address</string>

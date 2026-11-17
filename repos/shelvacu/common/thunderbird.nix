@@ -3,10 +3,14 @@
   config,
   vacuModuleType,
   pkgs,
+  vacuSelf,
   ...
 }:
 let
   inherit (lib) mkOption types;
+  catchAllHint = lib.concatMapStringsSep "," (
+    d: "*@${d}"
+  ) vacuSelf.nixosConfigurations.liam.config.vacu.liam.shel_domains;
 in
 {
   options.vacu.programs.thunderbird = {
@@ -49,9 +53,12 @@ in
           "intl.date_time.pattern_override.time_short" = "HH:mm";
           "mail.account.account1.identities" = "id1,id2,id3";
           "mail.account.account1.server" = "server1";
+          # liam adds X-Envelope-To with the original recipient; Delivered-To is the rewritten mailbox
+          "mail.compose.catchAllHeaders" = "x-envelope-to, x-original-to, to, cc";
           "mail.compose.other.header" = "X-Shelvacu-Custom-Header";
           "mail.compose.warned_about_customize_from" = true;
           "mail.identity.id1.catchAll" = true;
+          "mail.identity.id1.catchAllHint" = catchAllHint;
           "mail.identity.id1.fullName" = "Shelvacu";
           "mail.identity.id1.useremail" = "shelvacu@shelvacu.com";
           "mail.server.server1.hostname" = "imap.shelvacu.com";

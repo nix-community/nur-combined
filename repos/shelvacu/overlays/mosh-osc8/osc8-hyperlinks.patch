@@ -1,0 +1,510 @@
+diff --git a/src/terminal/terminal.cc b/src/terminal/terminal.cc
+index 057b3d0..518c111 100644
+--- a/src/terminal/terminal.cc
++++ b/src/terminal/terminal.cc
+@@ -108,6 +108,7 @@ void Emulator::print( const Parser::Print *act )
+     this_cell->append( ch );
+     this_cell->set_wide( chwidth == 2 ); /* chwidth had better be 1 or 2 here */
+     fb.apply_renditions_to_cell( this_cell );
++      fb.apply_hyperlink_to_cell( this_cell );
+ 
+     if ( chwidth == 2
+       && fb.ds.get_cursor_col() + 1 < fb.ds.get_width() ) { /* erase overlapped cell */
+diff --git a/src/terminal/terminaldispatcher.h b/src/terminal/terminaldispatcher.h
+index cc92c2e..d989896 100644
+--- a/src/terminal/terminaldispatcher.h
++++ b/src/terminal/terminaldispatcher.h
+@@ -86,7 +86,7 @@ namespace Terminal {
+     bool parsed;
+ 
+     std::string dispatch_chars;
+-    std::vector<wchar_t> OSC_string; /* only used to set the window title */
++  std::vector<wchar_t> OSC_string;
+ 
+     void parse_params( void );
+ 
+diff --git a/src/terminal/terminaldisplay.cc b/src/terminal/terminaldisplay.cc
+index e7595c2..5c85ffc 100644
+--- a/src/terminal/terminaldisplay.cc
++++ b/src/terminal/terminaldisplay.cc
+@@ -53,6 +53,7 @@ std::string Display::open() const
+ std::string Display::close() const
+ {
+   return std::string( "\033[?1l\033[0m\033[?25h"
++                      "\033]8;;\033\\"
+ 		      "\033[?1003l\033[?1002l\033[?1001l\033[?1000l"
+ 		      "\033[?1015l\033[?1006l\033[?1005l" ) +
+     std::string( rmcup ? rmcup : "" );
+@@ -137,15 +138,20 @@ std::string Display::new_frame( bool initialized, const Framebuffer &last, const
+     /* reset scrolling region */
+     frame.append( "\033[r" );
+ 
++    /* close any open hyperlink; SGR 0 does not end it */
++    frame.append( "\033]8;;\033\\" );
++
+     /* clear screen */
+     frame.append( "\033[0m\033[H\033[2J" );
+     initialized = false;
+     frame.cursor_x = frame.cursor_y = 0;
+     frame.current_rendition = initial_rendition();
++    frame.current_hyperlink = Hyperlink();
+   } else {
+     frame.cursor_x = frame.last_frame.ds.get_cursor_col();
+     frame.cursor_y = frame.last_frame.ds.get_cursor_row();
+     frame.current_rendition = frame.last_frame.ds.get_renditions();
++    frame.current_hyperlink = frame.last_frame.ds.get_hyperlink();
+   }
+ 
+   /* is cursor visibility initialized? */
+@@ -218,6 +224,7 @@ std::string Display::new_frame( bool initialized, const Framebuffer &last, const
+ 	  blank_row = make_shared<Row>( w, c );
+ 	}
+ 	frame.update_rendition( initial_rendition(), true );
++        frame.update_hyperlink( Hyperlink(), true );
+ 
+ 	int top_margin = 0;
+ 	int bottom_margin = top_margin + lines_scrolled + scroll_height - 1;
+@@ -288,6 +295,8 @@ std::string Display::new_frame( bool initialized, const Framebuffer &last, const
+ 
+   /* have renditions changed? */
+   frame.update_rendition( f.ds.get_renditions(), !initialized );
++  /* has hyperlink changed? */
++  frame.update_hyperlink( f.ds.get_hyperlink(), !initialized );
+ 
+   /* has bracketed paste mode changed? */
+   if ( (!initialized)
+@@ -352,6 +361,7 @@ bool Display::put_row( bool initialized, FrameState &frame, const Framebuffer &f
+   if ( wrap ) {
+     const Cell &cell = cells.at( 0 );
+     frame.update_rendition( cell.get_renditions() );
++    frame.update_hyperlink( cell.get_hyperlink() );
+     frame.append_cell( cell );
+     frame_x += cell.get_width();
+     frame.cursor_x += cell.get_width();
+@@ -367,6 +377,7 @@ bool Display::put_row( bool initialized, FrameState &frame, const Framebuffer &f
+   int clear_count = 0;
+   bool wrote_last_cell = false;
+   Renditions blank_renditions = initial_rendition();
++  Hyperlink blank_hyperlink;
+ 
+   /* iterate for every cell */
+   while ( frame_x < row_width ) {
+@@ -385,8 +396,9 @@ bool Display::put_row( bool initialized, FrameState &frame, const Framebuffer &f
+     if ( cell.empty() ) {
+       if ( !clear_count ) {
+ 	blank_renditions = cell.get_renditions();
++        blank_hyperlink = cell.get_hyperlink();
+       }
+-      if ( cell.get_renditions() == blank_renditions ) {
++      if ( cell.get_renditions() == blank_renditions && cell.get_hyperlink() == blank_hyperlink ) {
+ 	/* Remember run of blank cells */
+ 	clear_count++;
+ 	frame_x++;
+@@ -399,8 +411,8 @@ bool Display::put_row( bool initialized, FrameState &frame, const Framebuffer &f
+       /* Move to the right position. */
+       frame.append_silent_move( frame_y, frame_x - clear_count );
+       frame.update_rendition( blank_renditions );
+-      bool can_use_erase = has_bce || ( frame.current_rendition == initial_rendition() );
+-      if ( can_use_erase && has_ech && clear_count > 4 ) {
++      frame.update_hyperlink( blank_hyperlink );
++      if ( can_use_erase( frame ) && has_ech && clear_count > 4 ) {
+ 	snprintf( tmp, 64, "\033[%dX", clear_count );
+ 	frame.append( tmp );
+       } else {
+@@ -412,6 +424,7 @@ bool Display::put_row( bool initialized, FrameState &frame, const Framebuffer &f
+       // we restart counting and continue here
+       if ( cell.empty() ) {
+ 	blank_renditions = cell.get_renditions();
++        blank_hyperlink = cell.get_hyperlink();
+ 	clear_count = 1;
+ 	frame_x++;
+ 	continue;
+@@ -434,6 +447,7 @@ bool Display::put_row( bool initialized, FrameState &frame, const Framebuffer &f
+     }
+     frame.append_silent_move( frame_y, frame_x );
+     frame.update_rendition( cell.get_renditions() );
++    frame.update_hyperlink( cell.get_hyperlink() );
+     frame.append_cell( cell );
+     frame_x += cell_width;
+     frame.cursor_x += cell_width;
+@@ -449,9 +463,9 @@ bool Display::put_row( bool initialized, FrameState &frame, const Framebuffer &f
+     /* Move to the right position. */
+     frame.append_silent_move( frame_y, frame_x - clear_count );
+     frame.update_rendition( blank_renditions );
++    frame.update_hyperlink( blank_hyperlink );
+ 
+-    bool can_use_erase = has_bce || ( frame.current_rendition == initial_rendition() );
+-    if ( can_use_erase && !wrap_this ) {
++    if ( can_use_erase( frame ) && !wrap_this ) {
+       frame.append( "\033[K" );
+     } else {
+       frame.append( clear_count, ' ' );
+@@ -480,8 +494,13 @@ bool Display::put_row( bool initialized, FrameState &frame, const Framebuffer &f
+   return false;
+ }
+ 
++bool Display::can_use_erase( const FrameState &frame ) const
++{
++  return has_bce || ( frame.current_rendition == initial_rendition() && frame.current_hyperlink.empty() );
++}
++
+ FrameState::FrameState( const Framebuffer &s_last )
+-      : str(), cursor_x(0), cursor_y(0), current_rendition( 0 ),
++      : str(), cursor_x(0), cursor_y(0), current_rendition( 0 ), current_hyperlink(),
+ 	cursor_visible( s_last.ds.cursor_visible ),
+ 	last_frame( s_last )
+ {
+@@ -535,3 +554,12 @@ void FrameState::update_rendition(const Renditions &r, bool force) {
+     current_rendition = r;
+   }
+ }
++
++void FrameState::update_hyperlink( const Hyperlink& h, bool force )
++{
++  if ( force || current_hyperlink != h ) {
++    /* print hyperlink */
++    append_string( h.osc8() );
++    current_hyperlink = h;
++  }
++}
+diff --git a/src/terminal/terminaldisplay.h b/src/terminal/terminaldisplay.h
+index 81009b0..9d3fbca 100644
+--- a/src/terminal/terminaldisplay.h
++++ b/src/terminal/terminaldisplay.h
+@@ -43,6 +43,7 @@ namespace Terminal {
+ 
+     int cursor_x, cursor_y;
+     Renditions current_rendition;
++  Hyperlink current_hyperlink;
+     bool cursor_visible;
+ 
+     const Framebuffer &last_frame;
+@@ -59,6 +60,7 @@ namespace Terminal {
+     void append_silent_move( int y, int x );
+     void append_move( int y, int x );
+     void update_rendition( const Renditions &r, bool force = false );
++    void update_hyperlink( const Hyperlink &h, bool force = false );
+   };
+ 
+   class Display {
+@@ -74,6 +76,8 @@ namespace Terminal {
+ 
+     bool put_row( bool initialized, FrameState &frame, const Framebuffer &f, int frame_y, const Row &old_row, bool wrap ) const;
+ 
++    bool can_use_erase( const FrameState &frame ) const;
++
+   public:
+     std::string open() const;
+     std::string close() const;
+diff --git a/src/terminal/terminalframebuffer.cc b/src/terminal/terminalframebuffer.cc
+index 70284a4..2906de1 100644
+--- a/src/terminal/terminalframebuffer.cc
++++ b/src/terminal/terminalframebuffer.cc
+@@ -41,6 +41,7 @@ using namespace Terminal;
+ Cell::Cell( color_type background_color )
+   : contents(),
+     renditions( background_color ),
++    hyperlink(),
+     wide( false ),
+     fallback( false ),
+     wrap( false )
+@@ -50,6 +51,7 @@ void Cell::reset( color_type background_color )
+ {
+   contents.clear();
+   renditions = Renditions( background_color );
++  hyperlink = Hyperlink();
+   wide = false;
+   fallback = false;
+   wrap = false;
+@@ -68,7 +70,7 @@ DrawState::DrawState( int s_width, int s_height )
+     cursor_col( 0 ), cursor_row( 0 ),
+     combining_char_col( 0 ), combining_char_row( 0 ), default_tabs( true ), tabs( s_width ),
+     scrolling_region_top_row( 0 ), scrolling_region_bottom_row( height - 1 ),
+-    renditions( 0 ), save(),
++    renditions( 0 ), hyperlink(), save(),
+     next_print_will_wrap( false ), origin_mode( false ), auto_wrap_mode( true ),
+     insert_mode( false ), cursor_visible( true ), reverse_video( false ),
+     bracketed_paste( false ), mouse_reporting_mode( MOUSE_REPORTING_NONE ), mouse_focus_event( false ),
+@@ -269,6 +271,14 @@ void Framebuffer::apply_renditions_to_cell( Cell *cell )
+   cell->set_renditions( ds.get_renditions() );
+ }
+ 
++void Framebuffer::apply_hyperlink_to_cell( Cell* cell )
++{
++  if ( !cell ) {
++    cell = get_mutable_cell();
++  }
++  cell->set_hyperlink( ds.get_hyperlink() );
++}
++
+ SavedCursor::SavedCursor()
+   : cursor_col( 0 ), cursor_row( 0 ),
+     renditions( 0 ),
+@@ -395,6 +405,7 @@ void Framebuffer::soft_reset( void )
+   ds.application_mode_cursor_keys = false;
+   ds.set_scrolling_region( 0, ds.get_height() - 1 );
+   ds.add_rendition( 0 );
++  ds.set_hyperlink( Hyperlink() );
+   ds.clear_saved_cursor();
+ }
+ 
+@@ -575,6 +586,34 @@ std::string Renditions::sgr( void ) const
+   return ret;
+ }
+ 
++bool Hyperlink::operator==( const Hyperlink& x ) const
++{
++  if ( rep == x.rep ) {
++    return true;
++  }
++  if ( rep == nullptr || x.rep == nullptr ) {
++    return false;
++  }
++
++  return rep->url == x.rep->url && rep->params == x.rep->params;
++}
++
++std::string Hyperlink::osc8() const
++{
++  std::string ret;
++
++  ret.append( "\033]8;" );
++
++  if ( *this )
++    ret.append( rep->params );
++  ret.append( ";" );
++  if ( *this )
++    ret.append( rep->url );
++
++  ret.append( "\033\\" );
++  return ret;
++}
++
+ void Row::reset( color_type background_color )
+ {
+   gen = get_gen();
+diff --git a/src/terminal/terminalframebuffer.h b/src/terminal/terminalframebuffer.h
+index de93869..87604dc 100644
+--- a/src/terminal/terminalframebuffer.h
++++ b/src/terminal/terminalframebuffer.h
+@@ -41,6 +41,8 @@
+ #include <deque>
+ #include <string>
+ #include <list>
++#include <memory>
++#include <utility>
+ 
+ #include "shared.h"
+ 
+@@ -95,11 +97,36 @@ namespace Terminal {
+     void clear_attributes() { attributes = 0; }
+   };
+ 
++  class Hyperlink {
++  public:
++    Hyperlink() : rep( nullptr ) {}
++    Hyperlink( std::string params, std::string url )
++      : rep( url.empty() ? nullptr : std::make_shared<Rep>( Rep { std::move( params ), std::move( url ) } ) )
++    {}
++
++    std::string osc8() const;
++
++    bool empty() const { return rep == nullptr; }
++    operator bool() const { return !empty(); }
++
++    bool operator==( const Hyperlink &x ) const;
++
++    bool operator!=( const Hyperlink &x ) const { return !operator==( x ); }
++
++  private:
++    struct Rep {
++      std::string params;
++      std::string url;
++    };
++    std::shared_ptr<Rep> rep;
++  };
++
+   class Cell {
+   private:
+     typedef std::string content_type; /* can be std::string, std::vector<uint8_t>, or __gnu_cxx::__vstring */
+     content_type contents;
+     Renditions renditions;
++    Hyperlink hyperlink;
+     unsigned int wide : 1; /* 0 = narrow, 1 = wide */
+     unsigned int fallback : 1; /* first character is combining character */
+     unsigned int wrap : 1;
+@@ -117,6 +144,7 @@ namespace Terminal {
+ 	       && (fallback == x.fallback)
+ 	       && (wide == x.wide)
+ 	       && (renditions == x.renditions)
++	       && (hyperlink == x.hyperlink)
+ 	       && (wrap == x.wrap) );
+     }
+ 
+@@ -199,6 +227,8 @@ namespace Terminal {
+     }
+ 
+     /* Other accessors */
++  const Hyperlink& get_hyperlink() const { return hyperlink; }
++  void set_hyperlink( Hyperlink l ) { hyperlink = std::move( l ); }
+     const Renditions& get_renditions( void ) const { return renditions; }
+     Renditions& get_renditions( void ) { return renditions; }
+     void set_renditions( const Renditions& r ) { renditions = r; }
+@@ -271,6 +301,7 @@ namespace Terminal {
+     int scrolling_region_top_row, scrolling_region_bottom_row;
+ 
+     Renditions renditions;
++  Hyperlink hyperlink;
+ 
+     SavedCursor save;
+ 
+@@ -330,6 +361,9 @@ namespace Terminal {
+     int limit_top( void ) const;
+     int limit_bottom( void ) const;
+ 
++  const Hyperlink& get_hyperlink() const { return hyperlink; }
++  void set_hyperlink( Hyperlink x ) { hyperlink = std::move( x ); }
++
+     void set_foreground_color( int x ) { renditions.set_foreground_color( x ); }
+     void set_background_color( int x ) { renditions.set_background_color( x ); }
+     void add_rendition( color_type x ) { renditions.set_rendition( x ); }
+@@ -353,7 +387,7 @@ namespace Terminal {
+ 	( reverse_video == x.reverse_video ) && ( renditions == x.renditions ) &&
+   ( bracketed_paste == x.bracketed_paste ) && ( mouse_reporting_mode == x.mouse_reporting_mode ) &&
+   ( mouse_focus_event == x.mouse_focus_event ) && ( mouse_alternate_scroll == x.mouse_alternate_scroll) &&
+-  ( mouse_encoding_mode == x.mouse_encoding_mode );
++  ( mouse_encoding_mode == x.mouse_encoding_mode ) && hyperlink == x.hyperlink;
+     }
+   };
+ 
+@@ -438,6 +472,7 @@ namespace Terminal {
+     Cell *get_combining_cell( void );
+ 
+     void apply_renditions_to_cell( Cell *cell );
++    void apply_hyperlink_to_cell( Cell *cell );
+ 
+     void insert_line( int before_row, int count );
+     void delete_line( int row, int count );
+diff --git a/src/terminal/terminalfunctions.cc b/src/terminal/terminalfunctions.cc
+index ca141dd..60754fe 100644
+--- a/src/terminal/terminalfunctions.cc
++++ b/src/terminal/terminalfunctions.cc
+@@ -33,6 +33,8 @@
+ #include <unistd.h>
+ #include <algorithm>
+ #include <string>
++#include <utility>
++#include <vector>
+ #include <stdio.h>
+ 
+ #include "terminaldispatcher.h"
+@@ -588,6 +590,39 @@ static void CSI_DECSTR( Framebuffer *fb, Dispatcher *dispatch __attribute((unuse
+ 
+ static Function func_CSI_DECSTR( CSI, "!p", CSI_DECSTR );
+ 
++static bool Parse_OSC_8( const std::vector<wchar_t>& osc8_vector, std::string& osc8_str )
++{
++  osc8_str.reserve( osc8_vector.size() );
++  for ( wchar_t wide_char : osc8_vector ) {
++    // Valid char range is 32-126, per
++    // https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda#encodings
++    if ( wide_char < 32 || wide_char > 126 ) {
++      return false;
++    }
++    osc8_str.append( 1, static_cast<char>( wide_char ) );
++  }
++  return true;
++}
++
++static void OSC_8( const std::string& OSC_string, Framebuffer* fb )
++{
++  // OSC of the form "\033]8;params;url\007"
++  assert( OSC_string[0] == '8' );
++  if ( OSC_string.size() <= 2 || OSC_string[1] != ';' ) {
++    // Bail early if the string is malformed.
++    return;
++  }
++
++  size_t second_semicolon = OSC_string.find_first_of( ';', 2 );
++  if ( second_semicolon == std::string::npos ) {
++    // Missing the second semicolon, malformed.
++    return;
++  }
++
++  std::string url = OSC_string.substr( second_semicolon + 1 );
++  fb->ds.set_hyperlink( Hyperlink( OSC_string.substr( 2, second_semicolon - 2 ), std::move( url ) ) );
++}
++
+ /* xterm uses an Operating System Command to set the window title */
+ void Dispatcher::OSC_dispatch( const Parser::OSC_End *act __attribute((unused)), Framebuffer *fb )
+ {
+@@ -614,6 +649,16 @@ void Dispatcher::OSC_dispatch( const Parser::OSC_End *act __attribute((unused)),
+       cmd_num = OSC_string[ 0 ] - L'0';
+       offset = 2;
+     }
++    if ( cmd_num == 8 ) {
++      // Handle OSC8 hyperlinks separately
++      std::string osc_8_str;
++      if ( !Parse_OSC_8( OSC_string, osc_8_str ) ) {
++        //
++        return;
++      }
++      OSC_8( osc_8_str, fb );
++      return;
++    }
+     bool set_icon = cmd_num == 0 || cmd_num == 1;
+     bool set_title = cmd_num == 0 || cmd_num == 2;
+     if ( set_icon || set_title ) {
+diff --git a/src/tests/Makefile.am b/src/tests/Makefile.am
+index a52f800..ce76be5 100644
+--- a/src/tests/Makefile.am
++++ b/src/tests/Makefile.am
+@@ -21,6 +21,7 @@ displaytests = \
+ 	emulation-attributes-256color248.test \
+ 	emulation-attributes-truecolor.test \
+ 	emulation-attributes-bce.test \
++	emulation-attributes-osc8.test \
+ 	emulation-back-tab.test \
+ 	emulation-cursor-motion.test \
+ 	emulation-multiline-scroll.test \
+diff --git a/src/tests/emulation-attributes-osc8.test b/src/tests/emulation-attributes-osc8.test
+new file mode 120000
+index 0000000..03c0a01
+--- /dev/null
++++ b/src/tests/emulation-attributes-osc8.test
+@@ -0,0 +1 @@
++emulation-attributes.test
+\ No newline at end of file
+diff --git a/src/tests/emulation-attributes.test b/src/tests/emulation-attributes.test
+index 7e22019..fc58e44 100755
+--- a/src/tests/emulation-attributes.test
++++ b/src/tests/emulation-attributes.test
+@@ -35,6 +35,15 @@ if [ "$(basename "$0")" = emulation-attributes-bce.test ] &&
+     exit 77
+ fi
+ 
++# Need 3.4 for OSC 8 support
++if [ "$(basename "$0")" = emulation-attributes-osc8.test ] &&
++   ! tmux_check 3 4; then
++    printf "tmux does not support OSC 8 hyperlinks\n" >&2
++    exit 77
++fi
++
++
++
+ # Top-level wrapper.
+ if [ $# -eq 0 ]; then
+     e2e-test "$0" baseline direct verify
+@@ -139,6 +148,12 @@ baseline()
+ 	    printf '\033[42m\033[J16 color\n'
+ 	    printf '\033[0mdone\n'
+ 	    ;;
++        osc8)
++            printf '\033]8;;http://example.com\033\133This is a link\033]8;;\033\133\n'
++            printf '\033]8;id=foo;http://example.com\033\133link\033]8;;\033\133\n'
++            printf '\033]8;foo=bar:bar=baz;http://example.com\033\133link\033]8;;\033\133\n'
++            printf "\e]8;;vscode://file/home/achin/test:1:1\e\x5c\e[0m\e[35mtest\e[0m\e]8;;\e\x5c:\e[0m\e[1m\e[31mtest\e[0m\n"
++            ;;
+ 	*)
+ 	    fail "unknown test name %s\n" "$1"
+ 	    ;;
