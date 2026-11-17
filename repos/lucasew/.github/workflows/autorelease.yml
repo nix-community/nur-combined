@@ -28,4 +28,9 @@ jobs:
         run: sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get install -y dconf-cli
 
       - name: Apply home
+        env:
+          # modot's setup reads GITHUB_TOKEN when it resolves the latest release;
+          # unauthenticated api.github.com calls hit the 60/hour per-IP limit and
+          # return 403, which aborts the apply with "no release asset".
+          GITHUB_TOKEN: ${{ github.token }}
         run: dbus-run-session -- ./setup home apply
