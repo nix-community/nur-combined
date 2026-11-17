@@ -24,12 +24,10 @@ in
     Service = {
       SyslogIdentifier = "%N";
 
-      RuntimeDirectory = "direnv-use-bwrap-dbus-proxy";
-
       ExecStart = ''
         ${getExe pkgs.xdg-dbus-proxy} \
           "''${DBUS_SESSION_BUS_ADDRESS}" \
-          '%t/direnv-use-bwrap-dbus-proxy/session' \
+          '%t/%N.sock' \
           --log \
           --filter \
           --call=org.gnome.SessionManager=org.gnome.SessionManager.Inhibit@/org/gnome/SessionManager
@@ -42,12 +40,10 @@ in
     Service = {
       SyslogIdentifier = "%N";
 
-      RuntimeDirectory = "direnv-use-bwrap-dbus-proxy";
-
       ExecStart = ''
         ${getExe pkgs.xdg-dbus-proxy} \
           'unix:path=/run/dbus/system_bus_socket' \
-          '%t/direnv-use-bwrap-dbus-proxy/system' \
+          '%t/%N.sock' \
           --log \
           --filter \
           --talk=org.freedesktop.UPower.PowerProfiles

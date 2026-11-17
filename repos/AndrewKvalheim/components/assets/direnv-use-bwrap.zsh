@@ -75,13 +75,13 @@ _direnv_use_bwrap() {
     expose_fd_as[$etc_group]='/etc/group'
 
     # D-Bus
-    expose_path_ro_as[$XDG_RUNTIME_DIR/direnv-use-bwrap-dbus-proxy/system]='/run/dbus/system_bus_socket'
+    expose_path_ro_as[$XDG_RUNTIME_DIR/direnv-use-bwrap-dbus-proxy-system.sock]='/run/dbus/system_bus_socket'
     expose_env+=(
       'DBUS_SESSION_BUS_ADDRESS'
     )
     if [[ -v DBUS_SESSION_BUS_ADDRESS ]]; then
       local dbus_path="${${DBUS_SESSION_BUS_ADDRESS#unix:path=}%%,*}"; [[ -S "$dbus_path" ]]
-      expose_path_ro_as[$XDG_RUNTIME_DIR/direnv-use-bwrap-dbus-proxy/session]="$dbus_path"
+      expose_path_ro_as[$XDG_RUNTIME_DIR/direnv-use-bwrap-dbus-proxy-session.sock]="$dbus_path"
     fi
 
     # Trash

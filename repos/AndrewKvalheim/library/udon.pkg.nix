@@ -17,7 +17,7 @@ let
 in
 python3Packages.buildPythonApplication (udon: {
   pname = "udon";
-  version = "0.05";
+  version = "0.063";
   meta = {
     description = "Network messaging library and tools";
     homepage = "https://github.com/treedavies/udon";
@@ -31,25 +31,16 @@ python3Packages.buildPythonApplication (udon: {
     owner = "treedavies";
     repo = "udon";
     rev = "refs/tags/udon-v${udon.version}";
-    hash = "sha256-+DvLtSoyxnfGczZsw6L7YRnIRJWGTeI2r016PfWoA8o=";
+    hash = "sha256-nZf1Z0kGr1yaqjatQp7acx+K9VxobwGcCYz7MUeNawc=";
   };
 
   patches = [
-    (toFile "modules-path.patch" ''
-      Allow configuration of path of user-provided modules
-
-      --- a/src/libudon.py
-      +++ b/src/libudon.py
-      @@ -1354 +1354 @@
-      -		self.modules_path = f"/usr/bin/udon.d/modules/"
-      +		self.modules_path = os.environ.get("UDON_MODULES_PATH", "/usr/bin/udon.d/modules/")
-    '')
     (toFile "process-name.patch" ''
       Stabilize identity of process for detection by self test
 
       --- a/src/udon
       +++ b/src/udon
-      @@ -452,2 +452,4 @@
+      @@ -421,2 +421,4 @@
        if __name__ == '__main__':
       +	import setproctitle
       +	setproctitle.setproctitle("udon") # Referenced by `is_udon_server_running`
@@ -91,13 +82,11 @@ python3Packages.buildPythonApplication (udon: {
       'src/udon'
     install -D --target-directory "$out/${sitePackages}" --mode '644' \
       'src/'*'.py'
-    cp --recursive --target-directory "$out/${sitePackages}" \
-      'src/modules/'*
 
     runHook postInstall
   '';
 
-  pythonImportsCheck = [ "hello" "libudon" "udon_init" "test_libudon" ];
+  pythonImportsCheck = [ "libudon" "udon_init" "test_libudon" ];
 
   passthru.tests = {
     libudon = testers.nixosTest {

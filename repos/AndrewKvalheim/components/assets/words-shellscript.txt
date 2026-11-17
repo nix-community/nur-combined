@@ -30,5 +30,6 @@ runuser
 setaf
 setfacl
 sgr0
+socat
 ssh-keygen
 usr

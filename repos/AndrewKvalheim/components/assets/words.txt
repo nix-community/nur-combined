@@ -156,6 +156,7 @@ Boromir
 Bothell
 Bowron
 brainfuck
+brightnesses
 Broadcom
 Brotli
 browsable
@@ -1288,6 +1289,7 @@ reparent
 reparenting
 ReplayGain
 repositioned
+representable
 representer
 reprovision
 reqwest
@@ -1683,6 +1685,7 @@ unrendered
 unrepairable
 unrepresentable
 unretrievable
+unreviewed
 unscope
 unscoped
 unscrollable
