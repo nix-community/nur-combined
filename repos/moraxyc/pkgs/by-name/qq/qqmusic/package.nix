@@ -27,10 +27,9 @@ if stdenvNoCC.hostPlatform.isLinux then
     inherit (srcInfo) version;
     inherit meta;
 
-    src = fetchurl rec {
+    src = fetchurl {
       name = "qqmusic_${srcInfo.version}_amd64.deb";
-      url = "https://c.y.qq.com/cgi-bin/file_redirect.fcg?bid=dldir&file=ecosfile_plink%2Fmusic_clntupate%2Flinux%2Fother%2F${name}&sign=${srcInfo.sign}";
-      inherit (srcInfo) hash;
+      inherit (srcInfo) url hash;
     };
 
     passthru = (prevAttrs.passthru or { }) // passthru;
@@ -41,10 +40,9 @@ else
     inherit (srcInfo) version;
     inherit meta passthru;
 
-    src = fetchurl rec {
-      name = "QQMusicMac${srcInfo.version}Build${srcInfo.build}.dmg";
-      url = "https://c.y.qq.com/cgi-bin/file_redirect.fcg?bid=dldir&file=ecosfile%2Fmusic_clntupate%2Fmac%2Fother%2F${name}&sign=${srcInfo.sign}";
-      inherit (srcInfo) hash;
+    src = fetchurl {
+      name = "QQMusicMac-${srcInfo.version}.dmg";
+      inherit (srcInfo) url hash;
     };
 
     nativeBuildInputs = [ undmg ];

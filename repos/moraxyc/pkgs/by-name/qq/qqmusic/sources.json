@@ -1,14 +1,12 @@
 {
   "any-darwin": {
-    "version": "11.4.0",
-    "sign": "1-5ccc94a5356df435669660c219088c7e583107573097fc6af9a10cb8ae748f4d-69e9bc5d",
-    "build": "01",
-    "hash": "sha256-JbeiIpW7kcnjSlWv9ZxS9z1LtE+HGetz+XEOvBI4HqM="
+    "version": "11.11.1",
+    "url": "https://c.y.qq.com/cgi-bin/file_redirect.fcg?bid=dldir&file=ecosfile%2Fmusic_clntupate%2Fmac%2Fother%2Fmwejkbzw-5e214dcd248f1b2e.dmg&sign=1-12db0e997392798cccc5b58dc1c539f1d771cd86e8b2aeab1aa84dbf0bd3175a-6af6b27a",
+    "hash": "sha256-zXfXmie8k9WwaPg41pmXY18hxBIFLr1X4nzGGPQFPA8="
   },
   "x86_64-linux": {
     "version": "1.1.8",
-    "sign": "1-d1ca4d5c5a8369b26af88e881ba3ac544066a899dcaea29778b35c9f648e6fee-68cb7c1c",
-    "build": "",
+    "url": "https://c.y.qq.com/cgi-bin/file_redirect.fcg?bid=dldir&file=ecosfile_plink%2Fmusic_clntupate%2Flinux%2Fother%2Fqqmusic_1.1.8_amd64.deb&sign=1-d1ca4d5c5a8369b26af88e881ba3ac544066a899dcaea29778b35c9f648e6fee-68cb7c1c",
     "hash": "sha256-QtGNaow8F0FOW228DDrIk7slQMHFwJzpDSQYQ8xZN4g="
   }
 }
