@@ -8,13 +8,13 @@
 let
   base = beamPackages.buildRebar3 rec {
     name = "telemetry";
-    version = "1.4.2";
+    version = "1.4.3";
 
     src = fetchFromGitHub {
       owner = "beam-telemetry";
       repo = "telemetry";
       rev = "v${version}";
-      hash = "sha256-8HMihbkus8rs8iwFRNMuy56UAlu8DZFWI5k2/XZXB48=";
+      hash = "sha256-7fZkLgGnpVMXNuZRGhaRy1UsNGUAR4Jqj5XJZEYVToY=";
     };
 
     beamDeps = [ ];
