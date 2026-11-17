@@ -34,19 +34,19 @@
       "fingerprint": "sha256-cVQ7h55JChvA30nwu2Nmkypiz9ytWuPQd2UqxAacviU="
     },
     "aliasmode": {
-      "version": "0.1.0-beta.74",
-      "rawVersion": "0.1.0-beta.74",
-      "date": "2026-11-07",
+      "version": "0.1.0-beta.75",
+      "rawVersion": "0.1.0-beta.75",
+      "date": "2026-11-16",
       "src": {
         "fetcher": "github",
         "owner": "aliasmode",
         "repo": "aliasmode",
-        "rev": "v0.1.0-beta.74",
-        "hash": "sha256-HCpxcY4CUqYvCBQ36Tb1lDx2I+yb1gAr65Nuo2p4KmM="
+        "rev": "v0.1.0-beta.75",
+        "hash": "sha256-x8FYxZ2y+hHon5N+RQNpoGmKQnEDBmedlKVpN5CxoTg="
       },
       "derived": {
         "cargoHash": {
-          "hash": "sha256-a01FVlPESTkF7yzY0vdOC9yhvcXRFKthDw1xjgTZygw="
+          "hash": "sha256-V9oKvtuQu5kaDdhJfTP9Ztngc4/wBodg2S/Hdbr6MyI="
         },
         "nodeModulesHash": {
           "hash": "sha256-jHQQkz9HM8lGhDPPEY9Geps9nhs8G65In575zKciyQk="
@@ -115,13 +115,13 @@
     },
     "clash-nyanpasu": {
       "version": "2.0.1-unstable-2026-11-16",
-      "rawVersion": "6fd186ab1d23f001f835d5fda964ac8413d61ce0",
+      "rawVersion": "93fc8600c35b156c791b543f12fe841bdf21f7d3",
       "date": "2026-11-16",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/libnyanpasu/clash-nyanpasu",
-        "rev": "6fd186ab1d23f001f835d5fda964ac8413d61ce0",
-        "hash": "sha256-VocT0yhkJV7xbaJk1sGXzMpdgr1LMJwlQz05i5tc2jQ="
+        "rev": "93fc8600c35b156c791b543f12fe841bdf21f7d3",
+        "hash": "sha256-8CuMFuhwPV5TFkV6YvuHgnMAKCBx3vEC6/NvKWDvDYo="
       },
       "derived": {
         "cargoLock": {
@@ -143,7 +143,7 @@
           }
         },
         "pnpmDepsHash": {
-          "hash": "sha256-8reFXxfRA3tASOpUVOCP+c2Sed3+6uNSn9v4fkrxMJY="
+          "hash": "sha256-XQDYAAlPJklpCCDH3Aw4ZuHX+i/OGjiDYYV1KGtuJTs="
         }
       },
       "artifacts": {
@@ -290,14 +290,14 @@
       "fingerprint": "sha256-30OsBkMRA0jMQKYo3jIET9P4D5xWLMEblIxAU7j2p2k="
     },
     "gaze": {
-      "version": "0.5.1-unstable-2026-11-15",
-      "rawVersion": "b856f5439d0f1a9edbc5c5870813eb392854dc62",
-      "date": "2026-11-15",
+      "version": "0.5.1-unstable-2026-11-16",
+      "rawVersion": "bccbacac686983d89505b91c103e9403135638db",
+      "date": "2026-11-16",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/GunduLabs/gaze.git",
-        "rev": "b856f5439d0f1a9edbc5c5870813eb392854dc62",
-        "hash": "sha256-6VG+9/BpD1DVidcUeN/qfoKpitdczTNXANQgbStjfFI="
+        "rev": "bccbacac686983d89505b91c103e9403135638db",
+        "hash": "sha256-mjJtacR+YMBntn3qJWBq3QucFuidO8Thga8UpVJcSkM="
       },
       "derived": {
         "cargoLock": {
@@ -420,14 +420,14 @@
     },
     "horizon": {
       "version": "0-unstable-2026-11-16",
-      "rawVersion": "85b5bcca7c79bb470b90bdb5914b413aa66fe7ae",
+      "rawVersion": "c07bfa76e71e8db9e84a7e61832a8fb898718e81",
       "date": "2026-11-16",
       "src": {
         "fetcher": "github",
         "owner": "horizon-rust",
         "repo": "horizon",
-        "rev": "85b5bcca7c79bb470b90bdb5914b413aa66fe7ae",
-        "hash": "sha256-26fJ/iTeBApcSpwjRpcWkCuArJS2M7mLv2NGYakGR8o="
+        "rev": "c07bfa76e71e8db9e84a7e61832a8fb898718e81",
+        "hash": "sha256-R88M4Rua6QdoJY3D3tEIg4T9U+LBLVQFSZtzlcs0FI8="
       },
       "derived": {
         "cargoLock": {
@@ -501,18 +501,19 @@
       "fingerprint": "sha256-w/kdBG77SIgcsRtiEzY6Jao4sw7x/Im13oA8DuqMvac="
     },
     "mautrix-telegram": {
-      "version": "0.2610.0",
-      "rawVersion": "v0.2610.0",
+      "version": "0.2611.0",
+      "rawVersion": "v0.2611.0",
+      "date": "2026-11-16",
       "src": {
         "fetcher": "github",
         "owner": "mautrix",
         "repo": "telegram",
-        "rev": "v0.2610.0",
-        "hash": "sha256-2oHtqtpFhNr+v49nMSe33RGDj+MQV2D/+8JX+YYWi+0="
+        "rev": "v0.2611.0",
+        "hash": "sha256-z3jfjQyh47scBjHNThLn5DluSSS4fT21NAibWyD5Iqc="
       },
       "derived": {
         "vendorHash": {
-          "hash": "sha256-JbnlJnCtIKC3rpO2mBa7DvEFeWuq9tpvN9H+MoQ5VV0="
+          "hash": "sha256-byvTXR7gy6b/TIVfJ8bwMC/D9vqn6iwjoxBE1gkBNBc="
         }
       },
       "fingerprint": "sha256-qEsTIMwmqKOKkslNEm7UH0CYmjGEIqCEWLcRhb19EGA="
@@ -1004,31 +1005,31 @@
       "fingerprint": "sha256-H7/fT4nfEg6N60/hpZLT4tL2Ehl2w1jA42zyrihYhcA="
     },
     "sable-next": {
-      "version": "26.11.0",
-      "rawVersion": "26.11.0",
-      "date": "2026-11-15",
+      "version": "26.11.2",
+      "rawVersion": "26.11.2",
+      "date": "2026-11-16",
       "src": {
         "fetcher": "git",
         "url": "https://git.sable.moe/SableClient/sable-next.git",
-        "tag": "v26.11.0",
-        "hash": "sha256-3ndyjU2/oBpBWGJPkPoynQm7uCzSmYFGDCvzMUmS7qw="
+        "tag": "v26.11.2",
+        "hash": "sha256-fhq84mRH9oWNA9/rT+wlK/5wqOvyWDckHRh0/3msMjg="
       },
       "derived": {
         "cargoLock": {
           "lockfile": "sable-next/src/Cargo.lock",
           "outputHashes": {
-            "matrix-sdk-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
-            "matrix-sdk-base-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
-            "matrix-sdk-common-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
-            "matrix-sdk-crypto-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
-            "matrix-sdk-indexeddb-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
-            "matrix-sdk-qrcode-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
-            "matrix-sdk-sqlite-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
-            "matrix-sdk-store-encryption-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
-            "matrix-sdk-test-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
-            "matrix-sdk-test-macros-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
-            "matrix-sdk-test-utils-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
-            "matrix-sdk-ui-0.19.1": "sha256-DnKh7vYfVhF/74o67IgaypZRAEo37NA6YmpuhE+of9k=",
+            "matrix-sdk-0.19.1": "sha256-K/9IL8JEOn02ng98V6Q/rBHFM+712219ZUwb3rT3JE0=",
+            "matrix-sdk-base-0.19.1": "sha256-K/9IL8JEOn02ng98V6Q/rBHFM+712219ZUwb3rT3JE0=",
+            "matrix-sdk-common-0.19.1": "sha256-K/9IL8JEOn02ng98V6Q/rBHFM+712219ZUwb3rT3JE0=",
+            "matrix-sdk-crypto-0.19.1": "sha256-K/9IL8JEOn02ng98V6Q/rBHFM+712219ZUwb3rT3JE0=",
+            "matrix-sdk-indexeddb-0.19.1": "sha256-K/9IL8JEOn02ng98V6Q/rBHFM+712219ZUwb3rT3JE0=",
+            "matrix-sdk-qrcode-0.19.1": "sha256-K/9IL8JEOn02ng98V6Q/rBHFM+712219ZUwb3rT3JE0=",
+            "matrix-sdk-sqlite-0.19.1": "sha256-K/9IL8JEOn02ng98V6Q/rBHFM+712219ZUwb3rT3JE0=",
+            "matrix-sdk-store-encryption-0.19.1": "sha256-K/9IL8JEOn02ng98V6Q/rBHFM+712219ZUwb3rT3JE0=",
+            "matrix-sdk-test-0.19.1": "sha256-K/9IL8JEOn02ng98V6Q/rBHFM+712219ZUwb3rT3JE0=",
+            "matrix-sdk-test-macros-0.19.1": "sha256-K/9IL8JEOn02ng98V6Q/rBHFM+712219ZUwb3rT3JE0=",
+            "matrix-sdk-test-utils-0.19.1": "sha256-K/9IL8JEOn02ng98V6Q/rBHFM+712219ZUwb3rT3JE0=",
+            "matrix-sdk-ui-0.19.1": "sha256-K/9IL8JEOn02ng98V6Q/rBHFM+712219ZUwb3rT3JE0=",
             "ruma-0.17.2": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
             "ruma-appservice-api-0.17.1": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
             "ruma-client-api-0.25.2": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
@@ -1048,7 +1049,7 @@
           }
         },
         "pnpmDepsHash": {
-          "hash": "sha256-MW4yLXBuEJr4zk3536jHMO752ozYSe9ynSwWyUxcEdY="
+          "hash": "sha256-ND/03pNlJLQNsv9cdfC5kOXublBH4358qTwHLtKXDgU="
         }
       },
       "fingerprint": "sha256-2YVZK9SaKstbB8g+Fzhd3oIQeuoEzz5l9AUGzESdLWE="
@@ -1147,14 +1148,14 @@
       "fingerprint": "sha256-bkfLJkEtLMz1h+WpImLqmsX1w0C+bC6LFQVif/RSb0s="
     },
     "v2ray-rules-dat": {
-      "version": "0-unstable-2026-11-15",
-      "rawVersion": "e0d89c018129e5bea4ef2f4db945976307da8172",
-      "date": "2026-11-15",
+      "version": "0-unstable-2026-11-16",
+      "rawVersion": "5e892947c462419927b5aa88a7187aefacdd2d2a",
+      "date": "2026-11-16",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/Loyalsoldier/v2ray-rules-dat.git",
-        "rev": "e0d89c018129e5bea4ef2f4db945976307da8172",
-        "hash": "sha256-cvFUSWR1rjQclu+g8FLWam4rk7PsznDeIEEbMV0/ILY="
+        "rev": "5e892947c462419927b5aa88a7187aefacdd2d2a",
+        "hash": "sha256-JiqWW1wVUJJSTub8ZYxzfsHWNHKp6/prLs7Is5nUXPc="
       },
       "fingerprint": "sha256-VCqt6bExRQnJkTY51zmxmoGSt/p7RbF3g/HsGQUjUqs="
     },
