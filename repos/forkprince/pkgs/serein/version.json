@@ -1,0 +1,20 @@
+{
+  "name": "Serein",
+  "source": {
+    "type": "github-release",
+    "repo": "ViceVerse-cz/Serein",
+    "skip_prerelease": false,
+    "tag_prefix": "v"
+  },
+  "version": "1.0.0-nightly.20261114.91",
+  "platforms": {
+    "x86_64-linux": {
+      "file": "serein-v{version}-Linux-X64.AppImage",
+      "hash": "sha256-wBkDd1pftio8b+KMDKFWHeAU4rOI9sO5/EnUmSao87A="
+    },
+    "aarch64-darwin": {
+      "file": "serein-v{version}-macOS-ARM64.zip",
+      "hash": "sha256-fArgt2NLnDCcY+z7VCjSjCBiaF5l4wOyzJlG9SWcjdY="
+    }
+  }
+}

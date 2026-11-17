@@ -149,6 +149,7 @@ This repository contains three types of packages:
 | [`rpcs3`](pkgs/rpcs3/default.nix) | [rpcs3](https://rpcs3.net/), pS3 emulator/debugger |
 | [`rustdesk`](pkgs/rustdesk/default.nix) | [rustdesk](https://rustdesk.com), virtual / remote desktop infrastructure for everyone! Open source TeamViewer / Citrix alternative |
 | [`screendrop`](pkgs/screendrop/default.nix) | [screendrop](https://github.com/fayazara/screendrop), a beautiful screenshot, screen recording and loom alternative |
+| [`serein`](pkgs/serein/default.nix) | [serein](https://github.com/ViceVerse-cz/Serein), tiny, performant & 100% native client for Discord made in Rust |
 | [`sfw`](pkgs/sfw/default.nix) | [sfw](https://github.com/SocketDev/sfw-free), wraps your package manager, preventing installation of malicious packages. |
 | [`sm64plus`](pkgs/sm64plus/default.nix) | [sm64plus](https://github.com/MorsGames/sm64plus), a standalone fork of the Super Mario 64 PC port with quality of life improvements |
 | [`sonixd`](pkgs/sonixd/default.nix) | [sonixd](https://github.com/jeffvli/sonixd), full-featured Subsonic/Jellyfin compatible desktop music player |

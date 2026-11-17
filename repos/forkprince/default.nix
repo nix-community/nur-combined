@@ -61,6 +61,7 @@
     hytale = lib.callPackage ./pkgs/hytale {};
     whisky = lib.callPackage ./pkgs/whisky {};
     armsx2 = lib.callPackage ./pkgs/armsx2 {};
+    serein = lib.callPackage ./pkgs/serein {};
     prism = lib.callPackage ./pkgs/prism {};
     mcman = lib.callPackage ./pkgs/mcman {};
     nuvio = lib.callPackage ./pkgs/nuvio {};
