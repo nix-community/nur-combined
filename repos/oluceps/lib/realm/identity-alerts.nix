@@ -13,16 +13,30 @@ let
   fresh = collector: ''realm_identity:collector_fresh{collector="${collector}"}'';
   holderMatch = "on (instance, job, monitor, node, unit, identity, source)";
   holderNote = "Source {{ $labels.source }}: ghostunnel_status_watch checks a separate certificate watch and does not prove business TLS loaded it. caddy_loaded observes the TLS peer certificate from Caddy's actual SDK source.";
-  alert = name: expr: duration: severity: description: {
+  # `board` selects the Telegram message the alert is listed in; see
+  # lib/realm/telegram-board.tmpl. Per-unit workload alerts get a board of their
+  # own because a single alertname there can cover a hundred units.
+  alert = board: name: expr: duration: severity: description: {
     alert = name;
     inherit expr;
     for = duration;
-    labels.severity = severity;
+    labels = {
+      inherit board severity;
+    };
     annotations = {
       summary = "${name} on {{ $labels.instance }}";
       inherit description;
     };
   };
+  # The board row shows this instead of the default label chain.
+  withTarget =
+    target: rule:
+    rule
+    // {
+      annotations = rule.annotations // {
+        inherit target;
+      };
+    };
   expected = record: labels: {
     inherit record labels;
     expr = "vector(1)";
@@ -122,10 +136,10 @@ in
             and ${match} (${fresh "workloads"})
           '';
         }
-        (alert "RealmIdentityScrapeDown" ''up{job="realm-identity"} == 0'' "2m" "critical"
+        (alert "identity" "RealmIdentityScrapeDown" ''up{job="realm-identity"} == 0'' "2m" "critical"
           "Check the independent WireGuard listener and exporter on {{ $labels.instance }}. This scrape does not require the SPIFFE gateway."
         )
-        (alert "RealmIdentityScrapeMissing"
+        (alert "identity" "RealmIdentityScrapeMissing"
           ''
             realm_identity:expected_node unless on (instance) up{job="realm-identity"}
           ''
@@ -133,7 +147,7 @@ in
           "critical"
           "Restore the realm-identity scrape target for {{ $labels.node }}. No up series exists. The static cohort cannot retain absent scrape labels."
         )
-        (alert "RealmIdentityCollectorMetricsMissing"
+        (alert "identity" "RealmIdentityCollectorMetricsMissing"
           ''
             (${up}) unless ${match} ${metric "realm_identity_collector_success"}
           ''
@@ -141,7 +155,7 @@ in
           "critical"
           "Check the exporter response and metric filters. The independent scrape works but all collector status series are absent."
         )
-        (alert "RealmIdentityCollectorSeriesMissing"
+        (alert "identity" "RealmIdentityCollectorSeriesMissing"
           ''
             (
               (realm_identity:expected_collector unless on (instance, collector)
@@ -164,7 +178,7 @@ in
           "warning"
           "Restore status and completion timestamps for collector {{ $labels.collector }}. Partial metrics cannot establish collection health."
         )
-        (alert "RealmIdentityCollectorStale"
+        (alert "identity" "RealmIdentityCollectorStale"
           ''
             ((${metric "realm_identity_collector_last_collection_timestamp_seconds"} <= time() - 65)
               or (${metric "realm_identity_collector_last_collection_timestamp_seconds"} == 0)
@@ -175,7 +189,7 @@ in
           "warning"
           "Check the exporter cycle and clock for collector {{ $labels.collector }}. Zero means no completed cycle. Old success counters do not establish freshness."
         )
-        (alert "RealmIdentityCollectorFailed"
+        (alert "identity" "RealmIdentityCollectorFailed"
           ''
             (${metric "realm_identity_collector_success"} == 0)
             and on (instance, job, monitor, collector) realm_identity:collector_fresh
@@ -184,7 +198,7 @@ in
           "warning"
           "Check exporter logs for collector {{ $labels.collector }}. Collection is current but failed. Workload details identify failed holders and exclude dormant units."
         )
-        (alert "RealmIdentityBootstrapTrustInvalid"
+        (alert "identity" "RealmIdentityBootstrapTrustInvalid"
           ''
             (${metric "realm_bootstrap_bundle_server_trust_valid"} == 0)
             and ${match} (${fresh "bootstrap"})
@@ -193,7 +207,7 @@ in
           "critical"
           "Check the pinned bundle and SPIRE Server TLS identity. This probe checks server trust. Bundle certificate counts alone do not establish trust."
         )
-        (alert "RealmIdentityBootstrapTrustMissing"
+        (alert "identity" "RealmIdentityBootstrapTrustMissing"
           ''
             (${fresh "bootstrap"}) unless ${match} ${metric "realm_bootstrap_bundle_server_trust_valid"}
           ''
@@ -201,7 +215,7 @@ in
           "warning"
           "Restore the pinned TLS trust indicator. A current bootstrap collector timestamp cannot replace the missing trust result."
         )
-        (alert "RealmIdentityAgentMetadataInvalid"
+        (alert "identity" "RealmIdentityAgentMetadataInvalid"
           ''
             (${metric "realm_spire_agent_metadata_valid"} == 0)
             and ${match} (${fresh "agents"})
@@ -210,7 +224,7 @@ in
           "critical"
           "Check the http_fqdn agent for {{ $labels.node }} in Eihort admin metadata, including expiry, ban state, and reattestation permission. Metadata does not establish live chain trust."
         )
-        (alert "RealmIdentityAliasInvalid"
+        (alert "identity" "RealmIdentityAliasInvalid"
           ''
             (${metric "realm_spire_alias_matches_expected"} == 0)
             and ${match} (${fresh "aliases"})
@@ -219,7 +233,7 @@ in
           "critical"
           "Repair the stable alias for {{ $labels.node }}. Check its parent, exact SPIFFE selector, and expiry in Eihort admin metadata."
         )
-        (alert "RealmIdentityAgentMetadataMissing"
+        (alert "identity" "RealmIdentityAgentMetadataMissing"
           ''
             (realm_identity:expected_agent unless on (instance, node) ${metric "realm_spire_agent_metadata_valid"})
             and on (instance) (${fresh "agents"})
@@ -228,7 +242,7 @@ in
           "warning"
           "Restore agent metadata for {{ $labels.node }} in the configured Eihort cohort. A current collector timestamp cannot establish health for an absent node."
         )
-        (alert "RealmIdentityAliasMetadataMissing"
+        (alert "identity" "RealmIdentityAliasMetadataMissing"
           ''
             (realm_identity:expected_agent unless on (instance, node) ${metric "realm_spire_alias_matches_expected"})
             and on (instance) (${fresh "aliases"})
@@ -237,7 +251,7 @@ in
           "warning"
           "Restore alias metadata for {{ $labels.node }} in the configured Eihort cohort. An absent series is not a valid alias."
         )
-        (alert "RealmIdentityCertificateNearExpiry"
+        (alert "identity" "RealmIdentityCertificateNearExpiry"
           ''
             (
               (realm_identity_certificate_not_after_seconds{job="realm-identity",kind="agent"} - time() < 600)
@@ -251,7 +265,7 @@ in
           "critical"
           "Check renewal for {{ $labels.kind }} {{ $labels.identity }}. Fewer than ten minutes remain. Agent times are admin metadata. Canary times describe only this observer."
         )
-        (alert "RealmIdentityCertificateMissing"
+        (alert "identity" "RealmIdentityCertificateMissing"
           ''
             (
               (${metric "realm_spire_agent_metadata_valid"} == 1)
@@ -266,7 +280,7 @@ in
           "warning"
           "Restore the certificate expiry series. A successful metadata indicator without an expiry cannot establish renewal health. Agent data comes from admin metadata."
         )
-        (alert "RealmIdentityWorkloadCollectorMissing"
+        (alert "identity" "RealmIdentityWorkloadCollectorMissing"
           ''
             (
               group without (unit, identity, source) (realm_identity:holder_inventory)
@@ -279,7 +293,7 @@ in
           "warning"
           "Restore the mandatory workloads collector for known holder inventory. Both status and completion metrics are absent. Static expected-collector alerts also cover cold start before any holder inventory has been observed."
         )
-        (alert "RealmIdentityWorkloadInventoryMissing"
+        (alert "identity" "RealmIdentityWorkloadInventoryMissing"
           ''
             ${metric "realm_identity_collector_success"}
               and on (instance, job, monitor, collector) (${fresh "workloads"})
@@ -289,7 +303,7 @@ in
           "warning"
           "Restore holder inventory on this exporter. A configured workloads collector must emit holder status even before its first attempt."
         )
-        (alert "RealmIdentityWorkloadSeriesMissing"
+        (alert "workload" "RealmIdentityWorkloadSeriesMissing"
           ''
             (
               (realm_identity:holder_inventory unless ${holderMatch} ${metric "realm_workload_svid_observation_success"})
@@ -302,7 +316,7 @@ in
           "warning"
           "Restore inventory fields for {{ $labels.unit }}. Removed units remain detectable for fifteen minutes after their last attempt sample. ${holderNote}"
         )
-        (alert "RealmIdentityWorkloadFailed"
+        (alert "workload" "RealmIdentityWorkloadFailed"
           ''
             (${metric "realm_workload_svid_observation_success"} == 0)
             and ${holderMatch} (${metric "realm_workload_svid_dormant"} == 0)
@@ -312,7 +326,7 @@ in
           "warning"
           "Check unit state and the observation endpoint for {{ $labels.unit }}. A current attempt failed. ${holderNote}"
         )
-        (alert "RealmIdentityWorkloadStale"
+        (alert "workload" "RealmIdentityWorkloadStale"
           ''
             ((${metric "realm_workload_svid_last_attempt_timestamp_seconds"} <= time() - 65)
               or (${metric "realm_workload_svid_last_attempt_timestamp_seconds"} == 0)
@@ -333,7 +347,7 @@ in
           "warning"
           "Check the holder cycle and clock for {{ $labels.unit }}. Zero means no attempt. Allow three minutes for the first cycle. ${holderNote}"
         )
-        (alert "RealmIdentityWorkloadCertificateMissing"
+        (alert "workload" "RealmIdentityWorkloadCertificateMissing"
           ''
             (${metric "realm_workload_svid_observation_success"} == 1)
             and ${holderMatch} realm_identity:holder_fresh
@@ -347,7 +361,7 @@ in
           "warning"
           "Restore the expiry metric for {{ $labels.unit }}. Observation success without certificate metadata cannot establish renewal health. ${holderNote}"
         )
-        (alert "RealmIdentityWorkloadNearExpiry"
+        (alert "workload" "RealmIdentityWorkloadNearExpiry"
           ''
             (${metric "realm_workload_svid_not_after_seconds"} - time() < 600)
             and ${holderMatch} (${metric "realm_workload_svid_observation_success"} == 1)
@@ -360,20 +374,23 @@ in
           "critical"
           "Check renewal for {{ $labels.unit }}. Fewer than ten minutes remain. ${holderNote}"
         )
-        (alert "RealmSPIRETelemetryDown" ''up{job=~"spire-agent|spire-server"} == 0'' "3m" "warning"
-          "Check the native {{ $labels.job }} telemetry listener and the SPIFFE observation route. This scrape can fail when the gateway lacks its own identity."
-        )
-        (alert "RealmSPIRETelemetryMissing"
-          ''
-            realm_identity:expected_native_target unless on (instance, job) up{job=~"spire-agent|spire-server"}
-          ''
-          "3m"
-          "warning"
-          "Restore the native {{ $labels.job }} telemetry target for {{ $labels.node }}. Absence is not evidence of health. The gateway-dependent scrape is separate from realm-identity."
-        )
+        (withTarget "{{ $labels.job }}" (
+          alert "identity" "RealmSPIRETelemetryDown" ''up{job=~"spire-agent|spire-server"} == 0'' "3m"
+            "warning"
+            "Check the native {{ $labels.job }} telemetry listener and the SPIFFE observation route. This scrape can fail when the gateway lacks its own identity."
+        ))
+        (withTarget "{{ $labels.job }}" (
+          alert "identity" "RealmSPIRETelemetryMissing"
+            ''
+              realm_identity:expected_native_target unless on (instance, job) up{job=~"spire-agent|spire-server"}
+            ''
+            "3m"
+            "warning"
+            "Restore the native {{ $labels.job }} telemetry target for {{ $labels.node }}. Absence is not evidence of health. The gateway-dependent scrape is separate from realm-identity."
+        ))
         # These counters reset on restart and create outcome series only after
         # events. Do not infer failure from an absent or zero success outcome.
-        (alert "RealmAttestationProofFailures"
+        (alert "attestation" "RealmAttestationProofFailures"
           ''
             sum without (outcome, stage, reason) (
               increase(realm_http_attestation_total{job="attestation-server",component="server",outcome="failure",stage=~"fetch|verify",reason!~"canceled|deadline|stream_error|session_ended"}[10m])
@@ -384,7 +401,7 @@ in
           "warning"
           "Check repeated proof fetch or verification failures for {{ $labels.node }}. Agent success means local proof submission only. Core can cancel normally after the response. Server success means proof verification and attributes sent, not certificate issuance."
         )
-        (alert "RealmAttestationCapacityPressure"
+        (alert "attestation" "RealmAttestationCapacityPressure"
           ''
             (
               sum without (node) (realm_http_attestation_pending{job="attestation-server",component="server"})
@@ -396,7 +413,7 @@ in
           "warning"
           "Check pending server attempts and generation changes. Capacity applies per generation, while pending can span generations. This pressure does not measure certificate issuance."
         )
-        (alert "RealmAttestationCapacityRejected"
+        (alert "attestation" "RealmAttestationCapacityRejected"
           ''
             sum without (node, stage, reason) (
               increase(realm_http_attestation_rejections_total{job="attestation-server",component="server",reason=~"capacity|rate_limit"}[10m])
@@ -415,7 +432,7 @@ in
         # Use the active CA expiry, not the pinned bootstrap bundle inventory.
         # Native sign/activation counters have no _total suffix; no demand or
         # missing event series must not be interpreted as an issuance failure.
-        (alert "RealmSPIREActiveCAMetricsMissing"
+        (alert "identity" "RealmSPIREActiveCAMetricsMissing"
           ''
             (up{job="spire-server"} == 1)
             unless ${match} spire_server_manager_x509_ca_rotate_expiration{job="spire-server"}
@@ -424,7 +441,7 @@ in
           "warning"
           "Restore the native active X.509 CA expiry gauge. A successful scrape without authority telemetry cannot establish CA renewal health. Check SPIRE startup and telemetry filters."
         )
-        (alert "RealmSPIREActiveCANearExpiry"
+        (alert "identity" "RealmSPIREActiveCANearExpiry"
           ''
             (spire_server_manager_x509_ca_rotate_expiration{job="spire-server"} - time() < 600)
             and ${match} (up{job="spire-server"} == 1)

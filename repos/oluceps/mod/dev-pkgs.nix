@@ -14,18 +14,18 @@
                   enableOptimizations = true;
                   reproducibleBuild = false;
                 }).withPackages
-                (
-                  ps: with ps; [
-                    pandas
-                    requests
-                    # absl-py
-                    tldextract
-                    bleak
-                    matplotlib
-                    clang
-                    pyyaml
-                  ]
-                )
+                  (
+                    ps: with ps; [
+                      pandas
+                      requests
+                      # absl-py
+                      tldextract
+                      bleak
+                      matplotlib
+                      clang
+                      pyyaml
+                    ]
+                  )
               )
             ];
             crypt = [
@@ -141,7 +141,7 @@
               inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
               # (inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.dsh)
               opencode
-              # claude-code
+              claude-code
             ];
 
             lang = [

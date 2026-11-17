@@ -37,7 +37,6 @@
             chrony
             # sing-server
             # xray
-            stalwart
             rustypaste
             wgmesh
 

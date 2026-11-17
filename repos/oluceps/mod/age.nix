@@ -109,7 +109,6 @@ in
 
         secrets = {
           # postfix-sasl = { };
-          stalwart = { };
           xray = { };
           hy = { };
         };
@@ -130,6 +129,7 @@ in
         settings.flake = self;
 
         secrets = {
+          stalwart = { };
           xray = { };
           hy = { };
         };

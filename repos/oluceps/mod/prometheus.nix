@@ -127,6 +127,23 @@
 
     in
     {
+      # Alertmanager groups notifications by `board`, and an alert without one
+      # would land in a catch-all group outside every board.
+      assertions = [
+        (
+          let
+            unlabelled = map (rule: rule.alert) (
+              builtins.filter (rule: rule ? alert && !((rule.labels or { }) ? board)) (
+                lib.concatMap (group: group.rules) config.services.vmalert.instances.main.rules.groups
+              )
+            );
+          in
+          {
+            assertion = unlabelled == [ ];
+            message = "vmalert rules without labels.board: ${lib.concatStringsSep ", " unlabelled}";
+          }
+        )
+      ];
       realm.workloads.vmagent = {
         runtime = "external";
         isolation.privateNetwork = false;
@@ -512,7 +529,10 @@
                 {
                   alert = "OOM";
                   expr = "node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes < 0.1";
-                  labels.severity = "critical";
+                  labels = {
+                    board = "nodes";
+                    severity = "critical";
+                  };
                   annotations = {
                     summary = "Available memory < 10% on {{ $labels.instance }}";
                   };
@@ -520,7 +540,10 @@
                 {
                   alert = "DiskFull";
                   expr = ''node_filesystem_avail_bytes{mountpoint=~"/persist"} / node_filesystem_size_bytes < 0.1'';
-                  labels.severity = "critical";
+                  labels = {
+                    board = "nodes";
+                    severity = "critical";
+                  };
                   annotations = {
                     summary = "Disk space available < 10% on {{ $labels.instance }} ({{ $labels.mountpoint }})";
                   };
@@ -528,7 +551,10 @@
                 {
                   alert = "UnitFailed";
                   expr = ''node_systemd_unit_state{state="failed"} == 1'';
-                  labels.severity = "warning";
+                  labels = {
+                    board = "nodes";
+                    severity = "warning";
+                  };
                   annotations = {
                     summary = "Systemd unit {{ $labels.name }} failed on {{ $labels.instance }}";
                   };
@@ -536,7 +562,10 @@
                 {
                   alert = "BtrfsDevErr";
                   expr = "sum(rate(node_btrfs_device_errors_total[2m])) > 0";
-                  labels.severity = "critical";
+                  labels = {
+                    board = "nodes";
+                    severity = "critical";
+                  };
                   annotations = {
                     summary = "Btrfs device error on {{ $labels.instance }}";
                   };
@@ -568,8 +597,13 @@
                     or last_over_time(up{job="dn42-autopeer-challenge"}[15m]) == 0
                   '';
                   for = "20m";
-                  labels.severity = "critical";
+                  labels = {
+                    board = "autopeer";
+                    severity = "critical";
+                  };
                   annotations = {
+                    # Each monitor probes every node, so name the probe source.
+                    target = "via {{ $labels.monitor }}";
                     summary = "Autopeer challenge probe failed on {{ $labels.node }}";
                     description = "Probe source: {{ $labels.monitor }}. Target: {{ $labels.backend }}. Check the exporter, Worker routing, TLS, and database connectivity.";
                   };
@@ -592,7 +626,10 @@
                       and on (instance) ((up{job="realm-identity"} == 1) or (up{job="metrics"} == 1))
                   '';
                   for = "2m";
-                  labels.severity = "critical";
+                  labels = {
+                    board = "gateway";
+                    severity = "critical";
+                  };
                   annotations = {
                     summary = "Internet gateway down on {{ $labels.instance }}";
                     description = "The host answers other scrapes but its gateway metrics do not. Check `systemctl status realm-internet` and the Caddy metrics listener declared in the current generation.";
@@ -608,7 +645,10 @@
                     / (sum by (instance) (rate(caddy_http_request_duration_seconds_count{job="internet-gateway",server="internet",handler="forward_proxy"}[5m])) > 0) * 100 > 5
                   '';
                   for = "5m";
-                  labels.severity = "warning";
+                  labels = {
+                    board = "gateway";
+                    severity = "warning";
+                  };
                   annotations = {
                     summary = "Internet gateway 5xx error rate > 5% on {{ $labels.instance }}";
                   };
@@ -637,7 +677,11 @@
                       < sum by (instance) (vm_promscrape_targets) * 3
                   '';
                   for = "15m";
-                  labels.severity = "critical";
+                  # The usual cause is the SPIRE Workload API, hence the identity board.
+                  labels = {
+                    board = "identity";
+                    severity = "critical";
+                  };
                   annotations = {
                     summary = "scraping through the realm gateway has stalled on {{ $labels.instance }}";
                     description = "Check `systemctl status spire-agent` and that /var/lib/realm-spire/trust-bundle.pem exists on {{ $labels.instance }}, then the egress adapters in `journalctl -u realm-egress-...`. An unenrolled Agent is skipped silently, which leaves every adapter without an SVID.";
@@ -655,7 +699,10 @@
                     or
                     min by (node) (up{job="dn42-autopeer-challenge"}) == 0
                   '';
-                  labels.severity = "critical";
+                  labels = {
+                    board = "autopeer";
+                    severity = "critical";
+                  };
                   annotations = {
                     summary = "Autopeer endpoint unavailable on {{ $labels.node }}";
                     description = "At least one probe returned a non-201 response or could not be scraped.";
@@ -670,10 +717,15 @@
                       (bird_protocol_up{proto="BGP", ip_version="6"} == 0)
                     )
                   '';
-                  labels.severity = "warning";
+                  labels = {
+                    board = "bgp";
+                    severity = "warning";
+                  };
                   annotations = {
                     summary = "BGP peer {{ $labels.name }} is down on {{ $labels.instance }}";
-                    downtime = ''{{ printf "%.0f" $value }}s'';
+                    # Seconds since BIRD changed the session state. Unlike the
+                    # alert start time, it survives a vmalert restart.
+                    duration_seconds = ''{{ printf "%.0f" $value }}'';
                   };
                 }
                 {
@@ -684,7 +736,10 @@
                     up{job="centre_psql_metrics", instance="eihort"} == 0
                   '';
                   for = "1m";
-                  labels.severity = "critical";
+                  labels = {
+                    board = "central";
+                    severity = "critical";
+                  };
                   annotations = {
                     summary = "Central PostgreSQL is unavailable on eihort";
                     description = "The PostgreSQL health metric or its scrape target is down.";
@@ -703,6 +758,7 @@
                   expr = ''up{job="metrics",instance="eihort"} == 0'';
                   for = "1m";
                   labels = {
+                    board = "bridge";
                     severity = "critical";
                   };
                 }
@@ -776,24 +832,37 @@
           let
             localId = config.data.node.${config.networking.hostName}.id;
             localAddr = "[fdcc::${toString (localId + 1)}]";
-            # Bounded notification body. The Alertmanager default template
+            # Bounded notification bodies. The Alertmanager default template
             # expands every label and annotation for every alert, so a normal
-            # multi-node incident renders past Telegram's 4096-character limit
-            # and is replaced by a generic "message length" notice. The shared
-            # template keeps severity, collector and node per alert; the alert
-            # name and node stay in the header, and the remainder is a count
-            # plus the Alertmanager link. It lives in the repository so the
-            # rendered text can be checked directly with amtool.
-            templateFile = pkgs.writeText "realm-alertmanager-telegram.tmpl" (
+            # multi-node incident renders past Telegram's 4096-character limit.
+            # Both templates live in the repository so the rendered text can be
+            # checked directly with amtool.
+            #
+            # The board template renders one table per `board` label. Its
+            # receivers set update_message, so each alert group keeps a single
+            # Telegram message that later notifications edit in place, until
+            # the whole group resolves; the next firing starts a new message.
+            # The message id lives in the notification log entry, which
+            # expires after twice the repeat_interval, so a Telegram outage
+            # longer than that also starts a new message.
+            # Edits make no sound, so only the first message of an episode
+            # notifies; an alert joining a group that is already firing is
+            # silent. The bridge channel keeps the compact template.
+            boardTemplate = pkgs.writeText "realm-alertmanager-telegram-board.tmpl" (
+              builtins.readFile ../lib/realm/telegram-board.tmpl
+            );
+            compactTemplate = pkgs.writeText "realm-alertmanager-telegram.tmpl" (
               builtins.readFile ../lib/realm/telegram-compact.tmpl
             );
-            # The legacy receivers use the compact template; the observability
-            # channel uses a dedicated preformatted status table.
-            channelMessage = ''{{ template "realm.telegram.channel" . }}'';
+            boardMessage = ''{{ template "realm.telegram.board" . }}'';
             telegramMessage = ''{{ template "realm.telegram.compact" . }}'';
+            # The cluster_status rules, which report to the status channel.
+            statusAlerts = "OfflineBGPPeers|AutopeerUnavailable|CentralDatabaseDown";
           in
           {
             enable = true;
+            # update_message is not in a release yet; see the package file.
+            package = pkgs.callPackage ../pkgs/alertmanager-telegram-edit.nix { };
             webExternalUrl = "https://alert.nyaw.xyz";
             listenAddress = "127.0.0.1";
             port = 9093;
@@ -811,18 +880,31 @@
               )
             );
             # Written as configText rather than an attribute set because the
-            # route needs an explicit group_by and the receivers need a
-            # template file. Live Eihort already ran such a grouping while
-            # Hastur kept the grouped-everything default; this makes every
-            # replica identical.
+            # route needs an explicit group_by and the receivers need template
+            # files, identical on every replica.
+            #
+            # Routes pick the chat by alertname and group by `board`, so a group
+            # is one board in one chat. A repeat only re-renders the message; it
+            # refreshes durations and drops rows resolved since the last edit.
+            #
+            # Board edits are silent, so in the main chat a critical alert also
+            # gets a separate compact message. That route continues to the
+            # board route; grouped by alertname, each newly firing critical
+            # alert sends one more message, and a repeat re-sends it daily.
+            # The status channel has no such companion; see its routes.
+            #
+            # Once any child route matches, Alertmanager ignores the parent's
+            # receiver, even when that child continues. The main-chat board is
+            # therefore an explicit last route rather than the root default.
             configText = ''
               global:
                 resolve_timeout: 2m
               templates:
-                - ${templateFile}
+                - ${boardTemplate}
+                - ${compactTemplate}
               route:
                 receiver: telegram
-                group_by: [alertname]
+                group_by: [board]
                 group_wait: 30s
                 group_interval: 2m
                 repeat_interval: 10m
@@ -837,36 +919,38 @@
                     matchers:
                       - node="kaambl"
                     continue: false
-                  - receiver: observability-channel
-                    matchers:
-                      - alertname="OfflineBGPPeers"
-                    group_by: [alertname]
-                    group_wait: 30s
-                    group_interval: 2m
-                    repeat_interval: 24h
-                    continue: false
-                  - receiver: observability-channel
-                    matchers:
-                      - alertname="AutopeerUnavailable"
-                    group_by: [alertname, node]
-                    group_wait: 30s
-                    group_interval: 2m
-                    repeat_interval: 24h
-                    continue: false
-                  - receiver: observability-channel
-                    matchers:
-                      - alertname="CentralDatabaseDown"
-                    group_by: [alertname]
-                    group_wait: 30s
-                    group_interval: 2m
-                    repeat_interval: 24h
-                    continue: false
+                  # PierDown keeps its own compact messages, which already notify.
                   - receiver: bridge-channel
                     matchers:
                       - alertname="PierDown"
                     group_wait: 30s
                     group_interval: 2m
                     repeat_interval: 60m
+                    continue: false
+                  # The status channel only carries boards: its alerts are
+                  # long-lived peer and endpoint state, so a companion message
+                  # for every critical row would just repeat the board.
+                  # Edits are silent, so the BGP board re-renders often to keep
+                  # its downtimes current and drop resolved peers sooner. The
+                  # message id expires after twice this interval, so a Telegram
+                  # outage longer than 10m starts a new board message.
+                  - receiver: observability-channel
+                    matchers:
+                      - alertname="OfflineBGPPeers"
+                    repeat_interval: 5m
+                    continue: false
+                  - receiver: observability-channel
+                    matchers:
+                      - alertname=~"${statusAlerts}"
+                    repeat_interval: 30m
+                    continue: false
+                  - receiver: telegram-critical
+                    matchers:
+                      - severity="critical"
+                    group_by: [alertname]
+                    repeat_interval: 24h
+                    continue: true
+                  - receiver: telegram
                     continue: false
               receivers:
                 - name: muted-kaambl
@@ -876,14 +960,25 @@
                       chat_id: -1002215131569
                       parse_mode: HTML
                       send_resolved: true
-                      message: '${telegramMessage}'
+                      update_message: true
+                      message: '${boardMessage}'
                 - name: observability-channel
                   telegram_configs:
                     - bot_token_file: /run/credentials/alertmanager.service/notifychan
                       chat_id: -1004373971447
                       parse_mode: HTML
                       send_resolved: true
-                      message: '${channelMessage}'
+                      update_message: true
+                      message: '${boardMessage}'
+                # Critical companions: new messages that notify, firing only,
+                # because the board already shows the resolution.
+                - name: telegram-critical
+                  telegram_configs:
+                    - bot_token_file: /run/credentials/alertmanager.service/notifychan
+                      chat_id: -1002215131569
+                      parse_mode: HTML
+                      send_resolved: false
+                      message: '${telegramMessage}'
                 - name: bridge-channel
                   telegram_configs:
                     - bot_token_file: /run/credentials/alertmanager.service/notifychan

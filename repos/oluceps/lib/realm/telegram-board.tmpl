@@ -1,0 +1,98 @@
+{{- /*
+  One Telegram message per alert group. Routes group by the `board` label, and
+  the receivers set `update_message` (prometheus/alertmanager#5651), so every
+  later notification of the group edits this message in place. The text is
+  therefore a complete snapshot of the group: firing rows first, then the rows
+  resolved since the previous notification.
+
+  With parse_mode HTML, Alertmanager renders this through html/template, which
+  escapes values on its own; the explicit `html` pipes only state the intent.
+  When the visible text exceeds 4096 characters, Alertmanager replaces it with
+  a fixed "message length exceeds Telegram limits" notice, and with
+  update_message that notice would overwrite the board. Rows are capped at 30
+  firing and 10 resolved, about 80 characters each, which keeps the worst case
+  near 3.4k.
+
+  Row cells:
+    node    the `node` label, else `instance`.
+    alert   the alertname without its family prefix, shown only when the group
+            mixes alertnames; otherwise the header names the alert.
+    target  the `target` annotation, else the first of the name, unit,
+            mountpoint, collector and kind labels.
+    for     the `duration_seconds` annotation, else the time since the alert
+            started, or how long it lasted once resolved.
+*/ -}}
+
+{{- define "realm.board.title" -}}
+{{- if eq . "nodes" -}}Node health
+{{- else if eq . "bgp" -}}BGP sessions
+{{- else if eq . "autopeer" -}}Autopeer
+{{- else if eq . "gateway" -}}Internet gateway
+{{- else if eq . "identity" -}}Realm identity
+{{- else if eq . "workload" -}}Workload SVIDs
+{{- else if eq . "attestation" -}}Attestation
+{{- else if eq . "central" -}}Central services
+{{- else if eq . "bridge" -}}Bridge
+{{- else -}}{{ or . "Unlabelled alerts" }}
+{{- end -}}
+{{- end -}}
+
+{{- define "realm.board.icon" -}}
+{{- if eq .Status "resolved" -}}✅
+{{- else if eq .Labels.severity "warning" -}}🟠
+{{- else -}}🔴
+{{- end -}}
+{{- end -}}
+
+{{- define "realm.board.node" -}}
+{{- printf "%-8.8s" (or .Labels.node .Labels.instance "-") | html -}}
+{{- end -}}
+
+{{- define "realm.board.alert" -}}
+{{- $name := reReplaceAll `^(RealmIdentity|RealmSPIRE|RealmAttestation|InternetGateway|Autopeer)` "" .Labels.alertname -}}
+{{- if eq .Labels.board "workload" -}}{{- $name = reReplaceAll `^Workload` "" $name -}}{{- end -}}
+{{- printf "%-24.24s" $name | html -}}
+{{- end -}}
+
+{{- define "realm.board.target" -}}
+{{- $target := or .Annotations.target .Labels.name .Labels.unit .Labels.mountpoint .Labels.collector .Labels.kind "-" -}}
+{{- printf "%-30.30s" (reReplaceAll `\.service$` "" $target) | html -}}
+{{- end -}}
+
+{{- define "realm.board.for" -}}
+{{- $human := "" -}}
+{{- if .Annotations.duration_seconds -}}
+  {{- $human = humanizeDuration .Annotations.duration_seconds -}}
+{{- else if eq .Status "resolved" -}}
+  {{- $human = humanizeDuration (.EndsAt.Sub .StartsAt).Seconds -}}
+{{- else -}}
+  {{- $human = humanizeDuration (since .StartsAt).Seconds -}}
+{{- end -}}
+{{- /* Keep the two largest units: "10d 9h 45m 8s" becomes "10d 9h". */ -}}
+{{- reReplaceAll `^(\S+)( \S+)?.*$` "$1$2" $human -}}
+{{- end -}}
+
+{{- define "realm.telegram.board" -}}
+{{- $board := .CommonLabels.board -}}
+{{- $mixed := not .CommonLabels.alertname -}}
+{{- $firing := .Alerts.Firing -}}
+{{- $resolved := .Alerts.Resolved -}}
+{{- if $firing }}🔴{{ else }}✅{{ end }} <b>{{ template "realm.board.title" $board }}</b>
+{{- /* A group with one alertname drops the ALERT column, so name it here. */ -}}
+{{- if not $mixed }} · {{ .CommonLabels.alertname | html }}{{ end }}
+{{- if $firing }} · {{ len $firing }} firing{{ end }}
+{{- if $resolved }} · {{ len $resolved }} resolved{{ end }}
+<pre>
+{{ printf "   %-8s " "NODE" }}{{ if $mixed }}{{ printf "%-24s " "ALERT" }}{{ end }}{{ printf "%-30s FOR" "TARGET" }}
+{{ range $i, $a := $firing }}{{ if lt $i 30 -}}
+{{ template "realm.board.icon" $a }} {{ template "realm.board.node" $a }} {{ if $mixed }}{{ template "realm.board.alert" $a }} {{ end }}{{ template "realm.board.target" $a }} {{ template "realm.board.for" $a }}
+{{ end }}{{ end -}}
+{{ if gt (len $firing) 30 }}… first 30 of {{ len $firing }} firing
+{{ end -}}
+{{ range $i, $a := $resolved }}{{ if lt $i 10 -}}
+{{ template "realm.board.icon" $a }} {{ template "realm.board.node" $a }} {{ if $mixed }}{{ template "realm.board.alert" $a }} {{ end }}{{ template "realm.board.target" $a }} {{ template "realm.board.for" $a }}
+{{ end }}{{ end -}}
+{{ if gt (len $resolved) 10 }}… first 10 of {{ len $resolved }} resolved
+{{ end -}}
+</pre><a href="{{ .ExternalURL }}/#/alerts?filter=%7Bboard%3D%22{{ $board | urlquery }}%22%7D">Alertmanager</a>
+{{- end -}}

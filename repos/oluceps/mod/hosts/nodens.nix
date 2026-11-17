@@ -38,6 +38,7 @@
             # sing-server
             # xray
             # mc
+            stalwart
             wgmesh
             adonbox
             proxypool
