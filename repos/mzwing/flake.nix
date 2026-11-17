@@ -24,11 +24,10 @@
     legacyPackages =
       forAllSystems (system:
         import ./default.nix {pkgs = nixpkgs.legacyPackages.${system};});
-    packages = forAllSystems (system: let
-      platform = nixpkgs.legacyPackages.${system}.stdenv.hostPlatform;
-    in
+    # meta.available drops unfree and platform-unsupported packages, which nixpkgs' default config refuses to evaluate
+    packages = forAllSystems (system:
       nixpkgs.lib.filterAttrs
-      (_: package: nixpkgs.lib.isDerivation package && nixpkgs.lib.meta.availableOn platform package)
+      (_: package: nixpkgs.lib.isDerivation package && package.meta.available)
       self.legacyPackages.${system});
     apps = forAllSystems (system:
       import ./scripts {
