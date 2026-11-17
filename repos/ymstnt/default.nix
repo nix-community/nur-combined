@@ -17,6 +17,7 @@
   beeper = pkgs.callPackage ./pkgs/beeper { };
   deepdwn = pkgs.callPackage ./pkgs/deepdwn { };
   deta-surf = pkgs.callPackage ./pkgs/deta-surf { };
+  eidos-lite = pkgs.callPackage ./pkgs/eidos-lite { };
   equicord = pkgs.callPackage ./pkgs/equicord { };
   how-to-convert = pkgs.callPackage ./pkgs/how-to-convert { };
   lifeograph = pkgs.callPackage ./pkgs/lifeograph { };
