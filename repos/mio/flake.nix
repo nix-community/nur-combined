@@ -4,11 +4,28 @@
   #inputs.nixpkgs.url = "github:NixOS/nixpkgs/a98f368960a921d4fdc048e3a2401d12739bc1f9";
   #inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.nixpkgs.url = "https://nixos.org/channels/nixpkgs-unstable/nixexprs.tar.zst";
+  # KytyPS5's macOS build is x86-64 only, and nixpkgs 26.11 dropped
+  # x86_64-darwin, so it is packaged from the last branch that still has it.
+  inputs.nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin";
   #inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
   outputs =
-    { self, nixpkgs }:
+    {
+      self,
+      nixpkgs,
+      nixpkgs-darwin,
+    }:
     let
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
+      kytyps5Darwin =
+        (import nixpkgs-darwin {
+          system = "x86_64-darwin";
+          config.allowUnfree = true;
+          config.android_sdk.accept_license = true;
+        }).callPackage
+          ./by-name/ky/kytyps5/package.nix
+          { };
+      packagesFor =
+        system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system};
     in
     {
       legacyPackages = forAllSystems (
@@ -25,9 +42,16 @@
           no-ifd = false;
         }
       );
-      packages = forAllSystems (
-        system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
-      );
+      packages = forAllSystems packagesFor // {
+        # The emulator only builds for x86-64 macOS; Apple Silicon runs it
+        # under Rosetta 2, so expose the same derivation for both systems.
+        aarch64-darwin = (packagesFor "aarch64-darwin") // {
+          kytyps5 = kytyps5Darwin;
+        };
+        x86_64-darwin = {
+          kytyps5 = kytyps5Darwin;
+        };
+      };
       nixosModules = import ./modules;
       homeModules = import ./home-modules;
       homeManagerModules = self.homeModules;

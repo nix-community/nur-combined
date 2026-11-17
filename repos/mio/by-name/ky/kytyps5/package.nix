@@ -37,16 +37,50 @@
   wayland-protocols,
   libdecor,
   autoPatchelfHook,
+  writeShellScriptBin,
+  moltenvk,
+  ldid,
+  # nixpkgs' default x86_64-darwin SDK (14.4) predates <cstdlib>'s quick_exit,
+  # which the emulator uses to skip destructors when the guest is still running.
+  apple-sdk_26 ? null,
 }:
 
 let
-  version = "0-unstable-2026-11-15";
+  isLinux = stdenv.hostPlatform.isLinux;
+  isDarwin = stdenv.hostPlatform.isDarwin;
+
+  # Upstream re-signs kyty_emulator with its JIT entitlements and has
+  # macdeployqt sign the Qt frameworks; both call Xcode's codesign, which is
+  # not available in the build sandbox.  ldid produces the same ad-hoc
+  # signatures and can embed the entitlements.
+  codesignShim = writeShellScriptBin "codesign" ''
+    target="''${@: -1}"
+    entitlements=""
+    previous=""
+    for argument in "$@"; do
+      if [ "$previous" = "--entitlements" ]; then
+        entitlements="$argument"
+      fi
+      previous="$argument"
+    done
+    # ldid signs Mach-O files only; macdeployqt signs every file in the bundle
+    # before signing the bundle itself.
+    if [ -d "$target" ]; then
+      exit 0
+    fi
+    if [ -n "$entitlements" ]; then
+      exec ${ldid}/bin/ldid -S"$entitlements" "$target"
+    fi
+    exec ${ldid}/bin/ldid -S "$target"
+  '';
+
+  version = "0-unstable-2026-11-16";
 
   src = fetchFromGitHub {
     owner = "KytyPS5";
     repo = "KytyPS5";
-    rev = "41e2147c07bcc6d2206cb2b84e4646497896a18e";
-    hash = "sha256-0yAGTAKLG76ipsMjbW7U0LaumC/OmmHi5MU+1TIj57M=";
+    rev = "1e871718fae020bb085fdb1c9cc7d5cb4c7b296d";
+    hash = "sha256-BvV6hc9mQiumZ6vggRoEZRJ5WlRpvG5/8ALr357uljY=";
   };
 
   # Submodules of 3rdparty/, pinned by the superproject.
@@ -205,9 +239,19 @@ let
     patches = [ "${src}/3rdparty/patches/zarchive-reader.patch" ];
   };
 
+  # ext-ffmpeg-core ships prebuilt archives per OS/arch.  The macOS one is
+  # x86-64 only, matching the emulator's Rosetta-based macOS support.
   ffmpegPrebuilt = fetchzip {
-    url = "https://github.com/KytyPS5/ext-ffmpeg-core/releases/download/9ac4cfd195f1/ffmpeg-linux-x64.zip";
-    hash = "sha256-MX8Rifr6CvFFkm0IAmJPNGzLb8FG5HJJUKO/l0zegko=";
+    url =
+      if isDarwin then
+        "https://github.com/KytyPS5/ext-ffmpeg-core/releases/download/9ac4cfd195f1/ffmpeg-macos-x64.zip"
+      else
+        "https://github.com/KytyPS5/ext-ffmpeg-core/releases/download/9ac4cfd195f1/ffmpeg-linux-x64.zip";
+    hash =
+      if isDarwin then
+        "sha256-3LHWD3Df1TK8qGHhm/S1ZfSZBU1x5oLIdyhXngdifbs="
+      else
+        "sha256-MX8Rifr6CvFFkm0IAmJPNGzLb8FG5HJJUKO/l0zegko=";
     stripRoot = false;
   };
 
@@ -253,6 +297,12 @@ stdenv.mkDerivation {
 
   patches = [ ./noto-fonts-local.patch ];
 
+  # The macOS bundle gets its Qt runtime from macdeployqt, not a wrapper.
+  dontWrapQtApps = isDarwin;
+
+  # Stripping would invalidate the ad-hoc signatures added during the build.
+  dontStrip = isDarwin;
+
   postPatch = ''
     cp -rT ${libAtrac9} 3rdparty/LibAtrac9
     cp -rT ${sdl3} 3rdparty/SDL3
@@ -280,15 +330,23 @@ stdenv.mkDerivation {
     pkg-config
     python3
     clang
+    glslang
+  ]
+  ++ lib.optionals isLinux [
     lld
     patchelf
-    glslang
     autoPatchelfHook
     qt6.wrapQtAppsHook
+  ]
+  ++ lib.optionals isDarwin [
+    ldid
+    codesignShim
   ];
 
   buildInputs = [
     qt6.qtbase
+  ]
+  ++ lib.optionals isLinux [
     vulkan-headers
     vulkan-loader
     libGL
@@ -310,11 +368,17 @@ stdenv.mkDerivation {
     wayland
     wayland-protocols
     libdecor
-  ];
+  ]
+  # The emulator loads MoltenVK through SDL rather than linking it, so its
+  # dylib is copied next to the executables in postFixup.
+  ++ lib.optionals isDarwin [
+    moltenvk
+  ]
+  ++ lib.optional (isDarwin && apple-sdk_26 != null) apple-sdk_26;
 
   # SDL's GLES and Steam controller probes leave these optional names behind;
   # neither ends up in the final binaries' NEEDED list.
-  autoPatchelfIgnoreMissingDeps = [
+  autoPatchelfIgnoreMissingDeps = lib.optionals isLinux [
     "libGLES_CM.so.1"
     "libsteam_api.so"
   ];
@@ -333,35 +397,53 @@ stdenv.mkDerivation {
     "-DFETCHCONTENT_SOURCE_DIR_ZSTD=${zstd}"
     "-DFETCHCONTENT_SOURCE_DIR_ZARCHIVE_SOURCE=${zarchive}"
     "-DFFMPEG_PREBUILT_DIR=${ffmpegPrebuilt}"
-  ];
+  ]
+  # The macOS build is x86-64 only: the guest and the JIT are x86-64, and
+  # Apple Silicon runs the result under Rosetta.  Upstream keys the guest
+  # address-space layout and the FFmpeg prebuilt on this setting.
+  ++ lib.optionals isDarwin [ "-DCMAKE_OSX_ARCHITECTURES=x86_64" ];
 
   # The launcher executes kyty_emulator and kyty_updater from its own directory,
   # so keep the upstream flat layout instead of installing into bin/.
-  postInstall = ''
+  postInstall = lib.optionalString isLinux ''
     install -Dm755 launcher/kyty_updater $out/kyty_updater
   '';
 
-  postFixup = ''
-    wrapQtApp $out/kyty_launcher
-    patchelf --add-rpath ${
-      lib.makeLibraryPath [
-        vulkan-loader
-        libGL
-      ]
-    } $out/kyty_emulator
+  postFixup =
+    lib.optionalString isLinux ''
+      wrapQtApp $out/kyty_launcher
+      patchelf --add-rpath ${
+        lib.makeLibraryPath [
+          vulkan-loader
+          libGL
+        ]
+      } $out/kyty_emulator
 
-    mkdir -p $out/bin
-    ln -s ../kyty_launcher $out/bin/kyty_launcher
-    ln -s ../kyty_emulator $out/bin/kyty_emulator
-  '';
+      mkdir -p $out/bin
+      ln -s ../kyty_launcher $out/bin/kyty_launcher
+      ln -s ../kyty_emulator $out/bin/kyty_emulator
+    ''
+    + lib.optionalString isDarwin ''
+      # SDL loads MoltenVK from beside the flat emulator or from the bundle's
+      # Frameworks directory.
+      install -Dm755 ${moltenvk}/lib/libMoltenVK.dylib $out/libMoltenVK.dylib
+      install -Dm755 ${moltenvk}/lib/libMoltenVK.dylib $out/KytyPS5.app/Contents/Frameworks/libMoltenVK.dylib
+      ldid -S $out/libMoltenVK.dylib $out/KytyPS5.app/Contents/Frameworks/libMoltenVK.dylib
+
+      mkdir -p $out/bin
+      ln -s ../kyty_emulator $out/bin/kyty_emulator
+    '';
 
   meta = with lib; {
     description = "PlayStation 5 translation layer";
     homepage = "https://github.com/KytyPS5/KytyPS5";
     downloadPage = "https://github.com/KytyPS5/KytyPS5/releases";
     license = licenses.gpl2Only;
-    mainProgram = "kyty_launcher";
-    platforms = [ "x86_64-linux" ];
+    mainProgram = if isDarwin then "kyty_emulator" else "kyty_launcher";
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
     sourceProvenance = [ sourceTypes.fromSource ];
   };
 }
