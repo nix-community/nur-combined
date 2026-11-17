@@ -114,14 +114,14 @@
       "fingerprint": "sha256-19K58xslpcJZbIs8eH4o5Pkm1Jcde0YS6I8gTAdmEnE="
     },
     "clash-nyanpasu": {
-      "version": "2.0.1-unstable-2026-11-16",
-      "rawVersion": "93fc8600c35b156c791b543f12fe841bdf21f7d3",
-      "date": "2026-11-16",
+      "version": "2.0.1-unstable-2026-11-17",
+      "rawVersion": "cafdc19abdfbe98eeee5a94e79ebbd9cefdfee3f",
+      "date": "2026-11-17",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/libnyanpasu/clash-nyanpasu",
-        "rev": "93fc8600c35b156c791b543f12fe841bdf21f7d3",
-        "hash": "sha256-8CuMFuhwPV5TFkV6YvuHgnMAKCBx3vEC6/NvKWDvDYo="
+        "rev": "cafdc19abdfbe98eeee5a94e79ebbd9cefdfee3f",
+        "hash": "sha256-2lIIwdk3mWTTJUhycKHrrKg2IS3wEhyfz3nPl3MBNFw="
       },
       "derived": {
         "cargoLock": {
@@ -143,7 +143,7 @@
           }
         },
         "pnpmDepsHash": {
-          "hash": "sha256-XQDYAAlPJklpCCDH3Aw4ZuHX+i/OGjiDYYV1KGtuJTs="
+          "hash": "sha256-JO0vSjuVrwrRvLQ/JirNnWiHckMfIuzcgLY7eTlanQw="
         }
       },
       "artifacts": {
@@ -152,19 +152,19 @@
       "fingerprint": "sha256-K5Nl/4GSel7c9aczwmNlX4Feo1YsgSJbvSsGdY/yIXA="
     },
     "cliproxyapi": {
-      "version": "8.0.75",
-      "rawVersion": "v8.0.75",
-      "date": "2026-11-16",
+      "version": "8.0.76",
+      "rawVersion": "v8.0.76",
+      "date": "2026-11-17",
       "src": {
         "fetcher": "github",
         "owner": "router-for-me",
         "repo": "cliproxyapi",
-        "rev": "v8.0.75",
-        "hash": "sha256-3FujIFPmn4s6LAMoftpnqo33gAI6R20q3v/NVLz0YNI="
+        "rev": "v8.0.76",
+        "hash": "sha256-gQclqhFrw82upufHQ48+nHSPeA6N9gBwcsp1BlGC308="
       },
       "derived": {
         "vendorHash": {
-          "hash": "sha256-GlQG6N6m2AwWn0wtM97LLKAxr2kxQTloCB8NgjUwBh4="
+          "hash": "sha256-89DZv8uj0rD5fgbfLZk6TuoYw2SfX1vhV88T4degwg8="
         }
       },
       "fingerprint": "sha256-0ZOszgPQKtup+CvOCK4zA28HzJnx0SDYVVtsN6lPoR8="
@@ -290,14 +290,14 @@
       "fingerprint": "sha256-30OsBkMRA0jMQKYo3jIET9P4D5xWLMEblIxAU7j2p2k="
     },
     "gaze": {
-      "version": "0.5.1-unstable-2026-11-16",
-      "rawVersion": "bccbacac686983d89505b91c103e9403135638db",
-      "date": "2026-11-16",
+      "version": "0.5.2-unstable-2026-11-17",
+      "rawVersion": "a844bd85946c04dde86213b723ae56fb12190bfd",
+      "date": "2026-11-17",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/GunduLabs/gaze.git",
-        "rev": "bccbacac686983d89505b91c103e9403135638db",
-        "hash": "sha256-mjJtacR+YMBntn3qJWBq3QucFuidO8Thga8UpVJcSkM="
+        "rev": "a844bd85946c04dde86213b723ae56fb12190bfd",
+        "hash": "sha256-Rm8+tIGTAQnu2Bi4t+taRp7KSQ4Jz03i36DS2NPgf0M="
       },
       "derived": {
         "cargoLock": {
@@ -419,15 +419,15 @@
       "fingerprint": "sha256-4jCQslnqwTJoijYP2CKfwBZjAzj2BCR/xHV7lz2D//4="
     },
     "horizon": {
-      "version": "0-unstable-2026-11-16",
-      "rawVersion": "c07bfa76e71e8db9e84a7e61832a8fb898718e81",
-      "date": "2026-11-16",
+      "version": "0-unstable-2026-11-17",
+      "rawVersion": "0861036808c400ecf9ac9f1170a1fcbddd6b0309",
+      "date": "2026-11-17",
       "src": {
         "fetcher": "github",
         "owner": "horizon-rust",
         "repo": "horizon",
-        "rev": "c07bfa76e71e8db9e84a7e61832a8fb898718e81",
-        "hash": "sha256-R88M4Rua6QdoJY3D3tEIg4T9U+LBLVQFSZtzlcs0FI8="
+        "rev": "0861036808c400ecf9ac9f1170a1fcbddd6b0309",
+        "hash": "sha256-GBfW3jtpxiHKcqeRx0sBLGB1i/3U4DSGcvnMa3jPgdg="
       },
       "derived": {
         "cargoLock": {
@@ -537,14 +537,14 @@
       "fingerprint": "sha256-vR7sJIoluiLgop9ZZHZKD6Or/5XOXg5rf4u3QaTDtco="
     },
     "meta-rules-dat": {
-      "version": "0-unstable-2026-11-16",
-      "rawVersion": "99b271e327e31a937178016035016d1ab0ebadbe",
-      "date": "2026-11-16",
+      "version": "0-unstable-2026-11-17",
+      "rawVersion": "78ca3eebab501571594a3988d964ee6bb9e63e93",
+      "date": "2026-11-17",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/MetaCubeX/meta-rules-dat.git",
-        "rev": "99b271e327e31a937178016035016d1ab0ebadbe",
-        "hash": "sha256-zmPHA3Zgeq86JURcK0/nUZ5kZWC7J24V3PFHxh5l58Y="
+        "rev": "78ca3eebab501571594a3988d964ee6bb9e63e93",
+        "hash": "sha256-3lU8qp1BlOL1i6Dc0TniHY76w8CWSCueD3Ifpn9N0wE="
       },
       "fingerprint": "sha256-wX3xYgeMbiaHcGTwYkJLKkmGHaWP1yW5YbKKukaREX0="
     },
@@ -915,14 +915,15 @@
       "fingerprint": "sha256-DJ4+3oLtprApprpfZRBtUGu+g/zfonnPMQj5h6Nx+FM="
     },
     "pi-subagents": {
-      "version": "0.88.1",
-      "rawVersion": "v0.88.1",
+      "version": "0.89.0",
+      "rawVersion": "v0.89.0",
+      "date": "2026-11-16",
       "src": {
         "fetcher": "github",
         "owner": "nicobailon",
         "repo": "pi-subagents",
-        "rev": "v0.88.1",
-        "hash": "sha256-t/IAZHTbIG1iFF+jq9tBm2jptfIYO2mLvn7WPb1I2Qc="
+        "rev": "v0.89.0",
+        "hash": "sha256-DTe0j9JQfsXD3O9eeu/Tz7cnvsdM2bjtn63wqHYphu8="
       },
       "derived": {
         "npmDeps": {
