@@ -99,6 +99,7 @@
     ./asterisk
     ./irc
     ./navidrome
+    ./romm
     ./t3code
     ./slackbots/riddlebot.nix
   ];

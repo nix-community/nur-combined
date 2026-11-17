@@ -137,6 +137,10 @@ in
       DOCKER_HOST = "unix://${config.home.homeDirectory}/.colima/default/docker.sock";
     };
 
+    programs.zsh.envExtra = lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
+      export PKG_CONFIG_PATH="/opt/homebrew/lib/pkgconfig:/opt/homebrew/share/pkgconfig''${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
+    '';
+
     home.activation.mkPnpmHome = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin (
       lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         run mkdir -p "${config.home.homeDirectory}/Library/pnpm"

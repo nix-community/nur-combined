@@ -16,6 +16,7 @@ in
     };
     music.enable = lib.mkEnableOption "music player packages (cmus, ncmpcpp, mpc, mpv, mpdscribble).";
     inkscape.enable = lib.mkEnableOption "Inkscape";
+    beets.enable = lib.mkEnableOption "Beets music manager";
   };
 
   config = lib.mkIf config.dots.media.enable {
@@ -45,6 +46,7 @@ in
       yd = "${lib.getExe pkgs.yt-dlp} --continue --no-check-certificate --format=bestvideo+bestaudio --exec='ffmpeg -i {} -c:v prores_ks -profile:v 1 -vf fps=25/1 -pix_fmt yuv422p -c:a pcm_s16le {}.mov && rm {}'";
       yh = "${lib.getExe pkgs.yt-dlp} --continue --no-check-certificate --format=bestvideo+bestaudio --exec='ffmpeg -i {} -c:a copy -c:v copy {}.mkv && rm {}'";
     };
+
     home.packages = [
       pkgs.ffmpeg
       pkgs.imagemagick

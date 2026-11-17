@@ -69,15 +69,14 @@ in
       default = true;
       description = "Enable Nix development/tooling packages (nh, nix-tree, cachix, etc).";
     };
-    ai.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Enable AI/LLM CLI tools (amp, copilot-cli, crush, opencode, etc) and the aipick launcher script.";
-    };
-    ai.codex.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Include codex in the AI CLI tools and aipick launcher.";
+    ai = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable AI/LLM CLI tools (amp, copilot-cli, crush, opencode, etc) and the aipick launcher script.";
+      };
+      codex.enable = lib.mkEnableOption "Codex";
+      t3code.enable = lib.mkEnableOption "T3 Code";
     };
     security.enable = lib.mkOption {
       type = lib.types.bool;
@@ -153,7 +152,7 @@ in
         enableMcpIntegration = true;
       };
       t3code = {
-        enable = config.dots.devenv.ai.enable;
+        enable = config.dots.devenv.ai.t3code.enable;
         package = pkgs.t3code.override {
           enableClaude = true;
           enableOpencode = true;

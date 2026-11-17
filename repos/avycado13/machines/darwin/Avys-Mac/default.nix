@@ -26,15 +26,11 @@
     ];
 
     casks = [
-      "android-studio"
       "foks"
       "raycast"
       "anylinuxfs-gui"
-      "keybase"
       "tailscale-app"
-      "boring-notch"
       "linearmouse"
-      "cloudflare-warp"
       # "sikarugir"
       "vorssaint"
     ];

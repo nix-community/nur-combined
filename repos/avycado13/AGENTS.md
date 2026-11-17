@@ -115,7 +115,7 @@ GitHub Actions workflows in `.github/workflows/`:
 
 ## Adding a Homelab Service
 
-- Add a module defining `options.homelab.services.<service>` under `homelab/services/<service>/`; use `homelab/services/miniflux/default.nix` as an example. Import it from `homelab/services/default.nix`, then enable it on the host (e.g. `machines/nixos/pi1/homelab.nix`). Services define their own options, systemd/NixOS service, and Caddy virtual host.
+- Add a module defining `options.homelab.services.<service>` under `homelab/services/<service>/`; use `homelab/services/miniflux/default.nix` as an example. Import it from `homelab/services/default.nix`, but do not enable it on any host (e.g. `machines/nixos/pi1/homelab.nix`) unless the user explicitly asks. Services define their own options, systemd/NixOS service, and Caddy virtual host.
 - For Caddy, use `hl.acmeHostFor cfg.url` to select the appropriate ACME certificate. Optionally add `glance.name`/`glance.url`/`glance.description`; Glance collects bookmarks from enabled services with a non-null `glance.url`. Services can opt into failure alerts with `systemd.services.<service>.serviceConfig.OnFailure` when ntfy is configured.
 - Feed credentials through sops and use `config.sops.secrets.<name>.path` or `config.sops.templates` (see `homelab/services/asterisk/default.nix` for the latter); never place plaintext secrets in Nix store derivations.
 - Give every new service a Gatus endpoint option alongside its other `homelab.services.<service>` options. Prefer a dedicated unauthenticated health endpoint when available:
