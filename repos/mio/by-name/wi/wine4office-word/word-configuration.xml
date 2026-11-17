@@ -11,26 +11,21 @@
 <Configuration ID="wine4office-word">
   <Add OfficeClientEdition="64" Channel="Current">
     <Product ID="O365ProPlusRetail">
-      <Language ID="MatchOS" />
-      <ExcludedApps
-        Access="1"
-        Bing="1"
-        Excel="1"
-        Groove="1"
-        Lync="1"
-        OneDrive="1"
-        OneNote="1"
-        Outlook="1"
-        PowerPoint="1"
-        Publisher="1"
-        SharePointDesigner="1"
-        SkypeForBusiness="1"
-        Teams="1"
-        Visio="1"
-      />
+      <Language ID="MatchOS" Fallback="en-us" />
+      <ExcludeApp ID="Access" />
+      <ExcludeApp ID="Bing" />
+      <ExcludeApp ID="Excel" />
+      <ExcludeApp ID="Groove" />
+      <ExcludeApp ID="Lync" />
+      <ExcludeApp ID="OneDrive" />
+      <ExcludeApp ID="OneNote" />
+      <ExcludeApp ID="Outlook" />
+      <ExcludeApp ID="OutlookForWindows" />
+      <ExcludeApp ID="PowerPoint" />
+      <ExcludeApp ID="Publisher" />
+      <ExcludeApp ID="Teams" />
     </Product>
   </Add>
   <Display Level="None" AcceptEULA="TRUE" />
-  <Logging Level="Standard" Path="%temp%" />
   <Property Name="PinIconsToTaskbar" Value="FALSE" />
 </Configuration>

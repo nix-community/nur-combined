@@ -4,7 +4,10 @@
   wine4office,
   curl,
   coreutils,
+  gnugrep,
   writeShellApplication,
+  testers,
+  pkgs,
 }:
 
 let
@@ -87,12 +90,19 @@ let
 
       echo "Initializing the Wine prefix at $WINEPREFIX..."
       "$wine" wineboot --init
-      "$wineserver" -w
+      # Let startup processes settle without hanging on persistent Office
+      # services when reusing a prefix. Propagate errors other than timeout.
+      timeout 30 "$wineserver" -w || [ "$?" -eq 124 ]
+
+      # Skip Office's first-run welcome/start screen so Word opens documents
+      # directly and survives a relaunch (matches upstream's prefix tweaks).
+      "$wine" reg add 'HKCU\Software\Policies\Microsoft\Office\16.0\FirstRun' /v BootedRTM /t REG_DWORD /d 1 /f >/dev/null 2>&1 || true
+      "$wine" reg add 'HKCU\Software\Policies\Microsoft\Office\16.0\Common\General' /v DisableBootToOfficeStart /t REG_DWORD /d 1 /f >/dev/null 2>&1 || true
+      "$wine" reg add 'HKCU\Software\Policies\Microsoft\Office\16.0\Common\Graphics' /v DisableHardwareAcceleration /t REG_DWORD /d 1 /f >/dev/null 2>&1 || true
 
       configuration_win=$("$wine" winepath -w "$configuration" | tr -d '\r\n')
       echo "Installing Word into $WINEPREFIX (silent; Office is downloaded from Microsoft)..."
       "$wine" "$setup" /configure "$configuration_win"
-      "$wineserver" -w
 
       word="$WINEPREFIX/${wordExe}"
       if [ -f "$word" ]; then
@@ -100,7 +110,7 @@ let
         echo "Launch it with: wine4office-word"
       else
         echo "ODT finished but WINWORD.EXE was not found under $WINEPREFIX." >&2
-        echo "Check the Office installation logs in $WINEPREFIX/drive_c/users/$USER/Temp." >&2
+        echo "Check the Office installation logs in $WINEPREFIX/drive_c/users/$USER/AppData/Local/Temp." >&2
         exit 1
       fi
     '';
@@ -108,10 +118,13 @@ let
 
   word = writeShellApplication {
     name = "wine4office-word";
+    runtimeInputs = [ gnugrep ];
     text = ''
       set -euo pipefail
 
       export WINEPREFIX="''${WINEPREFIX:-$HOME/.wine4office}"
+      # Match upstream's Office launcher: Word needs Office's native RichEdit.
+      export WINEDLLOVERRIDES="''${WINEDLLOVERRIDES:-riched20=n;mshtml=b}"
       word="$WINEPREFIX/${wordExe}"
 
       if [ ! -f "$word" ]; then
@@ -120,11 +133,29 @@ let
         exit 1
       fi
 
+      # Word stalls on its welcome screen while Office's Click-to-Run and VoIP
+      # services are not running, e.g. after a reboot or a killed wineserver.
+      # Upstream's manager preloads both before launching Office for the same
+      # reason.
+      if ! "${wine4office}/bin/wine" sc.exe query ClickToRunSvc 2>/dev/null | grep -q RUNNING; then
+        "${wine4office}/bin/wine" sc.exe start ClickToRunSvc > /dev/null 2>&1 || true
+      fi
+      if ! "${wine4office}/bin/wine" sc.exe query VoIPBroker 2>/dev/null | grep -q RUNNING; then
+        "${wine4office}/bin/wine" sc.exe start VoIPBroker > /dev/null 2>&1 || true
+      fi
+      # Give a freshly started service a moment to settle before Word connects.
+      sleep 2
+
+      # Ensure first-run/welcome tweaks are present even for prefixes created
+      # by older installers (matches upstream's prefix setup).
+      "${wine4office}/bin/wine" reg add 'HKCU\Software\Policies\Microsoft\Office\16.0\FirstRun' /v BootedRTM /t REG_DWORD /d 1 /f >/dev/null 2>&1 || true
+      "${wine4office}/bin/wine" reg add 'HKCU\Software\Policies\Microsoft\Office\16.0\Common\General' /v DisableBootToOfficeStart /t REG_DWORD /d 1 /f >/dev/null 2>&1 || true
+
       exec "${wine4office}/bin/wine" "$word" "$@"
     '';
   };
 in
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "wine4office-word";
   inherit version;
 
@@ -140,6 +171,25 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.tests = {
+    nixos = testers.runNixOSTest (
+      import ./test.nix {
+        wine4office-word = finalAttrs.finalPackage;
+        inherit wine4office;
+        nixpkgsPath = pkgs.path;
+      }
+    );
+    # Run the driver outside the build sandbox: Office is downloaded at runtime.
+    word = testers.runNixOSTest (
+      import ./test.nix {
+        wine4office-word = finalAttrs.finalPackage;
+        inherit wine4office;
+        nixpkgsPath = pkgs.path;
+        installWord = true;
+      }
+    );
+  };
+
   meta = {
     description = "Install and launch Microsoft Word in a Wine4Office prefix using the Office Deployment Tool";
     homepage = "https://github.com/ttv20/wine4office";
@@ -147,4 +197,4 @@ stdenvNoCC.mkDerivation {
     platforms = [ "x86_64-linux" ];
     mainProgram = "wine4office-install-word";
   };
-}
+})
