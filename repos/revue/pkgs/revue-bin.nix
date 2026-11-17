@@ -26,6 +26,20 @@
 }:
 
 let
+  # The release's tarball for each system it's built for.
+  sources = {
+    x86_64-linux = {
+      arch = "x86_64";
+      sha256 = "8f2c0db27b65c195bdb3885284252c179f7700e9359168846393ed7c2aa8e056";
+    };
+    aarch64-linux = {
+      arch = "aarch64";
+      sha256 = "d9bd754adea5a5b527c21940ff0794c783753509ef6dbba0b50a1fc12550aa01";
+    };
+  };
+  source =
+    sources.${stdenv.hostPlatform.system}
+      or (throw "revue-bin: no release build for ${stdenv.hostPlatform.system}");
   # GPUI loads these at runtime, so they go on LD_LIBRARY_PATH too.
   runtimeLibs = [
     wayland
@@ -44,10 +58,10 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "revue-bin";
-  version = "0.44.2";
+  version = "0.44.4";
   src = fetchurl {
-    url = "https://forgejo.cleangame.dev/thatrichan/revue/releases/download/v${version}/revue-v${version}-linux-x86_64.tar.gz";
-    sha256 = "052f402fbee71450465aea84018bd623702691d4cedbcaaecfd783668f945124";
+    url = "https://forgejo.cleangame.dev/thatrichan/revue/releases/download/v${version}/revue-v${version}-linux-${source.arch}.tar.gz";
+    inherit (source) sha256;
   };
   nativeBuildInputs = [
     autoPatchelfHook
@@ -87,7 +101,7 @@ stdenv.mkDerivation rec {
       asl20
     ];
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-    platforms = [ "x86_64-linux" ];
+    platforms = builtins.attrNames sources;
     mainProgram = "revue";
   };
 }
