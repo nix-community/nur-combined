@@ -11,16 +11,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "bitbucket-cli";
-  version = "0.35.2";
+  version = "0.40.1";
 
   src = fetchFromGitHub {
     owner = "avivsinai";
     repo = "bitbucket-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Og8L1LlS2XrP1wbLxVqDSJm8OgV6HqnnfE3BRfTKPek=";
+    hash = "sha256-DUuJXw1S5Dc0l4YZxyhauKzJCSN7i/Edtc8jIK+Vkdg=";
   };
 
-  vendorHash = "sha256-S8g9UK8rjTBj9C99LHv+WnH3tRu/nJjP0xNBRuGmrZQ=";
+  vendorHash = "sha256-lZ1/EFTS9dVH844Z3q7qEdWFo673nTGmDA84WCT777M=";
 
   subPackages = [ "cmd/bkt" ];
 

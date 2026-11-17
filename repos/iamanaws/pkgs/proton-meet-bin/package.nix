@@ -4,10 +4,13 @@
   fetchurl,
   asar,
   dpkg,
-  electron,
+  electron_43,
   makeWrapper,
 }:
 
+let
+  electron = electron_43;
+in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "proton-meet-bin";
   version = "1.0.14";

@@ -1,8 +1,10 @@
 {
+  aws-lc,
   cacert,
   lib,
   fetchFromGitHub,
   gitMinimal,
+  pkg-config,
   rustPlatform,
   tzdata,
   versionCheckHook,
@@ -20,6 +22,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-FmIdG3gDWG7RQg5fY2rL6RgHtX8DXWdaYgI5fQZB64g=";
+
+  # aws-lc-sys links the system AWS-LC, found via pkg-config
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ aws-lc ];
 
   nativeCheckInputs = [ gitMinimal ];
 

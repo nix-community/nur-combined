@@ -67,7 +67,7 @@
     libreoffice
     proton-meet-bin
     rapidraw
-    reaper
+    (reaper.override { jackLibrary = pipewire.jack; })
   ];
 
   # Force intel-media-driver (iHD / i915) or nvidia

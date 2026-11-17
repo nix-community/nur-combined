@@ -10,16 +10,11 @@ let
   llmAgentPkgs = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
 in
 {
-  disabledModules = [
-    "programs/zed-editor.nix"
-  ];
-
   imports = [
     # If you want to use modules your own flake exports (from modules/home-manager):
     # outputs.homeManagerModules.example
     # Or modules exported from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModules.default
-    ../../shared/modules/zed-editor.nix
 
     ./config
     ./graphical.nix
@@ -49,7 +44,7 @@ in
           allow = [ ];
         };
       };
-    skills = { };
+      skills = { };
     };
 
     codex = {

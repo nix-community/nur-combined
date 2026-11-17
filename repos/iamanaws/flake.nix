@@ -26,7 +26,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-mineral.url = "github:cynicsketch/nix-mineral/v0.5.0-alpha";
+    nix-mineral.url = "github:nix-community/nix-mineral/v0.5.1-alpha";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak";

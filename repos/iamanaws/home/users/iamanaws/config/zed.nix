@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   hostConfig,
@@ -6,6 +7,10 @@
 }:
 
 {
+  # Home Manager only wraps `zeditor` with extraPackages. On Darwin Zed.app
+  # starts through LaunchServices without that PATH, so install them too.
+  home.packages = lib.optionals pkgs.stdenv.hostPlatform.isDarwin config.programs.zed-editor.extraPackages;
+
   programs.zed-editor = lib.optionalAttrs hostConfig.isGraphical {
     enable = true;
     mutableUserDebug = true;
