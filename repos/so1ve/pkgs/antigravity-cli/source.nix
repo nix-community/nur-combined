@@ -6,12 +6,12 @@ let
   version = "1.5.10";
   sources = {
     "x86_64-linux" = {
-      url = "https://storage.googleapis.com/antigravity-public/antigravity-cli/1.5.10-5073323990843392/linux-x64/cli_linux_x64.tar.gz";
-      hash = "sha256-zQN7UBIIX1Vyy/0V7aLpCmBwXEe3iYljTan/tP6jl+U=";
+      url = "https://storage.googleapis.com/antigravity-public/antigravity-cli/1.5.10-5253791805734912/linux-x64/cli_linux_x64.tar.gz";
+      hash = "sha256-cvspRtb1vuPU6JKPuKeQEQQ2FWZhnmnUCubcA+CUkXs=";
     };
     "aarch64-linux" = {
-      url = "https://storage.googleapis.com/antigravity-public/antigravity-cli/1.5.10-5073323990843392/linux-arm/cli_linux_arm64.tar.gz";
-      hash = "sha256-hZfqGIhOzquURhpO+9kp9l1sKP/kFHaJRhdbY+ZPhfY=";
+      url = "https://storage.googleapis.com/antigravity-public/antigravity-cli/1.5.10-5253791805734912/linux-arm/cli_linux_arm64.tar.gz";
+      hash = "sha256-XstOd2PcSXp9AVfVYFqMhuxV8k3E79j1l7xJnS68p8Y=";
     };
   };
   source =

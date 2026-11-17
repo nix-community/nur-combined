@@ -6,16 +6,16 @@
     "npmDepsHash": "sha256-S9sLwlj4AAcKUhD0zkglkd+Wcx7NOqe+jfEWDp4JRpw="
   },
   "npm:dsh-context": {
-    "version": "0.84.1",
-    "url": "https://registry.npmjs.org/dsh-context/-/dsh-context-0.84.1.tgz",
-    "integrity": "sha512-LK+4+cDgQ3Y1CuaOA2/86cy+8KMnKlnOTFnf1QK8TW7RXbzRq+8y4fiQodp4FG9yRahKbh6iuJX/+aO8Z6q6sw==",
-    "npmDepsHash": "sha256-+CvS2GE74FsXSVs3E+0nqoOhMDhlJs/mkACD2EdS6ik="
+    "version": "0.85.1",
+    "url": "https://registry.npmjs.org/dsh-context/-/dsh-context-0.85.1.tgz",
+    "integrity": "sha512-M0Ycbx86SQF19HYRe7zlfsvagtkVGInFUDSZ9je8ti1aSQbxwoECKk0xDd5YcbUCgJLZXMWAgEx61tE0tCkSPA==",
+    "npmDepsHash": "sha256-j7OrHyiOH3yrvCeBxB4ObthLng5XpO60XtLd/Ld6aL8="
   },
   "github:kingcharleslzy-ai/dsh-purge": {
     "version": "1.7.14",
-    "rev": "87538a8b2030d3f4a85be4779d55e87385de9b0b",
-    "url": "https://codeload.github.com/kingcharleslzy-ai/dsh-purge/tar.gz/87538a8b2030d3f4a85be4779d55e87385de9b0b",
-    "hash": "sha256-S2iB4DMfI00ugAHkkCD1ksznNL86DWMtZ/xhaMHUhV8=",
+    "rev": "ed7732cab966898f00570b8eeed5b0943fc458b3",
+    "url": "https://codeload.github.com/kingcharleslzy-ai/dsh-purge/tar.gz/ed7732cab966898f00570b8eeed5b0943fc458b3",
+    "hash": "sha256-Z0zhULCuYiteWDLHzetGtoF2vhJi404oIF8t3I2PJjY=",
     "npmDepsHash": "sha256-UeHgx9TBAIrR5O1LcawmeftPf2wytA+vgDSOTLIlpJM="
   },
   "npm:@anionex/dsh-turn-rewind": {
