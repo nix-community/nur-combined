@@ -40,41 +40,38 @@
   writeShellScriptBin,
   moltenvk,
   ldid,
-  # nixpkgs' default x86_64-darwin SDK (14.4) predates <cstdlib>'s quick_exit,
-  # which the emulator uses to skip destructors when the guest is still running.
-  apple-sdk_26 ? null,
+  apple-sdk_26,
 }:
 
 let
-  isLinux = stdenv.hostPlatform.isLinux;
-  isDarwin = stdenv.hostPlatform.isDarwin;
-
-  # Upstream re-signs kyty_emulator with its JIT entitlements and has
+  # Upstream re-signs kyty_emulator with its JIT entitlements and lets
   # macdeployqt sign the Qt frameworks; both call Xcode's codesign, which is
-  # not available in the build sandbox.  ldid produces the same ad-hoc
-  # signatures and can embed the entitlements.
+  # not available in the build sandbox.  ldid writes the same ad-hoc
+  # signatures and can embed the entitlements, so masquerade as codesign.
   codesignShim = writeShellScriptBin "codesign" ''
-    target="''${@: -1}"
-    entitlements=""
-    previous=""
-    for argument in "$@"; do
-      if [ "$previous" = "--entitlements" ]; then
-        entitlements="$argument"
-      fi
-      previous="$argument"
+    target=
+    entitlements=
+    while [ $# -gt 0 ]; do
+      case $1 in
+        --entitlements)
+          entitlements=$2
+          shift
+          ;;
+        -*) ;;
+        *) target=$1 ;;
+      esac
+      shift
     done
-    # ldid signs Mach-O files only; macdeployqt signs every file in the bundle
-    # before signing the bundle itself.
-    if [ -d "$target" ]; then
-      exit 0
-    fi
-    if [ -n "$entitlements" ]; then
-      exec ${ldid}/bin/ldid -S"$entitlements" "$target"
-    fi
-    exec ${ldid}/bin/ldid -S "$target"
-  '';
 
-  version = "0-unstable-2026-11-16";
+    # macdeployqt also signs the bundle directory itself, which ldid cannot do.
+    [ -d "$target" ] && exit 0
+
+    if [ -n "$entitlements" ]; then
+      exec ${lib.getExe ldid} -S"$entitlements" "$target"
+    else
+      exec ${lib.getExe ldid} -S "$target"
+    fi
+  '';
 
   src = fetchFromGitHub {
     owner = "KytyPS5";
@@ -240,15 +237,15 @@ let
   };
 
   # ext-ffmpeg-core ships prebuilt archives per OS/arch.  The macOS one is
-  # x86-64 only, matching the emulator's Rosetta-based macOS support.
+  # x86-64 only, like the rest of the macOS build.
   ffmpegPrebuilt = fetchzip {
     url =
-      if isDarwin then
+      if stdenv.hostPlatform.isDarwin then
         "https://github.com/KytyPS5/ext-ffmpeg-core/releases/download/9ac4cfd195f1/ffmpeg-macos-x64.zip"
       else
         "https://github.com/KytyPS5/ext-ffmpeg-core/releases/download/9ac4cfd195f1/ffmpeg-linux-x64.zip";
     hash =
-      if isDarwin then
+      if stdenv.hostPlatform.isDarwin then
         "sha256-3LHWD3Df1TK8qGHhm/S1ZfSZBU1x5oLIdyhXngdifbs="
       else
         "sha256-MX8Rifr6CvFFkm0IAmJPNGzLb8FG5HJJUKO/l0zegko=";
@@ -293,15 +290,15 @@ let
 in
 stdenv.mkDerivation {
   pname = "kytyps5";
-  inherit version src;
+  version = "0-unstable-2026-11-16";
+  inherit src;
 
   patches = [ ./noto-fonts-local.patch ];
 
-  # The macOS bundle gets its Qt runtime from macdeployqt, not a wrapper.
-  dontWrapQtApps = isDarwin;
-
-  # Stripping would invalidate the ad-hoc signatures added during the build.
-  dontStrip = isDarwin;
+  # The macOS bundle gets its Qt runtime from macdeployqt, not a wrapper, and
+  # stripping would invalidate the ad-hoc signatures added during the build.
+  dontWrapQtApps = stdenv.hostPlatform.isDarwin;
+  dontStrip = stdenv.hostPlatform.isDarwin;
 
   postPatch = ''
     cp -rT ${libAtrac9} 3rdparty/LibAtrac9
@@ -332,13 +329,13 @@ stdenv.mkDerivation {
     clang
     glslang
   ]
-  ++ lib.optionals isLinux [
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     lld
     patchelf
     autoPatchelfHook
     qt6.wrapQtAppsHook
   ]
-  ++ lib.optionals isDarwin [
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
     ldid
     codesignShim
   ];
@@ -346,7 +343,7 @@ stdenv.mkDerivation {
   buildInputs = [
     qt6.qtbase
   ]
-  ++ lib.optionals isLinux [
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     vulkan-headers
     vulkan-loader
     libGL
@@ -369,16 +366,17 @@ stdenv.mkDerivation {
     wayland-protocols
     libdecor
   ]
-  # The emulator loads MoltenVK through SDL rather than linking it, so its
-  # dylib is copied next to the executables in postFixup.
-  ++ lib.optionals isDarwin [
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    # SDL loads MoltenVK rather than linking it; postFixup copies the dylib.
     moltenvk
-  ]
-  ++ lib.optional (isDarwin && apple-sdk_26 != null) apple-sdk_26;
+    # The default x86_64-darwin SDK 14.4 predates <cstdlib>'s quick_exit,
+    # which the emulator uses to skip destructors while the guest runs.
+    apple-sdk_26
+  ];
 
   # SDL's GLES and Steam controller probes leave these optional names behind;
   # neither ends up in the final binaries' NEEDED list.
-  autoPatchelfIgnoreMissingDeps = lib.optionals isLinux [
+  autoPatchelfIgnoreMissingDeps = lib.optionals stdenv.hostPlatform.isLinux [
     "libGLES_CM.so.1"
     "libsteam_api.so"
   ];
@@ -401,16 +399,16 @@ stdenv.mkDerivation {
   # The macOS build is x86-64 only: the guest and the JIT are x86-64, and
   # Apple Silicon runs the result under Rosetta.  Upstream keys the guest
   # address-space layout and the FFmpeg prebuilt on this setting.
-  ++ lib.optionals isDarwin [ "-DCMAKE_OSX_ARCHITECTURES=x86_64" ];
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [ "-DCMAKE_OSX_ARCHITECTURES=x86_64" ];
 
   # The launcher executes kyty_emulator and kyty_updater from its own directory,
   # so keep the upstream flat layout instead of installing into bin/.
-  postInstall = lib.optionalString isLinux ''
+  postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
     install -Dm755 launcher/kyty_updater $out/kyty_updater
   '';
 
   postFixup =
-    lib.optionalString isLinux ''
+    lib.optionalString stdenv.hostPlatform.isLinux ''
       wrapQtApp $out/kyty_launcher
       patchelf --add-rpath ${
         lib.makeLibraryPath [
@@ -423,12 +421,13 @@ stdenv.mkDerivation {
       ln -s ../kyty_launcher $out/bin/kyty_launcher
       ln -s ../kyty_emulator $out/bin/kyty_emulator
     ''
-    + lib.optionalString isDarwin ''
-      # SDL loads MoltenVK from beside the flat emulator or from the bundle's
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      # SDL looks for MoltenVK beside the flat emulator and in the bundle's
       # Frameworks directory.
-      install -Dm755 ${moltenvk}/lib/libMoltenVK.dylib $out/libMoltenVK.dylib
-      install -Dm755 ${moltenvk}/lib/libMoltenVK.dylib $out/KytyPS5.app/Contents/Frameworks/libMoltenVK.dylib
-      ldid -S $out/libMoltenVK.dylib $out/KytyPS5.app/Contents/Frameworks/libMoltenVK.dylib
+      for dir in $out $out/KytyPS5.app/Contents/Frameworks; do
+        install -Dm755 ${moltenvk}/lib/libMoltenVK.dylib "$dir/libMoltenVK.dylib"
+        ${lib.getExe ldid} -S "$dir/libMoltenVK.dylib"
+      done
 
       mkdir -p $out/bin
       ln -s ../kyty_emulator $out/bin/kyty_emulator
@@ -439,7 +438,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/KytyPS5/KytyPS5";
     downloadPage = "https://github.com/KytyPS5/KytyPS5/releases";
     license = licenses.gpl2Only;
-    mainProgram = if isDarwin then "kyty_emulator" else "kyty_launcher";
+    mainProgram = if stdenv.hostPlatform.isDarwin then "kyty_emulator" else "kyty_launcher";
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

@@ -16,7 +16,10 @@
     }:
     let
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
-      kytyps5Darwin =
+      # Its macOS build is x86-64 only (Apple Silicon runs it under Rosetta 2),
+      # and nixpkgs 26.11 no longer has an x86_64-darwin package set, so it is
+      # built from the nixpkgs-darwin input above.
+      kytyps5 =
         (import nixpkgs-darwin {
           system = "x86_64-darwin";
           config.allowUnfree = true;
@@ -43,14 +46,12 @@
         }
       );
       packages = forAllSystems packagesFor // {
-        # The emulator only builds for x86-64 macOS; Apple Silicon runs it
-        # under Rosetta 2, so expose the same derivation for both systems.
+        # nixpkgs 26.11's x86_64-darwin set is gone, and aarch64-darwin runs the
+        # x86-64 build, so both expose the nixpkgs-darwin derivation.
         aarch64-darwin = (packagesFor "aarch64-darwin") // {
-          kytyps5 = kytyps5Darwin;
+          inherit kytyps5;
         };
-        x86_64-darwin = {
-          kytyps5 = kytyps5Darwin;
-        };
+        x86_64-darwin = { inherit kytyps5; };
       };
       nixosModules = import ./modules;
       homeModules = import ./home-modules;
