@@ -115,13 +115,13 @@
     },
     "clash-nyanpasu": {
       "version": "2.0.1-unstable-2026-11-17",
-      "rawVersion": "cafdc19abdfbe98eeee5a94e79ebbd9cefdfee3f",
+      "rawVersion": "d28a8b3f7c85dae2427d62fe8e25d6a27583b529",
       "date": "2026-11-17",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/libnyanpasu/clash-nyanpasu",
-        "rev": "cafdc19abdfbe98eeee5a94e79ebbd9cefdfee3f",
-        "hash": "sha256-2lIIwdk3mWTTJUhycKHrrKg2IS3wEhyfz3nPl3MBNFw="
+        "rev": "d28a8b3f7c85dae2427d62fe8e25d6a27583b529",
+        "hash": "sha256-Z6Aex5jKgjsCipfBBwwjkTyZLenKozFbRqh2D0U7SKQ="
       },
       "derived": {
         "cargoLock": {
@@ -143,7 +143,7 @@
           }
         },
         "pnpmDepsHash": {
-          "hash": "sha256-JO0vSjuVrwrRvLQ/JirNnWiHckMfIuzcgLY7eTlanQw="
+          "hash": "sha256-HG+PitKgTCtbay06uW3RExQDpnMygNEb46/dSMrAl1Q="
         }
       },
       "artifacts": {
@@ -190,14 +190,14 @@
       "fingerprint": "sha256-klw1I8Gyyya7pGDq2zSPFRJN6KsZkHFPtsiYx0SS/YE="
     },
     "dae": {
-      "version": "2.1.2-unstable-2026-11-09",
-      "rawVersion": "460cec77f4365abfd9ea6fae04b66466dd4861cb",
-      "date": "2026-11-09",
+      "version": "2.1.2-unstable-2026-11-17",
+      "rawVersion": "93be60a7b2a0ca0c6b4ecdc98ef31275bf00f4b8",
+      "date": "2026-11-17",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/daeuniverse/dae.git",
-        "rev": "460cec77f4365abfd9ea6fae04b66466dd4861cb",
-        "hash": "sha256-lBooE12735YST7kQeG21IW+kHNluW0n6bsEwIALjo+w=",
+        "rev": "93be60a7b2a0ca0c6b4ecdc98ef31275bf00f4b8",
+        "hash": "sha256-uqeh15PdvliOnktOWm+GJ8nyy9w/BhhsTCYxFwmCTD4=",
         "fetchSubmodules": true
       },
       "derived": {
@@ -291,13 +291,13 @@
     },
     "gaze": {
       "version": "0.5.2-unstable-2026-11-17",
-      "rawVersion": "a844bd85946c04dde86213b723ae56fb12190bfd",
+      "rawVersion": "2d45dffe8c6034ed406c206f338d1a0a3d5392c2",
       "date": "2026-11-17",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/GunduLabs/gaze.git",
-        "rev": "a844bd85946c04dde86213b723ae56fb12190bfd",
-        "hash": "sha256-Rm8+tIGTAQnu2Bi4t+taRp7KSQ4Jz03i36DS2NPgf0M="
+        "rev": "2d45dffe8c6034ed406c206f338d1a0a3d5392c2",
+        "hash": "sha256-49Ii9hmnRuFQW57Ky6vkBgi8GOIeV2Fb5FAA2/welhM="
       },
       "derived": {
         "cargoLock": {
@@ -420,14 +420,14 @@
     },
     "horizon": {
       "version": "0-unstable-2026-11-17",
-      "rawVersion": "0861036808c400ecf9ac9f1170a1fcbddd6b0309",
+      "rawVersion": "ea8734cf9da071180514cda4bf3a090963dddd5f",
       "date": "2026-11-17",
       "src": {
         "fetcher": "github",
         "owner": "horizon-rust",
         "repo": "horizon",
-        "rev": "0861036808c400ecf9ac9f1170a1fcbddd6b0309",
-        "hash": "sha256-GBfW3jtpxiHKcqeRx0sBLGB1i/3U4DSGcvnMa3jPgdg="
+        "rev": "ea8734cf9da071180514cda4bf3a090963dddd5f",
+        "hash": "sha256-86i7RcYV5wB9b21sBmHh8eU59n8yDfVDi3c2TPujys4="
       },
       "derived": {
         "cargoLock": {
