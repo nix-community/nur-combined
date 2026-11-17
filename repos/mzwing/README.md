@@ -10,6 +10,9 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | Packages | Documentation |
 | --- | --- |
 | `ace-ctx` | [Usage](https://github.com/CodingOX/ace-ctx) |
+| `agy-hud` | [Usage](https://github.com/lllopic/agy-hud) |
+| `antigravity-cli-modified` | [Usage](https://github.com/q1uuuu/agy-context) |
+| `antigravity-wakatime` | [Usage](https://github.com/wakatime/antigravity-wakatime) |
 | `autocli` | [Usage](https://github.com/nashsu/autocli) |
 | `bakamusic` | [Usage](https://github.com/Zencok/BakaMusic) |
 | `caddy-naive` | [Usage](https://github.com/klzgrad/forwardproxy) |

@@ -3,11 +3,11 @@
 { fetchurl }:
 
 let
-  version = "0.49.57";
+  version = "0.49.60";
   src = fetchurl {
     curlOptsList = [ "--compressed" ];
-    url = "https://registry.npmjs.org/@cortexkit/magic-context/-/magic-context-0.49.57.tgz";
-    hash = "sha256-k1blvgDu+UTc/hDWTW601fS54kSaXpiLjVbz0l6sHlI=";
+    url = "https://registry.npmjs.org/@cortexkit/magic-context/-/magic-context-0.49.60.tgz";
+    hash = "sha256-nam6SbK9QC0LM/N7GdAXvn6eiUIFPoB3FBwxbhCmskQ=";
   };
 in
 {
