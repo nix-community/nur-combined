@@ -8,7 +8,7 @@ Mise installs the toolchain and runs tasks. `mise run check` runs all static che
 
 ## Updates
 
-Use `mise run update -- <package> [<package> ...]` to update packages. The Update NUR workflow runs it daily for every updatable package once Build and Check pass on the default branch. It opens a PR per updated package and tracks build or test failures in issues.
+Use `mise run update -- <package> [<package> ...]` to update packages. The Update NUR workflow runs it daily for every updatable package once Build and Check pass on the default branch. It opens a PR per updated package. Incomplete updates with source changes stay in draft PRs; validated updates become ready and enable auto-merge. Matching build and test derivations from draft PRs skip repeated failures. Failures without source changes remain workflow errors.
 
 ## Packaging
 

@@ -21,7 +21,7 @@ concurrency:
 permissions:
   contents: read
   actions: read
-  issues: read
+  pull-requests: read
 
 env:
   TARGET_BRANCH: ${{ inputs.target-branch || github.event.repository.default_branch }}
@@ -117,21 +117,8 @@ jobs:
         with:
           retries: 3
           script: |
-            const issues = await github.paginate(github.rest.issues.listForRepo, {
-              ...context.repo, state: 'open', per_page: 100,
-            });
-            const builds = {};
-            for (const issue of issues) {
-              if (issue.pull_request) continue;
-              const marker = issue.body?.match(/<!-- nur-update:([^\s<>]+) -->/);
-              const record = issue.body?.match(/<!-- nur-update-failure:(.+?) -->/);
-              if (!marker || !record) continue;
-              builds[marker[1]] = {
-                derivations: JSON.parse(record[1]),
-                issueUrl: issue.html_url,
-              };
-            }
-            core.setOutput('builds', JSON.stringify(builds));
+            const { readFailedBuilds } = require('./.github/scripts/update-pr.cjs');
+            await readFailedBuilds({ github, context, core, targetBranch: process.env.TARGET_BRANCH });
 
   update:
     name: Update ${{ matrix.package }}
@@ -207,95 +194,12 @@ jobs:
           github-token: ${{ steps.bot-token.outputs.token }}
           retries: 3
           script: |
-            const fs = require('node:fs');
-            const path = require('node:path');
-            const report = JSON.parse(fs.readFileSync('.update-results/result.json', 'utf8'));
-            const result = report.results[0];
-            if (report.error || report.results.length !== 1 || result.package !== process.env.PACKAGE) {
-              core.setFailed(report.error || 'Expected one result for the selected package');
-              return;
-            }
-
-            const changed = result.changedFiles.length > 0;
-            const updated = result.steps.update?.status === 'passed' && changed;
-            core.setOutput('built', result.steps.build?.status === 'passed' ? 'true' : 'false');
-            if (result.status === 'skipped') {
-              core.info(`${result.package}: ${result.reason} (${result.failureIssue})`);
-              return;
-            }
-            const title = `${result.package}: ${result.oldVersion} -> ${result.newVersion}`;
-            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
-            const tests = Object.entries(result.tests)
-              .map(([name, test]) => `- Test \`${name}\`: ${test.status}`);
-            const upstream = [];
-            if (result.changelog) upstream.push(`[Upstream release / changelog](${result.changelog})`);
-            if (result.compare) upstream.push(`[Upstream changes](${result.compare})`);
-            const body = [
-              `Update \`${result.package}\`: \`${result.oldVersion}\` -> \`${result.newVersion}\`.`,
-              '',
-              ...upstream,
-              ...(upstream.length ? [''] : []),
-              `- Build: ${result.steps.build?.status || 'not run'}`,
-              ...tests,
-              '',
-              `[Workflow run](${runUrl})`,
-              `[Logs, result and source diff](${process.env.ARTIFACT_URL})`,
-            ].join('\n');
-
-            if (updated && result.status === 'updated') {
-              let branch = `nur-update/${result.package}`;
-              if (process.env.TARGET_BRANCH !== context.payload.repository.default_branch) {
-                branch = `nur-update/${process.env.TARGET_BRANCH}/${result.package}`;
-              }
-              const bodyPath = path.join(process.env.RUNNER_TEMP, 'nur-pr-body.md');
-              fs.writeFileSync(bodyPath, body);
-              core.setOutput('branch', branch);
-              core.setOutput('body-path', bodyPath);
-              core.setOutput('updated', 'true');
-              core.setOutput('title', title);
-              return;
-            }
-
-            if (updated && ['build', 'tests'].includes(result.failedStage)) {
-              const marker = `<!-- nur-update:${result.package} -->`;
-              const issues = await github.paginate(github.rest.issues.listForRepo, {
-                ...context.repo, state: 'open', per_page: 100,
-              });
-              const existing = issues.find(issue => !issue.pull_request && issue.body?.includes(marker));
-              const issue = {
-                ...context.repo,
-                title: `${title} failed`,
-                body: `${marker}\n<!-- nur-update-failure:${JSON.stringify(result.derivations)} -->\n\n${body}`,
-              };
-              let reportedIssue;
-              if (existing) {
-                reportedIssue = await github.rest.issues.update({ ...issue, issue_number: existing.number });
-              } else {
-                reportedIssue = await github.rest.issues.create(issue);
-              }
-              const issueUrl = reportedIssue.data.html_url;
-              core.warning(`${result.package}: update failed at ${result.failedStage}; tracked in ${issueUrl}`);
-              await core.summary
-                .addRaw(`Update \`${result.package}\` failed at \`${result.failedStage}\`. [Tracking issue](${issueUrl}).\n`)
-                .write();
-              return;
-            }
-
-            if (!report.success) {
-              core.setFailed(result.error || `Package update failed at ${result.failedStage}`);
-            }
-
-      - name: Cache updated package
-        if: ${{ !cancelled() && steps.report.outputs.built == 'true' }}
-        uses: merrkry/niks3-build-action@v0.1.0
-        with:
-          server-url: https://niks3-api.tsubasa.moe
-          flake: .#buildJobs.x86_64-linux.${{ matrix.package }}
-          args: --push-build-closure
+            const { reportUpdate } = require('./.github/scripts/update-pr.cjs');
+            await reportUpdate({ github, context, core });
 
       - name: Create or update PR
         id: pr
-        if: steps.report.outputs.updated == 'true'
+        if: ${{ !cancelled() && steps.report.outputs.publish == 'true' }}
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ steps.bot-token.outputs.token }}
@@ -306,17 +210,32 @@ jobs:
           title: ${{ steps.report.outputs.title }}
           commit-message: ${{ steps.report.outputs.title }}
           body-path: ${{ steps.report.outputs.body-path }}
+          draft: ${{ steps.report.outputs.draft == 'true' && 'always-true' || 'false' }}
 
-      - name: Enable auto-merge
-        if: steps.pr.outputs.pull-request-number != '' && steps.pr.outputs.pull-request-operation != 'closed'
-        env:
-          GH_TOKEN: ${{ steps.bot-token.outputs.token }}
-          PR_URL: ${{ steps.pr.outputs.pull-request-url }}
-        run: gh pr merge --auto --squash "$PR_URL"
-
-      - name: Close previous update failures
-        if: steps.pr.outputs.pull-request-number != '' && steps.pr.outputs.pull-request-operation != 'closed'
+      - name: Set PR state and auto-merge
+        if: ${{ !cancelled() && steps.pr.outputs.pull-request-number != '' && steps.pr.outputs.pull-request-operation != 'closed' }}
         uses: actions/github-script@v9
+        env:
+          PR_NUMBER: ${{ steps.pr.outputs.pull-request-number }}
+          PR_HEAD: ${{ steps.pr.outputs.pull-request-head-sha }}
+          PR_DRAFT: ${{ steps.report.outputs.draft }}
+        with:
+          github-token: ${{ steps.bot-token.outputs.token }}
+          retries: 3
+          script: |
+            const { finalizePullRequest } = require('./.github/scripts/update-pr.cjs');
+            await finalizePullRequest({
+              github, context, core,
+              number: Number(process.env.PR_NUMBER),
+              headSha: process.env.PR_HEAD,
+              draft: process.env.PR_DRAFT === 'true',
+            });
+
+      - name: Close legacy failure issues
+        if: env.TARGET_BRANCH == github.event.repository.default_branch && steps.pr.outputs.pull-request-number != '' && steps.pr.outputs.pull-request-operation != 'closed'
+        uses: actions/github-script@v9
+        env:
+          PR_URL: ${{ steps.pr.outputs.pull-request-url }}
         with:
           github-token: ${{ steps.bot-token.outputs.token }}
           retries: 3
@@ -330,7 +249,16 @@ jobs:
               await github.rest.issues.update({
                 ...context.repo,
                 issue_number: issue.number,
+                body: `${issue.body}\n\nTracked in ${process.env.PR_URL}.`,
                 state: 'closed',
                 state_reason: 'completed',
               });
             }
+
+      - name: Cache updated package
+        if: ${{ !cancelled() && steps.report.outputs.built == 'true' && steps.pr.outputs.pull-request-head-sha != '' }}
+        uses: merrkry/niks3-build-action@v0.1.0
+        with:
+          server-url: https://niks3-api.tsubasa.moe
+          flake: github:${{ github.repository }}/${{ steps.pr.outputs.pull-request-head-sha }}#buildJobs.x86_64-linux.${{ matrix.package }}
+          args: --push-build-closure

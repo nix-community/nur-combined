@@ -30,7 +30,7 @@ class Derivations(TypedDict):
 
 class FailedBuild(TypedDict):
     derivations: Derivations
-    issueUrl: str
+    pullRequestUrl: str
 
 
 class PackageResult(TypedDict, total=False):
@@ -47,7 +47,7 @@ class PackageResult(TypedDict, total=False):
     error: str
     reason: str
     derivations: Derivations
-    failureIssue: str
+    failurePullRequest: str
 
 
 class Report(TypedDict, total=False):
@@ -268,10 +268,10 @@ def update_package(
             result.update(
                 status="skipped",
                 reason="Build and test derivations match a previous failure",
-                failureIssue=failure["issueUrl"],
+                failurePullRequest=failure["pullRequestUrl"],
             )
             print(
-                f"{name}: skipping build and tests ({result['failureIssue']})",
+                f"{name}: skipping build and tests ({result['failurePullRequest']})",
                 file=sys.stderr,
                 flush=True,
             )
@@ -332,7 +332,7 @@ def main() -> int:
         help="JSON file of previous failures; skip matching build and test derivations",
     )
     args = parser.parse_args()
-    report: Report = {"schemaVersion": 1, "results": []}
+    report: Report = {"schemaVersion": 2, "results": []}
     try:
         failed_builds: dict[str, FailedBuild] = (
             json.loads(args.failed_builds.read_text()) if args.failed_builds else {}
@@ -340,10 +340,12 @@ def main() -> int:
         if not isinstance(failed_builds, dict) or any(
             not isinstance(failure, dict)
             or not isinstance(failure.get("derivations"), dict)
-            or not isinstance(failure.get("issueUrl"), str)
+            or not isinstance(failure.get("pullRequestUrl"), str)
             for failure in failed_builds.values()
         ):
-            raise ValueError("Expected a package map with derivations and issueUrl")
+            raise ValueError(
+                "Expected a package map with derivations and pullRequestUrl"
+            )
         runner = Runner(Path.cwd())
         inventory, discovery = read_metadata(runner, "discovery")
         report["system"] = inventory["system"]

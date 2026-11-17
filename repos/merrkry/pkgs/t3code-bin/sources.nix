@@ -6,6 +6,7 @@ let
       version,
       cliHash,
       desktopHash,
+      desktopFile ? "T3-Code-${version}-x86_64.AppImage",
     }:
     {
       cli = {
@@ -19,7 +20,7 @@ let
       desktop = {
         inherit version;
         src = fetchurl {
-          url = "https://github.com/pingdotgg/t3code/releases/download/v${version}/T3-Code-${version}-x86_64.AppImage";
+          url = "https://github.com/pingdotgg/t3code/releases/download/v${version}/${desktopFile}";
           hash = desktopHash;
         };
       };
@@ -27,9 +28,10 @@ let
 in
 {
   stable = mkSources {
-    version = "0.1.9";
-    cliHash = "sha256-AUECUzXaM0dZzs2Ns0g+CXcvNgDKA2dGmFJOfZQpE2I=";
-    desktopHash = "sha256-0KtW3z4zjyQoSENWISl/2WOjNxWw2CCNvwg5lllXLYE=";
+    version = "0.1.10";
+    desktopFile = "T3-Code-x86_64.AppImage";
+    cliHash = "sha256-m+qdNqIXKZoK+IDow0e1Nu1qmi9b8yimldF01jYoxeg=";
+    desktopHash = "sha256-fN7RPBB1cVOQHt3ayaJgixVvF0Rd5Qbvn/33PAFSjXk=";
   };
 
   nightly = mkSources {

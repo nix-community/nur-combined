@@ -1,5 +1,6 @@
 [tools]
 actionlint = "1.7.12"
+node = "24.22.2"
 shellcheck = "0.11.0"
 uv = "0.13.7"
 
@@ -8,8 +9,8 @@ description = "Run all static checks and tests"
 depends = ["check:actions", "check:nix", "check:python"]
 
 [tasks."check:actions"]
-description = "Check GitHub Actions workflows"
-run = "actionlint"
+description = "Check GitHub Actions workflows and update PR behavior"
+run = ["actionlint", "node --test .github/scripts/*.test.cjs"]
 
 [tasks."check:nix"]
 description = "Check Nix formatting, lints, and flake outputs"
