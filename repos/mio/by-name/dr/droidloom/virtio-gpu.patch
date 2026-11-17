@@ -1,0 +1,60 @@
+diff --git a/runtime/droidloom-supervisor/src/host_gpu.rs b/runtime/droidloom-supervisor/src/host_gpu.rs
+index d0e283e..04edb9b 100644
+--- a/runtime/droidloom-supervisor/src/host_gpu.rs
++++ b/runtime/droidloom-supervisor/src/host_gpu.rs
+@@ -67,12 +67,13 @@ impl HostGpu {
+             "nvidia" => Some(Vendor::Nvidia),
+             "msm" | "msm_dpu" | "msm_mdp5" => Some(Vendor::Qualcomm),
+             "panthor" | "panfrost" => Some(Vendor::Mali),
++            "virtio_gpu" | "virtio-pci" => Some(Vendor::Virtio),
+             _ => None,
+         }
+     }
+ 
+     fn native(&self) -> bool {
+-        matches!(self.vendor(), Some(Vendor::Amd | Vendor::Intel | Vendor::Qualcomm | Vendor::Mali))
++        matches!(self.vendor(), Some(Vendor::Amd | Vendor::Intel | Vendor::Qualcomm | Vendor::Mali | Vendor::Virtio))
+     }
+ }
+ 
+@@ -96,6 +97,10 @@ pub enum Vendor {
+     Qualcomm,
+     /// `panthor` or `panfrost`, an Arm Mali on the SoC, rendering natively.
+     Mali,
++    /// `virtio_gpu` (reported as its PCI parent's `virtio-pci` driver), a QEMU
++    /// virtual GPU rendering natively. Only useful for development and testing
++    /// on hosts without a supported physical GPU.
++    Virtio,
+ }
+ 
+ impl Vendor {
+@@ -106,6 +111,7 @@ impl Vendor {
+             Self::Nvidia => "NVIDIA",
+             Self::Qualcomm => "Qualcomm",
+             Self::Mali => "Mali",
++            Self::Virtio => "Virtio",
+         }
+     }
+ }
+@@ -142,10 +148,11 @@ impl FromStr for GpuChoice {
+             "nvidia" => Self::Vendor(Vendor::Nvidia),
+             "qualcomm" => Self::Vendor(Vendor::Qualcomm),
+             "mali" => Self::Vendor(Vendor::Mali),
++            "virtio" => Self::Vendor(Vendor::Virtio),
+             pci if is_pci_address(pci) => Self::Pci(pci.into()),
+             // `lspci` leaves out the PCI domain.
+             pci if is_pci_address(&format!("0000:{pci}")) => Self::Pci(format!("0000:{pci}")),
+-            _ => return Err(format!("GPU must be auto, amd, intel, nvidia, qualcomm, mali or a PCI address such as 0000:04:00.0, not {value:?}")),
++            _ => return Err(format!("GPU must be auto, amd, intel, nvidia, qualcomm, mali, virtio or a PCI address such as 0000:04:00.0, not {value:?}")),
+         })
+     }
+ }
+@@ -214,7 +221,7 @@ impl Graphics {
+         };
+         let renderer = renderer.ok_or_else(|| format!("no GPU matches {choice}; found: {}", found()))?;
+         if renderer.vendor().is_none() {
+-            return Err(format!("{renderer} has no Droidloom driver; AMD (amdgpu), Intel (i915, xe), NVIDIA (nvidia), Qualcomm Adreno (msm) and Arm Mali (panthor, panfrost) are supported"));
++            return Err(format!("{renderer} has no Droidloom driver; AMD (amdgpu), Intel (i915, xe), NVIDIA (nvidia), Qualcomm Adreno (msm), Arm Mali (panthor, panfrost) and virtio-gpu (virtio_gpu, virtio-pci) are supported"));
+         }
+         Ok(if renderer.native() {
+             Self { renderer: renderer.clone(), render_node: renderer.render_node.clone(), backend: GraphicsBackend::Drm }
