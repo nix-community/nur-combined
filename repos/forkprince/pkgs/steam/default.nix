@@ -2,7 +2,7 @@
   stdenvNoCC,
   fetchurl,
   steam,
-  undmg,
+  _7zz,
   lib,
 }:
 if stdenvNoCC.hostPlatform.isDarwin
@@ -15,7 +15,7 @@ in
 
     src = fetchurl (lib.helper.getSingle ver);
 
-    nativeBuildInputs = [undmg];
+    nativeBuildInputs = [_7zz];
 
     meta = {
       description = "Digital distribution platform";

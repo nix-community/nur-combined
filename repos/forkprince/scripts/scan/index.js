@@ -42,7 +42,7 @@ async function changes() {
 function permitted() {
   const names = (process.env.ALLOW_INFECTED || "").split(",");
 
-  if (fs.existsSync(".scan-allowlist")) names.push(...fs.readFileSync(".scan-allowlist", "utf8").split("\n").map((line) => line.replace(/#.*/, "")));
+  if (fs.existsSync(".allow")) names.push(...fs.readFileSync(".allow", "utf8").split("\n").map((line) => line.replace(/#.*/, "")));
 
   return new Set(names.map((name) => name.trim()).filter(Boolean));
 }

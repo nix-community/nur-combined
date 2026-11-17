@@ -19,7 +19,7 @@ on:
           - nix-update
           - bun
         allow_infected:
-          description: "Comma-separated packages to allow through the scan (see .scan-allowlist)"
+          description: "Comma-separated packages to allow through the scan (see .allow)"
           required: false
           default: ""
           type: string
