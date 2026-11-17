@@ -873,6 +873,19 @@
       },
       "fingerprint": "sha256-bDHuPi4pDA+KHdBq0EWN+AFaEHyxWkqkaNUpvXDWM7M="
     },
+    "pi-nvim": {
+      "version": "0-unstable-2026-11-13",
+      "rawVersion": "9c169139098a638eabc27b928e6c210aab62b866",
+      "date": "2026-11-13",
+      "src": {
+        "fetcher": "github",
+        "owner": "alex35mil",
+        "repo": "pi.nvim",
+        "rev": "9c169139098a638eabc27b928e6c210aab62b866",
+        "hash": "sha256-dja5IUm1OIdKkeSV61p/JD3B6XvLOiuo2YwTYuB+CHg="
+      },
+      "fingerprint": "sha256-GxyPklvO021bBEjRMfRDDl8gs588K4WpmTL5DWAz61k="
+    },
     "pi-plan-mode": {
       "version": "0.4.8",
       "rawVersion": "0.4.8",

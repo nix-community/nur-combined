@@ -442,6 +442,11 @@ fetch = { type = "github", repo = "nicobailon/pi-mcp-adapter", rev = "{version}"
 kind = "npm-deps"
 strategy = "lockfile"
 
+[packages.pi-nvim]
+version = { source = "git", url = "https://github.com/alex35mil/pi.nvim.git", unstable = { } }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "alex35mil/pi.nvim", rev = "{version}" }
+
 [packages.pi-plan-mode]
 version = { source = "github-tag", repo = "qmx/pi-plan-mode", strip_prefix = "v" }
 transform = ["strip-v"]
