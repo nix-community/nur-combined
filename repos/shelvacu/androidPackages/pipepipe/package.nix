@@ -6,7 +6,7 @@
   jdk25,
 }:
 let
-  version = "5.2.5";
+  version = "5.6.0-beta4";
 
   # The InfinityLoop1308/PipePipe superproject is just a shell of git
   # submodules. The actual Android app lives in the PipePipeClient submodule,
@@ -20,14 +20,14 @@ let
   client = fetchFromGitHub {
     owner = "InfinityLoop1308";
     repo = "PipePipeClient";
-    rev = "45939efccf87b23bad82b771821001a8f0755242";
-    hash = "sha256-fkDlQ3xKGbKyjvKu3Z3XZDub28/tLoy9n6eFFUShOpo=";
+    rev = "83e5fd896e891e9a4f1ca36301499284bcbd964d";
+    hash = "sha256-FBZ0Szm+feEYyRzQD4HTsfEWvegzt9om/IjI3uTf4cc=";
   };
   extractor = fetchFromGitHub {
     owner = "InfinityLoop1308";
     repo = "PipePipeExtractor";
-    rev = "aa72c9762706a919c4048ab56c921d09505d3e78";
-    hash = "sha256-MEMv/6OHVL03xVL+HhTSDsv7R/UKGfdVete+dj+/RBI=";
+    rev = "5ebe2d928fbd2c6ca459e699381570da21403388";
+    hash = "sha256-MdaT6SPHe6dcc9N2KVVGzrs+VqozgXU0CJSobfsa5Fg=";
   };
 in
 buildGradleAndroidPackage rec {
