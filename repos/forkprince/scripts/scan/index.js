@@ -89,7 +89,7 @@ async function targets(pkg) {
     return [{ label: `src (${attribute})`, path }];
   }
 
-  const assets = parse(await exec("nix", "eval", "--json", "--impure", "--expr", `(import ./scripts/scan-assets.nix { folder = ./${folder}; })`));
+  const assets = parse(await exec("nix", "eval", "--json", "--impure", "--expr", `(import ./scripts/scan { folder = ./${folder}; })`));
   if (!assets) return warn(`could not list assets for ${pkg}`), [];
 
   const list = [];
