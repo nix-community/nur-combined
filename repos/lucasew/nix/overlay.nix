@@ -8,7 +8,7 @@ in
 {
   unstable = flake.lib.mkPkgs {
     nixpkgs = flake.inputs.nixpkgs-unstable;
-    inherit (prev) system;
+    system = prev.stdenv.hostPlatform.system;
   };
   inherit flake;
 
