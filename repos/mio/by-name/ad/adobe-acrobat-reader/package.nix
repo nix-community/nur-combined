@@ -1,154 +1,308 @@
 {
   lib,
   pkgs,
-  winePackages,
-  wine ? winePackages.full,
+  wineWow64Packages,
+  # Named wineFull (not `wine`) so callPackage does not inject pkgs.wine (32-bit).
+  wineFull ? wineWow64Packages.full,
   fetchurl,
   makeDesktopItem,
   copyDesktopItems,
-  p7zip,
+  _7zz,
   gawk,
   xrandr,
-  virtualDesktop ? false,
+  icoutils,
+  testers,
+  # AUR launcher defaults virtual desktop on (tab bar rendering).
+  virtualDesktop ? true,
 }:
 
-# Based on AUR acroread-dc-wine (maintainer Smoolak), adapted for mkWindowsAppNoCC. https://aur.archlinux.org/packages/acroread-dc-wine
+# Synced with AUR acroread-dc-wine 26.002.22031-2 (maintainer Smoolak).
+# https://aur.archlinux.org/packages/acroread-dc-wine
 let
   myLib = import ../../../lib { inherit pkgs; };
   inherit (myLib) mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
-in
-mkWindowsAppNoCC rec {
-  inherit wine;
+  wine = wineFull;
 
-  pname = "adobe-acrobat-reader";
-  version = "2025.1.20997";
+  installerName = "AcroRdrDCx642600222031_en_US.exe";
+  pkgverNodots = "2600222031";
 
   src = fetchurl {
-    url = "https://ardownload2.adobe.com/pub/adobe/reader/win/AcrobatDC/2500120997/AcroRdrDC2500120997_en_US.exe";
-    hash = "sha256-gznoj4yY9Fktz8LVWhjBwArUqSlQOUX9/r6ukojATG8=";
+    name = installerName;
+    urls = [
+      "https://web.archive.org/web/20261018223457if_/https://ardownload2.adobe.com/pub/adobe/acrobat/win/AcrobatDC/${pkgverNodots}/${installerName}"
+      "https://ardownload2.adobe.com/pub/adobe/acrobat/win/AcrobatDC/${pkgverNodots}/${installerName}"
+    ];
+    # AUR sha256sums; live Adobe CDN may re-sign and break 7z headers — prefer Wayback.
+    hash = "sha256-humP6z8q+mZlaoXLvG+3HWoyF+v4/cIfTRpU0hy0UCg=";
   };
 
-  dontUnpack = true;
-  wineArch = "win32";
-  persistRegistry = false;
-  persistRuntimeLayer = true;
-  enableMonoBootPrompt = false;
-  graphicsDriver = "auto";
+  mspatcha = pkgs.callPackage ./mspatcha.nix { };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    copyDesktopIcons
-  ];
+  regTweaks = ./acroread-dc.reg;
 
-  enabledWineSymlinks = {
-    desktop = false;
-  };
+  # Extract 256px icon from the installer SFX (AUR: wrestool/icotool).
+  desktopIconSrc =
+    pkgs.runCommand "adobe-acrobat-reader-icon"
+      {
+        nativeBuildInputs = [ icoutils ];
+        inherit src;
+      }
+      ''
+        mkdir icon
+        wrestool -x -t14 -n128 -o icon/AcroRead.ico ${src}
+        icotool -x icon/AcroRead.ico -o icon/
+        install -Dm644 icon/*256x256*.png $out
+      '';
 
-  fileMap = {
-    "$HOME/.config/adobe-acrobat-reader/Local" = "drive_c/users/$USER/AppData/Local/Adobe";
-    "$HOME/.config/adobe-acrobat-reader/LocalLow" = "drive_c/users/$USER/AppData/LocalLow/Adobe";
-    "$HOME/.config/adobe-acrobat-reader/Roaming" = "drive_c/users/$USER/AppData/Roaming/Adobe";
-  };
+  package = mkWindowsAppNoCC rec {
+    inherit wine;
 
-  regTweaks = fetchurl {
-    url = "https://aur.archlinux.org/cgit/aur.git/plain/acroread-dc.reg?h=acroread-dc-wine";
-    hash = "sha256-EXFuBh+altFKojYtrrviQkLi5LFCFeGo2VPhfNFlvj4=";
-  };
+    pname = "adobe-acrobat-reader";
+    version = "26.002.22031";
 
-  winAppInstall = ''
-    export WINEDEBUG="-all"
-    work="$(mktemp -d)"
+    inherit src;
+    dontUnpack = true;
+    wineArch = "win64";
+    persistRegistry = false;
+    persistRuntimeLayer = true;
+    enableMonoBootPrompt = false;
+    graphicsDriver = "auto";
 
-    winetricks --unattended mspatcha
-    winetricks --unattended riched20
-    winetricks --unattended vcrun2015
+    nativeBuildInputs = [
+      copyDesktopItems
+      copyDesktopIcons
+    ];
 
-    ${p7zip}/bin/7z x -y -o"$work" ${src}
-    setup="$(find "$work" -maxdepth 2 -iname 'setup.exe' | head -n1)"
-    if [ -n "$setup" ]; then
-      $WINE "$setup" /sAll
-      wineserver -w
-    else
-      echo "Acrobat setup.exe not found in extracted files" >&2
-      exit 1
-    fi
+    enabledWineSymlinks = {
+      desktop = false;
+    };
 
-    regfile="$WINEPREFIX/drive_c/acroread-dc.reg"
-    cp ${regTweaks} "$regfile"
-    $WINE regedit "$($WINE winepath -w "$regfile")"
-    wineserver -w
+    fileMap = {
+      "$HOME/.config/adobe-acrobat-reader/Local" = "drive_c/users/$USER/AppData/Local/Adobe";
+      "$HOME/.config/adobe-acrobat-reader/LocalLow" = "drive_c/users/$USER/AppData/LocalLow/Adobe";
+      "$HOME/.config/adobe-acrobat-reader/Roaming" = "drive_c/users/$USER/AppData/Roaming/Adobe";
+    };
 
-    winetricks --unattended win7
+    winAppInstall = ''
+      export WINEDEBUG="-all"
+      export WINEDLLOVERRIDES="mspatcha=n,b;$WINEDLLOVERRIDES"
 
-    winetricks --unattended cjkfonts
-  '';
+      winetricks --unattended win10
+      winetricks --unattended riched20
+      winetricks --unattended vcrun2015
 
-  winAppRun = ''
-    export WINEDEBUG="-all"
-    reader="$WINEPREFIX/drive_c/Program Files (x86)/Adobe/Acrobat Reader DC/Reader/AcroRd32.exe"
-    if [ ! -f "$reader" ]; then
-      reader="$WINEPREFIX/drive_c/Program Files/Adobe/Acrobat Reader DC/Reader/AcroRd32.exe"
-    fi
-    if [ ! -f "$reader" ]; then
-      echo "Adobe Acrobat Reader executable not found in Wine prefix" >&2
-      exit 1
-    fi
+      # Wine's built-in mspatcha cannot decode every PA19 stream used by current
+      # Adobe updates (AUR). Install the source-built multi-arch implementation.
+      install -m644 ${mspatcha}/lib/mspatcha-x64.dll \
+        "$WINEPREFIX/drive_c/windows/system32/mspatcha.dll"
+      install -m644 ${mspatcha}/lib/mspatcha-x86.dll \
+        "$WINEPREFIX/drive_c/windows/syswow64/mspatcha.dll"
 
-    if ${
-      if virtualDesktop then "true" else "false"
-    } && [ "''${ACROREAD_NO_VIRTUAL_DESKTOP:-0}" != "1" ]; then
-      res="$(${xrandr}/bin/xrandr 2>/dev/null | ${gawk}/bin/awk '/\\*/ && $1 ~ /^[0-9]+x[0-9]+$/ {print $1; exit}')"
-      if [ -z "$res" ]; then
-        res="1920x1080"
+      work="$(mktemp -d)"
+      ${_7zz}/bin/7zz x -t# -y ${src} -o"$work/compound" >/dev/null
+      ${_7zz}/bin/7zz x -y "$work/compound/2.7z" -o"$work/extract" >/dev/null
+
+      MSI="$work/extract/AcroPro.msi"
+      MSP="$(find "$work/extract" -maxdepth 1 -type f -name 'AcroRdrDCx64Upd*.msp' -print -quit)"
+      if [ ! -f "$MSI" ] || [ -z "$MSP" ]; then
+        echo "AcroPro.msi or update MSP missing after 7zz extract" >&2
+        ls -la "$work/extract" >&2 || true
+        exit 1
       fi
-      $WINE explorer /desktop=AcroRead,"$res" "$reader" "''${ARGS[@]}"
-    else
-      $WINE reg add "HKCU\Software\Wine\X11 Driver" /v Decorated /t REG_SZ /d N /f
-      $WINE "$reader" "''${ARGS[@]}"
-    fi
-  '';
 
-  installPhase = ''
-    runHook preInstall
+      # Map extract dir to a free Wine drive letter (AUR setup script).
+      DRIVE_LETTER=""
+      for candidate in s r q p o n; do
+        candidate_link="$WINEPREFIX/dosdevices/''${candidate}:"
+        if [ ! -e "$candidate_link" ] && [ ! -L "$candidate_link" ]; then
+          ln -s "$work/extract" "$candidate_link"
+          DRIVE_LETTER="$candidate"
+          break
+        fi
+      done
+      if [ -z "$DRIVE_LETTER" ]; then
+        echo "No free Wine drive letter for Acrobat install" >&2
+        exit 1
+      fi
+      WINDOWS_DRIVE="$(echo "$DRIVE_LETTER" | tr '[:lower:]' '[:upper:]'):"
+      MSP_BASENAME="$(basename "$MSP")"
 
-    mv $out/bin/.launcher $out/bin/${pname}
+      if ! $WINE msiexec \
+        /i "''${WINDOWS_DRIVE}\\AcroPro.msi" \
+        /qn '/l*v' 'C:\acroread-dc-install.log' \
+        "PATCH=''${WINDOWS_DRIVE}\\''${MSP_BASENAME}" \
+        EULA_ACCEPT=YES \
+        SUPPRESS_APP_LAUNCH=YES \
+        DISABLE_BROWSER_INTEGRATION=YES \
+        INSTALLPDFPRINTER=0 \
+        DISABLEDESKTOPSHORTCUT=1; then
+        echo "Adobe Reader msiexec failed; see C:\\acroread-dc-install.log" >&2
+        exit 1
+      fi
 
-    runHook postInstall
-  '';
+      # Stop updater services started by the installer; do not wineserver -k.
+      for service in armsvc edgeupdate edgeupdatem; do
+        $WINE sc stop "$service" >/dev/null 2>&1 || true
+      done
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      exec = pname;
-      icon = pname;
-      desktopName = "Adobe Acrobat Reader DC";
-      categories = [
-        "Office"
-        "Viewer"
-      ];
-      # Unfortunately opening files is not working
-      /*
+      rm -f "$WINEPREFIX/dosdevices/''${DRIVE_LETTER}:"
+      rm -rf "$work"
+
+      regfile="$WINEPREFIX/drive_c/acroread-dc.reg"
+      cp ${regTweaks} "$regfile"
+      $WINE regedit "$($WINE winepath -w "$regfile")" || true
+
+      # Disable ARM / collab / CEF updater binaries (AUR).
+      for PROG_FILES in \
+        "$WINEPREFIX/drive_c/Program Files (x86)" \
+        "$WINEPREFIX/drive_c/Program Files"; do
+        COMMON_FILES="$PROG_FILES/Common Files/Adobe/ARM/1.0"
+        if [ -d "$COMMON_FILES" ]; then
+          for f in armsvc.exe AdobeARM.exe AdobeARMHelper.exe; do
+            if [ -f "$COMMON_FILES/$f" ]; then
+              mv "$COMMON_FILES/$f" "$COMMON_FILES/''${f}_disabled" 2>/dev/null || true
+            fi
+          done
+        fi
+        for READER_DIR in \
+          "$PROG_FILES/Adobe/Acrobat DC/Acrobat" \
+          "$PROG_FILES/Adobe/Acrobat Reader DC/Reader"; do
+          [ -d "$READER_DIR" ] || continue
+          if [ -f "$READER_DIR/AdobeCollabSync.exe" ]; then
+            mv "$READER_DIR/AdobeCollabSync.exe" \
+              "$READER_DIR/AdobeCollabSync.exe_disabled" 2>/dev/null || true
+          fi
+          if [ -f "$READER_DIR/AcroCEF/RdrServicesUpdater.exe" ]; then
+            mv "$READER_DIR/AcroCEF/RdrServicesUpdater.exe" \
+              "$READER_DIR/AcroCEF/RdrServicesUpdater.exe_disabled" 2>/dev/null || true
+          fi
+        done
+      done
+
+      $WINE reg add "HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\AeDebug" /v Debugger /t REG_SZ /d "" /f 2>/dev/null || true
+      $WINE reg add "HKEY_LOCAL_MACHINE\\Software\\Wow6432Node\\Microsoft\\Windows NT\\CurrentVersion\\AeDebug" /v Debugger /t REG_SZ /d "" /f 2>/dev/null || true
+      $WINE reg add "HKEY_CURRENT_USER\\Software\\Adobe\\Adobe Acrobat\\DC\\AVGeneral" /v bMaximizeAtOpen /t REG_DWORD /d 1 /f 2>/dev/null || true
+
+      READER_EXE="$WINEPREFIX/drive_c/Program Files/Adobe/Acrobat DC/Acrobat/Acrobat.exe"
+      if [ ! -f "$READER_EXE" ]; then
+        echo "Acrobat.exe was not installed at the expected 64-bit path" >&2
+        exit 1
+      fi
+    '';
+
+    winAppRun = ''
+      export WINEDEBUG="-all"
+      export WINEDLLOVERRIDES="mspatcha=n,b;$WINEDLLOVERRIDES"
+
+      reader=""
+      for candidate in \
+        "$WINEPREFIX/drive_c/Program Files/Adobe/Acrobat DC/Acrobat/Acrobat.exe" \
+        "$WINEPREFIX/drive_c/Program Files (x86)/Adobe/Acrobat Reader DC/Reader/AcroRd32.exe" \
+        "$WINEPREFIX/drive_c/Program Files/Adobe/Acrobat Reader DC/Reader/AcroRd32.exe"; do
+        if [ -f "$candidate" ]; then
+          reader="$candidate"
+          break
+        fi
+      done
+      if [ -z "$reader" ]; then
+        echo "Adobe Acrobat Reader executable not found in Wine prefix" >&2
+        exit 1
+      fi
+
+      # Convert existing file args to Wine paths (AUR launcher).
+      RUN_ARGS=()
+      for arg in "''${ARGS[@]}"; do
+        if [ -e "$arg" ]; then
+          abs_path="$(realpath "$arg")"
+          win_path="$($WINE winepath -w "$abs_path" 2>/dev/null || true)"
+          if [ -n "$win_path" ]; then
+            win_path="''${win_path//\\//}"
+            RUN_ARGS+=("$win_path")
+          else
+            RUN_ARGS+=("$arg")
+          fi
+        else
+          RUN_ARGS+=("$arg")
+        fi
+      done
+
+      if ${
+        if virtualDesktop then "true" else "false"
+      } && [ "''${ACROREAD_NO_VIRTUAL_DESKTOP:-0}" != "1" ]; then
+        res="$(${xrandr}/bin/xrandr 2>/dev/null | ${gawk}/bin/awk '/\\*/ && $1 ~ /^[0-9]+x[0-9]+$/ {print $1; exit}')"
+        if [ -z "$res" ]; then
+          res="1920x1080"
+        fi
+        $WINE explorer /desktop=AcroRead,"$res" "$reader" "''${RUN_ARGS[@]}"
+      else
+        $WINE reg add "HKCU\Software\Wine\X11 Driver" /v Decorated /t REG_SZ /d N /f
+        $WINE "$reader" "''${RUN_ARGS[@]}"
+      fi
+    '';
+
+    installPhase = ''
+      runHook preInstall
+
+      mv $out/bin/.launcher $out/bin/${pname}
+
+      runHook postInstall
+    '';
+
+    desktopItems = [
+      (makeDesktopItem {
+        name = pname;
+        exec = "${pname} %f";
+        icon = pname;
+        desktopName = "Adobe Acrobat Reader DC";
+        genericName = "PDF Viewer";
+        comment = "View and print PDF documents";
+        categories = [
+          "Office"
+          "Viewer"
+        ];
         mimeTypes = [
           "application/pdf"
+          "application/vnd.fdf"
+          "application/vnd.adobe.xfdf"
+          "application/vnd.adobe.pdx"
+          "application/vnd.adobe.xdp+xml"
         ];
-      */
-    })
-  ];
+        startupNotify = true;
+        startupWMClass = "Acrobat.exe";
+      })
+    ];
 
-  desktopIcon = makeDesktopIcon {
-    name = pname;
+    desktopIcon = makeDesktopIcon {
+      name = pname;
+      src = desktopIconSrc;
+    };
 
-    src = fetchurl {
-      url = "https://web.archive.org/web/20260101142441if_/https://community.chocolatey.org/content/packageimages/adobereader.2025.1.20997.png";
-      hash = "sha256-g6sgfVLDyTRTGLxx5/rYqBJT0cl+hjziPHI7/nr3Lt8=";
+    meta = with lib; {
+      description = "Adobe Acrobat Reader DC - PDF viewer (via Wine)";
+      homepage = "https://www.adobe.com/products/reader.html";
+      downloadPage = "https://aur.archlinux.org/packages/acroread-dc-wine";
+      license = licenses.unfree;
+      platforms = [ "x86_64-linux" ];
+      mainProgram = "adobe-acrobat-reader";
+      sourceProvenance = [ sourceTypes.binaryNativeCode ];
+      longDescription = ''
+        Packaging synced with AUR acroread-dc-wine ${version}-2:
+        64-bit Acrobat DC installer, msiexec + MSP, patched Wine mspatcha,
+        and virtual-desktop launch (tabs). Live Adobe CDN builds may re-sign
+        the EXE and break 7-Zip extraction; the Wayback snapshot matching the
+        AUR hash is preferred.
+      '';
+    };
+
+    passthru = {
+      inherit mspatcha;
+      tests.nixos = testers.runNixOSTest (
+        import ./test.nix {
+          adobe-acrobat-reader = package;
+          nixpkgsPath = pkgs.path;
+        }
+      );
     };
   };
-
-  meta = with lib; {
-    description = "Adobe Acrobat Reader DC - PDF viewer (via Wine)";
-    homepage = "https://www.adobe.com/products/reader.html";
-    license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    mainProgram = "adobe-acrobat-reader";
-  };
-}
+in
+package

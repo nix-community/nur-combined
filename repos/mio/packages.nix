@@ -297,9 +297,12 @@ exportedByName
   # Wine app variants (bases live in by-name; mkWindowsAppNoCC is no-IFD).
   # https://github.com/NixOS/nixpkgs/issues/10165
   # https://discourse.nixos.org/t/what-is-your-approach-to-packaging-wine-applications-with-nix-derivations/12799/1
-  adobe-acrobat-reader_virtualDesktop = adobe-acrobat-reader.override {
-    virtualDesktop = true;
+  # Acrobat defaults to virtualDesktop=true (AUR: tab bar needs it).
+  adobe-acrobat-reader_noVirtualDesktop = adobe-acrobat-reader.override {
+    virtualDesktop = false;
   };
+  # Compat alias: virtual desktop is now the default (was a separate override).
+  adobe-acrobat-reader_virtualDesktop = adobe-acrobat-reader;
 
   # CapCut defaults to virtualDesktop=true (black preview overlay workaround).
   # Default `capcut` is 3.9.0.1459 (CapNoeh / WineHQ Silver).
