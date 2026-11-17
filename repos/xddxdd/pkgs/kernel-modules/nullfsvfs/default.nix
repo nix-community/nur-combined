@@ -7,12 +7,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "nullfsvfs";
-  version = "0.27";
+  version = "0.28";
   src = fetchFromGitHub {
     owner = "abbbi";
     repo = "nullfsvfs";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-BvixSZN9GqFS4llaiKHfkLb21+qG74YtyNb8bUP0jdU=";
+    hash = "sha256-bKSJRrWpkMvDrsg24ZIDXwed3+rlPyaYkIz4KQ05Q0w=";
   };
   __structuredAttrs = true;
   strictDeps = true;

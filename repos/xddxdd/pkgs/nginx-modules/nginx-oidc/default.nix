@@ -7,7 +7,7 @@
 
 mkNginxPlugin (finalAttrs: {
   pname = "nginx-oidc";
-  version = "0.9.0";
+  version = "0.10.0";
   __structuredAttrs = true;
   strictDeps = true;
 
@@ -16,7 +16,7 @@ mkNginxPlugin (finalAttrs: {
     repo = "nginx-oidc";
     tag = finalAttrs.version;
     fetchSubmodules = true;
-    hash = "sha256-urY76IshbKoJF4UF49ZV97pv9mTU0nJr/V6MAGIvZoY=";
+    hash = "sha256-jwTzUwkPUlnuZ497k8eae3vzjWlAllewngrtM5Bhv8g=";
   };
 
   # nxe-json and nxe-jwx are also compiled by nginx-auth-jwt; keep them out

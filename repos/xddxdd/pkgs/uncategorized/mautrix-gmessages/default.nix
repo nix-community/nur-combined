@@ -14,16 +14,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "mautrix-gmessages";
-  version = "0.2610.0";
+  version = "0.2611.0";
   src = fetchFromGitHub {
     owner = "mautrix";
     repo = "gmessages";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-14ocZjE0SgjjTzpCx9njUq7kDDHcZZnEtRJ3Mm7eFis=";
+    hash = "sha256-Z7Hv8OkQ1qbOLvQ11Vp9ssDXMT/V9Gva+S4eoDh7NgE=";
   };
   __structuredAttrs = true;
   strictDeps = true;
-  vendorHash = "sha256-9yHVzEOXkura/RVPVflfR0NfegVk28eUI6E0b6P+1qQ=";
+  vendorHash = "sha256-y2RHc948wDe+LTi8J+Nc7v43kIWsMO9mFVkDSOFKImU=";
 
   buildInputs = lib.optional (!withGoolm) olm;
   tags = lib.optional withGoolm "goolm";
