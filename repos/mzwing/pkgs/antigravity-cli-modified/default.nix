@@ -3,6 +3,7 @@
   stdenvNoCC,
   python3,
   nodejs_24,
+  cctools,
   darwin,
   writeShellScriptBin,
   fetchzip,
@@ -27,7 +28,7 @@ in
 
     dontUnpack = true;
     dontBuild = true;
-    nativeBuildInputs = lib.optional stdenvNoCC.hostPlatform.isDarwin darwin.sigtool;
+    nativeBuildInputs = lib.optionals stdenvNoCC.hostPlatform.isDarwin [darwin.sigtool cctools];
 
     installPhase = ''
       runHook preInstall
