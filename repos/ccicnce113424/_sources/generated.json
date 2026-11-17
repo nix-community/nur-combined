@@ -709,12 +709,12 @@
             "name": null,
             "owner": "juliobbv-p",
             "repo": "svt-av1-hdr",
-            "rev": "v4.2.0",
-            "sha256": "sha256-axJ4C2gSQMdiGo6qLNxaQ5AWUuZp6gRnEI8Bx0B7tlw=",
+            "rev": "v4.3.0",
+            "sha256": "sha256-bZprryQLjX36y03xVxxjRKJuQnEC+/v4slxP6U0DZWA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.2.0"
+        "version": "v4.3.0"
     },
     "uosc-danmaku": {
         "cargoLock": null,

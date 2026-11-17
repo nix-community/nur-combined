@@ -439,13 +439,13 @@
   };
   svt-av1-hdr = {
     pname = "svt-av1-hdr";
-    version = "v4.2.0";
+    version = "v4.3.0";
     src = fetchFromGitHub {
       owner = "juliobbv-p";
       repo = "svt-av1-hdr";
-      rev = "v4.2.0";
+      rev = "v4.3.0";
       fetchSubmodules = false;
-      sha256 = "sha256-axJ4C2gSQMdiGo6qLNxaQ5AWUuZp6gRnEI8Bx0B7tlw=";
+      sha256 = "sha256-bZprryQLjX36y03xVxxjRKJuQnEC+/v4slxP6U0DZWA=";
     };
   };
   uosc-danmaku = {
