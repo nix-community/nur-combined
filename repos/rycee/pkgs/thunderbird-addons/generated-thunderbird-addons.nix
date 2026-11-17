@@ -252,10 +252,10 @@
     };
     "owl-for-exchange" = buildMozillaXpiAddon {
       pname = "owl-for-exchange";
-      version = "1.6.0";
+      version = "1.6.1";
       addonId = "owl@beonex.com";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1055210/eule_fur_exchange-1.6.0-tb.xpi?src=";
-      sha256 = "a62fa7d0729832c780a08fb8394a4fbfe632a6f563219ea2d4b756a5d40ab882";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1055582/eule_fur_exchange-1.6.1-tb.xpi?src=";
+      sha256 = "ac9bc16435e4bf3497909901053e84dd545a6220fb69dbc27bc124cf1231d254";
       meta = with lib;
       {
         homepage = "https://www.beonex.com/owl/";
@@ -361,10 +361,10 @@
     };
     "tb-langpack-de" = buildMozillaXpiAddon {
       pname = "tb-langpack-de";
-      version = "161.0.20261111.165556";
+      version = "161.0.20261113.182501";
       addonId = "langpack-de@thunderbird.mozilla.org";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1055507/deutsch_de_language_pack-161.0.20261111.165556-tb.xpi?src=";
-      sha256 = "a64f5aa0a8ffc086ecb5a6eae22b08c29938d19ff6c4fa4712d055dfd86478a9";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1055652/deutsch_de_language_pack-161.0.20261113.182501-tb.xpi?src=";
+      sha256 = "6f6a368455e7dcb9b1cc067618e8ccfb92d2b107a9b68fd67f17fe3244a9d416";
       meta = with lib;
       {
         description = "Deutsch (de) Language Pack";
