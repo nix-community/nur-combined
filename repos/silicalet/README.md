@@ -88,6 +88,44 @@ created that way must be refreshed after a Nix upgrade to avoid starting an old
 store path. Use a persistent installation before applying setup; `nix run` alone
 does not keep the package rooted against garbage collection.
 
+## Nodecode
+
+`nodecode-bin` packages the official Linux x86_64 release of
+[Nodecode](https://github.com/nodecode-ai/nodecode), a coding agent running in
+Common Lisp. The executable includes SBCL; no separate Lisp installation is
+needed. Nix supplies OpenSSL, SQLite, Bash, Git and CA certificates, and keeps
+the shipped source, cells and compiled cells beside the executable.
+
+```console
+nix run .#nodecode-bin -- --help
+nix run .#nodecode-bin
+nix profile add .#nodecode-bin
+nix run .#update -- nodecode-bin
+```
+
+First launch opens upstream setup; configure your own model provider and
+credentials. State stays in `~/.nodecode/` (or `NODECODE_HOME`). Upstream does
+not publish an ARM64 Linux binary. The x86_64 package is included in CI and
+daily tool updates; release versions, archive URLs and hashes are pinned.
+The build checks CLI startup, Lisp evaluation, SQLite and OpenSSL hashing.
+
+Manage installed versions through Nix, not `nodecode update`. The package does
+not use upstream's `current`-link layout, so automatic self-updates default to
+off; the upstream installer is not included. Keep `update.mode` set to `off`
+if reusing an existing configuration that enabled it. Updating this checkout
+does not upgrade your installed profile or NixOS/Home Manager generation.
+
+Upstream may enable its background gateway automatically on first launch in
+your account's home. Install persistently before using it. After a Nix upgrade,
+run `nodecode gateway restart` from the new package: the generated user service
+records the executable's store path. Alternatively, manage the gateway
+declaratively with `ExecStart = "${nodecode-bin}/bin/nodecode serve"` in your
+own service configuration.
+
+Nodecode's agent code runs with your account's permissions; it is not sandboxed
+by default. Optional cells, MCP servers and sandbox mode may require additional
+programs on your PATH.
+
 ## NEU CLI
 
 `neu-cli` builds [neu-cli](https://github.com/silicalet/neu-cli) from source and

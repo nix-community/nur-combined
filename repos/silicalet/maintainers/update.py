@@ -27,7 +27,7 @@ VERSION_RE = re.compile(r"^[0-9][0-9A-Za-z._+-]*$")
 GPUI_VERSION_RE = re.compile(r"^2\.0\.0-preview\.[0-9]+$")
 FRIDA_VERSION_RE = re.compile(r"^[0-9]+\.[0-9]+\.[0-9]+$")
 SHA256_DIGEST_RE = re.compile(r"^sha256:[0-9a-f]+$")
-NIX_STRING_RE = re.compile(r'^[0-9A-Za-z._+/=-]+$')
+NIX_STRING_RE = re.compile(r'^[0-9A-Za-z._+:/=-]+$')
 
 # `nix run .#update` copies this file into the store, so __file__ is not inside
 # the checkout. Updates must rewrite the caller's working tree.
@@ -63,6 +63,12 @@ BINARY_PACKAGES = {
             f"neomacs-{version}-"
             f"{'aarch64' if system == 'aarch64-linux' else 'x86_64'}-unknown-linux-gnu.tar.gz"
         ),
+    },
+    "nodecode-bin": {
+        "repo": "nodecode-ai/nodecode",
+        "source": "pkgs/tools/nodecode/sources/{system}.nix",
+        "systems": ("x86_64-linux",),
+        "asset_pattern": r"nodecode-[0-9a-f]{9}-x86_64-linux\.tar\.gz",
     },
     "nyaterm-bin": {
         "repo": "nyakang/nyaterm",
@@ -119,6 +125,7 @@ DEFAULT_PACKAGES = [
     "modeltrace",
     "neomacs-bin",
     "neu-cli",
+    "nodecode-bin",
     "nyaterm-bin",
     "nyaterm-gpui-bin",
     "oh-dsh-bin",
@@ -332,12 +339,24 @@ def update_binary_package(package, system):
     else:
         release = latest_release(spec["repo"])
     version = release_version(release, spec.get("version_re", VERSION_RE))
-    name = spec["asset"](version, system)
-    asset = asset_record(release, name)
+    if "asset_pattern" in spec:
+        matches = [
+            asset for asset in release.get("assets", [])
+            if re.fullmatch(spec["asset_pattern"], asset.get("name", ""))
+        ]
+        if len(matches) != 1:
+            raise UpdateError(f"expected one release archive, found {len(matches)}")
+        asset = matches[0]
+    else:
+        name = spec["asset"](version, system)
+        asset = asset_record(release, name)
     url = asset.get("browser_download_url")
     if not url:
-        raise UpdateError(f"release asset has no download URL: {name}")
+        raise UpdateError(f"release asset has no download URL: {asset.get('name')}")
     digest = asset.get("digest") or ""
+    # Commit-named archives cannot derive their URL from the release version.
+    if "asset_pattern" in spec:
+        replace_nix_string(REPO_ROOT / spec["source"].format(system=system), "url", url)
     replace_nix_string(REPO_ROOT / spec["source"].format(system=system), "version", version)
     replace_nix_string(
         REPO_ROOT / spec["source"].format(system=system),

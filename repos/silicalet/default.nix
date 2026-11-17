@@ -39,6 +39,7 @@
   modeltrace = pkgs.callPackage ./pkgs/apps/modeltrace { };
   neomacs-bin = pkgs.callPackage ./pkgs/apps/neomacs/binary.nix { };
   neu-cli = pkgs.callPackage ./pkgs/tools/neu-cli { };
+  nodecode-bin = pkgs.callPackage ./pkgs/tools/nodecode/binary.nix { };
   # nyaterm source builds are too heavy; use nyaterm-bin.
   # nyaterm = pkgs.callPackage ./pkgs/apps/nyaterm { };
   nyaterm-bin = pkgs.callPackage ./pkgs/apps/nyaterm/binary.nix { };

@@ -15,6 +15,6 @@ jobs:
     with:
       category: tools
       packages: >-
-        amber-lsp code996 dnspick ipgw kuake-cli neu-cli qrypt-bin
+        amber-lsp code996 dnspick ipgw kuake-cli neu-cli nodecode-bin qrypt-bin
         quarkpan quien uipro-cli zlib-cli
       arm-packages: qrypt-bin
