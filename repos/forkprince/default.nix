@@ -19,6 +19,7 @@
     syslock = lib.callPackage ./pkgs/syslock {};
     yapfast = lib.callPackage ./pkgs/yapfast {};
     venture = lib.callPackage ./pkgs/venture {};
+    cordial = lib.callPackage ./pkgs/cordial {};
     sysbar = lib.callPackage ./pkgs/sysbar {};
 
     tinywiibackupmanager = lib.callPackage ./pkgs/tinywiibackupmanager {};

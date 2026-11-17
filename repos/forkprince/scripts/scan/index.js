@@ -47,13 +47,13 @@ function permitted() {
   return new Set(names.map((name) => name.trim()).filter(Boolean));
 }
 
-async function clamscan(target) {
-  const result = await exec("clamscan", "--recursive", "--infected", "--no-summary", "--max-filesize=4G", "--max-scansize=4G", "--max-files=1000000", target);
+async function scan(target) {
+  const result = await exec("clamdscan", "--config-file=clamd.conf", "--fdpass", "--multiscan", "--infected", "--no-summary", "--stdout", target);
 
   if (result.status === 0) return [];
 
   if (result.status !== 1) {
-    warn(`clamscan failed on ${target} (${result.status}): ${result.error.trim()}`);
+    warn(`clamdscan failed on ${target} (${result.status}): ${result.error.trim()}`);
 
     return [];
   }
@@ -104,7 +104,7 @@ async function targets(pkg) {
 }
 
 async function main() {
-  if ((await exec("clamscan", "--version")).status !== 0) return console.error("::error::ClamAV is not installed.");
+  if ((await exec("clamdscan", "--version")).status !== 0) return console.error("::error::ClamAV is not installed.");
 
   const modified = (await changes()).filter((pkg) => fs.existsSync(`pkgs/${pkg}`));
   if (modified.length === 0) return console.log("No changed packages.");
@@ -112,7 +112,7 @@ async function main() {
   const hits = [];
   for (const pkg of modified) {
     for (const { label, path } of await targets(pkg)) {
-      for (const signature of await clamscan(path)) hits.push({ pkg, asset: label, signature });
+      for (const signature of await scan(path)) hits.push({ pkg, asset: label, signature });
     }
   }
 

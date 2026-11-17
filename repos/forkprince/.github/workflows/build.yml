@@ -47,6 +47,12 @@ jobs:
         with:
           nix_conf: experimental-features = nix-command flakes
 
+      - name: Setup ClamAV
+        uses: toblux/start-clamd-github-action@c38b64f74d2e919f45cea5df4df541ef9beee0f3  # v0.3
+        with:
+          db_main: true
+          db_daily: true
+
       - name: Update Packages (nix-update)
         id: nix_update
         if: github.event_name != 'workflow_dispatch' || inputs.updater == 'both' || inputs.updater == 'nix-update'
@@ -93,7 +99,6 @@ jobs:
           still_failed_apps=""
           while IFS= read -r version_file; do
             app_name=$(basename "$(dirname "$version_file")")
-            # Only retry apps that failed in the first pass
             if printf '%b' "${{ steps.update.outputs.failed_apps }}" | grep -qx "$app_name"; then
               if ! bun ./scripts/updater/index.js "$version_file"; then
                 echo "::warning::Retry also failed for $app_name ($version_file)"
@@ -165,9 +170,12 @@ jobs:
           ALLOW: ${{ inputs.allow }}
           NIX_PATH: nixpkgs=flake:nixpkgs
         run: |
-          command -v clamscan >/dev/null || (sudo apt-get update && sudo apt-get install -y clamav)
-          sudo freshclam || echo "::warning::freshclam failed; using existing database"
+          pkill -x clamd 2>/dev/null || true
+          sleep 1
+          clamd --config-file=clamd.conf
+          clamdscan --config-file=clamd.conf --ping 30:1 >/dev/null || { echo "::error::clamd is not responding"; exit 1; }
           bun scripts/scan/index.js
+          rm -f freshclam.conf clamd.conf
 
       - name: Block Packages
         if: steps.scan.outputs.blocked != ''

@@ -1,0 +1,22 @@
+{
+  "name": "Cordial",
+  "source": {
+    "type": "github-release",
+    "repo": "luohoa97/cordial",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.34.1",
+  "platforms": {
+    "x86_64-linux": {
+      "file": "cordial_{version}-1_amd64.deb",
+      "hash": "sha256-H5NJDOJeBaFYO9Xu4ehs/DG1v3wNXTxTOIZplU/BS3c=",
+      "unpack": false
+    },
+    "aarch64-linux": {
+      "file": "cordial_{version}-1_arm64.deb",
+      "hash": "sha256-8wl6+Vz7WKBD9aynLktFppSWPvziDp/nacZCfSun5DU=",
+      "unpack": false
+    }
+  }
+}
