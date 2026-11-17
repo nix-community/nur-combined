@@ -49,7 +49,11 @@ let
   lokiYaml = ''
     auth_enabled: false
     server:
-      http_listen_address: 127.0.0.1
+      # Must listen on all interfaces: kubelet probes + Service traffic
+      # arrive from the pod network, not pod-localhost. (The NixOS
+      # container bound 127.0.0.1 behind its nginx gateway; the gateway
+      # is gone by design in k3s.)
+      http_listen_address: 0.0.0.0
       http_listen_port: ${toString lokiPort}
     common:
       ring:
