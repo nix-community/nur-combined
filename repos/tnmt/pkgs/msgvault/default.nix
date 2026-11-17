@@ -36,6 +36,13 @@ in
   # Bun's copyfile backend can install incomplete packages when fetchBunDeps'
   # cache entries are backed by symlinks. Materialize the cache as regular
   # files before the sandboxed install consumes it.
+  #
+  # Bun >= 1.4.3 looks up a tarball dependency that carries an integrity hash
+  # in `@T@sha512-<first 16 bytes of the hash, hex>@@@1`, while bun2nix still
+  # lays it out under the URL-hash name (`@T@<url hash>@@@1`). Without the
+  # alias the offline install falls back to the network and fails in the
+  # sandbox. Only @kenn-io/kit-ui is a tarball dependency; re-derive both
+  # names when its pin in web/bun.lock changes.
   bunDeps =
     let
       base = bun2nix.fetchBunDeps { bunNix = ./bun.nix; };
@@ -44,6 +51,8 @@ in
       mkdir -p "$out/share/bun-cache"
       cp -RL ${base}/share/bun-cache/. "$out/share/bun-cache/"
       chmod -R u+w "$out/share/bun-cache"
+      cp -R "$out/share/bun-cache/@T@443f2a7a570b6fae@@@1" \
+        "$out/share/bun-cache/@T@sha512-ebdd2100be8d1efb5f94fd192c74c6b9@@@1"
     '';
   bunRoot = "web";
   bunInstallFlags = [
