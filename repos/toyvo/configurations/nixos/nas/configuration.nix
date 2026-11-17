@@ -418,7 +418,13 @@ in
     # home-assistant retired to k3s 2026-10-28 (module deleted); POOL state
     # dirs remain on disk as backups. Rollback = revert this + the module.
     monitoring = {
-      enable = true;
+      # Retired to k3s 2026-11-16 (Grafana + Prometheus + Loki + Tempo
+      # all live from cluster, agents repointed, UI flipped). Disabled
+      # (not deleted) so rollback is one flag flip. NOTE: the pre-cutover
+      # bind mounts never landed — live state was container-private, so
+      # the POOL copies are stale Apr snapshots, not a usable rollback.
+      # Rollback = re-enable + reseed from k3s (or start fresh).
+      enable = false;
       natInterface = "eno1";
       stateDir = "/mnt/POOL/monitoring";
       grafanaAdminPasswordFile = config.sops.secrets."grafana-admin-password".path;
