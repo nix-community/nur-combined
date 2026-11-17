@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Office Deployment Tool configuration used by wine4office-install-word.
+
+  Installs 64-bit Microsoft 365 Apps but excludes every application except
+  Word. Replace the Product ID (e.g. "WordRetail" for a standalone Word
+  licence, or "O365BusinessRetail") and the Channel to match your licence, or
+  pass your own file with the configuration option of
+  wine4office-install-word.
+-->
+<Configuration ID="wine4office-word">
+  <Add OfficeClientEdition="64" Channel="Current">
+    <Product ID="O365ProPlusRetail">
+      <Language ID="MatchOS" />
+      <ExcludedApps
+        Access="1"
+        Bing="1"
+        Excel="1"
+        Groove="1"
+        Lync="1"
+        OneDrive="1"
+        OneNote="1"
+        Outlook="1"
+        PowerPoint="1"
+        Publisher="1"
+        SharePointDesigner="1"
+        SkypeForBusiness="1"
+        Teams="1"
+        Visio="1"
+      />
+    </Product>
+  </Add>
+  <Display Level="None" AcceptEULA="TRUE" />
+  <Logging Level="Standard" Path="%temp%" />
+  <Property Name="PinIconsToTaskbar" Value="FALSE" />
+</Configuration>
