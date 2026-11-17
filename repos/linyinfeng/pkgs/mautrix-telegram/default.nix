@@ -10,16 +10,16 @@
 buildGoModule (finalAttrs: {
   pname = "mautrix-telegram";
   # Upstream calls this release 26.10, but uses semver tags for Go modules.
-  version = "0.2610.0";
+  version = "0.2611.0";
 
   src = fetchFromGitHub {
     owner = "mautrix";
     repo = "telegram";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-2oHtqtpFhNr+v49nMSe33RGDj+MQV2D/+8JX+YYWi+0=";
+    hash = "sha256-z3jfjQyh47scBjHNThLn5DluSSS4fT21NAibWyD5Iqc=";
   };
 
-  vendorHash = "sha256-JbnlJnCtIKC3rpO2mBa7DvEFeWuq9tpvN9H+MoQ5VV0=";
+  vendorHash = "sha256-byvTXR7gy6b/TIVfJ8bwMC/D9vqn6iwjoxBE1gkBNBc=";
 
   subPackages = [ "cmd/mautrix-telegram" ];
   buildInputs = [ olm ];
