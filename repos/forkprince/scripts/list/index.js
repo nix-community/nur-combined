@@ -1,6 +1,6 @@
 const path = require("path");
 
-const ROOT = path.resolve(__dirname, "..");
+const ROOT = path.resolve(__dirname, "..", "..");
 const README = path.join(ROOT, "README.md");
 const START = "<!-- PACKAGES:START -->";
 const END = "<!-- PACKAGES:END -->";

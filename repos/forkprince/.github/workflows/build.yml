@@ -18,6 +18,11 @@ on:
           - both
           - nix-update
           - bun
+        allow_infected:
+          description: "Comma-separated packages to allow through the scan (see .scan-allowlist)"
+          required: false
+          default: ""
+          type: string
 
 permissions:
   contents: read
@@ -67,7 +72,7 @@ jobs:
           failed_apps=""
           while IFS= read -r version_file; do
             app_name=$(basename "$(dirname "$version_file")")
-            if ! bun ./scripts/index.js "$version_file"; then
+            if ! bun ./scripts/updater/index.js "$version_file"; then
               echo "::warning::Failed to update $app_name ($version_file)"
               failed_apps="${failed_apps}${app_name}\n"
             fi
@@ -90,7 +95,7 @@ jobs:
             app_name=$(basename "$(dirname "$version_file")")
             # Only retry apps that failed in the first pass
             if printf '%b' "${{ steps.update.outputs.failed_apps }}" | grep -qx "$app_name"; then
-              if ! bun ./scripts/index.js "$version_file"; then
+              if ! bun ./scripts/updater/index.js "$version_file"; then
                 echo "::warning::Retry also failed for $app_name ($version_file)"
                 still_failed_apps="${still_failed_apps}${app_name}\n"
               fi
@@ -154,11 +159,49 @@ jobs:
             -d "$payload" \
             "$DISCORD"
 
+      - name: Scan package assets (ClamAV)
+        id: scan
+        env:
+          ALLOW_INFECTED: ${{ inputs.allow_infected }}
+          NIX_PATH: nixpkgs=flake:nixpkgs
+        run: |
+          command -v clamscan >/dev/null || (sudo apt-get update && sudo apt-get install -y clamav)
+          sudo freshclam || echo "::warning::freshclam failed; using existing database"
+          bun scripts/scan/index.js
+
+      - name: Block flagged packages
+        if: steps.scan.outputs.blocked != ''
+        run: |
+          while IFS= read -r pkg; do
+            [ -n "$pkg" ] || continue
+            echo "::error::$pkg: malware detected; reverting"
+            git restore "pkgs/$pkg" 2>/dev/null || true
+            git clean -fd "pkgs/$pkg" 2>/dev/null || true
+          done < <(printf '%b' "${{ steps.scan.outputs.blocked }}")
+
+      - name: Notify Malware
+        if: steps.scan.outputs.blocked != ''
+        env:
+          BLOCKED: ${{ steps.scan.outputs.blocked }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          DISCORD: ${{ secrets.DISCORD }}
+        run: |
+          desc=$(printf '**ClamAV blocked:**\n```\n%b\n```' "$BLOCKED")
+          jq -n \
+            --arg title "🦠 Malware Detected" \
+            --arg desc "$desc" \
+            --arg url "$RUN_URL" \
+            '{username: "NUR", content: "@everyone", embeds: [{title: $title, description: $desc, color: 15158332, url: $url}]}' \
+          | curl -s -o /dev/null -w "%{http_code}" \
+              -H "Content-Type: application/json" \
+              -d @- \
+              "$DISCORD"
+
       - name: Update flake
         run: nix flake update
 
       - name: Update README
-        run: bun scripts/readme.js
+        run: bun scripts/list/index.js
 
       - name: Commit and push
         run: |
