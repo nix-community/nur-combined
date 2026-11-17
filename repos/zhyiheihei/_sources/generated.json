@@ -13,12 +13,12 @@
             "name": null,
             "owner": "akitaonrails",
             "repo": "ai-usagebar",
-            "rev": "v1.52.1",
-            "sha256": "sha256-i4WY1yB3cRl/MCInmQyShufWcw4Kzy+A7LUQSwj1qZI=",
+            "rev": "v1.52.2",
+            "sha256": "sha256-pS9bNAq+xKAt7AJLXNF7zVV4g4cMmgT7YMEQHLPbOXA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.52.1"
+        "version": "v1.52.2"
     },
     "aioshutil": {
         "cargoLock": null,
@@ -132,16 +132,16 @@
             "name": null,
             "owner": "vastsa",
             "repo": "FileCodeBox",
-            "rev": "v2.8.5",
-            "sha256": "sha256-iAqHO/dyPEnv9IYlNGqiYgLjCbAP7tmCkt8SaxHoQ8g=",
+            "rev": "v2.9.0",
+            "sha256": "sha256-s+cuKeitqp/Wvy2c4Ac9+x7D57nZiV5+C2yCNEp2Cjo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.8.5"
+        "version": "v2.9.0"
     },
     "filecodebox-frontend": {
         "cargoLock": null,
-        "date": "2026-10-27",
+        "date": "2026-11-16",
         "extract": null,
         "name": "filecodebox-frontend",
         "passthru": null,
@@ -151,13 +151,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "2d6173e0d4fe4d543479143842408abb50bd5f9b",
-            "sha256": "sha256-zNQ5FAPblY/BMuaVIwd8QXW2osga1dzzr8rH+RjPxyg=",
+            "rev": "3a7c57288190db5832d85c8cf43207f888056429",
+            "sha256": "sha256-qrlztFRB1VfdRmb53U2Uw3X5g8sg/LGEjASeuW1YvX8=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/vastsa/FileCodeBoxFronted.git"
         },
-        "version": "2d6173e0d4fe4d543479143842408abb50bd5f9b"
+        "version": "3a7c57288190db5832d85c8cf43207f888056429"
     },
     "hubproxy": {
         "cargoLock": null,
@@ -231,11 +231,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-hgSXBpSgM5EQcl5OhhdErsn9tZFaGm1yjD+DiFvRJ5k=",
+            "sha256": "sha256-w9tA4Qt+pg8ACC30fpiLUwMBda32q4jrgle2lv+rsdc=",
             "type": "url",
-            "url": "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.201/nexttodo-linux-arm64"
+            "url": "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.224/nexttodo-linux-arm64"
         },
-        "version": "0.1.201"
+        "version": "0.1.224"
     },
     "nexttodo-linux-x64": {
         "cargoLock": null,
@@ -246,11 +246,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-CXb56ZNKnTy9weMNW8slpPN6uQKT67yb7I/RhzxYUU0=",
+            "sha256": "sha256-y0lnqHIU8uuzzxAsmzUBHgwREn61uYhD/AcSd2hwFmY=",
             "type": "url",
-            "url": "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.201/nexttodo-linux-x64"
+            "url": "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.224/nexttodo-linux-x64"
         },
-        "version": "0.1.201"
+        "version": "0.1.224"
     },
     "nexus-media": {
         "cargoLock": null,

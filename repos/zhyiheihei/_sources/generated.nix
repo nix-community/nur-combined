@@ -8,12 +8,12 @@
 {
   ai-usagebar = {
     pname = "ai-usagebar";
-    version = "v1.52.1";
+    version = "v1.52.2";
     src = fetchFromGitHub {
       owner = "akitaonrails";
       repo = "ai-usagebar";
-      tag = "v1.52.1";
-      hash = "sha256-i4WY1yB3cRl/MCInmQyShufWcw4Kzy+A7LUQSwj1qZI=";
+      tag = "v1.52.2";
+      hash = "sha256-pS9bNAq+xKAt7AJLXNF7zVV4g4cMmgT7YMEQHLPbOXA=";
     };
   };
   aioshutil = {
@@ -67,24 +67,24 @@
   };
   filecodebox = {
     pname = "filecodebox";
-    version = "v2.8.5";
+    version = "v2.9.0";
     src = fetchFromGitHub {
       owner = "vastsa";
       repo = "FileCodeBox";
-      tag = "v2.8.5";
-      hash = "sha256-iAqHO/dyPEnv9IYlNGqiYgLjCbAP7tmCkt8SaxHoQ8g=";
+      tag = "v2.9.0";
+      hash = "sha256-s+cuKeitqp/Wvy2c4Ac9+x7D57nZiV5+C2yCNEp2Cjo=";
     };
   };
   filecodebox-frontend = {
     pname = "filecodebox-frontend";
-    version = "2d6173e0d4fe4d543479143842408abb50bd5f9b";
+    version = "3a7c57288190db5832d85c8cf43207f888056429";
     src = fetchgit {
       url = "https://github.com/vastsa/FileCodeBoxFronted.git";
-      rev = "2d6173e0d4fe4d543479143842408abb50bd5f9b";
+      rev = "3a7c57288190db5832d85c8cf43207f888056429";
       fetchSubmodules = false;
-      hash = "sha256-zNQ5FAPblY/BMuaVIwd8QXW2osga1dzzr8rH+RjPxyg=";
+      hash = "sha256-qrlztFRB1VfdRmb53U2Uw3X5g8sg/LGEjASeuW1YvX8=";
     };
-    date = "2026-10-27";
+    date = "2026-11-16";
   };
   hubproxy = {
     pname = "hubproxy";
@@ -118,18 +118,18 @@
   };
   nexttodo-linux-arm64 = {
     pname = "nexttodo-linux-arm64";
-    version = "0.1.201";
+    version = "0.1.224";
     src = fetchurl {
-      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.201/nexttodo-linux-arm64";
-      hash = "sha256-hgSXBpSgM5EQcl5OhhdErsn9tZFaGm1yjD+DiFvRJ5k=";
+      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.224/nexttodo-linux-arm64";
+      hash = "sha256-w9tA4Qt+pg8ACC30fpiLUwMBda32q4jrgle2lv+rsdc=";
     };
   };
   nexttodo-linux-x64 = {
     pname = "nexttodo-linux-x64";
-    version = "0.1.201";
+    version = "0.1.224";
     src = fetchurl {
-      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.201/nexttodo-linux-x64";
-      hash = "sha256-CXb56ZNKnTy9weMNW8slpPN6uQKT67yb7I/RhzxYUU0=";
+      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.224/nexttodo-linux-x64";
+      hash = "sha256-y0lnqHIU8uuzzxAsmzUBHgwREn61uYhD/AcSd2hwFmY=";
     };
   };
   nexus-media = {
