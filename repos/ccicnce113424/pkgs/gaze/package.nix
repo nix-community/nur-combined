@@ -28,16 +28,16 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "gaze";
-  version = "0.5.1";
+  version = "0.5.2";
 
   src = fetchFromGitHub {
     owner = "GunduLabs";
     repo = "gaze";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-k/pFxYkrpSIDdxZI6eP6C2P6kVXUmy9cWBYfJxeqtdE=";
+    hash = "sha256-woH11N8p8vcw/WvRWdCMQityc9lprNFk8yJuAw2fcBY=";
   };
 
-  cargoHash = "sha256-rddV5UDtOH4G5vq/CKTA5q80YfnG0ZcfAFAt5Sh5Ijs=";
+  cargoHash = "sha256-V2zXKQ7KatD41MuicIsdjYke3hGJIZlJzp6nzACQSzY=";
 
   strictDeps = true;
   __structuredAttrs = true;
