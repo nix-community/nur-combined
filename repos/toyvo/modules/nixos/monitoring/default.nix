@@ -7,8 +7,11 @@
 }:
 let
   cfg = config.services.monitoring;
-  lokiUrl = "http://${homelab.monitoring.ip}:3100/loki/api/v1/push";
-  prometheusUrl = "http://${homelab.monitoring.ip}:9090/api/v1/write";
+  # k3s cutover (2026-11-16): agents ship to the nas NodePorts.
+  # homelab.monitoring.ip (10.200.0.4, retired container) is kept as the
+  # rollback reference — flip these two lines back to re-point at it.
+  lokiUrl = "http://10.1.0.3:30902/loki/api/v1/push";
+  prometheusUrl = "http://10.1.0.3:30901/api/v1/write";
   hostname = config.networking.hostName;
 
   # Container journal readers — one loki.source.journal block per container

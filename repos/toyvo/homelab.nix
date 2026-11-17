@@ -234,6 +234,14 @@
     services = {
       grafana = {
         port = 3000;
+        # Served from k3s via Traefik (cut over 2026-11-16). Setting
+        # upstreams (any non-null value) excludes this service from edge
+        # route generation — same host can't have two routers (nextcloud
+        # and office both learned this the hard way). Keeps the old
+        # container IP documented for rollback.
+        upstreams = [
+          "10.200.0.4:3000"
+        ];
         displayName = "Grafana";
         description = "Observability Dashboards";
         category = "Monitoring";
