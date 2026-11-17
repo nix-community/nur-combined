@@ -86,6 +86,7 @@ This repository contains three types of packages:
 | [`lightcraft`](pkgs/lightcraft/default.nix) | [lightcraft](https://getartcraft.com/apps/lightcraft), photo editor with color grading and RAW developing |
 | [`linearmouse`](pkgs/linearmouse/default.nix) | [linearmouse](https://linearmouse.org/), customise mouse behavior |
 | [`luxtorpeda-bin`](pkgs/luxtorpeda-bin/default.nix) | [luxtorpeda-bin](https://github.com/luxtorpeda-dev/luxtorpeda), steam Play compatibility tool to run games using native Linux engines (This is intended for use in the `programs.steam.extraCompatPackages` option only.) |
+| [`maclean`](pkgs/maclean/default.nix) | [maclean](https://github.com/Hasan72341/maclean), safe and open-source mac cleaner |
 | [`macpacker`](pkgs/macpacker/default.nix) | [macpacker](https://github.com/sarensw/MacPacker), archive creator and extractor for macOS |
 | [`macsai`](pkgs/macsai/default.nix) | [MacSai](https://github.com/iliyami/MacSai), open-source Mac cleaner, optimizer, and malware scanner |
 | [`macusb`](pkgs/macusb/default.nix) | [macusb](https://macusb.app/), the all-in-one bootable USB creator for Mac |

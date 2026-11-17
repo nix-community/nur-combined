@@ -1,0 +1,15 @@
+{
+  "name": "MacLean",
+  "source": {
+    "type": "github-release",
+    "repo": "Hasan72341/maclean",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "MacLean-{version}.tar.xz",
+    "unpack": false
+  },
+  "version": "0.3.7",
+  "hash": "sha256-2I6NwYnvDb/MqlfWGsJkjbebss54GgSfG74SRtbhrUs="
+}
