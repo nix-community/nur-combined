@@ -60,6 +60,7 @@
     with subtest("the host probe runs in the VM"):
         machine.succeed("droidloom-doctor --format json > /tmp/doctor.json || true")
         machine.succeed("jq -e '.schema_version == 1' /tmp/doctor.json")
+        machine.succeed("jq -e '.ready == true' /tmp/doctor.json")
         machine.succeed("jq -e '.checks[] | select(.id == \"kernel.binderfs\") | .status == \"pass\"' /tmp/doctor.json")
         machine.succeed("jq -e '.checks[] | select(.id == \"kernel.namespaces\") | .status == \"pass\"' /tmp/doctor.json")
         machine.succeed("jq -e '.checks[] | select(.id == \"graphics.render_node\") | .status == \"pass\"' /tmp/doctor.json")

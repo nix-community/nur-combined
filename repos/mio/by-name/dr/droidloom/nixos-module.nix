@@ -40,12 +40,18 @@ in
     boot.kernelParams = [ "psi=1" ];
 
     # Droidloom runs Android in namespaces on the host kernel, so the kernel
-    # must provide Binder, user namespaces and seccomp.
+    # must provide Binder, user namespaces, seccomp, isolated networking and
+    # shareable GPU buffers; these are droidloom-doctor's blocking checks.
     system.requiredKernelConfig = with config.lib.kernelConfig; [
       (isEnabled "ANDROID_BINDER_IPC")
       (isEnabled "ANDROID_BINDERFS")
       (isEnabled "USER_NS")
       (isEnabled "SECCOMP")
+      (isEnabled "SECCOMP_FILTER")
+      (isEnabled "VETH")
+      (isEnabled "NF_TABLES")
+      (isEnabled "DMA_SHARED_BUFFER")
+      (isEnabled "SYNC_FILE")
     ];
 
     systemd.units."droidloomd.service".text =

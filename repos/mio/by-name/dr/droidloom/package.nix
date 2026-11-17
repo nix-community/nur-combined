@@ -78,6 +78,9 @@ let
     dontStrip = true;
     dontPatchELF = true;
     dontAutoPatchelf = true;
+    # Android's init scripts use bionic shebangs; rewriting them would break
+    # the guest userspace.
+    dontPatchShebangs = true;
 
     installPhase = ''
       runHook preInstall
@@ -96,6 +99,7 @@ let
         asl20
       ];
       platforms = [ "x86_64-linux" ];
+      sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     };
   };
 
@@ -182,18 +186,37 @@ let
 
     cargoBuildFlags = map (crate: "-p ${crate}") hostCrates;
 
-    # The upstream packaging layout assumes a distro filesystem (/usr/bin,
+    # The host programs assume a distro filesystem (/usr/bin,
     # /usr/lib/droidloom, /usr/share/droidloom). Point those literals into this
     # store path. /etc/droidloom and /var/lib/droidloom stay absolute: they are
     # administrator-owned state written by `droidloomctl start`.
+    # --replace-fail makes upstream drift fail the build instead of silently
+    # shipping binaries that still reference /usr.
     postPatch = ''
-      while IFS= read -r -d "" file; do
-        sed -i \
-          -e "s|\"/usr/lib/droidloom|\"$out/lib/droidloom|g" \
-          -e "s|\"/usr/share/droidloom|\"$out/share/droidloom|g" \
-          -e "s|\"/usr/bin/|\"$out/libexec/usrbin/|g" \
-          "$file"
-      done < <(find runtime graphics -name '*.rs' -print0)
+      substituteInPlace \
+        runtime/droidloom-contracts/src/gapps.rs \
+        runtime/droidloom-package-support/src/main.rs \
+        runtime/droidloom-supervisor/src/bin/droidloomctl.rs \
+        runtime/droidloom-supervisor/src/lib.rs \
+        runtime/droidloom-supervisor/src/linux_plan.rs \
+        runtime/droidloom-supervisor/src/storage_backup.rs \
+        --replace-fail '"/usr/lib/droidloom' "\"$out/lib/droidloom"
+
+      substituteInPlace \
+        runtime/droidloom-package-support/src/main.rs \
+        runtime/droidloom-supervisor/src/bin/droidloomctl.rs \
+        --replace-fail '"/usr/share/droidloom' "\"$out/share/droidloom"
+
+      substituteInPlace \
+        runtime/droidloom-package-support/src/main.rs \
+        runtime/droidloom-supervisor/src/adb.rs \
+        runtime/droidloom-supervisor/src/apk.rs \
+        runtime/droidloom-supervisor/src/bin/droidloomctl.rs \
+        runtime/droidloom-supervisor/src/control.rs \
+        runtime/droidloom-supervisor/src/diagnostics.rs \
+        runtime/droidloom-supervisor/src/games_driver.rs \
+        runtime/droidloom-supervisor/src/ui_mode.rs \
+        --replace-fail '"/usr/bin/' "\"$out/libexec/usrbin/"
     '';
 
     # rustPlatform's install hook expects a root package; the workspace is a
