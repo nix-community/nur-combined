@@ -28,34 +28,34 @@
   };
   claude-code-bin-amd64-darwin = {
     pname = "claude-code-bin-amd64-darwin";
-    version = "2.1.325";
+    version = "2.1.326";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.325/darwin-x64/claude";
-      sha256 = "sha256-r5dgxZ+UcETioNUHI0PeVj8x77aL0YzO5PQ8UkBXDec=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.326/darwin-x64/claude";
+      sha256 = "sha256-vY4mKQ+TNTWQuDFgCnztAtYlAY+6oqgtiBc2jT4tL4I=";
     };
   };
   claude-code-bin-amd64-linux = {
     pname = "claude-code-bin-amd64-linux";
-    version = "2.1.325";
+    version = "2.1.326";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.325/linux-x64/claude";
-      sha256 = "sha256-DcT0qaFl/GB0bXroSJcS5fw1Lx561Osi5xQb0IEusM8=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.326/linux-x64/claude";
+      sha256 = "sha256-trNkfZgRMNxE/GcIRq6Xts3lMf+2Z8+cTRfPyvs4yzc=";
     };
   };
   claude-code-bin-arm64-darwin = {
     pname = "claude-code-bin-arm64-darwin";
-    version = "2.1.325";
+    version = "2.1.326";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.325/darwin-arm64/claude";
-      sha256 = "sha256-hFkP7+Yzi+kIf1gUth+aVMXyFSQWOkwSfLWoCOMQCfI=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.326/darwin-arm64/claude";
+      sha256 = "sha256-4hStdtzA6EawO+KO0cJzSqzU4nrLUny3+KnivtZE6Dc=";
     };
   };
   claude-code-bin-arm64-linux = {
     pname = "claude-code-bin-arm64-linux";
-    version = "2.1.325";
+    version = "2.1.326";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.325/linux-arm64/claude";
-      sha256 = "sha256-e25ISxmJpaFKSzVHCczIZyUYo+xbnM15gfxiVDJ/3mc=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.326/linux-arm64/claude";
+      sha256 = "sha256-mNVvb/5TRpdnp0hko46vNZ1i71V6jeGxrVJNYaZuwRk=";
     };
   };
   codex = {
@@ -261,34 +261,34 @@
   };
   oh-my-pi-bin-amd64-darwin = {
     pname = "oh-my-pi-bin-amd64-darwin";
-    version = "v18.20.3";
+    version = "v18.22.0";
     src = fetchurl {
-      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.20.3/omp-darwin-x64";
-      sha256 = "sha256-OI/A3HYJZJx8qnUzN46lZz7YWD5QH6uvsBeSWPYJ5sM=";
+      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.22.0/omp-darwin-x64";
+      sha256 = "sha256-oZMxlv5UusPVGMz35cwRhJ3SB7cQzaQxxGWhLRc/8DU=";
     };
   };
   oh-my-pi-bin-amd64-linux = {
     pname = "oh-my-pi-bin-amd64-linux";
-    version = "v18.20.3";
+    version = "v18.22.0";
     src = fetchurl {
-      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.20.3/omp-linux-x64";
-      sha256 = "sha256-807JsPDDaPGTdwHi/hEbPCmnz1MxSmQkSLPGzykl2Fo=";
+      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.22.0/omp-linux-x64";
+      sha256 = "sha256-9waye6hFg02Pg2BwWi6boVNPNZP6JEEdQTWCct4zZCs=";
     };
   };
   oh-my-pi-bin-arm64-darwin = {
     pname = "oh-my-pi-bin-arm64-darwin";
-    version = "v18.20.3";
+    version = "v18.22.0";
     src = fetchurl {
-      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.20.3/omp-darwin-arm64";
-      sha256 = "sha256-l5iE79uE1IqwQBJ502aeccADki4+C1Bom4kBpLNW6Fo=";
+      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.22.0/omp-darwin-arm64";
+      sha256 = "sha256-0YURPWProjkl5dcKtmGkJLgnwGyY+Odmw79K1i3a/5o=";
     };
   };
   oh-my-pi-bin-arm64-linux = {
     pname = "oh-my-pi-bin-arm64-linux";
-    version = "v18.20.3";
+    version = "v18.22.0";
     src = fetchurl {
-      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.20.3/omp-linux-arm64";
-      sha256 = "sha256-6qjE0yS4pUg1sxlLpssX+Ek5PdgUJ0Xzol9w6YKmiqg=";
+      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.22.0/omp-linux-arm64";
+      sha256 = "sha256-cjjdIT1cYbyb9Rc11VK8cZAf3UQyn4YrCpcRRrHNrD4=";
     };
   };
   pi-agent = {
