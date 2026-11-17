@@ -273,10 +273,6 @@ rec {
             packageId = "tree-sitter-rust";
           }
           {
-            name = "tree-sitter-swift";
-            packageId = "tree-sitter-swift";
-          }
-          {
             name = "tree-sitter-typescript";
             packageId = "tree-sitter-typescript";
           }
@@ -1933,28 +1929,6 @@ rec {
           "Max Brunsfeld <maxbrunsfeld@gmail.com>"
           "Amaan Qureshi <amaanq12@gmail.com>"
         ];
-        dependencies = [
-          {
-            name = "tree-sitter-language";
-            packageId = "tree-sitter-language";
-          }
-        ];
-        buildDependencies = [
-          {
-            name = "cc";
-            packageId = "cc";
-          }
-        ];
-
-      };
-      "tree-sitter-swift" = rec {
-        crateName = "tree-sitter-swift";
-        version = "0.7.3";
-        edition = "2018";
-        sha256 = "13368a984cbkvnqls6mc4mqqcbgvrjsg3f5khb56kpdralhhadpy";
-        build = "bindings/rust/build.rs";
-        libName = "tree_sitter_swift";
-        libPath = "bindings/rust/lib.rs";
         dependencies = [
           {
             name = "tree-sitter-language";
