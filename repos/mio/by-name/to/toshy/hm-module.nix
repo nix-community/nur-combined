@@ -11,12 +11,13 @@
 #   - terminal commands in ~/.local/bin
 #   - desktop entries + icons
 #   - systemd user services + login autostart
-#   - KWin notify script files (optional enable via kwriteconfig if present)
+#   - KWin notify script files (optional enable via kwriteconfig)
 #
 # Mutable on purpose (not store-linked):
 #   ~/.config/toshy/toshy_config.py
 #   ~/.config/toshy/toshy_user_preferences.sqlite
 # The default config is seeded only if the file is missing.
+# When keyboardType is set, that one preference is managed on activation.
 #
 # Not automated (DE-specific / interactive):
 #   apply-tweaks (GNOME overlay-key, Plasma modifiers, Cinnamon, fancy-pants)
@@ -72,6 +73,7 @@ let
     toshy-env = "toshy-env.sh";
     toshy-venv = "toshy-venv.sh";
     toshy-fnmode = "toshy-fnmode.sh";
+    toshy-touchbar = "toshy-touchbar.sh";
     toshy-devices = "toshy-devices.sh";
     toshy-keycheck = "toshy-keycheck.sh";
     toshy-libinput = "toshy-libinput.sh";
@@ -135,6 +137,24 @@ in
 
     barebonesConfig = lib.mkEnableOption "seeding a mostly empty Toshy config instead of the full default";
 
+    keyboardType = lib.mkOption {
+      type = lib.types.nullOr (
+        lib.types.enum [
+          "Auto-Adapt"
+          "Apple"
+          "Windows"
+          "Chromebook"
+          "IBM"
+        ]
+      );
+      default = null;
+      description = ''
+        Manage Toshy's keyboard type override on activation. Apple keeps
+        Command on physical Meta; Windows puts Command on physical Alt.
+        Null leaves this preference under control of the Toshy GUI.
+      '';
+    };
+
     autostartTray = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -152,8 +172,9 @@ in
       default = true;
       description = ''
         Install the Toshy KWin notify-active-window script under
-        ~/.local/share/kwin/scripts and enable it with kwriteconfig if that
-        tool is on PATH (no-op on non-Plasma systems).
+        ~/.local/share/kwin/scripts and enable it with kwriteconfig, using
+        the packaged KDE 6 tool when no version is on PATH. Disable this
+        option on non-Plasma systems to avoid writing an unused kwinrc.
       '';
     };
   };
@@ -214,12 +235,20 @@ in
       {
         "autostart/Toshy_Import_Vars.desktop".text = mkDesktop {
           name = "Toshy Import Vars";
-          exec = "/bin/sh -c 'exec env sleep 3 && systemctl --user import-environment KDE_SESSION_VERSION XDG_SESSION_TYPE XDG_SESSION_DESKTOP XDG_CURRENT_DESKTOP DESKTOP_SESSION DISPLAY WAYLAND_DISPLAY'";
+          exec = "${pkgs.writeShellScript "toshy-import-vars" ''
+            ${pkgs.coreutils}/bin/sleep 3
+            ${pkgs.systemd}/bin/systemctl --user import-environment KDE_SESSION_VERSION XDG_SESSION_TYPE XDG_SESSION_DESKTOP XDG_CURRENT_DESKTOP DESKTOP_SESSION DISPLAY WAYLAND_DISPLAY
+          ''}";
           comment = "Environment importer for Toshy services";
         };
         "autostart/Toshy_Systemd_Service_Kickstart.desktop".text = mkDesktop {
           name = "Toshy Systemd Services Kickstart";
-          exec = "/bin/sh -c 'sleep 5 && (ps -p 1 -o comm= | grep -q systemd) && systemctl --user is-enabled toshy-session-monitor.service &> /dev/null && (systemctl --user is-active toshy-session-monitor.service &> /dev/null || toshy-services-restart)'";
+          exec = "${pkgs.writeShellScript "toshy-service-kickstart" ''
+            ${pkgs.coreutils}/bin/sleep 5
+            if ${pkgs.systemd}/bin/systemctl --user is-enabled --quiet toshy-session-monitor.service; then
+              ${pkgs.systemd}/bin/systemctl --user is-active --quiet toshy-session-monitor.service || "${homeDir}/.local/bin/toshy-services-restart"
+            fi
+          ''}";
           comment = "Login kickstarter for Toshy Systemd Services";
         };
       }
@@ -319,12 +348,30 @@ in
       fi
     '';
 
+    home.activation.toshyKeyboardType = lib.mkIf (cfg.keyboardType != null) (
+      lib.hm.dag.entryAfter [ "toshySeedConfig" ] ''
+        $DRY_RUN_CMD ${cfg.package}/bin/python - <<'PY'
+        import sys
+        sys.path.insert(0, ${builtins.toJSON "${userFiles}"})
+        from toshy_common.settings_class import Settings
+        settings = Settings(${builtins.toJSON "${homeDir}/.config/toshy"})
+        keyboard_type = ${builtins.toJSON cfg.keyboardType}
+        if settings.override_kbtype != keyboard_type:
+            settings.override_kbtype = keyboard_type
+            settings.save_settings()
+        PY
+      ''
+    );
+
     home.activation.toshyEnableKwinScript = lib.mkIf cfg.installKwinScript (
       lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         if command -v kwriteconfig6 >/dev/null 2>&1; then
           $DRY_RUN_CMD kwriteconfig6 --file kwinrc --group Plugins --key toshy-dbus-notifyactivewindowEnabled true
         elif command -v kwriteconfig5 >/dev/null 2>&1; then
           $DRY_RUN_CMD kwriteconfig5 --file kwinrc --group Plugins --key toshy-dbus-notifyactivewindowEnabled true
+        else
+          # Activation has a minimal PATH, even when Plasma is installed.
+          $DRY_RUN_CMD ${pkgs.kdePackages.kconfig}/bin/kwriteconfig6 --file kwinrc --group Plugins --key toshy-dbus-notifyactivewindowEnabled true
         fi
       ''
     );

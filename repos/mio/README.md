@@ -35,6 +35,9 @@ services.toshy = { enable = true; users = [ "yourname" ]; };
 imports = [ inputs.mio.homeModules.toshy ];
 # or inputs.mio.legacyPackages.${system}.homeModules.toshy
 services.toshy.enable = true;
+# Optional: keep Command on physical Meta (also on PC keyboards).
+services.toshy.keyboardType = "Apple";
+# On desktops that do not use KWin: services.toshy.installKwinScript = false;
 ```
 
 Use without nur: add to flake.nix inputs
