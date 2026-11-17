@@ -33,7 +33,7 @@ stdenv.mkDerivation (
     # coerced to strings.
     depsHashes = {
       x86_64-linux = "sha256-4bTvyioIu6oCZD7NRrgyhGZeCrtBHO5IT92ljiSPDAQ=";
-      aarch64-darwin = "sha256-uAMod+qlqhfHAyjtsULDcZoVdBvEAxv5OJbVGGFR7WY=";
+      aarch64-darwin = "sha256-gVFBvGZcCKKaPk7CCD96IS7filGuZ5P1+clpW97COdM=";
     };
 
     # Commit of the gh-pages branch of clice-io/bazel that `deps` is vendored
@@ -62,7 +62,7 @@ stdenv.mkDerivation (
   in
   {
     pname = "clice";
-    version = "1.0.0";
+    version = "1.1.2026111609";
 
     src = fetchFromGitHub {
       owner = "clice-io";

@@ -21,25 +21,20 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "altus";
-  version = "5.8.2";
+  version = "5.8.3";
 
   src = fetchFromGitHub {
     owner = "amanharwara";
     repo = "altus";
     tag = finalAttrs.version;
-    hash = "sha256-X2vw/NFX0mc1yocfmmh/T6teyP2ZXpkIGAwDdMV89ys=";
+    hash = "sha256-aqIXoHZD6+2bwc3zQKM5pu0OMHVCdHIBB05BrR9Wbu0=";
   };
-
-  patches = [
-    # Remove after upstream updates to Yarn 4.14.
-    ./yarn-4.14-support.patch
-  ];
 
   missingHashes = ./missing-hashes.json;
 
   offlineCache = yarn-berry.fetchYarnBerryDeps {
-    inherit (finalAttrs) src missingHashes patches;
-    hash = "sha256-onnGLYXMx9iLg9Z1Z9EyzhiURq5tIiRTZtINl7dR75g=";
+    inherit (finalAttrs) src missingHashes;
+    hash = "sha256-UpVQyzeEcfCn18j3yz0SvQPR1kwfc2bDZu/unZa02ag=";
   };
 
   nativeBuildInputs = [
@@ -83,18 +78,25 @@ stdenv.mkDerivation (finalAttrs: {
             rm -rf "$dir/get"
             mkdir -p "$dir/get"
             cat <<EOF > "$dir/get/index.js"
-    module.exports = new Proxy({
-      initializeProxy: () => {},
-      downloadArtifact: async () => process.cwd() + "/$zip_name",
-      getHostArch: () => "$arch"
-    }, {
-      get: (target, prop) => {
-        if (prop in target) return target[prop];
-        return () => {};
-      }
-    });
+    // ES module: @electron/packager imports getHostArch as a named export,
+    // which Node's CJS interop cannot see on a module.exports Proxy.
+    const zip = process.cwd() + "/$zip_name";
+    export const initializeProxy = () => {};
+    export const downloadArtifact = async () => zip;
+    export const downloadArtifactSync = () => zip;
+    export const download = async () => zip;
+    export const getHostArch = () => "$arch";
+    export const getCachePath = () => process.cwd();
+    export default {
+      initializeProxy,
+      downloadArtifact,
+      downloadArtifactSync,
+      download,
+      getHostArch,
+      getCachePath
+    };
     EOF
-            echo "{ \"name\": \"@electron/get\", \"version\": \"2.0.0\", \"main\": \"index.js\" }" > "$dir/get/package.json"
+            echo "{ \"name\": \"@electron/get\", \"version\": \"2.0.0\", \"type\": \"module\", \"main\": \"index.js\", \"exports\": { \".\": \"./index.js\", \"./package.json\": \"./package.json\" } }" > "$dir/get/package.json"
           fi
         done
 

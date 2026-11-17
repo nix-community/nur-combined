@@ -4,19 +4,18 @@
   fetchFromGitHub,
   cmake,
   ninja,
-  versionCheckHook,
   nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "edge0";
-  version = "0.2.0";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "Edge0-AI";
     repo = "Edge0";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-6SewVZ3/tq4XLOGUx54u4RjNbjw7/D9SUFd23bTSCFg=";
+    hash = "sha256-4yoIXRTedL8JaV12sqY7jfiLb02QP3nUxL67djnp0lw=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/edge0-infer";
@@ -55,10 +54,15 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  # versionCheckHook cannot be used: the 0.3.0 tag still reports
+  # `engine.version: 0.2.0` and the CLI has no --version flag. Only check that
+  # the binary runs.
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
-  versionCheckProgram = "${placeholder "out"}/bin/edge0-infer";
-  versionCheckProgramArg = "info";
+  installCheckPhase = ''
+    runHook preInstallCheck
+    "$out/bin/edge0-infer" info > /dev/null
+    runHook postInstallCheck
+  '';
 
   passthru.updateScript = nix-update-script { };
 
