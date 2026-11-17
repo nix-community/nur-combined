@@ -55,6 +55,8 @@
           notepad-plus-plus = self.legacyPackages.x86_64-linux.notepad-plus-plus.tests.nixos;
           capcut = self.legacyPackages.x86_64-linux.capcut.tests.nixos;
           capcut_5 = self.legacyPackages.x86_64-linux.capcut_5.tests.nixos;
+          # Droidloom host tools, module wiring, payload and lifecycle daemon.
+          droidloom = self.legacyPackages.x86_64-linux.droidloom.tests.nixos;
         };
       cached-cuda = forAllSystems (
         system:

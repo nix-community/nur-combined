@@ -16,6 +16,7 @@ rec {
         wireguird
         razer-laptop-control
         miodroid
+        droidloom
         local-ai
         toshy
         cutefish
@@ -27,6 +28,7 @@ rec {
   wireguird = ./wireguird.nix;
   razer-laptop-control = ./razer-laptop-control.nix;
   miodroid = ./miodroid.nix;
+  droidloom = ../by-name/dr/droidloom/nixos-module.nix;
   local-ai = ../by-name/lo/local-ai/module.nix;
   toshy = ../by-name/to/toshy/nixos-module.nix;
   cutefish = ./cutefish.nix;
