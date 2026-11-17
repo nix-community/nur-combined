@@ -5,6 +5,8 @@
   fetchPypi,
   fetchFromGitHub,
 
+  rustc,
+
   nix-update-script,
   runCommand,
   testers,
@@ -61,7 +63,12 @@ python3Packages.buildPythonPackage (finalAttrs: {
 
   pythonImportsCheck = [ "pyproject_fmt" ];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
+  # Upstream's latest release requires rustc >= 1.100; pause updates until nixpkgs has it
+  passthru.updateScript =
+    if lib.versionAtLeast rustc.version "1.100" then
+      nix-update-script { extraArgs = [ "--version=stable" ]; }
+    else
+      null;
 
   passthru.tests = {
     version = testers.testVersion {

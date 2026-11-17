@@ -18,7 +18,7 @@ let
       throw "Unsupported platform: ${system}";
 
   shouldUpdatePackage =
-    name: (builtins.hasAttr "updateScript" packages.${name}) && ((preferredSystem name) == system);
+    name: (packages.${name}.updateScript or null) != null && ((preferredSystem name) == system);
 
   attrs = builtins.filter shouldUpdatePackage (builtins.attrNames packages);
 in

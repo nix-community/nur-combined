@@ -36,12 +36,16 @@ buildGo127Module (finalAttrs: {
     "-skip=^(TestDaemonFirstCLIAndTerminalAuthFailure|TestEnrollmentRejectionLeavesDaemonUnenrolled)$"
   ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version-regex=execonnect/v(.*)" ];
-  };
-
-  passthru.tests.version = testers.testVersion {
-    package = finalAttrs.finalPackage;
+  # Upstream's latest release requires go >= 1.27.4; pause updates until nixpkgs has it
+  passthru = {
+    tests.version = testers.testVersion {
+      package = finalAttrs.finalPackage;
+    };
+  }
+  // lib.optionalAttrs (lib.versionAtLeast go_1_27.version "1.27.4") {
+    updateScript = nix-update-script {
+      extraArgs = [ "--version-regex=execonnect/v(.*)" ];
+    };
   };
 
   meta = {
