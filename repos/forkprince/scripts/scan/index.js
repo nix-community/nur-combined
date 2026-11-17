@@ -40,7 +40,7 @@ async function changes() {
 }
 
 function permitted() {
-  const names = (process.env.ALLOW_INFECTED || "").split(",");
+  const names = (process.env.ALLOW || "").split(",");
 
   if (fs.existsSync(".allow")) names.push(...fs.readFileSync(".allow", "utf8").split("\n").map((line) => line.replace(/#.*/, "")));
 

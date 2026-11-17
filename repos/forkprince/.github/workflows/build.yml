@@ -18,7 +18,7 @@ on:
           - both
           - nix-update
           - bun
-        allow_infected:
+        allow:
           description: "Comma-separated packages to allow through the scan (see .allow)"
           required: false
           default: ""
@@ -159,17 +159,17 @@ jobs:
             -d "$payload" \
             "$DISCORD"
 
-      - name: Scan package assets (ClamAV)
+      - name: Scan Packages
         id: scan
         env:
-          ALLOW_INFECTED: ${{ inputs.allow_infected }}
+          ALLOW: ${{ inputs.allow }}
           NIX_PATH: nixpkgs=flake:nixpkgs
         run: |
           command -v clamscan >/dev/null || (sudo apt-get update && sudo apt-get install -y clamav)
           sudo freshclam || echo "::warning::freshclam failed; using existing database"
           bun scripts/scan/index.js
 
-      - name: Block flagged packages
+      - name: Block Packages
         if: steps.scan.outputs.blocked != ''
         run: |
           while IFS= read -r pkg; do
