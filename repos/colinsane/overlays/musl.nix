@@ -41,64 +41,97 @@ let
   inherit (final)
     applyPatches
     emptyDirectory
-    fetchFromGitHub
     fetchpatch
-    fetchPypi
     fetchurl
     lib
     overlays
     pkgs
     runCommand
-    rustPlatform
     stdenv
     writeTextFile
-  ;
-  fetchAports = {
-    path,
-    rev ? "a9ee19e3bec8d1ac288a0912f6c860b0000766fd",  # 2026-10-02
-    ...
-  }@args: let
-    args' = lib.removeAttrs args [ "path" "rev" ];
-  in fetchpatch (args' // {
-    # fetchpatch not fetchurl, to support args like `stripLen = 2;`
-    url = "https://gitlab.alpinelinux.org/alpine/aports/-/raw/${rev}/${path}";
-    # key the name by rev to help the url remain valid as i bulk upgrade
-    name = "${rev}-${args'.name or path}";
-  });
-  fetchCports = {
-    path,
-    rev ? "c5ac74a45c801e4fd9748b21918b74067dc6fb24",  # 2026-10-02
-    ...
-  }@args: let
-    args' = lib.removeAttrs args [ "path" "rev" ];
-  in fetchpatch (args' // {
-    # fetchpatch not fetchurl, to support args like `stripLen = 2;`
-    url = "https://raw.githubusercontent.com/chimera-linux/cports/${rev}/${path}";
-    # key the name by rev to help the url remain valid as i bulk upgrade
-    name = "${rev}-${args'.name or path}";
-  });
-  fetchGentoo = {
-    path,
-    rev ? "26d062d8904f625767c6d28b5eb47c1e37576512",  # 2026-11-11
-    ...
-  }@args: let
-    args' = lib.removeAttrs args [ "path" "rev" ];
-  in fetchpatch (args' // {
-    url = "https://raw.githubusercontent.com/gentoo/gentoo/${rev}/${path}";
-    name = "${rev}-${args'.name or path}";
-  });
-  fetchVoid = {
-    path,
-    rev ? "47899a40ffcbafb794b65748c1b398e5ead54752",  # 2026-10-02
-    ...
-  }@args: let
-    args' = lib.removeAttrs args [ "path" "rev" ];
-  in fetchpatch (args' // {
-    # fetchpatch not fetchurl, to support args like `stripLen = 2;`
-    url = "https://raw.githubusercontent.com/void-linux/void-packages/${rev}/${path}";
-    # key the name by rev to help the url remain valid as i bulk upgrade
-    name = "${rev}-${args'.name or path}";
-  });
+    ;
+  fetchAports =
+    {
+      path,
+      rev ? "a9ee19e3bec8d1ac288a0912f6c860b0000766fd", # 2026-10-02
+      ...
+    }@args:
+    let
+      args' = lib.removeAttrs args [
+        "path"
+        "rev"
+      ];
+    in
+    fetchpatch (
+      args'
+      // {
+        # fetchpatch not fetchurl, to support args like `stripLen = 2;`
+        url = "https://gitlab.alpinelinux.org/alpine/aports/-/raw/${rev}/${path}";
+        # key the name by rev to help the url remain valid as i bulk upgrade
+        name = "${rev}-${args'.name or path}";
+      }
+    );
+  fetchCports =
+    {
+      path,
+      rev ? "c5ac74a45c801e4fd9748b21918b74067dc6fb24", # 2026-10-02
+      ...
+    }@args:
+    let
+      args' = lib.removeAttrs args [
+        "path"
+        "rev"
+      ];
+    in
+    fetchpatch (
+      args'
+      // {
+        # fetchpatch not fetchurl, to support args like `stripLen = 2;`
+        url = "https://raw.githubusercontent.com/chimera-linux/cports/${rev}/${path}";
+        # key the name by rev to help the url remain valid as i bulk upgrade
+        name = "${rev}-${args'.name or path}";
+      }
+    );
+  fetchGentoo =
+    {
+      path,
+      rev ? "26d062d8904f625767c6d28b5eb47c1e37576512", # 2026-11-11
+      ...
+    }@args:
+    let
+      args' = lib.removeAttrs args [
+        "path"
+        "rev"
+      ];
+    in
+    fetchpatch (
+      args'
+      // {
+        url = "https://raw.githubusercontent.com/gentoo/gentoo/${rev}/${path}";
+        name = "${rev}-${args'.name or path}";
+      }
+    );
+  fetchVoid =
+    {
+      path,
+      rev ? "47899a40ffcbafb794b65748c1b398e5ead54752", # 2026-10-02
+      ...
+    }@args:
+    let
+      args' = lib.removeAttrs args [
+        "path"
+        "rev"
+      ];
+    in
+    fetchpatch (
+      args'
+      // {
+        # fetchpatch not fetchurl, to support args like `stripLen = 2;`
+        url = "https://raw.githubusercontent.com/void-linux/void-packages/${rev}/${path}";
+        # key the name by rev to help the url remain valid as i bulk upgrade
+        name = "${rev}-${args'.name or path}";
+      }
+    );
 in
 super.lib.composeManyExtensions [
   (_: prev: {
@@ -111,18 +144,17 @@ super.lib.composeManyExtensions [
     # 2026-11-14: still required
     pkgsStatic = import pkgs.path {
       overlays = [
-        (self': super': {
+        (_self': super': {
           pkgsStatic = super';
         })
-      ] ++ overlays;
+      ]
+      ++ overlays;
       localSystem = {
         config = lib.systems.parse.tripleFromSystem (stdenv.buildPlatform.parsed // { abi.name = "gnu"; });
       };
       crossSystem = {
         isStatic = true;
-        config = lib.systems.parse.tripleFromSystem (
-          stdenv.hostPlatform.parsed
-        );
+        config = lib.systems.parse.tripleFromSystem stdenv.hostPlatform.parsed;
         gcc = stdenv.hostPlatform.gcc or { };
       };
     };
@@ -134,10 +166,11 @@ super.lib.composeManyExtensions [
     # this could maybe be upstreamed.
     _pkgsGnu = import pkgs.path {
       overlays = [
-        (self': super': {
+        (_self': super': {
           _pkgsGnu = super';
         })
-      ] ++ overlays;
+      ]
+      ++ overlays;
       localSystem = {
         config = lib.systems.parse.tripleFromSystem (stdenv.buildPlatform.parsed // { abi.name = "gnu"; });
       };
@@ -176,11 +209,11 @@ super.lib.composeManyExtensions [
     #
     # related/alternatives:
     # - <https://github.com/NixOS/nixpkgs/pull/475746>
-    _pkgsSystemd = prev._pkgsSystemd or pkgs.extend
-      (final': prev': {
-        _pkgsSystemd = prev;  # prevents infinite recursion; avoid re-defining _pkgsSystemd if we're already inside it.
+    _pkgsSystemd = prev._pkgsSystemd or pkgs.extend (
+      _final': prev': {
+        _pkgsSystemd = prev; # prevents infinite recursion; avoid re-defining _pkgsSystemd if we're already inside it.
         musl = prev'.musl.overrideAttrs (upstream: {
-          patches = (upstream.patches or []) ++ [
+          patches = (upstream.patches or [ ]) ++ [
             (prev.fetchpatch {
               # <https://inbox.vuxu.org/musl/20251017-dlopen-use-rpath-of-caller-dso-v1-1-46c69eda1473@iscas.ac.cn/>
               # 2026-02-02: allegedly, fixes systemd/kmod, particularly:
@@ -194,7 +227,8 @@ super.lib.composeManyExtensions [
             })
           ];
         });
-      });
+      }
+    );
 
     inherit (final._pkgsSystemd) systemd;
     # _pkgsSystemd = prev.extend (final': prev': {
@@ -358,130 +392,142 @@ super.lib.composeManyExtensions [
     discord = final._pkgsGnu.discord;
 
     # 2026-10-25: still required
-    electron-source = lib.mapAttrs (k: v: (
-      if lib.hasPrefix "electron" k then
-        v.override (prevElectron: {
-          electron-unwrapped = (prevElectron.electron-unwrapped.override {
-            chromium = final.chromium.override {
-              # musl has no glibc gconv/locale directories for the audio sandbox to whitelist.
-              newScope = scope: final.newScope (scope // { glibc = emptyDirectory; });
-            };
-          }).overrideAttrs (old: let
-            # electron takes 3 hours to build/link on musl, v.s. 30 minutes on glibc,
-            # because musl's default malloc-ng allocator is single-threaded.
-            # using mimalloc brings build/link back down to 30 minutes.
-            # nixpkgs firefox does a similar thing.
-            # Chimera Linux builds *everything* against mimalloc -- maybe we should too.
-            doForceMimalloc = stdenv.buildPlatform.isMusl && (final.buildPackages.musl.allocatorModel or "malloc-ng") == "malloc-ng";
-            lldWithMimalloc = final.buildPackages.writeShellScriptBin "ld.lld" ''
-              export LD_PRELOAD=${lib.getLib final.buildPackages.mimalloc}/lib/libmimalloc.so''${LD_PRELOAD:+:$LD_PRELOAD}
-              exec ${final.buildPackages.rustc.llvmPackages.bintools}/bin/ld.lld "$@"
-            '';
-            gnFlags = old.gnFlags + lib.optionalString doForceMimalloc
-              " lld_path=\"${lldWithMimalloc}/bin\"";
-          in {
-            inherit gnFlags;
-            # libc++ mutex destruction is nontrivial on musl; OpenScreen's global mutex triggers -Werror.
-            env = (old.env or {}) // {
-              NIX_CFLAGS_COMPILE = (old.env.NIX_CFLAGS_COMPILE or "") + " -Wno-error=exit-time-destructors";
-            };
-            configurePhase = builtins.replaceStrings [ old.gnFlags ] [ gnFlags ] old.configurePhase;
-            passthru = (old.passthru or {}) // lib.optionalAttrs doForceMimalloc {
-              inherit lldWithMimalloc;
-            };
-            # GNU find's -exec batching under musl rejects this build's large environment.
-            nativeBuildInputs = [ final._pkgsGnu.findutils ] ++ old.nativeBuildInputs;
-            postPatch = (old.postPatch or "") + ''
-              # Bundled fontconfig's generated configuration assumes glibc's APIs.
-              substituteInPlace third_party/fontconfig/include/meson-config.h \
-                --replace-fail '#define HAVE_RANDOM_R 1' '/* #undef HAVE_RANDOM_R */' \
-                --replace-fail '#define HAVE_GNU_STRERROR_R 1' '/* #undef HAVE_GNU_STRERROR_R */'
-              # Electron includes a private glibc header; use the portable integer header instead.
-              substituteInPlace electron/shell/browser/ui/file_dialog.h \
-                --replace-fail '#include <bits/stdint-uintn.h>' '#include <stdint.h>'
-              # The glibc-version-dependent environment interposer cannot be used with musl.
-              substituteInPlace electron/BUILD.gn \
-                --replace-fail '"shell/app/environ_linux.cc",' ""
-            '';
-            patches = (old.patches or []) ++ [
-              (fetchCports {
-                # musl uses different threading and memory-management syscalls.
-                path = "main/chromium/patches/016-musl-sandbox.patch";
-                hash = "sha256-tTJOakjsRlAWpwNQcyNu2AC46TI2kcH/sfBvPIqawck=";
-              })
-              (fetchCports {
-                # musl's clone() rejects the sandbox's temporary TLS buffer (EINVAL).
-                path = "main/chromium/patches/022-no-sandbox-settls.patch";
-                hash = "sha256-i688sRm5yAR2neMkPfRS7f4QCvmUO+JoQ58+RlN7jDo=";
-              })
-              (fetchCports {
-                path = "main/chromium/patches/028-yes-musl.patch";
-                rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
-                hash = "sha256-k6xCVnrZBG6PfDOF8w/LWExLOAMJ60SrxhjgQPpY944=";
-              })
-              (fetchCports {
-                path = "main/chromium/patches/rust-tgt.patch";
-                rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
-                decode = "sed 's/-chimera-linux-musl/-unknown-linux-musl/g'";
-                hash = "sha256-pWfa1FIc7XVICkHQ3IXd5zIieIZlgLrxhwkjoZ50eIs=";
-              })
-              (fetchCports {
-                path = "main/chromium/patches/004-compiler.patch";
-                rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
-                includes = [ "build/config/compiler_cpu_abi.gn" ];
-                decode = "sed 's/-chimera-linux-musl/-unknown-linux-musl/g'";
-                hash = "sha256-LGSAruwlfdgbjD6XAeSMAPBz+DGpYVYoAOFgd361eX4=";
-              })
-              (fetchCports {
-                path = "main/chromium/patches/020-musl-no-mallinfo.patch";
-                rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
-                hash = "sha256-ONax55fJt08SvRYqKg68Nw8G/i/lfJp49grAw6PU+7U=";
-              })
-              (fetchCports {
-                path = "main/chromium/patches/cr143-libsync-__BEGIN_DECLS.patch";
-                rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
-                hash = "sha256-JUqk7j2+w5y9BWdCPf7JeEDtQYsRd240XfH2TFzEKrk=";
-              })
-              (fetchAports {
-                path = "community/chromium/no-execinfo.patch";
-                hash = "sha256-oHVQJelfp0Q2MiCY7GZjXiDjo4NbDM2J78+xPJa1/sw=";
-              })
-              (fetchAports {
-                path = "community/chromium/no-res-ninit-nclose.patch";
-                hash = "sha256-l1Rny5m3fR6NwyQ5JTR+BVo7VmiECjN6KhscJ8dP9iI=";
-              })
-              (fetchAports {
-                path = "community/chromium/disable-dns_config_service.patch";
-                hash = "sha256-5H2EvJnj4FDd6hdHJvwoqZodFLrvjt8RIOIMJrdNo1M=";
-              })
-              (fetchCports {
-                path = "main/chromium/patches/cr140-musl-prctl.patch";
-                rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
-                hash = "sha256-gJXne6eZntzbT1Nr5grecZZYCgE0BXtW3pOBFhn7W7I=";
-              })
-              (fetchCports {
-                path = "main/chromium/patches/cr145-iwyu-dev_t.patch";
-                rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
-                hash = "sha256-cHbQrnDuEvzvw/ecx/EvDs+rnYQpIkKMT4/O50s162w=";
-              })
-            ];
-          });
-        })
-      else
-        v
-    )) prev.electron-source;
+    electron-source = lib.mapAttrs (
+      k: v:
+      (
+        if lib.hasPrefix "electron" k then
+          v.override (prevElectron: {
+            electron-unwrapped =
+              (prevElectron.electron-unwrapped.override {
+                chromium = final.chromium.override {
+                  # musl has no glibc gconv/locale directories for the audio sandbox to whitelist.
+                  newScope = scope: final.newScope (scope // { glibc = emptyDirectory; });
+                };
+              }).overrideAttrs
+                (
+                  old:
+                  let
+                    # electron takes 3 hours to build/link on musl, v.s. 30 minutes on glibc,
+                    # because musl's default malloc-ng allocator is single-threaded.
+                    # using mimalloc brings build/link back down to 30 minutes.
+                    # nixpkgs firefox does a similar thing.
+                    # Chimera Linux builds *everything* against mimalloc -- maybe we should too.
+                    doForceMimalloc =
+                      stdenv.buildPlatform.isMusl
+                      && (final.buildPackages.musl.allocatorModel or "malloc-ng") == "malloc-ng";
+                    lldWithMimalloc = final.buildPackages.writeShellScriptBin "ld.lld" ''
+                      export LD_PRELOAD=${lib.getLib final.buildPackages.mimalloc}/lib/libmimalloc.so''${LD_PRELOAD:+:$LD_PRELOAD}
+                      exec ${final.buildPackages.rustc.llvmPackages.bintools}/bin/ld.lld "$@"
+                    '';
+                    gnFlags = old.gnFlags + lib.optionalString doForceMimalloc " lld_path=\"${lldWithMimalloc}/bin\"";
+                  in
+                  {
+                    inherit gnFlags;
+                    # libc++ mutex destruction is nontrivial on musl; OpenScreen's global mutex triggers -Werror.
+                    env = (old.env or { }) // {
+                      NIX_CFLAGS_COMPILE = (old.env.NIX_CFLAGS_COMPILE or "") + " -Wno-error=exit-time-destructors";
+                    };
+                    configurePhase = builtins.replaceStrings [ old.gnFlags ] [ gnFlags ] old.configurePhase;
+                    passthru =
+                      (old.passthru or { })
+                      // lib.optionalAttrs doForceMimalloc {
+                        inherit lldWithMimalloc;
+                      };
+                    # GNU find's -exec batching under musl rejects this build's large environment.
+                    nativeBuildInputs = [ final._pkgsGnu.findutils ] ++ old.nativeBuildInputs;
+                    postPatch = (old.postPatch or "") + ''
+                      # Bundled fontconfig's generated configuration assumes glibc's APIs.
+                      substituteInPlace third_party/fontconfig/include/meson-config.h \
+                        --replace-fail '#define HAVE_RANDOM_R 1' '/* #undef HAVE_RANDOM_R */' \
+                        --replace-fail '#define HAVE_GNU_STRERROR_R 1' '/* #undef HAVE_GNU_STRERROR_R */'
+                      # Electron includes a private glibc header; use the portable integer header instead.
+                      substituteInPlace electron/shell/browser/ui/file_dialog.h \
+                        --replace-fail '#include <bits/stdint-uintn.h>' '#include <stdint.h>'
+                      # The glibc-version-dependent environment interposer cannot be used with musl.
+                      substituteInPlace electron/BUILD.gn \
+                        --replace-fail '"shell/app/environ_linux.cc",' ""
+                    '';
+                    patches = (old.patches or [ ]) ++ [
+                      (fetchCports {
+                        # musl uses different threading and memory-management syscalls.
+                        path = "main/chromium/patches/016-musl-sandbox.patch";
+                        hash = "sha256-tTJOakjsRlAWpwNQcyNu2AC46TI2kcH/sfBvPIqawck=";
+                      })
+                      (fetchCports {
+                        # musl's clone() rejects the sandbox's temporary TLS buffer (EINVAL).
+                        path = "main/chromium/patches/022-no-sandbox-settls.patch";
+                        hash = "sha256-i688sRm5yAR2neMkPfRS7f4QCvmUO+JoQ58+RlN7jDo=";
+                      })
+                      (fetchCports {
+                        path = "main/chromium/patches/028-yes-musl.patch";
+                        rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
+                        hash = "sha256-k6xCVnrZBG6PfDOF8w/LWExLOAMJ60SrxhjgQPpY944=";
+                      })
+                      (fetchCports {
+                        path = "main/chromium/patches/rust-tgt.patch";
+                        rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
+                        decode = "sed 's/-chimera-linux-musl/-unknown-linux-musl/g'";
+                        hash = "sha256-pWfa1FIc7XVICkHQ3IXd5zIieIZlgLrxhwkjoZ50eIs=";
+                      })
+                      (fetchCports {
+                        path = "main/chromium/patches/004-compiler.patch";
+                        rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
+                        includes = [ "build/config/compiler_cpu_abi.gn" ];
+                        decode = "sed 's/-chimera-linux-musl/-unknown-linux-musl/g'";
+                        hash = "sha256-LGSAruwlfdgbjD6XAeSMAPBz+DGpYVYoAOFgd361eX4=";
+                      })
+                      (fetchCports {
+                        path = "main/chromium/patches/020-musl-no-mallinfo.patch";
+                        rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
+                        hash = "sha256-ONax55fJt08SvRYqKg68Nw8G/i/lfJp49grAw6PU+7U=";
+                      })
+                      (fetchCports {
+                        path = "main/chromium/patches/cr143-libsync-__BEGIN_DECLS.patch";
+                        rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
+                        hash = "sha256-JUqk7j2+w5y9BWdCPf7JeEDtQYsRd240XfH2TFzEKrk=";
+                      })
+                      (fetchAports {
+                        path = "community/chromium/no-execinfo.patch";
+                        hash = "sha256-oHVQJelfp0Q2MiCY7GZjXiDjo4NbDM2J78+xPJa1/sw=";
+                      })
+                      (fetchAports {
+                        path = "community/chromium/no-res-ninit-nclose.patch";
+                        hash = "sha256-l1Rny5m3fR6NwyQ5JTR+BVo7VmiECjN6KhscJ8dP9iI=";
+                      })
+                      (fetchAports {
+                        path = "community/chromium/disable-dns_config_service.patch";
+                        hash = "sha256-5H2EvJnj4FDd6hdHJvwoqZodFLrvjt8RIOIMJrdNo1M=";
+                      })
+                      (fetchCports {
+                        path = "main/chromium/patches/cr140-musl-prctl.patch";
+                        rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
+                        hash = "sha256-gJXne6eZntzbT1Nr5grecZZYCgE0BXtW3pOBFhn7W7I=";
+                      })
+                      (fetchCports {
+                        path = "main/chromium/patches/cr145-iwyu-dev_t.patch";
+                        rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
+                        hash = "sha256-cHbQrnDuEvzvw/ecx/EvDs+rnYQpIkKMT4/O50s162w=";
+                      })
+                    ];
+                  }
+                );
+          })
+        else
+          v
+      )
+    ) prev.electron-source;
 
     # 2026-11-14: still required
     # without this, the IMAP test fails to compile due to non-POSIX strcasestr.
-    evolution-data-server = prev.evolution-data-server.overrideAttrs (prevAttrs: {
-      patches = (prevAttrs.patches or []) ++ [
-        (fetchpatch {
-          # Replace non-POSIX strcasestr with camel_strstrcase in the IMAP test.
-          url = "https://gitlab.gnome.org/GNOME/evolution-data-server/-/merge_requests/251.patch";
-          hash = "sha256-NY0eMTRvTmtNBk73/KHhk8U+C2VdAn8JQ576O7rcP5M=";
-        })
-      ];
-    });
+    # evolution-data-server = prev.evolution-data-server.overrideAttrs (prevAttrs: {
+    #   patches = (prevAttrs.patches or []) ++ [
+    #     (fetchpatch {
+    #       # Replace non-POSIX strcasestr with camel_strstrcase in the IMAP test.
+    #       url = "https://gitlab.gnome.org/GNOME/evolution-data-server/-/merge_requests/251.patch";
+    #       hash = "sha256-NY0eMTRvTmtNBk73/KHhk8U+C2VdAn8JQ576O7rcP5M=";
+    #     })
+    #   ];
+    # });
 
     # 2026-11-14: still required
     # 2026-02-03: two tests fail: tests/data/hls-list.append.m3u8, tests/data/hls-list.m3u8
@@ -492,7 +538,7 @@ super.lib.composeManyExtensions [
 
     # 2026-08-30: still required
     ffmpeg-headless = prev.ffmpeg-headless.overrideAttrs (upstream: {
-      patches = (upstream.patches or []) ++ [
+      patches = (upstream.patches or [ ]) ++ [
         (fetchAports {
           path = "community/ffmpeg/posix-ioctl.patch";
           rev = "7ca9594090928aeac18de3caf4c8002109e70445";
@@ -502,317 +548,318 @@ super.lib.composeManyExtensions [
       doCheck = false;
     });
 
-    firefox-unwrapped = (prev.firefox-unwrapped.override {
-      # nothing wrong with lto/pgo, except that it's slow to build/iterate
-      enableLTO = false;
-      enablePGO = false;
-    }).overrideAttrs (upstream: {
-      patches = (upstream.patches or []) ++ [
-        # (fetchVoid {
-        #   # 2026-03-01: fixes "/build/firefox-148.0/dom/media/webrtc/libwebrtc_overrides/call/call_basic_stats.h:17:24: error: unknown type name 'int64_t'"
-        #   # 2026-03-01: fixes "/build/firefox-148.0/dom/media/webrtc/libwebrtc_overrides/call/call_basic_stats.cc:13:29: error: out-of-line definition of 'ToString' does not match any declaration in 'webrtc::CallBasicStats'"
-        #   path = "srcpkgs/firefox/patches/firefox-148-webrtc-missing-includes.patch";
-        #   hash = "sha256-kTuUPOutcNJwSAlAEmHXf8Jcm7UmbWmOAjQkiuG2IkI=";
-        # })
-        # (fetchAports {
-        #   # 2026-02-03: fixes "/build/firefox-147.0.2/objdir/dist/system_wrappers/sys/single_threaded.h:3:15: fatal error: 'sys/single_threaded.h' file not found"
-        #   # 2026-06-07: still required
-        #   path = "community/firefox/bmo-1988166-no-single_threaded-h.patch";
-        #   hash = "sha256-oD/UdVfvOtY+HR5mLExf7ARQfvjpaMd2rOf0EBQ5TyM=";
-        # })
-        (fetchAports {
-          # 2026-11-14: still required
-          # 2026-02-03: fixes "/nix/store/hsvrmvp1i7k326fpvdrg99gmka863fwi-musl-1.2.5-dev/include/sys/prctl.h:88:8: error: redefinition of 'prctl_mm_map'"
-          path = "community/firefox/musl-no-linux-prctl.patch";
-          hash = "sha256-Mwyvdqc//WvSn7HqbkCILipl2C9Qo0T3ZQWbYPtGK8A=";
-        })
+    firefox-unwrapped =
+      (prev.firefox-unwrapped.override {
+        # nothing wrong with lto/pgo, except that it's slow to build/iterate
+        enableLTO = false;
+        enablePGO = false;
+      }).overrideAttrs
+        (upstream: {
+          patches = (upstream.patches or [ ]) ++ [
+            # (fetchVoid {
+            #   # 2026-03-01: fixes "/build/firefox-148.0/dom/media/webrtc/libwebrtc_overrides/call/call_basic_stats.h:17:24: error: unknown type name 'int64_t'"
+            #   # 2026-03-01: fixes "/build/firefox-148.0/dom/media/webrtc/libwebrtc_overrides/call/call_basic_stats.cc:13:29: error: out-of-line definition of 'ToString' does not match any declaration in 'webrtc::CallBasicStats'"
+            #   path = "srcpkgs/firefox/patches/firefox-148-webrtc-missing-includes.patch";
+            #   hash = "sha256-kTuUPOutcNJwSAlAEmHXf8Jcm7UmbWmOAjQkiuG2IkI=";
+            # })
+            # (fetchAports {
+            #   # 2026-02-03: fixes "/build/firefox-147.0.2/objdir/dist/system_wrappers/sys/single_threaded.h:3:15: fatal error: 'sys/single_threaded.h' file not found"
+            #   # 2026-06-07: still required
+            #   path = "community/firefox/bmo-1988166-no-single_threaded-h.patch";
+            #   hash = "sha256-oD/UdVfvOtY+HR5mLExf7ARQfvjpaMd2rOf0EBQ5TyM=";
+            # })
+            (fetchAports {
+              # 2026-11-14: still required
+              # 2026-02-03: fixes "/nix/store/hsvrmvp1i7k326fpvdrg99gmka863fwi-musl-1.2.5-dev/include/sys/prctl.h:88:8: error: redefinition of 'prctl_mm_map'"
+              path = "community/firefox/musl-no-linux-prctl.patch";
+              hash = "sha256-Mwyvdqc//WvSn7HqbkCILipl2C9Qo0T3ZQWbYPtGK8A=";
+            })
 
-        # (fetchVoid {
-        #   path = "srcpkgs/firefox/patches/big-endian-image-decoders.patch";
-        #   hash = "sha256-UFjiDp/qqzpFQQijvSKiLgBbM0u9/b8FVcdtCGRR8L8=";
-        # })
-        # # (fetchVoid {
-        # #   path = "srcpkgs/firefox/patches/clang-sysroot-toolchain-fix.patch";
-        # #   hash = "sha256-rQZ7ZGsTj2FxEC/Onk1uvel5jTNNoTGHVwUEQFiTudI=";
-        # # })
-        # (fetchVoid {
-        #   path = "srcpkgs/firefox/patches/firefox-146-musl-linux-sys-prctl-conflict.patch";
-        #   hash = "sha256-5nvz00l6cIOUjSx5GejbnCVwj6onC8mn9H4tST+uGc0=";
-        # })
-        # (fetchVoid {
-        #   path = "srcpkgs/firefox/patches/firefox-148-mach-clobber.patch";
-        #   hash = "sha256-7P5AmL8CH/O2GmFjxy2roYpiUdH8wUPorB4ohWEN85Y=";
-        # })
-        # (fetchVoid {
-        #   path = "srcpkgs/firefox/patches/firefox-148-webrtc-missing-includes.patch";
-        #   hash = "sha256-kTuUPOutcNJwSAlAEmHXf8Jcm7UmbWmOAjQkiuG2IkI=";
-        # })
-        # (fetchVoid {
-        #   path = "srcpkgs/firefox/patches/firefox-i686-build.patch";
-        #   hash = "sha256-48zYfmK1PMVVXfzzidJjds/NmNf/YigL+VB4HHtLy1c=";
-        # })
-        # (fetchVoid {
-        #   path = "srcpkgs/firefox/patches/fix-arm-opus-include.patch";
-        #   hash = "sha256-A0eEE71miasm+tXJxCS24RFVs6qRrE31xnsuRzgxJyQ=";
-        # })
-        # (fetchVoid {
-        #   path = "srcpkgs/firefox/patches/fix-i686-atomics.patch";
-        #   hash = "sha256-h6UeEjqbXjdIfxaZtMWIz2jev3Huwd811HXTRVs/Dj8=";
-        # })
-        # (fetchVoid {
-        #   path = "srcpkgs/firefox/patches/fix-i686-build-moz-1792159.patch";
-        #   hash = "sha256-NZhz1TPZSAuHCpYc9Wxxa+QAq4T6dyJofscmHoEF+KU=";
-        # })
-        # (fetchVoid {
-        #   path = "srcpkgs/firefox/patches/fix-i686-ppc-musl.patch";
-        #   hash = "sha256-PV1MVSyzOZf0mQzdZzMPKWbhZgvI2PQmXsir27gFRiA=";
-        # })
-        # (fetchVoid {
-        #   path = "srcpkgs/firefox/patches/mallinfo.patch";
-        #   hash = "sha256-TU3XWqb/dkN/P51LB9Ox/gnq9v/UI5o/lBIU4Fx5txQ=";
-        # })
-        # (fetchVoid {
-        #   path = "srcpkgs/firefox/patches/ppc32-fix-build.patch";
-        #   hash = "sha256-qW/NulOuZfQvRbAC/TI2rJTnJuZX/ZTQ0WWjgwNYTIo=";
-        # })
-        # # (fetchVoid {
-        # #   path = "srcpkgs/firefox/patches/rust-configure.patch";
-        # #   hash = "sha256-5DPl0/dpyk7NDo0HwFoDZEfF361MorFhxfqNAGzYUUE=";
-        # # })
-        # # (fetchVoid {
-        # #   path = "srcpkgs/firefox/patches/rust-lto-thin.patch";
-        # #   hash = "sha256-scnfIrR8e2gez2JJYeFKwGfnGxR/3gmPyyY0/x5QK9A=";
-        # # })
-        # (fetchVoid {
-        #   path = "srcpkgs/firefox/patches/sandbox-sched_setscheduler.patch";
-        #   hash = "sha256-kvm2umjb1FKM2Dm9b5Mc5bcyqWDr41u8uR7f6gG0a5A=";
-        # })
+            # (fetchVoid {
+            #   path = "srcpkgs/firefox/patches/big-endian-image-decoders.patch";
+            #   hash = "sha256-UFjiDp/qqzpFQQijvSKiLgBbM0u9/b8FVcdtCGRR8L8=";
+            # })
+            # # (fetchVoid {
+            # #   path = "srcpkgs/firefox/patches/clang-sysroot-toolchain-fix.patch";
+            # #   hash = "sha256-rQZ7ZGsTj2FxEC/Onk1uvel5jTNNoTGHVwUEQFiTudI=";
+            # # })
+            # (fetchVoid {
+            #   path = "srcpkgs/firefox/patches/firefox-146-musl-linux-sys-prctl-conflict.patch";
+            #   hash = "sha256-5nvz00l6cIOUjSx5GejbnCVwj6onC8mn9H4tST+uGc0=";
+            # })
+            # (fetchVoid {
+            #   path = "srcpkgs/firefox/patches/firefox-148-mach-clobber.patch";
+            #   hash = "sha256-7P5AmL8CH/O2GmFjxy2roYpiUdH8wUPorB4ohWEN85Y=";
+            # })
+            # (fetchVoid {
+            #   path = "srcpkgs/firefox/patches/firefox-148-webrtc-missing-includes.patch";
+            #   hash = "sha256-kTuUPOutcNJwSAlAEmHXf8Jcm7UmbWmOAjQkiuG2IkI=";
+            # })
+            # (fetchVoid {
+            #   path = "srcpkgs/firefox/patches/firefox-i686-build.patch";
+            #   hash = "sha256-48zYfmK1PMVVXfzzidJjds/NmNf/YigL+VB4HHtLy1c=";
+            # })
+            # (fetchVoid {
+            #   path = "srcpkgs/firefox/patches/fix-arm-opus-include.patch";
+            #   hash = "sha256-A0eEE71miasm+tXJxCS24RFVs6qRrE31xnsuRzgxJyQ=";
+            # })
+            # (fetchVoid {
+            #   path = "srcpkgs/firefox/patches/fix-i686-atomics.patch";
+            #   hash = "sha256-h6UeEjqbXjdIfxaZtMWIz2jev3Huwd811HXTRVs/Dj8=";
+            # })
+            # (fetchVoid {
+            #   path = "srcpkgs/firefox/patches/fix-i686-build-moz-1792159.patch";
+            #   hash = "sha256-NZhz1TPZSAuHCpYc9Wxxa+QAq4T6dyJofscmHoEF+KU=";
+            # })
+            # (fetchVoid {
+            #   path = "srcpkgs/firefox/patches/fix-i686-ppc-musl.patch";
+            #   hash = "sha256-PV1MVSyzOZf0mQzdZzMPKWbhZgvI2PQmXsir27gFRiA=";
+            # })
+            # (fetchVoid {
+            #   path = "srcpkgs/firefox/patches/mallinfo.patch";
+            #   hash = "sha256-TU3XWqb/dkN/P51LB9Ox/gnq9v/UI5o/lBIU4Fx5txQ=";
+            # })
+            # (fetchVoid {
+            #   path = "srcpkgs/firefox/patches/ppc32-fix-build.patch";
+            #   hash = "sha256-qW/NulOuZfQvRbAC/TI2rJTnJuZX/ZTQ0WWjgwNYTIo=";
+            # })
+            # # (fetchVoid {
+            # #   path = "srcpkgs/firefox/patches/rust-configure.patch";
+            # #   hash = "sha256-5DPl0/dpyk7NDo0HwFoDZEfF361MorFhxfqNAGzYUUE=";
+            # # })
+            # # (fetchVoid {
+            # #   path = "srcpkgs/firefox/patches/rust-lto-thin.patch";
+            # #   hash = "sha256-scnfIrR8e2gez2JJYeFKwGfnGxR/3gmPyyY0/x5QK9A=";
+            # # })
+            # (fetchVoid {
+            #   path = "srcpkgs/firefox/patches/sandbox-sched_setscheduler.patch";
+            #   hash = "sha256-kvm2umjb1FKM2Dm9b5Mc5bcyqWDr41u8uR7f6gG0a5A=";
+            # })
 
+            # (fetchCports {
+            #   path = "main/firefox/patches/atoi.patch";
+            #   hash = "sha256-wddYZ2N+bODFeeBp9n0xeKPrwSr3RswDacLc1FzevYU=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/clang-ias.patch";
+            #   hash = "sha256-x2moJRfabz/ZGGosVsGXp6kDbzC3kXIebGSUPbjwejc=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/clang-memory-throw-gcc.patch";
+            #   hash = "sha256-3dPjEfGO/rg7UB6KhbiUqlfdNmoTUKRKJmLm4zt5UFY=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/depflags.patch";
+            #   hash = "sha256-roAVTWAlMFtbW9X8EB0PDO8omzL6RSrB31yrzgBg2lo=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/enable-elfhack-relr.patch";
+            #   hash = "sha256-jgUTzcUwzkX+fD5scQcgN+txhjWKIEEVjRnRfTGugKU=";
+            # })
+            # (fetchCports {
+            #   # 2026-03-01: fixes "/build/firefox-148.0/objdir/dist/system_wrappers/sys/single_threaded.h:3:15: fatal error: 'sys/single_threaded.h' file not found"
+            #   path = "main/firefox/patches/fix-fortify-system-wrappers.patch";
+            #   hash = "sha256-MHNvWg9oAu8pSd09w8/Lfl5X0nMrt1r3/M8PUOQlFh8=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/fix-rust-target.patch";
+            #   hash = "sha256-xSokjyVgPze3kx9zQyHMIKmFSM3e25qzE3DWkumxPts=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/fix-webrtc-pid_t.patch";
+            #   hash = "sha256-j7ar/LsNAgJzFj8PDRky+iQDzvBwTfNhESPdv/CoIbc=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/google-sucks.patch";
+            #   hash = "sha256-zvNZON13stAUKWtviDtJYCJJV44i4Rrw0sYiAyrdnps=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/lfs64.patch";
+            #   hash = "sha256-CvmtbmslHAIZkXySOuEXeg+FAqfNUUoFY3wVQMaxDRc=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/libcxx18.patch";
+            #   hash = "sha256-dtVs0lbQJEYUg0V6zvkmkN+cd1HNWrN3IKqk0g40TMM=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/loong0001-Enable-WebRTC-for-loongarch64.patch";
+            #   hash = "sha256-5zJ51LOCKRjmSDdb9s3RFIVesGUrRozGCTcn4l+gFlw=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/loong0003-Define-HWCAP_LOONGARCH_LSX_and_LASX.patch";
+            #   hash = "sha256-NNyLyGRUkEPYZmsaLg0M+n9dy18qfXi1uqed2/PKK4o=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/loong0004-Fix-ycbcr-chromium_types-warning.patch";
+            #   hash = "sha256-BwT3y/5+YQ0VLR8gBb4TVaiNuJ3WiswuhLShfHDkGfU=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/loongarch-brotli-smallmodel.patch";
+            #   hash = "sha256-9u+UWNLL84C77pAb6fPokP8+nbVUavg/3e3iLpXXg0A=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/musl-prctl.patch";
+            #   hash = "sha256-5nvz00l6cIOUjSx5GejbnCVwj6onC8mn9H4tST+uGc0=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/no-ccache-stats.patch";
+            #   hash = "sha256-24+F9bVaY0xdfSmk+WVrNPD5pSoyt5wT2r819Hbp7lY=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/pgo-notimeout.patch";
+            #   hash = "sha256-ag3ai2JWA1WpqJwvPQZckjI3Gv1cX/D81RjvXTiASKQ=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/ppc64-webrtc.patch";
+            #   hash = "sha256-cQ6nU6+XZEgda8aUM2Ya2ZCYEvvSidEgZQYl0nQteNw=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/riscv64-reduce-debug.patch";
+            #   hash = "sha256-BxVo5HWAavX8YGQSHfqTqb6jHJjR91tkzOc87LlrSqg=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/rust-lto.patch";
+            #   hash = "sha256-TowbZN2XVsdi5wVCZM4XMUJNn5ieZdQXqYrwA4dVIBM=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/sandbox-sched_setscheduler.patch";
+            #   hash = "sha256-iIPpfpL8YerviYI3C71TCVwYdBI3gkhA+0iEsq/2gRI=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/sqlite-ppc.patch";
+            #   hash = "sha256-sZeGybuD+t4HXAoVYNsUEtfgkbE8kzkmKUxBH7+0xng=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/wasip1.patch";
+            #   hash = "sha256-bfoZoqG7QrmmrF7B7+8OM72aVK/nkWpxULY8W3O6XEg=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/x86_64-Fix-stack-alignment-in-breakpad_getcontext.S.patch";
+            #   hash = "sha256-1aNX8pEY1cF7YvnQMSi3p2m7WFMLT3p5YMJXZeORoCE=";
+            # })
+            # (fetchCports {
+            #   path = "main/firefox/patches/xptcall-integrated-as.patch";
+            #   hash = "sha256-ZXAUHxqxXKRM0Hr7NWSScaotflpkFn7q4Au2Cf7fLZE=";
+            # })
 
-        # (fetchCports {
-        #   path = "main/firefox/patches/atoi.patch";
-        #   hash = "sha256-wddYZ2N+bODFeeBp9n0xeKPrwSr3RswDacLc1FzevYU=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/clang-ias.patch";
-        #   hash = "sha256-x2moJRfabz/ZGGosVsGXp6kDbzC3kXIebGSUPbjwejc=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/clang-memory-throw-gcc.patch";
-        #   hash = "sha256-3dPjEfGO/rg7UB6KhbiUqlfdNmoTUKRKJmLm4zt5UFY=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/depflags.patch";
-        #   hash = "sha256-roAVTWAlMFtbW9X8EB0PDO8omzL6RSrB31yrzgBg2lo=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/enable-elfhack-relr.patch";
-        #   hash = "sha256-jgUTzcUwzkX+fD5scQcgN+txhjWKIEEVjRnRfTGugKU=";
-        # })
-        # (fetchCports {
-        #   # 2026-03-01: fixes "/build/firefox-148.0/objdir/dist/system_wrappers/sys/single_threaded.h:3:15: fatal error: 'sys/single_threaded.h' file not found"
-        #   path = "main/firefox/patches/fix-fortify-system-wrappers.patch";
-        #   hash = "sha256-MHNvWg9oAu8pSd09w8/Lfl5X0nMrt1r3/M8PUOQlFh8=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/fix-rust-target.patch";
-        #   hash = "sha256-xSokjyVgPze3kx9zQyHMIKmFSM3e25qzE3DWkumxPts=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/fix-webrtc-pid_t.patch";
-        #   hash = "sha256-j7ar/LsNAgJzFj8PDRky+iQDzvBwTfNhESPdv/CoIbc=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/google-sucks.patch";
-        #   hash = "sha256-zvNZON13stAUKWtviDtJYCJJV44i4Rrw0sYiAyrdnps=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/lfs64.patch";
-        #   hash = "sha256-CvmtbmslHAIZkXySOuEXeg+FAqfNUUoFY3wVQMaxDRc=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/libcxx18.patch";
-        #   hash = "sha256-dtVs0lbQJEYUg0V6zvkmkN+cd1HNWrN3IKqk0g40TMM=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/loong0001-Enable-WebRTC-for-loongarch64.patch";
-        #   hash = "sha256-5zJ51LOCKRjmSDdb9s3RFIVesGUrRozGCTcn4l+gFlw=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/loong0003-Define-HWCAP_LOONGARCH_LSX_and_LASX.patch";
-        #   hash = "sha256-NNyLyGRUkEPYZmsaLg0M+n9dy18qfXi1uqed2/PKK4o=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/loong0004-Fix-ycbcr-chromium_types-warning.patch";
-        #   hash = "sha256-BwT3y/5+YQ0VLR8gBb4TVaiNuJ3WiswuhLShfHDkGfU=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/loongarch-brotli-smallmodel.patch";
-        #   hash = "sha256-9u+UWNLL84C77pAb6fPokP8+nbVUavg/3e3iLpXXg0A=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/musl-prctl.patch";
-        #   hash = "sha256-5nvz00l6cIOUjSx5GejbnCVwj6onC8mn9H4tST+uGc0=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/no-ccache-stats.patch";
-        #   hash = "sha256-24+F9bVaY0xdfSmk+WVrNPD5pSoyt5wT2r819Hbp7lY=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/pgo-notimeout.patch";
-        #   hash = "sha256-ag3ai2JWA1WpqJwvPQZckjI3Gv1cX/D81RjvXTiASKQ=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/ppc64-webrtc.patch";
-        #   hash = "sha256-cQ6nU6+XZEgda8aUM2Ya2ZCYEvvSidEgZQYl0nQteNw=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/riscv64-reduce-debug.patch";
-        #   hash = "sha256-BxVo5HWAavX8YGQSHfqTqb6jHJjR91tkzOc87LlrSqg=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/rust-lto.patch";
-        #   hash = "sha256-TowbZN2XVsdi5wVCZM4XMUJNn5ieZdQXqYrwA4dVIBM=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/sandbox-sched_setscheduler.patch";
-        #   hash = "sha256-iIPpfpL8YerviYI3C71TCVwYdBI3gkhA+0iEsq/2gRI=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/sqlite-ppc.patch";
-        #   hash = "sha256-sZeGybuD+t4HXAoVYNsUEtfgkbE8kzkmKUxBH7+0xng=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/wasip1.patch";
-        #   hash = "sha256-bfoZoqG7QrmmrF7B7+8OM72aVK/nkWpxULY8W3O6XEg=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/x86_64-Fix-stack-alignment-in-breakpad_getcontext.S.patch";
-        #   hash = "sha256-1aNX8pEY1cF7YvnQMSi3p2m7WFMLT3p5YMJXZeORoCE=";
-        # })
-        # (fetchCports {
-        #   path = "main/firefox/patches/xptcall-integrated-as.patch";
-        #   hash = "sha256-ZXAUHxqxXKRM0Hr7NWSScaotflpkFn7q4Au2Cf7fLZE=";
-        # })
+            # # (writeTextFile {
+            # #   # this patch was an attempt to fix the following symptoms, but it doesn't:
+            # #   # - immediately upon launch and until close, Firefox pegs 100% cpu while spamming the console:
+            # #   #   > Sandbox: seccomp sandbox violation: pid 88, tid 113, syscall 23, args 20 140041528812544 140041528812672 140041528812800 0 0.
+            # #   #
+            # #   # `syscall 23` is `select`.
+            # #   # it appears that for some reason, `__NR_select` was not being permitted inside the sandbox.
+            # #   # it's unclear if either:
+            # #   # A. `__NR_select` is forbidden in both glibc and musl builds, but only musl was making use of it (internally, presumably).
+            # #   # B. `__NR_select` was allowed in glibc, but not allowed in musl build (due e.g. to some bug in the #ifdef's below).
+            # #   #
+            # #   # alternatives to this patch include:
+            # #   # A. set `MOZ_DISABLE_SOCKET_PROCESS_SANDBOX=1` env var before launching firefox.
+            # #   # B. set `security.sandbox.socket.process.level = 0` in `about:config`.
+            # #   name = "sandbox-allow-select.patch";
+            # #   text = ''
+            # #     diff --git a/security/sandbox/linux/SandboxFilterUtil.h b/security/sandbox/linux/SandboxFilterUtil.h
+            # #     index 3e07948c5ac0..34651602c7e7 100644
+            # #     --- a/security/sandbox/linux/SandboxFilterUtil.h
+            # #     +++ b/security/sandbox/linux/SandboxFilterUtil.h
+            # #     @@ -182,27 +182,19 @@ class SandboxPolicyBase : public sandbox::bpf_dsl::Policy {
+            # #      #  define CASES_FOR_clock_gettime case __NR_clock_gettime
+            # #      #  define CASES_FOR_clock_getres case __NR_clock_getres
+            # #      #  define CASES_FOR_clock_nanosleep case __NR_clock_nanosleep
+            # #      #  define CASES_FOR_pselect6 case __NR_pselect6
+            # #      #  define CASES_FOR_ppoll case __NR_ppoll
+            # #      #  define CASES_FOR_futex case __NR_futex
+            # #      #endif
 
-        # # (writeTextFile {
-        # #   # this patch was an attempt to fix the following symptoms, but it doesn't:
-        # #   # - immediately upon launch and until close, Firefox pegs 100% cpu while spamming the console:
-        # #   #   > Sandbox: seccomp sandbox violation: pid 88, tid 113, syscall 23, args 20 140041528812544 140041528812672 140041528812800 0 0.
-        # #   #
-        # #   # `syscall 23` is `select`.
-        # #   # it appears that for some reason, `__NR_select` was not being permitted inside the sandbox.
-        # #   # it's unclear if either:
-        # #   # A. `__NR_select` is forbidden in both glibc and musl builds, but only musl was making use of it (internally, presumably).
-        # #   # B. `__NR_select` was allowed in glibc, but not allowed in musl build (due e.g. to some bug in the #ifdef's below).
-        # #   #
-        # #   # alternatives to this patch include:
-        # #   # A. set `MOZ_DISABLE_SOCKET_PROCESS_SANDBOX=1` env var before launching firefox.
-        # #   # B. set `security.sandbox.socket.process.level = 0` in `about:config`.
-        # #   name = "sandbox-allow-select.patch";
-        # #   text = ''
-        # #     diff --git a/security/sandbox/linux/SandboxFilterUtil.h b/security/sandbox/linux/SandboxFilterUtil.h
-        # #     index 3e07948c5ac0..34651602c7e7 100644
-        # #     --- a/security/sandbox/linux/SandboxFilterUtil.h
-        # #     +++ b/security/sandbox/linux/SandboxFilterUtil.h
-        # #     @@ -182,27 +182,19 @@ class SandboxPolicyBase : public sandbox::bpf_dsl::Policy {
-        # #      #  define CASES_FOR_clock_gettime case __NR_clock_gettime
-        # #      #  define CASES_FOR_clock_getres case __NR_clock_getres
-        # #      #  define CASES_FOR_clock_nanosleep case __NR_clock_nanosleep
-        # #      #  define CASES_FOR_pselect6 case __NR_pselect6
-        # #      #  define CASES_FOR_ppoll case __NR_ppoll
-        # #      #  define CASES_FOR_futex case __NR_futex
-        # #      #endif
+            # #     -#if defined(__NR__newselect)
+            # #     -#  define CASES_FOR_select \
+            # #     -    case __NR__newselect:  \
+            # #     -      CASES_FOR_pselect6
+            # #     -#elif defined(__NR_select)
+            # #      #  define CASES_FOR_select \
+            # #          case __NR_select:      \
+            # #            CASES_FOR_pselect6
+            # #     -#else
+            # #     -#  define CASES_FOR_select CASES_FOR_pselect6
+            # #     -#endif
 
-        # #     -#if defined(__NR__newselect)
-        # #     -#  define CASES_FOR_select \
-        # #     -    case __NR__newselect:  \
-        # #     -      CASES_FOR_pselect6
-        # #     -#elif defined(__NR_select)
-        # #      #  define CASES_FOR_select \
-        # #          case __NR_select:      \
-        # #            CASES_FOR_pselect6
-        # #     -#else
-        # #     -#  define CASES_FOR_select CASES_FOR_pselect6
-        # #     -#endif
-
-        # #      #ifdef __NR_poll
-        # #      #  define CASES_FOR_poll \
-        # #          case __NR_poll:      \
-        # #            CASES_FOR_ppoll
-        # #      #else
-        # #      #  define CASES_FOR_poll CASES_FOR_ppoll
-        # #      #endif
-        # #   '';
-        # # })
-        # # (fetchAports {
-        # #   path = "community/firefox/abseil-cpp.patch";
-        # #   hash = "sha256-frP7s/QxCiBtUcFS0OxH0BDGL7+5kFMaIfrz/Mezu+g=";
-        # # })
-        # # (fetchAports {
-        # #   path = "community/firefox/bmo-1952657-no-execinfo.patch";
-        # #   hash = "sha256-qx+999tLg18LrWXoUQB9OiNBZLtiRshmQMmJ9l0BECc=";
-        # # })
-        # (fetchAports {
-        #   # 2026-02-03: fixes "/build/firefox-147.0.2/objdir/dist/system_wrappers/sys/single_threaded.h:3:15: fatal error: 'sys/single_threaded.h' file not found"
-        #   path = "community/firefox/bmo-1988166-no-single_threaded-h.patch";
-        #   hash = "sha256-oD/UdVfvOtY+HR5mLExf7ARQfvjpaMd2rOf0EBQ5TyM=";
-        # })
-        # # (fetchAports {
-        # #   path = "community/firefox/fix-fortify-system-wrappers.patch";
-        # #   hash = "sha256-YK3ZDqftPeMLCW3PRlugN9EzeOaa0Cl787QeGbLKTEo=";
-        # # })
-        # # (fetchAports {
-        # #   path = "community/firefox/fix-lp64.patch";
-        # #   hash = "sha256-apzFsdn0T4+FRmH/BO051Wm9kBTtWtDi9Vu/SRKTrzE=";
-        # # })
-        # # (fetchAports {
-        # #   path = "community/firefox/fix-rust-target.patch";
-        # #   hash = "sha256-xFtUIfF+WCt0bXgT3VU5tuuOHHph6uuHGDwZpfcrfhs=";
-        # # })
-        # # (fetchAports {
-        # #   path = "community/firefox/lfs64.patch";
-        # #   hash = "sha256-CvmtbmslHAIZkXySOuEXeg+FAqfNUUoFY3wVQMaxDRc=";
-        # # })
-        # (fetchAports {
-        #   # 2026-02-03: fixes "/nix/store/hsvrmvp1i7k326fpvdrg99gmka863fwi-musl-1.2.5-dev/include/sys/prctl.h:88:8: error: redefinition of 'prctl_mm_map'"
-        #   path = "community/firefox/musl-no-linux-prctl.patch";
-        #   hash = "sha256-Mwyvdqc//WvSn7HqbkCILipl2C9Qo0T3ZQWbYPtGK8A=";
-        # })
-        # # (fetchAports {
-        # #   path = "community/firefox/no-ccache-stats.patch";
-        # #   hash = "sha256-24+F9bVaY0xdfSmk+WVrNPD5pSoyt5wT2r819Hbp7lY=";
-        # # })
-        # # (fetchAports {
-        # #   path = "community/firefox/rust-lto-thin.patch";
-        # #   hash = "sha256-scnfIrR8e2gez2JJYeFKwGfnGxR/3gmPyyY0/x5QK9A=";
-        # # })
-        # # (fetchAports {
-        # #   path = "community/firefox/riscv64-no-lto.patch";
-        # #   hash = "sha256-IZ4j3CHmGT6qiRZsnoKtqbUMzQ32kVJ/9VwTlUyrAHk=";
-        # # })
-        # # (fetchAports {
-        # #   # 2026-02-03: this does NOT fix a runtime issue where Firefox spins one core immediately after launch, until closed
-        # #   # > [88] Sandbox: Failed to report rejected syscall: EPIPE
-        # #   # > [88] Sandbox: seccomp sandbox violation: pid 88, tid 113, syscall 23, args 20 140041528812544 140041528812672 140041528812800 0 0.
-        # #   # see: <https://bugzilla.mozilla.org/show_bug.cgi?id=1657849>
-        # #   path = "community/firefox/sandbox-sched_setscheduler.patch";
-        # #   hash = "sha256-dq3QghmwMAPzdYDrNTff2J169ezQ/6OaKMMLKkq/aTQ=";
-        # # })
-        # # (fetchAports {
-        # #   path = "community/firefox/sqlite-ppc.patch";
-        # #   hash = "sha256-MjjqgjExNlLJ7R8iCshy8qehbciSgF7KMgBx+SX70KE=";
-        # # })
-        # # (fetchAports {
-        # #   path = "community/firefox/widevine.patch";
-        # #   hash = "sha256-UvH6OADowCZ9qaEsN32WS8ofjIHaNJSP+M5SCwAHDtg=";
-        # # })
-        # # (fetchAports {
-        # #   path = "community/firefox/rust1.90-ppc.patch";
-        # #   hash = "sha256-+/BVhHGNQrbptzMq7ae+OHvk5m+brPs2gqOos4rnjr8=";
-        # # })
-      ];
-    });
+            # #      #ifdef __NR_poll
+            # #      #  define CASES_FOR_poll \
+            # #          case __NR_poll:      \
+            # #            CASES_FOR_ppoll
+            # #      #else
+            # #      #  define CASES_FOR_poll CASES_FOR_ppoll
+            # #      #endif
+            # #   '';
+            # # })
+            # # (fetchAports {
+            # #   path = "community/firefox/abseil-cpp.patch";
+            # #   hash = "sha256-frP7s/QxCiBtUcFS0OxH0BDGL7+5kFMaIfrz/Mezu+g=";
+            # # })
+            # # (fetchAports {
+            # #   path = "community/firefox/bmo-1952657-no-execinfo.patch";
+            # #   hash = "sha256-qx+999tLg18LrWXoUQB9OiNBZLtiRshmQMmJ9l0BECc=";
+            # # })
+            # (fetchAports {
+            #   # 2026-02-03: fixes "/build/firefox-147.0.2/objdir/dist/system_wrappers/sys/single_threaded.h:3:15: fatal error: 'sys/single_threaded.h' file not found"
+            #   path = "community/firefox/bmo-1988166-no-single_threaded-h.patch";
+            #   hash = "sha256-oD/UdVfvOtY+HR5mLExf7ARQfvjpaMd2rOf0EBQ5TyM=";
+            # })
+            # # (fetchAports {
+            # #   path = "community/firefox/fix-fortify-system-wrappers.patch";
+            # #   hash = "sha256-YK3ZDqftPeMLCW3PRlugN9EzeOaa0Cl787QeGbLKTEo=";
+            # # })
+            # # (fetchAports {
+            # #   path = "community/firefox/fix-lp64.patch";
+            # #   hash = "sha256-apzFsdn0T4+FRmH/BO051Wm9kBTtWtDi9Vu/SRKTrzE=";
+            # # })
+            # # (fetchAports {
+            # #   path = "community/firefox/fix-rust-target.patch";
+            # #   hash = "sha256-xFtUIfF+WCt0bXgT3VU5tuuOHHph6uuHGDwZpfcrfhs=";
+            # # })
+            # # (fetchAports {
+            # #   path = "community/firefox/lfs64.patch";
+            # #   hash = "sha256-CvmtbmslHAIZkXySOuEXeg+FAqfNUUoFY3wVQMaxDRc=";
+            # # })
+            # (fetchAports {
+            #   # 2026-02-03: fixes "/nix/store/hsvrmvp1i7k326fpvdrg99gmka863fwi-musl-1.2.5-dev/include/sys/prctl.h:88:8: error: redefinition of 'prctl_mm_map'"
+            #   path = "community/firefox/musl-no-linux-prctl.patch";
+            #   hash = "sha256-Mwyvdqc//WvSn7HqbkCILipl2C9Qo0T3ZQWbYPtGK8A=";
+            # })
+            # # (fetchAports {
+            # #   path = "community/firefox/no-ccache-stats.patch";
+            # #   hash = "sha256-24+F9bVaY0xdfSmk+WVrNPD5pSoyt5wT2r819Hbp7lY=";
+            # # })
+            # # (fetchAports {
+            # #   path = "community/firefox/rust-lto-thin.patch";
+            # #   hash = "sha256-scnfIrR8e2gez2JJYeFKwGfnGxR/3gmPyyY0/x5QK9A=";
+            # # })
+            # # (fetchAports {
+            # #   path = "community/firefox/riscv64-no-lto.patch";
+            # #   hash = "sha256-IZ4j3CHmGT6qiRZsnoKtqbUMzQ32kVJ/9VwTlUyrAHk=";
+            # # })
+            # # (fetchAports {
+            # #   # 2026-02-03: this does NOT fix a runtime issue where Firefox spins one core immediately after launch, until closed
+            # #   # > [88] Sandbox: Failed to report rejected syscall: EPIPE
+            # #   # > [88] Sandbox: seccomp sandbox violation: pid 88, tid 113, syscall 23, args 20 140041528812544 140041528812672 140041528812800 0 0.
+            # #   # see: <https://bugzilla.mozilla.org/show_bug.cgi?id=1657849>
+            # #   path = "community/firefox/sandbox-sched_setscheduler.patch";
+            # #   hash = "sha256-dq3QghmwMAPzdYDrNTff2J169ezQ/6OaKMMLKkq/aTQ=";
+            # # })
+            # # (fetchAports {
+            # #   path = "community/firefox/sqlite-ppc.patch";
+            # #   hash = "sha256-MjjqgjExNlLJ7R8iCshy8qehbciSgF7KMgBx+SX70KE=";
+            # # })
+            # # (fetchAports {
+            # #   path = "community/firefox/widevine.patch";
+            # #   hash = "sha256-UvH6OADowCZ9qaEsN32WS8ofjIHaNJSP+M5SCwAHDtg=";
+            # # })
+            # # (fetchAports {
+            # #   path = "community/firefox/rust1.90-ppc.patch";
+            # #   hash = "sha256-+/BVhHGNQrbptzMq7ae+OHvk5m+brPs2gqOos4rnjr8=";
+            # # })
+          ];
+        });
 
     # 2026-11-14: still required
     # 2026-01-28: disable malcontent to unblock flatpak: it's some "parental controls" thing?
@@ -823,7 +870,7 @@ super.lib.composeManyExtensions [
 
     # 2026-11-14: still required
     glslang = prev.glslang.overrideAttrs (prevAttrs: {
-      env = (prevAttrs.env or {}) // {
+      env = (prevAttrs.env or { }) // {
         # 2026-10-18: the multithreaded CLI test overflows musl's default thread stack.
         # Match Void/Chimera: musl sizes pthread stacks from PT_GNU_STACK.
         # <https://github.com/void-linux/void-packages/blob/8b9d0769d792d0eb98c46cac65af1310264e1f46/srcpkgs/glslang/template>
@@ -861,49 +908,51 @@ super.lib.composeManyExtensions [
       gpart = null;
     };
 
-    gst_all_1 = prev.gst_all_1.overrideScope (_final': prev': {
-      # 2026-11-14: still required
-      # XXX(2026-01-28): ffv1 tests timeout. it's some new codec, just disable it.
-      # <https://github.com/FFmpeg/FFV1>
-      #
-      # >      Running unittests src/lib.rs (build/target/x86_64-unknown-linux-musl/debug/deps/gstrswebrtc-1b727e3774204f81)
-      # >
-      # > running 3 tests
-      # > test utils::tests::test_find_smallest_available_ext_id ... ok
-      # > test utils::tests::test_deserialize_array ... ok
-      # > test utils::tests::test_serialize_meta ... ok
-      # >
-      # > test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
-      # >
-      # >      Running unittests src/lib.rs (build/target/x86_64-unknown-linux-musl/debug/deps/gstwebrtchttp-b761b0ba82ee0d97)
-      # >
-      # > running 0 tests
-      # >
-      # > test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
-      # >
-      # > Error: CliError { error: Some(1 target failed:
-      # >     `-p gst-plugin-ffv1 --test ffv1dec`), exit_code: 101 }
-      # >
-      # > 1/1 tests FAIL           947.07s   exit status 1
-      # >
-      # >
-      # > Summary of Failures:
-      # >
-      # > 1/1 tests FAIL           947.07s   exit status 1
-      # >
-      # > Ok:                0
-      # > Fail:              1
-      # >
-      # > Full log written to /build/source/build/meson-logs/testlog.txt
-      # For full logs, run:
-      #        nix log /nix/store/jlj6sglablmw8i7n6xy7ypxflbrd9afq-gst-plugins-rs-0.14.4.drv
-      # gst-plugins-rs = prev'.gst-plugins-rs.overrideAttrs {
-      #   doCheck = false;
-      # };
-      gst-plugins-rs = prev'.gst-plugins-rs.override {
-        plugins = lib.remove "ffv1" prev'.gst-plugins-rs.selectedPlugins;
-      };
-    });
+    gst_all_1 = prev.gst_all_1.overrideScope (
+      _final': prev': {
+        # 2026-11-14: still required
+        # XXX(2026-01-28): ffv1 tests timeout. it's some new codec, just disable it.
+        # <https://github.com/FFmpeg/FFV1>
+        #
+        # >      Running unittests src/lib.rs (build/target/x86_64-unknown-linux-musl/debug/deps/gstrswebrtc-1b727e3774204f81)
+        # >
+        # > running 3 tests
+        # > test utils::tests::test_find_smallest_available_ext_id ... ok
+        # > test utils::tests::test_deserialize_array ... ok
+        # > test utils::tests::test_serialize_meta ... ok
+        # >
+        # > test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+        # >
+        # >      Running unittests src/lib.rs (build/target/x86_64-unknown-linux-musl/debug/deps/gstwebrtchttp-b761b0ba82ee0d97)
+        # >
+        # > running 0 tests
+        # >
+        # > test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+        # >
+        # > Error: CliError { error: Some(1 target failed:
+        # >     `-p gst-plugin-ffv1 --test ffv1dec`), exit_code: 101 }
+        # >
+        # > 1/1 tests FAIL           947.07s   exit status 1
+        # >
+        # >
+        # > Summary of Failures:
+        # >
+        # > 1/1 tests FAIL           947.07s   exit status 1
+        # >
+        # > Ok:                0
+        # > Fail:              1
+        # >
+        # > Full log written to /build/source/build/meson-logs/testlog.txt
+        # For full logs, run:
+        #        nix log /nix/store/jlj6sglablmw8i7n6xy7ypxflbrd9afq-gst-plugins-rs-0.14.4.drv
+        # gst-plugins-rs = prev'.gst-plugins-rs.overrideAttrs {
+        #   doCheck = false;
+        # };
+        gst-plugins-rs = prev'.gst-plugins-rs.override {
+          plugins = lib.remove "ffv1" prev'.gst-plugins-rs.selectedPlugins;
+        };
+      }
+    );
 
     # haskell = prev.haskell // {
     #   compiler = prev.haskell.compiler // {
@@ -952,7 +1001,7 @@ super.lib.composeManyExtensions [
     # 2026-11-14: still required
     # 2026-01-25: fails building a test, so disable that test. probably not suitable for upstream.
     ldb = prev.ldb.overrideAttrs (upstream: {
-      patches = (upstream.patches or []) ++ [
+      patches = (upstream.patches or [ ]) ++ [
         (fetchAports {
           path = "main/samba/disable-compile-error-test.patch";
           hash = "sha256-HB2/z4g+pBVcCEgyaYDXnahR89STALLbgFsDujegpY8=";
@@ -999,7 +1048,7 @@ super.lib.composeManyExtensions [
     #
     # libfaketime is used by `unifont` when building; probably most of its use
     # is build time, so disabling check is reasonably safe.
-    libfaketime = prev.libfaketime.overrideAttrs (upstream: rec {
+    libfaketime = prev.libfaketime.overrideAttrs {
       # version = "0.9.12";
       # src = fetchFromGitHub {
       #   owner = "wolfcw";
@@ -1016,7 +1065,7 @@ super.lib.composeManyExtensions [
       # ];
 
       doCheck = false;
-    });
+    };
 
     # 2026-11-14: still required
     # 2026-10-02: pseudotcp and gstreamer tests fail
@@ -1026,7 +1075,7 @@ super.lib.composeManyExtensions [
 
     # 2026-11-14: required; without this, secret-file-collection.c fails to compile on musl (open, O_CREAT, and O_RDWR undeclared).
     libsecret = prev.libsecret.overrideAttrs (prevAttrs: {
-      patches = (prevAttrs.patches or []) ++ [
+      patches = (prevAttrs.patches or [ ]) ++ [
         (fetchpatch {
           # Include <fcntl.h> for open/O_CREAT/O_RDWR on musl (merged 2026-09-15)
           url = "https://gitlab.gnome.org/GNOME/libsecret/-/merge_requests/181.patch";
@@ -1036,15 +1085,23 @@ super.lib.composeManyExtensions [
     });
 
     # 2026-11-14: still required
-    lixPackageSets = prev.lixPackageSets.extend (_: lixPrev: {
-      lix_2_95 = lixPrev.lix_2_95.overrideScope (_: compsPrev: {
-        lix = compsPrev.lix.overrideAttrs (prevAttrs: {
-          env = (prevAttrs.env or {}) // {
-            NIX_CFLAGS_COMPILE = (lib.optionalString ((prevAttrs.env.NIX_CFLAGS_COMPILE or "") != "") "${prevAttrs.env.NIX_CFLAGS_COMPILE} ") + "-include sys/syscall.h";
-          };
-        });
-      });
-    });
+    lixPackageSets = prev.lixPackageSets.extend (
+      _: lixPrev: {
+        lix_2_95 = lixPrev.lix_2_95.overrideScope (
+          _: compsPrev: {
+            lix = compsPrev.lix.overrideAttrs (prevAttrs: {
+              env = (prevAttrs.env or { }) // {
+                NIX_CFLAGS_COMPILE =
+                  (lib.optionalString (
+                    (prevAttrs.env.NIX_CFLAGS_COMPILE or "") != ""
+                  ) "${prevAttrs.env.NIX_CFLAGS_COMPILE} ")
+                  + "-include sys/syscall.h";
+              };
+            });
+          }
+        );
+      }
+    );
 
     # 2026-11-14: still required
     # XXX(2026-01-22): fix broken 0122 test:
@@ -1056,7 +1113,7 @@ super.lib.composeManyExtensions [
     # > FAIL test-0112.sh (exit status: 3)
     # patch to fix it has been merged upstream; cherry-picked in Alpine.
     logrotate = prev.logrotate.overrideAttrs (upstream: {
-      patches = (upstream.patches or []) ++ [
+      patches = (upstream.patches or [ ]) ++ [
         (fetchurl {
           name = "test-avoid-locale-dependent-errno-string";
           url = "https://github.com/logrotate/logrotate/commit/04b21743980c4e236ca5e8de18173fbd3848573b.patch?full_index=1";
@@ -1068,7 +1125,7 @@ super.lib.composeManyExtensions [
     # 2026-11-14: still required
     # XXX(2026-07-16): patch lttng-ust so that wireplumber (pipewire) doesn't crash on launch.
     lttng-ust = prev.lttng-ust.overrideAttrs (prevAttrs: {
-      patches = (prevAttrs.patches or []) ++ [
+      patches = (prevAttrs.patches or [ ]) ++ [
         (final.fetchpatch {
           name = "lttng-ust-reduce-stack-size-to-avoid-musl-crash";
           url = "https://review.lttng.org/changes/lttng-ust~18160/revisions/1/patch?download&raw";
@@ -1078,244 +1135,255 @@ super.lib.composeManyExtensions [
     });
 
     # 2026-11-14: still required
-    mesa-demos = prev.mesa-demos.overrideAttrs (upstream: {
+    mesa-demos = prev.mesa-demos.overrideAttrs {
       # fixes:
       # > ../src/vulkan/wsi/wayland.c:217:13: error: ‘enter’ undeclared here (not in a function)
       # >   217 |    .enter = enter,
-      patches = (prev.patches or []) ++ [
+      patches = (prev.patches or [ ]) ++ [
         (fetchAports {
           path = "community/mesa-demos/uint.patch";
           hash = "sha256-GWRGFOFGeKJXnSS27OMZYlEq53Q9Vx4bOmCo8RNvUJY=";
         })
       ];
-    });
+    };
 
     # 2026-11-14: still required
-    nfs-utils = (prev.nfs-utils.override {
-      # 2026-04-30: still required, out for PR: <https://github.com/NixOS/nixpkgs/pull/515858>
-      # TODO: figure out whether this is should be conditioned by musl, or universal.
-      # actually, i believe this is incorrect. it will try to read /etc/rpc at   runtime,
-      # which on exists via glibc.
-      # libtirpc = prev.libtirpc.overrideAttrs (upstream: {
-      #   configureFlags = (upstream.configureFlags or []) ++ [
-      #     # --enable-rpcdb causes it to provide functions such as `getrpcbynumber`.
-      #     # this function is normally provided by glibc.
-      #     # this is required for downstream consumers, such as nfs-utils, rpcbind, who otherwise fail with e.g.
-      #     # > configure: error: Neither getrpcbynumber_r nor getrpcbynumber are available
-      #     "--enable-rpcdb"
-      #   ];
-      # });
-    }).overrideAttrs (upstream: {
-      # XXX(2026-02-15): intentionally overwriting nixpkgs' `patches`,
-      # as they don't cleanly apply anymore.
-      patches = [
-        (fetchVoid {
-          # 2026-04-07: still required
-          path = "srcpkgs/nfs-utils/patches/musl-fix_long_unsigned_int.patch";
-          hash = "sha256-OTxzl6UKy8ZKDK1OdUQylUFzRCzeDeYJHxOW0nh0z00=";
-        })
-        # (fetchVoid {
-        #   path = "srcpkgs/nfs-utils/patches/musl-getservbyport.patch";
-        #   hash = "sha256-qx/p8BwWTchAWCIJbWylaF3XZU8OTx7w98W2atsgcdk=";
-        # })
-        (writeTextFile {
-          # 2026-04-07: still required
-          name = "musl-includes.patch";
-          text = ''
-            missing include for basename(3)
-            --- a/utils/nfsdctl/nfsdctl.c
-            +++ b/utils/nfsdctl/nfsdctl.c
-            @@ -19,6 +19,7 @@
-             #include <sched.h>
-             #include <sys/queue.h>
-             #include <limits.h>
-            +#include <libgen.h>
+    nfs-utils =
+      (prev.nfs-utils.override {
+        # 2026-04-30: still required, out for PR: <https://github.com/NixOS/nixpkgs/pull/515858>
+        # TODO: figure out whether this is should be conditioned by musl, or universal.
+        # actually, i believe this is incorrect. it will try to read /etc/rpc at   runtime,
+        # which on exists via glibc.
+        # libtirpc = prev.libtirpc.overrideAttrs (upstream: {
+        #   configureFlags = (upstream.configureFlags or []) ++ [
+        #     # --enable-rpcdb causes it to provide functions such as `getrpcbynumber`.
+        #     # this function is normally provided by glibc.
+        #     # this is required for downstream consumers, such as nfs-utils, rpcbind, who otherwise fail with e.g.
+        #     # > configure: error: Neither getrpcbynumber_r nor getrpcbynumber are available
+        #     "--enable-rpcdb"
+        #   ];
+        # });
+      }).overrideAttrs
+        (upstream: {
+          # XXX(2026-02-15): intentionally overwriting nixpkgs' `patches`,
+          # as they don't cleanly apply anymore.
+          patches = [
+            (fetchVoid {
+              # 2026-04-07: still required
+              path = "srcpkgs/nfs-utils/patches/musl-fix_long_unsigned_int.patch";
+              hash = "sha256-OTxzl6UKy8ZKDK1OdUQylUFzRCzeDeYJHxOW0nh0z00=";
+            })
+            # (fetchVoid {
+            #   path = "srcpkgs/nfs-utils/patches/musl-getservbyport.patch";
+            #   hash = "sha256-qx/p8BwWTchAWCIJbWylaF3XZU8OTx7w98W2atsgcdk=";
+            # })
+            (writeTextFile {
+              # 2026-04-07: still required
+              name = "musl-includes.patch";
+              text = ''
+                missing include for basename(3)
+                --- a/utils/nfsdctl/nfsdctl.c
+                +++ b/utils/nfsdctl/nfsdctl.c
+                @@ -19,6 +19,7 @@
+                 #include <sched.h>
+                 #include <sys/queue.h>
+                 #include <limits.h>
+                +#include <libgen.h>
 
-             #include <netlink/genl/family.h>
-             #include <netlink/genl/ctrl.h>
+                 #include <netlink/genl/family.h>
+                 #include <netlink/genl/ctrl.h>
+              '';
+            })
+            # XXX(2026-02-15): musl-includes.patch is still needed, to fixing missing include for `basename`;
+            # void's patch for 2.8.4 doesn't cleanly apply to 2.8.5.
+            # (fetchVoid {
+            #   path = "srcpkgs/nfs-utils/patches/musl-includes.patch";
+            #   hash = "sha256-dZEafrXDZH/IPo1u7B65u01nwFMfcqSMnVyHAapexa8=";
+            # })
+          ];
+          postPatch = (upstream.postPatch or "") + ''
+            # 2026-08-04: musl needs <stddef.h> for offsetof in support/nfs/getport.c
+            sed -i '/#include "nfslib.h"/a #include <stddef.h>' support/nfs/getport.c
+            # 2026-09-22: "gssd.c:547:78: error: format ‘%lx’ expects argument of type ‘long unsigned int’, but argument 3 has type ‘pthread_t’ {aka ‘struct __pthread *’}"
+            sed -i 's/thread id 0x%lx/thread id 0x%p/g' utils/gssd/gssd.c
           '';
-        })
-        # XXX(2026-02-15): musl-includes.patch is still needed, to fixing missing include for `basename`;
-        # void's patch for 2.8.4 doesn't cleanly apply to 2.8.5.
-        # (fetchVoid {
-        #   path = "srcpkgs/nfs-utils/patches/musl-includes.patch";
-        #   hash = "sha256-dZEafrXDZH/IPo1u7B65u01nwFMfcqSMnVyHAapexa8=";
-        # })
-      ];
-      postPatch = (upstream.postPatch or "") + ''
-        # 2026-08-04: musl needs <stddef.h> for offsetof in support/nfs/getport.c
-        sed -i '/#include "nfslib.h"/a #include <stddef.h>' support/nfs/getport.c
-        # 2026-09-22: "gssd.c:547:78: error: format ‘%lx’ expects argument of type ‘long unsigned int’, but argument 3 has type ‘pthread_t’ {aka ‘struct __pthread *’}"
-        sed -i 's/thread id 0x%lx/thread id 0x%p/g' utils/gssd/gssd.c
-      '';
 
-      # version = "2.6.4";
-      # src = fetchurl {
-      #  url = "mirror://kernel/linux/utils/nfs-utils/${version}/nfs-utils-${version}.tar.xz";
-      #  hash = "sha256-AbOw+5x9C7q/URTHNlQgMHSMeI7C/Zc0dEIB6bChEZ0=";
-      # };
+          # version = "2.6.4";
+          # src = fetchurl {
+          #  url = "mirror://kernel/linux/utils/nfs-utils/${version}/nfs-utils-${version}.tar.xz";
+          #  hash = "sha256-AbOw+5x9C7q/URTHNlQgMHSMeI7C/Zc0dEIB6bChEZ0=";
+          # };
 
-      # # buildInputs = upstream.buildInputs ++ [
-      # #   final.tcp_wrappers
-      # #   final.linuxHeaders
-      # #   # > configure: error: Neither getrpcbynumber_r nor getrpcbynumber are available
-      # #   # final.rpcbind
-      # #   final.krb5.dev
-      # # ];
+          # # buildInputs = upstream.buildInputs ++ [
+          # #   final.tcp_wrappers
+          # #   final.linuxHeaders
+          # #   # > configure: error: Neither getrpcbynumber_r nor getrpcbynumber are available
+          # #   # final.rpcbind
+          # #   final.krb5.dev
+          # # ];
 
-      # configureFlags = upstream.configureFlags ++ [
-      #   # "--without-gssglue"
-      #   # "--enable-svcgss"
-      #   "--with-tirpcinclude=${lib.getDev final.libtirpc}/include/tirpc"
-      # ];
+          # configureFlags = upstream.configureFlags ++ [
+          #   # "--without-gssglue"
+          #   # "--enable-svcgss"
+          #   "--with-tirpcinclude=${lib.getDev final.libtirpc}/include/tirpc"
+          # ];
 
-      # patches = [
-      #   (fetchAports {
-      #     path = "main/nfs-utils/musl-getservbyport.patch";
-      #     hash = "sha256-DnqsCanMJM/4baIY4R8GY/DhQ8ikMBSISi1Y9FvSHLs=";
-      #   })
-      #   (fetchAports {
-      #     path = "main/nfs-utils/musl-svcgssd-sysconf.patch";
-      #     hash = "sha256-5coE3aIGj5FtbCO4st0ybVtqp+xpWntUKv73S+X9EzY=";
-      #   })
-      #   (fetchAports {
-      #     path = "main/nfs-utils/musl-stat64.patch";
-      #     hash = "sha256-mnnjgN9QqZV4bNVGNqBI8+tM5pIRUfeX/hnYVL6Zmb4=";
-      #   })
-      #   (fetchAports {
-      #     path = "main/nfs-utils/include-unistd.patch";
-      #     hash = "sha256-+jRUyh0gDoBqzYRKU/yMlLsdvApi592YJTTrn9rIDBw=";
-      #   })
-      #   (fetchAports {
-      #     path = "main/nfs-utils/0001-gssd-revert-commit-a5f3b7ccb01c.patch";
-      #     hash = "sha256-LH+YetG2J2zB9pon4fSUX8/TOUyIp6rt3O/4uWjkXR4=";
-      #   })
-      #   (fetchAports {
-      #     path = "main/nfs-utils/0002-gssd-revert-commit-513630d720bd.patch";
-      #     hash = "sha256-9Tj0cNZXNepGyBqXX+MuSnIrv3egT64xmkBLMq7YUNo=";
-      #   })
-      #   (fetchAports {
-      #     path = "main/nfs-utils/0003-gssd-switch-to-using-rpc_gss_seccreate.patch";
-      #     hash = "sha256-zcWqFbT4j2ZWM3sdKn2/Rr/s0BlxASMvofFr/5ixZi4=";
-      #   })
-      #   (fetchAports {
-      #     path = "main/nfs-utils/0004-gssd-handle-KRB5_AP_ERR_BAD_INTEGRITY-for-machine-cr.patch";
-      #     hash = "sha256-bycKKtI3rTJlG8fA5ZJU2hAKjT7Ga1AvofPDg5rEnzg=";
-      #   })
-      #   (fetchAports {
-      #     path = "main/nfs-utils/0005-gssd-handle-KRB5_AP_ERR_BAD_INTEGRITY-for-user-crede.patch";
-      #     hash = "sha256-YeL4sj+Usq/SfsVvS6nX+gJELTHeVrfCAszl17yPL+Q=";
-      #   })
-      #   (fetchAports {
-      #     path = "main/nfs-utils/0006-configure-check-for-rpc_gss_seccreate.patch";
-      #     hash = "sha256-CmcUXdIIqcB+MBwmx8FtddQvLtb9WIQnwMO42OSKHeQ=";
-      #   })
-      # ];
-      # postPatch = (lib.replaceStrings
-      #   [ "chmod 4711" ]
-      #   [ "chmod 4511" ]
-      #   upstream.postPatch);
-      # prePatch = (upstream.prePatch or "") + ''
-      #   substituteInPlace configure.ac --replace-fail \
-      #     'AC_MSG_ERROR([Neither getrpcbynumber_r nor getrpcbynumber are available])' \
-      #     'AC_MSG_WARN([Neither getrpcbynumber_r nor getrpcbynumber are available])'
-      #   substituteInPlace configure --replace-fail \
-      #     'as_fn_error $? "Neither getrpcbynumber_r nor getrpcbynumber are available"' \
-      #     'as_fn_warn $? "Neither getrpcbynumber_r nor getrpcbynumber are available"'
-      # '';
+          # patches = [
+          #   (fetchAports {
+          #     path = "main/nfs-utils/musl-getservbyport.patch";
+          #     hash = "sha256-DnqsCanMJM/4baIY4R8GY/DhQ8ikMBSISi1Y9FvSHLs=";
+          #   })
+          #   (fetchAports {
+          #     path = "main/nfs-utils/musl-svcgssd-sysconf.patch";
+          #     hash = "sha256-5coE3aIGj5FtbCO4st0ybVtqp+xpWntUKv73S+X9EzY=";
+          #   })
+          #   (fetchAports {
+          #     path = "main/nfs-utils/musl-stat64.patch";
+          #     hash = "sha256-mnnjgN9QqZV4bNVGNqBI8+tM5pIRUfeX/hnYVL6Zmb4=";
+          #   })
+          #   (fetchAports {
+          #     path = "main/nfs-utils/include-unistd.patch";
+          #     hash = "sha256-+jRUyh0gDoBqzYRKU/yMlLsdvApi592YJTTrn9rIDBw=";
+          #   })
+          #   (fetchAports {
+          #     path = "main/nfs-utils/0001-gssd-revert-commit-a5f3b7ccb01c.patch";
+          #     hash = "sha256-LH+YetG2J2zB9pon4fSUX8/TOUyIp6rt3O/4uWjkXR4=";
+          #   })
+          #   (fetchAports {
+          #     path = "main/nfs-utils/0002-gssd-revert-commit-513630d720bd.patch";
+          #     hash = "sha256-9Tj0cNZXNepGyBqXX+MuSnIrv3egT64xmkBLMq7YUNo=";
+          #   })
+          #   (fetchAports {
+          #     path = "main/nfs-utils/0003-gssd-switch-to-using-rpc_gss_seccreate.patch";
+          #     hash = "sha256-zcWqFbT4j2ZWM3sdKn2/Rr/s0BlxASMvofFr/5ixZi4=";
+          #   })
+          #   (fetchAports {
+          #     path = "main/nfs-utils/0004-gssd-handle-KRB5_AP_ERR_BAD_INTEGRITY-for-machine-cr.patch";
+          #     hash = "sha256-bycKKtI3rTJlG8fA5ZJU2hAKjT7Ga1AvofPDg5rEnzg=";
+          #   })
+          #   (fetchAports {
+          #     path = "main/nfs-utils/0005-gssd-handle-KRB5_AP_ERR_BAD_INTEGRITY-for-user-crede.patch";
+          #     hash = "sha256-YeL4sj+Usq/SfsVvS6nX+gJELTHeVrfCAszl17yPL+Q=";
+          #   })
+          #   (fetchAports {
+          #     path = "main/nfs-utils/0006-configure-check-for-rpc_gss_seccreate.patch";
+          #     hash = "sha256-CmcUXdIIqcB+MBwmx8FtddQvLtb9WIQnwMO42OSKHeQ=";
+          #   })
+          # ];
+          # postPatch = (lib.replaceStrings
+          #   [ "chmod 4711" ]
+          #   [ "chmod 4511" ]
+          #   upstream.postPatch);
+          # prePatch = (upstream.prePatch or "") + ''
+          #   substituteInPlace configure.ac --replace-fail \
+          #     'AC_MSG_ERROR([Neither getrpcbynumber_r nor getrpcbynumber are available])' \
+          #     'AC_MSG_WARN([Neither getrpcbynumber_r nor getrpcbynumber are available])'
+          #   substituteInPlace configure --replace-fail \
+          #     'as_fn_error $? "Neither getrpcbynumber_r nor getrpcbynumber are available"' \
+          #     'as_fn_warn $? "Neither getrpcbynumber_r nor getrpcbynumber are available"'
+          # '';
 
-      # tried to build older nixpkgs src/patches, but this fails:
-      # > configure: error: Neither getrpcbynumber_r nor getrpcbynumber are available
-      # version = "2.7.1";
-      # src = fetchurl {
-      #  url = "mirror://kernel/linux/utils/nfs-utils/${version}/nfs-utils-${version}.tar.xz";
-      #  hash = "sha256-iFyUioSli8pBSPRZWI+ac2nbtA3MRm8E5FXGsQ/Qqkg=";
-      # };
+          # tried to build older nixpkgs src/patches, but this fails:
+          # > configure: error: Neither getrpcbynumber_r nor getrpcbynumber are available
+          # version = "2.7.1";
+          # src = fetchurl {
+          #  url = "mirror://kernel/linux/utils/nfs-utils/${version}/nfs-utils-${version}.tar.xz";
+          #  hash = "sha256-iFyUioSli8pBSPRZWI+ac2nbtA3MRm8E5FXGsQ/Qqkg=";
+          # };
 
-      # patches = [
-      #   (fetchVoid {
-      #     rev = "bb636cdb1b274f44d92b1cb2fdf0dff6079f97aa";
-      #     path = "srcpkgs/nfs-utils/patches/nfs-utils-2.7.1-define_macros_for_musl.patch";
-      #     hash = "sha256-wsyioRjzs1PObMHwYgf5h/Ngv+s5MPsroAuUNGs9lR0=";
-      #   })
-      #   (fetchVoid {
-      #     rev = "bb636cdb1b274f44d92b1cb2fdf0dff6079f97aa";
-      #     path = "srcpkgs/nfs-utils/patches/musl-svcgssd-sysconf.patch";
-      #     hash = "sha256-3TXgqswxlhFqXRPcjwo4MdqlTYl+dWVaa0E5r9Mnw18=";
-      #   })
-      #   (fetchVoid {
-      #     rev = "bb636cdb1b274f44d92b1cb2fdf0dff6079f97aa";
-      #     path = "srcpkgs/nfs-utils/patches/musl-fix_long_unsigned_int.patch";
-      #     hash = "sha256-rS6sqqoGLIaPVq04+QiqP4qa88i1z4ZZCssM5k/XQ68=";
-      #   })
-      # ];
+          # patches = [
+          #   (fetchVoid {
+          #     rev = "bb636cdb1b274f44d92b1cb2fdf0dff6079f97aa";
+          #     path = "srcpkgs/nfs-utils/patches/nfs-utils-2.7.1-define_macros_for_musl.patch";
+          #     hash = "sha256-wsyioRjzs1PObMHwYgf5h/Ngv+s5MPsroAuUNGs9lR0=";
+          #   })
+          #   (fetchVoid {
+          #     rev = "bb636cdb1b274f44d92b1cb2fdf0dff6079f97aa";
+          #     path = "srcpkgs/nfs-utils/patches/musl-svcgssd-sysconf.patch";
+          #     hash = "sha256-3TXgqswxlhFqXRPcjwo4MdqlTYl+dWVaa0E5r9Mnw18=";
+          #   })
+          #   (fetchVoid {
+          #     rev = "bb636cdb1b274f44d92b1cb2fdf0dff6079f97aa";
+          #     path = "srcpkgs/nfs-utils/patches/musl-fix_long_unsigned_int.patch";
+          #     hash = "sha256-rS6sqqoGLIaPVq04+QiqP4qa88i1z4ZZCssM5k/XQ68=";
+          #   })
+          # ];
 
-      # postPatch = lib.replaceStrings
-      #   [ "chmod 4711" ]
-      #   [ "chmod 4511" ]
-      #   upstream.postPatch;
+          # postPatch = lib.replaceStrings
+          #   [ "chmod 4711" ]
+          #   [ "chmod 4511" ]
+          #   upstream.postPatch;
 
-      # version = "2.8.4";
-      # src = fetchurl {
-      #   url = "mirror://kernel/linux/utils/nfs-utils/${version}/nfs-utils-${version}.tar.xz";
-      #   hash = "sha256-EcTMWYpDTX00C60+Byo3O6HcwsSfhV1EsgIiK3js2/U=";
-      # };
-      # configureFlags = upstream.configureFlags ++ [
-      #   "--without-tcp-wrappers"
-      # ];
-      # intentionally overwriting nixpkgs `patches` entry
-      # patches = [
-      #   (fetchVoid {
-      #     path = "srcpkgs/nfs-utils/patches/musl-fix_long_unsigned_int.patch";
-      #     hash = "sha256-wcQ2IRmlBP61qZVlXk6osi4UH8ETtjllVogPEaZNK9o=";
-      #   })
-      #   (fetchVoid {
-      #     path = "srcpkgs/nfs-utils/patches/musl-getservbyport.patch";
-      #     hash = "sha256-qx/p8BwWTchAWCIJbWylaF3XZU8OTx7w98W2atsgcdk=";
-      #   })
-      #   (fetchVoid {
-      #     path = "srcpkgs/nfs-utils/patches/musl-includes.patch";
-      #     hash = "sha256-dZEafrXDZH/IPo1u7B65u01nwFMfcqSMnVyHAapexa8=";
-      #   })
-      #   # http://openwall.com/lists/musl/2015/08/18/10
-      #   # (fetchpatch {
-      #   #   url = "https://raw.githubusercontent.com/alpinelinux/aports/cb880042d48d77af412d4688f24b8310ae44f55f/main/nfs-utils/musl-getservbyport.patch";
-      #   #   sha256 = "1fqws9dz8n1d9a418c54r11y3w330qgy2652dpwcy96cm44sqyhf";
-      #   # })
-      #   # (fetchpatch {
-      #   #   url = "https://github.com/void-linux/void-packages/raw/31f0d5fef2f74999212bcfa6f982969973432750/srcpkgs/nfs-utils/patches/musl-includes.patch";
-      #   #   hash = "sha256-dZEafrXDZH/IPo1u7B65u01nwFMfcqSMnVyHAapexa8=";
-      #   # })
-      #   # (fetchpatch {
-      #   #   url = "https://github.com/void-linux/void-packages/raw/31f0d5fef2f74999212bcfa6f982969973432750/srcpkgs/nfs-utils/patches/musl-fix_long_unsigned_int.pat  ch";
-      #   #   hash = "sha256-wcQ2IRmlBP61qZVlXk6osi4UH8ETtjllVogPEaZNK9o=";
-      #   # })
-      # ];
-    });
+          # version = "2.8.4";
+          # src = fetchurl {
+          #   url = "mirror://kernel/linux/utils/nfs-utils/${version}/nfs-utils-${version}.tar.xz";
+          #   hash = "sha256-EcTMWYpDTX00C60+Byo3O6HcwsSfhV1EsgIiK3js2/U=";
+          # };
+          # configureFlags = upstream.configureFlags ++ [
+          #   "--without-tcp-wrappers"
+          # ];
+          # intentionally overwriting nixpkgs `patches` entry
+          # patches = [
+          #   (fetchVoid {
+          #     path = "srcpkgs/nfs-utils/patches/musl-fix_long_unsigned_int.patch";
+          #     hash = "sha256-wcQ2IRmlBP61qZVlXk6osi4UH8ETtjllVogPEaZNK9o=";
+          #   })
+          #   (fetchVoid {
+          #     path = "srcpkgs/nfs-utils/patches/musl-getservbyport.patch";
+          #     hash = "sha256-qx/p8BwWTchAWCIJbWylaF3XZU8OTx7w98W2atsgcdk=";
+          #   })
+          #   (fetchVoid {
+          #     path = "srcpkgs/nfs-utils/patches/musl-includes.patch";
+          #     hash = "sha256-dZEafrXDZH/IPo1u7B65u01nwFMfcqSMnVyHAapexa8=";
+          #   })
+          #   # http://openwall.com/lists/musl/2015/08/18/10
+          #   # (fetchpatch {
+          #   #   url = "https://raw.githubusercontent.com/alpinelinux/aports/cb880042d48d77af412d4688f24b8310ae44f55f/main/nfs-utils/musl-getservbyport.patch";
+          #   #   sha256 = "1fqws9dz8n1d9a418c54r11y3w330qgy2652dpwcy96cm44sqyhf";
+          #   # })
+          #   # (fetchpatch {
+          #   #   url = "https://github.com/void-linux/void-packages/raw/31f0d5fef2f74999212bcfa6f982969973432750/srcpkgs/nfs-utils/patches/musl-includes.patch";
+          #   #   hash = "sha256-dZEafrXDZH/IPo1u7B65u01nwFMfcqSMnVyHAapexa8=";
+          #   # })
+          #   # (fetchpatch {
+          #   #   url = "https://github.com/void-linux/void-packages/raw/31f0d5fef2f74999212bcfa6f982969973432750/srcpkgs/nfs-utils/patches/musl-fix_long_unsigned_int.pat  ch";
+          #   #   hash = "sha256-wcQ2IRmlBP61qZVlXk6osi4UH8ETtjllVogPEaZNK9o=";
+          #   # })
+          # ];
+        });
 
     # 2026-11-14: still required
     # 2026-10-02: musl lacks close_range(), and nix relies on glibc transitively including <sys/syscall.h> for the fallback:
     # > ../unix/file-descriptor.cc:82:20: error: ‘SYS_close_range’ was not declared in this scope
     # upstream issue: <https://github.com/NixOS/nix/issues/11931>
-    nixVersions = prev.nixVersions.extend (_: nixPrev: {
-      nixComponents_2_34 = nixPrev.nixComponents_2_34.overrideScope (_: componentsPrev: {
-        nix-util = componentsPrev.nix-util.overrideAttrs (prevAttrs: {
-          env = (prevAttrs.env or {}) // {
-            NIX_CFLAGS_COMPILE = (lib.optionalString ((prevAttrs.env.NIX_CFLAGS_COMPILE or "") != "") "${prevAttrs.env.NIX_CFLAGS_COMPILE} ") + "-include sys/syscall.h";
-          };
-        });
-      });
-      # nixComponents_2_35 = nixPrev.nixComponents_2_34.overrideScope (_: componentsPrev: {
-      #   nix-util = componentsPrev.nix-util.overrideAttrs (prevAttrs: {
-      #     env = (prevAttrs.env or {}) // {
-      #       NIX_CFLAGS_COMPILE = (lib.optionalString ((prevAttrs.env.NIX_CFLAGS_COMPILE or "") != "") "${prevAttrs.env.NIX_CFLAGS_COMPILE} ") + "-include sys/syscall.h";
-      #     };
-      #   });
-      # });
-    });
+    nixVersions = prev.nixVersions.extend (
+      _: nixPrev: {
+        nixComponents_2_34 = nixPrev.nixComponents_2_34.overrideScope (
+          _: componentsPrev: {
+            nix-util = componentsPrev.nix-util.overrideAttrs (prevAttrs: {
+              env = (prevAttrs.env or { }) // {
+                NIX_CFLAGS_COMPILE =
+                  (lib.optionalString (
+                    (prevAttrs.env.NIX_CFLAGS_COMPILE or "") != ""
+                  ) "${prevAttrs.env.NIX_CFLAGS_COMPILE} ")
+                  + "-include sys/syscall.h";
+              };
+            });
+          }
+        );
+        # nixComponents_2_35 = nixPrev.nixComponents_2_34.overrideScope (_: componentsPrev: {
+        #   nix-util = componentsPrev.nix-util.overrideAttrs (prevAttrs: {
+        #     env = (prevAttrs.env or {}) // {
+        #       NIX_CFLAGS_COMPILE = (lib.optionalString ((prevAttrs.env.NIX_CFLAGS_COMPILE or "") != "") "${prevAttrs.env.NIX_CFLAGS_COMPILE} ") + "-include sys/syscall.h";
+        #     };
+        #   });
+        # });
+      }
+    );
 
     # 2026-11-14: still required
-    nmon = prev.nmon.overrideAttrs (upstream:
+    nmon = prev.nmon.overrideAttrs (
+      upstream:
       # nmon is a single-file project,
       # compiled in nixpkgs in an extremely non-patchable manner.
       let
@@ -1337,26 +1405,27 @@ super.lib.composeManyExtensions [
         };
       in
       {
-        buildPhase = lib.replaceStrings
-          [ "${upstream.src}" ]
-          [ "${patchedSrc}/lmon.c" ]
-          upstream.buildPhase;
+        buildPhase =
+          lib.replaceStrings [ "${upstream.src}" ] [ "${patchedSrc}/lmon.c" ]
+            upstream.buildPhase;
       }
     );
 
-    onnxruntime = (prev.onnxruntime.override {
-      # 2026-11-14: still required
-      # XXX(2026-07-01): pkgsMusl.openvino doesn't compile
-      openvinoSupport = false;
-    }).overrideAttrs (upstream: {
-      # XXX(2026-07-01): possibly a legit memory leak due to different dlopen/dlclose behavior on musl v.s. glibc?
-      # > The following tests FAILED:
-      # > 8 - onnxruntime_autoep_test (Failed)
-      # The GTEST_FILTER env var is not being passed to ctest, so we override checkPhase to export it
-      checkPhase = (upstream.checkPhase or "") + ''
-        export GTEST_FILTER="*:-ContribOpTest.StringNormalizer*:-OrtEpLibrary.RegisterUnregisterDoesNotLeakLibraryHandle"
-      '';
-    });
+    onnxruntime =
+      (prev.onnxruntime.override {
+        # 2026-11-14: still required
+        # XXX(2026-07-01): pkgsMusl.openvino doesn't compile
+        openvinoSupport = false;
+      }).overrideAttrs
+        (upstream: {
+          # XXX(2026-07-01): possibly a legit memory leak due to different dlopen/dlclose behavior on musl v.s. glibc?
+          # > The following tests FAILED:
+          # > 8 - onnxruntime_autoep_test (Failed)
+          # The GTEST_FILTER env var is not being passed to ctest, so we override checkPhase to export it
+          checkPhase = (upstream.checkPhase or "") + ''
+            export GTEST_FILTER="*:-ContribOpTest.StringNormalizer*:-OrtEpLibrary.RegisterUnregisterDoesNotLeakLibraryHandle"
+          '';
+        });
 
     # 2026-10-03: still required
     openscad-unstable = prev.openscad-unstable.overrideAttrs (prevAttrs: {
@@ -1390,37 +1459,41 @@ super.lib.composeManyExtensions [
         # });
 
         # 2026-11-14: still required
-        crawl4ai = (pysuper.crawl4ai.override {
-          alphashape = null;
-          shapely = null;
-          # optional deps which don't build (or even eval!) for musl
-          sentence-transformers = null;
-          tokenizers = null;
-          torch = null;
-          transformers = null;
-        }).overridePythonAttrs (prevAttrs: {
-          # tests/memory/test_stress_api_xs.py imports this without declaring it.
-          nativeCheckInputs = (prevAttrs.nativeCheckInputs or []) ++ [
-            pyself.typer
-          ];
-          pythonRemoveDeps = prevAttrs.pythonRemoveDeps ++ [
-            "alphashape"
-            "shapely"
-          ];
-        });
+        crawl4ai =
+          (pysuper.crawl4ai.override {
+            alphashape = null;
+            shapely = null;
+            # optional deps which don't build (or even eval!) for musl
+            sentence-transformers = null;
+            tokenizers = null;
+            torch = null;
+            transformers = null;
+          }).overridePythonAttrs
+            (prevAttrs: {
+              # tests/memory/test_stress_api_xs.py imports this without declaring it.
+              nativeCheckInputs = (prevAttrs.nativeCheckInputs or [ ]) ++ [
+                pyself.typer
+              ];
+              pythonRemoveDeps = prevAttrs.pythonRemoveDeps ++ [
+                "alphashape"
+                "shapely"
+              ];
+            });
 
         cryptography = pysuper.cryptography.overridePythonAttrs (prevAttrs: {
           # 2026-11-14: still required
           # Chimera also disables this ~4 TiB allocation test with mimalloc:
           # https://github.com/chimera-linux/cports/commit/45b26b7673b53291b09b8d27fe54e124882c888d
-          disabledTests = (prevAttrs.disabledTests or []) ++ lib.optional
-            ((final.musl.allocatorModel or "malloc-ng") == "mimalloc")
-            "test_argon2_malloc_failure";
+          disabledTests =
+            (prevAttrs.disabledTests or [ ])
+            ++ lib.optional (
+              (final.musl.allocatorModel or "malloc-ng") == "mimalloc"
+            ) "test_argon2_malloc_failure";
         });
 
         # 2026-10-03: still required
         # 2026-07-27: curl-cffi tests hang/fail on musl. Disable all tests to ensure build completes.
-        curl-cffi = pysuper.curl-cffi.overridePythonAttrs (prevAttrs: {
+        curl-cffi = pysuper.curl-cffi.overridePythonAttrs (_prevAttrs: {
           doCheck = false;
         });
 
@@ -1448,7 +1521,7 @@ super.lib.composeManyExtensions [
 
         # 2026-11-14: still required
         netifaces = pysuper.netifaces.overrideAttrs (upstream: {
-          patches = (upstream.patches or []) ++ [
+          patches = (upstream.patches or [ ]) ++ [
             (fetchAports {
               path = "community/py3-netifaces/gcc14.patch";
               hash = "sha256-5p5pwpV1GSyPHN0aA1J8plyB/NvAHb9hqWlepY1Mqpk=";
@@ -1458,7 +1531,7 @@ super.lib.composeManyExtensions [
 
         # 2026-11-14: still required
         ml-dtypes = pysuper.ml-dtypes.overridePythonAttrs (prevAttrs: {
-          disabledTestPaths = (prevAttrs.disabledTestPaths or []) ++ [
+          disabledTestPaths = (prevAttrs.disabledTestPaths or [ ]) ++ [
             # 2026-10-03: musl's libm returns different NaN and infinity components for complex
             # functions than glibc, so these upstream comparisons are not portable.
             "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arcsin-complex32]"
@@ -1556,20 +1629,26 @@ super.lib.composeManyExtensions [
 
     # 2026-11-14: still required
     # ripgrep enables jemalloc on 64-bit musl; Cargo's setup hook requires a system library.
-    ripgrep = prev.ripgrep.overrideAttrs (prevAttrs: let
-      jemalloc = final.rust-jemalloc-sys.overrideAttrs {
-        dontDisableStatic = true;
-      };
-    in {
-      # Rust's musl target links libc statically; a shared jemalloc segfaults at startup.
-      env = (prevAttrs.env or {}) // lib.optionalAttrs stdenv.hostPlatform.is64bit {
-        JEMALLOC_OVERRIDE = "${jemalloc}/lib/libjemalloc.a";
-      };
-    });
+    ripgrep = prev.ripgrep.overrideAttrs (
+      prevAttrs:
+      let
+        jemalloc = final.rust-jemalloc-sys.overrideAttrs {
+          dontDisableStatic = true;
+        };
+      in
+      {
+        # Rust's musl target links libc statically; a shared jemalloc segfaults at startup.
+        env =
+          (prevAttrs.env or { })
+          // lib.optionalAttrs stdenv.hostPlatform.is64bit {
+            JEMALLOC_OVERRIDE = "${jemalloc}/lib/libjemalloc.a";
+          };
+      }
+    );
 
     # 2026-11-14: still required
     rpm = prev.rpm.overrideAttrs (upstream: {
-      patches = (upstream.patches or []) ++ [
+      patches = (upstream.patches or [ ]) ++ [
         # (fetchAports {
         #   # fixes "/build/rpm-4.20.1/rpmio/rpmglob.c:84:15: error: ‘GLOB_BRACE’ undeclared (first use in this function); did you mean ‘GLOB_NOSPACE’?"
         #   # upstream tracking issue (stalled): <https://github.com/rpm-software-management/rpm/issues/2844>
@@ -1589,60 +1668,67 @@ super.lib.composeManyExtensions [
       # Chimera disables this libnkutils suite due to a heap-buffer overflow:
       # https://github.com/chimera-linux/cports/commit/5173df6c22771e556b72787e1670c9a451c0d3d0
       # FIXME: this may be a real bug in rofi which needs fixing
-      mesonCheckFlags = (upstream.mesonCheckFlags or []) ++ lib.optional
-        ((final.musl.allocatorModel or "malloc-ng") == "mimalloc")
-        "--no-suite=format-string";
+      mesonCheckFlags =
+        (upstream.mesonCheckFlags or [ ])
+        ++ lib.optional (
+          (final.musl.allocatorModel or "malloc-ng") == "mimalloc"
+        ) "--no-suite=format-string";
     });
 
     # 2026-11-14: still required
     # 2026-10-25: Signal's native dependencies assume glibc.
-    signal-desktop = (prev.signal-desktop.override {
-      # The native dependencies are private to Signal's callPackage scope.
-      callPackage = path: args:
-        let
-          package = final.callPackage path args;
-        in
-        if baseNameOf path == "webrtc.nix" then
-          package.overrideAttrs (old: {
-            patches = (old.patches or []) ++ [
-              (fetchAports {
-                path = "testing/signal-desktop/webrtc-rtcbase-platform-thread-type-do-not-include-linux-prctl-header.patch";
-                stripLen = 1;
-                hash = "sha256-T0s6wlaTo6Zva2Xq9RubTZtek6/42UCfsXxdqqjy//M=";
-              })
-              (fetchAports {
-                path = "testing/signal-desktop/webrtc-nullptr_t.patch";
-                stripLen = 1;
-                hash = "sha256-z3d1wFPlmTSTkB3xEa8tNcOVqXJSqe2qZwXFKnIpegI=";
-              })
-            ];
-          })
-        else if baseNameOf path == "libsignal-node.nix" then
-          package.overrideAttrs (old: {
-            # Upstream exposes a target option; avoid its GNU-only default.
-            buildPhase = builtins.replaceStrings
-              [ "--copy-to-prebuilds --node-arch" ]
-              [ "--copy-to-prebuilds --cargo-target ${stdenv.hostPlatform.rust.rustcTarget} --node-arch" ]
-              old.buildPhase;
-          })
-        else if baseNameOf path == "signal-sqlcipher.nix" then
-          package.overrideAttrs (old: {
-            # Like aports' APKBUILD, fix both Cargo's target and its output path.
-            postPatch = (old.postPatch or "") + ''
-              substituteInPlace deps/extension/extension.gyp \
-                --replace-fail 'unknown-linux-gnu' 'unknown-linux-musl'
-            '';
-          })
-        else package;
-    }).overrideAttrs (old: {
-      # electron-builder follows pnpm's backing directory, not the replacement
-      # at node_modules/@signalapp/sqlcipher, and otherwise packages the GNU binary.
-      # XXX: i guess this indicates a bug in the existing nix package: nixpkgs isn't shipping the from-source signal-sqlcipher even on glibc?
-      preFixup = (old.preFixup or "") + ''
-        install -m644 ${final.signal-desktop.signal-sqlcipher}/prebuilds/linux-${stdenv.hostPlatform.node.arch}/*.node \
-          $out/share/signal-desktop/app.asar.unpacked/node_modules/@signalapp/sqlcipher/prebuilds/linux-${stdenv.hostPlatform.node.arch}/
-      '';
-    });
+    signal-desktop =
+      (prev.signal-desktop.override {
+        # The native dependencies are private to Signal's callPackage scope.
+        callPackage =
+          path: args:
+          let
+            package = final.callPackage path args;
+          in
+          if baseNameOf path == "webrtc.nix" then
+            package.overrideAttrs (old: {
+              patches = (old.patches or [ ]) ++ [
+                (fetchAports {
+                  path = "testing/signal-desktop/webrtc-rtcbase-platform-thread-type-do-not-include-linux-prctl-header.patch";
+                  stripLen = 1;
+                  hash = "sha256-T0s6wlaTo6Zva2Xq9RubTZtek6/42UCfsXxdqqjy//M=";
+                })
+                (fetchAports {
+                  path = "testing/signal-desktop/webrtc-nullptr_t.patch";
+                  stripLen = 1;
+                  hash = "sha256-z3d1wFPlmTSTkB3xEa8tNcOVqXJSqe2qZwXFKnIpegI=";
+                })
+              ];
+            })
+          else if baseNameOf path == "libsignal-node.nix" then
+            package.overrideAttrs (old: {
+              # Upstream exposes a target option; avoid its GNU-only default.
+              buildPhase =
+                builtins.replaceStrings
+                  [ "--copy-to-prebuilds --node-arch" ]
+                  [ "--copy-to-prebuilds --cargo-target ${stdenv.hostPlatform.rust.rustcTarget} --node-arch" ]
+                  old.buildPhase;
+            })
+          else if baseNameOf path == "signal-sqlcipher.nix" then
+            package.overrideAttrs (old: {
+              # Like aports' APKBUILD, fix both Cargo's target and its output path.
+              postPatch = (old.postPatch or "") + ''
+                substituteInPlace deps/extension/extension.gyp \
+                  --replace-fail 'unknown-linux-gnu' 'unknown-linux-musl'
+              '';
+            })
+          else
+            package;
+      }).overrideAttrs
+        (old: {
+          # electron-builder follows pnpm's backing directory, not the replacement
+          # at node_modules/@signalapp/sqlcipher, and otherwise packages the GNU binary.
+          # XXX: i guess this indicates a bug in the existing nix package: nixpkgs isn't shipping the from-source signal-sqlcipher even on glibc?
+          preFixup = (old.preFixup or "") + ''
+            install -m644 ${final.signal-desktop.signal-sqlcipher}/prebuilds/linux-${stdenv.hostPlatform.node.arch}/*.node \
+              $out/share/signal-desktop/app.asar.unpacked/node_modules/@signalapp/sqlcipher/prebuilds/linux-${stdenv.hostPlatform.node.arch}/
+          '';
+        });
 
     # 2026-11-14: still required
     # XXX(2026-02-03): default `pkgsMusl.slack` fails at launch:
@@ -1761,7 +1847,7 @@ super.lib.composeManyExtensions [
     # > ifrename.c:1816:15: error: implicit declaration of function ‘basename’ [-Wimplicit-function-declaration]
     # >  1816 |           p = basename(linkpath);
     wirelesstools = prev.wirelesstools.overrideAttrs (upstream: {
-      patches = (upstream.patches or []) ++ [
+      patches = (upstream.patches or [ ]) ++ [
         (fetchAports {
           path = "main/wireless-tools/include-libgen.patch";
           hash = "sha256-HgT04rxtu+Zr+F6xXoc7qIyUXGenGNo72VHDCEGJhXo=";
@@ -1799,19 +1885,20 @@ super.lib.composeManyExtensions [
     # already-loaded object; musl still needs a RUNPATH entry, and the default
     # patchelf --shrink-rpath drops that entry unless libEGL is needed by soname.
     wezterm = prev.wezterm.overrideAttrs (upstream: {
-      preFixup = lib.replaceStrings
-        [
-          ''--add-needed "${final.libGL}/lib/libEGL.so.1"''
-          ''--add-needed "${final.vulkan-loader}/lib/libvulkan.so.1"''
-        ]
-        [
-          ''--remove-needed "${final.libGL}/lib/libEGL.so.1" --add-needed libEGL.so.1''
-          ''--remove-needed "${final.vulkan-loader}/lib/libvulkan.so.1" --add-needed libvulkan.so.1''
-        ]
-        upstream.preFixup
-      + ''
-        patchelf --set-rpath "$(patchelf --print-rpath $out/bin/wezterm-gui):${final.libGL}/lib:${final.vulkan-loader}/lib" $out/bin/wezterm-gui
-      '';
+      preFixup =
+        lib.replaceStrings
+          [
+            ''--add-needed "${final.libGL}/lib/libEGL.so.1"''
+            ''--add-needed "${final.vulkan-loader}/lib/libvulkan.so.1"''
+          ]
+          [
+            ''--remove-needed "${final.libGL}/lib/libEGL.so.1" --add-needed libEGL.so.1''
+            ''--remove-needed "${final.vulkan-loader}/lib/libvulkan.so.1" --add-needed libvulkan.so.1''
+          ]
+          upstream.preFixup
+        + ''
+          patchelf --set-rpath "$(patchelf --print-rpath $out/bin/wezterm-gui):${final.libGL}/lib:${final.vulkan-loader}/lib" $out/bin/wezterm-gui
+        '';
     });
 
     # # XXX(2026-02-03): musl `buildFHSEnvBubblewrap`-based attempt failed at runtime:
@@ -1819,65 +1906,79 @@ super.lib.composeManyExtensions [
     # zoom-us = final._pkgsGnu.zoom-us;
   })
 
-  (_: prev: prev.lib.optionalAttrs (prev.stdenv.buildPlatform != prev.stdenv.hostPlatform) {
-    # this portion of the overlay only applies to musl -> musl cross compilation
-    # e.g. pkgsMusl.pkgsCross.aarch64-multiplatform-musl.PNAME (x86_64 -> aarch64)
+  (
+    _: prev:
+    prev.lib.optionalAttrs (prev.stdenv.buildPlatform != prev.stdenv.hostPlatform) {
+      # this portion of the overlay only applies to musl -> musl cross compilation
+      # e.g. pkgsMusl.pkgsCross.aarch64-multiplatform-musl.PNAME (x86_64 -> aarch64)
 
-    # 2026-11-14: still required
-    # XXX(2026-05-24): fixes security wrappers for `moby-musl` (pkgsCross.aarch64-multiplatform.pkgsStatic).
-    # security wrappers want to access `srcOnly glibc`; default cross glibc uses a custom stdenv
-    # which does not build on musl -> patch by using a compatible stdenv.
-    # N.B.: the resulting glibc is not statically linked. that's OK because we only use its src.
-    glibc = final._pkgsGnu.glibc;
-
-    perlInterpreters = {
       # 2026-11-14: still required
-      # XXX(2026-05-24): LC_ALL=C for perl fixes pkgsMusl.pkgsCross.aarch64-multiplatform-musl.perl;
-      #                  LC_ALL=C for each perl package fixes `pkgsMusl.pkgsCross.aarch64-multiplatform-musl.perl.withPackages (ps: [ ps.PACKAGE ])`
-      perl5 = (prev.perlInterpreters.perl5.override (prevArgs: {
-        passthruFun = args: prevArgs.passthruFun (args // {
-          self = final.perlInterpreters.perl5;
-          # overrides = ps: (args.overrides ps) // {
-          #   buildPerlPackage = drvAttrs: ps.buildPerlPackage (drvAttrs // {
-          #     env = (drvAttrs.env or {}) // {
-          #       LC_ALL = "C";
-          #     };
-          #   });
-          # };
-        });
-      })).overrideAttrs (prevAttrs: {
-        env = prevAttrs.env // {
-          HOSTCFLAGS = "-D_GNU_SOURCE";
-          LC_ALL = "C";
-        };
-        # we should just populate this via `buildPerlPackage`, but that's difficult to override from outside nixpkgs
-        setupHook = writeTextFile {
-          name = "perl-setupHook";
-          text = ''
-            source ${prevAttrs.setupHook}
-            export LC_ALL=''${LC_ALL:-C}
-          '';
+      # XXX(2026-05-24): fixes security wrappers for `moby-musl` (pkgsCross.aarch64-multiplatform.pkgsStatic).
+      # security wrappers want to access `srcOnly glibc`; default cross glibc uses a custom stdenv
+      # which does not build on musl -> patch by using a compatible stdenv.
+      # N.B.: the resulting glibc is not statically linked. that's OK because we only use its src.
+      glibc = final._pkgsGnu.glibc;
+
+      perlInterpreters = {
+        # 2026-11-14: still required
+        # XXX(2026-05-24): LC_ALL=C for perl fixes pkgsMusl.pkgsCross.aarch64-multiplatform-musl.perl;
+        #                  LC_ALL=C for each perl package fixes `pkgsMusl.pkgsCross.aarch64-multiplatform-musl.perl.withPackages (ps: [ ps.PACKAGE ])`
+        perl5 =
+          (prev.perlInterpreters.perl5.override (prevArgs: {
+            passthruFun =
+              args:
+              prevArgs.passthruFun (
+                args
+                // {
+                  self = final.perlInterpreters.perl5;
+                  # overrides = ps: (args.overrides ps) // {
+                  #   buildPerlPackage = drvAttrs: ps.buildPerlPackage (drvAttrs // {
+                  #     env = (drvAttrs.env or {}) // {
+                  #       LC_ALL = "C";
+                  #     };
+                  #   });
+                  # };
+                }
+              );
+          })).overrideAttrs
+            (prevAttrs: {
+              env = prevAttrs.env // {
+                HOSTCFLAGS = "-D_GNU_SOURCE";
+                LC_ALL = "C";
+              };
+              # we should just populate this via `buildPerlPackage`, but that's difficult to override from outside nixpkgs
+              setupHook = writeTextFile {
+                name = "perl-setupHook";
+                text = ''
+                  source ${prevAttrs.setupHook}
+                  export LC_ALL=''${LC_ALL:-C}
+                '';
+              };
+            });
+      };
+
+      potrace = prev.potrace.overrideAttrs (prevAttrs: {
+        env = (prevAttrs.env or { }) // {
+          # 2026-11-14: still required
+          # XXX(2026-05-25): it bundles getopt.c, i'm actually not sure why building to an older C spec fixes it.
+          NIX_CFLAGS_COMPILE =
+            (lib.optionalString (
+              (prevAttrs.env.NIX_CFLAGS_COMPILE or "") != ""
+            ) "${prevAttrs.env.NIX_CFLAGS_COMPILE} ")
+            + "-std=gnu17";
         };
       });
-    };
 
-    potrace = prev.potrace.overrideAttrs (prevAttrs: {
-      env = (prevAttrs.env or {}) // {
-        # 2026-11-14: still required
-        # XXX(2026-05-25): it bundles getopt.c, i'm actually not sure why building to an older C spec fixes it.
-        NIX_CFLAGS_COMPILE = (lib.optionalString ((prevAttrs.env.NIX_CFLAGS_COMPILE or "") != "") "${prevAttrs.env.NIX_CFLAGS_COMPILE} ") + "-std=gnu17";
-      };
-    });
+      # 2026-11-14: still required
+      sshpass = prev.sshpass.overrideAttrs (prevAttrs: {
+        configureFlags = (prevAttrs.configureFlags or [ ]) ++ [ "ac_cv_func_malloc_0_nonnull=yes" ];
+      });
 
-    # 2026-11-14: still required
-    sshpass = prev.sshpass.overrideAttrs (prevAttrs: {
-      configureFlags = (prevAttrs.configureFlags or []) ++ [ "ac_cv_func_malloc_0_nonnull=yes" ];
-    });
-
-    # 2026-11-14: still required
-    # XXX(2026-10-16): unifont only needs perl at build time; this can maybe be upstreamed?
-    # fixes: `nix-build -A pkgsMusl.pkgsCross.aarch64-multiplatform-musl.unifont`
-    unifont = prev.unifont.override { perl = final.buildPackages.perl; };
-  })
+      # 2026-11-14: still required
+      # XXX(2026-10-16): unifont only needs perl at build time; this can maybe be upstreamed?
+      # fixes: `nix-build -A pkgsMusl.pkgsCross.aarch64-multiplatform-musl.unifont`
+      unifont = prev.unifont.override { perl = final.buildPackages.perl; };
+    }
+  )
 
 ] final super

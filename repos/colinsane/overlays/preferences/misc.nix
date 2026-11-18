@@ -1,8 +1,7 @@
 # personal preferences
 # prefer to encode these in `sane.programs`
 # resort to this method for e.g. system dependencies, or things which are referenced from too many places.
-self: super:
-{
+self: super: {
 
   # DISABLE HDCP BLOB in pinephone pro (and every other ATF build)
   # this is used by u-boot; requires redeploying the bootloader (the SPL, specifically).
@@ -42,42 +41,47 @@ self: super:
 
   # XXX(2026-10-27): experimental: ship musl with a substantially more performant allocator.
   musl = self.musl-mimalloc.override {
-    musl = super.musl;
+    inherit (super) musl;
   };
 
-  yt-dlp = let
-    # XXX(2026-02-04): yt-dlp accepts one of 4 JS runtimes, in order:
-    # - deno
-    # - nodejs
-    # - quickjs (a.k.a. quickjs-ng)
-    # - bun
-    # nixpkgs allows providing any of these simply by overriding the `deno` callpackage argument,
-    # but yt-dlp only actually checks for `deno` unless configured otherwise
-    # - e.g. via patching (below)
-    # - e.g. via `--js-runtimes node` CLI argument (or added to ~/.config/yt-dlp/config)
-    #
-    # jsRuntime = final.deno;  # 2026-02-04: doesn't cross compile, nor build for musl
-    jsRuntime = self.nodejs;
-    # jsRuntime = final.quickjs-ng;
-    # jsRuntime = final.bun;  # 2026-02-04: doesn't cross compile
-    jsRuntimeYtdlpName = {
-      deno = "deno";
-      node = "node";
-      qjs = "quickjs";
-      bun = "bun";
-    }.${jsRuntime.meta.mainProgram};
-  in (super.yt-dlp.override {
-    deno = jsRuntime;
-  }).overrideAttrs (upstream: {
-    postPatch = (upstream.postPatch or "") + ''
-      substituteInPlace yt_dlp/YoutubeDL.py \
-        --replace-fail \
-          "self.params.get('js_runtimes', {'deno': {}})" \
-          "self.params.get('js_runtimes', {'${jsRuntimeYtdlpName}': {}})"
-      substituteInPlace yt_dlp/options.py \
-        --replace-fail \
-          "default=['deno']" \
-          "default=['${jsRuntimeYtdlpName}']"
-    '';
-  });
+  yt-dlp =
+    let
+      # XXX(2026-02-04): yt-dlp accepts one of 4 JS runtimes, in order:
+      # - deno
+      # - nodejs
+      # - quickjs (a.k.a. quickjs-ng)
+      # - bun
+      # nixpkgs allows providing any of these simply by overriding the `deno` callpackage argument,
+      # but yt-dlp only actually checks for `deno` unless configured otherwise
+      # - e.g. via patching (below)
+      # - e.g. via `--js-runtimes node` CLI argument (or added to ~/.config/yt-dlp/config)
+      #
+      # jsRuntime = final.deno;  # 2026-02-04: doesn't cross compile, nor build for musl
+      jsRuntime = self.nodejs;
+      # jsRuntime = final.quickjs-ng;
+      # jsRuntime = final.bun;  # 2026-02-04: doesn't cross compile
+      jsRuntimeYtdlpName =
+        {
+          deno = "deno";
+          node = "node";
+          qjs = "quickjs";
+          bun = "bun";
+        }
+        .${jsRuntime.meta.mainProgram};
+    in
+    (super.yt-dlp.override {
+      deno = jsRuntime;
+    }).overrideAttrs
+      (upstream: {
+        postPatch = (upstream.postPatch or "") + ''
+          substituteInPlace yt_dlp/YoutubeDL.py \
+            --replace-fail \
+              "self.params.get('js_runtimes', {'deno': {}})" \
+              "self.params.get('js_runtimes', {'${jsRuntimeYtdlpName}': {}})"
+          substituteInPlace yt_dlp/options.py \
+            --replace-fail \
+              "default=['deno']" \
+              "default=['${jsRuntimeYtdlpName}']"
+        '';
+      });
 }

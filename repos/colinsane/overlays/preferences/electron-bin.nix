@@ -1,4 +1,4 @@
-self: super:
+_self: super:
 let
   # XXX(2024-12-26 - 2025-08-07): prefer pre-built electron because otherwise it takes 4 hrs to build from source.
   # but wait 2 days after staging -> master merge, and normal electron should be cached and safe to remove
@@ -11,13 +11,17 @@ let
     "x86_64-unknown-linux-gnu"
   ];
   electronName = v: "electron_${toString v}";
-  electronOverridesUnchecked = builtins.foldl' (acc: name: acc // super.lib.optionalAttrs (platformHasBin && super ? "${name}-bin") {
-    "${name}" = super."${name}-bin";
-  }) {} (map electronName versions);
-  electronOverrides = super.lib.throwIf
-    (super ? "${electronName (maxVersion+1)}")
-    "electron has updated past ${toString maxVersion}: bump maxVersion to continue using electron-bin"
-    electronOverridesUnchecked;
+  electronOverridesUnchecked = builtins.foldl' (
+    acc: name:
+    acc
+    // super.lib.optionalAttrs (platformHasBin && super ? "${name}-bin") {
+      "${name}" = super."${name}-bin";
+    }
+  ) { } (map electronName versions);
+  electronOverrides =
+    super.lib.throwIf (super ? "${electronName (maxVersion + 1)}")
+      "electron has updated past ${toString maxVersion}: bump maxVersion to continue using electron-bin"
+      electronOverridesUnchecked;
 in
-  super.lib.optionalAttrs false  # 2026-10-24: we can build this from source now
+super.lib.optionalAttrs false # 2026-10-24: we can build this from source now
   electronOverrides

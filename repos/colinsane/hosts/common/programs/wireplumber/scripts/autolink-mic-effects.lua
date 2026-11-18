@@ -1,6 +1,6 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
 --[[
-#!nix-shell -i wpexec ../../../../../integrations/nix-shell --arg f 'ps: [ ps.wireplumber ]'
+#!nix-shell -i wpexec ../../../../.. -A static-nix-shell.mkShell  --arg packages 'ps: [ ps.wireplumber ]'
 --]]
 --
 -- this script notices whenever an app links to a microphone,

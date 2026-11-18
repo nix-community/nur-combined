@@ -24,7 +24,11 @@ usage() {
 }
 
 # TODO: enable more in time...
-DEFAULT_PATHS=(pkgs hosts/common/programs)
+DEFAULT_PATHS=(
+  hosts/common/programs
+  overlays
+  pkgs
+)
 
 doFix=
 doFormat=

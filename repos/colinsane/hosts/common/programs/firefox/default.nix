@@ -75,6 +75,11 @@ let
           };
         };
         PasswordManagerEnabled = false; # TODO(2025-05-31): does this actually have an effect?
+        Permissions = {
+          Camera.Allow = [ "https://app.zoom.us" ];
+          Microphone.Allow = [ "https://app.zoom.us" ];
+        };
+        PopupBlocking.Allow = [ "https://app.zoom.us/" ];
         # see also ~/.mozilla/firefox/default/search.json.mozlz4
         # (use mozlz4a package to view)
         # XXX(2025-05-31): the below SearchEngines policy has no observable effect.

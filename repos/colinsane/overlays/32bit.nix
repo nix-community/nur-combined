@@ -5,19 +5,17 @@
 # - see: <https://github.com/NixOS/nixpkgs/pull/578642>
 #   - previously: <https://github.com/NixOS/nixpkgs/pull/420063>
 # - see: <https://github.com/NixOS/nixpkgs/issues/24016>
-self: super: {
-  stdenv = super.overrideMkDerivationArgs
-    (args: {
-      env = (args.env or { }) // {
-        # -D_FILE_OFFSET_BITS=64 is the important one here.
-        # -D_LARGEFILE_SOURCE may or may not make any difference.
-        NIX_CFLAGS_COMPILE_BEFORE = (args.env.NIX_CFLAGS_COMPILE_BEFORE or "")
-          # + " -D_LARGEFILE_SOURCE"
-          + " -D_FILE_OFFSET_BITS=64"
-          ;
-      };
-    })
-    super.stdenv;
+_self: super: {
+  stdenv = super.overrideMkDerivationArgs (args: {
+    env = (args.env or { }) // {
+      # -D_FILE_OFFSET_BITS=64 is the important one here.
+      # -D_LARGEFILE_SOURCE may or may not make any difference.
+      NIX_CFLAGS_COMPILE_BEFORE =
+        (args.env.NIX_CFLAGS_COMPILE_BEFORE or "")
+        # + " -D_LARGEFILE_SOURCE"
+        + " -D_FILE_OFFSET_BITS=64";
+    };
+  }) super.stdenv;
   # stdenv = super.withCFlags [ "-D_FILE_OFFSET_BITS=64" ] super.stdenv;
 
   # git = super.git.overrideAttrs {
@@ -50,7 +48,7 @@ self: super: {
   # };
 
   pythonPackagesExtensions = super.pythonPackagesExtensions ++ [
-    (pyself: pysuper: {
+    (_pyself: pysuper: {
       mypy = pysuper.mypy.overrideAttrs {
         doInstallCheck = false;
       };
@@ -92,7 +90,7 @@ self: super: {
 
   tcl = super.tcl.overrideAttrs (prevAttrs: {
     # required for pkgsi686Linux.sqlite to pass checkPhase
-    configureFlags = (prevAttrs.configureFlags or []) ++ [
+    configureFlags = (prevAttrs.configureFlags or [ ]) ++ [
       "tcl_cv_api_fts=no"
     ];
   });
@@ -102,7 +100,7 @@ self: super: {
   };
 
   w3m = super.w3m.overrideAttrs (prevAttrs: {
-    env = (prevAttrs.env or {}) // {
+    env = (prevAttrs.env or { }) // {
       # Prevent gettext's msgmerge from exhausting the 32-bit address space.
       OMP_NUM_THREADS = "1";
     };

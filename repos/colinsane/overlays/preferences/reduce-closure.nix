@@ -1,4 +1,4 @@
-self: super: {
+_self: super: {
   # beam = super.beam.override {
   #   # build erlang without webkit (for servo/pleroma)
   #   wxSupport = false;
@@ -76,11 +76,15 @@ self: super: {
       };
       pyside6 = pysuper.pyside6.override {
         python = pyself.python // {
-          pkgs = pyself.python.pkgs.overrideScope (self': super': {
-            qt6 = super'.qt6.overrideScope (_: _: {
-              qtwebengine = null;
-            });
-          });
+          pkgs = pyself.python.pkgs.overrideScope (
+            _self': super': {
+              qt6 = super'.qt6.overrideScope (
+                _: _: {
+                  qtwebengine = null;
+                }
+              );
+            }
+          );
         };
       };
       # less targeted alternative to removing qtwebengine from the pyside6 closure

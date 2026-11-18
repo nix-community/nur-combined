@@ -4,14 +4,12 @@
 let
   patches = import ./patches.nix;
   pkgs' = import ./pkgs.nix;
-  preferences = builtins.listToAttrs
-    (map
-      (file: {
-        name = builtins.head (builtins.match "^(.*)\\.nix$" file);
-        value = import ./preferences/${file};
-      })
-      (builtins.attrNames (builtins.readDir ./preferences))
-    );
+  preferences = builtins.listToAttrs (
+    map (file: {
+      name = builtins.head (builtins.match "^(.*)\\.nix$" file);
+      value = import ./preferences/${file};
+    }) (builtins.attrNames (builtins.readDir ./preferences))
+  );
   _32bit = import ./32bit.nix;
   cross = import ./cross.nix;
   gnu = import ./gnu.nix;
@@ -20,35 +18,35 @@ let
   strict = import ./strict.nix;
   pkgs-ccache = import ./pkgs-ccache.nix;
   pkgs-debug = import ./pkgs-debug.nix;
-in
-let
+
   is32bit = pkgs: pkgs.stdenv.hostPlatform.is32bit;
   isCross = pkgs: !(pkgs.lib.systems.equals pkgs.stdenv.hostPlatform pkgs.stdenv.buildPlatform);
   isGnu = pkgs: pkgs.stdenv.hostPlatform.isGnu;
   isMusl = pkgs: pkgs.stdenv.hostPlatform.isMusl;
   isStatic = pkgs: pkgs.stdenv.hostPlatform.isStatic;
   isStrict = pkgs: pkgs.config.strictDepsByDefault or false;
-  optional = condition: overlay: final: prev:
+  optional =
+    condition: overlay: final: prev:
     prev.lib.optionalAttrs (condition prev) (overlay final prev);
 in
-  [
-    pkgs'
-    patches
-  ]
-  ++ [
-    preferences.electron-bin
-    preferences.misc
-    preferences.no-opengl-indirection
-    preferences.no-perl
-    preferences.reduce-closure
-  ]
-  ++ [
-    (optional is32bit _32bit)
-    (optional isCross cross)
-    (optional isGnu gnu)
-    (optional isMusl musl)
-    (optional isStatic static)
-    (optional isStrict strict)
-    pkgs-ccache
-    pkgs-debug
-  ]
+[
+  pkgs'
+  patches
+]
+++ [
+  preferences.electron-bin
+  preferences.misc
+  preferences.no-opengl-indirection
+  preferences.no-perl
+  preferences.reduce-closure
+]
+++ [
+  (optional is32bit _32bit)
+  (optional isCross cross)
+  (optional isGnu gnu)
+  (optional isMusl musl)
+  (optional isStatic static)
+  (optional isStrict strict)
+  pkgs-ccache
+  pkgs-debug
+]

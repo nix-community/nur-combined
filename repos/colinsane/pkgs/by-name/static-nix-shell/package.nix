@@ -78,7 +78,7 @@ lib.makeScope newScope (self: {
   # - { pkgNameA = pkgValueA; "pkg.name.b" = pkg.value.b; ... }
   # - [ pkgValueA pkgValueB ... ]
   # - ps: <evaluate to one of the above exprs>
-  mkShell = lib.extendMkDerivation {
+  constructShell = lib.extendMkDerivation {
     constructDrv = stdenvNoCC.mkDerivation;
     excludeDrvArgNames = [
       "builderName"
@@ -92,13 +92,15 @@ lib.makeScope newScope (self: {
       finalAttrs:
       {
         pname ? "static-nix-shell",
-        interpreterPackage,
+        interpreterPackage ? null,
         interpreter ?
-          if (interpreterPackage.meta.mainProgram or null) != null then
+          if interpreterPackage == null then
+            null
+          else if (interpreterPackage.meta.mainProgram or null) != null then
             lib.getExe interpreterPackage
           else
             lib.getExe' interpreterPackage interpreterName,
-        interpreterName ? lib.last (builtins.split "/" interpreter),
+        interpreterName ? if interpreter == null then null else lib.last (builtins.split "/" interpreter),
         builderName,
         packages ? [ ],
         merge ? "append", # "append" new {PATH,XDG_DATA_DIRS} entries to existing {PATH,XDG_DATA_DIRS}? or "prepend"?
@@ -124,7 +126,7 @@ lib.makeScope newScope (self: {
             builtins.readFile (lib.path.append src srcPath)
           else
             null;
-        nixShellLineTemplate = "(.*\n)?#!nix-shell -i ${interpreterName} ([^ \n]+) -A static-nix-shell.${builderName} --arg packages '([^'\n]*)'(\n.*)?";
+        nixShellLineTemplate = "(.*\n)?#!nix-shell -i ([^ ]+) ([^ \n]+) -A static-nix-shell.${builderName} --arg packages '([^'\n]*)'(\n.*)?";
         nixShellLine = builtins.match nixShellLineTemplate srcText;
         nixShellMatch =
           if srcText != null then
@@ -133,9 +135,19 @@ lib.makeScope newScope (self: {
               nixShellLine
           else
             null;
-        packagesText = if nixShellMatch != null then builtins.elemAt nixShellMatch 2 else null;
+        interpreterName' =
+          if nixShellMatch != null then
+            lib.throwIf (interpreterName != null && builtins.elemAt nixShellMatch 1 != interpreterName)
+              "file says -i ${builtins.elemAt nixShellMatch 1} but expected ${interpreterName}"
+              builtins.elemAt
+              nixShellMatch
+              1
+          else
+            interpreterName;
 
-        shellRootText = builtins.elemAt nixShellMatch 1;
+        packagesText = if nixShellMatch != null then builtins.elemAt nixShellMatch 3 else null;
+
+        shellRootText = builtins.elemAt nixShellMatch 2;
         scriptDir = if srcRoot != null then srcRoot else src;
         shellRoot = scriptDir + "/${shellRootText}"; # `path + string` normalizes `..` components; lib.path.append would not.
         shellRootPkgs =
@@ -156,7 +168,11 @@ lib.makeScope newScope (self: {
         # -p python3.pkgs.foo.propagatedBuildInputs
         resolvedPkgs = if srcText != null then lib.flatten (resolvePkgs embeddedPackages) else null;
         # resolvedSpec = insertTopo interpreterPackage (lib.flatten (resolvePkgs packages));
-        resolvedSpec = lib.flatten (resolvePkgs (insertTopo interpreterPackage packages));
+        resolvedSpec = lib.flatten (
+          resolvePkgs (
+            if interpreterPackage != null then insertTopo interpreterPackage packages else packages
+          )
+        );
 
       in
       {
@@ -237,11 +253,20 @@ lib.makeScope newScope (self: {
             # --- END:   nix-shell preamble (generated code) ---
             "
             fi
+
+            # N.B.: `interpreter` may be null.
+            # in that case, the nix-shell script isn't buildable into a real derivation (we panic),
+            # however it may still be invokable directly from disk.
+            # therefore, check `interpreter != null` at build time instead of eval time.
+            newInterpreter=${if interpreter == null then "" else interpreter}
+            if [[ -z "$newInterpreter" ]]; then
+              die "failed to extract interpreter"
+            fi
             substituteInPlace ${srcPath} \
-              --replace-fail '#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell' '#!${interpreter}' \
+              --replace-fail '#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell' "#!$newInterpreter" \
               ${lib.optionalString (packagesText != null) ''
                 --replace-fail \
-                  '#!nix-shell -i ${interpreterName} ${checkedShellRootText} -A static-nix-shell.${builderName} --arg packages '"'"'${packagesText}'"'"$'\n' \
+                  '#!nix-shell -i ${interpreterName'} ${checkedShellRootText} -A static-nix-shell.${builderName} --arg packages '"'"'${packagesText}'"'"$'\n' \
                   $'# nix deps evaluated statically\n'"''${shellPreamble:-}"
               ''}
 
@@ -339,12 +364,25 @@ lib.makeScope newScope (self: {
       // extraDerivArgs;
   };
 
+  # must be a function (not lib.extendMkDerivation), to support CLI-based invocations
+  mkShell =
+    { ... }@shellArgs:
+    lib.extendMkDerivation {
+      constructDrv = self.constructShell;
+      extendDrvArgs =
+        _finalAttrs:
+        { ... }:
+        {
+          builderName = "mkShell";
+        };
+    } shellArgs;
+
   # `mkShell` specialization for `nix-shell -i bash` scripts.
   # must be a function (not lib.extendMkDerivation), to support CLI-based invocations
   mkBash =
     { ... }@shellArgs:
     lib.extendMkDerivation {
-      constructDrv = self.mkShell;
+      constructDrv = self.constructShell;
       excludeDrvArgNames = [ "bash" ];
       extendDrvArgs =
         _finalAttrs:
@@ -387,7 +425,7 @@ lib.makeScope newScope (self: {
   mkYsh =
     { ... }@shellArgs:
     lib.extendMkDerivation {
-      constructDrv = self.mkShell;
+      constructDrv = self.constructShell;
       excludeDrvArgNames = [ "oils-for-unix" ];
       extendDrvArgs =
         _finalAttrs:
@@ -455,7 +493,7 @@ lib.makeScope newScope (self: {
   mkZsh =
     { ... }@shellArgs:
     lib.extendMkDerivation {
-      constructDrv = self.mkShell;
+      constructDrv = self.constructShell;
       excludeDrvArgNames = [ "zsh" ];
       extendDrvArgs =
         _finalAttrs:
@@ -499,7 +537,7 @@ lib.makeScope newScope (self: {
   mkPython3 =
     { ... }@shellArgs:
     lib.extendMkDerivation {
-      constructDrv = self.mkShell;
+      constructDrv = self.constructShell;
       excludeDrvArgNames = [ "python3" ];
       extendDrvArgs =
         _finalAttrs:

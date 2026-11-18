@@ -1,5 +1,5 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i bash ../integrations/nix-shell --arg f 'ps: [ ps.bash ps.findutils ps.git ps.nix-update ]'
+#!nix-shell -i bash ../. -A static-nix-shell.mkBash --arg packages 'ps: [ ps.bash ps.findutils ps.git ps.nix-update ]'
 
 # each update job has to do an entire nix eval, which can be memory intensive; be careful when tuning this.
 # N.B.: not all update jobs are atomic; parallel updates _may_ cause failed updates if eval of some package `pkgFoo`
