@@ -3,10 +3,10 @@
     "type": "github",
     "repo": "farzaa/clicky-releases"
   },
-  "version": "1.1.4",
+  "version": "1.1.5",
   "url": "https://github.com/farzaa/clicky-releases/releases/download/v{version}/HeyClicky.dmg",
   "hash": {
-    "aarch64-darwin": "sha256-3jBO1MnUAvdV/II2Hc/Y2MDjaLyjIBmDEbL+pBeb7/I=",
-    "x86_64-darwin": "sha256-3jBO1MnUAvdV/II2Hc/Y2MDjaLyjIBmDEbL+pBeb7/I="
+    "aarch64-darwin": "sha256-V89RxhtA5rmxKNATxn5kw3z1NNg38ikAKMjOocTle3k=",
+    "x86_64-darwin": "sha256-V89RxhtA5rmxKNATxn5kw3z1NNg38ikAKMjOocTle3k="
   }
 }
