@@ -6,7 +6,7 @@ let
   inherit (config.services) organize-downloads;
   inherit (lib) concatStringsSep getExe getExe' mkOption replaceString;
   inherit (lib.types) listOf str;
-  inherit (pkgs) bash efficient-compression-tool findutils gnugrep inotify-tools libjxl lsof resholve unzip uutils-coreutils;
+  inherit (pkgs) bash efficient-compression-tool findutils gnugrep inotify-tools libjxl lsof on-mains-power resholve unzip uutils-coreutils;
 
   uutils-coreutils' = uutils-coreutils.override { prefix = null; };
 
@@ -15,7 +15,17 @@ let
   handler = resholve.writeScriptBin "organize-downloads"
     {
       interpreter = getExe bash;
-      inputs = [ efficient-compression-tool findutils gnugrep inotify-tools libjxl lsof unzip uutils-coreutils' ];
+      inputs = [
+        efficient-compression-tool
+        findutils
+        gnugrep
+        inotify-tools
+        libjxl
+        lsof
+        on-mains-power
+        unzip
+        uutils-coreutils'
+      ];
       execer = [
         "cannot:${getExe' libjxl "cjxl"}"
         "cannot:${getExe' uutils-coreutils' "date"}"

@@ -33,7 +33,7 @@ emit() { local from="$1" dir="${2%/*}" name="${2##*/}"
 }
 
 if_battery() { local y="$1" n="$2"
-  [[ "$(< /sys/class/power_supply/AC/online)" == '1' ]] && echo "$n" || echo "$y"
+  on-mains-power && echo "$n" || echo "$y"
 }
 
 intake() { local path="$1"

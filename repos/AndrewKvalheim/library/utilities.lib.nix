@@ -2,7 +2,7 @@
 
 let
   inherit (builtins) add all attrValues ceil concatLists concatStringsSep elem elemAt filter foldl' getAttr hasAttr head isFunction isString length listToAttrs mapAttrs match split stringLength tail toJSON;
-  inherit (lib) concatLines concatImapStringsSep concatMapStrings concatMapStringsSep escapeShellArg fixedWidthNumber flip foldr id ifilter0 imap0 isList max min mod nameValuePair optionalAttrs pipe range removeSuffix splitString stringToCharacters throwIf throwIfNot toCamelCase toHexString versionAtLeast versionOlder zipAttrsWith;
+  inherit (lib) concatLines concatImapStringsSep concatMapStrings concatMapStringsSep escapeShellArg fixedWidthNumber flip foldr hasInfix id ifilter0 imap0 isList max min mod nameValuePair optionalAttrs pipe range removeSuffix splitString stringToCharacters throwIf throwIfNot toCamelCase toHexString versionAtLeast versionOlder zipAttrsWith;
   inherit (lib.strings) replicate;
   inherit (import <nix-math> { inherit lib; }) cos pi pow round sin;
 
@@ -175,6 +175,8 @@ rec {
       strike = { off = "29"; on = "9"; };
       underline = { off = "24"; on = "4"; };
     });
+
+  toKdl1String = s: throwIf (hasInfix "\"" s) "Not implemented" "r\"${s}\"";
 
   tryEscapeShellArg = arg: if match "^\".*\"$" arg == null then escapeShellArg arg else arg;
 

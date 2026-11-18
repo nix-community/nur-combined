@@ -1,287 +1,259 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (builtins) floor head mapAttrs sort toJSON;
-  inherit (config) dconf host launcherScripts system;
-  inherit (config.programs) kitty;
-  inherit (lib) getExe mapAttrsToList mkOption unique;
-  inherit (lib.generators) toINI;
-  inherit (lib.hm.gvariant) mkTuple;
-  inherit (lib.types) attrsOf str;
-  inherit (pkgs) symlinkJoin writeShellApplication;
+  inherit (builtins) toFile;
+  inherit (config) xdg;
+  inherit (config.programs) dux-shell;
+  inherit (lib) mkOption;
+  inherit (lib.hm.generators) toKDL;
+  inherit (pkgs) formats;
 
-  palette = import ../library/palette.lib.nix { inherit lib pkgs; };
+  dmsSettingsFormat = formats.json { };
+  hour = 60 * minute;
+  minute = 60;
 in
 {
-  options.launcherScripts = mkOption {
-    default = { };
-    type = attrsOf str;
-  };
+  imports = [ ../library/dms-inhibit.user.nix ];
 
+  # Pending nix-community/home-manager#9686
+  options.programs.dux-shell.settings = mkOption { inherit (dmsSettingsFormat) type; };
+
+  # TODO: Reintegrate or replace Stretch Break
   config = {
     # Packages
     home.packages = with pkgs; [
       pkgs."3mf-thumbnailer"
-      gnome-tweaks
-    ];
-    dbus.packages = with pkgs;  [
-      stretch-break
+      adwaita-icon-theme
+      emote
     ];
 
-    # GNOME Shell
-    programs.gnome-shell = {
-      enable = true;
-
-      extensions = map (p: { package = p; }) (with pkgs.gnomeExtensions; [
-        appindicator
-        caffeine
-        launcher
-        paperwm
-        run-or-raise
-        stretch-break-companion
-        system-monitor-next
-      ]);
-    };
-
-    # Theme
-    dconf.settings."org/gnome/desktop/interface".accent-color = "orange";
-    dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
-    dconf.settings."org/gnome/desktop/background".picture-uri = "file://${host.dir + /assets/background.jpg}";
-    dconf.settings."org/gnome/desktop/background".picture-uri-dark = "file://${host.dir + /assets/background.jpg}";
-    dconf.settings."org/gnome/desktop/screensaver".picture-uri = "file://${host.dir + /assets/background.jpg}";
-    dconf.settings."org/gtk/settings/color-chooser".custom-colors = with palette.rgb;
-      map ({ r, g, b }: mkTuple [ r g b 1.0 ])
-        [ red green yellow blue orange purple ];
-    xdg.configFile."paperwm/user.css".text = with palette.cssRgba; ''
-      .paperwm-selection {
-        background-color: transparent;
-        border: ${toString dconf.settings."org/gnome/shell/extensions/paperwm".selection-border-size}px ${black kitty.settings.background_opacity};
-      }
-    '';
-
-    # Shell
-    dconf.settings."org/gnome/desktop/interface".clock-format = "24h";
-    dconf.settings."org/gnome/desktop/interface".clock-show-weekday = true;
-    dconf.settings."org/gnome/desktop/interface".enable-hot-corners = false;
-
-    # PaperWM
-    dconf.settings."org/gnome/shell/extensions/paperwm" =
+    # Niri
+    xdg.configFile."niri/config.kdl".text =
       let
-        # Common
-        external_display_width = 3840;
-        external_display_density = 1.0;
-
-        # Parameters
-        characters_per_line = 100 /* Rust */;
-        character_width = 7.5;
-        border = 4;
-        margin = 12;
-        website_width = 992 /* Bootstrap large */;
-
-        # Derived
-        gap = border + margin;
-
-        # Reference widths
-        full = (system.host.metrics.displayWidth / system.host.metrics.displayDensity) - margin * 2;
-        externalFull = (external_display_width / external_display_density) - margin * 2;
-
-        # Window widths
-        widths = rec {
-          term = characters_per_line * character_width;
-          half = (full - gap) / 2;
-          complementTerm = full - (term + gap);
-          browser = head (sort
-            (a: b:
-              if a >= website_width && b >= website_width then a < b
-              else if a < website_width && b < website_width then a > b
-              else a >= website_width
-            )
-            [ term half complementTerm ]);
-          wideBrowser = if complementTerm > term then complementTerm else website_width;
-          externalComplementBrowsers = externalFull - (wideBrowser + gap) - (browser + gap);
-          externalComplementComplementBrowsers = externalFull - (externalComplementBrowsers + gap);
+        dms-override = {
+          layout.focus-ring = {
+            active-color = "#16161699";
+            inactive-color = "#16161600";
+          };
         };
-      in
-      with mapAttrs (_: floor) widths;
-      {
-        # Appearance
-        horizontal-margin = margin;
-        selection-border-radius-top = border;
-        selection-border-size = border;
-        show-focus-mode-icon = false;
-        show-open-position-icon = false;
-        show-window-position-bar = false;
-        vertical-margin = margin;
-        vertical-margin-bottom = margin;
-        window-gap = gap;
+        settings = {
+          binds = let dms = args: [ "dms" "ipc" "call" ] ++ args; in {
+            # System
+            "XF86NotificationCenter".spawn = dms [ "keybinds" "toggle" "niri" ];
+            "Ctrl+Alt+Delete".spawn = dms [ "powermenu" "toggle" ];
+            "Mod+Escape".toggle-keyboard-shortcuts-inhibit = { };
+            "Mod+L".spawn = dms [ "lock" "lock" ];
+            "Mod+Shift+E".quit = { };
 
-        # Window sizes
-        cycle-width-steps = unique (map (n: 1.0 * n) (sort (a: b: a < b) ([
-          term
-          browser
-          wideBrowser
-          externalComplementBrowsers
-          externalComplementComplementBrowsers
-        ])));
-        winprops = map toJSON [
-          { wm_class = "*"; preferredWidth = "${toString half}px"; }
-          { wm_class = "Display"; scratch_layer = true; }
-          { wm_class = "displaycal"; scratch_layer = true; }
-          { wm_class = "emote"; scratch_layer = true; }
-          { wm_class = "firefox"; title = "Picture-in-Picture"; scratch_layer = true; }
-          { wm_class = "@joplin/app-desktop"; preferredWidth = "${toString term}px"; }
-          { wm_class = "org.gnome.NautilusPreviewer"; scratch_layer = true; }
-          { wm_class = "qemu"; scratch_layer = true; }
-          { wm_class = "stretch-break"; scratch_layer = true; }
-          { wm_class = "io.github.pieterdd.StretchBreak"; scratch_layer = true; }
-          { wm_class = "org.gnome.SystemMonitor"; preferredWidth = "${toString term}px"; }
-          { wm_class = "Tor Browser"; scratch_layer = true; }
+            # Display
+            "XF86HangupPhone".power-off-monitors = { };
+            "XF86MonBrightnessDown" = { spawn = dms [ "brightness" "decrement" "5" "" ]; _props.allow-when-locked = true; };
+            "XF86MonBrightnessUp" = { spawn = dms [ "brightness" "increment" "5" "" ]; _props.allow-when-locked = true; };
+
+            # Volume
+            "XF86AudioMute" = { spawn = dms [ "audio" "mute" ]; _props.allow-when-locked = true; };
+            "XF86AudioLowerVolume" = { spawn = dms [ "audio" "decrement" "3" ]; _props.allow-when-locked = true; };
+            "XF86AudioRaiseVolume" = { spawn = dms [ "audio" "increment" "3" ]; _props.allow-when-locked = true; };
+            "XF86AudioMicMute".spawn = dms [ "audio" "micmute" ];
+
+            # Playback
+            "XF86AudioPlay".spawn = dms [ "mpris" "playPause" ];
+            "XF86AudioPause".spawn = dms [ "mpris" "playPause" ];
+            "XF86AudioPrev".spawn = dms [ "mpris" "previous" ];
+            "XF86AudioNext".spawn = dms [ "mpris" "next" ];
+
+            # Screenshots
+            "Print".screenshot = { };
+            "Alt+Print".screenshot-window = { };
+            "Ctrl+Print".screenshot-screen = { };
+
+            # Applications
+            "XF86Favorites".spawn = [ "emote" ];
+            "Mod+Space".spawn = dms [ "spotlight" "toggle" ];
+            "Mod+C".spawn = [ "/home/ak/.local/bin/clipboard-auto-dispatch" ];
+            "Mod+N".spawn = dms [ "notepad" "toggle" ];
+            "Mod+T".spawn = [ "kitty" ];
+            "Mod+Shift+C".spawn = dms [ "color-picker" "toggle" ];
+
+            # Window status
+            "F13".toggle-window-floating = { };
+            "Alt+F4" = { _props.repeat = false; close-window = { }; };
+
+            # Window size
+            "Mod+Return".expand-column-to-available-width = { };
+            "Mod+I".switch-preset-column-width-back = { };
+            "Mod+E".switch-preset-column-width = { };
+            "Mod+O".switch-preset-window-height = { };
+            "Mod+A".reset-window-height = { };
+
+            # Window motion
+            "Mod+Left".focus-column-left = { };
+            "MouseForward".focus-column-left = { };
+            "Mod+Ctrl+Left".move-column-left = { };
+            "Mod+Ctrl+Shift+Left".consume-or-expel-window-left = { };
+            "Mod+Right".focus-column-right = { };
+            "MouseBack".focus-column-right = { };
+            "Mod+Ctrl+Right".move-column-right = { };
+            "Mod+Ctrl+Shift+Right".consume-or-expel-window-right = { };
+            "Mod+Down".focus-window-down = { };
+            "Mod+Ctrl+Down".move-window-down = { };
+            "Mod+Up".focus-window-up = { };
+            "Mod+Ctrl+Up".move-window-up = { };
+
+            # Workspaces
+            "F14".toggle-overview = { };
+            "Mod+Page_Down".focus-workspace-down = { };
+            "Mod+Ctrl+Page_Down".move-column-to-workspace-down = { };
+            "Mod+Page_Up".focus-workspace-up = { };
+            "Mod+Ctrl+Page_Up".move-column-to-workspace-up = { };
+
+            # Monitors
+            "Mod+Alt+Left".focus-monitor-left = { };
+            "Mod+Alt+Ctrl+Left".move-column-to-monitor-left = { };
+            "Mod+Alt+Right".focus-monitor-right = { };
+            "Mod+Alt+Ctrl+Right".move-column-to-monitor-right = { };
+            "Mod+Alt+Down".focus-monitor-down = { };
+            "Mod+Alt+Ctrl+Down".move-column-to-monitor-down = { };
+            "Mod+Alt+Up".focus-monitor-up = { };
+            "Mod+Alt+Ctrl+Up".move-column-to-monitor-up = { };
+          };
+          config-notification.disable-failed = { };
+          environment.XDG_CURRENT_DESKTOP = "niri";
+          gestures.hot-corners.off = { };
+          hotkey-overlay.skip-at-startup = { };
+          layout = {
+            default-column-width.fixed = 900;
+            preset-column-widths._children = map (p: { proportion = p; }) [ (1.0 / 3) (1.0 / 2) (2.0 / 3) ];
+          };
+          prefer-no-csd = { };
+          recent-windows.binds = {
+            "Alt+Tab".next-window._props.scope = "output";
+            "Alt+Shift+Tab".previous-window._props.scope = "output";
+          };
+          screenshot-path = "~/Downloads/screenshot %Y-%m-%dT%H:%M:%S.png";
+        };
+        window-rules._children = [
+          {
+            window-rule._children = [
+              { match._props = { app-id = "^appimagekit-joplin$"; }; }
+              { match._props = { app-id = "^org.gnome.SystemMonitor$"; }; }
+              { default-column-width.fixed = 750; }
+            ];
+          }
+          {
+            window-rule._children = [
+              { match._props = { app-id = "^firefox$"; title = "^Picture-in-Picture$"; }; }
+              { match._props = { app-id = "^qemu$"; }; }
+              { match._props = { app-id = "^Tor Browser$"; }; }
+              { match._props = { app-id = "^wev$"; }; }
+              { match._props = { app-id = "^xdg-desktop-portal$"; }; }
+              { open-floating = true; }
+            ];
+          }
+        ];
+      in
+      toKDL { } {
+        _children = [
+          { include = toFile "settings.kdl" (toKDL { } settings); }
+          { include = toFile "window-rules.kdl" (toKDL { } window-rules); }
+
+          # Generated by Dux Modular Shell
+          { include = "dms/colors.kdl"; }
+          { include = "dms/layout.kdl"; }
+          { include = "dms/alttab.kdl"; }
+          { include = "dms/binds.kdl"; }
+          { include = "dms/outputs.kdl"; }
+          { include = "dms/cursor.kdl"; }
+          { include = "dms/input.kdl"; }
+          { include = "dms/windowrules.kdl"; }
+
+          { include = toFile "dms-override.kdl" (toKDL { } dms-override); }
         ];
       };
 
-    # Disabled extensions notification
-    xdg.configFile."autostart/disabled-extensions-notification.desktop".text = toINI { } {
-      "Desktop Entry" = {
-        Type = "Application";
-        Name = "Disabled Extensions Notification";
-        NoDisplay = true;
-        Exec = pkgs.writeShellScript "disabled-extensions-notification" ''
-          [[ "$(gsettings get org.gnome.shell disable-user-extensions)" == 'true' ]] || exit
+    # Dux Modular Shell
+    # TODO: theme
+    # TODO: barConfigs
+    # TODO: plugins
+    programs.dux-shell.settings = {
+      # Appearance
+      cursorSettings.theme = "Adwaita";
+      density = "compact";
+      desktopContextMenu = "off";
+      radiusStrength = 25;
+      systemTrayIconTintMode = "monochrome";
 
-          case "$(${getExe pkgs.libnotify} --urgency 'critical' --icon 'extensions' \
-            'Extensions have been automatically disabled.' \
-            --action 'enable=Re-Enable' \
-            --action 'settings=Settings…')" \
-          in
-            'enable') gsettings set org.gnome.shell disable-user-extensions 'false';;
-            'settings') gnome-extensions-app & disown;;
-          esac
-        '';
-      };
-    };
+      # Control center
+      controlCenterWidgets = map (w: { enabled = true; } // w)
+        (map (w: (if w ? group then { } else { row = 0; }) // w) [
+          { col = 0; w = 5; h = 1; id = "user"; background = false; badge = false; compositor = false; uptime = false; }
+          { col = 5; w = 3; h = 1; small = true; id = "quickTiles"; background = false; instanceId = "top"; }
+          { group = "top"; id = "edit"; }
+          { group = "top"; id = "settings"; }
+          { group = "top"; id = "lock"; }
+          { group = "top"; id = "power"; }
+        ]) ++ (map (w: (if w ? group then { } else { row = 1; }) // w) [
+        { col = 0; w = 4; h = 1; small = true; id = "volumeSlider"; }
+        { col = 4; w = 3; h = 1; small = true; id = "brightnessSlider"; }
+        { col = 7; w = 1; h = 1; small = true; id = "quickTiles"; background = false; instanceId = "brightness"; }
+        { group = "brightness"; id = "nightMode"; }
+      ]) ++ (map (w: (if w ? group then { } else { row = 2; }) // w) [
+        { col = 0; w = 4; h = 1; id = "audioOutput"; }
+        { col = 4; w = 4; h = 1; id = "wifi"; }
+      ]) ++ (map (w: (if w ? group then { } else { row = 3; }) // w) [
+        { col = 0; w = 4; h = 1; id = "audioInput"; }
+        { col = 4; w = 4; h = 1; id = "bluetooth"; }
+      ]) ++ (map (w: (if w ? group then { } else { row = 4; }) // w) [
+        { col = 4; w = 4; h = 1; id = "idleInhibitor"; }
+      ]);
 
-    # Keyboard shortcuts
-    dconf.settings."org/gnome/desktop/wm/keybindings" = {
-      unmaximize = [ ];
-    };
-    dconf.settings."org/gnome/settings-daemon/plugins/media-keys".custom-keybindings = [
-      "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
-      "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
-    ];
-    dconf.settings."org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-      name = "Activate screensaver";
-      command = "dbus-send --session --dest=org.gnome.ScreenSaver --type=method_call '/org/gnome/ScreenSaver' 'org.gnome.ScreenSaver.SetActive' 'boolean:true'";
-      binding = "HangupPhone";
-    };
-    dconf.settings."org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-      name = "Emote";
-      command = getExe pkgs.emote;
-      binding = "Favorites";
-    };
-    dconf.settings."org/gnome/shell/extensions/paperwm/keybindings" = {
-      barf-out = [ "" ];
-      barf-out-active = [ "" ];
-      center-horizontally = [ "" ];
-      close-window = [ "" ];
-      cycle-height = [ "<Shift>F15" ];
-      cycle-height-backwards = [ "<Shift>F14" ];
-      cycle-width = [ "F15" ];
-      cycle-width-backwards = [ "F14" ];
-      live-alt-tab = [ "" ];
-      live-alt-tab-backward = [ "" ];
-      live-alt-tab-scratch = [ "" ];
-      live-alt-tab-scratch-backward = [ "" ];
-      move-left = [ "<Shift><Control><Alt>Page_Up" ];
-      move-monitor-above = [ "" ];
-      move-monitor-below = [ "" ];
-      move-monitor-left = [ "" ];
-      move-monitor-right = [ "" ];
-      move-previous-workspace = [ "" ];
-      move-previous-workspace-backward = [ "" ];
-      move-right = [ "<Shift><Control><Alt>Page_Down" ];
-      move-space-monitor-above = [ "" ];
-      move-space-monitor-below = [ "" ];
-      move-space-monitor-left = [ "" ];
-      move-space-monitor-right = [ "" ];
-      new-window = [ "" ];
-      paper-toggle-fullscreen = [ "" ];
-      previous-workspace = [ "" ];
-      previous-workspace-backward = [ "" ];
-      resize-h-dec = [ "" ];
-      resize-h-inc = [ "" ];
-      resize-w-dec = [ "" ];
-      resize-w-inc = [ "" ];
-      slurp-in = [ "" ];
-      swap-monitor-above = [ "" ];
-      swap-monitor-below = [ "" ];
-      swap-monitor-left = [ "" ];
-      swap-monitor-right = [ "" ];
-      switch-first = [ "" ];
-      switch-focus-mode = [ "" ];
-      switch-last = [ "" ];
-      switch-left = [ "<Shift><Alt>Page_Up" ];
-      switch-monitor-above = [ "" ];
-      switch-monitor-below = [ "" ];
-      switch-monitor-left = [ "" ];
-      switch-monitor-right = [ "" ];
-      switch-next = [ "" ];
-      switch-open-window-position = [ "" ];
-      switch-previous = [ "" ];
-      switch-right = [ "<Shift><Alt>Page_Down" ];
-      take-window = [ "<Shift><Alt>space" ];
-      toggle-maximize-width = [ "F13" ];
-      toggle-scratch = [ "<Control>F14" ];
-      toggle-scratch-layer = [ "<Control>F15" ];
-      toggle-scratch-window = [ "" ];
-      toggle-top-and-position-bar = [ "" ];
-    };
-    dconf.settings."org/gnome/shell/keybindings" = {
-      toggle-quick-settings = [ ];
-    };
-    xdg.configFile."run-or-raise/shortcuts.conf".text = ''
-      <Super>c,codium,VSCodium,
-      <Super>f,firefox,firefox,
-      <Super>j,joplin-desktop,@joplin/app-desktop,
-      <Super>t,kitty,kitty,
-    '';
+      # Dash
+      dashCards = [{ id = "calendar"; col = 0; row = 0; w = 3; h = 3; }];
+      dashOptions.overview = { panelRows = 3; panelColumns = 3; };
+      dashTabs = map (id: { inherit id; enabled = false; })
+        [ "overview" "media" "wallpaper" "weather" "wellbeing" "notifications" "settings" ];
 
-    # Window management
-    dconf.settings."org/gnome/mutter".attach-modal-dialogs = false;
+      # Features
+      builtInPluginSettings.dms_qr_generator.enabled = false;
+      builtInPluginSettings.dms_clipboard_search.enabled = false;
+      builtInPluginSettings.dms_vpn.enabled = false;
+      launcherStyle = "spotlight";
+      soundsEnabled = false;
+      weatherEnabled = false;
 
-    # System monitor
-    dconf.settings."org/gnome/shell/extensions/system-monitor" = {
-      cpu-display = true;
-      cpu-graph-width = 60;
-      cpu-refresh-time = 2000;
-      cpu-show-text = false;
-      freq-display = false;
-      icon-display = false;
-      memory-display = false;
-      net-display = false;
-      thermal-display = false;
-    } // (
-      let foreground = "#f2f2f2ff"; muted = "#333333ff"; transparent = "#00000000"; in {
-        background = transparent;
-        cpu-nice-color = muted;
-        cpu-other-color = muted;
-        cpu-iowait-color = foreground;
-        cpu-system-color = foreground;
-        cpu-user-color = foreground;
-      }
-    );
+      # Fonts
+      fontFamily = "Roboto";
+      monoFontFamily = "Iosevka Custom Mono";
 
-    # Launcher
-    dconf.settings."org/gnome/shell/extensions/launcher" =
-      let
-        launcher-scripts = symlinkJoin {
-          name = "launcher-scripts";
-          paths = mapAttrsToList (name: text: writeShellApplication { inherit name text; }) launcherScripts;
-        };
-      in
-      {
-        notify = false;
-        path = "${launcher-scripts}/bin";
-        shebang-icon = false;
-      };
+      # Input
+      mouseNaturalScroll = true;
+
+      # Layout
+      notificationCompactMode = true;
+      notificationPopupPosition = -1 /* top center */;
+      osdPosition = 0 /* top right */;
+
+      # Locale
+      clockFormat = "24h";
+      clockDateFormat = "yyyy-MM-dd ddd";
+
+      # Lock screen
+      acLockTimeout = 30 * minute;
+      batteryLockTimeout = 5 * minute;
+      lockScreenShowPowerActions = true;
+      lockScreenPowerOffMonitorsOnLock = true;
+
+      # Power
+      acMonitorTimeout = 10 * minute;
+      batteryMonitorTimeout = 3 * minute;
+      acSuspendTimeout = 0 /* ∞ */;
+      batterySuspendTimeout = 2 * hour;
+    };
+    # FIXME: Changes not detected until `systemctl --user reload dms.service`
+    xdg.configFile."dms/config.d/10-home-manager.json".source = dmsSettingsFormat.generate "dms-settings" dux-shell.settings;
+
+    # GDK
+    dconf.settings."org/gnome/desktop/interface".accent-color = "orange";
+    dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
   };
 }

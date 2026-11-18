@@ -101,12 +101,12 @@ rec {
   }).overrideAttrs (o: recursiveUpdate o {
     meta.broken = pkgs.python3Packages.requests-ratelimiter.meta.broken; # NixOS/nixpkgs#497999
   });
+  on-mains-power = callPackage ./library/on-mains-power.pkg.nix { };
   onlyBinMan = callPackage ./library/onlyBinMan.fn.nix { };
   pngquant-interactive = callPackage ./library/pngquant-interactive.pkg.nix { };
   sort-domains = callPackage ./library/sort-domains.pkg.nix { };
   spf-check = callPackage ./library/spf-check.pkg.nix { };
   spf-tree = callPackage ./library/spf-tree.pkg.nix { };
-  stretch-break = callPackage ./library/stretch-break.pkg.nix { };
   tile-stitch = callPackage ./library/tile-stitch.pkg.nix { };
   udon = callPackage ./library/udon.pkg.nix { };
   wireguard-vanity-address = callPackage ./library/wireguard-vanity-address.pkg.nix { };

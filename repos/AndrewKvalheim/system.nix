@@ -3,7 +3,7 @@
 let
   inherit (config) host;
   inherit (lib) mkOption;
-  inherit (lib.types) bool float int path;
+  inherit (lib.types) bool float int path str;
 in
 {
   imports = [
@@ -39,6 +39,7 @@ in
   options = {
     host = {
       dir = mkOption { type = path; };
+      mainDisplay = mkOption { type = str; };
 
       metrics = {
         cpuCores = mkOption { type = int; };

@@ -45,6 +45,8 @@ specify {
   };
   dmarc-report-notifier = any;
   doh = any;
+  dux-greeter = any;
+  dux-shell = any;
   easy-timeline = any;
   efficient-compression-tool.broken = e: e.version == "0.9.5" && ! e ? patches; # Pending NixOS/nixpkgs#517041
   email-hash = any;
@@ -59,8 +61,6 @@ specify {
   git-diff-image = any;
   git-diff-minecraft = any;
   git-remote = any;
-  gnome-shell = { patch = [ ./library/assets/gnome-shell_accent-color.patch ./library/assets/gnome-shell_screenshot-location.patch ]; big = true; ccache = true; }; # Pending GNOME/gnome-shell#5370
-  gnomeExtensions.launcher.patch = [ ./library/assets/gnome-extension-launcher_icon.patch ./library/assets/gnome-extension-launcher_hide-settings.patch ./library/assets/gnome-extension-launcher_gnome-50.patch /* Pending hedgieinsocks/gnome-extension-launcher#14 */ ];
   gopass-await = any;
   gopass-env = any;
   gopass-ydotool = any;
@@ -99,6 +99,7 @@ specify {
   nom-wrappers = any;
   off = any;
   office-hours = any;
+  on-mains-power = any;
   onlyBinMan = any;
   oxvg = any;
   pdfalyzer = any;
@@ -113,7 +114,6 @@ specify {
   sort-domains = any;
   spf-check = any;
   spf-tree = any;
-  stretch-break = any;
   tile-stitch = any;
   udo = any;
   udon = any;

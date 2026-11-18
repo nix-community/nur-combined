@@ -29,8 +29,7 @@ in
           "''${DBUS_SESSION_BUS_ADDRESS}" \
           '%t/%N.sock' \
           --log \
-          --filter \
-          --call=org.gnome.SessionManager=org.gnome.SessionManager.Inhibit@/org/gnome/SessionManager
+          --filter
       '';
     };
   };
@@ -419,8 +418,8 @@ in
       extract-pdf-images = "mkdir \"\${1%.pdf}\" && ${getExe' poppler-utils "pdfimages"} -all -p \"$1\" \"\${1%.pdf}/\${1%.pdf}\"";
       idiff = "${getExe' imagemagick "compare"} \"$@\" png:- | kitty +kitten icat";
       maintenance-notice = ''
-        [[ ! -v DIRENV_USING_BWRAP && "$(< /sys/class/power_supply/AC/online)" == '1' ]] || return
-        local flag="$XDG_RUNTIME_DIR/maintenance-notice-ran"; [[ ! -e "$flag" ]] || return; touch "$flag"
+        { [[ ! -v DIRENV_USING_BWRAP ]] && ${getExe on-mains-power}; } || return 0
+        local flag="$XDG_RUNTIME_DIR/maintenance-notice-ran"; [[ ! -e "$flag" ]] || return 0; touch "$flag"
         ${getExe audit-nix-roots}
       '';
       mkcd = "mkdir --parents \"$@\" && cd \"\${@:$#}\"";
@@ -467,7 +466,6 @@ in
     gist = "git-remote gist.github.com";
     gl = "git-remote gitlab.com";
     gnome-console = "kgx";
-    gsi = "gnome-session-inhibit";
     h = "tig --all";
     hs = "home-manager switch";
     i = "jjui";

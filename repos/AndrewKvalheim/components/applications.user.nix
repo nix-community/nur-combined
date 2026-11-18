@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (builtins) listToAttrs;
-  inherit (config) system;
+  inherit (builtins) elem filter listToAttrs;
+  inherit (config) home system;
   inherit (config.programs) kitty;
   inherit (lib) concatMapAttrs escapeShellArg foldlAttrs genAttrs' getExe getExe' imap0 mkOption nameValuePair replaceString splitString throwIfNot;
   inherit (lib.generators) toINI toKeyValue toYAML;
@@ -12,6 +12,16 @@ let
   inherit (import ../library/utilities.lib.nix { inherit lib; }) requireBig;
 
   palette = import ../library/palette.lib.nix { inherit lib pkgs; };
+
+  defaultApplicationPackages = [
+    "bobby"
+    "decibels"
+    "fstl"
+    "gnome-font-viewer"
+    "loupe"
+    "papers"
+    "showtime"
+  ];
 in
 {
   imports = [
@@ -29,16 +39,20 @@ in
       "ffmpeg"
     ];
 
+    assertions = let pnames = map (p: p.pname or null) home.packages; in map
+      (pname: { assertion = elem pname pnames; message = "Default application not in home.packages: ${pname}"; })
+      defaultApplicationPackages;
+
     # Associations
     xdg.mimeApps = {
       enable = true;
+      defaultApplicationPackages = filter (p: p ? pname && elem p.pname defaultApplicationPackages) home.packages;
       defaultApplications = foldlAttrs (byType: handler: types: byType // (listToAttrs (map (type: nameValuePair type handler) types))) { } {
         "codium.desktop" = [ "application/gpx+xml" "application/json" "application/rss+xml" "application/x-shellscript" "application/xml" "message/rfc822" "text/markdown" "text/plain" ];
         "firefox.desktop" = [ "application/xhtml+xml" "text/html" "x-scheme-handler/http" "x-scheme-handler/https" ];
-        "fstlapp-fstl.desktop" = [ "model/stl" ];
         "org.gnome.Loupe.desktop" = [ "image/heif" ];
-        "org.gnome.Papers.desktop" = [ "image/x-eps" ];
-        "studio.planetpeanut.Bobby.desktop" = [ "application/vnd.sqlite3" ];
+        "org.gnome.Maps.desktop" = [ "x-scheme-handler/geo" ];
+        "org.gnome.Nautilus.desktop" = [ "inode/directory" "x-scheme-handler/file" ];
         "writer.desktop" = [ "application/vnd.oasis.opendocument.text" "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ];
       };
     };
@@ -93,6 +107,9 @@ in
       # 3D model
       fstl
 
+      # Audio
+      decibels
+
       # Container/VM
       dive
 
@@ -123,15 +140,17 @@ in
       # Document
       img2pdf
       kdePackages.okular
+      gnome-text-editor
+      papers
       pdfarranger
       pdfcpu
       poppler-utils
       pup
+      simple-scan
 
       # Desktop
       deskflow
       (makeAutostartItem { name = "com.tomjwatson.Emote"; package = emote; })
-      eyedropper
       gnome-decoder
       (onlyBinMan libnotify)
       pwvucontrol
@@ -142,16 +161,22 @@ in
       concessio
       duperemove
       file
+      file-roller
       fq
       magic-wormhole
+      nautilus
       rsync
       unln
       unzip
       warp
 
       # Font
+      gnome-font-viewer
       gucharmap
       texlive.pkgs.albatross
+
+      # Geospatial
+      gnome-maps
 
       # Image
       cavif
@@ -168,6 +193,7 @@ in
       (onlyBinMan libheif)
       (onlyBinMan libjxl)
       (onlyBinMan libwebp)
+      loupe
       mozjpeg-simple
       oxvg
       pngquant
@@ -220,8 +246,11 @@ in
       # System
       bustle
       dconf-editor
+      ddcutil
       displaycal
       dua
+      gnome-console
+      gnome-system-monitor
       htop
       isd
       killall
@@ -239,6 +268,7 @@ in
       constrict
       (requireBig (ffmpeg.override { withUnfree = true; withFdkAac = true; }))
       guvcview
+      showtime
       v4l-utils
       vivictpp
     ];
@@ -280,32 +310,6 @@ in
         (name: script: genAttrs' (splitString "/" types)
           (type: nameValuePair "${type}…/${replaceString "/" "⧸" name}" script)))
       by-type;
-
-    # GNOME Shell launcher scripts
-    launcherScripts = with pkgs; {
-      "issue reference → GitHub URL" = ''
-        if result="$(
-          ${getExe' wl-clipboard "wl-paste"} --no-newline --type 'text' \
-          | sed --regexp-extended --quiet '\@^(.+)#(.+)$@{s@@https://github.com/\1/issues/\2@p;q};q1'
-        )"; then
-          ${getExe' wl-clipboard "wl-copy"} --type 'TEXT' "$result"
-          ${getExe' libnotify "notify-send"} --icon 'edit-copy-symbolic' --transient 'Updated clipboard' "$result"
-        else
-          ${getExe' libnotify "notify-send"} --icon 'dialog-error-symbolic' --transient 'Failed to updated clipboard' 'Not an issue reference'
-        fi
-      '';
-      "issue URL → markdown link" = ''
-        if result="$(
-          ${getExe' wl-clipboard "wl-paste"} --no-newline --type 'text' \
-          | sed --regexp-extended --quiet '\@^(https://[^/]+/([^/]+/[^/]+)/(issues|pull)/([[:digit:]]+))$@{s//[\2#\4](\1)/p;q};q1'
-        )"; then
-          ${getExe' wl-clipboard "wl-copy"} --type 'TEXT' "$result"
-          ${getExe' libnotify "notify-send"} --icon 'edit-copy-symbolic' --transient 'Updated clipboard' "$result"
-        else
-          ${getExe' libnotify "notify-send"} --icon 'dialog-error-symbolic' --transient 'Failed to updated clipboard' 'Not an issue URL'
-        fi
-      '';
-    };
 
     # Configuration
     home.sessionVariables = {

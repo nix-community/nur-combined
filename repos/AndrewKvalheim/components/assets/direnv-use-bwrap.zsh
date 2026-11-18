@@ -87,9 +87,8 @@ _direnv_use_bwrap() {
     # Trash
     # TODO: trash-cli, gio trash
 
-    # GNOME
+    # Niri
     expose_env+=(
-      'GDMSESSION'
       'XDG_CURRENT_DESKTOP'
       'XDG_SESSION_TYPE'
     )
@@ -100,13 +99,16 @@ _direnv_use_bwrap() {
     )
     if [[ -v WAYLAND_DISPLAY ]] expose_path_ro+=("$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY")
 
-    # X11
+    # XWayland
     expose_env+=(
       'DISPLAY'
-      'XAUTHORITY'
     )
     if [[ -v DISPLAY ]] expose_path_ro+=('/tmp/.X11-unix')
-    if [[ -v XAUTHORITY ]] expose_path_ro+=("$XAUTHORITY")
+
+    # Dux Modular Shell
+    expose_path_ro+=(
+      "$XDG_RUNTIME_DIR/dms-inhibit.sock"
+    )
 
     # Cache
     expose_path_rw_as[$(_direnv_use_bwrap::dir "$HOME/.cache/isolated/$id")]="$HOME/.cache"
@@ -184,6 +186,7 @@ _direnv_use_bwrap() {
       '/run/opengl-driver'
       '/sys/dev/char'
       '/sys/devices'
+      "$HOME/.config/fontconfig"
       "$HOME/.config/VSCodium/User/keybindings.json"
       "$HOME/.config/VSCodium/User/settings.json"
       "$HOME/.shellcheckrc"

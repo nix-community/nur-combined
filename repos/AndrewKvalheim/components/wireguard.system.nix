@@ -39,7 +39,6 @@ in
       };
     };
 
-    # Workaround for https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/6235
     networking.networkmanager.unmanaged = [ "wg0" ];
 
     networking.hosts = mapAttrs' (h: p: nameValuePair p.ip [ h ]) host.wireguard.peers;

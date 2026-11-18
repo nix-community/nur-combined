@@ -81,6 +81,7 @@ in
       buildInputs = [ makeWrapper ];
       postBuild = ''
         wrapProgram "$out/bin/"${escapeShellArg wrapper.meta.mainProgram} \
+          --add-flags '--password-store=gnome-libsecret' \
           --add-flags '--use-tray-icon'
       '';
     }))
@@ -103,8 +104,6 @@ in
   xdg.mimeApps.defaultApplications = {
     "application/epub+zip" = "calibre-ebook-viewer.desktop";
     "application/x-ptoptimizer-script" = "hugin.desktop";
-    "font/otf" = "org.gnome.font-viewer.desktop";
-    "font/ttf" = "org.gnome.font-viewer.desktop";
     "x-scheme-handler/mailto" = "firefox.desktop";
   };
 
@@ -115,15 +114,6 @@ in
   programs.joplin-desktop.extraConfig = let filesystem = 2 /* enum */; in {
     "sync.target" = filesystem;
     "sync.${toString filesystem}.path" = "${homeDirectory}/akorg/resource/joplin-sync";
-  };
-
-  # GNOME Shell launcher scripts
-  launcherScripts = with pkgs; {
-    "IMF → filtered IMF" = "kitty ${escapeShellArg (writeShellScript "filter-imf" ''
-        ${getExe' wl-clipboard "wl-paste"} --no-newline --type 'text' \
-        | CLICOLOR_FORCE='✓' ${getExe filter-imf} \
-        | ${getExe' wl-clipboard "wl-copy"} --type 'TEXT'
-      '')}";
   };
 
   # Unison

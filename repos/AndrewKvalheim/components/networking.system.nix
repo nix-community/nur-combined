@@ -12,6 +12,8 @@ in
   options.host.name = mkOption { type = str; };
 
   config = {
+    networking.networkmanager.enable = true;
+
     # Identity
     networking.hostName = host.name;
     networking.domain = "home.arpa";

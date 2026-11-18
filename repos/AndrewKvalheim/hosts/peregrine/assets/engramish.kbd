@@ -1,6 +1,5 @@
 (defalias
   coa (tap-hold-next 200 (around lsft ralt) ralt)
-  s-a (around lsft lalt)
   tfn (tap-hold-next 200 tab (layer-toggle fn))
 )
 
@@ -27,7 +26,7 @@
             ░                 ░   ░   ░   ░    ░    ░
        ░    ░    ░    ░   ░   ░   ░   ░   ░    ░    ░    ░
        ░    esc  pgup up   pgdn ░    ░    ░    ░    ░    ░
-   C-;  home left down rght end  ░    ░    ░    ░    rctl
+   C-;  home left down rght end  ░    lsft ░    lalt rctl
     ░    ░    ░    C-p  ░    ░    ░    ░    ░   ░ ░  ░
-     ░    ░    ░                  ░    @s-a ░   ░    ░
+     ░    ░    ░                  ░    lmet ░   ░    ░
 )

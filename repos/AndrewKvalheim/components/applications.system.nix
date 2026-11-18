@@ -3,6 +3,8 @@
 
   programs.command-not-found.enable = true;
 
+  programs.gnome-disks.enable = true;
+
   programs.usbtop.enable = true;
 
   programs.zsh.enable = true;
