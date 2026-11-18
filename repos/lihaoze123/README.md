@@ -14,6 +14,7 @@ lihaoze123 的独立 NUR 软件包仓库。软件包配方集中维护，安装�
 | `cisco-packet-tracer-zh` | Packet Tracer 9.0.1 简体中文，修复 Linux 语言目录并默认跳过启动登录窗口；[构建说明](pkgs/cisco-packet-tracer-zh/README.md) |
 | `cisco-packet-tracer-6-zh` | Packet Tracer 6.3.0.0008，32 位运行库、部分简体中文和可关闭的启动免登录补丁；[构建说明](pkgs/cisco-packet-tracer-6-zh/README.md) |
 | `dbx` | DBX 官方预编译 AppImage，包含 NixOS 启动环境、菜单入口和图标 |
+| `misterdownloadmanager` | Mister Download Manager 官方预编译包，含 Linux 可变字体细线渲染修复、CLI/MCP 与浏览器 Native Messaging 宿主清单 |
 | `fcitx5-vinput-lite`、`fcitx5-vinput-lite-upstream` | 云端语音输入插件；前者含按键重复修复及回归测试，后者保留原版 |
 | `vtype-linux` | 微信拼音 Fcitx5 插件，含小鹤双拼、模糊音、自定义翻页键和固定运行时 |
 | `wxc` | 微信输入法设备关联与剪贴板客户端，使用官方预编译包 |
