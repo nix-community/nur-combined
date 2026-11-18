@@ -34,10 +34,15 @@ polars.overrideAttrs (
     passthru = builtins.removeAttrs prevAttrs.passthru [ "updateScript" ] // {
       # The full polars test suite is too heavy for three-system CI, and the
       # dynloading tests load runtime wheels that keep their own vendored
-      # jemalloc, which the override cannot reach.
+      # jemalloc, which the override cannot reach. dynloading-2 also segfaults
+      # loading libazure-core on nixpkgs-unstable 2074cc6; drop it from the
+      # first list once nixpkgs fixes it.
       tests =
         builtins.removeAttrs prevAttrs.passthru.tests (
-          [ "pytest" ]
+          [
+            "pytest"
+            "dynloading-2"
+          ]
           ++ lib.lists.optionals needsJemalloc [
             "dynloading-1"
             "dynloading-2"
