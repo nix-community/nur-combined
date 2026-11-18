@@ -149,7 +149,6 @@ in
       simple-scan
 
       # Desktop
-      deskflow
       (makeAutostartItem { name = "com.tomjwatson.Emote"; package = emote; })
       gnome-decoder
       (onlyBinMan libnotify)

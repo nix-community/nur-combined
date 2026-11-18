@@ -15,6 +15,7 @@ in
   host = {
     name = "peregrine";
     dir = ./.;
+    mainDisplay = "DSI-1";
     metrics = rec {
       cpuCores = 4;
       cpuMarkMulti = 5345;
@@ -27,7 +28,7 @@ in
   };
 
   # Kernel
-  boot.kernelPackages = pkgs.linuxPackages_7_1;
+  boot.kernelPackages = pkgs.linuxPackages_7_3;
   boot.consoleLogLevel = 3 /* error */; # Hide https://bbs.archlinux.org/viewtopic.php?id=300997
 
   # Display

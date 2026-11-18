@@ -60,6 +60,7 @@ in
           clockFormat = "24h";
           currentThemeName = "monochrome";
           fontFamily = "Roboto";
+          weatherEnabled = false;
         })}/settings.json"
       ];
     };

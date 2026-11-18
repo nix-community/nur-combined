@@ -123,7 +123,7 @@ in
           hotkey-overlay.skip-at-startup = { };
           layout = {
             default-column-width.fixed = 900;
-            preset-column-widths._children = map (p: { proportion = p; }) [ (1.0 / 3) (1.0 / 2) (2.0 / 3) ];
+            preset-column-widths._children = map (p: { proportion = p; }) [ (1.0 / 3) (1.0 / 2) (2.0 / 3) 1.0 ];
           };
           prefer-no-csd = { };
           recent-windows.binds = {
