@@ -85,6 +85,9 @@ jobs:
           elif [ "${{ matrix.package }}" = "sentry" ]; then
             # sentry also pins @sentry/api and its OpenAPI spec
             ./pkgs/sentry/update.sh --commit
+          elif [ "${{ matrix.package }}" = "qingjian" ]; then
+            # qingjian also pins its data-vN release from upstream's data.lock
+            ./pkgs/qingjian/update.sh --commit
           else
             nix-shell -p nix-update --run "nix-update --commit ${{ matrix.package }}"
           fi
