@@ -77,7 +77,7 @@ Generated from 94 packages.
 ## `brush-HEAD`
 
 - **Package name:** brush
-- **Version:** 0.4.0-unstable-2026-11-09
+- **Version:** 0.4.0-unstable-2026-11-15
 - **Description:** Bash/POSIX-compatible shell implemented in Rust
 - **Homepage:** [https://github.com/reubeno/brush](https://github.com/reubeno/brush)
 - **License:** MIT
@@ -197,7 +197,7 @@ Generated from 94 packages.
 ## `grant`
 
 - **Package name:** grant
-- **Version:** 0.7.0
+- **Version:** 0.7.1
 - **Description:** CLI tool for checking licenses
 - **Homepage:** [https://github.com/anchore/grant](https://github.com/anchore/grant)
 - **License:** Apache-2.0
@@ -213,7 +213,7 @@ Generated from 94 packages.
 ## `image-builder`
 
 - **Package name:** image-builder
-- **Version:** 90.0.0
+- **Version:** 91.0.0
 - **Description:** Tools to build and deploy disk-images
 - **Homepage:** [https://osbuild.org](https://osbuild.org)
 - **License:** Apache-2.0
@@ -269,7 +269,7 @@ Generated from 94 packages.
 ## `landlock-sandboxer`
 
 - **Package name:** landlock-sandboxer
-- **Version:** 7.3
+- **Version:** 7.3.4
 - **Description:** Simple Landlock sandbox manager
 - **Homepage:** [https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/samples/landlock](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/samples/landlock)
 - **License:** BSD-3-Clause
@@ -277,7 +277,7 @@ Generated from 94 packages.
 ## `landstrip`
 
 - **Package name:** landstrip
-- **Version:** 0.20.26
+- **Version:** 0.20.29
 - **Description:** Run tools in OS-level sandboxes
 - **Homepage:** [https://github.com/landstrip/landstrip](https://github.com/landstrip/landstrip)
 - **License:** LGPL-3.0-or-later
@@ -314,18 +314,10 @@ Generated from 94 packages.
 - **Homepage:** [https://quic-go.net](https://quic-go.net)
 - **License:** MIT
 
-## `mkbstosi`
-
-- **Package name:** mkbstosi
-- **Version:** 0-unstable-2026-01-03
-- **Description:** Make BuildStream OS Image
-- **Homepage:** [https://gitlab.com/freedesktop-sdk/mkbstosi](https://gitlab.com/freedesktop-sdk/mkbstosi)
-- **License:** LGPL-2.1-or-later
-
 ## `mkosi-HEAD`
 
 - **Package name:** mkosi-HEAD
-- **Version:** 27.1-unstable-2026-11-09
+- **Version:** 27.1-unstable-2026-11-14
 - **Description:** Build legacy-free OS images, built from git master
 - **Homepage:** [https://github.com/systemd/mkosi](https://github.com/systemd/mkosi)
 - **License:** LGPL-2.1-only
@@ -341,7 +333,7 @@ Generated from 94 packages.
 ## `mxc`
 
 - **Package name:** mxc
-- **Version:** 1.0.1
+- **Version:** 1.1.0
 - **Description:** Sandboxed code execution system for running untrusted code
 - **Homepage:** [https://github.com/microsoft/mxc](https://github.com/microsoft/mxc)
 - **License:** MIT
@@ -349,7 +341,7 @@ Generated from 94 packages.
 ## `nolibc`
 
 - **Package name:** nolibc
-- **Version:** 7.3
+- **Version:** 7.3.4
 - **Description:** Libc alternative for minimal programs
 - **Homepage:** [https://github.com/torvalds/linux/blob/master/tools/include/nolibc/nolibc.h](https://github.com/torvalds/linux/blob/master/tools/include/nolibc/nolibc.h)
 - **License:** GPL-2.0-only
@@ -509,7 +501,7 @@ Generated from 94 packages.
 ## `quarry`
 
 - **Package name:** quarry
-- **Version:** 0-unstable-2026-11-04
+- **Version:** 0-unstable-2026-11-13
 - **Description:** TUF-based software distribution toolchain
 - **Homepage:** [https://github.com/amutable/quarry](https://github.com/amutable/quarry)
 - **License:** Apache-2.0
@@ -541,7 +533,7 @@ Generated from 94 packages.
 ## `raven`
 
 - **Package name:** raven
-- **Version:** 0-unstable-2026-11-09
+- **Version:** 0-unstable-2026-11-16
 - **Description:** Runs Windows applications on Linux without a virtual machine
 - **Homepage:** [https://useraven.org/](https://useraven.org/)
 - **License:** GPL-3.0-or-later AND MIT AND Unicode-3.0 AND Zlib AND IJG AND libtiff AND X11 AND blessing AND ISC-Veillard
@@ -565,7 +557,7 @@ Generated from 94 packages.
 ## `rublk`
 
 - **Package name:** rublk
-- **Version:** 0.2.15
+- **Version:** 0.2.16
 - **Description:** Rust block device in userspace
 - **Homepage:** [https://github.com/ublk-org/rublk](https://github.com/ublk-org/rublk)
 - **License:** GPL-2.0-or-later
@@ -621,7 +613,7 @@ Generated from 94 packages.
 ## `sequin`
 
 - **Package name:** sequin
-- **Version:** 0-unstable-2026-11-09
+- **Version:** 0-unstable-2026-11-13
 - **Description:** Contact-centric PGP certificate manager built on Sequoia
 - **Homepage:** [https://gitlab.com/sequoia-pgp/sequin](https://gitlab.com/sequoia-pgp/sequin)
 - **License:** GPL-3.0-only
@@ -690,10 +682,18 @@ Generated from 94 packages.
 - **Homepage:** [https://github.com/ublk-org/ublksrv](https://github.com/ublk-org/ublksrv)
 - **License:** (MIT OR GPL-2.0-only) AND (MIT OR LGPL-2.1-only) AND GPL-2.0-only
 
+## `ufat`
+
+- **Package name:** ufat
+- **Version:** 0.1.0-unstable-2026-11-13
+- **Description:** Create, fill and check FAT32 file systems without mounting them
+- **Homepage:** [https://github.com/systemd/ufat](https://github.com/systemd/ufat)
+- **License:** LGPL-2.1-or-later
+
 ## `util-linux-HEAD`
 
 - **Package name:** util-linux-HEAD
-- **Version:** 2.43-devel-unstable-2026-11-05
+- **Version:** 2.43-devel-unstable-2026-11-11
 - **Description:** Set of system utilities for Linux, built from git master
 - **Homepage:** [https://github.com/util-linux/util-linux](https://github.com/util-linux/util-linux)
 - **License:** GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND MIT AND BSD-2-Clause AND BSD-3-Clause AND EUPL-1.2 AND LicenseRef-nixos-publicDomain
@@ -709,7 +709,7 @@ Generated from 94 packages.
 ## `voice-studio`
 
 - **Package name:** voice-studio
-- **Version:** 0.5.7
+- **Version:** 0.5.8
 - **Description:** Open-source voice cloning, voice design, dubbing and transcription studio
 - **Homepage:** [https://github.com/debpalash/VoiceStudio](https://github.com/debpalash/VoiceStudio)
 - **License:** AGPL-3.0-only
@@ -717,7 +717,7 @@ Generated from 94 packages.
 ## `xdg-desktop-portal-HEAD`
 
 - **Package name:** xdg-desktop-portal-HEAD
-- **Version:** 1.22.1-unstable-2026-11-06
+- **Version:** 1.22.1-unstable-2026-11-15
 - **Description:** Desktop integration portals for sandboxed apps, built from git main
 - **Homepage:** [https://flatpak.github.io/xdg-desktop-portal](https://flatpak.github.io/xdg-desktop-portal)
 - **License:** LGPL-2.0-or-later
@@ -736,7 +736,7 @@ Generated from 94 packages.
 ## `cdash`
 
 - **Package name:** cdash
-- **Version:** 5.5.2
+- **Version:** 5.6.0
 - **Description:** CDash is a web-based software testing server
 - **Homepage:** [https://www.cdash.org](https://www.cdash.org)
 - **License:** BSD-3-Clause
