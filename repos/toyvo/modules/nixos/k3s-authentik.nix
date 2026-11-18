@@ -199,8 +199,10 @@ in
                 runAsGroup = appUser;
                 fsGroup = appUser;
               };
-              # Worker + beat sidecar (matches the two NixOS units; they
-              # share nothing but config).
+              # Worker only (no beat sidecar): upstream merged the celery
+              # beat scheduler into `ak worker` — `ak beat` no longer exists
+              # (`Unknown command: 'beat'`). The NixOS `ak beat` unit is
+              # vestigial.
               containers = [
                 {
                   name = "worker";
@@ -211,14 +213,6 @@ in
                   # No HTTP surface by design (upstream ships no worker
                   # health endpoint) — a bad probe is worse than none.
                   # Process exit restarts the container (restartPolicy).
-                  # No volume mounts (see PVC note above).
-                }
-                {
-                  name = "beat";
-                  image = serverImage;
-                  imagePullPolicy = "IfNotPresent";
-                  args = [ "beat" ];
-                  env = dbEnv;
                   # No volume mounts (see PVC note above).
                 }
               ];
