@@ -1,0 +1,27 @@
+Embedding a file ends its operation; a new link target drops /Dest.
+
+pdf_add_embedded_file began an operation and never ended it on
+success; the journal stayed inside it and later undo, redo or
+state reads threw (Ely attachments).
+
+pdf_set_link_uri wrote /A but kept an old /Dest, which readers
+take first; the link kept its old target (Ely link editing).
+
+--- a/source/pdf/pdf-link.c	2026-10-06 15:47:19
++++ b/source/pdf/pdf-link.c	2026-10-06 15:47:47
+@@ -506,6 +506,7 @@
+ 		}
+ 
+ 		filespec = pdf_add_filespec(ctx, doc, filename, file);
++		pdf_end_operation(ctx, doc);
+ 	}
+ 	fz_always(ctx)
+ 		pdf_drop_obj(ctx, file);
+@@ -630,6 +631,7 @@
+ 	{
+ 		pdf_dict_put_drop(ctx, link->obj, PDF_NAME(A),
+ 				pdf_new_action_from_link(ctx, link->page->doc, uri));
++		pdf_dict_del(ctx, link->obj, PDF_NAME(Dest));
+ 		fz_free(ctx, link->super.uri);
+ 		link->super.uri = fz_strdup(ctx, uri);
+ 		pdf_end_operation(ctx, link->page->doc);

@@ -1,0 +1,46 @@
+A save that cannot open its file still journals later edits.
+
+prepare_for_save sets save_in_progress and only the writer clears
+it; when the output file cannot be opened, the flag stayed set and
+every later change bypassed the journal: edits made no undo step
+(Ely save to a missing folder).
+
+--- a/source/pdf/pdf-write.c	2026-10-06 19:50:43
++++ b/source/pdf/pdf-write.c	2026-10-06 19:50:43
+@@ -2186,7 +2186,15 @@
+ 	doc->save_in_progress = 1;
+ 
+ 	if (!in_opts->do_snapshot)
+-		presize_unsaved_signature_byteranges(ctx, doc);
++	{
++		fz_try(ctx)
++			presize_unsaved_signature_byteranges(ctx, doc);
++		fz_catch(ctx)
++		{
++			doc->save_in_progress = 0;
++			fz_rethrow(ctx);
++		}
++	}
+ }
+ 
+ static pdf_obj *
+@@ -3021,13 +3029,13 @@
+ 
+ 	prepare_for_save(ctx, doc, in_opts);
+ 
+-	if (in_opts->do_incremental)
++	fz_try(ctx)
++		opts.out = fz_new_output_with_path(ctx, filename, in_opts->do_incremental ? 1 : 0);
++	fz_catch(ctx)
+ 	{
+-		opts.out = fz_new_output_with_path(ctx, filename, 1);
+-	}
+-	else
+-	{
+-		opts.out = fz_new_output_with_path(ctx, filename, 0);
++		/* No write follows to clear it; edits stay journalled. */
++		doc->save_in_progress = 0;
++		fz_rethrow(ctx);
+ 	}
+ 	fz_try(ctx)
+ 	{

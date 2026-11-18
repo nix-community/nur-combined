@@ -1,0 +1,83 @@
+A signature records its reason and location.
+
+pdf_sign_signature drew the reason and location into the appearance
+only; readers look for them in the signature dictionary. Set after
+signing, they land in a second update and break the byte range, so
+they are written with the value (Ely signing).
+
+--- a/include/mupdf/pdf/form.h	2026-10-06 18:45:38
++++ b/include/mupdf/pdf/form.h	2026-10-06 18:45:38
+@@ -252,6 +252,8 @@
+ 
+ int pdf_signature_is_signed(fz_context *ctx, pdf_document *doc, pdf_obj *field);
+ void pdf_signature_set_value(fz_context *ctx, pdf_document *doc, pdf_obj *field, pdf_pkcs7_signer *signer, int64_t stime);
++/* Also records reason and location; NULL or empty skips. */
++void pdf_signature_set_value_said(fz_context *ctx, pdf_document *doc, pdf_obj *field, pdf_pkcs7_signer *signer, int64_t stime, const char *reason, const char *location);
+ 
+ int pdf_count_signatures(fz_context *ctx, pdf_document *doc);
+ 
+--- a/source/pdf/pdf-form.c	2026-10-06 18:45:38
++++ b/source/pdf/pdf-form.c	2026-10-06 18:45:49
+@@ -1923,6 +1923,11 @@
+ 
+ void pdf_signature_set_value(fz_context *ctx, pdf_document *doc, pdf_obj *field, pdf_pkcs7_signer *signer, int64_t stime)
+ {
++	pdf_signature_set_value_said(ctx, doc, field, signer, stime, NULL, NULL);
++}
++
++void pdf_signature_set_value_said(fz_context *ctx, pdf_document *doc, pdf_obj *field, pdf_pkcs7_signer *signer, int64_t stime, const char *reason, const char *location)
++{
+ 	pdf_obj *v = NULL;
+ 	pdf_obj *o = NULL;
+ 	pdf_obj *r = NULL;
+@@ -1966,6 +1971,11 @@
+ 		pdf_dict_put(ctx, v, PDF_NAME(SubFilter), PDF_NAME(adbe_pkcs7_detached));
+ 		pdf_dict_put(ctx, v, PDF_NAME(Type), PDF_NAME(Sig));
+ 		pdf_dict_put_date(ctx, v, PDF_NAME(M), stime);
++		/* Before storing: later edits open a new section. */
++		if (reason && *reason)
++			pdf_dict_put_text_string(ctx, v, PDF_NAME(Reason), reason);
++		if (location && *location)
++			pdf_dict_put_text_string(ctx, v, PDF_NAME(Location), location);
+ 
+ 		o = pdf_dict_put_array(ctx, v, PDF_NAME(Reference), 1);
+ 		r = pdf_array_put_dict(ctx, o, 0, 4);
+--- a/source/pdf/pdf-signature.c	2026-10-06 18:45:38
++++ b/source/pdf/pdf-signature.c	2026-10-06 18:45:49
+@@ -233,9 +233,18 @@
+ 	}
+ }
+ 
++static void
++sign_with_appearance(fz_context *ctx, pdf_annot *widget, pdf_pkcs7_signer *signer, int64_t t, fz_display_list *disp_list, const char *reason, const char *location);
++
+ void
+ pdf_sign_signature_with_appearance(fz_context *ctx, pdf_annot *widget, pdf_pkcs7_signer *signer, int64_t t, fz_display_list *disp_list)
+ {
++	sign_with_appearance(ctx, widget, signer, t, disp_list, NULL, NULL);
++}
++
++static void
++sign_with_appearance(fz_context *ctx, pdf_annot *widget, pdf_pkcs7_signer *signer, int64_t t, fz_display_list *disp_list, const char *reason, const char *location)
++{
+ 	pdf_document *doc;
+ 
+ 	if (pdf_dict_get_inheritable(ctx, widget->obj, PDF_NAME(FT)) != PDF_NAME(Sig))
+@@ -273,7 +282,7 @@
+ 		if ((sf & (PDF_SIGFLAGS_SIGSEXIST | PDF_SIGFLAGS_APPENDONLY)) != (PDF_SIGFLAGS_SIGSEXIST | PDF_SIGFLAGS_APPENDONLY))
+ 			pdf_dict_put_int(ctx, form, PDF_NAME(SigFlags), sf | PDF_SIGFLAGS_SIGSEXIST | PDF_SIGFLAGS_APPENDONLY);
+ 
+-		pdf_signature_set_value(ctx, doc, wobj, signer, t);
++		pdf_signature_set_value_said(ctx, doc, wobj, signer, t, reason, location);
+ 		end_widget_op(ctx, widget);
+ 	}
+ 	fz_catch(ctx)
+@@ -359,7 +368,7 @@
+ 			else
+ 				dlist = pdf_signature_appearance_signed(ctx, rect, lang, NULL, NULL, info, logo);
+ 		}
+-		pdf_sign_signature_with_appearance(ctx, widget, signer, now, dlist);
++		sign_with_appearance(ctx, widget, signer, now, dlist, reason, location);
+ 	}
+ 	fz_always(ctx)
+ 	{

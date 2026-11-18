@@ -1,0 +1,19 @@
+Snapshots keep the incremental sections: undo works after a save.
+
+pdf_save_snapshot promises the document stays unchanged, yet the
+write marked every incremental section saved; undoing an earlier
+step then restored nothing (Ely's PDF save and extract).
+
+--- a/source/pdf/pdf-write.c	2026-10-06 09:03:50
++++ b/source/pdf/pdf-write.c	2026-10-06 09:03:50
+@@ -2869,7 +2869,9 @@
+ 		pdf_sync_open_pages(ctx, doc);
+ 
+ 		// mark incremental sections as having been saved
+-		doc->num_incremental_sections = 0;
++		// A snapshot keeps them, and the undo history.
++		if (!in_opts->do_snapshot)
++			doc->num_incremental_sections = 0;
+ 
+ 		pdf_end_operation(ctx, doc);
+ 	}
