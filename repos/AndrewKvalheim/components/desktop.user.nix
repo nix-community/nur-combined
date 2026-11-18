@@ -2,9 +2,9 @@
 
 let
   inherit (builtins) toFile;
-  inherit (config) xdg;
+  inherit (config) system;
   inherit (config.programs) dux-shell;
-  inherit (lib) mkOption;
+  inherit (lib) genAttrs mkDefault mkOption;
   inherit (lib.hm.generators) toKDL;
   inherit (pkgs) formats;
 
@@ -16,7 +16,10 @@ in
   imports = [ ../library/dms-inhibit.user.nix ];
 
   # Pending nix-community/home-manager#9686
-  options.programs.dux-shell.settings = mkOption { inherit (dmsSettingsFormat) type; };
+  options.programs.dux-shell = {
+    pluginSettings = mkOption { inherit (dmsSettingsFormat) type; };
+    settings = mkOption { inherit (dmsSettingsFormat) type; };
+  };
 
   # TODO: Reintegrate or replace Stretch Break
   config = {
@@ -118,6 +121,7 @@ in
             "Mod+Alt+Ctrl+Up".move-column-to-monitor-up = { };
           };
           config-notification.disable-failed = { };
+          cursor.xcursor-theme = "Adwaita";
           environment.XDG_CURRENT_DESKTOP = "niri";
           gestures.hot-corners.off = { };
           hotkey-overlay.skip-at-startup = { };
@@ -173,84 +177,144 @@ in
 
     # Dux Modular Shell
     # TODO: theme
-    # TODO: barConfigs
+    # TODO: wallpaper
     # TODO: plugins
-    programs.dux-shell.settings = {
-      # Appearance
-      cursorSettings.theme = "Adwaita";
-      density = "compact";
-      desktopContextMenu = "off";
-      radiusStrength = 25;
-      systemTrayIconTintMode = "monochrome";
+    programs.dux-shell = {
+      settings = {
+        # Appearance
+        density = if system.host.metrics.displayWidth <= 1280 then "dense" else "compact";
+        radiusStrength = 25;
+        systemTrayIconTintMode = "monochrome";
 
-      # Control center
-      controlCenterWidgets = map (w: { enabled = true; } // w)
-        (map (w: (if w ? group then { } else { row = 0; }) // w) [
-          { col = 0; w = 5; h = 1; id = "user"; background = false; badge = false; compositor = false; uptime = false; }
-          { col = 5; w = 3; h = 1; small = true; id = "quickTiles"; background = false; instanceId = "top"; }
-          { group = "top"; id = "edit"; }
-          { group = "top"; id = "settings"; }
-          { group = "top"; id = "lock"; }
-          { group = "top"; id = "power"; }
-        ]) ++ (map (w: (if w ? group then { } else { row = 1; }) // w) [
-        { col = 0; w = 4; h = 1; small = true; id = "volumeSlider"; }
-        { col = 4; w = 3; h = 1; small = true; id = "brightnessSlider"; }
-        { col = 7; w = 1; h = 1; small = true; id = "quickTiles"; background = false; instanceId = "brightness"; }
-        { group = "brightness"; id = "nightMode"; }
-      ]) ++ (map (w: (if w ? group then { } else { row = 2; }) // w) [
-        { col = 0; w = 4; h = 1; id = "audioOutput"; }
-        { col = 4; w = 4; h = 1; id = "wifi"; }
-      ]) ++ (map (w: (if w ? group then { } else { row = 3; }) // w) [
-        { col = 0; w = 4; h = 1; id = "audioInput"; }
-        { col = 4; w = 4; h = 1; id = "bluetooth"; }
-      ]) ++ (map (w: (if w ? group then { } else { row = 4; }) // w) [
-        { col = 4; w = 4; h = 1; id = "idleInhibitor"; }
-      ]);
+        # Bar
+        barConfigs = [
+          {
+            id = "default";
+            attachToScreenEdge = true;
+            centerWidgets = map (w: { enabled = true; } // w) [
+              { id = "music"; }
+              { id = "clock"; clockDateOrder = "dateFirst"; }
+              { id = "notificationButton"; }
+            ];
+            enabled = true;
+            fontScale = 1.28;
+            gothCornersEnabled = true;
+            iconScale = 1.28;
+            innerPadding = -8;
+            leftWidgets = map (w: { enabled = true; } // w) [
+              { id = "workspaceSwitcher"; showOccupiedWorkspacesOnly = true; workspaceIndicatorCompact = true; workspaceIndicatorStyle = "dots"; }
+            ];
+            name = "Main Bar";
+            noBackground = true;
+            position = 0 /* top */;
+            rightWidgets = map (w: { enabled = true; } // w) [
+              { id = "systemTray"; }
+              { id = "dankActions:utc"; }
+              { id = "cpuUsage"; }
+              { id = "memUsage"; }
+              { id = "battery"; showBatteryPercentOnlyOnBattery = true; }
+              { id = "controlCenterButton"; }
+            ];
+            screenPreferences = [{ inherit (system.host.mainDisplay) model name; }];
+            showOnLastDisplay = true;
+            surfaceColor = "custom";
+            surfaceCustomColor = "#000000";
+          }
+        ];
 
-      # Dash
-      dashCards = [{ id = "calendar"; col = 0; row = 0; w = 3; h = 3; }];
-      dashOptions.overview = { panelRows = 3; panelColumns = 3; };
-      dashTabs = map (id: { inherit id; enabled = false; })
-        [ "overview" "media" "wallpaper" "weather" "wellbeing" "notifications" "settings" ];
+        # Control center
+        controlCenterWidgets = map (w: { enabled = true; } // w) (
+          (map (w: (if w ? group then { } else { row = 0; }) // w) [
+            { col = 0; w = 5; h = 1; id = "user"; background = false; badge = false; compositor = false; uptime = false; }
+            { col = 5; w = 3; h = 1; small = true; id = "quickTiles"; background = false; instanceId = "top"; }
+            { group = "top"; id = "edit"; }
+            { group = "top"; id = "settings"; }
+            { group = "top"; id = "lock"; }
+            { group = "top"; id = "power"; }
+          ]) ++ (map (w: (if w ? group then { } else { row = 1; }) // w) [
+            { col = 0; w = 4; h = 1; small = true; id = "volumeSlider"; }
+            { col = 4; w = 3; h = 1; small = true; id = "brightnessSlider"; }
+            { col = 7; w = 1; h = 1; small = true; id = "quickTiles"; background = false; instanceId = "brightness"; }
+            { group = "brightness"; id = "nightMode"; }
+          ]) ++ (map (w: (if w ? group then { } else { row = 2; }) // w) [
+            { col = 0; w = 4; h = 1; id = "audioOutput"; }
+            { col = 4; w = 4; h = 1; id = "wifi"; }
+          ]) ++ (map (w: (if w ? group then { } else { row = 3; }) // w) [
+            { col = 0; w = 4; h = 1; id = "audioInput"; }
+            { col = 4; w = 4; h = 1; id = "bluetooth"; }
+          ]) ++ (map (w: (if w ? group then { } else { row = 4; }) // w) [
+            { col = 4; w = 4; h = 1; id = "idleInhibitor"; }
+          ])
+        );
 
-      # Features
-      builtInPluginSettings.dms_qr_generator.enabled = false;
-      builtInPluginSettings.dms_clipboard_search.enabled = false;
-      builtInPluginSettings.dms_vpn.enabled = false;
-      launcherStyle = "spotlight";
-      soundsEnabled = false;
-      weatherEnabled = false;
+        # Dash
+        dashCards = [{ id = "calendar"; col = 0; row = 0; w = 3; h = 3; }];
+        dashOptions.overview = { panelRows = 3; panelColumns = 3; };
+        dashTabs = map (id: { inherit id; enabled = false; })
+          [ "overview" "media" "wallpaper" "weather" "wellbeing" "notifications" "settings" ];
 
-      # Fonts
-      fontFamily = "Roboto";
-      monoFontFamily = "Iosevka Custom Mono";
+        # Features
+        builtInPluginSettings.dms_qr_generator.enabled = false;
+        builtInPluginSettings.dms_clipboard_search.enabled = false;
+        builtInPluginSettings.dms_vpn.enabled = false;
+        desktopContextMenu = "off";
+        launcherStyle = "spotlight";
+        soundsEnabled = false;
+        weatherEnabled = false;
 
-      # Input
-      mouseNaturalScroll = true;
+        # Fonts
+        fontFamily = "Roboto";
+        monoFontFamily = "Iosevka Custom Mono";
 
-      # Layout
-      notificationCompactMode = true;
-      notificationPopupPosition = -1 /* top center */;
-      osdPosition = 0 /* top right */;
+        # Input
+        mouseNaturalScroll = true;
 
-      # Locale
-      clockFormat = "24h";
-      clockDateFormat = "yyyy-MM-dd ddd";
+        # Layout
+        niriLayoutGapsOverride = 0;
+        notificationCompactMode = true;
+        notificationPopupPosition = -1 /* top center */;
+        osdPosition = 0 /* top right */;
+        screenPreferences = genAttrs [ "lockScreen" "notepad" "notifications" "osd" "toast" ]
+          (s: [{ inherit (system.host.mainDisplay) model name; }]);
+        showOnLastDisplay = { notepad = true; notifications = true; osd = true; toast = true; };
 
-      # Lock screen
-      acLockTimeout = 30 * minute;
-      batteryLockTimeout = 5 * minute;
-      lockScreenShowPowerActions = true;
-      lockScreenPowerOffMonitorsOnLock = true;
+        # Locale
+        clockFormat = "24h";
+        clockDateFormat = "yyyy-MM-dd ddd";
 
-      # Power
-      acMonitorTimeout = 10 * minute;
-      batteryMonitorTimeout = 3 * minute;
-      acSuspendTimeout = 0 /* ∞ */;
-      batterySuspendTimeout = 2 * hour;
+        # Lock screen
+        acLockTimeout = 30 * minute;
+        batteryLockTimeout = 5 * minute;
+        lockScreenShowPowerActions = true;
+        lockScreenPowerOffMonitorsOnLock = true;
+
+        # Power
+        acMonitorTimeout = 10 * minute;
+        batteryMonitorTimeout = 3 * minute;
+        acSuspendTimeout = 0 /* ∞ */;
+        batterySuspendTimeout = 2 * hour;
+      };
+      pluginSettings = {
+        dankActions = {
+          enabled = true;
+          variants = [
+            {
+              id = "utc";
+              name = "UTC";
+              showIcon = false;
+              updateInterval = 60;
+              displayCommand = "date --utc +'%HZ'";
+              clickCommand = "dms ipc dash toggle overview";
+            }
+          ];
+        };
+      };
     };
     # FIXME: Changes not detected until `systemctl --user reload dms.service`
-    xdg.configFile."dms/config.d/10-home-manager.json".source = dmsSettingsFormat.generate "dms-settings" dux-shell.settings;
+    xdg.configFile."dms/config.d/10-home-manager.json".source =
+      dmsSettingsFormat.generate "dms-settings" dux-shell.settings;
+    xdg.configFile."dms/plugin_settings.json".source =
+      dmsSettingsFormat.generate "dms-settings" dux-shell.pluginSettings;
 
     # GDK
     dconf.settings."org/gnome/desktop/interface".accent-color = "orange";

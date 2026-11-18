@@ -39,7 +39,7 @@ in
   options = {
     host = {
       dir = mkOption { type = path; };
-      mainDisplay = mkOption { type = str; };
+      mainDisplay = { name = mkOption { type = str; }; model = mkOption { type = str; }; };
 
       metrics = {
         cpuCores = mkOption { type = int; };
