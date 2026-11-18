@@ -181,13 +181,14 @@ makeScope newScope (
         fetchzip,
         language,
         languageShort ? substring 0 2 language,
-        wordpress,
+        # wordpress,
+        version ? "7.1.5", # TODO: replace with wordpress.version,
         hash,
       }:
 
       stdenv.mkDerivation (finalAttrs: {
         name = "wp-language-${languageShort}";
-        inherit (wordpress) version;
+        inherit version;
         inherit language languageShort;
 
         src = fetchzip {
@@ -202,7 +203,7 @@ makeScope newScope (
     languages = mapAttrs (_: self.callPackage self.mkLanguage) {
       nl = {
         language = "nl_NL";
-        hash = "sha256-ExbytVCm1BAKO0O927/Kc1R5mmdOIOzzq2R2XFRXlIk=";
+        hash = "sha256-X63Zur4qJ7AKlVOLcCuqILpF2CTbRsaSsqBxJej5qxs=";
       };
     };
   }
