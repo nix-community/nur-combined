@@ -40,6 +40,9 @@ in
       confirmThreadDelete = true;
       diffWordWrap = false;
       followUpBehavior = "queue";
+    };
+
+    userSettings = {
       favorites = [
         # {
         #   provider = "claudeAgent";
@@ -51,11 +54,11 @@ in
         # }
         {
           provider = "codex";
-          model = "gpt-6-astra";
+          model = "gpt-6.2-astra";
         }
         {
           provider = "codex";
-          model = "gpt-6.1-sol";
+          model = "gpt-6.2-sol";
         }
         {
           provider = "cursor";
@@ -80,9 +83,11 @@ in
           "gpt-5.6-sol"
           # "gpt-6-luna"
           "gpt-6-sol"
-          # "gpt-6-astra"
+          "gpt-6-astra"
           "gpt-6.1-terra"
-          # "gpt-6.1-sol"
+          "gpt-6.1-sol"
+          # "gpt-6.2-sol"
+          # "gpt-6.2-astra"
         ];
         claudeAgent.hiddenModels = hiddenClaudeModels;
         cursor.hiddenModels =
@@ -126,13 +131,11 @@ in
             "muse-wonder-1.0"
           ];
       };
-    };
 
-    userSettings = {
       sidebarAutoSettleAfterDays = 7;
       defaultModelSelection = {
         instanceId = "codex";
-        model = "gpt-6.1-sol";
+        model = "gpt-6.2-sol";
         options = [
           {
             id = "reasoningEffort";

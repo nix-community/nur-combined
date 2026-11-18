@@ -23,12 +23,12 @@ let
 
     t3code = final.callPackage "${
       final.applyPatches {
-        name = "t3code-0.1.9-source";
+        name = "t3code-0.1.10-source";
         src = "${prev.path}/pkgs/by-name/t3/t3code";
         patches = [
           (final.fetchpatch2 {
             url = "https://github.com/NixOS/nixpkgs/pull/589125.patch?full_index=1";
-            hash = "sha256-/QDFpHDTaeWu0jkYYDKjTxN/edVVlCxuXhmBpye+tkY=";
+            hash = "sha256-A+XnmxJDVVBJzAbZ2KFNfy5oLnVZ4BFzd7zANg1ELV0=";
           })
         ];
         patchFlags = [ "-p5" ];
