@@ -107,53 +107,12 @@ in
     ];
 
     services.k3s.manifests = {
-      # Whole state dir (parity with the /var/lib/authentik bind mount;
-      # holds bootstrap markers, geoip, blueprints cache alongside the
-      # nested mounts below).
-      "authentik-data-pvc.yaml".content = {
-        apiVersion = "v1";
-        kind = "PersistentVolumeClaim";
-        metadata = {
-          name = "authentik-data";
-        };
-        spec = {
-          accessModes = [ "ReadWriteOnce" ];
-          resources.requests.storage = "5Gi";
-        };
-      };
-      "authentik-media-pvc.yaml".content = {
-        apiVersion = "v1";
-        kind = "PersistentVolumeClaim";
-        metadata = {
-          name = "authentik-media";
-        };
-        spec = {
-          accessModes = [ "ReadWriteOnce" ];
-          resources.requests.storage = "5Gi";
-        };
-      };
-      "authentik-templates-pvc.yaml".content = {
-        apiVersion = "v1";
-        kind = "PersistentVolumeClaim";
-        metadata = {
-          name = "authentik-templates";
-        };
-        spec = {
-          accessModes = [ "ReadWriteOnce" ];
-          resources.requests.storage = "1Gi";
-        };
-      };
-      "authentik-certs-pvc.yaml".content = {
-        apiVersion = "v1";
-        kind = "PersistentVolumeClaim";
-        metadata = {
-          name = "authentik-certs";
-        };
-        spec = {
-          accessModes = [ "ReadWriteOnce" ];
-          resources.requests.storage = "1Gi";
-        };
-      };
+      # No file PVCs by design: all POOL/container file state read 0
+      # (media/templates/certs/data are empty — the instance uses
+      # defaults, and the real state lives in host Postgres). The
+      # upstream default paths (/media, /templates) stay ephemeral;
+      # persistence gets added if an admin ever customizes (documented).
+      # Only redis keeps a PVC (sessions survive routine restarts).
       "authentik-redis-pvc.yaml".content = {
         apiVersion = "v1";
         kind = "PersistentVolumeClaim";
@@ -190,7 +149,9 @@ in
                   image = serverImage;
                   imagePullPolicy = "IfNotPresent";
                   args = [ "server" ];
-                  workingDir = "/var/lib/authentik";
+                  # NO workingDir: the image relies on CWD=/ so that
+                  # `python -m lifecycle.*` resolves the /lifecycle package
+                  # (CWD is on sys.path). Overriding it breaks imports.
                   env = dbEnv;
                   ports = [ { containerPort = serverPort; } ];
                   # First boot replays migrations + blueprints against the
@@ -212,34 +173,7 @@ in
                     initialDelaySeconds = 180;
                     periodSeconds = 60;
                   };
-                  volumeMounts = [
-                    {
-                      name = "data";
-                      mountPath = "/var/lib/authentik";
-                    }
-                    {
-                      name = "media";
-                      mountPath = "/var/lib/authentik/media";
-                    }
-                    {
-                      name = "templates";
-                      mountPath = "/var/lib/authentik/custom-templates";
-                    }
-                  ];
-                }
-              ];
-              volumes = [
-                {
-                  name = "data";
-                  persistentVolumeClaim.claimName = "authentik-data";
-                }
-                {
-                  name = "media";
-                  persistentVolumeClaim.claimName = "authentik-media";
-                }
-                {
-                  name = "templates";
-                  persistentVolumeClaim.claimName = "authentik-templates";
+                  # No volume mounts (see PVC note above).
                 }
               ];
             };
@@ -273,61 +207,19 @@ in
                   image = serverImage;
                   imagePullPolicy = "IfNotPresent";
                   args = [ "worker" ];
-                  workingDir = "/var/lib/authentik";
                   env = dbEnv;
                   # No HTTP surface by design (upstream ships no worker
                   # health endpoint) — a bad probe is worse than none.
                   # Process exit restarts the container (restartPolicy).
-                  volumeMounts = [
-                    {
-                      name = "data";
-                      mountPath = "/var/lib/authentik";
-                    }
-                    {
-                      name = "media";
-                      mountPath = "/var/lib/authentik/media";
-                    }
-                    {
-                      name = "templates";
-                      mountPath = "/var/lib/authentik/custom-templates";
-                    }
-                    {
-                      name = "certs";
-                      mountPath = "/var/lib/authentik/certs";
-                    }
-                  ];
+                  # No volume mounts (see PVC note above).
                 }
                 {
                   name = "beat";
                   image = serverImage;
                   imagePullPolicy = "IfNotPresent";
                   args = [ "beat" ];
-                  workingDir = "/var/lib/authentik";
                   env = dbEnv;
-                  volumeMounts = [
-                    {
-                      name = "data";
-                      mountPath = "/var/lib/authentik";
-                    }
-                  ];
-                }
-              ];
-              volumes = [
-                {
-                  name = "data";
-                  persistentVolumeClaim.claimName = "authentik-data";
-                }
-                {
-                  name = "media";
-                  persistentVolumeClaim.claimName = "authentik-media";
-                }
-                {
-                  name = "templates";
-                  persistentVolumeClaim.claimName = "authentik-templates";
-                }
-                {
-                  name = "certs";
-                  persistentVolumeClaim.claimName = "authentik-certs";
+                  # No volume mounts (see PVC note above).
                 }
               ];
             };
@@ -428,10 +320,10 @@ in
                   name = "redis";
                   image = redisImage;
                   imagePullPolicy = "IfNotPresent";
-                  args = [
-                    "--appendonly"
-                    "yes"
-                  ];
+                  # No custom args by design: upstream defaults match the
+                  # NixOS redis (no appendonly). NB: YAML 1.1 parses bare
+                  # `yes` as boolean true — never pass yes/no words as
+                  # separate args (k3s applier rejects them).
                   ports = [ { containerPort = redisPort; } ];
                   readinessProbe = {
                     # redis image is distroless-adjacent; TCP check only.
