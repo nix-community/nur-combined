@@ -1,0 +1,21 @@
+--- a/ElaWidgetTools/private/ElaAppBarPrivate.h
++++ b/ElaWidgetTools/private/ElaAppBarPrivate.h
+@@ -3,6 +3,8 @@
+ #include "ElaPropertyMacro.h"
+ #include "ElaWidgetToolsDef.h"
+ 
++#include <QPoint>
++
+ class QLabel;
+ class QScreen;
+ class QHBoxLayout;
+--- a/ElaWidgetTools/private/ElaThemePrivate.cpp
++++ b/ElaWidgetTools/private/ElaThemePrivate.cpp
+@@ -3,6 +3,7 @@
+ #include "ElaExponentialBlur.h"
+ 
+ #include <QDataStream>
++#include <QIODevice>
+ #include <QPainter>
+ #include <QPainterPath>
+ #include <QtMath>

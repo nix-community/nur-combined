@@ -19,7 +19,11 @@ buildGo127Module (finalAttrs: {
   __structuredAttrs = true;
   strictDeps = true;
 
-  vendorHash = "sha256-2sYsbtGdqcDwGd+fzNvJuvUvBTDmOH3/IrF59btfbmE=";
+  vendorHash = "sha256-gSLL2lt3ynSKIwNFUInC/qgpfNxs1IMImnxUTsQVi6I=";
+
+  postPatch = ''
+    substituteInPlace go.mod --replace-fail "go 1.27.4" "go 1.27.3"
+  '';
 
   buildInputs = [ olm ];
   subPackages = [ "cmd/picoclaw" ];

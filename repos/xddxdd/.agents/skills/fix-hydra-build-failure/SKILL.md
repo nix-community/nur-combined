@@ -1,6 +1,6 @@
 ---
 name: fix-hydra-build-failure
-description: Fix Hydra build failures and evaluation errors in this NUR repository. Use when asked to fix Hydra failures, inspect failed jobs, or repair packages from the latest lantian/nur-packages evaluation.
+description: Fix Hydra build failures, evaluation errors, and failed GitHub Actions auto-update runs in this NUR repository. Use when asked to fix Hydra failures, inspect failed jobs, repair packages from the latest lantian/nur-packages evaluation, or diagnose why auto-update keeps failing.
 ---
 
 # 修复 Hydra 构建失败
@@ -20,7 +20,8 @@ description: Fix Hydra build failures and evaluation errors in this NUR reposito
    - `https://hydra.lantian.pub/eval/<id>/builds`：设置 `Accept: application/json`，取得全部构建及其状态。
 3. 区分完成和未完成的构建：已完成的 `buildstatus = 0` 为成功，非零状态按 Hydra 含义分类（1 为 Failed，2 为 Dependency failed）；未完成、排队或运行中的构建标为 pending，不当成已证实失败。清单包括别名 job（如 `uncategorized-`），不能只看 Jobs 标签页，因为其默认只列 canonical 名。评估错误与求值成功后的构建失败（`Failed` / `Dependency failed`）都要逐个修复。
 4. 对依赖失败（如 `it-tools: Dependency failed`）打开 `https://hydra.lantian.pub/build/<id>/nixlog/<n>`，跟随重定向读到真正失败的依赖日志，记录最终链接和错误。按根因归并重复 job，但保留所有受影响 job、平台与 build ID。
-5. 读取仓库实际 Hydra/flake 配置、`pkgs/default.nix` 及相关映射，确认 job 对应的真实包属性和文件；不要靠删除 job 名字符串前缀猜属性。记录 Hydra 输入版本与当前工作区的差异。
+5. 检查 GitHub Actions 的 auto-update 失败，它与 Hydra 失败同属修复清单：`gh run list --repo xddxdd/nur-packages --workflow auto-update.yml --limit 20 --json databaseId,conclusion,createdAt,headSha`，对结论不是 `success` 的 run 执行 `gh run view <id> --repo xddxdd/nur-packages --log-failed`，记录 run ID、失败步骤和错误。这类失败通常是更新脚本只写了一半：version/src 已前进但 `vendorHash`/`cargoHash`/`npmDepsHash` 未更新（`nix-update` 的 `UpdateError`、拿不到 `got:` 哈希），或 `unstableGitUpdater` 留下 tempHash `sha256-AzH1rZFqEH8sovZZfJykvsEmCedEZWigQFHWHl6/PdE=` 与 `.nix.cmp` 后卡死。修复要落在包内的 `update.sh`/`update-standalone.*`/fetcher 定义上，按 `AGENTS.md` 的更新脚本规则处理，不能只重跑 workflow 或只改被 Hydra 报错的那一行哈希。
+6. 读取仓库实际 Hydra/flake 配置、`pkgs/default.nix` 及相关映射，确认 job 对应的真实包属性和文件；不要靠删除 job 名字符串前缀猜属性。记录 Hydra 输入版本与当前工作区的差异。
 
 ## 分派、复现和修复
 
@@ -33,6 +34,7 @@ description: Fix Hydra build failures and evaluation errors in this NUR reposito
 ## 逐项验证
 
 - 按仓库映射使用正确属性，对每个受影响包运行真实构建：`nix build '.#<实际属性>' --no-link`；分组包必须带正确前缀，并验证受影响平台/变体。等待命令结束并检查退出码和日志。
+- auto-update 类修复还要验证更新逻辑本身：在修好的工作区运行 `./tools/update-package <包名>`，确认退出码为 0、无新版本时不改写文件；版本或依赖变化时确认 version/rev/依赖哈希三者同时更新，而不是只动其中一项。
 - 评估错误还需对原失败求值目标执行禁止 IFD 的检查，例如 `nix eval --option allow-import-from-derivation false --raw '.#<实际属性>.drvPath'`；必要时按仓库 Hydra 配置复查相关 job 的求值。不能用只求值未触发错误的字段代替。
 - 失败涉及启动、运行时路径或设备功能时，实际运行构建产物并测试对应用户入口；需要 GUI/隔离环境时遵守项目环境规则。测试服务必须等待就绪、测试完成后检查结果并停止。
 - 补丁 dry-run、源码 fetch、依赖预取或单独求值只证明各自步骤，不是完整构建成功。不可测试的平台、超时、网络/硬件限制和 pending 都保留为未完成项，不做替代性“通过”。
@@ -40,7 +42,7 @@ description: Fix Hydra build failures and evaluation errors in this NUR reposito
 
 ## 最终报告
 
-列出 eval ID、jobset/errors/builds/根因日志来源链接、受影响 job 与真实属性、根因、修改路径；逐项列出检查命令、退出码及通过/失败结果，包含所有跳过、超时、pending 和阻塞。
+列出 eval ID、jobset/errors/builds/根因日志来源链接、失败的 auto-update run ID 与失败步骤、受影响 job 与真实属性、根因、修改路径；逐项列出检查命令、退出码及通过/失败结果，包含所有跳过、超时、pending 和阻塞。
 
 明确区分“本地已验证”与“Hydra 尚未重跑”；未取得新 Hydra 结果不得声称 Hydra 已通过。只报告实际执行所得证据。
 

@@ -9,19 +9,19 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "ela-widget-tools";
-  version = "0-unstable-2026-11-14";
+  version = "0-unstable-2026-11-18";
   src = fetchFromGitHub {
     owner = "Liniyous";
     repo = "ElaWidgetTools";
-    rev = "cfb761287ff8848f4f39496f8648b8adf97d54ff";
-    hash = "sha256-PhMr4T2de8kw9CguBqP1ag6gIsLSThc5U55oSJMwLwU=";
+    rev = "18a9bdad86af2c2538dac7d76b0f185e610cd991";
+    hash = "sha256-Tczr3v13+dVuIbvfyyhvCrfz1V4yDLP8/2lNCYcbQBA=";
   };
   __structuredAttrs = true;
   strictDeps = true;
   patches = [
     ./fix-install-path.patch
     ./qt6-qchar-fix.patch
-    ./linux-example.patch
+    ./qt6-missing-includes.patch
   ];
 
   # Qt CMake private include path is empty, generate one ourselves

@@ -27,7 +27,6 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [
     ./nullfsvfs-change-reported-free-space.patch
-    ./nullfsvfs-linux-7.3-create-signature.patch
   ];
 
   makeFlags = kernel.commonMakeFlags or kernel.makeFlags;
