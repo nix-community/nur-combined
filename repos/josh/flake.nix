@@ -72,6 +72,7 @@
         system:
         {
           formatting = treefmt-nix.${system}.check self;
+          nix-update = (importNixpkgs nixpkgs system).callPackage ./internal/check-nix-update.nix { };
         }
         // (mkChecks "stable" (importNixpkgs internal-inputs.nixpkgs-stable system))
         // (mkChecks "unstable" (importNixpkgs internal-inputs.nixpkgs-unstable system))
