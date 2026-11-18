@@ -113,11 +113,18 @@ stdenvNoCC.mkDerivation {
   nativeCheckInputs = [ ffmpeg-headless ];
   # Deselected tests resolve example.com. stdenv points SSL_CERT_FILE at a
   # missing file, which httpx refuses when the app module is imported.
+  # test_hot_settings_registration.py asserts the hot settings are not module
+  # attributes, but monkeypatch.setattr(..., raising=False) in other tests
+  # leaves ENABLE_INTERNAL_SHARING behind as one; it fails whenever xdist puts
+  # those in the same worker first, so it runs in its own process.
   checkPhase = ''
     runHook preCheck
     unset SSL_CERT_FILE
-    HOME=$TMPDIR ${testPython}/bin/python -m pytest -p no:cacheprovider -q \
-      -n $NIX_BUILD_CORES -m "not slow" --ignore=tests/e2e \
+    export HOME=$TMPDIR
+    pytest="${testPython}/bin/python -m pytest -p no:cacheprovider -q"
+    $pytest tests/test_hot_settings_registration.py
+    $pytest -n $NIX_BUILD_CORES -m "not slow" --ignore=tests/e2e \
+      --ignore=tests/test_hot_settings_registration.py \
       --deselect tests/test_webhooks.py::test_is_url_safe_accepts_https_public \
       --deselect tests/test_webhooks.py::test_create_webhook_returns_secret_once_and_omits_thereafter \
       --deselect tests/test_webhooks.py::test_per_user_cap_enforced
