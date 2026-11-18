@@ -66,7 +66,7 @@
 }:
 
 let
-  version = "1.4.255";
+  version = "1.4.262";
 
   dlopenLibraries = [
     libGL
@@ -101,9 +101,9 @@ stdenv.mkDerivation {
     }.deb";
     hash =
       if stdenv.hostPlatform.isAarch64 then
-        "sha256-wE88O1yM+EQnA74Y/+4J+DW+hg3IfdkGHBpsyKqsYPA="
+        "sha256-D8bFf65//QKvykaZ7w14u1na4YGu2Nigm6+C3Uen0rU="
       else
-        "sha256-bfU/T2yRn9HxDf41EZQJNKzJQKd1TrGw6JbSxi5K3Vo=";
+        "sha256-9v7DXTE4tkshUen2z6W28XxyUgYNEENQ1C3ZRb0DO0M=";
   };
 
   nativeBuildInputs = [
@@ -225,6 +225,8 @@ stdenv.mkDerivation {
 
     runHook postInstall
   '';
+
+  autoPatchelfIgnoreMissingDeps = [ "libc.musl-x86_64.so.1" ];
 
   postFixup = ''
     autoPatchelf \

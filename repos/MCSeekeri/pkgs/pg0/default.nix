@@ -31,19 +31,19 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "pg0";
-  version = "0.16.1";
+  version = "0.17.0";
 
   src = fetchFromGitHub {
     owner = "vectorize-io";
     repo = "pg0";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-fIIAs/OOUvfEZTj4IkeR+Z3NjVCQn2YGadl6UaFTpSs=";
+    hash = "sha256-n91zU5ww1EF16X47cGYaHkMUCiGVQQ1TCd9wxeZEY+o=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) src;
     name = "pg0-${finalAttrs.version}";
-    hash = "sha256-4+WHMq04IhAi+2LYiororm1IQhnCuGPdYAR2Y5b0Jhk=";
+    hash = "sha256-TPadP8I8N7R1kUZSSvKWdsK0ABt+2P1xa2/auMNOaEo=";
   };
 
   nativeBuildInputs = [

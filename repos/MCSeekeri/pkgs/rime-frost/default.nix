@@ -6,12 +6,12 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "rime-frost";
-  version = "nightly-unstable-2026-11-09";
+  version = "nightly-unstable-2026-11-17";
 
   src = fetchFromGitHub {
     owner = "gaboolic";
     repo = "rime-frost";
-    rev = "7c8a908a92fa67fe1be9279b523b3cf95366e27d";
+    rev = "4b190b873c99da55ba06a24b9cf5ad5a9d8a0818";
     hash = "sha256-k33KBbkbWDpl41dlz3CPjmPhBR5ApmYX/M/F79sD0dQ=";
   };
 

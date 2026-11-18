@@ -10,13 +10,13 @@
 }:
 
 let
-  version = "1.0.0";
+  version = "1.0.1";
 
   src = fetchFromGitHub {
     owner = "Mic92";
     repo = "wrap-buddy";
-    rev = "ba5ab56ddc572482c26b2cf08414befc5f66ad40";
-    hash = "sha256-NlBlJbQsFKDgUtawzAEGF0iIO/xON2LXGw/axFOU4g8=";
+    rev = "403d30700c33d7e60de302a43c4ef1372aff9f3e";
+    hash = "sha256-VaPZhjXi1SkURO+K7KYLouktTX2TtHWkeoncbIdRqL0=";
   };
 
   wrapBuddy = stdenv.mkDerivation {

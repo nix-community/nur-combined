@@ -42,11 +42,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mindmaster";
-  version = "10.8.0";
+  version = "11.0.3";
 
   src = fetchurl {
-    url = "https://cc-download.edrawsoft.cn/mindmaster_cn_full5420.deb";
-    hash = "sha256-Px0yUSSCarflSgS0U1Sw1GhSReZT5oKZNvGH1V/M9lk=";
+    url = "https://cc-download.wondershare.cc/business/prd/mindmaster_${finalAttrs.version}_amd64.deb";
+    hash = "sha256-4Sluaf4jMrnSRmmMS2M4nCoMwqDMySfIxmU7jHL6khQ=";
   };
 
   nativeBuildInputs = [
@@ -129,21 +129,21 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
 
     mkdir -p $out/libexec $out/bin
-    cp -r opt/MindMaster-10 $out/libexec/
+    cp -r opt/apps/MindMaster $out/libexec/
 
-    rm -f $out/libexec/MindMaster-10/lib/libQt5*.so*
+    rm -f $out/libexec/MindMaster/lib/libQt5*.so*
 
-    rm -rf $out/libexec/MindMaster-10/plugins/bearer \
-      $out/libexec/MindMaster-10/plugins/platforms \
-      $out/libexec/MindMaster-10/plugins/platforminputcontexts \
-      $out/libexec/MindMaster-10/plugins/platformthemes \
-      $out/libexec/MindMaster-10/plugins/iconengines \
-      $out/libexec/MindMaster-10/plugins/imageformats
+    rm -rf $out/libexec/MindMaster/plugins/bearer \
+      $out/libexec/MindMaster/plugins/platforms \
+      $out/libexec/MindMaster/plugins/platforminputcontexts \
+      $out/libexec/MindMaster/plugins/platformthemes \
+      $out/libexec/MindMaster/plugins/iconengines \
+      $out/libexec/MindMaster/plugins/imageformats
 
-    makeWrapper ${lib.placeholder "out"}/libexec/MindMaster-10/MindMaster $out/bin/mindmaster \
+    makeWrapper ${lib.placeholder "out"}/libexec/MindMaster/MindMaster $out/bin/mindmaster \
       --set QT_QPA_PLATFORM "xcb" \
       --set QT_PLUGIN_PATH "${qt5.qtbase}/lib/qt-5.15.19/plugins" \
-      --set LD_LIBRARY_PATH "${lib.placeholder "out"}/libexec/MindMaster-10/lib/:${systemdLibs}/lib"
+      --set LD_LIBRARY_PATH "${lib.placeholder "out"}/libexec/MindMaster/lib/:${systemdLibs}/lib"
 
     install -Dm644 usr/share/icons/hicolor/*/apps/mindmaster.png \
       -t $out/share/icons/hicolor/ 2>/dev/null || true

@@ -2,9 +2,10 @@
   lib,
   stdenv,
   fetchurl,
-  dpkg,
   autoPatchelfHook,
   makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
   alsa-lib,
   atk,
   at-spi2-atk,
@@ -47,17 +48,17 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "workbuddy";
-  version = "5.6.2.40046327";
+  version = "5.11.3.43806934-ecace0f7";
 
   src = fetchurl {
-    url = "https://download.codebuddy.cn/workbuddy/saas/linux-x64-deb/WorkBuddy-linux-x64-deb-${finalAttrs.version}-c7b525f3.deb";
-    hash = "sha256-EhSa2MDNdI/VBi2PYseCfWiNgJVCetqZsa6ecBmJdSM=";
+    url = "https://github.com/acgq/workbuddy-linux/releases/download/port-v${finalAttrs.version}-r2/workbuddy_${finalAttrs.version}-2_amd64.tar.gz";
+    hash = "sha256-jhzoyKPIYJX73DOTxm4sylq/nJeQS6MsI91BEHZNrcU=";
   };
 
   nativeBuildInputs = [
-    dpkg
     autoPatchelfHook
     makeWrapper
+    copyDesktopItems
   ];
 
   buildInputs = [
@@ -112,39 +113,41 @@ stdenv.mkDerivation (finalAttrs: {
     "libc.musl-x86_64.so.1"
   ];
 
-  unpackPhase = ''
-    runHook preUnpack
-    dpkg-deb -x $src .
-    runHook postUnpack
-  '';
-
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/opt $out/bin
-    cp -r opt/WorkBuddy $out/opt/WorkBuddy
+    cp -r . $out/opt/WorkBuddy
 
-    makeWrapper ${lib.placeholder "out"}/opt/WorkBuddy/workbuddy $out/bin/workbuddy \
+    makeWrapper ${lib.placeholder "out"}/opt/WorkBuddy/launch-workbuddy $out/bin/workbuddy \
       --set NODE_ENV production \
       --prefix LD_LIBRARY_PATH : "${lib.placeholder "out"}/opt/WorkBuddy" \
       --prefix PATH : "${lib.makeBinPath [ xdg-utils ]}" \
       --add-flags "--no-sandbox" \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}"
 
-    mkdir -p $out/share/applications
-    install -Dm644 usr/share/applications/workbuddy.desktop $out/share/applications/workbuddy.desktop
-    substituteInPlace $out/share/applications/workbuddy.desktop \
-      --replace "/opt/WorkBuddy/workbuddy" "${lib.placeholder "out"}/bin/workbuddy"
-
-    cp -r usr/share/icons $out/share/icons
+    install -Dm644 $out/opt/WorkBuddy/resources/app.asar.unpacked/resources/icon.png \
+      $out/share/icons/hicolor/1024x1024/apps/workbuddy.png
 
     runHook postInstall
   '';
 
+  desktopItems = [
+    (makeDesktopItem {
+      name = "workbuddy";
+      exec = "workbuddy %U";
+      icon = "workbuddy";
+      desktopName = "WorkBuddy";
+      comment = "WorkBuddy AI agents";
+      categories = [ "Office" ];
+      mimeTypes = [ "x-scheme-handler/workbuddy" ];
+      startupWMClass = "workbuddy";
+    })
+  ];
+
   meta = {
-    description = "Tencent WorkBuddy desktop client (腾讯 WorkBuddy Linux 桌面端)";
-    homepage = "https://copilot.tencent.com/work/";
-    downloadPage = "https://www.workbuddy.cn/app";
+    description = "Tencent WorkBuddy desktop client (腾讯 WorkBuddy macOS 桌面端的 Linux 移植版本)";
+    homepage = "https://github.com/acgq/workbuddy-linux";
     license = lib.licenses.unfree;
     mainProgram = "workbuddy";
     platforms = [ "x86_64-linux" ];

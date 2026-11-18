@@ -55,7 +55,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "alma";
-  version = "0.4.567";
+  version = "0.4.765";
 
   src = fetchurl {
     url = "https://github.com/yetone/alma-releases/releases/download/v${finalAttrs.version}/alma-${finalAttrs.version}-linux-${
@@ -63,9 +63,9 @@ stdenv.mkDerivation (finalAttrs: {
     }.deb";
     hash =
       if stdenv.hostPlatform.isAarch64 then
-        "sha256-qPUYeOghXzkiN8bjIoTGt7MQOfllWJKBvIxq8AKL+8c="
+        "sha256-kitiUg3w48LGZlVi5Puv1hPPwGtue8+eWVuoxWjUK4s="
       else
-        "sha256-uDkhHCq2Lib0ffEbWrN4mKnXIHfd4Jthg48SNmEE6Qk=";
+        "sha256-oQ1kXLfgT4bnCA1zNRSS1Dk5ckx2rM6r7sHsAzFgfls=";
   };
 
   nativeBuildInputs = [

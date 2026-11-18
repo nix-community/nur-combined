@@ -16,12 +16,12 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "artmatic";
-  version = "0.3.1-unstable-2026-11-08";
+  version = "0.3.1-unstable-2026-11-16";
 
   src = fetchFromGitHub {
     owner = "OxygenNine";
     repo = "artmatic";
-    rev = "52b01f86a7af036c8582d5364a6fe532641db1f0";
+    rev = "8c5f01aa600ba69a6def7d10b2694fb6e7bed358";
     hash = "sha256-DtaZ7I86SpMUu2ETRjYXRQz0ESHzPwotMnNbyRJ3DqY=";
   };
 

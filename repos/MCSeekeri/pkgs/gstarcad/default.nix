@@ -38,11 +38,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gstarcad";
-  version = "27.0.1";
+  version = "27.0.2.2608";
 
   src = fetchurl {
     url = "https://official-cn.gstarcad.cn/linux/2027/gstarsoft.gstarcad2027_${finalAttrs.version}_715amd64.deb";
-    hash = "sha256-TsnApLwBaBoqNDAXkomMy+gB2TtiCYJZJlgnZAjn4ow=";
+    hash = "sha256-uAt6ErtWDdX9ZtPq3AAuCoXUOd8fUCazBYyZgm/nTys=";
     curlOptsList = [
       "-H"
       "Referer: https://www.gstarcad.com/download-thanks/linux/207/1/262/"
@@ -118,6 +118,12 @@ stdenv.mkDerivation (finalAttrs: {
     "gcdgn.gdx"
     "gcdyn.gdx"
     "sdai.gdx"
+    "gc365cmp.grx"
+    "gc365collab.grx"
+    "gc365loader.grx"
+    "gcnote.grx"
+    "gcloudauth.dll"
+    "GcDbPointCloudObj.gdx"
     "libpython3.5m.so.1.0"
     "libpython3.6m.so.1.0"
     "libpython3.7m.so.1.0"
