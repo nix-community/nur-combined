@@ -1,10 +1,10 @@
 {
-  "configHash": "sha256-gftW/jJmEqDcRwX8XsMJ0EvP/7SH2wy1hDkY/pKVGSc=",
-  "configUrl": "https://raw.githubusercontent.com/CachyOS/linux-cachyos/8e308d0a3895dbc741381fb61b9a9a8603be793d/linux-cachyos/config",
-  "hash": "sha256-aVxkHt1d+YSPkxwGv5ejBzTl8okQNnk31f6iNc/TlTU=",
+  "configHash": "sha256-ZFljMB3bv37+lN3rjqRKJl+reUYufr4688YKlP17Peg=",
+  "configUrl": "https://raw.githubusercontent.com/CachyOS/linux-cachyos/271d7782ac4854255aec73370aa0e142afb5d3ba/linux-cachyos/config",
+  "hash": "sha256-WV4ju8wqqU8eSDTcpL0V4fgkwosa5bJHRJwTaRGdrco=",
   "patchHash": "sha256-KOsME0oCODlV/JQ5++ttAxBUvlIVoUs8jRf7q4+hmFQ=",
   "patchRev": "21d721415790e6717b2ece16e82e08eb98d16c00",
   "patchVersion": "7.3",
-  "url": "https://github.com/CachyOS/linux/releases/download/cachyos-7.3.4-1/cachyos-7.3.4-1.tar.gz",
-  "version": "7.3.4"
+  "url": "https://github.com/CachyOS/linux/releases/download/cachyos-7.3.5-1/cachyos-7.3.5-1.tar.gz",
+  "version": "7.3.5"
 }
