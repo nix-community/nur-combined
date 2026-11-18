@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   inherit (source) version src;
   cargoRoot = "src-tauri";
   buildAndTestSubdir = finalAttrs.cargoRoot;
-  cargoHash = source.cargoHash or lib.fakeHash;
+  cargoHash = source.cargoHash;
   cargoBuildFlags = [ "--features=tauri/custom-protocol" ];
 
   nodeModules = callPackage ./node-modules.nix { inherit source; };

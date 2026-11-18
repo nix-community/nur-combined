@@ -1,6 +1,8 @@
 { pkgs, lib, ... }:
-sourcesDir:
+{
+  dir,
+  config ? null,
+}:
 (import ../../../../lib/fetchrix-lib.nix { inherit lib; }).load {
-  inherit pkgs;
-  dir = sourcesDir;
+  inherit pkgs dir config;
 }

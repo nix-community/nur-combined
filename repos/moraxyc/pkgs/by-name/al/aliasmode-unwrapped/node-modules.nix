@@ -26,5 +26,5 @@ stdenvNoCC.mkDerivation {
   '';
   outputHashMode = "recursive";
   outputHashAlgo = "sha256";
-  outputHash = source.nodeModulesHash or lib.fakeHash;
+  outputHash = source.nodeModulesHash;
 }

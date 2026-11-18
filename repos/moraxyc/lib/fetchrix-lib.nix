@@ -11,11 +11,26 @@ rec {
     the arguments of `importNpmLock`; `npmRoot` points into `src` so local and
     workspace dependencies resolve against the fetched source. Files exported
     by `prepare` become paths in `artifacts`, keyed by name.
+
+    With the fetchrix configuration file `config`, a `fod` derived hash that
+    is declared there but not locked yet is `lib.fakeHash`, so the package
+    still evaluates while fetchrix computes the hash for the first time.
   */
   load =
-    { pkgs, dir }:
+    {
+      pkgs,
+      dir,
+      config ? null,
+    }:
     let
       parsed = lib.importJSON (dir + "/lock.json");
+      declared = if config == null then { } else (lib.importTOML config).packages or { };
+
+      unlocked =
+        name:
+        lib.mapAttrs (_: _: lib.fakeHash) (
+          lib.filterAttrs (_: spec: spec.strategy == "fod") (declared.${name}.derive or { })
+        );
 
       fetchSrc =
         src:
@@ -73,22 +88,24 @@ rec {
       // lib.optionalAttrs (pkg ? artifacts) {
         artifacts = lib.mapAttrs (_: path: dir + "/${path}") pkg.artifacts;
       }
+      // unlocked name
       // lib.mapAttrs (_: derive name src) (pkg.derived or { })
     ) parsed.packages;
 
   /**
-    Overlay that exposes `load { dir; }` as `pkgs.<attr>`, using the
+    Overlay that exposes `load { dir; config; }` as `pkgs.<attr>`, using the
     fetchers of the final package set.
   */
   overlay =
     {
       dir,
+      config ? null,
       attr ? "sources",
     }:
     final: _prev: {
       ${attr} = load {
         pkgs = final;
-        inherit dir;
+        inherit dir config;
       };
     };
 }

@@ -1132,6 +1132,27 @@
       },
       "fingerprint": "sha256-lrVp1rLZrlyGtadATaXbJpjppZ1kTzZ/p1q1OCoP6Qk="
     },
+    "tokenrouter": {
+      "version": "0.7.4",
+      "rawVersion": "0.7.4",
+      "date": "2026-11-16",
+      "src": {
+        "fetcher": "github",
+        "owner": "TokenFlux",
+        "repo": "TokenRouter",
+        "rev": "v0.7.4",
+        "hash": "sha256-0Kd2qN4C4HvXEPc2abxboG4ehQm1NZlVUSR49jHCSrc="
+      },
+      "derived": {
+        "pnpmDepsHash": {
+          "hash": "sha256-89j7nAzKzljv6ZpCEEaUa3NR+k9C2ubsZqmWBdEMi14="
+        },
+        "vendorHash": {
+          "hash": "sha256-CBCCRB2wplVSMdBGl75j7MEG+UjBFkJ/jwp6F9D4I+I="
+        }
+      },
+      "fingerprint": "sha256-VCbxhAh7sPsYUf2S/3+kns/530gSkMQCmEjkF2yHnLE="
+    },
     "udpxy": {
       "version": "1.0-25.2",
       "rawVersion": "1.0-25.2",

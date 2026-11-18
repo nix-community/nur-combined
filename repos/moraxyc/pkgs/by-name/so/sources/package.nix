@@ -2,4 +2,7 @@
 let
   fetchrixLoader = pkgs.callPackage ./fetchrix-loader.nix { };
 in
-fetchrixLoader ../../../../_sources
+fetchrixLoader {
+  dir = ../../../../_sources;
+  config = ../../../../fetchrix.toml;
+}

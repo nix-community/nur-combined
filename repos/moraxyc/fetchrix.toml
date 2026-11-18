@@ -558,6 +558,19 @@ version = { source = "git", url = "https://github.com/obra/superpowers.git", uns
 transform = ["strip-v"]
 fetch = { type = "git", url = "https://github.com/obra/superpowers.git", rev = "{version}" }
 
+[packages.tokenrouter]
+version = { source = "git-tag", url = "https://github.com/TokenFlux/TokenRouter.git", strip_prefix = "v", filter = "^v[0-9]+\\.[0-9]+\\.[0-9]+$" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "TokenFlux/TokenRouter", rev = "v{version}" }
+
+[packages.tokenrouter.derive.pnpmDepsHash]
+strategy = "fod"
+attr = ".#tokenrouter.frontend.pnpmDeps"
+
+[packages.tokenrouter.derive.vendorHash]
+strategy = "fod"
+attr = ".#tokenrouter.goModules"
+
 [packages.udpxy]
 version = { source = "github-tag", repo = "pcherenkov/udpxy" }
 transform = ["strip-v"]

@@ -1,0 +1,91 @@
+diff -ruN a/backend/internal/app/bootstrap/redis.go b/backend/internal/app/bootstrap/redis.go
+--- a/backend/internal/app/bootstrap/redis.go	2026-11-18 12:34:35.515039128 +0800
++++ b/backend/internal/app/bootstrap/redis.go	2026-11-18 12:34:35.535846931 +0800
+@@ -2,6 +2,7 @@
+ 
+ import (
+ 	"crypto/tls"
++	"strings"
+ 	"time"
+ 
+ 	"github.com/redis/go-redis/v9"
+@@ -59,6 +60,9 @@
+ 		PoolSize:     cfg.Redis.PoolSize,
+ 		MinIdleConns: cfg.Redis.MinIdleConns,
+ 	}
++	if strings.HasPrefix(cfg.Redis.Host, "/") {
++		opts.Network = "unix"
++	}
+ 
+ 	if cfg.Redis.EnableTLS {
+ 		// Reject Redis servers negotiating older TLS versions before commands and
+diff -ruN a/backend/internal/app/bootstrap/setup_connections.go b/backend/internal/app/bootstrap/setup_connections.go
+--- a/backend/internal/app/bootstrap/setup_connections.go	2026-11-18 12:34:35.515920327 +0800
++++ b/backend/internal/app/bootstrap/setup_connections.go	2026-11-18 12:34:35.535893545 +0800
+@@ -5,6 +5,7 @@
+ 	"crypto/tls"
+ 	"database/sql"
+ 	"fmt"
++	"strings"
+ 	"time"
+ 
+ 	_ "github.com/lib/pq"
+@@ -169,8 +170,15 @@
+ // omitted MaxRetries option permits three eligible retries after the initial
+ // command attempt, so one Ping call can send more than one probe command.
+ func TestSetupRedisConnection(cfg *SetupRedisConfig) error {
++	addr := fmt.Sprintf("%s:%d", cfg.Host, cfg.Port)
++	network := ""
++	if strings.HasPrefix(cfg.Host, "/") {
++		addr = cfg.Host
++		network = "unix"
++	}
+ 	opts := &redis.Options{
+-		Addr:     fmt.Sprintf("%s:%d", cfg.Host, cfg.Port),
++		Network:  network,
++		Addr:     addr,
+ 		Username: cfg.Username,
+ 		Password: cfg.Password,
+ 		DB:       cfg.DB,
+diff -ruN a/backend/internal/config/config.go b/backend/internal/config/config.go
+--- a/backend/internal/config/config.go	2026-11-18 12:34:35.516197076 +0800
++++ b/backend/internal/config/config.go	2026-11-18 12:34:35.536216254 +0800
+@@ -1847,6 +1847,9 @@
+ // and port. The host is retained as supplied without IPv6 bracketing, so
+ // callers provide address spelling accepted by the client.
+ func (r *RedisConfig) Address() string {
++	if strings.HasPrefix(r.Host, "/") {
++		return r.Host
++	}
+ 	return fmt.Sprintf("%s:%d", r.Host, r.Port)
+ }
+ 
+diff -ruN a/backend/internal/setup/validation.go b/backend/internal/setup/validation.go
+--- a/backend/internal/setup/validation.go	2026-11-18 12:34:35.517808213 +0800
++++ b/backend/internal/setup/validation.go	2026-11-18 12:34:35.536281294 +0800
+@@ -3,6 +3,7 @@
+ import (
+ 	"net/mail"
+ 	"regexp"
++	"strings"
+ )
+ 
+ // validation.go validates setup connection fields, administrator email, and
+@@ -16,6 +17,7 @@
+ // reach connection probes. Host validation is character-based rather than DNS or IP resolution.
+ var (
+ 	hostnamePattern = regexp.MustCompile(`^[a-zA-Z0-9.\-:]+$`)
++	unixSockPattern = regexp.MustCompile(`^/[a-zA-Z0-9._/\-]+$`)
+ 	dbNamePattern   = regexp.MustCompile(`^[a-zA-Z][a-zA-Z0-9_]*$`)
+ 	usernamePattern = regexp.MustCompile(`^[a-zA-Z0-9_]+$`)
+ )
+@@ -24,6 +26,9 @@
+ // 253 bytes. Colons permit bare IPv6-like input, but the check validates
+ // neither actual IP structure nor name resolution and does not trim text.
+ func validateHostname(host string) bool {
++	if strings.HasPrefix(host, "/") {
++		return unixSockPattern.MatchString(host) && len(host) <= 253
++	}
+ 	// Host checks use byte length and allow colons for bare IPv6 input.
+ 	return hostnamePattern.MatchString(host) && len(host) <= 253
+ }
