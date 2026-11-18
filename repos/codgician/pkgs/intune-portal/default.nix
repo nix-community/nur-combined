@@ -20,6 +20,7 @@
   pam,
   p11-kit,
   dbus,
+  libfido2,
   nixosTests,
 }:
 stdenv.mkDerivation rec {
@@ -55,6 +56,7 @@ stdenv.mkDerivation rec {
           zlib
           systemd
           dbus
+          libfido2
         ];
         pam = lib.makeLibraryPath [ pam ];
       };
