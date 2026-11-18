@@ -12,6 +12,9 @@
         ssh
         git
         dev-pkgs
+        # dev-pkgs is the only place claude-code enters the system, and the
+        # classifier-note patch has to be applied at build time.
+        clipatch
         # git-absorb
       ];
       programs = {

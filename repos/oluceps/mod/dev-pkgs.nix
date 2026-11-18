@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, self, ... }:
 {
   flake.modules.nixos.dev-pkgs =
     { pkgs, lib, ... }:
@@ -141,7 +141,12 @@
               inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
               # (inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.dsh)
               opencode
-              claude-code
+              # llm-agents.nix's claude-code, not nixpkgs'. A nixpkgs overlay never
+              # reaches a package pulled from inputs.llm-agents.packages, so the
+              # patched build comes from the flake's own packages, where
+              # patchClaude.nix applies the classifier rewrite and the wrapper
+              # enables CLAUDE_CODE_EXPERIMENTAL_CODE_MODE.
+              self.packages.${pkgs.stdenv.hostPlatform.system}.claudeCodePatched
             ];
 
             lang = [

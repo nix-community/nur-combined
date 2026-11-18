@@ -41,6 +41,11 @@
             builtins.elem (lib.getName pkg) [
               "veracrypt"
               "tetrio-desktop"
+              # claude-code is unfree. It is also the package that
+              # pkgs/claude-code/patchClaude.nix patches, and the patched build is
+              # exported as packages.claudeCodeNixpkgsPatched, so the name has to
+              # be allowed for that attribute to evaluate outside NixOS.
+              "claude-code"
             ];
         };
       };
