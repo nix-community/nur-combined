@@ -11,7 +11,7 @@
 
 buildGoModule (finalAttrs: {
   pname = "git-pages";
-  version = "latest-unstable-2026-11-12";
+  version = "latest-unstable-2026-11-17";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -20,8 +20,8 @@ buildGoModule (finalAttrs: {
     domain = "codeberg.org";
     owner = "git-pages";
     repo = "git-pages";
-    rev = "d77be1999fc137f9c7dcabcc28dc08f3278916b3";
-    hash = "sha256-ct4ixqhb/wuMUe2H8DiMbPl0Pk+g5DquYuuhcRE1ZAM=";
+    rev = "ec8de871162dbd62a50080ed76709b1609bcd6b2";
+    hash = "sha256-y1HmGllgJ5HGl3ePmbPjhJ01IC82ZCBA0G+qj+kEZzY=";
   };
 
   vendorHash = "sha256-VlagZykL6DhOXe55y98iweNk3VShzzhdXonHdQAETb8=";
