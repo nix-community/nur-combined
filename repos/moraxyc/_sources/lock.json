@@ -821,6 +821,22 @@
       },
       "fingerprint": "sha256-2iQIwkuhuI6JIwGrLvC4r49EzdZp07VUvbXFvxjHU3o="
     },
+    "pi-emphasis": {
+      "version": "0-unstable-2026-11-16",
+      "rawVersion": "f884b736c489944ee778ab951c7f78580f137b02",
+      "date": "2026-11-16",
+      "src": {
+        "fetcher": "github",
+        "owner": "johnlindquist",
+        "repo": "pi-emphasis",
+        "rev": "f884b736c489944ee778ab951c7f78580f137b02",
+        "hash": "sha256-e04mn0aCfyLYyGfMEQJEtjQogY4R9h3Zus3j9i7SfZ4="
+      },
+      "artifacts": {
+        "package-lock.json": "pi-emphasis/package-lock.json"
+      },
+      "fingerprint": "sha256-4Ecvhw7Pt+v0Oj0csNO+uHmuIv+ckIaaoYjlDpnrEvA="
+    },
     "pi-live-terminal": {
       "version": "0.2.4-unstable-2026-08-30",
       "rawVersion": "43949547ee4c07ff8cc7bfe88d67214d9ef05021",

@@ -1,0 +1,106 @@
+diff --git a/backend/internal/app/lifecycle/http.go b/backend/internal/app/lifecycle/http.go
+index afc46d4..09aa501 100644
+--- a/backend/internal/app/lifecycle/http.go
++++ b/backend/internal/app/lifecycle/http.go
+@@ -3,9 +3,13 @@ package lifecycle
+ import (
+ 	"context"
+ 	"errors"
++	"fmt"
+ 	"log"
+ 	"net"
+ 	"net/http"
++	"os"
++	"strconv"
++	"strings"
+ 	"time"
+ )
+ 
+@@ -31,13 +35,56 @@ import (
+ // result and joins unexpected serve or close errors with shutdown failure.
+ // Successful cancellation-driven shutdown returns nil; callers perform their
+ // background drain after this function returns.
++func systemdListener() (net.Listener, error) {
++	pid, err := strconv.Atoi(os.Getenv("LISTEN_PID"))
++	if err != nil || pid != os.Getpid() {
++		return nil, nil
++	}
++	fds, err := strconv.Atoi(os.Getenv("LISTEN_FDS"))
++	if err != nil || fds < 1 {
++		return nil, nil
++	}
++	os.Unsetenv("LISTEN_PID")
++	os.Unsetenv("LISTEN_FDS")
++	os.Unsetenv("LISTEN_FDNAMES")
++
++	const sdListenFdsStart = 3
++	f := os.NewFile(sdListenFdsStart, "systemd-socket")
++	defer f.Close()
++	// net.FileListener duplicates the fd, so closing f above is safe.
++	l, err := net.FileListener(f)
++	if err != nil {
++		return nil, fmt.Errorf("use systemd socket failed: %w", err)
++	}
++	return l, nil
++}
++
+ func Serve(ctx context.Context, server *http.Server) error {
+-	var lc net.ListenConfig
+-	listener, err := lc.Listen(ctx, "tcp", server.Addr)
++	listener, err := systemdListener()
+ 	if err != nil {
+ 		return err
+ 	}
+-	log.Printf("Server started on %s", server.Addr)
++	if listener != nil {
++		log.Printf("Server started on systemd socket (%s)", listener.Addr())
++	} else {
++		var lc net.ListenConfig
++		network := "tcp"
++		if strings.HasPrefix(server.Addr, "/") {
++			network = "unix"
++			if err := os.Remove(server.Addr); err != nil && !errors.Is(err, os.ErrNotExist) {
++				return err
++			}
++		}
++		listener, err = lc.Listen(ctx, network, server.Addr)
++		if err != nil {
++			return err
++		}
++		if network == "unix" {
++			log.Printf("Server started on unix:%s", server.Addr)
++		} else {
++			log.Printf("Server started on %s", server.Addr)
++		}
++	}
+ 	defer log.Println("Server exited")
+ 	// Serving can finish while Shutdown is still running. Buffer its one result
+ 	// so that completion does not require the shutdown caller to receive immediately.
+diff --git a/backend/internal/config/config.go b/backend/internal/config/config.go
+index c7d7b13..1d9acba 100644
+--- a/backend/internal/config/config.go
++++ b/backend/internal/config/config.go
+@@ -1798,6 +1798,9 @@ func (c *UserMessageQueueConfig) WaitTimeout() time.Duration {
+ // and port. It performs no validation or IPv6 bracketing, so callers supply
+ // host spelling accepted by their listener.
+ func (s *ServerConfig) Address() string {
++	if strings.HasPrefix(s.Host, "/") {
++		return s.Host
++	}
+ 	return fmt.Sprintf("%s:%d", s.Host, s.Port)
+ }
+ 
+diff --git a/backend/internal/setup/setup.go b/backend/internal/setup/setup.go
+index 773b0d6..5755721 100644
+--- a/backend/internal/setup/setup.go
++++ b/backend/internal/setup/setup.go
+@@ -416,6 +416,9 @@ func escapeSetupLiterals(node *yaml.Node) {
+ // 8080. Installed application listeners instead use their validated configuration.
+ func ListenAddress() string {
+ 	host := getEnvOrDefault("SERVER_HOST", "0.0.0.0")
++	if strings.HasPrefix(host, "/") {
++		return host
++	}
+ 	port := getEnvIntOrDefault("SERVER_PORT", 8080)
+ 	if port <= 0 || port > 65535 {
+ 		port = 8080

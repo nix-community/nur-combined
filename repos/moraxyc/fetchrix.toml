@@ -415,6 +415,15 @@ version = { source = "github-release", repo = "dimk90/pi-context-view" }
 transform = ["strip-v"]
 fetch = { type = "github", repo = "dimk90/pi-context-view", rev = "{version}" }
 
+[packages.pi-emphasis]
+version = { source = "git", url = "https://github.com/johnlindquist/pi-emphasis.git", unstable = { } }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "johnlindquist/pi-emphasis", rev = "{version}" }
+
+[packages.pi-emphasis.prepare]
+steps = [{ type = "npm-lock", args = ["--legacy-peer-deps"] }]
+artifacts."package-lock.json" = { type = "file", path = "package-lock.json" }
+
 [packages.pi-live-terminal]
 version = { source = "git", url = "https://github.com/tanishqkancharla/pi-live-terminal.git", unstable = { stable = { source = "github-tag", repo = "tanishqkancharla/pi-live-terminal", strip_prefix = "v" } } }
 transform = ["strip-v"]

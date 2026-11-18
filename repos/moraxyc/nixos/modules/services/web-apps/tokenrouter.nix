@@ -23,6 +23,17 @@ let
     in
     "${if lib.hasInfix ":" connectHost then "[${connectHost}]" else connectHost}:${toString port}";
 
+  # systemd cannot parse hostnames in ListenStream, so map localhost to loopback.
+  socketHost =
+    if cfg.settings.server.host == "localhost" then "127.0.0.1" else cfg.settings.server.host;
+  tcpListenStream = "${
+    if lib.hasInfix ":" socketHost then "[${socketHost}]" else socketHost
+  }:${toString cfg.settings.server.port}";
+  isUnixHost = lib.hasPrefix "/" cfg.settings.server.host;
+  useSocket = cfg.socketActivation || cfg.unixSocket != null;
+  useUnixSocket = cfg.unixSocket != null || isUnixHost;
+  socketPath = if cfg.unixSocket != null then cfg.unixSocket else cfg.settings.server.host;
+
   postgresqlPackage =
     if cfg.database.createLocally then config.services.postgresql.package else pkgs.postgresql;
 in
@@ -33,6 +44,33 @@ in
     enable = lib.mkEnableOption "TokenRouter, an open source unified LLM gateway";
 
     package = lib.mkPackageOption pkgs "tokenrouter" { };
+
+    socketActivation = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = ''
+        Whether to use systemd socket activation for the TokenRouter web server.
+
+        systemd binds the listening socket and passes it to TokenRouter. This
+        requires the patched tokenrouter package from this repository.
+      '';
+    };
+
+    unixSocket = lib.mkOption {
+      type = with lib.types; nullOr path;
+      default = null;
+      example = "/run/tokenrouter/tokenrouter.sock";
+      description = ''
+        Unix socket on which TokenRouter listens, instead of
+        {option}`services.tokenrouter.settings.server.host` and
+        {option}`services.tokenrouter.settings.server.port`. Implies
+        {option}`services.tokenrouter.socketActivation`. systemd creates the
+        socket with mode `0660`; when
+        {option}`services.tokenrouter.configureNginx` is enabled its group is
+        set to nginx's group. Override
+        `systemd.sockets.tokenrouter.socketConfig` to change the permissions.
+      '';
+    };
 
     openFirewall = lib.mkOption {
       type = lib.types.bool;
@@ -344,7 +382,9 @@ in
       };
     };
 
-    networking.firewall.allowedTCPPorts = lib.optional cfg.openFirewall cfg.settings.server.port;
+    networking.firewall.allowedTCPPorts = lib.optional (
+      cfg.openFirewall && !useUnixSocket
+    ) cfg.settings.server.port;
 
     services.postgresql = lib.mkIf cfg.database.createLocally {
       enable = true;
@@ -365,7 +405,11 @@ in
       enable = lib.mkDefault true;
       virtualHosts.${cfg.domain} = {
         locations."/" = {
-          proxyPass = "http://${listenAddress cfg.settings.server.host cfg.settings.server.port}";
+          proxyPass =
+            if useUnixSocket then
+              "http://unix:${socketPath}:/"
+            else
+              "http://${listenAddress cfg.settings.server.host cfg.settings.server.port}";
           recommendedProxySettings = true;
           proxyWebsockets = true;
           extraConfig = ''
@@ -377,6 +421,25 @@ in
       };
     };
 
+    systemd.sockets.tokenrouter = lib.mkIf useSocket {
+      description = "TokenRouter socket";
+      wantedBy = [ "sockets.target" ];
+      listenStreams = [
+        (if useUnixSocket then socketPath else tcpListenStream)
+      ];
+      socketConfig =
+        if useUnixSocket then
+          {
+            SocketMode = lib.mkDefault "0660";
+            SocketGroup = lib.mkIf cfg.configureNginx (lib.mkDefault config.services.nginx.group);
+          }
+        else
+          {
+            # Socket units start before network-online.target, so the address may not exist yet.
+            FreeBind = true;
+          };
+    };
+
     systemd.services.tokenrouter = {
       description = "TokenRouter AI API Gateway";
       documentation = [ "https://github.com/TokenFlux/TokenRouter" ];
@@ -385,10 +448,12 @@ in
       after = [
         "network-online.target"
       ]
+      ++ lib.optional useSocket "tokenrouter.socket"
       ++ lib.optional cfg.database.createLocally "postgresql.service"
       ++ lib.optional cfg.redis.createLocally "redis-tokenrouter.service";
       requires =
-        lib.optional cfg.database.createLocally "postgresql.service"
+        lib.optional useSocket "tokenrouter.socket"
+        ++ lib.optional cfg.database.createLocally "postgresql.service"
         ++ lib.optional cfg.redis.createLocally "redis-tokenrouter.service";
 
       path = [ postgresqlPackage ];
@@ -458,6 +523,7 @@ in
 
         StateDirectory = "tokenrouter";
         StateDirectoryMode = "0750";
+        RuntimeDirectory = lib.mkIf (!useSocket && isUnixHost) "tokenrouter";
 
         # Hardening
         CapabilityBoundingSet = "";

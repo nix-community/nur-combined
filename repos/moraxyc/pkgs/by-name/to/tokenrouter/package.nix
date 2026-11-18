@@ -19,7 +19,10 @@ buildGo127Module (finalAttrs: {
 
   modRoot = "backend";
 
-  patches = [ ./redis-unix-socket.patch ];
+  patches = [
+    ./redis-unix-socket.patch
+    ./unix-socket.patch
+  ];
 
   subPackages = [ "cmd/server" ];
 
