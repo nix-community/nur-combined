@@ -13,7 +13,6 @@ let
           CGO_ENABLED = 0;
         };
         doCheck = canExecute;
-        ldflags = (old.ldflags or [ ]) ++ [ "-linkmode=internal" ];
       };
       goPure = fixturePkgs.protoc-gen-connect-openapi.overrideAttrs pureGoAttrs;
       goVersionParts = fixturePkgs.lib.splitVersion fixturePkgs.go.version;
@@ -85,6 +84,38 @@ let
             exit 1
             ;;
         esac
+        touch $out
+      '';
+
+  # Checks that a Mach-O file loads libresolv from the system and no libraries
+  # from the store besides the given file names, so it runs on Macs without Nix
+  checkDylibs =
+    name: file: allowedStoreLibraries:
+    pkgs.runCommand name
+      {
+        nativeBuildInputs = [ pkgs.llvmPackages_21.llvm ];
+      }
+      ''
+        dylibs=$(llvm-objdump --macho --dylibs-used ${file} | tail -n +2 | awk '{ print $1 }')
+        echo "$dylibs"
+
+        if ! grep -qxF /usr/lib/libresolv.9.dylib <<< "$dylibs"; then
+          echo "expected /usr/lib/libresolv.9.dylib to be loaded" >&2
+          exit 1
+        fi
+
+        allowed=(${pkgs.lib.escapeShellArgs allowedStoreLibraries})
+        unexpected=0
+        while read -r dylib; do
+          if [[ $dylib == /nix/store/* && " ''${allowed[*]} " != *" $(basename "$dylib") "* ]]; then
+            echo "unexpected store library: $dylib" >&2
+            unexpected=1
+          fi
+        done <<< "$dylibs"
+        if [ "$unexpected" != 0 ]; then
+          exit 1
+        fi
+
         touch $out
       '';
 in
@@ -271,6 +302,36 @@ in
   mkFlake-darwin-go-versioned = checkMachO "mkFlake-darwin-go-versioned" "${
     packages.go-versioned.${target}
   }/bin/protoc-gen-connect-openapi";
+
+  mkFlake-darwin-go-cgo-dylibs =
+    checkDylibs "mkFlake-darwin-go-cgo-dylibs" "${packages.go-cgo.${target}}/bin/flake-release"
+      # flake-release links xz through cgo
+      [ "liblzma.5.dylib" ];
+
+  mkFlake-darwin-go-pure-dylibs =
+    checkDylibs "mkFlake-darwin-go-pure-dylibs"
+      "${packages.go-pure.${target}}/bin/protoc-gen-connect-openapi"
+      [ ];
+
+  # go's internal linker records every library with version 0.0.0, while lld
+  # copies the versions from the SDK stubs
+  mkFlake-darwin-go-pure-internal =
+    pkgs.runCommand "mkFlake-darwin-go-pure-internal"
+      {
+        nativeBuildInputs = [ pkgs.llvmPackages_21.llvm ];
+      }
+      ''
+        dylibs=$(llvm-objdump --macho --dylibs-used \
+          ${packages.go-pure.${target}}/bin/protoc-gen-connect-openapi | tail -n +2)
+        echo "$dylibs"
+
+        if grep -vF "(compatibility version 0.0.0, current version 0.0.0)" <<< "$dylibs"; then
+          echo "expected the binary to be linked by go's internal linker" >&2
+          exit 1
+        fi
+
+        touch $out
+      '';
 
   mkFlake-darwin-rust = checkMachO "mkFlake-darwin-rust" "${packages.fix-hash.${target}}/bin/fix-hash";
 }

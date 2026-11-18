@@ -165,11 +165,30 @@ let
             libunwind = crossLibunwind;
           }
         );
+      # nixpkgs drops libresolv from the SDK in favor of its own build, whose
+      # install name is its store path. Binaries linked against it (including Go
+      # binaries, which pass -lresolv to the external linker) would then fail to
+      # load on Macs without Nix, so point it at the ABI-compatible system copy.
+      fixLibresolv =
+        libresolv:
+        libresolv.overrideAttrs (old: {
+          postFixup = (old.postFixup or "") + ''
+            ${prev.stdenv.cc.targetPrefix}install_name_tool \
+              -id /usr/lib/libresolv.9.dylib "''${!outputLib}/lib/libresolv.9.dylib"
+          '';
+        });
     in
     lib.optionalAttrs involvesDarwin {
       apple-sdk = bootstrapAppleSdk;
       llvmPackages = final.llvmPackages_21;
       llvmPackages_21 = overrideBintools prev.llvmPackages_21;
+    }
+    // lib.optionalAttrs prev.stdenv.hostPlatform.isDarwin {
+      darwin = prev.darwin.overrideScope (
+        _darwinFinal: darwinPrev: {
+          libresolv = fixLibresolv darwinPrev.libresolv;
+        }
+      );
     };
 
   goOverlay =
@@ -182,11 +201,16 @@ let
 
       # The bootstrap SDK omits libresolv, but Go builds its target standard
       # library with cgo and invokes the target compiler outside stdenv hooks.
+      #
+      # nixpkgs makes cross toolchains link externally whenever cgo is enabled,
+      # since go's internal linker can't pick an ELF interpreter. Mach-O has no
+      # interpreter, so go chooses like upstream: pure go binaries are linked
+      # internally and only reference system libraries by their fixed paths.
       fixGo =
         goCompiler:
         goCompiler.overrideAttrs (old: {
           depsBuildTarget = (old.depsBuildTarget or [ ]) ++ [ targetLibresolv ];
-          env = (old.env or { }) // {
+          env = removeAttrs (old.env or { }) [ "GO_EXTLINK_ENABLED" ] // {
             "NIX_CFLAGS_COMPILE_${targetSuffix}" = "-isystem ${lib.getDev targetLibresolv}/include";
             "NIX_LDFLAGS_${targetSuffix}" = "-L${lib.getLib targetLibresolv}/lib";
           };
