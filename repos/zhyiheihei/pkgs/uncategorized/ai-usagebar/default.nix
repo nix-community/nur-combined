@@ -4,6 +4,7 @@
   nasm,
   procps,
   rustPlatform,
+  sqlite,
   stdenv,
   xdg-utils,
   sources,
@@ -24,6 +25,8 @@ rustPlatform.buildRustPackage {
   # Upstream's suite shells out to a system `tar` and snapshot files that the
   # sandbox does not provide; package builds only need the two binaries.
   doCheck = false;
+
+  buildInputs = [ sqlite ];
 
   nativeBuildInputs =
     lib.optionals stdenv.hostPlatform.isx86_64 [ nasm ]
