@@ -29,15 +29,14 @@
 
   mkGotifyPlugin = args @ {
     # keep-sorted start
+    dependencyHash,
     meta ? {},
-    patchedSourceHash,
     pname,
     src,
-    vendorHash,
-    version,
     # keep-sorted end
     ...
   }: let
+    # go.mod capped to the server's dependency versions; tidying fetches modules.
     patchedSrc = stdenvNoCC.mkDerivation {
       name = "${pname}-patched-src";
       inherit src;
@@ -46,7 +45,7 @@
 
       outputHashAlgo = "sha256";
       outputHashMode = "recursive";
-      outputHash = patchedSourceHash;
+      outputHash = dependencyHash;
 
       buildPhase = ''
         export HOME=$TMPDIR
@@ -75,14 +74,16 @@
     buildGoModule (
       (removeAttrs args [
         # keep-sorted start
+        "dependencyHash"
         "meta"
-        "patchedSourceHash"
         # keep-sorted end
       ])
       // {
-        inherit pname;
-        src = patchedSrc;
-        inherit vendorHash version;
+        # pname, src, vendorHash and version come from args, so nix-update finds
+        # them in the plugin's file; src stays the upstream fetcher it can follow.
+        postPatch = ''
+          cp ${patchedSrc}/go.mod ${patchedSrc}/go.sum .
+        '';
 
         proxyVendor = true;
 

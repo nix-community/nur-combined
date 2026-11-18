@@ -72,6 +72,17 @@ class ValidationStatusTests(unittest.TestCase):
                     self.assertEqual(result.status, expected)
                     self.assertEqual(result.accepted, expected == "updated")
 
+    def test_branch_without_new_commit_is_not_called_a_downgrade(self):
+        before = PackageState("0.3.5-unstable-2026-07-26", "branch", src_rev="same")
+        with patch("updater.validation.version_is_older", return_value=True):
+            result = validate_transition(
+                before,
+                replace(before, version="0-unstable-2026-07-26"),
+                package_files_changed=True,
+                unrelated_files_changed=False,
+            )
+        self.assertEqual((result.status, result.reason), ("skipped", "no new upstream commit"))
+
     def test_downgrade_is_skipped(self):
         before = PackageState("2.0", "stable", src_rev="old")
         with patch("updater.validation.version_is_older", return_value=True):

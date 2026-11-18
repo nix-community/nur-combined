@@ -9,7 +9,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from .models import PackageRef, PackageState, ValidationResult
-from .package_backend import update_package
+from .package_backend import _run_nix_update, _tag_version_regex, update_package
 from .process import CommandError
 
 
@@ -112,6 +112,35 @@ class PackageTransactionTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "bad state"):
             update_package(self.ref)
         self.assertEqual(self.path.read_text(), "original")
+
+
+class TagVersionRegexTests(unittest.TestCase):
+    def test_monorepo_tag_prefix_becomes_a_version_regex(self):
+        state = PackageState("0.6.1", "stable", src_rev="cargo-bp-v0.6.1")
+        self.assertEqual(_tag_version_regex(state), r"^cargo\-bp\-v(.+)$")
+
+    def test_plain_and_v_tags_need_no_regex(self):
+        for rev in ("0.6.1", "v0.6.1", "0123abcd"):
+            with self.subTest(rev=rev):
+                self.assertIsNone(_tag_version_regex(PackageState("0.6.1", "stable", src_rev=rev)))
+
+    def test_branch_packages_need_no_regex(self):
+        state = PackageState("0-unstable-2026-01-01", "branch", src_rev="x0-unstable-2026-01-01")
+        self.assertIsNone(_tag_version_regex(state))
+
+    def test_regex_reaches_nix_update(self):
+        ref = PackageRef(
+            "flake",
+            "packages.x86_64-linux",
+            "cargo-bp",
+            "packages.x86_64-linux.cargo-bp",
+            Path("default.nix"),
+        )
+        with patch("updater.package_backend.run") as run:
+            _run_nix_update(ref, "stable", timeout=None, version_regex="^cargo-bp-v(.+)$")
+        command = run.call_args.args[0]
+        self.assertIn("--version-regex=^cargo-bp-v(.+)$", command)
+        self.assertEqual(command[-1], ref.attr_path)
 
 
 if __name__ == "__main__":

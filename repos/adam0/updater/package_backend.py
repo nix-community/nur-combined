@@ -47,7 +47,9 @@ def update_package(
                     update_mode = "skip"
                     _run_nix_update(ref, update_mode, timeout=timeout)
             else:
-                _run_nix_update(ref, update_mode, timeout=timeout)
+                _run_nix_update(
+                    ref, update_mode, timeout=timeout, version_regex=_tag_version_regex(before)
+                )
         except CommandError as error:
             logger.info("nix-update failed for %s:\n%s", ref.attr_path, error.details)
             return UpdateResult(ref.attr_path, "skipped", f"nix-update failed: {error}")
@@ -156,7 +158,7 @@ def _update_source_with_verification(
 
     logger.info("source hash of %s does not match its source, re-running nix-update", ref.attr_path)
     try:
-        _run_nix_update(ref, update_mode, timeout=timeout)
+        _run_nix_update(ref, update_mode, timeout=timeout, version_regex=_tag_version_regex(before))
     except CommandError as error:
         return f"source hash verification failed and re-update failed: {error}"
 
@@ -267,8 +269,31 @@ def _update_tangled_revision(file_path: Path, before: PackageState, *, timeout: 
     return True
 
 
-def _run_nix_update(ref: PackageRef, version_mode: str, *, timeout: str | None) -> None:
+def _tag_version_regex(state: PackageState) -> str | None:
+    """Match only the tags of a release pinned as `<prefix><version>`.
+
+    Monorepos tag each member separately (cargo-bp-v0.6.1 beside battery-pack-v0.6.1),
+    and nix-update otherwise takes the whole tag as the version. A bare `v` prefix
+    is one nix-update already strips.
+    """
+    rev, version = state.src_rev, state.version
+    if state.version_mode != "stable" or not rev or not version or not rev.endswith(version):
+        return None
+    prefix = rev[: -len(version)]
+    if prefix in ("", "v"):
+        return None
+    return f"^{re.escape(prefix)}(.+)$"
+
+
+def _run_nix_update(
+    ref: PackageRef,
+    version_mode: str,
+    *,
+    timeout: str | None,
+    version_regex: str | None = None,
+) -> None:
     update_mode = "unstable" if version_mode == "stable" else version_mode
+    extra = [f"--version-regex={version_regex}"] if version_regex else []
     if ref.source_kind == "flake":
         command = [
             "nix",
@@ -278,6 +303,7 @@ def _run_nix_update(ref: PackageRef, version_mode: str, *, timeout: str | None) 
             "--flake",
             "--use-github-releases",
             f"--version={update_mode}",
+            *extra,
             ref.attr_path,
         ]
     else:
@@ -289,6 +315,7 @@ def _run_nix_update(ref: PackageRef, version_mode: str, *, timeout: str | None) 
             "-f",
             "default.nix",
             f"--version={update_mode}",
+            *extra,
             ref.attr_path,
         ]
     run(command, timeout=timeout)

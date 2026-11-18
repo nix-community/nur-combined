@@ -150,7 +150,7 @@ class UpdateSourceWithVerificationTests(unittest.TestCase):
                     FLAKE_REF, _state("sha256-old"), "stable", timeout="1m"
                 )
             )
-            update.assert_called_once_with(FLAKE_REF, "stable", timeout="1m")
+            update.assert_called_once_with(FLAKE_REF, "stable", timeout="1m", version_regex=None)
             self.assertEqual(verify.call_count, 2)
 
     def test_persistent_mismatch_is_rejected(self) -> None:
@@ -163,7 +163,7 @@ class UpdateSourceWithVerificationTests(unittest.TestCase):
                 FLAKE_REF, _state("sha256-old"), "stable", timeout="1m"
             )
             self.assertTrue(reason.startswith("source hash verification failed: "))
-            update.assert_called_once_with(FLAKE_REF, "stable", timeout="1m")
+            update.assert_called_once_with(FLAKE_REF, "stable", timeout="1m", version_regex=None)
             self.assertEqual(verify.call_count, 2)
 
     def test_failure_other_than_a_mismatch_is_not_retried(self) -> None:

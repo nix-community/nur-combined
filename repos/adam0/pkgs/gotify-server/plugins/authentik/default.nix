@@ -5,18 +5,18 @@
   mkGotifyPlugin,
   # keep-sorted end
 }:
-mkGotifyPlugin {
+mkGotifyPlugin rec {
   pname = "authentik";
-  version = "2.9.1-unstable-2026-06-09";
+  version = "3.1.1";
 
   src = fetchFromGitHub {
     owner = "ckocyigit";
     repo = "gotify-authentik-plugin";
-    rev = "v2.9.1-2";
-    hash = "sha256-DvZ3/4SizpZAgy7IwPnOEtYRIuDpd1e1hgobAhc7r2I=";
+    rev = "v${version}";
+    hash = "sha256-Y7x/PSLobsYecLVtSBcrbzhyxHCrTgekwKbvCi3/MTo=";
   };
 
-  patchedSourceHash = "sha256-K9k3yWidXotRi/Buo9bdDfA7QwdHLeFv2oEqqCAdqs8=";
+  dependencyHash = "sha256-K9k3yWidXotRi/Buo9bdDfA7QwdHLeFv2oEqqCAdqs8=";
   vendorHash = "sha256-wvFr3/Aqvz2TmdfNb213lOhEeZ4RUN5vy5Dfda+f4ZM=";
 
   meta = {

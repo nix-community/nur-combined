@@ -30,6 +30,12 @@ def validate_transition(
             "skipped", "rejected dependency-hash-only diff after no-op source update"
         )
 
+    before_branch = branch_parts(before.version)
+    after_branch = branch_parts(after.version)
+    if not source_changed and before_branch and after_branch:
+        # nix-update rewrites a branch version even when the commit is unchanged.
+        return ValidationResult("skipped", "no new upstream commit")
+
     if should_block_downgrade(before.version, after.version) and version_is_older(
         after.version, before.version
     ):
@@ -37,8 +43,6 @@ def validate_transition(
             "skipped", f"rejected apparent downgrade {before.version} -> {after.version}"
         )
 
-    before_branch = branch_parts(before.version)
-    after_branch = branch_parts(after.version)
     if before.version_mode == "branch" or after.version_mode == "branch":
         if not before_branch or not after_branch:
             return ValidationResult("invalid", "unrecognized branch version format")
