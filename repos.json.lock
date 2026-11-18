@@ -467,8 +467,8 @@
             "url": "https://github.com/bandithedoge/nur-packages"
         },
         "bartoostveen": {
-            "rev": "e6d9b09e74d99994646fc9e4ff4da97a8167d4fe",
-            "sha256": "0x61ix2glfdn84i3r1cppg2k4jlfgh80nzpz99w3v8f9yyzxmmg7",
+            "rev": "f3a5168e793bd6a564e07fb86e4b63a1ddc37fb9",
+            "sha256": "1f5gppkn1xgqylp4alv5ml0y47c15f08fmj4087rr7a7jzqxrxkw",
             "url": "https://github.com/bartoostveen/nix-packages"
         },
         "bb010g": {
