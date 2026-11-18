@@ -53,10 +53,10 @@
     };
     "7tv-new" = buildMozillaXpiAddon {
       pname = "7tv-new";
-      version = "1.10.8";
+      version = "1.10.9";
       addonId = "seventv-next@7tv.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5217988/7tv_new-1.10.8.xpi";
-      sha256 = "0678ba1daa02a945abad69c7e1acd1eec859eec2f5eeac64affaec1ec88dd2a8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5271710/7tv_new-1.10.9.xpi";
+      sha256 = "5984c8895efc73354904cb729a2362e6225fdf783b3866e7b05e766f33f9a512";
       meta = with lib;
       {
         description = "Improve your viewing experience with 7TV on Twitch and YouTube with new features, emotes, vanity and performance.";
@@ -1724,6 +1724,20 @@
         platforms = platforms.all;
       };
     };
+    "caelestiafox" = buildMozillaXpiAddon {
+      pname = "caelestiafox";
+      version = "2.0";
+      addonId = "caelestiafox@caelestia.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4514382/caelestiafox-2.0.xpi";
+      sha256 = "3e545665b91e0c86a3e6cd053be412c2a0f936d7524af5d5676ec2fbf6fc5b17";
+      meta = with lib;
+      {
+        description = "A Firefox theme for the Caelestia dotfiles.";
+        license = licenses.gpl3;
+        mozPermissions = [ "nativeMessaging" "theme" ];
+        platforms = platforms.all;
+      };
+    };
     "canvasblocker" = buildMozillaXpiAddon {
       pname = "canvasblocker";
       version = "1.12";
@@ -3093,10 +3107,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "160.0.20261116.130455";
+      version = "161.0.20261118.90429";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5262535/dansk_da_language_pack-160.0.20261116.130455.xpi";
-      sha256 = "14f8b1a6acf84db60fd1abcb12cd2a0221ecd33437d79e5b91039bbf6d1bad3c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5271816/dansk_da_language_pack-161.0.20261118.90429.xpi";
+      sha256 = "eb7315a50135800632784aeb6d89aa551fc7280acfad14614c88cce021a7ac26";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3309,10 +3323,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "160.0.20261116.130455";
+      version = "161.0.20261118.90429";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5262530/deutsch_de_language_pack-160.0.20261116.130455.xpi";
-      sha256 = "a685c4105f16db9791139f839f8e2aa8e2812536705f5eb218755a0112a20183";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5271817/deutsch_de_language_pack-161.0.20261118.90429.xpi";
+      sha256 = "99bf37243d0194ababcd2a9a3ad3926f099c9294b0037cef7a0da21fd6f2d6fa";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4806,10 +4820,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "160.0.20261116.130455";
+      version = "161.0.20261118.90429";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5262566/francais_language_pack-160.0.20261116.130455.xpi";
-      sha256 = "972ed29696948425d6938a44b765692f46e0ab0b2060ab22dd2312147e9d89d7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5271856/francais_language_pack-161.0.20261118.90429.xpi";
+      sha256 = "efeb1ba39cb7607acebcb662fb78e4244444689b5a4605749d5d691d9c3ff276";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4843,10 +4857,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "160.0.20261116.130455";
+      version = "161.0.20261118.90429";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5262504/gaidhlig_language_pack-160.0.20261116.130455.xpi";
-      sha256 = "6a25aa7ed6b1f642d600621634438c973f6c53d9e68cb9648e54103d8b69ecf1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5271784/gaidhlig_language_pack-161.0.20261118.90429.xpi";
+      sha256 = "32800ee27edd3dc567059ea4d3837553c9ee9c1a5b4c79b575b462d562136c82";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4949,10 +4963,10 @@
     };
     "ghostery" = buildMozillaXpiAddon {
       pname = "ghostery";
-      version = "10.6.12";
+      version = "10.6.13";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5234326/ghostery-10.6.12.xpi";
-      sha256 = "21f353c7edac68dfb1841918af161d0513a7c227c8213b79d06397147f43be64";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5273401/ghostery-10.6.13.xpi";
+      sha256 = "f015b345e5f6726443f2b6a490bdb3dec59a70c98c82f68900c6fbac90f52b3f";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -8913,10 +8927,10 @@
     };
     "metamask" = buildMozillaXpiAddon {
       pname = "metamask";
-      version = "13.55.0.0";
+      version = "13.56.0.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5228351/ether_metamask-13.55.0.0.xpi";
-      sha256 = "9000b21ea3970067aba654009d06d844bef705c6cbeccf0a4340beac261a33de";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5259980/ether_metamask-13.56.0.0.xpi";
+      sha256 = "8aa1808e68ba67aef236f9b8e71f1dcc9f5a2cb18b297950ac7a6ebc562c9189";
       meta = with lib;
       {
         description = "The most secure wallet for crypto, NFTs, and DeFi, trusted by millions of users";
@@ -11223,10 +11237,10 @@
     };
     "proton-pass" = buildMozillaXpiAddon {
       pname = "proton-pass";
-      version = "1.43.1";
+      version = "1.44.0";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5203430/proton_pass-1.43.1.xpi";
-      sha256 = "a973bb13e22816b73bc8be9c6a4df9d2b478b4e3d57d11f50033ff4e15f9b7b4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5271799/proton_pass-1.44.0.xpi";
+      sha256 = "f53440bff8e754c1be060e1a015a0f4df62a4669917564fe09c7e3709fe41c60";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -13064,10 +13078,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "160.0.20261116.130455";
+      version = "161.0.20261118.90429";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5262645/scots_language_pack-160.0.20261116.130455.xpi";
-      sha256 = "deadaa438b109e875c296ffe33971647e362c68fdcce5a4850ba872270d022d2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5271864/scots_language_pack-161.0.20261118.90429.xpi";
+      sha256 = "281b005dc4408933cabd19470602e11b55c9f7bca2782e53027b18e5995b9f56";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -17678,10 +17692,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.11.6";
+      version = "18.11.9";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5266054/youtube_subscription_groups-18.11.6.xpi";
-      sha256 = "55b194d1a3cf1db27439817e959420010aec841115cc789d002211407da192df";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5272342/youtube_subscription_groups-18.11.9.xpi";
+      sha256 = "705b5391ed7f72da94a831582b465180f96682937fed26e60300c654ffa364a4";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
