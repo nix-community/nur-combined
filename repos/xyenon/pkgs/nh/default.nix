@@ -1,11 +1,15 @@
 {
   lib,
-  nh-unwrapped,
+  nh,
+  nh-unwrapped ? null,
   source,
   rustPlatform,
 }:
 
-nh-unwrapped.overrideAttrs (
+let
+  base = if nh-unwrapped != null then nh-unwrapped else nh;
+in
+base.overrideAttrs (
   finalAttrs: prevAttrs: {
     version = "${prevAttrs.version}-unstable-${source.date}";
 

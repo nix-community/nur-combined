@@ -169,12 +169,12 @@ Uncomment this if you use travis:
 </details>
 
 <details>
-<summary><strong><code>nh-unwrapped</code></strong> — Yet another nix cli helper</summary>
+<summary><strong><code>nh</code></strong> — Yet another nix cli helper</summary>
 
 - **Version:** `4.4.2-unstable-2026-11-12`
 - **License:** EUPL-1.2
 - **Homepage:** [https://github.com/XYenon/nh](https://github.com/XYenon/nh)
-- **Build:** `nix build github:XYenon/nur-packages#nh-unwrapped`
+- **Build:** `nix build github:XYenon/nur-packages#nh`
 
 </details>
 

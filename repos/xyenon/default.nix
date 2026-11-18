@@ -86,8 +86,9 @@ rec {
   };
   lsp-ai = callPackage ./pkgs/lsp-ai { };
   zsh-smart-suggestion = callPackage ./pkgs/zsh-smart-suggestion { };
-  nh-unwrapped = callPackage ./pkgs/nh-unwrapped {
-    inherit (pkgs) nh-unwrapped;
+  nh = callPackage ./pkgs/nh {
+    inherit (pkgs) nh;
+    nh-unwrapped = if (builtins.tryEval pkgs.nh-unwrapped).success then pkgs.nh-unwrapped else null;
     source = sources.nh;
   };
   waypipe-darwin = callPackage ./pkgs/waypipe-darwin { };
