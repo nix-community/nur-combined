@@ -2626,8 +2626,8 @@
             "url": "https://github.com/syberant/nur-packages"
         },
         "sylr": {
-            "rev": "00afdd647c1fed9565a5b0f18c6b0e25c6504099",
-            "sha256": "1nfip3y87fg3knrq4j9w5540vfnkip4v06c0irn9maz4bm7ifiwx",
+            "rev": "bced503fc1962838888292cf79d15dbb764cbb36",
+            "sha256": "10hr91cahb65sy1g9r1f3kmcra8rmcp8j3rgdvwfrbh6lm19x3wn",
             "url": "https://github.com/sylr/nur-packages"
         },
         "szanko": {
