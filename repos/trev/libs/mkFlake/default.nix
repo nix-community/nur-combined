@@ -11,6 +11,8 @@
   schemas ? import ../../schemas {
     inherit nixpkgs;
   },
+  # Adds every package to checks as package_<name>, so nix flake check builds them
+  packageChecks ? true,
 }:
 
 let
@@ -169,6 +171,30 @@ let
     in
     if res.success then res.value else null;
 
+  # Builds each package as a package_<name> check. Packages that set
+  # passthru.packageCheck = false get a skipped stub instead of being filtered out,
+  # so listing check names doesn't force every package
+  mkPackageChecks =
+    pkgs: packages:
+    lib.mapAttrs' (
+      name: package:
+      lib.nameValuePair "package_${name}" (
+        if package.packageCheck or true then
+          package
+        else
+          pkgs.runCommand "package_${name}-skipped"
+            {
+              # Lets the checks schema skip building the stub
+              passthru.skipped = true;
+              meta.description = "Skipped: package ${name} opted out of checks";
+            }
+            ''
+              echo "package ${name} opted out of checks, skipping"
+              touch $out
+            ''
+      )
+    ) packages;
+
   # Applies a merge operation across systems.
   eachSystemOp =
     op: systems: f:
@@ -187,11 +213,16 @@ eachSystemOp (
 
   let
     packages = mkPackages system;
+    userFlake = f system packages;
     flake = {
       inherit schemas;
       nixpkgs = packages;
     }
-    // (f system packages);
+    // userFlake
+    # Checks defined by the flake take precedence over generated package checks
+    // lib.optionalAttrs (packageChecks && userFlake ? packages) {
+      checks = mkPackageChecks packages userFlake.packages // userFlake.checks or { };
+    };
 
     crosses = map (
       platform:

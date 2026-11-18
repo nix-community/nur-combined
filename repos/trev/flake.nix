@@ -58,7 +58,8 @@
           }
         )
         // {
-          mkFlake = import ./libs/mkFlake {
+          # mkFlake.override { ... } changes the arguments, like packageChecks = false
+          mkFlake = nixpkgs.lib.makeOverridable (import ./libs/mkFlake) {
             inherit nixpkgs;
             systems = import systems;
             schemas = schema.schemas // import ./schemas { inherit nixpkgs; };

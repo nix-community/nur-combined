@@ -55,6 +55,29 @@ let
   );
   checks = checksFixture.checks.x86_64-linux;
 
+  packageChecksFixture = self.libs.mkFlake (
+    _system: fixturePkgs: {
+      packages = {
+        inherit (fixturePkgs) hello;
+        forced = throw "package was forced while listing check names";
+        overridden = fixturePkgs.hello;
+        skipped = fixturePkgs.hello.overrideAttrs (old: {
+          passthru = (old.passthru or { }) // {
+            packageCheck = false;
+          };
+        });
+      };
+      checks.package_overridden = fixturePkgs.emptyFile;
+    }
+  );
+  packageChecks = packageChecksFixture.checks.x86_64-linux;
+
+  packageChecksDisabledFixture = self.libs.mkFlake.override { packageChecks = false; } (
+    _system: fixturePkgs: {
+      packages = { inherit (fixturePkgs) hello; };
+    }
+  );
+
   devShellsFixture = self.libs.mkFlake (
     _system: fixturePkgs: {
       devShells = {
@@ -139,6 +162,28 @@ pkgs.lib.optionalAttrs (pkgs.stdenv.hostPlatform.system == "x86_64-linux") {
     assert !inventory.unavailable.isFlakeCheck;
     pkgs.runCommand "mkFlake-checks-unavailable" { } ''
       test -e ${checks.unavailable}
+      touch $out
+    '';
+
+  package-checks =
+    let
+      inventory =
+        (self.schemas.checks.inventory packageChecksFixture.checks).children.x86_64-linux.children;
+    in
+    assert
+      builtins.attrNames packageChecks == [
+        "package_forced"
+        "package_hello"
+        "package_overridden"
+        "package_skipped"
+      ];
+    assert
+      packageChecks.package_hello.drvPath == packageChecksFixture.nixpkgs.x86_64-linux.hello.drvPath;
+    assert packageChecks.package_overridden.drvPath == pkgs.emptyFile.drvPath;
+    assert packageChecks.package_skipped.name == "package_skipped-skipped";
+    assert !inventory.package_skipped.isFlakeCheck;
+    assert !packageChecksDisabledFixture ? checks;
+    pkgs.runCommand "mkFlake-package-checks" { } ''
       touch $out
     '';
 

@@ -399,6 +399,7 @@ Utility function to simplify creating flakes.
 - Imports nixpkgs and adds all the [overlays](#overlays), including [static-pie](#static-pie)
 - Inserts system attributes where necessary (like [flake-utils.lib.eachDefaultSystem](https://github.com/numtide/flake-utils))
 - Creates cross-compiled sub-derivations for `packages`, `images` and `appimages`
+- Adds every package to `checks` as `package_<name>`, so `nix flake check` builds them
 
 ```nix
 outputs = { trev, ... }:
@@ -446,6 +447,28 @@ View all possible cross-compilation targets with:
 
 ```sh
 nix flake show
+```
+
+Packages are added to `checks` with a `package_` prefix. A check with the same name in `checks` takes precedence. Building a package only runs its tests when `doCheck` is enabled.
+
+To skip one package, set `passthru.packageCheck = false`. It stays in `checks` as a stub that `nix flake check` doesn't build:
+
+```nix
+packages.default = pkgs.hello.overrideAttrs (old: {
+  passthru = (old.passthru or { }) // {
+    packageCheck = false;
+  };
+});
+```
+
+To skip all packages, override `packageChecks`:
+
+```nix
+trev.libs.mkFlake.override { packageChecks = false; } (
+  system: pkgs: {
+    # ...
+  }
+);
 ```
 
 ### mkImage

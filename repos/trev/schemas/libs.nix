@@ -9,7 +9,8 @@
     helpers.mkChildren (
       builtins.mapAttrs (
         name: def:
-        if builtins.isFunction def then
+        # Overridable functions are attribute sets with __functor
+        if builtins.isFunction def || def ? __functor then
           {
             shortDescription = "Helper function";
             what = "Helper function";
