@@ -16,6 +16,14 @@
       "max": 86400,
       "min": 0
     },
+    "bt_announce_all_tiers": {
+      "default": "true",
+      "kind": "Bool"
+    },
+    "bt_announce_all_trackers": {
+      "default": "true",
+      "kind": "Bool"
+    },
     "bt_auto_reseed": {
       "default": "true",
       "kind": "Bool"
@@ -28,11 +36,19 @@
       "default": "true",
       "kind": "Bool"
     },
+    "bt_enable_lsd": {
+      "default": "true",
+      "kind": "Bool"
+    },
     "bt_enable_upnp": {
       "default": "true",
       "kind": "Bool"
     },
     "bt_enable_utp": {
+      "default": "true",
+      "kind": "Bool"
+    },
+    "bt_enable_webseed": {
       "default": "true",
       "kind": "Bool"
     },
@@ -55,6 +71,10 @@
       "kind": "Integer",
       "max": 365,
       "min": 1
+    },
+    "bt_guard_client_rules": {
+      "default": "",
+      "kind": "Text"
     },
     "bt_guard_cloud_enabled": {
       "default": "true",
@@ -86,7 +106,7 @@
     "bt_guard_excess_ratio_pct": {
       "default": "200",
       "kind": "Integer",
-      "max": 1000,
+      "max": 2000,
       "min": 110
     },
     "bt_guard_filter_urls": {
@@ -125,7 +145,7 @@
       ]
     },
     "bt_guard_rule_fingerprint": {
-      "default": "observe",
+      "default": "enforce",
       "kind": "Enum",
       "values": [
         "off",
@@ -174,6 +194,36 @@
       "max": 1048576,
       "min": 1
     },
+    "bt_i2p_enabled": {
+      "default": "false",
+      "kind": "Bool"
+    },
+    "bt_i2p_mixed": {
+      "default": "false",
+      "kind": "Bool"
+    },
+    "bt_i2p_sam_host": {
+      "default": "127.0.0.1",
+      "kind": "Text"
+    },
+    "bt_i2p_sam_port": {
+      "default": "7656",
+      "kind": "Integer",
+      "max": 65535,
+      "min": 1
+    },
+    "bt_max_connections": {
+      "default": "0",
+      "kind": "Integer",
+      "max": 65535,
+      "min": 0
+    },
+    "bt_max_connections_per_torrent": {
+      "default": "512",
+      "kind": "Integer",
+      "max": 4096,
+      "min": 1
+    },
     "bt_mse_mode": {
       "default": "enabled",
       "kind": "Enum",
@@ -202,6 +252,22 @@
       "kind": "Integer",
       "max": 65535,
       "min": 1
+    },
+    "bt_proxy_enabled": {
+      "default": "false",
+      "kind": "Bool"
+    },
+    "bt_proxy_peers": {
+      "default": "true",
+      "kind": "Bool"
+    },
+    "bt_proxy_source": {
+      "default": "manual",
+      "kind": "Enum",
+      "values": [
+        "manual",
+        "system"
+      ]
     },
     "bt_seed_enabled": {
       "default": "true",
@@ -290,6 +356,20 @@
       "default": "",
       "kind": "Text"
     },
+    "bt_upload_slots": {
+      "default": "0",
+      "kind": "Integer",
+      "max": 512,
+      "min": 0
+    },
+    "bt_utp_congestion": {
+      "default": "ledbat",
+      "kind": "Enum",
+      "values": [
+        "ledbat",
+        "cubic"
+      ]
+    },
     "cdn_max_nodes": {
       "default": "0",
       "kind": "Integer",
@@ -353,6 +433,14 @@
       "kind": "Integer",
       "max": 65535,
       "min": 0
+    },
+    "ed2k_nodes_dat_count": {
+      "default": "0",
+      "kind": "ReadOnly"
+    },
+    "ed2k_nodes_dat_updated_at": {
+      "default": "0",
+      "kind": "ReadOnly"
     },
     "ed2k_nodes_dat_url": {
       "default": "",
@@ -505,10 +593,10 @@
       "kind": "Text"
     }
   },
-  "protocolVersion": 27,
+  "protocolVersion": 28,
   "sourceHashes": {
-    "native/protocol/src/daemon_config.rs": "5391e5e3af55fd91f1667b8db7cf9c645c7af643a0761b2793cc7886446429d4",
-    "native/protocol/src/rpc.rs": "5408bb440a2754f86ec65219b90c932b5165ceda08e1fbd52f8816bd72207791"
+    "native/protocol/src/daemon_config.rs": "c3c63bceea66b8be012aed0b50e61669ccd3009557db5241a1c9c41555e2ccf9",
+    "native/protocol/src/rpc.rs": "62811f994edea4b667785b5f64c10f94a4925c871c872734f8cd0c38f72bf1b6"
   },
-  "version": "0.6.7"
+  "version": "0.6.8"
 }
