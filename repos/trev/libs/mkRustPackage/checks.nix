@@ -1,11 +1,9 @@
 {
   pkgs,
-  self,
 }:
 
 let
-  testPkgs = pkgs.extend self.overlays.libs;
-  inherit (testPkgs) lib;
+  inherit (pkgs) lib;
 
   # named like fetched sources, the dependency derivation uses the directory name
   src = builtins.path {
@@ -20,7 +18,7 @@ let
 
   mkFixture =
     args:
-    testPkgs.mkRustPackage (
+    pkgs.mkRustPackage (
       {
         pname = "fixture";
         version = "1.0.0";
@@ -98,7 +96,7 @@ let
 
   # the dependencies are built with the same check phase, against the stubs
   withClippy = mkFixture {
-    nativeCheckInputs = [ testPkgs.clippy ];
+    nativeCheckInputs = [ pkgs.clippy ];
     checkPhase = ''
       runHook preCheck
       cargo clippy --offline --all-targets -- -D warnings
@@ -115,7 +113,7 @@ assert withFileset.cargoArtifacts.outPath == fixture.cargoArtifacts.outPath;
 assert withFilter.cargoArtifacts.outPath == withFilteredStorePath.cargoArtifacts.outPath;
 assert withFilter.cargoArtifacts.outPath != fixture.cargoArtifacts.outPath;
 {
-  mkRustPackage-build = testPkgs.runCommand "mkRustPackage-build" { } ''
+  build = pkgs.runCommand "mkRustPackage-build" { } ''
     test "$(${fixture}/bin/fixture)" = "hello from unix"
     test "$(${bumped}/bin/fixture)" = "hello from bumped unix"
     test "$(${withClippy}/bin/fixture)" = "hello from unix"

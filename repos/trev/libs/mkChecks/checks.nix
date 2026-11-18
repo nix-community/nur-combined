@@ -1,24 +1,22 @@
 {
   pkgs,
-  self,
 }:
 
 let
-  testPkgs = pkgs.extend self.overlays.libs;
 
   command =
     name:
-    testPkgs.writeShellScriptBin name ''
-      printf '%s\n' ${testPkgs.lib.escapeShellArg name}
+    pkgs.writeShellScriptBin name ''
+      printf '%s\n' ${pkgs.lib.escapeShellArg name}
     '';
 
   existingInput = command "mkchecks-existing-input";
   addedInput = command "mkchecks-added-input";
 
-  source = testPkgs.stdenvNoCC.mkDerivation {
+  source = pkgs.stdenvNoCC.mkDerivation {
     pname = "mkchecks-source";
     version = "1";
-    src = testPkgs.writeTextDir "fixture.txt" "fixture";
+    src = pkgs.writeTextDir "fixture.txt" "fixture";
     nativeCheckInputs = [ existingInput ];
 
     dontBuild = true;
@@ -30,7 +28,7 @@ let
   };
 
   # build and install would fail if they ran, and dontBuild/dontInstall would skip the hooks and $out
-  skipped = testPkgs.stdenvNoCC.mkDerivation {
+  skipped = pkgs.stdenvNoCC.mkDerivation {
     pname = "mkchecks-skipped";
     version = "1";
     outputs = [
@@ -56,10 +54,10 @@ let
   };
 
   # no build platform can run windows binaries, so nixpkgs would force doCheck off
-  cross = testPkgs.pkgsCross.mingwW64.stdenvNoCC.mkDerivation {
+  cross = pkgs.pkgsCross.mingwW64.stdenvNoCC.mkDerivation {
     pname = "mkchecks-cross";
     version = "1";
-    src = testPkgs.writeTextDir "fixture.txt" "fixture";
+    src = pkgs.writeTextDir "fixture.txt" "fixture";
     nativeCheckInputs = [ existingInput ];
 
     dontBuild = true;
@@ -69,7 +67,7 @@ let
     '';
   };
 
-  direct = testPkgs.stdenvNoCC.mkDerivation {
+  direct = pkgs.stdenvNoCC.mkDerivation {
     pname = "mkchecks-direct";
     version = "1";
 
@@ -93,8 +91,8 @@ let
     '';
   };
 
-  checks = testPkgs.mkChecks {
-    mkChecks-script-only = {
+  checks = pkgs.mkChecks {
+    script-only = {
       packages = [ (command "mkchecks-script-only-command") ];
       script = ''
         test "$(mkchecks-script-only-command)" = mkchecks-script-only-command
@@ -103,14 +101,14 @@ let
       '';
     };
 
-    mkChecks-fileset-order = {
+    fileset-order = {
       root = ../..;
       files = [
-        ../../libs/mkChecks/default.nix
-        ../../libs/mkImage/default.nix
+        ./default.nix
+        ../mkImage/default.nix
       ];
       filter = file: file.hasExt "nix";
-      ignore = [ ../../libs/mkImage/default.nix ];
+      ignore = [ ../mkImage/default.nix ];
       include = [ ../../README.md ];
       script = ''
         test "''${file#/}" != "$file"
@@ -127,7 +125,7 @@ let
       '';
     };
 
-    mkChecks-src-derivation = {
+    src-derivation = {
       src = source;
       packages = [ addedInput ];
       script = ''
@@ -137,7 +135,7 @@ let
       '';
     };
 
-    mkChecks-src-derivation-skipped = {
+    src-derivation-skipped = {
       src = skipped;
       env.MKCHECKS_ENV = "env";
       preCheck = ''
@@ -150,7 +148,7 @@ let
       '';
     };
 
-    mkChecks-src-derivation-cross = {
+    src-derivation-cross = {
       src = cross;
       packages = [ addedInput ];
       script = ''
@@ -164,19 +162,19 @@ let
       '';
     };
 
-    mkChecks-direct-derivation = direct;
+    direct-derivation = direct;
 
-    # prefixed with the group name: mkChecks-group-file-script, mkChecks-group-file-derivation
-    mkChecks-group-file = ./group-file.nix;
+    # prefixed with the group name: group-file-script, group-file-derivation
+    group-file = ./group-file.nix;
 
     # resolves to group-dir/checks.nix, which nests another group
-    mkChecks-group-dir = ./group-dir;
+    group-dir = ./group-dir;
 
-    mkChecks-group-args = testPkgs.callChecks ./group-args.nix { message = "hello"; };
+    group-args = pkgs.callChecks ./group-args.nix { message = "hello"; };
   };
 
   # mkCheck builds a single check without mkChecks
-  individual = testPkgs.mkCheck "mkCheck-individual" {
+  individual = pkgs.mkCheck "mkCheck-individual" {
     packages = [ (command "mkcheck-individual-command") ];
     script = ''
       test "$(mkcheck-individual-command)" = mkcheck-individual-command
@@ -184,53 +182,51 @@ let
   };
 
   # names are flattened, so a group can collide with another check
-  collision = testPkgs.mkChecks {
+  collision = pkgs.mkChecks {
     group-script.script = "true";
     group = ./group-dir;
   };
 
   # a skipped check would pass, so make sure a failing script fails the cross build
   crossFailure =
-    testPkgs.testers.testBuildFailure
-      (testPkgs.mkChecks {
-        mkChecks-src-derivation-cross-failure = {
+    pkgs.testers.testBuildFailure
+      (pkgs.mkChecks {
+        src-derivation-cross-failure = {
           src = cross;
           script = ''
             echo mkchecks-cross-script-ran
             false
           '';
         };
-      }).mkChecks-src-derivation-cross-failure;
+      }).src-derivation-cross-failure;
 in
 # derivations are passed through untouched so their hashes match the packages
-assert checks.mkChecks-direct-derivation.outPath == direct.outPath;
+assert checks.direct-derivation.outPath == direct.outPath;
 assert
   builtins.attrNames checks == [
-    "mkChecks-direct-derivation"
-    "mkChecks-fileset-order"
-    "mkChecks-group-args-script"
-    "mkChecks-group-dir-nested-args-script"
-    "mkChecks-group-dir-script"
-    "mkChecks-group-file-derivation"
-    "mkChecks-group-file-script"
-    "mkChecks-script-only"
-    "mkChecks-src-derivation"
-    "mkChecks-src-derivation-cross"
-    "mkChecks-src-derivation-skipped"
+    "direct-derivation"
+    "fileset-order"
+    "group-args-script"
+    "group-dir-nested-args-script"
+    "group-dir-script"
+    "group-file-derivation"
+    "group-file-script"
+    "script-only"
+    "src-derivation"
+    "src-derivation-cross"
+    "src-derivation-skipped"
   ];
 # checks built by mkChecks are named after their prefixed name, derivations keep theirs
-assert checks.mkChecks-group-file-script.name == "mkChecks-group-file-script";
-assert checks.mkChecks-group-file-derivation.name == "mkchecks-group-file-derivation";
+assert checks.group-file-script.name == "group-file-script";
+assert checks.group-file-derivation.name == "mkchecks-group-file-derivation";
 assert !(builtins.tryEval collision.group-script).success;
 assert individual.name == "mkCheck-individual";
 checks
 // {
-  mkCheck-individual = individual;
+  inherit individual;
 
-  mkChecks-src-derivation-cross-failure =
-    testPkgs.runCommand "mkChecks-src-derivation-cross-failure" { }
-      ''
-        grep -F mkchecks-cross-script-ran ${crossFailure}/testBuildFailure.log
-        touch $out
-      '';
+  src-derivation-cross-failure = pkgs.runCommand "mkChecks-src-derivation-cross-failure" { } ''
+    grep -F mkchecks-cross-script-ran ${crossFailure}/testBuildFailure.log
+    touch $out
+  '';
 }

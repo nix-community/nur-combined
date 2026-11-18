@@ -119,8 +119,9 @@ let
         touch $out
       '';
 in
-{
-  mkFlake-checks-lazy =
+# only checked on x86_64-linux
+pkgs.lib.optionalAttrs (pkgs.stdenv.hostPlatform.system == "x86_64-linux") {
+  checks-lazy =
     assert
       builtins.attrNames checks == [
         "forced"
@@ -130,7 +131,7 @@ in
       touch $out
     '';
 
-  mkFlake-checks-unavailable =
+  checks-unavailable =
     let
       inventory = (self.schemas.checks.inventory checksFixture.checks).children.x86_64-linux.children;
     in
@@ -141,13 +142,13 @@ in
       touch $out
     '';
 
-  mkFlake-devShells-unavailable =
+  devShells-unavailable =
     assert builtins.attrNames devShells == [ "available" ];
     pkgs.runCommand "mkFlake-devShells-unavailable" { } ''
       touch $out
     '';
 
-  mkFlake-static-pie =
+  static-pie =
     let
       hello = packages.hello.x86_64-unknown-linux-musl;
       hasStaticPieSpecs =
@@ -203,21 +204,21 @@ in
       touch $out
     '';
 
-  mkFlake-darwin-structure =
+  darwin-structure =
     assert builtins.hasAttr target packages.hello;
     pkgs.runCommand "mkFlake-darwin-structure" { } ''
       touch $out
     '';
 
-  mkFlake-darwin-native-structure =
+  darwin-native-structure =
     assert nativeDarwinPackages.hello.${target}.drvPath == fixture.nixpkgs.aarch64-darwin.hello.drvPath;
     pkgs.runCommand "mkFlake-darwin-native-structure" { } ''
       touch $out
     '';
 
-  mkFlake-darwin-c = checkMachO "mkFlake-darwin-c" "${packages.hello.${target}}/bin/hello";
+  darwin-c = checkMachO "mkFlake-darwin-c" "${packages.hello.${target}}/bin/hello";
 
-  mkFlake-darwin-install-name-tool =
+  darwin-install-name-tool =
     let
       libiconv = packages.libiconv.${target};
       bintools = packages.hello.${target}.stdenv.cc.bintools.bintools;
@@ -293,29 +294,29 @@ in
         touch $out
       '';
 
-  mkFlake-darwin-cxx = checkMachO "mkFlake-darwin-cxx" "${packages.fmt.${target}}/lib/libfmt.dylib";
+  darwin-cxx = checkMachO "mkFlake-darwin-cxx" "${packages.fmt.${target}}/lib/libfmt.dylib";
 
-  mkFlake-darwin-go-cgo = checkMachO "mkFlake-darwin-go-cgo" "${packages.go-cgo.${target}}/bin/flake-release";
+  darwin-go-cgo = checkMachO "mkFlake-darwin-go-cgo" "${packages.go-cgo.${target}}/bin/flake-release";
 
-  mkFlake-darwin-go-pure = checkMachO "mkFlake-darwin-go-pure" "${packages.go-pure.${target}}/bin/protoc-gen-connect-openapi";
+  darwin-go-pure = checkMachO "mkFlake-darwin-go-pure" "${packages.go-pure.${target}}/bin/protoc-gen-connect-openapi";
 
-  mkFlake-darwin-go-versioned = checkMachO "mkFlake-darwin-go-versioned" "${
+  darwin-go-versioned = checkMachO "mkFlake-darwin-go-versioned" "${
     packages.go-versioned.${target}
   }/bin/protoc-gen-connect-openapi";
 
-  mkFlake-darwin-go-cgo-dylibs =
+  darwin-go-cgo-dylibs =
     checkDylibs "mkFlake-darwin-go-cgo-dylibs" "${packages.go-cgo.${target}}/bin/flake-release"
       # flake-release links xz through cgo
       [ "liblzma.5.dylib" ];
 
-  mkFlake-darwin-go-pure-dylibs =
+  darwin-go-pure-dylibs =
     checkDylibs "mkFlake-darwin-go-pure-dylibs"
       "${packages.go-pure.${target}}/bin/protoc-gen-connect-openapi"
       [ ];
 
   # go's internal linker records every library with version 0.0.0, while lld
   # copies the versions from the SDK stubs
-  mkFlake-darwin-go-pure-internal =
+  darwin-go-pure-internal =
     pkgs.runCommand "mkFlake-darwin-go-pure-internal"
       {
         nativeBuildInputs = [ pkgs.llvmPackages_21.llvm ];
@@ -333,5 +334,5 @@ in
         touch $out
       '';
 
-  mkFlake-darwin-rust = checkMachO "mkFlake-darwin-rust" "${packages.fix-hash.${target}}/bin/fix-hash";
+  darwin-rust = checkMachO "mkFlake-darwin-rust" "${packages.fix-hash.${target}}/bin/fix-hash";
 }

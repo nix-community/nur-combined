@@ -1,14 +1,12 @@
 {
   pkgs,
-  self,
 }:
 
 let
-  testPkgs = pkgs.extend self.overlays.libs;
   command =
     name:
-    testPkgs.writeShellScriptBin name ''
-      printf '%s\n' ${testPkgs.lib.escapeShellArg name}
+    pkgs.writeShellScriptBin name ''
+      printf '%s\n' ${pkgs.lib.escapeShellArg name}
     '';
 
   shellPackage = command "mkapps-shell-package";
@@ -19,7 +17,7 @@ let
   explicitPackage = command "mkapps-explicit-package";
   legacyPackage = command "mkapps-legacy-package";
 
-  devShell = testPkgs.mkShell {
+  devShell = pkgs.mkShell {
     packages = [ shellPackage ];
     buildInputs = [ buildInput ];
     nativeBuildInputs = [ nativeBuildInput ];
@@ -27,7 +25,7 @@ let
     propagatedNativeBuildInputs = [ propagatedNativeBuildInput ];
   };
 
-  apps = testPkgs.mkApps {
+  apps = pkgs.mkApps {
     inputsFrom = {
       packages = [ explicitPackage ];
       inputsFrom = [ devShell ];
@@ -52,17 +50,15 @@ let
   };
 in
 {
-  mkApps-inputsFrom =
-    testPkgs.runCommand "mkApps-inputsFrom" { nativeBuildInputs = [ testPkgs.gitMinimal ]; }
-      ''
-        mkdir repo
-        cd repo
-        git init --quiet
+  inputsFrom = pkgs.runCommand "mkApps-inputsFrom" { nativeBuildInputs = [ pkgs.gitMinimal ]; } ''
+    mkdir repo
+    cd repo
+    git init --quiet
 
-        ${apps.inputsFrom.program}
-        ${apps.legacy.program}
-        ${apps.string.program}
+    ${apps.inputsFrom.program}
+    ${apps.legacy.program}
+    ${apps.string.program}
 
-        touch $out
-      '';
+    touch $out
+  '';
 }

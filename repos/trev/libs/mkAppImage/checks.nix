@@ -1,14 +1,13 @@
 {
   pkgs,
-  self,
 }:
 
 let
-  script = ../../libs/mkAppImage/extra-files.sh;
+  script = ./extra-files.sh;
   apprun = pkgs.writeShellScriptBin "AppRun" "true";
   runtime = pkgs.writeShellScriptBin "runtime" "true";
 
-  mkAppImage = import ../../libs/mkAppImage {
+  mkAppImage = import ./default.nix {
     inherit (pkgs) lib stdenvNoCC;
     stdenv = pkgs.stdenvNoCC;
     pkgsStatic.callPackage =
@@ -81,13 +80,13 @@ let
   '';
 in
 {
-  mkAppImage-entrypoint =
+  entrypoint =
     assert pkgs.lib.hasInfix
       (builtins.unsafeDiscardStringContext "${script} ${pkgs.lib.getExe fixturePackage}")
       (builtins.unsafeDiscardStringContext appImage.buildPhase);
     pkgs.runCommand "mkAppImage-entrypoint" { } "touch $out";
 
-  mkAppImage-extra-files = pkgs.runCommand "mkAppImage-extra-files" { } ''
+  extra-files = pkgs.runCommand "mkAppImage-extra-files" { } ''
     ${pkgs.runtimeShell} ${script} ${fixture}/bin/example
 
     test -f extras/example.desktop
@@ -100,7 +99,7 @@ in
     touch $out
   '';
 
-  mkAppImage-invalid-store-path = pkgs.runCommand "mkAppImage-invalid-store-path" { } ''
+  invalid-store-path = pkgs.runCommand "mkAppImage-invalid-store-path" { } ''
     if ${pkgs.runtimeShell} ${script} /tmp/example 2>error; then
       echo "expected a non-store entrypoint to fail" >&2
       exit 1
@@ -110,14 +109,14 @@ in
     touch $out
   '';
 
-  mkAppImage-no-desktop = pkgs.runCommand "mkAppImage-no-desktop" { } ''
+  no-desktop = pkgs.runCommand "mkAppImage-no-desktop" { } ''
     ${pkgs.runtimeShell} ${script} ${noDesktop}/bin/example
 
     test -z "$(find extras -mindepth 1 -print -quit)"
     touch $out
   '';
 
-  mkAppImage-multiple-desktops = pkgs.runCommand "mkAppImage-multiple-desktops" { } ''
+  multiple-desktops = pkgs.runCommand "mkAppImage-multiple-desktops" { } ''
     if ${pkgs.runtimeShell} ${script} ${multipleDesktops}/bin/example 2>error; then
       echo "expected multiple desktop entries to fail" >&2
       exit 1

@@ -1,6 +1,5 @@
 {
   pkgs,
-  self,
 }:
 
 let
@@ -40,7 +39,7 @@ let
       version = "2.6.5";
     };
 
-  denoCompile = import ../../libs/denoCompile {
+  denoCompile = import ./default.nix {
     inherit (pkgs) lib jq;
     inherit deno;
     fetchurl = args: pkgs.writeText "denort-${builtins.baseNameOf args.url}" args.url;
@@ -117,7 +116,7 @@ let
   };
 in
 {
-  denoCompile-package-main =
+  package-main =
     assert !compiledPackageMain.doCheck;
     assert compiledPackageMain.meta.description == "preserved metadata";
     assert compiledPackageMain.meta.mainProgram == "deno-package-main";
@@ -137,14 +136,14 @@ in
       touch $out
     '';
 
-  denoCompile-build-index = pkgs.runCommand "denoCompile-build-index" { } ''
+  build-index = pkgs.runCommand "denoCompile-build-index" { } ''
     output=${compiledBuildIndex}/bin/deno-build-index
     test -x "$output"
     grep --fixed-strings --line-regexp build/index.js "$output"
     touch $out
   '';
 
-  denoCompile-explicit-windows =
+  explicit-windows =
     assert compiledExplicitWindows.meta.mainProgram == "deno-explicit-windows.exe";
     pkgs.runCommand "denoCompile-explicit-windows" { } ''
       output=${compiledExplicitWindows}/bin/deno-explicit-windows.exe

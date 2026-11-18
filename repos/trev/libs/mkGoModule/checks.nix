@@ -197,7 +197,7 @@ assert !windows.pie;
 assert !staticArmv7.pie;
 assert !staticArmv7.goCache.pie;
 {
-  mkGoModule-build = testPkgs.runCommand "mkGoModule-build" { nativeBuildInputs = elfTools; } ''
+  build = testPkgs.runCommand "mkGoModule-build" { nativeBuildInputs = elfTools; } ''
     test "$(${fixture}/bin/fixture)" = "hello from dep"
     test "$(${bumped}/bin/fixture)" = "hello from dep"
     test "$(${renamed}/bin/renamed)" = "hello from dep"

@@ -1,13 +1,12 @@
 {
   pkgs,
-  self,
 }:
 
 let
   inherit (pkgs) lib;
 
   target = "test-target";
-  mkImage = import ../../libs/mkImage {
+  mkImage = import ./default.nix {
     inherit lib;
     stdenv.hostPlatform.config = target;
     dockerTools.buildLayeredImage = args: args;
@@ -62,7 +61,7 @@ let
   };
 in
 {
-  mkImage-defaults =
+  defaults =
     assert defaults.name == "image-package";
     assert defaults.tag == "1.2.3";
     assert defaults.architecture == "test-architecture";
@@ -83,7 +82,7 @@ in
     assert !(defaults ? src);
     pkgs.runCommand "mkImage-defaults" { } "touch $out";
 
-  mkImage-overrides =
+  overrides =
     assert overrides.name == "custom-name";
     assert overrides.tag == "custom-tag";
     assert overrides.architecture == "custom-architecture";

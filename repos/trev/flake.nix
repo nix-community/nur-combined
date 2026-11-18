@@ -156,7 +156,10 @@
 
       checks = forEachSystem (
         system: pkgs:
-        self.libs."${system}".mkChecks {
+        let
+          inherit (self.libs."${system}") mkChecks callChecks;
+        in
+        mkChecks {
           script-only = {
             packages = [ pkgs.patch ];
             script = "patch --version > /dev/null";
@@ -238,23 +241,18 @@
               oxfmt --check
             '';
           };
-        }
-        // import ./tests/denoCompile { inherit pkgs self; }
-        // import ./tests/mkAppImage { inherit pkgs self; }
-        // import ./tests/mkApps { inherit pkgs self; }
-        // import ./tests/mkChecks { inherit pkgs self; }
-        // import ./tests/mkGleamPackage { inherit pkgs self; }
-        // import ./tests/mkGoModule { inherit pkgs self; }
-        // import ./tests/mkImage { inherit pkgs self; }
-        // import ./tests/mkRustPackage { inherit pkgs self; }
-        // pkgs.lib.optionalAttrs (system == "x86_64-linux") (import ./tests/mkFlake { inherit pkgs self; })
-        // import ./packages/duckdb/checks.nix {
-          inherit (pkgs)
-            lib
-            callPackage
-            runCommand
-            runCommandCC
-            ;
+
+          denoCompile = ./libs/denoCompile;
+          mkAppImage = ./libs/mkAppImage;
+          mkApps = ./libs/mkApps;
+          mkChecks = ./libs/mkChecks;
+          mkFlake = callChecks ./libs/mkFlake { inherit self; };
+          mkGleamPackage = ./libs/mkGleamPackage;
+          # cross builds need the libs in pkgsCross and pkgsStatic too, which only the overlay provides
+          mkGoModule = callChecks ./libs/mkGoModule { inherit self; };
+          mkImage = ./libs/mkImage;
+          mkRustPackage = ./libs/mkRustPackage;
+          duckdb = ./packages/duckdb;
         }
         // pkgs.lib.mapAttrs' (
           name: value: pkgs.lib.nameValuePair ("package_" + name) value

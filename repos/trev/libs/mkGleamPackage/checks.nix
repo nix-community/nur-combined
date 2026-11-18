@@ -1,10 +1,8 @@
 {
   pkgs,
-  self,
 }:
 
 let
-  testPkgs = pkgs.extend self.overlays.libs;
 
   # app/ depends on dep/ by path, gleam_stdlib from hex and justin from git.
   # lib/ is a library with tests, depending on dep/ and telemetry (rebar3)
@@ -13,7 +11,7 @@ let
     path = ./fixture;
   };
 
-  bumpedSrc = testPkgs.runCommand "source" { } ''
+  bumpedSrc = pkgs.runCommand "source" { } ''
     cp -r ${src} $out
     chmod -R u+w $out
     substituteInPlace $out/app/src/fixture.gleam --replace-fail 'import gleam/io' 'import gleam/io // bumped'
@@ -21,7 +19,7 @@ let
 
   mkFixture =
     args:
-    testPkgs.mkGleamPackage (
+    pkgs.mkGleamPackage (
       {
         pname = "fixture";
         version = "1.0.0";
@@ -40,7 +38,7 @@ let
 
   # built and run with another OTP version
   otp29 = mkFixture {
-    beamPackages = testPkgs.beamMinimal29Packages;
+    beamPackages = pkgs.beamMinimal29Packages;
     postInstall = ''
       test "$(erl -noshell -eval 'io:put_chars(erlang:system_info(otp_release)), halt().')" = 29
     '';
@@ -91,7 +89,7 @@ let
 
   # the source isn't read during evaluation, so it's never built
   hashedUnbuildable = mkFixture {
-    src = testPkgs.runCommand "source" { } "exit 1";
+    src = pkgs.runCommand "source" { } "exit 1";
     gleamDepsHash = "sha256-dPS4MhHgq5r8Whw/K/tdECSD1+AnDsxmc0SbHJEHY58=";
   };
 
@@ -114,7 +112,7 @@ assert !(builtins.tryEval invalidTarget.drvPath).success;
 assert (builtins.tryEval hashedUnbuildable.drvPath).success;
 assert !(builtins.tryEval hashedWithManifest.drvPath).success;
 {
-  mkGleamPackage-build = testPkgs.runCommand "mkGleamPackage-build" { } ''
+  build = pkgs.runCommand "mkGleamPackage-build" { } ''
     test "$(${erlang}/bin/fixture)" = "hello_from_dep"
     test "$(${otp29}/bin/fixture)" = "hello_from_dep"
     test "$(${javascript}/bin/fixture)" = "hello_from_dep"

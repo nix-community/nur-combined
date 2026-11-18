@@ -46,11 +46,11 @@ let
 in
 
 lib.listToAttrs (
-  map (name: lib.nameValuePair "duckdb-extension-${name}" (mkExtensionCheck name)) extensionNames
+  map (name: lib.nameValuePair "extension-${name}" (mkExtensionCheck name)) extensionNames
 )
 // {
   # extensions must be the commits the duckdb release pins, update.sh keeps them in sync
-  duckdb-extension-pins =
+  extension-pins =
     let
       duckdb = callPackage ./default.nix { };
       checkPin =
@@ -97,7 +97,7 @@ lib.listToAttrs (
       touch $out
     '';
 
-  duckdb-link-static =
+  link-static =
     let
       duckdb = callPackage ./default.nix { };
     in
