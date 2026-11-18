@@ -1,143 +1,33 @@
 {
   lib,
-  stdenvNoCC,
+  mkCheck,
+  callChecks,
 }:
 
-builtins.mapAttrs (
-  name: check:
-  if lib.isDerivation check then
-    check
-  else
-    let
-      nativeCheckInputs = check.packages or [ ];
-
-      checkScript =
-        if check ? forEach || builtins.match ".*\\$file.*" (check.script or "") != null then
-          ''
-            for_each() {
-              local file="$1"
-              ${check.forEach or check.script}
-            }
-
-            for file in ./**; do
-              if [[ -f "$file" ]]; then
-                echo "checking $file"
-                for_each "$(realpath "$file")"
-              fi
-            done
-          ''
+let
+  mkChecks =
+    prefix: checks:
+    builtins.zipAttrsWith
+      (
+        name: values:
+        if builtins.length values > 1 then
+          throw "mkChecks: more than one check is named '${name}'"
         else
-          check.script or "";
-
-      checkPhase = ''
-        runHook preCheck
-
-        export HOME=$(mktemp -d)
-        export TREEFMT_TREE_ROOT=$(pwd)
-        shopt -s globstar dotglob
-
-        ${checkScript}
-
-        shopt -u globstar dotglob
-        runHook postCheck
-      '';
-
-      extraAttrs = removeAttrs check [
-        "root"
-        "files"
-        "filter"
-        "ignore"
-        "include"
-        "packages"
-        "script"
-        "forEach"
-      ];
-
-      sourceAttrs =
-        if check ? root then
-          {
-            src = lib.fileset.toSource {
-              root = check.root;
-              fileset =
-                let
-                  start = check.files or check.fileset or check.root;
-
-                  files = if builtins.isList start then lib.fileset.unions start else start;
-
-                  filtered =
-                    if check ? filter then
-                      lib.fileset.intersection files (lib.fileset.fileFilter check.filter check.root)
-                    else
-                      files;
-
-                  ignored =
-                    if check ? ignore then
-                      lib.fileset.difference filtered (
-                        if builtins.isList check.ignore then lib.fileset.unions check.ignore else check.ignore
-                      )
-                    else
-                      filtered;
-
-                  included =
-                    if check ? include then
-                      lib.fileset.union ignored (
-                        if builtins.isList check.include then lib.fileset.unions check.include else check.include
-                      )
-                    else
-                      ignored;
-                in
-                included;
-            };
-          }
-        else if check ? src then
-          { inherit (check) src; }
-        else
-          { dontUnpack = true; };
-    in
-
-    if check ? src && lib.isDerivation check.src then
-      check.src.overrideAttrs (
-        _: prev:
-        # extraAttrs still holds the package itself as src
-        removeAttrs extraAttrs [ "src" ]
-        // {
-          inherit name;
-          # nixpkgs forces doCheck off and drops check inputs when the build platform can't run the package (cross),
-          # so promote the check inputs to build inputs and run the check from the build phase instead
-          buildInputs = (prev.buildInputs or [ ]) ++ (prev.checkInputs or [ ]);
-          nativeBuildInputs =
-            (prev.nativeBuildInputs or [ ]) ++ (prev.nativeCheckInputs or [ ]) ++ nativeCheckInputs;
-          env = (prev.env or { }) // (extraAttrs.env or { });
-          # keep the build hooks (mkRustPackage restores target/ in preBuild), skip the build itself
-          dontBuild = false;
-          buildPhase = ''
-            runHook preBuild
-            runHook postBuild
-
-            ${checkPhase}
-          '';
-          doCheck = false;
-          dontInstall = false;
-          installPhase = ''
-            for output in $(getAllOutputNames); do
-              touch "''${!output}"
-            done
-          '';
-          doInstallCheck = false;
-          dontFixup = true;
-        }
+          builtins.head values
       )
-    else
-      stdenvNoCC.mkDerivation (
-        extraAttrs
-        // {
-          inherit name checkPhase nativeCheckInputs;
-
-          dontBuild = true;
-          doCheck = true;
-          installPhase = "touch $out";
-          dontFixup = true;
-        }
-        // sourceAttrs
-      )
-)
+      (
+        lib.mapAttrsToList (
+          name: check:
+          let
+            fullName = prefix + name;
+            # a path is shorthand for a group that needs no extra arguments
+            group = if builtins.isPath check then callChecks check { } else check;
+          in
+          if group._type or null == "checks" then
+            mkChecks "${fullName}-" group.checks
+          else
+            { ${fullName} = mkCheck fullName check; }
+        ) checks
+      );
+in
+mkChecks ""

@@ -165,6 +165,28 @@ let
     };
 
     mkChecks-direct-derivation = direct;
+
+    # prefixed with the group name: mkChecks-group-file-script, mkChecks-group-file-derivation
+    mkChecks-group-file = ./group-file.nix;
+
+    # resolves to group-dir/checks.nix, which nests another group
+    mkChecks-group-dir = ./group-dir;
+
+    mkChecks-group-args = testPkgs.callChecks ./group-args.nix { message = "hello"; };
+  };
+
+  # mkCheck builds a single check without mkChecks
+  individual = testPkgs.mkCheck "mkCheck-individual" {
+    packages = [ (command "mkcheck-individual-command") ];
+    script = ''
+      test "$(mkcheck-individual-command)" = mkcheck-individual-command
+    '';
+  };
+
+  # names are flattened, so a group can collide with another check
+  collision = testPkgs.mkChecks {
+    group-script.script = "true";
+    group = ./group-dir;
   };
 
   # a skipped check would pass, so make sure a failing script fails the cross build
@@ -182,8 +204,29 @@ let
 in
 # derivations are passed through untouched so their hashes match the packages
 assert checks.mkChecks-direct-derivation.outPath == direct.outPath;
+assert
+  builtins.attrNames checks == [
+    "mkChecks-direct-derivation"
+    "mkChecks-fileset-order"
+    "mkChecks-group-args-script"
+    "mkChecks-group-dir-nested-args-script"
+    "mkChecks-group-dir-script"
+    "mkChecks-group-file-derivation"
+    "mkChecks-group-file-script"
+    "mkChecks-script-only"
+    "mkChecks-src-derivation"
+    "mkChecks-src-derivation-cross"
+    "mkChecks-src-derivation-skipped"
+  ];
+# checks built by mkChecks are named after their prefixed name, derivations keep theirs
+assert checks.mkChecks-group-file-script.name == "mkChecks-group-file-script";
+assert checks.mkChecks-group-file-derivation.name == "mkchecks-group-file-derivation";
+assert !(builtins.tryEval collision.group-script).success;
+assert individual.name == "mkCheck-individual";
 checks
 // {
+  mkCheck-individual = individual;
+
   mkChecks-src-derivation-cross-failure =
     testPkgs.runCommand "mkChecks-src-derivation-cross-failure" { }
       ''
