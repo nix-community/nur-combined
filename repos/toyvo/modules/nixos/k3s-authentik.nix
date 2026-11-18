@@ -346,6 +346,29 @@ in
           ];
         };
       };
+      # NodePort for the Traefik forwardAuth outpost call: Traefik runs
+      # hostNetwork on the router (host DNS, no cluster DNS), so it cannot
+      # use the ClusterIP Service name — it needs a LAN-reachable address
+      # (monitoring-ingest precedent). The forwardAuth address in
+      # k3s-edge.nix points here.
+      "authentik-server-nodeport.yaml".content = {
+        apiVersion = "v1";
+        kind = "Service";
+        metadata = {
+          name = "authentik-server-outpost";
+        };
+        spec = {
+          type = "NodePort";
+          selector.app = "authentik-server";
+          ports = [
+            {
+              port = serverPort;
+              targetPort = serverPort;
+              nodePort = 30906;
+            }
+          ];
+        };
+      };
       "authentik-service.yaml".content = {
         apiVersion = "v1";
         kind = "Service";
