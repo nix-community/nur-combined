@@ -3,6 +3,7 @@
   swiftPackages,
   fetchFromGitHub,
   sqlite,
+  apple-sdk_26,
 }:
 
 swiftPackages.stdenv.mkDerivation rec {
@@ -66,13 +67,18 @@ EOF
         '        Settings { EmptyView() }' \
         '        Settings { SettingsView().environmentObject(AppDelegate.refreshSignal) }'
 
+    # Swift 6.4's build system drops the modulemap's `link "sqlite3"` and the
+    # cc-wrapper's -L paths; link it explicitly.
     substituteInPlace Package.swift \
       --replace-fail \
         'name: "WhatCableCore",
-            path: "Sources/WhatCableCore",' \
+            path: "Sources/WhatCableCore",
+            resources: [.process("Resources")]' \
         'name: "WhatCableCore",
             dependencies: ["CSQLite"],
-            path: "Sources/WhatCableCore",'
+            path: "Sources/WhatCableCore",
+            resources: [.process("Resources")],
+            linkerSettings: [.linkedLibrary("sqlite3"), .unsafeFlags(["-L${lib.getLib sqlite}/lib"])]'
 
     substituteInPlace Package.swift \
       --replace-fail \
@@ -86,9 +92,15 @@ EOF
             name: "WhatCableCoreTests",'
   '';
 
+  # swift 6.4 propagates apple-sdk_27, whose SwiftUI declares @State as a macro
+  # implemented by Xcode's closed SwiftUIMacros plugin, which nixpkgs' toolchain
+  # lacks. The highest SDK in the inputs wins, so override the hook's choice.
   configurePhase = ''
     runHook preConfigure
     export HOME="$TMPDIR"
+    export DEVELOPER_DIR=${apple-sdk_26}
+    export SDKROOT=${apple-sdk_26.sdkroot}
+    export NIX_APPLE_SDK_VERSION=260000
     runHook postConfigure
   '';
 

@@ -7,6 +7,9 @@
   perl,
   protobuf,
   openssl,
+  aws-lc,
+  zstd,
+  oniguruma,
   sqlite,
   duckdb,
   versionCheckHook,
@@ -33,7 +36,11 @@ rustPlatform.buildRustPackage rec {
     rustPlatform.bindgenHook
   ];
 
+  # nixpkgs makes aws-lc-sys, zstd-sys and onig_sys link the system libraries
   buildInputs = [
+    aws-lc
+    zstd
+    oniguruma
     openssl
     sqlite
     duckdb
