@@ -24,6 +24,8 @@ pkgs.testers.runNixOSTest {
     unix = _: {
       imports = [ ../modules/services/web-apps/tokenrouter.nix ];
 
+      services.nginx.proxyResolveWhileRunning = true;
+
       services.tokenrouter = {
         enable = true;
         package = pkgs.tokenrouter;
@@ -38,6 +40,9 @@ pkgs.testers.runNixOSTest {
   };
 
   testScript = ''
+    import json
+    import re
+
     start_all()
 
     machine.wait_for_unit("postgresql.service")
@@ -49,8 +54,8 @@ pkgs.testers.runNixOSTest {
     machine.wait_for_unit("nginx.service")
     machine.wait_for_open_port(8080)
     machine.wait_for_open_port(80)
-    machine.succeed("curl -fs http://127.0.0.1:8080/health")
-    machine.succeed("curl -fs http://127.0.0.1/health")
+    assert json.loads(machine.succeed("curl -fs http://127.0.0.1:8080/health"))["status"] == "ok"
+    assert json.loads(machine.succeed("curl -fs http://127.0.0.1/health"))["status"] == "ok"
     html = machine.succeed("curl -fs http://127.0.0.1/")
     assert "tokenrouter" in html.lower(), html
     machine.succeed("test -s /var/lib/tokenrouter/.installed")
@@ -60,7 +65,7 @@ pkgs.testers.runNixOSTest {
     machine.succeed("systemctl restart tokenrouter.service")
     machine.wait_for_unit("tokenrouter.service")
     machine.wait_for_open_port(8080)
-    machine.succeed("curl -fs http://127.0.0.1/health")
+    assert json.loads(machine.succeed("curl -fs http://127.0.0.1/health"))["status"] == "ok"
     machine.succeed(
         "curl -fs -X POST http://127.0.0.1/api/v1/auth/login "
         "-H 'Content-Type: application/json' "
@@ -73,13 +78,28 @@ pkgs.testers.runNixOSTest {
     unix.wait_for_open_port(80)
     unix.succeed("test -S /run/tokenrouter/tokenrouter.sock")
     unix.fail("ss -tln | grep -q ':8080 '")
-    unix.succeed("curl -fs --unix-socket /run/tokenrouter/tokenrouter.sock http://localhost/health")
-    unix.succeed("curl -fs http://127.0.0.1/health")
+    assert json.loads(
+        unix.succeed("curl -fs --unix-socket /run/tokenrouter/tokenrouter.sock http://localhost/health")
+    )["status"] == "ok"
+    assert json.loads(unix.succeed("curl -fs http://127.0.0.1/health"))["status"] == "ok"
+
+    unix_html = unix.succeed("curl -fs http://127.0.0.1/")
+    match = re.search(r'src="(/assets/index-[^"]+\.js)"', unix_html)
+    assert match, unix_html
+    asset_headers = unix.succeed(f"curl -fsI http://127.0.0.1{match.group(1)}").lower()
+    assert "javascript" in asset_headers, asset_headers
 
     unix.succeed("systemctl restart tokenrouter.service")
     unix.wait_for_unit("tokenrouter.service")
-    unix.succeed("curl -fs --unix-socket /run/tokenrouter/tokenrouter.sock http://localhost/health")
-    unix.succeed("curl -fs http://127.0.0.1/health")
+    assert json.loads(
+        unix.succeed("curl -fs --unix-socket /run/tokenrouter/tokenrouter.sock http://localhost/health")
+    )["status"] == "ok"
+    assert json.loads(unix.succeed("curl -fs http://127.0.0.1/health"))["status"] == "ok"
+    unix.succeed(
+        "curl -fs -X POST http://127.0.0.1/api/v1/auth/login "
+        "-H 'Content-Type: application/json' "
+        "-d '{\"email\":\"admin@example.test\",\"password\":\"test-admin-password-123\"}'"
+    )
   '';
 
   meta.maintainers = with lib.maintainers; [ moraxyc ];

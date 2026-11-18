@@ -407,7 +407,7 @@ in
         locations."/" = {
           proxyPass =
             if useUnixSocket then
-              "http://unix:${socketPath}:/"
+              "http://unix:${socketPath}"
             else
               "http://${listenAddress cfg.settings.server.host cfg.settings.server.port}";
           recommendedProxySettings = true;
