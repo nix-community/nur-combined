@@ -146,11 +146,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795023179,
-        "narHash": "sha256-zMt+wmyNB1uFthX9a8urtGOiROKfXhrSVTcBI9fv6qA=",
+        "lastModified": 1795023980,
+        "narHash": "sha256-Sg0JgdJ+QFR6oXV0DmvUQ+uNup7+Xc2oobi+m583JnA=",
         "owner": "kakkun61",
         "repo": "wd",
-        "rev": "ae7dc18aea0c2e336264756757064d653e34f25b",
+        "rev": "0dd50e4b12e234d8e43be5c0f0db2610f34a7289",
         "type": "github"
       },
       "original": {
