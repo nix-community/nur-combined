@@ -301,6 +301,9 @@ in
         host  discord_bot  discord_bot  10.1.0.0/16  scram-sha-256
         host  authentik  authentik  10.200.0.0/16  scram-sha-256
         host  authentik  authentik  10.1.0.0/16  scram-sha-256
+        # k3s pods (server/worker) reach Postgres with pod IPs (10.42/16,
+        # no SNAT on this path — proven by the 10.42.0.94 pg_hba rejection).
+        host  authentik  authentik  10.42.0.0/16  scram-sha-256
       '';
     };
     protonmail-bridge.enable = true;
