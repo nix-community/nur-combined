@@ -58,7 +58,7 @@ buildGoModule (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/service";
 
-  vendorHash = "sha256-dSwR0Z8r0EtMdLexjtd/WisqFWX6xC57Ve6ar6J4Hqk=";
+  vendorHash = "sha256-3MAqVpAWp/husUIl1afuEmwzKP/vnoC3BddhW4HOH4M=";
 
   nativeBuildInputs = [
     go-bindata
