@@ -33,5 +33,7 @@
         in
         pkgs.callPackage ./pkgs { }
       );
+
+      nixosModules = import ./modules;
     };
 }
