@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.4.9.5";
+  version = "4.4.9.6";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.9.5.xpi";
-  sha256 = "b1caade865c00a0eab5243f1397d9bd7c208ab78a249b634544ed4c24cdf5dcd";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.9.6.xpi";
+  sha256 = "0d0b9c627eb5085c16a263f61415c5706428ce7ba259566d0d50c4ac7e096dac";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -470,7 +470,6 @@ buildFirefoxXpiAddon {
       "*://*.letelegramme.fr/*"
       "*://*.letemps.ch/*"
       "*://*.levante-emv.com/*"
-      "*://*.lexpress.fr/*"
       "*://*.libelle.nl/*"
       "*://*.liberation-champagne.fr/*"
       "*://*.liberation.fr/*"
@@ -492,7 +491,6 @@ buildFirefoxXpiAddon {
       "*://*.macg.co/*"
       "*://*.macrobusiness.com.au/*"
       "*://*.madison.com/*"
-      "*://*.magazyn-kuchnia.pl/*"
       "*://*.mallorcazeitung.es/*"
       "*://*.manager-magazin.de/*"
       "*://*.manoramaonline.com/*"
@@ -762,7 +760,6 @@ buildFirefoxXpiAddon {
       "*://*.theamericanscholar.org/*"
       "*://*.theartnewspaper.com/*"
       "*://*.theatlantic.com/*"
-      "*://*.theaustralian.com.au/*"
       "*://*.thebaffler.com/*"
       "*://*.thebanner.com/*"
       "*://*.theblaze.com/*"

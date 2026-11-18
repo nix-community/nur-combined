@@ -277,10 +277,10 @@
     };
     "ahrefs-seo-toolbar" = buildMozillaXpiAddon {
       pname = "ahrefs-seo-toolbar";
-      version = "3.2.15";
+      version = "3.3.0";
       addonId = "ahrefs@AhrefsPteLtd";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5231261/ahrefs_seo_toolbar-3.2.15.xpi";
-      sha256 = "65ce8ca348babc29f3329af290b2bcb0f5986866c1021a0ef9d9f9410c500ac3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5269183/ahrefs_seo_toolbar-3.3.0.xpi";
+      sha256 = "52a1b1a18b4d5c1b48af669bed148f69735e4e520317a9d2ee382b97088086b2";
       meta = with lib;
       {
         homepage = "https://ahrefs.com/seo-toolbar";
@@ -1679,10 +1679,10 @@
     };
     "buster-captcha-solver" = buildMozillaXpiAddon {
       pname = "buster-captcha-solver";
-      version = "3.4.1";
+      version = "3.4.2";
       addonId = "{e58d3966-3d76-4cd9-8552-1582fbc800c1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5257790/buster_captcha_solver-3.4.1.xpi";
-      sha256 = "255436718d8494b45e417699ee129637b5ec0faa3332392aa8499f070418a8bd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5265688/buster_captcha_solver-3.4.2.xpi";
+      sha256 = "6b0add6aa1d283e1c18937554505bc613ceffbf0c08f8f3fdee2714982dc7689";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/buster#readme";
@@ -2558,10 +2558,10 @@
     };
     "control-panel-for-twitter" = buildMozillaXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.99.1";
+      version = "4.99.2";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5262106/control_panel_for_twitter-4.99.1.xpi";
-      sha256 = "d35108faba2a6fe380147277ce04fda8a4e9381857a73b4dfc1f474f23372b0c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5265265/control_panel_for_twitter-4.99.2.xpi";
+      sha256 = "916187f4885c782d185bc578991afb87fcf05e89a95e0ab412425dc2a53c7a3a";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-twitter";
@@ -9152,10 +9152,10 @@
     };
     "multiple-tab-handler" = buildMozillaXpiAddon {
       pname = "multiple-tab-handler";
-      version = "3.2.5";
+      version = "3.2.6";
       addonId = "multipletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4985982/multiple_tab_handler-3.2.5.xpi";
-      sha256 = "52410ba97deaf4a4d4746ec8a0b4b615f9e30996f6f3d6f5b969a730f6a25202";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5267757/multiple_tab_handler-3.2.6.xpi";
+      sha256 = "6b5683d8142151fc9c4d98c2dd2a206c21a28345b55647b8306dbb51e0688c5a";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_multipletab.html.en";
@@ -10299,10 +10299,10 @@
     };
     "pay-by-privacy" = buildMozillaXpiAddon {
       pname = "pay-by-privacy";
-      version = "2.4.17";
+      version = "2.4.18";
       addonId = "privacy@privacy.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4823381/pay_by_privacy-2.4.17.xpi";
-      sha256 = "8caa53ce0e62e04cd371708a25032f2737d44e0e72630159ff26c82c72c98975";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5267892/pay_by_privacy-2.4.18.xpi";
+      sha256 = "4a777b5fc3f1481786fb8b910f87d7f028c0f947c96a8e1eb1f98b2928d58a7d";
       meta = with lib;
       {
         homepage = "https://privacy.com";
@@ -11251,16 +11251,17 @@
     };
     "proton-vpn" = buildMozillaXpiAddon {
       pname = "proton-vpn";
-      version = "1.3.8";
+      version = "1.3.9";
       addonId = "vpn@proton.ch";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5255903/proton_vpn_firefox_extension-1.3.8.xpi";
-      sha256 = "f05815d1fd56bafb4618f660aa9f9059d7a9a91115e2c6ab2d8b5a733115b3e5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5266254/proton_vpn_firefox_extension-1.3.9.xpi";
+      sha256 = "26ecddcc5c5eed03ba0752d465a40dc110da9f7ea2698b43185c33b0837935a2";
       meta = with lib;
       {
         homepage = "https://protonvpn.com/";
         description = "Secure your internet and protect your online privacy in one click.";
         license = licenses.gpl3;
         mozPermissions = [
+          "declarativeNetRequestWithHostAccess"
           "idle"
           "notifications"
           "privacy"
@@ -12842,10 +12843,10 @@
     };
     "rsshub-radar" = buildMozillaXpiAddon {
       pname = "rsshub-radar";
-      version = "2.3.1";
+      version = "2.4.0";
       addonId = "i@diygod.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5198364/rsshub_radar-2.3.1.xpi";
-      sha256 = "d4f86a77b7bd6759ede3918cfc94ef3b0c272f37ae7d3c8e74b784ae261c626a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5267272/rsshub_radar-2.4.0.xpi";
+      sha256 = "e68fba0b779443ef79eaa776d9424aa9fffaf0bec6c9c7cc7f546ba45dbf52ff";
       meta = with lib;
       {
         homepage = "https://github.com/DIYgod/RSSHub-Radar";
@@ -13593,10 +13594,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.37.0";
+      version = "1.38.0";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5235638/single_file-1.37.0.xpi";
-      sha256 = "20b95d25af8c8f1e69384cb3ab64ddaf850562912446b45e90d12977df2d922f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5266346/single_file-1.38.0.xpi";
+      sha256 = "ebabe11f9c9d384c85ff4fb0882173564e0c267950497186b6c2df4f554c99bc";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -14946,10 +14947,10 @@
     };
     "torrent-control" = buildMozillaXpiAddon {
       pname = "torrent-control";
-      version = "0.2.51";
+      version = "0.2.52";
       addonId = "{e6e36c9a-8323-446c-b720-a176017e38ff}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5000837/torrent_control-0.2.51.xpi";
-      sha256 = "b14c2e9ff154fc3f6eead7b4a06baaa1e637319c8dd8661dd8394589a8e67297";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5267726/torrent_control-0.2.52.xpi";
+      sha256 = "84c7a1e6ed519dd0268f2c1858c104d0d874adfe53fd79058fa23196e5ca487b";
       meta = with lib;
       {
         homepage = "https://github.com/mika-si/torrent-control";
@@ -15080,10 +15081,10 @@
     };
     "tree-style-tab" = buildMozillaXpiAddon {
       pname = "tree-style-tab";
-      version = "4.4.9";
+      version = "4.4.10";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5072919/tree_style_tab-4.4.9.xpi";
-      sha256 = "6fa89f9228ecd5d61bebb38f38ba6851e24ee521d446525fba0b24a492e96984";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5267735/tree_style_tab-4.4.10.xpi";
+      sha256 = "6e44b6761ef86c4f4ecf8e86d4033e33c5d30f9fbb2a9691d6911b7b7d56c14f";
       meta = with lib;
       {
         homepage = "https://github.com/piroor/treestyletab";
@@ -15893,10 +15894,10 @@
     };
     "v2ex-polish" = buildMozillaXpiAddon {
       pname = "v2ex-polish";
-      version = "2.5.11";
+      version = "2.5.12";
       addonId = "leokudev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5253990/v2ex_polish-2.5.11.xpi";
-      sha256 = "a0b0d0051170043459d57027b79290eb48e3e5d6ef73c90affb8b534bc713876";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5265142/v2ex_polish-2.5.12.xpi";
+      sha256 = "88c7a265289eb011999aedea437d85ced3a8572744428b9ebd93dfbfca6756a3";
       meta = with lib;
       {
         description = "专为 V2EX 用户设计，提供了丰富的扩展功能。";
@@ -17403,10 +17404,10 @@
     };
     "ycs-continued" = buildMozillaXpiAddon {
       pname = "ycs-continued";
-      version = "1.10.4";
+      version = "1.10.5";
       addonId = "ycs-cont-public@pymaster.tw";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5168631/ycs_continued-1.10.4.xpi";
-      sha256 = "9e59401a396de13b7ed90364ba874e9e1123770860c15e0209ed53b03c26b501";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5265072/ycs_continued-1.10.5.xpi";
+      sha256 = "23f0ccfb4c766a025d70e9aac5f8b1be4d1edbbf126d035848a69984fee458b3";
       meta = with lib;
       {
         homepage = "https://github.com/pc035860/YCS-cont";
@@ -17677,10 +17678,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.11.5";
+      version = "18.11.6";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5263867/youtube_subscription_groups-18.11.5.xpi";
-      sha256 = "03defc9ba21735d35d460fbbd61eaa86e08c7d3b09c3202edb286d728b3963ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5266054/youtube_subscription_groups-18.11.6.xpi";
+      sha256 = "55b194d1a3cf1db27439817e959420010aec841115cc789d002211407da192df";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
