@@ -48,12 +48,12 @@ let
     }:
     mkDerivation {
       pname = "akyuu";
-      version = "0.5.0.0";
+      version = "0.5.0.0-unstable-2026-11-18";
       src = fetchFromGitHub {
         owner = "lillycham";
         repo = "akyuu";
-        rev = "8238d49ef94dfc48261a6b09613942e9b7545682"; # v0.5.0.0
-        hash = "sha256-EziLoncLOOoWFMsuRD/J8yDdI72XqAT94mElF46ieGQ=";
+        rev = "3171cd0b63e4364549032bc3a29e50ba83c847bc"; # main, with the disable switch
+        hash = "sha256-+ABg9o3Cf0zSmI7+XTmS/FuewrOINUAnRlnGaYqdXaM=";
       };
       isLibrary = true;
       isExecutable = true;
