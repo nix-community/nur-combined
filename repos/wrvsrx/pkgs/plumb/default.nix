@@ -3,7 +3,9 @@
   lib,
   nodejs,
   pandoc,
+  pkg-config,
   rustPlatform,
+  sqlite,
   stdenvNoCC,
   tree-sitter,
   vimUtils,
@@ -66,6 +68,9 @@ rustPlatform.buildRustPackage {
   inherit version src;
 
   cargoHash = "sha256-kVwggsIsFpCsLTQlQqI7JgpQYybl9yoOX3qPQdPrl00=";
+
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ sqlite ];
 
   nativeCheckInputs = [ pandoc ];
 

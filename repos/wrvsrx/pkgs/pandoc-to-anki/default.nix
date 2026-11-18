@@ -1,6 +1,9 @@
 {
   rustPlatform,
   protobuf,
+  pkg-config,
+  sqlite,
+  zstd,
   fetchFromGitHub,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -13,6 +16,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
     fetchSubmodules = true;
     hash = "sha256-38RMtdeZpjsSZQpyAIL9E2nHSJfszik6RrBfM+Qrlv4=";
   };
-  nativeBuildInputs = [ protobuf ];
+  nativeBuildInputs = [
+    protobuf
+    pkg-config
+  ];
+  buildInputs = [
+    sqlite
+    zstd
+  ];
   cargoHash = "sha256-K3t4N5hnZ9rBAEfaqdR5n3MlPYcra34tZn0Yiu8uSVs=";
 })
