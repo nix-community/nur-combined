@@ -8,8 +8,12 @@
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
     wd = {
-      url = "github:kakkun61/wd?ref=1.2.0&dir=linux";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:kakkun61/wd?ref=1.2.1";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        treefmt-nix.follows = "treefmt-nix";
+      };
     };
     envar = {
       url = "github:kakkun61/envar?ref=1";

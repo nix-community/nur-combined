@@ -58,24 +58,6 @@
         "type": "github"
       }
     },
-    "flake-utils": {
-      "inputs": {
-        "systems": "systems"
-      },
-      "locked": {
-        "lastModified": 1689068808,
-        "narHash": "sha256-6ixXo3wt24N/melDWjq70UuHQLxGV8jZvooRanIHXw0=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "919d646de7be200f3bf08cb76ae1f09402b6f9b4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1761880412,
@@ -131,21 +113,6 @@
         "wd": "wd"
       }
     },
-    "systems": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
     "treefmt-nix": {
       "inputs": {
         "nixpkgs": [
@@ -168,24 +135,27 @@
     },
     "wd": {
       "inputs": {
-        "flake-utils": "flake-utils",
+        "flake-parts": [
+          "flake-parts"
+        ],
         "nixpkgs": [
           "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix"
         ]
       },
       "locked": {
-        "dir": "linux",
-        "lastModified": 1752328006,
-        "narHash": "sha256-76Yu4k7hN/m77W72PAqn6P1hSNcwMMqXgj/5oaRwHb8=",
+        "lastModified": 1795023179,
+        "narHash": "sha256-zMt+wmyNB1uFthX9a8urtGOiROKfXhrSVTcBI9fv6qA=",
         "owner": "kakkun61",
         "repo": "wd",
-        "rev": "2f66fd684756e21af280f77cdd064ba9d6e12140",
+        "rev": "ae7dc18aea0c2e336264756757064d653e34f25b",
         "type": "github"
       },
       "original": {
-        "dir": "linux",
         "owner": "kakkun61",
-        "ref": "1.2.0",
+        "ref": "1.2.1",
         "repo": "wd",
         "type": "github"
       }
