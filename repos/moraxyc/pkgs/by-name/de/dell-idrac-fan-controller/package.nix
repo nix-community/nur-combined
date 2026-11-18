@@ -37,6 +37,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       --replace-fail 'source constants.sh' "source $scriptDir/constants.sh"
     substituteInPlace "$scriptDir/supervisor.sh" \
       --replace-fail 'bash ./Dell_iDRAC_fan_controller.sh' "${lib.getExe bash} $scriptDir/Dell_iDRAC_fan_controller.sh"
+    substituteInPlace "$scriptDir/functions.sh" \
+      --replace-fail 'HEARTBEAT_FILE="/run/dell_idrac_fan_controller.heartbeat"' \
+      'HEARTBEAT_FILE="''${HEARTBEAT_FILE:-/run/dell_idrac_fan_controller.heartbeat}"'
     patchShebangs "$scriptDir"
 
     makeWrapper "$scriptDir/supervisor.sh" "$out/bin/dell-idrac-fan-controller" \
