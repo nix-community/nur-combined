@@ -42,6 +42,8 @@ buildGradleAndroidPackage rec {
     chmod -R u+w $out
   '';
   sourceRoot = "pipepipe-source-${version}/PipePipeClient";
+  # unpackPhase only makes sourceRoot writable; the included extractor build writes to its own dir
+  postUnpack = "chmod -R u+w pipepipe-source-${version}";
 
   # AGP 9.2.1 / Kotlin 2.3.21 target Java 25 and require a recent Gradle.
   gradle = gradle_9;
