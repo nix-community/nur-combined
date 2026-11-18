@@ -16,14 +16,6 @@
           defaults.services.daed.package = self'.packages.daed;
         };
 
-        daed-next = pkgs.testers.runNixOSTest {
-          imports = [ ./daed-next.nix ];
-          extraBaseModules = {
-            imports = [ self.nixosModules.daed-next ];
-          };
-          defaults.services.daed-next.package = self'.packages.daed-next-git;
-        };
-
         gaze = pkgs.testers.runNixOSTest {
           imports = [ ./gaze.nix ];
           extraBaseModules = {

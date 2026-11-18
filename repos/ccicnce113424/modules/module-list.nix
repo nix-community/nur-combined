@@ -5,8 +5,6 @@
         # keep-sorted start block=yes newline_separated=yes
         daed = ./daed.nix;
 
-        daed-next = ./daed-next.nix;
-
         gaze = ./gaze.nix;
 
         honk-core = ./honk-core.nix;

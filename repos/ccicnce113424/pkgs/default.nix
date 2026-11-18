@@ -18,13 +18,6 @@ lib.makeScope pkgs.newScope (
 
     daed = self.callPackage ./daed/package.nix { };
 
-    daed-next-git = self.callPackage ./daed-next-git rec {
-      inherit (lib.importJSON ./daed-next-git/src-info.json) hash;
-      sources = fetchedSrc.daed-next-core;
-      version = unstableVersion sources 0;
-      webSources = fetchedSrc.daed-next-web;
-    };
-
     dav2d = self.callPackage ./dav2d/package.nix { };
 
     doona-lite = self.doona-web.override { isLite = true; };
