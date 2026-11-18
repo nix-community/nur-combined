@@ -1,0 +1,53 @@
+diff --git a/computer-use-linux/src/niri_agent.rs b/computer-use-linux/src/niri_agent.rs
+index e9b0a4b8a6..234febaf1a 100644
+--- a/computer-use-linux/src/niri_agent.rs
++++ b/computer-use-linux/src/niri_agent.rs
+@@ -156,6 +156,25 @@
+         .map(|_| ())
+ }
+ 
++/// Console viewers forward keystrokes to another machine. Give their event loop time to
++/// process each complete character rather than sending the whole text in one Wayland burst.
++/// Sleep in this client, never in the compositor's event loop. Do not replay partial input.
++pub async fn type_text(
++    window_id: u64,
++    value: &str,
++    ctrl_shift_u: bool,
++    paced: bool,
++) -> Result<()> {
++    if !paced {
++        return input(window_id, vec![text(value, ctrl_shift_u)]).await;
++    }
++    for ch in value.chars() {
++        input(window_id, vec![text(&ch.to_string(), ctrl_shift_u)]).await?;
++        tokio::time::sleep(Duration::from_millis(100)).await;
++    }
++    Ok(())
++}
++
+ pub fn motion(x: f64, y: f64) -> Value {
+     json!({ "Motion": { "x": x, "y": y } })
+ }
+diff --git a/computer-use-linux/src/server.rs b/computer-use-linux/src/server.rs
+index 993132535e..542a7b70cf 100644
+--- a/computer-use-linux/src/server.rs
++++ b/computer-use-linux/src/server.rs
+@@ -1912,11 +1912,13 @@
+                 // Chromium crashes when a temporary keymap delivers non-ASCII text into
+                 // contenteditable (see docs/validation.md); use its Ctrl+Shift+U entry instead.
+                 let ctrl_shift_u = chromium_browser_window(&window);
+-                crate::niri_agent::input(
+-                    window.window_id,
+-                    vec![crate::niri_agent::text(&text, ctrl_shift_u)],
+-                )
+-                .await
++                let paced = window.app_id.as_deref().is_some_and(|id| {
++                    let id = id.to_ascii_lowercase();
++                    id.contains("virt-manager")
++                        || id.contains("virt-viewer")
++                        || id.contains("remote-viewer")
++                });
++                crate::niri_agent::type_text(window.window_id, &text, ctrl_shift_u, paced).await
+             }
+             .await;
+             return niri_agent_output("type_text", result, received);

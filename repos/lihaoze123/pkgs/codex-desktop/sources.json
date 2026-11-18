@@ -2,9 +2,9 @@
   "project": {
     "owner": "lihaoze123",
     "repo": "niri-computer-use",
-    "rev": "bd6e39f3822ab5e14158def4817f89725064061d",
-    "hash": "sha256-qDzep6FOCCGlDVXFL3w1GqemOGepvtWdS+LcbVLSgrE=",
-    "lastModified": 1793070469
+    "rev": "c7c628dbb00e72babb614d0414784102ee30db55",
+    "hash": "sha256-IKjb7s68UVK6C8r/uc+aLblOGmsRe/Ao064qRm/0D5U=",
+    "lastModified": 1794473912
   },
   "desktop": {
     "owner": "ilysenko",
@@ -35,6 +35,7 @@
     "codex-linux-drag-interpolation.patch",
     "codex-niri-scroll-unicode.patch",
     "codex-niri-agent-input.patch",
-    "codex-unavailable-window-backend.patch"
+    "codex-unavailable-window-backend.patch",
+    "codex-paced-console-input.patch"
   ]
 }
