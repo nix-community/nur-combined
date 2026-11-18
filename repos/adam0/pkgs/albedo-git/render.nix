@@ -23,5 +23,5 @@ in
       inherit src;
     };
 
-    cargoHash = "sha256-5UOrvLYnUaf64fiDAaN4FqKxqp2B1G+uBSU/7MjBg6Q=";
+    cargoHash = "sha256-P8ITYHv1GteqmX/KpASu5kCHxG/synbi4kksp4tSWBE=";
   }

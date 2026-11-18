@@ -10,6 +10,7 @@
   gleam,
   lib,
   makeWrapper,
+  openssh,
   python311,
   render,
   rustPlatform,
@@ -90,7 +91,7 @@
   ];
 
   # Copy from the pinned source so restricted NUR evaluation needs no IFD.
-  manifest = fromTOML (readFile ./manifest.toml);
+  manifest = fromTOML (readFile ./apps/albedo/manifest.toml);
 
   gitHashes.barrel_mcp.dependencyHash = "sha256-ST03fWrxFciSqiREfoRHUDs5NqRTuF4Wfhduetsqe0w=";
 
@@ -128,6 +129,9 @@ in
     version = "1.0.0";
 
     inherit src;
+    # The daemon project lives in apps/albedo; its path dependencies resolve
+    # against the rest of the source tree.
+    sourceRoot = "${src.name}/apps/albedo";
 
     nativeBuildInputs = [
       # keep-sorted start
@@ -147,13 +151,17 @@ in
       from pathlib import Path
 
       upstream = tomllib.loads(Path("manifest.toml").read_text())
-      vendored = tomllib.loads(Path("${./manifest.toml}").read_text())
+      vendored = tomllib.loads(Path("${./apps/albedo/manifest.toml}").read_text())
       if upstream != vendored:
-          raise SystemExit("Refresh pkgs/albedo-git/manifest.toml from the pinned source")
+          raise SystemExit("Refresh pkgs/albedo-git/apps/albedo/manifest.toml from the pinned source")
       PY
 
       export HOME="$TMPDIR/home"
       mkdir -p "$HOME" build/packages
+
+      # priv/python links to the shared python/ tree; ship a copy.
+      rm priv/python
+      cp -R ../../python priv/python
 
       ${concatMapStringsSep "\n" (p: ''
           mkdir -p build/packages/${p.name} "$TMPDIR/hex-${p.name}"
@@ -204,7 +212,7 @@ in
       ln -s ${render}/bin/albedo-render $out/lib/albedo/albedo/priv/bin/albedo-render
       ln -s ${usageCore}/bin/usage $out/lib/albedo/albedo/priv/bin/usage
 
-      makeWrapper $out/lib/albedo/albedo/priv/bin/albedo-daemon $out/bin/albedo-daemon --add-flags "$out/lib/albedo/entrypoint.sh run" --set-default ALBEDO_BUILD $out/bin/albedo-daemon --prefix PATH : ${runtimePath}
+      makeWrapper $out/lib/albedo/albedo/priv/bin/albedo-daemon $out/bin/albedo-daemon --add-flags "$out/lib/albedo/entrypoint.sh run" --set-default ALBEDO_BUILD $out/bin/albedo-daemon --prefix PATH : ${runtimePath} --suffix PATH : ${makeBinPath [openssh]}
 
       runHook postInstall
     '';
