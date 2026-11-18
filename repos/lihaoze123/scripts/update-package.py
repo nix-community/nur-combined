@@ -129,30 +129,78 @@ def update_github(target):
     update_github_source(target, Path(f"pkgs/{target['attr']}/default.nix"), "src")
 
 
-def update_honk(target):
-    release = stable_release(target["repo"])
-    if release is None:
-        releases = fetch_json(f"https://api.github.com/repos/{target['repo']}/releases")
-        release = next(entry for entry in releases if not entry["draft"])
-    asset = next(asset for asset in release["assets"] if asset["name"] == "honk-core-debug-x86_64-unknown-linux-musl.tar.gz")
-    source = json.loads(run("nix", "store", "prefetch-file", "--json", asset["browser_download_url"]))
-    path = Path("pkgs/honk/default.nix")
-    text = path.read_text()
-    version = release["tag_name"].removeprefix("v")
-    text = replace_once(text, r'(version = ")[^"]+(";)', rf'\g<1>{version}\2')
-    text = replace_once(text, r'(url = ")[^"]+(";)', rf'\g<1>{asset["browser_download_url"]}\2')
-    text = replace_once(text, r'    (?:sha256|hash) = "[^"]+";', f'    hash = "{source["hash"]}";')
-    path.write_text(text)
-
-
 def semver_key(version):
     match = re.fullmatch(r"(\d+)\.(\d+)\.(\d+)(?:-([0-9A-Za-z.-]+))?(?:\+[0-9A-Za-z.-]+)?", version)
     if not match:
-        raise ValueError(f"Unsupported npm version: {version}")
+        raise ValueError(f"Unsupported SemVer version: {version}")
     prerelease = match[4]
     identifiers = tuple((0, int(part)) if part.isdigit() else (1, part)
                         for part in prerelease.split(".")) if prerelease else ()
     return (*map(int, match.group(1, 2, 3)), prerelease is None, identifiers)
+
+
+def honk_asset_for_release(release):
+    if not release or release.get("draft"):
+        return None
+    tag = release.get("tag_name", "")
+    if not tag.startswith("v"):
+        return None
+    version = tag.removeprefix("v")
+    try:
+        key = semver_key(version)
+    except ValueError:
+        return None
+    expected_names = (
+        f"honk-core-{tag}-x86_64-unknown-linux-musl-full.tar.gz",
+        "honk-core-debug-x86_64-unknown-linux-musl.tar.gz",
+    )
+    for name in expected_names:
+        asset = next((item for item in release.get("assets", []) if item.get("name") == name), None)
+        if asset is not None:
+            return version, key, asset
+    return None
+
+
+def select_honk_release(repo, current_version=None):
+    current_key = None
+    if current_version is not None:
+        try:
+            current_key = semver_key(current_version)
+        except ValueError:
+            current_key = None
+    stable = honk_asset_for_release(stable_release(repo))
+    if stable is not None and (current_key is None or stable[1] >= current_key):
+        return stable[0], stable[2]
+    releases = fetch_json(f"https://api.github.com/repos/{repo}/releases?per_page=100")
+    candidates = [parsed for entry in releases if (parsed := honk_asset_for_release(entry)) is not None]
+    if not candidates:
+        if stable is not None:
+            return stable[0], stable[2]
+        raise ValueError(f"No matching honk-core release asset found in {repo}")
+    best = max(candidates, key=lambda item: item[1])
+    if current_key is not None and best[1] < current_key:
+        current_match = next((item for item in candidates if item[0] == current_version), None)
+        if current_match is not None:
+            return current_match[0], current_match[2]
+    return best[0], best[2]
+
+
+def update_honk(target):
+    path = Path("pkgs/honk/default.nix")
+    text = path.read_text()
+    current_version_match = re.search(r'version = "([^"]+)";', text)
+    current_url_match = re.search(r'url = "([^"]+)";', text)
+    current_url = current_url_match[1] if current_url_match else ""
+    same_repo = current_url.startswith(f"https://github.com/{target['repo']}/")
+    current_version = current_version_match[1] if (current_version_match and same_repo) else None
+    version, asset = select_honk_release(target["repo"], current_version=current_version)
+    if same_repo and current_version == version and current_url == asset["browser_download_url"]:
+        return
+    source = json.loads(run("nix", "store", "prefetch-file", "--json", asset["browser_download_url"]))
+    text = replace_once(text, r'(version = ")[^"]+(";)', rf'\g<1>{version}\2')
+    text = replace_once(text, r'(url = ")[^"]+(";)', rf'\g<1>{asset["browser_download_url"]}\2')
+    text = replace_once(text, r'    (?:sha256|hash) = "[^"]+";', f'    hash = "{source["hash"]}";')
+    path.write_text(text)
 
 
 def npm_version(metadata, current_version=None):
@@ -205,7 +253,7 @@ def update_package(target):
     subprocess.run(["nix-update", "--flake", target["attr"], f"--version={policy}"], check=True)
 
 
-def discover_targets(root=Path(".")):
+def discover_targets(root=Path("."), include_manual=False):
     lock = json.loads((root / "flake.lock").read_text())
     targets = {}
     for name, node_name in lock["nodes"][lock["root"]]["inputs"].items():
@@ -217,6 +265,7 @@ def discover_targets(root=Path(".")):
         else:
             targets[name] = {"kind": "lock", "input": name}
     aliases = []
+    manual_groups = set()
     for recipe in sorted((root / "pkgs").glob("*/default.nix")):
         name = recipe.parent.name
         metadata_file = recipe.parent / "update.json"
@@ -226,13 +275,21 @@ def discover_targets(root=Path(".")):
         if update_group is not None:
             aliases.append((name, group))
             continue
-        if group in targets:
+        if group in targets or group in manual_groups:
             raise ValueError(f"Package and input update groups collide: {group}")
-        targets[group] = {"kind": "package", "attr": name, **metadata}
+        target = {"kind": "package", "attr": name, **metadata}
+        if target["kind"] == "manual" and not include_manual:
+            manual_groups.add(group)
+            continue
+        targets[group] = target
     for name, group in aliases:
-        if group not in targets:
+        if group not in targets and group not in manual_groups:
             raise ValueError(f"Unknown update group {group} for {name}")
     return targets
+
+
+def update_manual(target):
+    print(f"Skipping manual package: {target['attr']}", file=sys.stderr)
 
 
 def main():
@@ -240,14 +297,18 @@ def main():
     parser.add_argument("target", nargs="?")
     parser.add_argument("--list", action="store_true")
     args = parser.parse_args()
-    targets = discover_targets()
     if args.list:
+        targets = discover_targets()
         print(json.dumps({"include": [{"name": name} for name in targets]}))
         return
+    targets = discover_targets(include_manual=True)
     if args.target not in targets:
         parser.error("Specify a target from --list")
-    before = {path: path.read_bytes() for path in [Path("flake.nix"), *Path("pkgs").rglob("*.nix"), *Path("nixos-modules").rglob("*.nix")]}
     target = targets[args.target]
+    if target["kind"] == "manual":
+        update_manual(target)
+        return
+    before = {path: path.read_bytes() for path in [Path("flake.nix"), *Path("pkgs").rglob("*.nix"), *Path("nixos-modules").rglob("*.nix")]}
     handlers = {"flake": update_flake, "github": update_github, "vtype": update_vtype, "honk": update_honk, "cloudflare": update_cloudflare, "package": update_package}
     if target["kind"] == "lock":
         run("nix", "flake", "update", target["input"])

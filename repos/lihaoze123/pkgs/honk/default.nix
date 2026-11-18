@@ -1,12 +1,12 @@
 { lib, stdenvNoCC, fetchurl }:
 
-# Matching honk/native-api + embedded doona build from the same release.
+# Official honk full build with native API and embedded doona.
 stdenvNoCC.mkDerivation {
   pname = "honk-core";
-  version = "0.1.0-beta.20";
+  version = "0.1.0-beta.6";
   src = fetchurl {
-    url = "https://github.com/Zakkaus/doona/releases/download/v0.1.0-beta.20/honk-core-debug-x86_64-unknown-linux-musl.tar.gz";
-    hash = "sha256-ME8Nj27MsJFfBlPw3+nEqYzsKX9ijQ7dIdrwc4tYtg8=";
+    url = "https://github.com/daeuniverse/honk/releases/download/v0.1.0-beta.6/honk-core-v0.1.0-beta.6-x86_64-unknown-linux-musl-full.tar.gz";
+    hash = "sha256-J4O48IVvwa7NHNHZEdmpBMWTzVB89h5fok+9cHUxckQ=";
   };
   dontConfigure = true;
   dontBuild = true;
@@ -18,8 +18,8 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
   meta = {
-    description = "honk transparent proxy with native API and embedded doona beta.20";
-    homepage = "https://github.com/Glassyiris/honk";
+    description = "honk transparent proxy with native API and embedded doona";
+    homepage = "https://github.com/daeuniverse/honk";
     license = lib.licenses.gpl3Only;
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     platforms = [ "x86_64-linux" ];

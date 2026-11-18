@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import importlib.util
+import io
 import json
 from pathlib import Path
 import sys
@@ -289,6 +290,114 @@ in src
     def test_changed_recipe_structure_requires_updater_attention(self):
         with self.assertRaises(ValueError):
             updater.replace_once("unexpected structure", r'rev = "[^"]+"', 'rev = "new"')
+
+    def test_manual_packages_are_excluded_from_discovered_targets(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "flake.lock").write_text(json.dumps({"root": "root", "nodes": {"root": {"inputs": {}}}}))
+            for name in ["auto-pkg", "manual-pkg", "manual-variant"]:
+                recipe = root / "pkgs" / name / "default.nix"
+                recipe.parent.mkdir(parents=True)
+                recipe.write_text("{ }: {}")
+            (root / "pkgs/manual-pkg/update.json").write_text('{"kind":"manual"}')
+            (root / "pkgs/manual-variant/update.json").write_text('{"group":"manual-pkg"}')
+            self.assertEqual(updater.discover_targets(root), {"auto-pkg": {"kind": "package", "attr": "auto-pkg"}})
+            self.assertEqual(
+                updater.discover_targets(root, include_manual=True)["manual-pkg"],
+                {"kind": "manual", "attr": "manual-pkg"},
+            )
+
+    def test_manual_single_target_invocation_skips_cleanly(self):
+        stderr = io.StringIO()
+        targets = {"manual-pkg": {"kind": "manual", "attr": "manual-pkg"}}
+        with patch.object(updater, "discover_targets", return_value=targets) as discover, patch.object(sys, "argv", ["update-package.py", "manual-pkg"]), patch("sys.stderr", stderr):
+            updater.main()
+        discover.assert_called_once_with(include_manual=True)
+        self.assertIn("Skipping manual package: manual-pkg", stderr.getvalue())
+
+    def test_honk_selects_highest_semver_full_musl_release_ignoring_diagnostic_tags(self):
+        releases = [
+            {
+                "tag_name": "debug-diag.issue-415.3",
+                "draft": False,
+                "assets": [{"name": "honk-core-debug-x86_64-unknown-linux-musl-full.tar.gz", "browser_download_url": "https://invalid/diag"}],
+            },
+            {
+                "tag_name": "v0.1.0-beta.7",
+                "draft": False,
+                "assets": [{"name": "SHA256SUMS", "browser_download_url": "https://invalid/incomplete"}],
+            },
+            {
+                "tag_name": "v0.1.0-beta.6",
+                "draft": False,
+                "assets": [
+                    {"name": "doona-source-0.1.0-rc.6.tar.gz", "browser_download_url": "https://invalid/doona"},
+                    {
+                        "name": "honk-core-v0.1.0-beta.6-x86_64-unknown-linux-musl-full.tar.gz",
+                        "browser_download_url": "https://github.com/daeuniverse/honk/releases/download/v0.1.0-beta.6/honk-core-v0.1.0-beta.6-x86_64-unknown-linux-musl-full.tar.gz",
+                    },
+                ],
+            },
+            {
+                "tag_name": "v0.1.0-beta.5",
+                "draft": False,
+                "assets": [
+                    {
+                        "name": "honk-core-v0.1.0-beta.5-x86_64-unknown-linux-musl-full.tar.gz",
+                        "browser_download_url": "https://github.com/daeuniverse/honk/releases/download/v0.1.0-beta.5/honk-core-v0.1.0-beta.5-x86_64-unknown-linux-musl-full.tar.gz",
+                    }
+                ],
+            },
+            {
+                "tag_name": "v0.0.1.beta.84",
+                "draft": False,
+                "assets": [{"name": "honk-core-v0.0.1.beta.84-x86_64-unknown-linux-musl.tar.gz", "browser_download_url": "https://invalid/old"}],
+            },
+        ]
+        with patch.object(updater, "stable_release", return_value=None), patch.object(updater, "fetch_json", return_value=releases):
+            version, asset = updater.select_honk_release("daeuniverse/honk")
+        self.assertEqual(version, "0.1.0-beta.6")
+        self.assertEqual(asset["name"], "honk-core-v0.1.0-beta.6-x86_64-unknown-linux-musl-full.tar.gz")
+
+    def test_honk_prefers_stable_unless_current_is_newer_prerelease(self):
+        stable = {
+            "tag_name": "v0.1.0",
+            "draft": False,
+            "assets": [{"name": "honk-core-v0.1.0-x86_64-unknown-linux-musl-full.tar.gz", "browser_download_url": "https://example/v0.1.0"}],
+        }
+        newer_pre = {
+            "tag_name": "v0.2.0-beta.2",
+            "draft": False,
+            "assets": [{"name": "honk-core-v0.2.0-beta.2-x86_64-unknown-linux-musl-full.tar.gz", "browser_download_url": "https://example/v0.2.0-beta.2"}],
+        }
+        with patch.object(updater, "stable_release", return_value=stable), patch.object(updater, "fetch_json", return_value=[newer_pre, stable]):
+            self.assertEqual(updater.select_honk_release("daeuniverse/honk", current_version="0.1.0-beta.6")[0], "0.1.0")
+            self.assertEqual(updater.select_honk_release("daeuniverse/honk", current_version="0.2.0-beta.1")[0], "0.2.0-beta.2")
+
+    def test_update_honk_updates_recipe_and_skips_when_already_current(self):
+        with tempfile.TemporaryDirectory() as directory:
+            recipe = Path(directory) / "default.nix"
+            recipe.write_text('''{ }: {
+  pname = "honk-core";
+  version = "0.1.0-beta.20";
+  src = {
+    url = "https://github.com/Zakkaus/doona/releases/download/v0.1.0-beta.20/honk-core-debug-x86_64-unknown-linux-musl.tar.gz";
+    hash = "sha256-old=";
+  };
+}
+''')
+            new_url = "https://github.com/daeuniverse/honk/releases/download/v0.1.0-beta.6/honk-core-v0.1.0-beta.6-x86_64-unknown-linux-musl-full.tar.gz"
+            asset = {"name": "honk-core-v0.1.0-beta.6-x86_64-unknown-linux-musl-full.tar.gz", "browser_download_url": new_url}
+            with patch.object(updater, "Path", return_value=recipe), patch.object(updater, "select_honk_release", return_value=("0.1.0-beta.6", asset)) as select, patch.object(updater, "run", return_value='{"hash":"sha256-new="}') as prefetch:
+                updater.update_honk({"repo": "daeuniverse/honk"})
+                select.assert_called_once_with("daeuniverse/honk", current_version=None)
+                prefetch.assert_called_once()
+                updater.update_honk({"repo": "daeuniverse/honk"})
+                self.assertEqual(prefetch.call_count, 1)
+            result = recipe.read_text()
+            self.assertIn('version = "0.1.0-beta.6";', result)
+            self.assertIn(f'url = "{new_url}";', result)
+            self.assertIn('hash = "sha256-new=";', result)
 
 
 if __name__ == "__main__":
