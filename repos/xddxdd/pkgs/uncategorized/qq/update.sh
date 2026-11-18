@@ -1,48 +1,37 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p curl -p gnused -p nix -p python3
+#!nix-shell -i bash -p bash -p curl -p jq -p nix
 # shellcheck shell=bash
 set -euo pipefail
 
+CONFIG_JSON='https://qq-web.cdn-go.cn/im.qq.com_new/latest/rainbow/pcConfig.json'
+SIGN_ENDPOINT='https://im.qq.com/http2rpc/gotrpc/noauth/trpc.qqntv2.urlsign.UrlSign/GetSign'
+
 DIR="$(dirname "$(readlink -f "$0")")"
 
-PAGE=$(curl -fsSL 'https://im.qq.com/rainbow/linuxQQDownload/')
-AMD64=$(grep -oP '"https://dldir1v6\.qq\.com/qqfile/qq/QQNT/Linux/\K[^"]+(?=")' <<<"$PAGE" |
-  grep '_amd64' | head -n1 || true)
-ARM64=$(grep -oP '"https://dldir1v6\.qq\.com/qqfile/qq/QQNT/Linux/\K[^"]+(?=")' <<<"$PAGE" |
-  grep -E '_aarch64|_arm64' | head -n1 || true)
-[ -n "$AMD64" ] && [ -n "$ARM64" ] || {
-  echo "Failed to detect versions"
-  exit 1
+sign() {
+  curl -fsS --retry 3 -X POST "$SIGN_ENDPOINT" \
+    -H "Content-Type: application/json" \
+    -H 'x-oidb: {"uint32_command":"0x9b8e","uint32_service_type":1}' \
+    -d "{\"url\":\"$1\"}" | jq -er '.data.url'
 }
-echo "detected versions: amd64=$AMD64 arm64=$ARM64"
 
-python3 - "$DIR/sources.json" "$AMD64" "$ARM64" <<'PYEOF'
-import json
-import subprocess
-import sys
+update_one() {
+  local key=$1 url=$2 name version current hash
+  name=$(basename "$url")
+  version=${name%.deb}
+  current=$(jq -r --arg k "$key" '.[$k].version' "$DIR/sources.json")
+  if [ "$current" = "$version" ]; then
+    echo "$key: already at $version"
+    return
+  fi
+  hash=$(nix store prefetch-file --json "$(sign "$url")" | jq -er '.hash')
+  jq --indent 2 --sort-keys \
+    --arg k "$key" --arg v "$version" --arg u "$url" --arg h "$hash" \
+    '.[$k] = { version: $v, url: $u, hash: $h }' "$DIR/sources.json" >"$DIR/sources.json.new"
+  mv "$DIR/sources.json.new" "$DIR/sources.json"
+  echo "$key: updated to $version"
+}
 
-path, amd64, arm64 = sys.argv[1:]
-sources = json.load(open(path))
-
-strip_deb = lambda v: v[:-4] if v.endswith('.deb') else v
-new_ver = {'qq-amd64': strip_deb(amd64), 'qq-arm64': strip_deb(arm64)}
-for name, e in sources.items():
-    nv = new_ver[name]
-    if e['version'] == nv:
-        print(f"{name}: already at {nv}")
-        continue
-    new_url = e['url'].replace(e['version'], nv)
-    h = subprocess.run(['nix', 'store', 'prefetch-file', '--json', new_url],
-                       capture_output=True, text=True)
-    if h.returncode != 0:
-        print(f"{name}: {nv} not downloadable, keeping {e['version']}")
-        continue
-    e['version'] = nv
-    e['url'] = new_url
-    e['hash'] = json.loads(h.stdout)['hash']
-    print(f"{name} updated to {nv}")
-
-with open(path, 'w') as f:
-    json.dump(sources, f, indent=2, sort_keys=True)
-    f.write('\n')
-PYEOF
+config=$(curl -fsSL --retry 3 "$CONFIG_JSON")
+update_one qq-amd64 "$(jq -er '.Linux.x64DownloadUrl.deb' <<<"$config")"
+update_one qq-arm64 "$(jq -er '.Linux.armDownloadUrl.deb' <<<"$config")"

@@ -1,9 +1,12 @@
 {
-  fetchurl,
   stdenv,
   autoPatchelfHook,
   wrapGAppsHook3,
   makeWrapper,
+  curl,
+  jq,
+  cacert,
+  runCommandLocal,
   lib,
   # Dependencies
   alsa-lib,
@@ -39,12 +42,40 @@ let
 
   sources = builtins.fromJSON (builtins.readFile ./sources.json);
 
+  # Tencent only serves installers through URLs carrying a short-lived signature,
+  # so ask their signing endpoint for a fresh one at build time.
+  # https://github.com/NixOS/nixpkgs/issues/569048
+  fetchqq =
+    {
+      url,
+      hash,
+    }:
+    runCommandLocal (baseNameOf url)
+      {
+        outputHash = hash;
+        outputHashMode = "flat";
+        nativeBuildInputs = [
+          curl
+          jq
+          cacert
+        ];
+      }
+      ''
+        signedUrl=$(
+          curl -fsS --retry 3 -X POST "https://im.qq.com/http2rpc/gotrpc/noauth/trpc.qqntv2.urlsign.UrlSign/GetSign" \
+            -H "Content-Type: application/json" \
+            -H 'x-oidb: {"uint32_command":"0x9b8e","uint32_service_type":1}' \
+            -d "{\"url\":\"${url}\"}" | jq -er '.data.url'
+        )
+        curl -fL --retry 3 -o "$out" "$signedUrl"
+      '';
+
   source =
     if stdenv.hostPlatform.isx86_64 then
       {
         pname = "qq-amd64";
         inherit (sources.qq-amd64) version;
-        src = fetchurl {
+        src = fetchqq {
           inherit (sources.qq-amd64) url hash;
         };
       }
@@ -52,7 +83,7 @@ let
       {
         pname = "qq-arm64";
         inherit (sources.qq-arm64) version;
-        src = fetchurl {
+        src = fetchqq {
           inherit (sources.qq-arm64) url hash;
         };
       }
