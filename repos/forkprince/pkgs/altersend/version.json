@@ -6,26 +6,26 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "2.0.0",
+  "version": "2.1.0",
   "platforms": {
     "x86_64-linux": {
       "file": "AlterSend-x86_64.AppImage",
-      "hash": "sha256-dMsFocrGSXZ8CVN6pFdGeRTApHpvwhSRW3jA6Rp6Pdo=",
+      "hash": "sha256-aXhjsgtBwnBRmlm7CZR7XOauCgudWDaBIGzJp1WVbYo=",
       "unpack": false
     },
     "aarch64-linux": {
       "file": "AlterSend-arm64.AppImage",
-      "hash": "sha256-pFwO6qN2jabw3zVE/McuDaDpc5Ipt23wqbLD/1nZtos=",
+      "hash": "sha256-Yfot58ANcwXeklNTFkjoeLhQ9O39u42hXTpjyj8Z5ww=",
       "unpack": false
     },
     "x86_64-darwin": {
       "file": "AlterSend-{version}.dmg",
-      "hash": "sha256-JCdgFWVpvkqTPTHX1L9QD4oqW2lg1lsnfmA/lxXm+9s=",
+      "hash": "sha256-xJsUhZZCsAFV7z0B+nte9EfShuyTvQc1za1IQKkz3EU=",
       "unpack": false
     },
     "aarch64-darwin": {
       "file": "AlterSend-{version}-arm64.dmg",
-      "hash": "sha256-y8oeFMBbyn1dnUr0XxditeeNDouKKGr9krbkeW1TfEE=",
+      "hash": "sha256-LgDVUqPeg046XHoakppspBQj8WRgjvAIXsyLQzxULHc=",
       "unpack": false
     }
   }

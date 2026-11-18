@@ -10,6 +10,6 @@
     "file": "nightcap_{version}_amd64.deb",
     "unpack": false
   },
-  "version": "0.5.2",
-  "hash": "sha256-k0t6IL9UclyXZew9/K/Twkqeb907SC+CbvZV4Wk9Gkw="
+  "version": "0.5.3",
+  "hash": "sha256-24r1LVkv/rApNJRnpaLKT2dEDNyO47aIBrZOpMIG3aQ="
 }

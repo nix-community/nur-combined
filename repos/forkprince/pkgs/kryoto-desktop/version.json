@@ -10,6 +10,6 @@
     "file": "Kryoto-Desktop_{version}_amd64.AppImage",
     "unpack": false
   },
-  "version": "0.3.10",
-  "hash": "sha256-rQy/vDHSw3UOe6ydiPKcM+m3l/YtGQFsIg5/MG3Xo/A="
+  "version": "0.3.11",
+  "hash": "sha256-YW3ND6h6/MCum9CaJJVX4jTYq8kONKH16t1/3R3twEY="
 }

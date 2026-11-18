@@ -14,14 +14,14 @@
       "hash": "sha256-rsGCLjrZ92jwMtA+EYF+1CAiHUr2/Kh7FprdDCh6aAQ="
     },
     "x86_64-darwin": {
-      "version": "1.3.6",
+      "version": "1.3.8",
       "url": "https://download.helixnotes.com/releases/v{version}/HelixNotes_{version}_x64.dmg",
-      "hash": "sha256-XBwG0ZnRhqTR7mZvFBGJ7sYAoazclrLyFyceZy23Seg="
+      "hash": "sha256-tUvlOwJNyOQUqnIZ9UKIbkIw9Wmm4o6w1T7EZ+UeGwQ="
     },
     "aarch64-darwin": {
-      "version": "1.3.6",
+      "version": "1.3.8",
       "url": "https://download.helixnotes.com/releases/v{version}/HelixNotes_{version}_aarch64.dmg",
-      "hash": "sha256-GZjpvKgIWbhy47TboWGmKcJMaO8BKMGLm/wgVv+pw2Q="
+      "hash": "sha256-RWKheje8y/aCuGJAb8Waho8hkJyocAQkhwMOpDZYwaE="
     }
   }
 }
