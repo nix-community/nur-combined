@@ -1,0 +1,4 @@
+# Bundled models from the upstream release lock.
+# Tag = SHA-256 of the archive and its installed path relative to the resource root.
+hanzhang-tongbian-v1.0.0 = 8661aea75ca3ba431c6f0398bf7ef9883f806b33fe97d03dd0f0bcfec52ab801 data/models/hanzhang-tongbian/hanzhang-tongbian-small.qjm
+lm-v1.0.0 = 34c7e5f95874726de7fa4e1808e140083266facf00fe1dc3c391427d4538ea7f data/generated/lm.qj

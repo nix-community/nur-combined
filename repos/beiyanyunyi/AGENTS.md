@@ -15,7 +15,8 @@ For patchelf-unstable, `version` is also stored in `source.json`.
 Use `./pkgs/patchelf-unstable/update.sh [ref]` (default: `master`) to update it.
 Run `nix develop --command update-packages` to update all supported packages;
 Qingjian is intentionally excluded.
-Qingjian fetches its source with `pkgs.fetchgit`; update `version`, the bundled `Cargo.lock` and `data.lock`, and the Cargo Git dependency hashes together.
+Qingjian fetches its source with `pkgs.fetchgit`. Update `version`, the bundled `Cargo.lock`, `dicts.lock` and `models.lock`, and any changed Cargo Git dependency hashes together.
+Check the model release manifests for changes to the archive parts.
 
 mihomo-oix has a manifest of binary hashes for each platform and an update script:
 

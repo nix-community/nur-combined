@@ -4,12 +4,12 @@ A personal [NUR](https://github.com/nix-community/NUR) package repository.
 
 | Package | Source version | Platforms |
 | --- | --- | --- |
-| `rime-ice` | `99662ba01e3affa6a0f009174ca530b887bac3b6` | Same as nixpkgs rime-ice |
-| `qingjian` | v0.3.3 | Linux |
+| `rime-ice` | `927e1cf1d3eeb9bf4be85e3f684dba4dd485b6f6` | Same as nixpkgs rime-ice |
+| `qingjian` | v0.3.4 | Linux |
 | `patchelf-unstable` | 0.19.3-unstable-2026-10-30 | Same as nixpkgs patchelf |
 | `portop` | v0.4.0 | Linux, Darwin |
-| `mihomo-oix` | alpha-oix-83a0a17 | x86_64-linux (amd64-v3), aarch64-linux, aarch64-darwin |
-| `codex-bin` | 0.167.1 | aarch64-darwin, x86_64-linux (musl binaries) |
+| `mihomo-oix` | alpha-oix-5413cd5 | x86_64-linux (amd64-v3), aarch64-linux, aarch64-darwin |
+| `codex-bin` | 0.170.0 | aarch64-darwin, x86_64-linux (musl binaries) |
 
 The initial versions and hashes were migrated from nix-conf.
 

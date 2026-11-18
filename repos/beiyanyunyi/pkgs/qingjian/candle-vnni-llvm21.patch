@@ -1,0 +1,47 @@
+Rust 1.99's stdarch uses the LLVM 22 operand types for VPDPBUSD
+intrinsics. Nixpkgs builds rustc against LLVM 21, which rejects those
+signatures. Emit the same instructions in Candle's VNNI kernels,
+keeping their runtime feature detection and the 256-bit VEX encoding.
+
+--- a/src/quantized/repack_x86.rs
++++ b/src/quantized/repack_x86.rs
+@@ -203,6 +203,19 @@ mod kernels {
+     use super::*;
+     use core::arch::x86_64::*;
+ 
++    #[inline]
++    #[target_feature(enable = "avx512f,avx512vnni")]
++    unsafe fn _mm512_dpbusd_epi32(mut acc: __m512i, unsigned: __m512i, signed: __m512i) -> __m512i {
++        core::arch::asm!(
++            "vpdpbusd {acc}, {unsigned}, {signed}",
++            acc = inout(zmm_reg) acc,
++            unsigned = in(zmm_reg) unsigned,
++            signed = in(zmm_reg) signed,
++            options(pure, nomem, nostack, preserves_flags),
++        );
++        acc
++    }
++
+     // acc[m][16] f32 for up to MT activation rows against one 16-row weight tile
+     pub(crate) const MAX_MT: usize = 4;
+ 
+@@ -932,6 +945,19 @@ mod kernels256 {
+     use super::*;
+     use core::arch::x86_64::*;
+ 
++    #[inline]
++    #[target_feature(enable = "avx2,avxvnni")]
++    unsafe fn _mm256_dpbusd_avx_epi32(mut acc: __m256i, unsigned: __m256i, signed: __m256i) -> __m256i {
++        core::arch::asm!(
++            "{{vex}} vpdpbusd {acc}, {unsigned}, {signed}",
++            acc = inout(ymm_reg) acc,
++            unsigned = in(ymm_reg) unsigned,
++            signed = in(ymm_reg) signed,
++            options(pure, nomem, nostack, preserves_flags),
++        );
++        acc
++    }
++
+     #[target_feature(enable = "avx2")]
+     unsafe fn bcast4_256(act: &[i8], off: usize) -> __m256i {
+         _mm256_set1_epi32(std::ptr::read_unaligned(act.as_ptr().add(off) as *const i32))

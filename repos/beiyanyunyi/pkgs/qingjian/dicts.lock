@@ -1,0 +1,13 @@
+# Bundled dictionaries from the upstream release lock.
+# Tag = SHA-256 of the .qjz and its installed path relative to data/generated.
+base-v1.0.0 = c008edeeb7844ec028ea3c763f161823b95583295d4e67f291e559bebfd95970 dict.qj
+domain-idioms-v1.0.0 = 48d11037e135fd9657e51ad09cbfb3d141660bdb512375fb9485ba62e8a46798 dicts/idioms.qj
+english-v1.0.1 = 0f2ca693ea8cea4a5b60e9abaf0b0cd7f2ac836eb63a96643731e4323a9cd998 english.qj
+english-ipa-v1.0.0 = bc92605944f113b85ecf5371f200441fb8e341e89c373bd7a75ecc2cafddae75 english-ipa.qj
+general-v1.0.1 = d42ec2a20193396aaa967b1f2e05e31dfbc5bac790465b6464b975f4e439672b dicts/general.qj
+glossary-en-v1.0.0 = 17f0b54d167736593373555686fa06a157e3af87d7b55b73e339a587cc70d80f glossary-en.qj
+glossary-zh-v1.0.0 = d609ecb78ab1694d0f693b17e1a3e9a2b2b358957d1e165208d3edbc376c3a45 glossary-zh.qj
+stroke-v1.0.0 = 537df23f82be8fae3f1f6a98f7617ec64c95b1dfb7fda67b4f2c8c891ae32d55 codes/stroke.qj
+vietnamese-v1.0.0 = d039c9c624ea0a62c0a9b5a0695e1bfca781387e41d585ce1a0bb20c8cd9488b vietnamese.qj
+vietnamese-chinese-v1.0.0 = d61771f05b30d1cdffe3737f13ea19ef058a960c195dbe5e3d938eaf7536340a vietnamese-chinese.qj
+wubi86-v1.0.0 = eecfe77c298403f89c5cc01b093bd1967d066b8e12d9d668580a7fd402d6f005 schemes/wubi86.qj

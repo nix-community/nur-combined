@@ -31,23 +31,36 @@ let
     inherit (source) rev;
     hash = source.narHash;
   };
-  version = "0.3.3";
-  dataLock = builtins.fromTOML (
-    lib.concatMapStringsSep "\n" (
-      line:
-      let
-        parts = lib.splitString " = " line;
-      in
-      if builtins.length parts == 2 then
-        ''"${builtins.elemAt parts 0}" = "${builtins.elemAt parts 1}"''
-      else
-        line
-    ) (lib.splitString "\n" (builtins.readFile ./data.lock))
-  );
-  productData = fetchurl {
-    url = "https://github.com/qingjian-team/qingjian/releases/download/${dataLock.tag}/qingjian-data.tar.gz";
-    sha256 = dataLock."qingjian-data.tar.gz";
-  };
+  version = "0.3.4";
+  readDataLock =
+    file:
+    map
+      (
+        line:
+        let
+          fields = builtins.match "([^ ]+) = ([0-9a-f]{64}) ([^ ]+)" line;
+        in
+        {
+          tag = builtins.elemAt fields 0;
+          sha256 = builtins.elemAt fields 1;
+          path = builtins.elemAt fields 2;
+        }
+      )
+      (
+        builtins.filter (line: line != "" && !lib.hasPrefix "#" line) (
+          lib.splitString "\n" (builtins.readFile file)
+        )
+      );
+  dicts = readDataLock ./dicts.lock;
+  models = readDataLock ./models.lock;
+  releaseAsset =
+    repo:
+    { tag, sha256, ... }:
+    name:
+    fetchurl {
+      url = "https://github.com/qingjian-team/${repo}/releases/download/${tag}/${name}";
+      inherit sha256;
+    };
   server = rustPlatform.buildRustPackage {
     pname = "qingjian-linux-server";
     inherit version src;
@@ -69,6 +82,9 @@ let
         --replace-fail /usr/share/fonts/truetype/noto/NotoSans-Bold.ttf ${noto-fonts}/share/fonts/noto/NotoSans.ttf \
         --replace-fail /usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc ${noto-fonts-cjk-sans}/share/fonts/opentype/noto-cjk/NotoSansCJK-VF.otf.ttc \
         --replace-fail /usr/share/fonts/truetype/noto/NotoColorEmoji.ttf ${noto-fonts-color-emoji}/share/fonts/noto/NotoColorEmoji.ttf
+    ''
+    + lib.optionalString stdenv.hostPlatform.isx86_64 ''
+      patch -d "$cargoDepsCopy/candle-core-0.11.1" -p1 < ${./candle-vnni-llvm21.patch}
     '';
     cargoBuildFlags = [
       "-p"
@@ -106,7 +122,8 @@ stdenv.mkDerivation {
     unset DBUS_SESSION_BUS_ADDRESS
   '';
   postInstall = ''
-    mkdir -p "$out/bin" "$out/share/qingjian/resources/assets"
+    resources="$out/share/qingjian/resources"
+    mkdir -p "$out/bin" "$resources/assets"
     cp ${server}/bin/qingjian-linux-server "$out/bin/"
     cp ${server}/bin/qingjian-settings "$out/bin/"
     # Native Wayland submits frames but displays a black window under KDE.
@@ -126,12 +143,34 @@ stdenv.mkDerivation {
           libXrandr
         ]
       }
-    for kind in sample glossary levels emoji; do
-      cp -r "$src/assets/$kind" "$out/share/qingjian/resources/assets/"
+    for kind in sample levels emoji; do
+      cp -r "$src/assets/$kind" "$resources/assets/"
     done
-    tar -xzf ${productData} -C "$out/share/qingjian/resources"
-    test -f "$out/share/qingjian/resources/data/generated/dict.qj"
-    test -f "$out/share/qingjian/resources/data/models/hanzhang-tongbian/hanzhang-tongbian-small.qjm"
+    ${lib.concatMapStringsSep "\n" (
+      dict:
+      let
+        name = lib.head (lib.splitString "-v" dict.tag);
+        archive = releaseAsset "qingjian-dicts" dict "${name}.qjz";
+        path = "data/generated/${dict.path}";
+      in
+      ''
+        mkdir -p "$resources/${builtins.dirOf path}"
+        gzip -dc ${archive} > "$resources/${path}"
+        test -s "$resources/${path}"
+      ''
+    ) dicts}
+    ${lib.concatMapStringsSep "\n" (
+      model:
+      let
+        # Both pinned model releases publish their complete archive as a single part.
+        archive = releaseAsset "qingjian-models" model "${model.tag}.tar.gz.part1";
+      in
+      ''
+        mkdir -p "$resources/${builtins.dirOf model.path}"
+        tar -xOzf ${archive} --wildcards --no-anchored "${builtins.baseNameOf model.path}" > "$resources/${model.path}"
+        test -s "$resources/${model.path}"
+      ''
+    ) models}
     mkdir -p "$out/share/icons"
     cp -r "$src/assets/icon/linux/hicolor" "$out/share/icons/"
     install -Dm644 "$src/apps/settings/linux/qingjian-settings.desktop" "$out/share/applications/qingjian-settings.desktop"
