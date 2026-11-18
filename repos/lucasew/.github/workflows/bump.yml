@@ -49,7 +49,7 @@ jobs:
       - name: Bump
         run: nix flake update
       - name: Serve
-        uses: peter-evans/create-pull-request@c0f553fe549906ede9cf27b5156039d195d2ece0 # v8
+        uses: peter-evans/create-pull-request@3ffccacd46053766916f087ce41d627c0b8cf2d1 # v8
         with:
           title: "The flake bump is ready"
           body: |

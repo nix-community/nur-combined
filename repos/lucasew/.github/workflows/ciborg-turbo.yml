@@ -63,7 +63,7 @@ jobs:
       queue: max
 
     steps:
-    - uses: jdx/mise-action@6d1e696aa24c1aa1bcc1adea0212707c71ab78a8 # v3
+    - uses: jdx/mise-action@236a21c3b91f5db6d4e174b348674a0f0caac06d # v5
     - name: "Run worker"
       env:
         MISE_CI_TOKEN: ${{ secrets.MISE_CI_TOKEN }}
