@@ -531,6 +531,7 @@ dependencies = [
  "wasm-encoder 0.261.0",
  "wasmparser 0.261.0",
  "wasmtime",
+ "wat",
  "zip",
 ]
 
@@ -1828,6 +1829,7 @@ dependencies = [
  "horizon-bench",
  "horizon-chat-filter",
  "horizon-client-core",
+ "horizon-client-gameplay",
  "horizon-client-input",
  "horizon-client-lib",
  "horizon-client-render",
@@ -1838,6 +1840,7 @@ dependencies = [
  "horizon-engine-slots",
  "horizon-friends",
  "horizon-game-discovery",
+ "horizon-gameplay",
  "horizon-guest-stack",
  "horizon-hdr",
  "horizon-hooks",
@@ -1894,6 +1897,18 @@ dependencies = [
  "horizon-assets",
  "horizon-core",
  "horizon-world",
+ "serde_json",
+]
+
+[[package]]
+name = "horizon-client-gameplay"
+version = "0.1.0"
+dependencies = [
+ "glam",
+ "horizon-client-lib",
+ "horizon-core",
+ "horizon-world",
+ "log",
  "serde_json",
 ]
 
@@ -2148,6 +2163,19 @@ dependencies = [
  "quote",
  "serde_json",
  "syn 2.0.119",
+]
+
+[[package]]
+name = "horizon-gameplay"
+version = "0.1.0"
+dependencies = [
+ "horizon-client-lib",
+ "horizon-core",
+ "horizon-mod-runtime",
+ "horizon-threads",
+ "horizon-world",
+ "log",
+ "serde_json",
 ]
 
 [[package]]

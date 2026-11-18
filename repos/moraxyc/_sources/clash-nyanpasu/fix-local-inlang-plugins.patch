@@ -1,5 +1,5 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index 484d41c..74084d2 100644
+index f567339..91195f0 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -60,6 +60,8 @@
@@ -10,7 +10,7 @@ index 484d41c..74084d2 100644
 +    "@inlang/plugin-message-format": "^4.6.0",
      "@monaco-editor/react": "4.7.0",
      "@tailwindcss/vite": "4.3.5",
-     "@tanstack/react-query": "5.107.2",
+     "@tanstack/react-query": "5.108.0",
 diff --git a/frontend/nyanpasu/project.inlang/settings.json b/frontend/nyanpasu/project.inlang/settings.json
 index 1eb1a9a..5d024c1 100644
 --- a/frontend/nyanpasu/project.inlang/settings.json
@@ -27,7 +27,7 @@ index 1eb1a9a..5d024c1 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 31096ea..1bd6871 100644
+index cd71aad..6e18055 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -449,6 +449,12 @@ importers:
@@ -48,7 +48,7 @@ index 31096ea..1bd6871 100644
        unplugin-icons:
          specifier: 24.0.0
 -        version: 24.0.0(@svgr/core@8.1.0(supports-color@7.2.0)(typescript@7.0.2))(rolldown@1.2.18)(vite@8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1))
-+        version: 24.0.0(@svgr/core@8.1.0(supports-color@7.2.0)(typescript@7.0.2))(rolldown@1.2.18)(svelte@5.57.3)(vite@8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1))
++        version: 24.0.0(@svgr/core@8.1.0(supports-color@7.2.0)(typescript@7.0.2))(rolldown@1.2.18)(svelte@5.58.0)(vite@8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1))
        vite:
          specifier: 8.3.8
          version: 8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1)
@@ -57,7 +57,7 @@ index 31096ea..1bd6871 100644
        unplugin-icons:
          specifier: 24.0.0
 -        version: 24.0.0(@svgr/core@8.1.0(supports-color@7.2.0)(typescript@7.0.2))(rolldown@1.2.18)(vite@8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1))
-+        version: 24.0.0(@svgr/core@8.1.0(supports-color@7.2.0)(typescript@7.0.2))(rolldown@1.2.18)(svelte@5.57.3)(vite@8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1))
++        version: 24.0.0(@svgr/core@8.1.0(supports-color@7.2.0)(typescript@7.0.2))(rolldown@1.2.18)(svelte@5.58.0)(vite@8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1))
  
    frontend/utils:
      dependencies:
@@ -197,8 +197,8 @@ index 31096ea..1bd6871 100644
      engines: {node: '>=4'}
      hasBin: true
  
-+  esrap@2.4.0:
-+    resolution: {integrity: sha512-CQPcneEHw/czj32uwQC52nYnax8H4SXt25FCM+LIwGZ49cMIxpOj3bP8wmzcI+Z0HIy5KkClaPhRLfCySzwHPA==}
++  esrap@2.4.2:
++    resolution: {integrity: sha512-WpVZsWnSheHBy+fGrO/0duwnbe6ODZH1QyBbjupreSCJGojaBWRncrq+HVeIJ8eHQjEwSJg9hC4yPJyNVOrpqg==}
 +    peerDependencies:
 +      '@typescript-eslint/types': ^8.2.0
 +    peerDependenciesMeta:
@@ -243,8 +243,8 @@ index 31096ea..1bd6871 100644
      resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
      engines: {node: '>= 0.4'}
  
-+  svelte@5.57.3:
-+    resolution: {integrity: sha512-5mAftM3SoDV9X0zdF386F9p2pv8iKOwi/KfBS1XnBAkVCKFzVOLHUoa8iGWAt4buoicLmyWVRpuuD5wplXOQsg==}
++  svelte@5.58.0:
++    resolution: {integrity: sha512-rOMKTD9WP2C6ahWDmntey4p+JqUxtup1w9G3KdVuTbNGHi5u97iMw0CIc8a+F5rZtiH7x98kVniDlBRRR5e98w==}
 +    engines: {node: '>=18'}
 +
    svg-parser@2.0.4:
@@ -319,7 +319,7 @@ index 31096ea..1bd6871 100644
 +    dependencies:
 +      '@babel/parser': 7.29.8
 +      '@inlang/sdk': 4.2.0
-+      svelte: 5.57.3
++      svelte: 5.58.0
 +    transitivePeerDependencies:
 +      - '@typescript-eslint/types'
 +
@@ -481,7 +481,7 @@ index 31096ea..1bd6871 100644
  
    esprima@4.0.1: {}
  
-+  esrap@2.4.0:
++  esrap@2.4.2:
 +    dependencies:
 +      '@jridgewell/sourcemap-codec': 1.6.0
 +
@@ -521,7 +521,7 @@ index 31096ea..1bd6871 100644
  
    supports-preserve-symlinks-flag@1.0.0: {}
  
-+  svelte@5.57.3:
++  svelte@5.58.0:
 +    dependencies:
 +      '@jridgewell/remapping': 2.3.5
 +      '@jridgewell/sourcemap-codec': 1.6.0
@@ -533,7 +533,7 @@ index 31096ea..1bd6871 100644
 +      clsx: 2.1.1
 +      devalue: 5.9.4
 +      esm-env: 1.2.2
-+      esrap: 2.4.0
++      esrap: 2.4.2
 +      is-reference: 3.0.3
 +      locate-character: 3.0.0
 +      magic-string: 0.30.21
@@ -549,7 +549,7 @@ index 31096ea..1bd6871 100644
        - webpack
  
 -  unplugin-icons@24.0.0(@svgr/core@8.1.0(supports-color@7.2.0)(typescript@7.0.2))(rolldown@1.2.18)(vite@8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1)):
-+  unplugin-icons@24.0.0(@svgr/core@8.1.0(supports-color@7.2.0)(typescript@7.0.2))(rolldown@1.2.18)(svelte@5.57.3)(vite@8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1)):
++  unplugin-icons@24.0.0(@svgr/core@8.1.0(supports-color@7.2.0)(typescript@7.0.2))(rolldown@1.2.18)(svelte@5.58.0)(vite@8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1)):
      dependencies:
        '@antfu/install-pkg': 1.1.0
        '@iconify/utils': 3.1.7
@@ -557,7 +557,7 @@ index 31096ea..1bd6871 100644
        unplugin: 3.3.0(rolldown@1.2.18)(vite@8.3.8(@types/node@26.6.5)(jiti@2.7.0)(less@4.9.1(supports-color@7.2.0))(terser@5.36.0)(yaml@2.9.1))
      optionalDependencies:
        '@svgr/core': 8.1.0(supports-color@7.2.0)(typescript@7.0.2)
-+      svelte: 5.57.3
++      svelte: 5.58.0
      transitivePeerDependencies:
        - '@farmfe/core'
        - '@rspack/core'

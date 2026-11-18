@@ -375,7 +375,7 @@ checksum = "fb5dfbc6d8d2675589ccbe4d0fd61df2419075625f8c1a62325e718e2b0049f9"
 
 [[package]]
 name = "app"
-version = "26.11.2"
+version = "26.11.3"
 dependencies = [
  "android_system_properties",
  "base64 0.23.1",
@@ -411,6 +411,7 @@ dependencies = [
  "tauri-plugin-fs",
  "tauri-plugin-geolocation",
  "tauri-plugin-livekit-mobile",
+ "tauri-plugin-native-audio",
  "tauri-plugin-notifications",
  "tauri-plugin-opener",
  "tauri-plugin-os",
@@ -4961,7 +4962,7 @@ dependencies = [
 [[package]]
 name = "matrix-sdk"
 version = "0.19.1"
-source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=17a0c87caac768e1f06b394199cc5ed830eb2674#17a0c87caac768e1f06b394199cc5ed830eb2674"
+source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=bcab7d45a1b3327a5e9341813225bf87bed50fec#bcab7d45a1b3327a5e9341813225bf87bed50fec"
 dependencies = [
  "anymap3",
  "as_variant",
@@ -5017,7 +5018,7 @@ dependencies = [
 [[package]]
 name = "matrix-sdk-base"
 version = "0.19.1"
-source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=17a0c87caac768e1f06b394199cc5ed830eb2674#17a0c87caac768e1f06b394199cc5ed830eb2674"
+source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=bcab7d45a1b3327a5e9341813225bf87bed50fec#bcab7d45a1b3327a5e9341813225bf87bed50fec"
 dependencies = [
  "as_variant",
  "assert_matches",
@@ -5049,7 +5050,7 @@ dependencies = [
 [[package]]
 name = "matrix-sdk-common"
 version = "0.19.1"
-source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=17a0c87caac768e1f06b394199cc5ed830eb2674#17a0c87caac768e1f06b394199cc5ed830eb2674"
+source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=bcab7d45a1b3327a5e9341813225bf87bed50fec#bcab7d45a1b3327a5e9341813225bf87bed50fec"
 dependencies = [
  "eyeball-im",
  "futures-core",
@@ -5072,7 +5073,7 @@ dependencies = [
 [[package]]
 name = "matrix-sdk-crypto"
 version = "0.19.1"
-source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=17a0c87caac768e1f06b394199cc5ed830eb2674#17a0c87caac768e1f06b394199cc5ed830eb2674"
+source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=bcab7d45a1b3327a5e9341813225bf87bed50fec#bcab7d45a1b3327a5e9341813225bf87bed50fec"
 dependencies = [
  "aes",
  "as_variant",
@@ -5112,7 +5113,7 @@ dependencies = [
 [[package]]
 name = "matrix-sdk-indexeddb"
 version = "0.19.1"
-source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=17a0c87caac768e1f06b394199cc5ed830eb2674#17a0c87caac768e1f06b394199cc5ed830eb2674"
+source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=bcab7d45a1b3327a5e9341813225bf87bed50fec#bcab7d45a1b3327a5e9341813225bf87bed50fec"
 dependencies = [
  "async-trait",
  "base64 0.23.1",
@@ -5145,7 +5146,7 @@ dependencies = [
 [[package]]
 name = "matrix-sdk-qrcode"
 version = "0.19.1"
-source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=17a0c87caac768e1f06b394199cc5ed830eb2674#17a0c87caac768e1f06b394199cc5ed830eb2674"
+source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=bcab7d45a1b3327a5e9341813225bf87bed50fec#bcab7d45a1b3327a5e9341813225bf87bed50fec"
 dependencies = [
  "byteorder",
  "qrcode",
@@ -5157,7 +5158,7 @@ dependencies = [
 [[package]]
 name = "matrix-sdk-sqlite"
 version = "0.19.1"
-source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=17a0c87caac768e1f06b394199cc5ed830eb2674#17a0c87caac768e1f06b394199cc5ed830eb2674"
+source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=bcab7d45a1b3327a5e9341813225bf87bed50fec#bcab7d45a1b3327a5e9341813225bf87bed50fec"
 dependencies = [
  "as_variant",
  "async-trait",
@@ -5185,7 +5186,7 @@ dependencies = [
 [[package]]
 name = "matrix-sdk-store-encryption"
 version = "0.19.1"
-source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=17a0c87caac768e1f06b394199cc5ed830eb2674#17a0c87caac768e1f06b394199cc5ed830eb2674"
+source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=bcab7d45a1b3327a5e9341813225bf87bed50fec#bcab7d45a1b3327a5e9341813225bf87bed50fec"
 dependencies = [
  "base64 0.23.1",
  "blake3",
@@ -5207,7 +5208,7 @@ dependencies = [
 [[package]]
 name = "matrix-sdk-test"
 version = "0.19.1"
-source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=17a0c87caac768e1f06b394199cc5ed830eb2674#17a0c87caac768e1f06b394199cc5ed830eb2674"
+source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=bcab7d45a1b3327a5e9341813225bf87bed50fec#bcab7d45a1b3327a5e9341813225bf87bed50fec"
 dependencies = [
  "as_variant",
  "ctor",
@@ -5231,7 +5232,7 @@ dependencies = [
 [[package]]
 name = "matrix-sdk-test-macros"
 version = "0.19.1"
-source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=17a0c87caac768e1f06b394199cc5ed830eb2674#17a0c87caac768e1f06b394199cc5ed830eb2674"
+source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=bcab7d45a1b3327a5e9341813225bf87bed50fec#bcab7d45a1b3327a5e9341813225bf87bed50fec"
 dependencies = [
  "quote",
  "syn 3.0.9",
@@ -5240,7 +5241,7 @@ dependencies = [
 [[package]]
 name = "matrix-sdk-test-utils"
 version = "0.19.1"
-source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=17a0c87caac768e1f06b394199cc5ed830eb2674#17a0c87caac768e1f06b394199cc5ed830eb2674"
+source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=bcab7d45a1b3327a5e9341813225bf87bed50fec#bcab7d45a1b3327a5e9341813225bf87bed50fec"
 dependencies = [
  "ctor",
  "tracing-subscriber",
@@ -5249,7 +5250,7 @@ dependencies = [
 [[package]]
 name = "matrix-sdk-ui"
 version = "0.19.1"
-source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=17a0c87caac768e1f06b394199cc5ed830eb2674#17a0c87caac768e1f06b394199cc5ed830eb2674"
+source = "git+https://git.sable.moe/SableClient/matrix-rust-sdk?rev=bcab7d45a1b3327a5e9341813225bf87bed50fec#bcab7d45a1b3327a5e9341813225bf87bed50fec"
 dependencies = [
  "as_variant",
  "async-rx",
@@ -9895,6 +9896,15 @@ dependencies = [
  "tauri-plugin",
  "thiserror 2.0.21",
  "tokio",
+]
+
+[[package]]
+name = "tauri-plugin-native-audio"
+version = "1.0.5"
+source = "git+https://github.com/SableClient/tauri-plugin-native-audio.git?rev=1bbab74ed550b8395fdd287a25542c2b99624597#1bbab74ed550b8395fdd287a25542c2b99624597"
+dependencies = [
+ "tauri",
+ "tauri-plugin",
 ]
 
 [[package]]
