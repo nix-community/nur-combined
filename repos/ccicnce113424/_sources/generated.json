@@ -57,7 +57,7 @@
     },
     "daed-next-web": {
         "cargoLock": null,
-        "date": "2026-10-26",
+        "date": "2026-11-18",
         "extract": null,
         "name": "daed-next-web",
         "passthru": null,
@@ -69,17 +69,17 @@
             "name": null,
             "owner": "ksong008",
             "repo": "DaedNext",
-            "rev": "76ad4577501ba327da304c0f520f6fa707594ef8",
-            "sha256": "sha256-mtYNPv8oz6wtmP3N/zlUQ6SeFq9Vr+4halN/mU4JPB4=",
+            "rev": "96e4b2af9be2193d0dc86a7e3709b360c1b082e6",
+            "sha256": "sha256-+/kx+WwASLvCW82wkhZUh+mbej0Ijd33880TNhGApjE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "76ad4577501ba327da304c0f520f6fa707594ef8"
+        "version": "96e4b2af9be2193d0dc86a7e3709b360c1b082e6"
     },
     "dorion-git": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-1lvHMk0j66TshcJLDBroggS13XD+xOjYeZ+4oHdtjl8=/src-tauri/Cargo.lock",
+                "sha256-gR_a4lRf0U86Bh7sxXwtVreLrCNMOeJbZBEvbUJveeQ=/src-tauri/Cargo.lock",
                 {
                     "livesplit-hotkey-0.8.0": "sha256-iYAzlkYMEN2v4IhsnljWpUZkJO5CN1vcqz5thAJvbXc=",
                     "rsrpc-0.29.0": "sha256-7zS833bmy6JUjk4PqCENz6ikoTOtelcymXMi2pxD3V0=",
@@ -90,7 +90,7 @@
                 }
             ]
         },
-        "date": "2026-11-03",
+        "date": "2026-11-17",
         "extract": null,
         "name": "dorion-git",
         "passthru": null,
@@ -102,12 +102,12 @@
             "name": null,
             "owner": "SpikeHD",
             "repo": "Dorion",
-            "rev": "fc3c0d7664c39d66391863f4c4c399f3917374ac",
-            "sha256": "sha256-1lvHMk0j66TshcJLDBroggS13XD+xOjYeZ+4oHdtjl8=",
+            "rev": "62211bb776c2e31ca8b210d6712a2b061cd65be6",
+            "sha256": "sha256-gR/a4lRf0U86Bh7sxXwtVreLrCNMOeJbZBEvbUJveeQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "fc3c0d7664c39d66391863f4c4c399f3917374ac"
+        "version": "62211bb776c2e31ca8b210d6712a2b061cd65be6"
     },
     "dxvk-gplall": {
         "cargoLock": null,
