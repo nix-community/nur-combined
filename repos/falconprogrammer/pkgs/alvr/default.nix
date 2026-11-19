@@ -21,6 +21,7 @@
 , x264
 , xorg
 , xvidcore
+, zlib
 }:
 let
   sources = callPackage ../../_sources/generated.nix { };
@@ -45,6 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     pipewire
     SDL2
     vulkan-loader
+    zlib
     stdenv.cc.cc.lib
   ];
 

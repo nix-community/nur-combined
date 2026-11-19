@@ -80,7 +80,18 @@ jobs:
           KEYFILE="$RUNNER_TEMP/nvfetcher-keyfile.toml"
           printf '[keys]\ngithub = "%s"\n' "$GH_TOKEN" > "$KEYFILE"
 
-          nix develop --command nvfetcher --keyfile "$KEYFILE" --filter "^${NAME}(-.+)?$"
+          # Retry transient download errors from any tracked source
+          for attempt in 1 2 3; do
+            if nix develop --command nvfetcher --keyfile "$KEYFILE" --filter "^${NAME}(-.+)?$"; then
+              break
+            fi
+            if [ "$attempt" -eq 3 ]; then
+              echo "nvfetcher failed after $attempt attempts"
+              exit 1
+            fi
+            echo "nvfetcher attempt $attempt failed, retrying"
+            sleep 30
+          done
 
           if git diff --quiet -- _sources; then
             echo "No update available for $NAME"
