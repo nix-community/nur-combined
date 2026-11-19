@@ -57,15 +57,94 @@ jobs:
         nix eval --json .#packages.x86_64-linux --apply builtins.attrNames \
           | jq -r '.[] | ".#" + .' \
           | xargs nix build --no-link --print-build-logs
-    - name: Open pull request
+    - name: Commit and open pull request
       if: ${{ steps.update.outputs.old != steps.update.outputs.new }}
-      uses: peter-evans/create-pull-request@3ffccacd46053766916f087ce41d627c0b8cf2d1 # v8.1.3
-      with:
-        branch: update/${{ matrix.package }}
-        delete-branch: true
-        commit-message: "chore(${{ matrix.package }}): updated ${{ steps.update.outputs.old }} -> ${{ steps.update.outputs.new }}"
-        title: "chore(${{ matrix.package }}): updated ${{ steps.update.outputs.old }} -> ${{ steps.update.outputs.new }}"
-        body: |
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: update/${{ matrix.package }}
+        BASE_BRANCH: ${{ github.event.repository.default_branch }}
+        TITLE: "chore(${{ matrix.package }}): updated ${{ steps.update.outputs.old }} -> ${{ steps.update.outputs.new }}"
+        BODY: |
           Automated update by [nix-update](https://github.com/Mic92/nix-update).
 
           Every flake package built in [the update run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}).
+      run: |
+        set -euo pipefail
+        BASE_SHA="$(git rev-parse HEAD)"
+
+        # Ensure the PR branch exists and points to BASE_SHA so createCommitOnBranch
+        # produces a clean single-commit diff signed by GitHub.
+        if gh api "repos/${{ github.repository }}/git/ref/heads/$BRANCH" >/dev/null 2>&1; then
+          gh api -X PATCH "repos/${{ github.repository }}/git/refs/heads/$BRANCH" \
+            -f sha="$BASE_SHA" -F force=true >/dev/null
+        else
+          gh api -X POST "repos/${{ github.repository }}/git/refs" \
+            -f ref="refs/heads/$BRANCH" -f sha="$BASE_SHA" >/dev/null
+        fi
+
+        python3 - <<'PY' | gh api graphql --input -
+        import base64, json, os, subprocess
+
+        status = subprocess.check_output(["git", "status", "--porcelain", "-z"])
+        additions, deletions = [], []
+        entries = status.split(b"\0")
+        i = 0
+        while i < len(entries):
+            entry = entries[i]
+            if not entry:
+                i += 1
+                continue
+            xy = entry[:2].decode()
+            path = entry[3:].decode()
+            if xy[0] in ("R", "C"):
+                old_path = entries[i + 1].decode() if i + 1 < len(entries) else ""
+                if xy[0] == "R" and old_path:
+                    deletions.append({"path": old_path})
+                i += 2
+            else:
+                i += 1
+
+            if "D" in xy:
+                deletions.append({"path": path})
+            else:
+                with open(path, "rb") as f:
+                    additions.append({
+                        "path": path,
+                        "contents": base64.b64encode(f.read()).decode("ascii"),
+                    })
+
+        file_changes = {}
+        if additions:
+            file_changes["additions"] = additions
+        if deletions:
+            file_changes["deletions"] = deletions
+
+        payload = {
+            "query": """
+              mutation($input: CreateCommitOnBranchInput!) {
+                createCommitOnBranch(input: $input) {
+                  commit { oid }
+                }
+              }
+            """,
+            "variables": {
+                "input": {
+                    "branch": {
+                        "repositoryNameWithOwner": os.environ["GITHUB_REPOSITORY"],
+                        "branchName": os.environ["BRANCH"],
+                    },
+                    "message": {"headline": os.environ["TITLE"]},
+                    "expectedHeadOid": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
+                    "fileChanges": file_changes,
+                }
+            },
+        }
+        print(json.dumps(payload))
+        PY
+
+        PR_NUM="$(gh pr list --head "$BRANCH" --base "$BASE_BRANCH" --state open --json number --jq '.[0].number // empty')"
+        if [ -n "$PR_NUM" ]; then
+          gh pr edit "$PR_NUM" --title "$TITLE" --body "$BODY"
+        else
+          gh pr create --base "$BASE_BRANCH" --head "$BRANCH" --title "$TITLE" --body "$BODY"
+        fi
