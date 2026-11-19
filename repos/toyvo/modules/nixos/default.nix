@@ -5,7 +5,6 @@
   #
   # my-module = ./my-module;
   minecraft_container = ./containers/minecraft.nix;
-  open-webui_container = ./containers/open-webui.nix;
   terraria_container = ./containers/terraria.nix;
   vintagestory_container = ./containers/vintagestory.nix;
   boot = ./boot.nix;

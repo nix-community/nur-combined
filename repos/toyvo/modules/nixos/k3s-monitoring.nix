@@ -213,9 +213,9 @@ in
           name = "monitoring-grafana-dashboards";
         };
         data = {
-          "dns-security.json" = builtins.readFile ./containers/dashboards/dns-security.json;
-          "internet.json" = builtins.readFile ./containers/dashboards/internet.json;
-          "network-inventory.json" = builtins.readFile ./containers/dashboards/network-inventory.json;
+          "dns-security.json" = builtins.readFile ../../k8s/monitoring/dashboards/dns-security.json;
+          "internet.json" = builtins.readFile ../../k8s/monitoring/dashboards/internet.json;
+          "network-inventory.json" = builtins.readFile ../../k8s/monitoring/dashboards/network-inventory.json;
         };
       };
       "monitoring-grafana.yaml".content = {
