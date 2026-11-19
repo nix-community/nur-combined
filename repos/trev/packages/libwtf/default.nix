@@ -11,13 +11,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libwtf";
-  version = "0-unstable-2026-10-27";
+  version = "0-unstable-2026-11-17";
 
   src = fetchFromGitHub {
     owner = "andrewmd5";
     repo = "libwtf";
-    rev = "003045cccb864244ff791d3533626f94e0d95563";
-    hash = "sha256-UtdJFupCI1tlpTBTLem36acDmI+qN9aJin1zjn499WE=";
+    rev = "8333c7f2e3c928ab31e694a3fe3532c2f31fef20";
+    hash = "sha256-cDXiptYAIoK9eWEgDfuD3zGUIRA6BLmcXq0qbHWEZ70=";
     fetchSubmodules = true;
   };
 

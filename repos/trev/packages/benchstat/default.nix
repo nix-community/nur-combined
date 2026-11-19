@@ -7,16 +7,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "benchstat";
-  version = "0-unstable-2026-10-09";
+  version = "0-unstable-2026-11-17";
 
   src = fetchFromGitHub {
     owner = "golang";
     repo = "perf";
-    rev = "be2c69fb417e05de5fec05c732911f4c5f172606";
-    hash = "sha256-Ura+yZPbWLQDB/R+OTSrUpKZtEjDvpitdpabKgDSm2M=";
+    rev = "4febdb082b2ce2a0f9f6f496698aa5a2273279b8";
+    hash = "sha256-nHcqLEsIkT6GaF42hKsgGcoqCFgHY8bmPf5kdccjVE8=";
   };
 
-  vendorHash = "sha256-caW4rox/r2eq0HxACaAsuDLAeGIKUiLgKtJol8OXzDE=";
+  vendorHash = "sha256-wJDyOBQ6aoOSv81QjCj+sUSeFkyvTnbNQLmG4H3eyDs=";
 
   subPackages = [ "cmd/benchstat" ];
 
