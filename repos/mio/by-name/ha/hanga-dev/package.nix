@@ -118,7 +118,13 @@ else
       rustPlatform.bindgenHook
       makeWrapper
     ];
-    buildInputs = [ apple-sdk_14 ];
+    # cargo-setup-hook exports ZSTD_SYS_USE_PKG_CONFIG=1 and
+    # LIBSQLITE3_SYS_USE_PKG_CONFIG=1.
+    buildInputs = [
+      apple-sdk_14
+      pkgs.sqlite
+      pkgs.zstd
+    ];
     doCheck = true;
     cargoTestFlags = [
       "--lib"

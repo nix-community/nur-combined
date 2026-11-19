@@ -198,35 +198,6 @@ exportedByName
   local-ai-cuda = local-ai.override { with_cublas = true; };
   mdbook-generate-summary = v3overrideAttrs (pkgs.callPackage ./pkgs/mdbook-generate-summary { });
   gifcurry = nonurbot (pkgs.callPackage ./pkgs/gifcurry { });
-  ogre-1_11 = v3overrideAttrs (pkgs.callPackage ./pkgs/ogre-1_11/package.nix { });
-  angelscript_2_35_1 = v3overrideAttrs (
-    pkgs.angelscript.overrideAttrs (
-      old:
-      let
-        version = "2.35.1";
-      in
-      {
-        inherit version;
-        src = pkgs.fetchzip {
-          url = "https://www.angelcode.com/angelscript/sdk/files/angelscript_${version}.zip";
-          hash = "sha256-ncs3pPsJErx3el8/Lsj+NSu7LQ1hPRlBmcTSvLGWL1s=";
-        };
-      }
-    )
-  );
-  socketw = v3overrideAttrs (pkgs.callPackage ./pkgs/socketw/package.nix { });
-  mygui-ogre = v3overrideAttrs (
-    pkgs.mygui.override {
-      withOgre = true;
-      ogre = ogre-1_11;
-    }
-  );
-  rigs-of-rods = pkgs.callPackage ./pkgs/rigs-of-rods/package.nix {
-    ogre = ogre-1_11;
-    mygui = mygui-ogre;
-    socketw = socketw;
-    angelscript = angelscript_2_35_1;
-  };
 
   layan-sddm = nodarwin (pkgs.callPackage ./pkgs/layan-sddm { });
   zw3d = pkgs.callPackage ./pkgs/zw3d {

@@ -1,0 +1,54 @@
+diff -ruN a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt	2026-11-19 15:19:58
++++ b/CMakeLists.txt	2026-11-19 15:20:00
+@@ -43,7 +43,7 @@
+   endif()
+ 
+   if (NOT CMAKE_OSX_ARCHITECTURES)
+-    set(CMAKE_OSX_ARCHITECTURES "x86_64" CACHE STRING "") # target the common case
++    set(CMAKE_OSX_ARCHITECTURES "${CMAKE_SYSTEM_PROCESSOR}" CACHE STRING "")
+   endif()
+ 
+   # otherwise apple defines a macro named check that conflicts with boost
+@@ -107,9 +107,11 @@
+ # Set compiler specific build flags
+ if (NOT ANDROID AND UNIX OR MINGW)
+   include(CheckCXXCompilerFlag)
+-  check_cxx_compiler_flag(-msse OGRE_GCC_HAS_SSE)
+-  if (OGRE_GCC_HAS_SSE)
+-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse")
++  if (NOT APPLE OR CMAKE_SYSTEM_PROCESSOR MATCHES "i.86|x86_64|AMD64")
++    check_cxx_compiler_flag(-msse OGRE_GCC_HAS_SSE)
++    if (OGRE_GCC_HAS_SSE)
++      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse")
++    endif ()
+   endif ()
+ endif()
+ 
+@@ -270,13 +272,7 @@
+   set(OGRE_CONFIG_THREADS "0" CACHE STRING "Threading is unstable on Emscripten" FORCE)
+ elseif (APPLE AND NOT APPLE_IOS)
+ 
+-  set(XCODE_ATTRIBUTE_SDKROOT macosx)
+-  if(CMAKE_GENERATOR STREQUAL "Unix Makefiles")
+-    execute_process(COMMAND xcodebuild -version -sdk "${XCODE_ATTRIBUTE_SDKROOT}" Path | head -n 1 OUTPUT_VARIABLE CMAKE_OSX_SYSROOT)
+-    string(REGEX REPLACE "(\r?\n)+$" "" CMAKE_OSX_SYSROOT "${CMAKE_OSX_SYSROOT}")
+-  else()
+-    set(CMAKE_OSX_SYSROOT macosx)
+-  endif()
++  # CMAKE_OSX_SYSROOT is provided by the Nix clang wrapper; do not override it.
+ 
+   # Make sure that the OpenGL render system is selected for non-iOS Apple builds
+   set(OGRE_BUILD_RENDERSYSTEM_GLES2 FALSE)
+diff -ruN a/OgreMain/include/OgrePlatformInformation.h b/OgreMain/include/OgrePlatformInformation.h
+--- a/OgreMain/include/OgrePlatformInformation.h	2026-11-19 15:19:59
++++ b/OgreMain/include/OgrePlatformInformation.h	2026-11-19 15:20:00
+@@ -49,6 +49,8 @@
+     (defined(__GNUC__) && (defined(__i386__) || defined(__x86_64__)))
+ #   define OGRE_CPU OGRE_CPU_X86
+ 
++#elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE && (defined(__arm__) || defined(__arm64__) || defined(__aarch64__))
++#   define OGRE_CPU OGRE_CPU_ARM
+ #elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE && defined(__BIG_ENDIAN__)
+ #   define OGRE_CPU OGRE_CPU_PPC
+ #elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE

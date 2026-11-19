@@ -8,6 +8,8 @@
   callPackage,
   hanga-signal,
   apple-sdk_14,
+  sqlite,
+  zstd,
 }:
 
 let
@@ -44,11 +46,16 @@ rustPlatform.buildRustPackage {
     makeWrapper
   ];
 
-  buildInputs =
-    lib.optionals stdenv.hostPlatform.isDarwin [
-      apple-sdk_14
-    ]
-    ++ linuxGraphics;
+  # cargo-setup-hook exports ZSTD_SYS_USE_PKG_CONFIG=1 and
+  # LIBSQLITE3_SYS_USE_PKG_CONFIG=1, so these must be system libs.
+  buildInputs = [
+    sqlite
+    zstd
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    apple-sdk_14
+  ]
+  ++ linuxGraphics;
 
   env = lib.optionalAttrs stdenv.hostPlatform.isLinux {
     LD_LIBRARY_PATH = lib.makeLibraryPath linuxGraphics;

@@ -1,0 +1,43 @@
+diff -ruN a/source/main/terrain/paged/ImpostorPage.cpp b/source/main/terrain/paged/ImpostorPage.cpp
+--- a/source/main/terrain/paged/ImpostorPage.cpp	1970-01-01 10:00:01
++++ b/source/main/terrain/paged/ImpostorPage.cpp	2026-11-19 15:26:19
+@@ -379,7 +379,7 @@
+ //Do not use this constructor yourself - instead, call getTexture()
+ //to get/create an ImpostorTexture for an Entity.
+ ImpostorTexture::ImpostorTexture(ImpostorPage *group, Entity *entity) :
+-loader(0)
++loader(nullptr)
+ {
+ 	//Store scene manager and entity
+    ImpostorTexture::sceneMgr = group->getParentPagedGeometry()->getSceneManager();
+@@ -486,7 +486,7 @@
+ #else
+ 	TexturePtr renderTexture(texture);
+ 	//if we're not using a file image we need to set up a resource loader, so that the texture is regenerated if it's ever unloaded (such as switching between fullscreen and the desktop in win32)
+-	loader = std::auto_ptr<ImpostorTextureResourceLoader>(new ImpostorTextureResourceLoader(*this));
++	loader = std::unique_ptr<ImpostorTextureResourceLoader>(new ImpostorTextureResourceLoader(*this));
+ #endif
+ 	RenderTexture *renderTarget;
+ 	Camera *renderCamera;
+diff -ruN a/source/main/terrain/paged/ImpostorPage.h b/source/main/terrain/paged/ImpostorPage.h
+--- a/source/main/terrain/paged/ImpostorPage.h	1970-01-01 10:00:01
++++ b/source/main/terrain/paged/ImpostorPage.h	2026-11-19 15:26:19
+@@ -23,8 +23,7 @@
+ #include <OgreTextureManager.h>
+ #include <OgreRenderTexture.h>
+ 
+-#if OGRE_PLATFORM == OGRE_PLATFORM_LINUX
+-// linux memory fix
++#if OGRE_PLATFORM == OGRE_PLATFORM_LINUX || OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+ #include <memory>
+ #endif
+ 
+@@ -377,7 +376,7 @@
+       }
+ 
+       //This will only be used when IMPOSTOR_FILE_SAVE is set to 0
+-      std::auto_ptr<ImpostorTextureResourceLoader> loader;
++      std::unique_ptr<ImpostorTextureResourceLoader> loader;
+    };
+ 
+ 

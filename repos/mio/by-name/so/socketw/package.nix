@@ -30,12 +30,13 @@ stdenv.mkDerivation (finalAttrs: {
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=ON"
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
-    "-DCMCM_LOCAL_RESOLVE_URL=file:///build/source/cmake"
   ];
 
+  # CMakeCM's file(DOWNLOAD) of file:// JoinPaths.cmake fails on Darwin.
+  # Vendor JoinPaths and drop the CMakeCM network/local resolver entirely.
   postPatch = ''
-        mkdir -p cmake/modules
-        cat > cmake/modules/JoinPaths.cmake <<'EOF'
+    mkdir -p cmake/modules
+    cat > cmake/modules/JoinPaths.cmake <<'EOF'
     function(join_paths out_var)
       set(result "")
       foreach(part IN LISTS ARGN)
@@ -57,6 +58,9 @@ stdenv.mkDerivation (finalAttrs: {
       set(''${out_var} "''${result}" PARENT_SCOPE)
     endfunction()
     EOF
+    substituteInPlace CMakeLists.txt \
+      --replace-fail 'include(CMakeCM)' '# include(CMakeCM)' \
+      --replace-fail 'include(JoinPaths)' 'include("''${CMAKE_SOURCE_DIR}/cmake/modules/JoinPaths.cmake")'
   '';
 
   meta = with lib; {

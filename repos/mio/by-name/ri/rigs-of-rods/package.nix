@@ -7,16 +7,16 @@
   pkg-config,
   makeBinaryWrapper,
   python3,
-  ogre,
+  ogre-1_11,
   ois,
-  mygui,
+  mygui-ogre,
   fmt,
   rapidjson,
   openal,
   libx11,
   curl ? null,
   openssl ? null,
-  angelscript ? null,
+  angelscript_2_35_1 ? null,
   discord-rpc ? null,
   socketw ? null,
   caelum ? null,
@@ -43,17 +43,17 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
-    ogre
+    ogre-1_11
     ois
-    mygui
+    mygui-ogre
     fmt
     rapidjson
     openal
-    libx11
   ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [ libx11 ]
   ++ lib.optionals (curl != null) [ curl ]
   ++ lib.optionals (openssl != null) [ openssl ]
-  ++ lib.optionals (angelscript != null) [ angelscript ]
+  ++ lib.optionals (angelscript_2_35_1 != null) [ angelscript_2_35_1 ]
   ++ lib.optionals (discord-rpc != null) [ discord-rpc ]
   ++ lib.optionals (socketw != null) [ socketw ]
   ++ lib.optionals (caelum != null) [ caelum ]
@@ -76,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-DROR_BUILD_DOC_DOXYGEN=OFF"
     "-DROR_USE_PCH=ON"
     "-DOIS_INCLUDE_DIR=${ois}/include/ois"
-    "-DOIS_LIBRARY=${ois}/lib/libOIS.so"
+    "-DOIS_LIBRARY=${ois}/lib/libOIS${stdenv.hostPlatform.extensions.sharedLibrary}"
   ];
 
   NIX_CFLAGS_COMPILE = "-Wno-error=delete-incomplete -Wno-delete-incomplete -DAS_DEPRECATED -Wno-error -Wno-error=format-security -Wno-error=format -Wno-error=format-extra-args";
@@ -90,11 +90,12 @@ stdenv.mkDerivation (finalAttrs: {
 
     cp "$src/source/main/plugins.cfg.in" "$out/share/rigs-of-rods/plugins.cfg"
     substituteInPlace "$out/share/rigs-of-rods/plugins.cfg" \
-      --replace-fail "@PLUGINS_FOLDER@" "${ogre}/lib/OGRE" \
+      --replace-fail "@PLUGINS_FOLDER@" "${ogre-1_11}/lib/OGRE" \
       --replace-fail "@CFG_COMMENT_RENDERSYSTEM_D3D9@" "# " \
       --replace-fail "@CFG_COMMENT_RENDERSYSTEM_D3D11@" "# " \
       --replace-fail "@CFG_COMMENT_RENDERSYSTEM_GL@" "" \
       --replace-fail "@CFG_COMMENT_RENDERSYSTEM_GL3PLUS@" "# " \
+      --replace-warn "@CFG_COMMENT_PLUGIN_CG@" "${if stdenv.hostPlatform.isDarwin then "# " else ""}" \
       --replace-fail "@CFG_OGRE_PLUGIN_CAELUM@" "${
         if caelum != null then "Plugin=libCaelum.so" else "# Plugin=libCaelum.so"
       }" \
@@ -103,7 +104,9 @@ stdenv.mkDerivation (finalAttrs: {
 
     makeWrapper "$out/libexec/rigs-of-rods/RoR" "$out/bin/rigs-of-rods" \
       --set ROR_DATA_DIR "$out/share/rigs-of-rods" \
-      --prefix LD_LIBRARY_PATH : "$out/lib"
+      --prefix ${
+        if stdenv.hostPlatform.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH"
+      } : "$out/lib"
   '';
 
   meta = with lib; {

@@ -38,6 +38,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-lCRa3sloF0o7Wz8QAuPyJTXYrvNmAfuKsz/DzjgSyls=";
   };
 
+  patches = lib.optionals stdenv.hostPlatform.isDarwin [
+    # Apple Silicon: detect ARM CPU (avoid SSE), skip -msse, keep Nix sysroot,
+    # and stop hardcoding CMAKE_OSX_ARCHITECTURES=x86_64.
+    ./darwin-apple-silicon.patch
+  ];
+
   nativeBuildInputs = [
     cmake
     ninja
@@ -50,11 +56,13 @@ stdenv.mkDerivation (finalAttrs: {
     libpng
     zziplib
     pugixml
+    ois
+    sdl2-compat
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     freeglut
     libglvnd
     libGLU
-    ois
-    sdl2-compat
     libice
     libsm
     libx11
@@ -72,12 +80,16 @@ stdenv.mkDerivation (finalAttrs: {
     "-DOGRE_BUILD_SAMPLES=OFF"
     "-DOGRE_BUILD_TESTS=OFF"
     "-DOGRE_BUILD_TOOLS=OFF"
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    "-DOGRE_BUILD_LIBS_AS_FRAMEWORKS=OFF"
+    "-DCMAKE_OSX_ARCHITECTURES=${stdenv.hostPlatform.darwinArch}"
   ];
 
   meta = with lib; {
     description = "OGRE 1.x (Object-oriented Graphics Rendering Engine)";
     homepage = "https://www.ogre3d.org/";
     license = licenses.mit;
-    platforms = platforms.linux;
+    platforms = platforms.unix;
   };
 })
