@@ -212,6 +212,7 @@ rec {
 
   velaterm = pkgs.callPackage ./pkgs/velaterm { };
   paseo = pkgs.callPackage ./pkgs/paseo { };
+  ompanion = pkgs.callPackage ./pkgs/ompanion { };
   fooyin = pkgs.callPackage ./pkgs/fooyin { };
   ricercar = pkgs.callPackage ./pkgs/ricercar { };
 
