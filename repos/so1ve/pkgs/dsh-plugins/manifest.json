@@ -1,9 +1,9 @@
 {
   "npm:dsh-chat-import": {
-    "version": "0.26.7",
-    "url": "https://registry.npmjs.org/dsh-chat-import/-/dsh-chat-import-0.26.7.tgz",
-    "integrity": "sha512-5vhovoHxqJqpU8jW89cFGu/ydZRJKIt/glovzdQirBFLzmSrUaNH4W8CK92korZKy7tGVxzHVGrV2rXhx1amCg==",
-    "npmDepsHash": "sha256-S9sLwlj4AAcKUhD0zkglkd+Wcx7NOqe+jfEWDp4JRpw="
+    "version": "0.26.8",
+    "url": "https://registry.npmjs.org/dsh-chat-import/-/dsh-chat-import-0.26.8.tgz",
+    "integrity": "sha512-NcZ6MM4qz5rfJA+PPhzkavd3hlUiqC+ypgQDWCNjIKqEkYowMAYcwJymtclvtce53OhlFgsQnnYeMMO45Y1Bow==",
+    "npmDepsHash": "sha256-UiWBEbBbD3xzhVNaAHlGv/+Wf7TZ8cK6pSikl4GzUM0="
   },
   "npm:dsh-context": {
     "version": "0.85.1",
@@ -13,9 +13,9 @@
   },
   "github:kingcharleslzy-ai/dsh-purge": {
     "version": "1.7.20",
-    "rev": "3c47ea9d5e9f7898805358cd5a679f4f81872762",
-    "url": "https://codeload.github.com/kingcharleslzy-ai/dsh-purge/tar.gz/3c47ea9d5e9f7898805358cd5a679f4f81872762",
-    "hash": "sha256-f8Z07kN3lgViUOWQp7SlpOwrTEuUSBWP0jRs1Kjn9Xo=",
+    "rev": "e519253d5b01344056055af9d2041dcafa42fed3",
+    "url": "https://codeload.github.com/kingcharleslzy-ai/dsh-purge/tar.gz/e519253d5b01344056055af9d2041dcafa42fed3",
+    "hash": "sha256-HcJJ+7VuJCdCuG6L13FKFY/SUYU8Oz80TqvQC9STCpc=",
     "npmDepsHash": "sha256-dUwVwG0Ai6Mdj/6Fpd7tELTTaFKvIfy6LnAyH0hLUO0="
   },
   "npm:@anionex/dsh-turn-rewind": {
