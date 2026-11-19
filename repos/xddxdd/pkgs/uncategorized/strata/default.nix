@@ -11,14 +11,15 @@
 }:
 
 let
-  version = "0.2.15";
+  version = "0.2.16";
   cudaCapabilities = cudaPackages.backendStdenv.cudaCapabilities;
   cudaArchitectures = lib.concatMapStringsSep ";" (lib.replaceStrings
     [ "." ]
     [ "" ]
   ) cudaCapabilities;
   experimentalSm60 = lib.any (capability: lib.versionOlder capability "7.5") cudaCapabilities;
-  # setup.py keeps the experimental CUDA 12 engine in its own folder (engine_dir(12))
+  # setup.py keeps the experimental CUDA 12 engine in its own folder (engine_dir(12));
+  # 0.2.16 moves engine sources to engine/ and the run-time tree to terminal/
   engineSubdir = if experimentalSm60 then "engine-cuda12" else "engine";
   llamaRev = "3cf03257f219afbe7334045ff7c6a06ac68c627d";
   llamaSrc = fetchFromGitHub {
@@ -54,7 +55,7 @@ let
       owner = "Niko1221";
       repo = "Strata";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-ehbQHpljUeclywp0ubGcrGG+xQ35SppRoosVWZLJiDY=";
+      hash = "sha256-g6TO9zC2jt41B5oADYrypIrXpb73/QzXmqjUuzBe9E4=";
     };
 
     __structuredAttrs = true;
@@ -86,38 +87,37 @@ let
       (lib.cmakeFeature "CMAKE_CUDA_ARCHITECTURES" cudaArchitectures)
     ];
 
+    env.cmakeDir = "../engine";
+
     ninjaFlags = [ "strata" ];
 
     postBuild = ''
-      cmake -S "$cmakeDir/tools/vision" -B "$cmakeDir/build-vision" -G Ninja \
+      cmake -S "$cmakeDir/../terminal/tools/vision" -B "$cmakeDir/../build-vision" -G Ninja \
         ${lib.cmakeFeature "CMAKE_BUILD_TYPE" "Release"} \
-        ${lib.cmakeFeature "LLAMA_DIR" "${llamaSrc}"} \
         ${lib.cmakeBool "STRATA_VISION_CUDA" true} \
+        ${lib.cmakeBool "STRATA_PORTABLE" false} \
         ${lib.escapeShellArg (lib.cmakeFeature "CMAKE_CUDA_ARCHITECTURES" cudaArchitectures)}
-      cmake --build "$cmakeDir/build-vision" --target strata-vision -j "$NIX_BUILD_CORES"
+      cmake --build "$cmakeDir/../build-vision" --target strata-vision -j "$NIX_BUILD_CORES"
     '';
 
     installPhase = ''
       runHook preInstall
 
-      cd "$cmakeDir"
+      cd "$cmakeDir/.."
 
-      install -Dm755 build/strata "$out/share/strata/${engineSubdir}/strata"
-      install -Dm755 build-vision/bin/strata-vision "$out/share/strata/${engineSubdir}/strata-vision"
+      install -Dm755 build/strata "$out/share/strata/terminal/${engineSubdir}/strata"
+      install -Dm755 build-vision/bin/strata-vision "$out/share/strata/terminal/${engineSubdir}/strata-vision"
       install -Dm644 ${./hydrate.py} "$out/libexec/strata/hydrate.py"
 
       cp -a . "$out/share/strata/"
-      cp -a ${llamaSrc} "$out/share/strata/third_party/llama.cpp"
       # file(COPY) carries the read-only permission bits of the nix store
       # source tree; make the copied build trees writable before removal
       chmod -R u+w "$out/share/strata/build" "$out/share/strata/build-vision"
       rm -rf "$out/share/strata/build" "$out/share/strata/build-vision"
 
-      sed -i -e '/^cmake==/d' -e '/^ninja==/d' "$out/share/strata/requirements.txt"
-
       # the engine copy's BUILD.json must carry the same src hash setup.py
       # recomputes at run time, or it recompiles the engine instead of using it
-      cd "$out/share/strata"
+      cd "$out/share/strata/terminal"
       python3 - <<'PYEOF'
       import json
       import setup
@@ -134,19 +134,19 @@ let
       with open("${engineSubdir}/BUILD.json", "w", encoding="utf-8") as f:
           json.dump(meta, f, indent=1)
       PYEOF
-      rm -rf "$out/share/strata/__pycache__"
+      rm -rf "$out/share/strata/terminal/__pycache__"
 
       # makeWrapper --run content is pasted verbatim into the generated wrapper, so
       # $dest there is expanded each time the wrapper runs
       makeWrapper ${lib.getExe pythonEnv} "$out/bin/strata" \
         --run ${lib.escapeShellArg hydrateScript} \
         --set STRATA_EXECV 1 \
-        --add-flags '"''$dest/setup.py"'
+        --add-flags '"''$dest/terminal/setup.py"'
 
       makeWrapper ${lib.getExe pythonEnv} "$out/bin/strata-chat" \
         --run ${lib.escapeShellArg hydrateScript} \
         --set STRATA_EXECV 1 \
-        --add-flags '"''$dest/chat.py"'
+        --add-flags '"''$dest/terminal/tools/chat.py"'
 
       runHook postInstall
     '';
@@ -185,7 +185,7 @@ symlinkJoin {
       wrapProgram "$out/bin/$program" \
         --prefix PYTHONPATH : "${runtimePython}/${python3.sitePackages}"
     done
-    STRATA_NO_ACQUIRE=1 PYTHONPATH="${runtimePython}/${python3.sitePackages}:$out/share/strata" \
+    STRATA_NO_ACQUIRE=1 PYTHONPATH="${runtimePython}/${python3.sitePackages}:$out/share/strata/terminal" \
       ${lib.getExe pythonEnv} -c \
       'import setup; setup.pip_install(setup.runtime_packages(), "runtime dependencies"); import strata_cli.monitor'
   '';

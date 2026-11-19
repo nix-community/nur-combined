@@ -17,9 +17,13 @@ class HydrationTests(unittest.TestCase):
         self.root = Path(self.tmp.name)
         self.source = self.root / "store-one" / "share" / "strata"
         self.dest = self.root / "fresh" / "data" / "strata"
-        self.put(self.source / "setup.py", "code one")
-        self.put(self.source / "engine" / "strata", "engine one")
+        self.put(self.source / "terminal" / "setup.py", "code one")
+        self.put(self.source / "terminal" / "engine" / "strata", "engine one")
         self.put(self.source / "data" / "profile.bin", "packaged profile")
+        self.put(
+            self.source / "terminal" / "data" / "settings-register.json",
+            "packaged settings",
+        )
 
     def put(self, path, value):
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -29,15 +33,20 @@ class HydrationTests(unittest.TestCase):
         hydration.hydrate(self.source, self.dest)
 
     def test_fresh_parent_and_writable_files(self):
-        (self.source / "engine" / "strata").chmod(0o555)
+        (self.source / "terminal" / "engine" / "strata").chmod(0o555)
         self.run_hydration()
-        self.assertEqual((self.dest / "setup.py").read_text(), "code one")
-        self.assertTrue((self.dest / "engine" / "strata").stat().st_mode & 0o200)
+        self.assertEqual((self.dest / "terminal" / "setup.py").read_text(), "code one")
+        self.assertTrue(
+            (self.dest / "terminal" / "engine" / "strata").stat().st_mode & 0o200
+        )
 
     def test_legacy_data_config_and_extra_engine_files_survive(self):
         self.put(self.dest / ".nix-store-version", "old")
         self.put(self.dest / "data" / "profile.bin", "user profile")
         self.put(self.dest / "data" / "models" / "model.gguf", "user model")
+        self.put(
+            self.dest / "terminal" / "data" / "settings-register.json", "user settings"
+        )
         self.put(self.dest / "strata-user.json", "user config")
         self.put(self.dest / "engine" / "custom", "user engine")
         model = self.dest / "data" / "models" / "model.gguf"
@@ -48,31 +57,50 @@ class HydrationTests(unittest.TestCase):
             (self.dest / "data" / "profile.bin").read_text(), "user profile"
         )
         self.assertEqual(model.read_text(), "user model")
+        self.assertEqual(
+            (self.dest / "terminal" / "data" / "settings-register.json").read_text(),
+            "user settings",
+        )
         self.assertEqual(model.stat().st_mode, before.st_mode)
         self.assertEqual(model.stat().st_mtime_ns, before.st_mtime_ns)
         self.assertEqual((self.dest / "strata-user.json").read_text(), "user config")
         self.assertEqual((self.dest / "engine" / "custom").read_text(), "user engine")
 
+    def test_stale_engine_sources_are_pruned(self):
+        self.put(
+            self.source / "engine" / "src" / "current.cpp", "current engine source"
+        )
+        self.put(self.dest / "engine" / "src" / "stale.cpp", "stale engine source")
+        self.put(self.dest / "engine" / "custom" / "keep.bin", "user engine data")
+        self.run_hydration()
+        self.assertFalse((self.dest / "engine" / "src" / "stale.cpp").exists())
+        self.assertEqual(
+            (self.dest / "engine" / "custom" / "keep.bin").read_text(),
+            "user engine data",
+        )
+
     def test_output_identity_refresh_and_backup(self):
         self.run_hydration()
         old = self.source
         self.source = self.root / "store-two" / "share" / "strata"
-        self.put(self.source / "setup.py", "code two")
-        self.put(self.source / "engine" / "strata", "engine two")
+        self.put(self.source / "terminal" / "setup.py", "code two")
+        self.put(self.source / "terminal" / "engine" / "strata", "engine two")
         self.run_hydration()
-        self.assertEqual((self.dest / "engine" / "strata").read_text(), "engine two")
+        self.assertEqual(
+            (self.dest / "terminal" / "engine" / "strata").read_text(), "engine two"
+        )
         self.assertEqual(
             (self.dest / ".nix-store-path").read_text().strip(), str(self.source)
         )
-        backups = list(self.dest.glob(".nix-backup-*/engine/strata"))
+        backups = list(self.dest.glob(".nix-backup-*/terminal/engine/strata"))
         self.assertEqual(len(backups), 1)
         self.assertEqual(
-            backups[0].read_text(), (old / "engine" / "strata").read_text()
+            backups[0].read_text(), (old / "terminal" / "engine" / "strata").read_text()
         )
 
     def test_repeat_is_noop(self):
         self.run_hydration()
-        code = self.dest / "setup.py"
+        code = self.dest / "terminal" / "setup.py"
         before = code.stat()
         self.run_hydration()
         self.assertEqual(code.stat().st_ino, before.st_ino)
@@ -90,11 +118,24 @@ class HydrationTests(unittest.TestCase):
         self.assertEqual((target / "profile.bin").read_text(), "user data")
         self.assertEqual((target / "profile.bin").stat(), before)
 
+    def test_terminal_data_symlink_is_not_followed(self):
+        target = self.root / "external-terminal-data"
+        self.put(target / "settings-register.json", "user settings")
+        (self.dest / "terminal").mkdir(parents=True)
+        (self.dest / "terminal" / "data").symlink_to(target, target_is_directory=True)
+        before = (target / "settings-register.json").stat()
+        self.run_hydration()
+        self.assertTrue((self.dest / "terminal" / "data").is_symlink())
+        self.assertEqual(
+            (target / "settings-register.json").read_text(), "user settings"
+        )
+        self.assertEqual((target / "settings-register.json").stat(), before)
+
     def test_engine_directory_symlink_fails_closed(self):
         target = self.root / "external-engine"
         self.put(target / "strata", "user engine")
-        self.dest.mkdir(parents=True)
-        (self.dest / "engine").symlink_to(target, target_is_directory=True)
+        (self.dest / "terminal").mkdir(parents=True)
+        (self.dest / "terminal" / "engine").symlink_to(target, target_is_directory=True)
         with self.assertRaises(RuntimeError):
             self.run_hydration()
         self.assertEqual((target / "strata").read_text(), "user engine")
@@ -113,11 +154,12 @@ class HydrationTests(unittest.TestCase):
         target = self.root / "external.py"
         target.write_text("user source")
         self.dest.mkdir(parents=True)
-        (self.dest / "setup.py").symlink_to(target)
+        (self.dest / "terminal" / "setup.py").parent.mkdir(parents=True, exist_ok=True)
+        (self.dest / "terminal" / "setup.py").symlink_to(target)
         self.run_hydration()
         self.assertEqual(target.read_text(), "user source")
-        self.assertFalse((self.dest / "setup.py").is_symlink())
-        backups = list(self.dest.glob(".nix-backup-*/setup.py"))
+        self.assertFalse((self.dest / "terminal" / "setup.py").is_symlink())
+        backups = list(self.dest.glob(".nix-backup-*/terminal/setup.py"))
         self.assertEqual(len(backups), 1)
         self.assertEqual(os.readlink(backups[0]), str(target))
 

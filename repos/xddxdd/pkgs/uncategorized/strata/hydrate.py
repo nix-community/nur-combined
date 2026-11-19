@@ -18,9 +18,18 @@ def directory(path):
 # so those subtrees are mirrored, not merged: a merged copy keeps the files of
 # the previous version that the source no longer has, the hash then differs from
 # the one the prebuilt engine was built with, and setup refuses to use it.
-# Everything else (configs, models, packs, the data folder) is user data and is
-# left alone.
-CODE_DIRS = ("cmake", "src", "include", "third_party/ggml", "third_party/strata-ggml")
+# 0.2.16 keeps the engine sources under engine/ and hashes the terminal's vision
+# tower from ROOT, so the hashed subtrees cover both; everything else (configs,
+# models, packs, the data folder) is user data and is left alone.
+CODE_DIRS = (
+    "engine/cmake",
+    "engine/src",
+    "engine/include",
+    "engine/third_party/ggml",
+    "engine/third_party/strata-ggml",
+    "engine/third_party/stb",
+    "terminal/tools/vision",
+)
 
 
 def prune(source, dest):
@@ -67,7 +76,13 @@ def hydrate(source, dest):
             if src.is_dir():
                 directory(dst)
                 for child in sorted(src.iterdir()):
-                    merge(child, dst / child.name, relative / child.name, data)
+                    child_rel = relative / child.name
+                    merge(
+                        child,
+                        dst / child.name,
+                        child_rel,
+                        data or child_rel == Path("terminal") / "data",
+                    )
                 return
             if exists:
                 if dst.is_dir() and not dst.is_symlink():

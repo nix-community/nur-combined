@@ -17,7 +17,15 @@ buildGo127Module (finalAttrs: {
   strictDeps = true;
   sourceRoot = "bifrost-transports-v${finalAttrs.version}/transports";
 
-  vendorHash = "sha256-C1Ehf2J9xq68El3wtfEdPQjRX2dKBwbVXvmT7yzjwZs=";
+  postPatch = ''
+    substituteInPlace go.mod --replace-fail "go 1.27.4" "go 1.27.3"
+    grep -oP '^\t\Kgithub\.com/maximhq/bifrost/\S+' go.mod | sort -u | while read -r mod; do
+      printf 'replace %s => ../%s\n' "$mod" "''${mod#github.com/maximhq/bifrost/}" >> go.mod
+      substituteInPlace "../''${mod#github.com/maximhq/bifrost/}/go.mod" --replace-fail "go 1.27.4" "go 1.27.3"
+    done
+  '';
+
+  vendorHash = "sha256-9nX4yeV/y5KGux6DdBHuVBW4IA3JPJ0bluHeJe10JzE=";
 
   env.CGO_ENABLED = 1;
   env.GOWORK = "off";
