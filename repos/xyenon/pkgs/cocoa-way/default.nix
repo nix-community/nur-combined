@@ -14,16 +14,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cocoa-way";
-  version = "2.1.2";
+  version = "2.1.3";
 
   src = fetchFromGitHub {
     owner = "J-x-Z";
     repo = "cocoa-way";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-WJ8B79ED9+v3HN+XKQaknQiKLWWwq0YELfarXUmOatw=";
+    hash = "sha256-NeqIKikhLoqjKojsVmcnDnmSY6NykcCyWWL8iRVjpKE=";
   };
 
-  cargoHash = "sha256-FVdbKeIUqSSqDNiwzIB+ME+6nSg5LLOeOxRFY4ejGbE=";
+  cargoHash = "sha256-zhRbswxhchLEe5bfacobnjS1QMW9PuZkjYsi1/OxI5U=";
 
   nativeBuildInputs = [
     pkg-config
@@ -47,6 +47,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --replace-fail '/tmp/' "$TMPDIR/" \
       --replace-fail "$TMPDIR/cw-" '/tmp/cw-'
   '';
+
+  # NSUserDefaults persistence needs a cfprefsd session, which Nix build users lack.
+  checkFlags = [
+    "--skip"
+    "apple_update_notice::native::preference_tests::dismissal_roundtrip_is_scoped_and_preserves_language"
+    "--skip"
+    "macos_preferences::tests::independent_suite_persists_without_modifying_the_user_language"
+  ];
 
   postInstall = ''
     install -Dm755 run_waypipe.sh $out/bin/run_waypipe.sh
