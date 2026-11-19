@@ -11,19 +11,22 @@
 , packaging
 , pathspec
 , json5
+, mcp
+, pydantic
+, lark
 , ...
 }:
 
 buildPythonApplication rec {
   pname = "spec-kit";
-  version = "1.1.0";
+  version = "1.4.3";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "github";
     repo = "spec-kit";
     rev = "v${version}";
-    hash = "sha256-NbHdMup6YmVI/rfnTo7AJeoXN9TTnrQrS8L8U1Hw5uM=";
+    hash = "sha256-jP/JyCUiwQas81rTnSRrr0NGmcTboiR5rAA3O9r8Jyw=";
   };
 
   nativeBuildInputs = [
@@ -40,6 +43,9 @@ buildPythonApplication rec {
     packaging
     pathspec
     json5
+    mcp
+    pydantic
+    lark
   ];
 
   pythonImportsCheck = [ "specify_cli" ];
