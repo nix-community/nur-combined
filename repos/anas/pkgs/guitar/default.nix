@@ -3,6 +3,7 @@
 , rustPlatform
 , pkg-config
 , openssl
+, libgit2
 , git
 }:
 
@@ -27,6 +28,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [
     git
     openssl
+    libgit2
   ];
 
   # There is no tests

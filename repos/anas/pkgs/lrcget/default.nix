@@ -1,20 +1,26 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, fetchNpmDeps
-, fetchurl
-, cargo-tauri
-, makeBinaryWrapper
-, nodejs
-, npmHooks
-, pkg-config
-, wrapGAppsHook3
-, alsa-lib
-, openssl
-, webkitgtk_4_1
-, nix-update-script
-,
+{
+  lib,
+  stdenv,
+  rustPlatform,
+
+  fetchFromGitHub,
+  fetchNpmDeps,
+  fetchurl,
+
+  cargo-tauri,
+  makeBinaryWrapper,
+  nodejs,
+  npmHooks,
+  pkg-config,
+  wrapGAppsHook3,
+
+  alsa-lib,
+  openssl,
+  sqlite,
+  webkitgtk_4_1,
+  zstd,
+
+  nix-update-script,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -60,7 +66,7 @@ rustPlatform.buildRustPackage rec {
       # dictionaries for different versions of Lindera.
       # The name of those subdirectories is made up of the Lindera version
       # and the "format" version (currently only for format version 2).
-      # lrcget's Lindera version is in their Cargo.lock file: https://github.com/tranxuanthang/lrcget/tree/${version}/src-tauri/Cargo.lock
+      # LRCGET's Lindera version is in their Cargo.lock file: https://github.com/tranxuanthang/lrcget/tree/${version}/src-tauri/Cargo.lock
       # And the current format version is 2, represented by the -fmt2 suffix in the subdirectory name.
       cacheSubdir = "5.3.0-fmt2";
 
@@ -75,10 +81,10 @@ rustPlatform.buildRustPackage rec {
       # https://github.com/lindera/lindera/blob/v1.5.1/lindera-cc-cedict/build.rs
 
       dict =
-        { language
-        , filename
-        , hash
-        ,
+        {
+          language,
+          filename,
+          hash,
         }:
         {
           inherit filename language;
@@ -88,7 +94,7 @@ rustPlatform.buildRustPackage rec {
           };
         };
 
-      # lrcget via charabia requires the Korean and Japanese (unidic) dictionaries.
+      # LRCGET via charabia requires the Korean and Japanese (unidic) dictionaries.
       dictionaries = {
         lindera-ko-dic = dict {
           language = "Korean";
@@ -117,16 +123,20 @@ rustPlatform.buildRustPackage rec {
     nodejs
     npmHooks.npmConfigHook
     rustPlatform.bindgenHook
+    pkg-config
   ]
   ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
-    pkg-config
     wrapGAppsHook3
   ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
     makeBinaryWrapper
   ];
 
-  buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [
+  buildInputs = [
+    sqlite
+    zstd
+  ]
+  ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
     alsa-lib
     openssl
     webkitgtk_4_1
@@ -138,20 +148,22 @@ rustPlatform.buildRustPackage rec {
   # Disable checkPhase, since the project doesn't contain tests
   doCheck = false;
 
-  postInstall = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
-    install -Dm644 packaging/linux/lrcget.desktop \
-      $out/share/applications/lrcget.desktop
-
-    install -Dm644 src-tauri/icons/icon.png \
-      $out/share/pixmaps/lrcget.png
-
-    install -Dm644 packaging/linux/lrcget.metainfo.xml \
-      $out/share/metainfo/lrcget.metainfo.xml
-  ''
   # make the binary also runnable from the shell
-  + lib.optionalString stdenv.hostPlatform.isDarwin ''
-    makeWrapper "$out/Applications/lrcget.app/Contents/MacOS/lrcget" "$out/bin/lrcget"
-  '';
+  postInstall =
+    lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
+      install -Dm644 packaging/linux/lrcget.desktop \
+        $out/share/applications/lrcget.desktop
+
+      install -Dm644 src-tauri/icons/icon.png \
+        $out/share/pixmaps/lrcget.png
+
+      install -Dm644 packaging/linux/lrcget.metainfo.xml \
+        $out/share/metainfo/lrcget.metainfo.xml
+    ''
+    # make the binary also runnable from the shell
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      makeWrapper "$out/Applications/lrcget.app/Contents/MacOS/lrcget" "$out/bin/lrcget"
+    '';
 
   preFixup = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
     gappsWrapperArgs+=(
