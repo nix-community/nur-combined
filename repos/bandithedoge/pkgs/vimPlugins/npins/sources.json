@@ -52,6 +52,19 @@
       "url": "https://github.com/L3MON4D3/LuaSnip/archive/0abc8f390b278c3b4aabc4c004ac8a088b65cf24.tar.gz",
       "hash": "sha256-5Dm5maKjGcduew/cUZTWeyyVEgpZ0OpoVdMRYEw8Li0="
     },
+    "agentic.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "carlos-algms",
+        "repo": "agentic.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "4750d6ce4298b3018dd67f975a1457afbeeaa09f",
+      "url": "https://github.com/carlos-algms/agentic.nvim/archive/4750d6ce4298b3018dd67f975a1457afbeeaa09f.tar.gz",
+      "hash": "sha256-LfjVF0Elq0VQLxO3LQZKjt6IdsK2JvUlW8mw1EeA+Hk="
+    },
     "better-comments.nvim": {
       "type": "Git",
       "repository": {
