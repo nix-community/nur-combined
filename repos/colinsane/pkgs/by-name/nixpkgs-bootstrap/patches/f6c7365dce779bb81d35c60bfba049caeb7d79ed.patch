@@ -1,4 +1,4 @@
-From 35d8ba76e9d4f06db359c6a735669097484ab3b6 Mon Sep 17 00:00:00 2001
+From f6c7365dce779bb81d35c60bfba049caeb7d79ed Mon Sep 17 00:00:00 2001
 From: Colin <colin@uninsane.org>
 Date: Fri, 1 May 2026 22:48:46 +0000
 Subject: [PATCH] libtirpc: enable rpcdb feature
@@ -18,7 +18,7 @@ erroring like:
  1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/pkgs/by-name/li/libtirpc/package.nix b/pkgs/by-name/li/libtirpc/package.nix
-index 560039ab72290a6204b5c532c00ecdd07e6b9a8a..a6ee6e955fe8385efd13477a6ca6a138b924c848 100644
+index 560039ab7229..a6ee6e955fe8 100644
 --- a/pkgs/by-name/li/libtirpc/package.nix
 +++ b/pkgs/by-name/li/libtirpc/package.nix
 @@ -33,7 +33,10 @@ stdenv.mkDerivation (finalAttrs: {

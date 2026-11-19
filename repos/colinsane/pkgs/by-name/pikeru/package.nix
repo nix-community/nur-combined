@@ -148,5 +148,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/dvhar/pikeru";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ colinsane ];
+    platforms = lib.platforms.linux;
   };
 })

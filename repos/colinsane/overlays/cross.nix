@@ -806,6 +806,14 @@ prev.lib.composeManyExtensions [
       # 2026/01/27: upstreaming is blocked on gnustep-base cross compilation
       # unar = addNativeInputs [ bintools ] prev.unar;
 
+      # 2026-11-19: still required
+      vips = prev.vips.overrideAttrs (prevAttrs: {
+        # patchShebangs needs build Python for doc/fixup-gir-for-doc.py.
+        nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [
+          buildPackages.python3
+        ];
+      });
+
       # 2025/12/07: upstreaming is blocked on h5py, pyarrow/arrow-cpp, thrift, apache-orc, google-cloud-cpp
       # visidata = prev.visidata.override {
       #   # hdf5 / h5py don't cross-compile, but i don't use that file format anyway.

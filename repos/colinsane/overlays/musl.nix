@@ -368,6 +368,21 @@ super.lib.composeManyExtensions [
     #   ];
     # };
 
+    # N.B. DON'T REMOVE THIS coreutils OVERRIDE WITHOUT VERIFYING IMMEDIATELY AFTER:
+    #   `nix-build --expr 'builtins.head (import ./. {}).pkgsMusl.curl.src.nativeBuildInputs'`
+    # this override fixes the curl used by `fetchurl` callers -- FOD derivations which do not invalidate when their inputs change.
+    # as such, you can drop this override after a successful system build, and observe no rebuilds, despite the bug persisting!
+    # ^^^^ run that command before dropping ^^^^
+    coreutils = prev.coreutils.overrideAttrs (upstream: lib.optionalAttrs (
+      upstream.buildInputs == [ ] && (final.musl.allocatorModel or "malloc-ng") == "mimalloc"
+    ) {
+      # this coreutils parameterization fails its `write-errors` unit test.
+      # that unit test budgets 12 MiB for the environment, but mimalloc pads to 32 MiB.
+      checkFlags = (upstream.checkFlags or [ ]) ++ [
+        "TESTS=$(filter-out tests/misc/write-errors.sh,$(all_tests) $(factor_tests))"
+      ];
+    });
+
     # 2026-01-29: tried, but could not fix build
     # dante = prev.dante.overrideAttrs (upstream: {
     #   patches = (upstream.patches or []) ++ [

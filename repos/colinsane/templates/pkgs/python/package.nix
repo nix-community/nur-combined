@@ -54,6 +54,7 @@
 
   passthru = {
     # if `pythonModule` isn't set, then `python3.withPackages (_: [ MY_PACKAGE ])` will silently skip you.
+    # this is the sane equivalent to `python3.pkgs.toPythonModule self`.
     pythonModule = python3;
   };
 

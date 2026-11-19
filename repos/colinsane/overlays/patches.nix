@@ -175,24 +175,24 @@ super.lib.composeManyExtensions [
   (_: prev: {
     # Preserve beam.override: reduce-closure overrides wxSupport in a later overlay.
 
-    ada = prev.ada.overrideAttrs (old: {
-      # With a cross-compilation emulator (including pkgsStatic's `env`),
-      # CMake's legacy add_test form does not resolve executable target names.
-      postPatch = (old.postPatch or "") + ''
-        substituteInPlace cmake/add-cpp-test.cmake \
-          --replace-fail 'add_test(''${TEST_NAME} ''${CMAKE_CROSSCOMPILING_EMULATOR} ''${TEST_NAME})' \
-            'add_test(NAME ''${TEST_NAME} COMMAND ''${CMAKE_CROSSCOMPILING_EMULATOR} $<TARGET_FILE:''${TEST_NAME}>)'
-      '';
-    });
+    # ada = prev.ada.overrideAttrs (old: {
+    #   # With a cross-compilation emulator (including pkgsStatic's `env`),
+    #   # CMake's legacy add_test form does not resolve executable target names.
+    #   postPatch = (old.postPatch or "") + ''
+    #     substituteInPlace cmake/add-cpp-test.cmake \
+    #       --replace-fail 'add_test(''${TEST_NAME} ''${CMAKE_CROSSCOMPILING_EMULATOR} ''${TEST_NAME})' \
+    #         'add_test(NAME ''${TEST_NAME} COMMAND ''${CMAKE_CROSSCOMPILING_EMULATOR} $<TARGET_FILE:''${TEST_NAME}>)'
+    #   '';
+    # });
 
     # upstreaming: <https://github.com/NixOS/nixpkgs/pull/582586>
-    bind = prev.bind.overrideAttrs {
-      # XXX(2026-10-11): isc_rwlock_benchmark fails for extremely high core count (512).
-      # `nix-build -A bind --cores 32` still causes it to use 512 cores.
-      #   (fixed by https://github.com/NixOS/nixpkgs/pull/582586)
-      # doCheck = false;
-      NIX_BUILD_CORES = "128";
-    };
+    # bind = prev.bind.overrideAttrs {
+    #   # XXX(2026-10-11): isc_rwlock_benchmark fails for extremely high core count (512).
+    #   # `nix-build -A bind --cores 32` still causes it to use 512 cores.
+    #   #   (fixed by https://github.com/NixOS/nixpkgs/pull/582586)
+    #   # doCheck = false;
+    #   NIX_BUILD_CORES = "128";
+    # };
 
     # XXX(2026-10-02): gcc15 -> gcc16 upgrade detects more warnings than before; default -Werror flag breaks the build.
     # clightning = prev.clightning.overrideAttrs (prevAttrs: {
@@ -232,13 +232,13 @@ super.lib.composeManyExtensions [
 
     # XXX(2026-10-22): ha-mcp depends on broken fastmcp-slim
     # fix borrowed from <https://github.com/NixOS/nixpkgs/pull/577124>
-    ha-mcp = prev.ha-mcp.override {
-      python3Packages = final.python3Packages.overrideScope (
-        pyFinal: _pyPrev: {
-          mcp = pyFinal.mcp_1;
-        }
-      );
-    };
+    # ha-mcp = prev.ha-mcp.override {
+    #   python3Packages = final.python3Packages.overrideScope (
+    #     pyFinal: _pyPrev: {
+    #       mcp = pyFinal.mcp_1;
+    #     }
+    #   );
+    # };
 
     # XXX(2026-10-16): `nix-build -A haskell.compiler.ghc910` fails on high-core count machines.
     # the musl and gnu forms both fail, for different reasons; reducing core count solves both.
@@ -276,14 +276,14 @@ super.lib.composeManyExtensions [
       #   drv
       # ) prev.haskell.compiler;
       compiler = prev.haskell.compiler // {
-        ghc9103 = prev.haskell.compiler.ghc9103.overrideAttrs {
-          # NIX_BUILD_CORES = "8";
-          NIX_BUILD_CORES = "128";
-        };
-        ghc910 = prev.haskell.compiler.ghc910.overrideAttrs {
-          # NIX_BUILD_CORES = "8";
-          NIX_BUILD_CORES = "128";
-        };
+        # ghc9103 = prev.haskell.compiler.ghc9103.overrideAttrs {
+        #   # NIX_BUILD_CORES = "8";
+        #   NIX_BUILD_CORES = "128";
+        # };
+        # ghc910 = prev.haskell.compiler.ghc910.overrideAttrs {
+        #   # NIX_BUILD_CORES = "8";
+        #   NIX_BUILD_CORES = "128";
+        # };
         # ghc984Binary = prev.haskell.compiler.ghc984Binary.overrideAttrs {
         #   # NIX_BUILD_CORES = "8";
         #   NIX_BUILD_CORES = "128";
@@ -309,7 +309,7 @@ super.lib.composeManyExtensions [
     #   useTBB = false;
     # };
 
-    # 2026-10-16: still required
+    # 2026-11-18: still required
     # XXX(2026-09-23): `python3Packages.pysaml2` fails build, takes down matrix-syanpse alongside it.
     matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overridePythonAttrs (prevAttrs: {
       nativeCheckInputs = prev.lib.subtractLists prevAttrs.optional-dependencies.saml2 prevAttrs.nativeCheckInputs;
@@ -374,26 +374,26 @@ super.lib.composeManyExtensions [
     #   '' + (prevAttrs.postCheck or "");
     # });
 
-    openssl = prev.openssl.overrideAttrs (prevAttrs: {
-      # 2026-10-23: on both GNU and musl, AF_ALG sockets exist on the build host,
-      # but binding cbc(aes) fails with ENOENT without the required kernel crypto support.
-      # Alpine also skips this kernel-dependent test; keep the engine enabled:
-      # <https://gitlab.alpinelinux.org/alpine/aports/-/blob/a9ee19e3bec8d1ac288a0912f6c860b0000766fd/main/openssl/APKBUILD>
-      checkFlags = (prevAttrs.checkFlags or [ ]) ++ [ "TESTS=-test_afalg" ];
-    });
+    # openssl = prev.openssl.overrideAttrs (prevAttrs: {
+    #   # 2026-10-23: on both GNU and musl, AF_ALG sockets exist on the build host,
+    #   # but binding cbc(aes) fails with ENOENT without the required kernel crypto support.
+    #   # Alpine also skips this kernel-dependent test; keep the engine enabled:
+    #   # <https://gitlab.alpinelinux.org/alpine/aports/-/blob/a9ee19e3bec8d1ac288a0912f6c860b0000766fd/main/openssl/APKBUILD>
+    #   checkFlags = (prevAttrs.checkFlags or [ ]) ++ [ "TESTS=-test_afalg" ];
+    # });
 
     pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
       (_pyself: pysuper: {
-        astropy = pysuper.astropy.overridePythonAttrs (prevAttrs: {
-          patches = (prevAttrs.patches or [ ]) ++ [
-            (final.fetchpatch {
-              # XXX(2026-10-26): some flake because one of the tests requires on a side-effect of another test, IIUC.
-              # https://github.com/astropy/astropy/pull/20665
-              url = "https://github.com/astropy/astropy/commit/fa785399f1582c1ad4d46beb5cefe413fb29d626.patch";
-              hash = "sha256-z8uUDJoO5tzlXv2IEBeQUUyKMym4ujtC1YWb3A+GEfE=";
-            })
-          ];
-        });
+        # astropy = pysuper.astropy.overridePythonAttrs (prevAttrs: {
+        #   patches = (prevAttrs.patches or [ ]) ++ [
+        #     (final.fetchpatch {
+        #       # XXX(2026-10-26): some flake because one of the tests requires on a side-effect of another test, IIUC.
+        #       # https://github.com/astropy/astropy/pull/20665
+        #       url = "https://github.com/astropy/astropy/commit/fa785399f1582c1ad4d46beb5cefe413fb29d626.patch";
+        #       hash = "sha256-z8uUDJoO5tzlXv2IEBeQUUyKMym4ujtC1YWb3A+GEfE=";
+        #     })
+        #   ];
+        # });
 
         dask = pysuper.dask.overridePythonAttrs (prevAttrs: {
           # XXX(2026-10-18): hundreds of pytest workers each create their own Dask pools,
@@ -416,6 +416,7 @@ super.lib.composeManyExtensions [
           ];
         });
 
+        # 2026-11-17: still required
         hypothesis = pysuper.hypothesis.overridePythonAttrs (prevAttrs: {
           # XXX(2026-10-18): keep charmap tests on one xdist worker: they
           # delete/rewrite a shared cache, racing in test_uses_cached_charmap.
@@ -446,15 +447,15 @@ super.lib.composeManyExtensions [
           '';
         });
 
-        sphinx = pysuper.sphinx.overridePythonAttrs (prevAttrs: {
-          # Parallel tests copy shared fixtures while imports create/rename .pyc
-          # files inside them, racing with shutil.copytree.
-          preCheck = (prevAttrs.preCheck or "") + ''
-            export PYTHONDONTWRITEBYTECODE=1
-          '';
-        });
+        # sphinx = pysuper.sphinx.overridePythonAttrs (prevAttrs: {
+        #   # Parallel tests copy shared fixtures while imports create/rename .pyc
+        #   # files inside them, racing with shutil.copytree.
+        #   preCheck = (prevAttrs.preCheck or "") + ''
+        #     export PYTHONDONTWRITEBYTECODE=1
+        #   '';
+        # });
 
-        # 2026-10-03: still required
+        # 2026-11-17: still required
         torchaudio = pysuper.torchaudio.overridePythonAttrs {
           # XXX(2026-07-25): hangs around test/torchaudio_unittest/functional/torchscript_consistency_cuda_test.py
           doCheck = false;
@@ -487,7 +488,7 @@ super.lib.composeManyExtensions [
     });
 
     zoekt = prev.zoekt.overrideAttrs (prevAttrs: {
-      # XXX(2026-10-13): TestServer_parallelism assumes 4 * GOMAXPROCS < 2048.
+      # XXX(2026-11-17): TestServer_parallelism assumes 4 * GOMAXPROCS < 2048.
       # Limit test parallelism so it also passes on builders with >= 512 CPUs.
       preCheck = (prevAttrs.preCheck or "") + ''
         export GOMAXPROCS=16

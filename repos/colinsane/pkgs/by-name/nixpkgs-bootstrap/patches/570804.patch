@@ -1,0 +1,28 @@
+From 06a168aa0ab0edf7b1a94e7f562774f314a84711 Mon Sep 17 00:00:00 2001
+From: Jonas Heinrich <onny@project-insanity.org>
+Date: Tue, 6 Oct 2026 10:17:26 +0200
+Subject: [PATCH] libdicom: Modernize and fix cross build
+
+---
+ pkgs/by-name/li/libdicom/package.nix | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/pkgs/by-name/li/libdicom/package.nix b/pkgs/by-name/li/libdicom/package.nix
+index 30ee3e767fd2c3f922056f817cd42b61f6d09f60..9b639824a8969350c83d84cb76e1d9ed71a16656 100644
+--- a/pkgs/by-name/li/libdicom/package.nix
++++ b/pkgs/by-name/li/libdicom/package.nix
+@@ -21,7 +21,13 @@ stdenv.mkDerivation (finalAttrs: {
+     hash = "sha256-Z1x6pA4oRDtrf9tRAnpJ0e+mmh6nSCIpQrtQGSyxFak=";
+   };
+ 
+-  depsBuildBuild = [ buildPackages.stdenv.cc ];
++  strictDeps = true;
++  __structuredAttrs = true;
++
++  depsBuildBuild = [
++    buildPackages.stdenv.cc
++    uthash
++  ];
+ 
+   buildInputs = [ uthash ] ++ lib.optionals (finalAttrs.finalPackage.doCheck) [ check ];
+ 

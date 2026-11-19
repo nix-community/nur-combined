@@ -140,6 +140,18 @@ let
         args = [ "mcp" ];
         exposure = "direct";
       };
+      kiwix = {
+        command = "kiwix-mcp";
+        description = "Search/read local wikipedia and other archives";
+        toolExposure = {
+          search = "direct";
+          inspect_article = "direct";
+          read_article = "direct";
+          list_archives = "codemode";
+          list_references = "codemode";
+          extract_image = "codemode";
+        };
+      };
       ${if cfg.ha-mcp then "home_assistant" else null} = {
         command = "ha-mcp";
         exposure = "deferred";
@@ -278,6 +290,7 @@ in
       "kagi-cli"
       # "kagi-ken-cli"  # for pi-kagi
       # "kagimcp"
+      "kiwix-mcp"
       # "markitdown-mcp"
       # "mcpls"
       # "mcp-server-fetch"
@@ -318,6 +331,7 @@ in
       # ".config/mcpls"
       ".config/nanogpt/nanogpt_api_key"
       ".config/pi"
+      ".local/share/kiwix-mcp"
       # ".pi-lens"
       # ".pi"  # default for if my `PI_CODING_AGENT_DIR` override doesn't take everywhere
       # for convenience

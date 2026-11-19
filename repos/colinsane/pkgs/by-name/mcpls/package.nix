@@ -12,16 +12,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mcpls";
-  version = "0.9.1";
+  version = "0.10.0";
 
   src = fetchFromGitHub {
     owner = "bug-ops";
     repo = "mcpls";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-xoSV2CU149A3frvDnkkGfLNeZh/zFLwL1dO6IlMMir8=";
+    hash = "sha256-vq2uh4OTur7lJp83TegBqHblb2+nJjcx1DjBqTZHVRU=";
   };
 
-  cargoHash = "sha256-/6dRJlFYNxkn6XtacmZSxiq/OnH22b1m37adj12X2ds=";
+  cargoHash = "sha256-9a7ww4rKXx5Jtw+wTc4jZJg8WYei5YNGUw0gBRtOBUA=";
 
   postPatch = ''
     substituteInPlace \
@@ -59,5 +59,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = lib.licenses.mit;
     mainProgram = "mcpls";
     maintainers = with lib.maintainers; [ colinsane ];
+    platforms = lib.platforms.linux;
   };
 })
