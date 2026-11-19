@@ -202,6 +202,8 @@ lib.makeScope pkgs.newScope (
       version = unstableVersion sources 0;
     };
 
+    qpxtool = self.callPackage ./qpxtool/package.nix { };
+
     rayburst = self.callPackage ./rayburst/package.nix { };
 
     rayburst-beta = self.callPackage ./rayburst rec {
