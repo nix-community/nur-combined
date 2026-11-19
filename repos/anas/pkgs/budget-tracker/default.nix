@@ -4,7 +4,7 @@
 }:
 let
   pname = "budget-tracker-tui";
-  version = "1.7.0";
+  version = "1.8.1";
   owner = "Feromond";
 in
 rustPlatform.buildRustPackage rec {
@@ -14,10 +14,14 @@ rustPlatform.buildRustPackage rec {
     inherit owner;
     repo = "${pname}";
     rev = "v${version}";
-    hash = "sha256-WflCwLK4GI0UOzpJGnZBpNd1EDoxn/+wTgNz4HXfbaY=";
+    hash = "sha256-j8JK1zBIFJyPp+sT4lB7IX9mB4WLsRiCI2fec4ocYU4=";
   };
 
-  cargoHash = "sha256-zWL9LH83iz/bgodo19Pfitiuqj5Q5M93AgMOFwRErxk=";
+  patches = [
+    ./0001-clean-remove-the-auto-update-functionallty.patch
+  ];
+
+  cargoHash = "sha256-IYFzqcvpDu4KrGrJl5T3Sir6MG7b1SFIgdY/8HiAPAg=";
 
   # There is no tests
   doCheck = false;
