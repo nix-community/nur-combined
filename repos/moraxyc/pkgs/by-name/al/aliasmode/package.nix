@@ -4,7 +4,7 @@
   buildFHSEnv,
   glib-networking,
 }:
-buildFHSEnv (finalAttrs: {
+buildFHSEnv {
   pname = "aliasmode";
   inherit (aliasmode-unwrapped) version;
 
@@ -58,14 +58,14 @@ buildFHSEnv (finalAttrs: {
   profile = ''
     export GIO_EXTRA_MODULES=${glib-networking}/lib/gio/modules
   '';
-  runScript = lib.getExe finalAttrs.passthru.unwrapped;
+  runScript = lib.getExe aliasmode-unwrapped;
   extraInstallCommands = ''
     mkdir -p $out/share
-    ln -s ${finalAttrs.passthru.unwrapped}/share/applications $out/share/applications
-    ln -s ${finalAttrs.passthru.unwrapped}/share/icons $out/share/icons
+    ln -s ${aliasmode-unwrapped}/share/applications $out/share/applications
+    ln -s ${aliasmode-unwrapped}/share/icons $out/share/icons
   '';
   passthru.unwrapped = aliasmode-unwrapped;
   meta = aliasmode-unwrapped.meta // {
     mainProgram = "aliasmode";
   };
-})
+}

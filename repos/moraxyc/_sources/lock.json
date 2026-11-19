@@ -493,6 +493,22 @@
       },
       "fingerprint": "sha256-t9FqOeVHAGjQkgvnjnqYpKMvf9KM/sj0vdA2JRAu/Ts="
     },
+    "lm-detector": {
+      "version": "0-unstable-2026-11-19",
+      "rawVersion": "70159b7536a2ceb55c478c8c9472da81d3627e59",
+      "date": "2026-11-19",
+      "src": {
+        "fetcher": "git",
+        "url": "https://github.com/Ikaleio/lm-detector.git",
+        "rev": "70159b7536a2ceb55c478c8c9472da81d3627e59",
+        "hash": "sha256-VAaFILfyW2FthoA9zqwmjIQqbfPEr18EEv9FjPTAIwQ="
+      },
+      "artifacts": {
+        "fix-workspace.patch": "lm-detector/fix-workspace.patch",
+        "package-lock.json": "lm-detector/package-lock.json"
+      },
+      "fingerprint": "sha256-X06WKYIL4AKQmkMymMlSUyWM2nS1VNkkYPhn1IIr880="
+    },
     "loyalsoldier-geoip": {
       "version": "0-unstable-2026-11-19",
       "rawVersion": "08dc0ddde458400f3e6e2afeca1c0a1d5084f0fc",

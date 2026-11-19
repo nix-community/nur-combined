@@ -55,5 +55,5 @@ fixedPkgs
   __drvPackages = lib.filterAttrs filters.isDrv exportPkgs;
   __ciPackages = lib.filterAttrs filters.isBuildable exportPkgs;
   __nixosTests = nixosTests;
-  __nurPackages = lib.filterAttrs filters.isExport exportPkgs // deprecatedAliases;
+  __nurPackages = lib.filterAttrs (n: _: filters.isExportName n) exportPkgs // deprecatedAliases;
 }

@@ -19,10 +19,9 @@ rec {
     && !(p.meta.insecure or false)
     && !(p.passthru._notCI or false)
     && (isTargetPlatform p);
-  isExport =
-    n: p:
-    !(p.passthru._usesInputs or false)
-    && !(lib.hasPrefix "self-" n)
-    && !(lib.hasPrefix "_" n)
-    && (isDerivation p);
+  # Name-only on purpose: inspecting the value would force every package, so one
+  # broken package would break access to all the others.
+  nonPackageNames = [ "sources" ];
+  isExportName =
+    n: !(lib.hasPrefix "self-" n) && !(lib.hasPrefix "_" n) && !(lib.elem n nonPackageNames);
 }

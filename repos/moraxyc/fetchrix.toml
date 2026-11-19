@@ -257,6 +257,16 @@ version = { source = "git", url = "https://github.com/marsqing/libinput-three-fi
 transform = ["strip-v"]
 fetch = { type = "git", url = "https://github.com/marsqing/libinput-three-finger-drag", rev = "{version}" }
 
+[packages.lm-detector]
+version = { source = "git", url = "https://github.com/Ikaleio/lm-detector.git", unstable = { } }
+transform = ["strip-v"]
+fetch = { type = "git", url = "https://github.com/Ikaleio/lm-detector.git", rev = "{version}" }
+
+[packages.lm-detector.prepare]
+steps = [{ type = "hook", run = ["./pkgs/by-name/lm/lm-detector/prepare.sh"] }]
+artifacts."package-lock.json" = { type = "file", path = "package-lock.json" }
+artifacts."fix-workspace.patch" = { type = "patch", paths = ["package.json"] }
+
 [packages.loyalsoldier-geoip]
 version = { source = "git", url = "https://github.com/Loyalsoldier/geoip.git", branch = "release", unstable = { } }
 transform = ["strip-v"]
