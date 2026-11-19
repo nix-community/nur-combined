@@ -135,9 +135,21 @@ let
       if [ ! -e "$marker" ]; then
         mkdir -p "$appdir"
         echo "Installing Notepad++ into $WINEPREFIX..."
-        wine boot --init
-        wineserver -w
+        # wineboot exits non-zero on macOS/Gcenx (wine-mono's MSI and the missing
+        # Microsoft.Windows.Common-Controls manifest) even though the prefix is
+        # usable. With `set -e` that aborted the install before the payload was
+        # copied, so the prefix kept an empty app dir and no marker, and
+        # `wine start` then failed with "ShellExecuteEx failed: File not found".
+        wine boot --init || true
+        wineserver -w || true
+        # wineboot may have (re)created drive_c after the mkdir above.
+        mkdir -p "$appdir"
         cp -a ${notepadppWindows}/. "$appdir/"
+        chmod -R u+w "$appdir"
+        [ -f "$app" ] || {
+          echo "error: notepad++.exe missing from $appdir" >&2
+          exit 1
+        }
         touch "$marker"
       fi
 
