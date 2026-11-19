@@ -8,16 +8,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "prometheus-tailscale-exporter";
-  version = "1.4.0";
+  version = "1.4.1";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "tailscale_exporter";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-NXDx2M8ML5yghcTt7CbpPtj7PgWNnT7Ieu6LZPsD+WY=";
+    hash = "sha256-veEtEChnx+0MNiPwZQW53LK+n7RMGha0np9WZZ9rjeA=";
   };
 
-  vendorHash = "sha256-PK5XISqYhA++LzmB+AlRqP1JqrBaCGOUw6ByB03HCBQ=";
+  vendorHash = "sha256-DbCvsHN71TgK+vqNWcUl/ok+xvkaEFfjoEe0sO+LwWU=";
 
   env.CGO_ENABLED = 0;
   ldflags = [

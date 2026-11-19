@@ -7,7 +7,7 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "imdb-plex-sync";
-  version = "0.4.1";
+  version = "0.4.2";
 
   pyproject = true;
 
@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     owner = "josh";
     repo = "imdb-plex-sync";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-z7NpeVnwxTABvedAkaah4MXZ19J30cx6WbiS5/gG6is=";
+    hash = "sha256-mfQOjU1zlx6jAJc6fWm/iL9wsKxXKp6Xr5SizVQc9GA=";
   };
 
   build-system = with python3Packages; [
