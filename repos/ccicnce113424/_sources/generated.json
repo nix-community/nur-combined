@@ -720,11 +720,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-0X4ZxnGrGWJpnqrfNIM9x1UVqL3G+nQoZJjgJVqzUf0=",
+            "sha256": "sha256-3RxYx+rN7hKR/DrZsOC82GTWtf6xxQZbirFzeNF25i0=",
             "type": "url",
-            "url": "https://github.com/waywallen/waywallen/releases/download/v0.6.0/waywallen-0.6.0-x86_64.AppImage"
+            "url": "https://github.com/waywallen/waywallen/releases/download/v0.6.1/waywallen-0.6.1-x86_64.AppImage"
         },
-        "version": "0.6.0"
+        "version": "0.6.1"
     },
     "waywallen-display-bin": {
         "cargoLock": null,
