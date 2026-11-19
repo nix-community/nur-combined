@@ -571,12 +571,16 @@ in
                   imagePullPolicy = "IfNotPresent";
                   env = [
                     {
+                      # Public URL, no explicit port: Traefik terminates :443
+                      # and routes to the ClusterIP internally. Including the
+                      # backend port here (e.g. :33073) makes browsers try it
+                      # directly against Traefik/CF, where nothing listens.
                       name = "NETBIRD_MGMT_API_ENDPOINT";
-                      value = "https://${managementHost}:${toString managementPort}";
+                      value = "https://${managementHost}";
                     }
                     {
                       name = "NETBIRD_MGMT_GRPC_API_ENDPOINT";
-                      value = "https://${managementHost}:${toString managementPort}";
+                      value = "https://${managementHost}";
                     }
                     {
                       name = "AUTH_AUDIENCE";
