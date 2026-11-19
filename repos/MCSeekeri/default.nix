@@ -13,6 +13,7 @@
 
 let
   pg0 = pkgs.callPackage ./pkgs/pg0 { };
+  geph = pkgs.callPackage ./pkgs/geph { };
 in
 {
   # The `lib`, `overlays`, `nixosModules`, `homeModules`,
@@ -48,5 +49,7 @@ in
   rime-frost = pkgs.callPackage ./pkgs/rime-frost { };
   vortex = pkgs.callPackage ./pkgs/vortex { };
   inherit pg0;
+  inherit geph;
+  gephgui-wry = pkgs.callPackage ./pkgs/gephgui-wry { inherit geph; };
   pg0-embedded = pkgs.python3Packages.callPackage ./pkgs/pg0-embedded { inherit pg0; };
 }
