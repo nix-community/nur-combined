@@ -55,7 +55,7 @@ measures (see §10.2):
 | JWE | The JWE file, produced by official clevis, that encrypts P |
 | share | One sss share, protected by one gate's Tang exchange key |
 | arm | A one-shot planned-reboot authorization issued by the running client |
-| approval | A one-shot, time-windowed authorization the user issues on a gate over SSH |
+| approval | A one-shot, time-windowed authorization signed by the user's security key (§6.6), or issued through ctl in an emergency |
 | release | The gate performing ECMR for one `/rec` request and returning the result |
 | budget | The release sources (arm or approval) currently available for a client on a gate |
 
@@ -66,10 +66,11 @@ measures (see §10.2):
 | Role | Host | Public address | Mesh address |
 |---|---|---|---|
 | client | eihort | behind NAT (home broadband) | `fdcc::3` |
-| gate `sgp` | yidhra | `216.195.195.184`, `2a0f:1cc6:b225:0:c744:d4a4:9364:2971` | `fdcc::4` |
-| gate `nrt` | abhoth | `154.31.114.112`, `2403:18c0:1000:13a:343b:65ff:fe1b:7a0f` | `fdcc::5` |
-| gate `tyo` | nodens | `193.123.164.59`, `2603:c021:8025:648e:0:dc5b:117f:5225` | `fdcc::8` |
+| gate | yidhra | `216.195.195.184`, `2a0f:1cc6:b225:0:c744:d4a4:9364:2971` | `fdcc::4` |
+| gate | abhoth | `154.31.114.112`, `2403:18c0:1000:13a:343b:65ff:fe1b:7a0f` | `fdcc::5` |
+| gate | nodens | `193.123.164.59`, `2603:c021:8025:648e:0:dc5b:117f:5225` | `fdcc::8` |
 
+- A gate's id (`gateId`, the `aud` of signed messages) is its host name.
 - The threshold MUST be 2-of-3, counted per gate (not per address).
 - azasos (HKG) MUST NOT hold a share. Rationale: under this threat model it is
   the cheapest to compromise; including it as 2-of-4 lowers security, and as
@@ -87,11 +88,14 @@ eihort initrd
       └─ direct HTTP :7500 ────────────────► gate ×3
                                                unlock-gate (Go, embeds tang.go)
                                                  public :7500  /c/{client}/adv, /c/{client}/rec/{kid}
-                                                 mesh   :7501  /v1/heartbeat, /v1/arm, /v1/disarm
+                                                 mesh   :7501  /v1/heartbeat, /v1/arm, /v1/disarm,
+                                                               /v1/approve, /v1/status
                                                  ctl.sock      approve / deny / disarm / status
                                                  notify        Telegram Bot
 running eihort
   clevis (bind only), unlock-agent (heartbeat), eihort-reboot (arm) ──── mesh ────► gate ×3
+user's laptop (mesh node)
+  unlock-gate approve (sshsig, one security-key touch) ─────────────── mesh ────► gate ×3
 ```
 
 ### 3.3 Layer responsibilities
@@ -134,14 +138,14 @@ reference implementation. nbde-agent MUST NOT implement encryption or binding.
   "t": 2,
   "pins": { "sss": [
     { "t": 1, "pins": { "tang": [
-      { "url": "http://216.195.195.184:7500/c/eihort",                        "thp": "<sgp>" },
-      { "url": "http://[2a0f:1cc6:b225:0:c744:d4a4:9364:2971]:7500/c/eihort",  "thp": "<sgp>" } ] } },
+      { "url": "http://216.195.195.184:7500/c/eihort",                        "thp": "<yidhra>" },
+      { "url": "http://[2a0f:1cc6:b225:0:c744:d4a4:9364:2971]:7500/c/eihort",  "thp": "<yidhra>" } ] } },
     { "t": 1, "pins": { "tang": [
-      { "url": "http://154.31.114.112:7500/c/eihort",                         "thp": "<nrt>" },
-      { "url": "http://[2403:18c0:1000:13a:343b:65ff:fe1b:7a0f]:7500/c/eihort","thp": "<nrt>" } ] } },
+      { "url": "http://154.31.114.112:7500/c/eihort",                         "thp": "<abhoth>" },
+      { "url": "http://[2403:18c0:1000:13a:343b:65ff:fe1b:7a0f]:7500/c/eihort","thp": "<abhoth>" } ] } },
     { "t": 1, "pins": { "tang": [
-      { "url": "http://193.123.164.59:7500/c/eihort",                         "thp": "<tyo>" },
-      { "url": "http://[2603:c021:8025:648e:0:dc5b:117f:5225]:7500/c/eihort",  "thp": "<tyo>" } ] } }
+      { "url": "http://193.123.164.59:7500/c/eihort",                         "thp": "<nodens>" },
+      { "url": "http://[2603:c021:8025:648e:0:dc5b:117f:5225]:7500/c/eihort",  "thp": "<nodens>" } ] } }
   ] }
 }
 ```
@@ -184,15 +188,21 @@ budget is valid, obtaining a share or exhausting an arm. Therefore:
 ```nix
 services.unlock-gate = {
   enable = true;
-  gateId = "sgp";
-  publicListen = [ "216.195.195.184:7500" "[2a0f:…:2971]:7500" ];
-  meshListen = [ "[fdcc::4]:7501" ];
+  gateId = "yidhra";             # the host name
+  publicAddresses = [ "::" ];    # port publicPort = 7500; "::" also accepts IPv4
+  meshAddresses = [ "fdcc::4" ]; # port meshPort = 7501; the gate's mesh anchor address
+  meshInterface = "vxlan-mesh";  # the mesh port is opened only here
   clients.eihort = {
     agentPublicKey = "<Ed25519 public key, base64url>";
     allowFrom = [ ];            # OPTIONAL, list of CIDRs; empty means unrestricted
+    approvers = [               # any one of these may sign an approval
+      "sk-ssh-ed25519@openssh.com AAAA…"
+      "sk-ssh-ed25519@openssh.com AAAA…"
+    ];
   };
-  notify.telegram.tokenFile = config.vaultix.secrets.unlock-gate-tg.path;
-  notify.telegram.chatId = "<chat id>";
+  requireSecurityKey = true;    # approvers MUST be sk-* keys; tests MAY disable
+  telegram.tokenFile = config.vaultix.secrets.unlock-gate-tg.path;  # read as a systemd credential
+  telegram.chatId = "<chat id>";
 };
 ```
 
@@ -222,7 +232,7 @@ interop tests) and nbde-agent use this interface.
 |---|---|---|
 | GET | `/c/{client}/adv` | Returns that client's adv (JWS) |
 | GET | `/c/{client}/adv/{thp}` | Returns the adv signed by the given signing key |
-| POST | `/c/{client}/rec/{kid}` | §6.6 decision; 200 + JWK, or 403 |
+| POST | `/c/{client}/rec/{kid}` | §6.7 decision; 200 + JWK, or 403 |
 
 - An unknown `{client}` or `{kid}` MUST return 404.
 - A 403 response body SHOULD be `{"error":"not_authorized"}` and MUST NOT
@@ -243,9 +253,13 @@ interface.
 | POST | `/v1/heartbeat` | JWS (§6.5, `typ=heartbeat`) | 204 / 401 / 409 |
 | POST | `/v1/arm` | JWS (`typ=arm`) | 204 / 401 / 409 |
 | POST | `/v1/disarm` | JWS (`typ=disarm`) | 204 / 401 / 409 |
+| POST | `/v1/approve` | approval token (§6.6) | 204 / 401 / 409 |
+| GET | `/v1/status?client=C` | — | 200 + JSON (§6.8 `status`) |
 
 - 401: signature, `aud`, `client`, or `typ` validation failed.
 - 409: repeated nonce, `seq` regression, or `iat` outside tolerance.
+- `/v1/status` is unauthenticated and therefore reachable by every mesh node;
+  it MUST NOT contain the JWE or any secret.
 
 ### 6.5 Signed messages
 
@@ -271,7 +285,39 @@ Format: JWS Compact Serialization; `alg` MUST be `EdDSA` (Ed25519) and the
 - Heartbeats MUST NOT affect any release decision; they are for alerting only.
   An arm MUST NOT be conditional on heartbeat freshness.
 
-### 6.6 `/rec` decision
+### 6.6 Approval tokens
+
+An approval is a JSON document signed with OpenSSH's `sshsig` format
+(`ssh-keygen -Y sign`), so it can be produced by a FIDO security key with one
+touch and sent to every gate.
+
+| Field | Type | Requirement |
+|---|---|---|
+| `v` | int | MUST be 1 |
+| `typ` | string | `approve` or `deny` |
+| `client` | string | MUST be a configured client |
+| `gates` | string[] | MUST contain the receiver's `gateId` |
+| `iat` | int | Unix seconds; same 120 s tolerance as §6.5 |
+| `nonce` | string | 16 bytes, base64url; same 240 s replay cache as §6.5 |
+| `window` | int | `approve` only; seconds, MUST be ≤ 900 |
+| `from` | string[] | OPTIONAL CIDRs; the approval only releases to matching sources |
+
+Body of `POST /v1/approve`: `{"message": "<base64url JSON>", "signature": "<armored sshsig>"}`.
+
+- The signature namespace MUST be `nbde-unlock-gate@v1`; the hash MUST be
+  `sha512` or `sha256`.
+- The signing key MUST be one of the client's `approvers`. When
+  `requireSecurityKey` is set, approvers MUST be `sk-*` keys and the signature
+  MUST carry the user-presence flag.
+- The gate MUST verify the signature itself and MUST NOT execute `ssh-keygen`
+  or consult sshd configuration.
+- The approval's expiry MUST be computed from the gate's receive time.
+  A `deny` MUST clear the approval and grace period.
+- The laptop-side `unlock-gate approve` command fetches `/v1/status` from all
+  gates, shows them side by side, asks for confirmation, signs once with
+  `ssh-keygen -Y sign`, and posts the same token to every gate.
+
+### 6.7 `/rec` decision
 
 ```
 on POST /c/{client}/rec/{kid}
@@ -282,18 +328,20 @@ on POST /c/{client}/rec/{kid}
      → release, consume the approval, reason "approval"
   5. else if within a grace period and the source equals the grace-period source
      → release, reason "grace"
-  6. else → 403, record the attempt, notify per §6.8
+  6. else → 403, record the attempt, notify per §6.9
 ```
 
 - One arm or approval MUST produce exactly one budget-counted release,
   regardless of whether requests come over IPv4 or IPv6.
 - After a release the gate MAY open a grace period: for 60 s, `/rec` from the
   **same source address** continues to be released, tolerating a response lost
-  in transit. A grace period MUST NOT extend across source addresses.
+  in transit. A grace period MUST NOT extend across source addresses; a
+  request from another source during it is refused with reason
+  "released to another source".
 - Every release and denial MUST be written to the audit log: time, client,
   kid, source address, result, reason.
 
-### 6.7 Management interface
+### 6.8 Management interface
 
 - Socket: `/run/unlock-gate/ctl.sock`, `0600 root:root`; the gate MUST verify
   via `SO_PEERCRED` that the peer uid is 0.
@@ -307,23 +355,25 @@ on POST /c/{client}/rec/{kid}
 | `deny --client C` | Clear approval and grace period |
 | `disarm --client C` | Clear arm |
 
-- Approvals MUST only be created through ctl. The gate MUST NOT offer any
-  interface for creating approvals over the network.
+- Approvals MUST only be created by a valid approval token (§6.6) or through
+  ctl. The gate MUST NOT offer any other network path to create one. ctl is the
+  emergency path for when the mesh or the laptop is unavailable.
 
-### 6.8 Notifications
+### 6.9 Notifications
 
 | Event | Trigger |
 |---|---|
 | `heartbeat_lost` | No valid heartbeat for more than 180 s |
 | `heartbeat_resumed` | Recovery after loss, with old and new `boot_id` |
-| `unlock_denied` | A 403; MUST notify at most once per client per 10 minutes |
+| `unlock_denied` | A 403; MUST notify at most once per client per 10 minutes. A 403 to another source while a grace period is open (the losing address family of a release) MUST NOT notify |
 | `unlock_released` | Every budget-counted release, with reason |
 | `arm_received` | A valid arm was received |
+| `approval_received` | A valid approval or deny token, or a ctl approve/deny |
 
 - Notifications SHOULD contain only gate, client, event, time, and source
   address; they MUST NOT contain the JWE or any secret.
 
-### 6.9 Process hardening
+### 6.10 Process hardening
 
 - The gate SHOULD run as non-root, accessing Tang keys through
   `StateDirectory` and providing `ctl.sock` through `RuntimeDirectory`. If
@@ -589,9 +639,11 @@ gate: notify unlock_released(arm)
 
 ```
 initrd: nbde-agent ─ POST /rec ─► 403 (gate logs and notifies unlock_denied)
-        console: sgp denied / nrt denied / tyo unreachable; retry every 10 s
-user: receives notification → ssh to gate → unlock-gate ctl status to check source and time
-      → unlock-gate ctl approve --client eihort (on at least 2 gates)
+        console: yidhra denied / abhoth denied / nodens unreachable; retry every 10 s
+user: receives notification → unlock-gate approve --client eihort on the laptop
+      → status from all gates shown side by side (source, time, heartbeat)
+      → confirm → one security-key touch → token posted to every gate over the mesh
+      (emergency: ssh to ≥2 gates, unlock-gate ctl approve --client eihort)
 initrd: next round → 200 ×2 → unlocked
 ```
 
@@ -627,11 +679,12 @@ fewer than 2 shares before the deadline → nbde-agent closes connections and ex
 | JWE | ESP (initrd) | None; but can race a release while a budget is valid |
 | Tang private keys | each gate's disk | None; needs another gate plus the JWE |
 | agent private key | `/persist` (inside FDE) | Can issue arms; only obtainable while the client runs |
+| approver key | the user's FIDO security key | Can sign approvals (one touch each); still needs the JWE |
 | gate ctl access (SSH root) | the user's SSH keys | Can create approvals; still needs the JWE |
 | Telegram token | gate (vaultix) | Can forge or intercept notifications |
 
 Minimum conditions for obtaining P: the JWE, plus one of: (a) Tang private
-keys or ctl access on ≥2 gates; (b) racing a request while an arm or approval
+keys or ctl access on ≥2 gates, or the approver key; (b) racing a request while an arm or approval
 is valid.
 
 | Residual risk | Mitigation |
@@ -649,7 +702,7 @@ is valid.
   nothing; active tampering only causes unlock failure.
 - Heartbeats and arms travel over the mesh and are not exposed publicly.
 - Telegram can see notification contents, hence the minimization required by
-  §6.8.
+  §6.9.
 
 ## 11. Test plan
 
@@ -717,37 +770,63 @@ All of the following tests MUST pass before merging.
   hosted-page tampering risks MUST be re-evaluated.
 - Runbooks for in-place nvme encryption and per-disk LUKS migration of pool0.
 
-## 13. Implementation status (2026-11-18)
+## 13. Implementation status (2026-11-19)
 
-### 13.1 Done: client (nbde repository)
+### 13.1 Done (nbde repository)
 
 | Component | Status |
 |---|---|
 | nbde-agent: jose, tang/sss pins, HTTP, AF_UNIX delivery, daemon mode, check mode, status output | Done, 61 unit tests |
 | NixOS module `boot.initrd.nbde` | Done |
-| VM tests `vm-agent`, `vm-check`, `vm-daemon`, `vm-cryptsetup-socket`, `vm-initrd` | All pass |
-| Interop with official clevis 22 / tang 15 | Verified (reference vectors and JWEs generated at runtime) |
+| unlock-gate (Go, `gate/`, tang.go from the `oluceps/tang.go` `fix/audit-findings` branch): Tang-compatible `/adv` and `/rec` with the §6.7 decision, signed heartbeat/arm/disarm, sshsig approval tokens, `/v1/status`, root-only ctl socket, Telegram notifications, rate limiting, in-memory state | Done, 24 unit tests |
+| unlock-gate CLI: `serve`, `ctl`, `send` (eihort side), `approve`/`deny` (laptop side; several approver keys tried in order), `agent-key` | Done |
+| NixOS modules `services.unlock-gate`, `services.unlock-agent` (heartbeat timer, `<host>-reboot`), `programs.unlock-approve` | Done |
+| VM tests `vm-agent`, `vm-check`, `vm-daemon`, `vm-cryptsetup-socket`, `vm-initrd`, `vm-gate`, `vm-gate-initrd` | All pass |
+| Interop with official clevis 22 / tang 15, and sshsig with OpenSSH `ssh-keygen -Y sign` | Verified |
 
-`vm-initrd` covers: root on LUKS, unlocked in the initrd through tang on
-another node; unlock within the deadline after tang recovers; passphrase
-prompt when everything is unreachable, booting with the recovery passphrase.
+`vm-gate-initrd` covers the §9 flows: root on LUKS bound 2-of-2 to two
+unlock-gates; a planned reboot unlocks through the arm; an unplanned boot is
+refused in the initrd until the approver signs on a third node, then unlocks.
 
-### 13.2 Not implemented
+Bug found while integrating: nbde-agent sent `/rec` bodies without
+`"alg":"ECMR"`. tangd accepts that and tang.go does not. Fixed on both sides:
+the agent now sends what clevis sends, and the gate adds the member when it
+is missing.
 
-- unlock-gate (§6) is not implemented. The agent already works directly with
-  official tangd.
-- On eihort, `unlock-agent` (heartbeat) and `eihort-reboot` (arm) are not
-  implemented; they depend on unlock-gate.
+### 13.2 Deployment (2026-11-19)
 
-### 13.3 Known to-dos
+- Gates yidhra, abhoth and nodens run unlock-gate; the mesh API listens only
+  on each gate's anchor address. eihort sends heartbeats and has
+  `eihort-reboot`; the approver runs on hastur with either security key.
+- eihort's root is bound 2-of-3 (§5.1 with the host names); `nbde-agent
+  check` recovered P after a real security-key approval (PIN and touch).
+- A planned reboot through `eihort-reboot` unlocked in the initrd on the
+  second attempt, about 11 s after boot: the first attempt ran before the
+  network was up. The gates saw eihort's home addresses, so the initrd
+  reaches them directly; one address family won on each gate and the other
+  was refused without an alert.
+- Telegram notifications were sent without errors; receipt in the chat is
+  still to be confirmed.
 
+### 13.2.1 Not done
+
+- The unplanned-boot flow (refused, then approved from hastur) has only run
+  in the VM test, not on eihort.
+- After the first deployment, abhoth's unlock-gate unit did not start until
+  started by hand; whether it starts on its own at boot is unconfirmed.
+
+### 13.3 Known limitations and to-dos
+
+- nbde-agent does not keep a share across retry rounds. If one gate releases
+  through its arm while the other is unreachable for longer than the 60 s
+  grace period, the arm is spent and the boot needs an approval.
 - `crate-audit` cannot run because the GitHub API token is invalid (HTTP 401);
   after fixing nix's access-tokens, run `nix flake update` and `nix flake check`.
 - The agent's first attempt often fails because the network is not up yet;
   the default `retryInterval = 10` makes a normal boot wait about 10 s longer.
   A backoff starting with a short interval would fix this.
-- §12.1 item 7: initrd secrets behavior under lanzaboote must be verified on eihort.
-- §12.1 item 8: actual reachability from the home network (bypassing sing-box)
-  to each tang endpoint must be measured.
-- §7.8 prerequisites (nvme FDE, random swap keys, BIOS/BMC hardening) are all
-  not yet implemented.
+- §12.1 item 7: eihort boots with plain systemd-boot. Before the secureboot
+  (lanzaboote) import comes back, initrd secrets under lanzaboote must be
+  verified.
+- §7.8 prerequisites: nvme FDE and random swap keys are done; BIOS/BMC
+  hardening is not.

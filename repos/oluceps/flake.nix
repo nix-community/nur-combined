@@ -54,6 +54,10 @@
       url = "github:nix-community/browser-previews";
     };
     vaultix.url = "github:milieuim/vaultix";
+    nbde = {
+      url = "github:milieuim/nbde";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # vaultix.url = "/home/riro/Src/vaultix";
     # vaultix.url = "github:milieuim/vaultix?rev=92323d03be0de6e6c24f4ec83b4e39ada9b5cece";
     nixos-cosmic = {

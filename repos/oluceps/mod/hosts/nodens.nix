@@ -32,6 +32,7 @@
             base
             plugIn
             vxlan-mesh
+            unlock-gate
             yggdrasil
             earlyoom
             chrony

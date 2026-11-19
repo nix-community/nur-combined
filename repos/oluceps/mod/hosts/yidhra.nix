@@ -40,6 +40,7 @@
 
             #--base
             vxlan-mesh
+            unlock-gate
             yggdrasil
             # xray
             perlless

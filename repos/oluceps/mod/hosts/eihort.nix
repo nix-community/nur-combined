@@ -83,9 +83,10 @@
             dev
             plugIn
             vxlan-mesh
+            unlock-client
             yggdrasil
             scrutiny
-            secureboot
+            # secureboot
             earlyoom
             # dae
             chrony
@@ -152,6 +153,10 @@
         };
 
         loader = {
+          systemd-boot = {
+            enable = true;
+            configurationLimit = 8;
+          };
           efi = {
             canTouchEfiVariables = true;
             efiSysMountPoint = "/efi";
@@ -162,11 +167,9 @@
           "intel_oc_wdt"
           "iTCO_wdt"
           "iTCO_vendor_support"
+          # Temporarily disabled until encrypted-boot recovery is validated.
+          "ipmi_watchdog"
         ];
-        kernelModules = [ "ipmi_watchdog" ];
-        extraModprobeConfig = ''
-          options ipmi_watchdog action=reset
-        '';
 
         kernelParams = [
           # "audit=0"
@@ -205,8 +208,9 @@
       systemd = {
         enableEmergencyMode = false;
         settings.Manager = {
-          RebootWatchdogSec = "20s";
-          RuntimeWatchdogSec = "30s";
+          # Temporarily disabled until encrypted-boot recovery is validated.
+          RebootWatchdogSec = "0";
+          RuntimeWatchdogSec = "0";
         };
       };
       systemd.sockets.sept-proxy = {

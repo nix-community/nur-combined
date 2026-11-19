@@ -37,6 +37,7 @@
             plugIn
             garage
             vxlan-mesh
+            unlock-approve
             yggdrasil
             earlyoom
             # dae

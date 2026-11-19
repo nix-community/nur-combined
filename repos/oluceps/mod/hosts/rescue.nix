@@ -9,10 +9,7 @@
     { pkgs, ... }:
     {
       imports = [
-        (
-          inputs.nixpkgs.outPath
-          + "/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix"
-        )
+        (inputs.nixpkgs.outPath + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
 
         {
           nixpkgs = {
@@ -25,12 +22,48 @@
         # wireless.iwd.enable = true;
         # wireless.enable = false;
         useNetworkd = true;
-        # useDHCP = true;
+        networkmanager.enable = lib.mkForce false;
+        useDHCP = true;
         firewall.enable = false;
         enableIPv6 = true;
         nftables.enable = true;
       };
-      boot.kernelPackages = lib.mkForce pkgs.linuxPackages_testing;
+      # Match the installed storage stack rather than using the testing kernel,
+      # which may not have a compatible ZFS module.
+      boot = {
+        kernelPackages = lib.mkForce pkgs.linuxPackages_6_18;
+        supportedFilesystems = [
+          "zfs"
+          "btrfs"
+          "vfat"
+        ];
+        zfs.forceImportAll = false;
+        zfs.forceImportRoot = false;
+        kernelModules = [
+          "ipmi_devintf"
+          "ipmi_si"
+        ];
+        blacklistedKernelModules = [ "ipmi_watchdog" ];
+        kernelParams = [ "consoleblank=0" ];
+      };
+      # ZFS requires a host ID; pool imports remain an explicit recovery step.
+      networking.hostId = "8425e349";
+      systemd.settings.Manager = {
+        RuntimeWatchdogSec = "0";
+        RebootWatchdogSec = "0";
+      };
+      systemd.services.rescue-watchdog-off = {
+        description = "Disarm the BMC watchdog during recovery";
+        wantedBy = [ "multi-user.target" ];
+        wants = [ "systemd-udev-settle.service" ];
+        after = [ "systemd-udev-settle.service" ];
+        unitConfig.ConditionPathExists = "/dev/ipmi0";
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          ExecStart = "${pkgs.ipmitool}/bin/ipmitool mc watchdog off";
+        };
+      };
 
       isoImage = {
         compressImage = true;
@@ -125,16 +158,26 @@
         with pkgs;
         [
           (writeShellScriptBin "mount-os" ''
-            #!/usr/bin/env bash
-            echo "start mounting ..."
-            sudo mkdir /mnt/{persist,etc,var,efi,nix}
-            sudo mount -o compress=zstd,discard=async,noatime,subvol=nix /dev/$1 /mnt/nix
-            sudo mount -o compress=zstd,discard=async,noatime,subvol=persist /dev/$1 /mnt/persist
-            echo "please manually mount efi system"
-            sudo mount -o bind /mnt/persist/etc /mnt/etc
-            sudo mount -o bind /mnt/persist/var /mnt/var
-            echo "mount finished."
+            set -euo pipefail
+            device="''${1:?Usage: mount-os <block-device> [mountpoint]}"
+            target="''${2:-/mnt}"
+            case "$device" in
+              /dev/*) ;;
+              *) device="/dev/$device" ;;
+            esac
+            mkdir -p "$target"/{persist,var,efi,nix}
+            for subvol in nix persist var; do
+              mount -t btrfs -o "ro,rescue=nologreplay,subvol=$subvol" "$device" "$target/$subvol"
+            done
+            echo "Persistent subvolumes mounted read-only under $target; EFI is not mounted."
           '')
+          btrfs-progs
+          zfs
+          ipmitool
+          rsync
+          gptfdisk
+          dosfstools
+          sqlite
           nftables
           tor
           iperf3

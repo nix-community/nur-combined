@@ -30,67 +30,82 @@
 
               root = {
                 size = "100%";
+                device = "/dev/disk/by-id/nvme-eui.00000000000000008ce38e10014c244a-part3";
                 content = {
-                  type = "btrfs";
-                  extraArgs = [
-                    "--label nixos"
-                    "-f"
-                    "--csum xxhash64"
-                    "--features"
-                    "block-group-tree"
-                  ];
-                  subvolumes = {
+                  type = "luks";
+                  name = "cryptroot";
+                  settings = {
+                    allowDiscards = true;
+                    bypassWorkqueues = true;
+                    crypttabExtraOpts = [
+                      "same-cpu-crypt"
+                      "submit-from-crypt-cpus"
+                      "fido2-device=auto"
+                    ];
+                  };
+                  content = {
+                    type = "btrfs";
+                    extraArgs = [
+                      "--label nixos"
+                      "-f"
+                      "--csum xxhash64"
+                      "--features"
+                      "block-group-tree"
+                    ];
+                    subvolumes = {
 
-                    "persist" = {
-                      mountpoint = "/persist";
-                      mountOptions = [
-                        "compress-force=zstd:1"
-                        "noatime"
-                        "discard=async"
-                        "space_cache=v2"
-                      ];
+                      "persist" = {
+                        mountpoint = "/persist";
+                        mountOptions = [
+                          "compress-force=zstd:1"
+                          "noatime"
+                          "discard=async"
+                          "space_cache=v2"
+                        ];
+                      };
+                      "nix" = {
+                        mountOptions = [
+                          "compress-force=zstd:1"
+                          "noatime"
+                          "discard=async"
+                          "space_cache=v2"
+                          "nosuid"
+                          "nodev"
+                        ];
+                        mountpoint = "/nix";
+                      };
+                      "var" = {
+                        mountOptions = [
+                          "compress-force=zstd:1"
+                          "noatime"
+                          "discard=async"
+                          "space_cache=v2"
+                          "nosuid"
+                          "nodev"
+                        ];
+                        mountpoint = "/var";
+                      };
+                      # "persist/tmp" = {
+                      #   mountpoint = "/tmp";
+                      #   mountOptions = [
+                      #     "relatime"
+                      #     "nodev"
+                      #     "nosuid"
+                      #     "discard=async"
+                      #     "space_cache=v2"
+                      #   ];
+                      # };
                     };
-                    "nix" = {
-                      mountOptions = [
-                        "compress-force=zstd:1"
-                        "noatime"
-                        "discard=async"
-                        "space_cache=v2"
-                        "nosuid"
-                        "nodev"
-                      ];
-                      mountpoint = "/nix";
-                    };
-                    "var" = {
-                      mountOptions = [
-                        "compress-force=zstd:1"
-                        "noatime"
-                        "discard=async"
-                        "space_cache=v2"
-                        "nosuid"
-                        "nodev"
-                      ];
-                      mountpoint = "/var";
-                    };
-                    # "persist/tmp" = {
-                    #   mountpoint = "/tmp";
-                    #   mountOptions = [
-                    #     "relatime"
-                    #     "nodev"
-                    #     "nosuid"
-                    #     "discard=async"
-                    #     "space_cache=v2"
-                    #   ];
-                    # };
                   };
                 };
               };
               plainSwap = {
                 size = "32G";
+                device = "/dev/disk/by-id/nvme-eui.00000000000000008ce38e10014c244a-part2";
                 content = {
                   type = "swap";
+                  randomEncryption = true;
                   discardPolicy = "both";
-                  resumeDevice = true;
                   # The NVMe swap area must outrank the SATA SanDisk DOM below.
                   # Left unprioritized, the kernel auto-assigned -2/-3 in
                   # activation order, so the slow SATA device became the
@@ -137,14 +152,9 @@
     };
     swapDevices = [
       # Overflow swap only, well below the NVMe area (priority 100 above).
-      # NOTE: applying a priority to an *active* swap area requires swapoff()
-      # first, and this device currently holds ~14G of pages - systemd would
-      # have to pull all of them back into RAM on the next activation, which
-      # thrashes (and can fail) on a box that is already short on memory.
-      # So: reboot (or `sudo swapoff /dev/sda` once memory allows) BEFORE the
-      # next `nixos-rebuild switch`.
       {
         device = "/dev/disk/by-id/ata-SanDisk_SD8SBAT032G_153873411000";
+        randomEncryption.enable = true;
         priority = 1;
       }
     ];
