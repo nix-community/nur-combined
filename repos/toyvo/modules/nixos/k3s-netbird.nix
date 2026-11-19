@@ -171,12 +171,15 @@ in
               initContainers = [
                 {
                   name = "render-config";
-                  image = "busybox:1.37.0";
+                  # busybox lacks envsubst (gettext); python does safe
+                  # $-substitution (string.Template) with no sed-escaping
+                  # hazards for arbitrary secret chars.
+                  image = "python:3.14-slim";
                   imagePullPolicy = "IfNotPresent";
                   command = [
-                    "sh"
+                    "python3"
                     "-c"
-                    "envsubst < /tmpl/management.json.tmpl > /etc/netbird/management.json && chmod 640 /etc/netbird/management.json"
+                    "import os,string,pathlib; t = pathlib.Path('/tmpl/management.json.tmpl').read_text(); out = string.Template(t).safe_substitute(os.environ); pathlib.Path('/etc/netbird/management.json').write_text(out); os.chmod('/etc/netbird/management.json', 0o640)"
                   ];
                   env = [
                     {
