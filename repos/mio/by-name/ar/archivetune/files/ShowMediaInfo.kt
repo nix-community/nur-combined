@@ -81,7 +81,6 @@ import moe.rukamori.archivetune.LocalPlayerConnection
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.mediainfo.MediaInfoDetail
 import moe.rukamori.archivetune.mediainfo.MediaInfoEvent
-import moe.rukamori.archivetune.mediainfo.MediaInfoMetric
 import moe.rukamori.archivetune.mediainfo.MediaInfoState
 import moe.rukamori.archivetune.mediainfo.MediaInfoTab
 import moe.rukamori.archivetune.mediainfo.MediaInfoUiModel
@@ -667,3 +666,12 @@ private fun shareMediaLink(
         }
     context.startActivity(Intent.createChooser(shareIntent, null))
 }
+
+
+/*
+ * The upstream v16 model no longer carries the old metric grid; the port keeps the
+ * composable around with an empty metric list so the Numbers tab renders its cards.
+ */
+private data class MediaInfoMetric(val labelRes: Int, val value: String? = null)
+
+private val MediaInfoUiModel.metrics: ImmutableList<MediaInfoMetric> get() = ImmutableList.of()

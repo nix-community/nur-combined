@@ -46,6 +46,9 @@ open class Intent {
         const val URI_INTENT_SCHEME = 1
         const val EXTRA_TEXT = "android.intent.extra.TEXT"
         const val EXTRA_STREAM = "android.intent.extra.STREAM"
+        const val ACTION_CHANNEL_NOTIFICATION_SETTINGS = "android.settings.CHANNEL_NOTIFICATION_SETTINGS"
+        const val EXTRA_CHANNEL_ID = "android.provider.extra.CHANNEL_ID"
+        const val EXTRA_APP_PACKAGE = "android.provider.extra.APP_PACKAGE"
         const val ACTION_MAIN = "android.intent.action.MAIN"
         const val ACTION_VIEW = "android.intent.action.VIEW"
         const val ACTION_SEND = "android.intent.action.SEND"

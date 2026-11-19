@@ -54,6 +54,8 @@ import kotlinx.coroutines.withTimeout
 abstract class InternalDatabase : RoomDatabase() {
     abstract val dao: DatabaseDao
 
+    abstract val recapDao: moe.rukamori.archivetune.recap.RecapDao
+
     companion object {
         const val DB_NAME = "song.db"
 
@@ -91,6 +93,11 @@ class MusicDatabase(
     private val queryExecutor = Executors.newSingleThreadExecutor()
     private val transactionExecutor = Executors.newSingleThreadExecutor()
 
+    val recapDao: moe.rukamori.archivetune.recap.RecapDao
+        get() = delegate.recapDao
+
+    fun recapChanges(): kotlinx.coroutines.flow.Flow<Unit> = kotlinx.coroutines.flow.flowOf(Unit)
+
     fun query(block: MusicDatabase.() -> Unit) =
         queryExecutor.execute {
             block(this@MusicDatabase)
@@ -114,6 +121,23 @@ class MusicDatabase(
                 block(this@MusicDatabase)
             }
         }
+
+    class OpenHelperShim {
+        val writableDatabase: WritableDatabaseShim = WritableDatabaseShim()
+    }
+
+    class WritableDatabaseShim {
+        val version: Int = 37
+    }
+
+    val openHelper: OpenHelperShim get() = OpenHelperShim()
+
+    fun lyricsSyncOffset(songId: String): kotlinx.coroutines.flow.Flow<Int?> =
+        kotlinx.coroutines.flow.flowOf(null)
+
+    suspend fun deleteLyricsSyncOffset(songId: String) {}
+
+    suspend fun upsert(entity: moe.rukamori.archivetune.db.entities.LyricsSyncOffsetEntity) {}
 
     fun close() = delegate.close()
 

@@ -372,6 +372,7 @@ fun main() {
                             BottomSheetPlayer(
                                 state = playerBottomSheetState,
                                 navController = navController,
+                                hazeState = remember { dev.chrisbanes.haze.HazeState() },
                                 pureBlack = pureBlack,
                             )
 

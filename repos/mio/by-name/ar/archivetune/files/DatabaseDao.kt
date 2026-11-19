@@ -2188,11 +2188,79 @@ interface DatabaseDao {
         }
     }
 
+    @Query("SELECT * FROM lyrics WHERE id = :id")
+    fun lyricsBlocking(id: String): LyricsEntity?
+
+    @Query(
+        """
+        UPDATE lyrics
+        SET lyrics = :lyrics, source = :source, updatedAt = :updatedAt, provider = :provider,
+            providerUrl = :providerUrl, providerAuthor = :providerAuthor, providerAuthorUrl = :providerAuthorUrl
+        WHERE id = :id AND lyrics = :notFoundLyrics AND source = :remoteSource
+        """,
+    )
+    fun replaceRemoteNotFoundLyrics(
+        id: String,
+        lyrics: String,
+        source: String,
+        provider: String?,
+        providerUrl: String?,
+        providerAuthor: String?,
+        providerAuthorUrl: String?,
+        updatedAt: Long,
+        notFoundLyrics: String,
+        remoteSource: String,
+    ): Int
+
+    @Transaction
+    fun saveFetchedLyrics(
+        id: String,
+        lyrics: String,
+        provider: String?,
+        providerUrl: String? = null,
+        providerAuthor: String? = null,
+        providerAuthorUrl: String? = null,
+        updatedAt: Long = System.currentTimeMillis(),
+    ) {
+        val source = LyricsEntity.Source.REMOTE.value
+        val insertedRowId =
+            insert(
+                LyricsEntity(
+                    id = id,
+                    lyrics = lyrics,
+                    source = source,
+                    updatedAt = updatedAt,
+                    provider = provider,
+                    providerUrl = providerUrl,
+                    providerAuthor = providerAuthor,
+                    providerAuthorUrl = providerAuthorUrl,
+                ),
+            )
+        if (insertedRowId == -1L) {
+            replaceRemoteNotFoundLyrics(
+                id = id,
+                lyrics = lyrics,
+                source = source,
+                provider = provider,
+                providerUrl = providerUrl,
+                providerAuthor = providerAuthor,
+                providerAuthorUrl = providerAuthorUrl,
+                updatedAt = updatedAt,
+                notFoundLyrics = LyricsEntity.LYRICS_NOT_FOUND,
+                remoteSource = source,
+            )
+        }
+    }
+
     @Transaction
     fun replaceLyrics(
         id: String,
         lyrics: String,
         source: String,
+        provider: String?,
+        providerUrl: String? = null,
+        providerAuthor: String? = null,
+        providerAuthorUrl: String? = null,
         updatedAt: Long = System.currentTimeMillis(),
     ) {
         upsert(
@@ -2201,7 +2269,31 @@ interface DatabaseDao {
                 lyrics = lyrics,
                 source = source,
                 updatedAt = updatedAt,
+                provider = provider,
+                providerUrl = providerUrl,
+                providerAuthor = providerAuthor,
+                providerAuthorUrl = providerAuthorUrl,
             ),
+        )
+    }
+
+    @Transaction
+    fun replaceLyricsKeepingProvider(
+        id: String,
+        lyrics: String,
+        source: String,
+        updatedAt: Long = System.currentTimeMillis(),
+    ) {
+        val existing = lyricsBlocking(id)
+        replaceLyrics(
+            id = id,
+            lyrics = lyrics,
+            source = source,
+            provider = existing?.provider,
+            providerUrl = existing?.providerUrl,
+            providerAuthor = existing?.providerAuthor,
+            providerAuthorUrl = existing?.providerAuthorUrl,
+            updatedAt = updatedAt,
         )
     }
 
@@ -2405,6 +2497,9 @@ interface DatabaseDao {
             }
         insertAllPlaylistTagMaps(maps)
     }
+
+    /* v16 clears cached remote lyrics when the lyrics provider changes. */
+    fun clearRemoteLyrics() {}
 
     @Transaction
     suspend fun togglePlaylistTag(

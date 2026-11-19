@@ -13,6 +13,7 @@ class Line(
     val text: String = "",
     val words: List<Word> = emptyList(),
     val agent: String? = null,
+    val agentName: String? = null,
     val providerRomanizedText: String? = null,
     val providerRomanizedWords: List<String>? = null,
     val providerRomanizedLanguage: String? = null,

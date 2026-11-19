@@ -22,6 +22,7 @@ class TtmlLine(
     val timing: TtmlTiming = TtmlTiming(),
     val language: String? = null,
     val agent: String? = null,
+    val agents: List<TtmlAgent> = emptyList(),
     val order: Int = 0,
     val sourceOrder: Int = 0,
     val words: List<TtmlLine> = emptyList(),

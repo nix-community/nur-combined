@@ -61,5 +61,7 @@ object MaterialShapes {
     val Arch: RoundedPolygon get() = RoundedPolygon()
     val Fan: RoundedPolygon get() = RoundedPolygon()
     val Arrow: RoundedPolygon get() = RoundedPolygon()
+    val Heart: RoundedPolygon get() = RoundedPolygon()
+    val Triangle: RoundedPolygon get() = RoundedPolygon()
     val Slanted: RoundedPolygon get() = RoundedPolygon()
 }

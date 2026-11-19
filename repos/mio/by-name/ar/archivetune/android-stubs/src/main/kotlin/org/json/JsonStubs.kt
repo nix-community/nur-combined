@@ -6,6 +6,9 @@ class JSONObject {
     private val map = LinkedHashMap<String, Any?>()
 
     constructor()
+    constructor(map: Map<*, *>) {
+        map.forEach { (k, v) -> this.map[k.toString()] = v }
+    }
     constructor(json: String) {
         try {
             val trimmed = json.trim()
@@ -35,6 +38,22 @@ class JSONObject {
     companion object {
         @JvmField
         val NULL: Any = Any()
+
+        @JvmStatic
+        fun quote(value: String): String {
+            val out = StringBuilder("\"")
+            for (c in value) {
+                when (c) {
+                    '"' -> out.append("\\\"")
+                    '\\' -> out.append("\\\\")
+                    '\n' -> out.append("\\n")
+                    '\r' -> out.append("\\r")
+                    '\t' -> out.append("\\t")
+                    else -> out.append(c)
+                }
+            }
+            return out.append("\"").toString()
+        }
     }
 
     fun put(name: String, value: Any?): JSONObject {
@@ -145,6 +164,81 @@ class JSONArray {
             is String -> "\"${it.replace("\"", "\\\"")}\""
             null -> "null"
             else -> it.toString()
+        }
+    }
+}
+
+/** Minimal JSON pull reader used by :modules to validate a single value. */
+class JSONTokener(private val text: String) {
+    private var pos = 0
+
+    private fun skipWhitespace() {
+        while (pos < text.length && text[pos].isWhitespace()) pos++
+    }
+
+    fun nextClean(): Char {
+        skipWhitespace()
+        if (pos >= text.length) return '\u0000'
+        return text[pos++]
+    }
+
+    fun nextValue(): Any? {
+        skipWhitespace()
+        if (pos >= text.length) throw JSONException("End of input")
+        return when (val c = text[pos]) {
+            '{', '[' -> {
+                val start = pos
+                var depth = 0
+                var inString = false
+                var escaped = false
+                while (pos < text.length) {
+                    val ch = text[pos++]
+                    if (inString) {
+                        when {
+                            escaped -> escaped = false
+                            ch == '\\' -> escaped = true
+                            ch == '"' -> inString = false
+                        }
+                    } else {
+                        when (ch) {
+                            '"' -> inString = true
+                            '{', '[' -> depth++
+                            '}', ']' -> {
+                                depth--
+                                if (depth == 0) break
+                            }
+                        }
+                    }
+                }
+                val raw = text.substring(start, pos)
+                if (c == '[') JSONArray(raw) else JSONObject(raw)
+            }
+            '"' -> {
+                val start = pos
+                pos++
+                var escaped = false
+                while (pos < text.length) {
+                    val ch = text[pos++]
+                    if (escaped) escaped = false else when (ch) {
+                        '\\' -> escaped = true
+                        '"' -> break
+                    }
+                }
+                val raw = text.substring(start, pos)
+                if (raw.length >= 2) raw.substring(1, raw.length - 1) else raw
+            }
+            else -> {
+                val start = pos
+                while (pos < text.length && text[pos] !in ",]} \t\r\n") pos++
+                val token = text.substring(start, pos)
+                when {
+                    token == "true" -> true
+                    token == "false" -> false
+                    token == "null" -> JSONObject.NULL
+                    token.contains('.') -> token.toDoubleOrNull() ?: throw JSONException("Invalid value: $token")
+                    else -> token.toLongOrNull() ?: throw JSONException("Invalid value: $token")
+                }
+            }
         }
     }
 }

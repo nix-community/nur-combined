@@ -1,4 +1,8 @@
 package android.app
-open class NotificationChannel(id: String, name: CharSequence, importance: Int) {
+open class NotificationChannel(
+    val id: String,
+    val name: CharSequence,
+    val importance: Int,
+) {
     var description: String = ""
 }

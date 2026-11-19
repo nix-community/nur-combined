@@ -12,6 +12,8 @@ open class LocaleList(vararg locales: Locale) {
 
     fun isEmpty(): Boolean = values.isEmpty()
 
+    fun toLanguageTags(): String = values.joinToString(",") { it.toLanguageTag() }
+
     override fun toString(): String = values.joinToString(",") { it.toString() }
 
     companion object {

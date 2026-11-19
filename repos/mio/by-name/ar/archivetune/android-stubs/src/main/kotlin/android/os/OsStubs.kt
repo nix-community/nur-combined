@@ -90,6 +90,8 @@ object SystemClock {
     fun elapsedRealtime(): Long = System.currentTimeMillis()
     @JvmStatic
     fun uptimeMillis(): Long = System.currentTimeMillis()
+    @JvmStatic
+    fun elapsedRealtimeNanos(): Long = System.nanoTime()
 }
 
 class BatteryManager

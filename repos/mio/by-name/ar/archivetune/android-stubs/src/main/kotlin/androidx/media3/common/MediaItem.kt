@@ -75,6 +75,11 @@ open class MediaItem(
 
     override fun toString(): String = "MediaItem(id=$mediaId)"
 
+    fun buildUpon(): Builder = Builder()
+        .setMediaId(mediaId)
+        .setMediaMetadata(mediaMetadata)
+        .setRequestMetadata(requestMetadata)
+
     companion object {
         val EMPTY: MediaItem = MediaItem()
         fun fromUri(uri: android.net.Uri): MediaItem = Builder().setUri(uri).build()

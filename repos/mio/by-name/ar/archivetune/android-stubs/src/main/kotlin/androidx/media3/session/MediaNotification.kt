@@ -37,8 +37,8 @@ open class MediaNotification {
         fun onNotificationCancelled(notificationId: Int, dismissedByUser: Boolean) {}
 
         /** Referred to as MediaNotification.Provider.Callback. */
-        interface Callback {
-            fun onNotificationChanged(notification: MediaNotification) {}
+        fun interface Callback {
+            fun onNotificationChanged(notification: MediaNotification)
         }
 
         /** Referred to as MediaNotification.Provider.NotificationChannelInfo. */

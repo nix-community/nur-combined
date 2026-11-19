@@ -78,6 +78,7 @@ data class YoutubeiNetworkConfiguration(
     val proxyPassword: String?,
     val dns: Dns,
     val interceptors: List<Interceptor> = emptyList(),
+    val networkIdentity: String? = null,
 )
 
 class YoutubeiException(

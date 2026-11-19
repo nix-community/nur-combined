@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.ui.unit.dp
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -44,12 +45,18 @@ fun KaraokeLyricsView(
     normalLineTextStyle: Any = Any(),
     accompanimentLineTextStyle: Any = Any(),
     phoneticTextStyle: Any = Any(),
+    translationTextStyle: Any = Any(),
     blendMode: Any = Any(),
     useBlurEffect: Boolean = false,
     showTranslation: Boolean = false,
     showPhonetic: Boolean = false,
     offset: Any = 0f,
     keepAliveZone: Any = Any(),
+    breathingDotsDefaults: Any? = null,
+    anchorOffset: Any? = null,
+    anchor: Any? = null,
+    itemSpacing: Any = 0.dp,
+    scrollAnimationSpec: Any? = null,
     modifier: Any = Any(),
 ) {
     val realListState = listState as? LazyListState ?: rememberLazyListState()

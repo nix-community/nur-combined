@@ -341,7 +341,11 @@ stdenv.mkDerivation {
     substituteInPlace CMakeLists.txt \
       --replace-fail 'set(CMAKE_EXE_LINKER_FLAGS "''${CMAKE_EXE_LINKER_FLAGS} -static -static-libgcc -static-libstdc++")' \
                      'set(CMAKE_EXE_LINKER_FLAGS "''${CMAKE_EXE_LINKER_FLAGS}")'
-
+  ''
+  # The full emulator build is Linux-only. The relinker itself (built with
+  # ANYPS5_RELINKER_ONLY) has no third-party dependencies, so macOS only needs
+  # the main source tree.
+  + lib.optionalString stdenv.hostPlatform.isLinux ''
     cp -rT ${libAtrac9} 3rdparty/LibAtrac9
     cp -rT ${sdl2} 3rdparty/SDL2
     cp -rT ${spirvHeaders} 3rdparty/SPIRV-Headers
@@ -394,11 +398,13 @@ stdenv.mkDerivation {
     pkg-config
     python3
     git
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     wayland-scanner
     patchelf
   ];
 
-  buildInputs = [
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     vulkan-loader
     libGL
     libglvnd
@@ -427,18 +433,24 @@ stdenv.mkDerivation {
     "-DCMAKE_BUILD_TYPE=Release"
     "-DBUILD_TESTING=OFF"
     "-DANYPS5_USE_SYSTEM_DEPS=OFF"
-    "-DFFMPEG_PREBUILT_DIR=${ffmpegPrebuilt}"
     "-DPython3_EXECUTABLE=${python3}/bin/python3"
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    "-DFFMPEG_PREBUILT_DIR=${ffmpegPrebuilt}"
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    "-DANYPS5_RELINKER_ONLY=ON"
   ];
 
   # Core libraries are EXCLUDE_FROM_ALL; the documented build runs the libs target.
-  postBuild = ''
+  # macOS builds only the dependency-free relinker.
+  postBuild = lib.optionalString stdenv.hostPlatform.isLinux ''
     cmake --build . --target libs --parallel $NIX_BUILD_CORES
   '';
 
   # The .prx libraries link each other by name and are meant to be found next to
   # one another, so their RPATH has to keep $ORIGIN instead of absolute paths.
-  postFixup = ''
+  postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     runtime_path="${
       lib.makeLibraryPath [
         stdenv.cc.cc.lib
@@ -458,11 +470,13 @@ stdenv.mkDerivation {
 
     install -Dm755 core/relinker/relinker $out/bin/relinker
 
+  '' + lib.optionalString stdenv.hostPlatform.isLinux ''
     mkdir -p $out/lib/anyps5/libs
     cp -a core/libs/libs/*.prx $out/lib/anyps5/libs/
     if ls core/libs/libs/libmimalloc.so* >/dev/null 2>&1; then
       cp -a core/libs/libs/libmimalloc.so* $out/lib/anyps5/libs/
     fi
+  '' + ''
 
     runHook postInstall
   '';
@@ -473,7 +487,11 @@ stdenv.mkDerivation {
     downloadPage = "https://github.com/boykopovar/AnyPS5/releases";
     license = licenses.gpl2Only;
     mainProgram = "relinker";
-    platforms = [ "x86_64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
     sourceProvenance = [ sourceTypes.fromSource ];
   };
 

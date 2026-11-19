@@ -148,9 +148,15 @@ interface Player {
 
         fun onRenderedFirstFrame() {}
 
-        fun onEvents(player: Player, events: Any) {}
+        fun onEvents(player: Player, events: Events) {}
 
         fun onMetadata(metadata: Any) {}
+    }
+
+    class Events {
+        fun contains(event: Int): Boolean = false
+
+        fun containsAny(vararg events: Int): Boolean = false
     }
 
     data class PositionInfo(val mediaItemIndex: Int = 0, val positionMs: Long = 0L, val mediaItem: MediaItem? = null)
@@ -165,6 +171,13 @@ interface Player {
     annotation class State
 
     companion object {
+        const val EVENT_TIMELINE_CHANGED = 0
+        const val EVENT_MEDIA_ITEM_TRANSITION = 1
+        const val EVENT_SHUFFLE_MODE_ENABLED_CHANGED = 2
+        const val EVENT_POSITION_DISCONTINUITY = 3
+        const val EVENT_IS_PLAYING_CHANGED = 4
+        const val EVENT_PLAYBACK_PARAMETERS_CHANGED = 5
+
         const val COMMAND_PLAY_PAUSE = 1
         const val COMMAND_PREPARE = 2
         const val COMMAND_STOP = 3

@@ -62,6 +62,8 @@ open class MediaMetadata(
         const val MEDIA_TYPE_FOLDER_YEARS = FOLDER_TYPE_YEARS
     }
 
+    fun buildUpon(): Builder = Builder()
+
     class Builder {
         private var id: String? = null
         private var mediaId: String? = null

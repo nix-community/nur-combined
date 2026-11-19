@@ -18,5 +18,9 @@ open class ContentMetadata {
 
         @JvmStatic
         fun getContentMetadataKey(key: String): String? = null
+
+        @JvmStatic
+        fun getContentLength(metadata: ContentMetadata): Long =
+            metadata.get(KEY_CONTENT_LENGTH, -1L)
     }
 }

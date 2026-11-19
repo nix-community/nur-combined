@@ -11,6 +11,7 @@ open class Configuration {
     @JvmField var orientation: Int = ORIENTATION_PORTRAIT
     @JvmField var smallestScreenWidthDp: Int = 0
     @JvmField var locales: android.os.LocaleList = android.os.LocaleList.getDefault()
+    @JvmField var uiMode: Int = 0
     
     open fun setLocale(locale: java.util.Locale) {}
     
@@ -18,5 +19,7 @@ open class Configuration {
         const val ORIENTATION_PORTRAIT = 1
         const val ORIENTATION_LANDSCAPE = 2
         const val ORIENTATION_UNDEFINED = 0
+        const val UI_MODE_TYPE_MASK = 0x0f
+        const val UI_MODE_TYPE_TELEVISION = 0x04
     }
 }

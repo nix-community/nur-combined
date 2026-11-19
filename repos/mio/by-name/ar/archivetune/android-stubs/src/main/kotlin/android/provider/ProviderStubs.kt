@@ -32,6 +32,8 @@ object Settings {
     const val ACTION_MANAGE_UNKNOWN_APP_SOURCES = "android.settings.MANAGE_UNKNOWN_APP_SOURCES"
     const val ACTION_APP_NOTIFICATION_SETTINGS = "android.settings.APP_NOTIFICATION_SETTINGS"
     const val EXTRA_APP_PACKAGE = "android.provider.extra.APP_PACKAGE"
+    const val ACTION_CHANNEL_NOTIFICATION_SETTINGS = "android.settings.CHANNEL_NOTIFICATION_SETTINGS"
+    const val EXTRA_CHANNEL_ID = "android.provider.extra.CHANNEL_ID"
 
     object System {
         val CONTENT_URI: Uri = Uri.parse("content://settings/system")
@@ -49,7 +51,11 @@ object Settings {
 
     object Global {
         val CONTENT_URI: Uri = Uri.parse("content://settings/global")
+        const val ANIMATOR_DURATION_SCALE = "animator_duration_scale"
+        const val TRANSITION_ANIMATION_SCALE = "transition_animation_scale"
+        const val WINDOW_ANIMATION_SCALE = "window_animation_scale"
         fun getInt(resolver: ContentResolver, name: String, def: Int): Int = def
+        fun getFloat(resolver: ContentResolver, name: String, def: Float): Float = def
         fun getString(resolver: ContentResolver, name: String): String? = null
     }
 }

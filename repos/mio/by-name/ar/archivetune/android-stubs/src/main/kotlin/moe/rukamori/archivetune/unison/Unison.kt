@@ -1,9 +1,10 @@
 package moe.rukamori.archivetune.unison
 
+import moe.rukamori.archivetune.unison.models.UnisonLyrics
+
 /*
- * The :lyrics:unison submodule is not fetched by fetchFromGitHub, so the port declares the
- * surface UnisonLyricsProvider resolves against. Upstream calls it with
- * (videoId = ..., title, artist, album, duration). No lyrics are ever produced.
+ * The :lyrics module is built for real, but its Unison client is declared here so the port
+ * does not depend on the network surface. No lyrics are ever produced.
  */
 object Unison {
     var logger: (String) -> Unit = {}
@@ -16,7 +17,7 @@ object Unison {
         duration: Int = 0,
         durationSeconds: Int = 0,
         id: String? = null,
-    ): Result<String> = Result.failure(NotImplementedError())
+    ): Result<UnisonLyrics> = Result.failure(NotImplementedError())
 
     suspend fun getAllLyrics(
         videoId: String,
@@ -26,6 +27,10 @@ object Unison {
         duration: Int = 0,
         durationSeconds: Int = 0,
         id: String? = null,
-        callback: (String) -> Unit = {},
+        callback: (UnisonLyrics) -> Unit = {},
     ) {}
+
+    fun lyricsPageUrl(lyrics: UnisonLyrics): String = ""
+
+    fun submitterPageUrl(lyrics: UnisonLyrics): String = ""
 }

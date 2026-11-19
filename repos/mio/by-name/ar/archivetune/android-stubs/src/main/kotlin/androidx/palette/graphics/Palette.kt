@@ -78,5 +78,27 @@ open class Palette(
         }
     }
 
-    class Swatch(val rgb: Int, val population: Int)
+    class Swatch(val rgb: Int, val population: Int) {
+        val hsl: FloatArray
+            get() {
+                val r = ((rgb shr 16) and 0xFF) / 255f
+                val g = ((rgb shr 8) and 0xFF) / 255f
+                val b = (rgb and 0xFF) / 255f
+                val max = maxOf(r, g, b)
+                val min = minOf(r, g, b)
+                val l = (max + min) / 2f
+                var h = 0f
+                var s = 0f
+                if (max != min) {
+                    s = if (l > 0.5f) (max - min) / (2f - max - min) else (max - min) / (max + min)
+                    h =
+                        when (max) {
+                            r -> (g - b) / (max - min) + (if (g < b) 6f else 0f)
+                            g -> (b - r) / (max - min) + 2f
+                            else -> (r - g) / (max - min) + 4f
+                        } / 6f
+                }
+                return floatArrayOf(h, s, l)
+            }
+    }
 }

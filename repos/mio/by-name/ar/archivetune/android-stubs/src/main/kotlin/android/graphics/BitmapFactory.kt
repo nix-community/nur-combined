@@ -66,6 +66,7 @@ object BitmapFactory {
         var inJustDecodeBounds: Boolean = false
         var outWidth: Int = 0
         var outHeight: Int = 0
+        var outMimeType: String? = null
         var inSampleSize: Int = 1
         var inPreferredConfig: Bitmap.Config? = null
     }

@@ -193,6 +193,73 @@ object SplitButtonDefaults {
         )
     }
 
+    /* 1.13's SplitButtonDefaults ships the *For helpers but not the plain
+     * leading/trailing composables upstream builds its account switcher from. */
+    fun leadingButtonShapesFor(height: Dp): ToggleButtonShapes =
+        ToggleButtonShapes(
+            shape = RoundedCornerShape(topStart = 20.dp, bottomStart = 20.dp, topEnd = 4.dp, bottomEnd = 4.dp),
+            pressedShape = RoundedCornerShape(topStart = 20.dp, bottomStart = 20.dp, topEnd = 4.dp, bottomEnd = 4.dp),
+            checkedShape = RoundedCornerShape(topStart = 20.dp, bottomStart = 20.dp, topEnd = 4.dp, bottomEnd = 4.dp),
+        )
+
+    fun trailingButtonShapesFor(height: Dp): ToggleButtonShapes =
+        ToggleButtonShapes(
+            shape = RoundedCornerShape(topStart = 4.dp, bottomStart = 4.dp, topEnd = 20.dp, bottomEnd = 20.dp),
+            pressedShape = RoundedCornerShape(topStart = 4.dp, bottomStart = 4.dp, topEnd = 20.dp, bottomEnd = 20.dp),
+            checkedShape = RoundedCornerShape(topStart = 4.dp, bottomStart = 4.dp, topEnd = 20.dp, bottomEnd = 20.dp),
+        )
+
+    fun leadingButtonContentPaddingFor(height: Dp): PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+
+    fun trailingButtonContentPaddingFor(height: Dp): PaddingValues = PaddingValues(horizontal = 8.dp, vertical = 8.dp)
+
+    fun leadingButtonIconSizeFor(height: Dp): Dp = LeadingIconSize
+
+    fun trailingButtonIconSizeFor(height: Dp): Dp = TrailingIconSize
+
+    @ExperimentalMaterial3ExpressiveApi
+    @Composable
+    fun LeadingButton(
+        onClick: () -> Unit,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        shapes: ToggleButtonShapes = leadingButtonShapesFor(MediumContainerHeight),
+        contentPadding: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+        interactionSource: MutableInteractionSource? = null,
+        content: @Composable RowScope.() -> Unit
+    ) {
+        FilledTonalButton(
+            onClick = onClick,
+            modifier = modifier,
+            enabled = enabled,
+            contentPadding = contentPadding,
+            interactionSource = interactionSource ?: remember { MutableInteractionSource() },
+            content = content
+        )
+    }
+
+    @ExperimentalMaterial3ExpressiveApi
+    @Composable
+    fun TrailingButton(
+        checked: Boolean,
+        onCheckedChange: (Boolean) -> Unit,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        shapes: ToggleButtonShapes = trailingButtonShapesFor(MediumContainerHeight),
+        contentPadding: PaddingValues = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
+        interactionSource: MutableInteractionSource? = null,
+        content: @Composable RowScope.() -> Unit
+    ) {
+        FilledTonalButton(
+            onClick = { onCheckedChange(!checked) },
+            modifier = modifier,
+            enabled = enabled,
+            contentPadding = contentPadding,
+            interactionSource = interactionSource ?: remember { MutableInteractionSource() },
+            content = content
+        )
+    }
+
     @ExperimentalMaterial3ExpressiveApi
     @Composable
     fun OutlinedTrailingButton(

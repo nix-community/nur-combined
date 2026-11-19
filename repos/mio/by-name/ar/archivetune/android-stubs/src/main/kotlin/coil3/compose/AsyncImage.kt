@@ -55,6 +55,9 @@ fun SubcomposeAsyncImage(
     modifier: Any = Any(),
     contentScale: Any = Any(),
     content: @Composable (Any.() -> Unit) = {},
+    loading: (@Composable () -> Unit)? = null,
+    error: (@Composable () -> Unit)? = null,
+    success: (@Composable (Any) -> Unit)? = null,
 ) {
     AsyncImage(
         model = model,

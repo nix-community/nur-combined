@@ -22,6 +22,16 @@ open class Lifecycle {
         ON_STOP,
         ON_DESTROY,
         ON_ANY,
+        ;
+
+        val targetState: State
+            get() = when (this) {
+                ON_CREATE, ON_STOP -> State.CREATED
+                ON_START, ON_PAUSE -> State.STARTED
+                ON_RESUME -> State.RESUMED
+                ON_DESTROY -> State.DESTROYED
+                ON_ANY -> State.CREATED
+            }
     }
 
     fun addObserver(observer: Any) {}

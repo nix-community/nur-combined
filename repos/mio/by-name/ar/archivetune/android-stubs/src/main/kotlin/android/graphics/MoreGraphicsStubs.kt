@@ -40,7 +40,7 @@ open class RectF(
 open class Point(var x: Int = 0, var y: Int = 0)
 open class PointF(var x: Float = 0f, var y: Float = 0f)
 
-open class Paint {
+open class Paint(flags: Int = 0) {
     var color: Int = 0
     var isAntiAlias: Boolean = true
     var isDither: Boolean = false
@@ -53,6 +53,37 @@ open class Paint {
     var alpha: Int = 255
 
     enum class Style { FILL, STROKE, FILL_AND_STROKE }
+    var textAlign: Align = Align.LEFT
+    var letterSpacing: Float = 0f
+    var textScaleX: Float = 1f
+
+    enum class Align { LEFT, CENTER, RIGHT }
+
+    companion object {
+        const val ANTI_ALIAS_FLAG = 1
+        const val FILTER_BITMAP_FLAG = 2
+    }
+
+    fun setShadowLayer(radius: Float, dx: Float, dy: Float, shadowColor: Int) {}
+    fun clearShadowLayer() {}
+    fun getFontMetrics(metrics: FontMetrics) {}
+    fun getFontMetricsInt(metrics: FontMetricsInt) {}
+
+    class FontMetrics {
+        var ascent: Float = 0f
+        var descent: Float = 0f
+        var top: Float = 0f
+        var bottom: Float = 0f
+        var leading: Float = 0f
+    }
+
+    class FontMetricsInt {
+        var ascent: Int = 0
+        var descent: Int = 0
+        var top: Int = 0
+        var bottom: Int = 0
+        var leading: Int = 0
+    }
 
     fun measureText(text: String): Float = text.length * textSize * 0.6f
     fun measureText(text: CharSequence, start: Int, end: Int): Float = (end - start) * textSize * 0.6f
@@ -64,7 +95,51 @@ open class Paint {
     }
 }
 
-open class Shader
+object PorterDuff {
+    enum class Mode { CLEAR, SRC, DST, SRC_OVER, DST_OVER, SRC_IN, DST_IN, SRC_OUT, DST_OUT, SRC_ATOP, DST_ATOP, XOR, DARKEN, LIGHTEN, MULTIPLY, SCREEN, ADD, OVERLAY }
+}
+
+open class Shader {
+    enum class TileMode { CLAMP, REPEAT, MIRROR, DECAL }
+}
+
+class LinearGradient(
+    x0: Float,
+    y0: Float,
+    x1: Float,
+    y1: Float,
+    colors: IntArray,
+    positions: FloatArray? = null,
+    tileMode: Shader.TileMode = Shader.TileMode.CLAMP,
+) : Shader() {
+    constructor(
+        x0: Float,
+        y0: Float,
+        x1: Float,
+        y1: Float,
+        color0: Int,
+        color1: Int,
+        tileMode: Shader.TileMode = Shader.TileMode.CLAMP,
+    ) : this(x0, y0, x1, y1, intArrayOf(color0, color1), null, tileMode)
+}
+
+class RadialGradient(
+    centerX: Float,
+    centerY: Float,
+    radius: Float,
+    colors: IntArray,
+    positions: FloatArray? = null,
+    tileMode: Shader.TileMode = Shader.TileMode.CLAMP,
+) : Shader() {
+    constructor(
+        centerX: Float,
+        centerY: Float,
+        radius: Float,
+        color0: Int,
+        color1: Int,
+        tileMode: Shader.TileMode = Shader.TileMode.CLAMP,
+    ) : this(centerX, centerY, radius, intArrayOf(color0, color1), null, tileMode)
+}
 
 open class SurfaceTexture(var texName: Int = 0) {
     fun release() {}
@@ -82,5 +157,7 @@ open class Path {
     fun cubicTo(x1: Float, y1: Float, x2: Float, y2: Float, x3: Float, y3: Float) {}
     fun addRect(left: Float, top: Float, right: Float, bottom: Float, dir: Direction) {}
     fun addRoundRect(rect: RectF, rx: Float, ry: Float, dir: Direction) {}
+    fun addOval(rect: RectF, dir: Direction) {}
+    fun arcTo(rect: RectF, startAngle: Float, sweepAngle: Float) {}
     fun close() {}
 }

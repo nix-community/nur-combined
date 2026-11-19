@@ -1,3 +1,4 @@
+import os
 import re
 with open('app/src/main/kotlin/moe/rukamori/archivetune/ui/theme/Theme.kt', 'r') as f:
     c = f.read()
@@ -68,7 +69,11 @@ c = c.replace('val LyricsFontFamily = FontFamily(Font(R.font.sfprodisplaybold))'
 with open('app/src/main/kotlin/moe/rukamori/archivetune/ui/theme/Type.kt', 'w') as f:
     f.write(c)
 
-with open('app/src/main/kotlin/moe/rukamori/archivetune/ui/svg/DynamicSVGImage.kt', 'w') as f:
+# Newer upstream releases dropped the SVG/TonalPalettes surface entirely; only stub it
+# when the source tree still has (and uses) the original file.
+_dynamic_svg = 'app/src/main/kotlin/moe/rukamori/archivetune/ui/svg/DynamicSVGImage.kt'
+if os.path.isdir(os.path.dirname(_dynamic_svg)):
+  with open(_dynamic_svg, 'w') as f:
     f.write("""package moe.rukamori.archivetune.ui.svg
 
 import androidx.compose.runtime.Composable
@@ -156,7 +161,6 @@ for file in glob.glob('app/src/main/kotlin/moe/rukamori/archivetune/**/*.kt', re
             f.write(content)
 
 # Create CompositionLocals.kt to restore the composition locals from deleted MainActivity.kt
-import os
 os.makedirs('app/src/main/kotlin/moe/rukamori/archivetune', exist_ok=True)
 with open('app/src/main/kotlin/moe/rukamori/archivetune/CompositionLocals.kt', 'w') as f:
     f.write("""package moe.rukamori.archivetune
@@ -258,48 +262,24 @@ val LocalDownloadUtil = staticCompositionLocalOf<DownloadUtil> { getGlobalDownlo
 val LocalSyncUtils = staticCompositionLocalOf<SyncUtils> { getGlobalSyncUtils() }
 """)
 
-# Material3-expressive members that upstream Android's material3 has as *members* of
-# the various *Defaults singletons, but which the desktop port supplies as extension
-# functions in android-stubs (it cannot add members to the real classes). Callers in
-# upstream code reference them without an import, so add the import where needed.
+# Extensions the port supplies itself (in android-stubs or patched media3 shims) rather
+# than as members of the real classes, so upstream call sites need an explicit import.
 EXTENSION_IMPORTS = [
-    ('ListItemDefaults.segmentedShapes(', 'androidx.compose.material3.segmentedShapes'),
-    ('ListItemDefaults.segmentedColors(', 'androidx.compose.material3.segmentedColors'),
-    ('ListItemDefaults.SegmentedGap', 'androidx.compose.material3.SegmentedGap'),
-    ('ListItemDefaults.shapes(', 'androidx.compose.material3.shapes'),
-    ('IconButtonDefaults.shapes(', 'androidx.compose.material3.shapes'),
-    ('ButtonDefaults.shapes(', 'androidx.compose.material3.shapes'),
     ('maskClip(', 'androidx.compose.ui.draw.maskClip'),
     ('maskBorder(', 'androidx.compose.ui.draw.maskBorder'),
-    ('standardFloatingToolbarColors(', 'androidx.compose.material3.standardFloatingToolbarColors'),
-    ('ButtonDefaults.squareShape', 'androidx.compose.material3.squareShape'),
-    ('PullToRefreshDefaults.LoadingIndicator', 'androidx.compose.material3.pulltorefresh.LoadingIndicator'),
     ('upstream.uri', 'androidx.media3.datasource.uri'),
     ('upstream.responseHeaders', 'androidx.media3.datasource.responseHeaders'),
-    ('ButtonDefaults.SmallContentPadding', 'androidx.compose.material3.SmallContentPadding'),
-    ('ButtonDefaults.MediumContentPadding', 'androidx.compose.material3.MediumContentPadding'),
-    ('ButtonDefaults.LargeContentPadding', 'androidx.compose.material3.LargeContentPadding'),
-    ('ButtonDefaults.MediumContainerHeight', 'androidx.compose.material3.MediumContainerHeight'),
-    ('ButtonDefaults.LargeContainerHeight', 'androidx.compose.material3.LargeContainerHeight'),
-    ('ButtonDefaults.SmallContainerHeight', 'androidx.compose.material3.SmallContainerHeight'),
-    ('ButtonDefaults.contentPaddingFor(', 'androidx.compose.material3.contentPaddingFor'),
-    ('ButtonDefaults.iconSizeFor(', 'androidx.compose.material3.iconSizeFor'),
-    ('ButtonDefaults.iconSpacingFor(', 'androidx.compose.material3.iconSpacingFor'),
-    ('ButtonDefaults.textStyleFor(', 'androidx.compose.material3.textStyleFor'),
-    ('FilterChipDefaults.shapes(', 'androidx.compose.material3.shapes'),
-    ('MaterialTheme.motionScheme', 'androidx.compose.material3.motionScheme'),
-    ('titleLargeEmphasized', 'androidx.compose.material3.titleLargeEmphasized'),
-    ('titleMediumEmphasized', 'androidx.compose.material3.titleMediumEmphasized'),
-    ('labelLargeEmphasized', 'androidx.compose.material3.labelLargeEmphasized'),
-    ('labelMediumEmphasized', 'androidx.compose.material3.labelMediumEmphasized'),
-    ('bodyLargeEmphasized', 'androidx.compose.material3.bodyLargeEmphasized'),
-    ('bodyMediumEmphasized', 'androidx.compose.material3.bodyMediumEmphasized'),
-    ('headlineSmallEmphasized', 'androidx.compose.material3.headlineSmallEmphasized'),
     ('writeTimeout(', 'okhttp3.writeTimeout'),
     ('retryOnConnectionFailure(', 'okhttp3.retryOnConnectionFailure'),
     ('cache.uid', 'androidx.media3.datasource.cache.uid'),
     ('cache.keys', 'androidx.media3.datasource.cache.keys'),
     ('cache.cacheSpace', 'androidx.media3.datasource.cache.cacheSpace'),
+    ('Cache.keys', 'androidx.media3.datasource.cache.keys'),
+    ('Cache.cacheSpace', 'androidx.media3.datasource.cache.cacheSpace'),
+    ('runCatching { cacheSpace }', 'androidx.media3.datasource.cache.cacheSpace'),
+    ('active?.uri', 'androidx.media3.datasource.uri'),
+    ('active?.responseHeaders', 'androidx.media3.datasource.responseHeaders'),
+    ('ToggleButtonDefaults.toggleButtonColors(', 'androidx.compose.material3.toggleButtonColors'),
 ]
 
 for path in glob.glob('app/src/main/kotlin/moe/rukamori/archivetune/**/*.kt', recursive=True):

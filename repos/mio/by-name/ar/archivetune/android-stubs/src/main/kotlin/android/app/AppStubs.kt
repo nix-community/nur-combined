@@ -12,9 +12,11 @@ open class Activity : android.content.ContextWrapper(null) {
     open fun recreate() {}
     override fun startActivity(intent: Intent) {}
     open fun startActivityForResult(intent: Intent, requestCode: Int) {}
+    open val isChangingConfigurations: Boolean get() = false
 }
 
 open class Application : android.content.ContextWrapper(null) {
+    open fun attachBaseContext(base: Context) {}
     open fun onCreate() {}
     open fun onTrimMemory(level: Int) {}
 

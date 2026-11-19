@@ -36,6 +36,8 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import moe.rukamori.archivetune.canvas.CanvasPlaybackUseCase
 import moe.rukamori.archivetune.constants.AudioQuality
+import moe.rukamori.archivetune.playback.bitperfect.BitPerfectFallback
+import moe.rukamori.archivetune.playback.bitperfect.BitPerfectStatus
 import moe.rukamori.archivetune.constants.HISTORY_DURATION_DEFAULT
 import moe.rukamori.archivetune.constants.HISTORY_DURATION_MIN
 import moe.rukamori.archivetune.constants.HISTORY_DURATION_MAX
@@ -49,6 +51,7 @@ import moe.rukamori.archivetune.innertube.YouTube
 import moe.rukamori.archivetune.models.ActiveOutputDevice
 import moe.rukamori.archivetune.models.MediaMetadata
 import moe.rukamori.archivetune.models.PlayerOutputDevice
+import moe.rukamori.archivetune.playback.queues.ListQueue
 import moe.rukamori.archivetune.playback.queues.Queue
 import moe.rukamori.archivetune.together.TogetherSessionState
 import moe.rukamori.archivetune.utils.YTPlayerUtils
@@ -1331,9 +1334,20 @@ class MusicService {
 
     val currentMediaMetadata = MutableStateFlow<MediaMetadata?>(null)
     val sleepTimer by lazy { SleepTimer(CoroutineScope(Dispatchers.Default), desktopPlayerImpl, this) }
+
+    /* Desktop player applies volume itself; the sleep-timer fade is a no-op here. */
+    fun setSleepTimerVolumeFactor(factor: Float) {}
+
     val activeAudioDevice: StateFlow<ActiveOutputDevice> =
         MutableStateFlow(ActiveOutputDevice(PlayerOutputDevice.Unknown, PlayerOutputDevice.Unknown.defaultName))
     val eqCapabilities: StateFlow<EqCapabilities?> = MutableStateFlow(null)
+
+    // USB bit-perfect output is an Android audio path; report unavailable instead of a
+    // null state so the settings screen keeps its normal "no DAC" presentation.
+    val bitPerfectStatus: StateFlow<BitPerfectStatus> =
+        MutableStateFlow(BitPerfectStatus(fallback = BitPerfectFallback.UNAVAILABLE))
+
+    fun requestBitPerfectUsbPermission() = Unit
     val togetherSessionState: StateFlow<TogetherSessionState> = MutableStateFlow(TogetherSessionState.Idle)
     val canvasPlaybackUseCase: CanvasPlaybackUseCase by lazy {
         androidx.hilt.navigation.compose._createViewModelInstance(CanvasPlaybackUseCase::class.java) as CanvasPlaybackUseCase
@@ -1359,6 +1373,16 @@ class MusicService {
 
     val infiniteQueueLoading: StateFlow<Boolean> = MutableStateFlow(false)
     val queueRestoreCompleted: StateFlow<Boolean> = MutableStateFlow(true)
+
+    val unrecoveredPlaybackError: StateFlow<PlaybackException?> = MutableStateFlow(null)
+
+    val queueRecommendations: StateFlow<QueueRecommendations> = MutableStateFlow(QueueRecommendations())
+
+    private val _recapAudioMuted = MutableStateFlow(false)
+
+    val recapAudioMuted: StateFlow<Boolean> = _recapAudioMuted
+
+    val recapQueueActive: StateFlow<Boolean> = MutableStateFlow(false)
     val waitingForNetworkConnection: StateFlow<Boolean> = MutableStateFlow(false)
 
     val queueTitle: String? get() = null
@@ -1493,6 +1517,24 @@ class MusicService {
             ?: return
         desktopPlayerImpl.addMediaItems(items)
     }
+
+    internal fun removeQueueItems(windows: List<Timeline.Window>): QueueRemoval? = null
+
+    internal fun restoreQueueItems(removal: QueueRemoval): Boolean = false
+
+    internal fun discardQueueRemoval(removal: QueueRemoval) {}
+
+    fun refreshQueueRecommendations(force: Boolean = false) {}
+
+    fun selectQueueChip(id: String) {}
+
+    fun clearQueueContinuation() {}
+
+    fun setRecapMuted(muted: Boolean) {
+        _recapAudioMuted.value = muted
+    }
+
+    fun playRecapQueue(queue: ListQueue): Boolean = false
 
     fun moveQueueItemToNext(vararg args: Any?) {
         val index = args.firstOrNull() as? Int ?: return

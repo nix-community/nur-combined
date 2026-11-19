@@ -7,4 +7,6 @@ open class NotificationManagerCompat {
     open fun cancel(id: Int) {}
     open fun notify(id: Int, notification: android.app.Notification) {}
     open fun createNotificationChannel(channel: android.app.NotificationChannel) {}
+    open fun areNotificationsEnabled(): Boolean = true
+    open fun getNotificationChannel(channelId: String): android.app.NotificationChannel? = null
 }

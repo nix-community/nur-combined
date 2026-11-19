@@ -51,6 +51,8 @@ open class PackageManager {
         const val PERMISSION_GRANTED = 0
         const val PERMISSION_DENIED = -1
         const val FEATURE_AUTOMOTIVE = "android.hardware.type.automotive"
+        const val FEATURE_LEANBACK = "android.software.leanback"
+        const val FEATURE_TELEVISION = "android.hardware.type.television"
     }
 }
 

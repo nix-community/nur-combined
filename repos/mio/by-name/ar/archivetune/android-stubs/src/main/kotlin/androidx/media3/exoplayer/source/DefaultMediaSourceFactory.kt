@@ -7,5 +7,9 @@ package androidx.media3.exoplayer.source
 open class DefaultMediaSourceFactory(
     vararg args: Any?,
 ) {
+    fun setDataSourceFactory(factory: androidx.media3.datasource.DataSource.Factory): DefaultMediaSourceFactory = this
+
+    fun createMediaSource(item: androidx.media3.common.MediaItem): MediaSource = MediaSource()
+
     companion object { }
 }

@@ -1,6 +1,12 @@
 package android.net
 
-open class Network
+open class Network {
+    val networkHandle: Long = 1L
+}
+
+open class LinkProperties {
+    override fun toString(): String = ""
+}
 
 open class NetworkCapabilities {
     open fun hasCapability(capability: Int): Boolean = true
@@ -45,6 +51,9 @@ open class ConnectivityManager {
 
     open fun getNetworkCapabilities(network: Network?): NetworkCapabilities? =
         if (network != null) defaultCapabilities else null
+
+    open fun getLinkProperties(network: Network?): LinkProperties? =
+        if (network != null) LinkProperties() else null
 
     open fun registerDefaultNetworkCallback(networkCallback: NetworkCallback) {
         networkCallback.onAvailable(defaultNetwork)

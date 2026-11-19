@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.database.DatabaseErrorHandler
 import android.database.sqlite.SQLiteDatabase
+import android.view.accessibility.AccessibilityManager
 import androidx.compose.runtime.Stable
 import java.io.File
 
@@ -66,6 +67,7 @@ open class Context {
     open val contentResolver: ContentResolver = ContentResolver()
     open val packageName: String = "moe.rukamori.archivetune"
     open val filesDir: File get() = DesktopStoragePaths.dataDir
+    open val noBackupFilesDir: File get() = filesDir
     open val cacheDir: File get() = DesktopStoragePaths.cacheDir
     open val externalCacheDir: File? get() = DesktopStoragePaths.cacheDir
     open val resources: Resources = Resources()
@@ -93,6 +95,7 @@ open class Context {
         CLIPBOARD_SERVICE -> ClipboardManager()
         POWER_SERVICE -> android.os.PowerManager()
         NOTIFICATION_SERVICE -> android.app.NotificationManager()
+        ACCESSIBILITY_SERVICE -> AccessibilityManager()
         else -> null
     }
 
@@ -104,6 +107,7 @@ open class Context {
         "android.content.ClipboardManager" -> ClipboardManager() as T
         "android.os.PowerManager" -> android.os.PowerManager() as T
         "android.app.NotificationManager" -> android.app.NotificationManager() as T
+        "android.view.accessibility.AccessibilityManager" -> AccessibilityManager() as T
         else -> null
     }
     
@@ -172,6 +176,7 @@ open class Context {
         const val BATTERY_SERVICE = "batterymanager"
         const val MEDIA_PROJECTION_SERVICE = "media_projection"
         const val SENSOR_SERVICE = "sensor"
+        const val ACCESSIBILITY_SERVICE = "accessibility"
     }
 }
 

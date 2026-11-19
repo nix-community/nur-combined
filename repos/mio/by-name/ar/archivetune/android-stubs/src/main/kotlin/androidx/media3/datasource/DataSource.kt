@@ -19,7 +19,7 @@ interface DataSource {
 
     fun getResponseHeaders(): Map<String, List<String>>
 
-    interface Factory {
+    fun interface Factory {
         fun createDataSource(): DataSource
     }
 }

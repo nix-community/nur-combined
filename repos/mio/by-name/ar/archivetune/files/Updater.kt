@@ -23,6 +23,9 @@ data class ReleaseInfo(
     val publishedAt: String,
     val htmlUrl: String,
     val downloadUrl: String? = null,
+    val downloadSizeBytes: Long? = null,
+    val isDraft: Boolean = false,
+    val isPrerelease: Boolean = false,
 )
 
 object Updater {
@@ -33,8 +36,14 @@ object Updater {
     internal fun findLatestRelease(releases: List<ReleaseInfo>): ReleaseInfo? = releases.firstOrNull()
     internal fun findLatestCanaryRelease(releases: List<ReleaseInfo>): ReleaseInfo? = releases.firstOrNull()
     internal fun getReleaseVersionName(release: ReleaseInfo): String = release.tagName
+    internal fun newerStableReleaseCount(releases: List<ReleaseInfo>, currentVersion: String): Int = 0
+    internal fun getReleasePageUrl(version: String? = null): String = ""
+    internal fun getReleaseDownloadUrl(release: ReleaseInfo): String = release.downloadUrl.orEmpty()
 
     suspend fun getCachedReleases(): List<ReleaseInfo> = emptyList()
+
+    suspend fun getReleaseForVersion(version: String): Result<ReleaseInfo> =
+        Result.failure(IllegalStateException("Updater is disabled"))
     suspend fun getLatestVersionName(): Result<String> = Result.failure(IllegalStateException("Updater is disabled"))
     suspend fun getLatestReleaseNotes(): Result<String?> = Result.failure(IllegalStateException("Updater is disabled"))
     suspend fun getLatestReleaseInfo(forceRefresh: Boolean = false): Result<ReleaseInfo> =

@@ -37,16 +37,17 @@ val CarouselState.currentItem: Int
 @OptIn(ExperimentalMaterial3Api::class)
 val CarouselState.itemCount: Int
     get() = try {
-        itemCountState.value.invoke()
+        val pagerState = this.javaClass.methods.firstOrNull { it.name.startsWith("getPagerState") }?.invoke(this) as? androidx.compose.foundation.pager.PagerState
+        pagerState?.pageCount ?: 0
     } catch (_: Throwable) {
         0
     }
 
 @OptIn(ExperimentalMaterial3Api::class)
-private val desktopCarouselItemInfo: CarouselItemInfo by lazy {
+private val desktopCarouselItemInfo: CarouselItemDrawInfo by lazy {
     java.lang.reflect.Proxy.newProxyInstance(
-        CarouselItemInfo::class.java.classLoader,
-        arrayOf(CarouselItemInfo::class.java),
+        CarouselItemDrawInfo::class.java.classLoader,
+        arrayOf(CarouselItemDrawInfo::class.java),
     ) { proxy, method, args ->
         when (method.name) {
             "getSize" -> 1000f
@@ -58,7 +59,7 @@ private val desktopCarouselItemInfo: CarouselItemInfo by lazy {
             "equals" -> args?.getOrNull(0) === proxy
             else -> null
         }
-    } as CarouselItemInfo
+    } as CarouselItemDrawInfo
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -68,7 +69,7 @@ private val desktopCarouselItemScope: CarouselItemScope by lazy {
         arrayOf(CarouselItemScope::class.java),
     ) { proxy, method, args ->
         when {
-            method.name.startsWith("getCarouselItemInfo") -> desktopCarouselItemInfo
+            method.name.startsWith("getCarouselItemDrawInfo") || method.name.startsWith("getCarouselItemInfo") -> desktopCarouselItemInfo
             method.name.startsWith("maskClip") && args != null && args.size >= 2 -> {
                 val modifier = args[0] as? Modifier ?: Modifier
                 val shape = args[1] as? Shape

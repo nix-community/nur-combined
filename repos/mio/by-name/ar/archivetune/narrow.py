@@ -29,6 +29,7 @@ DROP_DIRS = [
     'discord',
     'aod',
     'widget',
+    'playback/bitperfect',
 ]
 
 # Individual files belonging to those subsystems (their screens and view models).
@@ -45,7 +46,17 @@ DROP_FILES = [
     'viewmodels/AndroidAutoSettingsViewModel.kt',
     'viewmodels/IconViewModel.kt',
     'viewmodels/MusicRecognitionViewModel.kt',
+    'viewmodels/MusicRecognitionDetailsViewModel.kt',
     'viewmodels/LocalSongsViewModel.kt',
+    'ui/screens/settings/LocalSongSettings.kt',
+    'settings/AppLocaleApplier.kt',
+    # ExoPlayer source/crossfade extensions. The port ships its own MusicService that
+    # drives a plain ExoPlayer, so these Android-only plumbing classes are unused.
+    'playback/ModuleMediaSource.kt',
+    'playback/CrossfadeHandler.kt',
+    'playback/SwappableLocalPlayer.kt',
+    # Android-only OAuth trampoline Activity; referenced solely by AndroidManifest.xml.
+    'modules/ModuleAuthorizationActivity.kt',
 ]
 
 # Screen directories belonging to those subsystems.
@@ -60,6 +71,7 @@ DROP_ROUTE_SCREENS = [
     'MusicRecognitionScreen',
     'MusicRecognitionDetailsScreen',
     'LocalSongScreen',
+    'LocalSongSettings',
     'DiscordSettings',
     'AodCustomizedScreen',
 ]
@@ -75,6 +87,9 @@ DROP_IMPORT_PATTERNS = [
                r'(AndroidAutoSettings|IconScreen)$', re.M),
     re.compile(r'^import moe\.rukamori\.archivetune\.ui\.screens\.library\.'
                r'(LocalSongScreen)$', re.M),
+    re.compile(r'^import moe\.rukamori\.archivetune\.ui\.screens\.settings\.'
+               r'LocalSongSettings(Route)?$', re.M),
+    re.compile(r'^import moe\.rukamori\.archivetune\.settings\.AppLocaleApplier$', re.M),
     re.compile(r'^import moe\.rukamori\.archivetune\.ui\.screens\.musicrecognition\..*$', re.M),
     re.compile(r'^import moe\.rukamori\.archivetune\.discord\..*$', re.M),
     re.compile(r'^import moe\.rukamori\.archivetune\.utils\.DiscordRPC$', re.M),
@@ -155,11 +170,47 @@ def drop_blocks(text, names):
         text = text[:hit[0]] + text[hit[1]:]
 
 
+def drop_function(text, name):
+    """Remove a `fun name(...) { ... }` declaration with its body."""
+    match = re.search(r'^\s*(?:private |internal |override |suspend )*fun %s\s*\('
+                      % re.escape(name), text, re.M)
+    if match is None:
+        return text
+    brace = text.find('{', match.end())
+    if brace == -1:
+        return text
+    depth = 0
+    end = brace
+    while end < len(text):
+        if text[end] == '{':
+            depth += 1
+        elif text[end] == '}':
+            depth -= 1
+            if depth == 0:
+                end += 1
+                break
+        end += 1
+    start = match.start()
+    while start > 0 and text[start - 1] == '\n':
+        start -= 1
+    return text[:start] + text[end:].lstrip('\n')
+
+
 nav = os.path.join(ROOT, 'ui/screens/NavigationBuilder.kt')
 if os.path.exists(nav):
     text = open(nav).read()
     text = drop_blocks(text, DROP_ROUTE_SCREENS)
     open(nav, 'w').write(text)
+
+# App.kt registers launcher-entry restoration through the (dropped) appicon package.
+app_kt = os.path.join(ROOT, 'App.kt')
+if os.path.exists(app_kt):
+    text = open(app_kt).read()
+    text = re.sub(r'^\s*@Inject\n\s*lateinit var restoreLauncherEntry: '
+                  r'RestoreLauncherEntryUseCase\n\n?', '', text, flags=re.M)
+    text = re.sub(r'^\s*initializeLauncherEntry\(\)\n', '', text, flags=re.M)
+    text = drop_function(text, 'initializeLauncherEntry')
+    open(app_kt, 'w').write(text)
 
 # Strip imports that refer to removed packages/types, anywhere in the tree.
 for dirpath, _, filenames in os.walk(ROOT):

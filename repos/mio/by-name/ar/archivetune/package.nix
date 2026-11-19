@@ -32,7 +32,9 @@
   mpv,
   mpvScripts ? null,
   yt-dlp,
-  nix-update-script,
+  nix-update,
+  nix,
+  curl,
   zlib,
 }:
 
@@ -68,16 +70,25 @@ let
     zlib
   ];
 
+  # The :lyrics submodule supplies the JVM-only lyrics providers (lrc.red, kugou,
+  # paxsenix, TTML parsers...); it is pure Kotlin/JVM, so the port builds it for real.
+  lyricsSrc = fetchFromGitHub {
+    owner = "rukamori";
+    repo = "lyrics";
+    rev = "aa6fcd688ae464a56b044989f3bd7632afb8cadf";
+    hash = "sha256-LqmCZuzCzJFu9J/G0Dc/EuPrSxrzao0iCldB1r9CZQo=";
+  };
+
   # The :core submodule lives in a separate repo; fetch it at the pinned commit.
   coreSrc = fetchFromGitHub {
     owner = "rukamori";
     repo = "core";
-    rev = "f9e316fb7ec10d14487004db07e3b37d7afdfef3";
-    hash = "sha256-r+3g/fPG963NtYqWQ5VGmqglGMnkeegeZCV6GajCICE=";
+    rev = "bfd998cf3d6f1ab9f0c69b75eb68f983e63f8bcd";
+    hash = "sha256-8BijRMUVUK7U0cVP4owgJ4+aE6y5c5KLpOwOVU6BmP0=";
   };
   unwrapped = stdenv.mkDerivation (finalAttrs: {
     pname = "archivetune-unwrapped";
-    version = "15.1.0";
+    version = "16.0.0";
 
     strictDeps = true;
 
@@ -85,16 +96,17 @@ let
       owner = "rukamori";
       repo = "ArchiveTune";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-xzhpLlX+X+Mx+VAgKbkTIB2ntAFfMhqrQCE1diZTFng=";
+      hash = "sha256-gUiqJ2CHbx5/gg4LPdBsdv2FZOQpaAvfFCCtdxDaoJo=";
     };
 
     patches = [ ];
 
     postPatch = ''
-      # Wire the pinned :core submodule source into place.
-      rm -rf core
+      # Wire the pinned :core and :lyrics submodule sources into place.
+      rm -rf core lyrics
       cp -r ${coreSrc} core
-      chmod -R +w core
+      cp -r ${lyricsSrc} lyrics
+      chmod -R +w core lyrics
       patch -p1 < ${./core-playlist.patch}
 
       # Drop the Android-only entrypoints. android-stubs provides the global mocks
@@ -111,6 +123,7 @@ let
       # while contributing nothing, since the replacement is intentional.
       install -m644 ${./files/app-build.gradle.kts} app/build.gradle.kts
       install -m644 ${./files/settings.gradle.kts} settings.gradle.kts
+      install -m644 ${./files/modules-build.gradle.kts} modules/build.gradle.kts
       install -m644 ${./files/AodShapeUtils.kt} app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/AodShapeUtils.kt
       install -m644 ${./files/ShowMediaInfo.kt} app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/ShowMediaInfo.kt
       install -m644 ${./files/AppUpdateInstaller.kt} app/src/main/kotlin/moe/rukamori/archivetune/utils/AppUpdateInstaller.kt
@@ -142,8 +155,6 @@ let
       find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/@DrawableRes//g" {} +
       find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/shapes = ButtonDefaults.shapes()/shape = ButtonDefaults.textShape/g" {} +
       find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/shapes = SegmentedButtonDefaults/shape = SegmentedButtonDefaults/g" {} +
-      find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/shapes = IconButtonDefaults/shape = IconButtonDefaults/g" {} +
-      find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/shapes = expressiveShapes/shapes = expressiveShapes/g" {} +
       # Remaining small source patches
       patch -p1 < ${./root-build.patch}
       patch -p1 < ${./app-kotlin.patch}
@@ -151,8 +162,11 @@ let
       patch -p1 < ${./history-refresh.patch}
       # Drop the Android-only subsystems (see narrow.py), then shim the rest.
       python3 ${./narrow.py}
+      # Android-only USB bit-perfect stack (removed by narrow.py) keeps its type surface.
+      mkdir -p app/src/main/kotlin/moe/rukamori/archivetune/playback/bitperfect
+      install -m644 ${./files/BitPerfectShim.kt} \
+        app/src/main/kotlin/moe/rukamori/archivetune/playback/bitperfect/BitPerfectOutput.kt
       python3 ${./fix_theme.py}
-      patch -p1 < ${./challenge.patch}
       patch -p1 < ${./sed-replacements.patch}
 
       cp ${./files/MusicDatabase.kt} app/src/main/kotlin/moe/rukamori/archivetune/db/MusicDatabase.kt
@@ -165,6 +179,10 @@ let
       # Copy android stubs
       cp -r ${./android-stubs} android-stubs
       chmod -R +w .
+
+      # R.string and stringResource live outside the Android resource compiler in
+      # this port, so derive them from upstream's values/*.xml.
+      python3 ${./files/gen_string_resources.py}
 
       # Populate android-stubs resources with upstream drawables
       mkdir -p android-stubs/src/main/resources/drawable
@@ -343,9 +361,15 @@ let
 
     passthru.updateScript = writeShellApplication {
       name = "update-archivetune";
+      runtimeInputs = [
+        nix-update
+        nix
+        curl
+        python3
+      ];
       text = ''
-        export UPDATE_NIX_ATTR_PATH="archivetune"
-        exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+        export UPDATE_NIX_ATTR_PATH="archivetune.unwrapped"
+        exec ${python3}/bin/python3 ${./update.py} "$@"
       '';
     };
 

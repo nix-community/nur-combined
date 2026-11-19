@@ -20,3 +20,12 @@ inline fun Canvas.withClip(clipPath: android.graphics.Path, block: Canvas.() -> 
         restoreToCount(checkpoint)
     }
 }
+
+inline fun Canvas.withSave(block: Canvas.() -> Unit) {
+    val checkpoint = save()
+    try {
+        block()
+    } finally {
+        restoreToCount(checkpoint)
+    }
+}

@@ -14,6 +14,9 @@ open class Uri {
     open val query: String? = null
     open val fragment: String? = null
     open val pathSegments: List<String> = emptyList()
+    open val port: Int = -1
+    open val encodedUserInfo: String? = null
+    open val queryParameterNames: Set<String> = emptySet()
     open fun getQueryParameter(key: String): String? = null
     open fun getQueryParameters(key: String): List<String> = emptyList()
     open fun buildUpon(): Builder = Builder()
@@ -24,6 +27,7 @@ open class Uri {
         fun path(path: String): Builder = this
         fun appendPath(pathSegment: String): Builder = this
         fun appendQueryParameter(key: String, value: String): Builder = this
+        fun clearQuery(): Builder = this
         fun build(): Uri = Uri()
     }
 

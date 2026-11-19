@@ -4,7 +4,7 @@
 plugins {
     kotlin("jvm")
     kotlin("plugin.serialization")
-    id("org.jetbrains.compose") version "1.7.0"
+    id("org.jetbrains.compose") version "1.13.0-rc01"
     id("org.jetbrains.kotlin.plugin.compose")
     id("com.google.devtools.ksp") version "2.3.10"
 }
@@ -24,6 +24,16 @@ kotlin {
             "-opt-in=androidx.compose.animation.ExperimentalAnimationApi",
             "-opt-in=coil3.annotation.ExperimentalCoilApi",
         )
+    }
+}
+
+// Some upstream modules request the compose plugin's default material3 (1.9.0); without a
+// force the JVM variant of that older line can win over the explicit expressive artefact,
+// which hides the expressive APIs (MediumFlexibleTopAppBar, motionScheme, ...).
+configurations.all {
+    resolutionStrategy {
+        force("org.jetbrains.compose.material3:material3:1.13.0-rc01")
+        force("org.jetbrains.compose.material3:material3-desktop:1.13.0-rc01")
     }
 }
 
@@ -60,14 +70,30 @@ sourceSets {
 
 dependencies {
     implementation(compose.desktop.currentOs)
-    implementation(compose.material3)
+    // The compose plugin pins material3 at 1.9.0; upstream v16 targets the Material3 1.5 API
+    // line (expressive components), so request the 1.13.0-rc01 artefact explicitly.
+    implementation("org.jetbrains.compose.material3:material3:1.13.0-rc01")
+    implementation(compose.materialIconsExtended)
     implementation(project(":core"))
     implementation(project(":android-stubs"))
     // Real modules shipped in the ArchiveTune tree (plain directories, kotlin.jvm).
     implementation(project(":spotifycore"))
+    implementation(project(":modules"))
     implementation(project(":canvas"))
     implementation(project(":lastfm"))
     implementation(project(":shazamkit"))
+    // Lyrics providers and TTML parsers from the :lyrics submodule (kotlin.jvm).
+    implementation(project(":lyrics:kugou"))
+    implementation(project(":lyrics:lrclib"))
+    implementation(project(":lyrics:simpmusic"))
+    implementation(project(":lyrics:paxsenix"))
+    implementation(project(":lyrics:betterlyrics"))
+    implementation(project(":lyrics:unison"))
+    implementation(project(":lyrics:youlyplus"))
+    implementation(project(":lyrics:lrcred"))
+    implementation(project(":lyrics:binimum"))
+    implementation(project(":lyrics:megalobiz"))
+    implementation(project(":lyrics:musixmatch"))
 
     implementation("androidx.room:room-runtime:2.8.4")
     ksp("androidx.room:room-compiler:2.8.4")
@@ -87,6 +113,12 @@ dependencies {
     implementation("com.atilika.kuromoji:kuromoji-ipadic:0.9.0")
     // Compose Multiplatform drag-to-reorder (real artifact, JVM-published).
     implementation("sh.calvin.reorderable:reorderable:3.1.0")
+    // Brings org.commonmark, which WhatsNewUseCase parses release notes with.
+    implementation("io.noties.markwon:core:4.6.2")
+    // Glass/blur backgrounds (compose multiplatform builds).
+    implementation("dev.chrisbanes.haze:haze:2.1.0")
+    implementation("dev.chrisbanes.haze:haze-blur:2.1.0")
+    implementation("dev.chrisbanes.haze:haze-glass:2.1.0")
 
     val ktor = "3.5.1"
     implementation("io.ktor:ktor-client-core:$ktor")

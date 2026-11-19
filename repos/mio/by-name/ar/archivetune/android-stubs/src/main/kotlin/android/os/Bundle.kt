@@ -3,6 +3,12 @@ package android.os
 open class Bundle {
     private val map = mutableMapOf<String, Any?>()
 
+    constructor()
+
+    constructor(other: Bundle) {
+        map.putAll(other.map)
+    }
+
     open fun getString(key: String): String? = map[key] as? String
     open fun getString(key: String, defaultValue: String): String = (map[key] as? String) ?: defaultValue
     open fun getInt(key: String, defaultValue: Int = 0): Int = (map[key] as? Int) ?: defaultValue
