@@ -14,9 +14,9 @@ let
   src = fetchFromGitHub {
     owner = "bethington";
     repo = "ghidra-mcp";
-    rev = "870db082b324fdb09c517bef46a9163d88b275cb";
+    rev = "5185dde30920e9967ec3f4a28f9561783e859e69";
     fetchSubmodules = false;
-    sha256 = "sha256-FSDgBgcoHNamdSIZmEw5kVTZ7Is1JW7XHDlhDZyWul0=";
+    sha256 = "sha256-lEmkmWh8EaYvZs7we84b/2B1UbDfWhs9DBQ97L2N0SI=";
   };
 in
 symlinkJoin {
