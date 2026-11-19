@@ -20,6 +20,8 @@
 
 let
   pnpm = pnpm_10;
+  isDarwin = stdenv.hostPlatform.isDarwin;
+  isLinux = stdenv.hostPlatform.isLinux;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "chatbox";
@@ -42,7 +44,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-KxxfHApHefvJp8dFs17dSJraD5PCRDP0Ms+2BJTffJI=";
   };
 
-  # Nested electron-react-boilerplate app; electron-builder only packages this tree.
+  # Nested electron-react-boilerplate app; electron-builder only packages this
+  # tree, so it needs its own offline npm dependency set.
   appNpmDeps = fetchNpmDeps {
     name = "chatbox-app-npm-deps-${finalAttrs.version}";
     src = "${finalAttrs.src}/release/app";
@@ -59,14 +62,16 @@ stdenv.mkDerivation (finalAttrs: {
     # https://github.com/NixOS/nixpkgs/issues/172583
     makeWrapper
   ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [
+  ++ lib.optionals isLinux [
     copyDesktopItems
     autoPatchelfHook
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ stdenv.cc.cc.lib ];
+  buildInputs = lib.optionals isLinux [ stdenv.cc.cc.lib ];
 
-  autoPatchelfIgnoreMissingDeps = [ "libc.musl-*.so.*" ];
+  # @libsql and @vscode/ripgrep-universal ship musl prebuilds that are never
+  # loaded on NixOS.
+  autoPatchelfIgnoreMissingDeps = lib.optionals isLinux [ "libc.musl-*.so.*" ];
 
   strictDeps = true;
 
@@ -76,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
     HUSKY = "0";
     NPM_CONFIG_MANAGE_PACKAGE_MANAGER_VERSIONS = "false";
     npm_config_engine_strict = "false";
-    CHATBOX_BUILD_PLATFORM = if stdenv.hostPlatform.isDarwin then "darwin" else "linux";
+    CHATBOX_BUILD_PLATFORM = if isDarwin then "darwin" else "linux";
     CHATBOX_BUILD_TARGET = "desktop";
     # electron-builder.yml interpolates this even when publishing is disabled.
     UPDATE_CHANNEL = "nix";
@@ -86,17 +91,24 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace .npmrc \
       --replace-fail 'engine-strict=true' 'engine-strict=false'
 
-    jq '._packageManager = .packageManager | del(.packageManager)' package.json > package.json.tmp
-    mv package.json.tmp package.json
+    # Rewrite a JSON file in place, keeping jq options and filter in order.
+    jqEdit() {
+      local file=$1
+      shift
+      jq "$@" "$file" > "$file.tmp"
+      mv "$file.tmp" "$file"
+    }
+
+    # corepack must not try to download the pinned package manager.
+    jqEdit package.json '._packageManager = .packageManager | del(.packageManager)'
 
     # Align the nested app lockfile with package.json so npm ci can run offline.
-    jq --slurpfile pkg release/app/package.json '
+    jqEdit release/app/package-lock.json --slurpfile pkg release/app/package.json '
       .name = $pkg[0].name
       | .version = $pkg[0].version
       | .packages[""].name = $pkg[0].name
       | .packages[""].version = $pkg[0].version
-    ' release/app/package-lock.json > release/app/package-lock.json.tmp
-    mv release/app/package-lock.json.tmp release/app/package-lock.json
+    '
 
     # Wrapping nixpkgs electron leaves process.resourcesPath pointing at Electron's
     # own resources. Pin extraResources (icons, ripgrep) to this package.
@@ -112,20 +124,10 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace src/main/app-updater.ts \
       --replace-fail 'if (settings.autoUpdate) {' 'if (false) {'
 
-    # beforePack would run npm ci on the network; we install those deps offline.
-    cat > .erb/scripts/ensure-app-deps.cjs <<'EOF'
-    const path = require("path");
-    const { verifyInstalledRuntimeDeps } = require("./runtime-deps.cjs");
-
-    exports.default = async function ensureAppDeps() {
-      verifyInstalledRuntimeDeps(path.join(__dirname, "..", "..", "release", "app"));
-    };
-    EOF
-
-    # Skip Apple notarization; identity is already disabled.
-    cat > .erb/scripts/notarize.js <<'EOF'
-    exports.default = async function notarize() {};
-    EOF
+    # beforePack would run npm ci on the network, and notarization is already
+    # disabled through CSC_IDENTITY_AUTO_DISCOVERY.
+    install -Dm644 ${./ensure-app-deps.cjs} .erb/scripts/ensure-app-deps.cjs
+    install -Dm644 ${./notarize.js} .erb/scripts/notarize.js
   '';
 
   buildPhase = ''
@@ -160,8 +162,7 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
   ''
-  + lib.optionalString stdenv.hostPlatform.isDarwin ''
-    mkdir -p $out/Applications $out/bin
+  + lib.optionalString isDarwin ''
     appDir=
     for d in release/build/mac*/Chatbox.app; do
       if [ -d "$d" ]; then
@@ -174,16 +175,18 @@ stdenv.mkDerivation (finalAttrs: {
       find release/build -maxdepth 4 -type d || true
       exit 1
     fi
-    cp -Pr --no-preserve=ownership "$appDir" $out/Applications/
 
+    mkdir -p $out/Applications $out/bin
+    cp -Pr --no-preserve=ownership "$appDir" $out/Applications/
     makeWrapper "$out/Applications/Chatbox.app/Contents/MacOS/Chatbox" $out/bin/chatbox
   ''
-  + lib.optionalString stdenv.hostPlatform.isLinux ''
+  + lib.optionalString isLinux ''
     mkdir -p $out/share/chatbox
     cp -Pr --no-preserve=ownership release/build/*-unpacked/{locales,resources{,.pak}} $out/share/chatbox
 
     install -Dm644 assets/icon.png $out/share/icons/hicolor/512x512/apps/chatbox.png
 
+    # The flags come from the environment at runtime, hence the nested expansion.
     makeWrapper ${lib.getExe electron} $out/bin/chatbox \
       --add-flags $out/share/chatbox/resources/app.asar \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}" \
@@ -195,7 +198,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  desktopItems = lib.optionals stdenv.hostPlatform.isLinux [
+  desktopItems = lib.optionals isLinux [
     (makeDesktopItem {
       name = "chatbox";
       exec = "chatbox %U";
@@ -214,6 +217,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
+    # Exposed so `nix-update --subpackage=appNpmDeps` can refresh its hash.
     inherit (finalAttrs) pnpmDeps appNpmDeps;
     updateScript = writeShellApplication {
       name = "update-chatbox";
