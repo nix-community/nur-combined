@@ -15,7 +15,7 @@ in
 buildGradleAndroidPackage rec {
   pname = "k9mail";
   version = "25.0";
-  applicationId = "com.fsck.k9";
+  applicationId = "com.fsck.k9.vacu";
 
   src = fetchFromGitHub {
     owner = "thunderbird";
@@ -32,6 +32,12 @@ buildGradleAndroidPackage rec {
       --replace-fail org.gradle.unsafe.isolated-projects=true org.gradle.unsafe.isolated-projects=false \
       --replace-fail org.gradle.configuration-cache=true org.gradle.configuration-cache=false \
       --replace-quiet -Xmx10g -Xmx5g
+
+    # installable alongside upstream K-9
+    substituteInPlace app-k9mail/build.gradle.kts \
+      --replace-fail 'applicationId = "com.fsck.k9"' 'applicationId = "${applicationId}"'
+    sed -i 's|<string name="app_name">.*</string>|<string name="app_name">K-9 Mail (vacu)</string>|' \
+      app-k9mail/src/main/res/values*/strings.xml
   '';
 
   inherit jdk gradle;
