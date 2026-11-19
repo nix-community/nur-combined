@@ -369,6 +369,46 @@ in
           ];
         };
       };
+      # The app frontend (auth.diekvoss.net) itself: plain Ingress to the
+      # ClusterIP service. Forward-auth stays OFF — the IdP cannot gate
+      # itself (same posture as the retired edge route). This was missed
+      # at cutover: only the gate backend moved, leaving the app route
+      # pointed at the dead container IP (502/504 after retire).
+      "authentik-app-ingress.yaml".content = {
+        apiVersion = "networking.k8s.io/v1";
+        kind = "Ingress";
+        metadata = {
+          name = "authentik-app";
+          annotations = {
+            "traefik.ingress.kubernetes.io/router.middlewares" =
+              "edge-edge-secure-headers@kubernetescrd,edge-edge-lan-only@kubernetescrd";
+          };
+        };
+        spec = {
+          ingressClassName = "traefik";
+          tls = [
+            {
+              hosts = [ "auth.diekvoss.net" ];
+              secretName = "wildcard-tls-diekvoss-net";
+            }
+          ];
+          rules = [
+            {
+              host = "auth.diekvoss.net";
+              http.paths = [
+                {
+                  path = "/";
+                  pathType = "Prefix";
+                  backend.service = {
+                    name = "authentik";
+                    port.number = serverPort;
+                  };
+                }
+              ];
+            }
+          ];
+        };
+      };
       "authentik-service.yaml".content = {
         apiVersion = "v1";
         kind = "Service";

@@ -164,6 +164,7 @@ in
     # Monitoring stack (Grafana + Prometheus + Loki + Tempo); backends seed
     # from the container's private state at Task 4 (POOL copies are stale).
     k3sMonitoring.enable = true;
+
     # Authentik SSO in k3s (server + worker/beat + LDAP outpost + redis);
     # file state is empty (everything real lives in host Postgres), so
     # the stack starts fresh-empty. THE FLIP (forwardAuth address) is a
