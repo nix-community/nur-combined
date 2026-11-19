@@ -45,7 +45,7 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "tatoeba";
-  version = "2026-11-07";
+  version = "2026-11-14";
 
   __structuredAttrs = true;
 
