@@ -119,7 +119,8 @@ The host knows nothing about cops, wanted levels, cities, or quests.
   the rideable.
 - Gravity *execution*: apply a field the game named (`none`, constant vector, or
   point attractor). Walk/jump stay on the anti-gravity plane at the kit's
-  `walk` / `jump` speeds. The host does not invent Earth.
+  `walk` / `jump` speeds; optional `auto-jump` hops a one-block ledge while
+  walking. The host does not invent Earth.
 - Fire *execution*: tick a burn the mod requested (`fire-kit`). The host hangs a
   light, may unset the voxel under the flame, may ignite another rideable in
   range, and may burst. It does not know petrol.
@@ -141,15 +142,17 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
 - Rideable kit (`vehicle-kit`): kind, traffic, speed, stiffness 0–100, `tires` names, `beams` links, collider, named box parts.
   Urban Chaos ships a soft car with squashing wheels; Testbed ships a stiff platform (and a stiff cart when packed with Urban Chaos).
 - Gravity (`gravity`): `none`, `constant`/`down`, or `point` (optional inv-sq),
-  plus `jump` and `walk`. Urban Chaos is Earth; Testbed is a zero-g lab.
+  plus `jump`, `walk`, and optional `auto-jump` (host hops a one-block ledge while
+  walking). Urban Chaos is Earth; Testbed is a zero-g lab.
 - Vehicle crash (`crash-kit`): dict (severity, crumple, wrecks,
   ignites, action, impulse, `detach` list). Urban Chaos owns street metal; the
   host only folds boxes and hangs a light.
 - Burn (`fire-kit`): age + nearby voxel name in, heat / range / consume / jump /
   burst / out. The host only ticks fuel, unsets voxels, jumps the flame, and
-  bursts. Urban Chaos owns street petrol; Testbed never burns.
-- Planar AI (`steer`): role + measured context in, `vx`/`vz` out. Cops and
-  traffic are role names, not engine types.
+  bursts. Urban Chaos owns street petrol; Testbed replies with an extinguished kit
+  (lab carts do not burn).
+- Planar AI (`steer`): role + measured context in, `vx`/`vz` out (optional `jump`
+  when blocked). Cops and traffic are role names, not engine types.
 - Passive tick (wanted decay), ambient NPCs
 - Localized copy (`voxel-label`, `event-label`, `contract-label`, `item-label`, `supported-locales`)
 - Wallet / contracts (`wallet-after`, `offer-contract`, `can-complete`)

@@ -43,8 +43,8 @@ use hanga::audio::{
 };
 use hanga::figure::{figure_palette, figure_salt, yaw_toward};
 use hanga::gravity::{
-    avian_accel, can_jump_from, jump_needs_floor, parse_gravity_node, point_accel, set_jump,
-    set_planar_velocity, walk_up, GravityKit,
+    avian_accel, can_jump_from, jump_needs_floor, ledge_ahead, parse_gravity_node, point_accel,
+    set_jump, set_planar_velocity, walk_up, GravityKit,
 };
 use hanga::heist::{mark_reached, parse_contract_mark_node, ContractMark};
 use hanga::vehicle::{
@@ -57,7 +57,6 @@ use hanga::game::{
 };
 use hanga::sign::{self, ActionKey};
 
-pub mod hoot_runtime;
 mod mod_manager;
 use mod_manager::{
     payload_f32, payload_i64, payload_text, reply_i32, reply_range, wire_as_text, wire_is_empty,
@@ -845,6 +844,7 @@ struct VehicleAi;
 #[serde(tag = "action")]
 enum AgentCommand {
     MoveForward,
+    Jump,
     BreakBlock { pos: [i32; 3] },
     PlaceBlock { pos: [i32; 3], voxel: String },
     InspectBlock { pos: [i32; 3] },
@@ -1599,9 +1599,9 @@ fn spawn_play_world(
 fn steer_planar(
     ctx: &mut mod_manager::MainModContext,
     payload: &Wire,
-) -> Result<Option<(f32, f32)>, ()> {
+) -> Result<Option<(f32, f32, bool)>, ()> {
     let node = ctx.bus_node_ok("steer", payload).ok_or(())?;
-    Ok(parse_planar_node(&node).map(|v| (v.vx, v.vz)))
+    Ok(parse_planar_node(&node).map(|v| (v.vx, v.vz, v.jump)))
 }
 
 fn spawn_mod_traffic(
@@ -2829,7 +2829,7 @@ fn apply_point_gravity(
     }
 }
 
-/// Very basic first person controller for MVP (and vehicle controller).
+/// First-person walk / jump / drive controller.
 ///
 /// Also drains the one-shot [`MovePulse`] that text and agent commands charge,
 /// so those clients move for a short window instead of the single physics frame
@@ -2916,9 +2916,10 @@ fn player_physics(
             player_velocity.0 = Vec3::ZERO;
         } else {
             let pos = player_transform.translation;
-            if pulse_active {
+            let wish = if pulse_active {
                 // Keep the pulse's own speed so a slower kit cannot clip it.
                 apply_wish(&mut player_velocity, *forward, pulse.walk, &gravity.0, pos);
+                *forward
             } else {
                 apply_wish(
                     &mut player_velocity,
@@ -2927,10 +2928,17 @@ fn player_physics(
                     &gravity.0,
                     pos,
                 );
-            }
-            if !inv_ui.open && gravity.0.jump > 0.0
-                && action_just_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_JUMP)
-            {
+                direction
+            };
+            let want_jump = !inv_ui.open
+                && gravity.0.jump > 0.0
+                && (action_just_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_JUMP)
+                    || (gravity.0.auto_jump
+                        && wish.length_squared() > 1e-4
+                        && ledge_ahead(pos.to_array(), wish.to_array(), walk_up(&gravity.0, pos.to_array()), |cell| {
+                            voxel_is_solid(&voxel_world, cell)
+                        })));
+            if want_jump {
                 let up = walk_up(&gravity.0, pos.to_array());
                 if !jump_needs_floor(&gravity.0)
                     || can_jump_from(pos.to_array(), up, |cell| voxel_is_solid(&voxel_world, cell))
@@ -3510,7 +3518,7 @@ fn vehicle_traffic_system(
                 velocity.x = 0.0;
                 velocity.z = 0.0;
             }
-            Some(Ok(Some((vx, vz)))) => {
+            Some(Ok(Some((vx, vz, _jump)))) => {
                 velocity.x = vx;
                 velocity.z = vz;
                 if let Some(yaw) = yaw_toward(vx, vz) {
@@ -3657,25 +3665,42 @@ fn agent_ai_tick(
     mut agents: Query<(&mut Transform, &mut LinearVelocity, &AgentAi), Without<AwaitingTerrain>>,
     players: Query<&Transform, (With<Player>, Without<AgentAi>)>,
     mod_runtime: Res<ModRuntime>,
+    gravity: Res<WorldGravity>,
+    voxel_world: VoxelWorld<DefaultWorld>,
 ) {
     if let Some(player_transform) = players.iter().next() {
         let p_pos = player_transform.translation;
 
         for (mut agent_transform, mut velocity, agent) in agents.iter_mut() {
             let c_pos = agent_transform.translation;
+            let blocked = path_blocked(&agent_transform, &voxel_world);
             let payload = wire_bag(vec![
                 ("role", Wire::Text(agent.0.clone())),
                 ("cur-x", Wire::Float(c_pos.x as f64)),
                 ("cur-z", Wire::Float(c_pos.z as f64)),
                 ("target-x", Wire::Float(p_pos.x as f64)),
                 ("target-z", Wire::Float(p_pos.z as f64)),
+                ("blocked", Wire::Flag(blocked)),
             ]);
             match with_mod(&mod_runtime, |ctx| steer_planar(ctx, &payload)) {
-                Some(Ok(Some((vx, vz)))) => {
+                Some(Ok(Some((vx, vz, jump)))) => {
                     velocity.x = vx;
                     velocity.z = vz;
                     if let Some(yaw) = yaw_toward(vx, vz) {
                         agent_transform.rotation = Quat::from_rotation_y(yaw);
+                    }
+                    if jump && gravity.0.jump > 0.0 {
+                        let up = walk_up(&gravity.0, c_pos.to_array());
+                        if !jump_needs_floor(&gravity.0)
+                            || can_jump_from(c_pos.to_array(), up, |cell| {
+                                voxel_is_solid(&voxel_world, cell)
+                            })
+                        {
+                            let mut next = set_jump(velocity.0.to_array(), gravity.0.jump, up);
+                            next[0] = vx;
+                            next[2] = vz;
+                            velocity.0 = Vec3::from_array(next);
+                        }
                     }
                 }
                 _ => {
@@ -5925,6 +5950,26 @@ fn read_terminal_input(
                         say(locale.0, i18n::t(locale.0, "moving"));
                     }
                 }
+                TextCommand::Jump => {
+                    if let Some((_, transform, mut velocity, _, _, _, _)) = query.iter_mut().next() {
+                        if gravity.0.jump > 0.0 {
+                            let pos = transform.translation;
+                            let up = walk_up(&gravity.0, pos.to_array());
+                            if !jump_needs_floor(&gravity.0)
+                                || can_jump_from(pos.to_array(), up, |cell| {
+                                    voxel_is_solid(&voxel_world, cell)
+                                })
+                            {
+                                velocity.0 = Vec3::from_array(set_jump(
+                                    velocity.0.to_array(),
+                                    gravity.0.jump,
+                                    up,
+                                ));
+                                say(locale.0, i18n::t(locale.0, "jumping"));
+                            }
+                        }
+                    }
+                }
                 TextCommand::BreakBlock => {
                     if let Some((player_entity, transform, _, _, _, _, _)) = query.iter_mut().next() {
                         let (voxel_pos, _) = aim_voxel(transform, &voxel_world);
@@ -6065,6 +6110,27 @@ fn read_agent_input(
                                 transform.translation,
                             );
                             charge_move_pulse(&mut pulse, gravity.0.walk);
+                        }
+                    }
+                    AgentCommand::Jump => {
+                        if let Some((_, transform, mut velocity, _, _, _, _, in_vehicle)) =
+                            query.iter_mut().next()
+                        {
+                            if in_vehicle.is_none() && gravity.0.jump > 0.0 {
+                                let pos = transform.translation;
+                                let up = walk_up(&gravity.0, pos.to_array());
+                                if !jump_needs_floor(&gravity.0)
+                                    || can_jump_from(pos.to_array(), up, |cell| {
+                                        voxel_is_solid(&voxel_world, cell)
+                                    })
+                                {
+                                    velocity.0 = Vec3::from_array(set_jump(
+                                        velocity.0.to_array(),
+                                        gravity.0.jump,
+                                        up,
+                                    ));
+                                }
+                            }
                         }
                     }
                     AgentCommand::BreakBlock { pos } => {

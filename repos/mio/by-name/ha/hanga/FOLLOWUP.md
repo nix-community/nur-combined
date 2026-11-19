@@ -3,9 +3,9 @@
 This document outlines larger structural or tooling follow-ups that go beyond everyday mod logic. 
 
 ## Hoot runtime in the host
-[Hoot](https://codeberg.org/spritely/hoot) compiles Guile Scheme to Wasm 3 (GC, tail calls). Currently, the Hoot pack in `hanga-contrib` (`lab_owl`) is compiled, but **cannot be loaded** by the engine. It is not a WASI/WIT component; it is a core Wasm module that imports `rt` and `io` host environments.
+[Hoot](https://codeberg.org/spritely/hoot) compiles Guile Scheme to Wasm 3 (GC, tail calls). The Hoot pack in `hanga-contrib` (`lab_owl`) is compiled and installed under `share/hanga/hoot/` (not `mods/`). The engine **refuses** non-component Wasm — there is no stub loader that pretends Hoot works. It is not a WASI/WIT component; it imports `rt` and `io` host environments.
 
-To support Hoot guests:
+To support Hoot guests for real:
 1. **Host Instantiation**: Extend the Rust host's `wasmtime` linker to provide the `rt` and `io` imports that Hoot expects.
 2. **ABI Bridging**: The engine ABI (`invoke`, `emit`, `query-voxel`, etc.) relies on the Component Model's Canonical ABI to pass JSON-like `value` trees. Since Hoot operates directly on WasmGC, we will need to map these cell arenas manually between Rust and Scheme (e.g., converting engine `value` cells into Scheme vectors/strings across the WasmGC boundary).
 3. **Execution Mode**: Treat it either as a standalone sandbox type alongside WIT components, or wait for Spritely to support the Wasm Component Model natively.

@@ -200,6 +200,8 @@ pub fn parse_fracture_kit_node(node: &crate::kit::Node) -> FractureKit {
 pub struct PlanarVel {
     pub vx: f32,
     pub vz: f32,
+    /// When set, the host applies the gravity kit's jump along up.
+    pub jump: bool,
 }
 
 pub fn parse_planar(text: &str) -> Option<PlanarVel> {
@@ -231,6 +233,7 @@ pub fn parse_planar_node(node: &crate::kit::Node) -> Option<PlanarVel> {
                     saw_vz = true;
                 }
             }
+            "jump" => vel.jump = cell.as_flag(),
             _ => {}
         }
     }
@@ -380,7 +383,15 @@ mod tests {
         assert!(frac.can && frac.spread == 3);
         assert_eq!(parse_fracture_kit(""), FractureKit::default());
         assert_eq!(parse_fracture_kit("can=1;spread=3").impulse, 0.0);
-        assert_eq!(parse_planar("vx=1;vz=-2"), Some(PlanarVel { vx: 1.0, vz: -2.0 }));
+        assert_eq!(
+            parse_planar("vx=1;vz=-2"),
+            Some(PlanarVel {
+                vx: 1.0,
+                vz: -2.0,
+                jump: false
+            })
+        );
+        assert!(parse_planar("vx=1;vz=-2;jump=1").is_some_and(|v| v.jump));
         assert_eq!(parse_planar(""), None);
         assert_eq!(parse_planar("vx=1"), None);
         let fire = parse_fire_kit("heat=1.2;range=8;consume=1;jump=1;burst=0;out=0");

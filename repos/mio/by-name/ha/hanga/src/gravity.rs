@@ -20,6 +20,8 @@ pub struct GravityKit {
     pub jump: f32,
     /// Planar walk speed. 0 = cannot walk.
     pub walk: f32,
+    /// When walking into a one-block ledge, the host may fire `jump` for you.
+    pub auto_jump: bool,
     /// Walk/jump axis when the field does not imply one (`none`).
     pub up: [f32; 3],
 }
@@ -30,6 +32,7 @@ impl Default for GravityKit {
             kind: GravityKind::None,
             jump: 0.0,
             walk: 10.0,
+            auto_jump: false,
             up: [0.0, 1.0, 0.0],
         }
     }
@@ -38,7 +41,7 @@ impl Default for GravityKit {
 /// Parse a mod `gravity` string. Unknown keys are ignored.
 ///
 /// ```text
-/// kind=constant;x=0;y=-9.81;z=0;jump=5;walk=10
+/// kind=constant;x=0;y=-9.81;z=0;jump=5;walk=10;auto-jump=1
 /// kind=down;g=9.81;jump=5
 /// kind=none;walk=8
 /// kind=point;x=0;y=0;z=0;strength=20
@@ -114,6 +117,7 @@ pub fn parse_gravity_node(node: &crate::kit::Node) -> GravityKit {
                     kit.walk = v.max(0.0);
                 }
             }
+            "auto-jump" | "autojump" | "auto_jump" => kit.auto_jump = cell.as_flag(),
             "up" => {
                 if let Node::Dict(_) = &cell {
                     kit.up = unit(
@@ -253,6 +257,39 @@ pub fn support_cell(pos: [f32; 3], up: [f32; 3], reach: f32) -> [i32; 3] {
 /// True if any sample along `-up` sits on a solid.
 pub fn can_jump_from(pos: [f32; 3], up: [f32; 3], solid: impl Fn([i32; 3]) -> bool) -> bool {
     [0.55, 1.05, 1.55].iter().any(|reach| solid(support_cell(pos, up, *reach)))
+}
+
+/// One-block ledge ahead: solid at body height along `wish`, air one step up.
+pub fn ledge_ahead(
+    pos: [f32; 3],
+    wish: [f32; 3],
+    up: [f32; 3],
+    solid: impl Fn([i32; 3]) -> bool,
+) -> bool {
+    let up = unit(up, [0.0, 1.0, 0.0]);
+    let planar = [
+        wish[0] - up[0] * dot(wish, up),
+        wish[1] - up[1] * dot(wish, up),
+        wish[2] - up[2] * dot(wish, up),
+    ];
+    let planar = unit(planar, [0.0, 0.0, 0.0]);
+    if planar == [0.0, 0.0, 0.0] {
+        return false;
+    }
+    // Sample a short step ahead at torso height and one cell up for clearance.
+    [0.85, 1.35].iter().any(|reach| {
+        let body = [
+            (pos[0] + planar[0] * *reach).round() as i32,
+            (pos[1] + planar[1] * *reach).round() as i32,
+            (pos[2] + planar[2] * *reach).round() as i32,
+        ];
+        let head = [
+            (pos[0] + planar[0] * *reach + up[0]).round() as i32,
+            (pos[1] + planar[1] * *reach + up[1]).round() as i32,
+            (pos[2] + planar[2] * *reach + up[2]).round() as i32,
+        ];
+        solid(body) && !solid(head)
+    })
 }
 
 /// Zero-g kits treat jump as a thruster. Fields with a down need a floor.
@@ -399,6 +436,19 @@ mod tests {
         ]));
         assert!((tilted.up[0] - 1.0).abs() < 1e-5);
         assert!(tilted.up[1].abs() < 1e-5);
+    }
+
+    #[test]
+    fn auto_jump_flag_and_ledge_ahead() {
+        let kit = parse_gravity("kind=down;g=9.81;jump=5;auto-jump=1");
+        assert!(kit.auto_jump);
+        assert!(!parse_gravity("kind=down;g=9.81;jump=5").auto_jump);
+        let pos = [0.0, 1.0, 0.0];
+        let wish = [0.0, 0.0, 1.0];
+        let up = [0.0, 1.0, 0.0];
+        assert!(ledge_ahead(pos, wish, up, |c| c == [0, 1, 1]));
+        assert!(!ledge_ahead(pos, wish, up, |c| c == [0, 1, 1] || c == [0, 2, 1]));
+        assert!(!ledge_ahead(pos, [0.0, 0.0, 0.0], up, |_| true));
     }
 }
 

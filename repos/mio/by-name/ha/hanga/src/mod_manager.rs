@@ -26,7 +26,6 @@ pub static SHARED_WASM: RwLock<Vec<(u64, String, Engine, ModFormat)>> = RwLock::
 #[derive(Clone)]
 pub enum ModFormat {
     Component(Component),
-    Core(wasmtime::Module),
 }
 pub fn host_now_ms() -> i64 {
     HOST_START
@@ -990,7 +989,6 @@ impl hanga::engine::host::Host for HostData {
 /// (e.g. static variables) between game ticks.
 pub enum ModBindings {
     Component(Plugin),
-    Core(wasmtime::Instance),
 }
 
 pub struct MainModContext {
@@ -1036,9 +1034,6 @@ impl MainModContext {
                     ),
                 }
             }
-            ModBindings::Core(_) => {
-                // Core Wasm does not have ready/methods exports implemented yet
-            }
         }
     }
 
@@ -1059,7 +1054,6 @@ impl MainModContext {
                     }
                 }
             }
-            ModBindings::Core(_) => wire_empty(),
         }
     }
 
@@ -1171,7 +1165,6 @@ impl MainModContext {
                     }
                 }
             }
-            ModBindings::Core(_) => 0,
         }
     }
 
@@ -1189,7 +1182,6 @@ impl MainModContext {
                     }
                 }
             }
-            ModBindings::Core(_) => Vec::new(),
         }
     }
 }
@@ -1463,13 +1455,11 @@ impl ModRuntime {
                 }
             }
         } else {
-            match wasmtime::Module::from_file(&engine, path) {
-                Ok(module) => ModFormat::Core(module),
-                Err(err) => {
-                    error!("Failed to load Core WASM {}: {err}", path.display());
-                    return None;
-                }
-            }
+            error!(
+                "Refusing {}: not a WIT component (core/Hoot Wasm needs a real host runtime — see FOLLOWUP.md)",
+                path.display()
+            );
+            return None;
         };
 
         let mut store = Store::new(
@@ -1525,28 +1515,6 @@ impl ModRuntime {
                     store,
                     bindings: ModBindings::Component(bindings),
                     topics,
-                    wasm_path: path.to_path_buf(),
-                    is_lead: publish_shared,
-                    last_restart: None,
-                })
-            }
-            ModFormat::Core(module) => {
-                let mut linker = wasmtime::Linker::new(&engine);
-                crate::hoot_runtime::add_to_linker(&mut linker).ok()?;
-                let instance = linker.instantiate(&mut store, module).ok()?;
-                
-                if publish_shared {
-                    let rev = WASM_GEN.fetch_add(1, Ordering::Relaxed) + 1;
-                    if let Ok(mut shared) = SHARED_WASM.write() {
-                        shared.clear();
-                        shared.push((rev, name.to_string(), engine.clone(), format.clone()));
-                    }
-                }
-
-                Some(MainModContext {
-                    store,
-                    bindings: ModBindings::Core(instance),
-                    topics: HashSet::new(),
                     wasm_path: path.to_path_buf(),
                     is_lead: publish_shared,
                     last_restart: None,
@@ -2859,21 +2827,11 @@ mod tests {
         assert_eq!(pending[3].topic, "final-event");
     }
     #[test]
-    fn test_hoot_instantiation() {
-        let mut path = std::env::current_dir().unwrap();
-        // Since we run this from hanga directory, test_mods is in parent's parent's parent
-        path.pop(); path.pop(); path.pop();
-        let wasm_path = path.join("test_mods/lab_owl.wasm");
-        if !wasm_path.exists() {
-            println!("Skipping test, lab_owl.wasm not found");
-            return;
-        }
-        
-        let mut runtime = ModRuntime::new(&wasm_path);
-        runtime.load_collection(&[("lab_owl".to_string(), wasm_path)]);
-        
-        // This implicitly calls into the Wasm code
-        let v = sample_lead_worldgen(0, 0, 0);
-        assert!(!v.is_empty());
+    fn refuses_non_component_wasm() {
+        // Core/Hoot modules are not WIT guests; loading them as empty stubs is forbidden.
+        let wasm = std::env::temp_dir().join("hanga-not-a-component.wasm");
+        std::fs::write(&wasm, [0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00]).unwrap();
+        assert!(ModRuntime::instantiate(&wasm, "stub", Arc::new(NoopBus), true).is_none());
+        let _ = std::fs::remove_file(&wasm);
     }
 }

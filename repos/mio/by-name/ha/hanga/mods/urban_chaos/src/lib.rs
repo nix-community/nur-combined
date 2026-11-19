@@ -13,8 +13,6 @@ wit_bindgen::generate!({
 include!("../../locale.rs");
 include!("../../mod_kit.rs");
 
-pub mod soft_body;
-
 use std::sync::OnceLock;
 use noise::{NoiseFn, Perlin};
 
@@ -528,6 +526,8 @@ pub fn gravity() -> hanga::engine::host::Value {
         field("z", atom_float(0.0)),
         field("jump", atom_float(5.0)),
         field("walk", atom_float(10.0)),
+        // Sidewalk curbs and stoops: walk into a one-block ledge and hop.
+        field("auto-jump", atom_flag(true)),
     ])
 }
 
@@ -603,9 +603,13 @@ pub fn steer(payload: &hanga::engine::host::Value) -> hanga::engine::host::Value
     let cz = payload_f32(payload, "cur-z");
     let tx = payload_f32(payload, "target-x");
     let tz = payload_f32(payload, "target-z");
+    let blocked = payload_flag(payload, "blocked");
+    // Cops / peds hop a curb instead of freezing when the measured path is blocked.
+    let hop = blocked && matches!(role, AGENT_COP | AGENT_PEDESTRIAN);
     wire_dict(vec![
         field("vx", atom_float(compute_agent_vx(role, cx, cz, tx, tz) as f64)),
         field("vz", atom_float(compute_agent_vz(role, cx, cz, tx, tz) as f64)),
+        field("jump", atom_flag(hop)),
     ])
 }
 
@@ -1021,44 +1025,44 @@ fn held_one_of(held: &str, names: &[&str]) -> bool {
 }
 
 pub fn compute_agent_vx(agent: &str, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
-    match agent {
-        AGENT_COP => {
-            let dx = px - cx;
-            let dz = pz - cz;
-            let len = (dx * dx + dz * dz).sqrt();
-            if len < 2.0 {
-                return 0.0;
-            }
-            (dx / len) * 8.0
-        }
-        AGENT_PEDESTRIAN => {
-            let dx = px - cx;
-            let dz = pz - cz;
-            if dx * dx + dz * dz < 2.25 {
-                0.0
-            } else {
-                3.0
-            }
-        }
-        AGENT_TRAIN => 0.0,
-        _ => 0.0,
-    }
+    street_agent_planar(agent, cx, cz, px, pz).0
 }
 
 pub fn compute_agent_vz(agent: &str, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
+    street_agent_planar(agent, cx, cz, px, pz).1
+}
+
+fn street_agent_planar(agent: &str, cx: f32, cz: f32, px: f32, pz: f32) -> (f32, f32) {
+    let dx = px - cx;
+    let dz = pz - cz;
+    let len = (dx * dx + dz * dz).sqrt();
     match agent {
         AGENT_COP => {
-            let dx = px - cx;
-            let dz = pz - cz;
-            let len = (dx * dx + dz * dz).sqrt();
             if len < 2.0 {
-                return 0.0;
+                (0.0, 0.0)
+            } else {
+                ((dx / len) * 8.0, (dz / len) * 8.0)
             }
-            (dz / len) * 8.0
         }
-        AGENT_PEDESTRIAN => 0.0,
-        AGENT_TRAIN => 25.0,
-        _ => 0.0,
+        AGENT_PEDESTRIAN => {
+            // Stroll along the sidewalk (+Z). Step aside when the player crowds.
+            if len < 1.5 {
+                let side = if dx.abs() >= dz.abs() {
+                    (-dx.signum() * 3.0, 0.0)
+                } else {
+                    (0.0, -dz.signum() * 3.0)
+                };
+                side
+            } else if len < 6.0 {
+                let away_x = -dx / len * 2.5;
+                let away_z = -dz / len * 2.5;
+                (away_x, 3.0 + away_z * 0.35)
+            } else {
+                (0.0, 3.0)
+            }
+        }
+        AGENT_TRAIN => (0.0, 25.0),
+        _ => (0.0, 0.0),
     }
 }
 
@@ -1833,6 +1837,29 @@ mod tests {
         assert!((payload_f32(&g, "y") + 9.81).abs() < 1e-5);
         assert!((payload_f32(&g, "jump") - 5.0).abs() < 1e-5);
         assert!((payload_f32(&g, "walk") - 10.0).abs() < 1e-5);
+        assert!(payload_flag(&g, "auto-jump"));
+    }
+
+    #[test]
+    fn cops_auto_jump_when_path_blocked() {
+        let clear = steer(&wire_dict(vec![
+            field("role", atom_text(AGENT_COP)),
+            field("cur-x", atom_float(0.0)),
+            field("cur-z", atom_float(0.0)),
+            field("target-x", atom_float(10.0)),
+            field("target-z", atom_float(0.0)),
+            field("blocked", atom_flag(false)),
+        ]));
+        assert!(!payload_flag(&clear, "jump"));
+        let blocked = steer(&wire_dict(vec![
+            field("role", atom_text(AGENT_COP)),
+            field("cur-x", atom_float(0.0)),
+            field("cur-z", atom_float(0.0)),
+            field("target-x", atom_float(10.0)),
+            field("target-z", atom_float(0.0)),
+            field("blocked", atom_flag(true)),
+        ]));
+        assert!(payload_flag(&blocked, "jump"));
     }
 
     #[test]
@@ -1890,11 +1917,17 @@ mod tests {
     }
 
     #[test]
-    fn pedestrians_stroll_east_and_yield() {
-        let vx = compute_agent_vx(AGENT_PEDESTRIAN, 0.0, 0.0, 100.0, 0.0);
-        assert!((vx - 3.0).abs() < 1e-5);
-        assert!((compute_agent_vz(AGENT_PEDESTRIAN, 0.0, 0.0, 100.0, 0.0)).abs() < 1e-6);
-        assert!((compute_agent_vx(AGENT_PEDESTRIAN, 0.0, 0.0, 1.0, 0.0)).abs() < 1e-6);
+    fn pedestrians_stroll_and_yield() {
+        // Far from the player: walk +Z along the sidewalk.
+        assert!((compute_agent_vx(AGENT_PEDESTRIAN, 0.0, 0.0, 100.0, 0.0)).abs() < 1e-5);
+        assert!((compute_agent_vz(AGENT_PEDESTRIAN, 0.0, 0.0, 100.0, 0.0) - 3.0).abs() < 1e-5);
+        // Crowded: step aside on the dominant axis.
+        let (sx, sz) = (
+            compute_agent_vx(AGENT_PEDESTRIAN, 0.0, 0.0, 1.0, 0.0),
+            compute_agent_vz(AGENT_PEDESTRIAN, 0.0, 0.0, 1.0, 0.0),
+        );
+        assert!((sx + 3.0).abs() < 1e-5);
+        assert!(sz.abs() < 1e-5);
     }
 
     #[test]

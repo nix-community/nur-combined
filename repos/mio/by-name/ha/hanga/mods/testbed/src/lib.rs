@@ -64,12 +64,27 @@ pub fn mod_should_spawn_agent(_action: &str, _old_state: i32, _new_state: i32) -
     String::new()
 }
 
-pub fn compute_agent_vx(_agent: &str, _cx: f32, _cz: f32, _px: f32, _pz: f32) -> f32 {
-    0.0
+pub fn compute_agent_vx(agent: &str, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
+    lab_agent_planar(agent, cx, cz, px, pz).0
 }
 
-pub fn compute_agent_vz(_agent: &str, _cx: f32, _cz: f32, _px: f32, _pz: f32) -> f32 {
-    0.0
+pub fn compute_agent_vz(agent: &str, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
+    lab_agent_planar(agent, cx, cz, px, pz).1
+}
+
+/// Lab drones drift toward the measured target; unknown roles idle.
+fn lab_agent_planar(agent: &str, cx: f32, cz: f32, px: f32, pz: f32) -> (f32, f32) {
+    if agent.is_empty() {
+        return (0.0, 0.0);
+    }
+    let dx = px - cx;
+    let dz = pz - cz;
+    let len = (dx * dx + dz * dz).sqrt();
+    if len < 1.5 {
+        return (0.0, 0.0);
+    }
+    let speed = if agent == "drone" { 6.0 } else { 4.0 };
+    ((dx / len) * speed, (dz / len) * speed)
 }
 
 pub fn compute_economy_price(base_price: i32, supply: i32, demand: i32) -> i32 {
@@ -185,6 +200,8 @@ pub fn gravity() -> hanga::engine::host::Value {
         field("kind", atom_text("none")),
         field("jump", atom_float(2.0)),
         field("walk", atom_float(8.0)),
+        // Thruster hop when walking into a one-block lab ledge.
+        field("auto-jump", atom_flag(true)),
     ])
 }
 
@@ -245,9 +262,11 @@ pub fn steer(payload: &hanga::engine::host::Value) -> hanga::engine::host::Value
     let cz = payload_f32(payload, "cur-z");
     let tx = payload_f32(payload, "target-x");
     let tz = payload_f32(payload, "target-z");
+    let blocked = payload_flag(payload, "blocked");
     wire_dict(vec![
         field("vx", atom_float(compute_agent_vx(role, cx, cz, tx, tz) as f64)),
         field("vz", atom_float(compute_agent_vz(role, cx, cz, tx, tz) as f64)),
+        field("jump", atom_flag(blocked)),
     ])
 }
 
@@ -371,40 +390,72 @@ pub fn craft_result(item_a: &str, item_b: &str) -> String {
     }
 }
 
-pub fn crash_severity(_speed: f32, _into_solid: bool) -> i32 {
-    0
+/// Stiff lab plate: street impacts leave a scuff only at absurd speeds.
+pub fn crash_severity(speed: f32, into_solid: bool) -> i32 {
+    let s = if into_solid { speed * 1.05 } else { speed };
+    if s < 45.0 {
+        0
+    } else if s < 60.0 {
+        10
+    } else {
+        20
+    }
 }
 
-pub fn crash_crumple(_severity: i32) -> i32 {
-    0
+pub fn crash_crumple(severity: i32) -> i32 {
+    (severity / 5).clamp(0, 8)
 }
 
 pub fn crash_detach(_part: &str, _severity: i32) -> i32 {
     0
 }
 
-pub fn crash_wrecks(_severity: i32) -> i32 {
-    0
+pub fn crash_wrecks(severity: i32) -> i32 {
+    i32::from(severity >= 100)
 }
 
-pub fn crash_action(_severity: i32) -> String {
-    String::new()
+pub fn crash_action(severity: i32) -> String {
+    if severity >= 20 {
+        ACTION_BREAK.into()
+    } else {
+        String::new()
+    }
 }
 
 pub fn crash_ignites(_severity: i32) -> i32 {
     0
 }
 
-pub fn crash_part_impulse(_severity: i32) -> f32 {
-    0.0
+pub fn crash_part_impulse(severity: i32) -> f32 {
+    severity as f32 * 0.05
 }
 
-pub fn crash_kit(_speed: f32, _into_solid: bool) -> hanga::engine::host::Value {
-    wire_empty()
+pub fn crash_kit(speed: f32, into_solid: bool) -> hanga::engine::host::Value {
+    let severity = crash_severity(speed, into_solid);
+    let mut fields = vec![
+        field("severity", atom_int(severity as i64)),
+        field("crumple", atom_int(crash_crumple(severity) as i64)),
+        field("wrecks", atom_flag(crash_wrecks(severity) != 0)),
+        field("ignites", atom_flag(false)),
+        field("impulse", atom_float(crash_part_impulse(severity) as f64)),
+    ];
+    let action = crash_action(severity);
+    if !action.is_empty() {
+        fields.push(field("action", atom_text(action)));
+    }
+    wire_dict(fields)
 }
 
+/// Lab carts do not burn; reply with an explicit extinguished kit.
 pub fn fire_kit(_age_ms: i32, _nearby: &str) -> hanga::engine::host::Value {
-    wire_empty()
+    wire_dict(vec![
+        field("heat", atom_float(0.0)),
+        field("range", atom_float(0.0)),
+        field("consume", atom_flag(false)),
+        field("jump", atom_flag(false)),
+        field("burst", atom_flag(false)),
+        field("out", atom_flag(true)),
+    ])
 }
 
 pub fn on_message(from: &str, topic: &str, payload: &hanga::engine::host::Value) -> hanga::engine::host::Value {
@@ -658,11 +709,11 @@ mod tests {
     #[test]
     fn testbed_vehicles_do_not_fold() {
         assert_eq!(crash_severity(40.0, true), 0);
-        assert_eq!(crash_wrecks(100), 0);
-        assert!(crash_action(100).is_empty());
+        assert_eq!(crash_severity(50.0, true), 10);
+        assert_eq!(crash_wrecks(20), 0);
         assert_eq!(crash_ignites(100), 0);
-        assert!(wire_is_null(&crash_kit(40.0, true)));
-        assert!(wire_is_null(&fire_kit(9_000, "glass")));
+        assert_eq!(payload_i64(&crash_kit(40.0, true), "severity"), 0);
+        assert!(payload_flag(&fire_kit(9_000, "glass"), "out"));
         assert_eq!(
             wire_as_text(&on_message("urban_chaos", "ping", &wire_empty())),
             Some("pong")
@@ -699,5 +750,6 @@ mod tests {
         assert_eq!(payload_str(&g, "kind"), "none");
         assert!((payload_f32(&g, "walk") - 8.0).abs() < 1e-5);
         assert_eq!(payload_f32(&g, "y"), 0.0);
+        assert!(payload_flag(&g, "auto-jump"));
     }
 }

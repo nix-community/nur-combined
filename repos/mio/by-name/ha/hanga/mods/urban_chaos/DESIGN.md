@@ -8,10 +8,13 @@ lamps, wheels, player red vs traffic colors. Street metal is soft (`stiffness` 3
 `beams` are rest-length `{a,b}` links (`hull`–`cabin`, `cabin`–`lamp`, …).
 The host shortens them on crumple and relaxes a pinned lattice
 (first kit part stays put) so lamps follow the cabin.
-The testbed pack in Sandbox adds a stiffer cart that uses that pack's crash/fire kits.
+The testbed pack in Sandbox adds a stiffer cart that uses that pack's crash/fire
+kits (lab plate: high impact threshold, no ignition; fire kit always out).
 
-**Gravity belongs here.** Streets use Earth (`kind` constant, `y` -9.81, `jump` 5, `walk` 10).
-The host only applies the field; a later heist in orbit would ship a different kit.
+**Gravity belongs here.** Streets use Earth (`kind` constant, `y` -9.81, `jump` 5,
+`walk` 10, `auto-jump`). The host only applies the field; a later heist in orbit
+would ship a different kit. Cops and pedestrians set `jump` on `steer` when the
+host reports the path ahead is blocked so they hop curbs instead of freezing.
 
 Cars are **soft street metal** in the BeamNG sense: they fold, shed parts, and
 can become wrecks. The host only measures impact and moves meshes; this mod

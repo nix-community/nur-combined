@@ -11,6 +11,7 @@ pub enum Locale {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum TextCommand {
     MoveForward,
+    Jump,
     BreakBlock,
     PlaceBlock,
     EnterVehicle,
@@ -105,6 +106,7 @@ impl Locale {
 const UI_KEYS: &[&str] = &[
     "sys_prefix",
     "moving",
+    "jumping",
     "breaking",
     "placing",
     "entering",
@@ -184,6 +186,7 @@ fn ui_en(key: &str) -> Option<&'static str> {
     Some(match key {
         "sys_prefix" => "System: ",
         "moving" => "Moving forward.",
+        "jumping" => "Jumping.",
         "breaking" => "Attempting to break block at {pos}",
         "placing" => "Attempting to place block at {pos}",
         "entering" => "Attempting to hijack vehicle!",
@@ -202,7 +205,7 @@ fn ui_en(key: &str) -> Option<&'static str> {
         "destination" => "Destination",
         "job_none" => "no job",
         "look" => "{status}. Ahead is {label} at {pos}. Commands: {commands}.",
-        "commands_help" => "move forward, break block, place block, craft, accept job, complete job, fence, lang",
+        "commands_help" => "move forward, jump, break block, place block, craft, accept job, complete job, fence, lang",
         "menu_title" => "HANGA",
         "menu_play" => "Play",
         "menu_multiplayer" => "Multiplayer",
@@ -265,6 +268,7 @@ fn ui_mi(key: &str) -> Option<&'static str> {
     Some(match key {
         "sys_prefix" => "Pūnaha: ",
         "moving" => "E neke whakamua ana.",
+        "jumping" => "E peke ana.",
         "breaking" => "E ngana ana ki te whati poraka kei {pos}",
         "placing" => "E ngana ana ki te whakatū poraka kei {pos}",
         "entering" => "E ngana ana ki te eke waka!",
@@ -283,7 +287,7 @@ fn ui_mi(key: &str) -> Option<&'static str> {
         "destination" => "Wāhi haere",
         "job_none" => "kāore he mahi",
         "look" => "{status}. Kei mua ko {label} kei {pos}. Ngā whakahau: {commands}.",
-        "commands_help" => "neke whakamua, whati poraka, whakatū poraka, waihanga, whakaae mahi, whakaoti mahi, hoko taonga, reo",
+        "commands_help" => "neke whakamua, peke, whati poraka, whakatū poraka, waihanga, whakaae mahi, whakaoti mahi, hoko taonga, reo",
         "menu_title" => "HANGA",
         "menu_play" => "Tākaro",
         "menu_multiplayer" => "Tuki tāngata-maha",
@@ -346,6 +350,7 @@ fn ui_fr(key: &str) -> Option<&'static str> {
     Some(match key {
         "sys_prefix" => "Système : ",
         "moving" => "Avance.",
+        "jumping" => "Saut.",
         "breaking" => "Tentative de casser le bloc en {pos}",
         "placing" => "Tentative de poser un bloc en {pos}",
         "entering" => "Tentative de voler un véhicule !",
@@ -364,7 +369,7 @@ fn ui_fr(key: &str) -> Option<&'static str> {
         "destination" => "Destination",
         "job_none" => "aucun contrat",
         "look" => "{status}. Devant : {label} en {pos}. Commandes : {commands}.",
-        "commands_help" => "avancer, casser un bloc, poser un bloc, fabriquer, accepter le contrat, terminer le contrat, revendre, langue",
+        "commands_help" => "avancer, sauter, casser un bloc, poser un bloc, fabriquer, accepter le contrat, terminer le contrat, revendre, langue",
         "menu_title" => "HANGA",
         "menu_play" => "Jouer",
         "menu_multiplayer" => "Multijoueur",
@@ -427,6 +432,7 @@ fn ui_zh_tw(key: &str) -> Option<&'static str> {
     Some(match key {
         "sys_prefix" => "系統：",
         "moving" => "正在前進。",
+        "jumping" => "正在跳躍。",
         "breaking" => "正在嘗試破壞 {pos} 的方塊",
         "placing" => "正在嘗試在 {pos} 放置方塊",
         "entering" => "正在嘗試搶車！",
@@ -445,7 +451,7 @@ fn ui_zh_tw(key: &str) -> Option<&'static str> {
         "destination" => "目的地",
         "job_none" => "沒有任務",
         "look" => "{status}。前方是{label}，位置 {pos}。指令：{commands}。",
-        "commands_help" => "前進、破壞方塊、放置方塊、合成、接受任務、完成任務、銷贓、語言",
+        "commands_help" => "前進、跳躍、破壞方塊、放置方塊、合成、接受任務、完成任務、銷贓、語言",
         "menu_title" => "HANGA",
         "menu_play" => "開始遊戲",
         "menu_multiplayer" => "多人連線",
@@ -653,6 +659,10 @@ const COMMAND_ALIASES: &[(TextCommand, &[&str])] = &[
         &["move forward", "neke whakamua", "avancer", "前進"],
     ),
     (
+        TextCommand::Jump,
+        &["jump", "peke", "sauter", "跳躍"],
+    ),
+    (
         TextCommand::BreakBlock,
         &[
             "break block",
@@ -847,6 +857,10 @@ mod tests {
         assert_eq!(parse_text_command("neke whakamua"), TextCommand::MoveForward);
         assert_eq!(parse_text_command("avancer"), TextCommand::MoveForward);
         assert_eq!(parse_text_command("前進"), TextCommand::MoveForward);
+        assert_eq!(parse_text_command("jump"), TextCommand::Jump);
+        assert_eq!(parse_text_command("peke"), TextCommand::Jump);
+        assert_eq!(parse_text_command("sauter"), TextCommand::Jump);
+        assert_eq!(parse_text_command("跳躍"), TextCommand::Jump);
         assert_eq!(parse_text_command("Casser un bloc"), TextCommand::BreakBlock);
         assert_eq!(parse_text_command("破壞方塊"), TextCommand::BreakBlock);
         assert_eq!(parse_text_command("whakaae mahi"), TextCommand::AcceptJob);
