@@ -1,6 +1,12 @@
 name: "Auto update packages"
 on:
     workflow_dispatch:
+        inputs:
+            package:
+                description: "Package name to update (leave empty to update all)"
+                required: false
+                default: ""
+                type: string
     schedule:
         - cron: "10 3 * * *"
 jobs:
@@ -53,15 +59,22 @@ jobs:
             - name: Fetch new versions
               env:
                   GH_TOKEN: ${{ steps.app-token.outputs.token }}
-              run: nix develop -c update-packages
+                  PACKAGE: ${{ inputs.package }}
+              run: nix develop -c update-packages ${PACKAGE:+"$PACKAGE"}
 
             - name: Run custom package updaters
+              env:
+                  PACKAGE: ${{ inputs.package }}
               run: |
                   export NIXPKGS_ALLOW_UNFREE=1
-                  nix shell nixpkgs#curl nixpkgs#jq nixpkgs#moreutils --inputs-from . \
-                    -c bash pkgs/by-name/qq/qqmusic/update.sh
-                  nix shell nixpkgs#python3 nixpkgs#coreutils nixpkgs#git --inputs-from . \
-                    -c bash pkgs/by-name/bw/bw-ssh-agent-filter/update.sh
+                  if [ -z "$PACKAGE" ] || [ "$PACKAGE" = qqmusic ]; then
+                    nix shell nixpkgs#curl nixpkgs#jq nixpkgs#moreutils --inputs-from . \
+                      -c bash pkgs/by-name/qq/qqmusic/update.sh
+                  fi
+                  if [ -z "$PACKAGE" ] || [ "$PACKAGE" = bw-ssh-agent-filter ]; then
+                    nix shell nixpkgs#python3 nixpkgs#coreutils nixpkgs#git --inputs-from . \
+                      -c bash pkgs/by-name/bw/bw-ssh-agent-filter/update.sh
+                  fi
 
             - name: Commit changes
               run: |
