@@ -35,7 +35,7 @@ use hanga::{
     INVENTORY_SLOTS, LOOK_SENSITIVITY,
 };
 use hanga::crash::{
-    apply_stiffness, crash_kit_detaches, crumple_axes, crumple_node_shift, impact_speed,
+    apply_stiffness, crash_kit_detaches, crumple_axes, impact_speed,
     parse_crash_kit_node, parse_fire_kit_node, parse_fracture_kit_node, parse_planar_node,
 };
 use hanga::audio::{
@@ -47,9 +47,9 @@ use hanga::gravity::{
     set_jump, set_planar_velocity, walk_up, GravityKit,
 };
 use hanga::heist::{mark_reached, parse_contract_mark_node, ContractMark};
+use hanga::soft_body::SoftBody;
 use hanga::vehicle::{
-    beam_length, beam_pin_name, beam_step, is_tire, parse_vehicle_kit_node, tire_squash,
-    traffic_ahead_blocks, VehicleKit, BEAM_ROUNDS,
+    is_tire, parse_vehicle_kit_node, traffic_ahead_blocks, VehicleKit,
 };
 use hanga::game::{
     cycle_game, game_search_dirs, load_game_catalog, load_local_game, parse_game_spec,
@@ -947,23 +947,14 @@ struct VehicleMod(String);
 #[derive(Component, Clone)]
 struct VehiclePart {
     name: String,
+    index: usize,
     size: Vec3,
     tire: bool,
     rest_scale: Vec3,
 }
 
-#[derive(Clone)]
-struct BeamLink {
-    from: String,
-    to: String,
-    rest: f32,
-}
-
 #[derive(Component, Default)]
-struct VehicleBeams {
-    pin: String,
-    links: Vec<BeamLink>,
-}
+struct VehicleSoftBody(SoftBody);
 
 #[derive(Component)]
 struct VehicleDrive {
@@ -1788,10 +1779,12 @@ fn spawn_vehicle(
         VehicleDrive { speed: kit.speed },
         VehicleStiffness(kit.stiffness),
         VehicleMod(owner.to_string()),
-        VehicleBeams {
-            pin: beam_pin_name(&kit.parts).unwrap_or("").to_string(),
-            links: spawn_beam_links(kit),
-        },
+        VehicleSoftBody(SoftBody::from_kit(
+            &kit.parts,
+            &kit.beams,
+            &kit.tires,
+            kit.stiffness,
+        )),
         Transform::from_translation(pos),
         Visibility::default(),
         (RigidBody::Dynamic, GravityScale::default()),
@@ -1805,7 +1798,7 @@ fn spawn_vehicle(
         entity.insert(VehicleAi);
     }
     entity.with_children(|body| {
-        for part in &kit.parts {
+        for (index, part) in kit.parts.iter().enumerate() {
             let size = Vec3::from_array(part.size);
             body.spawn((
                 Name::new(part.name.clone()),
@@ -1814,6 +1807,7 @@ fn spawn_vehicle(
                 Transform::from_xyz(part.offset[0], part.offset[1], part.offset[2]),
                 VehiclePart {
                     name: part.name.clone(),
+                    index,
                     size,
                     tire: is_tire(kit, &part.name),
                     rest_scale: Vec3::ONE,
@@ -1823,79 +1817,60 @@ fn spawn_vehicle(
     });
 }
 
-fn spawn_beam_links(kit: &VehicleKit) -> Vec<BeamLink> {
-    let mut links = Vec::new();
-    for (from, to) in &kit.beams {
-        let Some(anchor) = kit.parts.iter().find(|part| part.name == *from) else {
-            continue;
-        };
-        for part in kit.parts.iter().filter(|part| part.name == *to) {
-            let dx = part.offset[0] - anchor.offset[0];
-            let dy = part.offset[1] - anchor.offset[1];
-            let dz = part.offset[2] - anchor.offset[2];
-            links.push(BeamLink {
-                from: from.clone(),
-                to: to.clone(),
-                rest: (dx * dx + dy * dy + dz * dz).sqrt(),
-            });
-        }
-    }
-    links
-}
-
-fn apply_beam_links(
+fn write_soft_body_parts(
     children: &Children,
     parts: &mut Query<(Entity, &mut VehiclePart, &mut Transform), Without<Vehicle>>,
-    beams: &VehicleBeams,
-    detach: &[(Entity, Vec3, Transform)],
-    crumple: i32,
-    stiffness: i32,
+    soft: &SoftBody,
+    skipped: &std::collections::HashSet<Entity>,
 ) {
-    let skipped: std::collections::HashSet<Entity> =
-        detach.iter().map(|(entity, _, _)| *entity).collect();
-    let mut nodes = std::collections::HashMap::<String, Entity>::new();
-    let mut pos = std::collections::HashMap::<String, [f32; 3]>::new();
     for child in children.iter() {
         if skipped.contains(&child) {
             continue;
         }
-        let Ok((_, part, local)) = parts.get(child) else {
+        let Ok((_, part, mut local)) = parts.get_mut(child) else {
             continue;
         };
-        if nodes.contains_key(&part.name) {
-            continue;
-        }
-        nodes.insert(part.name.clone(), child);
-        pos.insert(part.name.clone(), local.translation.to_array());
-    }
-    for _ in 0..BEAM_ROUNDS {
-        for link in beams.links.iter().chain(beams.links.iter().rev()) {
-            let Some(a) = pos.get(&link.from).copied() else {
-                continue;
-            };
-            let Some(b) = pos.get(&link.to).copied() else {
-                continue;
-            };
-            let length = beam_length(link.rest, crumple, stiffness);
-            let (na, nb) = beam_step(
-                a,
-                b,
-                length,
-                link.from == beams.pin,
-                link.to == beams.pin,
-            );
-            pos.insert(link.from.clone(), na);
-            pos.insert(link.to.clone(), nb);
+        if let Some(pose) = soft.part_pose(part.index) {
+            local.translation = Vec3::from_array(pose.translation);
+            local.scale = part.rest_scale * Vec3::from_array(pose.scale);
         }
     }
-    for (name, entity) in nodes {
-        let Some(xyz) = pos.get(&name) else {
-            continue;
+}
+
+fn soft_body_tick(
+    time: Res<Time>,
+    mut vehicles: Query<
+        (
+            &Transform,
+            &LinearVelocity,
+            &VehicleStiffness,
+            &mut VehicleSoftBody,
+            &Children,
+            Option<&Wrecked>,
+        ),
+        (With<Vehicle>, Without<AwaitingTerrain>),
+    >,
+    mut parts: Query<(Entity, &mut VehiclePart, &mut Transform), Without<Vehicle>>,
+    voxel_world: VoxelWorld<DefaultWorld>,
+) {
+    let dt = time.delta_secs();
+    let empty = std::collections::HashSet::new();
+    for (transform, velocity, stiff, mut soft, children, wrecked) in vehicles.iter_mut() {
+        let grounded = wrecked.is_none() && {
+            let feet = transform.translation - Vec3::Y * 0.6;
+            voxel_is_solid(
+                &voxel_world,
+                [
+                    feet.x.round() as i32,
+                    feet.y.round() as i32,
+                    feet.z.round() as i32,
+                ],
+            )
         };
-        let Ok((_, _, mut local)) = parts.get_mut(entity) else {
-            continue;
-        };
-        local.translation = Vec3::from_array(*xyz);
+        soft.0
+            .apply_tire_load(grounded, velocity.length(), stiff.0);
+        soft.0.tick(dt);
+        write_soft_body_parts(children, &mut parts, &soft.0, &empty);
     }
 }
 
@@ -3255,7 +3230,7 @@ impl Plugin for CitySimPlugin {
                 agent_ai_tick,
                 wanted_decay,
                 vehicle_crash_system,
-                tire_deform_system,
+                soft_body_tick,
                 vehicle_traffic_system,
                 fire_spread_system,
                 flicker_ignition,
@@ -3297,7 +3272,7 @@ fn vehicle_crash_system(
             &mut VehicleCrash,
             &VehicleMod,
             &VehicleStiffness,
-            &VehicleBeams,
+            &mut VehicleSoftBody,
             Option<&Wrecked>,
             Option<&Ignited>,
         ),
@@ -3310,7 +3285,7 @@ fn vehicle_crash_system(
     mut events: MessageWriter<ProposedAction>,
     mut sounds: MessageWriter<SpatialSoundEvent>,
 ) {
-    for (entity, transform, velocity, mut angular, children, mut crash, owner, stiff, beams, wrecked, ignited) in
+    for (entity, transform, velocity, mut angular, children, mut crash, owner, stiff, mut soft, wrecked, ignited) in
         vehicles.iter_mut()
     {
         let speed = velocity.length();
@@ -3345,21 +3320,26 @@ fn vehicle_crash_system(
         let crumple = apply_stiffness(outcome.crumple, stiff.0);
         let dir = [velocity.x, velocity.y, velocity.z];
         let axes = crumple_axes(crumple, dir);
+        // BeamNG soft body: kick the lattice, then settle a few substeps.
+        soft.0.impact(dir, outcome.severity, stiff.0);
+        for _ in 0..16 {
+            soft.0.tick(1.0 / 60.0);
+        }
         let mut detach = Vec::new();
+        let mut skipped = std::collections::HashSet::new();
         for child in children.iter() {
             let Ok((part_entity, mut part, mut local)) = parts.get_mut(child) else {
                 continue;
             };
             if crash_kit_detaches(&outcome, &part.name) {
                 detach.push((part_entity, part.size, *local));
+                skipped.insert(part_entity);
             } else {
                 part.rest_scale = Vec3::from_array(axes);
                 local.scale = part.rest_scale;
-                let shifted = crumple_node_shift(local.translation.to_array(), dir, crumple);
-                local.translation = Vec3::from_array(shifted);
             }
         }
-        apply_beam_links(children, &mut parts, beams, &detach, crumple, stiff.0);
+        write_soft_body_parts(children, &mut parts, &soft.0, &skipped);
         let impulse = outcome.impulse;
         let kick = transform.forward() * -impulse + Vec3::Y * (impulse * 0.35);
         for (part_entity, size, local) in detach {
@@ -3415,37 +3395,6 @@ fn vehicle_crash_system(
             if into_solid {
                 events.write(signed_break(player_entity, pos + IVec3::new(0, 0, -2)));
             }
-        }
-    }
-}
-
-fn tire_deform_system(
-    vehicles: Query<
-        (&Transform, &LinearVelocity, &VehicleStiffness, &Children),
-        (With<Vehicle>, Without<Wrecked>),
-    >,
-    mut parts: Query<(&VehiclePart, &mut Transform), Without<Vehicle>>,
-    voxel_world: VoxelWorld<DefaultWorld>,
-) {
-    for (transform, velocity, stiff, children) in vehicles.iter() {
-        let feet = transform.translation - Vec3::Y * 0.6;
-        let grounded = voxel_is_solid(
-            &voxel_world,
-            [
-                feet.x.round() as i32,
-                feet.y.round() as i32,
-                feet.z.round() as i32,
-            ],
-        );
-        let squash = tire_squash(velocity.length(), stiff.0, grounded);
-        for child in children.iter() {
-            let Ok((part, mut local)) = parts.get_mut(child) else {
-                continue;
-            };
-            if !part.tire {
-                continue;
-            }
-            local.scale = part.rest_scale * Vec3::new(1.0, squash, 1.0);
         }
     }
 }

@@ -19,8 +19,10 @@ pub struct VehicleKit {
     pub stiffness: i32,
     /// Part names the host may squash on the local up axis (tires, pads, …).
     pub tires: Vec<String>,
-    /// Named rest-length links. The host shortens these on crumple and relaxes a lattice
-    /// (first kit part stays pinned so the collider origin does not drift).
+    /// Named rest-length braces. The host builds a BeamNG-style soft body: each
+    /// part is a mass lattice (pressure tires for `tires` names); these links
+    /// brace named parts together. First kit part stays pinned so the collider
+    /// origin does not drift.
     pub beams: Vec<(String, String)>,
     pub parts: Vec<VehiclePartSpec>,
 }
@@ -415,113 +417,6 @@ pub fn is_tire(kit: &VehicleKit, name: &str) -> bool {
     kit.tires.iter().any(|part| part == name)
 }
 
-/// Local-up scale for a named tire. Stiffer kits squash less. Airborne = 1.
-pub fn tire_squash(speed: f32, stiffness: i32, grounded: bool) -> f32 {
-    if !grounded {
-        return 1.0;
-    }
-    let give = (1.0 - stiffness.clamp(0, 100) as f32 / 100.0) * 0.4;
-    let load = (speed.max(0.0) / 35.0).clamp(0.0, 1.0);
-    (1.0 - give * (0.35 + 0.65 * load)).clamp(0.55, 1.0)
-}
-
-fn offset_len(a: [f32; 3], b: [f32; 3]) -> f32 {
-    let dx = b[0] - a[0];
-    let dy = b[1] - a[1];
-    let dz = b[2] - a[2];
-    (dx * dx + dy * dy + dz * dz).sqrt()
-}
-
-pub fn part_offset(parts: &[VehiclePartSpec], name: &str) -> Option<[f32; 3]> {
-    parts.iter().find(|part| part.name == name).map(|part| part.offset)
-}
-
-pub fn beam_rest(parts: &[VehiclePartSpec], a: &str, b: &str) -> Option<f32> {
-    Some(offset_len(part_offset(parts, a)?, part_offset(parts, b)?))
-}
-
-/// Rest length after crumple. Stiffer kits shorten less.
-pub fn beam_length(rest: f32, crumple: i32, stiffness: i32) -> f32 {
-    let give = (1.0 - stiffness.clamp(0, 100) as f32 / 100.0)
-        * (crumple.clamp(0, 100) as f32 / 100.0)
-        * 0.5;
-    rest * (1.0 - give).clamp(0.45, 1.0)
-}
-
-/// Keep `other` on the ray from `anchor`, at `length`.
-
-#[cfg(kani)]
-#[kani::proof]
-fn verify_beam_constrain_bounds() {
-    let ax: f32 = kani::any(); let ay: f32 = kani::any(); let az: f32 = kani::any();
-    let ox: f32 = kani::any(); let oy: f32 = kani::any(); let oz: f32 = kani::any();
-    let length: f32 = kani::any();
-    kani::assume(ax.is_finite() && ay.is_finite() && az.is_finite());
-    kani::assume(ox.is_finite() && oy.is_finite() && oz.is_finite());
-    kani::assume(length.is_finite() && length >= 0.0);
-    let anchor = [ax, ay, az];
-    let other = [ox, oy, oz];
-    let res = beam_constrain(anchor, other, length);
-    kani::assert(res[0].is_finite() && res[1].is_finite() && res[2].is_finite(), "beam constrain yields finite coordinates");
-}
-
-pub fn beam_constrain(anchor: [f32; 3], other: [f32; 3], length: f32) -> [f32; 3] {
-    let dx = other[0] - anchor[0];
-    let dy = other[1] - anchor[1];
-    let dz = other[2] - anchor[2];
-    let len = (dx * dx + dy * dy + dz * dz).sqrt();
-    if len < 1e-4 {
-        return other;
-    }
-    let s = length / len;
-    [
-        anchor[0] + dx * s,
-        anchor[1] + dy * s,
-        anchor[2] + dz * s,
-    ]
-}
-
-/// Split the length error equally (neither node pinned).
-pub fn beam_relax(a: [f32; 3], b: [f32; 3], length: f32) -> ([f32; 3], [f32; 3]) {
-    let dx = b[0] - a[0];
-    let dy = b[1] - a[1];
-    let dz = b[2] - a[2];
-    let len = (dx * dx + dy * dy + dz * dz).sqrt();
-    if len < 1e-4 {
-        return (a, b);
-    }
-    let half = (len - length) * 0.5;
-    let ux = dx / len;
-    let uy = dy / len;
-    let uz = dz / len;
-    (
-        [a[0] + ux * half, a[1] + uy * half, a[2] + uz * half],
-        [b[0] - ux * half, b[1] - uy * half, b[2] - uz * half],
-    )
-}
-
-/// One Gauss–Seidel step. A pinned node stays put; the other slides to `length`.
-pub fn beam_step(
-    a: [f32; 3],
-    b: [f32; 3],
-    length: f32,
-    pin_a: bool,
-    pin_b: bool,
-) -> ([f32; 3], [f32; 3]) {
-    match (pin_a, pin_b) {
-        (true, true) => (a, b),
-        (true, false) => (a, beam_constrain(a, b, length)),
-        (false, true) => (beam_constrain(b, a, length), b),
-        (false, false) => beam_relax(a, b, length),
-    }
-}
-
-pub fn beam_pin_name(parts: &[VehiclePartSpec]) -> Option<&str> {
-    parts.first().map(|part| part.name.as_str())
-}
-
-pub const BEAM_ROUNDS: u32 = 8;
-
 /// True when `other` sits in front of a traffic vehicle on the XZ plane.
 pub fn traffic_ahead_blocks(
     origin: [f32; 3],
@@ -634,9 +529,6 @@ mod tests {
         assert!(is_tire(&kit, "wheel"));
         assert!(is_tire(&kit, "pad"));
         assert!(!is_tire(&kit, "hull"));
-        assert!((tire_squash(0.0, 0, false) - 1.0).abs() < 1e-5);
-        assert!(tire_squash(30.0, 0, true) < tire_squash(30.0, 90, true));
-        assert!(tire_squash(30.0, 32, true) < 1.0);
         let kit = parse_vehicle_kit(
             "beam=hull,cabin;beam=hull,wheel\n\
              part=hull,1,1,1,0,0,0,1,1,1\n\
@@ -644,27 +536,8 @@ mod tests {
              part=wheel,1,1,1,0,-0.5,0,1,1,1",
         );
         assert_eq!(kit.beams.len(), 2);
-        let rest = beam_rest(&kit.parts, "hull", "cabin").unwrap();
-        assert!((rest - 0.5).abs() < 1e-5);
-        let pulled = beam_constrain([0.0, 0.0, 0.0], [0.0, 1.0, 0.0], 0.4);
-        assert!((pulled[1] - 0.4).abs() < 1e-5);
-        let (left, right) = beam_relax([0.0, 0.0, 0.0], [0.0, 2.0, 0.0], 1.0);
-        assert!((left[1] - 0.5).abs() < 1e-5);
-        assert!((right[1] - 1.5).abs() < 1e-5);
-        assert_eq!(beam_pin_name(&kit.parts), Some("hull"));
-        assert!(beam_length(1.0, 80, 0) < beam_length(1.0, 80, 90));
-        let mut hull = [0.0, 0.0, 0.0];
-        let mut cabin = [0.0, 1.0, 0.0];
-        let mut lamp = [0.0, 2.0, 0.0];
-        for _ in 0..BEAM_ROUNDS {
-            (hull, cabin) = beam_step(hull, cabin, 0.5, true, false);
-            (cabin, lamp) = beam_step(cabin, lamp, 0.5, false, false);
-            (cabin, lamp) = beam_step(cabin, lamp, 0.5, false, false);
-            (hull, cabin) = beam_step(hull, cabin, 0.5, true, false);
-        }
-        assert!((hull[1]).abs() < 1e-4);
-        assert!((cabin[1] - 0.5).abs() < 1e-3);
-        assert!((lamp[1] - 1.0).abs() < 1e-2);
+        assert_eq!(kit.beams[0], ("hull".into(), "cabin".into()));
+        assert_eq!(kit.parts[0].name, "hull");
     }
 
     #[test]
@@ -692,11 +565,4 @@ mod tests {
         ));
     }
 
-    #[test]
-    fn kani_replay_beam_constrain() {
-        let constrained = beam_constrain([0.0, 0.0, 0.0], [3.0, 4.0, 0.0], 10.0);
-        assert!((constrained[0] - 6.0).abs() < 1e-4);
-        assert!((constrained[1] - 8.0).abs() < 1e-4);
-        assert!((constrained[2] - 0.0).abs() < 1e-4);
-    }
 }

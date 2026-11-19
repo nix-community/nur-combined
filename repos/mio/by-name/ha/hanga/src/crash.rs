@@ -21,8 +21,8 @@ fn unit3(dir: [f32; 3]) -> [f32; 3] {
     }
 }
 
-/// Squash along the impact/travel axis; the other axes stay closer to 1.
-/// Cheap BeamNG-like fold without a node-beam solver.
+/// Squash mesh axes along the impact/travel direction (visual fold on top of
+/// the soft-body lattice).
 pub fn crumple_axes(crumple: i32, dir: [f32; 3]) -> [f32; 3] {
     let s = crumple_scale(crumple);
     let n = unit3(dir);

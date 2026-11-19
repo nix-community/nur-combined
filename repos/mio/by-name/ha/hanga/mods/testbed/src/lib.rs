@@ -279,11 +279,16 @@ pub fn should_despawn_agent(_agent: &str, _current_state: i32) -> i32 {
 }
 
 pub fn ambient_agent_count() -> i32 {
-    0
+    2
 }
 
-pub fn ambient_agent_spawn(_index: i32) -> (i32, i32, i32, String) {
-    (0, 2, 0, "pedestrian".into())
+/// Lab drones that drift toward the player (see `lab_agent_planar`).
+pub fn ambient_agent_spawn(index: i32) -> (i32, i32, i32, String) {
+    if index <= 0 {
+        (-4, 2, 3, "drone".into())
+    } else {
+        (5, 2, -2, "drone".into())
+    }
 }
 
 pub fn voxel_label(voxel: &str) -> String {
@@ -669,8 +674,12 @@ mod tests {
     }
 
     #[test]
-    fn testbed_has_no_ambient_or_decay() {
-        assert_eq!(ambient_agent_count(), 0);
+    fn testbed_has_lab_drones_and_no_wanted_decay() {
+        assert_eq!(ambient_agent_count(), 2);
+        let (x, y, _z, kind) = ambient_agent_spawn(0);
+        assert_eq!(kind, "drone");
+        assert!(y > 0);
+        assert!(x != 0 || ambient_agent_spawn(1).0 != 0);
         assert_eq!(mod_tick(3, 8000), 3);
         assert_eq!(voxel_label("air"), "air");
     }

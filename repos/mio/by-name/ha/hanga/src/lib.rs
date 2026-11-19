@@ -14,6 +14,7 @@ pub mod heist;
 pub mod i18n;
 pub mod palette;
 pub mod sign;
+pub mod soft_body;
 pub mod vehicle;
 pub mod persistence;
 pub mod scaffold;
@@ -1476,8 +1477,19 @@ mod tests {
             let clamped = clamp_wallet(value);
             assert!((0..=1_000_000).contains(&clamped));
         }
-        for crumple in [0, 50, 100] {
-            assert!(vehicle::beam_length(1.0, crumple, 0) <= vehicle::beam_length(1.0, crumple, 100));
+        for stiff in [0, 50, 100] {
+            let soft = soft_body::SoftBody::from_parts(
+                &[vehicle::VehiclePartSpec {
+                    name: "hull".into(),
+                    size: [1.0, 1.0, 1.0],
+                    offset: [0.0, 0.0, 0.0],
+                    rgb: [1.0, 0.0, 0.0],
+                }],
+                &[],
+                stiff,
+            );
+            assert!(!soft.nodes.is_empty());
+            assert!(soft.nodes.iter().all(|n| n.mass > 0.0));
         }
     }
 

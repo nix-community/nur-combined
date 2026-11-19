@@ -4,10 +4,12 @@ Voxel city, subway, GTA wanted level, Teardown buildings, street crafting.
 **Cars belong here**, not in the engine. The host only knows a rideable vehicle
 (kit boxes + occupants). This game's `vehicle-kit` is a street car: hull, cabin,
 lamps, wheels, player red vs traffic colors. Street metal is soft (`stiffness` 32);
-`tires: ["wheel"]` lets the host squash the wheels when the car is on the ground.
-`beams` are rest-length `{a,b}` links (`hull`–`cabin`, `cabin`–`lamp`, …).
-The host shortens them on crumple and relaxes a pinned lattice
-(first kit part stays put) so lamps follow the cabin.
+`tires: ["wheel"]` builds pressure wheels (hub + rim, ground load) on the host.
+`beams` are rest-length `{a,b}` braces (`hull`–`cabin`, `cabin`–`lamp`,
+`hull`–`wheel`, …). The host builds a BeamNG-style soft body: mass lattices per
+part, pressure tires on `tires`, spring–damper beams with plastic deform and
+break strength. The first kit part stays pinned so lamps follow the cabin
+through impacts.
 The testbed pack in Sandbox adds a stiffer cart that uses that pack's crash/fire
 kits (lab plate: high impact threshold, no ignition; fire kit always out).
 
@@ -23,17 +25,18 @@ and then ticks `fire-kit`. Glass / tile / workbench / grass can be consumed.
 Flame jumps to nearby rideables; after eight seconds the tank can burst; after
 twelve the fire goes out.
 
-## Crash (BeamNG-related, not a full node-beam solver)
+## Crash (BeamNG soft body)
 
-BeamNG.drive uses a node-beam soft body. Hanga does not solve that. Urban Chaos
-still wants the *feel*: speed-dependent crumple, parts flying off, a wreck that
-tumbles and will not drive, and a high-speed hit that is treated as an explosion.
+BeamNG.drive uses a node-beam soft body. Hanga runs the same idea on the kit:
+chassis lattices with mass nodes, pressure tires, spring–damper beams with
+plastic deform and break strength, pinned hull. Urban Chaos still owns the
+*steel*: speed-dependent severity, parts flying off, a wreck that tumbles and
+will not drive, and a high-speed hit treated as an explosion.
 
 The engine reports impact `speed` (m/s) and `into-solid` (voxel or sudden stop).
-This mod returns severity 0–100 and named outcomes. The host folds remaining
-parts along the travel axis, slides them toward the hit, shortens named `beams`
-links (pinned lattice), and squashes `tires` parts on the local up axis. That is
-not BeamNG's solver.
+This mod returns severity 0–100 and named outcomes. The host kicks the soft
+body (soften / snap braces), folds remaining parts along the travel axis, and
+detaches named parts. Tire squash comes from the pressure-wheel solver.
 
 | Impact speed | Severity | Visual | Heat |
 | --- | --- | --- | --- |
@@ -66,6 +69,8 @@ and what you are holding. This game owns the jobs.
 Accept is J, cash-out is K, fence is L (when wanted is 0). Completing smash or
 chop-shop takes the selected item.
 
-## Out of scope (later)
+## Soft-body fidelity
 
-- BeamNG-style masses, deformation nodes, and a full soft-body solver
+Chassis parts are box lattices (denser on the hull); each `tires` part is a
+hub + rim pressure wheel. Not a multi-thousand-node JBeam authoring pipeline —
+the host synthesizes the mesh from the kit boxes.

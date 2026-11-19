@@ -112,11 +112,12 @@ The host knows nothing about cops, wanted levels, cities, or quests.
 - Teardown *execution*: unset voxels, spawn debris, collapse voxels not connected to ground
 - Vehicle *execution*: any rideable that can carry a player. The host builds boxes
   from a kit dict, moves occupants, crumples/detaches named parts, and scales fold by
-  `stiffness`. `tires` is a list of part names squashed on the local up axis when grounded.
-  `beams` is `[{a,b}, …]` rest-length links. The host
-  relaxes a small lattice: the first kit part stays pinned, other nodes
-  share the length error. Crash and fire kits come from the pack that spawned
-  the rideable.
+  `stiffness`. `tires` names become pressure wheels (hub + rim nodes, anisotropic
+  radials, cavity pressure, ground load). `beams` is `[{a,b}, …]` braces between
+  named parts. The host runs a BeamNG-style node–beam soft body every frame:
+  mass nodes, spring–damper beams with plastic deform and break strength, chassis
+  lattices per part; the first kit part stays pinned. Crash and fire kits come
+  from the pack that spawned the rideable.
 - Gravity *execution*: apply a field the game named (`none`, constant vector, or
   point attractor). Walk/jump stay on the anti-gravity plane at the kit's
   `walk` / `jump` speeds; optional `auto-jump` hops a one-block ledge while
@@ -276,12 +277,15 @@ wasm-tools component new target/wasm32-unknown-unknown/release/urban_chaos.wasm 
 Development gate: `nix build .#hanga-dev` (host lib tests natively; agent-client
 under xvfb; `mods.nix` runs `urban_chaos` / `testbed` unit tests before the WASM wrap).
 
-- `cargo test --lib` — pure engine predicates (anti-cheat, fracture, economy pack)
+- `cargo test --lib` — pure engine predicates (anti-cheat, fracture, economy,
+  soft-body lattices / pressure tires / beam break)
 - `cargo test -p urban_chaos` / `-p testbed` — mod rules
 - `cargo test --test '*'` — agent-client integration (needs a display / xvfb)
-- Kani proofs stay behind `cfg(kani)` for `cargo kani`; the same properties replay
-  as `kani_replay_*` tests in `.#hanga-dev`, and `.#hanga-kani` runs the real
-  `cargo kani` suite on its own (it pulls the older toolchain + `cbmc`).
+- Kani proofs stay behind `cfg(kani)` for `cargo kani` (soft-body momentum,
+  pinned nodes, broken beams, scale/spring clamps, impact/dt no-ops). The same
+  properties replay as `kani_replay_*` tests in `.#hanga-dev`, and `.#hanga-kani`
+  runs the real `cargo kani` suite on its own (it pulls the older toolchain +
+  `cbmc`).
 
 ## Next
 
