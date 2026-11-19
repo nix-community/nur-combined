@@ -3107,10 +3107,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "161.0.20261118.90429";
+      version = "161.0.20261118.180411";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5271816/dansk_da_language_pack-161.0.20261118.90429.xpi";
-      sha256 = "eb7315a50135800632784aeb6d89aa551fc7280acfad14614c88cce021a7ac26";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5274280/dansk_da_language_pack-161.0.20261118.180411.xpi";
+      sha256 = "627dd8df64cd37bf882fd6101d41c324db0e7246b96c993c3897dbc993502387";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3323,10 +3323,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "161.0.20261118.90429";
+      version = "161.0.20261118.180411";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5271817/deutsch_de_language_pack-161.0.20261118.90429.xpi";
-      sha256 = "99bf37243d0194ababcd2a9a3ad3926f099c9294b0037cef7a0da21fd6f2d6fa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5274287/deutsch_de_language_pack-161.0.20261118.180411.xpi";
+      sha256 = "e311fc619e31f4bdeff1bf0c51eb554df0bd4a1ac80b0ad635fbdb08605b6beb";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4820,10 +4820,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "161.0.20261118.90429";
+      version = "161.0.20261118.180411";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5271856/francais_language_pack-161.0.20261118.90429.xpi";
-      sha256 = "efeb1ba39cb7607acebcb662fb78e4244444689b5a4605749d5d691d9c3ff276";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5274253/francais_language_pack-161.0.20261118.180411.xpi";
+      sha256 = "bfca4493df97a8cd7b1f8b441ecd894be5c4b4bc8fbe8da7d089613f6d8be730";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4857,10 +4857,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "161.0.20261118.90429";
+      version = "161.0.20261118.180411";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5271784/gaidhlig_language_pack-161.0.20261118.90429.xpi";
-      sha256 = "32800ee27edd3dc567059ea4d3837553c9ee9c1a5b4c79b575b462d562136c82";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5274311/gaidhlig_language_pack-161.0.20261118.180411.xpi";
+      sha256 = "682efc23917d7228a8fa58987636bef6531db10d2549ab6d07869f05fbabc18c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -11130,10 +11130,10 @@
     };
     "private-grammar-checker-harper" = buildMozillaXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "3.2.0";
+      version = "3.3.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5249080/private_grammar_checker_harper-3.2.0.xpi";
-      sha256 = "fcd96c75efbd20dbe2ca78059ec0b2e87f10b46cb1d1985ef5a633b972eaef1e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5274604/private_grammar_checker_harper-3.3.0.xpi";
+      sha256 = "e98944aa57f4e7833c3121ac7f18fcc4117074fa1dd08bbdc5002db9d31df3e6";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -13078,10 +13078,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "161.0.20261118.90429";
+      version = "161.0.20261118.180411";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5271864/scots_language_pack-161.0.20261118.90429.xpi";
-      sha256 = "281b005dc4408933cabd19470602e11b55c9f7bca2782e53027b18e5995b9f56";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5274333/scots_language_pack-161.0.20261118.180411.xpi";
+      sha256 = "49d605e6dc04417782ca8b22882a503d521eb9f80d63bf91d7c816273fa2f409";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13608,10 +13608,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.38.0";
+      version = "1.39.0";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5266346/single_file-1.38.0.xpi";
-      sha256 = "ebabe11f9c9d384c85ff4fb0882173564e0c267950497186b6c2df4f554c99bc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5274593/single_file-1.39.0.xpi";
+      sha256 = "0bd60baef8d6f153574e15ce599135b573c1d7c727ae6fbc1499c49e8b491fa5";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -15908,10 +15908,10 @@
     };
     "v2ex-polish" = buildMozillaXpiAddon {
       pname = "v2ex-polish";
-      version = "2.5.12";
+      version = "2.5.13";
       addonId = "leokudev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5265142/v2ex_polish-2.5.12.xpi";
-      sha256 = "88c7a265289eb011999aedea437d85ced3a8572744428b9ebd93dfbfca6756a3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5275148/v2ex_polish-2.5.13.xpi";
+      sha256 = "92126bcff98b3f44d99babd12584cd642d18f29e5c4dd45f6207d5be0cf78ec5";
       meta = with lib;
       {
         description = "专为 V2EX 用户设计，提供了丰富的扩展功能。";
@@ -16758,10 +16758,10 @@
     };
     "web-clipper-obsidian" = buildMozillaXpiAddon {
       pname = "web-clipper-obsidian";
-      version = "1.7.1";
+      version = "1.8.0";
       addonId = "clipper@obsidian.md";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4913872/web_clipper_obsidian-1.7.1.xpi";
-      sha256 = "e11043d5219bc690903996bf4577da2ef2f69691446fa31184d75b7050cbb1aa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5274492/web_clipper_obsidian-1.8.0.xpi";
+      sha256 = "97d42bc62b7cff8e213f117c3a8b41b534ea57f4ea44e2ccee39658612656f16";
       meta = with lib;
       {
         homepage = "https://obsidian.md/clipper";
