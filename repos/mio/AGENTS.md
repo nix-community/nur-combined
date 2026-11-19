@@ -26,3 +26,12 @@
   - If there are no prior releases: `version = "0-unstable-<YYYY-MM-DD>";`.
   - Put the git commit hash in a separate attribute or local binding (`rev = "...";` or `commit = "...";`) rather than in `version`.
 
+## Usual update workflow
+
+This is the standard procedure when updating packages reported by `./check_updates.py`:
+
+1. **Check the update script is correct.** Every package should expose `passthru.updateScript` (a `nix-update-script`, `writeShellApplication`, or a script under the package directory). Read it and confirm it updates the right attributes (version, source rev/hash, plus any extra pins such as `cargoHash`, `vendorHash`, `pnpmDeps`/`npmDeps` hashes, submodule revisions, or companion assets). Fix or write the script first if it is missing or stale — do not hand-edit versions that the script is supposed to handle. Keep `version` in the `<base>-unstable-<date>` / `0-unstable-<date>` form; scripts must normalise rolling upstream tags (e.g. `nightly`) rather than use them verbatim.
+2. **Call the update script**, not `nix-update` by hand: `nix run --impure .#<pkg>.passthru.updateScript` (or `./scripts/update-packages.sh` to run them all). New files referenced by `package.nix` must be `git add`ed before this, because untracked files are invisible to flake evaluation.
+3. **Make `nix build .#<pkg>` pass** and fix whatever the update broke: hash mismatches (`lib.fakeHash` then paste the reported hash), new or changed upstream dependencies (vendored cargo crates, npm/pnpm deps, Rust/Go toolchain additions), patches that no longer apply, new build-time downloads that must be staged as fixed-output derivations because the sandbox has no network, and upstream-mandated build flags/tags. Prefer fixing the cause in the package expression over disabling tests or features.
+4. Re-run the package's update script once more to confirm it is idempotent, clean up scratch files (`git status`), and only then commit.
+

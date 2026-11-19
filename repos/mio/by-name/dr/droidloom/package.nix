@@ -7,7 +7,7 @@
 # a sparse AOSP/Soong build with prebuilt base partitions and is not
 # reproducible inside the Nix sandbox; it is taken from the matching upstream
 # `droidloom-image` release package instead. Both come from the same release
-# cycle (host source rev of 2026-11-16, image 0.1.0-41).
+# cycle (host source rev of 2026-11-19, image 0.1.0-47).
 {
   lib,
   stdenv,
@@ -43,24 +43,29 @@
   gawk,
   polkit,
   testers,
+  writeShellApplication,
+  python3,
+  curl,
+  git,
+  nix,
 }:
 
 let
-  version = "0.1.0-unstable-2026-11-16";
+  version = "0.1.0-unstable-2026-11-19";
 
   src = fetchFromGitHub {
     owner = "denialwm";
     repo = "droidloom";
-    rev = "a275936aaa4e59be2abdfcce94ec4ff4055a7ff8";
-    hash = "sha256-y9ZZCwTzEZ5C41i3x11uWGKnVeptenJroIslPEf6+Rc=";
+    rev = "20685a4620d0be15b4c103ecf830e2be0a3a92c8";
+    hash = "sha256-NYlH62PL0lQtuhTXCPcpCz3nohsodKHpcBxb/FVbwUc=";
   };
 
   # Upstream publishes the Android image package for both architectures.
   # The x86_64 package carries the x86_64 Android images and Android-side
   # Droidloom components built by upstream's package workflow.
   imagePackage = fetchurl {
-    url = "https://github.com/denialwm/droidloom/releases/download/packages/droidloom-image-0.1.0-41-x86_64.pkg.tar.zst";
-    hash = "sha256-tgjqupP08Y9Beozei5HwK3ZPAT862QHJuhdKWavDI5M=";
+    url = "https://github.com/denialwm/droidloom/releases/download/packages/droidloom-image-0.1.0-47-x86_64.pkg.tar.zst";
+    hash = "sha256-kD+vTPkQ5PS6B9YFRYf3M6O+r0MH4eTxRBsoKxKMYrA=";
   };
 
   # Android ELF files target bionic and must not be rewritten by Nix's ELF
@@ -346,5 +351,18 @@ in
 pkg.overrideAttrs (previousAttrs: {
   passthru = (previousAttrs.passthru or { }) // {
     tests.nixos = testers.runNixOSTest (import ./test.nix { droidloom = virtioPkg; });
+    updateScript = writeShellApplication {
+      name = "update-droidloom";
+      runtimeInputs = [
+        python3
+        curl
+        git
+        nix
+      ];
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="droidloom"
+        exec ${python3}/bin/python3 ${./update.py} "$@"
+      '';
+    };
   };
 })

@@ -34,16 +34,18 @@
   wayland-scanner,
   libdecor,
   libffi,
+  writeShellApplication,
+  nix,
 }:
 
 let
-  version = "0.1.5-unstable-2026-11-16";
+  version = "0.1.5-unstable-2026-11-19";
 
   src = fetchFromGitHub {
     owner = "boykopovar";
     repo = "AnyPS5";
-    rev = "e4caa07950f862269fbe664e3502b15544161e1f";
-    hash = "sha256-qF1m6cDtc7yn0DIiEodtEj8T+7Pevl165wXos++TAc0=";
+    rev = "d89f26516cb6948e1a18821d23270fcd0e34c1de";
+    hash = "sha256-tFyijC9SrowfB/oMpsEFOue+bufTACpxm2PJEwEZhT8=";
   };
 
   # Submodules, pinned by the superproject. The build reads each one straight
@@ -187,9 +189,10 @@ let
   };
 
   # libpsl's build downloads this list; its source tree does not contain it.
+  # Rendered from a pinned commit because the live file changes daily.
   publicSuffixList = fetchurl {
-    url = "https://publicsuffix.org/list/public_suffix_list.dat";
-    hash = "sha256-/GL4Pkgt2G08UCFvy/W7bDsY8T0P/fxGKxTja4qXv7o=";
+    url = "https://raw.githubusercontent.com/publicsuffix/list/09c1b150f33c6145a73afcf7db0fb872fc54b4d1/public_suffix_list.dat";
+    hash = "sha256-DLrm2+nxpsQjH3cZQCgX00W/OaS9/wiUIx6aLL7DDY0=";
   };
 
   libresslOpenbsd = fetchFromGitHub {
@@ -472,5 +475,18 @@ stdenv.mkDerivation {
     mainProgram = "relinker";
     platforms = [ "x86_64-linux" ];
     sourceProvenance = [ sourceTypes.fromSource ];
+  };
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-anyps5";
+    runtimeInputs = [
+      python3
+      git
+      nix
+    ];
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="anyps5"
+      exec ${python3}/bin/python3 ${./update.py} "$@"
+    '';
   };
 }

@@ -27,6 +27,7 @@
   fetchNpmDeps,
   npmHooks,
   nodejs,
+  nix-update-script,
 
   enable_upx ? true,
   upx,
@@ -116,8 +117,8 @@ let
           owner = "ggerganov";
           repo = "llama.cpp";
           # Pin from LocalAI backend/cpp/llama-cpp/Makefile (LLAMA_VERSION).
-          rev = "c0fd78626405c6d9b934efef0ec7291fcc20e3d6";
-          hash = "sha256-d4Us4QU73P0P9IqFMcPcYcb8BeIjznK8FxDvXoJvJL4=";
+          rev = "d998c676ff463b1b8ad94ad7c0b905e281422fad";
+          hash = "sha256-7ajFDpxzHN7Rr7oBy2RbzjiUviTikhsIJtqS9m7MeiQ=";
           fetchSubmodules = true;
         };
         # Nixpkgs' llama-cpp patches target a different revision than this pin.
@@ -185,6 +186,11 @@ let
           else
             hasChatSession=0
           fi
+          if grep -q "const std::vector<raw_buffer> & query_files" tools/server/server-common.h; then
+            hasRerankFiles=1
+          else
+            hasRerankFiles=0
+          fi
           printf '%s\n' \
             '// Generated for LocalAI nix packaging. Do not edit.' \
             '#pragma once' \
@@ -195,6 +201,7 @@ let
             "#define LOCALAI_HAS_N_CPU_FFN_HELPER $hasNCpuFfnHelper" \
             "#define LOCALAI_HAS_MOE_CACHE $hasMoeCache" \
             "#define LOCALAI_HAS_LAZY_MODE $hasLazyMode" \
+            "#define LOCALAI_HAS_RERANK_FILES $hasRerankFiles" \
             > tools/grpc-server/llama_compat.h
 
           sed -i tools/grpc-server/CMakeLists.txt \
@@ -474,7 +481,12 @@ let
     buildInputs = [ opencv ];
   };
 
-  GO_TAGS = lib.optional with_tts "tts";
+  # With cgo on, upstream requires these to avoid a second SQLite copy and the
+  # libutp C++ dependency of the BitTorrent client.
+  GO_TAGS = lib.optional with_tts "tts" ++ [
+    "nosqlite"
+    "purego_utp"
+  ];
 
   effectiveStdenv =
     if with_cublas then
@@ -485,12 +497,12 @@ let
       stdenv;
 
   pname = "local-ai";
-  version = "4.12.1";
+  version = "5.0.0";
   src = fetchFromGitHub {
     owner = "mudler";
     repo = "LocalAI";
     tag = "v${version}";
-    hash = "sha256-KPL6yODj7JWPRWCO2umaNr6s4MRYL1osgSixW6/PFMk=";
+    hash = "sha256-SoeGJnbYsfOYopijMrajb3VwG2toczb7Cwb6YHWiF2U=";
   };
 
   prepare-sources =
@@ -516,7 +528,7 @@ let
 
     npmDeps = fetchNpmDeps {
       src = "${src}/core/http/react-ui";
-      hash = "sha256-ik3pgYwQvpbgv8AOAHYwOuvqonJ8h4ntkUK/2PCDzkg=";
+      hash = "sha256-/rkR3n4qpA4qUVS12RJxz82UP6wAGsmLYIgCtr7AQVU=";
     };
 
     nativeBuildInputs = [
@@ -540,7 +552,7 @@ let
   self = buildGoModule.override { stdenv = effectiveStdenv; } {
     inherit pname version src;
 
-    vendorHash = "sha256-z0vMfvou6Qok9azZQ/rPY5tAdD1oyqVJj6QaFh9X6vY=";
+    vendorHash = "sha256-C5oia7aGa5eou7Li7rhTLKDKF1UvOoOYZ5eJCUNuPOE=";
 
     env.NIX_CFLAGS_COMPILE = " -isystem ${opencv}/include/opencv4";
 
@@ -748,6 +760,7 @@ let
         ;
     };
 
+    passthru.updateScript = nix-update-script { };
     passthru.tests = callPackages ./tests.nix { inherit self; };
     passthru.lib = callPackages ./lib.nix { };
 

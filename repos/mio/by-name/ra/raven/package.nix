@@ -27,9 +27,48 @@
   pkgsCross,
   wine64Packages,
   nix-update-script,
+  writeShellApplication,
+  git,
+  gnused,
+  cargo,
+  rustc,
+  stdenvNoCC,
+  cacert,
 }:
 
 let
+  ravenSrc = fetchFromGitHub {
+    owner = "mirkobrombin";
+    repo = "raven";
+    rev = "2df12767a431bb37a4e3ba3e3d62ad8c2a480dce";
+    hash = "sha256-wtQo0wnxtni6z4G05DxQIwsqKKpyYvk4WDQLuvgyMd8=";
+  };
+
+  # native/waits depends on `loom` (only under cfg(loom), which the build never
+  # enables), so cargo still needs the crate available in its registry.
+  waitsCargoDeps = stdenvNoCC.mkDerivation {
+    pname = "raven-waits-cargo-deps";
+    version = "0.1.0";
+    src = ravenSrc;
+    nativeBuildInputs = [
+      cargo
+      cacert
+    ];
+    env.SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
+    dontConfigure = true;
+    dontInstall = true;
+    dontFixup = true;
+    buildPhase = ''
+      runHook preBuild
+      export CARGO_HOME=$TMPDIR/cargo-home
+      cd native/waits
+      cargo vendor --locked "$out"
+      runHook postBuild
+    '';
+    outputHashMode = "recursive";
+    outputHash = "sha256-GlhrOuytOez526o2HhOXzXkf53ozwR3yH1nMDtM02vQ=";
+  };
+
   # Pinned guest/installer inputs from Raven's provision scripts / backends.json.
   dxvk = fetchurl {
     url = "https://github.com/doitsujin/dxvk/releases/download/v3.1.1/dxvk-3.1.1.tar.gz";
@@ -39,6 +78,21 @@ let
   vkd3dProton = fetchurl {
     url = "https://github.com/HansKristian-Work/vkd3d-proton/releases/download/v3.1/vkd3d-proton-3.1.tar.zst";
     hash = "sha256-uF6oIZtxCTo5JJE916rmFyMz3AwGmYPtUQgW1n8CEgs=";
+  };
+
+  # Source archives the provisioning scripts record alongside the binaries.
+  # backends.json pins their checksums, so the build cannot fetch them itself.
+  dxvkSource = fetchurl {
+    url = "https://github.com/doitsujin/dxvk/archive/refs/tags/v3.1.1.tar.gz";
+    hash = "sha256-70lEE09sOdCTfyZTkdstCLyjPNOi8O6RM+HrVfHMZXw=";
+  };
+
+  vkd3dProtonSource = fetchFromGitHub {
+    owner = "HansKristian-Work";
+    repo = "vkd3d-proton";
+    rev = "4522cc1a8b1347f1ab1b0f7b14a23ed9444d95d1";
+    fetchSubmodules = true;
+    hash = "sha256-61stB+b8HS9X3ElpmUPW64ud7FtO8JXA4HliMcJKFj0=";
   };
 
   zlibSrc = fetchurl {
@@ -59,6 +113,11 @@ let
   libxml2Src = fetchurl {
     url = "https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.8.tar.xz";
     hash = "sha256-Q62HewGLxj3rJGjXH5UhnC+sGWh27zbRvuUdImFz7JM=";
+  };
+
+  wuffsSrc = fetchurl {
+    url = "https://github.com/google/wuffs/archive/refs/tags/v0.4.0-alpha.12.tar.gz";
+    hash = "sha256-DByEqpP8rtpSPtUXhIsVVecuZ5w3eAqqLbjX5bj/ePE=";
   };
 
   libxsltSrc = fetchurl {
@@ -94,19 +153,16 @@ let
 in
 stdenv.mkDerivation {
   pname = "raven";
-  version = "0-unstable-2026-11-15";
+  version = "0-unstable-2026-11-18";
 
-  src = fetchFromGitHub {
-    owner = "mirkobrombin";
-    repo = "raven";
-    rev = "6f82bda616df8f0154f432f6ea12575be26983f4";
-    hash = "sha256-fCD0taV27lPzUBA3kMmcYsVgmM6P3dxhuso3UFR0omc=";
-  };
+  src = ravenSrc;
 
   patches = [
     ./skip-fixture-downloads.patch
     ./find-vulkan-registry.patch
   ];
+
+  env.CARGO_NET_OFFLINE = "true";
 
   nativeBuildInputs = [
     cmake
@@ -123,6 +179,9 @@ stdenv.mkDerivation {
     mingw64.binutils
     mingw32.gcc
     mingw32.binutils
+    # native/peparse and native/waits are built by CMake through cargo.
+    cargo
+    rustc
   ];
 
   buildInputs = [
@@ -150,6 +209,16 @@ stdenv.mkDerivation {
     components=$NIX_BUILD_TOP/raven-components
     mkdir -p "$components"/{controls64,controls32,installer64,installer32,rtl,roots,graphics}
 
+    # cargo runs from CMake during the build; point it at the vendored crates.
+    export CARGO_HOME=$TMPDIR/cargo-home
+    mkdir -p "$CARGO_HOME"
+    cat > "$CARGO_HOME/config.toml" <<EOF
+    [source.crates-io]
+    replace-with = "vendored-sources"
+    [source.vendored-sources]
+    directory = "${waitsCargoDeps}"
+    EOF
+
     # Microsoft code-signing roots (offline; provision-roots.py would download them).
     cp -v ${rootCerts.MicrosoftRootAuthority} "$components/roots/MicrosoftRootAuthority.crt"
     cp -v ${rootCerts.MicrosoftRootCert} "$components/roots/MicrosoftRootCert.crt"
@@ -159,9 +228,17 @@ stdenv.mkDerivation {
       "$components/roots/MicrosoftIdentityVerificationRootCA2020.crt"
     python3 scripts/provision-roots.py --output "$components/roots"
 
-    # DXVK / vkd3d-proton Windows DLLs
+    # DXVK / vkd3d-proton Windows DLLs, plus the source archives backends.json
+    # pins for their provenance records.
     cp -v ${dxvk} "$components/graphics/dxvk-3.1.1.tar.gz"
     cp -v ${vkd3dProton} "$components/graphics/vkd3d-proton-3.1.tar.zst"
+    cp -v ${dxvkSource} "$components/graphics/dxvk-3.1.1-source.tar.gz"
+    mkdir -p "$TMPDIR/vkd3d-proton-source/vkd3d-proton-3.1"
+    cp -r ${vkd3dProtonSource}/. "$TMPDIR/vkd3d-proton-source/vkd3d-proton-3.1/"
+    chmod -R u+w "$TMPDIR/vkd3d-proton-source"
+    tar --sort=name --mtime=@0 --owner=0 --group=0 --numeric-owner -czf \
+      "$components/graphics/vkd3d-proton-3.1-source.tar.gz" \
+      -C "$TMPDIR/vkd3d-proton-source" .
     python3 scripts/provision-graphics.py --destination "$components/graphics"
 
     # Guest controls (comctl32, shell dialogs, …)
@@ -177,6 +254,7 @@ stdenv.mkDerivation {
     cp -v ${libtiffSrc} "$components/installer64/libtiff-4.7.1-source.tar.gz"
     cp -v ${libxml2Src} "$components/installer64/libxml2-2.12.8-source.tar.xz"
     cp -v ${libxsltSrc} "$components/installer64/libxslt-1.1.42-source.tar.xz"
+    cp -v ${wuffsSrc} "$components/installer64/wuffs-0.4.0-alpha.12-source.tar.gz"
     python3 scripts/provision-installer.py --output "$components/installer64" --arch x64
 
     cp -v ${zlibSrc} "$components/installer32/zlib-1.3.1-source.tar.gz"
@@ -184,6 +262,7 @@ stdenv.mkDerivation {
     cp -v ${libtiffSrc} "$components/installer32/libtiff-4.7.1-source.tar.gz"
     cp -v ${libxml2Src} "$components/installer32/libxml2-2.12.8-source.tar.xz"
     cp -v ${libxsltSrc} "$components/installer32/libxslt-1.1.42-source.tar.xz"
+    cp -v ${wuffsSrc} "$components/installer32/wuffs-0.4.0-alpha.12-source.tar.gz"
     python3 scripts/provision-installer.py --output "$components/installer32" --arch x86
 
     cmakeFlagsArray+=(
@@ -261,8 +340,27 @@ stdenv.mkDerivation {
 
   doCheck = false;
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+  passthru.updateScript = writeShellApplication {
+    name = "update-raven";
+    runtimeInputs = [
+      git
+      gnused
+    ];
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="raven"
+      ${
+        lib.escapeShellArgs (nix-update-script {
+          extraArgs = [ "--version=branch" ];
+        })
+      } "$@"
+
+      # Upstream's only tag is the rolling `nightly` tag, which nix-update turns
+      # into `nightly-unstable-<date>`. There are no releases, so keep this
+      # repo's `0-unstable-<date>` convention instead.
+      repo_root="$(git rev-parse --show-toplevel)"
+      sed -i -E 's/^(\s*version = )"nightly-unstable-/\1"0-unstable-/' \
+        "$repo_root/by-name/ra/raven/package.nix"
+    '';
   };
 
   meta = {

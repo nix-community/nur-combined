@@ -6,6 +6,7 @@
   writeShellApplication,
   nix-update-script,
   fetchFromGitHub,
+  fetchurl,
   testers,
 
   freetype,
@@ -17,6 +18,7 @@
   libXext,
   libXrandr,
   libXcursor,
+  libXi,
   libxkbfile,
   cairo,
   libglvnd,
@@ -35,6 +37,8 @@
   cmake,
   ninja,
   pkg-config,
+  unzip,
+  xz,
   bison,
   flex,
 
@@ -51,6 +55,17 @@
 }:
 let
   stdenv = clangStdenv;
+
+  # The icu submodule tracks icudt78l.dat with Git LFS, but its LFS object is
+  # missing from GitHub's server, so the submodule only carries the 132-byte
+  # pointer. This is the identical data from the official ICU 78.1 binary
+  # release: compressed with xz -9e it hashes to sha256
+  # cd04af74e1a5349f57dac31699f6ed5ad27da6c678ab452de941d793f1701ee9, which is
+  # exactly the oid named in the pointer.
+  icuData = fetchurl {
+    url = "https://github.com/unicode-org/icu/releases/download/release-78.1/icu4c-78.1-data-bin-l.zip";
+    hash = "sha256-D3sD6IdZsEsNjjsn76XM1tAdL3oDNI4N6TFwBKwWf1E=";
+  };
 
   # The build system invokes clang to compile Darwin executables.
   # In this case, our cc-wrapper must not be used.
@@ -100,6 +115,8 @@ let
     libXext
     libXrandr
     libXcursor
+    # cocotron's X11 backend includes X11/extensions/XInput2.h (X11Touch.m).
+    libXi
     libxkbfile
     cairo
     libglvnd
@@ -118,14 +135,14 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "darling";
-  version = "0.1.20260608-unstable-2026-11-16";
+  version = "0.1.20260608-unstable-2026-11-18";
 
   src = fetchFromGitHub {
     owner = "darlinghq";
     repo = "darling";
-    rev = "9efc74730470180283bf9cc24c9ae27743eede05";
+    rev = "0542acd2b2247cf4211089896b6b6b757ae19bad";
     fetchSubmodules = true;
-    hash = "sha256-trQ5CHYZGlwb+Zr2/MuKcOqAzkvYJQ2oSJq5J5X04kY=";
+    hash = "sha256-KF9GRMjjx6PiVhCOsrqPYS4UYwd9khhds5O3LFf4DtU=";
     # Remove 500MB of dependency test files to get under Hydra output limit
     postFetch = ''
       rm -r $out/src/external/openjdk/test
@@ -202,6 +219,9 @@ stdenv.mkDerivation (finalAttrs: {
 
             # In sandbox package builds there are no running containers and no sudo.
             echo "exit 0" > tools/shutdown-user.sh
+
+            unzip -p ${icuData} icudt78l.dat \
+              | xz -9e -T0 -c > src/external/icu/icuSources/data/out/icudt78l.dat.xz
   '';
 
   nativeBuildInputs = [
@@ -214,6 +234,8 @@ stdenv.mkDerivation (finalAttrs: {
     ninja
     pkg-config
     python3
+    unzip
+    xz
   ]
   ++ lib.optional compilePy2Bytecode python2;
   buildInputs = wrappedLibs ++ [
