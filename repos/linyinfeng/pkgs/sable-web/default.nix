@@ -7,11 +7,11 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "sable-web";
-  version = "26.11.3";
+  version = "26.11.4";
 
   src = fetchurl {
     url = "https://git.sable.moe/SableClient/sable-next/releases/download/v${version}/sable-${version}-web.tar.gz";
-    hash = "sha256-vzm3fH4XXBEneydTKeCw1OxJ2MtyRjpeHuQ7ONHC0KE=";
+    hash = "sha256-jTgpYI/ZY3cuXc+zE4Wv2P5t6f7gie+c4HY1L6LJ1hI=";
   };
 
   unpackPhase = ''
