@@ -4,14 +4,8 @@
   # dependent-module `imports`; configurations import only what they use.
   #
   # my-module = ./my-module;
-  authentik_container = ./containers/authentik.nix;
-  immich_container = ./containers/immich.nix;
-  jellyfin_container = ./containers/jellyfin.nix;
   minecraft_container = ./containers/minecraft.nix;
-  monitoring_container = ./containers/monitoring.nix;
-  nextcloud_container = ./containers/nextcloud.nix;
   open-webui_container = ./containers/open-webui.nix;
-  starr_container = ./containers/starr.nix;
   terraria_container = ./containers/terraria.nix;
   vintagestory_container = ./containers/vintagestory.nix;
   boot = ./boot.nix;

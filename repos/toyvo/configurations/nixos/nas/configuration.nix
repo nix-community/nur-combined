@@ -48,12 +48,6 @@ in
     inputs.nixcfg.modules.nixos.signal-cli
     inputs.nixcfg.modules.nixos.syncthing
     inputs.nixcfg.modules.nixos.tmpfiles
-    inputs.nixcfg.modules.nixos.authentik_container
-    inputs.nixcfg.modules.nixos.immich_container
-    inputs.nixcfg.modules.nixos.jellyfin_container
-    inputs.nixcfg.modules.nixos.monitoring_container
-    inputs.nixcfg.modules.nixos.nextcloud_container
-    inputs.nixcfg.modules.nixos.starr_container
     inputs.hermes-agent.nixosModules.default
     ./samba.nix
     inputs.catppuccin.nixosModules.catppuccin
@@ -375,122 +369,6 @@ in
   catppuccin = {
     enable = true;
     autoEnable = true;
-  };
-  nixcfg.containers = {
-    immich = {
-      # Retired to k3s 2026-11-14 (DB restored + counts verified, server
-      # serving). Disabled (not deleted) so rollback is one flag flip;
-      # POOL state dirs remain on disk either way.
-      enable = false;
-      natInterface = "eno1";
-      stateDir = "/mnt/POOL/immich";
-    };
-    jellyfin = {
-      # Retired to k3s 2026-11-14 (state seeded + verified, DRI passed
-      # through). Disabled (not deleted) so rollback is one flag flip;
-      # POOL state dir remains on disk either way.
-      enable = false;
-      natInterface = "eno1";
-      stateDir = "/mnt/POOL/jellyfin";
-      mediaDir = "/mnt/POOL/Public";
-      plugins = [ inputs.nixcfg.packages.${system}.jellyfin-plugin-ldap-authentication ];
-    };
-    nextcloud = {
-      # Retired to k3s 2026-11-14 (DB restored + counts verified, apps
-      # installed, repair clean). Disabled (not deleted) so rollback is one
-      # flag flip; POOL state dirs remain on disk either way. Collabora goes
-      # with it (dropped in favor of a future OnlyOffice integration).
-      enable = false;
-      natInterface = "eno1";
-      stateDir = "/mnt/POOL/nextcloud";
-      mediaDir = "/mnt/POOL";
-      extraAppNames = [
-        "bookmarks"
-        "calendar"
-        "contacts"
-        "cookbook"
-        "mail"
-        "music"
-        "notes"
-        "richdocuments"
-        "tasks"
-      ];
-      smtp = {
-        host = config.nixcfg.containers.nextcloud.hostAddress;
-        port = 1025;
-        secure = "";
-        username = "collin@diekvoss.com";
-        passwordFile = config.sops.secrets."protonmail-bridge-smtp-password".path;
-        fromAddress = "collin";
-        domain = "diekvoss.com";
-      };
-    };
-    # home-assistant retired to k3s 2026-10-28 (module deleted); POOL state
-    # dirs remain on disk as backups. Rollback = revert this + the module.
-    monitoring = {
-      # Retired to k3s 2026-11-16 (Grafana + Prometheus + Loki + Tempo
-      # all live from cluster, agents repointed, UI flipped). Disabled
-      # (not deleted) so rollback is one flag flip. NOTE: the pre-cutover
-      # bind mounts never landed — live state was container-private, so
-      # the POOL copies are stale Apr snapshots, not a usable rollback.
-      # Rollback = re-enable + reseed from k3s (or start fresh).
-      enable = false;
-      natInterface = "eno1";
-      stateDir = "/mnt/POOL/monitoring";
-      grafanaAdminPasswordFile = config.sops.secrets."grafana-admin-password".path;
-      grafanaSecretKeyFile = config.sops.secrets."grafana-secret-key".path;
-    };
-    starr = {
-      # Container retired 2026-10-28: qBittorrent serves from k3s (VPN-isolated
-      # pod). Disabled (not deleted) so rollback is one flag flip; POOL state
-      # dirs remain on disk either way.
-      enable = false;
-      # qBittorrent only: the *arr suite + flaresolverr all retired to k3s
-      # (2026-10-26/27); their container definitions were deleted, so there
-      # is nothing left to disable. Retired POOL state dirs remain on disk.
-      natInterface = "eno1";
-      hostAddress = "10.200.0.1";
-      localAddress = "10.200.0.2";
-      stateDir = "/mnt/POOL/starr";
-      # this dir is also exposed via samba
-      mediaDir = "/mnt/POOL/Public";
-      protonvpn = {
-        privateKeyFile = config.sops.secrets."protonvpn-US-IL-503.key".path;
-        publicKey = "Ad0UnBi3NeIgVpM1baC8HAp6wfSli0wGS1OCmS7uYRo=";
-        endpoint = "79.127.187.156:51820";
-      };
-      qbittorrent.serverConfig = {
-        Preferences = {
-          WebUI = {
-            Username = "toyvo";
-            Password_PBKDF2 = "@ByteArray(w/tVwkQ82PheDXAAMg5D7A==:exy5JA4JdCm7pZ6n0cci16mEmZYxSaFe642TmZBvq9MIzps3tnZY7vbUIj3esJNClzy/YrRI4Dkexg1luhSveg==)";
-          };
-          General.Locale = "en";
-        };
-        # Default save path shared with the k8s *arr pods (they mount the
-        # media pool at /mnt): downloads land where every app can see them,
-        # no Remote Path Mappings needed. Declarative because the module
-        # regenerates qBittorrent.conf on every switch (WebUI edits revert).
-        BitTorrent = {
-          Session = {
-            DefaultSavePath = "/mnt/Downloads";
-          };
-        };
-      };
-    };
-    authentik = {
-      # Retired to k3s 2026-11-16 (server + worker + LDAP outpost + redis
-      # live from cluster; forwardAuth flipped, Jellyfin LDAPS repointed).
-      # Disabled (not deleted) so rollback is one flag flip. POOL state
-      # dirs were already empty (bind mounts never landed); the real state
-      # is host Postgres (untouched). Rollback = enable + flip address back.
-      enable = false;
-      natInterface = "eno1";
-      db.passwordFile = config.sops.secrets."authentik-db-password".path;
-      secretKeyFile = config.sops.secrets."authentik-secret-key".path;
-      bootstrapPasswordFile = config.sops.secrets."authentik-bootstrap-password".path;
-      ldap.tokenFile = config.sops.secrets."authentik-ldap-token".path;
-    };
   };
   # Relay the bridge's localhost-only SMTP port to the LAN for the k8s
   # Nextcloud pod (pods can't reach a container veth). The veth relay was
