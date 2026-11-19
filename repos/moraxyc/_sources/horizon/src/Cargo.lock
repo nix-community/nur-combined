@@ -2875,6 +2875,7 @@ dependencies = [
  "horizon-assets",
  "horizon-core",
  "horizon-threads",
+ "indexmap",
  "libm",
  "log",
  "lz4_flex",
