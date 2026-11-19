@@ -6,13 +6,13 @@
   lib,
   ...
 }: let
-  version = "2026-11-18";
+  version = "2026-11-19";
 
   src = fetchFromGitHub {
     owner = "Equicord";
     repo = "Equicord";
     tag = version;
-    hash = "sha256-ZpFDQWCdxm8WGxaEhD5QvJlnqtsjoIXV/+PxQ2Qq9M0=";
+    hash = "sha256-LD0DdtnKFd8ir1CsASH8ghWaDQot9o18FVUOiuDD7IQ=";
   };
 
   # TODO: Once 26.11 drops remove the fixup.
