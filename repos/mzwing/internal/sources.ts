@@ -1,5 +1,12 @@
-import * as path from "@std/path";
-import { copyTree, nix, runCommand, type SourceDefinition } from "nix-repin";
+import * as fs from "node:fs/promises";
+import * as path from "node:path";
+import {
+  copyTree,
+  nix,
+  runCommand,
+  type SourceDefinition,
+  tempDir,
+} from "nix-repin";
 
 // Read flake.lock directly; getFlake would copy the whole worktree into the store.
 async function build(
@@ -11,9 +18,9 @@ async function build(
     "build",
     "--expr",
     `let
-  lock = builtins.fromJSON (builtins.readFile ${
-      nix.string(`${root}/flake.lock`)
-    });
+  lock = builtins.fromJSON (builtins.readFile ${nix.string(
+    `${root}/flake.lock`,
+  )});
   pkgs = import (builtins.fetchTree lock.nodes.nixpkgs.locked) {};
   gomod2nix = import ${nix.string(`${root}/internal/gomod2nix.nix`)};
 in
@@ -36,33 +43,29 @@ export function crate2nix(
       build(source.packageDirectory, "crate2nix"),
       build(source.packageDirectory, "cargo"),
     ]);
-    const directory = await Deno.makeTempDir({ prefix: "crate2nix-" });
-    try {
-      await copyTree(source.sourceFile("."), directory);
-      const shell = (...command: string[]) =>
-        runCommand("nix", ["shell", ...tools, "-c", ...command], {
-          cwd: directory,
-        });
-      // crate2nix runs cargo metadata with --locked, so let cargo reconcile a stale upstream Cargo.lock first.
-      await shell(
-        "cargo",
-        "metadata",
-        "--format-version",
-        "1",
-        ...(options.manifest ? ["--manifest-path", options.manifest] : []),
-      );
-      await shell(
-        "crate2nix",
-        "generate",
-        ...(options.manifest ? ["-f", options.manifest] : []),
-      );
+    await using tmp = await tempDir("crate2nix-");
+    await copyTree(source.sourceFile("."), tmp.path);
+    const shell = (...command: string[]) =>
+      runCommand("nix", ["shell", ...tools, "-c", ...command], {
+        cwd: tmp.path,
+      });
+    // crate2nix runs cargo metadata with --locked, so let cargo reconcile a stale upstream Cargo.lock first.
+    await shell(
+      "cargo",
+      "metadata",
+      "--format-version",
+      "1",
+      ...(options.manifest ? ["--manifest-path", options.manifest] : []),
+    );
+    await shell(
+      "crate2nix",
+      "generate",
+      ...(options.manifest ? ["-f", options.manifest] : []),
+    );
 
-      return {
-        "Cargo.nix": await Deno.readTextFile(path.join(directory, "Cargo.nix")),
-      };
-    } finally {
-      await Deno.remove(directory, { recursive: true });
-    }
+    return {
+      "Cargo.nix": await fs.readFile(path.join(tmp.path, "Cargo.nix"), "utf8"),
+    };
   };
 }
 
@@ -70,29 +73,26 @@ export function crate2nix(
 export function gomod2nix(): SourceDefinition {
   return async (source) => {
     const tool = await build(source.packageDirectory, "gomod2nix");
-    const directory = await Deno.makeTempDir({ prefix: "gomod2nix-" });
-    try {
-      await runCommand("nix", [
-        "shell",
-        tool,
-        "-c",
-        "gomod2nix",
-        "generate",
-        "--with-deps",
-        "--dir",
-        source.sourceFile("."),
-        "--outdir",
-        directory,
-      ]);
+    await using tmp = await tempDir("gomod2nix-");
+    await runCommand("nix", [
+      "shell",
+      tool,
+      "-c",
+      "gomod2nix",
+      "generate",
+      "--with-deps",
+      "--dir",
+      source.sourceFile("."),
+      "--outdir",
+      tmp.path,
+    ]);
 
-      return {
-        "gomod2nix.toml": await Deno.readTextFile(
-          path.join(directory, "gomod2nix.toml"),
-        ),
-      };
-    } finally {
-      await Deno.remove(directory, { recursive: true });
-    }
+    return {
+      "gomod2nix.toml": await fs.readFile(
+        path.join(tmp.path, "gomod2nix.toml"),
+        "utf8",
+      ),
+    };
   };
 }
 
@@ -128,9 +128,11 @@ export function pubspecGitHashes(): SourceDefinition {
     );
 
     return {
-      "git-hashes.json": `${
-        JSON.stringify(Object.fromEntries(hashes), null, 2)
-      }\n`,
+      "git-hashes.json": `${JSON.stringify(
+        Object.fromEntries(hashes),
+        null,
+        2,
+      )}\n`,
     };
   };
 }

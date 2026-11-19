@@ -1,13 +1,8 @@
-import { compare, parse } from "@std/semver";
-import { github, nix } from "nix-repin";
-import { Octokit } from "octokit";
+import * as fs from "node:fs/promises";
+import { github, nix, semver } from "nix-repin";
 
 const owner = "klzgrad";
 const repo = "forwardproxy";
-
-const octokit = new Octokit({
-  auth: Deno.env.get("GITHUB_TOKEN") ?? Deno.env.get("GH_TOKEN"),
-});
 
 const fetchzip = (archive: github.ArchiveSource) =>
   `fetchzip {
@@ -19,19 +14,22 @@ const fetchzip = (archive: github.ArchiveSource) =>
 // The fork's go.mod keeps the module path without /v2, so Go refuses its v2 tags as versions; xcaddy gets the naive tag's commit as a pseudo-version instead.
 // Each tag also carries the Caddy patches its release builds apply, and names that Caddy release in CADDY_VERSION.
 export default async () => {
-  const tags = await octokit.paginate(octokit.rest.repos.listTags, {
-    owner,
-    repo,
-    per_page: 100,
-  });
+  const tags = await github.octokit.paginate(
+    github.octokit.rest.repos.listTags,
+    {
+      owner,
+      repo,
+      per_page: 100,
+    },
+  );
   const [latest] = tags
     .filter((tag) => /^v\d+\.\d+\.\d+-naive\d*$/.test(tag.name))
-    .sort((a, b) => compare(parse(b.name.slice(1)), parse(a.name.slice(1))));
+    .sort((a, b) => semver.compare(b.name.slice(1), a.name.slice(1)));
   if (!latest) {
     throw new Error(`${owner}/${repo}: no naive tag found`);
   }
 
-  const { data: commit } = await octokit.rest.repos.getCommit({
+  const { data: commit } = await github.octokit.rest.repos.getCommit({
     owner,
     repo,
     ref: latest.commit.sha,
@@ -44,9 +42,9 @@ export default async () => {
     `${owner}/${repo}`,
     latest.name,
   );
-  const caddyTag = (await Deno.readTextFile(
-    `${forwardproxy.storePath}/CADDY_VERSION`,
-  )).trim();
+  const caddyTag = (
+    await fs.readFile(`${forwardproxy.storePath}/CADDY_VERSION`, "utf8")
+  ).trim();
   const caddy = await github.prefetchArchive("caddyserver/caddy", caddyTag);
   // nixpkgs' caddy installs its systemd units from the dist repository's tag of the same release.
   const dist = await github.prefetchArchive("caddyserver/dist", caddyTag);

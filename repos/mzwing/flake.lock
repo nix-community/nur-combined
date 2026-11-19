@@ -1,22 +1,5 @@
 {
   "nodes": {
-    "deno2nix": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1771449470,
-        "narHash": "sha256-ZGKHKRB7K5aUIyJenXwOcX21F2yTXLa19q3YXQM3E48=",
-        "owner": "aMOPel",
-        "repo": "deno2nix",
-        "rev": "adb4dcea663cd61c19e01c8c36dd73db4af358a5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "aMOPel",
-        "ref": "custom-made-fetcher",
-        "repo": "deno2nix",
-        "type": "github"
-      }
-    },
     "gomod2nix": {
       "flake": false,
       "locked": {
@@ -35,17 +18,16 @@
     },
     "nix-repin": {
       "inputs": {
-        "deno2nix": "deno2nix",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1794682747,
-        "narHash": "sha256-NzYx9ywXksDQvxclTHILbREmSv27SgJse6/8+L5NnrQ=",
+        "lastModified": 1795091841,
+        "narHash": "sha256-C0QiIJBKR9zcN1dm1yPEkIUQC4jvuZibxhIbbnBIJJQ=",
         "owner": "so1ve",
         "repo": "nix-repin",
-        "rev": "e3c42409a922b6da85f64fffd734774226117be1",
+        "rev": "9476f45aa4ac3d59e0110937c9f276aed0d492a4",
         "type": "github"
       },
       "original": {

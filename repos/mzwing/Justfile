@@ -13,7 +13,7 @@ lint: lint-nix lint-nix-types lint-ts lint-actions lint-shell lint-python
 # Format in place.
 fmt:
     {{ nix_sources }} | xargs alejandra
-    {{ ts_sources }} | xargs deno fmt
+    {{ ts_sources }} | xargs prettier --write
     {{ shell_sources }} | xargs shfmt --write
     {{ python_sources }} | xargs ruff format
     {{ python_sources }} | xargs ruff check --fix
@@ -25,9 +25,8 @@ lint-nix-types:
     typenix --noEmit
 
 lint-ts:
-    {{ ts_sources }} | xargs deno fmt --check
-    {{ ts_sources }} | xargs deno lint
-    {{ ts_sources }} | xargs deno check
+    {{ ts_sources }} | xargs prettier --check
+    tsc -p tsconfig.ts.json --noEmit
 
 lint-actions:
     actionlint

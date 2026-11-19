@@ -9,12 +9,11 @@ export default defineSource(
   // The release's media runtime manifest and npm lock name the LibreMPEG and koffi commits it builds against.
   async (source) => {
     const { mpv } = JSON.parse(
-      await Deno.readTextFile(
-        source.sourceFile("scripts/media-runtime-manifest.json"),
-      ),
+      await source.readSourceFile("scripts/media-runtime-manifest.json"),
     );
     if (
-      mpv.engine !== "libmpv" || mpv.mediaBackend !== "librempeg" ||
+      mpv.engine !== "libmpv" ||
+      mpv.mediaBackend !== "librempeg" ||
       !mpv.decoders.includes("ac4")
     ) {
       throw new Error(
@@ -22,16 +21,15 @@ export default defineSource(
       );
     }
 
-    const lock = JSON.parse(
-      await Deno.readTextFile(source.sourceFile("package-lock.json")),
-    );
+    const lock = JSON.parse(await source.readSourceFile("package-lock.json"));
     const koffiVersion: string = lock.packages["node_modules/koffi"].version;
     // rygel tags each koffi release koffi/<version>.
     const koffiTag = `koffi/${koffiVersion}`;
-    const [{ rev: koffiCommit }, { version: taggedVersion }] = await Promise
-      .all([
+    const [{ rev: koffiCommit }, { version: taggedVersion }] =
+      await Promise.all([
         codeberg.resolveRef("Koromix/rygel", koffiTag),
-        codeberg.readFile("Koromix/rygel", koffiTag, "src/koffi/package.json")
+        codeberg
+          .readFile("Koromix/rygel", koffiTag, "src/koffi/package.json")
           .then(JSON.parse),
       ]);
     if (taggedVersion !== koffiVersion) {

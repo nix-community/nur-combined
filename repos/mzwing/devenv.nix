@@ -4,23 +4,20 @@
   ...
 }: let
   # Resolve source.ts imports against the nix-repin revision flake.lock pins.
-  nix-repin = builtins.fetchTree (builtins.fromJSON (builtins.readFile ./flake.lock)).nodes.nix-repin.locked;
+  nix-repin-source = builtins.fetchTree (builtins.fromJSON (builtins.readFile ./flake.lock)).nodes.nix-repin.locked;
+  nix-repin = pkgs.callPackage "${nix-repin-source}/default.nix" {};
 in {
   languages.nix = {
     enable = true;
     lsp.enable = true;
   };
 
-  languages.deno.enable = true;
-
-  files."deno.json".json = {
-    imports = (builtins.fromJSON (builtins.readFile "${nix-repin}/deno.json")).imports // {nix-repin = "file://${nix-repin}/src/mod.ts";};
-    lock = {
-      path = "${nix-repin}/deno.lock";
-      frozen = true;
-    };
-    nodeModulesDir = "none";
+  languages.javascript = {
+    enable = true;
+    package = pkgs.nodejs_26;
   };
+
+  files."tsconfig.ts.json".json.extends = "${nix-repin}/share/nix-repin/tsconfig.consumer.json";
 
   packages =
     (with pkgs; [
@@ -29,9 +26,11 @@ in {
       alejandra
       just
       nixd
+      prettier
       ruff
       shellcheck
       shfmt
+      typescript
     ])
     ++ (with inputs.nur-packages.packages.${pkgs.stdenv.hostPlatform.system}; [
       typenix
@@ -43,9 +42,11 @@ in {
     act --version
     actionlint -version
     alejandra --version
-    deno --version
     just --version
     nixd --version
+    node --version
+    prettier --version
+    tsc --version
     typenix --version
   '';
 }
