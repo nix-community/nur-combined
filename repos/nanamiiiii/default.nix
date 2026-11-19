@@ -14,7 +14,7 @@
   wl-x11-clipsync = pkgs.callPackage ./pkgs/wl-x11-clipsync { };
   md2puki = pkgs.callPackage ./pkgs/md2puki { };
   cargo-compete = pkgs.callPackage ./pkgs/cargo-compete { };
-  git-credential-1password = pkgs.callPackage ./pkgs/git-credential-1password { };
+  #git-credential-1password = pkgs.callPackage ./pkgs/git-credential-1password { };
   obsidian-headless = pkgs.callPackage ./pkgs/obsidian-headless { };
   #zotero = pkgs.callPackage ./pkgs/zotero { };
   npiperelay = pkgs.callPackage ./pkgs/npiperelay { };

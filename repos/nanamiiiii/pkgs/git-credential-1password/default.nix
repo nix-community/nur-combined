@@ -6,13 +6,13 @@
 
 buildGoModule rec {
   pname = "git-credential-1password";
-  version = "1.5.0";
+  version = "1.6.0";
 
   src = fetchFromGitHub {
     owner = "ethrgeist";
     repo = pname;
     tag = "v${version}";
-    hash = "sha256-FkmhnU8w51LzBMIFd1385gAaTl9O5G2JuFtnsN2zWTo=";
+    hash = "sha256-I6/yVXOJDsDz/ZC3AkOzbbqaSVw51OWjWe7FFsxsjnc=";
   };
 
   vendorHash = null;
