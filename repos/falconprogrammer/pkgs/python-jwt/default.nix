@@ -1,22 +1,19 @@
 { lib
 , buildPythonPackage
-, fetchPypi
+, callPackage
 , setuptools
 , wheel
 , jwcrypto
 , ...
 }:
 
-buildPythonPackage rec {
+let
+  sources = (callPackage ../../_sources/generated.nix { }).python-jwt;
+in
+buildPythonPackage {
   pname = "python-jwt";
-  version = "4.0.0";
+  inherit (sources) version src;
   pyproject = true;
-
-  src = fetchPypi {
-    pname = "python_jwt";
-    inherit version;
-    hash = "sha256-ISAtE9ILCP7UZs3km4hDNdl/ftbUbBUMbS1UL47f/F0=";
-  };
 
   nativeBuildInputs = [
     setuptools

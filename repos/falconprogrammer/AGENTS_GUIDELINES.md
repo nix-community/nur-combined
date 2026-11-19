@@ -120,10 +120,10 @@ This package requires runtime patching of downloaded binaries for NixOS compatib
 **Auto-update Workflow** (`.github/workflows/auto-update-packages.yml`):
 - Runs daily at 3:30 AM UTC or manually via workflow_dispatch
 - Runs `nvfetcher` per package (`nvfetcher.toml`), which rewrites `_sources/generated.nix` and `_sources/generated.json`
-- Creates PR, builds package, and auto-merges if successful
-- Closes/deletes older update PRs/branches
-- Triggers NUR sync after merge
+- Builds the package and commits the update to the default branch if successful, with no PR
 - Creates draft PR for manual review if build fails
+- Closes/deletes older update PRs/branches
+- Triggers NUR sync after the run
 
 ## Package Sources (nvfetcher)
 
@@ -143,7 +143,7 @@ To add a package to the automated updates:
 1. Add a table to `nvfetcher.toml` with a version source (`src.*`) and a fetcher (`fetch.*`)
 2. Run `nvfetcher --filter '^<name>$'`
 3. Take `version` and `src` from `_sources/generated.nix` in the package's `default.nix`
-4. Add the name to the matrix in `.github/workflows/auto-update-packages.yml`
+4. Add the name and the flake attribute to build to the matrix in `.github/workflows/auto-update-packages.yml`
 
 ## Flake Structure
 

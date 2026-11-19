@@ -2,19 +2,18 @@
 
 # python-jwt
 
-Nix derivation packaging `python-jwt` 4.0.0 as a Python package for consumption via the repository's overlay.
+Nix derivation packaging `python-jwt` as a Python package for consumption via the repository's overlay.
 
 ## Contents
 
 | File | Description |
 |------|-------------|
-| [default.nix](./default.nix) | `buildPythonPackage rec` derivation; fetches `python_jwt` 4.0.0 from PyPI, declares `jwcrypto` as propagated dep, runs import check against `python_jwt`. |
+| [default.nix](./default.nix) | `buildPythonPackage` derivation; takes `python_jwt` from `_sources/generated.nix`, declares `jwcrypto` as propagated dep, runs import check against `python_jwt`. |
 
 ## Stack
 
 - **Nix build**: `buildPythonPackage rec` with `pyproject = true`
-- **Version**: `4.0.0`
-- **Source**: PyPI (`python_jwt`), hash `sha256-ISAtE9ILCP7UZs3km4hDNdl/ftbUbBUMbS1UL47f/F0=`
+- **Version and source**: PyPI `python_jwt` from `_sources/generated.nix` (entry `python-jwt`, defined in `nvfetcher.toml`)
 - **Native build inputs**: `setuptools`, `wheel`
 - **Propagated inputs**: `jwcrypto`
 - **Import check**: `python_jwt`

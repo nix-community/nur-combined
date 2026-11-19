@@ -2,7 +2,7 @@
 
 # alvr
 
-Packages ALVR v20.8.1 as Nix derivation from prebuilt `alvr_streamer_linux.tar.gz` binary tarball, with ELF patching via `autoPatchelfHook` and desktop/icon assets pulled from source.
+Packages ALVR as Nix derivation from prebuilt `alvr_streamer_linux.tar.gz` binary tarball, with ELF patching via `autoPatchelfHook` and desktop/icon assets pulled from source.
 
 ## Contents
 
@@ -13,22 +13,22 @@ Packages ALVR v20.8.1 as Nix derivation from prebuilt `alvr_streamer_linux.tar.g
 ## Stack
 
 - **Type**: Prebuilt binary repackage (no source compilation)
-- **Version**: `20.8.1`
+- **Version**: from `_sources/generated.nix` (entry `alvr`, defined in `nvfetcher.toml`)
 - **Entry point**: `mainProgram = "alvr_dashboard"`
-- **Update mechanism**: `passthru.updateScript` via `nix-update-script`
+- **Update mechanism**: nvfetcher through `auto-update-packages.yml`; `passthru.updateScript` via `nix-update-script` remains
 
 ## Build Inputs
 
 | Category | Packages |
 |----------|----------|
-| `buildInputs` | `alsa-lib`, `libunwind`, `libva`, `libvdpau`, `vulkan-loader`, `stdenv.cc.cc.lib` |
+| `buildInputs` | `alsa-lib`, `libunwind`, `libva`, `libvdpau`, `pipewire`, `SDL2`, `vulkan-loader`, `stdenv.cc.cc.lib` |
 | `runtimeDependencies` | `brotli`, `ffmpeg`, `libdrm`, `libGL`, `libxkbcommon`, `openssl`, `pipewire`, `pulseaudio`, `wayland`, `x264`, `libX11`, `libXcursor`, `libxcb`, `libXi` |
 
 ## Sources
 
-Two fetches at same tag:
-- `src` — `alvr_streamer_linux.tar.gz` from GitHub releases; `sha256-8bQpEnzK4ZGE5P49Gh/fmxgyCBFTzD511q6aZxe0B/Y=`
-- `alvrSrc` — `fetchFromGitHub` for desktop/icon assets; `sha256-HRXBagh6NClm0269ip0SlhOWCoI8CQXEtr7veSRgvwE=`
+Two entries in `_sources/generated.nix`, both at the latest release tag and updated together by the `alvr` matrix job:
+- `alvr` — `alvr_streamer_linux.tar.gz` from GitHub releases, used as `src`
+- `alvr-source` — GitHub source of the tag, used as `alvrSrc` for `alvr.desktop` and `alvr_icon.png`
 
 ## File Relationships
 

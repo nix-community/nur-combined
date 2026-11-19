@@ -1,6 +1,5 @@
 { lib
 , buildPythonApplication
-, fetchFromGitHub
 , setuptools
 , wheel
 , attrs
@@ -8,6 +7,7 @@
 , colorama
 , iniconfig
 , jwcrypto
+, pyjwt
 , pluggy
 , py
 , pytest
@@ -17,19 +17,14 @@
 , ...
 }:
 let
-  python-jwt = callPackage ../python-jwt { };
+  sources = (callPackage ../../_sources/generated.nix { }).timew-sync-client;
 in
-buildPythonApplication rec {
+buildPythonApplication {
   pname = "timew-sync-client";
-  version = "unstable-2023-10-25";
+  version = "0-unstable-${sources.date}";
   pyproject = true;
 
-  src = fetchFromGitHub {
-    owner = "timewarrior-synchronize";
-    repo = "timew-sync-client";
-    rev = "7b048194387eaac3aa3a7834ac8f31d64ad6cbbb";
-    hash = "sha256-rE0QBUo5iTwH9ZNo/2o0II95oG4jalx0ZWKn7v66CJ8=";
-  };
+  inherit (sources) src;
 
   nativeBuildInputs = [
     setuptools
@@ -45,7 +40,7 @@ buildPythonApplication rec {
     pluggy
     py
     pytest
-    python-jwt
+    pyjwt
     requests
     six
   ];

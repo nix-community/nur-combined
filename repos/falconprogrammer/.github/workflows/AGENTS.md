@@ -2,7 +2,7 @@
 
 # workflows
 
-Two-workflow CI/CD suite for a NUR (Nix User Repository): one builds and caches packages across nixpkgs channels, the other tracks upstream releases and commits, regenerating `_sources/` with nvfetcher and opening squash-merged PRs daily.
+Two-workflow CI/CD suite for a NUR (Nix User Repository): one builds and caches packages across nixpkgs channels, the other tracks upstream releases and commits, regenerating `_sources/` with nvfetcher daily and committing to the default branch when the build passes, with a draft PR only when it fails.
 
 ## Contents
 
@@ -12,7 +12,7 @@ Two-workflow CI/CD suite for a NUR (Nix User Repository): one builds and caches 
 
 ### Automation
 
-- [auto-update-packages.yml](./auto-update-packages.yml) — Daily matrix job per tracked package (`cco`, `opencode`, `spec-kit`); runs `nvfetcher` for that package, which rewrites `_sources/generated.{nix,json}`, builds, opens PR, auto-squash-merges on build success. Triggers `build.yml` on completion via `trigger-nur-sync` job.
+- [auto-update-packages.yml](./auto-update-packages.yml) — Daily matrix job per tracked package (see Tracked Package Matrix); runs `nvfetcher` for that package, which rewrites `_sources/generated.{nix,json}`, builds, commits to the default branch on build success or opens a draft PR on build failure. Jobs run one at a time (`max-parallel: 1`). Triggers `build.yml` on completion via `trigger-nur-sync` job.
 
 ## Architecture / Data Flow
 
@@ -20,12 +20,12 @@ Two-workflow CI/CD suite for a NUR (Nix User Repository): one builds and caches 
 cron / workflow_dispatch
         │
         ▼
-auto-update-packages (matrix: cco, opencode, spec-kit)
-  ├─ nvfetcher --filter ^<name>$ (nvfetcher.toml) → rewrites _sources/generated.{nix,json}
+auto-update-packages (matrix: name + attr per package)
+  ├─ nvfetcher --filter ^<name>(-.+)?$ (nvfetcher.toml) → rewrites _sources/generated.{nix,json}
   ├─ git diff on _sources → update_available
-  ├─ nix build .#<name> → build_success
-  ├─ peter-evans/create-pull-request → PR (draft if build fails)
-  ├─ gh pr merge --auto --squash (on build_success only)
+  ├─ nix build .#<attr> → build_success
+  ├─ build_success → git commit + push to default branch (no PR)
+  ├─ build failed → peter-evans/create-pull-request → draft PR
   └─ trigger-nur-sync → gh workflow run build.yml
         │
         ▼
@@ -44,9 +44,9 @@ build.yml (matrix: 4 nixpkgs channels)
 | Build schedule | `cron: '51 2 * * *'` |
 | Source definitions | `nvfetcher.toml` (one table per package) |
 | Generated sources | `_sources/generated.nix`, `_sources/generated.json` |
-| nvfetcher invocation | `nix develop --command nvfetcher --keyfile <file> --filter "^<name>$"` |
+| nvfetcher invocation | `nix develop --command nvfetcher --keyfile <file> --filter "^<name>(-.+)?$"` |
 | nvchecker keyfile | `[keys]` `github` = `GITHUB_TOKEN`, written to `$RUNNER_TEMP` |
-| PR title format | `chore: update <name> v<current> → v<latest>` |
+| Commit message / draft PR title | `chore: update <name> v<current> → v<latest>` |
 | Branch name format | `update-<name>-<latest_version>` |
 | Commit-tracked version format | `0-unstable-<date from generated.json>` |
 | Release-tracked version format | `version` from `generated.json` without the leading `v` |
@@ -60,13 +60,17 @@ build.yml (matrix: 4 nixpkgs channels)
 
 ## Tracked Package Matrix (`auto-update-packages.yml`)
 
-| `name` | Version source | Fetcher |
-|---|---|---|
-| `cco` | `src.git` `nikvdp/cco`, branch `master` | `fetch.github` |
-| `opencode` | `src.github` `anomalyco/opencode` | `fetch.url` `opencode-linux-x64.tar.gz` |
-| `spec-kit` | `src.github` `github/spec-kit` | `fetch.github` |
+| `name` | `attr` (built) | Version source | Fetcher |
+|---|---|---|---|
+| `alvr` | `alvr` | `src.github` `alvr-org/ALVR` | `fetch.url` `alvr_streamer_linux.tar.gz`; second table `alvr-source` uses `fetch.github` |
+| `cco` | `cco` | `src.git` `nikvdp/cco`, branch `master` | `fetch.github` |
+| `opencode` | `opencode` | `src.github` `anomalyco/opencode` | `fetch.url` `opencode-linux-x64.tar.gz` |
+| `python-jwt` | `python-jwt_313` | `src.pypi` `python_jwt` | `fetch.pypi` |
+| `spec-kit` | `spec-kit` | `src.github` `github/spec-kit` | `fetch.github` |
+| `timew-sync-client` | `timew-sync-client` | `src.git` `timewarrior-synchronize/timew-sync-client`, branch `main` | `fetch.github` |
+| `xgen` | `xgen` | `src.git` `xuri/xgen`, branch `master` | `fetch.github` |
 
-The matrix lists package names only. Each name must have a table in `nvfetcher.toml`.
+Each matrix `name` needs a table of the same name in `nvfetcher.toml`. The `--filter` regex `^<name>(-.+)?$` also updates tables named `<name>-<suffix>`, so `alvr` updates `alvr-source` in the same run.
 
 ## Configuration Requirements
 

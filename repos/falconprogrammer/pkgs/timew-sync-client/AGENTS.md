@@ -8,7 +8,7 @@ Nix package definition fetching `timew-sync-client` Python CLI from GitHub and b
 
 | File | Description |
 |------|-------------|
-| [default.nix](./default.nix) | Calls `buildPythonApplication` with pinned `rev`; wires local `python-jwt` dep via `callPackage ../python-jwt {}`. |
+| [default.nix](./default.nix) | Calls `buildPythonApplication` with the source from `_sources/generated.nix`; depends on `pyjwt` from nixpkgs. |
 
 ## Stack
 
@@ -16,16 +16,15 @@ Nix package definition fetching `timew-sync-client` Python CLI from GitHub and b
 - **Build:** `buildPythonApplication`, `setuptools`, `wheel`
 - **Entry point:** `mainProgram = "timew-sync-client"`
 - **Import check:** `timewsync`
-- **Version pin:** `unstable-2023-10-25`, rev `7b048194387eaac3aa3a7834ac8f31d64ad6cbbb`
+- **Version:** `0-unstable-<commit date>`; commit and source hash from `_sources/generated.nix` (entry `timew-sync-client`, defined in `nvfetcher.toml`)
 
 ## Dependencies
 
 | Kind | Packages |
 |------|----------|
-| Local | `python-jwt` via `callPackage ../python-jwt {}` |
-| Propagated | `attrs`, `black`, `colorama`, `iniconfig`, `jwcrypto`, `pluggy`, `py`, `pytest`, `requests`, `six`, `python-jwt` |
+| Propagated | `attrs`, `black`, `colorama`, `iniconfig`, `jwcrypto`, `pluggy`, `py`, `pytest`, `requests`, `six`, `pyjwt` |
 | Native build inputs | `setuptools`, `wheel` |
 
 ## File Relationships
 
-`default.nix` references sibling package [pkgs/python-jwt/](../python-jwt/) via relative `callPackage`. Exposed to rest of flake through [overlay.nix](../../overlay.nix).
+`default.nix` reads `_sources/generated.nix` via relative `callPackage`. Exposed to rest of flake through [overlay.nix](../../overlay.nix).

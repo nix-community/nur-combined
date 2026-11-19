@@ -6,6 +6,25 @@
   dockerTools,
 }:
 {
+  alvr = {
+    pname = "alvr";
+    version = "v20.14.1";
+    src = fetchurl {
+      url = "https://github.com/alvr-org/ALVR/releases/download/v20.14.1/alvr_streamer_linux.tar.gz";
+      sha256 = "sha256-voK0p6PLNgfdXDB88rChtSTR7LulhtZXpFgReopjvAk=";
+    };
+  };
+  alvr-source = {
+    pname = "alvr-source";
+    version = "v20.14.1";
+    src = fetchFromGitHub {
+      owner = "alvr-org";
+      repo = "ALVR";
+      rev = "v20.14.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-H9gJ+1CCAkA329gI/HUx7eLPAaOmdWmotgFf6NbjS1I=";
+    };
+  };
   cco = {
     pname = "cco";
     version = "658e99ce3ef90963b0a7d4443af16f4de983ea2c";
@@ -26,6 +45,14 @@
       sha256 = "sha256-R3NOCJaLMMwioL/7bZ/u7XatSqdDIToSEiBAOS0JoFc=";
     };
   };
+  python-jwt = {
+    pname = "python-jwt";
+    version = "4.1.0";
+    src = fetchurl {
+      url = "https://pypi.org/packages/source/p/python_jwt/python_jwt-4.1.0.tar.gz";
+      sha256 = "sha256-+Jrwcdm9pHQbyAdUvRz85z5DSiy7eFUIbYYEoQvT/cU=";
+    };
+  };
   spec-kit = {
     pname = "spec-kit";
     version = "v1.4.3";
@@ -36,5 +63,29 @@
       fetchSubmodules = false;
       sha256 = "sha256-jP/JyCUiwQas81rTnSRrr0NGmcTboiR5rAA3O9r8Jyw=";
     };
+  };
+  timew-sync-client = {
+    pname = "timew-sync-client";
+    version = "c2235070c2f8a86f4008bbc8b77214b6761074bc";
+    src = fetchFromGitHub {
+      owner = "timewarrior-synchronize";
+      repo = "timew-sync-client";
+      rev = "c2235070c2f8a86f4008bbc8b77214b6761074bc";
+      fetchSubmodules = false;
+      sha256 = "sha256-j0bAgpYk2HVAbmbl9DUqds748zpKyM2VWtVuxZV3/YI=";
+    };
+    date = "2026-07-11";
+  };
+  xgen = {
+    pname = "xgen";
+    version = "172e5562e79c4d80449c65ed2b14c966af25f9a8";
+    src = fetchFromGitHub {
+      owner = "xuri";
+      repo = "xgen";
+      rev = "172e5562e79c4d80449c65ed2b14c966af25f9a8";
+      fetchSubmodules = false;
+      sha256 = "sha256-mld5Mx/QaSSHHYhyud+NneBHghx6ONFdj5jm5NNWfPw=";
+    };
+    date = "2026-10-30";
   };
 }

@@ -10,3 +10,25 @@ fetch.url = "https://github.com/anomalyco/opencode/releases/download/$ver/openco
 [spec-kit]
 src.github = "github/spec-kit"
 fetch.github = "github/spec-kit"
+
+[timew-sync-client]
+src.git = "https://github.com/timewarrior-synchronize/timew-sync-client"
+src.branch = "main"
+fetch.github = "timewarrior-synchronize/timew-sync-client"
+
+[xgen]
+src.git = "https://github.com/xuri/xgen"
+src.branch = "master"
+fetch.github = "xuri/xgen"
+
+[alvr]
+src.github = "alvr-org/ALVR"
+fetch.url = "https://github.com/alvr-org/ALVR/releases/download/$ver/alvr_streamer_linux.tar.gz"
+
+[alvr-source]
+src.github = "alvr-org/ALVR"
+fetch.github = "alvr-org/ALVR"
+
+[python-jwt]
+src.pypi = "python_jwt"
+fetch.pypi = "python_jwt"

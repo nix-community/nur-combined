@@ -1,7 +1,6 @@
 { lib
 , stdenv
-, fetchzip
-, fetchFromGitHub
+, callPackage
 , alsa-lib
 , autoPatchelfHook
 , brotli
@@ -13,6 +12,7 @@
 , libvdpau
 , libxkbcommon
 , nix-update-script
+, SDL2
 , openssl
 , pipewire
 , pulseaudio
@@ -22,21 +22,16 @@
 , xorg
 , xvidcore
 }:
+let
+  sources = callPackage ../../_sources/generated.nix { };
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "alvr";
-  version = "20.8.1";
+  version = lib.removePrefix "v" sources.alvr.version;
 
-  src = fetchzip {
-    url = "https://github.com/alvr-org/ALVR/releases/download/v${finalAttrs.version}/alvr_streamer_linux.tar.gz";
-    hash = "sha256-8bQpEnzK4ZGE5P49Gh/fmxgyCBFTzD511q6aZxe0B/Y=";
-  };
+  inherit (sources.alvr) src;
 
-  alvrSrc = fetchFromGitHub {
-    owner = "alvr-org";
-    repo = "ALVR";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-HRXBagh6NClm0269ip0SlhOWCoI8CQXEtr7veSRgvwE=";
-  };
+  alvrSrc = sources.alvr-source.src;
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -47,6 +42,8 @@ stdenv.mkDerivation (finalAttrs: {
     libunwind
     libva
     libvdpau
+    pipewire
+    SDL2
     vulkan-loader
     stdenv.cc.cc.lib
   ];
@@ -72,9 +69,9 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
 
     mkdir -p $out/share/applications
-    cp -r $src/* $out
+    cp -r ./* $out
     install -Dm444 $alvrSrc/alvr/xtask/resources/alvr.desktop -t $out/share/applications
-    install -Dm444 $alvrSrc/resources/alvr.png -t $out/share/icons/hicolor/256x256/apps
+    install -Dm444 $alvrSrc/alvr/xtask/flatpak/alvr_icon.png $out/share/icons/hicolor/256x256/apps/alvr.png
 
     runHook postInstall
   '';

@@ -1,20 +1,18 @@
 { lib
 , buildGoModule
-, fetchFromGitHub
+, callPackage
 }:
 
-buildGoModule rec {
+let
+  sources = (callPackage ../../_sources/generated.nix { }).xgen;
+in
+buildGoModule {
   pname = "xgen";
-  version = "unstable-2023-07-02";
+  version = "0-unstable-${sources.date}";
 
-  src = fetchFromGitHub {
-    owner = "xuri";
-    repo = "xgen";
-    rev = "db840e1a460537cf4f90c2a88cffe11ef354dd9f";
-    hash = "sha256-S5F7I6rDxtLSVlq7VLJkfghX+scudK9WZmOcDHmehM8=";
-  };
+  inherit (sources) src;
 
-  vendorHash = "sha256-YU/iQnZs4/oUiJw3syW1jxEpeQLyOMElsjzWCNsucds=";
+  vendorHash = "sha256-LYzCWLKGElGYiPm8U2hKdJfv3Q4tXrwXr6I+8dlIoMc=";
 
   ldflags = [ "-s" "-w" ];
 

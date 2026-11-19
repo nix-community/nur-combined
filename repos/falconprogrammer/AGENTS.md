@@ -17,7 +17,7 @@ Personal NUR (Nix User Repository) for `JonBoyleCoding/falconprogrammer-nur`: ex
 
 - [update-pkgs.py](./update-pkgs.py) — Scans `pkgs/` subdirs, classifies packages (`buildPythonPackage`/`buildPythonApplication`/other), substitutes `<<TEMPLATE_LET>>` and `<<TEMPLATE_PACKAGES>>` tags in `.default_template.nix`, writes `default.nix`.
 - [.default_template.nix](./.default_template.nix) — Template source for `default.nix`; contains `<<TEMPLATE_LET>>` and `<<TEMPLATE_PACKAGES>>` injection tags.
-- [nvfetcher.toml](./nvfetcher.toml) — nvfetcher source definitions (version source and fetcher per package: `cco`, `opencode`, `spec-kit`).
+- [nvfetcher.toml](./nvfetcher.toml) — nvfetcher source definitions (version source and fetcher per package: `alvr`, `cco`, `opencode`, `python-jwt`, `spec-kit`, `timew-sync-client`, `xgen`).
 
 ### Metadata & Guidelines
 
@@ -27,7 +27,7 @@ Personal NUR (Nix User Repository) for `JonBoyleCoding/falconprogrammer-nur`: ex
 
 ## Subdirectories
 
-- [_sources/](./_sources/) — nvfetcher output (`generated.nix`, `generated.json`) read by `pkgs/cco`, `pkgs/opencode` and `pkgs/spec-kit`. **Do not hand-edit — regenerate via `nvfetcher`.**
+- [_sources/](./_sources/) — nvfetcher output (`generated.nix`, `generated.json`) read by the packages listed in `nvfetcher.toml`. **Do not hand-edit — regenerate via `nvfetcher`.**
 - [pkgs/](./pkgs/) — Per-package `default.nix` derivations; each subdir name maps directly to an attr in `default.nix`. `update-pkgs.py` scans this tree.
 - [modules/](./modules/) — NixOS modules (`timew-sync-server`, `g13d`, `taskchampion-sync-server`) aggregated by `modules/default.nix`, consumed by `flake.nix` as `nixosModules`.
 - [lib/](./lib/) — Project-local Nix utility library stub; currently empty attrset, parameterized by `pkgs`.

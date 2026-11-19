@@ -1,4 +1,40 @@
 {
+    "alvr": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "alvr",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-voK0p6PLNgfdXDB88rChtSTR7LulhtZXpFgReopjvAk=",
+            "type": "url",
+            "url": "https://github.com/alvr-org/ALVR/releases/download/v20.14.1/alvr_streamer_linux.tar.gz"
+        },
+        "version": "v20.14.1"
+    },
+    "alvr-source": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "alvr-source",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "alvr-org",
+            "repo": "ALVR",
+            "rev": "v20.14.1",
+            "sha256": "sha256-H9gJ+1CCAkA329gI/HUx7eLPAaOmdWmotgFf6NbjS1I=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v20.14.1"
+    },
     "cco": {
         "cargoLock": null,
         "date": "2026-09-29",
@@ -35,6 +71,21 @@
         },
         "version": "v1.19.6"
     },
+    "python-jwt": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "python-jwt",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-+Jrwcdm9pHQbyAdUvRz85z5DSiy7eFUIbYYEoQvT/cU=",
+            "type": "url",
+            "url": "https://pypi.org/packages/source/p/python_jwt/python_jwt-4.1.0.tar.gz"
+        },
+        "version": "4.1.0"
+    },
     "spec-kit": {
         "cargoLock": null,
         "date": null,
@@ -55,5 +106,47 @@
             "type": "github"
         },
         "version": "v1.4.3"
+    },
+    "timew-sync-client": {
+        "cargoLock": null,
+        "date": "2026-07-11",
+        "extract": null,
+        "name": "timew-sync-client",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "timewarrior-synchronize",
+            "repo": "timew-sync-client",
+            "rev": "c2235070c2f8a86f4008bbc8b77214b6761074bc",
+            "sha256": "sha256-j0bAgpYk2HVAbmbl9DUqds748zpKyM2VWtVuxZV3/YI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "c2235070c2f8a86f4008bbc8b77214b6761074bc"
+    },
+    "xgen": {
+        "cargoLock": null,
+        "date": "2026-10-30",
+        "extract": null,
+        "name": "xgen",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "xuri",
+            "repo": "xgen",
+            "rev": "172e5562e79c4d80449c65ed2b14c966af25f9a8",
+            "sha256": "sha256-mld5Mx/QaSSHHYhyud+NneBHghx6ONFdj5jm5NNWfPw=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "172e5562e79c4d80449c65ed2b14c966af25f9a8"
     }
 }
