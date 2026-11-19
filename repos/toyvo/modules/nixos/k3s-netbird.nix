@@ -612,12 +612,15 @@ in
                       value = "openid profile email offline_access";
                     }
                     {
+                      # Paths, not full URLs: the dashboard prepends the
+                      # browser origin itself (absolute URLs double up:
+                      # https://hosthttps://host/ — seen live 2026-11-19).
                       name = "AUTH_REDIRECT_URI";
-                      value = "https://${dashboardHost}/";
+                      value = "/";
                     }
                     {
                       name = "AUTH_SILENT_REDIRECT_URI";
-                      value = "https://${dashboardHost}/silent-callback";
+                      value = "/silent-callback";
                     }
                     {
                       name = "NETBIRD_TOKEN_SOURCE";
