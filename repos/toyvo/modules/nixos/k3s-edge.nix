@@ -187,7 +187,11 @@ in
           namespace = edgeNamespace;
         };
         spec.forwardAuth = {
-          address = "http://${homelab.authentik.ip}:9000/outpost.goauthentik.io/auth/traefik";
+          # Cut over 2026-11-16: in-cluster server via nas NodePort
+          # (router Traefik is hostNetwork — no cluster DNS — so it needs
+          # a LAN address, not the ClusterIP name). Old container
+          # (homelab.authentik.ip) stays warm for instant revert.
+          address = "http://${homelab.nas.ip}:30906/outpost.goauthentik.io/auth/traefik";
           # Trust the X-Forwarded-* headers our own edge sets when calling
           # the outpost. The edge terminates TLS and sets Proto=https;
           # without this Traefik strips Proto and the outpost sees the
