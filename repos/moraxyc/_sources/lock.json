@@ -75,6 +75,24 @@
       },
       "fingerprint": "sha256-FbUkrewKZ0lckP8/i/BGu9EE6IXwByVR2mX/BVLIAn4="
     },
+    "antigravity-claude-proxy": {
+      "version": "3.1.1",
+      "rawVersion": "3.1.1",
+      "date": "2026-11-16",
+      "src": {
+        "fetcher": "github",
+        "owner": "badrisnarayanan",
+        "repo": "antigravity-claude-proxy",
+        "rev": "v3.1.1",
+        "hash": "sha256-O6emstXeQXoq56EPat4jlxx9jVhIVUe6Kuyxn0h53+U="
+      },
+      "derived": {
+        "npmDeps": {
+          "lockfile": "antigravity-claude-proxy/src/package-lock.json"
+        }
+      },
+      "fingerprint": "sha256-u0VFI0su0LMZbAm1oXbugUs9wzhi3q6e3r1WUY7SWd0="
+    },
     "artex": {
       "version": "0-unstable-2026-11-14",
       "rawVersion": "6997a4661921395072290becc50380db8dacb04e",

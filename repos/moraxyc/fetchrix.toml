@@ -43,6 +43,15 @@ fetch = { type = "git", url = "https://github.com/messense/aliyundrive-webdav.gi
 kind = "cargo-vendor"
 strategy = "lockfile"
 
+[packages.antigravity-claude-proxy]
+version = { source = "github-tag", repo = "badrisnarayanan/antigravity-claude-proxy", strip_prefix = "v" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "badrisnarayanan/antigravity-claude-proxy", rev = "v{version}" }
+
+[packages.antigravity-claude-proxy.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"
+
 [packages.artex]
 version = { source = "git", url = "https://github.com/RuoJi6/ARTEX.git", unstable = { } }
 transform = ["strip-v"]
