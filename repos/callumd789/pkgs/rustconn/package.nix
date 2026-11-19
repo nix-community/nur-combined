@@ -28,16 +28,16 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rustconn";
-  version = "0.24.9";
+  version = "0.25.1";
 
   src = fetchFromGitHub {
     owner = "totoshko88";
     repo = "RustConn";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-hq/Yj1A2M+j84NfXVjxNb777HlPRCqjC2/FvtGkFw7Q=";
+    hash = "sha256-VNkbhDfuHlOgAtQqTr97sQ88HP9KBZEX+cEEEUoX7ww=";
   };
 
-  cargoHash = "sha256-DaBahUEHe/HkWrQRCFLb9wEalHw25VMA9DHsb0kzbFE=";
+  cargoHash = "sha256-CGLM7hYQlCe1vbjTKe7OJPSX3nkgCXF4vv5bdDCzvHE=";
 
   # Translations are looked up in a few places that don't exist here (the build
   # directory from build.rs among them) before falling back to
