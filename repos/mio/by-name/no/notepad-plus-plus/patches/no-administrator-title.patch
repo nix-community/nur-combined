@@ -4,8 +4,6 @@
 # "launch in Administrator mode" dialogs are left untouched.
 --- a/PowerEditor/src/Notepad_plus.cpp
 +++ b/PowerEditor/src/Notepad_plus.cpp
---- a/PowerEditor/src/Notepad_plus.cpp
-+++ b/PowerEditor/src/Notepad_plus.cpp
 @@ -4381,9 +4381,6 @@
  	result += L" - ";
  	result += _pPublicInterface->getClassName();
