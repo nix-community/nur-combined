@@ -9,7 +9,7 @@
 
 let
   pname = "ps5upload";
-  version = "12.6.8";
+  version = "12.6.11";
 
   cpu = stdenvNoCC.hostPlatform.parsed.cpu.name;
 
@@ -25,8 +25,8 @@ let
     url = "https://github.com/phantomptr/ps5upload/releases/download/v${version}/PS5Upload-${version}-linux-${arch}.zip";
     hash =
       {
-        x86_64 = "sha256-m/JALu0y/znjqr7fwv/mffamRzMnrkW+4fOO3efgwQ4=";
-        aarch64 = "sha256-7bWI+xzEw9ACaEmPAWPOtXO3YDPafi6aujAFR4SB63U=";
+        x86_64 = "sha256-ApyanUMbdYLJaLw7KqnpcT/9p3LpF+kwGYjOZSJNe1k=";
+        aarch64 = "sha256-b4WzpMk0UIOoaC6sTPX2Zv2rFAFYImCndj8T6cd11lY=";
       }
       .${cpu} or (throw "ps5upload: unsupported cpu ${cpu}");
   };
