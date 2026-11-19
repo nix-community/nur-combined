@@ -340,6 +340,7 @@ in
               public = true;
               forwardAuthGate = false;
             };
+            "traefik.ingress.kubernetes.io/service.serversscheme" = "h2c";
           };
         };
         spec = {
