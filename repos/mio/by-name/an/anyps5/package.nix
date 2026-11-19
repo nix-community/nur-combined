@@ -470,13 +470,15 @@ stdenv.mkDerivation {
 
     install -Dm755 core/relinker/relinker $out/bin/relinker
 
-  '' + lib.optionalString stdenv.hostPlatform.isLinux ''
+  ''
+  + lib.optionalString stdenv.hostPlatform.isLinux ''
     mkdir -p $out/lib/anyps5/libs
     cp -a core/libs/libs/*.prx $out/lib/anyps5/libs/
     if ls core/libs/libs/libmimalloc.so* >/dev/null 2>&1; then
       cp -a core/libs/libs/libmimalloc.so* $out/lib/anyps5/libs/
     fi
-  '' + ''
+  ''
+  + ''
 
     runHook postInstall
   '';
