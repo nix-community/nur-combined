@@ -186,7 +186,10 @@
     environment.NB_MANAGEMENT_URL = "https://netbird-mgmt.toyvo.dev";
     login.enable = true;
     login.setupKeyFile = config.sops.secrets."netbird-setup-key".path;
-    login.systemdDependencies = [ "sops-install-secrets.service" ];
+    # NOTE: no login.systemdDependencies — sops-install-secrets runs as
+    # an activation script here, not a unit (depending on the unit name
+    # breaks startup: "Unit sops-install-secrets.service not found").
+    # Secrets are in place before services start anyway.
   };
   sops.secrets = {
     cloudflare_w_dns_r_zone_token = { };
