@@ -46,10 +46,11 @@ packages = [
   { name = "albedo_ext_paperclips", version = "0.1.0", build_tools = ["gleam"], requirements = ["albedo_bytes", "albedo_sdk", "gleam_http", "gleam_json", "gleam_stdlib", "mist", "sqlight"], source = "local", path = "../../extensions/paperclips" },
   { name = "albedo_ext_perplexity", version = "0.1.0", build_tools = ["gleam"], requirements = ["albedo_bytes", "albedo_env", "albedo_http", "albedo_model", "albedo_models_dev", "albedo_openai", "albedo_sdk", "gleam_json", "gleam_stdlib"], source = "local", path = "../../extensions/perplexity" },
   { name = "albedo_ext_persistent_agent", version = "0.1.0", build_tools = ["gleam"], requirements = ["albedo_bytes", "albedo_clock", "albedo_lcm", "albedo_model", "albedo_process", "albedo_sdk", "gleam_stdlib", "sqlight"], source = "local", path = "../../extensions/persistent_agent" },
+  { name = "albedo_ext_photon", version = "0.1.0", build_tools = ["gleam"], requirements = ["albedo_clock", "albedo_env", "albedo_ports", "albedo_process", "albedo_sdk", "gleam_erlang", "gleam_json", "gleam_otp", "gleam_stdlib", "sqlight"], source = "local", path = "../../extensions/photon" },
   { name = "albedo_ext_proxy", version = "0.1.0", build_tools = ["gleam"], requirements = ["albedo_bytes", "albedo_clock", "albedo_env", "albedo_model", "albedo_sdk", "gleam_erlang", "gleam_http", "gleam_json", "gleam_otp", "gleam_stdlib", "mist"], source = "local", path = "../../extensions/proxy" },
   { name = "albedo_ext_remote", version = "0.1.0", build_tools = ["gleam"], requirements = ["albedo_sdk", "gleam_stdlib"], source = "local", path = "../../extensions/remote" },
   { name = "albedo_ext_rolling", version = "0.1.0", build_tools = ["gleam"], requirements = ["albedo_rolling", "albedo_sdk", "gleam_stdlib", "sqlight"], source = "local", path = "../../extensions/rolling" },
-  { name = "albedo_ext_run", version = "0.1.0", build_tools = ["gleam"], requirements = ["albedo_sdk", "gleam_http", "gleam_json", "gleam_stdlib", "mist"], source = "local", path = "../../extensions/run" },
+  { name = "albedo_ext_run", version = "0.1.0", build_tools = ["gleam"], requirements = ["albedo_clock", "albedo_sdk", "gleam_http", "gleam_json", "gleam_stdlib", "mist"], source = "local", path = "../../extensions/run" },
   { name = "albedo_ext_schedule", version = "0.1.0", build_tools = ["gleam"], requirements = ["albedo_clock", "albedo_sdk", "gleam_http", "gleam_json", "gleam_stdlib", "mist", "sqlight"], source = "local", path = "../../extensions/schedule" },
   { name = "albedo_ext_skills", version = "0.1.0", build_tools = ["gleam"], requirements = ["albedo_clock", "albedo_sdk", "gleam_http", "gleam_json", "gleam_stdlib", "mist", "sqlight"], source = "local", path = "../../extensions/skills" },
   { name = "albedo_ext_snapcompact", version = "0.1.0", build_tools = ["gleam"], requirements = ["albedo_bytes", "albedo_clock", "albedo_file", "albedo_model", "albedo_rolling", "albedo_sdk", "gleam_json", "gleam_stdlib", "sqlight"], source = "local", path = "../../extensions/snapcompact" },
@@ -140,6 +141,7 @@ albedo_ext_opencode_zen = { path = "../../extensions/opencode_zen" }
 albedo_ext_paperclips = { path = "../../extensions/paperclips" }
 albedo_ext_perplexity = { path = "../../extensions/perplexity" }
 albedo_ext_persistent_agent = { path = "../../extensions/persistent_agent" }
+albedo_ext_photon = { path = "../../extensions/photon" }
 albedo_ext_proxy = { path = "../../extensions/proxy" }
 albedo_ext_remote = { path = "../../extensions/remote" }
 albedo_ext_rolling = { path = "../../extensions/rolling" }
