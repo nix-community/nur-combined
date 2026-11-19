@@ -8,12 +8,12 @@
 {
   ai-usagebar = {
     pname = "ai-usagebar";
-    version = "v1.52.2";
+    version = "v1.52.3";
     src = fetchFromGitHub {
       owner = "akitaonrails";
       repo = "ai-usagebar";
-      tag = "v1.52.2";
-      hash = "sha256-pS9bNAq+xKAt7AJLXNF7zVV4g4cMmgT7YMEQHLPbOXA=";
+      tag = "v1.52.3";
+      hash = "sha256-HbH6qDBLE9JCOIMH2bwdxWKENo7OW3d6QUn5mvUm9pw=";
     };
   };
   aioshutil = {
@@ -134,22 +134,22 @@
   };
   nexus-media = {
     pname = "nexus-media";
-    version = "v5.13.0";
+    version = "v5.14.3";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media";
-      tag = "v5.13.0";
-      hash = "sha256-gKjU2a6vPfTxShGENqb0h+h4y+m3HYzaM919DNPnAZ4=";
+      tag = "v5.14.3";
+      hash = "sha256-bJlP0JS4j+6vx4zMG684KiHVaJbIHEroVgIHxqs836o=";
     };
   };
   nexus-media-web = {
     pname = "nexus-media-web";
-    version = "v5.13.0";
+    version = "v5.14.3";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media-web";
-      tag = "v5.13.0";
-      hash = "sha256-aYP5QL++OZgUlKa5Q/aWK+ou806+2WN6/4+bjtXH6G0=";
+      tag = "v5.14.3";
+      hash = "sha256-CCOSfxB9yMoO6C5No362ckWNpiso/eGdEWAHWR166bQ=";
     };
   };
   pinyin2hanzi = {
@@ -180,10 +180,10 @@
   };
   qingjian = {
     pname = "qingjian";
-    version = "0.3.3";
+    version = "0.3.4";
     src = fetchurl {
-      url = "https://github.com/qingjian-team/qingjian/releases/download/v0.3.3/qingjian-0.3.3-linux-x86_64.tar.gz";
-      hash = "sha256-tu7veMdER4jIchTkDWcOiFUauVWO0npiYKShSRBVL+Q=";
+      url = "https://github.com/qingjian-team/qingjian/releases/download/v0.3.4/qingjian-0.3.4-linux-x86_64.tar.gz";
+      hash = "sha256-NjNx9I6Yg1ay+ri8OM08BBiKJcxHX9fnhAHn3MycsGk=";
     };
   };
   sublinkpro-linux-amd64 = {
