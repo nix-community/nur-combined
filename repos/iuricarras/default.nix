@@ -15,6 +15,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   truckersmp-cli = pkgs.callPackage ./pkgs/truckersmp-cli { inherit pkgs; };
-  ciscoPacketTracer9 = pkgs.callPackage ./pkgs/ciscoPacketTracer9 { inherit pkgs; };
-  remixDesktop = pkgs.callPackage ./pkgs/remixDesktop { inherit pkgs; };
+  #ciscoPacketTracer9 = pkgs.callPackage ./pkgs/ciscoPacketTracer9 { inherit pkgs; };
+  #remixDesktop = pkgs.callPackage ./pkgs/remixDesktop { inherit pkgs; };
 }
