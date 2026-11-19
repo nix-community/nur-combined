@@ -132,14 +132,14 @@
       "fingerprint": "sha256-19K58xslpcJZbIs8eH4o5Pkm1Jcde0YS6I8gTAdmEnE="
     },
     "clash-nyanpasu": {
-      "version": "2.0.1-unstable-2026-11-18",
-      "rawVersion": "2d6ee36c2c34be90a2a685d674c491b9cf174959",
-      "date": "2026-11-18",
+      "version": "2.0.1-unstable-2026-11-19",
+      "rawVersion": "3f73c81b19836cf76ef2958783c8e565d12cf340",
+      "date": "2026-11-19",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/libnyanpasu/clash-nyanpasu",
-        "rev": "2d6ee36c2c34be90a2a685d674c491b9cf174959",
-        "hash": "sha256-0+wDRgcktDkb4kHzq7NS0zNmp7yJ4bkvKwA477T4hZY="
+        "rev": "3f73c81b19836cf76ef2958783c8e565d12cf340",
+        "hash": "sha256-SOijk5alUP4IsDc8h2TvYDtA9YYFrc/UB2ZgNNHUrWY="
       },
       "derived": {
         "cargoLock": {
@@ -161,7 +161,7 @@
           }
         },
         "pnpmDepsHash": {
-          "hash": "sha256-W+UuTzV9Ml5W0Fn4gCwe3wr4TW3wKua5YSaZSmChAd0="
+          "hash": "sha256-JShQy2MBHzLv4TPrSWOlc+URAMOGdNFTMm9UTtKpMDg="
         }
       },
       "artifacts": {
@@ -170,15 +170,15 @@
       "fingerprint": "sha256-K5Nl/4GSel7c9aczwmNlX4Feo1YsgSJbvSsGdY/yIXA="
     },
     "cliproxyapi": {
-      "version": "8.0.77",
-      "rawVersion": "v8.0.77",
-      "date": "2026-11-17",
+      "version": "8.0.78",
+      "rawVersion": "v8.0.78",
+      "date": "2026-11-19",
       "src": {
         "fetcher": "github",
         "owner": "router-for-me",
         "repo": "cliproxyapi",
-        "rev": "v8.0.77",
-        "hash": "sha256-8C6m5aSrQN4HiGcNhCJDvoepFHy/bAYOPnrGdrUnSiU="
+        "rev": "v8.0.78",
+        "hash": "sha256-OszPFMPRbWn3G2kK0IG0fe3hnEzeWS18sYcCoNVkCtc="
       },
       "derived": {
         "vendorHash": {
@@ -209,13 +209,13 @@
     },
     "dae": {
       "version": "2.1.2-unstable-2026-11-18",
-      "rawVersion": "56f40014c675cf5ee415b34f006daae8de5d3b00",
+      "rawVersion": "e35410568009a7e1b49090aaba265c9992fc6b46",
       "date": "2026-11-18",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/daeuniverse/dae.git",
-        "rev": "56f40014c675cf5ee415b34f006daae8de5d3b00",
-        "hash": "sha256-3n69o88SqvL/zNXKOMsqJd832FDKlJLJ+Bad85s78zk=",
+        "rev": "e35410568009a7e1b49090aaba265c9992fc6b46",
+        "hash": "sha256-IDqwS93LTtIMK/zKZ3sYixECPivEyMqjNVl1H6cXlfI=",
         "fetchSubmodules": true
       },
       "derived": {
@@ -308,14 +308,14 @@
       "fingerprint": "sha256-30OsBkMRA0jMQKYo3jIET9P4D5xWLMEblIxAU7j2p2k="
     },
     "gaze": {
-      "version": "0.5.2-unstable-2026-11-17",
-      "rawVersion": "974da184472fb23926ae2353bfebf4dcb4b9130a",
-      "date": "2026-11-17",
+      "version": "0.5.2-unstable-2026-11-18",
+      "rawVersion": "af4dc71d23f35b7eb4507ffca05cb13e48278b32",
+      "date": "2026-11-18",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/GunduLabs/gaze.git",
-        "rev": "974da184472fb23926ae2353bfebf4dcb4b9130a",
-        "hash": "sha256-n0x41Oa/PrqOCaX83xazvAsk5vX89ZpBNU8fOGYIqz4="
+        "rev": "af4dc71d23f35b7eb4507ffca05cb13e48278b32",
+        "hash": "sha256-L8L+Fl2tWGyYB8VFD4ahJahaUVGE9aDT19Mzrwa8K6k="
       },
       "derived": {
         "cargoLock": {
@@ -325,32 +325,32 @@
       "fingerprint": "sha256-towcatrM+06L5DicpsZfVGQtyJY6jfzlWnl5JtIKcs4="
     },
     "geolite2-asn": {
-      "version": "2026.11.16",
-      "rawVersion": "2026.11.16",
+      "version": "2026.11.19",
+      "rawVersion": "2026.11.19",
       "src": {
         "fetcher": "url",
-        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.16/GeoLite2-ASN.mmdb",
-        "hash": "sha256-arDctgF7Dl81bUrBYHQn/F1Np6hGXLEjPoqcBN8bSIU="
+        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.19/GeoLite2-ASN.mmdb",
+        "hash": "sha256-unxJZMcbUdKNwj7v1eQ3aAG/kEctJvdmZIquADr5OI4="
       },
       "fingerprint": "sha256-0ToZa+2Em+tnyn9CPCmAPlp6lIcX7/Merx+CDKFXW1M="
     },
     "geolite2-city": {
-      "version": "2026.11.16",
-      "rawVersion": "2026.11.16",
+      "version": "2026.11.19",
+      "rawVersion": "2026.11.19",
       "src": {
         "fetcher": "url",
-        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.16/GeoLite2-City.mmdb",
-        "hash": "sha256-uY4cS5qQ7EZgSJFRBr7ALuPU8OXxH1nyMuDwJlqUL1Y="
+        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.19/GeoLite2-City.mmdb",
+        "hash": "sha256-BgqGmdMiluJFNt0j8X5lzhK6SJqc5geSHfCrAeQfozw="
       },
       "fingerprint": "sha256-463eu1xFZXCx4oz8SRSvBA0hvpJyFhic5DHxAO5Hvus="
     },
     "geolite2-country": {
-      "version": "2026.11.16",
-      "rawVersion": "2026.11.16",
+      "version": "2026.11.19",
+      "rawVersion": "2026.11.19",
       "src": {
         "fetcher": "url",
-        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.16/GeoLite2-Country.mmdb",
-        "hash": "sha256-w+oPh2OnLAgdSrrzNmJw1GQUxV9uNjIWIca1nVP5sXw="
+        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.19/GeoLite2-Country.mmdb",
+        "hash": "sha256-M8avejNiw1h27WGSqVhzRAKrjN2dcfl9+9ozPrceHAA="
       },
       "fingerprint": "sha256-J85WDuNyYNUaddQZHQiF6elxX2H2Ai5xb/pLo1lio2E="
     },
@@ -404,48 +404,48 @@
       "fingerprint": "sha256-VDgHTON3muqQMwensyByNopQtkpYIRQQcKdCjIQhwJI="
     },
     "hmcl-dev-bin": {
-      "version": "3.18.0.366",
-      "rawVersion": "3.18.0.366",
+      "version": "3.18.0.367",
+      "rawVersion": "3.18.0.367",
       "src": {
         "fetcher": "url",
-        "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.18.0.366/HMCL-3.18.0.366.jar",
-        "hash": "sha256-uIl8d0FdTKNlWWBjXaabk9NotHjob8tYd155CZeUVqo="
+        "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.18.0.367/HMCL-3.18.0.367.jar",
+        "hash": "sha256-EPbPMOpd2nxQz+70WOg0imGHEMY44tX/pcHzaCIt1rs="
       },
       "fingerprint": "sha256-FCpeK4prWYIRrizU4R/xf25Lx71ILojidsolvF5tgIU="
     },
     "hmcl-dev-exe": {
-      "version": "3.18.0.366",
-      "rawVersion": "3.18.0.366",
+      "version": "3.18.0.367",
+      "rawVersion": "3.18.0.367",
       "src": {
         "fetcher": "url",
-        "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.18.0.366/HMCL-3.18.0.366.exe",
-        "hash": "sha256-XCY7YUEoUCmg0bGta9/8h/A214Y5ku+IdY0aZ5lEonQ="
+        "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.18.0.367/HMCL-3.18.0.367.exe",
+        "hash": "sha256-b9KQLxNf5QKCfo/fZr4i6YSaSw6uMxA9gHsnyq1C1JY="
       },
       "fingerprint": "sha256-7dSsriLulyHBfpIDnwakGLyV7hcHnbygShSMURMjIz0="
     },
     "hmcl-dev-src": {
-      "version": "3.18.0.366",
-      "rawVersion": "3.18.0.366",
-      "date": "2026-11-15",
+      "version": "3.18.0.367",
+      "rawVersion": "3.18.0.367",
+      "date": "2026-11-18",
       "src": {
         "fetcher": "github",
         "owner": "HMCL-dev",
         "repo": "HMCL",
-        "rev": "v3.18.0.366",
-        "hash": "sha256-vWTkFpYILGGGmBBPN3yILN8oE+CI4UeL37xirNRckfc="
+        "rev": "v3.18.0.367",
+        "hash": "sha256-LHbgn1JJOuL5eUGFdi3in8n8vhmfKCIu6UXAG3FhmsM="
       },
       "fingerprint": "sha256-4jCQslnqwTJoijYP2CKfwBZjAzj2BCR/xHV7lz2D//4="
     },
     "horizon": {
-      "version": "0-unstable-2026-11-18",
-      "rawVersion": "1be7d24b4d4d3485809bb640e7bdff4fbd1cb697",
-      "date": "2026-11-18",
+      "version": "0-unstable-2026-11-19",
+      "rawVersion": "fdf87ca16d591546164365a800770b0bcf225fd6",
+      "date": "2026-11-19",
       "src": {
         "fetcher": "github",
         "owner": "horizon-rust",
         "repo": "horizon",
-        "rev": "1be7d24b4d4d3485809bb640e7bdff4fbd1cb697",
-        "hash": "sha256-IWQMc69yNPJPO35oTeWo0GC0lR0md/pJTPeRb776WGw="
+        "rev": "fdf87ca16d591546164365a800770b0bcf225fd6",
+        "hash": "sha256-WvxXSZpZyr2xkPq/MKcULHPtXUVsUadTzpeF3f+RgAA="
       },
       "derived": {
         "cargoLock": {
@@ -472,12 +472,12 @@
       "fingerprint": "sha256-OQm+NVjyhdgeM8gNfLr3Vq7mdt4gBlpJ+PyQBjCfaPg="
     },
     "jiufenxuezhang-ielts": {
-      "version": "0.9.21-rc.1",
-      "rawVersion": "0.9.21-rc.1",
+      "version": "0.9.21-rc.3",
+      "rawVersion": "0.9.21-rc.3",
       "src": {
         "fetcher": "url",
-        "url": "https://static.9fnnn.com/electron/stable/jiufenxuezhang-ielts-0.9.21-rc.1-universal.dmg",
-        "hash": "sha256-WE46XaHAZz8Z/DclyrbDFA99IH0s9jmAs+3kj4u/vUM="
+        "url": "https://static.9fnnn.com/electron/stable/jiufenxuezhang-ielts-0.9.21-rc.3-universal.dmg",
+        "hash": "sha256-AhwlSuAScp1Tw+mZ7w1hDQGu7YbnlL2zAoBXzai9Vy4="
       },
       "fingerprint": "sha256-mdqb1M4vkcpF3pYjpSYHRZ/stovbzouCMceT/0NbiWQ="
     },
@@ -494,14 +494,14 @@
       "fingerprint": "sha256-t9FqOeVHAGjQkgvnjnqYpKMvf9KM/sj0vdA2JRAu/Ts="
     },
     "loyalsoldier-geoip": {
-      "version": "0-unstable-2026-11-12",
-      "rawVersion": "ec6f8d0f6b5c6c6924d9230f2ed893f69585d38c",
-      "date": "2026-11-12",
+      "version": "0-unstable-2026-11-19",
+      "rawVersion": "08dc0ddde458400f3e6e2afeca1c0a1d5084f0fc",
+      "date": "2026-11-19",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/Loyalsoldier/geoip.git",
-        "rev": "ec6f8d0f6b5c6c6924d9230f2ed893f69585d38c",
-        "hash": "sha256-z0xnzD2432xqvtR9LFINERQfylU66iPHtnc07fYVSfQ="
+        "rev": "08dc0ddde458400f3e6e2afeca1c0a1d5084f0fc",
+        "hash": "sha256-WTUl0/UB44SIhweMMDDgsek8skCSgV6E6+RF5T18cz8="
       },
       "fingerprint": "sha256-hx96JJO1209o6FzcJOvJLwehW78iolaRc0KDGJFxbgo="
     },
@@ -555,14 +555,14 @@
       "fingerprint": "sha256-vR7sJIoluiLgop9ZZHZKD6Or/5XOXg5rf4u3QaTDtco="
     },
     "meta-rules-dat": {
-      "version": "0-unstable-2026-11-18",
-      "rawVersion": "61beccc959c75a100d3997b63d6491e5f8ce5eb1",
-      "date": "2026-11-18",
+      "version": "0-unstable-2026-11-19",
+      "rawVersion": "4bd8858704ca0ced3e4426c2e940a77505fdcfd9",
+      "date": "2026-11-19",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/MetaCubeX/meta-rules-dat.git",
-        "rev": "61beccc959c75a100d3997b63d6491e5f8ce5eb1",
-        "hash": "sha256-ZT9t9EDrMbc2LYzkZp4Dtu1SfVqKcUPZr6UDgbr0guw="
+        "rev": "4bd8858704ca0ced3e4426c2e940a77505fdcfd9",
+        "hash": "sha256-n69wHdLN1jATlqJn47sP3BLAuePBP1ngtuEO1IY9uQI="
       },
       "fingerprint": "sha256-wX3xYgeMbiaHcGTwYkJLKkmGHaWP1yW5YbKKukaREX0="
     },
@@ -635,14 +635,15 @@
       "fingerprint": "sha256-RF7dTjRA08i3eBdVEzcyBdNUd5jMpUf82/JeB3dMxIs="
     },
     "nezha": {
-      "version": "2.6.1",
-      "rawVersion": "v2.6.1",
+      "version": "2.6.2",
+      "rawVersion": "v2.6.2",
+      "date": "2026-11-18",
       "src": {
         "fetcher": "github",
         "owner": "nezhahq",
         "repo": "nezha",
-        "rev": "v2.6.1",
-        "hash": "sha256-NBGr4gQI0BzGBMU0mwukUtgaqmcMP04iGqGmNWPvp/A="
+        "rev": "v2.6.2",
+        "hash": "sha256-m7nf0zvF5MH0dyfLyP9ILmqijl6mYr+ZsFGFMnvmbcU="
       },
       "fingerprint": "sha256-XGgYC0V+zgCBDK3pro5CgnEWs5e+XEhjsm9ntwty0pw="
     },
@@ -962,15 +963,15 @@
       "fingerprint": "sha256-DJ4+3oLtprApprpfZRBtUGu+g/zfonnPMQj5h6Nx+FM="
     },
     "pi-subagents": {
-      "version": "0.89.0",
-      "rawVersion": "v0.89.0",
-      "date": "2026-11-16",
+      "version": "0.89.1",
+      "rawVersion": "v0.89.1",
+      "date": "2026-11-18",
       "src": {
         "fetcher": "github",
         "owner": "nicobailon",
         "repo": "pi-subagents",
-        "rev": "v0.89.0",
-        "hash": "sha256-DTe0j9JQfsXD3O9eeu/Tz7cnvsdM2bjtn63wqHYphu8="
+        "rev": "v0.89.1",
+        "hash": "sha256-LfOjBUWv9m/qY+M4SQNFSveYVrBV9pJVijtK+hUdArU="
       },
       "derived": {
         "npmDeps": {
@@ -1053,14 +1054,14 @@
       "fingerprint": "sha256-H7/fT4nfEg6N60/hpZLT4tL2Ehl2w1jA42zyrihYhcA="
     },
     "sable-next": {
-      "version": "26.11.3",
-      "rawVersion": "26.11.3",
-      "date": "2026-11-18",
+      "version": "26.11.4",
+      "rawVersion": "26.11.4",
+      "date": "2026-11-19",
       "src": {
         "fetcher": "git",
         "url": "https://git.sable.moe/SableClient/sable-next.git",
-        "tag": "v26.11.3",
-        "hash": "sha256-ris5iIygXBbVVxp1VwvWrxeAeodYiZz+dOYPoYIXnf4="
+        "tag": "v26.11.4",
+        "hash": "sha256-dapUFACRlFqp4/QysOPgrvCy1jCd6SRm/hIiSxzIwe4="
       },
       "derived": {
         "cargoLock": {
@@ -1201,15 +1202,15 @@
       "fingerprint": "sha256-imgtibGyweQKSt73wcN8RnflrzCvxGnXE2OOGS5lLSs="
     },
     "uu-remote-linux": {
-      "version": "0.2.60",
-      "rawVersion": "v0.2.60",
-      "date": "2026-11-17",
+      "version": "0.2.61",
+      "rawVersion": "v0.2.61",
+      "date": "2026-11-18",
       "src": {
         "fetcher": "github",
         "owner": "VallierDev",
         "repo": "uu-remote-linux",
-        "rev": "v0.2.60",
-        "hash": "sha256-rL+lJlQTGUFjGJkGAUagvilyCreGKnmXluhedcmE2IE="
+        "rev": "v0.2.61",
+        "hash": "sha256-x+2L9jT+Dkp4qXnIz5GvM+NTm470NVvIwIhmRzKRCm0="
       },
       "derived": {
         "cargoLock": {
@@ -1219,14 +1220,14 @@
       "fingerprint": "sha256-bkfLJkEtLMz1h+WpImLqmsX1w0C+bC6LFQVif/RSb0s="
     },
     "v2ray-rules-dat": {
-      "version": "0-unstable-2026-11-17",
-      "rawVersion": "cec62eb2e3220cf0be848680829331b250da0641",
-      "date": "2026-11-17",
+      "version": "0-unstable-2026-11-18",
+      "rawVersion": "3914c5cf42be87696db5139fc4b7d681b09b8d4a",
+      "date": "2026-11-18",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/Loyalsoldier/v2ray-rules-dat.git",
-        "rev": "cec62eb2e3220cf0be848680829331b250da0641",
-        "hash": "sha256-RYtJRc4scNjnpjhr2kldbPLvFm8VwYU9qrovpHhg0h0="
+        "rev": "3914c5cf42be87696db5139fc4b7d681b09b8d4a",
+        "hash": "sha256-qe3jnKiiiM/3VMFXWhWslLq0VXc/vHzKY2cL7JJrcg8="
       },
       "fingerprint": "sha256-VCqt6bExRQnJkTY51zmxmoGSt/p7RbF3g/HsGQUjUqs="
     },

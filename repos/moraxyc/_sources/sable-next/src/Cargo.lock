@@ -375,7 +375,7 @@ checksum = "fb5dfbc6d8d2675589ccbe4d0fd61df2419075625f8c1a62325e718e2b0049f9"
 
 [[package]]
 name = "app"
-version = "26.11.3"
+version = "26.11.4"
 dependencies = [
  "android_system_properties",
  "base64 0.23.1",
