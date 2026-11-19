@@ -1,0 +1,18 @@
+# Notepad++ runs under Wine here, where the process token is always a member
+# of BUILTIN\Administrators, so the title bar always ends in " [Administrator]",
+# which means nothing on Linux or macOS. Drop the suffix; the About box and the
+# "launch in Administrator mode" dialogs are left untouched.
+--- a/PowerEditor/src/Notepad_plus.cpp
++++ b/PowerEditor/src/Notepad_plus.cpp
+--- a/PowerEditor/src/Notepad_plus.cpp
++++ b/PowerEditor/src/Notepad_plus.cpp
+@@ -4381,9 +4381,6 @@
+ 	result += L" - ";
+ 	result += _pPublicInterface->getClassName();
+ 
+-	if (_isAdministrator)
+-		result += L" [Administrator]";
+-
+ 	wstring tbAdd = nppParams.getTitleBarAdd();
+ 	if (!tbAdd.empty())
+ 	{

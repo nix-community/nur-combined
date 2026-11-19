@@ -39,6 +39,10 @@ mingwStdenv.mkDerivation (finalAttrs: {
     hash = "sha256-yELw7W+LmKCv+glbHeTABNyK205QsU3eAuw0jc3M2kc=";
   };
 
+  # Under Wine the process token is always a member of BUILTIN\Administrators,
+  # so the title bar ends in a meaningless " [Administrator]" on Linux/macOS.
+  patches = [ ./patches/no-administrator-title.patch ];
+
   # wine/cmd for the upstream .bat pre-build; findstrShim completes Wine.
   nativeBuildInputs = lib.optional (!buildIsDarwin) wine;
 
