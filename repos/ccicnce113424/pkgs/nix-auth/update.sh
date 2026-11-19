@@ -12,11 +12,11 @@ read_source_info "jq"
 check_stale "jq"
 
 nix_build_hash \
-  "((import ./pkgs {}).${package_name}.overrideAttrs { vendorHash = \"\"; }).goModules" \
-  "nix-auth vendor"
+	"((import ./pkgs {}).${package_name}.overrideAttrs { vendorHash = \"\"; }).goModules" \
+	"nix-auth vendor"
 
 jq -n \
-  --arg version "$version" \
-  --arg hash "$extracted_hash" \
-  --arg sourceSha256 "$source_sha256" \
-  '{ version: $version, hash: $hash, sourceSha256: $sourceSha256 }' >"$src_info"
+	--arg version "$version" \
+	--arg hash "$extracted_hash" \
+	--arg sourceSha256 "$source_sha256" \
+	'{ version: $version, hash: $hash, sourceSha256: $sourceSha256 }' >"$src_info"

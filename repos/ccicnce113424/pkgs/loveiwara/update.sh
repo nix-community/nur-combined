@@ -15,12 +15,12 @@ convert_pubspec_lock "$lock_path"
 
 # 将国内镜像源替换为官方源
 jq 'walk(if . == "https://pub.flutter-io.cn" then "https://pub.dev" else . end)' \
-  "$pubspec_lock_json" >"$pubspec_lock_json.new"
+	"$pubspec_lock_json" >"$pubspec_lock_json.new"
 mv "$pubspec_lock_json.new" "$pubspec_lock_json"
 
 fetch_git_hashes
 
 jq -n \
-  --arg version "$version" \
-  --arg sourceSha256 "$source_sha256" \
-  '{ version: $version, sourceSha256: $sourceSha256 }' >"$src_info"
+	--arg version "$version" \
+	--arg sourceSha256 "$source_sha256" \
+	'{ version: $version, sourceSha256: $sourceSha256 }' >"$src_info"

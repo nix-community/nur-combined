@@ -14,7 +14,7 @@ set -euo pipefail
 
 sources_dir=${1:-_sources}
 if [[ ! -d $sources_dir ]]; then
-  exit 0
+	exit 0
 fi
 
 python3 - "$sources_dir" <<'PY'

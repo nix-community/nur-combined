@@ -21,8 +21,8 @@ cd "$REPO_ROOT"
 
 list_only=false
 if [[ ${1-} == "--list" ]]; then
-  list_only=true
-  shift
+	list_only=true
+	shift
 fi
 
 NIXPKGS=$(nix eval --raw .#nixpkgs)
@@ -30,21 +30,21 @@ export NIX_PATH="nixpkgs=$NIXPKGS"
 
 select='['
 for attr in "$@"; do
-  select+=" \"$attr\""
+	select+=" \"$attr\""
 done
 select+=']'
 
 # Like update.nix's packagesJson, writeText's string context builds every derivation the
 # scripts reference (gitUpdater's writeScript, the nix-update binary, ...).
 units_json=$(
-  nix-build --no-out-link \
-    --arg select "$select" \
-    -E '{ select }: with import <nixpkgs> { }; writeText "update-units.json" (builtins.toJSON (import ./_scripts/update-scripts.nix { inherit pkgs; inherit select; }))'
+	nix-build --no-out-link \
+		--arg select "$select" \
+		-E '{ select }: with import <nixpkgs> { }; writeText "update-units.json" (builtins.toJSON (import ./_scripts/update-scripts.nix { inherit pkgs; inherit select; }))'
 )
 
 if $list_only; then
-  python3 -c 'import json, sys; print(json.dumps([u["name"] for u in json.load(open(sys.argv[1]))]))' "$units_json"
-  exit 0
+	python3 -c 'import json, sys; print(json.dumps([u["name"] for u in json.load(open(sys.argv[1]))]))' "$units_json"
+	exit 0
 fi
 
 plan_dir=$(mktemp -d)
@@ -62,21 +62,21 @@ open(f"{out}/sources.txt", "w").write("\n".join(sources))
 PY
 
 if [[ -s $plan_dir/sources.txt ]]; then
-  filter=$(paste -sd'|' "$plan_dir/sources.txt")
-  # A filtered run must not drop the extract files of unselected sources; a full run
-  # (no selection) keeps today's `just nvf` semantics, including old-file cleanup.
-  # --keep-old also retains superseded artifacts of the selected source, so prune
-  # whatever generated.json stopped referencing afterwards.
-  keep_old=()
-  if [[ $# -gt 0 ]]; then
-    keep_old=(--keep-old)
-  fi
-  nix run -L .#nvfetcher-bin -- "${keep_old[@]}" --filter "^($filter)$"
-  _scripts/prune-sources.sh
+	filter=$(paste -sd'|' "$plan_dir/sources.txt")
+	# A filtered run must not drop the extract files of unselected sources; a full run
+	# (no selection) keeps today's `just nvf` semantics, including old-file cleanup.
+	# --keep-old also retains superseded artifacts of the selected source, so prune
+	# whatever generated.json stopped referencing afterwards.
+	keep_old=()
+	if [[ $# -gt 0 ]]; then
+		keep_old=(--keep-old)
+	fi
+	nix run -L .#nvfetcher-bin -- "${keep_old[@]}" --filter "^($filter)$"
+	_scripts/prune-sources.sh
 fi
 
 if [[ $(python3 -c 'import json, sys; print(len(json.load(open(sys.argv[1]))))' "$plan_dir/records.json") != 0 ]]; then
-  # Script evaluation root is pkgs/.
-  cd "$REPO_ROOT/pkgs"
-  python3 "$NIXPKGS/maintainers/scripts/update.py" "$plan_dir/records.json" --skip-prompt --max-workers 1
+	# Script evaluation root is pkgs/.
+	cd "$REPO_ROOT/pkgs"
+	python3 "$NIXPKGS/maintainers/scripts/update.py" "$plan_dir/records.json" --skip-prompt --max-workers 1
 fi

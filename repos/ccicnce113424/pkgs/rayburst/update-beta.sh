@@ -12,11 +12,11 @@ read_source_info "jq"
 check_stale "jq"
 
 nix_build_hash \
-  "(import ./pkgs {}).${package_name}.pnpmDeps.overrideAttrs (_: { outputHash = \"\"; outputHashAlgo = \"sha256\"; })" \
-  "Rayburst git deps"
+	"(import ./pkgs {}).${package_name}.pnpmDeps.overrideAttrs (_: { outputHash = \"\"; outputHashAlgo = \"sha256\"; })" \
+	"Rayburst git deps"
 
 jq -n \
-  --arg version "$version" \
-  --arg hash "$extracted_hash" \
-  --arg sourceSha256 "$source_sha256" \
-  '{ version: $version, hash: $hash, sourceSha256: $sourceSha256 }' >"$src_info"
+	--arg version "$version" \
+	--arg hash "$extracted_hash" \
+	--arg sourceSha256 "$source_sha256" \
+	'{ version: $version, hash: $hash, sourceSha256: $sourceSha256 }' >"$src_info"

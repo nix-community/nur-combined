@@ -21,6 +21,6 @@ convert_pubspec_lock "$lock_path"
 fetch_git_hashes
 
 jq -n \
-  --arg version "$version" \
-  --arg sourceSha256 "$source_sha256" \
-  '{ version: $version, sourceSha256: $sourceSha256 }' >"$src_info"
+	--arg version "$version" \
+	--arg sourceSha256 "$source_sha256" \
+	'{ version: $version, sourceSha256: $sourceSha256 }' >"$src_info"
