@@ -467,6 +467,10 @@ in
   sourceRoot = "";
 
   tests = { };
+  # VSCodium publishes its own release tags (1.143.17232), which lag the vscode
+  # tag in `src`. A plain `nix-update` would move vscode ahead of the branding
+  # and patch set, so updates must bump `vscodiumTag`, the vscode tag, the
+  # Electron major and the npm-deps hashes together.
   updateScript = null;
 
   meta = {

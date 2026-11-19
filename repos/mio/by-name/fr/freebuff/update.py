@@ -19,6 +19,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import urllib.error
 import urllib.request
 
 OWNER = "CodebuffAI"
@@ -69,25 +70,76 @@ def npm_latest_version() -> str:
     return version
 
 
-def release_source_commit(target_version: str) -> str:
-    """The commit that set the npm wrapper version to `target_version`."""
-    print(f"Looking up the source commit for freebuff {target_version}...")
-    for page in range(1, 6):
-        commits = get_json(
-            f"{GITHUB_API}/repos/{OWNER}/{REPO}/commits"
-            f"?path={VERSION_FILE}&per_page=100&page={page}"
+def release_source_commit_via_git(target_version: str) -> tuple[str, str]:
+    """Fallback for when the unauthenticated GitHub API is rate limited.
+
+    The commit list is the only API endpoint this script needs; git can walk
+    the same history, so clone the file list (without blobs) and read the
+    version out of each commit that touched the release manifest. Returns the
+    commit and its manifest version, because raw.githubusercontent.com is
+    rate limited by the same quota.
+    """
+    print("GitHub API unavailable; looking up the commit via git...")
+    with tempfile.TemporaryDirectory(prefix="freebuff-source-") as tmp:
+        subprocess.run(
+            [
+                "git",
+                "clone",
+                "--quiet",
+                "--filter=blob:none",
+                "--no-checkout",
+                "--depth",
+                "500",
+                f"https://github.com/{OWNER}/{REPO}.git",
+                tmp,
+            ],
+            check=True,
         )
-        if not commits:
-            break
-        for commit in commits:
-            sha = commit["sha"]
-            raw = get_text(f"{RAW_GITHUB}/{OWNER}/{REPO}/{sha}/{VERSION_FILE}")
+        commits = run(
+            ["git", "-C", tmp, "log", "--format=%H", "--", VERSION_FILE]
+        ).splitlines()
+        for sha in commits:
             try:
+                raw = subprocess.check_output(
+                    ["git", "-C", tmp, "show", f"{sha}:{VERSION_FILE}"],
+                    text=True,
+                    stderr=subprocess.DEVNULL,
+                )
                 version = json.loads(raw).get("version")
-            except json.JSONDecodeError:
+            except (subprocess.CalledProcessError, json.JSONDecodeError):
                 continue
             if version == target_version:
-                return sha
+                return sha, version
+    raise RuntimeError(
+        f"could not find a {REPO} commit whose {VERSION_FILE} is "
+        f"{target_version}; is the npm release published?"
+    )
+
+
+def release_source_commit(target_version: str) -> tuple[str, str]:
+    """The commit that set the npm wrapper version to `target_version`."""
+    print(f"Looking up the source commit for freebuff {target_version}...")
+    try:
+        for page in range(1, 6):
+            commits = get_json(
+                f"{GITHUB_API}/repos/{OWNER}/{REPO}/commits"
+                f"?path={VERSION_FILE}&per_page=100&page={page}"
+            )
+            if not commits:
+                break
+            for commit in commits:
+                sha = commit["sha"]
+                raw = get_text(f"{RAW_GITHUB}/{OWNER}/{REPO}/{sha}/{VERSION_FILE}")
+                try:
+                    version = json.loads(raw).get("version")
+                except json.JSONDecodeError:
+                    continue
+                if version == target_version:
+                    return sha, version
+    except urllib.error.HTTPError as err:
+        if err.code not in (403, 429):
+            raise
+        return release_source_commit_via_git(target_version)
     raise RuntimeError(
         f"could not find a {REPO} commit whose {VERSION_FILE} is "
         f"{target_version}; is the npm release published?"
@@ -146,12 +198,6 @@ def workspace_deps_hash(source_path: str, os_name: str, cpu: str) -> str:
         return run(["nix", "hash", "path", os.path.join(tree, "node_modules")])
 
 
-def dist_version(rev: str) -> str:
-    """Version recorded in the prefetched source, for a sanity check."""
-    raw = get_text(f"{RAW_GITHUB}/{OWNER}/{REPO}/{rev}/{VERSION_FILE}")
-    return json.loads(raw).get("version", "")
-
-
 def main() -> int:
     script_dir = Path(__file__).resolve().parent
     try:
@@ -192,13 +238,12 @@ def main() -> int:
     print(f"Current version: {current_version} ({current_rev[:12]})")
     print(f"Target version:  {target_version}")
 
-    rev = release_source_commit(target_version)
+    rev, src_version = release_source_commit(target_version)
     if current_version == target_version and current_rev == rev:
         print(f"freebuff is already up to date ({current_version}).")
         return 0
     print(f"Release source commit: {rev}")
 
-    src_version = dist_version(rev)
     if src_version != target_version:
         print(
             f"Error: {rev} declares {src_version!r}, expected {target_version!r}",

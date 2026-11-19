@@ -15,13 +15,13 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "compositor";
-  version = "1.6.7";
+  version = "1.6.13";
 
   src = fetchFromGitHub {
     owner = "robbietilton";
     repo = "Compositor";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-A8P/pP3WoFBRpyhlXwTnyTPIHJPWIKOvVEJyBmMrU5s=";
+    hash = "sha256-g15urlaj2+SCPYyAZJ8xXxf4+Jio1ITC7kUInUKEHPE=";
   };
 
   # Two expressions upstream's Xcode accepts are rejected by Xcode 26's

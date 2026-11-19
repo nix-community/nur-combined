@@ -73,11 +73,13 @@ let
     fi
   '';
 
+  # Track upstream's dated release tags rather than a bare commit, so
+  # `nix-update`/`check_updates.py` and humans see the same version.
   src = fetchFromGitHub {
     owner = "KytyPS5";
     repo = "KytyPS5";
-    rev = "1e871718fae020bb085fdb1c9cc7d5cb4c7b296d";
-    hash = "sha256-BvV6hc9mQiumZ6vggRoEZRJ5WlRpvG5/8ALr357uljY=";
+    tag = "KytyPS5-2026-11-17-2638b1b";
+    hash = "sha256-ULQQxslAK3zqS4TDnJWtLyElEJ07Vm14KPu+Fv+Wgpc=";
   };
 
   # Submodules of 3rdparty/, pinned by the superproject.
@@ -290,7 +292,7 @@ let
 in
 stdenv.mkDerivation {
   pname = "kytyps5";
-  version = "0-unstable-2026-11-16";
+  version = "0-unstable-2026-11-17";
   inherit src;
 
   patches = [ ./noto-fonts-local.patch ];
