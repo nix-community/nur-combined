@@ -5,9 +5,9 @@ const baseUrl =
 
 export default async () => {
   const version = (await (await fetch(`${baseUrl}/latest`)).text()).trim();
-  const { platforms } = await (
+  const { platforms } = (await (
     await fetch(`${baseUrl}/${version}/manifest.json`)
-  ).json();
+  ).json()) as { platforms: Record<string, { url: string }> };
 
   return fetchurl({
     version,

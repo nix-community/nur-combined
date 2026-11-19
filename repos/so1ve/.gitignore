@@ -1,4 +1,4 @@
 /result
 /result-*
 /.devenv
-/deno.json
+/tsconfig.json

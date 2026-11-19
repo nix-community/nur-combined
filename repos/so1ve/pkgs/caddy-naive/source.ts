@@ -11,7 +11,7 @@ export default defineSource(async (context) => {
   if (!response.ok) {
     throw new Error(`Go module version lookup failed: ${response.status}`);
   }
-  const { Version: version } = await response.json();
+  const { Version: version } = (await response.json()) as { Version: string };
   const plugin =
     `github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@${version}`;
   const root = await nix.findFlakeRoot(context.packageDirectory);

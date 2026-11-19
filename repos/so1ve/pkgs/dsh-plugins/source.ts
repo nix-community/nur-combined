@@ -1,4 +1,5 @@
-import { defineSource, github, npm } from "nix-repin";
+import * as fs from "node:fs/promises";
+import { defineSource, github, npm, tempDir } from "nix-repin";
 import catalog from "./catalog.json" with { type: "json" };
 
 const json = (value: unknown) => `${JSON.stringify(value, null, 2)}\n`;
@@ -26,7 +27,7 @@ export default defineSource(async () => {
       );
 
       const metadata = JSON.parse(
-        await Deno.readTextFile(`${storePath}/package.json`),
+        await fs.readFile(`${storePath}/package.json`, "utf8"),
       );
       if (
         !("packageName" in plugin) || metadata.name !== plugin.packageName ||
@@ -51,50 +52,46 @@ export default defineSource(async () => {
     }
 
     const packageName = source.slice("npm:".length);
-    const directory = await Deno.makeTempDir({ prefix: "dsh-plugin-" });
-    const lockPath = `${directory}/package-lock.json`;
+    await using tmp = await tempDir("dsh-plugin-");
+    const lockPath = `${tmp.path}/package-lock.json`;
 
-    try {
-      const packageJson = {
-        name: "nix-repin-package",
-        private: true,
-        version: "1.0.0",
-        dependencies: { [packageName]: "latest" },
-      };
+    const packageJson = {
+      name: "nix-repin-package",
+      private: true,
+      version: "1.0.0",
+      dependencies: { [packageName]: "latest" },
+    };
 
-      await Deno.writeTextFile(`${directory}/package.json`, json(packageJson));
-      await npm.writeLock(directory, { before, legacyPeerDeps: true });
+    await fs.writeFile(`${tmp.path}/package.json`, json(packageJson));
+    await npm.writeLock(tmp.path, { before, legacyPeerDeps: true });
 
-      const lock = JSON.parse(await Deno.readTextFile(lockPath));
+    const lock = JSON.parse(await fs.readFile(lockPath, "utf8"));
 
-      for (const [path, dependency] of Object.entries(lock.packages)) {
-        if (path === "") continue;
+    for (const [path, dependency] of Object.entries(lock.packages)) {
+      if (path === "") continue;
 
-        const entry = dependency as { resolved?: string; integrity?: string };
-        if (
-          !entry.resolved?.startsWith("https://registry.npmjs.org/") ||
-          !entry.integrity
-        ) {
-          throw new Error(
-            `${source}: ${path} must have a registry URL and integrity hash`,
-          );
-        }
+      const entry = dependency as { resolved?: string; integrity?: string };
+      if (
+        !entry.resolved?.startsWith("https://registry.npmjs.org/") ||
+        !entry.integrity
+      ) {
+        throw new Error(
+          `${source}: ${path} must have a registry URL and integrity hash`,
+        );
       }
-
-      const { version, resolved: url, integrity } =
-        lock.packages[`node_modules/${packageName}`];
-      packageJson.dependencies[packageName] = version;
-      lock.packages[""].dependencies = packageJson.dependencies;
-      const lockContents = json(lock);
-      await Deno.writeTextFile(lockPath, lockContents);
-      const npmDepsHash = await npm.hash(lockPath);
-
-      manifest[source] = { version, url, integrity, npmDepsHash };
-      files[`locks/${packageName}/package.json`] = json(packageJson);
-      files[`locks/${packageName}/package-lock.json`] = lockContents;
-    } finally {
-      await Deno.remove(directory, { recursive: true });
     }
+
+    const { version, resolved: url, integrity } =
+      lock.packages[`node_modules/${packageName}`];
+    packageJson.dependencies[packageName] = version;
+    lock.packages[""].dependencies = packageJson.dependencies;
+    const lockContents = json(lock);
+    await fs.writeFile(lockPath, lockContents);
+    const npmDepsHash = await npm.hash(lockPath);
+
+    manifest[source] = { version, url, integrity, npmDepsHash };
+    files[`locks/${packageName}/package.json`] = json(packageJson);
+    files[`locks/${packageName}/package-lock.json`] = lockContents;
   }
 
   files["manifest.json"] = json(manifest);

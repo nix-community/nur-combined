@@ -4,10 +4,11 @@ const api =
   "https://antigravity-ide-auto-updater-974169037036.us-central1.run.app/api/update";
 
 const url = async (system: string) =>
-  (await (await fetch(`${api}/${system}/stable/latest`)).json()).url.replaceAll(
-    " ",
-    "%20",
-  );
+  (
+    (await (await fetch(`${api}/${system}/stable/latest`)).json()) as {
+      url: string;
+    }
+  ).url.replaceAll(" ", "%20");
 
 export default async () => {
   const [x86_64, aarch64] = await Promise.all([
