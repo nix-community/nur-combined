@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  neovim-unwrapped,
   # nixos-26.05 predates Zig 0.17
   zig_0_17 ? null,
   nix-update-script,
@@ -19,26 +18,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-4sDsx75qID4jgIQZM298uSs1Qp6Yhvq3ikepahUhSMg=";
   };
 
-  # Fail in the Nix sandbox
-  postPatch = ''
-    substituteInPlace src/nvim/windows.zig \
-      --replace-fail \
-        "test \"a window Neovim resizes itself snaps back to its pane's size\" {" \
-        "test \"a window Neovim resizes itself snaps back to its pane's size\" { if (true) return error.SkipZigTest;" \
-      --replace-fail \
-        "test \"a window Neovim resizes asks for its pane to be resized\" {" \
-        "test \"a window Neovim resizes asks for its pane to be resized\" { if (true) return error.SkipZigTest;"
-  '';
-
   nativeBuildInputs = [
     zig_0_17.hook
   ];
 
-  nativeCheckInputs = [
-    neovim-unwrapped
-  ];
-
-  doCheck = true;
+  # Upstream tests need git, ripgrep, a writable HOME and a git checkout
+  doCheck = false;
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
