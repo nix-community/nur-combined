@@ -10,7 +10,11 @@
           nixfmt.enable = true;
           ormolu.enable = true;
           hlint.enable = true;
-          shfmt.enable = true;
+          shfmt = {
+            enable = true;
+            indent_size = 2;
+            simplify = true;
+          };
           black.enable = true;
           keep-sorted.enable = true;
         };
