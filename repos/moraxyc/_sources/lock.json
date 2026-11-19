@@ -438,14 +438,14 @@
     },
     "horizon": {
       "version": "0-unstable-2026-11-19",
-      "rawVersion": "fdf87ca16d591546164365a800770b0bcf225fd6",
+      "rawVersion": "1b65f802efd209c5879c38fb46a6964ecfda00e2",
       "date": "2026-11-19",
       "src": {
         "fetcher": "github",
         "owner": "horizon-rust",
         "repo": "horizon",
-        "rev": "fdf87ca16d591546164365a800770b0bcf225fd6",
-        "hash": "sha256-WvxXSZpZyr2xkPq/MKcULHPtXUVsUadTzpeF3f+RgAA="
+        "rev": "1b65f802efd209c5879c38fb46a6964ecfda00e2",
+        "hash": "sha256-ziyn/sEypU+BgcNDbgtEejHlHBd5zwYc6RqPBgr/PEM="
       },
       "derived": {
         "cargoLock": {
