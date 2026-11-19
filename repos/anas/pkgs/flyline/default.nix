@@ -6,7 +6,7 @@
 }:
 let
   pname = "flyline";
-  version = "1.10.0";
+  version = "1.11.0";
   owner = "HalFrgrd";
 in
 rustPlatform.buildRustPackage rec {
@@ -16,10 +16,10 @@ rustPlatform.buildRustPackage rec {
     inherit owner;
     repo = "${pname}";
     rev = "v${version}";
-    hash = "sha256-nOCawyqUdOkxaqFS11Tp9IaOm7hevWhnLjpxsr5YWCo=";
+    hash = "sha256-ZK8qhsQ6FFCzGSQ/eaT/l3zSYe2UP/v/bmv8zPNwgTs=";
   };
 
-  cargoHash = "sha256-4ifX9N1OnIxwNRy4rWBZSqE0460G/dx+N8N4ZHInBpk=";
+  cargoHash = "sha256-HP03rAvGZDEQIWKGOtOdGISbU6LNJhI3eyE2GzYFcW8=";
 
   buildInputs = [ bash ];
 
