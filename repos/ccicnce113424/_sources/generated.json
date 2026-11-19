@@ -32,7 +32,7 @@
     "dorion-git": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-gR_a4lRf0U86Bh7sxXwtVreLrCNMOeJbZBEvbUJveeQ=/src-tauri/Cargo.lock",
+                "sha256-nNHzieUZL0khecOd1K6FqTWtzSUw6pxxUktc73vLbfY=/src-tauri/Cargo.lock",
                 {
                     "livesplit-hotkey-0.8.0": "sha256-iYAzlkYMEN2v4IhsnljWpUZkJO5CN1vcqz5thAJvbXc=",
                     "rsrpc-0.29.0": "sha256-7zS833bmy6JUjk4PqCENz6ikoTOtelcymXMi2pxD3V0=",
@@ -43,7 +43,7 @@
                 }
             ]
         },
-        "date": "2026-11-17",
+        "date": "2026-11-18",
         "extract": null,
         "name": "dorion-git",
         "passthru": null,
@@ -55,12 +55,12 @@
             "name": null,
             "owner": "SpikeHD",
             "repo": "Dorion",
-            "rev": "62211bb776c2e31ca8b210d6712a2b061cd65be6",
-            "sha256": "sha256-gR/a4lRf0U86Bh7sxXwtVreLrCNMOeJbZBEvbUJveeQ=",
+            "rev": "5d1d40040b62ff858b583525e572ff18dc4601ab",
+            "sha256": "sha256-nNHzieUZL0khecOd1K6FqTWtzSUw6pxxUktc73vLbfY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "62211bb776c2e31ca8b210d6712a2b061cd65be6"
+        "version": "5d1d40040b62ff858b583525e572ff18dc4601ab"
     },
     "dxvk-gplall": {
         "cargoLock": null,
@@ -327,7 +327,7 @@
     },
     "nix-auth": {
         "cargoLock": null,
-        "date": "2026-11-15",
+        "date": "2026-11-18",
         "extract": null,
         "name": "nix-auth",
         "passthru": null,
@@ -339,12 +339,12 @@
             "name": null,
             "owner": "numtide",
             "repo": "nix-auth",
-            "rev": "b980d10aa9c0fa88e58d4ec6a68201b3731e3a59",
-            "sha256": "sha256-21Yr5B9uRvDGHsCYsR72lIxooIhkyngz2FqFp8JyusI=",
+            "rev": "6a37bd15a2567516dd5aa175ebd5a320ae89aecb",
+            "sha256": "sha256-2zZjduxp2Coq6PhTCQL4ALX1zTuVsJTrRYOfFuRe9G4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b980d10aa9c0fa88e58d4ec6a68201b3731e3a59"
+        "version": "6a37bd15a2567516dd5aa175ebd5a320ae89aecb"
     },
     "ntfsprogs-plus": {
         "cargoLock": null,
@@ -445,7 +445,7 @@
     },
     "pipewire-bluez5-lhdc-git": {
         "cargoLock": null,
-        "date": "2026-11-17",
+        "date": "2026-11-18",
         "extract": null,
         "name": "pipewire-bluez5-lhdc-git",
         "passthru": null,
@@ -455,13 +455,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "b4dedb1d597ced122d48a86a74bb5522ddcf2319",
-            "sha256": "sha256-hy/WM3uXR0Yb27SUL7VLJehBc5sWRGTALRONSvtLon8=",
+            "rev": "b7a0eb37bbc1b06da073d56087342cd860333154",
+            "sha256": "sha256-KNzM5TJYASsOly6QUPlhkqLURfpy6/ZLqvTaRIjIzrU=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.freedesktop.org/pipewire/pipewire.git"
         },
-        "version": "b4dedb1d597ced122d48a86a74bb5522ddcf2319"
+        "version": "b7a0eb37bbc1b06da073d56087342cd860333154"
     },
     "pipewire-bluez5-lhdc-jd-git": {
         "cargoLock": null,
