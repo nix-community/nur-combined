@@ -479,7 +479,12 @@ in
       };
     };
     authentik = {
-      enable = true;
+      # Retired to k3s 2026-11-16 (server + worker + LDAP outpost + redis
+      # live from cluster; forwardAuth flipped, Jellyfin LDAPS repointed).
+      # Disabled (not deleted) so rollback is one flag flip. POOL state
+      # dirs were already empty (bind mounts never landed); the real state
+      # is host Postgres (untouched). Rollback = enable + flip address back.
+      enable = false;
       natInterface = "eno1";
       db.passwordFile = config.sops.secrets."authentik-db-password".path;
       secretKeyFile = config.sops.secrets."authentik-secret-key".path;
