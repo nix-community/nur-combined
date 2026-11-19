@@ -16,6 +16,10 @@ buildNpmPackage (finalAttrs: {
   __structuredAttrs = true;
   strictDeps = true;
 
+  # Full Node is needed for npm at build time. Stop fixup from pointing script shebangs
+  # at its store path, which would pull npm and corepack into the runtime closure.
+  dontPatchShebangs = true;
+
   nodejs = nodejs_24;
 
   # Drops the monorepo workspaces, so the lock below is self-contained.
@@ -109,6 +113,11 @@ buildNpmPackage (finalAttrs: {
     cp -r node_modules "$appDir/"
     # The workspace link points at the build tree and is already bundled.
     rm -rf "$appDir/node_modules/@fingerpoint"
+    # npmConfigHook still points node_modules shebangs at full Node; these scripts are not run
+    # (the wrapper calls the slim Node), so use the portable form to keep npm and corepack out.
+    grep -rlI '^#!/nix/store/' "$appDir" | xargs -r sed -i '1s|^#!/nix/store/[^/]*/bin/node$|#!/usr/bin/env node|'
+    # npm's hidden lockfile records each dependency tarball as a store path, which would keep 55 .tgz files in the runtime closure.
+    rm -f "$appDir/node_modules/.package-lock.json"
 
     makeWrapper ${lib.getExe nodejs-slim_24} $out/bin/fpd \
       --add-flags "$appDir/bin/fpd.js"
