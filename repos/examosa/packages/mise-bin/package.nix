@@ -12,10 +12,9 @@
   sources = import ./sources.nix {inherit fetchGitHubReleaseAsset;};
   inherit (sources) archives completions version;
 
-  tag = "v${version}";
   src = archives.${hostPlatform.system};
 in
-  stdenvNoCC.mkDerivation {
+  stdenvNoCC.mkDerivation (finalAttrs: {
     inherit src version;
     pname = "mise-bin";
 
@@ -58,9 +57,9 @@ in
     meta =
       mise.meta
       // {
-        changelog = "https://github.com/jdx/mise/blob/${tag}/CHANGELOG.md";
+        changelog = "https://github.com/jdx/mise/blob/${finalAttrs.src.tag}/CHANGELOG.md";
         maintainers = mise.meta.maintainers ++ [lib.maintainers.examosa];
         sourceProvenance = [lib.sourceTypes.binaryNativeCode];
         platforms = lib.attrNames archives;
       };
-  }
+  })
