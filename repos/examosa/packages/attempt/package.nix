@@ -1,9 +1,9 @@
 {
   fetchFromGitHub,
-  coreutils,
   lib,
   nix-update-script,
   rustPlatform,
+  stdenv,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "attempt";
@@ -20,21 +20,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-hxk97/DNM0febIJLXido6ejM1y3is0yx9MqmbdnmT0s=";
 
+  patches = lib.optional stdenv.buildPlatform.isDarwin ./tests.patch;
+
   postPatch = ''
     substituteInPlace src/main.rs tests/e2e.rs \
-      --replace-fail '/bin/true' '${lib.getExe' coreutils "true"}' \
-      --replace-fail '/bin/false' '${lib.getExe' coreutils "false"}' \
+      --replace-fail '/bin/true' "$(type -P true)" \
+      --replace-fail '/bin/false' "$(type -P false)"
   '';
-
-  # Not sure why these are failing but they're false positives
-  checkFlags = [
-    "--skip=forever_runs_more_than_once"
-    "--skip=sad_path_smoke_test_exp"
-    "--skip=sad_path_smoke_test_fixed"
-    "--skip=sad_path_smoke_test_linear"
-    "--skip=staggering"
-    "--skip=timeouts_are_respected"
-  ];
 
   passthru.updateScript = nix-update-script {extraArgs = ["--use-github-releases"];};
 

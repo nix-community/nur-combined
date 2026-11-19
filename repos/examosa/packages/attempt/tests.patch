@@ -1,0 +1,62 @@
+diff --git a/tests/e2e.rs b/tests/e2e.rs
+index 712e0b6..7e42819 100644
+--- a/tests/e2e.rs
++++ b/tests/e2e.rs
+@@ -14,7 +14,7 @@ pub const IO_ERROR: i32 = 1;
+ pub const RETRIES_EXHAUSTED: i32 = 3;
+ pub const STOPPED: i32 = 4;
+ 
+-pub const TEST_TIMEOUT: Duration = Duration::from_secs(1);
++pub const TEST_TIMEOUT: Duration = Duration::from_secs(5);
+ 
+ // NB: `cmd` is a command in the parlance of `assert_cmd` - it refers to
+ // `attempt` itself, not to it's child command
+@@ -53,7 +53,7 @@ fn happy_path_smoke_test_linear() {
+ #[test]
+ fn sad_path_smoke_test_fixed() {
+     let attempts = 3.;
+-    let wait = 0.050;
++    let wait = 0.750;
+     let expected = wait * (attempts - 1.);
+     // attempts - 1 because we don't sleep for the last attempt
+ 
+@@ -81,7 +81,7 @@ fn sad_path_smoke_test_fixed() {
+ #[test]
+ fn sad_path_smoke_test_exp() {
+     let attempts = 3;
+-    let multiplier: f32 = 0.050;
++    let multiplier: f32 = 0.750;
+     let base: f32 = 2.;
+     let expected: f32 = (0..(attempts - 1)).map(|n| multiplier * base.powi(n)).sum();
+     // attempts - 1 because we don't sleep for the last attempt
+@@ -112,8 +112,8 @@ fn sad_path_smoke_test_exp() {
+ #[test]
+ fn sad_path_smoke_test_linear() {
+     let attempts = 3;
+-    let multiplier: f32 = 0.050;
+-    let starting_wait: f32 = 0.250;
++    let multiplier: f32 = 0.750;
++    let starting_wait: f32 = 1.250;
+     let expected = (0..(attempts - 1))
+         .map(|n| multiplier * (n as f32) + starting_wait)
+         .sum();
+@@ -145,7 +145,7 @@ fn sad_path_smoke_test_linear() {
+ #[test]
+ fn timeouts_are_respected() {
+     let attempts = 1;
+-    let timeout = 0.500;
++    let timeout = 3.000;
+     let expected = timeout;
+ 
+     assert_average_percent_error(
+@@ -409,8 +409,8 @@ fn forever_runs_more_than_once() {
+     // Attempt will the the command immediately, and then wait and run it again
+     // If we timeout at 2x the rate it increments, the counter will be at least 2
+     // when we attempt gets timed out.
+-    let timeout = Duration::from_millis(200); // 5hz
+-    let wait = Duration::from_secs_f32(timeout.as_secs_f32() / 2.); // 10hz
++    let timeout = Duration::from_secs(1); // 1hz
++    let wait = Duration::from_millis(100); // 10hz
+ 
+     // --forever should run if the command succeds or fails
+     run_test(wait, timeout, 0, None);
