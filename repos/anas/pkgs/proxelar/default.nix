@@ -11,7 +11,7 @@
 }:
 let
   pname = "proxelar";
-  version = "0.6.0";
+  version = "0.7.0";
   owner = "emanuele-em";
 in
 rustPlatform.buildRustPackage rec {
@@ -21,10 +21,10 @@ rustPlatform.buildRustPackage rec {
     inherit owner;
     repo = "${pname}";
     rev = "v${version}";
-    hash = "sha256-+6iwryj77zO2tkjGerTANwiraCWeaTVCNHgizNWhf1o=";
+    hash = "sha256-1XF5eoAGl5B6sX1j7nZs8vkfm+6vpn2ACOG/0scPkr0=";
   };
 
-  cargoHash = "sha256-ZS1NJEstdieJ7x++eafO9MtmGKnwoWLQt1ine5jLTqI=";
+  cargoHash = "sha256-KMEHI+ZchY9C1PF/AqBVbyUu2QkKf8QgJQ/g/RioSxA=";
 
   nativeBuildInputs = [ pkg-config git cmake gnumake perl rustPlatform.bindgenHook ];
 
