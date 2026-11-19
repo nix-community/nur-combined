@@ -133,13 +133,13 @@
     },
     "clash-nyanpasu": {
       "version": "2.0.1-unstable-2026-11-19",
-      "rawVersion": "3f73c81b19836cf76ef2958783c8e565d12cf340",
+      "rawVersion": "297e16a47992f67b2c3e73c187dfc789be8a65d3",
       "date": "2026-11-19",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/libnyanpasu/clash-nyanpasu",
-        "rev": "3f73c81b19836cf76ef2958783c8e565d12cf340",
-        "hash": "sha256-SOijk5alUP4IsDc8h2TvYDtA9YYFrc/UB2ZgNNHUrWY="
+        "rev": "297e16a47992f67b2c3e73c187dfc789be8a65d3",
+        "hash": "sha256-BDI3/alOL8l9mE7kUGwzjBgRivr/VPvK4yVolqQspv0="
       },
       "derived": {
         "cargoLock": {
@@ -161,7 +161,7 @@
           }
         },
         "pnpmDepsHash": {
-          "hash": "sha256-JShQy2MBHzLv4TPrSWOlc+URAMOGdNFTMm9UTtKpMDg="
+          "hash": "sha256-SrdGa57Z2cFGDI6m9NIryfv3W4KVD1Jr8Siy/HOOjrw="
         }
       },
       "artifacts": {
@@ -438,14 +438,14 @@
     },
     "horizon": {
       "version": "0-unstable-2026-11-19",
-      "rawVersion": "1b65f802efd209c5879c38fb46a6964ecfda00e2",
+      "rawVersion": "15da434e6346f5f8c8d876910c5d7041b3eadeb8",
       "date": "2026-11-19",
       "src": {
         "fetcher": "github",
         "owner": "horizon-rust",
         "repo": "horizon",
-        "rev": "1b65f802efd209c5879c38fb46a6964ecfda00e2",
-        "hash": "sha256-ziyn/sEypU+BgcNDbgtEejHlHBd5zwYc6RqPBgr/PEM="
+        "rev": "15da434e6346f5f8c8d876910c5d7041b3eadeb8",
+        "hash": "sha256-iPXNSdYgVjCSpyf/936oKsU2DvuSCH+vDE0V7ys8CdQ="
       },
       "derived": {
         "cargoLock": {
