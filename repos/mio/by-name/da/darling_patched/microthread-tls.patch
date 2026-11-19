@@ -1,0 +1,74 @@
+--- a/src/external/darlingserver/src/thread.cpp
++++ b/src/external/darlingserver/src/thread.cpp
+@@ -83,11 +83,30 @@
+ #define USE_THREAD_GUARD_PAGES 1
+ #define IDLE_THREAD_STACK_COUNT 8
+ 
+-static thread_local std::shared_ptr<DarlingServer::Thread> currentThreadVar = nullptr;
+-static thread_local bool returningToThreadTop = false;
+-static thread_local ucontext_t backToThreadTopContext;
+-static thread_local libsimple_lock_t* unlockMeWhenSuspending = nullptr;
+-static thread_local std::function<void()> currentContinuation = nullptr;
++// A microthread can suspend inside a call and resume on a different worker.
++// The compiler otherwise assumes a TLS address stays constant across that call.
++// Keep each lookup out of line and observable so it cannot be cached or hoisted.
++#define WORKER_LOCAL_ACCESSOR(name) \
++    static __attribute__((noinline)) decltype(name##Storage)& name##ForCurrentWorker() { \
++        asm volatile("" ::: "memory"); \
++        return name##Storage; \
++    }
++
++static thread_local std::shared_ptr<DarlingServer::Thread> currentThreadVarStorage = nullptr;
++WORKER_LOCAL_ACCESSOR(currentThreadVar)
++#define currentThreadVar (currentThreadVarForCurrentWorker())
++static thread_local bool returningToThreadTopStorage = false;
++WORKER_LOCAL_ACCESSOR(returningToThreadTop)
++#define returningToThreadTop (returningToThreadTopForCurrentWorker())
++static thread_local ucontext_t backToThreadTopContextStorage;
++WORKER_LOCAL_ACCESSOR(backToThreadTopContext)
++#define backToThreadTopContext (backToThreadTopContextForCurrentWorker())
++static thread_local libsimple_lock_t* unlockMeWhenSuspendingStorage = nullptr;
++WORKER_LOCAL_ACCESSOR(unlockMeWhenSuspending)
++#define unlockMeWhenSuspending (unlockMeWhenSuspendingForCurrentWorker())
++static thread_local std::function<void()> currentContinuationStorage = nullptr;
++WORKER_LOCAL_ACCESSOR(currentContinuation)
++#define currentContinuation (currentContinuationForCurrentWorker())
+ 
+ /**
+  * Our microthreads use cooperative multitasking, so we don't really use interrupts per-se.
+@@ -97,12 +116,20 @@
+  *
+  * This is primarily of use for debugging duct-tape code and ensuring certain assumptions made in the duct-tape code hold true.
+  */
+-static thread_local uint64_t interruptDisableCount = 0;
++static thread_local uint64_t interruptDisableCountStorage = 0;
++WORKER_LOCAL_ACCESSOR(interruptDisableCount)
++#define interruptDisableCount (interruptDisableCountForCurrentWorker())
+ 
+ #if DSERVER_ASAN
+-	static thread_local void* asanOldFakeStack = nullptr;
+-	static thread_local const void* asanOldStackBottom = nullptr;
+-	static thread_local size_t asanOldStackSize = 0;
++	static thread_local void* asanOldFakeStackStorage = nullptr;
++	WORKER_LOCAL_ACCESSOR(asanOldFakeStack)
++#define asanOldFakeStack (asanOldFakeStackForCurrentWorker())
++	static thread_local const void* asanOldStackBottomStorage = nullptr;
++	WORKER_LOCAL_ACCESSOR(asanOldStackBottom)
++#define asanOldStackBottom (asanOldStackBottomForCurrentWorker())
++	static thread_local size_t asanOldStackSizeStorage = 0;
++	WORKER_LOCAL_ACCESSOR(asanOldStackSize)
++#define asanOldStackSize (asanOldStackSizeForCurrentWorker())
+ #endif
+ 
+ static DarlingServer::Log threadLog("thread");
+@@ -1686,7 +1713,9 @@
+ 	});
+ };
+ 
+-static thread_local std::function<void()> interruptedContinuation = nullptr;
++static thread_local std::function<void()> interruptedContinuationStorage = nullptr;
++WORKER_LOCAL_ACCESSOR(interruptedContinuation)
++#define interruptedContinuation (interruptedContinuationForCurrentWorker())
+ 
+ void DarlingServer::Thread::_handleInterruptEnterForCurrentThread() {
+ 	// FIXME: this currently does not work properly if the thread was suspended waiting for a lock
