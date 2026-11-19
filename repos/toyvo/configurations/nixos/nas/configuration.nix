@@ -39,6 +39,7 @@ in
     inputs.nixcfg.modules.nixos.k3s-office
     inputs.nixcfg.modules.nixos.k3s-authentik
     inputs.nixcfg.modules.nixos.k3s-monitoring
+    inputs.nixcfg.modules.nixos.k3s-netbird
     inputs.nixcfg.modules.nixos.k3s-storage
     inputs.nixcfg.modules.nixos.k3s-starr
     inputs.nixcfg.modules.nixos.monitoring
@@ -164,6 +165,9 @@ in
     # Monitoring stack (Grafana + Prometheus + Loki + Tempo); backends seed
     # from the container's private state at Task 4 (POOL copies are stale).
     k3sMonitoring.enable = true;
+    # NetBird control plane (management + signal + relay + dashboard).
+    # Dark until Task 5: peers stay on WireGuard, no traffic moves yet.
+    k3sNetbird.enable = true;
 
     # Authentik SSO in k3s (server + worker/beat + LDAP outpost + redis);
     # file state is empty (everything real lives in host Postgres), so
