@@ -3,11 +3,11 @@
 { fetchzip }:
 
 let
-  version = "0.3.1";
-  rev = "v0.3.1";
+  version = "0.3.4";
+  rev = "v0.3.4";
   src = fetchzip {
-    url = "https://codeload.github.com/jellyfish-p/cpa-plugin-antigravity-coding-filter/tar.gz/v0.3.1";
-    hash = "sha256-Nep2fIVAzyjiFSYRHCTWyco+bL4ldbyiZlVgTIPIxBs=";
+    url = "https://codeload.github.com/jellyfish-p/cpa-plugin-antigravity-coding-filter/tar.gz/v0.3.4";
+    hash = "sha256-A1DDk0DImmaCxge9wV76ocXZ+Mfr8uOR1G5h+QWm6RQ=";
     extension = "tar.gz";
   };
 in
