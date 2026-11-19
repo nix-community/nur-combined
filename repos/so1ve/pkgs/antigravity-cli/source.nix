@@ -3,15 +3,15 @@
 { fetchurl, stdenv }:
 
 let
-  version = "1.5.11";
+  version = "1.5.12";
   sources = {
     "x86_64-linux" = {
-      url = "https://storage.googleapis.com/antigravity-public/antigravity-cli/1.5.11-6132547114106880/linux-x64/cli_linux_x64.tar.gz";
-      hash = "sha256-32UsmP31Gah8AXtOHZLz/bZsNE3hbl5oXFlmN7vSgzQ=";
+      url = "https://storage.googleapis.com/antigravity-public/antigravity-cli/1.5.12-5281398513336320/linux-x64/cli_linux_x64.tar.gz";
+      hash = "sha256-Dwy4Uc3J++3VBDJXCqaunEw5i56j8eI+d3b3B2Q8Wz4=";
     };
     "aarch64-linux" = {
-      url = "https://storage.googleapis.com/antigravity-public/antigravity-cli/1.5.11-6132547114106880/linux-arm/cli_linux_arm64.tar.gz";
-      hash = "sha256-3k/qFfg/QGhcswN0tYM3MY1YNA78yHeaLrFGG2ILafQ=";
+      url = "https://storage.googleapis.com/antigravity-public/antigravity-cli/1.5.12-5281398513336320/linux-arm/cli_linux_arm64.tar.gz";
+      hash = "sha256-WUBG3huRVh9/4WR2Nl44QwOOzKVvX1mvRc+dMJHkO9Q=";
     };
   };
   source =

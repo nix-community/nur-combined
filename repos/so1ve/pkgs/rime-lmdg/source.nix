@@ -3,11 +3,11 @@
 { fetchurl }:
 
 let
-  version = "20261114234332";
+  version = "20261118220543";
   src = fetchurl {
     curlOptsList = [ "--compressed" ];
-    url = "https://github.com/OrdChaos/RIME-LMDG.snapshot/releases/download/20261114234332/wanxiang-lts-zh-hans.gram";
-    hash = "sha256-1PZDViMXZP8nt5ybDbec2dZlATRkz1VE4vvZpx4PHFo=";
+    url = "https://github.com/OrdChaos/RIME-LMDG.snapshot/releases/download/20261118220543/wanxiang-lts-zh-hans.gram";
+    hash = "sha256-6d3VAbfVNrxeoTRvj5AK5JpxmgW+NJ4KF8sn5xcUPKU=";
   };
 in
 {
