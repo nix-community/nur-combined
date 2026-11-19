@@ -9,9 +9,9 @@ Nix package definitions consumed by `overlay.nix` and `flake.nix`; each subdirec
 | Directory | Description |
 |-----------|-------------|
 | [cco/](./cco/) | `stdenv.mkDerivation` for `cco` bubblewrap sandbox wrapper; produces `$out/bin/cco` and `$out/bin/cco-sandbox`. Linux-only. |
-| [opencode/](./opencode/) | `wrapProgram` shim for `opencode` v1.15.3; runtime `patchelf` strategy auto-patches `~/.cache/opencode/` TUI binaries at invocation to fix ELF interpreter paths on NixOS. |
+| [opencode/](./opencode/) | `wrapProgram` shim for `opencode`; runtime `patchelf` strategy auto-patches `~/.cache/opencode/` TUI binaries at invocation to fix ELF interpreter paths on NixOS. |
 | [opencode-sst/](./opencode-sst/) | Deprecated alias emitting `lib.warn` and delegating to `callPackage ../opencode {}`; migrate to `opencode`. |
-| [spec-kit/](./spec-kit/) | `buildPythonApplication` for `spec-kit` v0.8.11; exposes `specify` CLI from `specify_cli` via `hatchling` build. |
+| [spec-kit/](./spec-kit/) | `buildPythonApplication` for `spec-kit`; exposes `specify` CLI from `specify_cli` via `hatchling` build. |
 
 ## Structure
 

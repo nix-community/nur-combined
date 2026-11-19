@@ -2,13 +2,13 @@
 
 # spec-kit
 
-Nix derivation packaging `spec-kit` v0.8.11 as `buildPythonApplication`, exposing CLI entrypoint `specify` from module `specify_cli`.
+Nix derivation packaging `spec-kit` as `buildPythonApplication`, exposing CLI entrypoint `specify` from module `specify_cli`.
 
 ## Contents
 
 | File | Description |
 |------|-------------|
-| [default.nix](./default.nix) | `buildPythonApplication` derivation for `spec-kit` v0.8.11; `pyproject=true`, build via `hatchling`, runtime deps `typer`, `click`, `rich`, `platformdirs`, `readchar`, `pyyaml`, `packaging`, `pathspec`, `json5`. |
+| [default.nix](./default.nix) | `buildPythonApplication` derivation for `spec-kit`; `pyproject=true`, build via `hatchling`, runtime deps `typer`, `click`, `rich`, `platformdirs`, `readchar`, `pyyaml`, `packaging`, `pathspec`, `json5`, `mcp`, `pydantic`, `lark`. |
 
 ## Stack
 
@@ -19,8 +19,8 @@ Nix derivation packaging `spec-kit` v0.8.11 as `buildPythonApplication`, exposin
 
 ## Behavioral Contracts
 
-- `broken = lib.versionOlder typer.version "0.24.0"` — marks derivation broken if `typer < 0.24.0`
-- Fetch hash: `sha256-2x6GEboJXm0LWByv+tXoNZrbrG12Fqd3ZGVrp/LzMNY=`
+- `broken` when `typer < 0.24.0`, `mcp < 2.2.0` or `pydantic < 2.13.0`
+- Version and source hash come from `_sources/generated.nix` (entry `spec-kit`, defined in `nvfetcher.toml`)
 
 ## File Relationships
 

@@ -2,12 +2,12 @@
 
 # opencode
 
-NixOS compatibility shim packaging `opencode` v1.15.3 with a runtime `patchelf` strategy that auto-patches TUI binaries downloaded to `~/.cache/opencode/` at invocation time, fixing ELF interpreter mismatch between upstream binaries and NixOS's `/nix/store`-only dynamic linker paths.
+NixOS compatibility shim packaging `opencode` with a runtime `patchelf` strategy that auto-patches TUI binaries downloaded to `~/.cache/opencode/` at invocation time, fixing ELF interpreter mismatch between upstream binaries and NixOS's `/nix/store`-only dynamic linker paths.
 
 ## Contents
 
 - [README.md](./README.md) — Documents problem, fix mechanism, entry points, and side effects; describes `patch-opencode-cache.sh` and `opencode` wrapper behavior.
-- [default.nix](./default.nix) — Full derivation: fetches pre-built archive from GitHub releases via `fetchzip`, installs `opencode-original`, generates `patch-opencode-cache.sh`, wraps binary with `wrapProgram`, sets `OPENCODE_NODEJS_PATH`/`LD_LIBRARY_PATH`/`PATCHELF_PATH`.
+- [default.nix](./default.nix) — Full derivation: takes the pre-built release archive from `_sources/generated.nix`, installs `opencode-original`, generates `patch-opencode-cache.sh`, wraps binary with `wrapProgram`, sets `OPENCODE_NODEJS_PATH`/`LD_LIBRARY_PATH`/`PATCHELF_PATH`.
 
 ## Architecture / Data Flow
 
@@ -27,18 +27,9 @@ exec opencode-original "$@"
 
 `autoPatchelfHook` patches the main binary ELF at build time; `patch_cache` handles runtime-downloaded TUI binaries at each invocation.
 
-## Platform Mapping
+## Source
 
-`arch_string` and `ext_string` in `default.nix` map Nix platform → release archive name and extension:
-
-| Nix platform | Archive arch string | Extension |
-|---|---|---|
-| `x86_64-linux` | `linux-x64` | `tar.gz` |
-| `aarch64-linux` | `linux-arm64` | `tar.gz` |
-| `x86_64-darwin` | `darwin-x64` | `zip` |
-| `aarch64-darwin` | `darwin-arm64` | `zip` |
-
-Unsupported platforms throw. Covers `lib.platforms.linux ++ lib.platforms.darwin`.
+Version and archive hash come from `_sources/generated.nix` (entry `opencode`, defined in `nvfetcher.toml`). The archive is `opencode-linux-x64.tar.gz` from the `anomalyco/opencode` GitHub release, and `platforms` is `x86_64-linux` only.
 
 ## Installed Artifacts
 
@@ -56,10 +47,6 @@ ELF detection pipeline (verbatim logic from `default.nix`):
 - Confirm dynamic: `file … | grep "dynamically linked"`
 - Skip already-patched: `readelf -l … | grep "/nix/store.*ld-linux"`
 - Patch: `patchelf --set-interpreter ${stdenv.cc.bintools.dynamicLinker}`
-
-Source URL pattern: `https://github.com/anomalyco/opencode/releases/download/v${version}/opencode-${arch_string stdenv.hostPlatform.system}.${ext_string stdenv.hostPlatform.system}`
-
-Fixed hash (`x86_64-linux`): `sha256-nV49ufSIWeiUk3kU+Cr0Rlbaq+i2cC6I1IfIWLRMBbE=`
 
 `mainProgram = "opencode"`
 

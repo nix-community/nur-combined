@@ -1,0 +1,59 @@
+{
+    "cco": {
+        "cargoLock": null,
+        "date": "2026-09-29",
+        "extract": null,
+        "name": "cco",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "nikvdp",
+            "repo": "cco",
+            "rev": "658e99ce3ef90963b0a7d4443af16f4de983ea2c",
+            "sha256": "sha256-m7z5ToSlYAWsOdnppXMPeRxz8Uh9BzxDCI/fbvl2dK8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "658e99ce3ef90963b0a7d4443af16f4de983ea2c"
+    },
+    "opencode": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "opencode",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-R3NOCJaLMMwioL/7bZ/u7XatSqdDIToSEiBAOS0JoFc=",
+            "type": "url",
+            "url": "https://github.com/anomalyco/opencode/releases/download/v1.19.6/opencode-linux-x64.tar.gz"
+        },
+        "version": "v1.19.6"
+    },
+    "spec-kit": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "spec-kit",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "github",
+            "repo": "spec-kit",
+            "rev": "v1.4.3",
+            "sha256": "sha256-jP/JyCUiwQas81rTnSRrr0NGmcTboiR5rAA3O9r8Jyw=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.4.3"
+    }
+}

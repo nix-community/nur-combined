@@ -29,6 +29,7 @@
           default = pkgs.mkShell {
             buildInputs = with pkgs; [
               nix-init
+              nvfetcher
             ];
           };
         });

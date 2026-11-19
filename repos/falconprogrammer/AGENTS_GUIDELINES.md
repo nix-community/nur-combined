@@ -117,37 +117,33 @@ This package requires runtime patching of downloaded binaries for NixOS compatib
 - Standalone patching script at `$out/share/opencode/patch-opencode-cache.sh`
 - Bundled Node.js runtime to avoid download issues
 
-**Auto-update Workflow** (`.github/workflows/update-opencode.yml`):
+**Auto-update Workflow** (`.github/workflows/auto-update-packages.yml`):
 - Runs daily at 3:30 AM UTC or manually via workflow_dispatch
-- Checks GitHub API for new opencode releases
-- Automatically updates version and recalculates hash using Nix
+- Runs `nvfetcher` per package (`nvfetcher.toml`), which rewrites `_sources/generated.nix` and `_sources/generated.json`
 - Creates PR, builds package, and auto-merges if successful
 - Closes/deletes older update PRs/branches
 - Triggers NUR sync after merge
 - Creates draft PR for manual review if build fails
 
-To manually update: modify version in `pkgs/opencode-sst/default.nix` and use `nix-prefetch-url` to get the hash (see below).
+## Package Sources (nvfetcher)
 
-## Getting Package Hashes
+Packages with an automated update take `version` and `src` from `_sources/generated.nix` through `callPackage ../../_sources/generated.nix { }`. Never edit `_sources/` by hand. Each package has a table in `nvfetcher.toml`, and the `auto-update-packages.yml` matrix lists its name.
 
-For GitHub sources, use `nix-prefetch-url` with the archive URL:
+To update by hand, from the dev shell (`nix develop`):
 
 ```bash
-# Fetch and get base32 hash
-nix-prefetch-url --unpack "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+# Update every package
+nvfetcher
 
-# Convert to SRI format for use in fetchFromGitHub
-nix hash convert --hash-algo sha256 --to sri <base32-hash>
+# Update one package
+nvfetcher --filter '^cco$'
 ```
 
-Example:
-```bash
-$ nix-prefetch-url --unpack "https://github.com/nikvdp/cco/archive/2d73a7bb.tar.gz"
-1pwbr2bpb869garcd8wpj112z6kzipblb5rm8gjz182qz3n89amq
-
-$ nix hash convert --hash-algo sha256 --to sri 1pwbr2bpb869garcd8wpj112z6kzipblb5rm8gjz182qz3n89amq
-sha256-uKqE7PhYoPDlQzWXRdeNf5ovQpCXo8ayesmgdZfIi98=
-```
+To add a package to the automated updates:
+1. Add a table to `nvfetcher.toml` with a version source (`src.*`) and a fetcher (`fetch.*`)
+2. Run `nvfetcher --filter '^<name>$'`
+3. Take `version` and `src` from `_sources/generated.nix` in the package's `default.nix`
+4. Add the name to the matrix in `.github/workflows/auto-update-packages.yml`
 
 ## Flake Structure
 

@@ -2,7 +2,7 @@
 
 # workflows
 
-Two-workflow CI/CD suite for a NUR (Nix User Repository): one builds and caches packages across nixpkgs channels, the other tracks upstream releases and commits, auto-updating `pkgs/*/default.nix` and opening squash-merged PRs daily.
+Two-workflow CI/CD suite for a NUR (Nix User Repository): one builds and caches packages across nixpkgs channels, the other tracks upstream releases and commits, regenerating `_sources/` with nvfetcher and opening squash-merged PRs daily.
 
 ## Contents
 
@@ -12,7 +12,7 @@ Two-workflow CI/CD suite for a NUR (Nix User Repository): one builds and caches 
 
 ### Automation
 
-- [auto-update-packages.yml](./auto-update-packages.yml) — Daily matrix job per tracked package (`opencode`, `spec-kit`, `cco`); fetches latest release or commit SHA from GitHub API, recalculates `nix-prefetch-url` hash, patches `pkgs/<name>/default.nix`, builds, opens PR, auto-squash-merges on build success. Triggers `build.yml` on completion via `trigger-nur-sync` job.
+- [auto-update-packages.yml](./auto-update-packages.yml) — Daily matrix job per tracked package (`cco`, `opencode`, `spec-kit`); runs `nvfetcher` for that package, which rewrites `_sources/generated.{nix,json}`, builds, opens PR, auto-squash-merges on build success. Triggers `build.yml` on completion via `trigger-nur-sync` job.
 
 ## Architecture / Data Flow
 
@@ -20,10 +20,9 @@ Two-workflow CI/CD suite for a NUR (Nix User Repository): one builds and caches 
 cron / workflow_dispatch
         │
         ▼
-auto-update-packages (matrix: opencode, spec-kit, cco)
-  ├─ GitHub API → latest version/rev
-  ├─ SRI hash: nix-prefetch-url (source) / curl+unpack+nix hash path (binary asset)
-  ├─ sed-patch pkgs/<name>/default.nix (version, rev, hash / per-arch hash_key)
+auto-update-packages (matrix: cco, opencode, spec-kit)
+  ├─ nvfetcher --filter ^<name>$ (nvfetcher.toml) → rewrites _sources/generated.{nix,json}
+  ├─ git diff on _sources → update_available
   ├─ nix build .#<name> → build_success
   ├─ peter-evans/create-pull-request → PR (draft if build fails)
   ├─ gh pr merge --auto --squash (on build_success only)
@@ -43,16 +42,14 @@ build.yml (matrix: 4 nixpkgs channels)
 |---|---|
 | Auto-update schedule | `cron: '30 3 * * *'` |
 | Build schedule | `cron: '51 2 * * *'` |
-| Package file path | `pkgs/<matrix.package.name>/default.nix` |
+| Source definitions | `nvfetcher.toml` (one table per package) |
+| Generated sources | `_sources/generated.nix`, `_sources/generated.json` |
+| nvfetcher invocation | `nix develop --command nvfetcher --keyfile <file> --filter "^<name>$"` |
+| nvchecker keyfile | `[keys]` `github` = `GITHUB_TOKEN`, written to `$RUNNER_TEMP` |
 | PR title format | `chore: update <name> v<current> → v<latest>` |
 | Branch name format | `update-<name>-<latest_version>` |
-| Commit-type version format | `0-unstable-<YYYY-MM-DD>` |
-| Release version strip | `sed 's/^v//'` |
-| Archive URL (release) | `v$LATEST_VERSION.tar.gz` |
-| Archive URL (commit) | `$LATEST_REV.tar.gz` |
-| Asset URL (binary) | `releases/download/v$LATEST_VERSION/<asset>` |
-| Binary hash patch | `sed` on `"<hash_key>" = "..."` (per-arch key in `hashes`) |
-| Duplicate detection window | `git log --oneline --grep="update <name>.*<version>" --since="30 days ago"` |
+| Commit-tracked version format | `0-unstable-<date from generated.json>` |
+| Release-tracked version format | `version` from `generated.json` without the leading `v` |
 | Cachix sentinel (skips push) | `cachixName == '<YOUR_CACHIX_NAME>'` |
 | NUR notify sentinel (skips curl) | `nurRepo == '<YOUR_REPO_NAME>'` |
 | NUR notify endpoint | `https://nur-update.nix-community.org/update?repo=<nurRepo>` |
@@ -63,13 +60,13 @@ build.yml (matrix: 4 nixpkgs channels)
 
 ## Tracked Package Matrix (`auto-update-packages.yml`)
 
-| `name` | `owner/repo` | `type` | `branch` |
-|---|---|---|---|
-| `opencode` | `anomalyco/opencode` | `binary` | — |
-| `spec-kit` | `github/spec-kit` | `release` | — |
-| `cco` | `nikvdp/cco` | `commit` | `master` |
+| `name` | Version source | Fetcher |
+|---|---|---|
+| `cco` | `src.git` `nikvdp/cco`, branch `master` | `fetch.github` |
+| `opencode` | `src.github` `anomalyco/opencode` | `fetch.url` `opencode-linux-x64.tar.gz` |
+| `spec-kit` | `src.github` `github/spec-kit` | `fetch.github` |
 
-`binary` packages add `asset` (release-asset filename) and `hash_key` (the platform key patched in `hashes = { ... }`). `opencode`: `asset: opencode-linux-x64.tar.gz`, `hash_key: x86_64-linux`.
+The matrix lists package names only. Each name must have a table in `nvfetcher.toml`.
 
 ## Configuration Requirements
 

@@ -1,6 +1,6 @@
 { lib
 , buildPythonApplication
-, fetchFromGitHub
+, callPackage
 , hatchling
 , typer
 , click
@@ -17,17 +17,15 @@
 , ...
 }:
 
-buildPythonApplication rec {
+let
+  sources = (callPackage ../../_sources/generated.nix { }).spec-kit;
+in
+buildPythonApplication {
   pname = "spec-kit";
-  version = "1.4.3";
+  version = lib.removePrefix "v" sources.version;
   pyproject = true;
 
-  src = fetchFromGitHub {
-    owner = "github";
-    repo = "spec-kit";
-    rev = "v${version}";
-    hash = "sha256-jP/JyCUiwQas81rTnSRrr0NGmcTboiR5rAA3O9r8Jyw=";
-  };
+  inherit (sources) src;
 
   nativeBuildInputs = [
     hatchling

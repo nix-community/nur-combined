@@ -1,8 +1,7 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub,
-  fetchzip,
+  callPackage,
   autoPatchelfHook,
   makeWrapper,
   nodejs,          # Provides Node.js runtime for opencode
@@ -11,37 +10,16 @@
   binutils,        # Additional tools for binary manipulation
   glibc,           # Standard C library for LD_LIBRARY_PATH
 }: let
-  # Maps Nix platform strings to opencode release architecture strings
-  arch_string = platform:
-    if platform == "x86_64-linux"
-    then "linux-x64"
-    else if platform == "aarch64-linux"
-    then "linux-arm64"
-    else if platform == "x86_64-darwin"
-    then "darwin-x64"
-    else if platform == "aarch64-darwin"
-    then "darwin-arm64"
-    else throw "Unsupported architecture: ${platform}";
-
-  # Linux releases ship .tar.gz; macOS releases still ship .zip.
-  ext_string = platform:
-    if lib.hasInfix "linux" platform
-    then "tar.gz"
-    else "zip";
-
-  # Per-platform NAR hashes (only platforms with verified hashes listed).
-  hashes = {
-    "x86_64-linux" = "sha256-HhpVEALiQ9zOqjSIwW3RRKhwi8erFxx8nCfwyj71ZD8=";
-  };
+  sources = (callPackage ../../_sources/generated.nix {}).opencode;
 in
-  stdenv.mkDerivation rec {
+  stdenv.mkDerivation {
     pname = "opencode";
-    version = "1.19.6";
+    version = lib.removePrefix "v" sources.version;
 
-    src = fetchzip {
-      url = "https://github.com/anomalyco/opencode/releases/download/v${version}/opencode-${arch_string stdenv.hostPlatform.system}.${ext_string stdenv.hostPlatform.system}";
-      hash = hashes.${stdenv.hostPlatform.system} or (throw "No hash for platform: ${stdenv.hostPlatform.system}");
-    };
+    inherit (sources) src;
+
+    # The release tarball holds the binary at its root, with no top-level directory
+    sourceRoot = ".";
 
     dontBuild = true;  # Pre-compiled binary, no build step needed
     dontStrip = true;  # Preserve symbols for compatibility
@@ -126,7 +104,7 @@ in
       homepage = "https://github.com/sst/opencode";
       license = lib.licenses.mit;
       mainProgram = "opencode";
-      platforms = lib.platforms.linux ++ lib.platforms.darwin;
+      platforms = ["x86_64-linux"];
       
       longDescription = ''
         OpenCode is an AI coding agent built for the terminal.

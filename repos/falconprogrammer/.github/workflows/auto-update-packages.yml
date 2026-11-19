@@ -22,26 +22,10 @@ jobs:
       fail-fast: false  # Continue updating other packages even if one fails
       matrix:
         package:
-          - name: opencode
-            owner: anomalyco
-            repo: opencode
-            type: binary
-            asset: opencode-linux-x64.tar.gz
-            hash_key: x86_64-linux
-          - name: spec-kit
-            owner: github
-            repo: spec-kit
-            type: release
-          - name: cco
-            owner: nikvdp
-            repo: cco
-            type: commit
-            branch: master
-          # Add more packages here as they get auto-update support
-          # type: release - uses GitHub releases API (source tarball, hash = "...")
-          # type: commit - tracks latest commit on specified branch
-          # type: binary - prebuilt release asset; needs `asset` (filename) and
-          #                `hash_key` (per-arch key in `hashes = { ... }`)
+          - cco
+          - opencode
+          - spec-kit
+          # Add more packages here once they have an entry in nvfetcher.toml
 
     steps:
       - name: Check if should run
@@ -51,11 +35,11 @@ jobs:
             echo "run=true" >> $GITHUB_OUTPUT
           elif [[ -z "${{ github.event.inputs.package }}" ]]; then
             echo "run=true" >> $GITHUB_OUTPUT
-          elif [[ "${{ github.event.inputs.package }}" == "${{ matrix.package.name }}" ]]; then
+          elif [[ "${{ github.event.inputs.package }}" == "${{ matrix.package }}" ]]; then
             echo "run=true" >> $GITHUB_OUTPUT
           else
             echo "run=false" >> $GITHUB_OUTPUT
-            echo "Skipping ${{ matrix.package.name }} - not selected"
+            echo "Skipping ${{ matrix.package }} - not selected"
           fi
       - name: Checkout repository
         if: steps.should_run.outputs.run == 'true'
@@ -76,183 +60,41 @@ jobs:
         if: steps.should_run.outputs.run == 'true'
         run: sudo apt-get update && sudo apt-get install -y jq
 
-      - name: Check for new ${{ matrix.package.name }} version
+      - name: Update ${{ matrix.package }} sources
         if: steps.should_run.outputs.run == 'true'
-        id: check_version
+        id: update_sources
         run: |
-          PACKAGE_FILE="pkgs/${{ matrix.package.name }}/default.nix"
-          UPDATE_TYPE="${{ matrix.package.type }}"
+          NAME="${{ matrix.package }}"
+          KEYFILE="$RUNNER_TEMP/nvfetcher-keyfile.toml"
+          printf '[keys]\ngithub = "%s"\n' "$GH_TOKEN" > "$KEYFILE"
 
-          if [ "$UPDATE_TYPE" = "commit" ]; then
-            # Commit-based package: check for new commits
-            CURRENT_REV=$(grep 'rev = ' "$PACKAGE_FILE" | sed 's/.*rev = "\([^"]*\)".*/\1/')
-            CURRENT_VERSION=$(grep 'version = ' "$PACKAGE_FILE" | sed 's/.*version = "\([^"]*\)".*/\1/')
-            echo "Current rev: $CURRENT_REV"
-            echo "Current version: $CURRENT_VERSION"
+          nix develop --command nvfetcher --keyfile "$KEYFILE" --filter "^${NAME}$"
 
-            BRANCH="${{ matrix.package.branch }}"
-            echo "Fetching latest commit from $BRANCH branch..."
-            API_RESPONSE=$(curl -sL -H "Authorization: Bearer $GH_TOKEN" "https://api.github.com/repos/${{ matrix.package.owner }}/${{ matrix.package.repo }}/commits/$BRANCH")
-
-            LATEST_SHA=$(echo "$API_RESPONSE" | jq -r '.sha')
-            COMMIT_DATE=$(echo "$API_RESPONSE" | jq -r '.commit.committer.date' | cut -d'T' -f1)
-
-            if [ -z "$LATEST_SHA" ] || [ "$LATEST_SHA" = "null" ]; then
-              echo "❌ Failed to get latest commit"
-              echo "API Response: $API_RESPONSE"
-              exit 1
-            fi
-
-            LATEST_VERSION="0-unstable-$COMMIT_DATE"
-            echo "Latest commit: $LATEST_SHA"
-            echo "Latest version: $LATEST_VERSION"
-
-            if [ "$CURRENT_REV" = "$LATEST_SHA" ]; then
-              echo "No update available - already at latest commit"
-              echo "update_available=false" >> $GITHUB_OUTPUT
-              echo "reason=same_version" >> $GITHUB_OUTPUT
-            else
-              echo "Update available: $CURRENT_REV -> $LATEST_SHA"
-              echo "update_available=true" >> $GITHUB_OUTPUT
-              echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
-              echo "latest_version=$LATEST_VERSION" >> $GITHUB_OUTPUT
-              echo "current_rev=$CURRENT_REV" >> $GITHUB_OUTPUT
-              echo "latest_rev=$LATEST_SHA" >> $GITHUB_OUTPUT
-              echo "update_type=commit" >> $GITHUB_OUTPUT
-            fi
-          else
-            # Release-based package: check for new releases
-            CURRENT_VERSION=$(grep 'version = ' "$PACKAGE_FILE" | sed 's/.*version = "\([^"]*\)".*/\1/')
-            echo "Current version: $CURRENT_VERSION"
-
-            if [ -z "$CURRENT_VERSION" ] || [ "$CURRENT_VERSION" = "null" ]; then
-              echo "❌ Failed to extract current version from package file"
-              exit 1
-            fi
-
-            echo "Fetching latest version from GitHub API..."
-            API_RESPONSE=$(curl -sL -H "Authorization: Bearer $GH_TOKEN" https://api.github.com/repos/${{ matrix.package.owner }}/${{ matrix.package.repo }}/releases/latest)
-
-            if [ -z "$API_RESPONSE" ]; then
-              echo "❌ Failed to fetch data from GitHub API"
-              exit 1
-            fi
-
-            LATEST_VERSION=$(echo "$API_RESPONSE" | jq -r '.tag_name' | sed 's/^v//')
-            echo "Latest version: $LATEST_VERSION"
-
-            if [ -z "$LATEST_VERSION" ] || [ "$LATEST_VERSION" = "null" ]; then
-              echo "❌ Failed to extract latest version from GitHub API response"
-              echo "API Response: $API_RESPONSE"
-              exit 1
-            fi
-
-            if git log --oneline --grep="update ${{ matrix.package.name }}.*$LATEST_VERSION" --since="30 days ago" | grep -q "update ${{ matrix.package.name }}"; then
-              echo "Version $LATEST_VERSION already exists in recent commits"
-              echo "update_available=false" >> $GITHUB_OUTPUT
-              echo "reason=already_updated" >> $GITHUB_OUTPUT
-            elif [ "$CURRENT_VERSION" != "$LATEST_VERSION" ]; then
-              echo "Update available: $CURRENT_VERSION -> $LATEST_VERSION"
-              echo "update_available=true" >> $GITHUB_OUTPUT
-              echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
-              echo "latest_version=$LATEST_VERSION" >> $GITHUB_OUTPUT
-              echo "update_type=release" >> $GITHUB_OUTPUT
-            else
-              echo "No update available - versions match"
-              echo "update_available=false" >> $GITHUB_OUTPUT
-              echo "reason=same_version" >> $GITHUB_OUTPUT
-            fi
+          if git diff --quiet -- _sources; then
+            echo "No update available for $NAME"
+            echo "update_available=false" >> $GITHUB_OUTPUT
+            exit 0
           fi
+
+          # Commit-tracked sources carry a date, release-tracked ones a tag
+          DISPLAY_FILTER='.[$name] | if .date then "0-unstable-\(.date)" else (.version | sub("^v"; "")) end'
+          CURRENT_VERSION=$(git show HEAD:_sources/generated.json | jq -r --arg name "$NAME" "$DISPLAY_FILTER")
+          LATEST_VERSION=$(jq -r --arg name "$NAME" "$DISPLAY_FILTER" _sources/generated.json)
+          echo "Update available: $CURRENT_VERSION -> $LATEST_VERSION"
+
+          echo "update_available=true" >> $GITHUB_OUTPUT
+          echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+          echo "latest_version=$LATEST_VERSION" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Update package version and hash
-        if: steps.should_run.outputs.run == 'true' && steps.check_version.outputs.update_available == 'true'
-        id: update_package
-        run: |
-          LATEST_VERSION="${{ steps.check_version.outputs.latest_version }}"
-          PACKAGE_FILE="pkgs/${{ matrix.package.name }}/default.nix"
-          MATRIX_TYPE="${{ matrix.package.type }}"
-
-          if [ -z "$LATEST_VERSION" ] || [ "$LATEST_VERSION" = "null" ]; then
-            echo "❌ Invalid version received: '$LATEST_VERSION'"
-            exit 1
-          fi
-
-          echo "Updating ${{ matrix.package.name }} to version $LATEST_VERSION..."
-
-          # Resolve the new source hash (method depends on package type)
-          if [ "$MATRIX_TYPE" = "commit" ]; then
-            LATEST_REV="${{ steps.check_version.outputs.latest_rev }}"
-            echo "Fetching hash for commit $LATEST_REV..."
-            ARCHIVE_URL="https://github.com/${{ matrix.package.owner }}/${{ matrix.package.repo }}/archive/$LATEST_REV.tar.gz"
-            BASE32_HASH=$(nix-prefetch-url --unpack "$ARCHIVE_URL" 2>/dev/null)
-            NEW_HASH=$(nix hash convert --hash-algo sha256 --to sri "$BASE32_HASH")
-          elif [ "$MATRIX_TYPE" = "binary" ]; then
-            ASSET="${{ matrix.package.asset }}"
-            ASSET_URL="https://github.com/${{ matrix.package.owner }}/${{ matrix.package.repo }}/releases/download/v$LATEST_VERSION/$ASSET"
-            echo "Fetching release asset $ASSET (v$LATEST_VERSION)..."
-            # fetchzip stores the NAR of the unpacked tree (flattening a lone root
-            # directory). nix-prefetch-url --unpack would hash a lone file instead,
-            # so unpack and hash the tree the same way fetchzip does.
-            WORKDIR=$(mktemp -d)
-            curl -fsSL "$ASSET_URL" -o "$WORKDIR/asset"
-            mkdir "$WORKDIR/unpacked"
-            case "$ASSET" in
-              *.zip) unzip -q "$WORKDIR/asset" -d "$WORKDIR/unpacked" ;;
-              *)     tar -C "$WORKDIR/unpacked" -xf "$WORKDIR/asset" ;;
-            esac
-            shopt -s dotglob nullglob
-            entries=("$WORKDIR/unpacked"/*)
-            shopt -u dotglob nullglob
-            if [ ${#entries[@]} -eq 1 ] && [ -d "${entries[0]}" ]; then
-              NEW_HASH=$(nix hash path --sri "${entries[0]}")
-            else
-              NEW_HASH=$(nix hash path --sri "$WORKDIR/unpacked")
-            fi
-            rm -rf "$WORKDIR"
-          else
-            echo "Fetching hash for version v$LATEST_VERSION..."
-            ARCHIVE_URL="https://github.com/${{ matrix.package.owner }}/${{ matrix.package.repo }}/archive/v$LATEST_VERSION.tar.gz"
-            BASE32_HASH=$(nix-prefetch-url --unpack "$ARCHIVE_URL" 2>/dev/null)
-            NEW_HASH=$(nix hash convert --hash-algo sha256 --to sri "$BASE32_HASH")
-          fi
-
-          if [ -z "$NEW_HASH" ]; then
-            echo "❌ Failed to get hash"
-            exit 1
-          fi
-
-          echo "New hash: $NEW_HASH"
-
-          # Update version
-          sed -i "s|version = \"[^\"]*\"|version = \"$LATEST_VERSION\"|" "$PACKAGE_FILE"
-
-          # Update rev (commit) and hash; binary packages patch the per-arch hash key
-          if [ "$MATRIX_TYPE" = "commit" ]; then
-            echo "Updating rev to $LATEST_REV..."
-            sed -i "s|rev = \"[^\"]*\"|rev = \"$LATEST_REV\"|" "$PACKAGE_FILE"
-            sed -i "s|hash = \"[^\"]*\"|hash = \"$NEW_HASH\"|" "$PACKAGE_FILE"
-          elif [ "$MATRIX_TYPE" = "binary" ]; then
-            HASH_KEY="${{ matrix.package.hash_key }}"
-            echo "Updating hash for platform $HASH_KEY..."
-            sed -i "s|\"$HASH_KEY\" = \"[^\"]*\"|\"$HASH_KEY\" = \"$NEW_HASH\"|" "$PACKAGE_FILE"
-          else
-            sed -i "s|hash = \"[^\"]*\"|hash = \"$NEW_HASH\"|" "$PACKAGE_FILE"
-          fi
-
-          echo "Updated to version: $LATEST_VERSION"
-
-          echo "hash_calculated=true" >> $GITHUB_OUTPUT
-          echo "new_hash=$NEW_HASH" >> $GITHUB_OUTPUT
-
       - name: Test build
-        if: steps.should_run.outputs.run == 'true' && steps.check_version.outputs.update_available == 'true' && steps.update_package.outputs.hash_calculated == 'true'
+        if: steps.should_run.outputs.run == 'true' && steps.update_sources.outputs.update_available == 'true'
         id: test_build
         run: |
           echo "Testing build of updated package..."
 
-          if nix build .#${{ matrix.package.name }} --no-link --print-build-logs; then
+          if nix build .#${{ matrix.package }} --no-link --print-build-logs; then
             echo "Build successful!"
             echo "build_success=true" >> $GITHUB_OUTPUT
           else
@@ -261,17 +103,17 @@ jobs:
           fi
 
       - name: Configure git
-        if: steps.should_run.outputs.run == 'true' && steps.check_version.outputs.update_available == 'true' && steps.update_package.outputs.hash_calculated == 'true'
+        if: steps.should_run.outputs.run == 'true' && steps.update_sources.outputs.update_available == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Close existing update PRs
-        if: steps.should_run.outputs.run == 'true' && steps.check_version.outputs.update_available == 'true'
+        if: steps.should_run.outputs.run == 'true' && steps.update_sources.outputs.update_available == 'true'
         run: |
-          echo "Checking for existing ${{ matrix.package.name }} update PRs to close..."
+          echo "Checking for existing ${{ matrix.package }} update PRs to close..."
 
-          EXISTING_PRS=$(gh pr list --state open --json number,title --jq '.[] | select(.title | startswith("chore: update ${{ matrix.package.name }}")) | .number')
+          EXISTING_PRS=$(gh pr list --state open --json number,title --jq '.[] | select(.title | startswith("chore: update ${{ matrix.package }}")) | .number')
 
           if [ -n "$EXISTING_PRS" ]; then
             echo "Found existing PRs: $EXISTING_PRS"
@@ -286,11 +128,11 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Delete existing update branches
-        if: steps.should_run.outputs.run == 'true' && steps.check_version.outputs.update_available == 'true'
+        if: steps.should_run.outputs.run == 'true' && steps.update_sources.outputs.update_available == 'true'
         run: |
-          echo "Checking for existing ${{ matrix.package.name }} update branches..."
+          echo "Checking for existing ${{ matrix.package }} update branches..."
 
-          EXISTING_BRANCHES=$(git branch -r | grep "origin/update-${{ matrix.package.name }}-" | sed 's/origin\///' | xargs)
+          EXISTING_BRANCHES=$(git branch -r | grep "origin/update-${{ matrix.package }}-" | sed 's/origin\///' | xargs)
 
           if [ -n "$EXISTING_BRANCHES" ]; then
             echo "Found existing branches: $EXISTING_BRANCHES"
@@ -303,28 +145,28 @@ jobs:
           fi
 
       - name: Create Pull Request
-        if: steps.should_run.outputs.run == 'true' && steps.check_version.outputs.update_available == 'true' && steps.update_package.outputs.hash_calculated == 'true'
+        if: steps.should_run.outputs.run == 'true' && steps.update_sources.outputs.update_available == 'true'
         id: create_pr
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: "update-${{ matrix.package.name }}-${{ steps.check_version.outputs.latest_version }}"
-          title: "chore: update ${{ matrix.package.name }} v${{ steps.check_version.outputs.current_version }} → v${{ steps.check_version.outputs.latest_version }}"
+          branch: "update-${{ matrix.package }}-${{ steps.update_sources.outputs.latest_version }}"
+          title: "chore: update ${{ matrix.package }} v${{ steps.update_sources.outputs.current_version }} → v${{ steps.update_sources.outputs.latest_version }}"
           commit-message: |
-            chore: update ${{ matrix.package.name }} v${{ steps.check_version.outputs.current_version }} → v${{ steps.check_version.outputs.latest_version }}
+            chore: update ${{ matrix.package }} v${{ steps.update_sources.outputs.current_version }} → v${{ steps.update_sources.outputs.latest_version }}
 
-            - Updated version from ${{ steps.check_version.outputs.current_version }} to ${{ steps.check_version.outputs.latest_version }}
-            - Updated package hash to ${{ steps.update_package.outputs.new_hash }}
+            - Updated version from ${{ steps.update_sources.outputs.current_version }} to ${{ steps.update_sources.outputs.latest_version }}
+            - Regenerated `_sources` with nvfetcher
             - Automated update via GitHub Actions workflow
           body: |
-            Automated update of ${{ matrix.package.name }} package from v${{ steps.check_version.outputs.current_version }} to v${{ steps.check_version.outputs.latest_version }}.
+            Automated update of ${{ matrix.package }} package from v${{ steps.update_sources.outputs.current_version }} to v${{ steps.update_sources.outputs.latest_version }}.
 
             ${{ steps.test_build.outputs.build_success == 'true' && '✅ **Build Status**: Successful - Will auto-merge' || '❌ **Build Status**: Failed - Requires manual review' }}
             🔄 **Auto-generated**: This PR was created by the automated update workflow.
 
             **Changes:**
-            - Updated version from ${{ steps.check_version.outputs.current_version }} to ${{ steps.check_version.outputs.latest_version }}
-            - Updated package hash to ${{ steps.update_package.outputs.new_hash }}
+            - Updated version from ${{ steps.update_sources.outputs.current_version }} to ${{ steps.update_sources.outputs.latest_version }}
+            - Regenerated `_sources` with nvfetcher
 
             **Verification:**
             - Package builds successfully with Nix
@@ -352,19 +194,17 @@ jobs:
       - name: Summary
         if: always() && steps.should_run.outputs.run == 'true'
         run: |
-          echo "### ${{ matrix.package.name }} Update Summary" >> $GITHUB_STEP_SUMMARY
+          echo "### ${{ matrix.package }} Update Summary" >> $GITHUB_STEP_SUMMARY
 
-          if [ "${{ steps.check_version.outputs.update_available }}" == "true" ]; then
+          if [ "${{ steps.update_sources.outputs.update_available }}" == "true" ]; then
             echo "✅ Update check completed" >> $GITHUB_STEP_SUMMARY
-            echo "📦 Version: ${{ steps.check_version.outputs.current_version }} → ${{ steps.check_version.outputs.latest_version }}" >> $GITHUB_STEP_SUMMARY
+            echo "📦 Version: ${{ steps.update_sources.outputs.current_version }} → ${{ steps.update_sources.outputs.latest_version }}" >> $GITHUB_STEP_SUMMARY
 
             if [ "${{ steps.test_build.outputs.build_success }}" == "true" ]; then
               echo "🚀 Build successful - PR auto-merged" >> $GITHUB_STEP_SUMMARY
             else
               echo "⚠️  Build failed - Draft PR created for manual review" >> $GITHUB_STEP_SUMMARY
             fi
-          elif [ "${{ steps.check_version.outputs.reason }}" == "already_updated" ]; then
-            echo "ℹ️  Already up to date (recently updated)" >> $GITHUB_STEP_SUMMARY
           else
             echo "ℹ️  No updates available" >> $GITHUB_STEP_SUMMARY
           fi

@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub,
+  callPackage,
   makeWrapper,
   bubblewrap,
   git,
@@ -17,20 +17,17 @@
 }:
 
 let
+  sources = (callPackage ../../_sources/generated.nix { }).cco;
+
   # The default `docker` is the insecure docker_28 on nixos-25.11; fall back to
   # docker_29 there, but keep tracking the default where it is already current.
   dockerPkg = if lib.versionAtLeast docker.version "29" then docker else docker_29;
 in
 stdenv.mkDerivation rec {
   pname = "cco";
-  version = "0-unstable-2026-09-29";
+  version = "0-unstable-${sources.date}";
 
-  src = fetchFromGitHub {
-    owner = "nikvdp";
-    repo = "cco";
-    rev = "658e99ce3ef90963b0a7d4443af16f4de983ea2c";
-    hash = "sha256-m7z5ToSlYAWsOdnppXMPeRxz8Uh9BzxDCI/fbvl2dK8=";
-  };
+  inherit (sources) src;
 
   nativeBuildInputs = [ makeWrapper ];
 

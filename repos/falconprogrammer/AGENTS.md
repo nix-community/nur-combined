@@ -17,15 +17,17 @@ Personal NUR (Nix User Repository) for `JonBoyleCoding/falconprogrammer-nur`: ex
 
 - [update-pkgs.py](./update-pkgs.py) — Scans `pkgs/` subdirs, classifies packages (`buildPythonPackage`/`buildPythonApplication`/other), substitutes `<<TEMPLATE_LET>>` and `<<TEMPLATE_PACKAGES>>` tags in `.default_template.nix`, writes `default.nix`.
 - [.default_template.nix](./.default_template.nix) — Template source for `default.nix`; contains `<<TEMPLATE_LET>>` and `<<TEMPLATE_PACKAGES>>` injection tags.
+- [nvfetcher.toml](./nvfetcher.toml) — nvfetcher source definitions (version source and fetcher per package: `cco`, `opencode`, `spec-kit`).
 
 ### Metadata & Guidelines
 
-- [AGENTS_GUIDELINES.md](./AGENTS_GUIDELINES.md) — Mandatory contributor/agent workflow rules: `update-pkgs.py` run requirements, new-package steps, Python versioning (`buildPythonPackage` multi-version vs `buildPythonApplication` single-version), hash workflow, CI/CD details, and flake output structure.
+- [AGENTS_GUIDELINES.md](./AGENTS_GUIDELINES.md) — Mandatory contributor/agent workflow rules: `update-pkgs.py` run requirements, new-package steps, Python versioning (`buildPythonPackage` multi-version vs `buildPythonApplication` single-version), nvfetcher source updates, CI/CD details, and flake output structure.
 - [LICENSE](./LICENSE) — MIT license, copyright 2018 Francesco Gazzetta.
 - [README.md](./README.md) — Project landing page with CI badge for `Build and populate cache` workflow.
 
 ## Subdirectories
 
+- [_sources/](./_sources/) — nvfetcher output (`generated.nix`, `generated.json`) read by `pkgs/cco`, `pkgs/opencode` and `pkgs/spec-kit`. **Do not hand-edit — regenerate via `nvfetcher`.**
 - [pkgs/](./pkgs/) — Per-package `default.nix` derivations; each subdir name maps directly to an attr in `default.nix`. `update-pkgs.py` scans this tree.
 - [modules/](./modules/) — NixOS modules (`timew-sync-server`, `g13d`, `taskchampion-sync-server`) aggregated by `modules/default.nix`, consumed by `flake.nix` as `nixosModules`.
 - [lib/](./lib/) — Project-local Nix utility library stub; currently empty attrset, parameterized by `pkgs`.

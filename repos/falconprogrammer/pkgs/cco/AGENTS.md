@@ -8,11 +8,11 @@ Nix package for `cco` ("Claude Condom"), a bubblewrap-based sandbox wrapper that
 
 | File | Description |
 |------|-------------|
-| [default.nix](./default.nix) | `stdenv.mkDerivation` for `pname = "cco"`, `version = "0-unstable-2026-04-30"`; produces `$out/bin/cco` and `$out/bin/cco-sandbox` via `makeWrapper`. |
+| [default.nix](./default.nix) | `stdenv.mkDerivation` for `pname = "cco"`, `version = "0-unstable-<commit date>"`; produces `$out/bin/cco` and `$out/bin/cco-sandbox` via `makeWrapper`. |
 
 ## Outputs
 
-Two binaries built from `nikvdp/cco` rev `9744b9fce8f8db1deae20be4dfe430b7a05c2f53`:
+Two binaries built from the `nikvdp/cco` commit pinned in `_sources/generated.nix` (entry `cco`, defined in `nvfetcher.toml`):
 
 - `$out/bin/cco` — wraps `share/cco/cco`; PATH-injects `bubblewrap git coreutils findutils gnused gnugrep gawk file procps docker`
 - `$out/bin/cco-sandbox` — wraps `share/cco/sandbox`; PATH-injects `bubblewrap coreutils findutils file`

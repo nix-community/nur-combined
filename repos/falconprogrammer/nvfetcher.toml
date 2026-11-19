@@ -1,0 +1,12 @@
+[cco]
+src.git = "https://github.com/nikvdp/cco"
+src.branch = "master"
+fetch.github = "nikvdp/cco"
+
+[opencode]
+src.github = "anomalyco/opencode"
+fetch.url = "https://github.com/anomalyco/opencode/releases/download/$ver/opencode-linux-x64.tar.gz"
+
+[spec-kit]
+src.github = "github/spec-kit"
+fetch.github = "github/spec-kit"
