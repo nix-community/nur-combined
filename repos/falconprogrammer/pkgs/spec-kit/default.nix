@@ -56,6 +56,9 @@ buildPythonApplication rec {
     license = licenses.mit;
     maintainers = with maintainers; [ ];
     mainProgram = "specify";
-    broken = lib.versionOlder typer.version "0.24.0";
+    broken =
+      lib.versionOlder typer.version "0.24.0"
+      || lib.versionOlder mcp.version "2.2.0"
+      || lib.versionOlder pydantic.version "2.13.0";
   };
 }
