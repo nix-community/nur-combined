@@ -44,8 +44,46 @@ let
   # VSCodium release that our version tracks (used for branding assets).
   vscodiumTag = "1.143.17232";
   nodejs = nodejs_24;
-  electron = electron_43-bin;
-  electron-dist-zip = electron_43-bin.src;
+
+  # The integrated terminal is drawn by xterm.js' WebGL renderer, which sets the
+  # glyph atlas' canvas font with a leading space (" 12px Menlo"). Chromium
+  # 150.0.7871.250's rewritten CSS font parser drops such a font and silently
+  # falls back to "10px sans-serif" while the cells keep their configured width,
+  # so the terminal shows tiny glyphs with a gap between every two characters
+  # (microsoft/vscode#348261). electron#55777 restores the missing whitespace
+  # handling in 43.8.11, newer than nixpkgs' electron_43-bin (43.8.10), so pin
+  # the first fixed release and use nixpkgs' electron again once it catches up.
+  electron-min-fixed-version = "43.8.11";
+  electronDistTag =
+    {
+      aarch64-darwin = "darwin-arm64";
+      aarch64-linux = "linux-arm64";
+      x86_64-linux = "linux-x64";
+    }
+    .${hostPlatform.system};
+  electronDistHash =
+    {
+      aarch64-darwin = "sha256-EncwZwq38i5XKHIYBOBkAadGV+CWJtu9Ke/1sxSnifY=";
+      aarch64-linux = "sha256-kpOgqEWOG8n+ULTgzNDtx4Dq0YGKyn0AgIcfLpt4v/c=";
+      x86_64-linux = "sha256-0+9kyREOXXajggR8RVcynb0BsBzcqx7M+MSbOCvE44Y=";
+    }
+    .${hostPlatform.system};
+  electron =
+    if lib.versionAtLeast electron_43-bin.version electron-min-fixed-version then
+      electron_43-bin
+    else
+      {
+        version = electron-min-fixed-version;
+        src = fetchurl {
+          url = "https://github.com/electron/electron/releases/download/v${electron-min-fixed-version}/electron-v${electron-min-fixed-version}-${electronDistTag}.zip";
+          hash = electronDistHash;
+        };
+        headers = fetchzip {
+          url = "https://artifacts.electronjs.org/headers/dist/v${electron-min-fixed-version}/node-v${electron-min-fixed-version}-headers.tar.gz";
+          hash = "sha256-yoS2t4vL8Yw7rlDCvJWAe3xsRI6fmazN3MWXk1cdK1E=";
+        };
+      };
+  electron-dist-zip = electron.src;
   # build/.npmrc targets Node 22; tree-sitter bindings need its headers (not Node 24).
   buildNodeHeadersVersion = "22.22.1";
   cache-dir =
