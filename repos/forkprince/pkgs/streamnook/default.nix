@@ -1,11 +1,51 @@
 {
-  makeDesktopItem,
-  appimageTools,
+  libjpeg_turbo,
+  libxkbcommon,
+  libseccomp,
+  libselinux,
   stdenvNoCC,
+  fontconfig,
+  util-linux,
+  libsecret,
+  libepoxy,
+  elfutils,
+  keyutils,
   fetchurl,
   fetchzip,
+  freetype,
+  harfbuzz,
+  libxml2,
+  libxslt,
+  libwebp,
+  wayland,
+  enchant,
+  openssl,
+  systemd,
+  libGLU,
+  libffi,
+  libx11,
+  libpng,
+  libdrm,
+  libcap,
+  libpsl,
+  hyphen,
+  pixman,
   stdenv,
+  pcre2,
+  libva,
+  libGL,
+  cairo,
+  pango,
+  expat,
+  krb5,
+  pcre,
+  zstd,
+  mesa,
+  gtk3,
+  lz4,
+  icu,
   lib,
+  xz,
 }: let
   ver = lib.helper.read ./version.json;
 
@@ -37,82 +77,62 @@ in
     stdenvNoCC.mkDerivation (lib.helper.mkDarwin {
       inherit pname version src meta;
     })
-  else let
-    contents = appimageTools.extract {inherit pname version src;};
-
-    desktopItem = makeDesktopItem {
-      name = "StreamNook";
-      desktopName = "StreamNook";
-      comment = meta.description;
-      exec = "streamnook %U";
-      icon = "StreamNook";
-      startupWMClass = "StreamNook";
-      terminal = false;
-      categories = ["Video" "AudioVideo"];
-      mimeTypes = ["x-scheme-handler/streamnook"];
-    };
-  in
-    appimageTools.wrapType2 {
+  else
+    lib.helper.mkAppImage {
       inherit pname version src meta;
 
-      extraPkgs = pkgs:
-        with pkgs; [
-          stdenv.cc.cc.lib
-          libjpeg_turbo
-          libxkbcommon
-          fontconfig
-          util-linux
-          libseccomp
-          libselinux
-          libsecret
-          harfbuzz
-          freetype
-          libepoxy
-          elfutils
-          keyutils
-          wayland
-          enchant
-          libxml2
-          libxslt
-          libwebp
-          openssl
-          systemd
-          libGLU
-          libffi
-          libx11
-          libpng
-          libdrm
-          hyphen
-          pixman
-          libcap
-          libpsl
-          cairo
-          pango
-          expat
-          libGL
-          pcre2
-          libva
-          zstd
-          mesa
-          gtk3
-          krb5
-          pcre
-          icu
-          lz4
-          xz
-        ];
+      desktopId = "StreamNook";
+      desktopName = "StreamNook";
+      icon = "StreamNook";
+      startupWMClass = "StreamNook";
+      categories = ["Video" "AudioVideo"];
+      extraDesktopItem = {
+        mimeTypes = ["x-scheme-handler/streamnook"];
+      };
 
-      extraInstallCommands = ''
-        install -Dm444 ${desktopItem}/share/applications/*.desktop \
-          $out/share/applications/StreamNook.desktop
-        if [ -d ${contents}/usr/share/icons ]; then
-          cp -r ${contents}/usr/share/icons $out/share/
-        fi
-        if [ ! -e $out/share/icons/hicolor/512x512/apps/StreamNook.png ]; then
-          icon=$(find ${contents} -maxdepth 2 -name "*.png" | head -n1)
-          if [ -n "$icon" ]; then
-            install -Dm444 "$icon" $out/share/icons/hicolor/512x512/apps/StreamNook.png
-          fi
-        fi
-      '';
+      extraPkgs = [
+        stdenv.cc.cc.lib
+        libjpeg_turbo
+        libxkbcommon
+        fontconfig
+        util-linux
+        libseccomp
+        libselinux
+        libsecret
+        harfbuzz
+        freetype
+        libepoxy
+        elfutils
+        keyutils
+        wayland
+        enchant
+        libxml2
+        libxslt
+        libwebp
+        openssl
+        systemd
+        libGLU
+        libffi
+        libx11
+        libpng
+        libdrm
+        hyphen
+        pixman
+        libcap
+        libpsl
+        cairo
+        pango
+        expat
+        libGL
+        pcre2
+        libva
+        zstd
+        mesa
+        gtk3
+        krb5
+        pcre
+        icu
+        lz4
+        xz
+      ];
     }

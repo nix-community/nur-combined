@@ -1,5 +1,4 @@
 {
-  appimageTools,
   stdenvNoCC,
   fetchurl,
   unzip,
@@ -17,6 +16,7 @@
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [onny Prinky];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
+    mainProgram = pname;
   };
 in
   if stdenvNoCC.hostPlatform.isDarwin
@@ -26,22 +26,11 @@ in
 
       nativeBuildInputs = [unzip];
     })
-  else let
-    content = appimageTools.extract {inherit pname version src;};
-  in
-    appimageTools.wrapType2 {
-      inherit pname version src;
+  else
+    lib.helper.mkAppImage {
+      inherit pname version src meta;
 
-      extraInstallCommands = ''
-        install -m 444 -D ${content}/${pname}.desktop -t $out/share/applications
-        substituteInPlace $out/share/applications/${pname}.desktop \
-          --replace 'Exec=AppRun --no-sandbox %U' 'Exec=${pname}'
-        cp -r ${content}/usr/share/icons $out/share
-      '';
-
-      meta =
-        meta
-        // {
-          mainProgram = "sonixd";
-        };
+      desktopName = "Sonixd";
+      categories = ["AudioVideo" "Music"];
+      exec = pname;
     }

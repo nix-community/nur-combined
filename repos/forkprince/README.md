@@ -98,6 +98,7 @@ This repository contains three types of packages:
 | [`moonplayer`](pkgs/moonplayer/default.nix) | [moonplayer](https://github.com/coslyk/moonplayer), video player that can play online videos from YouTube, Bilibili etc |
 | [`motrix`](pkgs/motrix/default.nix) | [motrix](https://motrix.app/), a full-featured download manager |
 | [`muxy`](pkgs/muxy/default.nix) | [muxy](https://muxy.app/), lightweight and Memory efficient terminal for Mac built with SwiftUI and libghostty |
+| [`nexus-launcher`](pkgs/nexus-launcher/default.nix) | [nexus-launcher](https://github.com/domsvoboda/nexus-launcher), open-source Xbox-inspired launcher for Microsoft Store games on Linux |
 | [`nightcap`](pkgs/nightcap/default.nix) | [nightcap](https://github.com/CoderDayton/nightcap), roblox on Linux, tuned for desktop play |
 | [`nintoolbox`](pkgs/nintoolbox/default.nix) | [nintoolbox](https://github.com/quatric/nintoolbox), toolbox for Nintendo game file formats |
 | [`nintoolbox-gui`](pkgs/nintoolbox-gui/default.nix) | [nintoolbox-gui](https://github.com/quatric/nintoolbox), graphical interface for the Nintoolbox command line tools |
@@ -169,6 +170,7 @@ This repository contains three types of packages:
 | [`tinywiibackupmanager`](pkgs/tinywiibackupmanager/default.nix) | [tinywiibackupmanager](https://github.com/mq1/TinyWiiBackupManager), a tiny game backup and homebrew app manager for the Wii |
 | [`transit`](pkgs/transit/default.nix) | [transit](https://github.com/transit-audio/transit), a free, open-source digital audio workstation (DAW) written in Rust |
 | [`twintaillauncher`](pkgs/twintaillauncher/default.nix) | [twintaillauncher](https://github.com/TwintailTeam/TwintailLauncher), a multi-platform launcher for your anime games |
+| [`vboycolor`](pkgs/vboycolor/default.nix) | [vboycolor](https://github.com/yuk27/VBoyColor), free, open-source Virtual Boy emulator that plays games in color and 3D |
 | [`vector-studio`](pkgs/vector-studio/default.nix) | [vector-studio](https://tenzen.studio/vector/), illustrator alternative for vector illustration and design |
 | [`vectorcraft`](pkgs/vectorcraft/default.nix) | [vectorcraft](https://getartcraft.com/apps/vectorcraft), vector graphics editor |
 | [`venture`](pkgs/venture/default.nix) | [venture](https://venture-emu.org/), a Meta Quest emulator for PC VR |

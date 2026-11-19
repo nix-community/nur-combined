@@ -1,7 +1,5 @@
 # Modified from https://github.com/NixOS/nixpkgs/pull/490554
 {
-  makeDesktopItem,
-  appimageTools,
   stdenvNoCC,
   fetchurl,
   unzip,
@@ -30,41 +28,17 @@ in
 
       nativeBuildInputs = [unzip];
     })
-  else let
-    contents = appimageTools.extract {inherit pname version src;};
+  else
+    lib.helper.mkAppImage {
+      inherit pname version src meta;
 
-    desktopItem = makeDesktopItem {
-      name = "app.fluxer.FluxerDesktop";
+      desktopId = "app.fluxer.FluxerDesktop";
       desktopName = "Fluxer";
-      comment = "Fluxer desktop client";
-      exec = "fluxer-stable-bin %U";
       icon = "fluxer";
       startupWMClass = "app.fluxer.FluxerDesktop";
-      terminal = false;
       categories = ["InstantMessaging"];
-    };
-  in
-    appimageTools.wrapType2 {
-      inherit pname version src meta;
 
       profile = ''
         export FLUXER_DISABLE_DESKTOP_FILE=1
-      '';
-
-      extraInstallCommands = ''
-        install -Dm444 ${desktopItem}/share/applications/*.desktop \
-          $out/share/applications/app.fluxer.FluxerDesktop.desktop
-
-        if [ -d ${contents}/usr/share/icons ]; then
-          cp -r ${contents}/usr/share/icons $out/share/ || true
-        else
-          icon=$(find ${contents} -maxdepth 3 -name "*.png" -path "*/fluxer*" | head -n1)
-          if [ -z "$icon" ]; then
-            icon=$(find ${contents} -maxdepth 3 -name "*.png" | head -n1)
-          fi
-          if [ -n "$icon" ]; then
-            install -Dm444 "$icon" $out/share/icons/hicolor/512x512/apps/fluxer.png || true
-          fi
-        fi
       '';
     }

@@ -19,26 +19,15 @@
 
   pname = "kryoto-minecraft-launcher";
   inherit (ver) version;
-
   src = fetchurl (lib.helper.getSingle ver);
 
   javaBins = runCommand "${pname}-java-bins" {} ''
     mkdir -p $out/bin
     ${lib.concatStringsSep "\n" (lib.mapAttrsToList (major: jdk: ''ln -s ${jdk.home}/bin/java "$out/bin/java${major}"'') javas)}
   '';
-
-  meta = {
-    description = "Minecraft: Java Edition launcher with Fabric, Quilt, Forge, NeoForge and Modrinth/CurseForge mods";
-    homepage = "https://github.com/Kryoto-Dev/kryoto-minecraft-launcher";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [Prinky];
-    platforms = ["x86_64-linux"];
-    mainProgram = pname;
-    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
-  };
 in
   lib.helper.mkAppImage {
-    inherit pname version src meta;
+    inherit pname version src;
 
     passthru = {
       inherit javas;
@@ -61,4 +50,14 @@ in
     profile = ''
       export PATH="${javaBins}/bin:$PATH"
     '';
+
+    meta = {
+      description = "Minecraft: Java Edition launcher with Fabric, Quilt, Forge, NeoForge and Modrinth/CurseForge mods";
+      homepage = "https://github.com/Kryoto-Dev/kryoto-minecraft-launcher";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [Prinky];
+      platforms = ["x86_64-linux"];
+      mainProgram = pname;
+      sourceProvenance = [lib.sourceTypes.binaryNativeCode];
+    };
   }

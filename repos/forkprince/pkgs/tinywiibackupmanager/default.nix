@@ -1,6 +1,4 @@
 {
-  makeDesktopItem,
-  appimageTools,
   stdenvNoCC,
   fetchurl,
   _7zz,
@@ -28,33 +26,14 @@ in
 
       nativeBuildInputs = [_7zz];
     })
-  else let
-    contents = appimageTools.extract {inherit pname version src;};
+  else
+    lib.helper.mkAppImage {
+      inherit pname version src meta;
 
-    desktopItem = makeDesktopItem {
-      name = "it.mq1.TinyWiiBackupManager";
+      desktopId = "it.mq1.TinyWiiBackupManager";
       desktopName = "TinyWiiBackupManager";
-      comment = "A tiny game backup and homebrew app manager for the Wii";
       exec = "TinyWiiBackupManager %U";
       icon = "it.mq1.TinyWiiBackupManager";
       startupWMClass = "it.mq1.TinyWiiBackupManager";
-      terminal = false;
       categories = ["Game"];
-    };
-  in
-    appimageTools.wrapType2 {
-      inherit pname version src meta;
-
-      extraInstallCommands = ''
-        install -Dm444 ${desktopItem}/share/applications/*.desktop \
-          $out/share/applications/it.mq1.TinyWiiBackupManager.desktop
-
-        icon=$(find ${contents} -maxdepth 3 -name "*.png" -path "*TinyWiiBackupManager*" | head -n1)
-        if [ -z "$icon" ]; then
-          icon=$(find ${contents} -maxdepth 3 -name "*.png" | head -n1)
-        fi
-        if [ -n "$icon" ]; then
-          install -Dm444 "$icon" $out/share/icons/hicolor/512x512/apps/it.mq1.TinyWiiBackupManager.png || true
-        fi
-      '';
     }

@@ -1,6 +1,4 @@
 {
-  makeDesktopItem,
-  appimageTools,
   stdenvNoCC,
   fetchurl,
   _7zz,
@@ -32,36 +30,18 @@ in
 
       nativeBuildInputs = [_7zz];
     })
-  else let
-    inherit pname version meta;
+  else
+    lib.helper.mkAppImage {
+      inherit pname version meta;
 
-    src = fetchurl rec {
-      url = "https://github.com/ForkPrince/homebrew-tap/raw/refs/heads/main/Apps/Minecraft%20Note%20Block%20Studio%20(Snapshot%202025.08.02).appimage";
-      name = lib.helper.extractName url;
-      hash = "sha256-7cIv7CD0u95I3AvVV1N0OaTg18AzWRJm5sXm8n3cLrU=";
-    };
+      src = fetchurl rec {
+        url = "https://github.com/ForkPrince/homebrew-tap/raw/refs/heads/main/Apps/Minecraft%20Note%20Block%20Studio%20(Snapshot%202025.08.02).appimage";
+        name = lib.helper.extractName url;
+        hash = "sha256-7cIv7CD0u95I3AvVV1N0OaTg18AzWRJm5sXm8n3cLrU=";
+      };
 
-    contents = appimageTools.extract {inherit pname version src;};
-
-    desktopItem = makeDesktopItem {
-      name = "Minecraft_Note_Block_Studio";
+      desktopId = "Minecraft_Note_Block_Studio";
       desktopName = "Note Block Studio";
-      comment = meta.description;
-      exec = "note-block-studio %U";
       icon = "Minecraft_Note_Block_Studio";
-      terminal = false;
       categories = ["Game"];
-    };
-  in
-    appimageTools.wrapType2 {
-      inherit pname version src meta;
-
-      extraInstallCommands = ''
-        install -Dm444 ${desktopItem}/share/applications/*.desktop \
-          $out/share/applications/Minecraft_Note_Block_Studio.desktop
-
-        install -Dm444 \
-          ${contents}/usr/share/icons/hicolor/64x64/apps/Minecraft_Note_Block_Studio.png \
-          $out/share/icons/hicolor/64x64/apps/Minecraft_Note_Block_Studio.png
-      '';
     }

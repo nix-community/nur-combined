@@ -12,7 +12,9 @@
     hyprcursor-bibata = lib.callPackage ./pkgs/hyprcursor-bibata {};
     twintaillauncher = lib.callPackage ./pkgs/twintaillauncher {};
     kryoto-desktop = lib.callPackage ./pkgs/kryoto-desktop {};
+    nexus-launcher = lib.callPackage ./pkgs/nexus-launcher {};
     hyprpanel = lib.callPackage ./pkgs/hyprpanel {};
+    vboycolor = lib.callPackage ./pkgs/vboycolor {};
     nightcap = lib.callPackage ./pkgs/nightcap {};
     mocktail = lib.callPackage ./pkgs/mocktail {};
     rhythia = lib.callPackage ./pkgs/rhythia {};

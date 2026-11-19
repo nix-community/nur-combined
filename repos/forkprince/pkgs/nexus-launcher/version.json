@@ -1,0 +1,15 @@
+{
+  "name": "Nexus Launcher",
+  "source": {
+    "type": "github-release",
+    "repo": "domsvoboda/nexus-launcher",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "Nexus-Launcher-{version}-x86_64.AppImage",
+    "unpack": false
+  },
+  "version": "0.5.1",
+  "hash": "sha256-gsod5hcMZ6hSUT/DI8LMvNuBRiyrP8o/YUkEWUiMA8I="
+}

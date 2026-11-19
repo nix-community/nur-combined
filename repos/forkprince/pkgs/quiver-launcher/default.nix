@@ -1,9 +1,8 @@
 {
-  makeDesktopItem,
-  appimageTools,
   stdenvNoCC,
   fetchurl,
   unzip,
+  icu,
   lib,
 }: let
   ver = lib.helper.read ./version.json;
@@ -28,32 +27,15 @@ in
 
       nativeBuildInputs = [unzip];
     })
-  else let
-    contents = appimageTools.extract {inherit pname version src;};
-
-    desktopItem = makeDesktopItem {
-      name = "QuiverLauncher";
-      desktopName = "Quiver Launcher";
-      comment = meta.description;
-      exec = "${pname} %U";
-      icon = "QuiverLauncher";
-      startupWMClass = "QuiverLauncher";
-      terminal = false;
-      categories = ["Game" "Utility"];
-    };
-  in
-    appimageTools.wrapType2 {
+  else
+    lib.helper.mkAppImage {
       inherit pname version src meta;
 
-      extraPkgs = pkgs: with pkgs; [icu];
+      desktopName = "Quiver Launcher";
+      desktopId = "QuiverLauncher";
+      icon = "QuiverLauncher";
+      startupWMClass = "QuiverLauncher";
+      categories = ["Game" "Utility"];
 
-      extraInstallCommands = ''
-        install -Dm444 ${desktopItem}/share/applications/*.desktop \
-          $out/share/applications/QuiverLauncher.desktop
-
-        icon=$(find ${contents} -maxdepth 4 -name '*.png' | head -n1)
-        if [ -n "$icon" ]; then
-          install -Dm444 "$icon" $out/share/icons/hicolor/512x512/apps/QuiverLauncher.png
-        fi
-      '';
+      extraPkgs = [icu];
     }
