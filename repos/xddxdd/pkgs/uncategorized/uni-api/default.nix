@@ -9,16 +9,16 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "uni-api";
-  version = "1.7.276-unstable-2026-11-17";
+  version = "1.7.276-unstable-2026-11-18";
   src = fetchFromGitHub {
     owner = "yym68686";
     repo = "uni-api";
-    rev = "a7bcebdf6f17f80318916cf99f7e92347da641aa";
-    hash = "sha256-Ymvz2uranHzBXg3ZbOpKtPRxZyix0puiOn1dgAJRH2E=";
+    rev = "206eecf3d40ae103e2d2cf06c0987689ba3208ed";
+    hash = "sha256-iaBxSo5aiOcmWXv/lQTJP5apax2iI94NsrSf8Ektbkw=";
   };
   __structuredAttrs = true;
   strictDeps = true;
-  cargoHash = "sha256-3n/9xao0u4uldMuc8kI3j1bOtKSgsO7eWbLqt0MHhhY=";
+  cargoHash = "sha256-Cq6rUQRp7pQ+XjNhh1gm6e5nWF0wNRY77DYCy3DLmNY=";
 
   nativeBuildInputs = [ pkg-config ];
 

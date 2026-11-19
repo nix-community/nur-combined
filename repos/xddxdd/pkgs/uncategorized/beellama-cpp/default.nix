@@ -16,8 +16,8 @@
 }:
 
 let
-  version = "0.4.9";
-  hash = "sha256-wlQgRe0GfUlPnUCvvlj4fymF5xGhkda5+vdL0CnCBdc=";
+  version = "0.5.0";
+  hash = "sha256-/pjv8phWdfEi5b6PWfdI9alfRErN1/ANHLVmGjg8TpA=";
 
   effectiveStdenv = if cudaSupport then cudaPackages.backendStdenv else stdenv;
 in

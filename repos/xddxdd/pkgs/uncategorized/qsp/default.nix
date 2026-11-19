@@ -11,8 +11,8 @@ let
   qspSrc = fetchFromGitHub {
     owner = "QSPFoundation";
     repo = "qspgui";
-    rev = "18b4724dc8bbe569c6da54f2c18b7b2d17ce5649";
-    hash = "sha256-gAQo1eWWfPYOpRSrPmOBHf9abyTqzihq3/vBYVaI5eY=";
+    rev = "8c4b718f8b6d4ef8a9988241f518fcc1c7b427a1";
+    hash = "sha256-BPNXCvUr51QKNx/zemaRORkzD9pcUj7j8pnUY6ef5vQ=";
   };
 
   qsp-wx = wxGTK32.overrideAttrs (old: {
@@ -41,12 +41,12 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "qsp";
-  version = "5.9.5-unstable-2026-10-21";
+  version = "5.9.5-unstable-2026-11-18";
   src = fetchFromGitHub {
     owner = "QSPFoundation";
     repo = "qspgui";
-    rev = "18b4724dc8bbe569c6da54f2c18b7b2d17ce5649";
-    hash = "sha256-gAQo1eWWfPYOpRSrPmOBHf9abyTqzihq3/vBYVaI5eY=";
+    rev = "8c4b718f8b6d4ef8a9988241f518fcc1c7b427a1";
+    hash = "sha256-BPNXCvUr51QKNx/zemaRORkzD9pcUj7j8pnUY6ef5vQ=";
   };
   __structuredAttrs = true;
   strictDeps = true;

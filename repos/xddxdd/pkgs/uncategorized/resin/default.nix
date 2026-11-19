@@ -7,7 +7,7 @@
 }:
 
 let
-  version = "1.3.0";
+  version = "1.4.1";
 
   frontendDist = buildNpmPackage (finalAttrs: {
     pname = "resin-webui";
@@ -16,7 +16,7 @@ let
       owner = "Resinat";
       repo = "Resin";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-6YBI15NLupgEKwSwGy9x7JToYP7G5/7IyF+Ty5pKpQ8=";
+      hash = "sha256-L5tNfiRxKVlcHNthqSw/Ui5AOWaxCJy0KO8rKiFwKbg=";
     };
     sourceRoot = "source/webui";
 
@@ -38,7 +38,7 @@ buildGo127Module (finalAttrs: {
     owner = "Resinat";
     repo = "Resin";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-6YBI15NLupgEKwSwGy9x7JToYP7G5/7IyF+Ty5pKpQ8=";
+    hash = "sha256-L5tNfiRxKVlcHNthqSw/Ui5AOWaxCJy0KO8rKiFwKbg=";
   };
   __structuredAttrs = true;
   strictDeps = true;

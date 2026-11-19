@@ -13,7 +13,7 @@
 }:
 
 let
-  version = "1.1.66";
+  version = "1.1.67";
   cudaCapabilities = cudaPackages.backendStdenv.cudaCapabilities;
   cudaArchitectures = lib.concatMapStringsSep ";" (lib.replaceStrings
     [ "." ]
@@ -64,7 +64,7 @@ let
       owner = "mw00";
       repo = "project-maya";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-VPWCGYU8iiBjCtdLQBVvToMLD8QJ7WqEa6Jm6zac5/k=";
+      hash = "sha256-dd3ZAXKsxTY0ENdMwct1/koCQrhyiTZa+M8s5G9xDWE=";
     };
 
     __structuredAttrs = true;
