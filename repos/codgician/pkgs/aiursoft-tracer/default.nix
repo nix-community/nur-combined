@@ -15,17 +15,17 @@ let
   src = fetchFromGitHub {
     owner = "AiursoftWeb";
     repo = "Tracer";
-    rev = "ae8c670599b5a1add57481713f972a3894fe5f4d";
-    hash = "sha256-3L+9WFgH6lTrCYgOVfnZJqiZCORMI9oLTyhjvTPVA70=";
+    rev = "d28ff27598c8a1f10d50134130f0f7c6a2e1090a";
+    hash = "sha256-6Gc9XUUYHwapJdvcRuREEddwayngTUjnb5gjONhZoF8=";
   };
 
-  version = "0-unstable-2026-11-18";
+  version = "0-unstable-2026-11-19";
 
   wwwroot = buildNpmPackage {
     pname = "${pname}-wwwroot";
     src = "${src}/src/Aiursoft.Tracer/wwwroot";
     inherit version;
-    npmDepsHash = "sha256-OPRWZHMXh5vwdLQjLOH+1zDYKYNE9tmxNcoPrQ1cmgw=";
+    npmDepsHash = "sha256-b3ovjBEZjNHwhsogHCKqF6EAF6RRy8eLwEb8trECy/s=";
 
     # Upstream .npmrc (and sometimes package-lock.json) may point at Aiursoft's
     # private registry, which is unreliable (Cloudflare 525 errors). Prefer the

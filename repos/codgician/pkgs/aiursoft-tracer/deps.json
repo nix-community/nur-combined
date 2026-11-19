@@ -101,8 +101,8 @@
   },
   {
     "pname": "Aiursoft.UiStack",
-    "version": "10.0.58",
-    "hash": "sha256-L9xK13hvHO59EaFM/GEKf6bm60E/SnvgqyeXgrJn988="
+    "version": "10.0.59",
+    "hash": "sha256-2JG69sGKtSv07aMaBfi1hiCQvgp/cPXgpBkRx40KqxY="
   },
   {
     "pname": "Aiursoft.WebTools",
@@ -606,23 +606,23 @@
   },
   {
     "pname": "SkiaSharp",
-    "version": "4.156.1",
-    "hash": "sha256-xcOhAkKk6awfes70vD8MqE6e+ZPyh2JE6CCC6zAOhQQ="
+    "version": "4.157.0",
+    "hash": "sha256-79FtP4/5ZfbN0fZvvUIrmYW3iyLaOrXRDF6rO0DPMyc="
   },
   {
     "pname": "SkiaSharp.NativeAssets.Linux.NoDependencies",
-    "version": "4.156.1",
-    "hash": "sha256-HdyB4pWyhsQn9jWZWtokiQkNcbR6WR8E1Pq40trB5c0="
+    "version": "4.157.0",
+    "hash": "sha256-mzHCNQr95zVS3TkIkaILt5D5WAuYkO9Arq8n7ljobC8="
   },
   {
     "pname": "SkiaSharp.NativeAssets.macOS",
-    "version": "4.156.1",
-    "hash": "sha256-wDWG7oKVr3iIaXKPL/o4EGcYO5H8gmkeHlXzyIy8ULs="
+    "version": "4.157.0",
+    "hash": "sha256-3nguQMsn0RgF2aTEYe5UCr3knFXdZ1OZgVrhcjPROLk="
   },
   {
     "pname": "SkiaSharp.NativeAssets.Win32",
-    "version": "4.156.1",
-    "hash": "sha256-BdsgIq8B9vIOkdUvuR8UlXFP0w/V/AmsXTbEOvy1ci8="
+    "version": "4.157.0",
+    "hash": "sha256-8LX0jWOxVN3dBtSrjrVVL5t5IhTMFpGsU0RfLTJPGg0="
   },
   {
     "pname": "SQLite",
