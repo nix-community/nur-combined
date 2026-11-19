@@ -61,8 +61,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       #!/usr/bin/env nix-shell
       #!nix-shell -i bash -p curl jq common-updater-scripts
       set -euo pipefail
-      repo="https://api.github.com/repos/nanomatters/proton-cachyos/releases"
-      version="$(curl --fail --silent --show-error --location "$repo" | jq --exit-status --raw-output '
+      repo="repos/nanomatters/proton-cachyos/releases"
+      version="$(github-api-curl "$repo" | jq --exit-status --raw-output '
         [.[] | select(.prerelease == false and (.tag_name | startswith("wineland-")))]
         | .[0].tag_name | strings | sub("^wineland-"; "") | select(length > 0)
       ')"

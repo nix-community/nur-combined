@@ -50,6 +50,7 @@ jobs:
       - name: Discover, update, and build packages
         env:
           NIXPKGS_ALLOW_UNFREE: "1"
+          GH_TOKEN: ${{ github.token }}
         run: |
           updater=$(nix-build scripts/update-packages.nix -A script --no-out-link)
           "$updater"

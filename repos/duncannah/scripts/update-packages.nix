@@ -33,6 +33,7 @@ let
   scriptText = ''
     set -euo pipefail
     cd "$(git rev-parse --show-toplevel)"
+    export PATH="$PWD/scripts:$PATH"
 
     ${lib.concatMapStringsSep "\n" (package: ''
       printf 'Updating %s\n' ${lib.escapeShellArg package.attrPath}

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+path="${1:?Usage: github-api-curl API_PATH}"
+curl_args=(--fail --silent --show-error --location)
+
+if [[ -n "${GH_TOKEN:-}" ]]; then
+  curl_args+=(--header "Authorization: Bearer $GH_TOKEN")
+fi
+
+exec curl "${curl_args[@]}" "https://api.github.com/$path"
