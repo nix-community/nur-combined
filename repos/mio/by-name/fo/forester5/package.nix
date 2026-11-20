@@ -28,6 +28,15 @@ ocamlPackages.buildDunePackage {
     ./cmdliner-env-shadow.patch
   ];
 
+  postPatch = ''
+    # eio 1.7 added an optional ?config argument to Eio_main.run, which
+    # prevents passing Eio_main.run directly to `let@`.
+    for f in $(grep -rl 'let@ env = Eio_main.run in' bin lib); do
+      substituteInPlace "$f" \
+        --replace-fail 'let@ env = Eio_main.run in' 'let@ env = (fun k -> Eio_main.run k) in'
+    done
+  '';
+
   nativeBuildInputs =
     with ocamlPackages;
     [
