@@ -4,6 +4,6 @@ fetchFromGitea {
   domain = "codeberg.org";
   owner = "buckley310";
   repo = "brave-browser-nix";
-  rev = "539ce193b353aa022c9fcb7a7bc32b057d327807";
-  hash = "sha256-X7xhMfn/4STesAJUa/sWfL1xK8vV85YmoIxYdz2+0dA=";
+  rev = "d5b908ff64703be2f07b420e2bac98148f95e8d8";
+  hash = "sha256-HhgGDM4KhaSZwT2VCz70PuTO3l4E4XINopsMfI5qHjg=";
 }

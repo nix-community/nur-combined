@@ -39,13 +39,13 @@
 }:
 
 let
-  version = "0.1.5-unstable-2026-11-19";
+  version = "0.1.5-unstable-2026-11-20";
 
   src = fetchFromGitHub {
     owner = "boykopovar";
     repo = "AnyPS5";
-    rev = "d89f26516cb6948e1a18821d23270fcd0e34c1de";
-    hash = "sha256-tFyijC9SrowfB/oMpsEFOue+bufTACpxm2PJEwEZhT8=";
+    rev = "5b6fb5480c18098f50d5a5cf1c04161bc1eb568d";
+    hash = "sha256-Kzr7sia/8ANsYRdm/9/IoH/0ZIyu4cH086RcZNjrDho=";
   };
 
   # Submodules, pinned by the superproject. The build reads each one straight

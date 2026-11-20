@@ -3,6 +3,11 @@
   stdenv,
   rustPlatform,
   fetchFromGitHub,
+  python3,
+  nix,
+  git,
+  coreutils,
+  writeShellApplication,
 }:
 
 let
@@ -82,5 +87,19 @@ stdenv.mkDerivation {
       --replace-fail 'FfiConverterString::lower(cell)' 'FfiConverterString::lower(_cell)'
     runHook postInstall
   '';
+  passthru.updateScript = writeShellApplication {
+    name = "update-wallet-engine";
+    runtimeInputs = [
+      python3
+      nix
+      git
+      coreutils
+    ];
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="wallet-engine"
+      exec ${python3}/bin/python3 ${./update.py} "$@"
+    '';
+  };
+
   meta = engine.meta;
 }

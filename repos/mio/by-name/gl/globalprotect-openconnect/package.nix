@@ -25,23 +25,23 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "globalprotect-openconnect";
-  version = "3.5.0";
+  version = "3.6.0";
 
   src = fetchFromGitHub {
     owner = "yuezk";
     repo = "GlobalProtect-openconnect";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-3gIW1KwzMA6+s1SjoMizDv5mhgn7MsYVoMQBpuHQyus=";
+    hash = "sha256-J47LhA78usn1Y362aV9o2lSfcP7rhBBhmBd1gih6bgs=";
     fetchSubmodules = true;
   };
 
-  cargoHash = "sha256-uNd5wwoVsB3mS5UfsYuQexF6f7U7QZhFSAVfDOjFAD8=";
+  cargoHash = "sha256-5NaOjrOTpBtpOO8UBp8rIgnXyfdGI2mozXOiDLudN+w=";
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     sourceRoot = "${finalAttrs.src.name}/apps/gpgui-helper";
     pnpm = pnpm_10;
-    hash = "sha256-y+dB+opvyh5YQz5gzR+dwws/RTipu6pY6oS7P9AK0xc=";
+    hash = "sha256-AK9MZXeLNpVSSEaRzs27kVs81TWV7JqalR7FwkPCUN8=";
     fetcherVersion = 4;
   };
 

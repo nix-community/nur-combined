@@ -13,7 +13,7 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "bitwarden-extension";
-  version = "2026.10.2";
+  version = "2026.11.0";
 
   extid = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
 
@@ -21,7 +21,7 @@ buildNpmPackage (finalAttrs: {
     owner = "bitwarden";
     repo = "clients";
     tag = "browser-v${finalAttrs.version}";
-    hash = "sha256-y+5MGW18pLJs2anH3Rjkvq3OkHWa6O2QtUZoK8p1OUI=";
+    hash = "sha256-l/YdVJveeQC0dNCCzeM5ns19QKyOcSohUgA2RNP/VMU=";
   };
 
   nodejs = nodejs_22;
@@ -33,7 +33,7 @@ buildNpmPackage (finalAttrs: {
 
   npmWorkspace = "apps/browser";
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-0Hl/KviVt7VFT7/Yp5CvLflP405ke3Wk/8C70ff/7B0=";
+  npmDepsHash = "sha256-I+8QA5r2cDhmGg8YxNmVurhyVU8vCwU4qXTDg4VelRQ=";
 
   env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 

@@ -6,22 +6,24 @@
   pnpmConfigHook,
   nodejs_22,
   fetchPnpmDeps,
+  nix-update-script,
+  writeShellApplication,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "violentmonkey";
-  version = "2.50.0";
+  version = "2.50.1";
 
   src = fetchFromGitHub {
     owner = "violentmonkey";
     repo = "violentmonkey";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-fWcqEYobwv2qwylywt/gVuohendEPoIpdL1z2aecSN8=";
+    hash = "sha256-r4UQetuJ83LQqfzEdT0B/Yz8vNvGJvFV6GXSASJ9BZE=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-BS4R0rOsclBbQZEwb8CrmWpGcTj7PqQrVCtmavSR/hI=";
+    hash = "sha256-YYtGassxZaKbwpQ6DJ9hyKvPMYjjh8t/B6rlSxdhaUI=";
     fetcherVersion = 4;
   };
 
@@ -44,6 +46,14 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r dist/. $out/share/violentmonkey/
     runHook postInstall
   '';
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-violentmonkey";
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="violentmonkey"
+      exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+    '';
+  };
 
   meta = {
     changelog = "https://github.com/violentmonkey/violentmonkey/releases/tag/v${finalAttrs.version}";

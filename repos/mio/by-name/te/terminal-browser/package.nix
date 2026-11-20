@@ -14,13 +14,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "terminal-browser";
-  version = "0.15.5";
+  version = "0.15.6";
 
   src = fetchFromGitHub {
     owner = "zenbu-labs";
     repo = "terminal-browser";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-2gAwy7vEBRR/CI4vs60ELNIDhW1wQBcEbOFyS8fUv2M=";
+    hash = "sha256-kWUMMQ4Mi6Gzjft8lcn8gGxg1uBeRszRlpVomcGfS2E=";
   };
 
   pnpmDeps = fetchPnpmDeps {

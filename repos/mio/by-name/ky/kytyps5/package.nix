@@ -38,6 +38,10 @@
   libdecor,
   autoPatchelfHook,
   writeShellScriptBin,
+  writeShellApplication,
+  nix,
+  git,
+  coreutils,
   moltenvk,
   ldid,
   apple-sdk_26,
@@ -78,8 +82,8 @@ let
   src = fetchFromGitHub {
     owner = "KytyPS5";
     repo = "KytyPS5";
-    tag = "KytyPS5-2026-11-17-2638b1b";
-    hash = "sha256-ULQQxslAK3zqS4TDnJWtLyElEJ07Vm14KPu+Fv+Wgpc=";
+    tag = "KytyPS5-2026-11-20-a1fc5ae";
+    hash = "sha256-nx5gcMwYpF6t1rVr5Go3AkbEVMmbOJFN5HJQwhZJVic=";
   };
 
   # Submodules of 3rdparty/, pinned by the superproject.
@@ -292,7 +296,7 @@ let
 in
 stdenv.mkDerivation {
   pname = "kytyps5";
-  version = "0-unstable-2026-11-17";
+  version = "0-unstable-2026-11-20";
   inherit src;
 
   patches = [ ./noto-fonts-local.patch ];
@@ -434,6 +438,20 @@ stdenv.mkDerivation {
       mkdir -p $out/bin
       ln -s ../kyty_emulator $out/bin/kyty_emulator
     '';
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-kytyps5";
+    runtimeInputs = [
+      python3
+      nix
+      git
+      coreutils
+    ];
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="kytyps5"
+      exec ${python3}/bin/python3 ${./update.py} "$@"
+    '';
+  };
 
   meta = with lib; {
     description = "PlayStation 5 translation layer";
