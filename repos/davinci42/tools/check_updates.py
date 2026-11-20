@@ -99,7 +99,7 @@ def pr_body(
         compare_url=f"{after['upstream']}/compare/{old_ref}...{new_ref}",
         check_command=f"just check {package}",
         system=after["system"],
-        checks_run="Package build, package checks, lint and `git diff --check`",
+        checks_run="Package build, lint and `git diff --check`",
         ci_run_url=ci_url,
     ).strip()
 
@@ -151,7 +151,7 @@ def open_pr(root: Path, package: str, current: str, target: str, force: bool) ->
             body = pr_body(root, package, current, target, before, after)
             for cmd in (
                 ["git", "diff", "--check"],
-                ["git", "add", "--", f"pkgs/{package}"],
+                ["git", "add", "--", f"pkgs/{package}", "flake.lock"],
                 ["git", "commit", "-m", title],
                 ["git", "push", "-u", "origin", f"HEAD:refs/heads/{branch}"],
             ):

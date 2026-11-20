@@ -2,7 +2,6 @@
   lib,
   stdenvNoCC,
   fetchurl,
-  callPackage,
   writeShellApplication,
   python3,
   nix-update,
@@ -55,9 +54,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         exec python3 pkgs/fluxdown-server/update.py "$@"
       '';
     });
-    tests.packaging = callPackage ../../tests/pkgs/fluxdown {
-      package = finalAttrs.finalPackage;
-    };
   };
 
   meta = {

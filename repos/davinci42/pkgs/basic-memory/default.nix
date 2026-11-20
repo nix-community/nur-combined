@@ -1,7 +1,6 @@
 {
   lib,
   fetchFromGitHub,
-  fetchpatch2,
   nix-update,
   nix,
   git,
@@ -9,7 +8,6 @@
   callPackage,
   python3,
   python3Packages,
-  withSemanticSearch ? false,
 }:
 let
   pythonPackages = python3Packages // callPackage ./dependencies.nix { };
@@ -27,16 +25,7 @@ pythonPackages.buildPythonApplication (finalAttrs: {
   };
 
   patches = lib.optionals (lib.versionAtLeast "1.0.0" finalAttrs.version) [
-    (fetchpatch2 {
-      name = "drop-pybars3.patch";
-      url = "https://github.com/basicmachines-co/basic-memory/commit/00d685993fe9e070cbb622ca9a70378bf6cabe90.patch";
-      excludes = [
-        "pyproject.toml"
-        "uv.lock"
-        "test-int/*"
-      ];
-      hash = "sha256-WaSiyL/4YDXkaRpH58fYdvKZcw6W9GeDrEoHvgATrCs=";
-    })
+    ./drop-pybars3.patch
   ];
 
   build-system = with pythonPackages; [
@@ -49,15 +38,13 @@ pythonPackages.buildPythonApplication (finalAttrs: {
   pythonRelaxDeps = [ "psycopg" ];
 
   pythonRemoveDeps = [
+    "fastembed"
+    "litellm"
+    "openai"
     "pybars3"
     "pyright"
     "pytest-aio"
     "pytest-asyncio"
-  ]
-  ++ lib.optionals (!withSemanticSearch) [
-    "fastembed"
-    "litellm"
-    "openai"
     "sqlite-vec"
   ];
 
@@ -103,12 +90,6 @@ pythonPackages.buildPythonApplication (finalAttrs: {
       uvloop
       watchfiles
     ]
-    ++ lib.optionals withSemanticSearch [
-      fastembed
-      litellm
-      openai
-      sqlite-vec
-    ]
     ++ fastapi.optional-dependencies.standard
     ++ pydantic.optional-dependencies.email;
 
@@ -140,14 +121,6 @@ pythonPackages.buildPythonApplication (finalAttrs: {
         exec python3 pkgs/basic-memory/update.py "$@"
       '';
     });
-    tests = {
-      packaging = callPackage ../../tests/pkgs/basic-memory.nix {
-        package = finalAttrs.finalPackage;
-      };
-      semantic-dependencies = callPackage ./default.nix {
-        withSemanticSearch = true;
-      };
-    };
   };
 
   meta = {

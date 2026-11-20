@@ -88,14 +88,10 @@ the Nix store, and overrides `MAGPIE_WEB_KEY` from `environmentFile`. Open
 `http://127.0.0.1:3430` and paste the key into the sign-in page. With `keyFile =
 null` (the default), Magpie uses its existing environment or random-key behavior.
 
-## Maintenance and tests
+## Maintenance
 
 ```sh
 nix-shell
 just update magpie
 just check magpie
 ```
-
-Checks include NixOS and nix-darwin module evaluation assertions, tracked
-`settings.json` synchronization unit tests, live gateway healthcheck/API tests
-and repository lint.

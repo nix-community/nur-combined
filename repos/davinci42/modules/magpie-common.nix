@@ -7,11 +7,8 @@ in
   commonOptions = {
     enable = lib.mkEnableOption "Magpie local AI gateway service";
 
-    package = lib.mkOption {
-      type = lib.types.package;
-      default = pkgs.callPackage ../pkgs/magpie { };
-      defaultText = lib.literalExpression "pkgs.callPackage ../pkgs/magpie { }";
-      description = "Magpie package to run.";
+    package = lib.mkPackageOption (pkgs.nur.davinci42 or (import ../. { inherit pkgs; })) "magpie" {
+      pkgsText = "pkgs.nur.davinci42";
     };
 
     listenAddress = lib.mkOption {

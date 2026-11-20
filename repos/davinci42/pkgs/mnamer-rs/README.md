@@ -29,8 +29,3 @@ Updates select non-yanked `3.0.0-devN` crates and pin the version, source hash a
 local `Cargo.lock` (missing from the dev5 crate). Dependencies resolve only during
 updates, not builds. Review the manifest, Rust requirement and CLI/configuration
 changes; revisit version selection when stable v3 is released.
-
-Build and installed version/help tests pass on `x86_64-linux`. `aarch64-linux`
-and `aarch64-darwin` pass evaluation only; native builds and runtime tests remain
-unverified. Upstream unit suites, online metadata requests and media operations
-are not tested.

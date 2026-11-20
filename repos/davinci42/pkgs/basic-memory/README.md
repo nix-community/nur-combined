@@ -22,11 +22,8 @@ Run `${package}/bin/basic-memory` with `mcp --project main --transport stdio`:
 
 Activate mutable notes links before starting MCP. Full-text search needs no API
 key. Writes are asynchronous: confirm file contents before committing to Git.
-`withSemanticSearch` defaults to `false`, omitting `fastembed`, `litellm`,
-`openai`, and `sqlite-vec` so keyword-only setups avoid embedding/vector
-dependencies and Hugging Face model downloads (`BASIC_MEMORY_DEFAULT_SEARCH_TYPE=text`,
-`HF_HUB_OFFLINE=1`). Override with `basic-memory.override { withSemanticSearch = true; }`
-when local/remote vector search is needed.
+Embedding/vector dependencies (`fastembed`, `litellm`, `openai`, `sqlite-vec`)
+are omitted (`BASIC_MEMORY_DEFAULT_SEARCH_TYPE=text`, `HF_HUB_OFFLINE=1`).
 
 ## Maintenance
 
@@ -35,7 +32,7 @@ nix-shell --run 'just update basic-memory'
 nix-shell --run 'just check basic-memory'
 ```
 
-The existing daily updater runs `update.py`, refreshing the package and seven
+The existing daily updater runs `update.py`, refreshing the package and six
 private dependencies from the hash-verified source's `uv.lock`. Their portable
 wheels are pinned in `dependencies.json`; other dependencies use nixpkgs.
 FastAPI must follow the upstream pin because the read cache imports private APIs;
@@ -45,10 +42,6 @@ overlay is changed.
 
 Neither builds nor this updater require GitHub login. Release discovery needs
 network access outside the sandbox and is subject to anonymous API rate limits.
-
-Checks cover imports, CLI version, MCP discovery, read/write/search/edit, and
-restart persistence using temporary data. Semantic search, PostgreSQL, cloud
-integrations, and upstream test suites are not exercised.
 
 For release `1.0.0`, `default.nix` backports upstream commit `00d685993`
 ([#2096](https://github.com/basicmachines-co/basic-memory/pull/2096)), replacing

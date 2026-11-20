@@ -55,10 +55,10 @@ def refresh() -> None:
                         [
                             "nix",
                             "eval",
-                            "--impure",
+                            f".#packages.{system}.fluxdown-server.src",
+                            "--apply",
+                            "src: { inherit (src) url outputHash; }",
                             "--json",
-                            "--expr",
-                            f'let pkgs = import <nixpkgs> {{ system = "{system}"; }}; src = (import ./. {{ inherit pkgs; }}).fluxdown-server.src; in {{ inherit (src) url outputHash; }}',
                         ],
                         capture=True,
                     )

@@ -5,12 +5,12 @@
 - Prefer concise code, early errors and existing workflows. Avoid speculative
   fallbacks, redundant checks and function splits made only to reduce complexity
   metrics. Preserve security and data-integrity checks.
-- Keep English documentation focused on usage, maintenance and tests; put package
+- Keep English documentation focused on usage and maintenance; put package
   notes in `pkgs/<name>/README.md`. Diagnose errors from their messages, not
   speculative troubleshooting.
-- Keep packages in `pkgs/`, modules in `modules/`, package tests in `tests/pkgs/`
-  and maintenance tests in `tests/`. Export through `default.nix`; module exports
-  must evaluate with `pkgs = null` and use the caller's `pkgs`.
+- Keep packages in `pkgs/` and modules in `modules/`. Export through `default.nix`
+  and `flake.nix`; module exports must evaluate with `pkgs = null` and use the
+  caller's `pkgs`.
 - Keep secrets outside the Nix store. Do not change consuming configurations or
   running services unless requested.
 
@@ -27,19 +27,18 @@ nix-shell --run 'just check <name>'
 ```
 
 - Declare complete updates in `passthru.updateScript` (`nix-update-script` for
-  simple updates) and checks in `passthru.tests`. Do not add maintenance metadata
-  or implicit follow-up hooks. Custom scripts must complete all updates and honor
-  `NUR_DETECT_VERSION=1` for read-only detection.
+  simple updates). Do not add maintenance metadata or implicit follow-up hooks.
+  Custom scripts must complete all updates and honor `NUR_DETECT_VERSION=1` for
+  read-only detection.
 - Refresh hashes for every supported source. Review configuration semantics with
   upstream schemas/parsers and regenerate contracts with their tools, not by hand.
-- Adapt affected modules and tests before accepting contract changes with
+- Adapt affected modules before accepting contract changes with
   `just update-reviewed <name> <version>`. Never bypass failed checks.
 
 ## Validation
 
 Validate packaging and repository logic, including build, dependency and import
-checks. Do not run upstream unit suites or VM tests unless requested; isolate
-runtime tests from existing services and data.
+checks.
 
 ```sh
 NIXPKGS_ALLOW_UNFREE=1 nix-shell --run 'just check-all'

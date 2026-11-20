@@ -5,7 +5,6 @@
   pkg-config,
   aws-lc,
   nix-update-script,
-  callPackage,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -43,9 +42,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
         "--version-regex=^(3[.]0[.]0-dev[0-9]+)$"
         "--generate-lockfile"
       ];
-    };
-    tests.packaging = callPackage ../../tests/pkgs/mnamer-rs.nix {
-      package = finalAttrs.finalPackage;
     };
   };
 

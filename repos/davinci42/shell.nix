@@ -1,5 +1,5 @@
 {
-  pkgs ? import <nixpkgs> { },
+  pkgs ? (builtins.getFlake (toString ./.)).inputs.nixpkgs.legacyPackages.${builtins.currentSystem},
 }:
 pkgs.mkShell {
   packages = with pkgs; [
@@ -13,6 +13,5 @@ pkgs.mkShell {
     basedpyright
     git
     gh
-    act
   ];
 }

@@ -17,12 +17,11 @@ in
   options.services.fluxdown = {
     enable = lib.mkEnableOption "FluxDown download server and Web UI";
 
-    package = lib.mkOption {
-      type = lib.types.package;
-      default = pkgs.callPackage ../pkgs/fluxdown-server { };
-      defaultText = lib.literalExpression "pkgs.callPackage ../pkgs/fluxdown-server { }";
-      description = "FluxDown package containing fluxdown-agent and fluxdownd.";
-    };
+    package =
+      lib.mkPackageOption (pkgs.nur.davinci42 or (import ../. { inherit pkgs; })) "fluxdown-server"
+        {
+          pkgsText = "pkgs.nur.davinci42";
+        };
 
     listenAddress = lib.mkOption {
       type = lib.types.str;

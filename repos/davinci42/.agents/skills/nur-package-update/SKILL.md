@@ -13,8 +13,8 @@ Run commands from the repository root, replacing placeholders with verified valu
 
 - Check `git status --short`; preserve existing work. Resolve the requested name
   through `default.nix`, then read its package expression, `README.md`, and
-  `passthru.updateScript` and `passthru.tests`. Update commands belong to the
-  package expression, not separate maintenance metadata.
+  `passthru.updateScript`. Update commands belong to the package expression, not
+  separate maintenance metadata.
 - Verify the target using upstream locations from those files; use `gh` for
   GitHub. Default to the latest stable release, not a prerelease or downgrade.
   Confirm release status and assets for every supported platform.
@@ -46,7 +46,7 @@ Read the printed diff; use the package's candidate check or rerun the same targe
 if needed. Trace changed fields, bounds, source hashes, and protocol versions to
 old and target upstream code, including validation and application semantics.
 
-Adapt affected modules, helpers, regression tests, and package documentation;
+Adapt affected modules, helpers, and package documentation;
 fix generators rather than hand-editing their output. Test adaptations against
 an isolated candidate when necessary. If no adaptation is needed, explain why
 with source evidence. Only then accept the exact reviewed version:

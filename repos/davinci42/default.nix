@@ -1,5 +1,5 @@
 {
-  pkgs ? import <nixpkgs> { },
+  pkgs ? (builtins.getFlake (toString ./.)).inputs.nixpkgs.legacyPackages.${builtins.currentSystem},
 }:
 {
   basic-memory = pkgs.callPackage ./pkgs/basic-memory { };

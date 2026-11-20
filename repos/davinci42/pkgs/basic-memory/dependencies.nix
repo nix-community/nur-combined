@@ -16,12 +16,7 @@ let
         sha256 = locked.${name}.hash;
       };
       inherit dependencies;
-      pythonRelaxDeps =
-        lib.optionals (name == "fastapi") [ "opentelemetry-api" ]
-        ++ lib.optionals (name == "litellm") [
-          "importlib-metadata"
-          "openai"
-        ];
+      pythonRelaxDeps = lib.optionals (name == "fastapi") [ "opentelemetry-api" ];
       doCheck = false;
       pythonImportsCheck = imports;
       meta = {
@@ -110,20 +105,6 @@ let
       ++ py-key-value-aio.optional-dependencies.memory
     ) [ "fastmcp" "fastmcp.client" "fastmcp.server" ] lib.licenses.asl20;
     fastmcp = wheel "fastmcp" [ packages.fastmcp-slim ] [ "fastmcp" ] lib.licenses.asl20;
-    litellm = wheel "litellm" (with python3Packages; [
-      aiohttp
-      click
-      fastuuid
-      httpx
-      importlib-metadata
-      jinja2
-      jsonschema
-      openai
-      pydantic
-      python-dotenv
-      tiktoken
-      tokenizers
-    ]) [ "litellm" ] lib.licenses.mit;
   };
 in
 packages

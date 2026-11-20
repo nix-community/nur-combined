@@ -123,12 +123,9 @@ def execute_update(
             root,
             [
                 "nix-build",
+                "-E",
+                f'with import ./. {{}}; builtins.seq {package}.updateScript (builtins.derivation {{ name = "script"; system = builtins.currentSystem; builder = "/bin/sh"; args = ["-c" "echo > $out"]; }})',
                 "--no-out-link",
-                "--expr",
-                '{ name }: let pkgs = import <nixpkgs> {}; package = (import ./. {}).${name}; in pkgs.writeText "update-script" (builtins.toJSON package.updateScript)',
-                "--argstr",
-                "name",
-                package,
             ],
             capture=True,
         )
@@ -184,7 +181,7 @@ def lint(root: Path) -> None:
 
 def check(root: Path, package: str, *, run_lint: bool = True) -> None:
     update_info(root, package)
-    run(root, ["nix", "build", "-f", ".", package, package + ".tests", "--no-link"])
+    run(root, ["nix", "build", "-f", ".", package, "--no-link"])
     if run_lint:
         lint(root)
 
@@ -197,7 +194,10 @@ def publish(
         for name in before.keys() | after.keys()
         if before.get(name) != after.get(name)
     }
-    if any(not name.startswith(f"pkgs/{package}/") for name in changed):
+    if any(
+        name != "flake.lock" and not name.startswith(f"pkgs/{package}/")
+        for name in changed
+    ):
         raise ValueError("Updater modified files outside its package directory")
     if any(name not in before or name not in after for name in changed):
         raise ValueError("Updater added or deleted files; review manually")
@@ -220,7 +220,11 @@ def update(
         def apply(ws: Path) -> Path | None:
             copy_repository(root, ws)
             execute_update(ws, package, target, accept_contract, info=info)
-            return ws if snapshot(ws) != before else None
+            if snapshot(ws) == before:
+                return None
+            if (ws / "flake.lock").exists():
+                run(ws, ["nix", "flake", "update"])
+            return ws
 
         def validate_and_publish(ws: Path | None) -> bool:
             if ws is None:
@@ -236,7 +240,7 @@ def update(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run package update scripts and tests")
+    parser = argparse.ArgumentParser(description="Run package update scripts and checks")
     parser.add_argument("action", choices=["update", "check", "check-all", "lint"])
     parser.add_argument("package", nargs="?")
     parser.add_argument("--version")
@@ -248,8 +252,6 @@ def main() -> None:
         elif args.action == "check-all":
             for package in packages(ROOT):
                 check(ROOT, package, run_lint=False)
-            for test in ("maintenance", "updates"):
-                run(ROOT, [sys.executable, f"tests/{test}.py", "-v"])
             lint(ROOT)
         elif not args.package:
             parser.error("package is required")

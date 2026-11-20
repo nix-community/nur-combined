@@ -1,7 +1,7 @@
 {
   name,
   root ? ../.,
-  pkgs ? import <nixpkgs> { },
+  pkgs ? (builtins.getFlake (toString root)).inputs.nixpkgs.legacyPackages.${builtins.currentSystem},
 }:
 let
   packages = import root { inherit pkgs; };

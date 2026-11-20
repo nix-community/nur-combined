@@ -1,0 +1,45 @@
+{
+  description = "Personal Nix packages and NixOS/nix-darwin modules";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/master";
+  };
+
+  outputs =
+    { self, nixpkgs }:
+    let
+      inherit (nixpkgs) lib;
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ];
+      modules = import ./default.nix { pkgs = null; };
+      overlay = _: prev: {
+        nur = prev.nur or { } // {
+          davinci42 = self.packages.${prev.stdenv.hostPlatform.system} // prev.nur.davinci42 or { };
+        };
+      };
+      wrapModules = lib.mapAttrs (
+        _: module: {
+          imports = [ module ];
+          nixpkgs.overlays = [ overlay ];
+        }
+      );
+    in
+    {
+      packages = lib.genAttrs systems (
+        system:
+        lib.filterAttrs (_: lib.meta.availableOn { inherit system; }) (
+          removeAttrs (import ./default.nix { pkgs = nixpkgs.legacyPackages.${system}; }) [
+            "nixosModules"
+            "darwinModules"
+          ]
+        )
+      );
+
+      overlays.default = overlay;
+      nixosModules = wrapModules modules.nixosModules;
+      darwinModules = wrapModules modules.darwinModules;
+    };
+}

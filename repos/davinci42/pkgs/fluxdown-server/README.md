@@ -60,7 +60,7 @@ selection and can leave headless tasks waiting for user input.
 `hash_algorithm` accepts `md5`, `sha1`, `sha256` (default), or `sha512`.
 Directory trees are not hashed; existing checksum-derived hashes are reused.
 
-## Maintenance and tests
+## Maintenance
 
 ```sh
 nix-shell
@@ -69,13 +69,6 @@ just contract fluxdown-server
 just check fluxdown-server
 ```
 
-Checks include Nix evaluation, isolated RPC tests and lint. Configuration comes
-from upstream `native/protocol/src/daemon_config.rs`; regenerate
+Configuration comes from upstream `native/protocol/src/daemon_config.rs`; regenerate
 `settings-schema.json` through the updater, not by hand. Review contract changes
 before running `just update-reviewed fluxdown-server <version>`.
-
-Optional VM test (run only when requested):
-
-```sh
-nix-build ./tests/pkgs/fluxdown/vm.nix --no-out-link
-```
