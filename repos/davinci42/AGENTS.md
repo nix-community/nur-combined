@@ -52,13 +52,12 @@ files. Report passed checks and untested scope; builds cover the current platfor
 ## Git
 
 Load `.agents/skills/clean-main-workflow/SKILL.md` for commits, PRs and history
-changes. Prefer one commit per PR and squash merges. Do not commit, push or rewrite
-published history unless requested; use `--force-with-lease` for authorized rewrites.
+changes. Keep linear history on `main`. Do not commit, push or rewrite published
+history unless requested; use `--force-with-lease` for authorized rewrites.
 
-Use `pkg-name: old-ver -> new-ver` for updates and English Conventional Commit
-titles otherwise, under 72 characters. Keep release notes in PRs, not READMEs.
-Use `.github/package-update-pr.md` for update PRs: upstream diff URL, passed-check
-list, tested platform and CI log link when available.
+Use `pkg-name: old-ver -> new-ver` for updates, `chore(flake): update nixpkgs`
+for `flake.lock` updates, and English Conventional Commit titles otherwise,
+under 72 characters. Keep release notes out of READMEs.
 
 After publishing changes to `main`, refresh the [NUR index](https://nur-update.nix-community.org/):
 

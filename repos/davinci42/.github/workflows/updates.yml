@@ -4,25 +4,21 @@ on:
   schedule:
     - cron: '37 0 * * *'
   workflow_dispatch:
-    inputs:
-      force:
-        description: 'Create a new PR even if one exists'
-        type: boolean
-        default: false
 
 permissions:
   contents: write
-  pull-requests: write
 
 concurrency:
   group: package-updates
   cancel-in-progress: false
 
 jobs:
-  check:
+  prepare:
     if: github.repository == 'DaVinci42/nur-packages' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
     runs-on: ubuntu-24.04
     timeout-minutes: 120
+    outputs:
+      sha: ${{ steps.candidate.outputs.sha }}
     env:
       PYTHONDONTWRITEBYTECODE: '1'
       NO_COLOR: '1'
@@ -34,8 +30,6 @@ jobs:
       GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-        with:
-          token: ${{ secrets.UPDATE_TOKEN || github.token }}
       - uses: cachix/install-nix-action@3dc140bfc76c49fbd4dd958429132e3746bcb086
         with:
           extra_nix_config: |
@@ -44,15 +38,43 @@ jobs:
         with:
           name: davinci42
           skipPush: true
-      - name: Validate updates and open pull requests
+      - name: Update flake.lock and packages
+        id: candidate
         env:
-          GH_TOKEN: ${{ secrets.UPDATE_TOKEN || github.token }}
-          GITHUB_TOKEN: ${{ secrets.UPDATE_TOKEN || github.token }}
-          UPDATE_BASE: ${{ github.event.repository.default_branch }}
-          UPDATE_FORCE: ${{ inputs.force || false }}
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
-          if [ "$UPDATE_FORCE" = "true" ]; then
-            nix-shell --run 'just check-updates --pr --force'
-          else
-            nix-shell --run 'just check-updates --pr'
+          base=$(git rev-parse HEAD)
+          nix flake update
+          git diff --quiet flake.lock || git commit -am "chore(flake): update nixpkgs"
+          nix-shell --run 'just check-updates --update --commit' || pkg_failed=1
+          head=$(git rev-parse HEAD)
+          if [ "$head" != "$base" ]; then
+            git push -f origin HEAD:refs/heads/ci-candidate
+            echo "sha=$head" >> "$GITHUB_OUTPUT"
           fi
+          exit "${pkg_failed:-0}"
+
+  cache:
+    needs: prepare
+    if: ${{ (success() || failure()) && needs.prepare.outputs.sha != '' }}
+    uses: ./.github/workflows/cache.yml
+    with:
+      ref: ${{ needs.prepare.outputs.sha }}
+    secrets: inherit
+
+  publish:
+    needs: [prepare, cache]
+    if: ${{ (success() || failure()) && needs.prepare.outputs.sha != '' && needs.cache.result == 'success' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ needs.prepare.outputs.sha }}
+          fetch-depth: 0
+      - name: Fast-forward main and refresh NUR index
+        run: |
+          git push origin "HEAD:refs/heads/${{ github.event.repository.default_branch }}"
+          git push origin --delete ci-candidate || true
+          curl -fsSL -X POST 'https://nur-update.nix-community.org/update?repo=davinci42'

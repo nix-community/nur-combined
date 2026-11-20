@@ -41,9 +41,8 @@ work from that base, not a previously squash-merged branch. Load
   `- [x]` for completed changes or passed checks, `- [ ]` for pending or unrun
   items with an explicit status. Label failed checks as failed, not merely unchecked.
   Do not wrap task lists in code fences; use code blocks only for code or output
-  that needs them. Keep summaries and links as normal Markdown.
-  Use `.github/package-update-pr.md` for package updates. Put release notes in the
-  PR, not the package README.
+  that needs them. Keep summaries and links as normal Markdown. Put release
+  notes in the PR, not the package README.
 - Push only the authorized topic branch and use explicit repository, base and
   head arguments when creating the PR. Do not enable auto-merge automatically.
 

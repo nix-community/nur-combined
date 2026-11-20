@@ -1,7 +1,7 @@
 # NUR packages
 
-Personal Nix packages and NixOS/nix-darwin modules. `default.nix` exports
-packages and module paths for NUR and caller-supplied `pkgs`; `flake.nix` locks
+Nix packages and NixOS/nix-darwin modules. `default.nix` exports packages and
+module paths for NUR and caller-supplied `pkgs`; `flake.nix` locks
 `nixpkgs/master` to expose prebuilt `packages.{x86_64-linux,aarch64-linux,aarch64-darwin}`,
 `nixosModules`, and `darwinModules` backed by `https://davinci42.cachix.org`.
 
@@ -11,6 +11,15 @@ packages and module paths for NUR and caller-supplied `pkgs`; `flake.nix` locks
 | `fluxdown-server` | `nixosModules.fluxdown`                       | [FluxDown Server](pkgs/fluxdown-server/README.md)         |
 | `magpie`          | `nixosModules.magpie`, `darwinModules.magpie` | [Magpie gateway and agent manager](pkgs/magpie/README.md) |
 | `mnamer-rs`       | None                                          | [mnamer Rust rewrite](pkgs/mnamer-rs/README.md)           |
+
+## Cached upstream packages
+
+`cached.nix` re-exports selected `nixpkgs/master` packages through `flake.nix`
+(`packages.<system>`) for binary caching on `https://davinci42.cachix.org`,
+without adding them to the NUR `default.nix` index:
+
+- `azure-cli` (with `azure-devops` and `resource-graph` extensions)
+- `zellij`
 
 ## Maintenance
 
@@ -44,7 +53,8 @@ These commands do not deploy, commit or push. For in-place updates, use
 
 ## Automated updates
 
-GitHub Actions checks packages daily at 00:37 UTC (08:37 China time) or via
-`workflow_dispatch`. Validated updates become PRs without auto-merging.
-The workflow supplies tokens to gh and nix-update, checks every package despite
-individual failures, and fails after the summary if any package failed.
+GitHub Actions updates `flake.lock` (`chore(flake): update nixpkgs`) and checks
+custom packages daily at 00:37 UTC (08:37 China time) or via `workflow_dispatch`.
+After 3-architecture builds (`x86_64-linux`, `aarch64-linux`, `aarch64-darwin`)
+succeed and push to `davinci42.cachix.org`, `main` is fast-forwarded automatically
+and the NUR index is refreshed.

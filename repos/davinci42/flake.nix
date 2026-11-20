@@ -1,5 +1,5 @@
 {
-  description = "Personal Nix packages and NixOS/nix-darwin modules";
+  description = "Nix packages and NixOS/nix-darwin modules";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/master";
@@ -30,11 +30,15 @@
     {
       packages = lib.genAttrs systems (
         system:
-        lib.filterAttrs (_: lib.meta.availableOn { inherit system; }) (
-          removeAttrs (import ./default.nix { pkgs = nixpkgs.legacyPackages.${system}; }) [
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          nur = removeAttrs (import ./default.nix { inherit pkgs; }) [
             "nixosModules"
             "darwinModules"
-          ]
+          ];
+        in
+        lib.filterAttrs (_: lib.meta.availableOn { inherit system; }) (
+          nur // import ./cached.nix { inherit pkgs; }
         )
       );
 

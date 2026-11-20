@@ -194,10 +194,7 @@ def publish(
         for name in before.keys() | after.keys()
         if before.get(name) != after.get(name)
     }
-    if any(
-        name != "flake.lock" and not name.startswith(f"pkgs/{package}/")
-        for name in changed
-    ):
+    if any(not name.startswith(f"pkgs/{package}/") for name in changed):
         raise ValueError("Updater modified files outside its package directory")
     if any(name not in before or name not in after for name in changed):
         raise ValueError("Updater added or deleted files; review manually")
@@ -220,11 +217,7 @@ def update(
         def apply(ws: Path) -> Path | None:
             copy_repository(root, ws)
             execute_update(ws, package, target, accept_contract, info=info)
-            if snapshot(ws) == before:
-                return None
-            if (ws / "flake.lock").exists():
-                run(ws, ["nix", "flake", "update"])
-            return ws
+            return ws if snapshot(ws) != before else None
 
         def validate_and_publish(ws: Path | None) -> bool:
             if ws is None:
