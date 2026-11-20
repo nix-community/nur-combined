@@ -5,11 +5,13 @@
   fetchFromGitHub,
   pkg-config,
   openssl,
+  sqlite,
   libxcb,
   libxkbcommon,
   fontconfig,
   freetype,
   wayland,
+  zlib,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -36,6 +38,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     fontconfig
     freetype
     openssl
+    sqlite
+    zlib
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
     wayland
