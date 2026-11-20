@@ -9,22 +9,22 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    x86_64-linux = "1zmc57wzq1g92r95jwvjxmxb7ri8xgr9vpb2bxccrkqmr5442qi9";
-    aarch64-linux = "0cjsz16ar0shf73zlirq3ca96bfpknwbq8amwxfd000bcdjjj3l5";
-    x86_64-darwin = "0dhlwkv5angdzjjxd331ysqjdqlg3sz59v5c4vac5w6r6x49kg7c";
-    aarch64-darwin = "1lmkyki0gry8svid2b7cp45dc4mk0589151i0mcc4m78wfjnaask";
+    x86_64-linux = "1hnny9y1pa7x6indfxm1f70jvxg9as4piy7ss7z39vgxd8nqcsw9";
+    aarch64-linux = "1shppwcf1w5pv5niac2vnc188a44jkdxwg4a01r07pa4bira58vw";
+    x86_64-darwin = "1mbrm05igz2lz3dhns3qi1hnv3sn1hgsjzcrdgvqsy56sisbr4y3";
+    aarch64-darwin = "1xps6aprrc2izbvkrl5l937a4pmz4fqi6qpdn6swibrhh2cvczy1";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/dromas-dev/dromas-client/releases/download/v0.6.7/dromas_0.6.7_linux_amd64.tar.gz";
-    aarch64-linux = "https://github.com/dromas-dev/dromas-client/releases/download/v0.6.7/dromas_0.6.7_linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/dromas-dev/dromas-client/releases/download/v0.6.7/dromas_0.6.7_darwin_amd64.tar.gz";
-    aarch64-darwin = "https://github.com/dromas-dev/dromas-client/releases/download/v0.6.7/dromas_0.6.7_darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/dromas-dev/dromas-client/releases/download/v0.6.8/dromas_0.6.8_linux_amd64.tar.gz";
+    aarch64-linux = "https://github.com/dromas-dev/dromas-client/releases/download/v0.6.8/dromas_0.6.8_linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/dromas-dev/dromas-client/releases/download/v0.6.8/dromas_0.6.8_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://github.com/dromas-dev/dromas-client/releases/download/v0.6.8/dromas_0.6.8_darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "dromas";
-  version = "0.6.7";
+  version = "0.6.8";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
@@ -40,6 +40,7 @@ stdenvNoCC.mkDerivation {
     cp -vr ./dromas $out/bin/dromas
     install -Dm644 ./LICENSE $out/share/doc/dromas/LICENSE
     install -Dm644 ./README.md $out/share/doc/dromas/README.md
+    installManPage ./share/man/man1/*.1 ./share/man/man5/*.5 ./share/man/man7/*.7
     runHook postInstall
   '';
 
