@@ -34,7 +34,7 @@ let
 in
 buildNpmPackage (finalAttrs: {
   pname = "rea";
-  version = "6.9.0";
+  version = "6.10.1";
 
   src = fetchFromGitHub {
     owner = "morluto";
@@ -42,10 +42,10 @@ buildNpmPackage (finalAttrs: {
     # Keep the revision identical to the release tag returned by nix-update.
     # Using `tag` adds refs/tags/ and makes prefixed releases look changed daily.
     rev = "rea-agents-${finalAttrs.version}";
-    hash = "sha256-n96fXl7OKRIlQ/nKGBDjN8kT4RIr2atgrQAU379lsoQ=";
+    hash = "sha256-2ulhZ2GXe1xOHKLNuJo9mTivy4OTiWP9VLHEXnpn5YI=";
   };
 
-  npmDepsHash = "sha256-xFNYn2vxfk8unZyJQ3YWOO3fFb3iJVU6Alav0A+TiSI=";
+  npmDepsHash = "sha256-cXQSwTmmu0sDcnFjpmdmaj01PU6gB0UZ+kp0T8EHKH4=";
   # REA's source build uses Node 24 (.nvmrc), including TypeScript transforms.
   nodejs = nodejs_24;
   # Install the matching, hash-pinned Frida binding ourselves instead of letting
