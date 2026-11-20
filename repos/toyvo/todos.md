@@ -97,3 +97,16 @@ Outstanding work and follow-up items for this repository.
 
 - [ ] herdr-app still spawns zsh: packaging half fixed 2026-11-19 by dropping the `herdr-core-0-1-16` override in `modules/os/users/toyvo.nix` — nixos-unstable now ships herdr-core 0.1.18 (>= 0.1.16, honors `shell = [fish -l]`). The override had rotted: its 0.1.16 `src` no longer matched nixpkgs' 0.1.18 `postPatch` (`machines.rs` substitute pattern), which broke nas/router builds. Plain `pkgs.herdr-core` is used now (both toplevels build green). Still needs on-device confirmation after deploy that herdr-app actually spawns fish.
 - [ ] Drop `herdr-desktop-fixed` override in `modules/os/gui.nix` (injects `NSLocalNetworkUsageDescription` + ad-hoc re-sign) once upstream `herdrdev/herdr-app` ships the key in its macOS bundle (nixpkgs picks it up automatically). Without it, macOS 15+ Local Network privacy silently blocks Herdr's LAN SSH (`No route to host`). Note: nix store-path churn invalidates the Settings grant on every Herdr update, so expect to re-allow + restart Herdr after each bump regardless.
+
+## NetBird (self-hosted, replaces manual WireGuard)
+
+Plan: `docs/superpowers/plans/2026-11-18-netbird.md`; handoff: `.superpowers/sdd/netbird/handoff-2026-11-20.md`.
+
+- [x] gRPC 404/505 through Traefik (2026-11-19): `traefik.ingress.kubernetes.io/service.serversscheme: h2c` is a **Service** annotation — it was on the management Ingress, where Traefik ignores it. Moved to the management + signal Services; `GetServerKey` / signal `Send` now return `200 application/grpc` via Traefik.
+- [x] Management `Signal.Proto` was `http` (clients would dial plaintext to Traefik :443) → `https`.
+- [x] Relay unreachable (2026-11-19): with no TLS cert the relay skips QUIC and serves only WS on TCP, but only UDP was NodePorted/forwarded. Now `rels://relay.toyvo.dev:443` through a Traefik Ingress at `/relay`; UDP NodePort + router UDP 33080 forward/firewall removed.
+- [ ] Switch nas (built, not yet deployed), then `kubectl rollout restart deploy/netbird-management` (ConfigMap change only renders at pod start); confirm stale `netbird-relay` NodePort Service is gone/converted.
+- [ ] Switch router to drop the dead UDP 33080 forward + firewall hole (built, not yet deployed).
+- [ ] Enroll oracle (Task 5), then oracle k3s agent (Task 6).
+- [ ] Dashboard SPA never starts its OIDC flow (separate from peers; API-driven setup keys work).
+- [ ] `cloudflare-dyndns` has `proxied = true` for `netbird-mgmt`/`netbird-signal`, yet public DNS shows them grey today — confirm dyndns won't orange-cloud them on an IP change (agent gRPC needs DNS-only).
