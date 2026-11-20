@@ -1,0 +1,35 @@
+diff --git a/engine/setup/download.py b/engine/setup/download.py
+index b0b5fcf..5cff7c8 100644
+--- a/engine/setup/download.py
++++ b/engine/setup/download.py
+@@ -37,8 +37,14 @@ ALLOWED_HOSTS = frozenset({
+     'downloads.lastbook.org',
+     'huggingface.co',
+     'cas-bridge.xethub.hf.co',
++    # Review builds only: the region maps this variant adds are published as
++    # GitHub release assets, and GitHub answers a download with a redirect to
++    # its object hosts. Every file is still checked against the manifest SHA-256.
++    'github.com',
++    'objects.githubusercontent.com',
++    'release-assets.githubusercontent.com',
+ })
+-ALLOWED_SUFFIXES = ('.hf.co',)      # Hugging Face's download hosts (cas-bridge.xethub.hf.co and its siblings)
++ALLOWED_SUFFIXES = ('.hf.co', '.githubusercontent.com')   # Hugging Face's download hosts, and GitHub's object hosts
+ MAX_REDIRECTS = 5
+ TIMEOUT = 30                        # seconds without a byte before the connection counts as broken
+ CHUNK = 1024 * 1024
+diff --git a/engine/setup/manifest.py b/engine/setup/manifest.py
+index ca84b8b..54034a6 100644
+--- a/engine/setup/manifest.py
++++ b/engine/setup/manifest.py
+@@ -11,7 +11,9 @@ from . import download
+ 
+ REMOTE = 'https://downloads.lastbook.org/manifest-v1.json'
+ SHA = re.compile(r'^[0-9a-f]{64}$')
+-LIBRARY_HOSTS = frozenset({'downloads.lastbook.org'})   # packs and state maps come from Lastbook's own download site only
++# The review maps in this variant come from a GitHub release; everything else,
++# including the model check, is unchanged.
++LIBRARY_HOSTS = frozenset({'downloads.lastbook.org', 'github.com', 'objects.githubusercontent.com', 'release-assets.githubusercontent.com'})
+ MODEL_HOSTS = frozenset({'huggingface.co'})             # the model from Hugging Face only (it redirects to its own CDN hosts)
+ 
+ 

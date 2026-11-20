@@ -62,6 +62,12 @@
           wine4office = self.legacyPackages.x86_64-linux.wine4office-word.tests.nixos;
           # Droidloom host tools, module wiring, payload and lifecycle daemon.
           droidloom = self.legacyPackages.x86_64-linux.droidloom.tests.nixos;
+          # lastbook_patched: boot the app under Xvfb and screenshot setup.
+          lastbook-patched-setup =
+            nixpkgs.legacyPackages.x86_64-linux.callPackage ./by-name/la/lastbook_patched/vm-test.nix
+              {
+                lastbook = self.legacyPackages.x86_64-linux.lastbook_patched;
+              };
         };
       cached-cuda = forAllSystems (
         system:
