@@ -19,6 +19,7 @@ module paths for NUR and caller-supplied `pkgs`; `flake.nix` locks
 without adding them to the NUR `default.nix` index:
 
 - `azure-cli` (with `azure-devops` and `resource-graph` extensions)
+- `nix` (`nixVersions.latest`)
 - `zellij`
 
 ## Maintenance
