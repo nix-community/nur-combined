@@ -2,7 +2,7 @@
 #
 # Build it from the repository root on Windows:
 #
-#   nova-nix build default.nix --store C:\nix\store
+#   nova-nix build default.nix -A notepad-plus-plus --store C:\nix\store
 #
 # nova-nix supplies the Windows stdenv and fetchurl through callPackage, so
 # this file does not need to be copied into the release archive.

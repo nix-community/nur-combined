@@ -10,9 +10,9 @@ let
   isWindows = (builtins.currentSystem or "unknown") == "x86_64-windows";
 in
 if isWindows then
-  # nova-nix on Windows builds this directly:
-  #   nova-nix build default.nix --store C:\nix\store
-  (import ./flake-compat.nix { src = ./.; }).outputs.defaultNix
+  # nova-nix on Windows builds one package from this set:
+  #   nova-nix build default.nix -A notepad-plus-plus --store C:\nix\store
+  (import ./flake-compat.nix { src = ./.; }).windowsPackages
 else
   {
     pkgs ? import <nixpkgs> {

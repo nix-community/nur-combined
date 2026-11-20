@@ -16,16 +16,15 @@
     "nova-nix-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1793839143,
-        "narHash": "sha256-/0qrSudJnbYgQQxO4mBdwtTCEpqlo8IShv+IX76elrE=",
+        "lastModified": 1795206998,
+        "narHash": "sha256-l1nmyyKh0us7D6Dk2hBWGqkWaCqhrU8fWHFDXWUPRE0=",
         "owner": "Novavero-AI",
         "repo": "nova-nix",
-        "rev": "fcdfed2e1d62e824c80c2308ceaa988d624a8825",
+        "rev": "3670028b99b328da43c3a52f0c5f188f19d408d4",
         "type": "github"
       },
       "original": {
         "owner": "Novavero-AI",
-        "ref": "v0.10.0.0",
         "repo": "nova-nix",
         "type": "github"
       }

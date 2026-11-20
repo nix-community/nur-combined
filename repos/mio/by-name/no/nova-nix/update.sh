@@ -21,7 +21,6 @@ sed -i \
   -e "s|hash = \"sha256-[A-Za-z0-9+/=]*\";|hash = \"${hash}\";|" \
   package.nix
 
-# The Windows recipe imports nova-nix's stdenv from this flake input, so keep
-# its tag and locked revision in step with the packaged release.
-sed -i "s|github:Novavero-AI/nova-nix/v[^\"]*|github:Novavero-AI/nova-nix/${tag}|" "$repo/flake.nix"
+# The Windows recipe imports nova-nix's stdenv from this flake input; refresh
+# the locked revision along with the packaged release.
 (cd "$repo" && nix flake lock --update-input nova-nix-src)

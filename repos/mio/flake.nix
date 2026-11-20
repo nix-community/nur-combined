@@ -7,9 +7,10 @@
   #inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
   # The nova-nix source tree supplies the native Windows stdenv.  It is not a
   # flake, so it is fetched as a plain source input; flake-compat.nix resolves
-  # it for nova-nix, which has no flake support.
+  # it for nova-nix, which has no flake support.  The URL tracks the branch and
+  # flake.lock pins the revision.
   inputs.nova-nix-src = {
-    url = "github:Novavero-AI/nova-nix/v0.10.0.0";
+    url = "github:Novavero-AI/nova-nix";
     flake = false;
   };
   outputs =
@@ -25,9 +26,12 @@
     in
     {
       # Built by nova-nix on Windows from the repository root:
-      #   nova-nix build default.nix --store C:\nix\store
-      # Also reachable from the flake as `nix eval .#defaultNix.drvPath`.
-      defaultNix = import ./windows.nix { inherit nova-nix-src; };
+      #   nova-nix build default.nix -A notepad-plus-plus --store C:\nix\store
+      # Also reachable from the flake as
+      # `nix eval .#windowsPackages.notepad-plus-plus.drvPath`.
+      windowsPackages = {
+        notepad-plus-plus = import ./windows.nix { inherit nova-nix-src; };
+      };
       legacyPackages = forAllSystems (
         system:
         import ./default.nix {
