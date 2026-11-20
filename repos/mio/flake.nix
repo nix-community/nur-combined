@@ -5,10 +5,18 @@
   #inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.nixpkgs.url = "https://nixos.org/channels/nixpkgs-unstable/nixexprs.tar.zst";
   #inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+  # The nova-nix source tree supplies the native Windows stdenv.  It is not a
+  # flake, so it is fetched as a plain source input; flake-compat.nix resolves
+  # it for nova-nix, which has no flake support.
+  inputs.nova-nix-src = {
+    url = "github:Novavero-AI/nova-nix/v0.10.0.0";
+    flake = false;
+  };
   outputs =
     {
       self,
       nixpkgs,
+      nova-nix-src,
     }:
     let
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
@@ -16,6 +24,10 @@
         system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system};
     in
     {
+      # Built by nova-nix on Windows from the repository root:
+      #   nova-nix build default.nix --store C:\nix\store
+      # Also reachable from the flake as `nix eval .#defaultNix.drvPath`.
+      defaultNix = import ./windows.nix { inherit nova-nix-src; };
       legacyPackages = forAllSystems (
         system:
         import ./default.nix {

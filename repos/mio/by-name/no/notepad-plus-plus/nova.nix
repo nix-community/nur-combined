@@ -1,20 +1,22 @@
 # Notepad++ built natively on Windows by nova-nix.
 #
-# nova-nix's Windows stdenv lives in the release archive: copy this file into
-# the unpacked nova-nix directory (the one holding pkgs/, bin/ and share/) and
-# run there:
+# Build it from the repository root on Windows:
 #
-#   nova-nix build notepad-plus-plus.nix --store C:\nix\store
+#   nova-nix build default.nix --store C:\nix\store
+#
+# nova-nix supplies the Windows stdenv and fetchurl through callPackage, so
+# this file does not need to be copied into the release archive.
 #
 # The build is Notepad++'s own PowerEditor/gcc makefile; the pre-build .bat is
 # replaced with the same header generation done by hand, so the build needs no
 # cmd.exe/findstr behaviour.  Unlike the Linux/macOS package in package.nix
 # this is a native Windows build, so the Wine-only "[Administrator]" patch is
 # not applied.
-let
-  fetchurl = import ./pkgs/windows/fetchurl.nix;
-  stdenv = import ./pkgs/windows/stdenv;
-in
+{
+  fetchurl,
+  stdenv,
+}:
+
 stdenv.mkDerivation rec {
   name = "notepad-plus-plus-${version}";
   version = "8.9.9.1";

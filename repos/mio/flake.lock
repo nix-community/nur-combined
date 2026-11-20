@@ -13,9 +13,27 @@
         "url": "https://nixos.org/channels/nixpkgs-unstable/nixexprs.tar.zst"
       }
     },
+    "nova-nix-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793839143,
+        "narHash": "sha256-/0qrSudJnbYgQQxO4mBdwtTCEpqlo8IShv+IX76elrE=",
+        "owner": "Novavero-AI",
+        "repo": "nova-nix",
+        "rev": "fcdfed2e1d62e824c80c2308ceaa988d624a8825",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Novavero-AI",
+        "ref": "v0.10.0.0",
+        "repo": "nova-nix",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nova-nix-src": "nova-nix-src"
       }
     }
   },

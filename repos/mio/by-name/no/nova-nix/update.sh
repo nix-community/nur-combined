@@ -3,6 +3,7 @@
 set -euo pipefail
 
 cd "$(dirname "$0")"
+repo=$(cd ../../.. && pwd)
 
 tag=$(curl -fsSL https://api.github.com/repos/Novavero-AI/nova-nix/releases/latest | jq -r .tag_name)
 version=${tag#v}
@@ -19,3 +20,8 @@ sed -i \
   -e "s|version = \"[^\"]*\";|version = \"${version}\";|" \
   -e "s|hash = \"sha256-[A-Za-z0-9+/=]*\";|hash = \"${hash}\";|" \
   package.nix
+
+# The Windows recipe imports nova-nix's stdenv from this flake input, so keep
+# its tag and locked revision in step with the packaged release.
+sed -i "s|github:Novavero-AI/nova-nix/v[^\"]*|github:Novavero-AI/nova-nix/${tag}|" "$repo/flake.nix"
+(cd "$repo" && nix flake lock --update-input nova-nix-src)

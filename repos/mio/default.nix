@@ -6,14 +6,22 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{
-  pkgs ? import <nixpkgs> {
-    config.allowUnfree = true;
-    config.android_sdk.accept_license = true;
-  },
-  no-ifd ? true,
-}:
-with (import ./private.nix { inherit pkgs; });
+let
+  isWindows = (builtins.currentSystem or "unknown") == "x86_64-windows";
+in
+if isWindows then
+  # nova-nix on Windows builds this directly:
+  #   nova-nix build default.nix --store C:\nix\store
+  (import ./flake-compat.nix { src = ./.; }).outputs.defaultNix
+else
+  {
+    pkgs ? import <nixpkgs> {
+      config.allowUnfree = true;
+      config.android_sdk.accept_license = true;
+    },
+    no-ifd ? true,
+  }:
+  with (import ./private.nix { inherit pkgs; });
 let
   base = {
     # The `lib`, `modules`, and `overlays` names are special
