@@ -3,12 +3,12 @@
 { fetchzip }:
 
 let
-  version = "1.6.3";
-  rev = "v1.6.3";
-  npmDepsHash = "sha256-iewSnvtUR7jWTF7dVsb2qOA7q3pzk+bwMaCJOZ8pMSM=";
+  version = "1.6.4";
+  rev = "v1.6.4";
+  npmDepsHash = "sha256-8Jj2u885Qsv/FOwxJbIovFWcMVkOQl2ata+CN1qs/m4=";
   src = fetchzip {
-    url = "https://codeload.github.com/colbymchenry/codegraph/tar.gz/v1.6.3";
-    hash = "sha256-7T3D8O/5qfrc8QdpYxCadHOamfHSDhsRMlA5JyfqBRM=";
+    url = "https://codeload.github.com/colbymchenry/codegraph/tar.gz/v1.6.4";
+    hash = "sha256-V0Q/tivtO64vYkFOeWFXu1gGZCIAAtiT1Htz5xNkFns=";
     extension = "tar.gz";
   };
 in
