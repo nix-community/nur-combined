@@ -1,0 +1,32 @@
+--- a/extensions/index.ts
++++ b/extensions/index.ts
+@@ -9519,6 +9519,14 @@
+ 				name,
+ 				label,
+ 				description,
++				...(record.exposure !== undefined ? { exposure: record.exposure } : {}),
++				...(record.defaultActive !== undefined ? { defaultActive: record.defaultActive } : {}),
++				...(record.namespace !== undefined ? { namespace: record.namespace } : {}),
++				...(record.outputSchema !== undefined ? { outputSchema: record.outputSchema } : {}),
++				...(record.annotations !== undefined ? { annotations: record.annotations } : {}),
++				...(record.reachesTools !== undefined ? { reachesTools: record.reachesTools } : {}),
++				...(record.promptSnippet !== undefined ? { promptSnippet: record.promptSnippet } : {}),
++				...(record.promptGuidelines !== undefined ? { promptGuidelines: record.promptGuidelines } : {}),
+ 				parameters: record.parameters,
+ 				prepareArguments: typeof record.prepareArguments === "function" ? record.prepareArguments : undefined,
+ 				async execute(toolCallId: string, params: any, signal: AbortSignal | undefined, onUpdate: any, ctx: any) {
+@@ -9564,6 +9572,14 @@
+ 				name,
+ 				label,
+ 				description,
++				...(record.exposure !== undefined ? { exposure: record.exposure } : {}),
++				...(record.defaultActive !== undefined ? { defaultActive: record.defaultActive } : {}),
++				...(record.namespace !== undefined ? { namespace: record.namespace } : {}),
++				...(record.outputSchema !== undefined ? { outputSchema: record.outputSchema } : {}),
++				...(record.annotations !== undefined ? { annotations: record.annotations } : {}),
++				...(record.reachesTools !== undefined ? { reachesTools: record.reachesTools } : {}),
++				...(record.promptSnippet !== undefined ? { promptSnippet: record.promptSnippet } : {}),
++				...(record.promptGuidelines !== undefined ? { promptGuidelines: record.promptGuidelines } : {}),
+ 				parameters: record.parameters,
+ 				prepareArguments: typeof record.prepareArguments === "function" ? record.prepareArguments : undefined,
+ 				async execute(toolCallId: string, params: any, signal: AbortSignal | undefined, onUpdate: any, ctx: any) {

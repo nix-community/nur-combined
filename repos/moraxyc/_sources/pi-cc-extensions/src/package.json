@@ -1,0 +1,77 @@
+{
+	"name": "pi-cc-extensions",
+	"version": "1.0.21",
+	"license": "MIT",
+	"description": "Claude Code-style TUI output with some personal touches and handy utilities.",
+	"type": "module",
+	"keywords": [
+		"pi-package",
+		"pi-extension",
+		"pi-coding-agent",
+		"claude-code"
+	],
+	"homepage": "https://github.com/minuque/pi-cc-extensions#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/minuque/pi-cc-extensions.git"
+	},
+	"bugs": {
+		"url": "https://github.com/minuque/pi-cc-extensions/issues"
+	},
+	"files": [
+		"extensions",
+		"assets/readme",
+		"themes",
+		"CHANGELOG.md",
+		"README.md",
+		"README.en.md"
+	],
+	"pi": {
+		"extensions": [
+			"./extensions/index.ts"
+		],
+		"themes": [
+			"./themes/cc-dark.json",
+			"./themes/cc-light.json",
+			"./themes/cc-dark-hc.json",
+			"./themes/cc-light-hc.json"
+		],
+		"image": "https://raw.githubusercontent.com/minuque/pi-cc-extensions/main/assets/readme/preview.webp",
+		"video": "https://github.com/minuque/pi-cc-extensions/releases/download/v0.9.4/demo.mp4"
+	},
+	"scripts": {
+		"test": "node --test tests/**/*.test.ts",
+		"coverage": "node --test --experimental-test-coverage --test-coverage-include=extensions/**/*.ts tests/**/*.test.ts",
+		"typecheck": "tsc --noEmit",
+		"format": "biome format --write .",
+		"format:check": "biome format .",
+		"docs:tool-render": "node --experimental-strip-types scripts/generate-tool-render-examples.ts",
+		"lint": "biome check .",
+		"preversion": "npm run format && npm run lint && npm run typecheck && npm test && npm run docs:tool-render",
+		"release": "npm version patch && npm publish",
+		"release:minor": "npm version minor && npm publish",
+		"release:major": "npm version major && npm publish"
+	},
+	"dependencies": {
+		"@shikijs/cli": "^4.0.2",
+		"grok-mermaid": "^0.2.2",
+		"jiti": "^2.7.0"
+	},
+	"bundledDependencies": [],
+	"peerDependencies": {
+		"@earendil-works/pi-ai": "*",
+		"@earendil-works/pi-coding-agent": "*",
+		"@earendil-works/pi-tui": "*"
+	},
+	"engines": {
+		"node": ">=22.19.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.5.5",
+		"@earendil-works/pi-ai": "1.5.2",
+		"@earendil-works/pi-coding-agent": "1.5.2",
+		"@earendil-works/pi-tui": "1.5.2",
+		"@types/node": "^26.1.1",
+		"typescript": "^5.9.3"
+	}
+}

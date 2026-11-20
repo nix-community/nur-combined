@@ -13,6 +13,8 @@ buildNpmPackage (finalAttrs: {
   __structuredAttrs = true;
   strictDeps = true;
 
+  patches = [ ./preserve-tool-exposure.patch ];
+
   npmDeps = importNpmLock source.npmDeps;
   npmConfigHook = importNpmLock.npmConfigHook;
 

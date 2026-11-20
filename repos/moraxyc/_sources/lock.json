@@ -827,6 +827,24 @@
       },
       "fingerprint": "sha256-axQY4oyIkncZR91dnj1w5YeNzJccStNBGi+ao7r52u0="
     },
+    "pi-cc-extensions": {
+      "version": "1.0.21",
+      "rawVersion": "v1.0.21",
+      "date": "2026-11-17",
+      "src": {
+        "fetcher": "github",
+        "owner": "minuque",
+        "repo": "pi-cc-extensions",
+        "rev": "v1.0.21",
+        "hash": "sha256-Rd8dfwEdyfCzkrjiOlzVNYxbOa3iTamTgAkYCTYz+kc="
+      },
+      "derived": {
+        "npmDeps": {
+          "lockfile": "pi-cc-extensions/src/package-lock.json"
+        }
+      },
+      "fingerprint": "sha256-gzlQiwTata8e/xFKRglvKcc6pe9Qo/UXCwdMnZRnbhY="
+    },
     "pi-cc-tools": {
       "version": "1.0.89-unstable-2026-11-18",
       "rawVersion": "c3062946d10a36a090be4c9afbd574dd8090a285",
