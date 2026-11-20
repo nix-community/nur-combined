@@ -1,0 +1,44 @@
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -1079,21 +1079,6 @@
+         "node": ">=6.9.0"
+       }
+     },
+-    "node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-agent-core": {
+-      "version": "0.79.9",
+-      "resolved": "https://registry.npmjs.org/@earendil-works/pi-agent-core/-/pi-agent-core-0.79.9.tgz",
+-      "dev": true,
+-      "license": "MIT",
+-      "dependencies": {
+-        "@earendil-works/pi-ai": "^0.79.9",
+-        "ignore": "7.0.5",
+-        "typebox": "1.1.38",
+-        "yaml": "2.9.0"
+-      },
+-      "engines": {
+-        "node": ">=22.19.0"
+-      }
+-    },
+     "node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-ai": {
+       "version": "0.79.9",
+       "resolved": "https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-0.79.9.tgz",
+@@ -1117,19 +1102,6 @@
+       },
+       "engines": {
+         "node": ">=22.19.0"
+-      }
+-    },
+-    "node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-tui": {
+-      "version": "0.79.9",
+-      "resolved": "https://registry.npmjs.org/@earendil-works/pi-tui/-/pi-tui-0.79.9.tgz",
+-      "dev": true,
+-      "license": "MIT",
+-      "dependencies": {
+-        "get-east-asian-width": "1.6.0",
+-        "marked": "18.0.5"
+-      },
+-      "engines": {
+-        "node": ">=22.19.0"
+       }
+     },
+     "node_modules/@earendil-works/pi-coding-agent/node_modules/@google/genai": {
