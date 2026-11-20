@@ -6,23 +6,23 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "2.4.3",
+  "version": "2.4.5",
   "platforms": {
     "aarch64-darwin": {
       "file": "Motrix-{version}-arm64.dmg",
-      "hash": "sha256-yp5sPRlcxpWSj8RPeCb8DwU4TLLcnYY7lzXkYQoWL1Y="
+      "hash": "sha256-9UBzL2X5SnTUyYVE/QoV5rahPFBJ7DFECYdvBYaeD8Y="
     },
     "x86_64-darwin": {
       "file": "Motrix-{version}-x64.dmg",
-      "hash": "sha256-+kjQfBB6ZkXJznQrRxUWWYULd9zuUsWG05blcZTTecM="
+      "hash": "sha256-W7jc8mUYS7ZH0F28zOAi80QSta8p/qH/sjMgUpilmOs="
     },
     "x86_64-linux": {
       "file": "Motrix-{version}-x86_64.AppImage",
-      "hash": "sha256-O2w0UC+X0TYocIZDDc9oKkWTTkMNEr9gjaxr4lJFWJc="
+      "hash": "sha256-OsGysyiFxXCu0HC5DWPDIG2axqOnOH27s8fMRcr4YCw="
     },
     "aarch64-linux": {
       "file": "Motrix-{version}-arm64.AppImage",
-      "hash": "sha256-FJj4Lk5Eb8FvbMO27xxqjB/EzjIAQRsGtwLMYdJvbS0="
+      "hash": "sha256-LzT5L9I/eqLTGuIb9aaQY0blDT3f2Dnw4eqNQH29mlI="
     }
   }
 }

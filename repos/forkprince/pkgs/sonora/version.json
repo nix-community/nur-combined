@@ -6,19 +6,19 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.50.2",
+  "version": "0.50.3",
   "platforms": {
     "aarch64-darwin": {
       "file": "sonora-v{version}-macos.dmg",
-      "hash": "sha256-3VTTnfdRJu0qaTZuulzvlrYxrvpP68uMxnE0NHDnNXs="
+      "hash": "sha256-ZfK0cEIdxGK3UFJoBEC3OR2ezrgCL17Y6glaRcj10KI="
     },
     "x86_64-linux": {
       "file": "sonora-v{version}-x86_64.AppImage",
-      "hash": "sha256-MiOFxI39801WnpfPYA8YDx0f2YTbNpNskA/C4gwW7x0="
+      "hash": "sha256-/N5H+cUYaZzr4YhL3yd+1VUvSjhhVhXRjHCTKsSfFBM="
     },
     "aarch64-linux": {
       "file": "sonora-v{version}-aarch64.AppImage",
-      "hash": "sha256-xtQZCgZc4s42CXkAyDzTQ1pT/x/uuznbdReyEeVaxsg="
+      "hash": "sha256-n1k2Nz7yHZktdTnnRxKZ9jUN9bh6ylsvWwpqdi7g5pA="
     }
   }
 }

@@ -6,25 +6,25 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "1.6.0",
+  "version": "1.7.0",
   "platforms": {
     "x86_64-linux": {
       "file": "pokemon-ds-wide-pc-linux-x86_64.tar.gz",
-      "hash": "sha256-6PpJEi8jSiqNV6MEHMa21Y+XWswjI/kxXUin0InMsmM=",
+      "hash": "sha256-0VP51nNt6rHN30vBIGGvX/SdKNv0TAu7mpGEqhKX1Qw=",
       "unpack": false
     },
     "aarch64-linux": {
       "file": "pokemon-ds-wide-pc-linux-aarch64.tar.gz",
-      "hash": "sha256-wCz1OFr+XkrkV720K5NdhhyaK/f4YHWhOi0VfW/qkCw=",
+      "hash": "sha256-HZI5JPcGvwyVL7Z2a2p3ksvJoEIZWv5tIBF+HXo9qJo=",
       "unpack": false
     },
     "aarch64-darwin": {
       "file": "pokemon-ds-wide-pc-macos-arm64.zip",
-      "hash": "sha256-SzFFZsSs9vjcn/SfM/l/RIFpor7V6bGXfPlI27ylOSE="
+      "hash": "sha256-9XvXAs2F+Bh2qCGySCI9d11C0Q6w1Dhr+hnFtyPHSIg="
     },
     "x86_64-darwin": {
       "file": "pokemon-ds-wide-pc-macos-x86_64.zip",
-      "hash": "sha256-a914LlWDzyqlM0o238yLmH/I7u6qN8HrZHLzOFNJju4="
+      "hash": "sha256-YDV3EZ9uyVIHdOEf1vHk/nr/5plW7AoMMX7YPHSAXes="
     }
   }
 }

@@ -6,16 +6,16 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.34.1",
+  "version": "0.34.2",
   "platforms": {
     "x86_64-linux": {
       "file": "cordial_{version}-1_amd64.deb",
-      "hash": "sha256-H5NJDOJeBaFYO9Xu4ehs/DG1v3wNXTxTOIZplU/BS3c=",
+      "hash": "sha256-gnKmv/DKmR5mKE6ZYVKFQ/rZ+ajkF5BY9dHkhBZG9wU=",
       "unpack": false
     },
     "aarch64-linux": {
       "file": "cordial_{version}-1_arm64.deb",
-      "hash": "sha256-8wl6+Vz7WKBD9aynLktFppSWPvziDp/nacZCfSun5DU=",
+      "hash": "sha256-U4bUnp9cVkihuHoLdBkaC6Z/kEuIdhFBD+Os/BqILG4=",
       "unpack": false
     }
   }

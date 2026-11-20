@@ -10,6 +10,6 @@
     "file": "Yapfast-{version}-x86_64.AppImage",
     "unpack": false
   },
-  "version": "0.5.0-nightly.20261117.17",
-  "hash": "sha256-yNF6kEW+LWO3O2PpESyLbGMs7Y4Qy7NNgm2liEREwEQ="
+  "version": "0.5.0-nightly.20261120.19",
+  "hash": "sha256-TrtQWsZRcaD68Bo2TgDNkLDBWSfbT6XxRMJ1443mxC4="
 }
