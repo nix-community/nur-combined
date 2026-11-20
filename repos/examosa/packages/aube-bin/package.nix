@@ -9,10 +9,10 @@
 }: let
   inherit (stdenvNoCC) hostPlatform;
   sources = import ./sources.nix {inherit fetchGitHubReleaseAsset;};
-  inherit (sources) archives;
+  inherit (sources) archives version;
 in
   stdenvNoCC.mkDerivation (finalAttrs: {
-    inherit (sources) version;
+    inherit version;
     pname = "aube-bin";
     src = archives.${hostPlatform.system};
 

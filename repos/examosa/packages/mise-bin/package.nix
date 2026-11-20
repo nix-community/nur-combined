@@ -10,10 +10,10 @@
 }: let
   inherit (stdenvNoCC) hostPlatform;
   sources = import ./sources.nix {inherit fetchGitHubReleaseAsset;};
-  inherit (sources) archives;
+  inherit (sources) archives version;
 in
   stdenvNoCC.mkDerivation (finalAttrs: {
-    inherit (sources) version;
+    inherit version;
     pname = "mise-bin";
     src = archives.${hostPlatform.system};
 
@@ -66,7 +66,7 @@ in
     meta =
       mise.meta
       // {
-        changelog = "https://github.com/jdx/mise/blob/${finalAttrs.src.tag}/CHANGELOG.md";
+        changelog = "https://github.com/jdx/mise/blob/refs/tags/v${version}/CHANGELOG.md";
         maintainers = mise.meta.maintainers ++ [lib.maintainers.examosa];
         platforms = lib.attrNames archives;
         sourceProvenance = [lib.sourceTypes.binaryNativeCode];

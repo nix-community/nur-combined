@@ -8,10 +8,10 @@
 }: let
   inherit (stdenvNoCC) hostPlatform;
   sources = import ./sources.nix {inherit fetchGitHubReleaseAsset;};
-  inherit (sources) archives;
+  inherit (sources) archives version;
 in
   stdenvNoCC.mkDerivation (finalAttrs: {
-    inherit (sources) version;
+    inherit version;
     pname = "fnox";
     src = archives.${hostPlatform.system};
 
@@ -54,7 +54,7 @@ in
       broken = lib.versionOlder usage.version "6";
       description = "Encrypted/remote secret manager";
       homepage = "https://github.com/jdx/fnox";
-      changelog = "https://github.com/jdx/fnox/blob/${finalAttrs.src.tag}/CHANGELOG.md";
+      changelog = "https://github.com/jdx/fnox/blob/refs/tags/v${version}/CHANGELOG.md";
       license = lib.licenses.mit;
       maintainers = [lib.maintainers.examosa];
       mainProgram = "fnox";
