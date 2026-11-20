@@ -253,16 +253,16 @@
   };
   pilinara = {
     pname = "pilinara";
-    version = "2.6.2";
+    version = "2.2.0";
     src = fetchFromGitHub {
       owner = "Starfallan";
       repo = "PiliNara";
-      rev = "2.6.2";
+      rev = "2.2.0";
       fetchSubmodules = false;
-      sha256 = "sha256-eoMqNP2J4LHZu6TwXBslDJFWXiWxMqR/iVt8Qw1Yl0k=";
+      sha256 = "sha256-xomeVVANicd5CgjPeOV7wJHA4WMh8Uw+YwPmUesLkmw=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-eoMqNP2J4LHZu6TwXBslDJFWXiWxMqR_iVt8Qw1Yl0k=/pubspec.lock";
+      "pubspec.lock" = ./. + "/sha256-xomeVVANicd5CgjPeOV7wJHA4WMh8Uw+YwPmUesLkmw=/pubspec.lock";
     };
   };
   piliplus = {
