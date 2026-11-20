@@ -78,7 +78,13 @@ in {
     urlInsteadOf = name: config: let
       host = "bitbucket-${config.user}";
     in {
-      "${host}:${name}".insteadOf = ["git@bitbucket.org:${name}" "ssh://git@bitbucket.org/${name}"];
+      "${host}:${name}".insteadOf = [
+        "git@ssh.bitbucket.org:${name}"
+        "ssh://git@ssh.bitbucket.org/${name}"
+        # old hostname prior to 2026-11-12
+        "git@bitbucket.org:${name}"
+        "ssh://git@bitbucket.org/${name}"
+      ];
     };
     urls = mapAttrsToList urlInsteadOf repos;
   in mkIf cfg.enable {
@@ -92,7 +98,7 @@ in {
       nameValuePair "bitbucket-${name}" (let
         privateKey = optional (user.sshKeyPrivate != null) user.sshKeyPrivate;
       in {
-        hostname = "bitbucket.org";
+        hostname = "ssh.bitbucket.org";
         user = "git";
         identitiesOnly = true;
         compression = false;
