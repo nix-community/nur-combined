@@ -3,6 +3,6 @@
 fetchFromGitHub {
   owner = "0xc000022070";
   repo = "zen-browser-flake";
-  rev = "1a7722e7e35d960a17d2f5dd085631f032a77336";
-  hash = "sha256-xOaDTlUys2BZk0P0stG4a6DxW94iA5gJdFCTPAuKzgk=";
+  rev = "7b74559b5449af7487c6b4a5bd31378fca8ac515";
+  hash = "sha256-UkkIGi71wdQwxRTLuo9RgptVHM16QabbY/RgrxdzJBw=";
 }
