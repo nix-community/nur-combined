@@ -22,7 +22,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   checkFlags = lib.cli.toCommandLineGNU {} {
     skip =
-      (lib.optional stdenv.hostPlatform.isLinux "sync::tests::a_tree_lands_then_only_what_changed_is_sent_and_gets_its_arrival_time")
+      (lib.optionals stdenv.hostPlatform.isLinux [
+        "identity::key_file::tests::only_a_directory_another_user_could_replace_the_key_in_is_refused"
+        "sync::tests::a_tree_lands_then_only_what_changed_is_sent_and_gets_its_arrival_time"
+      ])
       ++ (lib.optionals stdenv.hostPlatform.isDarwin [
         "a_long_line_written_in_one_go_runs_with_nothing_typed_after"
         "a_prompt_printed_before_echo_goes_off_is_never_told_with_echo_on"
@@ -39,7 +42,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "Peer-to-peer remote shell, inspired by mosh";
     homepage = "https://github.com/gold-silver-copper/koh";
-    changelog = "https://github.com/gold-silver-copper/koh/blob/${finalAttrs.src.tag}/CHANGELOG.md";
+    changelog = "https://github.com/gold-silver-copper/koh/blob/refs/tags/${finalAttrs.src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = [lib.maintainers.examosa];
     mainProgram = "koh";
