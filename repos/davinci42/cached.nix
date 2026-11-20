@@ -2,7 +2,8 @@
 {
   inherit (pkgs) zellij;
   azure-cli = pkgs.azure-cli.withExtensions (
-    p: with p; [
+    with pkgs.azure-cli-extensions;
+    [
       azure-devops
       resource-graph
     ]
