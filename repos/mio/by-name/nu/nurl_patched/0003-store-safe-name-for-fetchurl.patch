@@ -1,0 +1,154 @@
+diff --git a/src/fetcher/pypi.rs b/src/fetcher/pypi.rs
+index b3a7285..c8b7f75 100644
+--- a/src/fetcher/pypi.rs
++++ b/src/fetcher/pypi.rs
+@@ -32,12 +32,12 @@ impl FetchPypi {
+         cfg: &FetcherConfig,
+     ) -> Result<String> {
+         if !cfg.has_args() {
+-            url_prefetch(&get_url(pname, version, "tar.gz"))
++            url_prefetch(&get_url(pname, version, "tar.gz"), None)
+         } else if cfg.args.is_empty()
+             && cfg.args_str.len() == 1
+             && let Some(ext) = cfg.args.get("extension")
+         {
+-            url_prefetch(&get_url(pname, version, ext))
++            url_prefetch(&get_url(pname, version, ext), None)
+         } else {
+             self.fetch_fod(values, rev_key, version, submodules, cfg)
+         }
+diff --git a/src/fetcher/url.rs b/src/fetcher/url.rs
+index 82a3c5d..0fa9c98 100644
+--- a/src/fetcher/url.rs
++++ b/src/fetcher/url.rs
+@@ -11,7 +11,58 @@ impl RevlessFetcher for Fetchurl {
+         if cfg.has_args() {
+             self.fetch_fod(url, cfg)
+         } else {
+-            url_prefetch(url.as_str())
++            let name = self.name(url)?;
++            url_prefetch(url.as_str(), name.as_deref())
+         }
+     }
++
++    // `nix store prefetch-file` derives the store name from the URL's last
++    // path segment and rejects names it cannot use there (spaces, parentheses)
++    // before it ever computes the hash, so such URLs cannot be hashed at all.
++    // Pass it a sanitised name, and keep the generated expression consistent.
++    fn name(&self, url: &Url) -> Result<Option<String>> {
++        Ok(store_safe_name(url))
++    }
++}
++
++fn store_safe_name(url: &Url) -> Option<String> {
++    let raw = url.as_str().rsplit('/').next()?.split('?').next()?;
++    let base = percent_decode(raw);
++    if base.is_empty() {
++        return None;
++    }
++
++    let is_safe = |c: char| c.is_ascii_alphanumeric() || "+-._?=".contains(c);
++    if base.chars().all(is_safe) {
++        return None;
++    }
++
++    Some(
++        base.chars()
++            .map(|c| if is_safe(c) { c } else { '_' })
++            .collect(),
++    )
++}
++
++fn percent_decode(input: &str) -> String {
++    let bytes = input.as_bytes();
++    let mut out = Vec::with_capacity(bytes.len());
++    let mut i = 0;
++    while i < bytes.len() {
++        let hex = (bytes[i] == b'%' && i + 2 < bytes.len())
++            .then(|| std::str::from_utf8(&bytes[i + 1..i + 3]).ok())
++            .flatten()
++            .and_then(|hex| u8::from_str_radix(hex, 16).ok());
++        match hex {
++            Some(byte) => {
++                out.push(byte);
++                i += 3;
++            }
++            None => {
++                out.push(bytes[i]);
++                i += 1;
++            }
++        }
++    }
++    String::from_utf8_lossy(&out).into_owned()
+ }
+diff --git a/src/prefetch.rs b/src/prefetch.rs
+index 9550e5c..7935ca9 100644
+--- a/src/prefetch.rs
++++ b/src/prefetch.rs
+@@ -71,20 +71,25 @@ pub fn git_prefetch(git_scheme: bool, url: &str, rev: &str, submodules: bool) ->
+     }
+ }
+ 
+-pub fn url_prefetch(url: &str) -> Result<String> {
+-    info!("$ nix store prefetch-file --json {url}");
++pub fn url_prefetch(url: &str, name: Option<&str>) -> Result<String> {
++    match name {
++        Some(name) => info!("$ nix store prefetch-file --json --name {name} {url}"),
++        None => info!("$ nix store prefetch-file --json {url}"),
++    }
+ 
+-    Ok(serde_json::from_slice::<PrefetchOutput>(
+-        &Command::new("nix")
+-            .arg("store")
+-            .arg("prefetch-file")
+-            .arg("--extra-experimental-features")
+-            .arg("nix-command")
+-            .arg("--json")
+-            .arg(url)
+-            .get_stdout()?,
+-    )?
+-    .hash)
++    let mut command = Command::new("nix");
++    command
++        .arg("store")
++        .arg("prefetch-file")
++        .arg("--extra-experimental-features")
++        .arg("nix-command")
++        .arg("--json");
++    if let Some(name) = name {
++        command.arg("--name").arg(name);
++    }
++    command.arg(url);
++
++    Ok(serde_json::from_slice::<PrefetchOutput>(&command.get_stdout()?)?.hash)
+ }
+ 
+ pub fn fod_prefetch(expr: String) -> Result<String> {
+diff --git a/src/revless.rs b/src/revless.rs
+index 6b66f66..bff6db5 100644
+--- a/src/revless.rs
++++ b/src/revless.rs
+@@ -21,6 +21,10 @@ pub trait RevlessFetcher {
+             Self::NAME,
+         );
+ 
++        if let Some(name) = self.name(url)? {
++            write!(expr, r#"name="{name}";"#)?;
++        }
++
+         for (key, value) in &cfg.args {
+             write!(expr, "{key}={value};")?;
+         }
+diff --git a/src/simple.rs b/src/simple.rs
+index 44ed6fa..09ed426 100644
+--- a/src/simple.rs
++++ b/src/simple.rs
+@@ -275,7 +275,7 @@ pub trait SimpleUrlFetcher<'a, const N: usize>: SimpleFetcher<'a, N> {
+         } else if Self::UNPACK {
+             flake_prefetch(format!("tarball+{}", self.get_url(values, rev)))
+         } else {
+-            url_prefetch(&self.get_url(values, rev))
++            url_prefetch(&self.get_url(values, rev), None)
+         }
+     }
+ }
