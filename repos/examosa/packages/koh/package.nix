@@ -22,16 +22,18 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   checkFlags = lib.cli.toCommandLineGNU {} {
     skip =
-      (lib.optionals stdenv.hostPlatform.isLinux [
+      [
+        "a_server_whose_clients_went_at_any_point_serves_the_next"
+        "serve_without_allow_allows_the_saved_clients"
+      ]
+      ++ (lib.optionals stdenv.hostPlatform.isLinux [
         "identity::key_file::tests::only_a_directory_another_user_could_replace_the_key_in_is_refused"
         "sync::tests::a_tree_lands_then_only_what_changed_is_sent_and_gets_its_arrival_time"
       ])
       ++ (lib.optionals stdenv.hostPlatform.isDarwin [
         "a_long_line_written_in_one_go_runs_with_nothing_typed_after"
         "a_prompt_printed_before_echo_goes_off_is_never_told_with_echo_on"
-        "a_server_whose_clients_went_at_any_point_serves_the_next"
         "a_sessions_bash_marks_its_commands_after_the_users_bashrc"
-        "serve_without_allow_allows_the_saved_clients"
         "session::scrolled_off_output_is_in_the_terminals_scrollback_and_a_fresh_attachs"
         "the_shell_leads_its_own_session_and_owns_its_terminal"
       ]);
