@@ -161,6 +161,60 @@ stdenv.mkDerivation {
     EOF
     chmod +x $out/bin/lastbook
 
+    # A real .app in $out/Applications, like nixpkgs' other macOS apps: the
+    # keys mirror upstream's PyInstaller bundle (packaging/lastbook_macos.spec)
+    # so the icon, name and the folder-access prompts are the same.
+    ${lib.optionalString isDarwin ''
+      appBundle="$out/Applications/Lastbook.app"
+      mkdir -p "$appBundle/Contents/MacOS" "$appBundle/Contents/Resources"
+      install -m644 packaging/Lastbook.icns "$appBundle/Contents/Resources/Lastbook.icns"
+
+      cat > "$appBundle/Contents/Info.plist" <<EOF
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+      <dict>
+        <key>CFBundleDevelopmentRegion</key>
+        <string>en</string>
+        <key>CFBundleDisplayName</key>
+        <string>Lastbook</string>
+        <key>CFBundleExecutable</key>
+        <string>Lastbook</string>
+        <key>CFBundleIconFile</key>
+        <string>Lastbook</string>
+        <key>CFBundleIdentifier</key>
+        <string>local.lastbook.desktop</string>
+        <key>CFBundleInfoDictionaryVersion</key>
+        <string>6.0</string>
+        <key>CFBundleName</key>
+        <string>Lastbook</string>
+        <key>CFBundlePackageType</key>
+        <string>APPL</string>
+        <key>CFBundleShortVersionString</key>
+        <string>${version}</string>
+        <key>CFBundleVersion</key>
+        <string>${version}</string>
+        <key>LSApplicationCategoryType</key>
+        <string>public.app-category.reference</string>
+        <key>LSMinimumSystemVersion</key>
+        <string>14.0</string>
+        <key>LSRequiresNativeExecution</key>
+        <true/>
+        <key>NSHighResolutionCapable</key>
+        <true/>
+        <key>NSDesktopFolderUsageDescription</key>
+        <string>Lastbook looks here for its library, the LastbookData folder. It reads and saves only inside that folder.</string>
+        <key>NSDocumentsFolderUsageDescription</key>
+        <string>Lastbook looks here for its library, the LastbookData folder. It reads and saves only inside that folder.</string>
+        <key>NSDownloadsFolderUsageDescription</key>
+        <string>Lastbook looks here for its library, the LastbookData folder. It reads and saves only inside that folder.</string>
+      </dict>
+      </plist>
+      EOF
+
+      ln -s "$out/bin/lastbook" "$appBundle/Contents/MacOS/Lastbook"
+    ''}
+
     runHook postInstall
   '';
 
