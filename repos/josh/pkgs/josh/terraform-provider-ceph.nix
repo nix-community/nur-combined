@@ -7,8 +7,8 @@ let
   pkg = terraform-providers.mkProvider {
     owner = "josh";
     repo = "terraform-provider-ceph";
-    rev = "v0.11.0";
-    hash = "sha256-O8Sutqq7cvz42BmBZJcAZ44PwwsCEo4CvaskK17AyqE=";
+    rev = "v0.11.1";
+    hash = "sha256-ET4WR0eVga7QUd8mF1ADYS0cqrubk9Mu7+uvnXS7WKo=";
     vendorHash = "sha256-KMc0tnqDNOhgO6fL4f0vCqBmjMeyy7M/inq16HwDGFo=";
     provider-source-address = "registry.terraform.io/josh/ceph";
     homepage = "https://github.com/josh/terraform-provider-ceph";

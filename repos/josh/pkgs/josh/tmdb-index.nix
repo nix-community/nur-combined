@@ -8,7 +8,7 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "tmdb-index";
-  version = "1.2.0";
+  version = "1.2.1";
 
   pyproject = true;
 
@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     owner = "josh";
     repo = "tmdb-index";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-hFqBItcpBS9B6/rtaqn0krxkeikUJL1FHd6yKZWp6Ys=";
+    hash = "sha256-EqrWw80DefJIQl0mtl7cLu8oNS7SR09HZC5y/rZDZXM=";
   };
 
   build-system = with python3Packages; [
