@@ -35,13 +35,13 @@ in
 
 maven.buildMavenPackage (finalAttrs: {
   pname = "archi";
-  version = "5.10.0";
+  version = "5.11.0";
 
   src = fetchFromGitHub {
     owner = "archimatetool";
     repo = "archi";
     tag = "release_${finalAttrs.version}";
-    hash = "sha256-tm41GKf7QFLTyZQkLhSuSs0XELcrlEUYfcya2nNHv5g=";
+    hash = "sha256-X6lgMxmDwdsMdBVlz0faaGd0nWXkD2PHBmXRypZlc84=";
   };
 
   strictDeps = true;
@@ -55,7 +55,7 @@ maven.buildMavenPackage (finalAttrs: {
     "-Pproduct"
   ];
 
-  mvnHash = "sha256-f/qnIpkHDdnVYraTlOucgb1tehUBlTUSfN/Yck0jxeo=";
+  mvnHash = "sha256-d0UdxnloPGW8HmhvQYOFWFUWqtq92VR2rTpbnD7w1A4=";
 
   mvnFetchExtraArgs = {
     postInstall = ''

@@ -1,6 +1,7 @@
 # nur-packages
 
-[![CI check](https://github.com/ilkecan/nur-packages/actions/workflows/ci.yaml/badge.svg)](https://github.com/ilkecan/nur-packages/actions/workflows/ci.yaml) [![cachix cache](https://img.shields.io/badge/cachix-ilkecan-blue.svg)](https://ilkecan.cachix.org)
+[![CI check](https://github.com/ilkecan/nur-packages/actions/workflows/ci.yaml/badge.svg)](https://github.com/ilkecan/nur-packages/actions/workflows/ci.yaml)
+[![cachix cache](https://img.shields.io/badge/cachix-ilkecan-blue.svg)](https://ilkecan.cachix.org)
 
 https://nur.nix-community.org/repos/ilkecan
 

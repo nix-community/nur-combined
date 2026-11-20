@@ -1,5 +1,4 @@
 {
-  # Add your Home Manager modules here
-  #
-  # my-module = ./my-module;
+  scopebuddy = ./scopebuddy.nix;
+  xdg-bin-file = ./xdg-bin-file.nix;
 }
