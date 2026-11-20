@@ -1,9 +1,9 @@
 {
-  "version": "0.29.0",
+  "version": "0.29.1",
   "hashes": {
-    "darwin-arm64": "c383a5ff5338af20ced2c0090926e0ecd6a6019dcdd4112901bbb859e4186c06",
-    "darwin-x64": "3d6da648a26887753fc959b547a7654fbe20200de5eb1aea93d839fee79173fa",
-    "linux-arm64": "54086386c8bd6335a133bcc3f9ed28ef4ba861cf072b70cef32d0e1d124829fb",
-    "linux-x64": "f2c575e7ae219472a45f53adb667ebb6eff13c2d89726d992d1f984a81161391"
+    "darwin-arm64": "b30968274ea936f4a78f31fb51801740ea15334be5d4ab917b5f96cb1d4337b3",
+    "darwin-x64": "754e7764ef84c9d4fd06b6e5007bd1e7e06aca453eaa05ec39c207e65978c715",
+    "linux-arm64": "3657b1010e9ab23b67901536c7caabc8b9b0819d21bb371adbc84132ad5db01c",
+    "linux-x64": "80665926df125272fc6777b1f2c5bcc51508950a05eeb28d922c8e5f79e4e856"
   }
 }
