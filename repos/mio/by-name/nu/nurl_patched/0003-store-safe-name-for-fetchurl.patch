@@ -125,20 +125,50 @@ index 9550e5c..7935ca9 100644
  
  pub fn fod_prefetch(expr: String) -> Result<String> {
 diff --git a/src/revless.rs b/src/revless.rs
-index 6b66f66..bff6db5 100644
+index 6b66f66..d74c3f6 100644
 --- a/src/revless.rs
 +++ b/src/revless.rs
-@@ -21,6 +21,10 @@ pub trait RevlessFetcher {
+@@ -21,6 +21,12 @@ pub trait RevlessFetcher {
              Self::NAME,
          );
  
-+        if let Some(name) = self.name(url)? {
-+            write!(expr, r#"name="{name}";"#)?;
++        if !config_sets_name(cfg) {
++            if let Some(name) = self.name(url)? {
++                write!(expr, r#"name="{name}";"#)?;
++            }
 +        }
 +
          for (key, value) in &cfg.args {
              write!(expr, "{key}={value};")?;
          }
+@@ -34,6 +40,12 @@ pub trait RevlessFetcher {
+     }
+ }
+ 
++fn config_sets_name(cfg: &FetcherConfig) -> bool {
++    [&cfg.args, &cfg.args_str, &cfg.overwrites, &cfg.overwrites_str]
++        .iter()
++        .any(|args| args.contains_key("name"))
++}
++
+ impl<'a, T: RevlessFetcher> Fetcher<'a> for T {
+     fn fetch_nix(&self, out: &mut impl Write, url: &'a Url, mut cfg: FetcherConfig) -> Result<()> {
+         if cfg.has_rev() {
+@@ -45,8 +57,12 @@ impl<'a, T: RevlessFetcher> Fetcher<'a> for T {
+ 
+         writeln!(out, "{} {{", Self::NAME)?;
+ 
+-        if let Some(name) = self.name(url)? {
+-            writeln!(out, r#"{indent}  name = "{name}";"#)?;
++        // A name given with --arg/--arg-str/--overwrite wins; writing ours too
++        // would define the attribute twice.
++        if !config_sets_name(&cfg) {
++            if let Some(name) = self.name(url)? {
++                writeln!(out, r#"{indent}  name = "{name}";"#)?;
++            }
+         }
+ 
+         if let Some(url) = cfg.overwrites.remove("url") {
 diff --git a/src/simple.rs b/src/simple.rs
 index 44ed6fa..09ed426 100644
 --- a/src/simple.rs
