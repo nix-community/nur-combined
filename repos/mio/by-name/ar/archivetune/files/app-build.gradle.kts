@@ -103,6 +103,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.11.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.11.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.11.0")
+    // Compose UI 1.13 looks up the navigation-event dispatcher owner while attaching the
+    // window, and upstream v16 imports LocalNavigationEventDispatcherOwner directly.
+    // CMP only brings navigationevent in at runtime, so expose it to compilation here.
+    implementation("androidx.navigationevent:navigationevent-compose:1.1.1")
 
     implementation("androidx.room:room-runtime:2.8.4")
     ksp("androidx.room:room-compiler:2.8.4")

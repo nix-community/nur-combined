@@ -14,6 +14,9 @@ dependencies {
     // stub package that used to shadow them is gone.
     compileOnly("androidx.lifecycle:lifecycle-viewmodel:2.11.0")
     compileOnly("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.11.0")
+    // The view-tree lookup shim is typed with the real navigation-event owner interface;
+    // :app brings the artefact to the runtime classpath.
+    compileOnly("androidx.navigationevent:navigationevent:1.1.1")
     implementation(compose.runtime)
     implementation(compose.ui)
     implementation(compose.foundation)
