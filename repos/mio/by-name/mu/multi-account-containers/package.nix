@@ -2,17 +2,18 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
+  nix-update-script,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "multi-account-containers";
-  version = "8.4.0";
+  version = "8.4.1";
 
   src = fetchFromGitHub {
     owner = "mozilla";
     repo = "multi-account-containers";
     tag = finalAttrs.version;
-    hash = "sha256-kuSoW3MkBiQRQX74l1nmFz1Db04ticJbQtBxsSSaQ50=";
+    hash = "sha256-wjxzjVwrFTkImWKb05CTkivQWvwfJ9t/6A9OZ1RR9Fs=";
   };
 
   dontBuild = true;
@@ -23,6 +24,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     cp -r src/. $out/share/multi-account-containers/
     runHook postInstall
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     changelog = "https://github.com/mozilla/multi-account-containers/releases/tag/${finalAttrs.version}";

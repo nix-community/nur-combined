@@ -17,22 +17,22 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "antigravity-tools";
-  version = "5.0.3";
+  version = "5.0.4";
 
   src = fetchFromGitHub {
     owner = "lbjlaq";
     repo = "Antigravity-Manager";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-nqjIhe0ExUA+7mnGjO0XG4/dpOsZkyufVNu8j6JmSlg=";
+    hash = "sha256-QHmurqcoFhX1pgbCjMs29niIGDegz5OIzaeXGbVkNMg=";
   };
 
   cargoRoot = "src-tauri";
   buildAndTestSubdir = finalAttrs.cargoRoot;
 
-  cargoHash = "sha256-ACQkwTlWimUJinI0Hk5kuVfxRTyfXrBR5G4Z18VOF5I=";
+  cargoHash = "sha256-qLgZTq9PF9OrQrm5/ehl3aBaQ9Uh2Btw8bZyn+LMwU0=";
   npmDeps = fetchNpmDeps {
     inherit (finalAttrs) src;
-    hash = "sha256-N4/KDFo98xz/zuSk3JMMbIVCBFf0OwnaJ2elQqWlwtA=";
+    hash = "sha256-DbhVeZsHkR6juuhREvd6PzC9Cq7GS2CBpFk/bEE0y+A=";
   };
 
   nativeBuildInputs = [

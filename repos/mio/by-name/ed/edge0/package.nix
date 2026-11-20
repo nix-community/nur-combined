@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "edge0";
-  version = "0.3.0";
+  version = "0.3.1";
 
   src = fetchFromGitHub {
     owner = "Edge0-AI";
     repo = "Edge0";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-4yoIXRTedL8JaV12sqY7jfiLb02QP3nUxL67djnp0lw=";
+    hash = "sha256-Mypz/T26L9Cs+KTM0P+yC9gOfNTh+3yp3OOziEtlo6s=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/edge0-infer";
