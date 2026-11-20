@@ -249,6 +249,16 @@ let
     gradleUpdateScript = ''
       runHook preBuild
 
+      # deps.json is shared by every Nix host, but compose.desktop.currentOs only pulls
+      # the desktop binaries of the OS Gradle thinks it runs on. Resolve the whole
+      # dependency graph once per supported target (the nixpkgs gradle setup hook
+      # supplies nixDownloadDeps under IN_GRADLE_UPDATE_DEPS) so a lock generated on
+      # darwin also builds on linux and vice versa.
+      gradle :app:nixDownloadDeps -Dos.name=Linux -Dos.arch=amd64
+      gradle :app:nixDownloadDeps -Dos.name=Linux -Dos.arch=aarch64
+      gradle :app:nixDownloadDeps -Dos.name='Mac OS X' -Dos.arch=amd64
+      gradle :app:nixDownloadDeps -Dos.name='Mac OS X' -Dos.arch=aarch64
+
       # Pull host-native Skiko + arm64/macOS variants so the deps cache is portable.
       gradle :app:composeApp 2>/dev/null || true
       gradle ${finalAttrs.gradleBuildTask}

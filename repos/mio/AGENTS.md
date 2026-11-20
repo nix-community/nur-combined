@@ -35,3 +35,31 @@ This is the standard procedure when updating packages reported by `./check_updat
 3. **Make `nix build .#<pkg>` pass** and fix whatever the update broke: hash mismatches (`lib.fakeHash` then paste the reported hash), new or changed upstream dependencies (vendored cargo crates, npm/pnpm deps, Rust/Go toolchain additions), patches that no longer apply, new build-time downloads that must be staged as fixed-output derivations because the sandbox has no network, and upstream-mandated build flags/tags. Prefer fixing the cause in the package expression over disabling tests or features.
 4. Re-run the package's update script once more to confirm it is idempotent, clean up scratch files (`git status`), and only then commit.
 
+## Gradle / Compose Desktop dependency locks
+
+`gradle.fetchDeps` only records what the machine running the update resolved, and
+`compose.desktop.currentOs` pulls just the host OS's desktop binaries. A `deps.json`
+generated on darwin then fails on linux (and vice versa) with
+`Could not find org.jetbrains.compose.desktop:desktop-jvm-<os>-<arch>`. Lock every
+supported OS in the same `deps.json` by running the deps download once per target
+with that OS spoofed, in the package's `gradleUpdateScript`:
+
+```nix
+gradle :app:nixDownloadDeps -Dos.name=Linux -Dos.arch=amd64
+gradle :app:nixDownloadDeps -Dos.name=Linux -Dos.arch=aarch64
+gradle :app:nixDownloadDeps -Dos.name='Mac OS X' -Dos.arch=amd64
+gradle :app:nixDownloadDeps -Dos.name='Mac OS X' -Dos.arch=aarch64
+```
+
+`nixDownloadDeps` is not a per-package task: the nixpkgs gradle setup hook injects it
+(see its `init-deps.gradle`) into every project when `IN_GRADLE_UPDATE_DEPS=1`, and it
+resolves every resolvable configuration. Do not register a task with that name in the
+package's build script — it collides with the injected one. `-Dos.name` and
+`-Dos.arch` are what Compose (and Gradle's platform attributes) actually read;
+`-Dos.family` alone keeps the host's OS and locks nothing. The OS-specific pieces
+are the `org.jetbrains.compose.desktop:desktop-jvm-<os>-<arch>` artifacts
+(`linux`/`macos`/`windows` + `x64`/`arm64`); skiko ships the fat
+`skiko-awt-runtime-all`, so it needs no per-OS lock. Examples in this repo:
+`bifrost` and `archivetune` (the loop above). `komi-store` achieves the same by
+appending the extra platform `implementation` deps to its build script.
+
