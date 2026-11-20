@@ -26,7 +26,7 @@ let
     hash = "sha256-6VYDqRNeFWoD3/xep94OWLL+BOn1UYt+B2hDoK5jf6U=";
   };
 
-  isDarwin = stdenv.hostPlatform.isDarwin;
+  isLinux = stdenv.hostPlatform.isLinux;
 
   # Common to both builds: no tools/server/tests, no curl or OpenSSL (nothing
   # in the runner may reach a network), no RPC backend.
@@ -67,9 +67,9 @@ stdenv.mkDerivation {
     cmake
     ninja
   ]
-  ++ lib.optionals (!isDarwin) [ shaderc ];
+  ++ lib.optionals isLinux [ shaderc ];
 
-  buildInputs = lib.optionals (!isDarwin) [
+  buildInputs = lib.optionals isLinux [
     spirv-headers
     vulkan-headers
     vulkan-loader
@@ -84,7 +84,7 @@ stdenv.mkDerivation {
       ${lib.concatStringsSep " " (map lib.escapeShellArg commonFlags)}
     )
 
-    ${lib.optionalString (!isDarwin) ''
+    ${lib.optionalString isLinux ''
       # Linux: shared llama.cpp libraries beside the runner (RUNPATH $ORIGIN),
       # one CPU backend per instruction-set variant so ggml picks the best
       # this processor runs.
@@ -118,7 +118,7 @@ stdenv.mkDerivation {
         -o lastbook-llm
     ''}
 
-    ${lib.optionalString isDarwin ''
+    ${lib.optionalString (!isLinux) ''
       # macOS (Apple Silicon): llama.cpp's Mac build is static, with Metal and
       # Accelerate BLAS, and everything links into one program.
       cmake -S ${llamaCpp} -B llama-build -G Ninja "''${commonFlags[@]}" \
@@ -151,7 +151,7 @@ stdenv.mkDerivation {
     mkdir -p $out/llm
     install -m755 lastbook-llm $out/llm/
 
-    ${lib.optionalString (!isDarwin) ''
+    ${lib.optionalString isLinux ''
       for f in llama-build/bin/libllama.so llama-build/bin/libggml.so llama-build/bin/libggml-base.so; do
         install -m755 -T "$f" "$out/llm/$(objdump -p "$f" | sed -n 's/^ *SONAME *//p')"
       done

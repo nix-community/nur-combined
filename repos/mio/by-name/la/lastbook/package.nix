@@ -4,17 +4,33 @@
   fetchFromGitHub,
   python3,
   makeWrapper,
-  nixpkgs_pkgs,
+  copyDesktopItems,
+  makeDesktopItem,
+  pkg-config,
+  wrapGAppsHook3,
+  atk,
+  cairo,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  gobject-introspection,
+  gst_all_1,
+  gtk3,
+  harfbuzz,
+  libsoup_3,
+  libx11,
+  libxfixes,
+  libxi,
+  pango,
+  webkitgtk_4_1,
+  callPackage,
   nix-update-script,
 }:
 
 # Lastbook is a plain-Python desktop app with its own native shell on each
 # platform: GTK 3 + WebKitGTK 4.1 through PyGObject on Linux, AppKit/WKWebView
 # through PyObjC on macOS. There is no Node/Electron build step.
-#
-# Platform packages are taken from nixpkgs_pkgs inside the Linux-only branches
-# so that evaluating the package for Darwin does not require Linux packages
-# (webkitgtk, GStreamer, Atk, X11) to exist in that package set.
 let
   version = "1.1.13";
 
@@ -51,38 +67,61 @@ let
   # the whole chain has to be on the path. Several only ship typelibs in
   # their lib output.
   typelibs = lib.makeSearchPath "lib/girepository-1.0" (
-    map lib.getLib (
-      with nixpkgs_pkgs;
-      [
-        glib
-        gobject-introspection
-        atk
-        pango
-        harfbuzz
-        cairo
-        freetype
-        fontconfig
-        gdk-pixbuf
-        gtk3
-        libx11
-        libxfixes
-        libxi
-        libsoup_3
-        webkitgtk_4_1
-      ]
-    )
+    map lib.getLib [
+      glib
+      gobject-introspection
+      atk
+      pango
+      harfbuzz
+      cairo
+      freetype
+      fontconfig
+      gdk-pixbuf
+      gtk3
+      libx11
+      libxfixes
+      libxi
+      libsoup_3
+      webkitgtk_4_1
+    ]
   );
 
   # The codecs the library's videos need (H.264/AAC, WebM, AV1).
-  gstPlugins = with nixpkgs_pkgs.gst_all_1; [
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-bad
-    gst-libav
+  gstPlugins = [
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
+    gst_all_1.gst-plugins-bad
+    gst_all_1.gst-libav
   ];
 
+  gstPluginPath = lib.makeSearchPath "lib/gstreamer-1.0" gstPlugins;
+
   # Upstream pins llama.cpp b12032 for the runner; see ./llm-runner.nix.
-  lastbook-llm = nixpkgs_pkgs.callPackage ./llm-runner.nix { inherit src version; };
+  lastbook-llm = callPackage ./llm-runner.nix { inherit src version; };
+
+  # The bundle keys and wording upstream's PyInstaller spec uses
+  # (packaging/lastbook_macos.spec), so the icon, name and folder-access
+  # prompts match the official Apple Silicon build.
+  macFolderUsage = "Lastbook looks here for its library, the LastbookData folder. It reads and saves only inside that folder.";
+  macInfoPlist = {
+    CFBundleDevelopmentRegion = "en";
+    CFBundleDisplayName = "Lastbook";
+    CFBundleExecutable = "Lastbook";
+    CFBundleIconFile = "Lastbook";
+    CFBundleIdentifier = "local.lastbook.desktop";
+    CFBundleInfoDictionaryVersion = "6.0";
+    CFBundleName = "Lastbook";
+    CFBundlePackageType = "APPL";
+    CFBundleShortVersionString = version;
+    CFBundleVersion = version;
+    LSApplicationCategoryType = "public.app-category.reference";
+    LSMinimumSystemVersion = "14.0";
+    LSRequiresNativeExecution = true;
+    NSDesktopFolderUsageDescription = macFolderUsage;
+    NSDocumentsFolderUsageDescription = macFolderUsage;
+    NSDownloadsFolderUsageDescription = macFolderUsage;
+    NSHighResolutionCapable = true;
+  };
 in
 stdenv.mkDerivation {
   pname = "lastbook";
@@ -91,16 +130,13 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     makeWrapper
   ]
-  ++ lib.optionals isLinux (
-    with nixpkgs_pkgs;
-    [
-      pkg-config
-      wrapGAppsHook3
-    ]
-  );
+  ++ lib.optionals isLinux [
+    copyDesktopItems
+    pkg-config
+    wrapGAppsHook3
+  ];
 
   buildInputs = lib.optionals isLinux (
-    with nixpkgs_pkgs;
     [
       glib
       gtk3
@@ -110,10 +146,33 @@ stdenv.mkDerivation {
       libsoup_3
       webkitgtk_4_1
       gst_all_1.gstreamer
-      gst_all_1.gst-plugins-base
     ]
     ++ gstPlugins
   );
+
+  desktopItems = lib.optionals isLinux [
+    (makeDesktopItem {
+      name = "lastbook";
+      desktopName = "Lastbook";
+      genericName = "Offline survival library";
+      comment = "Search and read the survival library on this computer, with no internet";
+      exec = "lastbook";
+      icon = "lastbook";
+      terminal = false;
+      categories = [
+        "Education"
+        "Literature"
+      ];
+      keywords = [
+        "survival"
+        "library"
+        "offline"
+        "first aid"
+      ];
+      startupNotify = true;
+      startupWMClass = "Lastbook";
+    })
+  ];
 
   buildPhase = lib.optionalString isLinux ''
     runHook preBuild
@@ -147,69 +206,22 @@ stdenv.mkDerivation {
     ${lib.optionalString isLinux ''
       mkdir -p "$appdir/gst"
       install -m755 gst/libgstlastbooksrc.so "$appdir/gst/"
-
-      substitute packaging/linux/lastbook.desktop lastbook.desktop \
-        --replace-fail "/usr/bin/lastbook" "lastbook"
-      install -Dm644 lastbook.desktop $out/share/applications/lastbook.desktop
     ''}
 
     # Run from source, not frozen: the packaged-app rules in shell_linux.py
     # strip GI_TYPELIB_PATH, which is how WebKitGTK is found here.
-    cat > $out/bin/lastbook <<EOF
-    #!${stdenv.shell}
-    exec ${pythonEnv}/bin/python3 "$appdir/app/main.py" "\$@"
-    EOF
-    chmod +x $out/bin/lastbook
+    makeWrapper ${pythonEnv}/bin/python3 $out/bin/lastbook \
+      --add-flags "$appdir/app/main.py" \
+      --set LASTBOOK_VERSION ${version}
 
-    # A real .app in $out/Applications, like nixpkgs' other macOS apps: the
-    # keys mirror upstream's PyInstaller bundle (packaging/lastbook_macos.spec)
-    # so the icon, name and the folder-access prompts are the same.
+    # A real .app in $out/Applications, like nixpkgs' other macOS apps.
     ${lib.optionalString isDarwin ''
       appBundle="$out/Applications/Lastbook.app"
       mkdir -p "$appBundle/Contents/MacOS" "$appBundle/Contents/Resources"
       install -m644 packaging/Lastbook.icns "$appBundle/Contents/Resources/Lastbook.icns"
 
-      cat > "$appBundle/Contents/Info.plist" <<EOF
-      <?xml version="1.0" encoding="UTF-8"?>
-      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-      <plist version="1.0">
-      <dict>
-        <key>CFBundleDevelopmentRegion</key>
-        <string>en</string>
-        <key>CFBundleDisplayName</key>
-        <string>Lastbook</string>
-        <key>CFBundleExecutable</key>
-        <string>Lastbook</string>
-        <key>CFBundleIconFile</key>
-        <string>Lastbook</string>
-        <key>CFBundleIdentifier</key>
-        <string>local.lastbook.desktop</string>
-        <key>CFBundleInfoDictionaryVersion</key>
-        <string>6.0</string>
-        <key>CFBundleName</key>
-        <string>Lastbook</string>
-        <key>CFBundlePackageType</key>
-        <string>APPL</string>
-        <key>CFBundleShortVersionString</key>
-        <string>${version}</string>
-        <key>CFBundleVersion</key>
-        <string>${version}</string>
-        <key>LSApplicationCategoryType</key>
-        <string>public.app-category.reference</string>
-        <key>LSMinimumSystemVersion</key>
-        <string>14.0</string>
-        <key>LSRequiresNativeExecution</key>
-        <true/>
-        <key>NSHighResolutionCapable</key>
-        <true/>
-        <key>NSDesktopFolderUsageDescription</key>
-        <string>Lastbook looks here for its library, the LastbookData folder. It reads and saves only inside that folder.</string>
-        <key>NSDocumentsFolderUsageDescription</key>
-        <string>Lastbook looks here for its library, the LastbookData folder. It reads and saves only inside that folder.</string>
-        <key>NSDownloadsFolderUsageDescription</key>
-        <string>Lastbook looks here for its library, the LastbookData folder. It reads and saves only inside that folder.</string>
-      </dict>
-      </plist>
+      cat > "$appBundle/Contents/Info.plist" <<'EOF'
+      ${lib.generators.toPlist { escape = true; } macInfoPlist}
       EOF
 
       ln -s "$out/bin/lastbook" "$appBundle/Contents/MacOS/Lastbook"
@@ -218,22 +230,16 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  # The gapps hook only applies gappsWrapperArgs, so wrap by hand: the
-  # typelibs, our GStreamer source and the version the About screen shows.
-  dontWrapGApps = true;
-  preFixup =
-    lib.optionalString isLinux ''
-      wrapProgram $out/bin/lastbook \
-        "''${gappsWrapperArgs[@]}" \
-        --prefix GI_TYPELIB_PATH : "${typelibs}" \
-        --prefix GST_PLUGIN_PATH_1_0 : "$out/share/lastbook/gst:${lib.makeSearchPath "lib/gstreamer-1.0" gstPlugins}" \
-        --set WEBKIT_GST_ALLOWED_URI_PROTOCOLS lastbook \
-        --set LASTBOOK_VERSION ${version}
-    ''
-    + lib.optionalString isDarwin ''
-      wrapProgram $out/bin/lastbook \
-        --set LASTBOOK_VERSION ${version}
-    '';
+  # wrapGAppsHook3 wraps $out/bin/lastbook during fixup. These arguments add
+  # what the hook cannot infer from buildInputs: the full typelib chain and
+  # the app's own GStreamer source.
+  preFixup = lib.optionalString isLinux ''
+    gappsWrapperArgs+=(
+      --prefix GI_TYPELIB_PATH : "${typelibs}"
+      --prefix GST_PLUGIN_PATH_1_0 : "$out/share/lastbook/gst:${gstPluginPath}"
+      --set WEBKIT_GST_ALLOWED_URI_PROTOCOLS lastbook
+    )
+  '';
 
   passthru = {
     inherit lastbook-llm;
@@ -243,6 +249,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Offline survival library: guides, manuals, videos, maps and encyclopedias";
     homepage = "https://lastbook.org";
+    changelog = "https://github.com/Immortal-Protocols/lastbook/releases/tag/v${version}";
     license = lib.licenses.mit;
     mainProgram = "lastbook";
     # Upstream ships Linux x86_64/aarch64 and an Apple Silicon Mac build.
