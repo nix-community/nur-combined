@@ -61,25 +61,11 @@ rec {
               inherit lockFile;
               outputHashes = entry.outputHashes or { };
             };
-            "package-lock.json" =
-              let
-                lock = lib.importJSON lockFile;
-              in
-              {
-                npmRoot = if subDir == "." then src else "${src}/${subDir}";
-                package = lib.importJSON (dirOf lockFile + "/package.json");
-                # npm omits `integrity` on nested bundled entries; nixpkgs `importNpmLock`
-                # requires `integrity` on every HTTP(S) entry.
-                packageLock = lock // {
-                  packages = lib.filterAttrs (
-                    _: pkg:
-                    !(pkg ? resolved)
-                    || pkg.resolved == null
-                    || !(lib.hasPrefix "http://" pkg.resolved || lib.hasPrefix "https://" pkg.resolved)
-                    || (pkg ? integrity)
-                  ) (lock.packages or { });
-                };
-              };
+            "package-lock.json" = {
+              npmRoot = if subDir == "." then src else "${src}/${subDir}";
+              package = lib.importJSON (dirOf lockFile + "/package.json");
+              packageLock = lib.importJSON lockFile;
+            };
           }
           .${baseNameOf inSource} or (throw "fetchrix: unknown lock file `${entry.lockfile}`");
     in
