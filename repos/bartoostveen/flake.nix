@@ -115,7 +115,15 @@
             packages = filterAttrs (_: isDerivation) packages;
             legacyPackages = packages;
 
-            checks = import ./tests { inherit lib self; } |> mapAttrs (_: pkgs.testers.runNixOSTest);
+            checks =
+              import ./tests {
+                inherit
+                  lib
+                  self
+                  pkgs
+                  ;
+              }
+              |> mapAttrs (_: pkgs.testers.runNixOSTest);
           };
       }
     );
