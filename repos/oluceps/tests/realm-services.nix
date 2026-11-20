@@ -335,7 +335,6 @@ pkgs.testers.runNixOSTest {
       };
       systemd.tmpfiles.rules = [
         "d /var/lib/fixture 0755 root root -"
-        "d /pool0/relation 0755 root root -"
       ];
       systemd.services = {
         caddy = {

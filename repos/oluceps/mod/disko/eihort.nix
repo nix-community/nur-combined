@@ -145,8 +145,11 @@
         device = "pool0/clickhouse";
         fsType = "zfs";
       };
-      "pool0/relation" = {
-        device = "pool0/relation";
+      # Tablespace pii_ts for the PII database `pii`. pool0/enc is a native
+      # encryption root (aes-256-gcm, raw key); its key lives on the LUKS root
+      # and is loaded by zfs-import-pool0.
+      "/pool0/pg-pii" = {
+        device = "pool0/enc/pg-pii";
         fsType = "zfs";
       };
     };

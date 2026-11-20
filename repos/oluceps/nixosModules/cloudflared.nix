@@ -133,7 +133,10 @@ in
         User = cfg.user;
         Group = cfg.group;
         EnvironmentFile = cfg.environmentFile;
-        ExecStart = "${cfg.package}/bin/cloudflared --no-autoupdate tunnel run --token $TOKEN";
+        # environmentFile must define TUNNEL_TOKEN=...; cloudflared reads it from
+        # the environment. Passing --token would expand it into argv, which is
+        # world-readable through /proc/<pid>/cmdline.
+        ExecStart = "${cfg.package}/bin/cloudflared --no-autoupdate tunnel run";
         Restart = "on-failure";
       };
     };

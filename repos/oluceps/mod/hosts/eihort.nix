@@ -53,6 +53,13 @@
         service = "pocket-id-metrics";
       };
       realm.observability.endpoints.pocket-id.socket = "/run/realm/observability/egress/pocket-id.sock";
+      # The key of the pool0/enc encryption root sits on the LUKS root.
+      systemd.services.zfs-import-pool0.unitConfig.RequiresMountsFor = [ "/persist/keys" ];
+      systemd.services.postgresql = {
+        # Tablespace pii_ts (database `pii`) on pool0/enc/pg-pii.
+        unitConfig.RequiresMountsFor = [ "/pool0/pg-pii" ];
+        serviceConfig.ReadWritePaths = [ "/pool0/pg-pii" ];
+      };
       systemd.services.pocket-id = {
         requires = [ "postgresql.target" ];
         after = [ "postgresql.target" ];

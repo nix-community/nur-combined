@@ -57,7 +57,6 @@
           config.services.postgresql.settings.ident_file
         ];
         serviceConfig = {
-          ReadWritePaths = [ "/pool0/relation" ];
           # Socket consumers bind-mount this directory into private /run trees.
           # Keep its inode across stops, restarts, and automatic recovery.
           RuntimeDirectoryPreserve = "yes";
