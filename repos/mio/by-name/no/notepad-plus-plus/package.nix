@@ -27,6 +27,26 @@ let
   pname = "notepad-plus-plus";
   version = notepadppWindows.version;
 
+  # Where the payload lives inside every Wine prefix. Both launchers use it.
+  winAppDir = "drive_c/Program Files/Notepad++";
+  winAppExe = "$WINEPREFIX/${winAppDir}/notepad++.exe";
+
+  # Installs the cross-compiled payload into $WINEPREFIX. Linux runs this when
+  # building its prefix; darwin runs it on first launch. cjkfonts is only
+  # available through winetricks on Linux, so darwin opts out.
+  installPayload =
+    { cjkfonts }:
+    ''
+      mkdir -p "$WINEPREFIX/${winAppDir}"
+      cp -a ${notepadppWindows}/. "$WINEPREFIX/${winAppDir}/"
+      chmod -R u+rwX "$WINEPREFIX/${winAppDir}"
+    ''
+    + lib.optionalString cjkfonts ''
+      if [ "''${NOTEPADPP_SKIP_CJKFONTS:-}" != 1 ]; then
+        winetricks --unattended cjkfonts
+      fi
+    '';
+
   meta = with lib; {
     mainProgram = pname;
     homepage = "https://notepad-plus-plus.org/";
@@ -77,17 +97,10 @@ let
       copyDesktopIcons
     ];
 
-    winAppInstall = ''
-      mkdir -p "$WINEPREFIX/drive_c/Program Files/Notepad++"
-      cp -r --no-preserve=mode ${src}/. "$WINEPREFIX/drive_c/Program Files/Notepad++/"
-      chmod -R u+rwX "$WINEPREFIX/drive_c/Program Files/Notepad++"
-      if [ "''${NOTEPADPP_SKIP_CJKFONTS:-}" != 1 ]; then
-        winetricks --unattended cjkfonts
-      fi
-    '';
+    winAppInstall = installPayload { cjkfonts = true; };
 
     winAppRun = ''
-      $WINE "$WINEPREFIX/drive_c/Program Files/Notepad++/notepad++.exe" "''${ARGS[@]}"
+      $WINE "${winAppExe}" "''${ARGS[@]}"
     '';
 
     installPhase = ''
@@ -129,11 +142,9 @@ let
       export WINEARCH=win64
       export WINEPREFIX="''${NOTEPADPP_WINEPREFIX:-''${XDG_DATA_HOME:-$HOME/.local/share}/notepad-plus-plus/wineprefix}"
       marker="$WINEPREFIX/.notepadpp-installed"
-      appdir="$WINEPREFIX/drive_c/Program Files/Notepad++"
-      app="$appdir/notepad++.exe"
+      app="${winAppExe}"
 
       if [ ! -e "$marker" ]; then
-        mkdir -p "$appdir"
         echo "Installing Notepad++ into $WINEPREFIX..."
         # wineboot exits non-zero on macOS/Gcenx (wine-mono's MSI and the missing
         # Microsoft.Windows.Common-Controls manifest) even though the prefix is
@@ -143,11 +154,9 @@ let
         wine boot --init || true
         wineserver -w || true
         # wineboot may have (re)created drive_c after the mkdir above.
-        mkdir -p "$appdir"
-        cp -a ${notepadppWindows}/. "$appdir/"
-        chmod -R u+w "$appdir"
+        ${installPayload { cjkfonts = false; }}
         [ -f "$app" ] || {
-          echo "error: notepad++.exe missing from $appdir" >&2
+          echo "error: notepad++.exe missing from ${winAppDir}" >&2
           exit 1
         }
         touch "$marker"
