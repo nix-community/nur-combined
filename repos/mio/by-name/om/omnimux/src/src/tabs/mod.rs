@@ -41,6 +41,8 @@ pub struct TerminalTabs {
     pub(crate) sync_font_size_across_tabs: bool,
     pub(crate) remember_font_size: bool,
     pub(crate) osc52: Osc52Setting,
+    /// Let programs retitle tabs via OSC 0/2. Off by default.
+    pub(crate) dynamic_tab_title: bool,
     /// Pending URL awaiting confirm before `cx.open_url`.
     pub(crate) pending_open_url: Option<String>,
     /// Right-click terminal context menu (Copy/Paste).
@@ -140,6 +142,7 @@ impl TerminalTabs {
         let sync_font_size_across_tabs = settings.sync_font_size_across_tabs.unwrap_or(true);
         let remember_font_size = settings.remember_font_size.unwrap_or(false);
         let osc52 = settings.osc52.unwrap_or(Osc52Setting::Disabled);
+        let dynamic_tab_title = settings.dynamic_tab_title.unwrap_or(false);
         let touchscreen_drag_scrolls = settings.touchscreen_drag_scrolls.unwrap_or(true);
         let confirm_link_open = settings.confirm_link_open.unwrap_or(false);
         let font_size = if remember_font_size {
@@ -174,6 +177,7 @@ impl TerminalTabs {
                                 colors,
                                 font_size,
                                 osc52_policy,
+                                dynamic_tab_title,
                                 tabs_weak.clone(),
                                 cx,
                             )
@@ -295,6 +299,7 @@ impl TerminalTabs {
             sync_font_size_across_tabs,
             remember_font_size,
             osc52,
+            dynamic_tab_title,
             pending_open_url: None,
             context_menu: None,
             font_size,

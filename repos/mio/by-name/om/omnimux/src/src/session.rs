@@ -14,6 +14,8 @@ pub struct TerminalSession {
     pub host: Option<String>,
     /// OSC 0/2 title from the remote (empty → fall back to host label).
     pub title: Option<String>,
+    /// Whether the program may retitle the tab via OSC 0/2. Off by default.
+    pub program_title_allowed: bool,
     /// Visual bell until the tab is activated or receives focus.
     pub has_bell: bool,
     pub reconnect_streak: u32,
@@ -26,6 +28,7 @@ impl TerminalSession {
         colors: ColorPalette,
         font_size: Pixels,
         osc52: Osc52Policy,
+        allow_program_title: bool,
         tabs: WeakEntity<TerminalTabs>,
         cx: &mut Context<Self>,
     ) -> Self {
@@ -45,6 +48,7 @@ impl TerminalSession {
                     colors,
                     font_size,
                     osc52,
+                    allow_program_title,
                     tabs,
                     &format!("open PTY: {err}"),
                     cx,
@@ -99,6 +103,7 @@ fi"#;
                     colors,
                     font_size,
                     osc52,
+                    allow_program_title,
                     tabs,
                     "unsafe SSH destination rejected",
                     cx,
@@ -149,6 +154,7 @@ fi"#;
                             colors,
                             font_size,
                             osc52,
+                            allow_program_title,
                             tabs,
                             &format!("spawn failed: {err2}"),
                             cx,
@@ -170,6 +176,7 @@ fi"#;
                     colors,
                     font_size,
                     osc52,
+                    allow_program_title,
                     tabs,
                     &format!("PTY reader: {err}"),
                     cx,
@@ -185,6 +192,7 @@ fi"#;
                     colors,
                     font_size,
                     osc52,
+                    allow_program_title,
                     tabs,
                     &format!("PTY writer: {err}"),
                     cx,
@@ -225,6 +233,7 @@ fi"#;
                     },
                 ),
                 session,
+                allow_program_title,
                 tabs,
             )
         });
@@ -236,6 +245,7 @@ fi"#;
             exit_status: None,
             host,
             title: None,
+            program_title_allowed: allow_program_title,
             has_bell: false,
             reconnect_streak: 0,
             pending_reconnect_at: None,
@@ -245,6 +255,7 @@ fi"#;
     fn wire_view(
         view: TerminalView,
         session: WeakEntity<Self>,
+        allow_program_title: bool,
         tabs: WeakEntity<TerminalTabs>,
     ) -> TerminalView {
         let session_for_title = session.clone();
@@ -257,16 +268,27 @@ fi"#;
         let tabs_for_menu = tabs.clone();
 
         view.with_title_callback(move |_window, cx, title| {
+            if !allow_program_title {
+                return;
+            }
             let title = title.to_string();
-            let _ = session_for_title.update(cx, |session, cx| {
-                session.title = if title.is_empty() {
-                    None
-                } else {
-                    Some(title)
-                };
-                cx.notify();
-            });
-            let _ = tabs_for_title.update(cx, |_, cx| cx.notify());
+            let updated = session_for_title
+                .update(cx, |session, cx| {
+                    if !session.program_title_allowed {
+                        return false;
+                    }
+                    session.title = if title.is_empty() {
+                        None
+                    } else {
+                        Some(title)
+                    };
+                    cx.notify();
+                    true
+                })
+                .unwrap_or(false);
+            if updated {
+                let _ = tabs_for_title.update(cx, |_, cx| cx.notify());
+            }
         })
         .with_bell_callback(move |_window, cx| {
             let _ = session_for_bell.update(cx, |session, cx| {
@@ -328,6 +350,7 @@ fi"#;
         colors: ColorPalette,
         font_size: Pixels,
         osc52: Osc52Policy,
+        allow_program_title: bool,
         tabs: WeakEntity<TerminalTabs>,
         message: &str,
         cx: &mut Context<Self>,
@@ -377,6 +400,7 @@ fi"#;
             Self::wire_view(
                 TerminalView::new(writer, reader, config, cx),
                 session.clone(),
+                allow_program_title,
                 tabs.clone(),
             )
         });
@@ -388,10 +412,23 @@ fi"#;
             exit_status: None,
             host,
             title: None,
+            program_title_allowed: allow_program_title,
             has_bell: false,
             reconnect_streak: 0,
             pending_reconnect_at: None,
         }
+    }
+
+    /// Allow or block OSC 0/2 retitling for this session (live settings toggle).
+    pub fn set_program_title_allowed(&mut self, allowed: bool, cx: &mut Context<Self>) {
+        if self.program_title_allowed == allowed {
+            return;
+        }
+        self.program_title_allowed = allowed;
+        if !allowed {
+            self.title = None;
+        }
+        cx.notify();
     }
 
     /// Kill the PTY child process (tab close, reconnect replacement).

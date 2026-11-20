@@ -9,6 +9,11 @@ repositories {
 }
 dependencies {
     implementation("com.squareup.okhttp3:okhttp:5.4.0")
+    // Real lifecycle types: the shims below (NavController, the Hilt ViewModel factories)
+    // must compile against the same classes Compose puts on the runtime classpath, so the
+    // stub package that used to shadow them is gone.
+    compileOnly("androidx.lifecycle:lifecycle-viewmodel:2.11.0")
+    compileOnly("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.11.0")
     implementation(compose.runtime)
     implementation(compose.ui)
     implementation(compose.foundation)

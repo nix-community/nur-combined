@@ -45,6 +45,7 @@ Localhost / empty host runs a shell script that prefers `tmux` and falls back to
 ## Settings Omnimux owns
 
 - **OSC 52** remote clipboard: default disabled; opt-in in Settings (policy passed into `TerminalConfig`).
+- **OSC 0/2 tab titles**: programs cannot rename tabs by default; opt in with "Allow programs to change tab titles" in Settings.
 - Font size sync / remember, auto-reconnect, remember sessions, window maximized (resizing by dragging edges disabled while maximized), etc.
 
 ## Keyboard & Mouse Shortcuts

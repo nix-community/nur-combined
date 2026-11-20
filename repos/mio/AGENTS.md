@@ -14,7 +14,7 @@
   2. Run the package's own update script, not a hand edit. Build it from the flake so it runs with its declared inputs:
      `out=$(nix build .#legacyPackages.<system>.<pkg>.updateScript --no-link --print-out-paths)`
      then `"$out"/bin/update-<pkg>` (packages without one can use `nix-update <pkg>`).
-     `.#legacyPackages.<system>.<pkg>` is the reliable installable; `.#packages.<system>.<pkg>` is not one (Nix reads it as `legacyPackages.<system>.packages.<system>.<pkg>`, and this overlay's `packages` attribute is a function). `nix build .#<pkg>` still works for packages whose per-system derivation is supported, e.g. the `kytyps5` override that points at the x86_64-darwin build.
+     `.#legacyPackages.<system>.<pkg>` is the reliable installable; `.#packages.<system>.<pkg>` is not one (Nix reads it as `legacyPackages.<system>.packages.<system>.<pkg>`, and this overlay's `packages` attribute is a function). `nix build .#<pkg>` still works for packages whose per-system derivation is supported, e.g. `kytyps5`, which repackages itself from a pinned x86_64-darwin nixpkgs inside its own `package.nix` (the flake keeps nixpkgs as its only input).
   3. Review `git diff`: the script must update every coupled pin (version, src hash, dependency/FOD hashes, commit metadata), not just the version.
   4. `git add` new files, then verify with `nix build` for the package before committing; the gate is the package's own derivation, not just a successful evaluation.
   5. Format changed Nix files with `nixfmt` (nixfmt-rfc-style). Don't reformat unrelated code, and never rewrite a patch file for formatting alone.

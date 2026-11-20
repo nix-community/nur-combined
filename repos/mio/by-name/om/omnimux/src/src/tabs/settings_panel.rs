@@ -88,6 +88,26 @@ pub fn render_settings_panel(
                 })
                 .child({
                     let entity = entity.clone();
+                    Switch::new("dynamic_tab_title_toggle")
+                        .checked(this.dynamic_tab_title)
+                        .label("Allow programs to change tab titles")
+                        .mb_3()
+                        .text_color(colors.text)
+                        .on_click(move |checked, _, app| {
+                            entity.update(app, |this, cx| {
+                                this.dynamic_tab_title = *checked;
+                                for tab in &this.tabs {
+                                    tab.update(cx, |session, cx| {
+                                        session.set_program_title_allowed(*checked, cx);
+                                    });
+                                }
+                                save_settings_from_tabs(this);
+                                cx.notify();
+                            });
+                        })
+                })
+                .child({
+                    let entity = entity.clone();
                     Switch::new("remember_session_toggle")
                         .checked(this.remember_session)
                         .label("Remember & restore tabs on relaunch")

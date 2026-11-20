@@ -86,6 +86,16 @@ let
     hash = "sha256-nx5gcMwYpF6t1rVr5Go3AkbEVMmbOJFN5HJQwhZJVic=";
   };
 
+  # nixpkgs 26.11 dropped x86_64-darwin, and KytyPS5's macOS build is x86-64
+  # only (the guest and the JIT are x86-64; Apple Silicon runs the result under
+  # Rosetta), so it is packaged from the last branch that still has that package
+  # set.  The pin lives here, not as a flake input, so the flake needs nothing
+  # beyond nixpkgs.  It is the revision of nixpkgs-26.05-darwin.
+  nixpkgsDarwin = fetchzip {
+    url = "https://github.com/NixOS/nixpkgs/archive/94d362415787ffff528f73820996aeedd97ff0dd.tar.gz";
+    hash = "sha256-lsIUChCLfoCyf0VO6CzedtMZBV62+1W86nT3XGCIgiw=";
+  };
+
   # Submodules of 3rdparty/, pinned by the superproject.
   libAtrac9 = fetchFromGitHub {
     owner = "shadps4-emu";
@@ -294,175 +304,186 @@ let
     } $out/NotoSans-BoldItalic.ttf
   '';
 in
-stdenv.mkDerivation {
-  pname = "kytyps5";
-  version = "0-unstable-2026-11-20";
-  inherit src;
+if stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.system != "x86_64-darwin" then
+  # A native aarch64-darwin build would be an emulator upstream does not
+  # support, so offer the x86_64-darwin derivation instead.
+  (import nixpkgsDarwin {
+    system = "x86_64-darwin";
+    config.allowUnfree = true;
+    config.android_sdk.accept_license = true;
+  }).callPackage
+    ./package.nix
+    { }
+else
+  stdenv.mkDerivation {
+    pname = "kytyps5";
+    version = "0-unstable-2026-11-20";
+    inherit src;
 
-  patches = [ ./noto-fonts-local.patch ];
+    patches = [ ./noto-fonts-local.patch ];
 
-  # The macOS bundle gets its Qt runtime from macdeployqt, not a wrapper, and
-  # stripping would invalidate the ad-hoc signatures added during the build.
-  dontWrapQtApps = stdenv.hostPlatform.isDarwin;
-  dontStrip = stdenv.hostPlatform.isDarwin;
+    # The macOS bundle gets its Qt runtime from macdeployqt, not a wrapper, and
+    # stripping would invalidate the ad-hoc signatures added during the build.
+    dontWrapQtApps = stdenv.hostPlatform.isDarwin;
+    dontStrip = stdenv.hostPlatform.isDarwin;
 
-  postPatch = ''
-    cp -rT ${libAtrac9} 3rdparty/LibAtrac9
-    cp -rT ${sdl3} 3rdparty/SDL3
-    cp -rT ${spirvHeaders} 3rdparty/SPIRV-Headers
-    cp -rT ${spirvTools} 3rdparty/SPIRV-Tools
-    cp -rT ${vulkanHeaders} 3rdparty/Vulkan-Headers
-    cp -rT ${vulkanMemoryAllocator} 3rdparty/VulkanMemoryAllocator
-    cp -rT ${ffmpegCore} 3rdparty/ffmpeg-core
-    cp -rT ${fmt} 3rdparty/fmt
-    cp -rT ${imgui} 3rdparty/imgui
-    cp -rT ${magicEnum} 3rdparty/magic_enum
-    cp -rT ${nlohmannJson} 3rdparty/nlohmann_json
-    cp -rT ${spdlog} 3rdparty/spdlog
-    cp -rT ${tracy} 3rdparty/tracy
-    cp -rT ${xxHash} 3rdparty/xxHash
-    chmod -R u+w 3rdparty
-  '';
-
-  # The build fetches the Noto Sans faces itself; point it at the copies above.
-  KYTY_NOTO_SANS_SRC = "${notoSans}";
-
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-    python3
-    clang
-    glslang
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [
-    lld
-    patchelf
-    autoPatchelfHook
-    qt6.wrapQtAppsHook
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    ldid
-    codesignShim
-  ];
-
-  buildInputs = [
-    qt6.qtbase
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [
-    vulkan-headers
-    vulkan-loader
-    libGL
-    libglvnd
-    alsa-lib
-    libpulseaudio
-    pipewire
-    dbus
-    systemd
-    libX11
-    libXcursor
-    libXext
-    libXfixes
-    libXi
-    libXrandr
-    libXScrnSaver
-    libXtst
-    libxkbcommon
-    wayland
-    wayland-protocols
-    libdecor
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    # SDL loads MoltenVK rather than linking it; postFixup copies the dylib.
-    moltenvk
-    # The default x86_64-darwin SDK 14.4 predates <cstdlib>'s quick_exit,
-    # which the emulator uses to skip destructors while the guest runs.
-    apple-sdk_26
-  ];
-
-  # SDL's GLES and Steam controller probes leave these optional names behind;
-  # neither ends up in the final binaries' NEEDED list.
-  autoPatchelfIgnoreMissingDeps = lib.optionals stdenv.hostPlatform.isLinux [
-    "libGLES_CM.so.1"
-    "libsteam_api.so"
-  ];
-
-  cmakeFlags = [
-    "-DCMAKE_BUILD_TYPE=Release"
-    "-DCMAKE_C_COMPILER=${clang}/bin/clang"
-    "-DCMAKE_CXX_COMPILER=${clang}/bin/clang++"
-    "-DBUILD_TESTING=OFF"
-    "-DFETCHCONTENT_FULLY_DISCONNECTED=ON"
-    "-DFETCHCONTENT_SOURCE_DIR_OPUS=${opus}"
-    "-DFETCHCONTENT_SOURCE_DIR_OPENXR=${openxr}"
-    "-DFETCHCONTENT_SOURCE_DIR_XBYAK=${xbyak}"
-    "-DFETCHCONTENT_SOURCE_DIR_ZYDIS=${zydisSrc}"
-    "-DZYAN_ZYCORE_PATH=${zycore}"
-    "-DFETCHCONTENT_SOURCE_DIR_ZSTD=${zstd}"
-    "-DFETCHCONTENT_SOURCE_DIR_ZARCHIVE_SOURCE=${zarchive}"
-    "-DFFMPEG_PREBUILT_DIR=${ffmpegPrebuilt}"
-  ]
-  # The macOS build is x86-64 only: the guest and the JIT are x86-64, and
-  # Apple Silicon runs the result under Rosetta.  Upstream keys the guest
-  # address-space layout and the FFmpeg prebuilt on this setting.
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [ "-DCMAKE_OSX_ARCHITECTURES=x86_64" ];
-
-  # The launcher executes kyty_emulator and kyty_updater from its own directory,
-  # so keep the upstream flat layout instead of installing into bin/.
-  postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
-    install -Dm755 launcher/kyty_updater $out/kyty_updater
-  '';
-
-  postFixup =
-    lib.optionalString stdenv.hostPlatform.isLinux ''
-      wrapQtApp $out/kyty_launcher
-      patchelf --add-rpath ${
-        lib.makeLibraryPath [
-          vulkan-loader
-          libGL
-        ]
-      } $out/kyty_emulator
-
-      mkdir -p $out/bin
-      ln -s ../kyty_launcher $out/bin/kyty_launcher
-      ln -s ../kyty_emulator $out/bin/kyty_emulator
-    ''
-    + lib.optionalString stdenv.hostPlatform.isDarwin ''
-      # SDL looks for MoltenVK beside the flat emulator and in the bundle's
-      # Frameworks directory.
-      for dir in $out $out/KytyPS5.app/Contents/Frameworks; do
-        install -Dm755 ${moltenvk}/lib/libMoltenVK.dylib "$dir/libMoltenVK.dylib"
-        ${lib.getExe ldid} -S "$dir/libMoltenVK.dylib"
-      done
-
-      mkdir -p $out/bin
-      ln -s ../kyty_emulator $out/bin/kyty_emulator
+    postPatch = ''
+      cp -rT ${libAtrac9} 3rdparty/LibAtrac9
+      cp -rT ${sdl3} 3rdparty/SDL3
+      cp -rT ${spirvHeaders} 3rdparty/SPIRV-Headers
+      cp -rT ${spirvTools} 3rdparty/SPIRV-Tools
+      cp -rT ${vulkanHeaders} 3rdparty/Vulkan-Headers
+      cp -rT ${vulkanMemoryAllocator} 3rdparty/VulkanMemoryAllocator
+      cp -rT ${ffmpegCore} 3rdparty/ffmpeg-core
+      cp -rT ${fmt} 3rdparty/fmt
+      cp -rT ${imgui} 3rdparty/imgui
+      cp -rT ${magicEnum} 3rdparty/magic_enum
+      cp -rT ${nlohmannJson} 3rdparty/nlohmann_json
+      cp -rT ${spdlog} 3rdparty/spdlog
+      cp -rT ${tracy} 3rdparty/tracy
+      cp -rT ${xxHash} 3rdparty/xxHash
+      chmod -R u+w 3rdparty
     '';
 
-  passthru.updateScript = writeShellApplication {
-    name = "update-kytyps5";
-    runtimeInputs = [
+    # The build fetches the Noto Sans faces itself; point it at the copies above.
+    KYTY_NOTO_SANS_SRC = "${notoSans}";
+
+    nativeBuildInputs = [
+      cmake
+      ninja
+      pkg-config
       python3
-      nix
-      git
-      coreutils
+      clang
+      glslang
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
+      lld
+      patchelf
+      autoPatchelfHook
+      qt6.wrapQtAppsHook
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      ldid
+      codesignShim
     ];
-    text = ''
-      export UPDATE_NIX_ATTR_PATH="kytyps5"
-      exec ${python3}/bin/python3 ${./update.py} "$@"
-    '';
-  };
 
-  meta = with lib; {
-    description = "PlayStation 5 translation layer";
-    homepage = "https://github.com/KytyPS5/KytyPS5";
-    downloadPage = "https://github.com/KytyPS5/KytyPS5/releases";
-    license = licenses.gpl2Only;
-    mainProgram = if stdenv.hostPlatform.isDarwin then "kyty_emulator" else "kyty_launcher";
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
+    buildInputs = [
+      qt6.qtbase
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
+      vulkan-headers
+      vulkan-loader
+      libGL
+      libglvnd
+      alsa-lib
+      libpulseaudio
+      pipewire
+      dbus
+      systemd
+      libX11
+      libXcursor
+      libXext
+      libXfixes
+      libXi
+      libXrandr
+      libXScrnSaver
+      libXtst
+      libxkbcommon
+      wayland
+      wayland-protocols
+      libdecor
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      # SDL loads MoltenVK rather than linking it; postFixup copies the dylib.
+      moltenvk
+      # The default x86_64-darwin SDK 14.4 predates <cstdlib>'s quick_exit,
+      # which the emulator uses to skip destructors while the guest runs.
+      apple-sdk_26
     ];
-    sourceProvenance = [ sourceTypes.fromSource ];
-  };
-}
+
+    # SDL's GLES and Steam controller probes leave these optional names behind;
+    # neither ends up in the final binaries' NEEDED list.
+    autoPatchelfIgnoreMissingDeps = lib.optionals stdenv.hostPlatform.isLinux [
+      "libGLES_CM.so.1"
+      "libsteam_api.so"
+    ];
+
+    cmakeFlags = [
+      "-DCMAKE_BUILD_TYPE=Release"
+      "-DCMAKE_C_COMPILER=${clang}/bin/clang"
+      "-DCMAKE_CXX_COMPILER=${clang}/bin/clang++"
+      "-DBUILD_TESTING=OFF"
+      "-DFETCHCONTENT_FULLY_DISCONNECTED=ON"
+      "-DFETCHCONTENT_SOURCE_DIR_OPUS=${opus}"
+      "-DFETCHCONTENT_SOURCE_DIR_OPENXR=${openxr}"
+      "-DFETCHCONTENT_SOURCE_DIR_XBYAK=${xbyak}"
+      "-DFETCHCONTENT_SOURCE_DIR_ZYDIS=${zydisSrc}"
+      "-DZYAN_ZYCORE_PATH=${zycore}"
+      "-DFETCHCONTENT_SOURCE_DIR_ZSTD=${zstd}"
+      "-DFETCHCONTENT_SOURCE_DIR_ZARCHIVE_SOURCE=${zarchive}"
+      "-DFFMPEG_PREBUILT_DIR=${ffmpegPrebuilt}"
+    ]
+    # The macOS build is x86-64 only: the guest and the JIT are x86-64, and
+    # Apple Silicon runs the result under Rosetta.  Upstream keys the guest
+    # address-space layout and the FFmpeg prebuilt on this setting.
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ "-DCMAKE_OSX_ARCHITECTURES=x86_64" ];
+
+    # The launcher executes kyty_emulator and kyty_updater from its own directory,
+    # so keep the upstream flat layout instead of installing into bin/.
+    postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
+      install -Dm755 launcher/kyty_updater $out/kyty_updater
+    '';
+
+    postFixup =
+      lib.optionalString stdenv.hostPlatform.isLinux ''
+        wrapQtApp $out/kyty_launcher
+        patchelf --add-rpath ${
+          lib.makeLibraryPath [
+            vulkan-loader
+            libGL
+          ]
+        } $out/kyty_emulator
+
+        mkdir -p $out/bin
+        ln -s ../kyty_launcher $out/bin/kyty_launcher
+        ln -s ../kyty_emulator $out/bin/kyty_emulator
+      ''
+      + lib.optionalString stdenv.hostPlatform.isDarwin ''
+        # SDL looks for MoltenVK beside the flat emulator and in the bundle's
+        # Frameworks directory.
+        for dir in $out $out/KytyPS5.app/Contents/Frameworks; do
+          install -Dm755 ${moltenvk}/lib/libMoltenVK.dylib "$dir/libMoltenVK.dylib"
+          ${lib.getExe ldid} -S "$dir/libMoltenVK.dylib"
+        done
+
+        mkdir -p $out/bin
+        ln -s ../kyty_emulator $out/bin/kyty_emulator
+      '';
+
+    passthru.updateScript = writeShellApplication {
+      name = "update-kytyps5";
+      runtimeInputs = [
+        python3
+        nix
+        git
+        coreutils
+      ];
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="kytyps5"
+        exec ${python3}/bin/python3 ${./update.py} "$@"
+      '';
+    };
+
+    meta = with lib; {
+      description = "PlayStation 5 translation layer";
+      homepage = "https://github.com/KytyPS5/KytyPS5";
+      downloadPage = "https://github.com/KytyPS5/KytyPS5/releases";
+      license = licenses.gpl2Only;
+      mainProgram = if stdenv.hostPlatform.isDarwin then "kyty_emulator" else "kyty_launcher";
+      platforms = [
+        "x86_64-linux"
+        "x86_64-darwin"
+      ];
+      sourceProvenance = [ sourceTypes.fromSource ];
+    };
+  }

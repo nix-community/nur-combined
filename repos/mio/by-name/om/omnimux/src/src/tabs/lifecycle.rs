@@ -129,9 +129,18 @@ impl TerminalTabs {
         let colors = self.terminal_palette.clone();
         let font_size = self.font_size;
         let osc52 = self.osc52.into();
+        let dynamic_tab_title = self.dynamic_tab_title;
         let tabs_weak = cx.entity().downgrade();
         self.tabs[index] = cx.new(|cx| {
-            let mut session = TerminalSession::new(host, colors, font_size, osc52, tabs_weak, cx);
+            let mut session = TerminalSession::new(
+                host,
+                colors,
+                font_size,
+                osc52,
+                dynamic_tab_title,
+                tabs_weak,
+                cx,
+            );
             session.reconnect_streak = streak;
             session
         });
@@ -196,9 +205,18 @@ impl TerminalTabs {
         let colors = self.terminal_palette.clone();
         let font_size = self.font_size;
         let osc52 = self.osc52.into();
+        let dynamic_tab_title = self.dynamic_tab_title;
         let tabs_weak = cx.entity().downgrade();
         let new_tab = cx.new(|cx| {
-            TerminalSession::new(host_opt, colors, font_size, osc52, tabs_weak, cx)
+            TerminalSession::new(
+                host_opt,
+                colors,
+                font_size,
+                osc52,
+                dynamic_tab_title,
+                tabs_weak,
+                cx,
+            )
         });
         self.tabs.push(new_tab);
         self.active_tab = self.tabs.len() - 1;

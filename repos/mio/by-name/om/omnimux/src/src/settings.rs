@@ -75,6 +75,8 @@ pub struct Settings {
     pub font_size: Option<f32>,
     /// OSC 52 remote clipboard policy. Default: disabled.
     pub osc52: Option<Osc52Setting>,
+    /// Let programs retitle tabs via OSC 0/2. Default: off.
+    pub dynamic_tab_title: Option<bool>,
     /// Remember opened tabs across app restarts. Default: off.
     /// Last window maximize state (restored on next launch).
     pub window_maximized: Option<bool>,
@@ -194,6 +196,7 @@ pub fn save_settings_from_tabs(tabs: &crate::tabs::TerminalTabs) {
             None
         },
         osc52: Some(tabs.osc52),
+        dynamic_tab_title: Some(tabs.dynamic_tab_title),
         window_maximized: existing.window_maximized,
         touchscreen_drag_scrolls: existing.touchscreen_drag_scrolls,
         confirm_link_open: Some(tabs.confirm_link_open),

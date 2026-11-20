@@ -95,6 +95,15 @@ dependencies {
     implementation(project(":lyrics:megalobiz"))
     implementation(project(":lyrics:musixmatch"))
 
+    // Real Compose-lifecycle integration. The port used to ship hand-written stubs in
+    // :android-stubs, but those shadowed the real classes at runtime (their lifecycle
+    // state was always RESUMED, which made Compose 1.13's saved-state attach throw
+    // "Restarter must be created only during owner's initialization stage").
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.11.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel:2.11.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.11.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.11.0")
+
     implementation("androidx.room:room-runtime:2.8.4")
     ksp("androidx.room:room-compiler:2.8.4")
     implementation("androidx.sqlite:sqlite-bundled:2.5.0")

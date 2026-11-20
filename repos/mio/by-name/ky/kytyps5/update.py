@@ -156,7 +156,7 @@ def bump_ffmpeg_prebuilt(text, ext_ffmpeg_rev):
         )
         for platform in platforms
     ]
-    block = re.search(r"ffmpegPrebuilt = fetchzip \{.*?\n  \};", text, re.S)
+    block = re.search(r"ffmpegPrebuilt = fetchzip \{.*?\n[ \t]*\};", text, re.S)
     if block is None:
         raise SystemExit("error: could not find the ffmpegPrebuilt block")
 
@@ -186,8 +186,14 @@ def main():
     src_hash = sri_hash(f"https://github.com/KytyPS5/KytyPS5/archive/{tag}.tar.gz")
     text = re.sub(r'(?m)^(\s*version = )"[^"]+"', rf'\g<1>"{version}"', text, count=1)
     text = re.sub(r'(?m)^(\s*tag = )"KytyPS5-[^"]+"', rf'\g<1>"{tag}"', text, count=1)
-    text = text.replace(
-        re.search(r'(?m)^\s*hash = "(sha256-[^"]+)";', text).group(1), src_hash, 1
+    # Anchor on the tag: the file holds other hashes (the nixpkgs-darwin pin),
+    # so the first `hash =` in it is not necessarily the source's.  That pin is
+    # bumped by hand, not by this script.
+    text = re.sub(
+        r'(tag = "KytyPS5-[^"]+";\s*\n\s*hash = ")[^"]+(")',
+        rf"\g<1>{src_hash}\g<2>",
+        text,
+        count=1,
     )
 
     pins = []
