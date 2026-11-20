@@ -10,7 +10,11 @@
 # version.
 set -euo pipefail
 
-cd "$(dirname "${BASH_SOURCE[0]}")"
+# Run from a nurpkgs checkout, directly or through scripts/update-packages.sh.
+# That runner executes the store copy of this file, which is not part of a
+# flake or a git tree, so the checkout it edits is the one it runs in.
+root=$(git rev-parse --show-toplevel)
+cd "$root"
 
-nix-update --flake lastbook
-curl -fsSL --retry 3 -o manifest-v1.json https://downloads.lastbook.org/manifest-v1.json
+nix-update lastbook
+curl -fsSL --retry 3 -o by-name/la/lastbook/manifest-v1.json https://downloads.lastbook.org/manifest-v1.json
