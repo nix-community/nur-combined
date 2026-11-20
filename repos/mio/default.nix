@@ -180,7 +180,6 @@ let
     claude-desktop = null;
     claude-desktop-fhs = null;
     zen-browser-bin = null;
-    brave-origin-bin = null;
   };
   names_patched = builtins.filter (name: pkgs.lib.hasSuffix "_patched" name) (
     builtins.attrNames base
