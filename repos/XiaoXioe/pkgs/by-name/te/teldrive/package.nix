@@ -6,11 +6,11 @@
 
 stdenv.mkDerivation rec {
   pname = "teldrive";
-  version = "2.0.12";
+  version = "2.0.13";
 
   src = fetchurl {
     url = "https://github.com/tgdrive/teldrive/releases/download/${version}/teldrive-${version}-linux-amd64.tar.gz";
-    hash = "sha256-b83AM4gGwL8l9gpfSo5rKVNGod16EnZNmIIdyeNSKVc=";
+    hash = "sha256-hSjDG2vGnZdydZF7d0REg0morBnjdLWdBgw5yLN/XdQ=";
   };
 
   # Biasanya rilis biner Go langsung diekstrak di root, bukan di dalam folder.
