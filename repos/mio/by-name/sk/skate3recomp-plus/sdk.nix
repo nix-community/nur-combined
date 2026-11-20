@@ -1,5 +1,5 @@
-# The rexglue SDK Skate 3 Recompiled+ builds against: the fork's pinned
-# commit, the fork's own patch, and the ImGui revision that patch pins.
+# The rexglue SDK Skate 3 Recompiled+ builds against: the fork commit the
+# release names, the fork's own patch, and the ImGui revision that patch pins.
 #
 # The upstream SDK records an ImGui commit that ocornut/imgui no longer
 # serves, so its submodules can only be initialized in the order
@@ -19,8 +19,19 @@
   coreutils,
   findutils,
   gameSrc,
-  rev,
 }:
+let
+  # The release names the fork commit it builds against in
+  # tools/apply_sdk_patches.py; taking it from there keeps the two in step.
+  patchScript = builtins.readFile "${gameSrc}/tools/apply_sdk_patches.py";
+  revision = lib.removeSuffix "'" (
+    lib.removePrefix "SDK_REVISION = '" (
+      lib.findFirst (line: lib.hasPrefix "SDK_REVISION = '" line) "" (lib.splitString "\n" patchScript)
+    )
+  );
+  rev =
+    if revision == "" then throw "sdk.nix: no SDK_REVISION in tools/apply_sdk_patches.py" else revision;
+in
 stdenvNoCC.mkDerivation {
   pname = "rexglue-skate3-sdk";
   version = "unstable-2026-10-25";
