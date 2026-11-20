@@ -108,6 +108,7 @@ in
       libreoffice
       merkaartor
       monero-gui
+      naps2
       obsidian
       openscad
       openterface-qt
