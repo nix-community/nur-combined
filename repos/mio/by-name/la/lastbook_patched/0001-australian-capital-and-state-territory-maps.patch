@@ -1,0 +1,1325 @@
+diff --git a/app/tests/test_setup.py b/app/tests/test_setup.py
+index 7abde7a..5a8bd24 100644
+--- a/app/tests/test_setup.py
++++ b/app/tests/test_setup.py
+@@ -1040,7 +1040,10 @@ class Unpacking(Base):
+ class Jobs(Base):
+     def test_first_run_end_to_end(self):
+         s = self.setup()
+-        st = s.state()
++        # The fixture is tiny; the host disk's real 5–20 GB reserve must not
++        # decide whether this synthetic library is recommended.
++        with mock.patch.object(hardware, 'disk_of', return_value=(10 ** 12, 2 * 10 ** 12)):
++            st = s.state()
+         self.assertEqual(st['mode'], 'first-run')
+         self.assertEqual(st['recommend']['pack'], 'small')
+         self.assertNotIn('url', json.dumps(st['manifest']))
+@@ -1748,6 +1751,19 @@ def make_map(path, state='CA', extra=None):
+     return files
+ 
+ 
++def make_region_map(path, region='ve-a', extra=None):
++    """A region map zip: only map.sqlite, detail-cells.json, national-status.json and map-set.json, under LastbookData/."""
++    files = {'derived/geo/map.sqlite': os.urandom(300_000),
++             'derived/geo/detail-cells.json': json.dumps({'name': region, 'bbox': [-67.1, 10.4, -66.8, 10.56], 'cells': []}).encode(),
++             'derived/geo/national-status.json': b'{"state":"complete"}'}
++    files['map-set.json'] = json.dumps({'name': region, 'files': {k: len(v) for k, v in files.items()}}).encode()
++    files.update(extra or {})
++    with zipfile.ZipFile(path, 'w', zipfile.ZIP_STORED) as z:
++        for k, v in files.items():
++            z.writestr('LastbookData/' + k, v)
++    return files
++
++
+ class Maps(Base):
+     def map_manifest(self, extra=None):
+         files = make_map(self.tmp / 'Lastbook-Map-CA.zip', extra=extra)
+@@ -1965,7 +1981,8 @@ class Maps(Base):
+             a = s.start('small', False)['need_bytes']
+             b = s.start('small', False, map_id='CA')['need_bytes']
+         self.assertEqual(b - a, mf.map('CA')['download_bytes'] + mf.map('CA')['installed_bytes'])
+-        self.assertIn('CA', s.state()['recommend']['map_need_bytes'])
++        with mock.patch.object(hardware, 'disk_of', return_value=(10 ** 12, 2 * 10 ** 12)):
++            self.assertIn('CA', s.state()['recommend']['map_need_bytes'])
+         self.assertIn('maps', s.state()['manifest'])
+         self.assertEqual(s.start(None, False, map_id='CA')['code'], 'nothing')    # first run: a library first
+ 
+@@ -2111,6 +2128,56 @@ class AddressIndexes(Maps):
+         self.assertEqual(merged['address_indexes'][0]['files'], validated['address_indexes'][0]['files'])
+ 
+ 
++class RegionMaps(Maps):
++    def region_manifest(self, extra=None):
++        files = make_region_map(self.tmp / 'Lastbook-Map-ve-a.zip', extra=extra)
++        data = (self.tmp / 'Lastbook-Map-ve-a.zip').read_bytes()
++        self.files.data['Lastbook-Map-ve-a.zip'] = data
++        m = self.manifest().current
++        m['maps'] = [{'id': 've-a', 'title': 'Caracas (Distrito Capital)', 'kind': 'region', 'country': 'Venezuela',
++                      'includes': 'Local streets, buildings, water and places to get help',
++                      'installed_bytes': sum(map(len, files.values())),
++                      'download_bytes': len(data), 'available': True,
++                      'files': [{'name': 'Lastbook-Map-ve-a.zip', 'url': f'{self.base}/Lastbook-Map-ve-a.zip', 'size': len(data), 'sha256': sha(data), 'kind': 'zip'}]}]
++        return manifest.Manifest(bundled=m, remote=None, allowed=ALLOWED, context=self.ctx), files
++
++    def test_region_map_installs_without_address_index(self):
++        mf, files = self.region_manifest()
++        s = self.setup(manifest=mf)
++        j = s.start('small', False, map_id='ve-a')
++        self.assertEqual([i['kind'] for i in j['items']], ['pack', 'map'])      # Venezuela has no address index
++        self.assertEqual(self.wait(s)['state'], 'done')
++        lib, _ = api.startup(self.settings)
++        self.assertEqual(install.map_name(lib), 've-a')
++        self.assertEqual((lib / 'derived/geo/map.sqlite').read_bytes(), files['derived/geo/map.sqlite'])
++        self.assertTrue((lib / 'derived/geo/detail-cells.json').is_file())
++        self.assertTrue((lib / 'library-data/catalog.json').is_file())
++        self.assertEqual(self.setup('manage', current=lib, manifest=mf).current_info()['map'], 've-a')
++
++    def test_region_manifest_validates_and_merges(self):
++        mf, _ = self.region_manifest()
++        validated = manifest.validate(mf.current, ALLOWED)
++        self.assertIsNotNone(validated)
++        self.assertEqual(validated['maps'][0]['kind'], 'region')
++        self.assertEqual(validated['maps'][0]['country'], 'Venezuela')
++        bad = json.loads(json.dumps(mf.current))
++        bad['maps'][0]['id'] = '../ve-a'
++        self.assertIsNone(manifest.validate(bad, ALLOWED))
++        merged = manifest.merge(mf.current, {**mf.current, 'maps': []})
++        self.assertEqual([x['id'] for x in merged['maps']], ['ve-a'])
++
++    def test_region_map_zip_with_other_files_refused(self):
++        mf, _ = self.region_manifest(extra={'library-data/catalog.json': b'{}'})
++        cur = self.parent / 'LastbookData'
++        (cur / 'library-data').mkdir(parents=True)
++        (cur / 'library-data/catalog.json').write_text('{"mine": 1}')
++        s = self.setup('manage', current=cur, manifest=mf)
++        s.start(None, False, map_id='ve-a')
++        j = self.wait(s)
++        self.assertEqual(j['error']['code'], 'unpack')
++        self.assertEqual((cur / 'library-data/catalog.json').read_text(), '{"mine": 1}')
++
++
+ class ContentRevisions(Base):
+     def revised_manifest(self, revision='2026-11-13-small-v2', actual_revision=None):
+         metadata = {'name': 'small', 'map': 'base', 'content_revision': actual_revision or revision}
+diff --git a/docs/AUSTRALIA-MAPS.md b/docs/AUSTRALIA-MAPS.md
+new file mode 100644
+index 0000000..479c86e
+--- /dev/null
++++ b/docs/AUSTRALIA-MAPS.md
+@@ -0,0 +1,105 @@
++# Australian capital and state/territory extract maps
++
++This contribution proposes offline maps around Australia's eight state and territory capitals,
++plus eight broader state/territory extract areas for regional and rural use.
++The design discussion is [#36](https://github.com/Immortal-Protocols/lastbook/issues/36).
++It uses the region-map implementation proposed in #35 and the local review and extract-cache work in #30.
++These definitions alone do not add downloads to the released app.
++
++Each box extends at least half a degree from the city's published Natural Earth point, rounded outwards
++to two decimal places. They are metropolitan areas, **not whole states**. The map may include nearby
++settlements and cross an administrative boundary. Canberra uses the NSW extract, which includes ACT,
++because its area extends beyond the ACT extract.
++
++| Map id | Area | Geofabrik extract |
++|---|---|---|
++| `au-ade` | Adelaide | South Australia |
++| `au-bri` | Brisbane | Queensland |
++| `au-can` | Canberra | New South Wales (includes ACT and JBT) |
++| `au-dar` | Darwin | Northern Territory |
++| `au-hob` | Hobart | Tasmania |
++| `au-mel` | Melbourne | Victoria |
++| `au-per` | Perth | Western Australia |
++| `au-syd` | Sydney | New South Wales (includes ACT and JBT) |
++
++The exact boxes and input URLs are in `packaging/region_specs.py`. `au-can` is also used by #35;
++if that PR lands first, retain one definition and agree its displayed coverage before merging.
++Its generated file must also retain these manually supplied areas when regenerated.
++
++## Sources and coverage
++
++- Streets, water features, mapped buildings, place labels and help points: OpenStreetMap contributors,
++  distributed by [Geofabrik's Australian extracts](https://download.geofabrik.de/australia-oceania/australia.html),
++  under [ODbL 1.0](https://www.openstreetmap.org/copyright). Keep the attribution in the map and database metadata;
++  distributed derived databases must meet ODbL's attribution and share-alike requirements.
++- City points: [Natural Earth populated places](https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/),
++  [public domain](https://www.naturalearthdata.com/about/terms-of-use/), downloaded on 17 November 2026.
++
++The four-file map archives do not provide a street-address or searchable-town index, elevation tiles, crop classification,
++current hazards, or authoritative emergency-facility inventories. Existing mapped help points are incomplete
++and may be outdated. Australian four-digit postcodes and state abbreviations need a separate address proposal;
++the US address builder and search rules must not be presented as Australian address support.
++
++Map geometry is selected where its bounding box intersects the area's box; long features may extend beyond it.
++Data completeness follows the corresponding Geofabrik extract, especially near borders and the coastline.
++The app remains offline: only build tools fetch these inputs.
++
++## Build a review archive
++
++From the repository root, using a current build Python as described in the README:
++
++```sh
++python3 -I -B packaging/build_packs.py map au-mel
++python3 -I -B packaging/region_maps.py --zip-only au-mel
++```
++
++Repeat with another id to build its area. The output is
++`derived/packs/region-zips/Lastbook-Map-au-mel.zip`. Record the source date, archive SHA-256,
++feature and help-point counts, and native-app checks with each review build. A successful build is
++not evidence that the whole state is covered or that facilities are operational.
++
++Official setup offers only archives scanned, published and listed by the release maintainer on
++`downloads.lastbook.org`. A review archive on a contributor's fork does not make it an official download.
++
++
++## Broader extract areas for rural coverage
++
++Eight additional definitions cover the envelopes of Geofabrik’s state/territory extracts. These are source extract areas, not guarantees of administrative-boundary precision, complete feature coverage or safe access. The standalone ACT extract uses the filename `act`; Geofabrik also includes ACT and Jervis Bay with NSW. The ACT extract does not establish Jervis Bay or external-territory coverage.
++
++Source polygon URLs, SHA-256 hashes, vertex counts and rounded-out envelopes, checked 17 November 2026, are recorded in `AUSTRALIAN-EXTRACT-BOUNDS.json`. The official source listing is https://download.geofabrik.de/australia-oceania/australia.html .
++
++| Id | Extract area | West, south, east, north |
++| --- | --- | --- |
++| au-act | Australian Capital Territory extract area | 148.75, -35.93, 149.41, -35.12 |
++| au-nsw | New South Wales extract area | 140.99, -37.76, 160.08, -28.13 |
++| au-nt | Northern Territory extract area | 128.67, -26.01, 140.43, -9.97 |
++| au-qld | Queensland extract area | 137.99, -29.19, 154.21, -8.84 |
++| au-sa | South Australia extract area | 128.99, -39.84, 141.01, -25.99 |
++| au-tas | Tasmania extract area | 143.47, -56.87, 161.68, -39.19 |
++| au-vic | Victoria extract area | 140.95, -39.24, 150.47, -33.97 |
++| au-wa | Western Australia extract area | 109.92, -41.17, 130.32, -12.83 |
++
++Actual broader review builds now cover all eight definitions. They use the dated 15 November 2026 sources, with input receipts, SQLite integrity checks, ZIP CRC checks and passing region-map scans. New whole-extract native UI checks are pending; the earlier metro maps and Melbourne suburb finder were checked in the native Mac app. No release manifest is silently changed by adding these definitions.
++
++The review ZIP metadata is set to its actual dated input, rather than the generic builder’s build-time `data_as_of` fallback. The input receipt remains the authoritative provenance. Named-point place-finder sidecars are separate review artifacts from PR #90; they are not street-address/postcode indexes and have not changed the existing four-file region-map release contract.
++
++The required source suite and region-source tests are run before publication. A full Mac release-bundle attempt stopped at missing `uv`, and the checkout does not hold the release-baseline data required by that recipe. Map SQLite/ZIP integrity and region-map scans are separate checks, not a claim that a complete release app bundle/package scan ran.
++
++### Whole-extract review results
++
++| Id | Feature rows | Mapped POI rows | Named point sidecar | Map ZIP bytes |
++| --- | ---: | ---: | ---: | ---: |
++| au-act | 204902 | 3747 | 187 | 14795527 |
++| au-nsw | 2491059 | 58132 | 12659 | 220438034 |
++| au-nt | 139947 | 3848 | 1019 | 14871632 |
++| au-qld | 1801743 | 42877 | 6136 | 163931859 |
++| au-sa | 825663 | 13443 | 1652 | 63819563 |
++| au-tas | 521092 | 5259 | 1276 | 47358168 |
++| au-vic | 2683842 | 46851 | 3054 | 200698704 |
++| au-wa | 1016535 | 21290 | 3373 | 104741123 |
++
++All eight map ZIPs together are 830,654,610 bytes. The separate place indexes contain 29,356 named points. Counts are database rows, not verified emergency facilities or complete address coverage. All queries in the review manifest (capitals and selected regional towns) resolve within their map boxes. The tests include a fixture-only disk-capacity adjustment: synthetic Setup recommendations must not depend on the real host disk having the production 5–20 GB reserve. Low-space checks and production code remain unchanged.
++
++[Whole-extract review downloads, source receipts and checksums](https://github.com/pilkster/lastbook/releases/tag/australia-state-maps-review-2026-11-17) are separate from the earlier three capital-area ZIPs. Named-place sidecars are included as a separate archive; integrating them into the release scanner, map switching and repair remains a maintainer decision alongside #63 and #90.
++
++Read-only checks through the existing application engine also passed with sockets forbidden: 30 capital/regional-town queries across all eight broader maps returned the exact named place and a nonempty detailed zoom-15 tile; nearby-point queries executed. `AUSTRALIA-STATE-ENGINE-CHECKS.json` in the release records these checks. They do not replace native window verification.
+diff --git a/docs/AUSTRALIAN-EXTRACT-BOUNDS.json b/docs/AUSTRALIAN-EXTRACT-BOUNDS.json
+new file mode 100644
+index 0000000..1f53328
+--- /dev/null
++++ b/docs/AUSTRALIAN-EXTRACT-BOUNDS.json
+@@ -0,0 +1,126 @@
++{
++  "checked": "2026-11-17",
++  "scope": "Eight Geofabrik extract envelopes. ACT has its own act extract and is also included with Jervis Bay in NSW. External-territory coverage must not be inferred.",
++  "extracts": [
++    {
++      "code": "au-act",
++      "title": "Australian Capital Territory extract area",
++      "country": "Australia",
++      "bbox": [
++        148.75,
++        -35.93,
++        149.41,
++        -35.12
++      ],
++      "extract": "https://download.geofabrik.de/australia-oceania/australia/act-latest-free.gpkg.zip",
++      "polygon_url": "https://download.geofabrik.de/australia-oceania/australia/act.poly",
++      "polygon_sha256": "8b868b248d33d15fa449ad75ba3fefc6417d49d0830fe696e4a46960abe02246",
++      "polygon_vertices": 86
++    },
++    {
++      "code": "au-nsw",
++      "title": "New South Wales extract area",
++      "country": "Australia",
++      "bbox": [
++        140.99,
++        -37.76,
++        160.08,
++        -28.13
++      ],
++      "extract": "https://download.geofabrik.de/australia-oceania/australia/new-south-wales-latest-free.gpkg.zip",
++      "polygon_url": "https://download.geofabrik.de/australia-oceania/australia/new-south-wales.poly",
++      "polygon_sha256": "577b4b49c43c02ccab6d691b4b45d015089298bf5cc5666533328e62abf90784",
++      "polygon_vertices": 871
++    },
++    {
++      "code": "au-nt",
++      "title": "Northern Territory extract area",
++      "country": "Australia",
++      "bbox": [
++        128.67,
++        -26.01,
++        140.43,
++        -9.97
++      ],
++      "extract": "https://download.geofabrik.de/australia-oceania/australia/northern-territory-latest-free.gpkg.zip",
++      "polygon_url": "https://download.geofabrik.de/australia-oceania/australia/northern-territory.poly",
++      "polygon_sha256": "47dcbc154337acd25d95b8920e389a7e43dfe4230d01f85623313e685937314e",
++      "polygon_vertices": 9
++    },
++    {
++      "code": "au-qld",
++      "title": "Queensland extract area",
++      "country": "Australia",
++      "bbox": [
++        137.99,
++        -29.19,
++        154.21,
++        -8.84
++      ],
++      "extract": "https://download.geofabrik.de/australia-oceania/australia/queensland-latest-free.gpkg.zip",
++      "polygon_url": "https://download.geofabrik.de/australia-oceania/australia/queensland.poly",
++      "polygon_sha256": "386acaaed2914e92e2b5b8287631b05c091d6da5b048f7ae8a2350749aca5edf",
++      "polygon_vertices": 233
++    },
++    {
++      "code": "au-sa",
++      "title": "South Australia extract area",
++      "country": "Australia",
++      "bbox": [
++        128.99,
++        -39.84,
++        141.01,
++        -25.99
++      ],
++      "extract": "https://download.geofabrik.de/australia-oceania/australia/south-australia-latest-free.gpkg.zip",
++      "polygon_url": "https://download.geofabrik.de/australia-oceania/australia/south-australia.poly",
++      "polygon_sha256": "fa665289ffcdbad989a08c20b9b8bd77f13a52c7d75c9f1181b23c927c83bc2d",
++      "polygon_vertices": 13
++    },
++    {
++      "code": "au-tas",
++      "title": "Tasmania extract area",
++      "country": "Australia",
++      "bbox": [
++        143.47,
++        -56.87,
++        161.68,
++        -39.19
++      ],
++      "extract": "https://download.geofabrik.de/australia-oceania/australia/tasmania-latest-free.gpkg.zip",
++      "polygon_url": "https://download.geofabrik.de/australia-oceania/australia/tasmania.poly",
++      "polygon_sha256": "14ea54ecfdccb80a257c565b41bde711fd0802be5a35b1af7eeae1aaaec6bfab",
++      "polygon_vertices": 10
++    },
++    {
++      "code": "au-vic",
++      "title": "Victoria extract area",
++      "country": "Australia",
++      "bbox": [
++        140.95,
++        -39.24,
++        150.47,
++        -33.97
++      ],
++      "extract": "https://download.geofabrik.de/australia-oceania/australia/victoria-latest-free.gpkg.zip",
++      "polygon_url": "https://download.geofabrik.de/australia-oceania/australia/victoria.poly",
++      "polygon_sha256": "c71317b8ea321cfa78eb0e5447cfcf53e52ab36c7294d2e57db7c9efcd666a08",
++      "polygon_vertices": 557
++    },
++    {
++      "code": "au-wa",
++      "title": "Western Australia extract area",
++      "country": "Australia",
++      "bbox": [
++        109.92,
++        -41.17,
++        130.32,
++        -12.83
++      ],
++      "extract": "https://download.geofabrik.de/australia-oceania/australia/western-australia-latest-free.gpkg.zip",
++      "polygon_url": "https://download.geofabrik.de/australia-oceania/australia/western-australia.poly",
++      "polygon_sha256": "6d70031fe79acce34d89bae6123b396e22ef859beeda1349afffc293d334131f",
++      "polygon_vertices": 11
++    }
++  ]
++}
+diff --git a/docs/MAPS.md b/docs/MAPS.md
+index 7549295..bc988fb 100644
+--- a/docs/MAPS.md
++++ b/docs/MAPS.md
+@@ -17,6 +17,7 @@ A map set lives in the data folder. `map-set.json` at its top lists the files an
+ |---|---|---|---|
+ | `derived/geo/national.sqlite` | `feat`, `feat_idx`, `poi`, `meta` | Roads, water and land shapes, and the place pins | `server.py` (`national_mapdb`) |
+ | `derived/geo/map.sqlite` | the same four | The original detailed street map of Southern California; it had no rows in the state map checked | `server.py` (`mapdb`) |
++| `derived/geo/detail-cells.json` | — | A region map's own box and its 0.05° cells; where present, `server.py` uses it instead of the Southern California box | `server.py` (`detail_bbox`, `socal_cells`) |
+ | `derived/geo/water.sqlite` | `resource`, `spatial`, `feat`, `feat_idx` | Dams, reservoirs, lakes and ponds | `server.py` |
+ | `derived/geo/crops.sqlite` | `resource`, `spatial`, `tile` | Orchards, vineyards and berries | `server.py` |
+ | `derived/geo/terrain.sqlite` | `tile` | Elevation tiles for relief, contours and the 3D view | `server.py` |
+@@ -76,6 +77,7 @@ so ask before adding many.
+ | `places.sqlite` | `tools/build_places.py` | USGS GNIS, Census gazetteers, named OpenStreetMap places |
+ | address indexes | `tools/build_addresses.py`, then `packaging/address_indexes.py` | Overture Maps addresses |
+ | a state map | `packaging/build_packs.py map <ST>`, published by `packaging/state_maps.py` | The base map, then every row inside the state's box |
++| a region map | `packaging/build_packs.py map <region>`, published by `packaging/region_maps.py` | A Geofabrik OpenStreetMap extract clipped to the region's box (see "Region maps" below) |
+ 
+ Each tool's header says what it reads, what it writes and the licence of its source. Read it before you run one: some
+ expect source files that are hundreds of gigabytes.
+@@ -100,6 +102,41 @@ expect source files that are hundreds of gigabytes.
+ - Address search knows US state names and US street words (`engine/address_search.py`, `tools/build_addresses.py`).
+ - The base map of the world is drawn from `web/world-context.json` and `web/geographic-context.json`.
+ 
++## Region maps
++
++Outside the US, a **region map** is the "state" equivalent: a Geofabrik OpenStreetMap extract clipped to the region's
++box. It ships only `map.sqlite` (its own detail), `detail-cells.json`, `national-status.json` and `map-set.json`, so
++there are no federal datasets, terrain relief, crops or address search. The first region is Caracas (Distrito Capital,
++Venezuela), id `ve-a`. Add another by adding a row to `packaging/region_specs.py` and running
++`packaging/region_maps.py <id>`; the table `packaging/region_maps.py` writes is `derived/packs/REGION-MAPS.md`.
++
++### Canadian Maritimes
++
++`ca-maritimes` installs New Brunswick, Nova Scotia and Prince Edward Island together. Streets, building outlines,
++water features and mapped help points are available across all three provinces. This download has no street-address
++index, searchable town index or terrain tiles. As with other region maps, installing it replaces the current detailed map.
++
++The inputs are the provincial OpenStreetMap GeoPackages from Geofabrik, licensed under ODbL 1.0. Each is cached
++separately under `derived/packs/maps/region-source/`. Repeated rows for the same OpenStreetMap object and geometry in
++overlapping extracts appear once. The November 2026 sample is about 137 MB to download and 355 MB installed.
++[New Brunswick](https://download.geofabrik.de/north-america/canada/new-brunswick.html) ·
++[Nova Scotia](https://download.geofabrik.de/north-america/canada/nova-scotia.html) ·
++[Prince Edward Island](https://download.geofabrik.de/north-america/canada/prince-edward-island.html) ·
++[OpenStreetMap copyright and licence](https://www.openstreetmap.org/copyright)
++
++To build a local review archive from the repository root, use the build Python described in the README:
++
++```sh
++python3 -I -B packaging/build_packs.py map ca-maritimes
++python3 -I -B packaging/region_maps.py --zip-only ca-maritimes
++```
++
++The zip is written to `derived/packs/region-zips/Lastbook-Map-ca-maritimes.zip`. The release publisher scans the map,
++uploads the archive, verifies the public checksum and lists the download in the manifest. Setup then offers it under
++**Canada**.
++
++## Proposals for other regions
++
+ Coverage outside the US needs a decision on each of these first: which open source replaces each federal list, under
+ what licence, what a "state" is elsewhere, and how addresses are written. That is a design discussion to have in an
+ issue before any code.
+@@ -124,6 +161,8 @@ as one map.
+ 
+ ## Checking a map change
+ 
++The proposed [Australian capital-area maps](AUSTRALIA-MAPS.md) document their boxes, sources, limits and review builds.
++
+ - A change to a layer in `web/map.js` is a change you can see: include screenshots in light and dark mode.
+ - A change to a pack or map tool: `packaging/test_pack_tools.py` and `packaging/scan_pack.py` check what a map set may
+   hold, and `scan_pack.py` lists the allowed files under `derived/geo/` (`GEO_FILES`).
+diff --git a/engine/setup/install.py b/engine/setup/install.py
+index 9eea2b8..529461f 100644
+--- a/engine/setup/install.py
++++ b/engine/setup/install.py
+@@ -100,7 +100,7 @@ def _member_parts(info, top_optional=False):
+     return parts
+ 
+ 
+-MAP_FIXED = {'map-set.json', 'derived/geo/national-status.json', 'derived/geo/socal-cells.json', 'library-data/geography/resources/atlas.sqlite'}
++MAP_FIXED = {'map-set.json', 'derived/geo/national-status.json', 'derived/geo/socal-cells.json', 'derived/geo/detail-cells.json', 'library-data/geography/resources/atlas.sqlite'}
+ MAP_DIRS = {'', 'derived', 'derived/geo', 'library-data', 'library-data/geography', 'library-data/geography/resources'}
+ MAP_SQLITE = re.compile(r'derived/geo/[A-Za-z0-9._-]+\.sqlite')
+ SQLITE_SIDES = ('-wal', '-shm', '-journal')     # SQLite's own files beside a database: they move with it, or the new one could be damaged
+diff --git a/engine/setup/manifest.py b/engine/setup/manifest.py
+index 59f9bc9..ca84b8b 100644
+--- a/engine/setup/manifest.py
++++ b/engine/setup/manifest.py
+@@ -81,7 +81,7 @@ def validate(m, allowed=None):
+             if available and not _int(x.get('installed_bytes')):
+                 return None
+             entries.append({'id': x['id'], 'title': str(x.get('title') or x['id']), 'kind': str(x.get('kind') or 'state'),
+-                         'includes': str(x.get('includes') or ''),
++                         'country': str(x.get('country') or ''), 'includes': str(x.get('includes') or ''),
+                          'installed_bytes': x.get('installed_bytes') if _int(x.get('installed_bytes')) else None,
+                          'download_bytes': sum(f['size'] for f in files), 'available': available, 'files': files})
+         collections[key] = entries
+diff --git a/packaging/build_packs.py b/packaging/build_packs.py
+index 666df91..3bc7313 100644
+--- a/packaging/build_packs.py
++++ b/packaging/build_packs.py
+@@ -1,14 +1,14 @@
+ """Builds Lastbook's download packs from derived/packs/pack-spec.json. A pack is a data folder: point LASTBOOK_DATA at it.
+ 
+   python -I -B build_packs.py snapshot
+-  python -I -B build_packs.py map base|us|<state code, such as RI>
++  python -I -B build_packs.py map base|us|<state code, such as RI>|<region code, such as ve-a>
+   python -I -B build_packs.py build small|medium|all|corporals-corner|firearms-hunting [--map base|us|RI] [--sample N] [--snapshot DIR] [--fetched DIR]
+ 
+ Everything comes from one frozen snapshot of the catalog and search file, so the indexer can run throughout. The library is only read: files that do not change are APFS
+ clones, and a page that changes is written as a new file here. Run it again and it does only what changed, and anything no longer in the pack goes.
+ Writes derived/packs/<pack>/ (the pack: pack.json, pack-manifest.tsv, pack-contents.tsv, the Sources page) and derived/packs/<pack>-build/ (for the owner, never shipped: what was
+ left out and why). --sample takes a few records of each kind that are on this computer, into <pack>-sample. A video on a Studio is copied only if it is already under --fetched;
+-this tool opens no network connection. Without it the record is left out, reported, and the build exits 1.
++this tool opens no network connection, except building a region map, which downloads its Geofabrik extract. Without it the record is left out, reported, and the build exits 1.
+ The owner's renames always apply (pack-spec.json collection_renames, path_renames, note_edits, and packaging/ship_edits.json id_prefixes, which the shipped guides use too).
+ Needs a Python whose html.parser reads as a browser does: derived/app-build/mac-venv/bin/python3 or the library's own.
+ """
+@@ -29,8 +29,10 @@ import shutil
+ import sqlite3
+ import subprocess
+ import sys
++import tempfile
+ import time
+ import urllib.parse
++import urllib.request
+ import zipfile
+ import zlib
+ from collections import Counter, defaultdict
+@@ -59,6 +61,7 @@ def load_module(name, path):
+ 
+ 
+ SHIP = load_module('ship_app_files', PROJECT / 'packaging' / 'ship_app_files.py')    # what an app build ships: the guides' IDs and the ID renames come from here
++REGION_SPECS = load_module('region_specs', PROJECT / 'packaging' / 'region_specs.py')    # the non-US region maps (docs/MAPS.md, "Region maps")
+ PATH_RENAMES = {**SPEC['path_renames'], **{f'text/{a}': f'text/{b}' for a, b in SHIP.PREFIXES.items()}}   # a record's text file is named by its ID
+ MAP_CREDIT = 'OpenStreetMap contributors · Microsoft buildings · USGS · USDA · NOAA · USACE · CDFW · CalGEM · Natural Earth'   # as on the map itself, web/map.js
+ 
+@@ -1457,21 +1460,65 @@ def us_set(src, dest):
+     clone(GEO / 'socal-cells.json', geo / 'socal-cells.json')
+ 
+ 
++def fetch_region_gpkg(url):
++    """The region's GeoPackage, downloaded and unzipped once into derived/packs/maps/region-source/. Only the build machine does this."""
++    name = Path(urllib.parse.urlsplit(url).path).name
++    folder = OUT / 'maps' / 'region-source' / name.removesuffix('.zip')
++    gpkg = folder / 'source.gpkg'
++    if gpkg.is_file():
++        return gpkg
++    folder.mkdir(parents=True, exist_ok=True)
++    with tempfile.TemporaryDirectory(dir=folder) as work:
++        archive = Path(work) / name
++        print(f'downloading {url}', flush=True)
++        urllib.request.urlretrieve(url, archive)
++        with zipfile.ZipFile(archive) as z:
++            members = [entry for entry in z.infolist() if entry.filename.endswith('.gpkg')]
++            if len(members) != 1:
++                raise ValueError(f'{name}: expected one GeoPackage, found {len(members)}')
++            staged = Path(work) / 'source.gpkg'
++            with z.open(members[0]) as src, staged.open('wb') as dst:
++                shutil.copyfileobj(src, dst)
++        staged.replace(gpkg)
++    return gpkg
++
++
++def region_set(dest, code):
++    """A non-US region (a "state" elsewhere): its box of a Geofabrik OpenStreetMap extract, as map.sqlite alone, with detail-cells.json."""
++    spec = REGION_SPECS.REGIONS[code]
++    sources = spec['extracts'] if 'extracts' in spec else [spec['extract']]
++    gpkg, *others = [fetch_region_gpkg(url) for url in sources]
++    geo = dest / 'derived' / 'geo'
++    geo.mkdir(parents=True, exist_ok=True)
++    box = spec['bbox']
++    subprocess.run([sys.executable, '-I', '-B', str(PROJECT / 'tools' / 'build_map.py'), str(gpkg), str(geo / 'map.sqlite'),
++                    ','.join(f'{v:.6f}' for v in box), spec['source'], *map(str, others)], check=True)
++    db = sqlite3.connect(f'file:{geo}/map.sqlite?immutable=1', uri=True)
++    features = db.execute('SELECT count(*) FROM feat').fetchone()[0]
++    cells = sorted(r[0] for r in db.execute('SELECT DISTINCT CAST((minx+180)/0.05 AS INT)*100000+CAST((miny+90)/0.05 AS INT) FROM feat_idx WHERE maxx-minx<0.05'))
++    db.close()
++    (geo / 'national-status.json').write_text(json.dumps({'state': 'complete', 'stage': 'ready', 'features': features}), encoding='utf-8')
++    (geo / 'detail-cells.json').write_text(json.dumps({'name': code, 'bbox': box, 'cells': cells}), encoding='utf-8')
++
++
+ def build_map(name):
+-    src = geo_source()
+     dest = OUT / 'maps' / name
+     start = time.time()
+     if dest.exists():
+         shutil.rmtree(dest)
+     os.makedirs(dest)
+-    if name == 'base':
+-        base_set(src, dest)
+-    elif name == 'us':
+-        us_set(src, dest)
+-    elif re.fullmatch(r'[A-Z]{2}', name):
+-        state_set(src, dest, name)
++    if name in REGION_SPECS.REGIONS:
++        region_set(dest, name)
+     else:
+-        raise SystemExit(f'unknown map set {name}')
++        src = geo_source()
++        if name == 'base':
++            base_set(src, dest)
++        elif name == 'us':
++            us_set(src, dest)
++        elif re.fullmatch(r'[A-Z]{2}', name):
++            state_set(src, dest, name)
++        else:
++            raise SystemExit(f'unknown map set {name}')
+     size = {f.relative_to(dest).as_posix(): f.stat().st_size for f in dest.rglob('*') if f.is_file()}
+     (dest / 'map-set.json').write_text(json.dumps({'name': name, 'files': size, 'bytes': sum(size.values()), 'seconds': round(time.time() - start)}, indent=1), encoding='utf-8')
+     print(json.dumps({'map': name, 'bytes': sum(size.values()), 'files': size, 'seconds': round(time.time() - start)}, indent=1))
+diff --git a/packaging/region_maps.py b/packaging/region_maps.py
+new file mode 100644
+index 0000000..6523464
+--- /dev/null
++++ b/packaging/region_maps.py
+@@ -0,0 +1,211 @@
++"""Build, check, zip, upload and list one non-US region's detailed map (docs/MAPS.md, "Region maps").
++
++  derived/app-build/mac-venv/bin/python3 -I -B packaging/region_maps.py ve-a ...   # one region at a time, in this order
++  ... packaging/region_maps.py --order                                              # every region, in release order
++
++Each region: build (a Geofabrik OpenStreetMap extract clipped to the region's box), scan, zip to
++derived/packs/region-zips/, upload to maps/ on the bucket, check the public SHA-256, list it under "maps" in
++derived/release/manifest-v1.json and upload that, then delete the zip and the build copy. Results go to
++derived/packs/region-maps.json and REGION-MAPS.md.
++"""
++import fcntl
++import hashlib
++import json
++import os
++import shutil
++import sqlite3
++import subprocess
++import sys
++import time
++import zipfile
++from pathlib import Path
++
++ROOT = Path(__file__).resolve().parents[1]
++MAPS = ROOT / 'derived/packs/maps'
++ZIPS = ROOT / 'derived/packs/region-zips'
++RESULTS = ROOT / 'derived/packs/region-maps.json'
++LOCK = ROOT / 'derived/packs/region-maps.lock'      # one writer at a time for the manifest, results and table
++TABLE = ROOT / 'derived/packs/REGION-MAPS.md'
++
++sys.path.insert(0, str(ROOT / 'packaging'))
++sys.path.insert(0, str(ROOT / 'derived/release'))
++import scan_pack as S            # noqa: E402
++import region_specs              # noqa: E402
++
++INCLUDES = 'Local streets, buildings, water and places to get help'
++ALLOWED = {'derived/geo/map.sqlite', 'derived/geo/detail-cells.json', 'derived/geo/national-status.json', 'map-set.json'}
++
++
++def regions():
++    return list(region_specs.REGIONS)
++
++
++def scan(d, code):
++    """The scan_pack rules that apply to a region map set, and the region-set rules: only the listed files, nothing about the household's area, and map.sqlite itself is the detail."""
++    terms = S.read_terms(str(ROOT / 'derived/packs/private-terms.txt'))
++    if not terms:
++        sys.exit('no private terms')
++    sc = S.Scan(d, terms, {}, None)
++    sc.done_early = set()
++    files = sc.walk()
++    rels = [p.relative_to(d).as_posix() for p in files]
++    fails = []
++    if set(rels) != ALLOWED:
++        fails.append(f'files differ from the contract: extra {sorted(set(rels) - ALLOWED)} missing {sorted(ALLOWED - set(rels))}')
++    for p, rel in zip(files, rels):
++        st = os.lstat(p)
++        if rel == 'map-set.json':
++            info = sc.load_json(rel, rels, 'map-set')
++            if not isinstance(info, dict) or info.get('name') != code or set(info) - {'name', 'files', 'bytes', 'seconds'}:
++                fails.append('map-set.json does not name the region')
++            continue
++        sc.name_rules(rel, st, p.is_symlink())
++        if rel == 'derived/geo/detail-cells.json':
++            data = sc.load_json(rel, rels, 'status')
++            if not (isinstance(data, dict) and data.get('name') == code and not set(data) - {'name', 'bbox', 'cells'}
++                    and isinstance(data.get('bbox'), list) and len(data['bbox']) == 4 and all(isinstance(v, (int, float)) for v in data['bbox'])
++                    and isinstance(data.get('cells'), list)):
++                fails.append('detail-cells.json is not the region box')
++        elif rel == 'derived/geo/national-status.json':
++            data = sc.load_json(rel, rels, 'status')
++            if not isinstance(data, dict) or set(data) - {'state', 'stage', 'features'}:
++                fails.append('status fields')
++        else:
++            sc.inspect_map(rel, p)
++            db = sqlite3.connect(f'file:{p}?immutable=1', uri=True)
++            for t in ('meta', 'metadata'):
++                if db.execute('SELECT 1 FROM sqlite_master WHERE name=?', (t,)).fetchone():
++                    for row in db.execute(f'SELECT * FROM "{t}"'):
++                        for x in row:
++                            if isinstance(x, str) and (S.HOUSEHOLD.search(x.encode()) or S.USER_PATH.search(x.encode()) or S.LAN.search(x.encode())):
++                                fails.append(f'{rel}: {t} names the household, a local path or a LAN address')
++            if rel == 'derived/geo/map.sqlite' and not db.execute('SELECT 1 FROM feat LIMIT 1').fetchone():
++                fails.append('map.sqlite holds no features (a region map is its own detail)')
++            if db.execute("SELECT 1 FROM sqlite_master WHERE name IN ('done','done_socal')").fetchone():
++                fails.append(f'{rel}: build progress tables left in')
++            db.close()
++    for rule, paths in sc.fails.items():
++        fails.append(f'{rule}: {paths[:5]}')
++    return fails, sc.listed
++
++
++def make_zip(d, out):
++    tmp = out.with_suffix('.partial')
++    with zipfile.ZipFile(tmp, 'w', allowZip64=True) as z:
++        for rel in sorted(ALLOWED):
++            zi = zipfile.ZipInfo(rel, date_time=(2026, 11, 16, 0, 0, 0))
++            zi.compress_type = zipfile.ZIP_DEFLATED
++            zi.external_attr = 0o644 << 16
++            with open(d / rel, 'rb') as src, z.open(zi, 'w', force_zip64=True) as dst:
++                while b := src.read(1 << 24):
++                    dst.write(b)
++    with zipfile.ZipFile(tmp) as z:
++        names = {i.filename: i.file_size for i in z.infolist()}
++    if names != {rel: (d / rel).stat().st_size for rel in ALLOWED}:
++        sys.exit('zip does not hold exactly the set')
++    os.replace(tmp, out)
++
++
++def list_in_manifest(ctx, entry):
++    """Like state_maps.list_in_manifest, but regions are appended after the states already listed (no state order to preserve)."""
++    import state_maps as SM
++    m = json.loads(SM.MANIFEST.read_text())
++    packs, models = json.dumps(m['packs']), json.dumps(m.get('models'))
++    m['maps'] = [x for x in m.get('maps', []) if x['id'] != entry['id']] + [entry]
++    assert json.dumps(m['packs']) == packs and json.dumps(m.get('models')) == models
++    tmp = SM.MANIFEST.with_suffix('.maps-tmp')
++    tmp.write_text(json.dumps(m, indent=1) + '\n')
++    os.replace(tmp, SM.MANIFEST)
++    data = SM.MANIFEST.read_bytes()
++    st, _, out = SM.R.s3(ctx, 'PUT', 'manifest-v1.json', body=data, headers={'content-type': 'application/json; charset=utf-8'})
++    if st != 200:
++        sys.exit(f'manifest upload HTTP {st}')
++    for _ in range(10):
++        got, _n = SM.public_sha(f'{SM.BASE}/manifest-v1.json')
++        if got == hashlib.sha256(data).hexdigest():
++            return
++        time.sleep(3)
++    sys.exit('public manifest does not match')
++
++
++def write_table(res):
++    rows = ['# Region maps', '', 'One detailed map per non-US region, for first-run setup (docs/MAPS.md, "Region maps"). Built by', '`packaging/region_maps.py`; each zip was scanned, uploaded, checked by its public SHA-256 and then listed under', '`maps` in `manifest-v1.json`.', '', '| Region | Zip size | Installed size | SHA-256 | URL |', '|---|---:|---:|---|---|']
++    for code in sorted(res):
++        r = res[code]
++        spec = region_specs.REGIONS.get(code, {})
++        rows.append(f"| {spec.get('title', code)} | {r['size'] / 1e9:.2f} GB ({r['size']:,}) | {r['installed_bytes'] / 1e9:.2f} GB ({r['installed_bytes']:,}) | `{r['sha256']}` | {r['url']} |")
++    TABLE.write_text('\n'.join(rows) + '\n')
++
++
++def one_region(ctx, code, res):
++    import state_maps as SM
++    d = MAPS / code
++    t0 = time.time()
++    while shutil.disk_usage(ROOT).free < 5e9:      # the extract and its build
++        SM.log(code, 'waiting for disk space')
++        time.sleep(120)
++    SM.log(code, 'building')
++    subprocess.run([sys.executable, '-I', '-B', str(ROOT / 'packaging/build_packs.py'), 'map', code], check=True, stdout=subprocess.DEVNULL)
++    fails, listed = scan(d, code)
++    wf, web = SM.web_text(d)
++    fails += wf
++    if fails:
++        sys.exit(f'{code} scan failed: {fails}')
++    SM.log(code, 'scan passed', dict((k, len(v)) for k, v in listed.items()))
++    installed = sum((d / rel).stat().st_size for rel in ALLOWED)
++    ZIPS.mkdir(exist_ok=True)
++    z = ZIPS / f'Lastbook-Map-{code}.zip'
++    make_zip(d, z)
++    sha, size = SM.sha_file(z), z.stat().st_size
++    SM.log(code, 'zipped', size)
++    key = f'maps/{z.name}'
++    SM.upload(ctx, z, key)
++    url = f'{SM.BASE}/{key}'
++    got, n = SM.public_sha(url)
++    if got != sha or n != size:
++        sys.exit(f'{code}: public copy differs ({got} {n})')
++    SM.log(code, 'public copy verified')
++    spec = region_specs.REGIONS[code]
++    entry = {'id': code, 'title': spec['title'], 'country': spec['country'], 'kind': 'region', 'installed_bytes': installed, 'available': True,
++             'includes': INCLUDES, 'files': [{'name': z.name, 'url': url, 'size': size, 'sha256': sha, 'kind': 'zip'}]}
++    with open(LOCK, 'a') as lk:
++        fcntl.flock(lk, fcntl.LOCK_EX)
++        list_in_manifest(ctx, entry)
++        res.clear()
++        res.update(json.loads(RESULTS.read_text()) if RESULTS.exists() else {})
++        res[code] = {'size': size, 'installed_bytes': installed, 'sha256': sha, 'url': url, 'web_address_text': web, 'seconds': round(time.time() - t0)}
++        tmp = RESULTS.with_suffix('.tmp')
++        tmp.write_text(json.dumps(res, indent=1) + '\n')
++        os.replace(tmp, RESULTS)
++        write_table(res)
++    SM.log(code, 'listed')
++    z.unlink()
++    shutil.rmtree(d)
++
++
++def main():
++    args = sys.argv[1:]
++    if args[:1] == ['--zip-only']:
++        if not args[1:] or any(code not in regions() for code in args[1:]):
++            sys.exit('usage: region_maps.py --zip-only <built region> ...')
++        ZIPS.mkdir(parents=True, exist_ok=True)
++        for code in args[1:]:
++            archive = ZIPS / f'Lastbook-Map-{code}.zip'
++            make_zip(MAPS / code, archive)
++            print(archive)
++        return
++    import state_maps as SM  # release-only tools and bucket access
++    ctx = SM.R.Context()
++    todo = regions() if args == ['--order'] else args
++    res = json.loads(RESULTS.read_text()) if RESULTS.exists() else {}
++    for code in todo:
++        if code not in region_specs.REGIONS:
++            sys.exit(f'unknown region {code}')
++        if code in res:
++            continue
++        one_region(ctx, code, res)
++    SM.log('done', len(res), 'regions')
++
++
++if __name__ == '__main__':
++    main()
+diff --git a/packaging/region_specs.py b/packaging/region_specs.py
+new file mode 100644
+index 0000000..745fbc5
+--- /dev/null
++++ b/packaging/region_specs.py
+@@ -0,0 +1,143 @@
++"""The non-US region maps Lastbook can build: one entry per region, keyed by a stable lowercase id (ISO 3166-2 for individual regions).
++
++A region is the "state" equivalent outside the US (docs/MAPS.md, "Region maps"). Unlike a US state map, a region map
++ships only map.sqlite, detail-cells.json, national-status.json and map-set.json, built from a Geofabrik OpenStreetMap
++GeoPackage clipped to the region's box. Add a region here and run packaging/region_maps.py <id>.
++"""
++
++REGIONS = {
++    've-a': {   # Distrito Capital, the federal capital district of Venezuela
++        'country': 'Venezuela',
++        'title': 'Caracas (Distrito Capital)',
++        'bbox': [-67.10, 10.40, -66.80, 10.56],
++        'extract': 'https://download.geofabrik.de/south-america/venezuela-latest-free.gpkg.zip',
++        'source': 'OpenStreetMap contributors, via Geofabrik venezuela-latest-free.gpkg.zip (ODbL 1.0)',
++    },
++    'ca-maritimes': {
++        'country': 'Canada',
++        'title': 'Maritimes (New Brunswick, Nova Scotia and Prince Edward Island)',
++        # Envelope of the three Geofabrik extract polygons, rounded outwards (includes offshore islands).
++        'bbox': [-69.06, 42.10, -58.22, 48.39],
++        'extracts': [
++            'https://download.geofabrik.de/north-america/canada/new-brunswick-latest-free.gpkg.zip',
++            'https://download.geofabrik.de/north-america/canada/nova-scotia-latest-free.gpkg.zip',
++            'https://download.geofabrik.de/north-america/canada/prince-edward-island-latest-free.gpkg.zip',
++        ],
++        'source': 'OpenStreetMap contributors, via Geofabrik New Brunswick, Nova Scotia and Prince Edward Island extracts (ODbL 1.0)',
++    },
++
++    # Metropolitan boxes, not whole states. Natural Earth populated places, checked 2026-11-17.
++    'au-ade': {
++        'country': 'Australia',
++        'title': 'Adelaide area',
++        'bbox': [138.09, -35.44, 139.1, -34.43],
++        'extract': 'https://download.geofabrik.de/australia-oceania/australia/south-australia-latest-free.gpkg.zip',
++        'source': 'OpenStreetMap contributors, via Geofabrik south-australia-latest-free.gpkg.zip (ODbL 1.0)',
++    },
++    'au-bri': {
++        'country': 'Australia',
++        'title': 'Brisbane area',
++        'bbox': [152.53, -27.96, 153.54, -26.95],
++        'extract': 'https://download.geofabrik.de/australia-oceania/australia/queensland-latest-free.gpkg.zip',
++        'source': 'OpenStreetMap contributors, via Geofabrik queensland-latest-free.gpkg.zip (ODbL 1.0)',
++    },
++    'au-can': {
++        'country': 'Australia',
++        'title': 'Canberra area',
++        'bbox': [148.62, -35.79, 149.63, -34.78],
++        'extract': 'https://download.geofabrik.de/australia-oceania/australia/new-south-wales-latest-free.gpkg.zip',
++        'source': 'OpenStreetMap contributors, via Geofabrik new-south-wales-latest-free.gpkg.zip (ODbL 1.0)',
++    },
++    'au-dar': {
++        'country': 'Australia',
++        'title': 'Darwin area',
++        'bbox': [130.35, -12.93, 131.36, -11.92],
++        'extract': 'https://download.geofabrik.de/australia-oceania/australia/northern-territory-latest-free.gpkg.zip',
++        'source': 'OpenStreetMap contributors, via Geofabrik northern-territory-latest-free.gpkg.zip (ODbL 1.0)',
++    },
++    'au-hob': {
++        'country': 'Australia',
++        'title': 'Hobart area',
++        'bbox': [146.79, -43.36, 147.8, -42.35],
++        'extract': 'https://download.geofabrik.de/australia-oceania/australia/tasmania-latest-free.gpkg.zip',
++        'source': 'OpenStreetMap contributors, via Geofabrik tasmania-latest-free.gpkg.zip (ODbL 1.0)',
++    },
++    'au-mel': {
++        'country': 'Australia',
++        'title': 'Melbourne area',
++        'bbox': [144.47, -38.32, 145.48, -37.31],
++        'extract': 'https://download.geofabrik.de/australia-oceania/australia/victoria-latest-free.gpkg.zip',
++        'source': 'OpenStreetMap contributors, via Geofabrik victoria-latest-free.gpkg.zip (ODbL 1.0)',
++    },
++    'au-per': {
++        'country': 'Australia',
++        'title': 'Perth area',
++        'bbox': [115.33, -32.46, 116.34, -31.45],
++        'extract': 'https://download.geofabrik.de/australia-oceania/australia/western-australia-latest-free.gpkg.zip',
++        'source': 'OpenStreetMap contributors, via Geofabrik western-australia-latest-free.gpkg.zip (ODbL 1.0)',
++    },
++    'au-syd': {
++        'country': 'Australia',
++        'title': 'Sydney area',
++        'bbox': [150.68, -34.42, 151.69, -33.41],
++        'extract': 'https://download.geofabrik.de/australia-oceania/australia/new-south-wales-latest-free.gpkg.zip',
++        'source': 'OpenStreetMap contributors, via Geofabrik new-south-wales-latest-free.gpkg.zip (ODbL 1.0)',
++    },
++    # Whole Geofabrik extract envelopes, not administrative boundary guarantees.
++    'au-nsw': {
++        'country': 'Australia',
++        'title': 'New South Wales, ACT and Jervis Bay extract area',
++        'bbox': [140.99, -37.76, 160.08, -28.13],
++        'extract': 'https://download.geofabrik.de/australia-oceania/australia/new-south-wales-latest-free.gpkg.zip',
++        'source': 'OpenStreetMap contributors, via Geofabrik new-south-wales-latest-free.gpkg.zip (ODbL 1.0)',
++    },
++    'au-nt': {
++        'country': 'Australia',
++        'title': 'Northern Territory extract area',
++        'bbox': [128.67, -26.01, 140.43, -9.97],
++        'extract': 'https://download.geofabrik.de/australia-oceania/australia/northern-territory-latest-free.gpkg.zip',
++        'source': 'OpenStreetMap contributors, via Geofabrik northern-territory-latest-free.gpkg.zip (ODbL 1.0)',
++    },
++    'au-qld': {
++        'country': 'Australia',
++        'title': 'Queensland extract area',
++        'bbox': [137.99, -29.19, 154.21, -8.84],
++        'extract': 'https://download.geofabrik.de/australia-oceania/australia/queensland-latest-free.gpkg.zip',
++        'source': 'OpenStreetMap contributors, via Geofabrik queensland-latest-free.gpkg.zip (ODbL 1.0)',
++    },
++    'au-sa': {
++        'country': 'Australia',
++        'title': 'South Australia extract area',
++        'bbox': [128.99, -39.84, 141.01, -25.99],
++        'extract': 'https://download.geofabrik.de/australia-oceania/australia/south-australia-latest-free.gpkg.zip',
++        'source': 'OpenStreetMap contributors, via Geofabrik south-australia-latest-free.gpkg.zip (ODbL 1.0)',
++    },
++    'au-tas': {
++        'country': 'Australia',
++        'title': 'Tasmania extract area',
++        'bbox': [143.47, -56.87, 161.68, -39.19],
++        'extract': 'https://download.geofabrik.de/australia-oceania/australia/tasmania-latest-free.gpkg.zip',
++        'source': 'OpenStreetMap contributors, via Geofabrik tasmania-latest-free.gpkg.zip (ODbL 1.0)',
++    },
++    'au-vic': {
++        'country': 'Australia',
++        'title': 'Victoria extract area',
++        'bbox': [140.95, -39.24, 150.47, -33.97],
++        'extract': 'https://download.geofabrik.de/australia-oceania/australia/victoria-latest-free.gpkg.zip',
++        'source': 'OpenStreetMap contributors, via Geofabrik victoria-latest-free.gpkg.zip (ODbL 1.0)',
++    },
++    'au-wa': {
++        'country': 'Australia',
++        'title': 'Western Australia extract area',
++        'bbox': [109.92, -41.17, 130.32, -12.83],
++        'extract': 'https://download.geofabrik.de/australia-oceania/australia/western-australia-latest-free.gpkg.zip',
++        'source': 'OpenStreetMap contributors, via Geofabrik western-australia-latest-free.gpkg.zip (ODbL 1.0)',
++    },
++    'au-act': {
++        'country': 'Australia',
++        'title': 'Australian Capital Territory extract area',
++        'bbox': [148.75, -35.93, 149.41, -35.12],
++        'extract': 'https://download.geofabrik.de/australia-oceania/australia/act-latest-free.gpkg.zip',
++        'source': 'OpenStreetMap contributors, via Geofabrik act-latest-free.gpkg.zip (ODbL 1.0)',
++    },
++}
+diff --git a/packaging/scan_pack.py b/packaging/scan_pack.py
+index fc7a798..3266f0c 100644
+--- a/packaging/scan_pack.py
++++ b/packaging/scan_pack.py
+@@ -31,7 +31,7 @@ PROJECT = Path(__file__).resolve().parents[1]
+ SPEC = json.loads((PROJECT / 'derived/packs/pack-spec.json').read_text(encoding='utf-8'))
+ ROOT_FILES = {'pack.json', 'pack-manifest.tsv', 'pack-contents.tsv'}
+ LIB_ROOT_FILES = {'catalog.json', 'search.sqlite', 'summary.json', 'reader.css'}
+-GEO_FILES = {'national.sqlite', 'map.sqlite', 'water.sqlite', 'terrain.sqlite', 'buildings.sqlite', 'crops.sqlite', 'places.sqlite', 'national-status.json', 'socal-cells.json'}
++GEO_FILES = {'national.sqlite', 'map.sqlite', 'water.sqlite', 'terrain.sqlite', 'buildings.sqlite', 'crops.sqlite', 'places.sqlite', 'national-status.json', 'socal-cells.json', 'detail-cells.json'}
+ ATLAS = 'library-data/geography/resources/atlas.sqlite'
+ IMAGES = {'.png', '.jpg', '.jpeg', '.gif', '.webp'}
+ FOLDER_EXT = {
+diff --git a/packaging/test_pack_tools.py b/packaging/test_pack_tools.py
+index 23d0930..706bd09 100644
+--- a/packaging/test_pack_tools.py
++++ b/packaging/test_pack_tools.py
+@@ -883,6 +883,12 @@ def make_base(work):
+     return code == 0
+ 
+ 
++def region_controls():
++    """The non-US region map contract (docs/MAPS.md, "Region maps"): its detail-cells.json is allowed, and the Caracas spec is present."""
++    result("scan_pack allows a region map's detail-cells.json", 'detail-cells.json' in scan_pack.GEO_FILES)
++    result('the Caracas region spec is present', build_packs.REGION_SPECS.REGIONS.get('ve-a', {}).get('country') == 'Venezuela')
++
++
+ def main():
+     ap = argparse.ArgumentParser()
+     ap.add_argument('sample')
+@@ -895,6 +901,7 @@ def main():
+         return 1
+     strip_controls()
+     builder_controls(work)
++    region_controls()
+     plant_files(work)
+     plant_each(work)
+     no_false_pass(work)
+diff --git a/packaging/test_region_sources.py b/packaging/test_region_sources.py
+new file mode 100644
+index 0000000..a5c56c7
+--- /dev/null
++++ b/packaging/test_region_sources.py
+@@ -0,0 +1,57 @@
++"""From a checkout: python3 -B packaging/test_region_sources.py"""
++import sqlite3
++import struct
++import subprocess
++import sys
++import tempfile
++import unittest
++import zipfile
++from contextlib import closing
++from pathlib import Path
++from unittest.mock import patch
++
++import build_packs
++
++
++class RegionSourceTests(unittest.TestCase):
++    def test_multiple_provinces_use_their_own_cached_extract(self):
++        with tempfile.TemporaryDirectory() as tmp, patch.object(build_packs, 'OUT', Path(tmp) / 'out'):
++            cached = {}
++            for url in build_packs.REGION_SPECS.REGIONS['ca-maritimes']['extracts']:
++                archive = Path(tmp) / Path(url).name
++                region = archive.name.removesuffix('-latest-free.gpkg.zip')
++                with zipfile.ZipFile(archive, 'w') as z:
++                    z.writestr('README', 'test fixture')
++                    z.writestr('map.gpkg', region)
++                local = archive.as_uri()
++                cached[region] = local
++                self.assertEqual(build_packs.fetch_region_gpkg(local).read_text(), region)
++                archive.unlink()
++            for region, local in cached.items():
++                self.assertEqual(build_packs.fetch_region_gpkg(local).read_text(), region)
++
++    def test_join_preserves_distinct_places_in_overlapping_extracts(self):
++        tables = ('water_a', 'natural_a', 'landuse_a', 'protected_areas_a', 'waterways', 'railways',
++                  'roads', 'buildings_a', 'places', 'pois', 'pois_a', 'natural')
++        with tempfile.TemporaryDirectory() as tmp:
++            root = Path(tmp)
++            inputs = [root / 'west.gpkg', root / 'east.gpkg']
++            # ID 1 occurs in both extracts. ID 2 is a separate place at the same point.
++            for source, points in zip(inputs, [[('1', -64.)], [('1', -64.), ('2', -64.), ('3', -63.)]]):
++                with closing(sqlite3.connect(source)) as db:
++                    for name in tables:
++                        db.execute(f'CREATE TABLE gis_osm_{name}_free(osm_id,geom,fclass,name,ref,population)')
++                    for osm_id, lon in points:
++                        point = b'GP' + struct.pack('<BBIBIdd', 0, 1, 4326, 1, 1, lon, 46.)
++                        db.execute("INSERT INTO gis_osm_pois_free VALUES(?,?,'pharmacy','Example',NULL,NULL)", (osm_id, point))
++                    db.commit()
++            dest = root / 'map.sqlite'
++            subprocess.run([sys.executable, '-B', str(build_packs.PROJECT / 'tools/build_map.py'),
++                            str(inputs[0]), str(dest), '-65,45,-62,47', 'test fixture', str(inputs[1])],
++                           check=True, capture_output=True)
++            with closing(sqlite3.connect(dest)) as db:
++                self.assertEqual(db.execute('SELECT lon FROM poi ORDER BY lon').fetchall(), [(-64.,), (-64.,), (-63.,)])
++
++
++if __name__ == '__main__':
++    unittest.main()
+diff --git a/server.py b/server.py
+index 934cf60..d179ba6 100644
+--- a/server.py
++++ b/server.py
+@@ -714,22 +714,45 @@ def national_status():
+ 
+ 
+ SOCAL_CELL = 0.05
++SOCAL_BBOX = (-121.4, 32.5, -114.1, 35.9)     # (west, south, east, north): what the detailed SoCal map covers
+ _socal = {'cells': None}
+ 
+ 
++@functools.lru_cache(maxsize=1)
++def detail_cells():
++    """A region map's own box and 0.05° cells (detail-cells.json), or None for a US map."""
++    try:
++        d = json.loads((HERE / 'derived/geo/detail-cells.json').read_text(encoding='utf-8'))
++        if isinstance(d, dict) and isinstance(d.get('bbox'), list) and len(d['bbox']) == 4 and isinstance(d.get('cells'), list):
++            return d
++    except (OSError, ValueError):
++        pass
++    return None
++
++
++def detail_bbox():
++    """(west, south, east, north) the detailed map covers: a region's box, else Southern California."""
++    d = detail_cells()
++    return tuple(d['bbox']) if d is not None else SOCAL_BBOX
++
++
+ def socal_cells():
+-    """0.05° cells holding detailed SoCal features; national rows inside them are duplicates and are skipped."""
++    """0.05° cells holding detailed map features; national rows inside them are duplicates and are skipped."""
+     if _socal['cells'] is None:
+-        cache = HERE / 'derived/geo/socal-cells.json'
+-        try:
+-            _socal['cells'] = set(json.loads(cache.read_text(encoding='utf-8')))
+-        except (OSError, ValueError):
+-            db = mapdb()
+-            cells = set() if db is None else {r[0] for r in db.execute(
+-                'SELECT DISTINCT CAST((minx+180)/? AS INT)*100000+CAST((miny+90)/? AS INT) FROM feat_idx WHERE maxx-minx<?',
+-                (SOCAL_CELL, SOCAL_CELL, SOCAL_CELL))}
+-            cache.write_text(json.dumps(sorted(cells)))
+-            _socal['cells'] = cells
++        d = detail_cells()
++        if d is not None:
++            _socal['cells'] = {int(c) for c in d['cells']}
++        else:
++            cache = HERE / 'derived/geo/socal-cells.json'
++            try:
++                _socal['cells'] = set(json.loads(cache.read_text(encoding='utf-8')))
++            except (OSError, ValueError):
++                db = mapdb()
++                cells = set() if db is None else {r[0] for r in db.execute(
++                    'SELECT DISTINCT CAST((minx+180)/? AS INT)*100000+CAST((miny+90)/? AS INT) FROM feat_idx WHERE maxx-minx<?',
++                    (SOCAL_CELL, SOCAL_CELL, SOCAL_CELL))}
++                cache.write_text(json.dumps(sorted(cells)))
++                _socal['cells'] = cells
+     return _socal['cells']
+ 
+ 
+@@ -1143,19 +1166,20 @@ def _resource_summary(cls, detail):
+ 
+ @functools.lru_cache(maxsize=1)
+ def socal_classes():
+-    """Service classes the detailed SoCal map has; for anything else (e.g. fuel) the national points are the only ones."""
++    """Service classes the detailed map has; for anything else (e.g. fuel) the national points are the only ones."""
+     db = mapdb()
+     return frozenset(r[0] for r in db.execute('SELECT DISTINCT cls FROM poi')) if db else frozenset()
+ 
+ 
+ def _poi_sources(west, south, east, north):
+-    """(connection, skip-SoCal-duplicates) pairs for service points."""
++    """(connection, skip-detail-duplicates) pairs for service points: the detailed map and, where built, the national one."""
+     out = []
+-    if mapdb() is not None and east >= -121.4 and west <= -114.1 and north >= 32.5 and south <= 35.9:
++    w, s, e, n = detail_bbox()
++    if mapdb() is not None and east >= w and west <= e and north >= s and south <= n:
+         out.append((mapdb(), False))
+     nat = national_mapdb()
+     if nat is not None:
+-        dedupe = east >= -121.4 and west <= -114.1 and north >= 32.5 and south <= 35.9 and mapdb() is not None
++        dedupe = east >= w and west <= e and north >= s and south <= n and mapdb() is not None
+         if dedupe and not getattr(_tls, 'socal_fn', False):
+             nat.create_function('socal', 3, lambda cls, lo, la: 1 if cls in socal_classes() and in_socal(lo, la) else 0, deterministic=True)
+             _tls.socal_fn = True
+@@ -1613,7 +1637,12 @@ def map_info():
+     extra = {'aerial': has_aerial()}
+     if pack:
+         extra.update(map_contents())
+-        geo = pack_datasets(extra)
++        region = detail_cells()
++        if region:
++            extra['region'] = region.get('name')
++            geo = [{'label': 'Regional streets, buildings, water and help points', 'status': meta.get('source', 'OpenStreetMap contributors')}]
++        else:
++            geo = pack_datasets(extra)
+     return {**extra, 'meta': meta, 'datasets': geo, 'national': {k: v for k, v in national_status().items() if k not in ('source', 'database')}, 'version': data_version(), 'aerial_detail': detail, 'aerial_rev': rev, 'terrain_circle': tdetail}
+ 
+ 
+diff --git a/tools/build_map.py b/tools/build_map.py
+index 427b4fc..a809602 100644
+--- a/tools/build_map.py
++++ b/tools/build_map.py
+@@ -2,7 +2,7 @@
+ """Convert the Geofabrik SoCal GeoPackage (OpenStreetMap, ODbL) into a compact, spatially indexed
+ map database the app can draw offline.
+ 
+-  python3 tools/build_map.py derived/geo/socal.gpkg derived/geo/map.sqlite
++  python3 tools/build_map.py derived/geo/socal.gpkg derived/geo/map.sqlite [west,south,east,north] [source] [additional.gpkg ...]
+ 
+ Input is a copy extracted from library-data/geography/openstreetmap/socal-latest-free.gpkg.zip;
+ the original archive is only read. Output tables:
+@@ -16,6 +16,10 @@ from array import array
+ 
+ SRC, DST = sys.argv[1], sys.argv[2]
+ Q = 1e6
++CLIP = [float(v) for v in sys.argv[3].split(',')] if len(sys.argv) > 3 else None      # [west, south, east, north]
++SOURCE = sys.argv[4] if len(sys.argv) > 4 else 'OpenStreetMap contributors, via Geofabrik socal-latest-free.gpkg.zip (ODbL 1.0)'
++DATA_AS_OF = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()) if CLIP else '2026-10-25T21:21:21Z'
++BOUNDS = ','.join(f'{v:.6f}' for v in CLIP) if CLIP else '-121.36,32.50,-114.10,35.89'
+ 
+ ROAD_Z = {'motorway': 5, 'trunk': 6, 'motorway_link': 10, 'trunk_link': 10, 'primary': 8, 'primary_link': 12,
+           'secondary': 10, 'secondary_link': 13, 'tertiary': 11, 'tertiary_link': 13, 'residential': 13,
+@@ -110,6 +114,13 @@ def bbox(parts):
+     return min(xs), max(xs), min(ys), max(ys)
+ 
+ 
++def intersects(parts, box):
++    """True if a feature's bounds touch the clip box [west, south, east, north]."""
++    minx, maxx, miny, maxy = bbox(parts)
++    w, s, e, n = box
++    return maxx >= w and minx <= e and maxy >= s and miny <= n
++
++
+ def area_z(minx, maxx, miny, maxy, base):
+     """Small polygons only appear when zoomed in."""
+     size = max(maxx - minx, maxy - miny)
+@@ -122,6 +133,11 @@ def area_z(minx, maxx, miny, maxy, base):
+ def main():
+     t0 = time.time()
+     src = sqlite3.connect(SRC)
++    databases = ['main']
++    for index, path in enumerate(sys.argv[5:], 1):
++        alias = f'extract{index}'
++        src.execute(f'ATTACH DATABASE ? AS {alias}', (path,))
++        databases.append(alias)
+     dst = sqlite3.connect(DST)
+     dst.executescript('''PRAGMA journal_mode=OFF; PRAGMA synchronous=OFF;
+       DROP TABLE IF EXISTS feat; DROP TABLE IF EXISTS feat_idx; DROP TABLE IF EXISTS poi; DROP TABLE IF EXISTS meta;
+@@ -140,13 +156,21 @@ def main():
+         dst.execute('INSERT INTO feat_idx VALUES (?,?,?,?,?,?,?)', (fid[0], *bx, minz, 30))
+ 
+     def each(table, cols='fclass,name'):
+-        for row in src.execute(f'SELECT geom,{cols} FROM {table}'):
++        query = f'SELECT geom,{cols} FROM {table}'
++        if len(databases) > 1:
++            # Overlapping extracts can carry the same OSM object. Keep distinct geometry pieces and distinct IDs.
++            rows = ' UNION '.join(f'SELECT osm_id,geom,{cols} FROM {db}.{table}' for db in databases)
++            query = f'SELECT geom,{cols} FROM ({rows})'
++        for row in src.execute(query):
+             if row[0] is None:
+                 continue
+             try:
+-                yield gpkg_parts(row[0]), row[1:]
++                parts = gpkg_parts(row[0])
+             except Exception:
+                 continue
++            if CLIP and not intersects(parts, CLIP):
++                continue
++            yield parts, row[1:]
+ 
+     # Water bodies
+     for parts, (cls, name) in each('gis_osm_water_a_free'):
+@@ -196,9 +220,9 @@ def main():
+             dst.execute('INSERT INTO poi VALUES (?,?,?,?,?)', (pid, cls, name, (minx + maxx) / 2, (miny + maxy) / 2))
+     dst.execute('CREATE INDEX poi_cls ON poi(cls, lon, lat)')
+     dst.executemany('INSERT INTO meta VALUES (?,?)', [
+-        ('source', 'OpenStreetMap contributors, via Geofabrik socal-latest-free.gpkg.zip (ODbL 1.0)'),
+-        ('data_as_of', '2026-10-25T21:21:21Z'),
+-        ('bounds', '-121.36,32.50,-114.10,35.89'),
++        ('source', SOURCE),
++        ('data_as_of', DATA_AS_OF),
++        ('bounds', BOUNDS),
+         ('built', time.strftime('%Y-%m-%dT%H:%M:%S')),
+     ])
+     dst.commit()
+diff --git a/web/map.js b/web/map.js
+index 5d90296..78c923b 100644
+--- a/web/map.js
++++ b/web/map.js
+@@ -191,6 +191,10 @@ const MapView = (() => {
+   }
+   // What this map really holds, when the server says (an older one sends none of this, and everything stays offered).
+   function describe(info) {
++    if (info.region) {
++      document.querySelector('.maphead p').textContent = 'Offline map. Current damage, closures and hazards are not shown.';
++      document.querySelector('.mapattr').textContent = '© OpenStreetMap contributors · ODbL 1.0 · Natural Earth';
++    }
+     if (info.aerial === false) { st.noAerial = true; st.style.aerial = false; $('map-photo')?.remove() }
+     st.noContours = info.contours === false;
+     if (!info.layers) return;
+diff --git a/web/setup.js b/web/setup.js
+index 3c0fc10..36aa581 100644
+--- a/web/setup.js
++++ b/web/setup.js
+@@ -89,8 +89,11 @@
+     return Boolean(pack.revision && pack.revision !== current.content_revision);
+   }
+ 
+-  /* state maps (docs/SETUP-API.md, State maps). The person picks the state; Lastbook never looks for where it is */
+-  const maps = () => ((S.manifest && S.manifest.maps) || []).slice().sort((a, b) => String(a.title).localeCompare(String(b.title)));   // by name, as people look for theirs
++  /* state and region maps (docs/SETUP-API.md, State maps; docs/MAPS.md, Region maps). The person picks the area; Lastbook never looks for where it is */
++  const maps = () => ((S.manifest && S.manifest.maps) || []).slice().sort((a, b) => {   // by country, then name, as people look for theirs
++    const ca = a.country || 'United States', cb = b.country || 'United States';
++    return ca === cb ? String(a.title).localeCompare(String(b.title)) : String(ca).localeCompare(String(cb));
++  });
+   const mapById = id => maps().find(m => m.id === id);
+   const mapName = id => id === 'us' ? 'the whole US' : (mapById(id) || {}).title || id;
+   /* the detailed map the library will have once the chosen pack is in: the person's state map, or the one the pack carries */
+@@ -102,7 +105,8 @@
+   const addressById = id => addresses().find(a => a.id === id);
+   const addressAdds = () => { const a = addressById(selectedState()); return a && a.available !== false && !((cur() || {}).address_indexes || []).includes(a.id) ? a : null };
+   const mapMissing = () => !selectedState();
+-  const mapAdds = () => choice.map && choice.map !== mapNow() && mapNow() !== 'us' ? mapById(choice.map) : null;
++  const mapIncluded = m => m && (m.id === mapNow() || (mapNow() === 'us' && m.kind === 'state'));
++  const mapAdds = () => { const m = mapById(choice.map); return m && !mapIncluded(m) ? m : null };
+   function packSummary(p) {
+     const text = p.summary || '';
+     if (p.id !== 'medium' || !maps().length) return text;
+@@ -228,7 +232,7 @@
+ 
+     main.innerHTML = `${c ? `<button class="s-link" id="toManage">${ico('back')}<span>Library and local AI</span></button>` : ''}
+       <h1>${c ? 'Change the library' : 'Set up Lastbook'}</h1>
+-      ${c ? '' : '<p class="lead">Choose your state and library. Lastbook downloads them for offline use.</p>'}
++      ${c ? '' : '<p class="lead">Choose your state or region and library. Lastbook downloads them for offline use.</p>'}
+       ${computer()}
+       ${c ? '' : recommendLine()}
+       ${found ? `<h2>Found on this computer</h2><div class="s-founds">${found}</div>` : ''}
+@@ -259,26 +263,29 @@
+     if (!box) return;
+     main.querySelectorAll('[data-pack-summary]').forEach(el => { el.textContent = packSummary(packById(el.dataset.packSummary)) });
+     const selected = selectedState();
+-    const opts = maps().map(m => {
+-      const a = addressById(m.id), included = now === 'us' || m.id === now;
++    const option = m => {
++      const a = addressById(m.id), included = mapIncluded(m);
+       const addressIncluded = ((cur() || {}).address_indexes || []).includes(m.id);
+       const off = !included && m.available === false;
+       const bytes = (included ? 0 : packDl(m)) + (a && a.available !== false && !addressIncluded ? packDl(a) : 0);
+       const details = off ? 'coming later' : bytes ? size(bytes) + ' download' : 'included';
+       return `<option value="${esc(m.id)}"${selected === m.id ? ' selected' : ''}${off ? ' disabled' : ''}>${esc(m.title)} — ${details}</option>`;
+-    }).join('');
++    };
++    const groups = {};
++    for (const m of maps()) { const c = m.country || 'United States'; (groups[c] = groups[c] || []).push(m) }
++    const opts = Object.entries(groups).map(([country, ms]) => country === 'United States' ? ms.map(option).join('') : `<optgroup label="${esc(country)}">${ms.map(option).join('')}</optgroup>`).join('');
+     const sel = mapById(selected), a = addressAdds();
+-    const mapIncluded = now === 'us' || selected === now;
+-    const bytes = (sel && !mapIncluded ? packDl(sel) : 0) + (a ? packDl(a) : 0);
+-    const disk = (sel && !mapIncluded ? sel.installed_bytes || 0 : 0) + (a ? a.installed_bytes || 0 : 0);
+-    const unavailable = selected && addresses().length && (!addressById(selected) || addressById(selected).available === false);
+-    let hint = !sel ? 'Select your state to continue.' : bytes ? `${size(bytes)} download · ${size(disk)} on disk${mapIncluded && a ? '. Your map is already included; only the address index downloads.' : ''}` : 'Your state map and available address index are already included.';
+-    if (unavailable) hint = (bytes ? `${size(bytes)} download · ${size(disk)} on disk.` : 'Your state map is already included.') + ' Street-address search is not available for this state yet.';
++    const included = mapIncluded(sel);
++    const bytes = (sel && !included ? packDl(sel) : 0) + (a ? packDl(a) : 0);
++    const disk = (sel && !included ? sel.installed_bytes || 0 : 0) + (a ? a.installed_bytes || 0 : 0);
++    const unavailable = selected && (addresses().length || sel?.kind === 'region') && !addressById(selected)?.available;
++    let hint = !sel ? 'Select your state or region to continue.' : bytes ? `${size(bytes)} download · ${size(disk)} on disk${included && a ? '. Your map is already included; only the address index downloads.' : ''}` : 'Your area\'s map and available address index are already included.';
++    if (unavailable) hint = (bytes ? `${size(bytes)} download · ${size(disk)} on disk.` : 'Your area map is already included.') + ' Street-address search is not available for this area yet.';
+     box.innerHTML = `<h2>${ico('map')}Your local map</h2>
+       <p class="s-mapnote">Local streets, buildings, water and places to get help. Available offline.</p>
+-      ${now === 'us' ? '<p class="s-mapnote">All includes every state map. Choose your state for offline street-address search.</p>' : ''}
+-      <label class="s-maplabel" for="mapSel">Choose your state</label>
+-      <select id="mapSel" class="s-select" required aria-describedby="mapHint"><option value="" disabled${selected ? '' : ' selected'}>Select a state</option>${opts}</select>
++      ${now === 'us' ? '<p class="s-mapnote">All includes every US state map. Choosing a region outside the US replaces the installed map.</p>' : ''}
++      <label class="s-maplabel" for="mapSel">Choose your state or region</label>
++      <select id="mapSel" class="s-select" required aria-describedby="mapHint"><option value="" disabled${selected ? '' : ' selected'}>Select an area</option>${opts}</select>
+       <p class="s-hint" id="mapHint">${hint}</p>`;
+     $('#mapSel').onchange = e => { choice.map = e.target.value; shortfall = null; mapSection(); summary(); $('#mapSel').focus() };
+   }
+@@ -297,7 +304,7 @@
+     b.disabled = !need || !!short || mapMissing();
+     const newPack = c && packNeedsInstall(packById(choice.pack)), newAi = c && choice.ai && !c.model, newMap = c && mapAdds(), newAddresses = c && addressAdds();
+     const parts = [newPack && packById(choice.pack).title, newAi && 'the local AI', newMap && `the ${newMap.title} map`, newAddresses && !newMap && 'offline address search'].filter(Boolean);
+-    b.textContent = mapMissing() ? 'Choose your state to continue' : !c ? 'Download and install' : parts.length ? 'Get ' + parts.join(parts.length > 2 ? ', ' : ' and ').replace(/, ([^,]*)$/, ' and $1') : 'Nothing to add';
++    b.textContent = mapMissing() ? 'Choose your state or region to continue' : !c ? 'Download and install' : parts.length ? 'Get ' + parts.join(parts.length > 2 ? ', ' : ' and ').replace(/, ([^,]*)$/, ' and $1') : 'Nothing to add';
+     if (newPack && choice.pack === c.pack && !mapMissing()) b.textContent = 'Download and install update';
+     const ch = $('#chFolder'); if (ch) ch.onclick = pickFolder;
+   }
+@@ -363,8 +370,8 @@
+         ${m && m.available !== false ? `<div class="s-row">${ico('ai', 's-ri')}<span><b>Local AI</b><small>${c.model ? 'On this computer · ' + size(m.size) : aiFits() ? 'Not installed · about ' + size(m.size) : esc((S.hardware.ai && S.hardware.ai.why) || 'Not for this computer.')}</small></span>
+           ${c.model ? (!CAN.removeAi ? '' : confirmRemove ? `<span class="s-confirm"><button class="btn danger" id="rmYes">Remove</button><button class="btn plain" id="rmNo">Keep</button></span>` : '<button class="btn plain" id="rmAi">Remove</button>') : aiFits() ? `<button class="btn" id="addAi">Add</button>` : ''}</div>` : ''}
+         ${maps().length ? (() => { const mNow = c.map && c.map !== 'base' ? c.map : packMap(c.pack);
+-          return `<div class="s-row">${ico('map', 's-ri')}<span><b>${mNow ? 'Detailed map: ' + esc(mapName(mNow)) : 'Detailed map'}</b><small>${mNow ? (mNow === 'us' ? 'Local streets and terrain everywhere' : 'Local streets, buildings and terrain') : 'None yet. Add one for your state.'}</small></span>
+-          <button class="btn plain" id="mapCh">${(c.address_indexes || []).length ? 'Choose state' : 'Add address search'}</button></div>` })() : ''}
++          return `<div class="s-row">${ico('map', 's-ri')}<span><b>${mNow ? 'Detailed map: ' + esc(mapName(mNow)) : 'Detailed map'}</b><small>${mNow ? (mNow === 'us' ? 'Local streets and terrain everywhere' : (mapById(mNow) || {}).kind === 'region' ? 'Local streets, buildings and water' : 'Local streets, buildings and terrain') : 'None yet. Add one for your area.'}</small></span>
++          <button class="btn plain" id="mapCh">${(c.address_indexes || []).length ? 'Choose area' : 'Add address search'}</button></div>` })() : ''}
+       </div>
+       ${old ? `<div class="s-row s-old">${ico('folder', 's-ri')}<span><b>The old library is still here</b><small>${esc(home(old.path))}${old.bytes ? ' · ' + size(old.bytes) : ''}</small></span>${confirmOld ? `<span class="s-confirm"><span>Delete it for good?</span><button class="btn danger" id="oldYes">Delete</button><button class="btn plain" id="oldNo">Keep</button></span>` : `<button class="btn plain" id="rmOld">${ico('trash')}Delete it</button>`}</div>` : ''}
+       ${computer()}
