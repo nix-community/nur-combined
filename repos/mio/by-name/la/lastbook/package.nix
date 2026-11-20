@@ -174,6 +174,32 @@ stdenv.mkDerivation {
     })
   ];
 
+  # Upstream's release packages bundle setup/manifest-v1.json (the spec's datas and
+  # packaging/linux/build_app_linux.sh copy it in), and setup then draws the library
+  # and state lists on the first state answer. A run from source has no bundled
+  # manifest: setup fetches it from downloads.lastbook.org in the background and
+  # never looks again, leaving an empty state list and a disabled Start button.
+  # Re-read the state once the fetched manifest arrives.
+  postPatch = ''
+        old="  load().then(() => { if (view === 'job') poll() });"
+        new=$(cat <<'JS'
+      /* No setup/manifest-v1.json is bundled in this build: the manifest is fetched
+         when setup opens, a moment after the first state answer. Re-read the state
+         until the lists it brings are here, then draw them. */
+      let manifestWaits = 0;
+      function waitForManifest() {
+        if (packs().length || ++manifestWaits > 30) return;
+        setTimeout(async () => {
+          try { const s = await call('state'); if (s) S = s } catch { }
+          if (packs().length) load(); else waitForManifest();
+        }, 1000);
+      }
+      load().then(() => { if (view === 'job') poll(); waitForManifest() });
+    JS
+        )
+        substituteInPlace web/setup.js --replace-fail "$old" "$new"
+  '';
+
   buildPhase = lib.optionalString isLinux ''
     runHook preBuild
 
