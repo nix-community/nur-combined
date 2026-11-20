@@ -8,8 +8,8 @@
       url = "flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-    git-hooks-nix = {
-      url = "git-hooks-nix";
+    git-hooks = {
+      url = "git-hooks";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

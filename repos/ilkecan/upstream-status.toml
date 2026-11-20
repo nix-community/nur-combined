@@ -1,6 +1,3 @@
-[archi]
-pr = "https://github.com/NixOS/nixpkgs/pull/550840"
-
 [bitburner]
 pr = "https://github.com/NixOS/nixpkgs/pull/542677"
 
@@ -15,9 +12,6 @@ pr = "https://github.com/NixOS/nixpkgs/pull/550188"
 
 [icu56]
 pr = "https://github.com/NixOS/nixpkgs/pull/491823"
-
-[kunkun]
-pr = "https://github.com/NixOS/nixpkgs/pull/549654"
 
 [pokeclicker]
 
