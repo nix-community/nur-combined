@@ -23,13 +23,8 @@ buildNpmPackage (finalAttrs: {
       lock = lib.importJSON source.artifacts."package-lock.json";
     in
     importNpmLock {
-      package = removeAttrs lock.packages."" [
-        "devDependencies"
-        "peerDependencies"
-      ];
-      packageLock = lock // {
-        packages = lib.filterAttrs (_: package: !(package.dev or false)) lock.packages;
-      };
+      package = lock.packages."";
+      packageLock = lock;
     };
   npmConfigHook = importNpmLock.npmConfigHook;
 

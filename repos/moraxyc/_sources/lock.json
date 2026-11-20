@@ -827,6 +827,24 @@
       },
       "fingerprint": "sha256-axQY4oyIkncZR91dnj1w5YeNzJccStNBGi+ao7r52u0="
     },
+    "pi-cc-tools": {
+      "version": "1.0.89-unstable-2026-11-18",
+      "rawVersion": "c3062946d10a36a090be4c9afbd574dd8090a285",
+      "date": "2026-11-18",
+      "src": {
+        "fetcher": "github",
+        "owner": "FammasMaz",
+        "repo": "pi-cc-tools",
+        "rev": "c3062946d10a36a090be4c9afbd574dd8090a285",
+        "hash": "sha256-fghlFtQsjWySYKyuLtH04xC31jvFXlHuPMWizfrZICQ="
+      },
+      "derived": {
+        "npmDeps": {
+          "lockfile": "pi-cc-tools/src/package-lock.json"
+        }
+      },
+      "fingerprint": "sha256-op4/9tfLHlj3kaZ6qiyuXa9BXrq51NsX5RGot7lTDGI="
+    },
     "pi-cliproxyapi-provider": {
       "version": "1.4.23",
       "rawVersion": "1.4.23",

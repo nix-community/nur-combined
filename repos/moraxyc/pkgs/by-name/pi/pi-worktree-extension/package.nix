@@ -2,9 +2,10 @@
   lib,
   buildNpmPackage,
   importNpmLock,
-  bash,
+  bashNonInteractive,
   gitMinimal,
   python3,
+  typescript,
 
   sources,
   source ? sources.pi-worktree-extension,
@@ -15,42 +16,28 @@ buildNpmPackage (finalAttrs: {
   __structuredAttrs = true;
   strictDeps = true;
 
-  npmDeps = importNpmLock (
-    source.npmDeps
-    // {
-      # Only the compiler is needed to build; Pi provides its peer dependency at runtime.
-      package = removeAttrs source.npmDeps.package [ "peerDependencies" ] // {
-        devDependencies = lib.getAttrs [ "typescript" ] source.npmDeps.package.devDependencies;
-      };
-      packageLock =
-        let
-          lock = source.npmDeps.packageLock;
-        in
-        lock
-        // {
-          packages = lib.getAttrs [ "" "node_modules/typescript" ] lock.packages;
-        };
-    }
-  );
+  npmDeps = importNpmLock source.npmDeps;
   npmConfigHook = importNpmLock.npmConfigHook;
 
-  buildInputs = [ bash ];
+  nativeBuildInputs = [ typescript ];
+  buildInputs = [ bashNonInteractive ];
 
   # The launcher tests execute bin/pi-worktree and generated scripts, but the sandbox has no /usr/bin/env.
   postPatch = ''
     patchShebangs --host bin
     substituteInPlace test/integration.test.ts \
-      --replace-fail "#!/usr/bin/env bash" "#!${lib.getExe bash}"
+      --replace-fail "#!/usr/bin/env bash" "#!${lib.getExe bashNonInteractive}"
   '';
 
   # Type checking needs the Pi dev dependency, which the host provides at runtime.
   buildPhase = ''
     runHook preBuild
 
-    node_modules/.bin/tsc -p tsconfig.json --noCheck --declaration false --sourceMap false
+    tsc -p tsconfig.json --noCheck --declaration false --sourceMap false
 
     runHook postBuild
   '';
+  npmInstallFlags = [ "--omit=dev" ];
   npmPackFlags = [ "--ignore-scripts" ];
   dontNpmPrune = true;
 
@@ -66,6 +53,11 @@ buildNpmPackage (finalAttrs: {
     node --test dist/test/unit.test.js dist/test/integration.test.js
 
     runHook postCheck
+  '';
+
+  # npmInstallHook deletes empty `node_modules` and then fails on `cp -r node_modules`.
+  preInstall = ''
+    mkdir -p "$out/lib/node_modules/pi-worktree-extension/node_modules"
   '';
 
   postInstall = ''

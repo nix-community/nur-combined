@@ -30,13 +30,8 @@ buildNpmPackage (finalAttrs: {
       lock = lib.importJSON source.artifacts."package-lock.json";
     in
     importNpmLock {
-      package = removeAttrs lock.packages."" [
-        "devDependencies"
-        "peerDependencies"
-      ];
-      packageLock = lock // {
-        packages = lib.filterAttrs (_: package: !(package.dev or false)) lock.packages;
-      };
+      package = lock.packages."";
+      packageLock = lock;
     };
   npmConfigHook = importNpmLock.npmConfigHook;
 
@@ -107,16 +102,18 @@ buildNpmPackage (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
+    # Only ink, react, and terminal-link are kept external by esbuild; prune bundled packages such as opentype.js and ml-matrix.
+    cp dist/fpd/package.json package.json
+    npm prune --omit=dev --no-save --ignore-scripts --no-audit --no-fund
+
     appDir=$out/lib/node_modules/lmfpd
     mkdir -p "$appDir" "$out/bin"
     cp -r dist/fpd/. "$appDir/"
     cp -r node_modules "$appDir/"
-    # The workspace link points at the build tree and is already bundled.
-    rm -rf "$appDir/node_modules/@fingerpoint"
     # npmConfigHook still points node_modules shebangs at full Node; these scripts are not run
     # (the wrapper calls the slim Node), so use the portable form to keep npm and corepack out.
     grep -rlI '^#!/nix/store/' "$appDir" | xargs -r sed -i '1s|^#!/nix/store/[^/]*/bin/node$|#!/usr/bin/env node|'
-    # npm's hidden lockfile records each dependency tarball as a store path, which would keep 55 .tgz files in the runtime closure.
+    # npm's hidden lockfile records each dependency tarball as a store path, which would keep .tgz files in the runtime closure.
     rm -f "$appDir/node_modules/.package-lock.json"
 
     makeWrapper ${lib.getExe nodejs-slim_24} $out/bin/fpd \
@@ -124,6 +121,8 @@ buildNpmPackage (finalAttrs: {
 
     runHook postInstall
   '';
+
+  disallowedReferences = [ finalAttrs.nodejs ];
 
   meta = {
     description = "Identify the large language model behind an API from a few hundred first-instinct integers";

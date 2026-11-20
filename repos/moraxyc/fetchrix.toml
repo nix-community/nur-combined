@@ -420,6 +420,15 @@ fetch = { type = "github", repo = "AdityaVG13/ast-sgrep", rev = "{version}" }
 kind = "cargo-vendor"
 strategy = "lockfile"
 
+[packages.pi-cc-tools]
+version = { source = "git", url = "https://github.com/FammasMaz/pi-cc-tools.git", unstable = { stable = { source = "github-tag", repo = "FammasMaz/pi-cc-tools", strip_prefix = "v" } } }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "FammasMaz/pi-cc-tools", rev = "{version}" }
+
+[packages.pi-cc-tools.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"
+
 [packages.pi-cliproxyapi-provider]
 version = { source = "github-tag", repo = "router-for-me/pi-cliproxyapi-provider", strip_prefix = "v" }
 transform = ["strip-v"]

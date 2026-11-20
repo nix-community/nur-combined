@@ -13,39 +13,7 @@ buildNpmPackage (finalAttrs: {
   __structuredAttrs = true;
   strictDeps = true;
 
-  npmDeps = importNpmLock (
-    source.npmDeps
-    // {
-      package = source.npmDeps.package // {
-        # Only @earendil-works/pi-tui, typebox, and devDependency tsx are needed to run tests.
-        peerDependencies = lib.getAttrs [
-          "@earendil-works/pi-tui"
-          "typebox"
-        ] source.npmDeps.package.peerDependencies;
-      };
-      packageLock =
-        let
-          lock = source.npmDeps.packageLock;
-        in
-        lock
-        // {
-          packages = lib.filterAttrs (
-            name: _:
-            builtins.elem name [
-              ""
-              "node_modules/@earendil-works/pi-tui"
-              "node_modules/esbuild"
-              "node_modules/fsevents"
-              "node_modules/get-east-asian-width"
-              "node_modules/marked"
-              "node_modules/tsx"
-              "node_modules/typebox"
-            ]
-            || lib.hasPrefix "node_modules/@esbuild/" name
-          ) lock.packages;
-        };
-    }
-  );
+  npmDeps = importNpmLock source.npmDeps;
   npmConfigHook = importNpmLock.npmConfigHook;
 
   npmFlags = [ "--ignore-scripts" ];

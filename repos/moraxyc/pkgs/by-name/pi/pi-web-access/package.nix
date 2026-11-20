@@ -2,6 +2,9 @@
   lib,
   buildNpmPackage,
   importNpmLock,
+  makeWrapper,
+  nodejs,
+  nodejs-slim,
 
   sources,
   source ? sources.pi-web-access,
@@ -9,59 +12,37 @@
 
 buildNpmPackage (finalAttrs: {
   inherit (source) pname version src;
+  __structuredAttrs = true;
+  strictDeps = true;
 
-  npmDeps = importNpmLock (
-    source.npmDeps
-    // {
-      package =
-        let
-          package = source.npmDeps.package;
-        in
-        package
-        // {
-          # Only esbuild and the standalone MCP bundle's typebox are needed to build.
-          devDependencies = lib.getAttrs [ "esbuild" "typebox" ] package.devDependencies;
-        };
-      packageLock =
-        let
-          lock = source.npmDeps.packageLock;
-        in
-        lock
-        // {
-          packages = lib.filterAttrs (
-            name: package:
-            !(package.dev or false)
-            || builtins.elem name [
-              "node_modules/esbuild"
-              "node_modules/typebox"
-            ]
-            || lib.hasPrefix "node_modules/@esbuild/" name
-          ) lock.packages;
-        };
-    }
-  );
+  # Full Node is needed for npm at build time; wrap the CLI with nodejs-slim so npm/corepack stay out of runtime closure.
+  dontPatchShebangs = true;
+
+  npmDeps = importNpmLock source.npmDeps;
   npmConfigHook = importNpmLock.npmConfigHook;
 
+  nativeBuildInputs = [ makeWrapper ];
+
   npmFlags = [ "--legacy-peer-deps" ];
-  dontNpmPrune = true;
 
   postBuild = ''
     node scripts/pi-extensions-dist.js dist
   '';
 
-  preInstall = ''
-    rm -rf node_modules/{esbuild,@esbuild,typebox,.bin/esbuild}
-  '';
-
   postInstall = ''
     mv $out/lib/node_modules/pi-web-access $out/lib/${finalAttrs.pname}
-    rm -rf $out/lib/node_modules
+    rm -rf $out/lib/node_modules "$out/lib/${finalAttrs.pname}/node_modules/.bin"
     rm -f "$out/lib/${finalAttrs.pname}/node_modules/.package-lock.json"
     # Pi loads the prebuilt dist bundle; TypeScript sources and media are unused.
     rm $out/lib/${finalAttrs.pname}/{*.ts,banner.png,pi-web-fetch-demo.mp4,SECURITY.md}
-    substituteInPlace $out/bin/pi-web-access-mcp \
-      --replace-fail "$out/lib/node_modules/pi-web-access" "$out/lib/${finalAttrs.pname}"
+    grep -rlI '^#!/nix/store/' "$out/lib/${finalAttrs.pname}" | xargs -r sed -i '1s|^#!/nix/store/[^/]*/bin/node$|#!/usr/bin/env node|'
+
+    rm -f $out/bin/pi-web-access-mcp
+    makeWrapper ${lib.getExe nodejs-slim} $out/bin/pi-web-access-mcp \
+      --add-flags "$out/lib/${finalAttrs.pname}/dist/mcp-cli.js"
   '';
+
+  disallowedReferences = [ nodejs ];
 
   meta = {
     description = "Web search and content extraction for the Pi coding agent";

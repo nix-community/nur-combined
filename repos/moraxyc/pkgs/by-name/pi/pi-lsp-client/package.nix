@@ -10,26 +10,12 @@
 buildNpmPackage (finalAttrs: {
   inherit (source) pname version src;
 
-  npmDeps = importNpmLock (
-    source.npmDeps
-    // {
-      package = removeAttrs (source.npmDeps.package) [ "devDependencies" ];
-      packageLock =
-        let
-          lock = source.npmDeps.packageLock;
-        in
-        lock
-        // {
-          packages = lib.filterAttrs (_: package: !(package.dev or false)) lock.packages;
-        };
-    }
-  );
+  npmDeps = importNpmLock source.npmDeps;
   npmConfigHook = importNpmLock.npmConfigHook;
 
   npmInstallFlags = [ "--omit=dev" ];
   npmFlags = [ "--legacy-peer-deps" ];
   dontNpmBuild = true;
-  dontNpmPrune = true;
 
   postInstall = ''
     mv $out/lib/node_modules/pi-lsp-client $out/lib/${finalAttrs.pname}

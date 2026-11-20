@@ -1,0 +1,79 @@
+{
+  "name": "pi-claude-code-ui",
+  "version": "1.0.114",
+  "description": "Claude Code style UI for pi: one-line tool groups, syntax-highlighted diffs, an activity spinner, and colors from your terminal theme",
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "claude-code",
+    "pi",
+    "tool-renderer",
+    "mcp",
+    "terminal-images",
+    "tool-groups",
+    "math-rendering",
+    "latex",
+    "keybindings",
+    "shiki",
+    "diff",
+    "terminal-theme",
+    "ghostty",
+    "subagents",
+    "spinner",
+    "tui"
+  ],
+  "license": "MIT",
+  "author": "FammasMaz",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FammasMaz/pi-cc-tools.git"
+  },
+  "homepage": "https://github.com/FammasMaz/pi-cc-tools#readme",
+  "bugs": {
+    "url": "https://github.com/FammasMaz/pi-cc-tools/issues"
+  },
+  "files": [
+    "extensions/index.ts",
+    "extensions/spinner.ts",
+    "extensions/settings-path.ts",
+    "extensions/bash-command.ts",
+    "extensions/bash-file-edit.ts",
+    "extensions/bash-intent.ts",
+    "extensions/theme-colors.ts",
+    "extensions/terminal-theme.ts",
+    "config/config.example.json",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "test": "node --experimental-strip-types --test scripts/*.test.ts scripts/*.test.mts",
+    "test:fullscreen": "node scripts/fullscreen-mouse.test.mjs",
+    "test:fullscreen-copy": "node scripts/fullscreen-copy.test.mjs",
+    "typecheck": "tsc --noEmit --target ES2022 --module NodeNext --moduleResolution NodeNext --skipLibCheck extensions/index.ts extensions/spinner.ts",
+    "pack:dry-run": "npm pack --dry-run",
+    "publish:dry-run": "npm publish --dry-run",
+    "bench:tools": "bun scripts/benchmark-tools.ts"
+  },
+  "dependencies": {
+    "@shikijs/cli": "^4.0.2",
+    "diff": "^9.0.0"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*",
+    "@sinclair/typebox": "*"
+  },
+  "pi": {
+    "extensions": [
+      "./extensions/index.ts",
+      "./extensions/spinner.ts"
+    ]
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.79.1",
+    "@earendil-works/pi-tui": "^0.79.1",
+    "@sinclair/typebox": "^0.34.49",
+    "@types/node": "^25.7.0",
+    "typescript": "^6.0.3"
+  }
+}
