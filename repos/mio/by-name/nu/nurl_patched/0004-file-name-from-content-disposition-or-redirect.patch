@@ -1,5 +1,5 @@
 diff --git a/src/fetcher/url.rs b/src/fetcher/url.rs
-index 0fa9c98..d055037 100644
+index 0fa9c98..6617c05 100644
 --- a/src/fetcher/url.rs
 +++ b/src/fetcher/url.rs
 @@ -1,4 +1,5 @@
@@ -8,18 +8,19 @@ index 0fa9c98..d055037 100644
  
  use crate::{Url, config::FetcherConfig, prefetch::url_prefetch, revless::RevlessFetcher};
  
-@@ -20,28 +21,89 @@ impl RevlessFetcher for Fetchurl {
+@@ -20,28 +21,98 @@ impl RevlessFetcher for Fetchurl {
      // path segment and rejects names it cannot use there (spaces, parentheses)
      // before it ever computes the hash, so such URLs cannot be hashed at all.
      // Pass it a sanitised name, and keep the generated expression consistent.
-+    // A download link with no path at all (`https://host/?mediaId=…`) fails
-+    // even before that, so it gets the name a browser would show: the
-+    // Content-Disposition file name, else the path a redirect landed on.
++    // A download link with no path at all (`https://host/?mediaId=…`) cannot be
++    // named by Nix either, so it gets the name a browser saves: the
++    // Content-Disposition file name, else the path a redirect landed on, else
++    // the generic "download" a browser falls back to.
      fn name(&self, url: &Url) -> Result<Option<String>> {
 -        Ok(store_safe_name(url))
 +        Ok(match path_name(url.as_str()) {
 +            Some(base) => store_safe(base),
-+            None => response_name(url),
++            None => response_name(url).or_else(|| Some("download".to_owned())),
 +        })
      }
  }
@@ -39,9 +40,16 @@ index 0fa9c98..d055037 100644
 +}
 +
 +// Browsers name a response with no path name from Content-Disposition first,
-+// then from where a redirect sent them.
++// then from where a redirect sent them. A HEAD answer is enough for most
++// hosts; vimm.net refuses it with 400 and some servers only send the
++// disposition on the body request, so a GET for a single byte is the fallback.
 +fn response_name(url: &Url) -> Option<String> {
-+    let response = request(url, true).or_else(|| request(url, false))?;
++    request(url, true)
++        .and_then(name_from_response)
++        .or_else(|| request(url, false).and_then(name_from_response))
++}
++
++fn name_from_response(response: ureq::http::Response<ureq::Body>) -> Option<String> {
 +    let header = response
 +        .headers()
 +        .get("content-disposition")
@@ -53,10 +61,7 @@ index 0fa9c98..d055037 100644
 +        .map(sanitise)
 +        .filter(|name| !name.is_empty())
 +}
- 
--    let is_safe = |c: char| c.is_ascii_alphanumeric() || "+-._?=".contains(c);
--    if base.chars().all(is_safe) {
--        return None;
++
 +fn request(url: &Url, head: bool) -> Option<ureq::http::Response<ureq::Body>> {
 +    let agent: ureq::Agent = ureq::Agent::config_builder()
 +        .timeout_global(Some(std::time::Duration::from_secs(30)))
@@ -65,9 +70,8 @@ index 0fa9c98..d055037 100644
 +    let request = if head {
 +        agent.head(url.as_str())
 +    } else {
-+        // A server that answers HEAD with 405 or without the header still
-+        // sends it on a GET, so ask for a single byte: the body of a download
-+        // link can be gigabytes and is never read.
++        // The body of a download link can be gigabytes and is never read, so
++        // ask for a single byte.
 +        agent.get(url.as_str()).header("Range", "bytes=0-0")
 +    };
 +    request
@@ -75,8 +79,13 @@ index 0fa9c98..d055037 100644
 +        .header("Accept", "*/*")
 +        .call()
 +        .ok()
++        // An error page's headers name nothing; let the other method try.
++        .filter(|response| response.status().is_success())
 +}
-+
+ 
+-    let is_safe = |c: char| c.is_ascii_alphanumeric() || "+-._?=".contains(c);
+-    if base.chars().all(is_safe) {
+-        return None;
 +// `attachment; filename="Burnout 3 (USA).iso"`, or the RFC 5987 form
 +// `filename*=UTF-8''Burnout%203%20%28USA%29.iso`.
 +fn disposition_name(header: &str) -> Option<String> {

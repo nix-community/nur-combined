@@ -1,35 +1,53 @@
 diff --git a/src/fetcher/url.rs b/src/fetcher/url.rs
-index d055037..cc52a65 100644
+index 6617c05..d80e1d1 100644
 --- a/src/fetcher/url.rs
 +++ b/src/fetcher/url.rs
-@@ -69,11 +69,25 @@ fn request(url: &Url, head: bool) -> Option<ureq::http::Response<ureq::Body>> {
-         // link can be gigabytes and is never read.
+@@ -76,15 +76,46 @@ fn request(url: &Url, head: bool) -> Option<ureq::http::Response<ureq::Body>> {
+         // ask for a single byte.
          agent.get(url.as_str()).header("Range", "bytes=0-0")
      };
--    request
--        .header("User-Agent", concat!("nurl/", env!("CARGO_PKG_VERSION")))
--        .header("Accept", "*/*")
--        .call()
--        .ok()
 +    let mut request = request
 +        .header("User-Agent", BROWSER_USER_AGENT)
 +        .header("Accept", BROWSER_ACCEPT);
 +    if let Some(referer) = referer(url.as_str()) {
 +        request = request.header("Referer", referer);
 +    }
-+    request.call().ok()
-+}
-+
+     request
+-        .header("User-Agent", concat!("nurl/", env!("CARGO_PKG_VERSION")))
+-        .header("Accept", "*/*")
+         .call()
+         .ok()
+         // An error page's headers name nothing; let the other method try.
+         .filter(|response| response.status().is_success())
+ }
+ 
 +// Download links often refuse clients that do not look like the browser the
 +// link was meant for (vimm.net answers 400 to anything else), so the probe
 +// carries a navigation's headers.
 +const BROWSER_USER_AGENT: &str = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36";
 +const BROWSER_ACCEPT: &str = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8";
 +
++// A page on the site sends its own origin as the Referer. The link is often
++// served from another host (`dl3.vimm.net`), which is not where the page
++// lives, so cut the host down to its registrable domain; IP addresses and
++// ports stay as they are.
 +fn referer(url: &str) -> Option<String> {
 +    let (scheme, rest) = url.split_once("://")?;
-+    let host = rest.split('/').next()?;
-+    Some(format!("{scheme}://{host}/"))
- }
- 
++    let authority = rest.split('/').next()?.rsplit('@').next()?;
++    let (host, port) = match authority.rsplit_once(':') {
++        Some((host, port)) if port.chars().all(|c| c.is_ascii_digit()) => (host, Some(port)),
++        _ => (authority, None),
++    };
++    let labels: Vec<&str> = host.split('.').collect();
++    let site = if labels.len() > 2 && !labels.iter().all(|label| label.parse::<u8>().is_ok()) {
++        labels[labels.len() - 2..].join(".")
++    } else {
++        host.to_owned()
++    };
++    let port = port.map(|port| format!(":{port}")).unwrap_or_default();
++    Some(format!("{scheme}://{site}{port}/"))
++}
++
  // `attachment; filename="Burnout 3 (USA).iso"`, or the RFC 5987 form
+ // `filename*=UTF-8''Burnout%203%20%28USA%29.iso`.
+ fn disposition_name(header: &str) -> Option<String> {
