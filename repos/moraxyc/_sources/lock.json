@@ -132,14 +132,16 @@
       "fingerprint": "sha256-19K58xslpcJZbIs8eH4o5Pkm1Jcde0YS6I8gTAdmEnE="
     },
     "clash-nyanpasu": {
-      "version": "2.0.1-unstable-2026-11-19",
-      "rawVersion": "297e16a47992f67b2c3e73c187dfc789be8a65d3",
-      "date": "2026-11-19",
+      "version": "2.0.1",
+      "rawVersion": "v2.0.1",
+      "date": "2026-10-31",
       "src": {
-        "fetcher": "git",
-        "url": "https://github.com/libnyanpasu/clash-nyanpasu",
-        "rev": "297e16a47992f67b2c3e73c187dfc789be8a65d3",
-        "hash": "sha256-BDI3/alOL8l9mE7kUGwzjBgRivr/VPvK4yVolqQspv0="
+        "fetcher": "github",
+        "owner": "libnyanpasu",
+        "repo": "clash-nyanpasu",
+        "rev": "v2.0.1",
+        "hash": "sha256-kp1xruOd4/mFSHw8vG4eeX39myAq06Uqhm2cv6SaL0s=",
+        "fetchSubmodules": true
       },
       "derived": {
         "cargoLock": {
@@ -150,24 +152,24 @@
             "include_url_macro-0.1.0": "sha256-uWrm6/8aH2cny172IWwOsPbFW8WMQ1OzO3M0S8DqKX8=",
             "processkit-2.2.5": "sha256-aLH0vrplsy8uTBzm5ult//Ix4DGE/Qg5TQyCBlUCCJo=",
             "runas-1.2.0": "sha256-cTYTFtmdmCztL2JhgnOxwKhd+VfUmm5DB3gkNy92g04=",
+            "serde_yaml_ng-0.10.0": "sha256-0KkwfAWwhCELkobRjnhzyQPzcqDdnwm8oAzfL1GjKnk=",
             "softbuffer-0.4.8": "sha256-yH3wfgaXT4fRnThP1INBqX/+71b67+nBZS40H6wPJgw=",
             "sysproxy-0.3.0": "sha256-2xv1vjthD3J/SFhbnh21bi2V4fcvoo6CpjJDxpSbwnk=",
             "tauri-specta-2.0.0-rc.25": "sha256-jcUyCknyN8ObGMXdQXQdN/hoiQrZTdi/XLZ8WCv6XtA=",
             "tauri-specta-macros-2.0.0-rc.25": "sha256-jcUyCknyN8ObGMXdQXQdN/hoiQrZTdi/XLZ8WCv6XtA=",
             "tauri-specta-query-0.0.0": "sha256-jcUyCknyN8ObGMXdQXQdN/hoiQrZTdi/XLZ8WCv6XtA=",
             "tracing-test-0.2.5": "sha256-uhjFW7s8Lfvq/j8mTCXcivzIvwHP3NFoI8rJOZ9avdE=",
-            "tracing-test-macro-0.2.5": "sha256-uhjFW7s8Lfvq/j8mTCXcivzIvwHP3NFoI8rJOZ9avdE=",
-            "yaml_serde-0.10.7": "sha256-m938lqymG98QZOq0FEuyVSG8P43K4oUWU0DZQU0NvY4="
+            "tracing-test-macro-0.2.5": "sha256-uhjFW7s8Lfvq/j8mTCXcivzIvwHP3NFoI8rJOZ9avdE="
           }
         },
         "pnpmDepsHash": {
-          "hash": "sha256-SrdGa57Z2cFGDI6m9NIryfv3W4KVD1Jr8Siy/HOOjrw="
+          "hash": "sha256-lSS7OS1movg/jCFcjzitJS9iAXg3GlVOt21IzxCXa1U="
         }
       },
       "artifacts": {
         "fix-local-inlang-plugins.patch": "clash-nyanpasu/fix-local-inlang-plugins.patch"
       },
-      "fingerprint": "sha256-K5Nl/4GSel7c9aczwmNlX4Feo1YsgSJbvSsGdY/yIXA="
+      "fingerprint": "sha256-Ds3z3eJJoB8HCrxaDvMob5uKhZIpcAsN645L7u21A+U="
     },
     "cliproxyapi": {
       "version": "8.0.79",
@@ -735,14 +737,16 @@
       "fingerprint": "sha256-9uEqj0SD5VQ2MS+9WTPJ6Ak8K1ljl4wOHXvMEHZhhv8="
     },
     "nyanpasu-service": {
-      "version": "2.0.4-unstable-2026-11-19",
-      "rawVersion": "c682264453314dc5d92a9694ab66b206885f14aa",
+      "version": "2.0.4",
+      "rawVersion": "v2.0.4",
       "date": "2026-11-19",
       "src": {
-        "fetcher": "git",
-        "url": "https://github.com/libnyanpasu/nyanpasu-service.git",
-        "rev": "c682264453314dc5d92a9694ab66b206885f14aa",
-        "hash": "sha256-X+gX/H5as1as+zu9lRKs1CekIEloa4cQ9W1B0+AiZoc="
+        "fetcher": "github",
+        "owner": "libnyanpasu",
+        "repo": "nyanpasu-service",
+        "rev": "v2.0.4",
+        "hash": "sha256-cJQk1Bzw2YoOWYSmJUd/qNdprUFdfaoH2KDFtvru93E=",
+        "fetchSubmodules": true
       },
       "derived": {
         "cargoLock": {
@@ -752,7 +756,7 @@
           }
         }
       },
-      "fingerprint": "sha256-Dr1WDPgou9rf7F0lFoENHBENBHyOHQFJ5JZhY3ZYXeM="
+      "fingerprint": "sha256-i65VmDb4uSPIlylK7TevBSqdVq6OdOEQsW8Rlpc1wYs="
     },
     "opencode-go-cliproxyapi": {
       "version": "0.0.0-unstable-2026-10-19",
@@ -1221,22 +1225,22 @@
       "fingerprint": "sha256-lrVp1rLZrlyGtadATaXbJpjppZ1kTzZ/p1q1OCoP6Qk="
     },
     "tokenrouter": {
-      "version": "0.7.4",
-      "rawVersion": "0.7.4",
-      "date": "2026-11-16",
+      "version": "0.7.6",
+      "rawVersion": "0.7.6",
+      "date": "2026-11-20",
       "src": {
         "fetcher": "github",
         "owner": "TokenFlux",
         "repo": "TokenRouter",
-        "rev": "v0.7.4",
-        "hash": "sha256-0Kd2qN4C4HvXEPc2abxboG4ehQm1NZlVUSR49jHCSrc="
+        "rev": "v0.7.6",
+        "hash": "sha256-PUDJulWSWvYIHGHroPx0qIDZzJrXtKi4n5qBQbRsRiI="
       },
       "derived": {
         "pnpmDepsHash": {
           "hash": "sha256-89j7nAzKzljv6ZpCEEaUa3NR+k9C2ubsZqmWBdEMi14="
         },
         "vendorHash": {
-          "hash": "sha256-CBCCRB2wplVSMdBGl75j7MEG+UjBFkJ/jwp6F9D4I+I="
+          "hash": "sha256-IzpZpexCWcMEt8iBEzvPOjJcbAOv5u3+x7mKwwilO0E="
         }
       },
       "fingerprint": "sha256-VCbxhAh7sPsYUf2S/3+kns/530gSkMQCmEjkF2yHnLE="

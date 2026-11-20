@@ -1,5 +1,5 @@
 diff --git a/backend/internal/app/lifecycle/http.go b/backend/internal/app/lifecycle/http.go
-index afc46d4..09aa501 100644
+index f852f7b..d5a92cb 100644
 --- a/backend/internal/app/lifecycle/http.go
 +++ b/backend/internal/app/lifecycle/http.go
 @@ -3,9 +3,13 @@ package lifecycle
@@ -7,7 +7,7 @@ index afc46d4..09aa501 100644
  	"context"
  	"errors"
 +	"fmt"
- 	"log"
+ 	"log/slog"
  	"net"
  	"net/http"
 +	"os"
@@ -51,9 +51,9 @@ index afc46d4..09aa501 100644
  	if err != nil {
  		return err
  	}
--	log.Printf("Server started on %s", server.Addr)
+-	slog.Info("Server started", "addr", server.Addr)
 +	if listener != nil {
-+		log.Printf("Server started on systemd socket (%s)", listener.Addr())
++		slog.Info("Server started on systemd socket", "addr", listener.Addr())
 +	} else {
 +		var lc net.ListenConfig
 +		network := "tcp"
@@ -68,19 +68,19 @@ index afc46d4..09aa501 100644
 +			return err
 +		}
 +		if network == "unix" {
-+			log.Printf("Server started on unix:%s", server.Addr)
++			slog.Info("Server started", "addr", "unix:"+server.Addr)
 +		} else {
-+			log.Printf("Server started on %s", server.Addr)
++			slog.Info("Server started", "addr", server.Addr)
 +		}
 +	}
- 	defer log.Println("Server exited")
+ 	defer slog.Info("Server exited")
  	// Serving can finish while Shutdown is still running. Buffer its one result
  	// so that completion does not require the shutdown caller to receive immediately.
-diff --git a/backend/internal/config/config.go b/backend/internal/config/config.go
-index c7d7b13..1d9acba 100644
---- a/backend/internal/config/config.go
-+++ b/backend/internal/config/config.go
-@@ -1798,6 +1798,9 @@ func (c *UserMessageQueueConfig) WaitTimeout() time.Duration {
+diff --git a/backend/internal/config/server.go b/backend/internal/config/server.go
+index 7ec8cd5..532dd0a 100644
+--- a/backend/internal/config/server.go
++++ b/backend/internal/config/server.go
+@@ -392,6 +392,9 @@ func normalizeProxyProbeURLs(targets []ProbeURLConfig) ([]ProbeURLConfig, error)
  // and port. It performs no validation or IPv6 bracketing, so callers supply
  // host spelling accepted by their listener.
  func (s *ServerConfig) Address() string {

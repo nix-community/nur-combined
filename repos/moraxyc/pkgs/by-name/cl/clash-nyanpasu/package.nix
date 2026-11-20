@@ -3,10 +3,10 @@
   stdenv,
   fetchurl,
   atk,
+  aws-lc,
   cairo,
   cargo-tauri,
   clash-rs,
-  dart-sass,
   dbus,
   fetchPnpmDeps,
   gdk-pixbuf,
@@ -91,18 +91,19 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   nativeBuildInputs = [
     cargo-tauri.hook
-    dart-sass
     jq
     moreutils
     nodejs
     pkg-config
     pnpm
     pnpmConfigHook
+    rustPlatform.bindgenHook
     wrapGAppsHook4
     yq-go
   ];
 
   buildInputs = [
+    aws-lc
     zstd
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
@@ -152,9 +153,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
       replace_args+=(--replace-fail ${lib.escapeShellArg src.url} ${lib.escapeShellArg "./builtin/vendor/${name}.js"})
     '') vendorSources.boa-utils}
     substituteInPlace backend/boa_utils/src/module/builtin.rs "''${replace_args[@]}"
-
-    substituteInPlace backend/Cargo.toml \
-      --replace-fail 'tray-icon = { git = "https://github.com/tauri-apps/tray-icon.git", rev = "34a3442" }' ""
   ''
   + lib.optionalString stdenv.hostPlatform.isLinux ''
     substituteInPlace $cargoDepsCopy/libappindicator-sys-*/src/lib.rs \
@@ -162,10 +160,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   preBuild = ''
-    # force sass-embedded to use our own sass from PATH instead of the bundled one
-    substituteInPlace node_modules/.pnpm/sass-embedded@*/node_modules/sass-embedded/dist/lib/src/compiler-path.js \
-      --replace-fail 'compilerCommand = (() => {' 'compilerCommand = (() => { return ["dart-sass"];'
-
     export HOME="$TMPDIR"
 
     pnpm run build:packages

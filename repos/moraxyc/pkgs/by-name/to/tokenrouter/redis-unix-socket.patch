@@ -1,7 +1,8 @@
-diff -ruN a/backend/internal/app/bootstrap/redis.go b/backend/internal/app/bootstrap/redis.go
---- a/backend/internal/app/bootstrap/redis.go	2026-11-18 12:34:35.515039128 +0800
-+++ b/backend/internal/app/bootstrap/redis.go	2026-11-18 12:34:35.535846931 +0800
-@@ -2,6 +2,7 @@
+diff --git a/backend/internal/app/bootstrap/redis.go b/backend/internal/app/bootstrap/redis.go
+index 9e78ebd..efd5c35 100644
+--- a/backend/internal/app/bootstrap/redis.go
++++ b/backend/internal/app/bootstrap/redis.go
+@@ -2,6 +2,7 @@ package bootstrap
  
  import (
  	"crypto/tls"
@@ -9,7 +10,7 @@ diff -ruN a/backend/internal/app/bootstrap/redis.go b/backend/internal/app/boots
  	"time"
  
  	"github.com/redis/go-redis/v9"
-@@ -59,6 +60,9 @@
+@@ -59,6 +60,9 @@ func buildRedisOptions(cfg *config.Config) *redis.Options {
  		PoolSize:     cfg.Redis.PoolSize,
  		MinIdleConns: cfg.Redis.MinIdleConns,
  	}
@@ -19,10 +20,11 @@ diff -ruN a/backend/internal/app/bootstrap/redis.go b/backend/internal/app/boots
  
  	if cfg.Redis.EnableTLS {
  		// Reject Redis servers negotiating older TLS versions before commands and
-diff -ruN a/backend/internal/app/bootstrap/setup_connections.go b/backend/internal/app/bootstrap/setup_connections.go
---- a/backend/internal/app/bootstrap/setup_connections.go	2026-11-18 12:34:35.515920327 +0800
-+++ b/backend/internal/app/bootstrap/setup_connections.go	2026-11-18 12:34:35.535893545 +0800
-@@ -5,6 +5,7 @@
+diff --git a/backend/internal/app/bootstrap/setup_connections.go b/backend/internal/app/bootstrap/setup_connections.go
+index 9e058ce..1401f19 100644
+--- a/backend/internal/app/bootstrap/setup_connections.go
++++ b/backend/internal/app/bootstrap/setup_connections.go
+@@ -5,6 +5,7 @@ import (
  	"crypto/tls"
  	"database/sql"
  	"fmt"
@@ -30,7 +32,7 @@ diff -ruN a/backend/internal/app/bootstrap/setup_connections.go b/backend/intern
  	"time"
  
  	_ "github.com/lib/pq"
-@@ -169,8 +170,15 @@
+@@ -169,8 +170,15 @@ func TestSetupDatabaseConnection(cfg *SetupDatabaseConfig) error {
  // omitted MaxRetries option permits three eligible retries after the initial
  // command attempt, so one Ping call can send more than one probe command.
  func TestSetupRedisConnection(cfg *SetupRedisConfig) error {
@@ -47,10 +49,11 @@ diff -ruN a/backend/internal/app/bootstrap/setup_connections.go b/backend/intern
  		Username: cfg.Username,
  		Password: cfg.Password,
  		DB:       cfg.DB,
-diff -ruN a/backend/internal/config/config.go b/backend/internal/config/config.go
---- a/backend/internal/config/config.go	2026-11-18 12:34:35.516197076 +0800
-+++ b/backend/internal/config/config.go	2026-11-18 12:34:35.536216254 +0800
-@@ -1847,6 +1847,9 @@
+diff --git a/backend/internal/config/runtime_domains.go b/backend/internal/config/runtime_domains.go
+index 171951f..c8dc426 100644
+--- a/backend/internal/config/runtime_domains.go
++++ b/backend/internal/config/runtime_domains.go
+@@ -466,6 +466,9 @@ func (d *DatabaseConfig) DSNWithTimezone(tz string) string {
  // and port. The host is retained as supplied without IPv6 bracketing, so
  // callers provide address spelling accepted by the client.
  func (r *RedisConfig) Address() string {
@@ -60,10 +63,11 @@ diff -ruN a/backend/internal/config/config.go b/backend/internal/config/config.g
  	return fmt.Sprintf("%s:%d", r.Host, r.Port)
  }
  
-diff -ruN a/backend/internal/setup/validation.go b/backend/internal/setup/validation.go
---- a/backend/internal/setup/validation.go	2026-11-18 12:34:35.517808213 +0800
-+++ b/backend/internal/setup/validation.go	2026-11-18 12:34:35.536281294 +0800
-@@ -3,6 +3,7 @@
+diff --git a/backend/internal/setup/validation.go b/backend/internal/setup/validation.go
+index 79a41fb..1526bb3 100644
+--- a/backend/internal/setup/validation.go
++++ b/backend/internal/setup/validation.go
+@@ -3,6 +3,7 @@ package setup
  import (
  	"net/mail"
  	"regexp"
@@ -71,7 +75,7 @@ diff -ruN a/backend/internal/setup/validation.go b/backend/internal/setup/valida
  )
  
  // validation.go validates setup connection fields, administrator email, and
-@@ -16,6 +17,7 @@
+@@ -16,6 +17,7 @@ import (
  // reach connection probes. Host validation is character-based rather than DNS or IP resolution.
  var (
  	hostnamePattern = regexp.MustCompile(`^[a-zA-Z0-9.\-:]+$`)
@@ -79,7 +83,7 @@ diff -ruN a/backend/internal/setup/validation.go b/backend/internal/setup/valida
  	dbNamePattern   = regexp.MustCompile(`^[a-zA-Z][a-zA-Z0-9_]*$`)
  	usernamePattern = regexp.MustCompile(`^[a-zA-Z0-9_]+$`)
  )
-@@ -24,6 +26,9 @@
+@@ -24,6 +26,9 @@ var (
  // 253 bytes. Colons permit bare IPv6-like input, but the check validates
  // neither actual IP structure nor name resolution and does not trim text.
  func validateHostname(host string) bool {

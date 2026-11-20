@@ -76,9 +76,9 @@ strategy = "fod"
 attr = ".#bark-server.goModules"
 
 [packages.clash-nyanpasu]
-version = { source = "git", url = "https://github.com/libnyanpasu/clash-nyanpasu", unstable = { stable = { source = "github-release", repo = "libnyanpasu/clash-nyanpasu" } } }
+version = { source = "github-release", repo = "libnyanpasu/clash-nyanpasu" }
 transform = ["strip-v"]
-fetch = { type = "git", url = "https://github.com/libnyanpasu/clash-nyanpasu", rev = "{version}" }
+fetch = { type = "github", repo = "libnyanpasu/clash-nyanpasu", rev = "{version}", submodules = true }
 
 [packages.clash-nyanpasu.prepare]
 steps = [{ type = "hook", run = ["./pkgs/by-name/cl/clash-nyanpasu/prepare.sh"] }]
@@ -376,9 +376,9 @@ transform = ["strip-v"]
 fetch = { type = "url", url = "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v{version}/NipaPlay-{version}-Linux-amd64.tar.gz" }
 
 [packages.nyanpasu-service]
-version = { source = "git", url = "https://github.com/libnyanpasu/nyanpasu-service.git", unstable = { stable = { source = "github-release", repo = "libnyanpasu/nyanpasu-service" } } }
+version = { source = "github-release", repo = "libnyanpasu/nyanpasu-service" }
 transform = ["strip-v"]
-fetch = { type = "git", url = "https://github.com/libnyanpasu/nyanpasu-service.git", rev = "{version}" }
+fetch = { type = "github", repo = "libnyanpasu/nyanpasu-service", rev = "{version}", submodules = true }
 
 [packages.nyanpasu-service.derive.cargoLock]
 kind = "cargo-vendor"

@@ -1,5 +1,7 @@
 {
   lib,
+  aws-lc,
+  pkg-config,
   rustPlatform,
   replaceVars,
   nix-update-script,
@@ -13,6 +15,17 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoDeps = rustPlatform.importCargoLock source.cargoLock;
 
+  buildAndTestSubdir = "nyanpasu_service";
+
+  nativeBuildInputs = [
+    pkg-config
+    rustPlatform.bindgenHook
+  ];
+
+  buildInputs = [
+    aws-lc
+  ];
+
   env = {
     # nightly features
     RUSTC_BOOTSTRAP = 1;
@@ -24,7 +37,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
         COMMIT_DATE = source.date;
         COMMIT_HASH = lib.substring 0 6 finalAttrs.src.rev or "000000";
       }
-    } nyanpasu_service/build.rs
+    } crates/nyanpasu-service-runtime/build.rs
   '';
 
   passthru.updateScript = nix-update-script { };
