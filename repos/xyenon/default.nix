@@ -88,7 +88,13 @@ rec {
   zsh-smart-suggestion = callPackage ./pkgs/zsh-smart-suggestion { };
   nh = callPackage ./pkgs/nh {
     inherit (pkgs) nh;
-    nh-unwrapped = if (builtins.tryEval pkgs.nh-unwrapped).success then pkgs.nh-unwrapped else null;
+    # update.nix imports nixpkgs with allowAliases = false, which drops the
+    # throwing alias entirely; tryEval does not catch a missing attribute.
+    nh-unwrapped =
+      if pkgs ? nh-unwrapped && (builtins.tryEval pkgs.nh-unwrapped).success then
+        pkgs.nh-unwrapped
+      else
+        null;
     source = sources.nh;
   };
   waypipe-darwin = callPackage ./pkgs/waypipe-darwin { };
