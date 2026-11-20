@@ -32,7 +32,7 @@ buildNpmPackage rec {
     '';
   };
 
-  npmDepsHash = "sha256-F/gJSTEHY592Or+9yoHmTUUj+jk61UXlD+WsCe/hTSc=";
+  npmDepsHash = "sha256-DGT6JxejjC5Uk9zpiBo1OAT6P5cvacEKiUTG4ktbPsA=";
 
   nativeBuildInputs = [
     jq
