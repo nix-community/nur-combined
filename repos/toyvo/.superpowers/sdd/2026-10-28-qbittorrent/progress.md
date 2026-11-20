@@ -1,0 +1,15 @@
+# SDD ledger — plan: docs/superpowers/plans/2026-10-28-qbittorrent.md
+Ruling: work in place on jj working copy (no git worktree); baseline clean.
+Pre-flight: Task 1 extends k3s-starr (qbittorrent block) + nas enable + SecretSpec contract; Task 2 homelab upstreams. Kill-switch proof gates Task 3. No dual-qbit. Download test mandatory.
+Task 1 Step 1: endpoint confirmed from nas config (79.127.187.156:51820, gateway 10.2.0.1 — same as design; rotation risk noted for builder re-verify at switch time). Images hub-verified: lscr.io/linuxserver/qbittorrent:5.3.0_v2.1.2-ls485, lscr.io/linuxserver/wireguard:1.0.20260223-r0-ls127. qbit ids 353.
+Task 1: complete (qbittorrent block: 3 containers + iptables init (NET_ADMIN only, no privileged), dnsPolicy None + Proton DNS, secret volume qbittorrent-vpn, nodeAffinity nas, config claimTemplate 5Gi + qbittorrent-media PVC; PV up front; images hub-verified; eval confirms structure + zero key material; nas toplevel builds).
+SecretSpec contract k8s/qbittorrent/secretspec.toml written (refs.kube item wg0.conf). USER ACTION REQUIRED: load full wg0.conf into Proton Pass secretspec vault, then `secretspec -p kube ...` alias invocation per homepage discipline; verify key names only.
+Task 2: complete (upstreams render dual-Traefik reverse_proxy; not switched yet per plan)
+Tunnel rollback root-caused: wg-quick needs net.ipv4.conf.all.src_valid_mark=1 (host-global, pods can't set it). Fix: host sysctl via k3s.nix wrapper (same category as resolv.conf). Outstanding: pod boots with no default route (unexplained; wg-quick rollback was clean) — delete pod post-switch and watch route timeline.
+Split-tunnel root cause: wg-quick suppress rule captured 10/8 into wg0 (Proton blackholes RFC1918). Live-proved with manual ip rule (LAN 404 back). Baked into initContainer (+ iproute2) with comment. nas toplevel builds.
+PostUp collision root-caused (init auto-pref vs explicit pref). initContainer deleted; PostUp (Secret) owns all rules/routes explicitly. nas toplevel builds.
+Debug access: temporary NOPASSWD for wheel->k3s via security.sudo.extraConfig on nas (marked TEMPORARY, removal tracked). nas toplevel builds.
+Seed scoped: 14 torrents, 27G at old container paths (all fastresume save_paths absolute). Added transitional legacy-state hostPath (/var/lib/qBittorrent -> host state dir) so resume works with zero data movement. nas toplevel builds.
+Seeded (config+categories+BT_backup+rss; image auto-migrated into its layout). Found: image hardcodes --webui-port=8080, config Port ignored -> WEBUI_PORT=4080 env added (only working knob). nas toplevel builds.
+Kill-switch exonerated (flushed, still silent) -> session-level suspicion: container keeps reviving via autoStart on every switch, holding a live account session. Disabled the container module NOW (was planned for retire; rollback = revert). If pod recovers -> single-slot/interaction confirmed.
+State: blocked on server/account fork. Handoff written: docs/superpowers/2026-10-28-qbittorrent-vpn-handoff.md (no secrets). Next: different Proton server config (highest value), else account session audit.

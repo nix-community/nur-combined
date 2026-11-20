@@ -1,0 +1,114 @@
+# Review package: 0ef0628e538e3645e8cee9b9c5106334ad22d912..d2e3e07b
+
+## Commits
+d2e3e07b feat: protectli joins k3s as worker agent
+
+## Files changed
+ configurations/nixos/Protectli/configuration.nix | 11 +++++++++++
+ todos.md                                         |  3 ++-
+ 2 files changed, 13 insertions(+), 1 deletion(-)
+
+## Diff
+diff --git a/configurations/nixos/Protectli/configuration.nix b/configurations/nixos/Protectli/configuration.nix
+index 27dbaa54..3a011577 100755
+--- a/configurations/nixos/Protectli/configuration.nix
++++ b/configurations/nixos/Protectli/configuration.nix
+@@ -1,11 +1,12 @@
+ {
++  config,
+   ekaPkgs,
+   homelab,
+   inputs,
+   lib,
+   stablePkgs,
+   system,
+   unstablePkgs,
+   ...
+ }:
+ let
+@@ -16,20 +17,21 @@ let
+   iotVlanId = "30";
+ in
+ {
+   imports = [
+     inputs.nixcfg.modules.os.nix
+     inputs.nixcfg.modules.os.security
+     inputs.nixcfg.modules.os.home-manager
+     inputs.nixcfg.modules.os.console
+     inputs.nixcfg.modules.os.toyvo
+     inputs.nixcfg.modules.nixos.ids
++    inputs.nixcfg.modules.nixos.k3s
+     inputs.nixcfg.modules.nixos.boot
+     inputs.nixcfg.modules.nixos.networking
+     inputs.nixcfg.modules.nixos.system
+     inputs.nixcfg.modules.nixos.monitoring
+     inputs.catppuccin.nixosModules.catppuccin
+     inputs.disko.nixosModules.disko
+     inputs.home-manager.nixosModules.default
+     inputs.nix-index-database.nixosModules.nix-index
+     inputs.nixos-unstable.nixosModules.notDetected
+     inputs.nur.modules.nixos.default
+@@ -173,26 +175,35 @@ in
+       "ahci"
+       "xhci_pci"
+       "usb_storage"
+       "usbhid"
+       "sd_mod"
+     ];
+     kernelModules = [ "kvm-intel" ];
+   };
+   nixcfg = {
+     nix.enable = true;
++    k3s = {
++      enable = true;
++      role = "agent";
++      serverAddr = "https://10.1.0.3:6443";
++      tokenFile = config.sops.secrets."k3s-token".path;
++      # Node IP 10.1.0.6 lives on enp1s0 (DHCP from the router).
++      firewallInterfaces = [ "enp1s0" ];
++    };
+     security.enable = true;
+     home-manager.enable = true;
+     networking.enable = true;
+     system.enable = true;
+     boot.enable = true;
+   };
++  sops.secrets."k3s-token" = { };
+   userPresets.toyvo.enable = true;
+   systemd = {
+     network = {
+       enable = true;
+       networks.wan0 = {
+         matchConfig.Name = "enp1s0";
+         networkConfig.DHCP = "ipv4";
+         dhcpV4Config = {
+           UseDNS = false;
+         };
+diff --git a/todos.md b/todos.md
+index 7edd51aa..b00b4bea 100755
+--- a/todos.md
++++ b/todos.md
+@@ -2,21 +2,22 @@
+ 
+ ## nas libvirtd (pre-existing, unrelated to k3s)
+ 
+ - [ ] `libvirtd.service` fails since ~Oct 24 with `status=243/CREDENTIALS`. Root cause 2026-10-26: `/var/lib/systemd/credential.secret` (TPM-less host key) is 0 bytes, truncated Oct 12 — so `systemd-creds encrypt` fails (`Failed to determine local credential host secret`) and `LoadCredentialEncrypted` can never decrypt. Only libvirt uses encrypted credentials; no stored secrets. Fix: `sudo systemd-creds setup && sudo systemctl start virt-secret-init-encryption.service && sudo systemctl restart libvirtd.service` (old March key blob already deleted, unrecoverable but unneeded). 2026-10-26: `setup` fails because the 0-byte `/var/lib/systemd/credential.secret` exists but is `too small, refusing` (debug output). Fix: delete the empty file so `setup` regenerates it, then re-mint libvirt key + restart libvirtd. Still need VM-use answer; if unused, disable libvirtd instead. If no VMs are used, set `virtualisation.libvirtd.enable = false` instead.
+ 
+ ## k3s cluster (nas + MacMini-Intel, day one)
+ 
+ - [x] k3s two-server cluster declared (design: `docs/superpowers/specs/2026-10-25-k3s-nas-design.md`, plan: `docs/superpowers/plans/2026-10-25-k3s-nas-macmini.md`): `nixcfg.k3s` wrapper module, nas cluster-init server, MacMini-Intel joins via `https://10.1.0.3:6443`, shared sops `k3s-token`, traefik disabled.
+   - Manual rollout order (eval verified, not yet deployed): deploy nas first, wait for `k3s kubectl get nodes` Ready, then deploy MacMini-Intel.
+ - [x] Deploy + verify (2026-10-26): `nixos-rebuild switch --flake .#nas`, then `.#MacMini-Intel-NixOS`; `kubectl get nodes` shows nas + macmini-intel-nixos Ready (control-plane,etcd). Required opening etcd 2379-2380/tcp in `nixcfg.k3s` firewall on both nodes.
+-- [ ] Router joins as etcd-only third server (code done: `disableAgent` + LAN-scoped firewall, design `docs/superpowers/specs/2026-10-25-k3s-ingress-router-design.md`, plan `docs/superpowers/plans/2026-10-25-k3s-ingress-router.md`); deploy router and verify 3 servers.
++- [x] Router joined as etcd-only third server (2026-10-26).
++- [ ] Protectli joins as worker agent (code done, design `docs/superpowers/specs/2026-10-26-k3s-protectli-agent-design.md`, plan `docs/superpowers/plans/2026-10-26-k3s-protectli-agent.md`): deploy protectli, verify Ready worker with INTERNAL-IP 10.1.0.6.
+ - [ ] Traefik NodePorts 30080/30443 live (code done on nas+macmini); deploy both, verify svc + cross-node pod curl.
+ - [x] homepage serves from cluster (2026-10-26): manifests live, Caddy `upstreams` flip for `diekvoss.net` verified 200 with auth gate, nas-native service retired (file deleted, 8082 closed). Failover verified 2026-10-26 in both directions (k3s stopped on nas → 200 via macmini, and vice versa).
+ - [ ] Storage re-architecture for stateful workloads (`/mnt/POOL` via local-path/Longhorn/Ceph decision).
+ - [ ] Caddy ingress integration for cluster services.
+ - [ ] aarch64 nodes (rpis) after x86_64 stable.
+ 
+ Outstanding work and follow-up items for this repository.
+ 
+ - [ ] Explore k3s cluster (server on nas, agents on router/Protectli/oracle/MacMini-Intel/MacMini-M1) for web services; decide topology, storage, and ingress vs existing Caddy + nixos-containers
+ 

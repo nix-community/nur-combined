@@ -1,0 +1,1 @@
+- Seed: nothing to copy — all POOL state dirs + container-private dirs read 0 (8K redis). File state is genuinely empty; everything real lives in host Postgres (not moving). k3s stack starts fresh-empty; PVC estimates stand.

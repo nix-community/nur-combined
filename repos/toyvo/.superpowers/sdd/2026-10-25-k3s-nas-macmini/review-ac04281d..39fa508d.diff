@@ -1,0 +1,359 @@
+# Review package: ac04281d30cd80b90e3c30d112befde12277c427..39fa508d
+
+## Commits
+39fa508d feat: two-node k3s cluster on nas (init) + MacMini-Intel (join)
+
+## Files changed
+ .../nixos/MacMini-Intel/configuration.nix          | 13 +++
+ configurations/nixos/nas/configuration.nix         | 15 ++++
+ modules/nixos/default.nix                          |  2 +
+ modules/nixos/k3s.nix                              | 97 ++++++++++++++++++++++
+ secrets.yaml                                       |  5 +-
+ todos.md                                           | 10 +++
+ 6 files changed, 140 insertions(+), 2 deletions(-)
+
+## Diff
+diff --git a/configurations/nixos/MacMini-Intel/configuration.nix b/configurations/nixos/MacMini-Intel/configuration.nix
+index d0dfe76c..20ce524a 100755
+--- a/configurations/nixos/MacMini-Intel/configuration.nix
++++ b/configurations/nixos/MacMini-Intel/configuration.nix
+@@ -1,11 +1,12 @@
+ {
++  config,
+   ekaPkgs,
+   homelab,
+   inputs,
+   lib,
+   pkgs,
+   stablePkgs,
+   system,
+   unstablePkgs,
+   ...
+ }:
+@@ -61,32 +62,44 @@
+       "xhci_pci"
+       "nvme"
+       "usbhid"
+       "usb_storage"
+       "sd_mod"
+     ];
+     kernelModules = [ "kvm-intel" ];
+   };
+   userPresets.toyvo.enable = true;
+   nixcfg = {
++    k3s = {
++      enable = true;
++      role = "server";
++      clusterInit = false;
++      serverAddr = "https://10.1.0.3:6443";
++      tokenFile = config.sops.secrets."k3s-token".path;
++      extraSANs = [
++        "10.1.0.12"
++        "MacMini-Intel-NixOS"
++      ];
++    };
+     nix.enable = true;
+     security.enable = true;
+     home-manager.enable = true;
+     networking.enable = true;
+     system.enable = true;
+     boot.enable = true;
+   };
+   catppuccin = {
+     enable = true;
+     autoEnable = true;
+   };
+   services.openssh.enable = true;
++  sops.secrets."k3s-token" = { };
+   environment.systemPackages = with pkgs; [
+     signal-cli
+   ];
+   disko.devices.disk.nvme0n1 = {
+     type = "disk";
+     device = "/dev/nvme0n1";
+     content = {
+       type = "gpt";
+       partitions = {
+         ESP = {
+diff --git a/configurations/nixos/nas/configuration.nix b/configurations/nixos/nas/configuration.nix
+index 43c4b09c..3910a130 100755
+--- a/configurations/nixos/nas/configuration.nix
++++ b/configurations/nixos/nas/configuration.nix
+@@ -130,20 +130,34 @@ in
+       "ahci"
+       "usbhid"
+       "usb_storage"
+       "sd_mod"
+     ];
+     kernelModules = [ "kvm-amd" ];
+     binfmt.emulatedSystems = [ "aarch64-linux" ];
+   };
+   nixcfg = {
+     nix.enable = true;
++    k3s = {
++      enable = true;
++      role = "server";
++      clusterInit = true;
++      tokenFile = config.sops.secrets."k3s-token".path;
++      extraSANs = [
++        "10.1.0.3"
++        "nas"
++        "nas.diekvoss.net"
++        "10.1.0.1"
++        "10.1.0.6"
++        "10.1.0.12"
++      ];
++    };
+     security.enable = true;
+     home-manager.enable = true;
+     networking.enable = true;
+     system.enable = true;
+     boot.enable = true;
+     nix-ld.enable = true;
+     gui.enable = true;
+     dev.enable = true;
+     users.agent.enable = true;
+   };
+@@ -546,20 +560,21 @@ in
+   # The upstream units hardcode PATH to only coreutils/findutils/gnugrep/gnused/systemd.
+   # Appending a later Environment=PATH=... directive overrides the earlier one in systemd.
+   systemd.services.hermes-agent.serviceConfig.Environment = [
+     "PATH=/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/etc/profiles/per-user/agent/bin:/mnt/POOL/agent/.nix-profile/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+   ];
+ 
+   # The runner's secret from the pre-created runner in the Forgejo UI (Site
+   # Administration -> Actions -> Runners -> Create new runner). The template
+   # wraps it into the TOKEN= env file used when rendering .runner credentials.
+   sops.secrets."forgejo-runner-token-nas" = { };
++  sops.secrets."k3s-token" = { };
+   sops.secrets."agent.env".owner = "agent";
+   # Maintainer shares the existing opencode key (owner call) and needs a
+   # Forgejo PAT with repo scope: create it in the Forgejo UI, then add the
+   # value with `sops secrets.yaml` under `repo-maintainer-forgejo-token`.
+   # Until that key exists, do not deploy nas (activation will fail).
+   sops.secrets."opencode_api_key" = { };
+   sops.secrets."repo-maintainer-forgejo-token" = { };
+   sops.templates."repo-maintainer.env".content = ''
+     OPENCODE_GO_API_KEY=${config.sops.placeholder.opencode_api_key}
+     FORGEJO_TOKEN=${config.sops.placeholder.repo-maintainer-forgejo-token}
+diff --git a/modules/nixos/default.nix b/modules/nixos/default.nix
+index 14dace77..033ceb3b 100755
+--- a/modules/nixos/default.nix
++++ b/modules/nixos/default.nix
+@@ -18,20 +18,21 @@
+         ./containers/starr.nix
+         ./containers/terraria.nix
+         ./containers/vintagestory.nix
+         ./boot.nix
+         ./kanata.nix
+         ./networking.nix
+         ./nix-ld.nix
+         ./odysseus.nix
+         ./system.nix
+         ./ids.nix
++        ./k3s.nix
+         ./gaming.nix
+         ./mcsmanager.nix
+         ./monitoring/default.nix
+         ./monitoring/grafana.nix
+         ./monitoring/internet.nix
+         ./monitoring/loki.nix
+         ./monitoring/prometheus.nix
+         ./monitoring/tempo.nix
+         ./podman.nix
+         ./services/desktopManager/cosmic.nix
+@@ -59,20 +60,21 @@
+   starr_container = ./containers/starr.nix;
+   terraria_container = ./containers/terraria.nix;
+   vintagestory_container = ./containers/vintagestory.nix;
+   boot = ./boot.nix;
+   kanata = ./kanata.nix;
+   networking = ./networking.nix;
+   nix-ld = ./nix-ld.nix;
+   odysseus = ./odysseus.nix;
+   system = ./system.nix;
+   ids = ./ids.nix;
++  k3s = ./k3s.nix;
+   gaming = ./gaming.nix;
+   mcsmanager = ./mcsmanager.nix;
+   monitoring = ./monitoring/default.nix;
+   grafana = ./monitoring/grafana.nix;
+   internet = ./monitoring/internet.nix;
+   loki = ./monitoring/loki.nix;
+   prometheus = ./monitoring/prometheus.nix;
+   tempo = ./monitoring/tempo.nix;
+   podman = ./podman.nix;
+   cosmic = ./services/desktopManager/cosmic.nix;
+diff --git a/modules/nixos/k3s.nix b/modules/nixos/k3s.nix
+new file mode 100644
+index 00000000..ee930f09
+--- /dev/null
++++ b/modules/nixos/k3s.nix
+@@ -0,0 +1,97 @@
++{ config, lib, ... }:
++let
++  cfg = config.nixcfg.k3s;
++in
++{
++  options.nixcfg.k3s = {
++    enable = lib.mkEnableOption "k3s Kubernetes distribution";
++
++    role = lib.mkOption {
++      type = lib.types.enum [
++        "server"
++        "agent"
++      ];
++      default = "server";
++      description = "Whether k3s should run as a server or agent.";
++    };
++
++    clusterInit = lib.mkOption {
++      type = lib.types.bool;
++      default = false;
++      description = "Initialize HA cluster with embedded etcd. Exactly one server (the first) sets this.";
++    };
++
++    serverAddr = lib.mkOption {
++      type = lib.types.nullOr lib.types.str;
++      default = null;
++      example = "https://10.1.0.3:6443";
++      description = "The k3s server to join. Required on every server except the cluster-init one, and on all agents.";
++    };
++
++    tokenFile = lib.mkOption {
++      type = lib.types.nullOr lib.types.path;
++      default = null;
++      example = "/run/secrets/k3s-token";
++      description = "Path to file containing the shared cluster token (sops-managed, never plaintext in store).";
++    };
++
++    extraSANs = lib.mkOption {
++      type = lib.types.listOf lib.types.str;
++      default = [ ];
++      example = [
++        "10.1.0.3"
++        "nas.diekvoss.net"
++      ];
++      description = "Extra TLS SANs for the API server cert, passed as --tls-san flags.";
++    };
++
++    disable = lib.mkOption {
++      type = lib.types.listOf lib.types.str;
++      default = [ "traefik" ];
++      description = "Disable default k3s components (traefik stays off; router Caddy owns the edge).";
++    };
++  };
++
++  config = lib.mkIf cfg.enable {
++    assertions = [
++      {
++        assertion = cfg.role == "server" || cfg.serverAddr != null;
++        message = "nixcfg.k3s: agents must set serverAddr.";
++      }
++      {
++        assertion = cfg.clusterInit -> (cfg.role == "server" && cfg.serverAddr == null);
++        message = "nixcfg.k3s: clusterInit is only valid on the first server (no serverAddr).";
++      }
++      {
++        assertion = cfg.role == "server" && cfg.serverAddr == null -> cfg.clusterInit;
++        message = "nixcfg.k3s: a server without serverAddr must be the cluster-init server.";
++      }
++    ];
++
++    services.k3s = {
++      enable = true;
++      inherit (cfg)
++        role
++        clusterInit
++        disable
++        tokenFile
++        ;
++      serverAddr = lib.mkIf (cfg.serverAddr != null) cfg.serverAddr;
++      extraFlags = map (san: "--tls-san=${san}") cfg.extraSANs;
++    };
++
++    # Ruling: opened globally, not interface-scoped — both hosts sit behind
++    # the router NAT, interface names differ per host, and 6443 is token-gated.
++    networking.firewall = {
++      allowedTCPPorts = [
++        6443
++        10250
++      ];
++      allowedUDPPorts = [
++        8472
++        51820
++        51821
++      ];
++    };
++  };
++}
+diff --git a/secrets.yaml b/secrets.yaml
+index 6ddea5ff..9d53e196 100755
+--- a/secrets.yaml
++++ b/secrets.yaml
+@@ -88,20 +88,21 @@ git_work_sign_ed25519: ENC[AES256_GCM,data:EG6hraKHkzgVuXLlA175K+pYSM/L76kVas3wf
+ github_work_auth_ed25519.pub: ENC[AES256_GCM,data:d6897/ZCFZ2F4nOaRp7K8mRP2hkbvUroUADZE83AxqKgGU1cs3rPGxYI/GTxX9VrQvMuo/nOGPRG02aj3QZP3cnX2FpuHH94+cyxj1/Q9hM04xYTtFYDvUDQmAVwN+Qc/nLG/Hb6zpkLz3E7,iv:g8Sr+dQpXchfQnBm3xIB8bydWh4aMIpAFP0Iopvdr58=,tag:nT3cDFNeNL7G7EfRgSjPNQ==,type:str]
+ github_work_auth_ed25519: ENC[AES256_GCM,data:Fklq47XcW+S5vBJLIdqXQa4fCCLxm5qYNKQqH93u8m9MAvQ3N9mgkxfsdzfRHUPjoM4wpVmKDXfSP1w8wamo4EYns+Wb4ZIx3bu0tE+FRJGoQUdKEs0zL+wRoBKQPup/nUCWX8sg2fqUujh+lTI8FRT7dNleD+YLszorDhuRqVbJpod/dYwYIclalzKP+zSQf30n7KFjNCDI55AmrXeoANy1GAEvzVazQZfllj9ecBj7g+mlH02ypuYa+jNUP5ls/qDnJUwBt5vfpb63nUkbCF4ps0myJuKwYi7+5Lm5fsV+a2Gul/KKm5AP+bjfduP9b7cC7b1XZDk0dSVEO6PY5sxuwCK3bFSGwecjeqyEJJ0eB/qAEjvJX4VyYsmYO4c9moZXsVnJ2ipkwVqRnWZsMRTKEnoRHPHeI8Fyrjj7oID5kSKSvh/Q8jamnHMkJXGCz47ZfDGnUFARXZwVqdNGi5kc4APdVTZ+1fO3t4hRIMDmtLsUuftN49CnlPib46TQqnA02pkC/sxbfWaCA43XXt3QIcTftduM4OE+rNMtZZQB6n4=,iv:lA3ikAkj8FFhxoCZwkxLNyIhPwbzJg/H7c2NXRNdTW8=,tag:TVoPrHn3l+scNzh5XZ+oEg==,type:str]
+ yubikey_work_ed25519_sk.pub: ENC[AES256_GCM,data:ClpZYYM1NmOc57dGazjbgkUMlKTSOSv+kyt9WigH0Kk2IDJyAXa9Fhy17dBqSCT++b5dMJGzt9k06S7Owlu7jejNdj548Z8x+FWuxrBdmnUaZcEWwTzNqQbZVSvxNFM5Z/rxVSH/dYAAgYRj678DP4jhqbzPonAYoM29NVAVsg==,iv:OcZziLZ/eWS11qz2GQM20HoTojFk2GbS+4wlGCQ0/U4=,tag:n9CRKAzZ1glOKKEC7BK5eg==,type:str]
+ yubikey_work_ed25519_sk: ENC[AES256_GCM,data:oNElM5KSGZ01qGZ6IjmqWE3hVHX005dIsPUyuYHHJk7cYX/PACV4y8XZX2TJS2D+jkU9wQmvBFXYvAnpmjr8ydW6ZqCYL5DvDFImJi+BxIXNxDg7oGOiHhivpcZtHbQf5d0tNADTjzmYqSUmKGUt3Hz8pmISfAE7FAkIyxUGx27f51Bat1McXgHYxFIuEJ7aRoOC4XC6oXnSpZzQZGUBD9RG9puifElZgVVtX1Zfem1X84x2mJpoUCf42/i9wqcqU+c6CFeht0mJY0wcdLeOIN4Pc6ovO/5EDewQ6HYPvWiv2qS3hZnGJex1W6hBFfja/G9FyZV3xweGJf0P+Ktdqy8GJCJS9XRJKpaRGcrInJOM6f6DmFN3J+U3MMzyJdCygJRSnOLDeReVNNGpfvnxeOcLvEO1P/NCTWX1pWKvz+HdTOu8xB4uqkxGEdXqVxPe4YMUR1CulJ33n4w5hlEe+Z7RWcLiwM8IDZ5Xhc1qhpW47IZO6vhOqymsn9CqPO13dCE4BCN1P4VigWVLSG3CMNDhLroHj9YvgV4hvXvkKfu5YfjtzPv5+dsvbzlHkIKWEXToq2dj1PHgaXYebc4bJMu4HhETLpR13/Zo0aXcO7Y=,iv:XD6IGhXkTkYC4FuAtipiqcwBLtXXMfOL4ZiRTeJEIE0=,tag:8SPtqzCv80u0hvCkf7Xsdw==,type:str]
+ github_work_pat: ENC[AES256_GCM,data:8/WMuJkkjaUZzuL/f7qAPtXp1au114+H1IwPyHS88NqJojrofiSXWQ==,iv:ej4DwoR0DyOk/+pKVLtUHPNy5Jl0peONvE/EwIu5PRA=,tag:0Hj84ayN66bCx2+Ty01/kg==,type:str]
+ work_http_header_gate: ENC[AES256_GCM,data:dvNHsfWl6AtGOIHF0Z6mosWFTR7nGVAIUk4Kv9Eh1f36ENfsYZ0jEdrktdo=,iv:XduR91zPd0W6whRqvFn1U32KWDVPV1uFe9rtejQElLM=,tag:WxsPGxWF+IwNVkPRT758xQ==,type:str]
+ work_email: ENC[AES256_GCM,data:tLL4+BVHi5DirGxWkeb1J6koOUi8EbqDddip,iv:B3sop4n34x4c8VE3kVA1tNk2WaKSGTZTfcBHCLBpoyc=,tag:6ZaMA6WRTfMMPkpj4dfNKw==,type:str]
+ atlassian_api_token: ENC[AES256_GCM,data:OEVjbm9RaPyBiFfcd913h8dv4kqSj10z2pqtVsSP3+LmkYAi7Y0UVRk6TbStdL1gpUaCsju6MqFDv8mYiY9ee4ESWIQ3gY7j7dOaB8KvYO+/sokM4CWVbg+EExZiQQahsNHXaMCLvsnAX/RmrPtoxTk0hknYUqUulGVUTBuBWO2RHBmBbadstu+KRw5LRErMOySRYmLfRhUvM6G1WnVchakJ1uo1Kf6j7fjtOpht39EkGmY/hAiriZm55xykj6qu,iv:WpYDLP1pQm/G2wMLf651lzCt5+gP104c9IDEZXLEsvE=,tag:KP4ztViARpk8F9LL4W1JoA==,type:str]
+ cloudflare_tunnel_token: ENC[AES256_GCM,data:KDTouVXdGcbvxdFAS7P2PP8k0DBxqE5XtIQnXTxSQvatacJer43YPi7S33VxC3DkaomEhjb78COB3BpiupSFgvk3aWCXnoUv2HeEmsQVBBYCpXE2fqW0Jq9f4CByUeqfH/dAz0emEi8lCrdaDVPi5yJSkn8pq7AYYIts+0W+2ZW9dLguekZ5d4btlAMdgnBcvdgrJJ1pqnWftjQTr8xV6ATmJZdVpfMGMk2hjnigwMuRXDEjGIxXkA==,iv:MaESIg+bO7r5q6ZpR0ZQzwsvhbGf74YMUsgpW27e+SE=,tag:JXdwpd6tvZ3sKpBevsDcOg==,type:str]
+ hf_token: ENC[AES256_GCM,data:kp/s/qLkztpKkII+7bfXWqM6RhDR265WEyyLaDAVYlggASGE0w==,iv:RmSIu32TLJl6503KVrT15u/kpm2HMuxI+Fv22obhoKc=,tag:sMJEayevgPvI0tVI0ZFdqQ==,type:str]
++k3s-token: ENC[AES256_GCM,data:rNgeuzezxyqnYIuu4aIUY5YqKurG2q22hh/+tcD5j+4q9mUZDze35yazWVqyqjJ9NRnzsNx5ow8O9vRmTcK/Xg==,iv:DXzjZXbq1ajww+yX5fJYkq2uzvd0WTa4Cp+3eyb065A=,tag:eWQn0INglFrHx2fX80xgzA==,type:str]
+ sops:
+   age:
+     - enc: |
+         -----BEGIN AGE ENCRYPTED FILE-----
+         YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBrUlNMK3ZOZlhFMHROWUth
+         WnpQYy94cEV2V0M0MUlYS2tHdWxpSzU1em1ZCmVWTEZ0alhaVnZUWVozNUxsdGlG
+         VEZPUmxKZGlJRm83RENWbW0wSGk3eU0KLS0tIGtxUWgvajJBZjZwbkhHMThVTWRO
+         VWxhbi95ZDdMRDBGek1hQzhPQWJoL00KzxLQh9pBlEMSU6bRxG8vcnBVl8y1MQWh
+         pNGTScMyN8/cB9Cq/amTLZ1iU+wGJo1RsxMZNWwpWH3FfjJvshRqVQ==
+         -----END AGE ENCRYPTED FILE-----
+@@ -243,14 +244,14 @@ sops:
+       recipient: age1pht7y3taycjxyqky7gr97glf5e7tqxygeusd3nmj3s0l6j8hlqfqkeq4wg
+     - enc: |
+         -----BEGIN AGE ENCRYPTED FILE-----
+         YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBjejZ3QXVjQlpJS3RaSVhx
+         dHVpeTRCSmJ0bk44TlY3VkNrUXBLVjNJMlJ3CndyVWVhNjZUdkNIeXVFU0tiT1Ey
+         enEwcE53RmxXeUtTS3lqTkx3aWU2QncKLS0tIDlYQTA3eVdvZnFkMDh1bTdqVjNk
+         cjdGUVJkVVZQNW1oUkhEN1FqRElnYW8K6IjvZwqKCoF5HollUxA5OnATm1HFRYfH
+         1vdfJfWd7NZwVIp2l85eReFBpJ8i18wNqa7cDs5qmMftg2mHCtDJrg==
+         -----END AGE ENCRYPTED FILE-----
+       recipient: age1cxf324r7tpd5t7thzk583ufuqele566l4e0crjrpfneu6wvjncns8pgpsg
+-  lastmodified: "2026-10-25T01:18:30Z"
+-  mac: ENC[AES256_GCM,data:2Pr6+7hd7zHBr7Rxn5iLmMMNaG/sjh99NIBELOvNXxAIp4Tbla/EGMvGEQm//kw6wOhm0Mr7sHQwGr4rsDg7Tj4vExUZ7+ZTgNsOEN4jQw5TR/rPdMi4V2hP4WvVrWRTdXgeOiOR+uji/lZWOpnhXJZEb3ruw1vLSu5Fh42Lfc0=,iv:lTmTvYYC7/gDatmlGdQOGa5LRlCMC7asZ2kSeMCJv4U=,tag:5txdhZSajQIna6HZVwFzTw==,type:str]
++  lastmodified: "2026-10-25T18:32:18Z"
++  mac: ENC[AES256_GCM,data:EIKnMk2mAY8/G6XwbfNIy2h/vtTFcns7kCm7g/iwxAZwgemyZ9d/Ecb4Lzw1AzqvbNo2IgjlmJkRXEn9qUPtqPCZ9Jo7kX7tPzM5iC+LeXXRBB0Piv0pipSNGInnkUvgqMpZO6wvoKiUaH8EX5OP2b6PNTTf7AjLnJvnTqM4J/Y=,iv:EWO4fbvFPykq/VCVbfDWpJnyPgbg6lAwRrbkUHQRJ3A=,tag:5aydO+aIA3wEe8VyMibBqw==,type:str]
+   unencrypted_suffix: _unencrypted
+   version: 3.13.3
+diff --git a/todos.md b/todos.md
+index 6ec3d94b..ca9bb738 100755
+--- a/todos.md
++++ b/todos.md
+@@ -1,12 +1,22 @@
+ # TODOs
+ 
++## k3s cluster (nas + MacMini-Intel, day one)
++
++- [x] k3s two-server cluster declared (design: `docs/superpowers/specs/2026-10-25-k3s-nas-design.md`, plan: `docs/superpowers/plans/2026-10-25-k3s-nas-macmini.md`): `nixcfg.k3s` wrapper module, nas cluster-init server, MacMini-Intel joins via `https://10.1.0.3:6443`, shared sops `k3s-token`, traefik disabled.
++  - Manual rollout order (eval verified, not yet deployed): deploy nas first, wait for `k3s kubectl get nodes` Ready, then deploy MacMini-Intel.
++- [ ] Deploy + verify: `nixos-rebuild switch --flake .#nas`, then `.#MacMini-Intel-NixOS`; `kubectl get nodes -o wide` shows 2 Ready.
++- [ ] Third server for etcd quorum (router or protectli) — 2-node etcd has no quorum HA until then.
++- [ ] Storage re-architecture for stateful workloads (`/mnt/POOL` via local-path/Longhorn/Ceph decision).
++- [ ] Caddy ingress integration for cluster services.
++- [ ] aarch64 nodes (rpis) after x86_64 stable.
++
+ Outstanding work and follow-up items for this repository.
+ 
+ > AI agents: per the "Todo Tracking" section of [AGENTS.md](AGENTS.md), you are
+ > expected to keep this file up to date — check off completed items, and add
+ > deferred work or manual steps before finishing a task.
+ 
+ - [x] Consolidate `hermes` user into `agent`: set `shell = lib.mkDefault pkgs.bash` in `modules/os/users/agent.nix`, and override `services.hermes-agent.user/group = "agent"` with `createUser = false` in `nas/configuration.nix`. After rebuild the `hermes` passwd entry will disappear automatically.
+ - [ ] Genericize remaining `hermes`→`agent` descriptions in `secretspec.toml` (`HERMES_MAX_ITERATIONS`, `OPENCODE_API_KEY`) and `nas/configuration.nix` comments. Keep upstream API names (`services.hermes-agent`, `inputs.hermes-agent`, `HERMES_*` env, `hermes-cli` toolset) as-is.
+ - [ ] Revert `nixos-avf` flake input to `github:nix-community/nixos-avf` once [PR #45](https://github.com/nix-community/nixos-avf/pull/45) (remove `boot.initrd.systemd.enable`) is merged. Currently pinned to `github:mio-19/nixos-avf/4c557dc7444eb6b6b16937e9e788cbd20496748a`.
+ - [ ] Revert `preservation` flake input to `github:WilliButz/preservation` once [PR #36](https://github.com/WilliButz/preservation/pull/36) (remove `boot.initrd.systemd.enable` references) is merged. Currently pinned to `github:mjm/preservation/ed8dbeaac0ad240341259c814cade7163a53fc1f`.
