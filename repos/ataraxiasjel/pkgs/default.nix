@@ -19,6 +19,7 @@ let
     bibata-cursors-tokyonight = final.callPackage ./bibata-cursors-tokyonight { };
     cargo-doc-mcp = final.callPackage ./cargo-doc-mcp { };
     ceserver = final.callPackage ./ceserver { };
+    dwproton-bin = final.callPackage ./dwproton-bin { };
     endfield-daily = final.callPackage ./endfield-daily { };
     github-mcp-server = final.callPackage ./github-mcp-server { };
     hoyolab-claim-bot = final.callPackage ./hoyolab-claim-bot { };
@@ -31,6 +32,7 @@ let
     nix-update-docker-image = final.python3Packages.callPackage ./nix-update-docker-image { };
     opencodex = final.callPackage ./opencodex { };
     prometheus-podman-exporter = final.callPackage ./prometheus/podman-exporter.nix { };
+    proton-ge-bin = final.callPackage ./proton-ge-bin { };
     protonhax = final.callPackage ./protonhax { };
     prts-cursor = final.callPackage ./prts-cursor { };
     realrtcw = final.callPackage ./realrtcw { };
@@ -109,6 +111,12 @@ let
         skipBulkUpdate = true;
       };
     });
+  }
+  // lib.optionalAttrs prev.stdenv.hostPlatform.isLinux {
+    proton-cachyos-bin = final.callPackage ./proton-cachyos-bin { };
+  }
+  // lib.optionalAttrs (prev.stdenv.hostPlatform.system == "x86_64-linux") {
+    proton-cachyos-bin-v3 = final.callPackage ./proton-cachyos-bin { variant = "x86_64_v3"; };
   };
 in
 finalOverlay
