@@ -20,7 +20,7 @@
   },
   {
     "addonId": "{a8cf72f7-09b7-4cd4-9aaa-7a023bf09916}",
-    "hash": "sha256:698e976a06d8dfe60a7bdd2b459ef1f2ffb722f993c22355c61d4862367f9a95",
+    "hash": "sha256:4335973a222d50f4c385152a58447b5429026d546eec8685a214499f34921bb3",
     "homepage": "https://time-tracker-4-browser.app/en/",
     "licenseId": 22,
     "permissions": [
@@ -32,8 +32,8 @@
     ],
     "slug": "besttimetracker",
     "summary": "Track time, analyze your habits and block addictive sites",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5167472/besttimetracker-4.6.6.xpi",
-    "version": "4.6.6"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5241470/besttimetracker-4.7.0.xpi",
+    "version": "4.7.0"
   },
   {
     "addonId": "{74145f27-f039-47ce-a470-a662b129930a}",
@@ -254,20 +254,18 @@
   },
   {
     "addonId": "{5cce4ab5-3d47-41b9-af5e-8203eea05245}",
-    "hash": "sha256:8af1388ce0c9edf27fad3d2fac480591c03389fa7090029a718b63eee14f5d6c",
+    "hash": "sha256:916187f4885c782d185bc578991afb87fcf05e89a95e0ab412425dc2a53c7a3a",
     "homepage": "https://soitis.dev/control-panel-for-twitter",
     "licenseId": 22,
     "permissions": [
       "storage",
       "https://twitter.com/*",
-      "https://mobile.twitter.com/*",
-      "https://x.com/*",
-      "https://mobile.x.com/*"
+      "https://x.com/*"
     ],
     "slug": "control-panel-for-twitter",
     "summary": "Gives you more control over Twitter and adds missing features and UI improvements",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5115146/control_panel_for_twitter-4.25.1.xpi",
-    "version": "4.25.1"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5265265/control_panel_for_twitter-4.99.2.xpi",
+    "version": "4.99.2"
   },
   {
     "addonId": "crxviewer-firefox@robwu.nl",
@@ -292,7 +290,7 @@
   },
   {
     "addonId": "addon@darkreader.org",
-    "hash": "sha256:700633395aa2f639a1bed4253e27309eb676f346d599b0ae2b7a0453232e0aec",
+    "hash": "sha256:bfed4591d6cc69857f5ed33a2d3cbfbc5811d5b92c4323d0735d2f1757e2dce4",
     "homepage": "https://darkreader.org/",
     "licenseId": 22,
     "permissions": [
@@ -305,12 +303,12 @@
     ],
     "slug": "darkreader",
     "summary": "Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing.",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5175215/darkreader-4.9.134.xpi",
-    "version": "4.9.134"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5216111/darkreader-4.9.135.xpi",
+    "version": "4.9.135"
   },
   {
     "addonId": "floccus@handmadeideas.org",
-    "hash": "sha256:a461abeb50d6578498d959fb4ac96cb8a327f0ecae6371618a1550425267ee62",
+    "hash": "sha256:71f658e689e67c17b3c605503e64400fa05c730618365b8d023b8e63bd1c8473",
     "homepage": "https://floccus.org",
     "licenseId": 3338,
     "permissions": [
@@ -325,8 +323,8 @@
     ],
     "slug": "floccus",
     "summary": "Securely synchronize bookmarks across Chrome, Firefox, Edge, and more using your own cloud storage.",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5156500/floccus-5.12.0.xpi",
-    "version": "5.12.0"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5224106/floccus-5.13.0.xpi",
+    "version": "5.13.0"
   },
   {
     "addonId": "foxytab@eros.man",
@@ -415,7 +413,7 @@
   },
   {
     "addonId": "7esoorv3@alefvanoon.anonaddy.me",
-    "hash": "sha256:c0fa9a5c2302eb734b1b614284371061330cf2e7b3519ee96c53e8be58ae298f",
+    "hash": "sha256:cd0796cbcaf9f7eb2643e9b937dc735526605e6eae925eda2a28b2e703bff234",
     "homepage": "https://libredirect.manerakai.com/",
     "licenseId": 6,
     "permissions": [
@@ -428,8 +426,8 @@
     ],
     "slug": "libredirect",
     "summary": "Redirects YouTube, Twitter, TikTok... requests to alternative privacy friendly frontends.",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4916828/libredirect-3.4.0.xpi",
-    "version": "3.4.0"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5207393/libredirect-3.5.1.xpi",
+    "version": "3.5.1"
   },
   {
     "addonId": "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}",
@@ -458,7 +456,7 @@
   },
   {
     "addonId": "@testpilot-containers",
-    "hash": "sha256:306a294845363f15a7478e9620b43f91ea1761088727808e2327bfff16c14447",
+    "hash": "sha256:095d9d470158c2c09638b460dee0fca4489b9e47f512ea168d9498f964c79b64",
     "homepage": "https://github.com/mozilla/multi-account-containers/#readme",
     "licenseId": 3338,
     "permissions": [
@@ -478,8 +476,8 @@
     ],
     "slug": "multi-account-containers",
     "summary": "Firefox Multi-Account Containers lets you keep parts of your online life separated into color-coded tabs. Cookies are separated by container, allowing you to use the web with multiple accounts and integrate Mozilla VPN for an extra layer of privacy.",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4867303/multi_account_containers-8.3.8.xpi",
-    "version": "8.3.8"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5272233/multi_account_containers-8.4.1.xpi",
+    "version": "8.4.1"
   },
   {
     "addonId": "newtaboverride@agenedia.com",
@@ -928,7 +926,7 @@
       "http://www.google.cat/*"
     ],
     "slug": "privacy-badger17",
-    "summary": "Automatically learns to block hidden trackers. Made by the leading digital rights nonprofit EFF to stop companies from spying on you.",
+    "summary": "You need more than an ad blocker. Stop companies from spying on you with an extension developed by member-supported digital rights nonprofit EFF.",
     "url": "https://addons.mozilla.org/firefox/downloads/file/5032646/privacy_badger17-2026.9.15.xpi",
     "version": "2026.9.15"
   },
@@ -965,7 +963,7 @@
   },
   {
     "addonId": "{762f9885-5a13-4abd-9c77-433dcd38b8fd}",
-    "hash": "sha256:59719749f6df38c1601ca5f39c02158d5f005c43e9eeea1f19527f468c941217",
+    "hash": "sha256:ac52f0786bbf4e4a669009be0e2847c21c642e60cfe358c01a80057c52d507d6",
     "licenseId": 6,
     "permissions": [
       "activeTab",
@@ -976,8 +974,8 @@
     ],
     "slug": "return-youtube-dislikes",
     "summary": "Returns ability to see dislike statistics on youtube",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5012638/return_youtube_dislikes-4.0.6.xpi",
-    "version": "4.0.6"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5222672/return_youtube_dislikes-4.1.7.xpi",
+    "version": "4.1.7"
   },
   {
     "addonId": "{3c078156-979c-498b-8990-85f7987dd929}",
@@ -1005,7 +1003,7 @@
   },
   {
     "addonId": "{531906d3-e22f-4a6c-a102-8057b88a1a63}",
-    "hash": "sha256:4a2ea4e685e4562995ee0d0b31f11005b69b533959f4119ac6f7b4f8d846b865",
+    "hash": "sha256:0bd60baef8d6f153574e15ce599135b573c1d7c727ae6fbc1499c49e8b491fa5",
     "homepage": "https://www.getsinglefile.com",
     "licenseId": 7714,
     "permissions": [
@@ -1018,8 +1016,8 @@
     ],
     "slug": "single-file",
     "summary": "Save an entire web page—including images and styling—as a single HTML file.",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5177756/single_file-1.33.0.xpi",
-    "version": "1.33.0"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5274593/single_file-1.39.0.xpi",
+    "version": "1.39.0"
   },
   {
     "addonId": "sponsorBlocker@ajay.app",
@@ -1041,7 +1039,7 @@
   },
   {
     "addonId": "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}",
-    "hash": "sha256:6ea20f86a2015e3e7a639e2dbb13bc0d63461fdfdb80d7138c3f8e8924e4fb1c",
+    "hash": "sha256:4c8e1b0f63457dd9092e6148631fbaddb71edc24d3acfc39b53ea8f78f0d2254",
     "homepage": "https://add0n.com/stylus.html",
     "licenseId": 6,
     "permissions": [
@@ -1058,8 +1056,8 @@
     ],
     "slug": "styl-us",
     "summary": "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5142667/styl_us-2.4.17.xpi",
-    "version": "2.4.17"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5257053/styl_us-2.4.18.xpi",
+    "version": "2.4.18"
   },
   {
     "addonId": "Tab-Session-Manager@sienori",
@@ -1083,7 +1081,7 @@
   },
   {
     "addonId": "tab-stash@condordes.net",
-    "hash": "sha256:27471446d599cdc626f91fedf6b572fb4b1c4964e9b2c2b47169d7537c3c9524",
+    "hash": "sha256:6b89c985b4792e5453db856e7ab8289e2bb0530f7109183fbed042377ed37e0e",
     "homepage": "https://josh-berry.github.io/tab-stash/",
     "licenseId": 3338,
     "permissions": [
@@ -1101,8 +1099,8 @@
     ],
     "slug": "tab-stash",
     "summary": "Easily save and organize batches of tabs as bookmarks. Clear your tabs, clear your mind. Only for Firefox.",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5028003/tab_stash-3.5.xpi",
-    "version": "3.5"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5258416/tab_stash-3.5.1.xpi",
+    "version": "3.5.1"
   },
   {
     "addonId": "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}",
@@ -1122,7 +1120,7 @@
   },
   {
     "addonId": "uBlock0@raymondhill.net",
-    "hash": "sha256:5b74415860456370644bd80f16125e865b0e6c356bb5dfcfb84069967eaa5287",
+    "hash": "sha256:debffadf7d5117bd2d4e9218e27bfdf3112544fd2e87f14882d274a11dc95375",
     "homepage": "https://github.com/gorhill/uBlock#ublock-origin",
     "licenseId": 6,
     "permissions": [
@@ -1130,6 +1128,7 @@
       "dns",
       "menus",
       "privacy",
+      "publicSuffix",
       "storage",
       "tabs",
       "unlimitedStorage",
@@ -1152,8 +1151,8 @@
     ],
     "slug": "ublock-origin",
     "summary": "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5034826/ublock_origin-1.75.0.xpi",
-    "version": "1.75.0"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5282683/ublock_origin-1.76.6.xpi",
+    "version": "1.76.6"
   },
   {
     "addonId": "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}",
