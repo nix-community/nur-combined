@@ -66,6 +66,7 @@ in
     meta =
       mise.meta
       // {
+        broken = lib.versionOlder usage.version "6.11";
         changelog = "https://github.com/jdx/mise/blob/refs/tags/v${version}/CHANGELOG.md";
         maintainers = mise.meta.maintainers ++ [lib.maintainers.examosa];
         platforms = lib.attrNames archives;

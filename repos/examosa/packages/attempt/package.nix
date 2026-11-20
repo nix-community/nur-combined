@@ -3,7 +3,6 @@
   lib,
   nix-update-script,
   rustPlatform,
-  stdenv,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "attempt";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-hxk97/DNM0febIJLXido6ejM1y3is0yx9MqmbdnmT0s=";
 
-  patches = lib.optional stdenv.buildPlatform.isDarwin ./tests.patch;
+  patches = [./tests.patch];
 
   postPatch = ''
     substituteInPlace src/main.rs tests/e2e.rs \
