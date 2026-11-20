@@ -535,6 +535,12 @@ lib.mkOption {
               description = "Show indeterminate progress updates during long operations";
             };
 
+            prompts = lib.mkOption {
+              type = lib.types.nullOr (lib.types.attrsOf lib.types.str);
+              default = null;
+              description = "Files that replace Crush's built-in prompts, keyed by prompt name. A replacement is used verbatim, so anything the built-in template injected (skills, context files, LSP status) is lost unless the replacement asks for it too.";
+            };
+
             request_timeout = lib.mkOption {
               type = lib.types.nullOr lib.types.int;
               default = 60;
@@ -610,6 +616,12 @@ lib.mkOption {
                     type = lib.types.nullOr lib.types.bool;
                     default = true;
                     description = "Enable terminal mouse capture for selection, clicks, and scrolling in the TUI. Disable to let the terminal emulator or tmux handle text selection and copy/paste";
+                  };
+
+                  nerd_fonts = lib.mkOption {
+                    type = lib.types.nullOr lib.types.bool;
+                    default = null;
+                    description = "Override Nerd Font glyph detection for the TUI: true forces glyphs on, false forces them off, and unset keeps automatic detection";
                   };
 
                   scrollbar = lib.mkOption {
