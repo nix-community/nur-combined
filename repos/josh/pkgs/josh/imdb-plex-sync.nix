@@ -1,46 +1,39 @@
 {
   lib,
-  python3Packages,
+  buildGoModule,
   fetchFromGitHub,
   nix-update-script,
-  runCommand,
+  testers,
 }:
-python3Packages.buildPythonApplication (finalAttrs: {
+buildGoModule (finalAttrs: {
   pname = "imdb-plex-sync";
-  version = "0.4.2";
-
-  pyproject = true;
+  version = "0.1.0";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "imdb-plex-sync";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-mfQOjU1zlx6jAJc6fWm/iL9wsKxXKp6Xr5SizVQc9GA=";
+    hash = "sha256-aL4/i2L+EnnPpOqw136prKRC7wSAYvwpCnzkdImFLGg=";
   };
 
-  build-system = with python3Packages; [
-    hatchling
+  vendorHash = "sha256-9FLAVUGHmokTj6nZzo65wdVzaa9t/5MUMVnyC+Lt5LI=";
+
+  env.CGO_ENABLED = 0;
+  ldflags = [
+    "-s"
+    "-w"
   ];
 
-  dependencies = with python3Packages; [
-    click
-    pyarrow
-  ];
-
-  # TODO: Drop once nixpkgs ships pyarrow 26
-  pythonRelaxDeps = [ "pyarrow" ];
-
-  pythonImportsCheck = [ "imdb_plex_sync" ];
+  doCheck = false;
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {
-    # TODO: Add --version test
-
-    help = runCommand "test-imdb-plex-sync-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''
-      imdb-plex-sync --help
-      touch $out
-    '';
+    version = testers.testVersion {
+      package = finalAttrs.finalPackage;
+      command = "imdb-plex-sync -version";
+      inherit (finalAttrs) version;
+    };
   };
 
   meta = {
@@ -48,6 +41,5 @@ python3Packages.buildPythonApplication (finalAttrs: {
     homepage = "https://github.com/josh/imdb-plex-sync";
     license = lib.licenses.mit;
     mainProgram = "imdb-plex-sync";
-    platforms = lib.platforms.all;
   };
 })
