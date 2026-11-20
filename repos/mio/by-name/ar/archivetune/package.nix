@@ -30,6 +30,7 @@
   makeDesktopItem,
   makeWrapper,
   mpv,
+  mpv-unwrapped,
   mpvScripts ? null,
   yt-dlp,
   nix-update,
@@ -45,6 +46,11 @@ let
   mpvPkg =
     if (stdenv.hostPlatform.isLinux && mpvScripts != null) then
       (mpv.override { scripts = [ mpvScripts.mpris ]; })
+    else if stdenv.hostPlatform.isDarwin then
+      # nixpkgs' mpv 0.42 is built with libcurl on darwin and segfaults right
+      # after startup, before the IPC socket is created. Dropping libcurl makes
+      # it use ffmpeg's HTTP stack for streaming instead.
+      mpv.override { mpv-unwrapped = mpv-unwrapped.override { curlSupport = false; }; }
     else
       mpv;
 
