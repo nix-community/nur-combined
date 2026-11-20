@@ -8,17 +8,12 @@
 | --- | --- | --- |
 | `baidunetdisk` | 百度网盘 Linux 客户端（非自由软件） | `x86_64-linux` |
 | `lceda-pro` | 嘉立创EDA专业版 Linux 客户端（非自由软件） | `x86_64-linux` |
-| `qq` | QQ 客户端（非自由软件） | `x86_64-linux` |
-| `z-library` | Z-Library 桌面客户端（非自由软件） | `x86_64-linux` |
 
 
 百度网盘使用上游的 Debian 安装包，通过 FHS 环境运行。启动脚本会传入 `--no-sandbox`。
 
 嘉立创EDA专业版使用官方 Linux 客户端，保留上游的发行许可文件。首次使用可能需要导入官方激活文件。
 
-QQ 基于 nixpkgs 的打包方式，构建时通过腾讯签名接口获取下载地址；版本和哈希由本仓库独立维护。腾讯可能下架旧版本，已安装的 Home Manager generation 会保留对应的本地 Nix store 闭包；清理旧 generation 后无法保证旧版本仍可重新下载。本仓库的公开 Cachix 构建流程排除非自由软件，不会缓存 QQ。
-
-Z-Library 桌面客户端基于 nixpkgs 打包，目前版本为 `3.2.1`，使用 Wayback Machine 保存的 Debian 安装包。版本和来源由本仓库手动维护，暂未启用自动更新；重新构建需要能够访问对应的存档。
 
 ## 开发
 
