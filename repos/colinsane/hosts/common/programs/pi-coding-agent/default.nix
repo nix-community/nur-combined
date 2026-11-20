@@ -252,7 +252,15 @@ in
 
     buildCost = 1;
 
-    packageUnwrapped = pkgs.pi-coding-agent.overrideAttrs (prevAttrs: {
+    packageUnwrapped = let
+      # basePackage = pkgs.pi-coding-agent;
+      # basePackage = pkgs.pi-coding-agent-latest;
+      basePackage = pkgs.pi-coding-agent.overrideAttrs (prevAttrs: {
+        modelData = lib.warnIf (lib.versionOlder "1.5.2" prevAttrs.version)
+          "nixpkgs pi-coding-agent is updated: remove overridden modelData?"
+          pkgs.pi-coding-agent-latest.modelData;
+      });
+    in basePackage.overrideAttrs (prevAttrs: {
       nativeBuildInputs = prevAttrs.nativeBuildInputs or [ ] ++ [
         pkgs.makeWrapper
       ];
@@ -269,16 +277,24 @@ in
       # - PI_SKIP_VERSION_CHECK: Skip the Pi version update check at startup
       # - PI_TELEMETRY: Override install/update telemetry (1/true/yes to enable, 0/false/no to disable)
       # - PI_CACHE_RETENTION: Set to long for extended prompt cache (Anthropic: 1h, OpenAI: 24h)
-      postFixup = ''
-        wrapProgram() {
-          wrapProgramShell "$@" \
-            --set-default PI_OFFLINE 1 \
-            --set-default PI_SKIP_VERSION_CHECK 1 \
-            --run 'export PI_CODING_AGENT_DIR=''${PI_CODING_AGENT_DIR:-$XDG_CONFIG_HOME/pi}' \
-            --run 'export LLAMA_BASE_URL=''${LLAMA_BASE_URL:-http://${deskoHostname}:11435}' \
-            --run 'export NANOGPT_API_KEY=''${NANOGPT_API_KEY:-$(cat "$XDG_CONFIG_HOME/nanogpt/nanogpt_api_key")}'
+      #
+      # placed in preInstall to support both nixpkgs' `pi-coding-agent` (which uses postFixup)
+      # and earendil's package (uses installPhase)
+      preInstall = ''
+        extraMakeWrapperArgs=(
+          --set-default PI_OFFLINE 1
+          --set-default PI_SKIP_VERSION_CHECK 1
+          --run 'export PI_CODING_AGENT_DIR=''${PI_CODING_AGENT_DIR:-$XDG_CONFIG_HOME/pi}'
+          --run 'export LLAMA_BASE_URL=''${LLAMA_BASE_URL:-http://${deskoHostname}:11435}'
+          --run 'export NANOGPT_API_KEY=''${NANOGPT_API_KEY:-$(cat "$XDG_CONFIG_HOME/nanogpt/nanogpt_api_key")}'
+        )
+        makeWrapper() {
+          makeShellWrapper "$@" "''${extraMakeWrapperArgs[@]}"
         }
-        ${prevAttrs.postFixup}
+        wrapProgram() {
+          wrapProgramShell "$@" "''${extraMakeWrapperArgs[@]}"
+        }
+        ${prevAttrs.preInstall or ""}
       '';
     });
 
@@ -488,10 +504,10 @@ in
           # "google/gemma-4-31b-it"
           # "moonshotai/kimi-k2.6"
           # "moonshotai/kimi-k3"  # N.B.: k3 is worse than terra in most measures (cost, capability, speed)
-          "z-ai/glm-5.3-flash" # $0.30/1M output <https://nano-gpt.com/models/text/z-ai/glm-5.3-flash>
+          # "z-ai/glm-5.3-flash" # $0.30/1M output <https://nano-gpt.com/models/text/z-ai/glm-5.3-flash>
           "openai/gpt-6-luna" # $0.50/1M output <https://nano-gpt.com/models/text/openai/gpt-6-luna>
-          "openai/gpt-6.1-sol" # $10/1M output <https://nano-gpt.com/models/text/openai/gpt-6.1-sol>
-          "anthropic/claude-sonnet-5.5" # $10/1M output <https://nano-gpt.com/models/text/anthropic/claude-sonnet-5.5>
+          "openai/gpt-6.2-sol" # $10/1M output <https://nano-gpt.com/models/text/openai/gpt-6.2-sol>
+          # "anthropic/claude-sonnet-5.5" # $10/1M output <https://nano-gpt.com/models/text/anthropic/claude-sonnet-5.5>
           "anthropic/claude-opus-5.5" # $20/1M output <https://nano-gpt.com/models/text/anthropic/claude-opus-5.5>
           # "deepseek/deepseek-latest"
           # "zai-org/glm-latest"

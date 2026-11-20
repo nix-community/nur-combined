@@ -40,19 +40,18 @@
   xvidcore,
   xz,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "pikeru";
-  version = "1.17";
+  version = "1.18";
 
   src = fetchFromGitHub {
     owner = "dvhar";
     repo = "pikeru";
     rev = finalAttrs.version;
-    hash = "sha256-bxBQMcMan+wwUeGv01b9eS7KAAs2X6w4YU8bK8HaSVw=";
+    hash = "sha256-Mz90GsCFWjqIvNeRFKjgukWqdcClgghMq96sLySGoS8=";
   };
 
-  cargoHash = "sha256-D7B+TD+6ULVbDtLOUn/EEwDM0q1I7rpCS1D15rq2Its=";
+  cargoHash = "sha256-WxpqP0BYt9kkZkl7rMeRetqZ3h/hUEeal1IFmJOe4/I=";
 
   # most tests fail: "Portal failed to register on D-Bus after 5s."
   doCheck = false;
@@ -67,9 +66,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
     substituteInPlace src/portal.rs \
       --replace-fail '/usr/local/share' '/run/current-system/sw/share' \
       --replace-fail '/usr/share' "${placeholder "out"}/share"
-    # Disable the `build` feature in video-rs to use system ffmpeg instead of building from source
+    # Use the system FFmpeg instead of building a bundled copy.
     substituteInPlace src/video-rs/Cargo.toml \
-      --replace-fail '"build"' '"static"'
+      --replace-fail '"static",' "" \
+      --replace-fail '"build",' "" \
+      --replace-fail '"build-license-gpl",' "" \
+      --replace-fail '"build-license-version3",' "" \
+      --replace-fail '"build-lib-dav1d"' ""
   '';
 
   nativeBuildInputs = [
