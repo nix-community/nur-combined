@@ -327,7 +327,7 @@
     },
     "nix-auth": {
         "cargoLock": null,
-        "date": "2026-11-18",
+        "date": "2026-11-19",
         "extract": null,
         "name": "nix-auth",
         "passthru": null,
@@ -339,12 +339,12 @@
             "name": null,
             "owner": "numtide",
             "repo": "nix-auth",
-            "rev": "6a37bd15a2567516dd5aa175ebd5a320ae89aecb",
-            "sha256": "sha256-2zZjduxp2Coq6PhTCQL4ALX1zTuVsJTrRYOfFuRe9G4=",
+            "rev": "581dce2dcffe51e66995e85b2687c018aaf6de30",
+            "sha256": "sha256-7NsGOPj98RmpDbj789d2BIB+i9zGPqJWd0GwRBCwocc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6a37bd15a2567516dd5aa175ebd5a320ae89aecb"
+        "version": "581dce2dcffe51e66995e85b2687c018aaf6de30"
     },
     "ntfsprogs-plus": {
         "cargoLock": null,
@@ -445,7 +445,7 @@
     },
     "pipewire-bluez5-lhdc-git": {
         "cargoLock": null,
-        "date": "2026-11-18",
+        "date": "2026-11-19",
         "extract": null,
         "name": "pipewire-bluez5-lhdc-git",
         "passthru": null,
@@ -455,13 +455,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "b7a0eb37bbc1b06da073d56087342cd860333154",
-            "sha256": "sha256-KNzM5TJYASsOly6QUPlhkqLURfpy6/ZLqvTaRIjIzrU=",
+            "rev": "0e30a575c2e279bd7a8975e403168f8ac906cc7e",
+            "sha256": "sha256-9KPhL2Gntyx6vHJTXwgvCM4B8V/RGxh0XbDo1iHwlR8=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.freedesktop.org/pipewire/pipewire.git"
         },
-        "version": "b7a0eb37bbc1b06da073d56087342cd860333154"
+        "version": "0e30a575c2e279bd7a8975e403168f8ac906cc7e"
     },
     "pipewire-bluez5-lhdc-jd-git": {
         "cargoLock": null,
