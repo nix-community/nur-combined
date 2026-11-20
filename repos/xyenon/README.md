@@ -141,7 +141,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>magpie</code></strong> — Manage models, providers, and accounts for AI coding agents in one place</summary>
 
-- **Version:** `0.1.4572`
+- **Version:** `0.1.4582`
 - **License:** MIT
 - **Homepage:** [https://github.com/yetone/magpie](https://github.com/yetone/magpie)
 - **Build:** `nix build github:XYenon/nur-packages#magpie`
@@ -151,7 +151,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>nginx</code></strong> — Reverse proxy and lightweight webserver</summary>
 
-- **Version:** `1.30.6`
+- **Version:** `1.30.7`
 - **License:** BSD-2-Clause
 - **Homepage:** [https://nginx.org](https://nginx.org)
 - **Build:** `nix build github:XYenon/nur-packages#nginx`
@@ -161,7 +161,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>nginxMainline</code></strong> — Reverse proxy and lightweight webserver</summary>
 
-- **Version:** `1.31.8`
+- **Version:** `1.31.9`
 - **License:** BSD-2-Clause
 - **Homepage:** [https://nginx.org](https://nginx.org)
 - **Build:** `nix build github:XYenon/nur-packages#nginxMainline`
@@ -171,7 +171,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>nh</code></strong> — Yet another nix cli helper</summary>
 
-- **Version:** `4.4.2-unstable-2026-11-12`
+- **Version:** `4.5.0-unstable-2026-11-12`
 - **License:** EUPL-1.2
 - **Homepage:** [https://github.com/XYenon/nh](https://github.com/XYenon/nh)
 - **Build:** `nix build github:XYenon/nur-packages#nh`
