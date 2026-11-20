@@ -222,10 +222,10 @@
     };
     "adnauseam" = buildMozillaXpiAddon {
       pname = "adnauseam";
-      version = "3.29.2";
+      version = "3.29.4";
       addonId = "adnauseam@rednoise.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5058842/adnauseam-3.29.2.xpi";
-      sha256 = "a8384213e05e87b7d18a7e710604c482a91e1dcc45205b074bf7d9b9454b1064";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5248814/adnauseam-3.29.4.xpi";
+      sha256 = "dfd9f2f5e81abf89907d5ddb5038fe5c0972bf24c520b5fd58d8109a50b18804";
       meta = with lib;
       {
         homepage = "https://adnauseam.io";
@@ -236,6 +236,7 @@
           "dns"
           "menus"
           "privacy"
+          "publicSuffix"
           "storage"
           "tabs"
           "unlimitedStorage"
@@ -277,10 +278,10 @@
     };
     "ahrefs-seo-toolbar" = buildMozillaXpiAddon {
       pname = "ahrefs-seo-toolbar";
-      version = "3.3.0";
+      version = "3.3.1";
       addonId = "ahrefs@AhrefsPteLtd";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5269183/ahrefs_seo_toolbar-3.3.0.xpi";
-      sha256 = "52a1b1a18b4d5c1b48af669bed148f69735e4e520317a9d2ee382b97088086b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5279586/ahrefs_seo_toolbar-3.3.1.xpi";
+      sha256 = "a4d2052c86c82cd2ee7fc34df9ceb3a1b819697f925b60ab017f8d17a391ac5a";
       meta = with lib;
       {
         homepage = "https://ahrefs.com/seo-toolbar";
@@ -407,17 +408,16 @@
     };
     "angular-devtools" = buildMozillaXpiAddon {
       pname = "angular-devtools";
-      version = "1.22.2";
+      version = "1.22.3";
       addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5210558/angular_devtools-1.22.2.xpi";
-      sha256 = "a1f0fa9f7eb28b1acfae176d5cb7f9c34a8301eb0bed8e2f6ba06683c6ebafdb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5278263/angular_devtools-1.22.3.xpi";
+      sha256 = "d8109cf396d602396ca81e6971a9bf7109eb8c565f71cf79608fae0196c7ee2b";
       meta = with lib;
       {
         homepage = "https://angular.dev/tools/devtools/";
         description = "Angular DevTools extends Firefox DevTools adding Angular specific debugging and profiling capabilities.";
         license = licenses.mit;
         mozPermissions = [
-          "activeTab"
           "storage"
           "http://*/*"
           "https://*/*"
@@ -1372,14 +1372,14 @@
     };
     "bitwarden" = buildMozillaXpiAddon {
       pname = "bitwarden";
-      version = "2026.10.2";
+      version = "2026.11.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5198653/bitwarden_password_manager-2026.10.2.xpi";
-      sha256 = "abf9d7273dd55ac0583ecc6997f7f7ae3d29de11e2ad0a4838b80e2b941daa73";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5278513/bitwarden_password_manager-2026.11.0.xpi";
+      sha256 = "607d6433d9de151a4c51135ad9e70882460d0e0493a9b585f15a9848d5f10b97";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
-        description = "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information.";
+        description = "Securely store, share, and autofill passwords and passkeys anywhere.";
         mozPermissions = [
           "<all_urls>"
           "*://*/*"
@@ -1547,10 +1547,10 @@
     };
     "bramble" = buildMozillaXpiAddon {
       pname = "bramble";
-      version = "1.37.0";
+      version = "1.38.0";
       addonId = "firefox@bramble.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5254582/bramble-1.37.0.xpi";
-      sha256 = "2842b8b4567c90e0f71c44ba69bd75af6b11c2abc83969dd021b458f638347d3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5280027/bramble-1.38.0.xpi";
+      sha256 = "1992edd322b17e17551d683f92343bcca348b4a173f912050413419135440010";
       meta = with lib;
       {
         homepage = "https://bramble.sh";
@@ -3107,10 +3107,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "161.0.20261118.180411";
+      version = "162.0.20261119.153436";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5274280/dansk_da_language_pack-161.0.20261118.180411.xpi";
-      sha256 = "627dd8df64cd37bf882fd6101d41c324db0e7246b96c993c3897dbc993502387";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5278864/dansk_da_language_pack-162.0.20261119.153436.xpi";
+      sha256 = "2790e7aeab43c4db04cc3b7c2a40b2aa3b65f21fb9a65afd9dbe3dc6b7310288";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3323,10 +3323,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "161.0.20261118.180411";
+      version = "162.0.20261119.153436";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5274287/deutsch_de_language_pack-161.0.20261118.180411.xpi";
-      sha256 = "e311fc619e31f4bdeff1bf0c51eb554df0bd4a1ac80b0ad635fbdb08605b6beb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5278845/deutsch_de_language_pack-162.0.20261119.153436.xpi";
+      sha256 = "4805ea1ff7052d9e564067af37d759538d77784f6de0548c0e49408e5cb08d0b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4820,10 +4820,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "161.0.20261118.180411";
+      version = "162.0.20261119.153436";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5274253/francais_language_pack-161.0.20261118.180411.xpi";
-      sha256 = "bfca4493df97a8cd7b1f8b441ecd894be5c4b4bc8fbe8da7d089613f6d8be730";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5278828/francais_language_pack-162.0.20261119.153436.xpi";
+      sha256 = "79c644156fc2574c090ea977eabd1235f0babadfd2ed87fb3c740cd1af4cdb53";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4857,10 +4857,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "161.0.20261118.180411";
+      version = "162.0.20261119.153436";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5274311/gaidhlig_language_pack-161.0.20261118.180411.xpi";
-      sha256 = "682efc23917d7228a8fa58987636bef6531db10d2549ab6d07869f05fbabc18c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5278778/gaidhlig_language_pack-162.0.20261119.153436.xpi";
+      sha256 = "183193190855790fa8de31c90a9e61d16d60f2fce1a4f3ce3008f5a34c427ce2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -6568,10 +6568,10 @@
     };
     "kiss-translator" = buildMozillaXpiAddon {
       pname = "kiss-translator";
-      version = "2.2.5";
+      version = "2.2.6";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5257574/kiss_translator-2.2.5.xpi";
-      sha256 = "a9169e7b89aa40111b9d2a69f26d94507f94635f3b1601fe79d837ff9f22ddb9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5278173/kiss_translator-2.2.6.xpi";
+      sha256 = "0c20f25e011bb9e17df4fe8acd0b62190305de55f380742045e6eac067815d3d";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -9137,10 +9137,10 @@
     };
     "multi-account-containers" = buildMozillaXpiAddon {
       pname = "multi-account-containers";
-      version = "8.4.0";
+      version = "8.4.1";
       addonId = "@testpilot-containers";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5168122/multi_account_containers-8.4.0.xpi";
-      sha256 = "10936d682e17bd2e8afa018bde94f927b50cf05973d6ef8ca3c54f807b2cf7ba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5272233/multi_account_containers-8.4.1.xpi";
+      sha256 = "095d9d470158c2c09638b460dee0fca4489b9e47f512ea168d9498f964c79b64";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
@@ -9857,10 +9857,10 @@
     };
     "onepassword-password-manager" = buildMozillaXpiAddon {
       pname = "onepassword-password-manager";
-      version = "8.12.44.33";
+      version = "8.12.46.29";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5203941/1password_x_password_manager-8.12.44.33.xpi";
-      sha256 = "dd896610a3e6776582b76f180ea0d3180b03413a244314f9d3c6b08ec6c59819";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5266358/1password_x_password_manager-8.12.46.29.xpi";
+      sha256 = "c10426d7f091a518ec6c93152409c99a2d44544e487a7884c00c2b36df42c134";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -10265,10 +10265,10 @@
     };
     "passbolt" = buildMozillaXpiAddon {
       pname = "passbolt";
-      version = "5.18.0";
+      version = "5.18.1";
       addonId = "passbolt@passbolt.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5242832/passbolt-5.18.0.xpi";
-      sha256 = "374c05933a293915d78081b1e2052fd68595738fa7ae49f766fc7cf98f472437";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5275969/passbolt-5.18.1.xpi";
+      sha256 = "571f0350b738efc39239f6d63046946dc29917899176735b781ed0479d083024";
       meta = with lib;
       {
         homepage = "https://www.passbolt.com";
@@ -10564,10 +10564,10 @@
     };
     "print-friendly-pdf" = buildMozillaXpiAddon {
       pname = "print-friendly-pdf";
-      version = "7.7.0";
+      version = "7.8.0";
       addonId = "jid0-YQz0l1jthOIz179ehuitYAOdBEs@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5257052/print_friendly_pdf-7.7.0.xpi";
-      sha256 = "cf4ae44b89d5c2c8e206ba1c47fd8287c4167993e79ce66c956d5afd46cec453";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5277332/print_friendly_pdf-7.8.0.xpi";
+      sha256 = "8e3c909c2280b545fc9adc1c62b4f5ee59d1410c9533027d92feb51dd00ecb92";
       meta = with lib;
       {
         homepage = "https://www.printfriendly.com/";
@@ -12892,10 +12892,10 @@
     };
     "ruffle_rs" = buildMozillaXpiAddon {
       pname = "ruffle_rs";
-      version = "0.7.0.65535";
+      version = "0.8.0.65535";
       addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5094559/ruffle_rs-0.7.0.65535.xpi";
-      sha256 = "2aa0802a8df8c9c7a315b4b1b5162b2ff7eda72e0daf89e61d0fc806fb90ebf7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5279201/ruffle_rs-0.8.0.65535.xpi";
+      sha256 = "aa28a01343cbd32ede2c2c33f50f13af98362311045e315644d4299fd406017f";
       meta = with lib;
       {
         homepage = "https://ruffle.rs/";
@@ -13078,10 +13078,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "161.0.20261118.180411";
+      version = "162.0.20261119.153436";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5274333/scots_language_pack-161.0.20261118.180411.xpi";
-      sha256 = "49d605e6dc04417782ca8b22882a503d521eb9f80d63bf91d7c816273fa2f409";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5278851/scots_language_pack-162.0.20261119.153436.xpi";
+      sha256 = "e06fc5545f203930e6b61bccd471e8383f183d14ef80466f30aca6ff96d90ad5";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -15859,10 +15859,10 @@
     };
     "user-agent-string-switcher" = buildMozillaXpiAddon {
       pname = "user-agent-string-switcher";
-      version = "0.7.2";
+      version = "0.7.3";
       addonId = "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5081116/user_agent_string_switcher-0.7.2.xpi";
-      sha256 = "9ad0e03d737db36366e16f1c6102c5ac5867e34e7a5f95f0bcdf00e2cda0b682";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5275336/user_agent_string_switcher-0.7.3.xpi";
+      sha256 = "b2bcfc9a754231a1ac2fdef5452127a8c3ea774f2f3fa5c22b8e485b25009c5c";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/useragent-switcher.html";
@@ -16758,10 +16758,10 @@
     };
     "web-clipper-obsidian" = buildMozillaXpiAddon {
       pname = "web-clipper-obsidian";
-      version = "1.8.0";
+      version = "1.8.3";
       addonId = "clipper@obsidian.md";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5274492/web_clipper_obsidian-1.8.0.xpi";
-      sha256 = "97d42bc62b7cff8e213f117c3a8b41b534ea57f4ea44e2ccee39658612656f16";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5279664/web_clipper_obsidian-1.8.3.xpi";
+      sha256 = "b20b75bd10fd7727c32fc858e8d847d09d74b813d2e59c9d2943678ec97be3d1";
       meta = with lib;
       {
         homepage = "https://obsidian.md/clipper";
@@ -17492,10 +17492,10 @@
     };
     "youtube-auto-hd-fps" = buildMozillaXpiAddon {
       pname = "youtube-auto-hd-fps";
-      version = "1.19.1";
+      version = "1.20.0";
       addonId = "avi6106@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5175195/youtube_auto_hd_fps-1.19.1.xpi";
-      sha256 = "8f1c369898caf21cf1f81c7d35bee2bf05c53b6783148b47446db4d73b908dba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5278074/youtube_auto_hd_fps-1.20.0.xpi";
+      sha256 = "41b7c9135fe8184a5d29929c471a3646be6c637e459e67125dc74f94cae1ad77";
       meta = with lib;
       {
         homepage = "https://avi12.com/youtube-auto-hd";
@@ -17508,6 +17508,7 @@
           "https://www.youtube.com/*"
           "https://music.youtube.com/*"
           "https://youtube.googleapis.com/*"
+          "https://*.youtube.com/*"
         ];
         platforms = platforms.all;
       };
