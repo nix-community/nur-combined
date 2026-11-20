@@ -9,6 +9,7 @@ pkgs.testers.nixosTest {
         lastbook
         xvfb
         xwininfo
+        xdotool
         imagemagick
         dejavu_fonts
       ];
@@ -24,6 +25,8 @@ pkgs.testers.nixosTest {
       };
     };
 
+  # The disk is smaller than even Small needs, so setup shows "Not enough room"
+  # and the patched "Continue anyway" checkbox; scroll down to capture the summary.
   testScript = ''
     machine.wait_for_unit("multi-user.target")
     machine.execute("Xvfb :99 -screen 0 1400x900x24 >/tmp/xvfb.log 2>&1 &")
@@ -31,6 +34,12 @@ pkgs.testers.nixosTest {
     machine.execute("DISPLAY=:99 lastbook >/tmp/lastbook.log 2>&1 &")
     machine.wait_until_succeeds("DISPLAY=:99 xwininfo -root -tree | grep -qi lastbook", timeout=180)
     machine.sleep(20)
+    machine.execute("DISPLAY=:99 xdotool search --onlyvisible --name Lastbook windowactivate --sync")
+    machine.sleep(1)
+    machine.execute("DISPLAY=:99 xdotool mousemove 700 200 click 1")
+    machine.sleep(1)
+    machine.execute("DISPLAY=:99 xdotool key --clearmodifiers End")
+    machine.sleep(2)
     machine.execute("DISPLAY=:99 import -window root /tmp/setup.png")
     machine.copy_from_machine("/tmp/setup.png")
     machine.copy_from_machine("/tmp/lastbook.log")

@@ -12,6 +12,12 @@
 # manifest this variant installs is upstream's plus those eight maps, generated
 # by make-manifest.py, so setup offers them instead of only US states.
 #
+# 0003 lets the person go past "Not enough room" (the setup page asks with a
+# "Continue anyway" checkbox, and `start` takes `force: true`): the estimates at
+# start, per file and at unpack are skipped, so only a disk that actually fills
+# stops the job. Upstream keeps that guard on purpose; this variant trusts the
+# person's own judgement about the space they have.
+#
 # The update script bumps the base version and regenerates the manifest; it does
 # not regenerate or re-check the patches, so rebase them when lastbook moves.
 # Its GUI smoke test is `checks.x86_64-linux.lastbook-patched-setup`.
@@ -21,6 +27,7 @@ lastbook.overrideAttrs (old: {
   patches = (old.patches or [ ]) ++ [
     ./0001-australian-capital-and-state-territory-maps.patch
     ./0002-review-download-hosts.patch
+    ./0003-continue-without-enough-room.patch
   ];
 
   postInstall = (old.postInstall or "") + ''
