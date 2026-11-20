@@ -1,0 +1,1822 @@
+{
+  "version": 1,
+  "published": "2026-11-13",
+  "packs": [
+    {
+      "id": "small",
+      "title": "Small",
+      "summary": "Essential first aid, water, food, shelter and repair knowledge.",
+      "revision": "2026-11-13-small-v2",
+      "records": 314,
+      "installed_bytes": 7691309976,
+      "available": true,
+      "map": "base",
+      "files": [
+        {
+          "name": "Lastbook-Small-20261113.zip",
+          "url": "https://downloads.lastbook.org/Lastbook-Small-20261113.zip",
+          "size": 7691528852,
+          "sha256": "bfe8b0b66d898cac18b7f979dd5e560b8fd653f03244b6186e0436306cf96291",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "medium",
+      "title": "Medium",
+      "summary": "Small, plus the core how-to videos, all documents, Wikibooks and a detailed map of California.",
+      "records": 9696,
+      "installed_bytes": 67476559546,
+      "available": true,
+      "files": [
+        {
+          "name": "Lastbook-Medium.zip",
+          "url": "https://downloads.lastbook.org/Lastbook-Medium.zip",
+          "size": 67492034038,
+          "sha256": "e4ef75afd584dd174bfb34468a41a9c7c5e6907d5b37bb722aa9b5435876068a",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "all",
+      "title": "All",
+      "summary": "Everything in the library: every video, document and encyclopedia, Wikipedia included, with detailed maps for the whole US.",
+      "records": 12864,
+      "installed_bytes": 387861708053,
+      "available": true,
+      "files": [
+        {
+          "name": "Lastbook-All.zip",
+          "url": "https://downloads.lastbook.org/Lastbook-All.zip",
+          "size": 387878571619,
+          "sha256": "4b4ea73fc530a073782981fd83f30ebda18e8809cbff0cf18f82d45ea21f10f7",
+          "kind": "zip"
+        }
+      ]
+    }
+  ],
+  "models": [
+    {
+      "id": "gemma-4-26b-a4b",
+      "title": "Gemma 4 26B A4B",
+      "file": "gemma-4-26B-A4B-it-UD-Q4_K_M.gguf",
+      "url": "https://huggingface.co/unsloth/gemma-4-26B-A4B-it-GGUF/resolve/c099eb48e663fd284577b04978a94ffccb261841/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf?download=true",
+      "size": 16947541728,
+      "sha256": "f2c28b3dc4776931ac6f879e11f203dec637ea0f14267a86ec8f6165f63f293f",
+      "memory_bytes": 19027384256,
+      "available": true
+    }
+  ],
+  "maps": [
+    {
+      "id": "CA",
+      "title": "California",
+      "kind": "state",
+      "installed_bytes": 5404574262,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-CA.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-CA.zip",
+          "size": 3218756405,
+          "sha256": "00ce57ce77531e23fa6d9dc6512c3d1678087889062d92f8e31e85be84c9f7dc",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "TX",
+      "title": "Texas",
+      "kind": "state",
+      "installed_bytes": 5779706419,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-TX.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-TX.zip",
+          "size": 3469355657,
+          "sha256": "1552fe988b213ffba4368f06d4af2b765b30f27b23e98299cc5d1315f6ec4cfa",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "FL",
+      "title": "Florida",
+      "kind": "state",
+      "installed_bytes": 3284013617,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-FL.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-FL.zip",
+          "size": 1544559289,
+          "sha256": "fcf0a78243e5bd59460cfcc316b7747b0afada1e60a742e02d5659cc49c83f5b",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "NY",
+      "title": "New York",
+      "kind": "state",
+      "installed_bytes": 4005306930,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-NY.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-NY.zip",
+          "size": 2159091949,
+          "sha256": "f069cb446f0e4aa5f0a937e451d03840a34151c533f8c88fc38a2475fb173a25",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "PA",
+      "title": "Pennsylvania",
+      "kind": "state",
+      "installed_bytes": 3043443249,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-PA.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-PA.zip",
+          "size": 1540689029,
+          "sha256": "a890db0d158e87d98c07c0f37e15521155d7eb753fb2be181bee71059942c49c",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "IL",
+      "title": "Illinois",
+      "kind": "state",
+      "installed_bytes": 3160212017,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-IL.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-IL.zip",
+          "size": 1572137207,
+          "sha256": "2021f5c30baa36ea1c5e00bfde2940efbb8032adc9a1e4a2750557a8e869f784",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "OH",
+      "title": "Ohio",
+      "kind": "state",
+      "installed_bytes": 2934850096,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-OH.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-OH.zip",
+          "size": 1447676096,
+          "sha256": "113e46f54fdc462ed6e6775a7e04b27c5dc0316f51eb1ae534b2aad9cbd892d3",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "GA",
+      "title": "Georgia",
+      "kind": "state",
+      "installed_bytes": 3243086386,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-GA.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-GA.zip",
+          "size": 1601807975,
+          "sha256": "99e782c0e080cf6718b53c83d78dc6af37695a912234334da4ec4a2c04a3f30a",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "NC",
+      "title": "North Carolina",
+      "kind": "state",
+      "installed_bytes": 3562394162,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-NC.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-NC.zip",
+          "size": 1770481253,
+          "sha256": "5591816685ca3d2b00f04d2c06e4c3a0595a519c8f0e2806298ad1b1df822e7b",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "MI",
+      "title": "Michigan",
+      "kind": "state",
+      "installed_bytes": 3782865458,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-MI.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-MI.zip",
+          "size": 1940797942,
+          "sha256": "3cd0fe5e6b034545bf7815f78b8c2a51862de4cf7306040a524d0916c4c3b9fa",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "AK",
+      "title": "Alaska",
+      "kind": "state",
+      "installed_bytes": 11845780015,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-AK.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-AK.zip",
+          "size": 10377224515,
+          "sha256": "da341fdf60c051897ce20949c7f1de33494f35ea980a696a86c6809487f13e38",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "AL",
+      "title": "Alabama",
+      "kind": "state",
+      "installed_bytes": 2664100401,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-AL.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-AL.zip",
+          "size": 1326487700,
+          "sha256": "9acdfe6e9557e08396efae9a00e1a1d3328f9376b718f88075028cfce5765b31",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "AR",
+      "title": "Arkansas",
+      "kind": "state",
+      "installed_bytes": 2446643761,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-AR.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-AR.zip",
+          "size": 1201919064,
+          "sha256": "7bc32ec860a20bd372526f368c36710e3071f64b32916733e30667c14d075f83",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "AZ",
+      "title": "Arizona",
+      "kind": "state",
+      "installed_bytes": 2825036336,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-AZ.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-AZ.zip",
+          "size": 1536419242,
+          "sha256": "375459a55233be8753c58aa1fba652b10991cdb59282c51bc039053b9fc1f02f",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "CO",
+      "title": "Colorado",
+      "kind": "state",
+      "installed_bytes": 2932417072,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-CO.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-CO.zip",
+          "size": 1545020826,
+          "sha256": "2737cfc190c7dc7adb4deeb16b18e26289392e4841ea197fc350ece1bf8af74e",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "CT",
+      "title": "Connecticut",
+      "kind": "state",
+      "installed_bytes": 2139988527,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-CT.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-CT.zip",
+          "size": 970165272,
+          "sha256": "f8cf9ad84925dafb2bf7866d2c7374305a943af3be554008845565e4b46fa75e",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "DC",
+      "title": "District of Columbia",
+      "kind": "state",
+      "installed_bytes": 1870836269,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-DC.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-DC.zip",
+          "size": 821242265,
+          "sha256": "80704e5e82000a2aeb54dbbbac0aaeb0b7e76542452d91e79f92470e7b2f7da1",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "DE",
+      "title": "Delaware",
+      "kind": "state",
+      "installed_bytes": 1926181423,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-DE.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-DE.zip",
+          "size": 855959072,
+          "sha256": "50ad2e0332da02f6d1657204655208371562d64527d4042018c7dc80a0b8ded6",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "HI",
+      "title": "Hawaii",
+      "kind": "state",
+      "installed_bytes": 1808069163,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-HI.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-HI.zip",
+          "size": 801549330,
+          "sha256": "f784f11d238b5f32fb6b7d41724ded0f3098dc2bed3669fb7756ee17d9b63c17",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "IA",
+      "title": "Iowa",
+      "kind": "state",
+      "installed_bytes": 2618241585,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-IA.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-IA.zip",
+          "size": 1321931153,
+          "sha256": "3f509acb4a4d866fd1977002bec790efd52f6e6bdd12054b494cf5c54c480172",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "ID",
+      "title": "Idaho",
+      "kind": "state",
+      "installed_bytes": 3112333873,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-ID.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-ID.zip",
+          "size": 1869747960,
+          "sha256": "e620f760f0a3ae8959b6136bb20e7e7c2b78e306e9970a606540991ee0356301",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "IN",
+      "title": "Indiana",
+      "kind": "state",
+      "installed_bytes": 2719187504,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-IN.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-IN.zip",
+          "size": 1301301977,
+          "sha256": "5a34220153ac5c746edf81f41df4f3ae95655b300d2b0b654697d69e6f15a4d2",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "KS",
+      "title": "Kansas",
+      "kind": "state",
+      "installed_bytes": 2485645872,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-KS.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-KS.zip",
+          "size": 1251059122,
+          "sha256": "c05f7437da01c28f1669383736d52de8ae768348f6f47984b468e0a499df0b6f",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "KY",
+      "title": "Kentucky",
+      "kind": "state",
+      "installed_bytes": 2923762225,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-KY.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-KY.zip",
+          "size": 1496580403,
+          "sha256": "8b7782c05c1833ab547dd0861994bada4ea3ba8cbb2bd717a60ab8c5e8422766",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "LA",
+      "title": "Louisiana",
+      "kind": "state",
+      "installed_bytes": 2465055280,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-LA.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-LA.zip",
+          "size": 1194266334,
+          "sha256": "1753ed6fe26ec243c7b275e9cf7bed55c75fc67df7101e1a6719bfa20527f459",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "MA",
+      "title": "Massachusetts",
+      "kind": "state",
+      "installed_bytes": 2566160945,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-MA.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-MA.zip",
+          "size": 1180194616,
+          "sha256": "6940710a01db781cc387083531adb4e73aeee3e5a49a5f01d1ff72ed2347abf6",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "MD",
+      "title": "Maryland",
+      "kind": "state",
+      "installed_bytes": 2639774257,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-MD.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-MD.zip",
+          "size": 1242790693,
+          "sha256": "6dab025d6d38696b8f074c6cef7a618f4fc2174e5055013160a342046ead5fa7",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "ME",
+      "title": "Maine",
+      "kind": "state",
+      "installed_bytes": 2225525295,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-ME.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-ME.zip",
+          "size": 1106509167,
+          "sha256": "5b1115f8ef5896e2d93feeffdfe8fdce1f463f23f98df95ae16d8caf92a4f1c5",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "MN",
+      "title": "Minnesota",
+      "kind": "state",
+      "installed_bytes": 3149759025,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-MN.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-MN.zip",
+          "size": 1676488996,
+          "sha256": "7cb4b4e891266f070f596612f2cc4408dfcdcc07ec0098bf77a56015d25f17e2",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "MO",
+      "title": "Missouri",
+      "kind": "state",
+      "installed_bytes": 3261927985,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-MO.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-MO.zip",
+          "size": 1687100160,
+          "sha256": "c7c9efac9fc118ddb70bf8d4b200d29fc5b7542da0ec518162fbdd403459faf8",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "MS",
+      "title": "Mississippi",
+      "kind": "state",
+      "installed_bytes": 2422415920,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-MS.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-MS.zip",
+          "size": 1175561681,
+          "sha256": "b7904240b3f713b9c485e380096dae777ae77de8bf2286dc6ef441d7e1f3d313",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "MT",
+      "title": "Montana",
+      "kind": "state",
+      "installed_bytes": 3143598640,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-MT.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-MT.zip",
+          "size": 1982181146,
+          "sha256": "6528d010555e3442eb93ce7e932b491ed8e325ae3505b3649214c138f7393717",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "ND",
+      "title": "North Dakota",
+      "kind": "state",
+      "installed_bytes": 2363675182,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-ND.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-ND.zip",
+          "size": 1213870174,
+          "sha256": "fa90c16bf40402b0d2f2908f8390e521ff61af9463cbe7506f3a960beb9e69b8",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "NE",
+      "title": "Nebraska",
+      "kind": "state",
+      "installed_bytes": 2478158383,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-NE.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-NE.zip",
+          "size": 1312366327,
+          "sha256": "8340e4871a3e02bf05bece34ae6de4608964dbc66290151fedd5805d1a42e2de",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "NH",
+      "title": "New Hampshire",
+      "kind": "state",
+      "installed_bytes": 2132959790,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-NH.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-NH.zip",
+          "size": 983679680,
+          "sha256": "a7583edd2d759a8f60b0d68f90f4bc1030e3f0eb0f44ded0815968769e666cc4",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "NJ",
+      "title": "New Jersey",
+      "kind": "state",
+      "installed_bytes": 2525545009,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-NJ.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-NJ.zip",
+          "size": 1182985032,
+          "sha256": "3d72f6779c6909cec00774ab0339a5ff774fed64149dae6ab15cd2e4676597a5",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "NM",
+      "title": "New Mexico",
+      "kind": "state",
+      "installed_bytes": 2587410992,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-NM.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-NM.zip",
+          "size": 1400710453,
+          "sha256": "7b24916d5c2e9ee2dce82af3d0d7af07884d24783079a626e27d571fd1a510d6",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "NV",
+      "title": "Nevada",
+      "kind": "state",
+      "installed_bytes": 3069026866,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-NV.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-NV.zip",
+          "size": 1735579853,
+          "sha256": "fa91deade9fa6fdf2681f3aa0da4139ca6751a22915f657a87c1393f706da10c",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "OK",
+      "title": "Oklahoma",
+      "kind": "state",
+      "installed_bytes": 2775446065,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-OK.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-OK.zip",
+          "size": 1408731914,
+          "sha256": "8a92409b6048f279d87d729004be2446c029af9256ca0fc92d99204703ecb48c",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "OR",
+      "title": "Oregon",
+      "kind": "state",
+      "installed_bytes": 2990465586,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-OR.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-OR.zip",
+          "size": 1676992406,
+          "sha256": "b04c6a2db55e5dc32faea9a7acb50a6f9d75495639a91be7a300031a47453bcd",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "PR",
+      "title": "Puerto Rico",
+      "kind": "state",
+      "installed_bytes": 1777824301,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-PR.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-PR.zip",
+          "size": 802475151,
+          "sha256": "a40b62c7a9b854f6e225a55b6b7fd8c717520eaf806594583e5313065e06bd2a",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "RI",
+      "title": "Rhode Island",
+      "kind": "state",
+      "installed_bytes": 1861878317,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-RI.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-RI.zip",
+          "size": 819785797,
+          "sha256": "4f3a85ba87874a011950082bf5340bc4b70a825237ca23ed0597bd62b67e4cf6",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "SC",
+      "title": "South Carolina",
+      "kind": "state",
+      "installed_bytes": 2687922738,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-SC.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-SC.zip",
+          "size": 1280223836,
+          "sha256": "30e115e0b4b3a1a1a3028fde06d76b8d9f60d2d03c75876b61d026584533f7c2",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "SD",
+      "title": "South Dakota",
+      "kind": "state",
+      "installed_bytes": 2376356399,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-SD.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-SD.zip",
+          "size": 1269958133,
+          "sha256": "4f62287d3e265d2efaaa41e6f80c7aec8103403b191493ae1752c8719e22ded7",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "TN",
+      "title": "Tennessee",
+      "kind": "state",
+      "installed_bytes": 2813567537,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-TN.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-TN.zip",
+          "size": 1409754485,
+          "sha256": "659f438481cf701135d1526a0d9f6c89d6f664288335e92a70c95816924707e8",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "UT",
+      "title": "Utah",
+      "kind": "state",
+      "installed_bytes": 2549137968,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-UT.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-UT.zip",
+          "size": 1366371310,
+          "sha256": "44b54e6e54283601891f5cde753ae42971e9de84db2f3ce6e006d759f7517ea2",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "VA",
+      "title": "Virginia",
+      "kind": "state",
+      "installed_bytes": 3492598321,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-VA.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-VA.zip",
+          "size": 1793909791,
+          "sha256": "624bc3da77bec82e8dea5948e0ff81c2c6567c3120cc23ecd886d253e32007d4",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "VT",
+      "title": "Vermont",
+      "kind": "state",
+      "installed_bytes": 2076115502,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-VT.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-VT.zip",
+          "size": 962789413,
+          "sha256": "c6b309f21ee3746781983da1d3e69542c864029bff8d9174ca71ff4649ac8f5d",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "WA",
+      "title": "Washington",
+      "kind": "state",
+      "installed_bytes": 3130913330,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-WA.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-WA.zip",
+          "size": 1686697399,
+          "sha256": "075a4d251dbfe6c7733c6a6e6dd44018de3a55590a8455deabe40deb41dc1cb1",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "WI",
+      "title": "Wisconsin",
+      "kind": "state",
+      "installed_bytes": 2868855345,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-WI.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-WI.zip",
+          "size": 1450746308,
+          "sha256": "d88bd6b33a70862cc8d77b526386100b8172d93e6dc0b85ea0ba6035fc6bf1a1",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "WV",
+      "title": "West Virginia",
+      "kind": "state",
+      "installed_bytes": 2880864817,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-WV.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-WV.zip",
+          "size": 1480998744,
+          "sha256": "c532796254b9235fb9a31e0469e0cb9da6ab41c7f64ac65942e1602d044ccff1",
+          "kind": "zip"
+        }
+      ]
+    },
+    {
+      "id": "WY",
+      "title": "Wyoming",
+      "kind": "state",
+      "installed_bytes": 2495648303,
+      "available": true,
+      "includes": "Local streets, buildings, terrain and crops, plus water, help and resource points",
+      "files": [
+        {
+          "name": "Lastbook-Map-WY.zip",
+          "url": "https://downloads.lastbook.org/maps/Lastbook-Map-WY.zip",
+          "size": 1398691516,
+          "sha256": "b32c135e14468cf096b2353ed2509f758316fa268c818d20a6bbc39eb458daa7",
+          "kind": "zip"
+        }
+      ]
+    }
+  ],
+  "address_indexes": [
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-AK.zip",
+          "sha256": "05080b0733dbc54d5fd1e9f4653eb385444d71cce43f34e6ecab299e840beecc",
+          "size": 12333286,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-AK.zip"
+        }
+      ],
+      "id": "AK",
+      "installed_bytes": 41861120,
+      "kind": "state-addresses",
+      "records": 325347,
+      "title": "Alaska"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-AL.zip",
+          "sha256": "5395aedbee95bdae814f5790c7b0fa4c6d0a8240c16832a19b4f8ffd57d8e420",
+          "size": 119652901,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-AL.zip"
+        }
+      ],
+      "id": "AL",
+      "installed_bytes": 379985920,
+      "kind": "state-addresses",
+      "records": 2937524,
+      "title": "Alabama"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-AR.zip",
+          "sha256": "7eeeab64db7257e008d6ef3065a6e3530dc2abf6d0d1d3eb73c74b32415807c8",
+          "size": 71267360,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-AR.zip"
+        }
+      ],
+      "id": "AR",
+      "installed_bytes": 227155968,
+      "kind": "state-addresses",
+      "records": 1775951,
+      "title": "Arkansas"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-AZ.zip",
+          "sha256": "2a277e8596332f6ca61482e328fcb0e2de982393322f75cd95ed19550fd68f8a",
+          "size": 136180882,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-AZ.zip"
+        }
+      ],
+      "id": "AZ",
+      "installed_bytes": 509247488,
+      "kind": "state-addresses",
+      "records": 3708937,
+      "title": "Arizona"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-CA.zip",
+          "sha256": "95876428f9c4a127f8f236a51ba7e3e0012197efcfd2fc181bb5f757d13cafc9",
+          "size": 526161211,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-CA.zip"
+        }
+      ],
+      "id": "CA",
+      "installed_bytes": 1720041472,
+      "kind": "state-addresses",
+      "records": 13604710,
+      "title": "California"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-CO.zip",
+          "sha256": "182dbca4f291ccdbeafaae1bd817862afec75f478946c1369f2ed2460d227570",
+          "size": 94247020,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-CO.zip"
+        }
+      ],
+      "id": "CO",
+      "installed_bytes": 313425920,
+      "kind": "state-addresses",
+      "records": 2560818,
+      "title": "Colorado"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-CT.zip",
+          "sha256": "cbd6c9301cb17e55dbaa72f5747a83415fc8858d3308b65f3341b8d41649aadb",
+          "size": 47216674,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-CT.zip"
+        }
+      ],
+      "id": "CT",
+      "installed_bytes": 146006016,
+      "kind": "state-addresses",
+      "records": 1188645,
+      "title": "Connecticut"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-DC.zip",
+          "sha256": "3e8bd7abfa069c74070e8336c8d0b83880d30da3cdc963fac8da20a78af32c97",
+          "size": 9502762,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-DC.zip"
+        }
+      ],
+      "id": "DC",
+      "installed_bytes": 68395008,
+      "kind": "state-addresses",
+      "records": 429638,
+      "title": "District of Columbia"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-DE.zip",
+          "sha256": "f60d5c25e3f6ac4938ac07bfcf9bb0b877564ab980e43131404b4b55a7e03ed1",
+          "size": 22039103,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-DE.zip"
+        }
+      ],
+      "id": "DE",
+      "installed_bytes": 71106560,
+      "kind": "state-addresses",
+      "records": 562288,
+      "title": "Delaware"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-FL.zip",
+          "sha256": "48cb74e7a84b3ea6c973f2336a198f1a47fb2506ac9668238fd04b5a41ae8758",
+          "size": 452471191,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-FL.zip"
+        }
+      ],
+      "id": "FL",
+      "installed_bytes": 1579556864,
+      "kind": "state-addresses",
+      "records": 12202387,
+      "title": "Florida"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-GA.zip",
+          "sha256": "54faf212cdca1481e033b6274627bcb1e249d7570fecaabee6949d7c486fa4b0",
+          "size": 22450220,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-GA.zip"
+        }
+      ],
+      "id": "GA",
+      "installed_bytes": 90914816,
+      "kind": "state-addresses",
+      "records": 651211,
+      "title": "Georgia"
+    },
+    {
+      "available": false,
+      "files": [],
+      "id": "HI",
+      "installed_bytes": 0,
+      "kind": "state-addresses",
+      "records": 0,
+      "title": "Hawaii",
+      "unavailable_reason": "The saved address source has no records for this state."
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-IA.zip",
+          "sha256": "957a1bd279293e34df8d3dbe2d19549a74fa0cdb9c97a51ebddabb1073225bcf",
+          "size": 61457048,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-IA.zip"
+        }
+      ],
+      "id": "IA",
+      "installed_bytes": 196829184,
+      "kind": "state-addresses",
+      "records": 1585872,
+      "title": "Iowa"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-ID.zip",
+          "sha256": "0ace4afb2101755186bc80ae0f21659120bba826dea2f1eeb045ef5555a30cf9",
+          "size": 14154593,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-ID.zip"
+        }
+      ],
+      "id": "ID",
+      "installed_bytes": 46145536,
+      "kind": "state-addresses",
+      "records": 363820,
+      "title": "Idaho"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-IL.zip",
+          "sha256": "0775b39f46f263deb9d6e93c0c0291fe279cb5098710222966dfa24d87b507f2",
+          "size": 189493585,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-IL.zip"
+        }
+      ],
+      "id": "IL",
+      "installed_bytes": 625926144,
+      "kind": "state-addresses",
+      "records": 4859573,
+      "title": "Illinois"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-IN.zip",
+          "sha256": "ea8a778f4626d8b4b2b3627be2cf612c10d2ede91d35b01bc8473a611b0873eb",
+          "size": 130032150,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-IN.zip"
+        }
+      ],
+      "id": "IN",
+      "installed_bytes": 420724736,
+      "kind": "state-addresses",
+      "records": 3211249,
+      "title": "Indiana"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-KS.zip",
+          "sha256": "806720a186ea20f9a54480c4a7d1090f7925b4454675cb935ea44d8eae296be0",
+          "size": 39880077,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-KS.zip"
+        }
+      ],
+      "id": "KS",
+      "installed_bytes": 130924544,
+      "kind": "state-addresses",
+      "records": 1013293,
+      "title": "Kansas"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-KY.zip",
+          "sha256": "44a447ae442edf438b20418ac9834ef73254d177f8a38096bd5ab2e9db5d48ef",
+          "size": 98690664,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-KY.zip"
+        }
+      ],
+      "id": "KY",
+      "installed_bytes": 311631872,
+      "kind": "state-addresses",
+      "records": 2446674,
+      "title": "Kentucky"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-LA.zip",
+          "sha256": "b9e76f570e4dc9503cf2792b5caeeeec70d466dcf412997bbba6ff563dd7a616",
+          "size": 20275611,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-LA.zip"
+        }
+      ],
+      "id": "LA",
+      "installed_bytes": 68886528,
+      "kind": "state-addresses",
+      "records": 539136,
+      "title": "Louisiana"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-MA.zip",
+          "sha256": "d2bcbdefd11934d92179f62f66551ecef3d095c552ece8787cd1d861748b9a99",
+          "size": 111084529,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-MA.zip"
+        }
+      ],
+      "id": "MA",
+      "installed_bytes": 437280768,
+      "kind": "state-addresses",
+      "records": 3654445,
+      "title": "Massachusetts"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-MD.zip",
+          "sha256": "a391851ab597fc364f598586f6ab0e8606d51cb5e7a0ee8a2e8dad5c5c9a8a8c",
+          "size": 95485503,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-MD.zip"
+        }
+      ],
+      "id": "MD",
+      "installed_bytes": 339173376,
+      "kind": "state-addresses",
+      "records": 2608909,
+      "title": "Maryland"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-ME.zip",
+          "sha256": "fe0575eaf3d1b550515c2a99e3fe3d2b1dc72980a3c24cfd819d04db5f3afee3",
+          "size": 29895850,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-ME.zip"
+        }
+      ],
+      "id": "ME",
+      "installed_bytes": 92807168,
+      "kind": "state-addresses",
+      "records": 772684,
+      "title": "Maine"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-MI.zip",
+          "sha256": "75aef69120d8f497e7f6e1617c23384c4b5b3e0d801a176f8618d9f0c9e49896",
+          "size": 33444639,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-MI.zip"
+        }
+      ],
+      "id": "MI",
+      "installed_bytes": 110256128,
+      "kind": "state-addresses",
+      "records": 858762,
+      "title": "Michigan"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-MN.zip",
+          "sha256": "05a01d1fded63e324a30094ac37dcca11604c7650827d0835869bd38420e1da2",
+          "size": 88954007,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-MN.zip"
+        }
+      ],
+      "id": "MN",
+      "installed_bytes": 307625984,
+      "kind": "state-addresses",
+      "records": 2264465,
+      "title": "Minnesota"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-MO.zip",
+          "sha256": "cc014b7b50cc07086420ffd6940f5a4a0e7b3cd06d8661a86bd6b2283af65372",
+          "size": 66355244,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-MO.zip"
+        }
+      ],
+      "id": "MO",
+      "installed_bytes": 223903744,
+      "kind": "state-addresses",
+      "records": 1692775,
+      "title": "Missouri"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-MS.zip",
+          "sha256": "99874e83fc5dd68d0ea3b93ac7bdc66dd99c97da31022632ec5b7dc4092ba7c1",
+          "size": 48042484,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-MS.zip"
+        }
+      ],
+      "id": "MS",
+      "installed_bytes": 140853248,
+      "kind": "state-addresses",
+      "records": 1151502,
+      "title": "Mississippi"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-MT.zip",
+          "sha256": "07b0cf205ef2af8a651e015db42bd78bac19edc1c33374d65e62b82ad1a4ee0a",
+          "size": 25924575,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-MT.zip"
+        }
+      ],
+      "id": "MT",
+      "installed_bytes": 81772544,
+      "kind": "state-addresses",
+      "records": 644088,
+      "title": "Montana"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-NC.zip",
+          "sha256": "8d7f5e7b67f1410eca7b1aaa68bacfed1531d84ef5c3526366622f855266b507",
+          "size": 244640774,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-NC.zip"
+        }
+      ],
+      "id": "NC",
+      "installed_bytes": 802373632,
+      "kind": "state-addresses",
+      "records": 6098284,
+      "title": "North Carolina"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-ND.zip",
+          "sha256": "5a64b27edf9186a97c538fcd093a4e1dfec7a9fa7f4576dc44d23893bcca7137",
+          "size": 16271900,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-ND.zip"
+        }
+      ],
+      "id": "ND",
+      "installed_bytes": 57057280,
+      "kind": "state-addresses",
+      "records": 432693,
+      "title": "North Dakota"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-NE.zip",
+          "sha256": "22b0752762d07727291171d2ad00e919ec03a430ed6e66253e400eedd6e368d4",
+          "size": 33779274,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-NE.zip"
+        }
+      ],
+      "id": "NE",
+      "installed_bytes": 103489536,
+      "kind": "state-addresses",
+      "records": 862224,
+      "title": "Nebraska"
+    },
+    {
+      "available": false,
+      "files": [],
+      "id": "NH",
+      "installed_bytes": 0,
+      "kind": "state-addresses",
+      "records": 0,
+      "title": "New Hampshire",
+      "unavailable_reason": "The saved address source has no records for this state."
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-NJ.zip",
+          "sha256": "15213da8ae58c1303d0a873242a03f0b9b88f705dc30294b6d53a54c4960866d",
+          "size": 138751142,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-NJ.zip"
+        }
+      ],
+      "id": "NJ",
+      "installed_bytes": 463577088,
+      "kind": "state-addresses",
+      "records": 3753595,
+      "title": "New Jersey"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-NM.zip",
+          "sha256": "afef2a7178d8535a62db1ca2b5052d1438c6a7fb699e68c5194250eaab231472",
+          "size": 43386285,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-NM.zip"
+        }
+      ],
+      "id": "NM",
+      "installed_bytes": 144515072,
+      "kind": "state-addresses",
+      "records": 1042177,
+      "title": "New Mexico"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-NV.zip",
+          "sha256": "37573b15dfd37d396fc695896cf7850d952fc8d7931dd0b4395b1d0dfdd42fc6",
+          "size": 1006820,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-NV.zip"
+        }
+      ],
+      "id": "NV",
+      "installed_bytes": 3039232,
+      "kind": "state-addresses",
+      "records": 28396,
+      "title": "Nevada"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-NY.zip",
+          "sha256": "d4409367bf3b93ee107e71b961c10e2b3d1d0c7bfa1bbd8bb2e6e9d0bcdfc4f2",
+          "size": 236229049,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-NY.zip"
+        }
+      ],
+      "id": "NY",
+      "installed_bytes": 783671296,
+      "kind": "state-addresses",
+      "records": 6471387,
+      "title": "New York"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-OH.zip",
+          "sha256": "aad5f8acbfdb999fa52a27afe46727b0759021e0207578bbbdfb4dadb615aadd",
+          "size": 222064373,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-OH.zip"
+        }
+      ],
+      "id": "OH",
+      "installed_bytes": 716767232,
+      "kind": "state-addresses",
+      "records": 5543857,
+      "title": "Ohio"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-OK.zip",
+          "sha256": "5d96b23937fa0695f97ea1498919a210de123b5d7efb80cb0b6dba80c0a258fe",
+          "size": 58046868,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-OK.zip"
+        }
+      ],
+      "id": "OK",
+      "installed_bytes": 191512576,
+      "kind": "state-addresses",
+      "records": 1483048,
+      "title": "Oklahoma"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-OR.zip",
+          "sha256": "fcdf2ddaa6942166f6eb6ed2e266dc482d425f800e921e80815c8deae47806d4",
+          "size": 77621716,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-OR.zip"
+        }
+      ],
+      "id": "OR",
+      "installed_bytes": 278036480,
+      "kind": "state-addresses",
+      "records": 1941920,
+      "title": "Oregon"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-PA.zip",
+          "sha256": "b071d998b473447125974986166917448924b1928f1bd5d4ebb5ec66e7ed4dbc",
+          "size": 45835128,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-PA.zip"
+        }
+      ],
+      "id": "PA",
+      "installed_bytes": 146399232,
+      "kind": "state-addresses",
+      "records": 1162791,
+      "title": "Pennsylvania"
+    },
+    {
+      "available": false,
+      "files": [],
+      "id": "PR",
+      "installed_bytes": 0,
+      "kind": "state-addresses",
+      "records": 0,
+      "title": "Puerto Rico",
+      "unavailable_reason": "The saved address source has no records for this state."
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-RI.zip",
+          "sha256": "ae2ddd7984530e250fa27573820ae974898841bbdc807bb9de26d619edc2a99b",
+          "size": 15816858,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-RI.zip"
+        }
+      ],
+      "id": "RI",
+      "installed_bytes": 44769280,
+      "kind": "state-addresses",
+      "records": 391441,
+      "title": "Rhode Island"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-SC.zip",
+          "sha256": "9dea0ee7654f7ff40d435383f2df0bc07be15dfd07babb195bea474d499eec41",
+          "size": 8357920,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-SC.zip"
+        }
+      ],
+      "id": "SC",
+      "installed_bytes": 27197440,
+      "kind": "state-addresses",
+      "records": 212291,
+      "title": "South Carolina"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-SD.zip",
+          "sha256": "95e565f55977dfbd2673f68efc9d5ed68c9d9fda801f42f0e294fa2f822de19b",
+          "size": 3226814,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-SD.zip"
+        }
+      ],
+      "id": "SD",
+      "installed_bytes": 11649024,
+      "kind": "state-addresses",
+      "records": 85942,
+      "title": "South Dakota"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-TN.zip",
+          "sha256": "2d5d5e7bb98b8e90ca11a455d1fe1e064a2bd292c35a1d42dd106e1968fa9d86",
+          "size": 156799364,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-TN.zip"
+        }
+      ],
+      "id": "TN",
+      "installed_bytes": 511868928,
+      "kind": "state-addresses",
+      "records": 3928492,
+      "title": "Tennessee"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-TX.zip",
+          "sha256": "41c11b2860aba7b07d6e8e45705bb8d5fe159453ea5e689d37a292696c386e17",
+          "size": 498058820,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-TX.zip"
+        }
+      ],
+      "id": "TX",
+      "installed_bytes": 1557028864,
+      "kind": "state-addresses",
+      "records": 12089884,
+      "title": "Texas"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-UT.zip",
+          "sha256": "a13ec528ca1fa4fb04257606fe99ee60fac77e4b7ae03a63fa4408c59bdfa745",
+          "size": 54413151,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-UT.zip"
+        }
+      ],
+      "id": "UT",
+      "installed_bytes": 190218240,
+      "kind": "state-addresses",
+      "records": 1477180,
+      "title": "Utah"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-VA.zip",
+          "sha256": "304b9b314c6b8dddb7803a433cc86e16f9ad48ff8b0eec52c1a31ba525256e86",
+          "size": 155954915,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-VA.zip"
+        }
+      ],
+      "id": "VA",
+      "installed_bytes": 511025152,
+      "kind": "state-addresses",
+      "records": 3867510,
+      "title": "Virginia"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-VT.zip",
+          "sha256": "06d92357450b02512c25df67b73a22ea636b044ec3b1ec8fdfb3926a402b76b9",
+          "size": 14474336,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-VT.zip"
+        }
+      ],
+      "id": "VT",
+      "installed_bytes": 41435136,
+      "kind": "state-addresses",
+      "records": 333610,
+      "title": "Vermont"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-WA.zip",
+          "sha256": "69b958a00d5492f626b5d06e0398fde451ed89f17fc1fcba25c5a6ac086d56c5",
+          "size": 121491364,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-WA.zip"
+        }
+      ],
+      "id": "WA",
+      "installed_bytes": 423010304,
+      "kind": "state-addresses",
+      "records": 3036650,
+      "title": "Washington"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-WI.zip",
+          "sha256": "6fee1cf699643d8d7763914de6be3bf72887187c6264b9d2a1bd2cc9dbf9b87c",
+          "size": 94196508,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-WI.zip"
+        }
+      ],
+      "id": "WI",
+      "installed_bytes": 308535296,
+      "kind": "state-addresses",
+      "records": 2395147,
+      "title": "Wisconsin"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-WV.zip",
+          "sha256": "fb15d93b74ba7dcb97cf0082683ebb3e034848c3181c1345c6a5292f73a61a8f",
+          "size": 43843470,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-WV.zip"
+        }
+      ],
+      "id": "WV",
+      "installed_bytes": 129605632,
+      "kind": "state-addresses",
+      "records": 1020080,
+      "title": "West Virginia"
+    },
+    {
+      "available": true,
+      "files": [
+        {
+          "kind": "zip",
+          "name": "Lastbook-Addresses-WY.zip",
+          "sha256": "97cf89d9177785e3ca54cf93d788f85c81471bc6bae41b1eee8ec0d67f458a90",
+          "size": 9120759,
+          "url": "https://downloads.lastbook.org/addresses/2026-10-21.0/Lastbook-Addresses-WY.zip"
+        }
+      ],
+      "id": "WY",
+      "installed_bytes": 28778496,
+      "kind": "state-addresses",
+      "records": 233314,
+      "title": "Wyoming"
+    }
+  ]
+}
