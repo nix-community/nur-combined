@@ -1,7 +1,14 @@
 finalPkgs: prev: {
   caddy = prev.caddy.overrideAttrs (
     finalAttrs: old: {
-      patches = (old.patches or [ ]) ++ [ ./multipassword.patch ];
+      patches = (old.patches or [ ]) ++ [
+        (
+          if finalPkgs.lib.versionOlder old.version "2.11.9" then
+            ./multipassword-pre-2.11.9.patch
+          else
+            ./multipassword.patch
+        )
+      ];
       prePatch = (old.prePatch or "") + ''
         isWithPlugins="false"
         if [[ -e vendor ]]; then
