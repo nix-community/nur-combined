@@ -34,7 +34,10 @@ let
 in
 stdenvNoCC.mkDerivation {
   pname = "rexglue-skate3-sdk";
-  version = "unstable-2026-10-25";
+  # The pinned commit's date. This derivation has no release of its own, so the
+  # version follows the repository's 0-unstable-<date> form; update.sh refreshes
+  # the date whenever the release names a different commit.
+  version = "0-unstable-2026-07-24";
 
   dontUnpack = true;
   # A fixed-output derivation must not embed Nix store paths, and the

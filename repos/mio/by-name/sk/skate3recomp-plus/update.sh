@@ -32,6 +32,27 @@ nix-update skate3recomp-plus --version="$version"
 system=$(nix eval --raw --impure --expr builtins.currentSystem)
 sdk=".#legacyPackages.$system.skate3recomp-plus.passthru.sdk"
 
+# sdk.nix dates its version by the commit the release names, so refresh that
+# date along with the pin. The lookup needs GitHub, which the release check
+# above already relies on; if it fails, keep the old date and say so.
+SRC=$(nix eval --raw ".#legacyPackages.$system.skate3recomp-plus.src") \
+SDK_NIX="$dir/sdk.nix" python3 - <<'PY' || echo "update.sh: could not refresh the SDK version date; left as is" >&2
+import json, os, pathlib, re, sys, urllib.request
+
+script = pathlib.Path(os.environ["SRC"], "tools/apply_sdk_patches.py").read_text()
+rev = re.search(r"SDK_REVISION = '([0-9a-f]+)'", script).group(1)
+url = f"https://api.github.com/repos/mchughalex/rexglue-skate3/commits/{rev}"
+with urllib.request.urlopen(url, timeout=60) as response:
+    date = json.load(response)["commit"]["committer"]["date"][:10]
+
+path = pathlib.Path(os.environ["SDK_NIX"])
+path.write_text(
+    re.sub(r'version = "0-unstable-[0-9-]+";', f'version = "0-unstable-{date}";', path.read_text())
+)
+print(f"update.sh: SDK version -> 0-unstable-{date} ({rev})")
+PY
+nixfmt "$dir/sdk.nix"
+
 log=$(mktemp)
 trap 'rm -f "$log"' EXIT
 
