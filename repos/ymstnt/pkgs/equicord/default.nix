@@ -14,13 +14,13 @@ stdenv.mkDerivation (finalAttrs: {
   # Upstream switched from date tags (e.g. 2026-10-08) to semver tags (e.g. v1.15.13.0).
   # The old date tags still exist, so the update script only matches the semver ones.
   pname = "equicord";
-  version = "1.15.17.3";
+  version = "1.15.18.0";
 
   src = fetchFromGitHub {
     owner = "Equicord";
     repo = "Equicord";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ZpFDQWCdxm8WGxaEhD5QvJlnqtsjoIXV/+PxQ2Qq9M0=";
+    hash = "sha256-EQbxL65/D3kDBYS/mglkBg3JuqQnYDziZK94Fzu7D8I=";
   };
 
   pnpmDeps = fetchPnpmDeps {
