@@ -3,11 +3,8 @@
 .direnv
 .idea
 .luarc.json
-.superpowers/
 CLAUDE.local.md
 __pycache__
-docs/plans
-docs/superpowers
 node_modules
 requests.http
 result

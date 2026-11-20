@@ -9,9 +9,9 @@ let
 
   # Pinned at upstream stable (verified 2026-11-18, Task 1).
   # Dashboard versions independently (v2.x line) — see Task 1 brief.
-  managementImage = "netbirdio/management:0.83.1";
-  signalImage = "netbirdio/signal:0.83.1";
-  relayImage = "netbirdio/relay:0.83.1";
+  managementImage = "netbirdio/management:0.82.0";
+  signalImage = "netbirdio/signal:0.82.0";
+  relayImage = "netbirdio/relay:0.82.0";
   dashboardImage = "netbirdio/dashboard:v2.97.0";
 
   managementPort = 33073;
