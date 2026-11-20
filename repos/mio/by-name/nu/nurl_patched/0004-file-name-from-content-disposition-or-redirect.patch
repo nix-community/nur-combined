@@ -1,0 +1,115 @@
+diff --git a/src/fetcher/url.rs b/src/fetcher/url.rs
+index 0fa9c98..d055037 100644
+--- a/src/fetcher/url.rs
++++ b/src/fetcher/url.rs
+@@ -1,4 +1,5 @@
+ use eyre::Result;
++use ureq::ResponseExt;
+ 
+ use crate::{Url, config::FetcherConfig, prefetch::url_prefetch, revless::RevlessFetcher};
+ 
+@@ -20,28 +21,89 @@ impl RevlessFetcher for Fetchurl {
+     // path segment and rejects names it cannot use there (spaces, parentheses)
+     // before it ever computes the hash, so such URLs cannot be hashed at all.
+     // Pass it a sanitised name, and keep the generated expression consistent.
++    // A download link with no path at all (`https://host/?mediaId=…`) fails
++    // even before that, so it gets the name a browser would show: the
++    // Content-Disposition file name, else the path a redirect landed on.
+     fn name(&self, url: &Url) -> Result<Option<String>> {
+-        Ok(store_safe_name(url))
++        Ok(match path_name(url.as_str()) {
++            Some(base) => store_safe(base),
++            None => response_name(url),
++        })
+     }
+ }
+ 
+-fn store_safe_name(url: &Url) -> Option<String> {
+-    let raw = url.as_str().rsplit('/').next()?.split('?').next()?;
+-    let base = percent_decode(raw);
+-    if base.is_empty() {
+-        return None;
+-    }
++// The last segment of the URL's path, or nothing when the path is empty.
++fn path_name(url: &str) -> Option<String> {
++    let (_, path) = url.split_once("://")?.1.split_once('/')?;
++    let path = path.split_once('?').map_or(path, |(path, _)| path);
++    let base = percent_decode(path.rsplit('/').next()?);
++    (!base.is_empty()).then_some(base)
++}
++
++// Browsers name a response with no path name from Content-Disposition first,
++// then from where a redirect sent them.
++fn response_name(url: &Url) -> Option<String> {
++    let response = request(url, true).or_else(|| request(url, false))?;
++    let header = response
++        .headers()
++        .get("content-disposition")
++        .and_then(|value| value.to_str().ok())
++        .and_then(disposition_name);
++    let landed = response.get_uri().to_string();
++    header
++        .or_else(|| path_name(&landed))
++        .map(sanitise)
++        .filter(|name| !name.is_empty())
++}
+ 
+-    let is_safe = |c: char| c.is_ascii_alphanumeric() || "+-._?=".contains(c);
+-    if base.chars().all(is_safe) {
+-        return None;
++fn request(url: &Url, head: bool) -> Option<ureq::http::Response<ureq::Body>> {
++    let agent: ureq::Agent = ureq::Agent::config_builder()
++        .timeout_global(Some(std::time::Duration::from_secs(30)))
++        .build()
++        .into();
++    let request = if head {
++        agent.head(url.as_str())
++    } else {
++        // A server that answers HEAD with 405 or without the header still
++        // sends it on a GET, so ask for a single byte: the body of a download
++        // link can be gigabytes and is never read.
++        agent.get(url.as_str()).header("Range", "bytes=0-0")
++    };
++    request
++        .header("User-Agent", concat!("nurl/", env!("CARGO_PKG_VERSION")))
++        .header("Accept", "*/*")
++        .call()
++        .ok()
++}
++
++// `attachment; filename="Burnout 3 (USA).iso"`, or the RFC 5987 form
++// `filename*=UTF-8''Burnout%203%20%28USA%29.iso`.
++fn disposition_name(header: &str) -> Option<String> {
++    let mut plain = None;
++    for part in header.split(';').skip(1) {
++        let part = part.trim();
++        if let Some(value) = part.strip_prefix("filename*=") {
++            let encoded = value.split_once("''").map_or(value, |(_, rest)| rest);
++            return Some(percent_decode(encoded.trim_matches('"')));
++        }
++        if let Some(value) = part.strip_prefix("filename=") {
++            plain = Some(percent_decode(value.trim_matches('"')));
++        }
+     }
++    plain
++}
++
++fn is_safe(c: char) -> bool {
++    c.is_ascii_alphanumeric() || "+-._?=".contains(c)
++}
++
++// Nix takes the name from the URL itself when it can use it unmodified.
++fn store_safe(base: String) -> Option<String> {
++    (!base.chars().all(is_safe)).then(|| sanitise(base))
++}
+ 
+-    Some(
+-        base.chars()
+-            .map(|c| if is_safe(c) { c } else { '_' })
+-            .collect(),
+-    )
++fn sanitise(name: String) -> String {
++    name.chars().map(|c| if is_safe(c) { c } else { '_' }).collect()
+ }
+ 
+ fn percent_decode(input: &str) -> String {
