@@ -10,7 +10,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mirroir-mcp";
-  version = "0.50.2";
+  version = "0.50.3";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -19,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "jfarcand";
     repo = "mirroir-mcp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-mi0xdlHRtEqkbcrp5hnC7/2nKSK+PQVOhBBIOvHesJY=";
+    hash = "sha256-DrhQ4QvvZS4oOX3O17azTXdi0MTWcbVOl+Q9gSGaNvg=";
   };
 
   nativeBuildInputs = [

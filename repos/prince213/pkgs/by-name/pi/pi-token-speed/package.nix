@@ -6,7 +6,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "pi-token-speed";
-  version = "0.13.0";
+  version = "0.13.1";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "gsanhueza";
     repo = "pi-token-speed";
     tag = finalAttrs.version;
-    hash = "sha256-+jQ8QKsa2HCqUyMP7z3tjnBAKN08EgFyGw6qoI94up0=";
+    hash = "sha256-Whek4jUGMRAr7iSj1yWKAk4x7GrOmKw2w7qBwvASprM=";
   };
 
   installPhase = ''
