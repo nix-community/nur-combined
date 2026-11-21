@@ -54,13 +54,22 @@ in
         rm "$asarDir/app.asar"
 
         # disable auto update
-        sed -i 's/c=d??{},p=c.hw_acceleration??!0/c={...(d??{}),auto_update_disabled:true},p=c.hw_acceleration??!0/g' "$appRoot"/build/main/index-*.mjs
+        for f in "$appRoot"/build/main/main-entry-*.mjs; do
+          [ -f "$f" ] || continue
+          sed -i -E 's/[A-Za-z_$][A-Za-z0-9_$]*\.conf\.auto_update_disabled\?\?[^;}]*/!0/g' "$f"
+        done
 
         # prevent updates
-        sed -i -E 's/executeDownload\([^)]+\)\{/executeDownload(){return;/g' "$appRoot"/build/main/main-entry-*.mjs
+        for f in "$appRoot"/build/main/main-entry-*.mjs; do
+          [ -f "$f" ] || continue
+          sed -i -E 's/executeDownload\([^)]+\)\{/executeDownload(){return;/g' "$f"
+        done
 
         # hide version status element on about page otherwise a error message is shown
-        sed -i '$ a\.subview-prefs-about > div:nth-child(2) {display: none;}' "$appRoot"/build-browser/*.css
+        for f in "$appRoot"/build/renderer/*.css "$appRoot"/build-browser/*.css; do
+          [ -f "$f" ] || continue
+          sed -i '$ a\.subview-prefs-about > div:nth-child(2) {display: none;}' "$f"
+        done
       '';
     })
   else
