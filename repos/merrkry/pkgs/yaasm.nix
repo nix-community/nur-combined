@@ -10,16 +10,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "yaasm";
-  version = "0-unstable-2026-10-18";
+  version = "0-unstable-2026-11-21";
 
   src = fetchFromGitHub {
     owner = "merrkry";
     repo = "yaasm";
-    rev = "069a7254ea91727d578dcb9204336900fc1ad65f";
-    hash = "sha256-5oRS92d9bo/A6VYwV/Hf8vjKe/RGQBR5XpnmtaeOofA=";
+    rev = "e954aebd0a89510c5c581c7578c1d4761bac681e";
+    hash = "sha256-6ASQZWrmSqFr5RhMee14PfaHGzZ/4yLTtbfBEIpjDws=";
   };
 
-  cargoHash = "sha256-YdG/L18KSyjv2Q52WzS5ixXFl3mRe3gA2WoYLKF+Gx4=";
+  cargoHash = "sha256-v9wqVVxdGGIueS5yzdsQPH0HrFkC+iUdFQKGiuh1iII=";
 
   strictDeps = true;
   nativeBuildInputs = [ makeWrapper ];
