@@ -527,9 +527,9 @@ transform = ["strip-v"]
 fetch = { type = "github", repo = "MattDevy/pi-extensions", rev = "pi-simplify-v{version}" }
 
 [packages.pi-subagents]
-version = { source = "github-release", repo = "nicobailon/pi-subagents" }
+version = { source = "github-release", repo = "tintinweb/pi-subagents" }
 transform = ["strip-v"]
-fetch = { type = "github", repo = "nicobailon/pi-subagents", rev = "{version}" }
+fetch = { type = "github", repo = "tintinweb/pi-subagents", rev = "{version}" }
 
 [packages.pi-subagents.derive.npmDeps]
 kind = "npm-deps"

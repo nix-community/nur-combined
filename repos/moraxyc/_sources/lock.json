@@ -1042,22 +1042,22 @@
       "fingerprint": "sha256-DJ4+3oLtprApprpfZRBtUGu+g/zfonnPMQj5h6Nx+FM="
     },
     "pi-subagents": {
-      "version": "0.89.1",
-      "rawVersion": "v0.89.1",
-      "date": "2026-11-18",
+      "version": "0.26.2",
+      "rawVersion": "v0.26.2",
+      "date": "2026-11-20",
       "src": {
         "fetcher": "github",
-        "owner": "nicobailon",
+        "owner": "tintinweb",
         "repo": "pi-subagents",
-        "rev": "v0.89.1",
-        "hash": "sha256-LfOjBUWv9m/qY+M4SQNFSveYVrBV9pJVijtK+hUdArU="
+        "rev": "v0.26.2",
+        "hash": "sha256-J/rzwcqQpCCYxw90B4fveHsCDuYiHB7cmwnic5vZIeU="
       },
       "derived": {
         "npmDeps": {
           "lockfile": "pi-subagents/src/package-lock.json"
         }
       },
-      "fingerprint": "sha256-qXwJf9JOdMjDzf10EZA3R4IgwtfyqsWe2z/+PWLhTBI="
+      "fingerprint": "sha256-hXmOlS1ELovRU6y59OWDR4bPX7STigcEOu0zanc0Crg="
     },
     "pi-token-speed": {
       "version": "0.13.1",
