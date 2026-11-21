@@ -2479,11 +2479,6 @@
             "sha256": "1ryyc11hj9szq9zwl913vd3waiyfass792c0s6c0shpxdmp45rk2",
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
         },
-        "shelvacu": {
-            "rev": "d0c66b88263ff28f3cd3c9be42b57a5df947f2c8",
-            "sha256": "0wz5465yfafpi3h734jr04bz7yb4zjj5r7cph2vn5nacqwnvlz2x",
-            "url": "https://git.uninsane.org/shelvacu/nix-stuff"
-        },
         "shirok1": {
             "rev": "0eaa764bd3bc0d6212130d89c0f9a9a3ffd81515",
             "sha256": "0qbr41wwlfl8rl9hrha83lclvw5hh4dl7kfbfv4dqg2x7hrp2fk2",
@@ -2500,8 +2495,8 @@
             "url": "https://github.com/signalridge/nur-packages"
         },
         "sigprof": {
-            "rev": "6e7f43bda6dbd4dd92b5ed88090f23527e96692d",
-            "sha256": "058ibmi2dl71815ci8d6i1x8qxs2fl2vh9ai4afbaisd0jjyab3j",
+            "rev": "a3e23372564e4ded791eed641f2c91266fe8d3b4",
+            "sha256": "0sf220ryqlpwc3z0z6c3hcgg8281bh0wf3zid60ybr30zv4hsz6i",
             "url": "https://github.com/sigprof/nur-packages"
         },
         "sikmir": {
