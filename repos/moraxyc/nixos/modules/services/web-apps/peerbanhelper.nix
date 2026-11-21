@@ -37,29 +37,31 @@ let
       let
         renderYaml =
           name: settings: defaultResource: targetFile:
-          lib.optionalString (settings != { }) ''
-            ${utils.genJqSecretsReplacementSnippet settings "/run/peerbanhelper/${name}.json"}
-            yq -o=yaml /run/peerbanhelper/${name}.json > /run/peerbanhelper/${name}.override.yml
-          ''
-          + lib.optionalString cfg.mutableConfig ''
-            if [ ! -f ${targetFile} ]; then
+          lib.optionalString (settings != { }) (
+            ''
+              ${utils.genJqSecretsReplacementSnippet settings "/run/peerbanhelper/${name}.json"}
+              yq -o=yaml /run/peerbanhelper/${name}.json > /run/peerbanhelper/${name}.override.yml
+            ''
+            + lib.optionalString cfg.mutableConfig ''
+              if [ ! -f ${targetFile} ]; then
+                unzip -p ${lib.escapeShellArg "${cfg.package}/share/peerbanhelper/PeerBanHelper.jar"} ${defaultResource} > /run/peerbanhelper/${name}.base.yml
+                yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' \
+                  /run/peerbanhelper/${name}.base.yml /run/peerbanhelper/${name}.override.yml > /run/peerbanhelper/${name}.merged.yml
+              else
+                yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' \
+                  ${targetFile} /run/peerbanhelper/${name}.override.yml > /run/peerbanhelper/${name}.merged.yml
+              fi
+            ''
+            + lib.optionalString (!cfg.mutableConfig) ''
               unzip -p ${lib.escapeShellArg "${cfg.package}/share/peerbanhelper/PeerBanHelper.jar"} ${defaultResource} > /run/peerbanhelper/${name}.base.yml
               yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' \
                 /run/peerbanhelper/${name}.base.yml /run/peerbanhelper/${name}.override.yml > /run/peerbanhelper/${name}.merged.yml
-            else
-              yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' \
-                ${targetFile} /run/peerbanhelper/${name}.override.yml > /run/peerbanhelper/${name}.merged.yml
-            fi
-          ''
-          + lib.optionalString (!cfg.mutableConfig) ''
-            unzip -p ${lib.escapeShellArg "${cfg.package}/share/peerbanhelper/PeerBanHelper.jar"} ${defaultResource} > /run/peerbanhelper/${name}.base.yml
-            yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' \
-              /run/peerbanhelper/${name}.base.yml /run/peerbanhelper/${name}.override.yml > /run/peerbanhelper/${name}.merged.yml
-          ''
-          + ''
-            install -m 0600 /run/peerbanhelper/${name}.merged.yml ${targetFile}
-            rm -f /run/peerbanhelper/${name}.json /run/peerbanhelper/${name}.override.yml /run/peerbanhelper/${name}.base.yml /run/peerbanhelper/${name}.merged.yml
-          '';
+            ''
+            + ''
+              install -m 0600 /run/peerbanhelper/${name}.merged.yml ${targetFile}
+              rm -f /run/peerbanhelper/${name}.json /run/peerbanhelper/${name}.override.yml /run/peerbanhelper/${name}.base.yml /run/peerbanhelper/${name}.merged.yml
+            ''
+          );
       in
       ''
         install -d -m 0750 /var/lib/peerbanhelper/config
@@ -228,6 +230,14 @@ in
   config = lib.mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = lib.optional cfg.openFirewall cfg.port;
 
+    services.peerbanhelper.environment = {
+      PBH_DATADIR = "/var/lib/peerbanhelper";
+      PBH_LOGSDIR = "/var/log/peerbanhelper";
+      PBH_NOGUI = "true";
+      PBH_SERVERADDRESS = cfg.listenAddress;
+      PBH_PORT = cfg.port;
+    };
+
     services.nginx = lib.mkIf cfg.configureNginx {
       enable = lib.mkDefault true;
       virtualHosts.${cfg.domain} = {
@@ -249,13 +259,7 @@ in
       wants = [ "network-online.target" ];
       after = [ "network-online.target" ];
 
-      environment = (lib.mapAttrs (_: toEnvValue) cfg.environment) // {
-        PBH_DATADIR = "/var/lib/peerbanhelper";
-        PBH_LOGSDIR = "/var/log/peerbanhelper";
-        PBH_NOGUI = "true";
-        PBH_SERVERADDRESS = cfg.listenAddress;
-        PBH_PORT = toString cfg.port;
-      };
+      environment = lib.mapAttrs (_: toEnvValue) cfg.environment;
 
       script = ''
         if [ -n "''${CREDENTIALS_DIRECTORY:-}" ] && [ -r "$CREDENTIALS_DIRECTORY/api-token" ]; then

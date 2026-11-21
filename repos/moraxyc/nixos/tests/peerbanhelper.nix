@@ -16,6 +16,18 @@ pkgs.testers.runNixOSTest {
       };
     };
 
+    settingsOnly = _: {
+      imports = [ ../modules/services/web-apps/peerbanhelper.nix ];
+
+      services.peerbanhelper = {
+        enable = true;
+        package = pkgs.peerbanhelper;
+        settings = {
+          language = "zh_cn";
+        };
+      };
+    };
+
     configured = _: {
       imports = [ ../modules/services/web-apps/peerbanhelper.nix ];
 
@@ -118,6 +130,13 @@ pkgs.testers.runNixOSTest {
         "curl -fs -H 'Authorization: Bearer test-pbh-token' http://127.0.0.1/api/general/status | grep -q '\"success\"'",
         timeout=timedelta(seconds=90),
     )
+
+    # Non-empty settings with empty profileSettings should not attempt to merge profile.yml.
+    settingsOnly.wait_for_unit("peerbanhelper.service")
+    settingsOnly.wait_for_open_port(9898)
+    settings_only_config = settingsOnly.succeed("cat /var/lib/peerbanhelper/config/config.yml")
+    assert "language: zh_cn" in settings_only_config, settings_only_config
+    settingsOnly.succeed("test -s /var/lib/peerbanhelper/config/profile.yml")
   '';
 
   meta.maintainers = with lib.maintainers; [ moraxyc ];
