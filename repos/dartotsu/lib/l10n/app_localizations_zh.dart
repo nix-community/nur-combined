@@ -2315,6 +2315,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get trailer => '预告片';
 
   @override
+  String get trailerQuality => 'Trailer quality';
+
+  @override
   String get titleCopied => '已复制标题';
 
   @override
@@ -8336,6 +8339,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get externalMpv => 'Open in mpv';
+
+  @override
+  String get externalWebVideoCast => 'Web Video Cast';
+
+  @override
+  String get castViaAppHint => 'Send the stream to the Web Video Cast app';
 
   @override
   String get externalFailed =>

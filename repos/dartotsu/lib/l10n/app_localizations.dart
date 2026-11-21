@@ -4421,6 +4421,12 @@ abstract class AppLocalizations {
   /// **'Trailer'**
   String get trailer;
 
+  /// No description provided for @trailerQuality.
+  ///
+  /// In en, this message translates to:
+  /// **'Trailer quality'**
+  String get trailerQuality;
+
   /// No description provided for @titleCopied.
   ///
   /// In en, this message translates to:
@@ -15112,6 +15118,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Open in mpv'**
   String get externalMpv;
+
+  /// No description provided for @externalWebVideoCast.
+  ///
+  /// In en, this message translates to:
+  /// **'Web Video Cast'**
+  String get externalWebVideoCast;
+
+  /// No description provided for @castViaAppHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Send the stream to the Web Video Cast app'**
+  String get castViaAppHint;
 
   /// No description provided for @externalFailed.
   ///

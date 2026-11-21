@@ -2348,6 +2348,9 @@ class AppLocalizationsMr extends AppLocalizations {
   String get trailer => 'ट्रेलर';
 
   @override
+  String get trailerQuality => 'Trailer quality';
+
+  @override
   String get titleCopied => 'टायटल कॉपी झालं';
 
   @override
@@ -8490,6 +8493,12 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get externalMpv => 'Open in mpv';
+
+  @override
+  String get externalWebVideoCast => 'Web Video Cast';
+
+  @override
+  String get castViaAppHint => 'Send the stream to the Web Video Cast app';
 
   @override
   String get externalFailed =>
