@@ -10,6 +10,7 @@
   artex = callPackage ./artex.nix { };
   dell-idrac-fan-controller = callPackage ./dell-idrac-fan-controller.nix { };
   ghostfolio = callPackage ./ghostfolio.nix { };
+  peerbanhelper = callPackage ./peerbanhelper.nix { };
   tokenrouter = callPackage ./tokenrouter.nix { };
   ztnet = callPackage ./ztnet.nix { };
   # keep-sorted end

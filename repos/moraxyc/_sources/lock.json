@@ -793,6 +793,28 @@
       },
       "fingerprint": "sha256-H4zSe5hqoIp+rvbMnhhz6god7xhSwhlnN4MDECI8YX8="
     },
+    "peerbanhelper": {
+      "version": "9.6.0",
+      "rawVersion": "9.6.0",
+      "date": "2026-11-19",
+      "src": {
+        "fetcher": "github",
+        "owner": "PBH-BTN",
+        "repo": "PeerBanHelper",
+        "tag": "v9.6.0",
+        "hash": "sha256-L+8UnBIAeNkExNysm6aGyAeupA5wraa6AFwTyW3Uzzk="
+      },
+      "derived": {
+        "gradleDeps": {
+          "data": "peerbanhelper/gradleDeps.json",
+          "hash": "sha256-CzrjS1QYUXbgv9ptPbGss4jti3J4CH8RPLBgTomFtJk="
+        },
+        "pnpmDepsHash": {
+          "hash": "sha256-bVK5iM5cu0gYa42uARRhB9tao2RPQxILfq2db/R8KMo="
+        }
+      },
+      "fingerprint": "sha256-gijFAW8UGdhe5Da/7hd5DUTZv97HkeDMbzAzPdGwWsw="
+    },
     "pi-acp": {
       "version": "0.0.35",
       "rawVersion": "v0.0.35",

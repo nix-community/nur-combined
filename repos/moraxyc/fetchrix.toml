@@ -402,6 +402,20 @@ fetch = { type = "github", repo = "grinev/opencode-telegram-bot", rev = "{versio
 kind = "npm-deps"
 strategy = "lockfile"
 
+[packages.peerbanhelper]
+version = { source = "github-release", repo = "PBH-BTN/PeerBanHelper", strip_prefix = "v" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "PBH-BTN/PeerBanHelper", tag = "v{version}" }
+
+[packages.peerbanhelper.derive.gradleDeps]
+strategy = "gradle-deps"
+attr = ".#peerbanhelper"
+use_bwrap = false
+
+[packages.peerbanhelper.derive.pnpmDepsHash]
+strategy = "fod"
+attr = ".#peerbanhelper.webui.pnpmDeps"
+
 [packages.pi-acp]
 version = { source = "github-release", repo = "svkozak/pi-acp" }
 transform = ["strip-v"]

@@ -21,6 +21,7 @@
   ./services/web-apps/gzctf.nix
   ./services/web-apps/mcsmanager.nix
   # ./services/web-apps/nezha.nix # upstreamed
+  ./services/web-apps/peerbanhelper.nix
   ./services/web-apps/shlink.nix
   ./services/web-apps/tokenrouter.nix
   ./services/web-apps/ztnet.nix
