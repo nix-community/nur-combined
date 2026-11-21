@@ -8,7 +8,7 @@
   nLeds ? 8,
 }:
 
-rustPlatform.buildRustPackage {
+rustPlatform.buildRustPackage (final: {
   pname = "framework_rgbafan";
   version = "0-unstable-2026-11-19";
 
@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage {
   };
 
   cargoLock = {
-    lockFile = ./Cargo.lock;
+    lockFile = "${final.src}/Cargo.lock";
     outputHashes = {
       "framework_lib-0.4.5" = "sha256-pPYV+a0sLLxdSjjO+qaRK+ddGLXzpOvUx3I60Ccd8gg=";
       "redox_hwio-0.1.6" = "sha256-knLIZ7yp42SQYk32NGq3SUGvJFVumFhD64Njr5TRdFs=";
@@ -46,4 +46,4 @@ rustPlatform.buildRustPackage {
     maintainers = with lib.maintainers; [ weathercold ];
     mainProgram = "framework_rgbafan_daemon";
   };
-}
+})

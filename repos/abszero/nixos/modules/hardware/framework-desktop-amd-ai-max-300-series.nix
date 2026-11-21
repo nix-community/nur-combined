@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -36,6 +41,9 @@ in
       "amd_iommu=off"
     ];
 
-    services.fwupd.enable = true;
+    services = {
+      fwupd.enable = true;
+      llama-cpp.package = pkgs.strix-llama-cpp;
+    };
   };
 }

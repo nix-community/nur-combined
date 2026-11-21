@@ -49,31 +49,31 @@ jobs:
         run: $update comfyui-manager
 
       - if: success() || failure()
-        run: $update --version=branch=main comfyui-prompt-manager
+        run: $update --version=branch comfyui-prompt-manager
 
       - if: success() || failure()
-        run: $update --version=branch=main comfyui-teacache
+        run: $update --version=branch framework_rgbafan
 
       - if: success() || failure()
-        run: $update --version=branch=main framework_rgbafan
+        run: $update --version=branch lsp-ai-chendesheng
 
       - if: success() || failure()
-        run: $update --version=branch=main lsp-ai-chendesheng
+        run: $update --version=branch noita_save_manager
 
       - if: success() || failure()
-        run: $update --version=branch=main noita_save_manager
+        run: $update --version=branch nu_scripts_git
 
       - if: success() || failure()
-        run: $update --version=branch=main nu_scripts_git
-
-      - if: success() || failure()
-        run: $update --version=branch=main palgen
+        run: $update --version=branch palgen
 
       - if: success() || failure()
         run: $update --version=branch=sageattention-1 sageattention_1
 
       - if: success() || failure()
-        run: $update --version=branch=master win2xcur
+        run: $update --version-regex='^v([0-9]+\.[0-9]+\.[0-9]+)$' strix-llama-cpp
+
+      - if: success() || failure()
+        run: $update --version=branch win2xcur
 
       # nix-update can't run the update scripts because of unique derivation structure
       - name: Update v2ray-rules-dat
