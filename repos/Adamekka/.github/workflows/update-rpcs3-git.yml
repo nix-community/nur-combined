@@ -31,7 +31,7 @@ jobs:
           NIXPKGS_ALLOW_UNFREE: "1"
         run: nix run nixpkgs#nix-update -- --flake --use-update-script rpcs3-git
 
-      - name: Validate updated package
+      - name: Validate and push package update
         env:
           NIXPKGS_ALLOW_UNFREE: "1"
         run: |
@@ -39,24 +39,30 @@ jobs:
             exit 0
           fi
 
-          nix build --impure --no-link --print-build-logs --cores 2 .#rpcs3-git
-
-      - name: Commit and push package update
-        run: |
-          if git diff --quiet pkgs/rpcs3-git/default.nix pkgs/rpcs3-git/submodules.json; then
-            exit 0
-          fi
-
-          # Refuse a stale update if main changed while this exact package was built.
-          git fetch origin main
-          if [ "$(git rev-parse origin/main)" != "$(git rev-parse HEAD)" ]; then
-            echo "main changed during validation; rerun the update" >&2
-            exit 1
-          fi
-
           git config user.name "github-actions[bot]"
           git config user.email \
             "41898282+github-actions[bot]@users.noreply.github.com"
           git add pkgs/rpcs3-git/default.nix pkgs/rpcs3-git/submodules.json
           git commit -m "Update rpcs3-git"
-          git push origin HEAD:main
+
+          # Other updaters often push to main during this long build. The same
+          # derivation on the new base is exactly the build already validated, so
+          # rebuild only when the rebased update evaluates to a different one.
+          validated_drv=
+          for _ in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            drv=$(nix eval --impure --raw .#rpcs3-git.drvPath)
+            if [ "$drv" != "$validated_drv" ]; then
+              nix build --impure --no-link --print-build-logs --cores 2 "$drv^*"
+              validated_drv=$drv
+            fi
+
+            # This non-force push rejects a main that moved after the fetch.
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+          done
+
+          echo "main kept changing during validation; rerun the update" >&2
+          exit 1
