@@ -2,7 +2,7 @@
   lib,
   stdenv,
   pkgs,
-  fetchurl,
+  fetchgit,
   cid,
   datalog,
   ocaml-index,
@@ -17,9 +17,12 @@ ocamlPackages.buildDunePackage {
   pname = "forester";
   inherit version;
 
-  src = fetchurl {
-    url = "https://git.sr.ht/~jonsterling/ocaml-forester/archive/${commit}.tar.gz";
-    hash = "sha256-ungXrJFgoSRrZoQCmIN2MrotpNVGz3YlA5tsQ4AgDyE=";
+  # git.sr.ht is behind an Anubis bot check that rejects Nix's fetcher; upstream
+  # development now lives on the Tangled knot at knot.cl.cam.ac.uk.
+  src = fetchgit {
+    url = "https://knot.cl.cam.ac.uk/jonmsterling.com/ocaml-forester";
+    rev = commit;
+    hash = "sha256-dmwfNVLlZaKo5e8khzObPo1t1eNVExnhpHJnV1255kI=";
   };
 
   strictDeps = true;
