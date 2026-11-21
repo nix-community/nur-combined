@@ -6,15 +6,15 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.7.3",
+  "version": "0.7.4",
   "platforms": {
     "aarch64-darwin": {
       "file": "transit-v{version}-macos-arm64.dmg",
-      "hash": "sha256-XmV+WICL+yFEYNZuBUl34GnBak2x6GlhsqFvaohrXOc="
+      "hash": "sha256-K9u1QL6d35GC3LvVujemk080s6gESkMWZ8rpFLcIJsc="
     },
     "x86_64-linux": {
       "file": "transit-{version}-linux-x86_64.AppImage",
-      "hash": "sha256-cK65K9xCKdqRp2HKqf1kP5A+lLMumKQnXMUFYRyI0cg="
+      "hash": "sha256-TsWN3315UbMitGwL9HzC3xNTqXLFuG4rlZ1sqcI4Z4M="
     }
   }
 }

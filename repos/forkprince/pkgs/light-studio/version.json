@@ -4,27 +4,27 @@
     "type": "redirect",
     "version_regex": "([0-9]+\\.[0-9]+\\.[0-9]+)"
   },
-  "version": "0.1.41",
+  "version": "0.1.42",
   "platforms": {
     "aarch64-darwin": {
       "redirect_url": "https://tenzen.studio/api/v1/light-studio/download?platform=darwin&arch=arm64&kind=dmg",
-      "url": "https://downloads.tenzen.studio/light-studio/stable/darwin/0.1.41/Light-Studio-0.1.41-mac-arm64.dmg",
-      "hash": "sha256-W+ihQ8w3p4zTU6eU9UbF9Gme5FU12WrYwB7yHUm8Tek="
+      "url": "https://downloads.tenzen.studio/light-studio/stable/darwin/0.1.42/Light-Studio-0.1.42-mac-arm64.dmg",
+      "hash": "sha256-1LgGxvPH1MjZsf4Ayss9ZK6MhX/bk780ZFEhCx3a4g4="
     },
     "x86_64-darwin": {
       "redirect_url": "https://tenzen.studio/api/v1/light-studio/download?platform=darwin&arch=x64&kind=dmg",
-      "url": "https://downloads.tenzen.studio/light-studio/stable/darwin/0.1.41/Light-Studio-0.1.41-mac-x64.dmg",
-      "hash": "sha256-bisre2JpXyRIoECE72KdoE2nNV1NNOu6NQK7E5uPSEM="
+      "url": "https://downloads.tenzen.studio/light-studio/stable/darwin/0.1.42/Light-Studio-0.1.42-mac-x64.dmg",
+      "hash": "sha256-k0CMfobIk8ZgL0Z8/kpPhmJUAjHt2ME+kRbn2K9d294="
     },
     "aarch64-linux": {
       "redirect_url": "https://tenzen.studio/api/v1/light-studio/download?platform=linux&arch=arm64&kind=appimage",
-      "url": "https://downloads.tenzen.studio/light-studio/stable/linux/0.1.41/Light-Studio-0.1.41-linux-arm64.AppImage",
-      "hash": "sha256-QHIu9muaIYXlF9Nx5JkGtN+j6fEikhO4I/zAYn1tF6Y="
+      "url": "https://downloads.tenzen.studio/light-studio/stable/linux/0.1.42/Light-Studio-0.1.42-linux-arm64.AppImage",
+      "hash": "sha256-w928HVxeAdvq/plDvnMnV27bojafi58kLU/BpOb1Ibs="
     },
     "x86_64-linux": {
       "redirect_url": "https://tenzen.studio/api/v1/light-studio/download?platform=linux&arch=x64&kind=appimage",
-      "url": "https://downloads.tenzen.studio/light-studio/stable/linux/0.1.41/Light-Studio-0.1.41-linux-x64.AppImage",
-      "hash": "sha256-VbtAZJ6L0uvDuHIWKKU+HCH0QsozlgVnTSZUs/dEnxE="
+      "url": "https://downloads.tenzen.studio/light-studio/stable/linux/0.1.42/Light-Studio-0.1.42-linux-x64.AppImage",
+      "hash": "sha256-9eCYq/wRcN0yJ56Ue1b/cPE/S7UdPZAfXmkZRHJr210="
     }
   }
 }
