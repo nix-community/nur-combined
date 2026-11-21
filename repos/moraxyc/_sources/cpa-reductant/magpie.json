@@ -1,0 +1,14 @@
+{
+  "nodes": {
+    "magpie": {
+      "locked": {
+        "lastModified": 1795253316,
+        "narHash": "sha256-UBl2dxvJVUmwDb2dUQg3ZG8WtG8lxW7w7mpMd7LKs/8=",
+        "owner": "yetone",
+        "repo": "magpie",
+        "rev": "a53f08e11dede7319e785d7259b1d580f2c2c3bd",
+        "type": "github"
+      }
+    }
+  }
+}

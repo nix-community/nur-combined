@@ -189,6 +189,27 @@
       },
       "fingerprint": "sha256-0ZOszgPQKtup+CvOCK4zA28HzJnx0SDYVVtsN6lPoR8="
     },
+    "cpa-reductant": {
+      "version": "0.1.0",
+      "rawVersion": "v0.1.0",
+      "date": "2026-11-21",
+      "src": {
+        "fetcher": "github",
+        "owner": "Moraxyc",
+        "repo": "cpa-reductant",
+        "rev": "v0.1.0",
+        "hash": "sha256-Lsgm5FRfdFU7imRcYZ8cm8oSY5sonnfn35MR0y/8r+w="
+      },
+      "derived": {
+        "vendorHash": {
+          "hash": "sha256-FeuVe4CbQyJerUgkoEUewNJm6h0UrvrFMQMNld+oR6I="
+        }
+      },
+      "artifacts": {
+        "magpie.json": "cpa-reductant/magpie.json"
+      },
+      "fingerprint": "sha256-FMvaZtjzuoVOt+mhktmw7VgKmKtLbLl8UX/zDvJ+MwY="
+    },
     "cpa-usage-keeper": {
       "version": "2.1.1-unstable-2026-11-20",
       "rawVersion": "e5e8f1a4c85208be29e8ef80f0c262dfbe362a8b",

@@ -102,6 +102,18 @@ fetch = { type = "github", repo = "router-for-me/cliproxyapi", rev = "{version}"
 strategy = "fod"
 attr = ".#cliproxyapi.goModules"
 
+[packages.cpa-reductant]
+version = { source = "github-release", repo = "Moraxyc/cpa-reductant" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "Moraxyc/cpa-reductant", rev = "{version}" }
+
+[packages.cpa-reductant.prepare]
+artifacts."magpie.json" = { type = "json", path = "flake.lock", fields = ["/nodes/magpie/locked"] }
+
+[packages.cpa-reductant.derive.vendorHash]
+strategy = "fod"
+attr = ".#cpa-reductant.goModules"
+
 [packages.cpa-usage-keeper]
 version = { source = "git", url = "https://github.com/Willxup/cpa-usage-keeper.git", unstable = { stable = { source = "github-release", repo = "Willxup/cpa-usage-keeper" } } }
 transform = ["strip-v"]
