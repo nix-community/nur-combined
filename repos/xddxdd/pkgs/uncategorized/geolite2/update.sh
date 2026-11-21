@@ -5,26 +5,26 @@ set -euo pipefail
 
 FILE="$(dirname "$(readlink -f "$0")")/default.nix"
 NEW_VERSION=$(curl -fsSL 'https://github.com/P3TERX/GeoLite.mmdb/releases.atom' |
-  grep -oP 'releases/tag/\K[^"<>]+' | sort -V | tail -n1 || true)
+    grep -oP 'releases/tag/\K[^"<>]+' | sort -V | tail -n1 || true)
 [ -n "$NEW_VERSION" ] || {
-  echo "Failed to detect new version"
-  exit 1
+    echo "Failed to detect new version"
+    exit 1
 }
 OLD=$(grep -oP 'GeoLite\.mmdb/releases/download/\K[0-9.]+' "$FILE" | head -n1)
 if [ "$NEW_VERSION" = "$OLD" ]; then
-  echo "geolite2 already at $OLD"
-  exit 0
+    echo "geolite2 already at $OLD"
+    exit 0
 fi
 
 URLS=()
 while read -r U; do URLS+=("$U"); done < <(
-  grep -oP 'https://github\.com/P3TERX/GeoLite\.mmdb/releases/download/[^"]*\.mmdb' "$FILE" |
-    sed "s|download/$OLD/|download/$NEW_VERSION/|g" | sort -u
+    grep -oP 'https://github\.com/P3TERX/GeoLite\.mmdb/releases/download/[^"]*\.mmdb' "$FILE" |
+        sed "s|download/$OLD/|download/$NEW_VERSION/|g" | sort -u
 )
 
 HASHES=()
 for U in "${URLS[@]}"; do
-  HASHES+=("$(nix store prefetch-file --json "$U" | jq -r .hash)")
+    HASHES+=("$(nix store prefetch-file --json "$U" | jq -er .hash)")
 done
 
 sed -i "s|download/$OLD/|download/$NEW_VERSION/|g" "$FILE"

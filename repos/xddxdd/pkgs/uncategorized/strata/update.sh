@@ -29,9 +29,18 @@ OLD_STRATA_HASH=$(grep -A2 'tag = "v${finalAttrs.version}"' "$PKG" | grep -oP 'h
 OLD_LLAMA_REV=$(grep -oP 'llamaRev = "\K[0-9a-f]{40}' "$PKG" | head -1)
 OLD_LLAMA_HASH=$(grep -A2 'rev = llamaRev;' "$PKG" | grep -oP 'hash = "\Ksha256-[^"]+')
 
+# The tag can exist before its files are reachable through raw.githubusercontent.com
+# (re-tag or CDN lag both show up as a 404), so retry before giving up.
 NEW_LLAMA=$(
-    curl -fsSL "https://raw.githubusercontent.com/Niko1221/Strata/v$NEW_VERSION/terminal/setup.py" |
-        grep -oP 'LLAMA_CPP_COMMIT = "\K[0-9a-f]{40}'
+    for _ in 1 2 3 4 5; do
+        OUT=$(curl -fsSL --max-time 60 "https://raw.githubusercontent.com/Niko1221/Strata/v$NEW_VERSION/terminal/setup.py" 2>/dev/null) || OUT=""
+        LLAMA=$(grep -oP 'LLAMA_CPP_COMMIT = "\K[0-9a-f]{40}' <<<"$OUT" || true)
+        if [ -n "$LLAMA" ]; then
+            echo "$LLAMA"
+            exit 0
+        fi
+        sleep 15
+    done
 )
 if [ -z "$NEW_LLAMA" ]; then
     echo "cannot determine llama.cpp commit for v$NEW_VERSION" >&2

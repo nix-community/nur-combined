@@ -9,7 +9,12 @@
       nix-shell helpers/update.nix --arg predicate '(attrPath: pkg: lib.hasPrefix "python3Packages." attrPath)'
 */
 {
-  pkgs ? import <nixpkgs> { },
+  # Evaluate against the nixpkgs pinned by flake.lock, never the ambient
+  # <nixpkgs>.  A channel bump would otherwise turn unrelated package
+  # attributes into throws (e.g. `openssl_3_6 has been removed`) and red the
+  # whole auto-update run for reasons that have nothing to do with the
+  # packages being updated.
+  pkgs ? import (builtins.getFlake "git+file://${toString ./..}").inputs.nixpkgs.outPath { },
   # "nur" mode matches what the NUR bot evaluates: it excludes groups that
   # require flake inputs (e.g. lantian-linux-cachyos), whose evaluation
   # failures cannot be caught by tryEval.
@@ -196,6 +201,14 @@ pkgs.stdenvNoCC.mkDerivation {
     ''}
 
     FAILED=""
+    ALLOWED_FAILED=""
+    # Persistent upstream breakage is listed by package name in
+    # tools/auto-update-allowed-failures.txt so that it cannot freeze the
+    # nightly update (see AGENTS.md).
+    is_allowed() {
+      [ -f tools/auto-update-allowed-failures.txt ] &&
+        grep -qxF "$1" tools/auto-update-allowed-failures.txt
+    }
     LOGDIR=$(mktemp -d)
     trap 'rm -rf "$LOGDIR"' EXIT
     cd "${toString ./.}/.."
@@ -241,7 +254,11 @@ pkgs.stdenvNoCC.mkDerivation {
       cat "$LOG"
       rm -f "$LOG"
       if [ "$STATUS" -ne 0 ]; then
-        FAILED="$FAILED $ATTR_PATH"
+        if is_allowed "''${ATTR_PATH##*.}"; then
+          ALLOWED_FAILED="$ALLOWED_FAILED $ATTR_PATH"
+        else
+          FAILED="$FAILED $ATTR_PATH"
+        fi
       fi
       unset "JOB_ATTR[$PID]" "JOB_LOG[$PID]"
       RUNNING=$((RUNNING - 1))
@@ -259,11 +276,14 @@ pkgs.stdenvNoCC.mkDerivation {
     done
 
     echo ""
+    if [ -n "$ALLOWED_FAILED" ]; then
+      echo "Allowed failures:$ALLOWED_FAILED" >&2
+    fi
     if [ -n "$FAILED" ]; then
       echo "Finished with failures:$FAILED" >&2
       exit 1
     fi
-    echo "All update scripts finished successfully."
+    [ -z "$ALLOWED_FAILED" ] && echo "All update scripts finished successfully."
     exit 0
   '';
 }

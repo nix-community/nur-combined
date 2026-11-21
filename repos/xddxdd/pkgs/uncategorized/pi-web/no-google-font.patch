@@ -1,16 +1,14 @@
-diff --git a/app/globals.css b/app/globals.css
 --- a/app/globals.css
 +++ b/app/globals.css
-@@ -778,7 +778,7 @@
- 
- :root {
+@@ -1194,7 +1194,7 @@
    --font-ui-default: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
--  --font-mono-default: var(--font-noto-mono), 'JetBrains Mono', 'Fira Code', 'Consolas', ui-monospace, 'PingFang SC', 'Microsoft YaHei', monospace;
-+  --font-mono-default: 'JetBrains Mono', 'Fira Code', 'Consolas', ui-monospace, 'PingFang SC', 'Microsoft YaHei', monospace;
+   /* The drawing faces come before the web font: its generated fallback is
+      Arial, which would otherwise take the box drawing it lacks. */
+-  --font-mono-default: "Terminal Drawing", "Terminal Drawing Windows", var(--font-noto-mono), 'JetBrains Mono', 'Fira Code', 'Consolas', ui-monospace, 'PingFang SC', 'Microsoft YaHei', monospace;
++  --font-mono-default: "Terminal Drawing", "Terminal Drawing Windows", 'JetBrains Mono', 'Fira Code', 'Consolas', ui-monospace, 'PingFang SC', 'Microsoft YaHei', monospace;
    --font-ui: var(--font-ui-default);
    --font-mono: var(--font-mono-default);
    --font-ui-weight: 400;
-diff --git a/app/layout.tsx b/app/layout.tsx
 --- a/app/layout.tsx
 +++ b/app/layout.tsx
 @@ -1,5 +1,4 @@
@@ -19,25 +17,25 @@ diff --git a/app/layout.tsx b/app/layout.tsx
  import { PwaRegistration } from "@/components/PwaRegistration";
  import { THEME_INIT_SCRIPT } from "@/lib/theme";
  import "katex/dist/katex.min.css";
-@@ -7,12 +6,6 @@
- import "./settings.css";
+@@ -8,12 +7,6 @@
  import "./sidebar.css";
  import "./sidebar-menu.css";
--
+ 
 -const notoSansMono = Noto_Sans_Mono({
 -  subsets: ["latin", "cyrillic"],
 -  variable: "--font-noto-mono",
 -  display: "swap",
 -});
- 
+-
  export const metadata: Metadata = {
    title: "Pi Web",
-@@ -62,7 +55,7 @@
+   description: "Pi Web interface for the pi coding agent",
+@@ -61,7 +54,7 @@
    children: React.ReactNode;
  }) {
    return (
 -    <html lang="en" translate="no" className={`${notoSansMono.variable} notranslate`} suppressHydrationWarning>
 +    <html lang="en" translate="no" className={"notranslate"} suppressHydrationWarning>
        <head>
+         <link rel="manifest" href="/manifest.webmanifest" crossOrigin="use-credentials" />
          <meta name="google" content="notranslate" />
-         <script

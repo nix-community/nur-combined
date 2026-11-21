@@ -1,0 +1,16 @@
+# Packages whose update failures do not fail the nightly update.
+#
+# One package name per line (the directory name under pkgs/). The updater
+# prints these as "Allowed failures:" instead of "Finished with failures:",
+# so a known upstream breakage cannot red the whole run or block the
+# commits of unrelated packages. Remove an entry as soon as the underlying
+# breakage is fixed: an allowlisted failure is invisible until then.
+
+# benchmark.unigine.com became a JS-rendered SPA whose bundle carries no
+# .run download links, so version detection cannot work; the pins are still
+# current for these discontinued benchmarks.
+unigine-heaven
+unigine-sanctuary
+unigine-superposition
+unigine-tropics
+unigine-valley

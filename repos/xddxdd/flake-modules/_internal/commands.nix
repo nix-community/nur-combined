@@ -59,16 +59,39 @@ _: {
           set -uo pipefail
           export LANG=en_US.UTF-8
           nix flake update
+          is_allowed() {
+            [ -f tools/auto-update-allowed-failures.txt ] &&
+              grep -qxF "$1" tools/auto-update-allowed-failures.txt
+          }
           STATUS=0
-          for S in $(command find pkgs/ \( -name 'update-standalone.*' \) -type f); do
+          FAILED=""
+          ALLOWED_FAILED=""
+          for S in $(command find pkgs/ \( -name 'update-standalone.*' \) -type f | sort); do
             echo "Executing $S"
             chmod +x "$S"
-            "$S" || STATUS=1
+            if "$S"; then
+              continue
+            fi
+            if is_allowed "$(basename "$(dirname "$S")")"; then
+              ALLOWED_FAILED="$ALLOWED_FAILED $S"
+              echo ">>> $S: FAILED (allowed)" >&2
+            else
+              FAILED="$FAILED $S"
+              echo ">>> $S: FAILED" >&2
+            fi
           done
-          ./tools/update-package --all || STATUS=1
+          ./tools/update-package --all || STATUS=$?
           # Regenerate README even when individual updates failed
           ${readme}
-          exit $STATUS
+          if [ -n "$ALLOWED_FAILED" ]; then
+            echo "Allowed failures:$ALLOWED_FAILED" >&2
+          fi
+          if [ -n "$FAILED" ] || [ "$STATUS" -ne 0 ]; then
+            [ -n "$FAILED" ] && echo "Finished with failures:$FAILED" >&2
+            exit 1
+          fi
+          [ -z "$ALLOWED_FAILED" ] && echo "All update scripts finished successfully."
+          exit 0
         '';
       };
     };

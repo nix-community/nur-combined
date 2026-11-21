@@ -7,27 +7,27 @@ FILE="$(dirname "$(readlink -f "$0")")/default.nix"
 # tags.atom only exposes tags with release notes, and sort -V ranks "3.0.3-RC"
 # after "3.0.3", so -RC tags must be filtered explicitly
 NEW_VERSION=$(curl -fsSL 'https://github.com/netbootxyz/netboot.xyz/releases.atom' |
-  grep -oP 'releases/tag/\K[^"<>]+' | grep -v '^v' | grep -v -- '-RC' |
-  sort -V | tail -n1 || true)
+    grep -oP 'releases/tag/\K[^"<>]+' | grep -v '^v' | grep -v -- '-RC' |
+    sort -V | tail -n1 || true)
 [ -n "$NEW_VERSION" ] || {
-  echo "Failed to detect new version"
-  exit 1
+    echo "Failed to detect new version"
+    exit 1
 }
 OLD=$(grep -oP 'netboot\.xyz/releases/download/\K[0-9.]+' "$FILE" | head -n1)
 if [ "$NEW_VERSION" = "$OLD" ]; then
-  echo "netboot-xyz already at $OLD"
-  exit 0
+    echo "netboot-xyz already at $OLD"
+    exit 0
 fi
 
 URLS=()
 while read -r U; do URLS+=("$U"); done < <(
-  grep -oP 'https://github\.com/netbootxyz/netboot\.xyz/releases/download/[^"]*' "$FILE" |
-    sed "s|download/$OLD/|download/$NEW_VERSION/|g" | sort -u
+    grep -oP 'https://github\.com/netbootxyz/netboot\.xyz/releases/download/[^"]*' "$FILE" |
+        sed "s|download/$OLD/|download/$NEW_VERSION/|g" | sort -u
 )
 
 HASHES=()
 for U in "${URLS[@]}"; do
-  HASHES+=("$(nix store prefetch-file --json "$U" | jq -r .hash)")
+    HASHES+=("$(nix store prefetch-file --json "$U" | jq -er .hash)")
 done
 
 sed -i "s|download/$OLD/|download/$NEW_VERSION/|g" "$FILE"
