@@ -11,13 +11,6 @@
         flake-parts.follows = "flake-parts";
       };
     };
-    nixified-ai = {
-      url = "github:nixified-ai/flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
-    };
     driftwm = {
       url = "github:malbiruk/driftwm";
       inputs.nixpkgs.follows = "nixpkgs";

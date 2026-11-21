@@ -6,7 +6,7 @@ in
 
 {
   flake.homeModules =
-    toModuleAttr ../../lib/modules/themes
-    // toModuleAttr' ../modules/profiles
-    // toModuleAttr ../modules/themes;
+    toModuleAttr ../../../lib/modules/themes
+    // toModuleAttr' ../../modules/profiles
+    // toModuleAttr ../../modules/themes;
 }

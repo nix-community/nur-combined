@@ -92,11 +92,10 @@ in
           LLMNR = false; # For security
         };
       };
-      scx = {
+      scx-loader = {
         enable = true;
-        package = pkgs.scx.rustscheds;
         # Scheduler that minimizes latency and reduces power usage
-        scheduler = "scx_lavd";
+        config.default_sched = "scx_lavd";
       };
     };
 

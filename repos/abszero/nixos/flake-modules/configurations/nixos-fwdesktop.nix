@@ -147,18 +147,15 @@ let
       };
     };
 
-    services = {
-      comfyui.acceleration = "rocm";
-      displayManager = {
-        noctalia-greeter = {
-          cursorTheme = {
-            name = "aris-cursors";
-            package = pkgs.aris-cursors;
-          };
-          settings.cursor.size = 96;
+    services.displayManager = {
+      noctalia-greeter = {
+        cursorTheme = {
+          name = "aris-cursors";
+          package = pkgs.aris-cursors;
         };
-        sessionPackages = with pkgs; [ driftwm ];
+        settings.cursor.size = 96;
       };
+      sessionPackages = with pkgs; [ driftwm ];
     };
   };
 

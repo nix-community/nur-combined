@@ -37,6 +37,7 @@ in
     };
 
     nixpkgs.config.permittedInsecurePackages = [
+      "firefox-esr-140-bin-unwrapped-140.17.0esr" # For zotero
       "ventoy-1.1.18" # Chronic
     ];
 
@@ -85,7 +86,7 @@ in
         jetbrains.idea
         kooha
         libreoffice-qt
-        lutris
+        # lutris
         minefair
         nautilus
         nudoku
@@ -106,7 +107,7 @@ in
         wl-clipboard-rs
         xeyes
         ytmdesktop
-        # zotero
+        zotero
       ];
     };
   };

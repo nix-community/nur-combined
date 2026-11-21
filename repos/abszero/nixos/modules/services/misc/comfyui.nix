@@ -12,31 +12,31 @@ let
 in
 
 {
-  # TODO: migrate to nixpkgs when custom nodes are supported
-  disabledModules = [ "services/misc/comfyui.nix" ];
-
   options.abszero.services.comfyui.enable = mkEnableOption "comfyui generative AI frontend";
 
   config.services = mkIf cfg.enable {
     comfyui = {
       enable = true;
-      extraFlags = [
-        "--highvram"
-        "--use-pytorch-cross-attention"
+      extraArgs = [
+        # "--highvram"
+        # "--use-pytorch-cross-attention"
         "--enable-triton-backend"
+        "--enable-manager"
       ];
-      customNodes = with pkgs; [
-        comfyui-anima-booster
-        comfyui-manager
-        comfyuiPackages.comfyui-res4lyf
+      extraPackages =
+        comfyPkgs:
+        with pkgs;
+        with comfyPkgs;
+        [
+          comfyui-manager
+          matplotlib # RES4LYF
+          numpy # RES4LYF
+          opencv-python # RES4LYF
+          pywavelets # RES4LYF
+          scikit-image # RES4LYF
+        ]
         # Install dependencies for plugins managed by ComfyUI-Manager
-        (stdenvNoCC.mkDerivation {
-          name = "comfyui-custom-nodes-dependencies";
-          src = emptyDirectory;
-          propagatedBuildInputs =
-            comfyuiPackages.comfyui-rgthree.propagatedBuildInputs ++ comfyui-lora-manager.propagatedBuildInputs;
-        })
-      ];
+        ++ (comfyui-lora-manager.override { python3 = python; }).propagatedBuildInputs;
     };
     tailscale.serve.services.comfyui.endpoints."tcp:80" =
       "http://127.0.0.1:${toString comfyuiCfg.port}";

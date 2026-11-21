@@ -24,5 +24,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://www.bilibili.com/video/BV1Vv4y1o796";
     license = licenses.unfree;
     platforms = platforms.linux;
+    maintainers = with lib.maintainers; [ weathercold ];
   };
 }

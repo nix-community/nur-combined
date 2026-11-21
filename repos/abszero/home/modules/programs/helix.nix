@@ -421,30 +421,30 @@ in
             memory.file_store = { };
 
             models = {
-              "qwen3.8-27b" = {
+              "qwen3.8-flash-next" = {
                 type = "open_ai";
-                model = "qwen3.8-27b";
+                model = "qwen3.8-flash-next";
                 # Endpoint configured in flake modules
                 auth_token = "";
                 max_requests_per_second = 1;
               };
-              "gemma-4-12b-instruct" = {
+              "qwen3.8-flash-next-instruct" = {
                 type = "open_ai";
-                model = "gemma-4-12b-instruct";
+                model = "qwen3.8-flash-next-instruct";
                 auth_token = "";
                 max_requests_per_second = 1;
               };
             };
 
             completion = {
-              model = "gemma-4-12b-instruct";
+              model = "qwen3.8-flash-next-instruct";
               parameters = {
                 max_context = 12000;
                 max_tokens = 2000;
                 messages = [
                   {
                     role = "system";
-                    content = "You are an expert code assistant who writes beautiful, concise and idiomatic code. Given the code that the user is writing, complete with your code or comment at cursor location `<CURSOR>`. Output ONLY your completion.";
+                    content = "You are an expert code assistant who writes beautiful, concise and idiomatic code. Given the code that the user is writing, complete with your code or comment at cursor location `<CURSOR>`. Output only your completion as plain text.";
                   }
                   {
                     role = "user";
@@ -457,7 +457,7 @@ in
             chat = singleton {
               action_display_name = "Chat";
               trigger = "!C";
-              model = "qwen3.8-27b";
+              model = "qwen3.8-flash-next";
               parameters = {
                 max_context = 18000;
                 max_tokens = 8000;
@@ -475,7 +475,7 @@ in
             };
 
             diagnostic_actions = {
-              model = "qwen3.8-27b";
+              model = "qwen3.8-flash-next";
               parameters = {
                 max_context = 18000;
                 max_tokens = 8000;
@@ -484,7 +484,7 @@ in
             };
 
             refactor_actions = {
-              model = "qwen3.8-27b";
+              model = "qwen3.8-flash-next";
               parameters = {
                 max_context = 18000;
                 max_tokens = 8000;
@@ -493,14 +493,14 @@ in
 
             actions = singleton {
               action_display_name = "Complete";
-              model = "qwen3.8-27b";
+              model = "qwen3.8-flash-next";
               parameters = {
                 max_context = 18000;
                 max_tokens = 8000;
                 messages = [
                   {
                     role = "system";
-                    content = "You are an expert code assistant who writes beautiful, concise and idiomatic code. Given the code that the user is writing, complete with your code or comment at cursor location `<CURSOR>`. Output ONLY your completion.";
+                    content = "You are an expert code assistant who writes beautiful, concise and idiomatic code. Given the code that the user is writing, complete with your code or comment at cursor location `<CURSOR>`. Output only your completion as plain text.";
                   }
                   {
                     role = "user";

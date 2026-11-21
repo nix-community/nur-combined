@@ -16,13 +16,6 @@
         flake-parts.follows = "flake-parts";
       };
     };
-    nixified-ai = {
-      url = "github:nixified-ai/flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
-    };
     driftwm = {
       url = "github:malbiruk/driftwm";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -132,7 +125,7 @@
         ];
 
         perSystem =
-          { pkgs, ... }:
+          { config, pkgs, ... }:
           with pkgs;
           {
             formatter = nixfmt-tree;
@@ -151,7 +144,7 @@
                 nix-init
                 nix-prefetch-github # Somehow not in nix-prefetch-scripts
                 nix-prefetch-scripts
-                nix-update
+                config.packages.nix-update-fixed
                 tombi # TOML language server
                 yaml-language-server
                 vscode-langservers-extracted # For vscode-json-language-server

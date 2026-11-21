@@ -21,6 +21,21 @@ in
       enableRedistributableFirmware = true;
     };
 
+    boot.kernelParams = [
+      # Raise available VRAM to 124GiB (1/2)
+      # Raise the size limit of the Graphics Translation Table to 124GiB
+      "amdgpu.gttsize=126976"
+      # Raise available VRAM to 124GiB (2/2)
+      # Raise the pages limit of the Translation Table Manager to 124GiB
+      "ttm.pages_limit=32505856"
+      # Remove allocation churn when memory gets mapped/unmapped
+      # Cap the pool of pre-allocated pages to 124GiB
+      "ttm.page_pool_size=32505856"
+      # Remove mapping overhead
+      # Disable remapping the DMA through IOMMU page tables
+      "amd_iommu=off"
+    ];
+
     services.fwupd.enable = true;
   };
 }

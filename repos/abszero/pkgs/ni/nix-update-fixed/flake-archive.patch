@@ -1,0 +1,19 @@
+diff --git a/nix_update/options.py b/nix_update/options.py
+--- a/nix_update/options.py
++++ b/nix_update/options.py
+@@ -110,8 +110,15 @@
+     try:
++        # The metadata path may not be realized; re-evaluation after updates needs it.
++        subprocess.run(
++            ["nix", "flake", "archive", "--no-write-lock-file"],
++            cwd=import_path,
++            stdout=subprocess.DEVNULL,
++            check=True,
++        )
+         result = subprocess.run(
+             ["nix", "flake", "metadata", "--json"],
+             cwd=import_path,
+             capture_output=True,
+             text=True,
+             check=True,
+         )

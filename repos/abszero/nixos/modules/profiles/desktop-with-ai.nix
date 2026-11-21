@@ -15,7 +15,7 @@ in
     abszero = {
       profiles.desktop.enable = true;
       services = {
-        # comfyui.enable = true; # TODO: enable
+        comfyui.enable = true;
         llama-cpp.enable = true;
       };
     };

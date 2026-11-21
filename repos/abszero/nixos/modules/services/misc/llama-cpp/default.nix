@@ -20,6 +20,8 @@ in
     settings = {
       port = 11434;
       no-ui = true;
+      models-memory-margin = 4096; # Keep 4GiB free
+      sleep-idle-seconds = 1800; # Sleep after 30mins of inactivity
       models-preset = pkgs.writeText "models.ini" (readFile ./models.ini);
     };
   };

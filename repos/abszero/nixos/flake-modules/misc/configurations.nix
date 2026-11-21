@@ -62,7 +62,6 @@ in
         nixpkgsPatcher = { inherit inputs; };
         specialArgs = { inherit inputs; };
         modules = flatten [
-          inputs.nixified-ai.nixosModules.comfyui
           inputs.wisp.nixosModules.wisp
           inputs.sops.nixosModules.sops
           inputs.disko.nixosModules.disko

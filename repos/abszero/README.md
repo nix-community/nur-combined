@@ -99,40 +99,51 @@ differing from it only when it makes sense.
 > `github:Weathercold/nixfiles?dir=home`
 
     nixfiles/
-    ├ home/                               home manager config
-    │ ├ flake-modules/                    home flake modules
-    │ │ ├ configurations/                 home configurations
-    │ │ │ └ custom.nix                    example configuration
-    │ │ └ misc/, ...
-    │ └ modules/                          home modules
-    │   ├ profiles/                       top-level home modules
-    │   └ services/, programs/, ...
-    ├ nixos/                              nixos config
-    │ ├ flake-modules/                    nixos flake modules
-    │ │ ├ configurations/                 nixos configurations
-    │ │ └ programs/, misc/, ...
-    │ └ modules/                          nixos modules
-    │   ├ profiles/                       top-level nixos modules
-    │   └ services/, programs/, ...
-    ├ pkgs/                               package repository (follows pkgs/by-name structure)
-    └ lib/                                library of shared expressions
-      ├ modules/                          shared modules
-      └ src/                              shared functions
+    ├ flake.nix
+    ├ home/                             home-manager configuration
+    │ ├ flake.nix
+    │ ├ flake-modules/
+    │ │ ├ configurations/               user configurations (including custom.nix)
+    │ │ └ misc/                         configuration builder and public module exports
+    │ └ modules/
+    │   └ programs/, services/, ...
+    ├ nixos/                            NixOS configuration
+    │ ├ flake.nix
+    │ ├ flake-modules/
+    │ │ ├ configurations/               host configurations
+    │ │ ├ misc/                         configuration builder and public module exports
+    │ │ └ programs/
+    │ └ modules/
+    │   └ programs/, services/, ...
+    ├ pkgs/                             package repository (pkgs/by-name layout)
+    │ ├ flake.nix
+    │ ├ flake-module.nix
+    │ ├ default.nix
+    │ └ <prefix>/<package>/package.nix
+    └ lib/                              library of shared expressions
+      ├ flake.nix
+      ├ default.nix
+      ├ haumea/                         vendored Haumea
+      ├ modules/                        shared NixOS and home-manager modules
+      └ src/                            shared functions
 
 ---
 
 ## Import Graph
 
     nixfiles/flake.nix
-    ├ home/flake-modules/*                                all home flake modules
-    │ ├ misc/configurations.nix -> ../../modules/*        all home modules
-    │ └ misc/modules.nix -> ../../modules/themes/*, ...   public home modules
-    ├ nixos/flake-modules/*                               all nixos flake modules
-    │ ├ configurations/* -> inputs.*.nixosModules.*       3rd party nixos modules
-    │ ├ misc/configurations.nix -> ../../modules/*        all nixos modules
-    │ └ misc/modules.nix -> ../../modules/hardware/*, ... public nixos modules
-    ├ pkgs/flake-module.nix
-    │ └ default.nix
-    │   └ aa/*, ab/*, ...
-    └ lib/default.nix
-      └ src/*
+    ├─ home/flake-modules/**               all home-manager flake modules (loaded recursively)
+    │  ├─ configurations/**
+    │  ├─ misc/configurations.nix          configuration builder
+    │  │  └─ ../../modules/**              all home-manager modules (loaded recursively)
+    │  └─ misc/modules.nix                 exports home-manager modules
+    ├─ nixos/flake-modules/**              all NixOS flake modules (loaded recursively)
+    │  ├─ configurations/**
+    │  ├─ misc/configurations.nix          configuration builder
+    │  │  └─ ../../modules/**              all NixOS modules (loader recursively)
+    │  └─ misc/modules.nix                 exports NixOS modules
+    ├─ pkgs/flake-module.nix               exports packages and overlays
+    │  └─ default.nix
+    │     └─ <prefix>/<attr-name>/package.nix
+    └─ lib/default.nix                     extends nixpkgs.lib
+       └─ src/**

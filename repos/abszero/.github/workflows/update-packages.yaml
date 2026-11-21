@@ -23,76 +23,76 @@ jobs:
 
       - name: Setup
         run: |-
-          nix profile add nixpkgs#nix-update
+          nix profile add .#nix-update-fixed
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - run: $update --version=branch=main catppuccin-discord_git
-        continue-on-error: true
+      - if: success() || failure() # always() runs even when job is cancelled
+        run: $update --version=branch=main catppuccin-discord_git
 
-      - run: $update --version=branch=main catppuccin-wallpapers
-        continue-on-error: true
+      - if: success() || failure()
+        run: $update --version=branch=main catppuccin-wallpapers
 
-      - run: $update --version=branch=main colloid-gtk-theme_git
-        continue-on-error: true
+      - if: success() || failure()
+        run: $update --version=branch=main colloid-gtk-theme_git
 
-      - run: $update comfyui-anima-booster
-        continue-on-error: true
+      - if: success() || failure()
+        run: $update comfyui-anima-booster
 
-      - run: $update comfyui-autocomplete-plus
-        continue-on-error: true
+      - if: success() || failure()
+        run: $update comfyui-autocomplete-plus
 
-      - run: $update comfyui-lora-manager
-        continue-on-error: true
+      - if: success() || failure()
+        run: $update comfyui-lora-manager
 
-      - run: $update comfyui-manager
-        continue-on-error: true
+      - if: success() || failure()
+        run: $update comfyui-manager
 
-      - run: $update --version=branch=main comfyui-prompt-manager
-        continue-on-error: true
+      - if: success() || failure()
+        run: $update --version=branch=main comfyui-prompt-manager
 
-      - run: $update --version=branch=main comfyui-teacache
-        continue-on-error: true
+      - if: success() || failure()
+        run: $update --version=branch=main comfyui-teacache
 
-      - run: $update --version=branch=main framework_rgbafan
-        continue-on-error: true
+      - if: success() || failure()
+        run: $update --version=branch=main framework_rgbafan
 
-      - run: $update --version=branch=main lsp-ai-chendesheng
-        continue-on-error: true
+      - if: success() || failure()
+        run: $update --version=branch=main lsp-ai-chendesheng
 
-      - run: $update --version=branch=main noita_save_manager
-        continue-on-error: true
+      - if: success() || failure()
+        run: $update --version=branch=main noita_save_manager
 
-      - run: $update --version=branch=main nu_scripts_git
-        continue-on-error: true
+      - if: success() || failure()
+        run: $update --version=branch=main nu_scripts_git
 
-      - run: $update --version=branch=main palgen
-        continue-on-error: true
+      - if: success() || failure()
+        run: $update --version=branch=main palgen
 
-      - run: $update --version=branch=sageattention-1 sageattention_1
-        continue-on-error: true
+      - if: success() || failure()
+        run: $update --version=branch=sageattention-1 sageattention_1
 
-      - run: $update --version=branch=master win2xcur
-        continue-on-error: true
+      - if: success() || failure()
+        run: $update --version=branch=master win2xcur
 
       # nix-update can't run the update scripts because of unique derivation structure
       - name: Update v2ray-rules-dat
+        if: success() || failure()
         run: |-
           pkgs/v2/v2ray-rules-dat/update.sh
           git add . && git commit -m "v2ray-rules-dat: update"
-        continue-on-error: true
 
       - name: Update vscode-insiders
+        if: success() || failure()
         run: |-
           pkgs/vs/vscode-insiders/update.sh
           git add . && git commit -m "vscode-insiders: update"
-        continue-on-error: true
 
       - name: Update vscodium-insiders
+        if: success() || failure()
         run: |-
           pkgs/vs/vscodium-insiders/update.sh
           git add . && git commit -m "vscodium-insiders: update"
-        continue-on-error: true
 
-      - run: git push
-        continue-on-error: true
+      - if: success() || failure()
+        run: git push
