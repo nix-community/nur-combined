@@ -74,6 +74,8 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r ./* $out
     install -Dm444 $alvrSrc/alvr/xtask/resources/alvr.desktop -t $out/share/applications
     install -Dm444 $alvrSrc/alvr/xtask/flatpak/alvr_icon.png $out/share/icons/hicolor/256x256/apps/alvr.png
+    install -Dm444 $alvrSrc/alvr/xtask/firewall/ufw-alvr $out/share/alvr/ufw-alvr
+    install -Dm755 ${./alvr-firewall-install.sh} $out/bin/alvr-firewall-install
 
     runHook postInstall
   '';
