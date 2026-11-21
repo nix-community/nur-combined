@@ -1984,8 +1984,8 @@
             "url": "https://github.com/nginxinc/nur"
         },
         "nickheyer": {
-            "rev": "5546663e7355ea0048cdeec086f50e0f7cf24ec5",
-            "sha256": "0mgak2vq4qbrpglnipd3a1ygq4yk6s2xjap1hhgg4k5jasznv87j",
+            "rev": "e14ebdf9ad0a0a71e4b49ada0e5ab7634400ede2",
+            "sha256": "0yz579ql4nsfl2rcrvvba56yidcs58bd65dhqb01kcvdbw4mvakl",
             "url": "https://github.com/nickheyer/nixpkg"
         },
         "nighthawk": {
@@ -2478,6 +2478,11 @@
             "rev": "a744f648fc4ed8a8b461f0847e9f800077919881",
             "sha256": "1ryyc11hj9szq9zwl913vd3waiyfass792c0s6c0shpxdmp45rk2",
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
+        },
+        "shelvacu": {
+            "rev": "17bdc1c5c355ee97463d64b6716ac962d95806bc",
+            "sha256": "0v6wn32mx7d2l4i4kyvw74rh6jh3ijycx559266w06ik2gy73mh7",
+            "url": "https://git.uninsane.org/shelvacu/nix-stuff"
         },
         "shirok1": {
             "rev": "0eaa764bd3bc0d6212130d89c0f9a9a3ffd81515",
