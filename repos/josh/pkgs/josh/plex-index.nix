@@ -7,13 +7,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "plex-index";
-  version = "0.1.0";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "plex-index";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-DV6XnNOMl2FDXWiQu5Am2XhE+/cVzzfJ4K3crAxGFpo=";
+    hash = "sha256-zTMwTtr3LzVrM94Bi1mJ3/yrqGM/nG9rWCGCcee7I6s=";
   };
 
   vendorHash = "sha256-9FLAVUGHmokTj6nZzo65wdVzaa9t/5MUMVnyC+Lt5LI=";
