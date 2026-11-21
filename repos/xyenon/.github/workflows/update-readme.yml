@@ -25,7 +25,7 @@ jobs:
         if: env.HAS_GH_PAT != 'true'
         run: echo '::warning::Set GH_PAT so the generated commit triggers fresh PR checks.'
       - name: Install Nix
-        uses: cachix/install-nix-action@v31
+        uses: cachix/install-nix-action@v32
       - name: Generate package documentation
         run: ./scripts/generate-package-docs.py
       - name: Commit package documentation
@@ -66,7 +66,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
       - name: Install Nix
-        uses: cachix/install-nix-action@v31
+        uses: cachix/install-nix-action@v32
       - name: Verify package documentation
         run: |
           ./scripts/generate-package-docs.py
