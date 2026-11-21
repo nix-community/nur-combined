@@ -1,0 +1,79 @@
+Nix: the package tree is in the read-only store and the server's requirements
+(Python 3.12, numpy, Pillow, duckdb, fsspec) come from the derivation's Python,
+so keep install.py's state in the user's state directory, make the mod copy
+writable (a read-only source's modes are otherwise preserved), and skip the pip
+venv when BEAMNG_EARTH_SYSTEM_PYTHON is set (the wrappers set it).
+
+--- a/install.py
++++ b/install.py
+@@ -32,9 +32,13 @@
+ ROOT = os.path.dirname(os.path.abspath(__file__))
+ MOD_SRC = os.path.join(ROOT, "mod", "beamng_earth")
+ MOD_NAME = "beamng_earth"
+-VENV = os.path.join(ROOT, ".venv")
++STATE = os.environ.get("BEAMNG_EARTH_STATE_DIR") or os.path.join(
++    os.environ.get("XDG_STATE_HOME") or os.path.join(os.path.expanduser("~"), ".local", "state"),
++    "beamng-earth",
++)
++VENV = os.path.join(STATE, "venv")
+ REQUIREMENTS = os.path.join(ROOT, "server", "requirements.txt")
+-CONFIG = os.path.join(ROOT, ".beamng_earth.json")
++CONFIG = os.path.join(STATE, "config.json")
+ REQ_STAMP = os.path.join(VENV, ".requirements.sha256")
+ STEAM_APP_ID = "284160"
+ MIN_PY = (3, 10)
+@@ -337,6 +341,7 @@
+             full = os.path.join(dest, *rel.split("/"))
+             st = os.stat(full)
+             old_times[os.path.relpath(full, dest)] = (st.st_atime, st.st_mtime)
++        _make_writable(dest)
+         _clear_tree(dest, keep)
+         status = "updated"
+     elif dry_run:
+@@ -347,6 +352,9 @@
+     os.makedirs(os.path.dirname(dest), exist_ok=True)
+     shutil.copytree(MOD_SRC, dest, ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".DS_Store"),
+                     dirs_exist_ok=True)
++    # A Nix store source is read-only, and copytree keeps those modes: the
++    # texture encoder (and _clear_tree on the next update) must write here.
++    _make_writable(dest)
+     if len(keep) < len(todo):
+         say(f"Mod: making its textures ({len(todo) - len(keep)} of {len(todo)}; once per update) ...")
+     try:
+@@ -377,6 +385,14 @@
+                 os.rmdir(full)
+ 
+ 
++def _make_writable(root):
++    """Make a copied mod tree writable (its files come from a read-only source)."""
++    for dirpath, _, filenames in os.walk(root):
++        os.chmod(dirpath, 0o755)
++        for name in filenames:
++            os.chmod(os.path.join(dirpath, name), 0o644)
++
++
+ # The game packs a terrain material's textures into its own cache (temp/art/terrainMaterialCache) and packs them again,
+ # 1.5-3 s each on its main thread, whenever a source file is newer than its cache entry ("cache outdated" in its log).
+ # An update copied every file with the build's times (a fresh checkout's: new), so the first session after each one
+@@ -541,10 +557,14 @@
+ # --- the server's Python environment ------------------------------------------------------------
+ 
+ def venv_python():
++    if os.environ.get("BEAMNG_EARTH_SYSTEM_PYTHON"):
++        return sys.executable
+     return os.path.join(VENV, "Scripts", "python.exe") if IS_WIN else os.path.join(VENV, "bin", "python")
+ 
+ 
+ def setup_venv(dry_run):
++    if os.environ.get("BEAMNG_EARTH_SYSTEM_PYTHON"):
++        return
+     py = venv_python()
+     if dry_run:
+         say(f"(dry run) would {'reuse' if os.path.isfile(py) else 'create'} the virtual environment {VENV} "
+@@ -595,5 +615,6 @@
+     if dry_run:
+         say(f"(dry run) would write {CONFIG}: {cfg}")
+         return
++    os.makedirs(os.path.dirname(CONFIG), exist_ok=True)
+     with open(CONFIG, "w", encoding="utf-8") as f:
+         json.dump(cfg, f, indent=2)

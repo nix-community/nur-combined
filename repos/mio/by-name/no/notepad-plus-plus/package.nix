@@ -14,7 +14,9 @@
 }:
 
 let
-  wine = if stdenv.hostPlatform.isDarwin then gcenx-wine-staging else wineWow64Packages.full;
+  isDarwin = stdenv.hostPlatform.isDarwin;
+
+  wine = if isDarwin then gcenx-wine-staging else wineWow64Packages.full;
 
   myLib = import ../../../lib { inherit pkgs; };
   inherit (myLib) copyDesktopIcons makeDesktopIcon mkWindowsAppNoCC;
@@ -30,22 +32,6 @@ let
   # Where the payload lives inside every Wine prefix. Both launchers use it.
   winAppDir = "drive_c/Program Files/Notepad++";
   winAppExe = "$WINEPREFIX/${winAppDir}/notepad++.exe";
-
-  # Installs the cross-compiled payload into $WINEPREFIX. Linux runs this when
-  # building its prefix; darwin runs it on first launch. cjkfonts is only
-  # available through winetricks on Linux, so darwin opts out.
-  installPayload =
-    { cjkfonts }:
-    ''
-      mkdir -p "$WINEPREFIX/${winAppDir}"
-      cp -a ${notepadppWindows}/. "$WINEPREFIX/${winAppDir}/"
-      chmod -R u+rwX "$WINEPREFIX/${winAppDir}"
-    ''
-    + lib.optionalString cjkfonts ''
-      if [ "''${NOTEPADPP_SKIP_CJKFONTS:-}" != 1 ]; then
-        winetricks --unattended cjkfonts
-      fi
-    '';
 
   meta = with lib; {
     mainProgram = pname;
@@ -65,92 +51,127 @@ let
     ];
   };
 
-  desktopIcon = makeDesktopIcon {
-    name = pname;
-    icoIndex = 2;
-    src = fetchurl {
-      url = "https://notepad-plus-plus.org/favicon.ico";
-      sha256 = "1av2m6m665ccfngnzqnbsnv2aky907p2c6ggvfxrwbp70szgj9vi";
-    };
-  };
-
-  linux = mkWindowsAppNoCC rec {
+  # Everything both platform builds must agree on. Linux hands this straight to
+  # mkWindowsAppNoCC; darwin uses the same values in the loose launcher below.
+  common = {
     inherit
       wine
       pname
       version
       meta
-      desktopIcon
       ;
     src = notepadppWindows;
-
     dontUnpack = true;
     wineArch = "win64";
-
-    fileMap = {
-      "$HOME/.config/Notepad++" = "drive_c/users/$USER/AppData/Roaming/Notepad++";
-    };
-
     enableMonoBootPrompt = false;
-    nativeBuildInputs = [
-      copyDesktopItems
-      copyDesktopIcons
-    ];
-
-    winAppInstall = installPayload { cjkfonts = true; };
-
-    winAppRun = ''
-      $WINE "${winAppExe}" "''${ARGS[@]}"
-    '';
-
-    installPhase = ''
-      runHook preInstall
-      mv $out/bin/.launcher $out/bin/${pname}
-      runHook postInstall
-    '';
-
-    desktopItems = [
-      (makeDesktopItem {
-        name = "Notepad++";
-        exec = pname;
-        icon = pname;
-        desktopName = "Notepad++";
-        genericName = "Text Editor";
-        mimeTypes = [ "text/plain" ];
-        categories = [
-          "Utility"
-          "TextEditor"
-        ];
-      })
-    ];
-
-    passthru.tests.nixos = testers.runNixOSTest (
-      import ./test.nix {
-        notepad-plus-plus = linux;
-        nixpkgsPath = pkgs.path;
-      }
-    );
   };
 
-  # Darwin cannot use mkWindowsApp (Linux overlayfs). Launch via Gcenx Wine.
+  # Installs the cross-compiled payload into $WINEPREFIX. Linux runs this while
+  # building its app layer, darwin on first launch. cjkfonts is only available
+  # through winetricks on Linux, so darwin opts out.
+  installPayload =
+    { cjkfonts }:
+    ''
+      mkdir -p "$WINEPREFIX/${winAppDir}"
+      cp -a ${notepadppWindows}/. "$WINEPREFIX/${winAppDir}/"
+      chmod -R u+rwX "$WINEPREFIX/${winAppDir}"
+    ''
+    + lib.optionalString cjkfonts ''
+      if [ "''${NOTEPADPP_SKIP_CJKFONTS:-}" != 1 ]; then
+        winetricks --unattended cjkfonts
+      fi
+    '';
+
+  # Starts the PE. mkWindowsApp's launcher fills ARGS from its argv; the darwin
+  # launcher sets ARGS=( "$@" ) before calling this, so both run this one
+  # command instead of keeping a launch line per platform.
+  winAppRun = ''$WINE "${winAppExe}" "''${ARGS[@]}"'';
+
+  desktopIcon = makeDesktopIcon {
+    name = pname;
+    icoIndex = 2;
+    src = fetchurl {
+      url = "https://notepad-plus-plus.org/favicon.ico";
+      hash = "sha256-cSf5vgbnLp672+8ZJu4ByU8lttXL4m+fdYwVY6qpYqs=";
+    };
+  };
+
+  linux = mkWindowsAppNoCC (
+    common
+    // rec {
+      inherit desktopIcon winAppRun;
+
+      fileMap = {
+        "$HOME/.config/Notepad++" = "drive_c/users/$USER/AppData/Roaming/Notepad++";
+      };
+
+      nativeBuildInputs = [
+        copyDesktopItems
+        copyDesktopIcons
+      ];
+
+      # Linux bootstraps the prefix when building its app layer, so it can also
+      # install the CJK fonts there.
+      winAppInstall = installPayload { cjkfonts = true; };
+
+      installPhase = ''
+        runHook preInstall
+        mv $out/bin/.launcher $out/bin/${pname}
+        runHook postInstall
+      '';
+
+      desktopItems = [
+        (makeDesktopItem {
+          name = "Notepad++";
+          exec = pname;
+          icon = pname;
+          desktopName = "Notepad++";
+          genericName = "Text Editor";
+          mimeTypes = [ "text/plain" ];
+          categories = [
+            "Utility"
+            "TextEditor"
+          ];
+        })
+      ];
+
+      passthru.tests.nixos = testers.runNixOSTest (
+        import ./test.nix {
+          notepad-plus-plus = linux;
+          nixpkgsPath = pkgs.path;
+        }
+      );
+    }
+  );
+
+  # Darwin cannot use mkWindowsApp (Linux overlayfs), so this is a plain
+  # launcher: it bootstraps the prefix on first launch with the same payload
+  # install and then starts the PE with the same winAppRun command.
   darwin = writeShellApplication {
     name = pname;
     runtimeInputs = [ wine ];
-    inherit meta;
+    meta = common.meta;
     text = ''
       set -euo pipefail
-      export WINEARCH=win64
-      export WINEPREFIX="''${NOTEPADPP_WINEPREFIX:-''${XDG_DATA_HOME:-$HOME/.local/share}/notepad-plus-plus/wineprefix}"
+      export WINEARCH=${common.wineArch}
+      export WINEPREFIX="''${NOTEPADPP_WINEPREFIX:-''${XDG_DATA_HOME:-$HOME/.local/share}/${pname}/wineprefix}"
+      ARGS=( "$@" )
+      # Same selection mkWindowsApp's launcher makes, done at runtime to avoid
+      # IFD on the wine output.
+      WINE="${wine}/bin/wine64"
+      if [ ! -e "$WINE" ]; then
+        WINE="${wine}/bin/wine"
+      fi
       marker="$WINEPREFIX/.notepadpp-installed"
       app="${winAppExe}"
 
       if [ ! -e "$marker" ]; then
-        echo "Installing Notepad++ into $WINEPREFIX..."
+        echo "Installing ${pname} into $WINEPREFIX..."
         # wineboot exits non-zero on macOS/Gcenx (wine-mono's MSI and the missing
         # Microsoft.Windows.Common-Controls manifest) even though the prefix is
         # usable. With `set -e` that aborted the install before the payload was
-        # copied, so the prefix kept an empty app dir and no marker, and
-        # `wine start` then failed with "ShellExecuteEx failed: File not found".
+        # copied, so the prefix kept an empty app dir and no marker, and the
+        # launcher then failed with "ShellExecuteEx failed: File not found".
         wine boot --init || true
         wineserver -w || true
         # wineboot may have (re)created drive_c after the mkdir above.
@@ -162,8 +183,10 @@ let
         touch "$marker"
       fi
 
-      exec wine start /unix "$app" "$@"
+      # exec, unlike mkWindowsApp's launcher which must keep the shell alive for
+      # its cleanup hooks, so signals reach the app instead of this wrapper.
+      exec ${winAppRun}
     '';
   };
 in
-if stdenv.hostPlatform.isDarwin then darwin else linux
+if isDarwin then darwin else linux
