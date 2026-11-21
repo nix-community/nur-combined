@@ -30,6 +30,8 @@ buildGo127Module (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/backend";
 
+  patches = [ ./redis-unix-socket.patch ];
+
   postPatch = ''
     substituteInPlace go.mod \
       --replace-fail \
@@ -89,6 +91,8 @@ buildGo127Module (finalAttrs: {
         fetcherVersion = 5;
         hash = "sha256-89j7nAzKzljv6ZpCEEaUa3NR+k9C2ubsZqmWBdEMi14=";
       };
+
+      patches = [ ./redis-unix-socket-ui.patch ];
 
       postPatch = ''
         substituteInPlace vite.config.ts \

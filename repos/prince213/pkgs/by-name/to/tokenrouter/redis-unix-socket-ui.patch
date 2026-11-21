@@ -1,0 +1,11 @@
+--- a/src/views/setup/SetupWizardView.vue
++++ b/src/views/setup/SetupWizardView.vue
+@@ -361,7 +361,7 @@
+                 {{ t('setup.ready.redis') }}
+               </h3>
+               <p class="text-gray-900 dark:text-white">
+-                {{ formData.redis.host }}:{{ formData.redis.port }}
++                {{ formData.redis.host }}<template v-if="!formData.redis.host.startsWith('/')">:{{ formData.redis.port }}</template>
+               </p>
+             </div>
+ 
