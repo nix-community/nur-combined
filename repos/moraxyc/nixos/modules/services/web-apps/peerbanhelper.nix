@@ -228,14 +228,6 @@ in
   config = lib.mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = lib.optional cfg.openFirewall cfg.port;
 
-    services.peerbanhelper.settings = {
-      PBH_DATADIR = "/var/lib/peerbanhelper";
-      PBH_LOGSDIR = "/var/log/peerbanhelper";
-      PBH_NOGUI = "true";
-      PBH_SERVERADDRESS = cfg.listenAddress;
-      PBH_PORT = cfg.port;
-    };
-
     services.nginx = lib.mkIf cfg.configureNginx {
       enable = lib.mkDefault true;
       virtualHosts.${cfg.domain} = {
@@ -257,7 +249,13 @@ in
       wants = [ "network-online.target" ];
       after = [ "network-online.target" ];
 
-      environment = (lib.mapAttrs (_: toEnvValue) cfg.environment);
+      environment = (lib.mapAttrs (_: toEnvValue) cfg.environment) // {
+        PBH_DATADIR = "/var/lib/peerbanhelper";
+        PBH_LOGSDIR = "/var/log/peerbanhelper";
+        PBH_NOGUI = "true";
+        PBH_SERVERADDRESS = cfg.listenAddress;
+        PBH_PORT = toString cfg.port;
+      };
 
       script = ''
         if [ -n "''${CREDENTIALS_DIRECTORY:-}" ] && [ -r "$CREDENTIALS_DIRECTORY/api-token" ]; then
