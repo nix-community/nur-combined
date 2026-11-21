@@ -6,6 +6,7 @@
   pango,
   tlottie,
   wallet-engine,
+  swift,
   writeShellApplication,
   nix-update,
 }:
@@ -15,14 +16,14 @@
   unwrapped = telegram-desktop.unwrapped.overrideAttrs (
     finalAttrs: previousAttrs: {
       pname = "forkgram-desktop-unwrapped";
-      version = "7.4.4";
+      version = "7.4.5";
 
       src = fetchFromGitHub {
         owner = "forkgram";
         repo = "tdesktop";
         tag = "v${finalAttrs.version}";
         fetchSubmodules = true;
-        hash = "sha256-jLmO8/RdUOUl3RLXCBSqo7P7BVoW6iwDjZ6DcvBZ8vM=";
+        hash = "sha256-SlWUhMKRuvF7Dp6pQvMFml55+dXVb2H1qZzCP3Eg1Ak=";
       };
 
       buildInputs = previousAttrs.buildInputs ++ [
@@ -31,6 +32,17 @@
         tlottie
         wallet-engine
       ];
+
+      # nixpkgs' swift 6.4.0 chain does not build on aarch64-darwin at this
+      # pin: swift-collections 1.7.6 fails in its own postInstall because its
+      # dylibs were linked without header padding. Build the macOS app without
+      # the Swift 6 on-device translation provider instead of pulling in a
+      # toolchain that cannot be built; it is the only Swift code tdesktop
+      # compiles on macOS (Telegram/lib_translate).
+      cmakeFlags = previousAttrs.cmakeFlags ++ [
+        (lib.cmakeBool "DESKTOP_APP_DISABLE_SWIFT6" true)
+      ];
+      nativeBuildInputs = lib.remove swift previousAttrs.nativeBuildInputs;
 
       postPatch = (previousAttrs.postPatch or "") + ''
         pushd cmake

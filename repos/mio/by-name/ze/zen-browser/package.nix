@@ -18,12 +18,12 @@
 }:
 
 let
-  version = "1.24.1b";
-  firefoxVersion = "159.0.1";
+  version = "1.24.3b";
+  firefoxVersion = "160.0.1";
 
   firefoxSrc = fetchurl {
     url = "mirror://mozilla/firefox/releases/${firefoxVersion}/source/firefox-${firefoxVersion}.source.tar.xz";
-    hash = "sha256-tf5AcZloX4vd87LIH+uLgFQp5vPTB8lDD1NFb4W24GM=";
+    hash = "sha256-e52V3fJPe79dDQVpi8AqZtrB7KQ4+A4JPFx2r3ZIsG0=";
   };
 
   # Surfer's async-icns shells out to macOS iconutil/sips. Provide nixpkgs-style
@@ -89,7 +89,7 @@ let
       owner = "zen-browser";
       repo = "desktop";
       tag = version;
-      hash = "sha256-C3/SdQO7PouvKan5gMEln7LdQSOYH9r7zww+iYw+slA=";
+      hash = "sha256-B4gX6ykyU21x4m6Xo73HtDtalvdMBVIrhP5TkJ2ESrA=";
       fetchSubmodules = true;
     };
 

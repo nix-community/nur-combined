@@ -44,8 +44,8 @@ let
   src = fetchFromGitHub {
     owner = "boykopovar";
     repo = "AnyPS5";
-    rev = "038cdd173b46e5d41df61527d0ed805714a91798";
-    hash = "sha256-Qfhz2otS4KD7MZTYfP2RDMl8EIFYDWZRGqTOtpMt+EQ=";
+    rev = "dcdf7809dd77e80d27a2c641d1cf892c0b07b553";
+    hash = "sha256-FgpDOl4FAbbi4WD8nEMaArAcDzLWugbLnU3L047fl0k=";
   };
 
   # Submodules, pinned by the superproject. The build reads each one straight
