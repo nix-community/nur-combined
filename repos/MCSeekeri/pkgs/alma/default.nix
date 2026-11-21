@@ -16,7 +16,7 @@
   gtk-layer-shell,
   gtk3,
   harfbuzz,
-  libappindicator-gtk3,
+  libappindicator,
   libepoxy,
   libpulseaudio,
   libsecret,
@@ -41,7 +41,7 @@ let
     harfbuzz
     fontconfig
     libsecret
-    libappindicator-gtk3
+    libappindicator
     gtk-layer-shell
     libepoxy
     libx11

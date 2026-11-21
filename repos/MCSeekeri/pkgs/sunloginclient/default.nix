@@ -8,12 +8,12 @@
   libnotify,
   libepoxy,
   webkitgtk_4_1,
-  libX11,
+  libx11,
   libxdamage,
   libxcomposite,
-  libXtst,
+  libxtst,
   libxcrypt,
-  libappindicator-gtk3,
+  libappindicator,
   glibc,
 }:
 
@@ -57,12 +57,12 @@ stdenv.mkDerivation (finalAttrs: {
     libnotify
     libepoxy
     webkitgtk_4_1
-    libX11
+    libx11
     libxdamage
     libxcomposite
-    libXtst
+    libxtst
     libxcrypt
-    libappindicator-gtk3
+    libappindicator
     libcryptStub
   ];
   runtimeDependencies = [ glibc ];

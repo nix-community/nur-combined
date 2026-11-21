@@ -22,12 +22,12 @@ let
     meta
     ;
 
-  asarSuffix = if stdenv.isDarwin then "mac" else "linux";
+  asarSuffix = if stdenv.hostPlatform.isDarwin then "mac" else "linux";
 
   asar = fetchurl {
     url = "https://github.com/Voxelum/x-minecraft-launcher/releases/download/v${version}/app-${version}-${asarSuffix}.asar";
     hash =
-      if stdenv.isDarwin then
+      if stdenv.hostPlatform.isDarwin then
         "sha256-NszwBpc9WK+MdpEjLEo167j6sx1312CfvdhjhuZM/AU="
       else
         "sha256-MT3BLOCU1BUbDjO4/j3Pw4LO3bYBMG+ahTKSgfjwL2o=";

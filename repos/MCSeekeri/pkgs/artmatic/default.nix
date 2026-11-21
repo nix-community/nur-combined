@@ -22,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "OxygenNine";
     repo = "artmatic";
     rev = "8c5f01aa600ba69a6def7d10b2694fb6e7bed358";
-    hash = "sha256-DtaZ7I86SpMUu2ETRjYXRQz0ESHzPwotMnNbyRJ3DqY=";
+    hash = "sha256-XbPjblzfi/i935N/rxxPXQtJ8tsjbTrEAeZo+zNlXQ8=";
   };
 
   pnpmDeps = fetchPnpmDeps {

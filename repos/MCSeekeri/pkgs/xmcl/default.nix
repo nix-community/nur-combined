@@ -62,9 +62,9 @@ let
       pnpmConfigHook
       python3
     ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.autoSignDarwinBinariesHook ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.autoSignDarwinBinariesHook ];
 
-    buildInputs = electron.buildInputs ++ lib.optionals stdenv.isLinux common.runtimeLibs;
+    buildInputs = electron.buildInputs ++ lib.optionals stdenv.hostPlatform.isLinux common.runtimeLibs;
 
     dontUseCmakeConfigure = true;
 
@@ -96,7 +96,7 @@ let
       pnpm build:renderer
 
       electronDist="${electron.dist}"
-      ${lib.optionalString stdenv.isDarwin ''
+      ${lib.optionalString stdenv.hostPlatform.isDarwin ''
         electronDist="$TMPDIR/electron-dist"
         cp -R "${electron.dist}" "$electronDist"
         chmod -R u+w "$electronDist"

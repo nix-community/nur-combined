@@ -23,14 +23,14 @@
   libdrm,
   libice,
   libxshmfence,
-  xcbutilimage,
+  libxcb-image,
   libxxf86vm,
   libxkbcommon,
   libsm,
-  xcbutilwm,
+  libxcb-wm,
   fontconfig,
   harfbuzz,
-  xcbutilrenderutil,
+  libxcb-render-util,
   expat,
   hicolor-icon-theme,
   mesa,
@@ -74,14 +74,14 @@ stdenv.mkDerivation (finalAttrs: {
     libdrm
     libice
     libxshmfence
-    xcbutilimage
+    libxcb-image
     libxxf86vm
     libxkbcommon
     libsm
-    xcbutilwm
+    libxcb-wm
     fontconfig
     harfbuzz
-    xcbutilrenderutil
+    libxcb-render-util
     expat
     hicolor-icon-theme
     mesa

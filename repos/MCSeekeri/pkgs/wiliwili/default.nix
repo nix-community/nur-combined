@@ -16,11 +16,11 @@
   freetype,
   libxkbcommon,
   libxrandr,
-  libXinerama,
-  libXi,
-  libXcursor,
-  libXfixes,
-  libX11,
+  libxinerama,
+  libxi,
+  libxcursor,
+  libxfixes,
+  libx11,
   fontconfig,
   libGL,
   mpv,
@@ -82,7 +82,7 @@ stdenv'.mkDerivation (finalAttrs: {
     curl
     openssl
     pulseaudio
-    libX11
+    libx11
     dbus
     fmt
     nlohmann_json
@@ -90,10 +90,10 @@ stdenv'.mkDerivation (finalAttrs: {
     SDL2
     libxrandr
     libxkbcommon
-    libXinerama
-    libXi
-    libXcursor
-    libXfixes
+    libxinerama
+    libxi
+    libxcursor
+    libxfixes
   ]
   ++ lib.optionals cudaSupport [ cudaPackages.cuda_cudart ];
 

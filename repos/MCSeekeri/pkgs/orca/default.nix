@@ -27,17 +27,17 @@
   libpulseaudio,
   libsecret,
   libuuid,
-  libX11,
-  libXcomposite,
-  libXcursor,
-  libXdamage,
-  libXext,
-  libXfixes,
-  libXi,
-  libXrandr,
-  libXrender,
-  libXScrnSaver,
-  libXtst,
+  libx11,
+  libxcomposite,
+  libxcursor,
+  libxdamage,
+  libxext,
+  libxfixes,
+  libxi,
+  libxrandr,
+  libxrender,
+  libxscrnsaver,
+  libxtst,
   libxcb,
   libxkbcommon,
   libxshmfence,
@@ -70,8 +70,8 @@ let
 
   dlopenLibraries = [
     libGL
-    libX11
-    libXtst
+    libx11
+    libxtst
   ];
 
   computerUsePython = python3.withPackages (ps: [ ps.pygobject3 ]);
@@ -130,12 +130,12 @@ stdenv.mkDerivation {
     gtk3
     libdrm
     libgbm
-    libX11
-    libXcomposite
-    libXdamage
-    libXext
-    libXfixes
-    libXrandr
+    libx11
+    libxcomposite
+    libxdamage
+    libxext
+    libxfixes
+    libxrandr
     librsvg
     libxcb
     libxkbcommon
@@ -153,11 +153,11 @@ stdenv.mkDerivation {
     libpulseaudio
     libsecret
     libuuid
-    libXcursor
-    libXi
-    libXrender
-    libXScrnSaver
-    libXtst
+    libxcursor
+    libxi
+    libxrender
+    libxscrnsaver
+    libxtst
     pipewire
     wayland
   ];

@@ -19,14 +19,14 @@
   glib,
   gtk3,
   krb5,
-  libX11,
-  libXcomposite,
-  libXdamage,
-  libXext,
-  libXfixes,
-  libXrandr,
-  libXScrnSaver,
-  libXtst,
+  libx11,
+  libxcomposite,
+  libxdamage,
+  libxext,
+  libxfixes,
+  libxrandr,
+  libxscrnsaver,
+  libxtst,
   libdrm,
   libffi,
   libgbm,
@@ -75,14 +75,14 @@ stdenv.mkDerivation (finalAttrs: {
     glib
     gtk3
     krb5
-    libX11
-    libXcomposite
-    libXdamage
-    libXext
-    libXfixes
-    libXrandr
-    libXScrnSaver
-    libXtst
+    libx11
+    libxcomposite
+    libxdamage
+    libxext
+    libxfixes
+    libxrandr
+    libxscrnsaver
+    libxtst
     libdrm
     libffi
     libgbm

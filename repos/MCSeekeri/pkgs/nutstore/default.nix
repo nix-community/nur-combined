@@ -17,7 +17,7 @@
   glib-networking,
   webkitgtk_4_1,
   libappindicator,
-  libXtst,
+  libxtst,
   alsa-lib,
   libnotify,
 }:
@@ -50,7 +50,7 @@ stdenv.mkDerivation (_finalAttrs: {
     glib-networking
     libappindicator
     libnotify
-    libXtst
+    libxtst
     alsa-lib
   ];
 

@@ -13,11 +13,11 @@
   libglvnd,
   vulkan-loader,
   glfw3,
-  libX11,
-  libXcursor,
-  libXext,
-  libXrandr,
-  libXxf86vm,
+  libx11,
+  libxcursor,
+  libxext,
+  libxrandr,
+  libxxf86vm,
   libxkbcommon,
   libxtst,
   wayland,
@@ -42,12 +42,12 @@ let
     vulkan-loader
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
-    libX11
-    libXxf86vm
-    libXext
-    libXcursor
+    libx11
+    libxxf86vm
+    libxext
+    libxcursor
     libxkbcommon
-    libXrandr
+    libxrandr
     libxtst
     libpulseaudio
     wayland
@@ -84,7 +84,7 @@ let
           extra_flags+=(${lib.escapeShellArgs commandLineArgs})
         ''}
 
-        ${lib.optionalString stdenv.isLinux ''
+        ${lib.optionalString stdenv.hostPlatform.isLinux ''
           export LD_LIBRARY_PATH="${addDriverRunpath.driverLink}/lib:${lib.makeLibraryPath runtimeLibs}"
           export PULSE_PROP='media.role=game'
           extra_flags+=("--enable-webrtc-pipewire-capturer" "--enable-features=VaapiVideoDecoder,VaapiVideoEncoder")
@@ -107,7 +107,7 @@ let
     install -Dm644 "${iconDir}/dark@tray.png" \
       "$out/share/icons/hicolor/22x22/apps/tray.png"
 
-    ${lib.optionalString stdenv.isDarwin ''
+    ${lib.optionalString stdenv.hostPlatform.isDarwin ''
       install -Dm644 "${iconDir}/dark.icns" \
         "$out/share/xmcl/icons/icon.icns"
     ''}
