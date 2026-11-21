@@ -11,7 +11,11 @@
   version,
   hashes,
   nixSystem,
+  # binary name in the download URL template (__bname__) and the default
+  # single install target
   bname ? null,
+  # binaries to install into $out/bin; defaults to [ bname or pname ]
+  binaries ? null,
   libc ? "gnu",
   otherNativeBuildInputs ? [ ],
   otherBuildInputs ? [ ],
@@ -27,6 +31,7 @@ let
   hashInfo = hashes.${nixSystem}.${libc};
   currentStdenv = if overrideStdenv == null then stdenv else overrideStdenv;
   nbname = if bname == null then pname else bname;
+  bins = if binaries == null then [ nbname ] else binaries;
 
   urlTemplate = hashInfo.template or null;
   defaultUrl = "https://github.com/${owner}/${pname}/releases/download/${version}/${pname}-${hashInfo.targetSystem}.tar.gz";
@@ -75,12 +80,14 @@ currentStdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
     mkdir -p $out/bin
-    bin="$(find . -type f -name '${nbname}' -print -quit)"
-    if [ -z "$bin" ]; then
-      echo "error: binary '${nbname}' not found in unpacked source" >&2
-      exit 1
-    fi
-    install -D "$bin" $out/bin/${nbname}
+    for b in ${lib.concatStringsSep " " bins}; do
+      bin="$(find . -type f -name "$b" -print -quit)"
+      if [ -z "$bin" ]; then
+        echo "error: binary '$b' not found in unpacked source" >&2
+        exit 1
+      fi
+      install -D "$bin" $out/bin/$b
+    done
     runHook postInstall
   '';
 
@@ -89,6 +96,6 @@ currentStdenv.mkDerivation {
     homepage = "https://github.com/${owner}/${pname}";
     platforms = [ nixSystem ];
     maintainers = with maintainers; [ "lxl66566" ];
-    mainProgram = nbname;
+    mainProgram = lib.head bins;
   };
 }

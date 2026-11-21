@@ -5,6 +5,7 @@ import copy
 import functools
 import hashlib
 import json
+import re
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -32,8 +33,34 @@ PKGS_DIR = Path(__file__).parent / "pkgs"
 # --- 核心功能 ---
 
 
-async def get_latest_github_release(session, owner, package_name):
+async def get_latest_github_release(session, owner, package_name, include_prerelease=False, version_pattern=None):
     """从 GitHub API 获取最新的 release tag。"""
+    # /releases/latest never returns pre-releases; listing is required instead.
+    # version_pattern: optional regex to filter tags, e.g. to skip moving tags
+    # such as "nightly" that get republished in place.
+    if include_prerelease:
+        url = f"https://api.github.com/repos/{owner}/{package_name}/releases?per_page=100"
+        try:
+            async with session.get(url) as response:
+                if response.status != 200:
+                    print(
+                        f"    [!] 无法获取 {owner}/{package_name} 的 release 列表 (状态: {response.status})。"
+                    )
+                    return None
+                releases = await response.json()
+                for release in releases:
+                    if release.get("draft"):
+                        continue
+                    tag = release.get("tag_name") or ""
+                    if version_pattern is not None and not version_pattern.match(tag):
+                        continue
+                    return tag
+                print(f"    [!] {owner}/{package_name} 的 release 列表中没有匹配 versionPattern 的 tag。")
+                return None
+        except aiohttp.ClientError as e:
+            print(f"    [!] 获取 {owner}/{package_name} release 时网络错误: {e}")
+            return None
+
     url = f"https://api.github.com/repos/{owner}/{package_name}/releases/latest"
     try:
         async with session.get(url) as response:
@@ -99,9 +126,23 @@ async def process_single_package(package_name, binary_name=None, force=False):
     if repo_owner != REPO_OWNER:
         print(f"    [*] 检测到自定义 owner: {repo_owner}")
 
+    # track pre-releases only for packages opting in via source-info.json
+    track_prerelease = bool(current_info.get("prerelease"))
+    version_pattern = None
+    if track_prerelease and "versionPattern" in current_info:
+        try:
+            version_pattern = re.compile(current_info["versionPattern"])
+        except re.error as e:
+            print(f"    [!] {package_name} 的 versionPattern 无效: {e}")
+            return
+
     async with aiohttp.ClientSession() as session:
         latest_version = await get_latest_github_release(
-            session, repo_owner, package_name
+            session,
+            repo_owner,
+            package_name,
+            include_prerelease=track_prerelease,
+            version_pattern=version_pattern,
         )
 
         if not latest_version:
@@ -205,6 +246,12 @@ async def process_single_package(package_name, binary_name=None, force=False):
         # 保留 autoupdate 标记：--force 更新后跳过策略不变
         if "autoupdate" in current_info:
             new_source_info["autoupdate"] = current_info["autoupdate"]
+        # 保留 prerelease 标记
+        if "prerelease" in current_info:
+            new_source_info["prerelease"] = current_info["prerelease"]
+        # 保留 versionPattern 标记
+        if "versionPattern" in current_info:
+            new_source_info["versionPattern"] = current_info["versionPattern"]
 
         source_info_path.parent.mkdir(exist_ok=True)
         with open(source_info_path, "w") as f:

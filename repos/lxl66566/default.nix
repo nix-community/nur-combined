@@ -20,6 +20,7 @@ in
   overlays = import ./overlays; # nixpkgs overlays
 
   audio-loudness-batch-normalize = callPackage ./pkgs/audio-loudness-batch-normalize { };
+  easytier = callPackage ./pkgs/easytier { };
   fail2ban-rs = callPackage ./pkgs/fail2ban-rs { };
   fungi = callPackage ./pkgs/fungi { };
   galgamemanager = callPackage ./pkgs/galgamemanager { };

@@ -60,6 +60,7 @@ Only tested on x86_64-linux. Packages may work on aarch64 systems, but I'm not s
 | Name | Outputs | Description |
 | --- | --- | --- |
 | [audio-loudness-batch-normalize](https://github.com/lxl66566/audio-loudness-batch-normalize) | null, musl | Easy to use audio loudness batch normalization tool based on EBU R128, written in Rust |
+| [easytier](https://github.com/EasyTier/EasyTier) | null | Simple, decentralized mesh VPN with WireGuard support. (PreRelease here) Use with the nixpkgs module via `services.easytier.package`. |
 | [fail2ban-rs](https://github.com/aejimmi/fail2ban-rs) | null | A pure-Rust fail2ban replacement. Single static binary, fast two-phase matching, nftables/iptables/ipset firewall backends. |
 | [fungi](https://github.com/enbop/fungi) | null | p2p tool cross platform |
 | [galgamemanager](https://github.com/lxl66566/GalgameManager) | null | Galgame manager with playtime statistics, config and save sync (Tauri, wraps the release deb with GTK/WebKitGTK runtime deps) |
@@ -261,6 +262,10 @@ nix-build -A openppp2               # build a package
 nix-build tests/fungi-test.nix      # test a module
 ```
 
-### disable auto update
+### auto update
 
-set `"autoupdate": false` in a package's `source-info.json` to exclude it from the CI auto update (`manager.py update`). update such a package manually with `uv run python manager.py update <pkg> --force`. e.g. [fail2ban-rs](pkgs/fail2ban-rs) is excluded because its release assets don't follow the tag naming the updater assumes.
+`source-info.json` supports the following optional metadata consumed by `manager.py update`:
+
+- `"autoupdate": false`: exclude the package from the CI auto update. update it manually with `uv run python manager.py update <pkg> --force`. e.g. [fail2ban-rs](pkgs/fail2ban-rs) is excluded because its release assets don't follow the tag naming the updater assumes.
+- `"prerelease": true`: track pre-releases. the updater lists `/releases` instead of `/releases/latest` (which never returns pre-releases) and picks the first non-draft release. e.g. [easytier](pkgs/easytier) uses it because upstream marks every release as pre-release.
+- `"versionPattern"`: regex a release tag must match during pre-release tracking, e.g. `"^v\\d"` skips moving tags such as `nightly` that get republished in place. no filtering by default.

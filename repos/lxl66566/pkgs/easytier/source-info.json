@@ -1,0 +1,22 @@
+{
+  "owner": "EasyTier",
+  "version": "v2.7.1",
+  "prerelease": true,
+  "versionPattern": "^v\\d",
+  "hashes": {
+    "x86_64-linux": {
+      "musl": {
+        "sha256": "8dc4f8576c7a4978c1f000630014b75ec88d172f6cb10935e72092ddd5ec7a9a",
+        "targetSystem": "x86_64",
+        "template": "https://github.com/__owner__/__pname__/releases/download/__version__/easytier-linux-__targetSystem__-__version__.zip"
+      }
+    },
+    "aarch64-linux": {
+      "musl": {
+        "sha256": "7f4d78aefe7437d7f213089ac7184988665e9c4d1ff163b8ad08637c1c88bb0a",
+        "targetSystem": "aarch64",
+        "template": "https://github.com/__owner__/__pname__/releases/download/__version__/easytier-linux-__targetSystem__-__version__.zip"
+      }
+    }
+  }
+}
