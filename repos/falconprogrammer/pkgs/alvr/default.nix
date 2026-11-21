@@ -59,6 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     openssl
     pipewire
     pulseaudio
+    vulkan-loader
     wayland
     x264
     xorg.libX11
