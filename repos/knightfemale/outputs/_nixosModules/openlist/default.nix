@@ -5,6 +5,7 @@
   utils,
   ...
 }:
+
 let
   cfg = config.services.openlist;
   settingsFormat = pkgs.formats.json { };

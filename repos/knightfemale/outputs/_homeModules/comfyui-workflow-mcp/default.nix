@@ -4,6 +4,7 @@
   pkgs,
   ...
 }:
+
 let
   cfg = config.programs.comfyui-workflow-mcp;
   toml = pkgs.formats.toml { };

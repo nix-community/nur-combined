@@ -1,7 +1,7 @@
 {
   lib,
-  buildPythonPackage,
   fetchFromGitHub,
+  buildPythonPackage,
   setuptools,
   adwaita-icon-theme,
   av,
@@ -159,6 +159,9 @@ buildPythonPackage (finalAttrs: {
     license = lib.licenses.agpl3Only;
     maintainers = with lib.maintainers; [ knightfemale ];
     mainProgram = "lada";
-    platforms = lib.platforms.linux;
+    platforms = [
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
   };
 })

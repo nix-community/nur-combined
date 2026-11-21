@@ -1,10 +1,10 @@
 {
   lib,
   stdenv,
+  fetchFromGitHub,
   asar,
   copyDesktopItems,
   electron,
-  fetchFromGitHub,
   fetchPnpmDeps,
   ffmpeg-headless,
   fontconfig,
@@ -207,6 +207,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Bilibili music desktop client";
     homepage = "https://github.com/wood3n/biu";
+    changelog = "https://github.com/wood3n/biu/releases/tag/v${finalAttrs.version}";
     license = {
       fullName = "PolyForm Noncommercial License 1.0.0";
       url = "https://polyformproject.org/licenses/noncommercial/1.0.0";

@@ -1,6 +1,7 @@
 {
   pkgs,
 }:
+
 let
   overlay = import ./outputs/_overlays/default.nix;
   pkgs' = pkgs.extend overlay;
