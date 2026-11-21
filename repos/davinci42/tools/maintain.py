@@ -118,8 +118,23 @@ def execute_update(
             command.extend(["--src-only", "--no-src"])
         else:
             env["NUR_DETECT_VERSION"] = "1"
-    if installables := info.get("installables"):
-        run(root, ["nix", "build", "--no-link", *installables])
+    if any(arg.startswith("/nix/store/") for arg in command):
+        run(
+            root,
+            [
+                "nix-build",
+                "--no-out-link",
+                "--expr",
+                '{ root, name }: let pkgs = (builtins.getFlake (toString root)).inputs.nixpkgs.legacyPackages.${builtins.currentSystem}; info = import ./tools/update-info.nix { inherit root name pkgs; }; in pkgs.writeText "update-script" (builtins.toJSON info.command)',
+                "--argstr",
+                "root",
+                str(root.resolve()),
+                "--argstr",
+                "name",
+                package,
+            ],
+            capture=True,
+        )
     run(root, command, env=env)
 
 
