@@ -32,6 +32,7 @@ mingwStdenv.mkDerivation (finalAttrs: {
       CONFIG=mingw-w64 WINDOWS_ARCH=amd64 \
       OPENMPT123=1 EXAMPLES=0 TEST=0 \
       STATIC_LIB=1 SHARED_LIB=0 DYNLINK=0 \
+      LDFLAGS=-static \
       VERBOSE=1
     runHook postBuild
   '';

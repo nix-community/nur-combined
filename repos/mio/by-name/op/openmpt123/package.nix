@@ -41,6 +41,7 @@ writeShellApplication {
   name = pname;
   runtimeInputs = [ wine ];
   inherit meta;
+  passthru.updateScript = ./update.sh;
   # No prefix install: openmpt123.exe is self-contained and only reads the
   # module files it is given. Wine translates the Unix arguments itself, and
   # wine64 is preferred the same way mkWindowsApp's launcher picks it.
