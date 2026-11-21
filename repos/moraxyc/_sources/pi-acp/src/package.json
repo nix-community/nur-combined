@@ -1,6 +1,6 @@
 {
   "name": "pi-acp",
-  "version": "0.0.34",
+  "version": "0.0.35",
   "description": "ACP adapter for pi coding agent",
   "license": "MIT",
   "author": "Sergii Kozak <svkozak@gmail.com>",
@@ -9,8 +9,7 @@
     "url": "https://github.com/svkozak/pi-acp.git"
   },
   "publishConfig": {
-    "access": "public",
-    "provenance": true
+    "access": "public"
   },
   "bugs": {
     "url": "https://github.com/svkozak/pi-acp/issues"

@@ -8,7 +8,6 @@
       url = "github:Moraxyc/fetchrix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
-      inputs.treefmt-nix.follows = "treefmt-nix";
     };
     git-hooks-nix = {
       url = "github:cachix/git-hooks.nix";
