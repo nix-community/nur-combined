@@ -210,14 +210,14 @@
       "fingerprint": "sha256-klw1I8Gyyya7pGDq2zSPFRJN6KsZkHFPtsiYx0SS/YE="
     },
     "dae": {
-      "version": "2.1.2-unstable-2026-11-18",
-      "rawVersion": "e35410568009a7e1b49090aaba265c9992fc6b46",
-      "date": "2026-11-18",
+      "version": "2.1.3-unstable-2026-11-21",
+      "rawVersion": "0d85246c7aec30ca02bf82fcae213587f162de5c",
+      "date": "2026-11-21",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/daeuniverse/dae.git",
-        "rev": "e35410568009a7e1b49090aaba265c9992fc6b46",
-        "hash": "sha256-IDqwS93LTtIMK/zKZ3sYixECPivEyMqjNVl1H6cXlfI=",
+        "rev": "0d85246c7aec30ca02bf82fcae213587f162de5c",
+        "hash": "sha256-SAPTkZUqOKMmOAYvc0pTfXPmefRNJiPi0KVkzomBGmQ=",
         "fetchSubmodules": true
       },
       "derived": {
@@ -440,14 +440,14 @@
     },
     "horizon": {
       "version": "0-unstable-2026-11-21",
-      "rawVersion": "53646a48928066c11906a7aae0525b64d5d56abe",
+      "rawVersion": "f6628e77f1e16b6350addd4448ff61d305551675",
       "date": "2026-11-21",
       "src": {
         "fetcher": "github",
         "owner": "horizon-rust",
         "repo": "horizon",
-        "rev": "53646a48928066c11906a7aae0525b64d5d56abe",
-        "hash": "sha256-4gLHuSJd2ltUU1C/Y+fycPLYwdzE7wS0LxA9e1UUuCI="
+        "rev": "f6628e77f1e16b6350addd4448ff61d305551675",
+        "hash": "sha256-RmDefJ2NNDiuVrW4WNTzFWCGln4e4y6A+NfWL6t3dBs="
       },
       "derived": {
         "cargoLock": {
@@ -573,14 +573,14 @@
       "fingerprint": "sha256-vR7sJIoluiLgop9ZZHZKD6Or/5XOXg5rf4u3QaTDtco="
     },
     "meta-rules-dat": {
-      "version": "0-unstable-2026-11-20",
-      "rawVersion": "82471aee50b830e785eace0ffcd5283df2e769f1",
-      "date": "2026-11-20",
+      "version": "0-unstable-2026-11-21",
+      "rawVersion": "19f81c0fda5b505c0b186bcbc67cc5f8226aafd3",
+      "date": "2026-11-21",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/MetaCubeX/meta-rules-dat.git",
-        "rev": "82471aee50b830e785eace0ffcd5283df2e769f1",
-        "hash": "sha256-lygw86qW8GdH61+F6qqbyA70iUi6B2ng0Z5n4LOiyHg="
+        "rev": "19f81c0fda5b505c0b186bcbc67cc5f8226aafd3",
+        "hash": "sha256-srdfWhYdIiHnqCeAHQCVGXaOI8G1G7MZHg6jjA0VqR8="
       },
       "fingerprint": "sha256-wX3xYgeMbiaHcGTwYkJLKkmGHaWP1yW5YbKKukaREX0="
     },
@@ -1204,18 +1204,19 @@
       "fingerprint": "sha256-hhfPFtrq0/qT0UpfvWsBCMygMJRAJkTpe5nDlOYuHBY="
     },
     "shlink": {
-      "version": "5.1.8",
-      "rawVersion": "v5.1.8",
+      "version": "5.1.9",
+      "rawVersion": "v5.1.9",
+      "date": "2026-11-21",
       "src": {
         "fetcher": "github",
         "owner": "shlinkio",
         "repo": "shlink",
-        "tag": "v5.1.8",
+        "tag": "v5.1.9",
         "hash": "sha256-bkmqNwRTZqr0rLc0QLN5W3uJdfcfkY53P0vhed3j21w="
       },
       "derived": {
         "vendorHash": {
-          "hash": "sha256-on/o6nO6Bh0Jpshg/SbNktYHajGS8KwPSTdSfxyLhp4="
+          "hash": "sha256-TNuvY2Ge10ecI3U7/RjvYIODytipqLMrS5zynPDiaFk="
         }
       },
       "artifacts": {
