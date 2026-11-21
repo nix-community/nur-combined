@@ -21,10 +21,9 @@ let
   myLib = import ../../../lib { inherit pkgs; };
   inherit (myLib) copyDesktopIcons makeDesktopIcon mkWindowsAppNoCC;
 
-  # Build-time Wine for the upstream .bat (same selection as runtime).
-  notepadppWindows = pkgs.callPackage ./windows.nix {
-    inherit pkgsCross wine;
-  };
+  # The MinGW cross build needs no Wine: the upstream .bat pre-build event is
+  # reimplemented in shell so Linux and darwin run identical build logic.
+  notepadppWindows = pkgs.callPackage ./windows.nix { inherit pkgsCross; };
 
   pname = "notepad-plus-plus";
   version = notepadppWindows.version;

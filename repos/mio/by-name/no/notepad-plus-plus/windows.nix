@@ -2,31 +2,10 @@
   lib,
   fetchFromGitHub,
   pkgsCross,
-  wine,
 }:
 
 let
   mingwStdenv = pkgsCross.mingwW64.stdenv;
-  # The gcc makefile's pre-build event runs NppLibsVersionH-generator.bat through
-  # `cmd`. Wine's server cannot start inside the darwin sandbox (it needs Mach
-  # ports), so on darwin the header is generated natively and the event is
-  # skipped; see buildPhase.
-  buildIsDarwin = mingwStdenv.buildPlatform.isDarwin;
-
-  # Wine's builtin findstr lacks [character class] regex support, which breaks
-  # PowerEditor/src/NppLibsVersionH-generator.bat. Prefer this native PE via
-  # WINEDLLOVERRIDES when running that bat under Wine during the build.
-  findstrShim = pkgsCross.mingwW64.stdenv.mkDerivation {
-    name = "notepadpp-findstr-shim";
-    dontUnpack = true;
-    buildPhase = ''
-      $CC -O2 -o findstr.exe ${./findstr.c} -s
-    '';
-    installPhase = ''
-      mkdir -p $out
-      cp findstr.exe $out/
-    '';
-  };
 in
 mingwStdenv.mkDerivation (finalAttrs: {
   pname = "notepadpp-windows";
@@ -43,9 +22,6 @@ mingwStdenv.mkDerivation (finalAttrs: {
   # so the title bar ends in a meaningless " [Administrator]" on Linux/macOS.
   patches = [ ./patches/no-administrator-title.patch ];
 
-  # wine/cmd for the upstream .bat pre-build; findstrShim completes Wine.
-  nativeBuildInputs = lib.optional (!buildIsDarwin) wine;
-
   # lexilla's makefile keys its macOS branch off `uname`, which on a darwin
   # builder adds Apple-only `-arch arm64 -arch x86_64` (and -dynamiclib) to the
   # MinGW cross compiler. That branch only exists for native macOS dylibs, which
@@ -58,19 +34,21 @@ mingwStdenv.mkDerivation (finalAttrs: {
   enableParallelBuilding = true;
   dontConfigure = true;
 
-  # Makefile resets CXX unless CROSS_COMPILE is set. Build from the source
+  # Upstream's pre-build event is `cmd //C NppLibsVersionH-generator.bat`, which
+  # needs Wine, and Wine's server cannot start inside the Nix sandbox on darwin
+  # ("Can't check in server_mach_port"). Instead of a Wine path on Linux and a
+  # shell reimplementation on darwin, both platforms run the reimplementation
+  # and skip the event, so the build logic is identical everywhere and the
+  # payload needs no Wine at all.
+  # The Makefile resets CXX unless CROSS_COMPILE is set. Build from the source
   # root with an absolute makefile path (same as the MSYS2 PKGBUILD).
-  # Upstream pre-build is: cmd //C NppLibsVersionH-generator.bat — run that
-  # through Wine instead of synthesizing NppLibsVersion.h by hand.
   buildPhase = ''
     runHook preBuild
-  ''
-  + lib.optionalString buildIsDarwin ''
+
     # Read the same three VERSION_* defines NppLibsVersionH-generator.bat greps
     # out of its source tree and write the header the makefile would have
-    # generated, so nothing has to run under Wine.
-    # Fail the build instead of shipping empty version macros if upstream ever
-    # renames one of the files NppLibsVersionH-generator.bat used to read.
+    # generated. Fail the build instead of shipping empty version macros if
+    # upstream ever renames one of the files that .bat reads.
     libs_version() {
       value=$(grep -m1 "^[[:space:]]*#define[[:space:]]*$2[[:space:]]" "$1" | sed 's/[^"]*"\(.*\)".*/\1/' | tr -d '\015')
       if [ -z "$value" ]; then
@@ -89,36 +67,11 @@ mingwStdenv.mkDerivation (finalAttrs: {
       printf '#define NPP_LEXILLA_VERSION "%s"\n' "$lexilla_version"
       printf '#define NPP_BOOST_REGEX_VERSION "%s"\n' "$boost_version"
     } > PowerEditor/src/NppLibsVersion.h
-  ''
-  + lib.optionalString (!buildIsDarwin) ''
-    export HOME="$TMPDIR/wine-home"
-    export WINEPREFIX="$TMPDIR/wineprefix"
-    export WINEARCH=win64
-    export WINEDEBUG="-all"
-    export WINEDLLOVERRIDES="winemenubuilder.exe=d;findstr.exe=native"
-    mkdir -p "$HOME" "$WINEPREFIX"
 
-    wineboot --init
-    wineserver -w
-    install -m755 ${findstrShim}/findstr.exe "$WINEPREFIX/drive_c/windows/system32/findstr.exe"
-    if [ -d "$WINEPREFIX/drive_c/windows/syswow64" ]; then
-      install -m755 ${findstrShim}/findstr.exe "$WINEPREFIX/drive_c/windows/syswow64/findstr.exe"
-    fi
-
-    mkdir -p "$TMPDIR/bin"
-    printf '%s\n' \
-      '#!/bin/sh' \
-      '# Upstream makefile: cmd //C ".../NppLibsVersionH-generator.bat"' \
-      'exec wine cmd "$@"' \
-      > "$TMPDIR/bin/cmd"
-    chmod +x "$TMPDIR/bin/cmd"
-    export PATH="$TMPDIR/bin:$PATH"
-  ''
-  + ''
     make -j$NIX_BUILD_CORES \
       -f "$PWD/PowerEditor/gcc/makefile" \
       CROSS_COMPILE=${mingwStdenv.cc.targetPrefix} \
-      VERBOSE=1 ${lib.optionalString buildIsDarwin "PREBUILD_EVENT_CMD=true"}
+      VERBOSE=1 PREBUILD_EVENT_CMD=true
 
     runHook postBuild
   '';
