@@ -7,7 +7,7 @@ if (( $# != 0 )); then
   exit 1
 fi
 REPO_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
-for package in rime-ice portop patchelf-unstable mihomo-oix codex-bin splitwave-bin; do
+for package in rime-ice portop patchelf-unstable mihomo-oix codex-bin; do
   echo "Updating $package..."
   bash "$REPO_ROOT/pkgs/$package/update.sh"
 done

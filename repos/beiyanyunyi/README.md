@@ -10,7 +10,6 @@ A personal [NUR](https://github.com/nix-community/NUR) package repository.
 | `portop` | v0.4.0 | Linux, Darwin |
 | `mihomo-oix` | alpha-oix-5413cd5 | x86_64-linux (amd64-v3), aarch64-linux, aarch64-darwin |
 | `codex-bin` | 0.170.0 | aarch64-darwin, x86_64-linux (musl binaries) |
-| `splitwave-bin` | v1.5.0 | x86_64-linux |
 
 The initial versions and hashes were migrated from nix-conf.
 
@@ -22,8 +21,6 @@ nix run .#mihomo-oix -- -v
 nix run .#codex-bin -- --version
 # Linux
 nix build .#qingjian
-# x86_64 Linux
-nix run .#splitwave-bin
 ```
 
 The traditional NUR entry point, `default.nix`, accepts the caller's `pkgs`:
@@ -68,7 +65,6 @@ Run the update scripts from any directory. They use Nix to provide their tools:
 ./pkgs/patchelf-unstable/update.sh [ref]
 ./pkgs/mihomo-oix/update.sh [revision]
 ./pkgs/codex-bin/update.sh [tag]
-./pkgs/splitwave-bin/update.sh [tag]
 ```
 
 `rime-ice` follows `main` by default, or accepts a branch, tag, or commit.
@@ -89,11 +85,7 @@ as `rust-v0.167.0`. It updates the version and hashes of both the CLI and
 code-mode host for every supported platform together in `versions.json`, and
 replaces the manifest only after all downloads succeed.
 
-`splitwave-bin` defaults to the latest stable GitHub release, or accepts a tag
-such as `v1.5.0`. It downloads the amd64 Debian asset and updates the version,
-asset URL, and hash together in `versions.json`.
-
-To update all six supported packages from this checkout:
+To update all five supported packages from this checkout:
 
 ```sh
 nix develop

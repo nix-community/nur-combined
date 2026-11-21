@@ -13,5 +13,4 @@
   portop = pkgs.callPackage ./pkgs/portop { };
   mihomo-oix = pkgs.callPackage ./pkgs/mihomo-oix { };
   codex-bin = pkgs.callPackage ./pkgs/codex-bin { };
-  splitwave-bin = pkgs.callPackage ./pkgs/splitwave-bin { };
 }

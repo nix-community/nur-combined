@@ -31,7 +31,3 @@ binary hashes in `pkgs/codex-bin/versions.json`. Use
 `./pkgs/codex-bin/update.sh [tag]` (default: latest stable release) to update all
 components together. Tags use the `rust-v<version>` format. The script replaces
 the manifest only after every component has been downloaded successfully.
-
-splitwave-bin stores its release version, amd64 Debian asset URL, and hash in
-`pkgs/splitwave-bin/versions.json`. Use `./pkgs/splitwave-bin/update.sh [tag]`
-(default: latest stable release) to update the manifest after the download succeeds.
