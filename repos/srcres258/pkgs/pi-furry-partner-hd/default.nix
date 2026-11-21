@@ -12,9 +12,10 @@ let
   # is released from `hd-v2.5.1-preview.*` tags; `v2.5.6` is the repository
   # release the HD edition currently builds from.
   version = "2.5.6";
+  rev = "b9058a9c00267e36eef8528a3654314bdf6cd613";
 
-  # Pinned to the release tag. Bump this deliberately instead of following the
-  # branch, so a rebuild always describes the same tree.
+  # Pinned to a commit on top of the v2.5.6 release tag. Bump this deliberately
+  # instead of following the branch, so a rebuild always describes the same tree.
   #
   # Upstream filters this tree down to `editions/hd` with `cleanSourceWith`,
   # because there `src` is the flake's own `self`. That does not carry over:
@@ -25,8 +26,8 @@ let
   src = pkgs.fetchFromGitHub {
     owner = "KouzakiUmi";
     repo = "pi-furry-partner";
-    rev = "v${version}";
-    hash = "sha256-t3+k/j4itnB2KCo+SAW5WnezqlRaotEZcRnbOLvu4+M=";
+    inherit rev;
+    hash = "sha256-yDyMlkWRzLEfWwzTj0eIF7AL2JLUd3qAYXT/MuAG6aI=";
   };
 
   node = pkgs.nodejs_24;
