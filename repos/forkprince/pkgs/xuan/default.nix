@@ -16,9 +16,9 @@
   libxcb,
   libxi,
   libGL,
+  unzip,
   dbus,
   mesa,
-  _7zz,
   lib,
 }: let
   ver = lib.helper.read ./version.json;
@@ -44,7 +44,7 @@ in
     stdenvNoCC.mkDerivation (lib.helper.mkDarwin {
       inherit pname version src meta;
 
-      nativeBuildInputs = [_7zz];
+      nativeBuildInputs = [unzip];
     })
   else
     stdenvNoCC.mkDerivation rec {
