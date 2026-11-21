@@ -14,9 +14,15 @@ let
   sourceUrl = source.url or (builtins.head (source.urls or [ "" ]));
   githubSource = builtins.match "https://(raw.githubusercontent.com|github.com)/([^/]+/[^/]+)/.*" sourceUrl;
   releaseSource = builtins.match "https://github.com/[^/]+/[^/]+/releases/download/([^/]+)/.*" sourceUrl;
+  rawCommand = map toString (pkgs.lib.toList (script.command or script));
 in
 {
-  command = map toString (pkgs.lib.toList (script.command or script));
+  command = rawCommand;
+  installables = builtins.attrValues (
+    builtins.mapAttrs (drv: v: "${drv}^${builtins.concatStringsSep "," v.outputs}") (
+      builtins.getContext (builtins.concatStringsSep "\n" rawCommand)
+    )
+  );
   inherit attrPath snapshot;
   supportedFeatures = script.supportedFeatures or [ ];
   env = {

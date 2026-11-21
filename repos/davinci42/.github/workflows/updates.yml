@@ -47,7 +47,7 @@ jobs:
           base=$(git rev-parse HEAD)
           nix flake update
           git diff --quiet flake.lock || git commit -am "chore(flake): update nixpkgs"
-          nix-shell --run 'just check-updates --update --commit' || pkg_failed=1
+          nix develop -c just check-updates --update --commit || pkg_failed=1
           head=$(git rev-parse HEAD)
           if [ "$head" != "$base" ]; then
             git push -f origin HEAD:refs/heads/ci-candidate
@@ -77,4 +77,12 @@ jobs:
         run: |
           git push origin "HEAD:refs/heads/${{ github.event.repository.default_branch }}"
           git push origin --delete ci-candidate || true
-          curl -fsSL -X POST 'https://nur-update.nix-community.org/update?repo=davinci42'
+          for attempt in 1 2 3 4 5; do
+            status=$(curl -sS -o /dev/null -w '%{http_code}' -X POST 'https://nur-update.nix-community.org/update?repo=davinci42') || status=000
+            case "$status" in
+              2*) exit 0 ;;
+              429|5*|000) sleep $((attempt * 15)) ;;
+              *) echo "::error::NUR index refresh failed with HTTP $status"; exit 1 ;;
+            esac
+          done
+          echo "::warning::NUR index refresh still rate-limited (HTTP $status) after retries"

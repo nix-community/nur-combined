@@ -42,6 +42,10 @@
         )
       );
 
+      devShells = lib.genAttrs systems (system: {
+        default = import ./shell.nix { pkgs = nixpkgs.legacyPackages.${system}; };
+      });
+
       overlays.default = overlay;
       nixosModules = wrapModules modules.nixosModules;
       darwinModules = wrapModules modules.darwinModules;
