@@ -925,23 +925,6 @@
       sha256 = "sha256-v+w4Y6MyJqUrgwuYUYTZW0Zn1jhW4vEpgBEQyEjvkzg=";
     };
   };
-  uu-remote-linux = {
-    pname = "uu-remote-linux";
-    version = "v0.2.57";
-    src = fetchFromGitHub {
-      owner = "VallierDev";
-      repo = "uu-remote-linux";
-      rev = "v0.2.57";
-      fetchSubmodules = false;
-      sha256 = "sha256-BbUF5hlso+FJbC8xgTaqSYzuJiYhJuMnbqQG2/e3yww=";
-    };
-    cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-BbUF5hlso+FJbC8xgTaqSYzuJiYhJuMnbqQG2_e3yww=/Cargo.lock";
-      outputHashes = {
-        
-      };
-    };
-  };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
     version = "979f25034e16abf4e0d4dac0d8a7863fed0595c4";

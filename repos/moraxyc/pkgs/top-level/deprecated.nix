@@ -17,6 +17,9 @@ let
     exloli-next = "unmaintained";
     mautrix-telegramgo = "unmaintained";
 
+    # Packaged upstream
+    uu-remote-linux = "packaged-upstream";
+
     # discontinued
     boringssl-oqs = "discontinued";
     wetype = "discontinued";
@@ -25,6 +28,7 @@ let
 
   reasonMap = {
     upstreamed = "has been upstreamed to nixpkgs";
+    packaged-upstream = "now provides official Nix packaging upstream";
     discontinued = "is no longer maintained in this NUR";
     unmaintained = "is no longer maintained by upstream";
   };

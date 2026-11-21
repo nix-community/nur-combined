@@ -1258,24 +1258,6 @@
       },
       "fingerprint": "sha256-imgtibGyweQKSt73wcN8RnflrzCvxGnXE2OOGS5lLSs="
     },
-    "uu-remote-linux": {
-      "version": "0.2.63",
-      "rawVersion": "v0.2.63",
-      "date": "2026-11-20",
-      "src": {
-        "fetcher": "github",
-        "owner": "VallierDev",
-        "repo": "uu-remote-linux",
-        "rev": "v0.2.63",
-        "hash": "sha256-VAgcjhm2f09S5EUKSMccgzVp1rOAwDtx2osQ+a1oBrk="
-      },
-      "derived": {
-        "cargoLock": {
-          "lockfile": "uu-remote-linux/src/Cargo.lock"
-        }
-      },
-      "fingerprint": "sha256-bkfLJkEtLMz1h+WpImLqmsX1w0C+bC6LFQVif/RSb0s="
-    },
     "v2ray-rules-dat": {
       "version": "0-unstable-2026-11-20",
       "rawVersion": "13f16def15efebb39c9a23206fdebb26bc8e4504",

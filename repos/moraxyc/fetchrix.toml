@@ -622,15 +622,6 @@ version = { source = "github-tag", repo = "pcherenkov/udpxy" }
 transform = ["strip-v"]
 fetch = { type = "github", repo = "pcherenkov/udpxy", rev = "{version}" }
 
-[packages.uu-remote-linux]
-version = { source = "github-release", repo = "VallierDev/uu-remote-linux" }
-transform = ["strip-v"]
-fetch = { type = "github", repo = "VallierDev/uu-remote-linux", rev = "{version}" }
-
-[packages.uu-remote-linux.derive.cargoLock]
-kind = "cargo-vendor"
-strategy = "lockfile"
-
 [packages.v2ray-rules-dat]
 version = { source = "git", url = "https://github.com/Loyalsoldier/v2ray-rules-dat.git", branch = "release", unstable = { } }
 transform = ["strip-v"]
