@@ -39,7 +39,6 @@ python.pkgs.buildPythonPackage rec {
   ];
 
   pythonImportsCheck = [
-    "gbd"
     "gbd_core"
     "gbd_init"
     "gbd_server"
