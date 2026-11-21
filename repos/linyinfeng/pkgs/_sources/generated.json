@@ -23,7 +23,7 @@
     "baibot": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-aDGzqSWauFXNazNnyIznu6j0QxTUBkespZQ5Kj_F17E=/Cargo.lock",
+                "sha256-BxU8B2F0H1ANCBx_9X1MLCmG0oFZh6DEpklQ3jHgxPA=/Cargo.lock",
                 {}
             ]
         },
@@ -39,12 +39,12 @@
             "name": null,
             "owner": "etkecc",
             "repo": "baibot",
-            "rev": "v2026.11.21.0",
-            "sha256": "sha256-aDGzqSWauFXNazNnyIznu6j0QxTUBkespZQ5Kj/F17E=",
+            "rev": "v2026.11.21.3",
+            "sha256": "sha256-BxU8B2F0H1ANCBx/9X1MLCmG0oFZh6DEpklQ3jHgxPA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2026.11.21.0"
+        "version": "v2026.11.21.3"
     },
     "codestable": {
         "cargoLock": null,
