@@ -12,6 +12,10 @@ jobs:
       - name: Install nix
         uses: cachix/install-nix-action@v31
         with:
+          # Nix 2.35+ stops copying local flake sources to the store, which breaks
+          # nix-update 1.16.0's getFlake (Mic92/nix-update#693). Unpin once a fixed
+          # nix-update (>1.16.0) is released. 2.34.9 is what NixOS 26.11 ships.
+          install_url: https://releases.nixos.org/nix/nix-2.34.9/install
           nix_path: "${{ matrix.nixPath }}"
           extra_nix_config: |
             experimental-features = nix-command flakes
