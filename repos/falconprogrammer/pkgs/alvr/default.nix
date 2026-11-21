@@ -85,7 +85,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Stream VR games from your PC to your headset via Wi-Fi";
     homepage = "https://github.com/alvr-org/ALVR/";
-    changelog = "https://github.com/alvr-org/ALVR/releases/tag/v${finalAttrs.version}";
+    changelog = "https://github.com/alvr-org/ALVR-nightly/releases/tag/v${finalAttrs.version}";
     license = licenses.mit;
     maintainers = with maintainers; [ passivelemon ];
     platforms = platforms.linux;
