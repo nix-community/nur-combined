@@ -9,13 +9,13 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "portless";
-  version = "0.17.0";
+  version = "0.18.1";
 
   # The npm tarball ships a prebuilt bundle with no runtime dependencies;
   # the GitHub source is a pnpm monorepo that would need a full build.
   src = fetchzip {
     url = "https://registry.npmjs.org/portless/-/portless-${version}.tgz";
-    hash = "sha256-gwNFn6LmI9Ok/SGUreaWNGrZnqPYwWwtViRYPCUsAYE=";
+    hash = "sha256-ENSTLgobJchhUuOJQ9kCsfGekOfOv7AeR9UXUJ8+YbA=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
