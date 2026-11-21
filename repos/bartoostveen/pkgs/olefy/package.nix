@@ -43,7 +43,7 @@ python3Packages.buildPythonApplication {
       }/${python3Packages.python.sitePackages}"
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch=main" ]; };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch=master" ]; };
 
   meta = {
     description = "Small Python Daemon to use oletools over TCP sockets. Mainly to use oletools in Rspamd.";

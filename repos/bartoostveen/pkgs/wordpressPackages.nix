@@ -139,9 +139,9 @@ makeScope newScope (
       };
       generic-oidc = {
         pname = "wp-generic-oidc";
-        version = "3.11.4";
+        version = "3.11.5";
         id = "daggerhart-openid-connect-generic";
-        hash = "sha256-2B+NCUGNk/rgbR9D/WP0AdZmqUw9r/njgCA/bd8W/jA=";
+        hash = "sha256-4zYEtPKy+O/FKSi7az7uiywFSIeQkXUSa817rJ6kEAo=";
       };
       gutenberg-carousel = {
         pname = "wp-gutenberg-carousel";
