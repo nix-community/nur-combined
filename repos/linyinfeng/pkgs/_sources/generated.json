@@ -23,7 +23,7 @@
     "baibot": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-drPNJzPHNPZzRAQORZ+t8mpzT+dXqSHfjsw3jDTGxaU=/Cargo.lock",
+                "sha256-aDGzqSWauFXNazNnyIznu6j0QxTUBkespZQ5Kj_F17E=/Cargo.lock",
                 {}
             ]
         },
@@ -39,12 +39,12 @@
             "name": null,
             "owner": "etkecc",
             "repo": "baibot",
-            "rev": "v2026.11.18.0",
-            "sha256": "sha256-drPNJzPHNPZzRAQORZ+t8mpzT+dXqSHfjsw3jDTGxaU=",
+            "rev": "v2026.11.21.0",
+            "sha256": "sha256-aDGzqSWauFXNazNnyIznu6j0QxTUBkespZQ5Kj/F17E=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2026.11.18.0"
+        "version": "v2026.11.21.0"
     },
     "codestable": {
         "cargoLock": null,
@@ -657,7 +657,7 @@
     },
     "rime-luna-pinyin": {
         "cargoLock": null,
-        "date": "2026-07-12",
+        "date": "2026-11-21",
         "extract": null,
         "name": "rime-luna-pinyin",
         "passthru": null,
@@ -667,13 +667,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "56b934b099dfbeab842320f13aa8b461a6ab3e42",
-            "sha256": "sha256-yXkF2f980Z0OMb39QQHknqodzIj3SyW23NVo+1C2p/s=",
+            "rev": "84685a7e7793e43278ca29368977b79d74d37a03",
+            "sha256": "sha256-QyVRA5wHy1Z9DyryMr+rPK60wMwWp2IV20UthvVMlPM=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-luna-pinyin.git"
         },
-        "version": "56b934b099dfbeab842320f13aa8b461a6ab3e42"
+        "version": "84685a7e7793e43278ca29368977b79d74d37a03"
     },
     "rime-pinyin-simp": {
         "cargoLock": null,
