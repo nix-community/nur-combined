@@ -181,7 +181,7 @@ services.displayManager.sddm.wayland.enable = true;
 services.displayManager.autoLogin.enable = true;
 services.displayManager.autoLogin.user = "alice";
 
-# Optional applications (terminal, text editor, video player, calendar,
+# Optional applications (preview, terminal, text editor, video player, calendar,
 # system monitor, calculator) can be dropped individually:
 environment.cutefish.excludePackages = [ pkgs.cutefish-video-player ];
 ```

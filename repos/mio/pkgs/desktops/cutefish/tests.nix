@@ -134,6 +134,7 @@ let
             machine.fail("test -e /run/current-system/sw/bin/cutefish-video-player")
             machine.succeed("test -x /run/current-system/sw/bin/cutefish-terminal")
             machine.succeed("test -x /run/current-system/sw/bin/cutefish-settings")
+            machine.succeed("test -x /run/current-system/sw/bin/cutefish-preview")
 
         with subtest("Nothing in the session has coredumped"):
             machine.fail("coredumpctl --json=short | grep -Ei 'cutefish|skia'")

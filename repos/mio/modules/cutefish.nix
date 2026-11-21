@@ -37,6 +37,7 @@ let
 
   # Installed by default. Drop entries with environment.cutefish.excludePackages.
   optionalPackages = [
+    cu.cutefish-preview
     cu.cutefish-terminal
     cu.cutefish-text-editor
     cu.cutefish-video-player
@@ -158,6 +159,14 @@ in
 
       # cutefish-core ships lib/modules-load.d/cutefish-ddc.conf, which NixOS does not load.
       boot.kernelModules = [ "i2c-dev" ];
+
+      # The Cutefish splash theme, when the system boots with plymouth at all.
+      # mkAfter/mkDefault keep a theme the user picks; the package also ships a
+      # GRUB theme for anyone wiring it up themselves.
+      boot.plymouth = lib.mkIf config.boot.plymouth.enable {
+        themePackages = lib.mkAfter [ cu.cutefish-plymouth-theme ];
+        theme = lib.mkDefault "cutefish-logo";
+      };
 
       fonts.packages = [
         pkgs.noto-fonts

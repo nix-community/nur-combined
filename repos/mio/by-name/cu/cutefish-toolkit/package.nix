@@ -32,8 +32,8 @@ let
   skiaSrc = fetchFromGitHub {
     owner = "google";
     repo = "skia";
-    rev = "95ee33d7ec7791ab9c071675710a14fe6408ae4f";
-    hash = "sha256-ou4cLjDBhKrL7yUJX/4el/HTDDWcmpL9ZGsdmHjX3I4=";
+    rev = "ea1e651d7a105f5ca327dfd65d28957957279e2e";
+    hash = "sha256-V1cKIFv6YCbEjqQk9hAgeITKyQaD2xYUnEWFW6772OE=";
   };
 in
 mkCutefishDerivation {
@@ -42,14 +42,21 @@ mkCutefishDerivation {
   patches = [ ./toolkit-xdg-paths.patch ];
 
   postPatch = ''
-        substituteInPlace cmake/Skia.cmake \
-          --replace-fail 'find_program(SKIA_GN gn PATHS ''${SKIA_SOURCE_DIR}/bin NO_DEFAULT_PATH REQUIRED)' \
-            'find_program(SKIA_GN gn REQUIRED)' \
-          --replace-fail 'skia_enable_fontmgr_custom_empty = false' \
-            'skia_enable_fontmgr_custom_empty = false
-    skia_system_freetype2_include_path = \"${lib.getDev freetype}/include/freetype2\"'
-        substituteInPlace CMakeLists.txt \
-          --replace-fail 'add_subdirectory(examples)' '# add_subdirectory(examples)'
+            substituteInPlace cmake/Skia.cmake \
+              --replace-fail 'find_program(SKIA_GN gn PATHS ''${SKIA_SOURCE_DIR}/bin NO_DEFAULT_PATH REQUIRED)' \
+                'find_program(SKIA_GN gn REQUIRED)' \
+              --replace-fail 'skia_enable_fontmgr_custom_empty = false' \
+                'skia_enable_fontmgr_custom_empty = false
+        skia_system_freetype2_include_path = \"${lib.getDev freetype}/include/freetype2\"'
+            substituteInPlace CMakeLists.txt \
+              --replace-fail 'add_subdirectory(examples)' '# add_subdirectory(examples)'
+            # font_file.cpp reads font faces through fontconfig's FreeType API, but
+            # upstream only includes fontconfig.h, which no longer pulls in
+            # fcfreetype.h, where FcFreeTypeQueryAll is declared.
+            substituteInPlace src/ui/font_file.cpp \
+              --replace-fail '#include <fontconfig/fontconfig.h>' \
+                '#include <fontconfig/fontconfig.h>
+    #include <fontconfig/fcfreetype.h>'
   '';
 
   preConfigure = ''

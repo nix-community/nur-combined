@@ -23,6 +23,10 @@ lib.makeScope newScope (self: {
     self.callPackage ../../../by-name/cu/cutefish-system-monitor/package.nix
       { };
   cutefish-calculator = self.callPackage ../../../by-name/cu/cutefish-calculator/package.nix { };
+  cutefish-preview = self.callPackage ../../../by-name/cu/cutefish-preview/package.nix { };
+  cutefish-plymouth-theme =
+    self.callPackage ../../../by-name/cu/cutefish-plymouth-theme/package.nix
+      { };
   cutefish-qt-plugins = self.callPackage ../../../by-name/cu/cutefish-qt-plugins/package.nix { };
   cutefish-dm = self.callPackage ../../../by-name/cu/cutefish-dm/package.nix { };
 })
