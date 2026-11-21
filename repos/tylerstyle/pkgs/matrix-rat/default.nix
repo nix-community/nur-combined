@@ -12,7 +12,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "matrix-rat";
-  version = "1.0.0";
+  version = "1.0.1";
 
   __structuredAttrs = true;
 
@@ -20,10 +20,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "tylerstyle";
     repo = "matrix-rat";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Xz75SfHFArKyrNLttnTmze+bM6+k5Ku2iB+4PzCqwqo=";
+    hash = "sha256-arEc3yQtYFSHq6jzvFEx04jGwJ5S7hSpzQtra7kDerk=";
   };
 
-  cargoHash = "sha256-/yjgy/ccTV+jmbtofbXgB55VL7XXKKTAmmlMj2OrS5Y=";
+  cargoHash = "sha256-SvsEY/jMJcg4GLHHd0grKR9xDvMdtwrYrfypO71IFxo=";
 
   nativeBuildInputs = [
     pkg-config
