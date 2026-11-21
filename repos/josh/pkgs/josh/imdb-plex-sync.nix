@@ -7,13 +7,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "imdb-plex-sync";
-  version = "0.1.1";
+  version = "0.1.2";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "imdb-plex-sync";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-FFIBfJ/ZA2S+aFmFiWmgu4HCXoVzXSpvdt7RVb7nbJw=";
+    hash = "sha256-L0ZxvRgRswO5/cQFAK2H6fP3DoM1szMqbhLeHEtIm3U=";
   };
 
   vendorHash = "sha256-9FLAVUGHmokTj6nZzo65wdVzaa9t/5MUMVnyC+Lt5LI=";
