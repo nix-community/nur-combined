@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.4.9.6";
+  version = "4.4.9.8";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.9.6.xpi";
-  sha256 = "0d0b9c627eb5085c16a263f61415c5706428ce7ba259566d0d50c4ac7e096dac";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.9.8.xpi";
+  sha256 = "8b96683d994774c77f77bcc0b6d26446239eb5be73795fdd505b9d143bdb0981";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -329,7 +329,6 @@ buildFirefoxXpiAddon {
       "*://*.hbvl.be/*"
       "*://*.hd.se/*"
       "*://*.heise.de/*"
-      "*://*.hilltimes.com/*"
       "*://*.hindustantimes.com/*"
       "*://*.historia.fr/*"
       "*://*.historyextra.com/*"
@@ -402,7 +401,6 @@ buildFirefoxXpiAddon {
       "*://*.kentucky.com/*"
       "*://*.kn-online.de/*"
       "*://*.knoxnews.com/*"
-      "*://*.kompas.id/*"
       "*://*.komputerswiat.pl/*"
       "*://*.krautreporter.de/*"
       "*://*.ksta.de/*"
@@ -473,7 +471,6 @@ buildFirefoxXpiAddon {
       "*://*.libelle.nl/*"
       "*://*.liberation-champagne.fr/*"
       "*://*.liberation.fr/*"
-      "*://*.linda.nl/*"
       "*://*.lindependant.fr/*"
       "*://*.literaryreview.co.uk/*"
       "*://*.livelaw.in/*"
@@ -872,7 +869,6 @@ buildFirefoxXpiAddon {
       "*://*.wired.com/*"
       "*://*.wissenschaft.de/*"
       "*://*.wiwo.de/*"
-      "*://*.wochenblatt.com/*"
       "*://*.womenshealth.de/*"
       "*://*.womenshealthmag.com/*"
       "*://*.womensrunning.com/*"

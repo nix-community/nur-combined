@@ -5936,10 +5936,10 @@
     };
     "immersive-translate" = buildMozillaXpiAddon {
       pname = "immersive-translate";
-      version = "1.34.2";
+      version = "1.35.3";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5142743/immersive_translate-1.34.2.xpi";
-      sha256 = "bd678a421b345f49e8f841a095e5e6a265626c383768ba6a01f5ff7dbe13cd8a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5275933/immersive_translate-1.35.3.xpi";
+      sha256 = "56c3226ac9ad00b72742597df8dd096317c2b8e5f0d1a396494e4bcb677e71dc";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -7438,10 +7438,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.5.12";
+      version = "2.5.13";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5241912/lichess_tools_by_siderite-2.5.12.xpi";
-      sha256 = "5232881698bccc1d4ec749b32b6f2ee91cafb5b0442e483ecf8a99a695be73f3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5281677/lichess_tools_by_siderite-2.5.13.xpi";
+      sha256 = "a9c8e54bc75b1d35873aadc6bc05887c85477e0730e7d86dd1477f6a97cb478f";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -7948,10 +7948,10 @@
     };
     "lockedin-yt" = buildMozillaXpiAddon {
       pname = "lockedin-yt";
-      version = "1.2.4";
+      version = "1.2.5";
       addonId = "kartik@lockedin.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5233792/lockedin_yt-1.2.4.xpi";
-      sha256 = "f349e8ec8892e23b175753335027a8a2b9e8affae1efd8514ab7dfdcc6ad29b5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5283350/lockedin_yt-1.2.5.xpi";
+      sha256 = "4800ba5198fdc6d7a10e91b0907e2e425989c7dd850b86d1717060f6f0c2c712";
       meta = with lib;
       {
         homepage = "https://kartikrashmin.github.io/LockedIn-YT/";
@@ -11265,10 +11265,10 @@
     };
     "proton-vpn" = buildMozillaXpiAddon {
       pname = "proton-vpn";
-      version = "1.3.9";
+      version = "1.3.10";
       addonId = "vpn@proton.ch";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5266254/proton_vpn_firefox_extension-1.3.9.xpi";
-      sha256 = "26ecddcc5c5eed03ba0752d465a40dc110da9f7ea2698b43185c33b0837935a2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5283747/proton_vpn_firefox_extension-1.3.10.xpi";
+      sha256 = "8a694edee753ce68dfe3d5d3a514c119a53dbd8e4fcad75f3eecb324a3e0d0dd";
       meta = with lib;
       {
         homepage = "https://protonvpn.com/";
@@ -13608,10 +13608,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.39.0";
+      version = "1.40.0";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5274593/single_file-1.39.0.xpi";
-      sha256 = "0bd60baef8d6f153574e15ce599135b573c1d7c727ae6fbc1499c49e8b491fa5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5284257/single_file-1.40.0.xpi";
+      sha256 = "15bf2a1ea115b89cf94415d5d8a7d6ef2979f5b3d3410aa9de7fbf70a80bc269";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -14080,10 +14080,10 @@
     };
     "stylebot-web" = buildMozillaXpiAddon {
       pname = "stylebot-web";
-      version = "4.4.0";
+      version = "4.5.0";
       addonId = "{52bda3fd-dc48-4b3d-a7b9-58af57879f1e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5231188/stylebot_web-4.4.0.xpi";
-      sha256 = "0e7f91b999bde1980604e273d25c06a7c28cb2bca8b88534e71bc87fb0ec312d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5284106/stylebot_web-4.5.0.xpi";
+      sha256 = "ae3c4fda099b96c60b746f41ab9838d6376b0f256b8ad81989d6d3e1a58a0051";
       meta = with lib;
       {
         homepage = "https://stylebot.dev/";
@@ -14454,10 +14454,10 @@
     };
     "tabwrangler" = buildMozillaXpiAddon {
       pname = "tabwrangler";
-      version = "9.1.1";
+      version = "9.2.0";
       addonId = "{81b74d53-9416-4fb3-afa2-ab46684b253b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5114952/tabwrangler-9.1.1.xpi";
-      sha256 = "e5b013e5dca62b44445a9ce328024dae8521e0fa63bf4c2497f2ebc2333b4a3a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5282214/tabwrangler-9.2.0.xpi";
+      sha256 = "c38707052079b16c69014c8bef57b33f8ae6db0d4eba4f1ea706a5e8b337755b";
       meta = with lib;
       {
         homepage = "https://tabwrangler.com/";
@@ -15642,10 +15642,10 @@
     };
     "ublock-origin" = buildMozillaXpiAddon {
       pname = "ublock-origin";
-      version = "1.76.4";
+      version = "1.76.6";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5257481/ublock_origin-1.76.4.xpi";
-      sha256 = "66d0e3f21ce3b32b1bc0a9399b93cb2c9aa598ef18805d92118c76f66e266c1e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5282683/ublock_origin-1.76.6.xpi";
+      sha256 = "debffadf7d5117bd2d4e9218e27bfdf3112544fd2e87f14882d274a11dc95375";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -15908,10 +15908,10 @@
     };
     "v2ex-polish" = buildMozillaXpiAddon {
       pname = "v2ex-polish";
-      version = "2.5.13";
+      version = "2.5.14";
       addonId = "leokudev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5275148/v2ex_polish-2.5.13.xpi";
-      sha256 = "92126bcff98b3f44d99babd12584cd642d18f29e5c4dd45f6207d5be0cf78ec5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5280615/v2ex_polish-2.5.14.xpi";
+      sha256 = "34056135d6d7978bb90a98933a0ab2e55a664662358ab4f21c053805641de64b";
       meta = with lib;
       {
         description = "专为 V2EX 用户设计，提供了丰富的扩展功能。";
@@ -16552,10 +16552,10 @@
     };
     "w2g" = buildMozillaXpiAddon {
       pname = "w2g";
-      version = "11.2";
+      version = "11.3";
       addonId = "{6ea0a676-b3ef-48aa-b23d-24c8876945fb}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5263618/w2g-11.2.xpi";
-      sha256 = "cf50023de6531beaf378fa9e5d98fe5c75a7edb82e7c3dbfd322f8811cb3aecb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5283093/w2g-11.3.xpi";
+      sha256 = "45b919b01370e092204b7394a0cce8ba42d2c5d9ce913a4ddd60c319dd3605a2";
       meta = with lib;
       {
         homepage = "https://w2g.tv";
@@ -16758,10 +16758,10 @@
     };
     "web-clipper-obsidian" = buildMozillaXpiAddon {
       pname = "web-clipper-obsidian";
-      version = "1.8.3";
+      version = "1.8.4";
       addonId = "clipper@obsidian.md";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5279664/web_clipper_obsidian-1.8.3.xpi";
-      sha256 = "b20b75bd10fd7727c32fc858e8d847d09d74b813d2e59c9d2943678ec97be3d1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5282220/web_clipper_obsidian-1.8.4.xpi";
+      sha256 = "b0b01ad7febebd6172c9ca9337aad79470b6d036c45c7239f6525c37047d032c";
       meta = with lib;
       {
         homepage = "https://obsidian.md/clipper";
