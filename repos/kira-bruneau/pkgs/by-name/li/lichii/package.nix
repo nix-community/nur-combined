@@ -65,13 +65,13 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lichii";
-  version = "341";
+  version = "366";
 
   src = fetchFromGitHub {
     owner = "zortos293";
     repo = "Lichii";
     tag = "build-${finalAttrs.version}";
-    hash = "sha256-ZrphcBJ3W3gcsG1ZXkD6hSdiaophZ0g93mr8CKExZJg=";
+    hash = "sha256-eMj4l4gYp984U7hz8HVj0NvW3JFJ3qCl+bBnlJmMixk=";
   };
 
   strictDeps = true;
