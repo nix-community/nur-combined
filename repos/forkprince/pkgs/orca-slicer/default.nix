@@ -17,6 +17,12 @@ in
 
     nativeBuildInputs = [_7zz];
 
+    unpackPhase = ''
+      runHook preUnpack
+      7zz x -y -snld20 "$src"
+      runHook postUnpack
+    '';
+
     meta = {
       description = "G-code generator for 3D printers (Bambu, Prusa, Voron, VzBot, RatRig, Creality, etc.)";
       homepage = "https://github.com/SoftFever/OrcaSlicer";
