@@ -25,8 +25,9 @@ let
     longDescription = ''
       The official command-line module player from the OpenMPT project,
       cross-compiled for Windows with MinGW-w64 and run through Wine. The
-      OpenMPT tracker itself is MFC-based and MSVC-only, so it cannot be built
-      this way. On macOS this uses gcenx-wine-staging instead of nixpkgs Wine.
+      OpenMPT tracker itself is MFC-based and MSVC-only, so it is packaged
+      separately as openmpt-tracker, a real MSVC + MFC build run under Wine. On
+      macOS this uses gcenx-wine-staging instead of nixpkgs Wine.
     '';
     license = licenses.bsd3;
     maintainers = [ "maydayv7" ];

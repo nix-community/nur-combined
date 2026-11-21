@@ -17,14 +17,26 @@ jobs:
   build-linux:
     name: Linux (${{ matrix.arch }})
     runs-on: ${{ matrix.runner }}
+    env:
+      # Rust release builds keep full debuginfo by default, and this job builds
+      # three cargo workspaces plus two Flutter apps on a 14 GB disk; dropping
+      # it roughly halves the target/ trees.
+      CARGO_PROFILE_RELEASE_DEBUG: '0'
+      CARGO_INCREMENTAL: '0'
     strategy:
       fail-fast: false
       matrix:
         include:
           - runner: ubuntu-24.04
             arch: x86_64
+            flutter: true
           - runner: ubuntu-24.04-arm
             arch: aarch64
+            # Flutter publishes no Linux arm64 SDK, so subosito/flutter-action
+            # cannot resolve a version there ("Unable to determine Flutter
+            # version for channel: stable ... architecture: arm64"). The two
+            # Flutter apps are skipped on this runner instead of failing it.
+            flutter: false
 
     steps:
       - name: Checkout repository
@@ -35,10 +47,14 @@ jobs:
         uses: mio-19/maximize-build-space@fc881a613ad2a34aca9c9624518214ebc21dfc0c # v10
         with:
           root-reserve-mb: 512
-          swap-size-mb: 8192
+          # Swap is a logical volume in the same volume group as the build
+          # volume, so the previous 8192 came straight out of build space.
+          swap-size-mb: 1024
           remove-dotnet: 'true'
           remove-android: 'true'
           remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
 
       - name: Install system dependencies
         run: |
@@ -59,6 +75,7 @@ jobs:
         run: cargo install wasm-tools --locked
 
       - name: Set up Flutter
+        if: matrix.flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
@@ -104,6 +121,7 @@ jobs:
 
       # ─── Uplink ──────────────────────────────────────────────────────────────
       - name: Build & Package Uplink
+        if: matrix.flutter
         continue-on-error: true
         run: |
           cd by-name/up/uplink
@@ -118,6 +136,7 @@ jobs:
 
       # ─── NRS Client ──────────────────────────────────────────────────────────
       - name: Build & Package NRS Client
+        if: matrix.flutter
         continue-on-error: true
         run: |
           cd by-name/nr/nrs-client/src
@@ -144,9 +163,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - runner: macos-14
+          # macos-13 (Intel) was retired on 2025-12-04 and macos-14 (arm64) is
+          # deprecated; requesting either fails the job before any step runs.
+          # macos-15-intel is the supported x86_64 image.
+          - runner: macos-15
             arch: aarch64
-          - runner: macos-13
+          - runner: macos-15-intel
             arch: x86_64
 
     steps:
