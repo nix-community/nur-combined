@@ -5,26 +5,28 @@
   fetchurl,
   installShellFiles,
   stdenvNoCC,
+  stdenv,
+  autoPatchelfHook,
 }:
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    x86_64-linux = "1ybxs0w8sag7jd99rflyl578m3ff3x7qbp22arzl95k53irr29xm";
-    aarch64-linux = "1zmzfdfc3yc34lzpdc2rsgb67vwwi2hhxjyx3zl691wkbfgg3vh3";
-    x86_64-darwin = "0r1hca8ljq9fiafgxcnmxkdaq9mfmidw0sdr4zlr6wx5px3xwmv7";
-    aarch64-darwin = "0l02651h2i28w4h9xzab89b70pk2cvp0ph4ms5z9q8xpzjw7259c";
+    x86_64-linux = "18iq27p8l37554n2mdhaykq725znp49bd814csgnq8343y80hgn7";
+    aarch64-linux = "0b4rq1spfwbidy63s9dknqyag7lzpmvzpmmgrli30vfrl18ih6ax";
+    x86_64-darwin = "080jxn8wfj4rrv9wvmzkahpp13yjkyrsnkl1pbl3c5dbcbfa9cld";
+    aarch64-darwin = "1mm83xx9p02ia9wx0ccbps3qac5pzfm3zgarkrz3alpdyp3ym9bd";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/nickheyer/icebath/releases/download/v1.0.15/icebath_1.0.15_linux_amd64.tar.gz";
-    aarch64-linux = "https://github.com/nickheyer/icebath/releases/download/v1.0.15/icebath_1.0.15_linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/nickheyer/icebath/releases/download/v1.0.15/icebath_1.0.15_darwin_amd64.tar.gz";
-    aarch64-darwin = "https://github.com/nickheyer/icebath/releases/download/v1.0.15/icebath_1.0.15_darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/nickheyer/icebath/releases/download/v1.1.2/icebath_1.1.2_linux_amd64.tar.gz";
+    aarch64-linux = "https://github.com/nickheyer/icebath/releases/download/v1.1.2/icebath_1.1.2_linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/nickheyer/icebath/releases/download/v1.1.2/icebath_1.1.2_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://github.com/nickheyer/icebath/releases/download/v1.1.2/icebath_1.1.2_darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "icebath";
-  version = "1.0.15";
+  version = "1.1.2";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
@@ -32,12 +34,21 @@ stdenvNoCC.mkDerivation {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [ installShellFiles ] ++ lib.optionals stdenvNoCC.isLinux [ autoPatchelfHook ];
+
+  buildInputs = lib.optionals stdenvNoCC.isLinux [
+    stdenv.cc.cc.lib
+  ];
 
   installPhase = ''
     runHook preInstall
     mkdir -p $out/bin
     cp -vr ./icebath $out/bin/icebath
+    printf 'nix\n' > $out/bin/.install_method
+    install -Dm644 ./cli-config.yaml.example $out/bin/cli-config.yaml.example
+    install -Dm644 ./.env.example $out/bin/.env.example
+    install -Dm644 ./LICENSE $out/share/licenses/icebath/LICENSE
+    install -Dm644 ./THIRD_PARTY_NOTICES $out/share/licenses/icebath/THIRD_PARTY_NOTICES
     runHook postInstall
   '';
 
