@@ -477,24 +477,6 @@
       sha256 = "sha256-lwFBevf3iP90LgnfUqweCjPBJPr2vMFtRqQXXUC+cRA=";
     };
   };
-  microfetch = {
-    pname = "microfetch";
-    version = "b06c987bf6ea9606f203a6304cb4764eca56984a";
-    src = fetchFromGitHub {
-      owner = "NotAShelf";
-      repo = "microfetch";
-      rev = "b06c987bf6ea9606f203a6304cb4764eca56984a";
-      fetchSubmodules = false;
-      sha256 = "sha256-t3L3DmVj9F4pvamxo6pP4uqn34XwThNhu96RQO8afQg=";
-    };
-    cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-t3L3DmVj9F4pvamxo6pP4uqn34XwThNhu96RQO8afQg=/Cargo.lock";
-      outputHashes = {
-        
-      };
-    };
-    date = "2026-11-07";
-  };
   mm-geofeed-verifier = {
     pname = "mm-geofeed-verifier";
     version = "v4.0.0";

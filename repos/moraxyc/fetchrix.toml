@@ -309,15 +309,6 @@ fetch = { type = "github", repo = "metacubex/geo", rev = "{version}" }
 strategy = "fod"
 attr = ".#metacubex-geo.goModules"
 
-[packages.microfetch]
-version = { source = "git", url = "https://github.com/NotAShelf/microfetch", unstable = { } }
-transform = ["strip-v"]
-fetch = { type = "git", url = "https://github.com/NotAShelf/microfetch", rev = "{version}" }
-
-[packages.microfetch.derive.cargoLock]
-kind = "cargo-vendor"
-strategy = "lockfile"
-
 [packages.mm-geofeed-verifier]
 version = { source = "github-release", repo = "maxmind/mm-geofeed-verifier" }
 transform = ["strip-v"]

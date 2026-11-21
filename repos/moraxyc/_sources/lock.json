@@ -601,23 +601,6 @@
       },
       "fingerprint": "sha256-89S+7AGIYHMJI9qdM+43aFrcG1e1mugSqI/NiPkj74o="
     },
-    "microfetch": {
-      "version": "0-unstable-2026-11-07",
-      "rawVersion": "b06c987bf6ea9606f203a6304cb4764eca56984a",
-      "date": "2026-11-07",
-      "src": {
-        "fetcher": "git",
-        "url": "https://github.com/NotAShelf/microfetch",
-        "rev": "b06c987bf6ea9606f203a6304cb4764eca56984a",
-        "hash": "sha256-t3L3DmVj9F4pvamxo6pP4uqn34XwThNhu96RQO8afQg="
-      },
-      "derived": {
-        "cargoLock": {
-          "lockfile": "microfetch/src/Cargo.lock"
-        }
-      },
-      "fingerprint": "sha256-7rgsYi0ID81iQKuliT7du/LJLE9M/EXqNtWPXwb3kl8="
-    },
     "mm-geofeed-verifier": {
       "version": "5.0.0",
       "rawVersion": "v5.0.0",

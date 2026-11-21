@@ -836,32 +836,6 @@
         },
         "version": "v1.1"
     },
-    "microfetch": {
-        "cargoLock": {
-            "Cargo.lock": [
-                "sha256-t3L3DmVj9F4pvamxo6pP4uqn34XwThNhu96RQO8afQg=/Cargo.lock",
-                {}
-            ]
-        },
-        "date": "2026-11-07",
-        "extract": null,
-        "name": "microfetch",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "NotAShelf",
-            "repo": "microfetch",
-            "rev": "b06c987bf6ea9606f203a6304cb4764eca56984a",
-            "sha256": "sha256-t3L3DmVj9F4pvamxo6pP4uqn34XwThNhu96RQO8afQg=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "b06c987bf6ea9606f203a6304cb4764eca56984a"
-    },
     "mm-geofeed-verifier": {
         "cargoLock": null,
         "date": null,

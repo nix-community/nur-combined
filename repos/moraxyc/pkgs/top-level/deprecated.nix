@@ -22,6 +22,7 @@ let
 
     # discontinued
     boringssl-oqs = "discontinued";
+    microfetch = "discontinued";
     wetype = "discontinued";
   }
   // lib.mapAttrs (_n: _v: "discontinued") (lib.filesystem.readDir ../discontinued);
