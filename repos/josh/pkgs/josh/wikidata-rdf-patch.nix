@@ -6,7 +6,7 @@
 }:
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "wikidata-rdf-patch";
-  version = "1.0.7";
+  version = "1.0.8";
 
   pyproject = true;
 
@@ -14,7 +14,7 @@ python3Packages.buildPythonPackage (finalAttrs: {
     owner = "josh";
     repo = "wikidata-rdf-patch";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-35xcDv11hTZ+7zJIL+U/zsRsPu2ifnQmuiVg757/350=";
+    hash = "sha256-y8o4yMcONbXbBV0zunXPbgQu6niEpS+dFwBUfQ28b0E=";
   };
 
   build-system = with python3Packages; [
