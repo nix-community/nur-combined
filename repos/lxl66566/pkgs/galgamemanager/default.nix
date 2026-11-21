@@ -119,6 +119,9 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   gappsWrapperArgs = [
+    # WebKitGTK DMA-BUF compositing renders blank (white screen) on some
+    # NixOS GPU driver stacks; fall back to the non-composited path.
+    "--set WEBKIT_DISABLE_COMPOSITING_MODE 1"
     "--set GDK_PIXBUF_MODULE_FILE ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
     "--suffix GIO_EXTRA_MODULES : ${glib-networking}/lib/gio/modules"
     "--suffix GST_PLUGIN_SYSTEM_PATH_1_0 : ${
