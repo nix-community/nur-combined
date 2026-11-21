@@ -23,7 +23,27 @@ flutter.buildFlutterApplication rec {
     hash = "sha256-/4GbzTfMW9Vh7oIYPRoCylJJ2em96xS4uxNzzHWOxtM=";
   };
 
-  pubspecLock = lib.importJSON ./pubspec.lock.json;
+  pubspecLock =
+    let
+      lock = lib.importJSON ./pubspec.lock.json;
+    in
+    lock
+    // {
+      packages = {
+        # Flutter 3.50+ SDK depends on listen, which older upstream pubspec.lock files omit.
+        listen = {
+          dependency = "transitive";
+          description = {
+            name = "listen";
+            sha256 = "47501a08016a43fcad79252439d723f50f14f88fa7bfd8a177e0a417e5c9e1f2";
+            url = "https://pub.dev";
+          };
+          source = "hosted";
+          version = "1.0.1";
+        };
+      }
+      // lock.packages;
+    };
   gitHashes = lib.importJSON ./git-hashes.json;
 
   nativeBuildInputs = [
