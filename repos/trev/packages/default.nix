@@ -31,6 +31,7 @@ in
   pysentry = pkgs.callPackage ./pysentry { };
   qsvenc = pkgs.callPackage ./qsvenc { };
   renovate = pkgs.callPackage ./renovate { };
+  t3code = pkgs.callPackage ./t3code { };
   type2-runtime = pkgs.pkgsStatic.callPackage ./type2-runtime { inherit (pkgs) nix-update-script; };
   xdg-desktop-portal-hyprland = pkgs.callPackage ./xdg-desktop-portal-hyprland { };
   xdg-desktop-portal-luminous = pkgs.callPackage ./xdg-desktop-portal-luminous { };
