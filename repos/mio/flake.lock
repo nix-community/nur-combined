@@ -2,11 +2,11 @@
   "nodes": {
     "nixpkgs": {
       "locked": {
-        "lastModified": 1795095985,
-        "narHash": "sha256-iE8oRwNZcE7Mcupd5cNTCWMi4e07CoQIRYUmw5tf+9w=",
-        "rev": "19cfded70b91ca0981373973c5b1efffdd4d6647",
+        "lastModified": 1795155813,
+        "narHash": "sha256-WPRypKbccFNgc3JHl92oP7TFDXYwQ70n/jEsjS34Jpk=",
+        "rev": "b758f1622588b4d5ce019971748a68be80e5943c",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1124565.19cfded70b91/nixexprs.tar.zst"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1125205.b758f1622588/nixexprs.tar.zst"
       },
       "original": {
         "type": "tarball",
@@ -16,11 +16,11 @@
     "nova-nix-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1795206998,
-        "narHash": "sha256-l1nmyyKh0us7D6Dk2hBWGqkWaCqhrU8fWHFDXWUPRE0=",
+        "lastModified": 1795218549,
+        "narHash": "sha256-D3I/Us7360dMwesMtMeduWiCRjoTVwr3jZ+PmGaS4yo=",
         "owner": "Novavero-AI",
         "repo": "nova-nix",
-        "rev": "3670028b99b328da43c3a52f0c5f188f19d408d4",
+        "rev": "79b804f49629172aa088527eb8d6a46c5c32534b",
         "type": "github"
       },
       "original": {
