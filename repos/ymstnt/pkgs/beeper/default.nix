@@ -38,14 +38,13 @@ let
       echo "export function registerLinuxConfig() {}" > $linuxConfigFilename
 
       # disable auto update
-      sed -i 's/c=d??{},p=c.hw_acceleration??!0/c={...(d??{}),auto_update_disabled:true},p=c.hw_acceleration??!0/g' $appRoot/build/main/index-*.mjs
+      sed -i -E 's/c=([[:alnum:]_$]+)\?\?\{\},p=c\.hw_acceleration\?\?!0/c={...(\1??{}),auto_update_disabled:true},p=c.hw_acceleration??!0/g' $appRoot/build/main/index-*.mjs
 
       # prevent updates
       sed -i -E 's/executeDownload\([^)]+\)\{/executeDownload(){return;/g' $appRoot/build/main/main-entry-*.mjs
 
       # hide version status element on about page otherwise an error message is shown
-      sed -i '$ a\.subview-prefs-about > div:nth-child(2) {display: none;}' $appRoot/build-browser/*.css
-
+      sed -i '$ a\.subview-prefs-about > div:nth-child(2) {display: none;}' $appRoot/build/renderer/*.css
     '';
   };
 in
