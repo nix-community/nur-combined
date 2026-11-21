@@ -1,0 +1,190 @@
+From a920807908bda9389b281c9b1cedfe93e9bf846b Mon Sep 17 00:00:00 2001
+From: 2kybe3 <kybe@kybe.xyz>
+Date: Wed, 28 Oct 2026 12:13:41 +0100
+Subject: [PATCH] Improve various completions
+
+---
+ src/libmain/common-args.cc           |  6 +-----
+ src/libutil/args.cc                  | 10 ++++++++++
+ src/libutil/include/nix/util/args.hh |  4 +++-
+ src/nix/add-to-store.cc              |  1 -
+ src/nix/cat.cc                       |  2 +-
+ src/nix/config.cc                    |  1 +
+ src/nix/develop.cc                   |  6 ++++++
+ src/nix/dump-path.cc                 |  2 +-
+ src/nix/eval.cc                      |  1 +
+ src/nix/flake.cc                     |  2 +-
+ src/nix/ls.cc                        |  2 +-
+ 12 files changed, 27 insertions(+), 12 deletions(-)
+
+diff --git a/src/libmain/common-args.cc b/src/libmain/common-args.cc
+index ab6bedd85..e9d53be11 100644
+--- a/src/libmain/common-args.cc
++++ b/src/libmain/common-args.cc
+@@ -58,11 +58,7 @@ MixCommonArgs::MixCommonArgs(const std::string & programName)
+         .completer =
+             [](AddCompletions & completions, size_t index, std::string_view prefix) {
+                 if (index == 0) {
+-                    std::map<std::string, Config::SettingInfo> settings;
+-                    globalConfig.getSettings(settings);
+-                    for (auto & s : settings)
+-                        if (hasPrefix(s.first, prefix))
+-                            completions.add(s.first, fmt("Set the `%s` setting.", s.first));
++                    completeSettings(completions, index, prefix);
+                 }
+             },
+     });
+diff --git a/src/libutil/args.cc b/src/libutil/args.cc
+index 4a85a08cb..0dcf21f94 100644
+--- a/src/libutil/args.cc
++++ b/src/libutil/args.cc
+@@ -1,5 +1,6 @@
+ #include "nix/util/args.hh"
+ #include "nix/util/args/root.hh"
++#include "nix/util/config-global.hh"
+ #include "nix/util/hash.hh"
+ #include "nix/util/environment-variables.hh"
+ #include "nix/util/users.hh"
+@@ -561,6 +562,15 @@ nlohmann::json Args::toJSON()
+     return res;
+ }
+ 
++void Args::completeSettings(AddCompletions & completions, size_t, std::string_view prefix)
++{
++    std::map<std::string, Config::SettingInfo> settings;
++    globalConfig.getSettings(settings);
++    for (auto & s : settings)
++        if (hasPrefix(s.first, prefix))
++            completions.add(s.first, fmt("Set the `%s` setting.", s.first));
++}
++
+ static void _completePath(AddCompletions & completions, std::string_view prefix, bool onlyDirs)
+ {
+     completions.setType(Completions::Type::Filenames);
+diff --git a/src/libutil/include/nix/util/args.hh b/src/libutil/include/nix/util/args.hh
+index 7a237076c..38a2eb907 100644
+--- a/src/libutil/include/nix/util/args.hh
++++ b/src/libutil/include/nix/util/args.hh
+@@ -322,7 +322,7 @@ public:
+      */
+     void expectArg(const std::string & label, std::filesystem::path * dest, bool optional = false)
+     {
+-        expectArgs({.label = label, .optional = optional, .handler = {dest}});
++        expectArgs({.label = label, .optional = optional, .handler = {dest}, .completer = completePath});
+     }
+ 
+     /**
+@@ -333,6 +333,8 @@ public:
+         expectArgs({.label = label, .handler = {dest}});
+     }
+ 
++    static CompleterFun completeSettings;
++
+     static CompleterFun completePath;
+ 
+     static CompleterFun completeDir;
+diff --git a/src/nix/add-to-store.cc b/src/nix/add-to-store.cc
+index fecbc242e..e6053cb0e 100644
+--- a/src/nix/add-to-store.cc
++++ b/src/nix/add-to-store.cc
+@@ -19,7 +19,6 @@ struct CmdAddToStore : MixDryRun, StoreCommand
+ 
+     CmdAddToStore()
+     {
+-        // FIXME: completion
+         expectArg("path", &path);
+ 
+         addFlag({
+diff --git a/src/nix/cat.cc b/src/nix/cat.cc
+index c6a018adc..337e6b7be 100644
+--- a/src/nix/cat.cc
++++ b/src/nix/cat.cc
+@@ -59,7 +59,7 @@ struct CmdCatNar : StoreCommand, MixCat
+ 
+     CmdCatNar()
+     {
+-        expectArgs({.label = "nar", .handler = {&narPath}, .completer = completePath});
++        expectArg("nar", &narPath);
+         expectArg("path", &path);
+     }
+ 
+diff --git a/src/nix/config.cc b/src/nix/config.cc
+index ccc76d688..3140012a7 100644
+--- a/src/nix/config.cc
++++ b/src/nix/config.cc
+@@ -34,6 +34,7 @@ struct CmdConfigShow : Command, MixJSON
+             .label = {"name"},
+             .optional = true,
+             .handler = {&name},
++            .completer = completeSettings,
+         });
+     }
+ 
+diff --git a/src/nix/develop.cc b/src/nix/develop.cc
+index f65ae25ad..3760eabf3 100644
+--- a/src/nix/develop.cc
++++ b/src/nix/develop.cc
+@@ -343,6 +343,12 @@ struct Common : InstallableCommand, MixProfile
+             .handler = {[&](std::string installable, std::filesystem::path outputsDir) {
+                 redirects.push_back({installable, outputsDir});
+             }},
++            .completer =
++                [](AddCompletions & completions, size_t index, std::string_view prefix) {
++                    if (index == 1) {
++                        completeDir(completions, index, prefix);
++                    }
++                },
+         });
+     }
+ 
+diff --git a/src/nix/dump-path.cc b/src/nix/dump-path.cc
+index f21374c62..c88bc6193 100644
+--- a/src/nix/dump-path.cc
++++ b/src/nix/dump-path.cc
+@@ -43,7 +43,7 @@ struct CmdDumpPath2 : Command
+ 
+     CmdDumpPath2()
+     {
+-        expectArgs({.label = "path", .handler = {&path}, .completer = completePath});
++        expectArg("path", &path);
+     }
+ 
+     std::string description() override
+diff --git a/src/nix/eval.cc b/src/nix/eval.cc
+index 36b56bd38..7b9c37e5a 100644
+--- a/src/nix/eval.cc
++++ b/src/nix/eval.cc
+@@ -37,6 +37,7 @@ struct CmdEval : MixJSON, InstallableValueCommand, MixReadOnlyOption
+             .description = "Write a string or attrset of strings to *path*.",
+             .labels = {"path"},
+             .handler = {&writeTo},
++            .completer = completePath,
+         });
+     }
+ 
+diff --git a/src/nix/flake.cc b/src/nix/flake.cc
+index f681758a7..d40fb34dd 100644
+--- a/src/nix/flake.cc
++++ b/src/nix/flake.cc
+@@ -1043,7 +1043,7 @@ struct CmdFlakeNew : CmdFlakeInitCommon
+ 
+     CmdFlakeNew()
+     {
+-        expectArgs({.label = "dest-dir", .handler = {&destDir}, .completer = completePath});
++        expectArg("dest-dir", &destDir);
+     }
+ };
+ 
+diff --git a/src/nix/ls.cc b/src/nix/ls.cc
+index 410f4f420..d39f5e7ec 100644
+--- a/src/nix/ls.cc
++++ b/src/nix/ls.cc
+@@ -132,7 +132,7 @@ struct CmdLsNar : Command, MixLs
+ 
+     CmdLsNar()
+     {
+-        expectArgs({.label = "nar", .handler = {&narPath}, .completer = completePath});
++        expectArg("nar", &narPath);
+         expectArg("path", &path);
+     }
+ 

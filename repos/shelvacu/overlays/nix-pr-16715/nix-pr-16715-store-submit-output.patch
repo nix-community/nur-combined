@@ -1,0 +1,13 @@
+diff --git a/src/nix/store-submit-output.cc b/src/nix/store-submit-output.cc
+index c23c5d688..09d74e502 100644
+--- a/src/nix/store-submit-output.cc
++++ b/src/nix/store-submit-output.cc
+@@ -12,7 +12,7 @@ struct CmdSubmitOutput : StoreCommand
+ 
+     CmdSubmitOutput()
+     {
+-        expectArg("path", &path);
++        expectArgs({.label = "path", .handler = &path, .completer = completePath});
+         expectArg("output", &output);
+     }
+ 
