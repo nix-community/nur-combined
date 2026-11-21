@@ -155,10 +155,24 @@
   };
 
   # Enable the KDE Plasma Desktop Environment.
-  my.displayManager.sddm.enable = true;
+  #my.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
   services.desktopManager.cosmic.enable = true;
   services.power-profiles-daemon.enable = true;
+
+  services.displayManager.noctalia-greeter = {
+    enable = true;
+    settings = {
+      session.default = "Niri";
+      auth.allow_empty_password = true;
+      appearance.scheme = "Catppuccin";
+      cursor = {
+        theme = "Bibata-Modern-Classic";
+        size = 24;
+        path = pkgs.bibata-cursors;
+      };
+    };
+  };
 
   environment.systemPackages = [
     pkgs.foot
@@ -167,11 +181,13 @@
     pkgs.darkman
 
     pkgs.noctalia-shell
+    pkgs.noctalia-greeter
+    pkgs.noctalia
   ];
 
   #programs.hyprland.enable = true;
   programs.sway = {
-    enable = true;
+    enable = false;
     wrapperFeatures.gtk = true;
   };
   programs.niri = {

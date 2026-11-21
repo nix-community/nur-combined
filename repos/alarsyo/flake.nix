@@ -15,6 +15,14 @@
       ref = "nixos-unstable";
     };
 
+    noctalia-greeter = {
+      type = "github";
+      owner = "noctalia-dev";
+      repo = "noctalia-greeter";
+      ref = "main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     agenix = {
       type = "github";
       owner = "ryantm";
@@ -142,6 +150,7 @@
             [
               inputs.nixos-hardware.nixosModules.framework-13-7040-amd
               disko.nixosModules.default
+              inputs.noctalia-greeter.nixosModules.default
               ./talos.nix
             ]
             ++ sharedModules;
