@@ -38,6 +38,9 @@ stdenv.mkDerivation (finalAttrs: {
     autoPatchelfHook
   ];
 
+  # NOTE (CC) Provided at runtime by SteamVR's bin/linux64 on vrserver's LD_LIBRARY_PATH
+  autoPatchelfIgnoreMissingDeps = [ "libopenvr_api.so" ];
+
   buildInputs = [
     alsa-lib
     libunwind

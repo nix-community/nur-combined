@@ -21,9 +21,10 @@ src.git = "https://github.com/xuri/xgen"
 src.branch = "master"
 fetch.github = "xuri/xgen"
 
-# NOTE (CC) Pinned nightly, the headset client apk must carry the same pre-release tag (dev15)
+# NOTE (CC) Pinned to the last nightly built from ALVR's master branch (e8ca92b), the headset
+#           client apk must carry the same pre-release tag (dev14)
 [alvr]
-src.manual = "v21.0.0-dev15+nightly.2026.11.21"
+src.manual = "v21.0.0-dev14+nightly.2026.11.08"
 fetch.url = "https://github.com/alvr-org/ALVR-nightly/releases/download/$ver/alvr_streamer_linux.tar.gz"
 
 [alvr-source]

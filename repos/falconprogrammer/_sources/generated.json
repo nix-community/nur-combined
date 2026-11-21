@@ -8,11 +8,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-rEBUWc8sbBBq6BV219bwAYwZ5EcYgbgjyPE4kPT+HDQ=",
+            "sha256": "sha256-jk/lxLrYdkdOqLw1rOgd6EqPcxTqkENJiDlFYLn+O8U=",
             "type": "url",
-            "url": "https://github.com/alvr-org/ALVR-nightly/releases/download/v21.0.0-dev15+nightly.2026.11.21/alvr_streamer_linux.tar.gz"
+            "url": "https://github.com/alvr-org/ALVR-nightly/releases/download/v21.0.0-dev14+nightly.2026.11.08/alvr_streamer_linux.tar.gz"
         },
-        "version": "v21.0.0-dev15+nightly.2026.11.21"
+        "version": "v21.0.0-dev14+nightly.2026.11.08"
     },
     "alvr-source": {
         "cargoLock": null,
