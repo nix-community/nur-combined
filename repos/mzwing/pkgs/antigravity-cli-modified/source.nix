@@ -3,11 +3,11 @@
 { fetchzip }:
 
 let
-  version = "26.3.1";
-  rev = "v26.3.1";
+  version = "26.3.2";
+  rev = "v26.3.2";
   src = fetchzip {
-    url = "https://codeload.github.com/q1uuuu/agy-context/tar.gz/v26.3.1";
-    hash = "sha256-FtxexqCCMpxKLKLrBK05IfjNvA3x2tiM5iwVRWPzzdw=";
+    url = "https://codeload.github.com/q1uuuu/agy-context/tar.gz/v26.3.2";
+    hash = "sha256-PGZ/GGM9FoMUlURLSkuNc6CBkQ7PPYXlUWRXCt6VyBQ=";
     extension = "tar.gz";
   };
 in
