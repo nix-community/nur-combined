@@ -22,13 +22,13 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "wikidatabots";
-  version = "0-unstable-2026-11-19";
+  version = "0-unstable-2026-11-21";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "wikidatabots";
-    rev = "4bb53af44492c481c224c5a07a71f8243268ab47";
-    hash = "sha256-xDX5z0mZRvPeKO86meALq2F1OE2drTyycZG/+qYjnp8=";
+    rev = "4851662af08a9a2524a1dfb969b60248b98fda72";
+    hash = "sha256-aHsmILqU2csU8I6DacY4+NrL6S5uaS+d95mLBdlnTac=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
