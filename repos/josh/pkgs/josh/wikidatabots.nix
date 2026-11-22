@@ -13,7 +13,6 @@
 let
   pythonEnv = python3.withPackages (ps: [
     ps.backoff
-    ps.feedparser
     ps.requests
     ps.tqdm
     nur.repos.josh.polars
@@ -22,13 +21,13 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "wikidatabots";
-  version = "0-unstable-2026-11-21";
+  version = "0-unstable-2026-11-22";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "wikidatabots";
-    rev = "460c85fe44ef100c5739bd8ef1a8995dcb275667";
-    hash = "sha256-LyGDweDgdpk+nfpO4jWb4lfeZS4mwkW8ImPz7xTLoGQ=";
+    rev = "3a162363e0954b04f0c6da93d5748f2b42d6775f";
+    hash = "sha256-PpJrsOjvxt9UwE6s6kSuv54ag35CgmS0l3BU4fPpQCU=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
@@ -46,7 +45,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       esac
     done
 
-    for script in wikidata_maxlag wd_tmdb wd_opencritic; do
+    for script in wd_tmdb wd_opencritic; do
       makeWrapper ${lib.getExe pythonEnv} $out/bin/''${script//_/-} \
         --add-flags $out/share/wikidatabots/$script.py
     done
@@ -65,7 +64,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       ${lib.getExe pythonEnv} -c '
       import sys
       sys.path.insert(0, "${finalAttrs.finalPackage}/share/wikidatabots")
-      import polars_requests, sparql, wd_opencritic, wd_tmdb, wikidata, wikidata_maxlag
+      import polars_requests, sparql, wd_opencritic, wd_tmdb, wikidata
       '
       touch $out
     '';
