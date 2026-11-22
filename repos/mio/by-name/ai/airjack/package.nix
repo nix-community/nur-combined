@@ -3,6 +3,8 @@
   stdenv,
   fetchFromGitHub,
   fetchzip,
+  nix-update-script,
+  writeShellApplication,
   hashcat,
   hcxtools,
   airsnare,
@@ -151,16 +153,28 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "airjack";
-  version = "0-unstable-2026-08-19";
+  version = "0-unstable-2026-11-21";
 
   src = fetchFromGitHub {
     owner = "rtulke";
     repo = "AirJack";
-    rev = "92da55cff23415543a30003322c493afbfaeaced";
-    hash = "sha256-vo5sn6dkX7a6hMQP6s2tsk9ktVd16TqNvYX1CXXWBPY=";
+    rev = "d2039ac2cfa67fe0d2744d29e088e37a3205e104";
+    hash = "sha256-/KWiwriQJqL/9cWouCXbsm5MCpt4E/atVTHAwoK1+Ds=";
   };
 
   dontBuild = true;
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-airjack";
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="airjack"
+      exec ${
+        lib.escapeShellArgs (nix-update-script {
+          extraArgs = [ "--version=branch" ];
+        })
+      } "$@"
+    '';
+  };
 
   installPhase = ''
     runHook preInstall

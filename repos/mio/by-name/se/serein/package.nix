@@ -110,13 +110,13 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "serein";
-  version = "1.0.0-unstable-2026-11-20";
+  version = "1.0.0-unstable-2026-11-21";
 
   src = fetchFromGitHub {
     owner = "ViceVerse-cz";
     repo = "Serein";
-    rev = "39c7c49bbcb1d6b642ff4ce066445d8bc56ff46d";
-    hash = "sha256-06q9RokGIyceCNYNukE86ZoJMlCcstZvF/WxJtChO/8=";
+    rev = "058e3357b251bf22f53fda4a387c22fd956790f9";
+    hash = "sha256-1HoEaln++3KPUuPTytcRU2YarLdAqe6XFGf9nl/mJxk=";
   };
 
   # Keep bundled symbols local so each copy stays consistent.
@@ -127,7 +127,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   # copies, as it did before; keep that.
   dontCargoUseSystemLibs = true;
 
-  cargoHash = "sha256-TSdUW+VZBPFH3kCsHmc8bRVrrz8sMkxKPJVSKzrJjlY=";
+  cargoHash = "sha256-K3F91FiwKlFdzgZWCNdeNJor6KiETj45tWWAfCoVmhY=";
 
   cargoBuildFlags = [
     "--package"
@@ -296,6 +296,5 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     mainProgram = "serein";
-    maintainers = with lib.maintainers; [ myamusashi ];
   };
 })
