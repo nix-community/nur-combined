@@ -2,7 +2,7 @@
   description = "Nix packages and NixOS/nix-darwin modules";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/master";
+    nixpkgs.url = "git+https://github.com/NixOS/nixpkgs?shallow=1";
   };
 
   outputs =

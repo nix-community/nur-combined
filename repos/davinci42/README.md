@@ -55,7 +55,7 @@ These commands do not deploy, commit or push. For in-place updates, use
 ## Automated updates
 
 GitHub Actions updates `flake.lock` (`chore(flake): update nixpkgs`) and checks
-custom packages daily at 00:37 UTC (08:37 China time) or via `workflow_dispatch`.
+custom packages every 4 hours (`37 */4 * * *` UTC) or via `workflow_dispatch`.
 After 3-architecture builds (`x86_64-linux`, `aarch64-linux`, `aarch64-darwin`)
 succeed and push to `davinci42.cachix.org`, `main` is fast-forwarded automatically
 and the NUR index is refreshed.
