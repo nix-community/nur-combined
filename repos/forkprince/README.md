@@ -154,6 +154,7 @@ This repository contains three types of packages:
 | [`serein`](pkgs/serein/default.nix) | [serein](https://github.com/ViceVerse-cz/Serein), tiny, performant & 100% native client for Discord made in Rust |
 | [`sfw`](pkgs/sfw/default.nix) | [sfw](https://github.com/SocketDev/sfw-free), wraps your package manager, preventing installation of malicious packages. |
 | [`sm64plus`](pkgs/sm64plus/default.nix) | [sm64plus](https://github.com/MorsGames/sm64plus), a standalone fork of the Super Mario 64 PC port with quality of life improvements |
+| [`sms-launcher`](pkgs/sms-launcher/default.nix) | [sms-launcher](https://github.com/chasem-dev/sms-launcher), setup, build, update, and play launcher for the Super Mario Sunshine PC port |
 | [`sonixd`](pkgs/sonixd/default.nix) | [sonixd](https://github.com/jeffvli/sonixd), full-featured Subsonic/Jellyfin compatible desktop music player |
 | [`sonora`](pkgs/sonora/default.nix) | [sonora](https://sonorahq.org/), a native, familiar music streaming client |
 | [`soundcraft`](pkgs/soundcraft/default.nix) | [soundcraft](https://getartcraft.com/apps/soundcraft), digital audio workstation for audio recording, editing and mixing |

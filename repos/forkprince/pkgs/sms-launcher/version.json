@@ -1,0 +1,24 @@
+{
+  "name": "SMS Launcher",
+  "source": {
+    "type": "github-release",
+    "repo": "chasem-dev/sms-launcher",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "1.1.0",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "SMS-Launcher-{version}-mac-universal.dmg",
+      "hash": "sha256-E19LVI6CIzmTPp11p/ZrnhdnfFWeNF76UTop9rNiyHg="
+    },
+    "x86_64-darwin": {
+      "file": "SMS-Launcher-{version}-mac-universal.dmg",
+      "hash": "sha256-E19LVI6CIzmTPp11p/ZrnhdnfFWeNF76UTop9rNiyHg="
+    },
+    "x86_64-linux": {
+      "file": "SMS-Launcher.AppImage",
+      "hash": "sha256-ENfqFaDUWAAIn93su7hFO5UO6QG44FBUcP9JJqqQzng="
+    }
+  }
+}

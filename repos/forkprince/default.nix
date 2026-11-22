@@ -37,6 +37,7 @@
     app-librescore = lib.callPackage ./pkgs/app-librescore {};
     wiiudownloader = lib.callPackage ./pkgs/wiiudownloader {};
     elixiroffice = lib.callPackage ./pkgs/elixiroffice {};
+    sms-launcher = lib.callPackage ./pkgs/sms-launcher {};
     ab-download-manager = lib.callPackage ./pkgs/abdm {};
     osu-tachyon = lib.callPackage ./pkgs/osu-tachyon {};
     nintoolbox = lib.callPackage ./pkgs/nintoolbox {};
