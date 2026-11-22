@@ -214,10 +214,10 @@
   };
   tachidesk-server = {
     pname = "tachidesk-server";
-    version = "2.4.2366";
+    version = "2.4.2373";
     src = fetchurl {
-      url = "https://gh-proxy.com/https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.4.2366/Suwayomi-Server-v2.4.2366.jar";
-      hash = "sha256-r5/rIK+dfr6eMHaebG68f8erHERziNQuAoCx2l/ge/0=";
+      url = "https://gh-proxy.com/https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.4.2373/Suwayomi-Server-v2.4.2373.jar";
+      hash = "sha256-3QXVI8x4W3rPkMn+rAvITFPV+zr1qyozZTZG4gduUhc=";
     };
   };
   telegramify-markdown = {

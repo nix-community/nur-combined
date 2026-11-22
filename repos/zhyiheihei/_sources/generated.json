@@ -420,11 +420,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-r5/rIK+dfr6eMHaebG68f8erHERziNQuAoCx2l/ge/0=",
+            "sha256": "sha256-3QXVI8x4W3rPkMn+rAvITFPV+zr1qyozZTZG4gduUhc=",
             "type": "url",
-            "url": "https://gh-proxy.com/https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.4.2366/Suwayomi-Server-v2.4.2366.jar"
+            "url": "https://gh-proxy.com/https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.4.2373/Suwayomi-Server-v2.4.2373.jar"
         },
-        "version": "2.4.2366"
+        "version": "2.4.2373"
     },
     "telegramify-markdown": {
         "cargoLock": null,
