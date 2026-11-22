@@ -1,11 +1,12 @@
 {
   lib,
   stdenv,
-  fetchurl,
+  fetchFromGitHub,
   makeWrapper,
   nix-update-script,
   writeShellApplication,
   python3,
+  perl,
 }:
 
 let
@@ -57,33 +58,79 @@ stdenv.mkDerivation rec {
   pname = "splash";
   version = "1.7.0";
 
-  # Upstream's Makefile builds with `xcrun -sdk macosx metal` and targets
-  # MACOS_MIN_VERSION 26.4, which the engine also enforces at startup. This
-  # machine's SDK is 26.2, so a from-source engine would land below upstream's
-  # tested floor (and the sandbox would additionally need `__noChroot` to
-  # reach xcrun at all). Install upstream's official arm64/macOS 26 build
-  # instead of compiling the engine. Its bundled Python runtime is unused: the
-  # launcher is wrapped to run under pythonEnv below.
-  src = fetchurl {
-    url = "https://github.com/incoai/splash/releases/download/${version}/splash-${version}-arm64-macos26.tar.gz";
-    hash = "sha256-XLsaZwhEM4PAgmK8p8PYJhEJyvdCOP2vygY0NQdLWG0=";
+  # The engine is compiled here with the upstream Makefile, which drives
+  # Xcode's clang++, metal and metallib through `xcrun -sdk macosx`. The
+  # kernels use Metal 4 (`-std=metal4.0`) and every binary records upstream's
+  # tested floor, macOS 26.4, so the build needs Xcode 26 or newer.
+  src = fetchFromGitHub {
+    owner = "incoai";
+    repo = "splash";
+    tag = version;
+    hash = "sha256-TpOrLinozvpqkip4ep6sFbMi4xmBlaynGEup1whZQD0=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [
+    makeWrapper
+    python3
+    # The Makefile digests build inputs with shasum.
+    perl
+  ];
+
+  # The sandbox hides the developer directory, so xcrun cannot find Xcode's
+  # Metal toolchain. Only darwin loses its sandbox.
+  __noChroot = stdenv.hostPlatform.isDarwin;
 
   dontConfigure = true;
-  dontBuild = true;
-  # The engine and metallibs are already built and signed upstream.
+
+  # The engine is linked by Xcode's linker, which already ad-hoc signs it on
+  # arm64; stripping would invalidate that signature.
   dontStrip = true;
+
+  buildPhase = ''
+    runHook preBuild
+
+    # stdenv exports nixpkgs' own Apple SDK (14.4) through SDKROOT and
+    # DEVELOPER_DIR, and its stub xcrun is first in PATH. The Metal 4 kernels
+    # need the host Xcode's macOS 26 SDK, so drive Xcode directly.
+    unset SDKROOT DEVELOPER_DIR
+    xcrun=/usr/bin/xcrun
+
+    # Xcode 27 ships Metal as a separately downloaded toolchain; select it
+    # when the default `xcrun metal` cannot run.
+    metal="$xcrun -sdk macosx metal"
+    if ! $metal --version >/dev/null 2>&1; then
+      metal="$xcrun --toolchain com.apple.dt.toolchain.Metal -sdk macosx metal"
+    fi
+
+    # Xcode 27's clang warns about the designated initializers upstream
+    # leaves at their defaults, and upstream builds with -Werror. The omitted
+    # fields are zero-initialized by the language, so keep that diagnostic a
+    # warning.
+    make \
+      XCRUN="$xcrun" \
+      CXX="$xcrun -sdk macosx clang++ -Wno-error=missing-designated-field-initializers" \
+      METAL="$metal" \
+      -j$NIX_BUILD_CORES all
+
+    runHook postBuild
+  '';
 
   installPhase = ''
     runHook preInstall
 
     root=$out/share/splash
-    mkdir -p $root/python/bin
+    mkdir -p $root/python/bin $root/engine
 
-    cp -R engine install server LICENSE THIRD_PARTY_NOTICES release.json $root/
-    chmod -R u+w $root
+    cp -R install server LICENSE THIRD_PARTY_NOTICES $root/
+    install -m755 build/splash $root/engine/splash
+    install -m644 build/splash.metallib $root/engine/splash.metallib
+    # A Metal compiler that refuses the awake host-step kernels omits this
+    # library; the engine then runs awake host steps as plain ones.
+    if [ -f build/host-step.metallib ]; then
+      install -m644 build/host-step.metallib $root/engine/host-step.metallib
+    fi
+
+    printf '{\n  "version": "%s"\n}\n' "${version}" > $root/release.json
 
     # The launcher and server spawn ROOT/python/bin/python3 for the serving
     # process; the Nix environment supplies the pinned dependency set.
