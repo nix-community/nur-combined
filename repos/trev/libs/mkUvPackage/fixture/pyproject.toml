@@ -1,0 +1,23 @@
+[project]
+name = "fixture"
+version = "1.0.0"
+requires-python = ">=3.13"
+dependencies = [
+  # a C++ extension, linked against libstdc++
+  "greenlet>=3.2",
+  # only has windows wheels
+  "pywin32>=311; sys_platform == 'win32'",
+]
+
+[project.scripts]
+fixture = "fixture:main"
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[build-system]
+requires = ["uv_build>=0.13.9,<0.14"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""

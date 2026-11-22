@@ -653,6 +653,27 @@ pkgs.mkGoModule (finalAttrs: {
 });
 ```
 
+### mkUvPackage
+
+Builds a Python project that locks its dependencies with [uv](https://docs.astral.sh/uv/), installing the exact wheels in `uv.lock` into a virtual environment at `$out`, so a hash isn't needed. The lock is read from `src` during evaluation, `lock` can point to it elsewhere, e.g. to avoid import from derivation. One wheel is picked per package for the interpreter (`python`, `python3` by default) and platform from the tags in its filename, fetched with the hash in the lock, and uv installs them offline, evaluating the lock's markers and checking every hash again. `pname` and `version` default to the project's in the lock.
+
+Packages that only have sdists, or no wheel for the platform (e.g. musllinux only), aren't supported unless the lock's markers exclude them. `overrides.<name>` replaces one with a nixpkgs Python package (the wheel in its `dist` output is installed), a wheel or a directory of wheels. Git, URL and path dependencies aren't supported.
+
+The project is built with its build backend from nixpkgs, as `uv.lock` doesn't lock build systems. The packages are picked from the requirements in `[build-system]` of `pyproject.toml` (`uv_build` is `uv-build-latest`), without checking their versions, or set with `build-system`. Virtual projects (without a build system) aren't built, only their dependencies are installed.
+
+Checks are enabled by default (`doCheck`), running `pytest` when it's installed. They run in a separate environment with the dependency `groups` and `extras`, activated at the end of the build phase, so `$out` only has the runtime dependencies (and `extras`). On Linux, native extensions are patched with `autoPatchelfHook`, for libraries that manylinux wheels don't bundle (libstdc++ is added to `buildInputs`).
+
+```nix
+pkgs.mkUvPackage (finalAttrs: {
+  pname = "python-pkg";
+  version = "1.0.0";
+  src = ./.;
+  python = pkgs.python314;
+  groups = [ "dev" ];
+  meta.mainProgram = "python-pkg";
+});
+```
+
 ### bufFetchDeps & bufHook
 
 Creates a fixed-output derivation for [buf](https://buf.build/) dependencies

@@ -21,6 +21,7 @@ let
     mkGleamBurrito = pkgs.callPackage ./mkGleamBurrito { };
     mkGleamPackage = pkgs.callPackage ./mkGleamPackage { };
     mkGoModule = pkgs.callPackage ./mkGoModule { };
+    mkUvPackage = pkgs.callPackage ./mkUvPackage { };
     mkImage = pkgs.callPackage ./mkImage { };
     mkRustPackage = pkgs.callPackage ./mkRustPackage { };
   };
