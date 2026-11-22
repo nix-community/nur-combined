@@ -10,6 +10,7 @@
 - Always check `git status` to clean up any temporary files or scratch scripts created during problem solving.
 - "check updates" or similar requests mean you should run `./check_updates.py`.
 - Prefer upstream's own build scripts. When a package needs build changes, patch or configure upstream's script (or pass its documented flags) and run that, instead of writing a replacement build driver. If a replacement is genuinely unavoidable (e.g. MSBuild/.NET cannot run in the sandbox), keep it as thin as possible, drive it from upstream's own generated project files, and state at the top of the file why upstream's path cannot be used.
+- On darwin, if upstream's build script fails only because of the Nix sandbox, turn the sandbox off for darwin instead of rewriting the script: add `__noChroot = true` (or `__darwinAllowLocalNetworking = true` when that is enough) under a `lib.optionalAttrs buildIsDarwin` block, so Linux keeps its sandbox. Diagnose first — confirm the failure is sandbox-only (Wine's `Can't check in server_mach_port` is the usual one).
 - Standard update workflow for a package in this repo:
   1. `./check_updates.py` lists candidates (network-only report, changes nothing).
   2. Run the package's own update script, not a hand edit. Build it from the flake so it runs with its declared inputs:
