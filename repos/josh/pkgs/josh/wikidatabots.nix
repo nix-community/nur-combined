@@ -25,8 +25,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "josh";
     repo = "wikidatabots";
-    rev = "cf2874831a60d2090f614c1eb98f66b7f3bea61a";
-    hash = "sha256-wQ9xDZzV8yYY+py3e2iZRQe9uDY6f3BYNzRkS0JnIfs=";
+    rev = "7909c81541230dc19666ca032301e7dcd419ede3";
+    hash = "sha256-+2uurXgqrRRwin7zt+vALtm0yy5ADD9OHb3HijGmfz8=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
@@ -51,8 +51,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
-
-  passthru.python = pythonEnv;
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
