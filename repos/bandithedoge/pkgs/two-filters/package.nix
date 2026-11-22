@@ -14,12 +14,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "two-filters";
-  version = "Nightly-unstable-2026-11-20";
+  version = "Nightly-unstable-2026-11-21";
   src = fetchFromGitHub {
     owner = "baconpaul";
     repo = "two-filters";
-    rev = "cdc304e67724cc8aa156dc29781ab5c1d1782a03";
-    hash = "sha256-oZwwSWEkldA8LpwRQIzUbWeuEWtsNPk9hYv297wNhdA=";
+    rev = "ec471d2083e4168e23d0684d790fe7f26696e474";
+    hash = "sha256-2O6HNBE31TTznEz9R7gsqid8t7hypja/av3xjly1tHE=";
     fetchSubmodules = true;
   };
 
