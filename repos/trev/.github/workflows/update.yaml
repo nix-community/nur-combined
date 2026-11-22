@@ -25,7 +25,7 @@ jobs:
       id-token: write
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@058efbda6393adccb321793a01b3fe4ea0533885 # v1.80.0
+        uses: spotdemo4/nix-init@de735751eb768b127a25bde1a8b776e3d3b0ec70 # v1.82.0
         with:
           app_id: ${{ vars.CLIENT_ID }}
           app_key: ${{ secrets.PRIVATE_KEY }}
@@ -40,7 +40,7 @@ jobs:
     steps:
       - id: checkout
         name: Checkout
-        uses: spotdemo4/better-checkout@ab7dfe8d48335ef0a98a0edeca2c4e95cd7fd547 # v0.16.0
+        uses: spotdemo4/better-checkout@d44e490a0dce276fb597c634b1cdb5ffc1b26dfc # v0.17.0
         with:
           app-id: ${{ vars.CLIENT_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
@@ -58,7 +58,7 @@ jobs:
     steps:
       - id: init
         name: Initialize
-        uses: spotdemo4/nix-init@058efbda6393adccb321793a01b3fe4ea0533885 # v1.80.0
+        uses: spotdemo4/nix-init@de735751eb768b127a25bde1a8b776e3d3b0ec70 # v1.82.0
         with:
           app_id: ${{ vars.CLIENT_ID }}
           app_key: ${{ secrets.PRIVATE_KEY }}
