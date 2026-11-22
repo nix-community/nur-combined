@@ -3,12 +3,12 @@
 { fetchzip }:
 
 let
-  version = "0.1.4626";
-  rev = "v0.1.4626";
+  version = "0.1.4662";
+  rev = "v0.1.4662";
   vendorHash = "sha256-Adyhp/oY0nWiSXOwrsbHTEFp60H9aJWUoPKUUUrYItc=";
   src = fetchzip {
-    url = "https://codeload.github.com/yetone/magpie/tar.gz/v0.1.4626";
-    hash = "sha256-fnhPbJpjrTGnTIP6IDAoteqiLUs4lELzaPcNHxG0SRI=";
+    url = "https://codeload.github.com/yetone/magpie/tar.gz/v0.1.4662";
+    hash = "sha256-MJMlQdycGHWBojmA/fh9Q/j/2xWGQsRhRFZHOmg5rqs=";
     extension = "tar.gz";
   };
 in
