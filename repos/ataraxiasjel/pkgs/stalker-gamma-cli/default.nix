@@ -16,6 +16,8 @@
   makeDesktopItem,
   copyDesktopItems,
   nix-update-script,
+  _experimental-update-script-combinators,
+  writeShellScript,
 }:
 let
   version = "1.41.1";
@@ -98,12 +100,20 @@ in
       })
     ];
 
-    passthru.updateScript = nix-update-script {
-      extraArgs = [
-        "--flake"
-        "stalker-gamma-cli"
-      ];
-    };
+    passthru.updateScript = _experimental-update-script-combinators.sequence [
+      (nix-update-script {
+        extraArgs = [
+          "--flake"
+          "stalker-gamma-cli"
+        ];
+      })
+      # nix-update only regenerates the deps file of the attr it runs on; the
+      # explicit path is needed on a clean tree (baked default -> store copy).
+      (writeShellScript "stalker-gamma-server-update-nuget-deps" ''
+        script="$(nix build .#stalker-gamma-server.fetch-deps --no-link --print-out-paths)"
+        exec "$script" "$PWD/pkgs/stalker-gamma-cli/server-deps.json"
+      '')
+    ];
 
     meta = {
       description = "A CLI to install Stalker GAMMA";
@@ -151,12 +161,18 @@ in
       zlib
     ];
 
-    passthru.updateScript = nix-update-script {
-      extraArgs = [
-        "--flake"
-        "stalker-gamma-server"
-      ];
-    };
+    passthru.updateScript = _experimental-update-script-combinators.sequence [
+      (nix-update-script {
+        extraArgs = [
+          "--flake"
+          "stalker-gamma-server"
+        ];
+      })
+      (writeShellScript "stalker-gamma-cli-update-nuget-deps" ''
+        script="$(nix build .#stalker-gamma-cli.fetch-deps --no-link --print-out-paths)"
+        exec "$script" "$PWD/pkgs/stalker-gamma-cli/deps.json"
+      '')
+    ];
 
     meta = {
       description = "Local server solving ModDB Cloudflare challenges for stalker-gamma-cli via a Camoufox browser container";
