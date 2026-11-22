@@ -1183,11 +1183,6 @@ super.lib.composeManyExtensions [
           # XXX(2026-02-15): intentionally overwriting nixpkgs' `patches`,
           # as they don't cleanly apply anymore.
           patches = [
-            (fetchVoid {
-              # 2026-04-07: still required
-              path = "srcpkgs/nfs-utils/patches/musl-fix_long_unsigned_int.patch";
-              hash = "sha256-OTxzl6UKy8ZKDK1OdUQylUFzRCzeDeYJHxOW0nh0z00=";
-            })
             # (fetchVoid {
             #   path = "srcpkgs/nfs-utils/patches/musl-getservbyport.patch";
             #   hash = "sha256-qx/p8BwWTchAWCIJbWylaF3XZU8OTx7w98W2atsgcdk=";
@@ -1220,7 +1215,12 @@ super.lib.composeManyExtensions [
             # 2026-08-04: musl needs <stddef.h> for offsetof in support/nfs/getport.c
             sed -i '/#include "nfslib.h"/a #include <stddef.h>' support/nfs/getport.c
             # 2026-09-22: "gssd.c:547:78: error: format ‘%lx’ expects argument of type ‘long unsigned int’, but argument 3 has type ‘pthread_t’ {aka ‘struct __pthread *’}"
-            sed -i 's/thread id 0x%lx/thread id 0x%p/g' utils/gssd/gssd.c
+            for f in utils/gssd/gssd.c utils/gssd/gssd_proc.c utils/gssd/krb5_util.c; do
+              sed -i \
+                -e 's/(unsigned long)\(tid\|th\|info->tid\)/(void *)\1/g' \
+                -e 's/0x%[0-9]*lx/%p/g' \
+                "$f"
+            done
           '';
 
           # version = "2.6.4";

@@ -9,7 +9,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "nanogpt-data";
-  version = "0-unstable-2026-11-19";
+  version = "0-unstable-2026-11-21";
 
   src = lib.fileset.toSource {
     root = ./.;

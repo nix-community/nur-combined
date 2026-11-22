@@ -14,15 +14,15 @@
   writeShellApplication,
 }:
 let
-  version = "1.5.2-unstable-2026-11-20";
+  version = "1.6.0-unstable-2026-11-21";
   src = fetchFromGitHub {
     owner = "earendil-works";
     repo = "pi";
-    rev = "edfe6b2ef32283d31efc9e26db86fe48be19d3b2";
-    hash = "sha256-mXjcXuJoDb/CpBKtvqea9V82nB2pjpaUpORJlZ+74tg=";
+    rev = "780bf31fcaeb252fa9b68df3964c735eae75bde3";
+    hash = "sha256-DXtQkI4DK+cUxm+wJQurob6jbpUEASyqyyYXk/aKlXk=";
   };
   # Pin the latest published catalog separately: upstream's pin can lag behind main.
-  modelCatalogHash = "db3ccd4e76a67e5cf90f2a3b30d50382765e336391545f02a061655019df7511";
+  modelCatalogHash = "dd93eb2741d05a80f41ffb94b5a1c1ccf33d2866d73292940251fd72584eb4bc";
   modelCatalogUrl = "https://pi.dev/api/models";
   modelCatalogQuery = "types=chat,image,classifier";
   modelCatalog = fetchurl {

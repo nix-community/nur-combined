@@ -8,8 +8,8 @@ let
   models = {
     inherit (mlModels)
       # bonsai-8b-q1_0
-      bonsai-27b-q1_0
-      flint-ud-q4_k_xl
+      # bonsai-27b-q1_0
+      # flint-ud-q4_k_xl
       # # gemma-4-e2b-it-bf16
       # gemma-4-e2b-it-q4_k_s
       # # gemma-4-e2b-it-q6_k
@@ -41,11 +41,12 @@ let
       # glm-4_7-flash
       # gpt-oss-20b
       # humanizer-12b-q4_k_m
+      inkling-2-mini-ud-iq4_xs
       # lfm2_5-230m-fable-5-q8_0
       # lfm2_5-8b-a1b-ud-iq4_xs
-      lfm3-1_7b-q4_k_m
+      # lfm3-1_7b-q4_k_m
       # liquidai-lfm2-24b-a2b-iq4_xs
-      minicpm5-2b-q4_k_m
+      # minicpm5-2b-q4_k_m
       # minimax-m2_5
       # nemotron-3-nano-4b
       # nemotron-3-nano-30b-a3b
@@ -55,7 +56,7 @@ let
       # qwen-agentworld-35b-a3b-ud-iq2_m
       # qwen-agentworld-35b-a3b-ud-iq3_s  # seems equally capable as iq4_nl
       # qwen-agentworld-35b-a3b-iq4_nl
-      qwen3_5-2b-mtp-ud-q4_k_xl
+      # qwen3_5-2b-mtp-ud-q4_k_xl
       # qwen3_5-35b-a3b-q4_k_m
       # qwen3_5-9b-q4_k_m
       # qwen3_5-4b-claude-4_6-opus-reasoning-distilled-q3_k_s
@@ -77,10 +78,10 @@ let
       # qwopus3_6-35b-a3b-coder-mtp-q4_k_m
       # qwythos-9b-claude-mythos-5-1m-q4_k_m
       # qwythos-9b-v2-q4_k_m
-      sage-a1_5-q4_k_m
-      spark-x2_6-4b-q4_k_m
+      # sage-a1_5-q4_k_m
+      # spark-x2_6-4b-q4_k_m
       # step3_7-flash-iq4_xs
-      ternary-bonsai-2-27b-ptq1_0
+      # ternary-bonsai-2-27b-ptq1_0
       ;
   };
   models' = lib.mapAttrs (

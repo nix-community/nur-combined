@@ -147,9 +147,9 @@ let
           search = "direct";
           inspect_article = "direct";
           read_article = "direct";
-          list_archives = "codemode";
-          list_references = "codemode";
-          extract_image = "codemode";
+          list_archives = "deferred";
+          list_references = "deferred";
+          extract_image = "deferred";
         };
       };
       ${if cfg.ha-mcp then "home_assistant" else null} = {
@@ -193,12 +193,12 @@ let
         args = [ "mcp" ];
         toolExposure = {
           # "kagi_ask_page"
-          kagi_batch_search = "direct";
-          kagi_quick = "direct"; # Get a Kagi Quick Answer
+          kagi_batch_search = "deferred";
+          kagi_quick = "deferred"; # Get a Kagi Quick Answer
           kagi_search = "direct"; # Search Kagi
-          kagi_translate = "direct";
+          kagi_translate = "deferred";
           # "kagi_news" # Fetch Kagi News stories for a category
-          kagi_news_search = "direct"; # Search the News tab of kagi.com
+          kagi_news_search = "deferred"; # Search the News tab of kagi.com
           # ----
           kagi_enrich_web = "hidden"; # "this command requires KAGI_API_TOKEN"
           kagi_extract = "hidden"; # Extract a page's full content as markdown (requires KAGI_API_KEY)
@@ -208,7 +208,11 @@ let
       };
       ${if cfg.semble then "semble" else null} = {
         command = "semble";
-        exposure = "direct";
+        # exposure = "direct";
+        toolExposure = {
+          search = "direct";
+          find_related = "deferred";
+        };
       };
       # serena = {
       #   # memory system, code search, but in practice not that helpful
@@ -253,13 +257,13 @@ in
     buildCost = 1;
 
     packageUnwrapped = let
-      # basePackage = pkgs.pi-coding-agent;
+      basePackage = pkgs.pi-coding-agent;
       # basePackage = pkgs.pi-coding-agent-latest;
-      basePackage = pkgs.pi-coding-agent.overrideAttrs (prevAttrs: {
-        modelData = lib.warnIf (lib.versionOlder "1.5.2" prevAttrs.version)
-          "nixpkgs pi-coding-agent is updated: remove overridden modelData?"
-          pkgs.pi-coding-agent-latest.modelData;
-      });
+      # basePackage = pkgs.pi-coding-agent.overrideAttrs (prevAttrs: {
+      #   modelData = lib.warnIf (lib.versionOlder "1.5.2" prevAttrs.version)
+      #     "nixpkgs pi-coding-agent is updated: remove overridden modelData?"
+      #     pkgs.pi-coding-agent-latest.modelData;
+      # });
     in basePackage.overrideAttrs (prevAttrs: {
       nativeBuildInputs = prevAttrs.nativeBuildInputs or [ ] ++ [
         pkgs.makeWrapper
@@ -618,11 +622,11 @@ in
 
       Things to know about this environment:
       - ~/ref/repos contains several hundred git checkouts organized by $owner/$repo: consult these first when looking for third-party sources. When cloning public repos, place them in this directory rather than a temporary directory, and follow existing name conventions. Always perform full clones -- disk space is cheap.
-      - This is a git-focused environment. Projects or instructions may reference mercurial: fall back to `git` (cinnabar) operations at the earliest sign that `hg` is inoperational.
       - Although a nix-based environment, `NIX_PATH` might not be set. This is intentional: invoke nix commands (`nix-build`, `nix-env`, etc) exactly as the user has specified.
     '';
 
     # for consideration:
+    # - This is a git-focused environment. Projects or instructions may reference mercurial: fall back to `git` (cinnabar) operations at the earliest sign that `hg` is inoperational.
     # - If the necessary tool for the job isn't listed above, use `echo $PATH | xargs -d ':' ls` to check for a suitable alternative
     # - Use `nix-build ~/dev/3rd/nixpkgs -A PACKAGE` to access binaries for any other package
     # - Also consider `nix-build ~/dev/3rd/nixpkgs -A PACKAGE.src` to access sources
