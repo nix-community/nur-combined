@@ -1,0 +1,1076 @@
+{
+  "mods": [
+    {
+      "name": "[1.20.1] Roll Delight-1.3.1-forge-.jar",
+      "source": "modrinth",
+      "project": "LBa22RMa",
+      "version": "bnqSK2YY",
+      "url": "https://cdn.modrinth.com/data/LBa22RMa/versions/bnqSK2YY/%5B1.20.1%5D%20Roll%20Delight-1.3.1-forge-.jar",
+      "hash": "sha512-Vh5186qieIB2d5in2bKwIKgm39h7K3CjKwBYWM5a8Fb5DDtJairltvt+OkWQRD9dHBT0mL7PIrWrI+vRLcgNWw=="
+    },
+    {
+      "name": "alchemygadgetry-1.20.1-1.1.0.jar",
+      "source": "curseforge",
+      "project": 870841,
+      "file": 5207019,
+      "url": "https://edge.forgecdn.net/files/5207/19/alchemygadgetry-1.20.1-1.1.0.jar",
+      "hash": "sha512-qWcWKJ84kmazk8WvoLynm8TtAJHJgEILXVJnPspiHS2khQSfowNjyqflJajZ74LQuy7I31Y6r6eMqv8QJV6Lvw=="
+    },
+    {
+      "name": "All-in-One-VeinMiner-TreeFelle-1.1.8.1.jar",
+      "source": "modrinth",
+      "project": "nUay74Bn",
+      "version": "RT7LCOwS",
+      "url": "https://cdn.modrinth.com/data/nUay74Bn/versions/RT7LCOwS/All-in-One-VeinMiner-TreeFelle-1.1.8.1.jar",
+      "hash": "sha512-JNEn77okdQcyDNxHS11Vrf+Te3Ij3FzXcp7irjYifbWZPOMw5X8KdN+Q3HulEkTkf4kQAjAo3mPT8UdJlSqGEg=="
+    },
+    {
+      "name": "AllArrowsPickup-1.0.0.jar",
+      "source": "modrinth",
+      "project": "PXRNfXKR",
+      "version": "6Lc5NI8R",
+      "url": "https://cdn.modrinth.com/data/PXRNfXKR/versions/6Lc5NI8R/AllArrowsPickup-1.0.0.jar",
+      "hash": "sha512-dcmCKWOF6jv3ZpgvHQRyTiY1HW/pHN8YF17/3uiaZgo3h3WGsjO5LUnWzGxRCkO6rjHenQGG87TS/PXdkOq3mg=="
+    },
+    {
+      "name": "AlwaysEat-5.2.jar",
+      "source": "curseforge",
+      "project": 318749,
+      "file": 3930804,
+      "url": "https://edge.forgecdn.net/files/3930/804/AlwaysEat-5.2.jar",
+      "hash": "sha512-ZFYxniNTNksZGDWulWGCgskXXuHnsG52vc2kmjjk9mDZcYJ71FiemtPTkQv4XcypLqHAS6epulkq9skwtI25tQ=="
+    },
+    {
+      "name": "Amplified_Nether_26.2_v1.2.15.jar",
+      "source": "modrinth",
+      "project": "wXiGiyGX",
+      "version": "ctnhVAao",
+      "url": "https://cdn.modrinth.com/data/wXiGiyGX/versions/ctnhVAao/Amplified_Nether_26.2_v1.2.15.jar",
+      "hash": "sha512-H5B4PNKsiV92pU01bthF4KVmTLeFkkxBl3fPSG0GsbKvXEvC/GLGysHSHbjb5b6XaZtXyLJdXNLd2P8sZ0WqLA=="
+    },
+    {
+      "name": "animalweights-1.20.1-Forge-1.1.0.jar",
+      "source": "modrinth",
+      "project": "L8hKhAzB",
+      "version": "AChFewow",
+      "url": "https://cdn.modrinth.com/data/L8hKhAzB/versions/AChFewow/animalweights-1.20.1-Forge-1.1.0.jar",
+      "hash": "sha512-/4B+gaUdD7FF8hdYmKq1CZYCNF2zUfkOe842chqF7KzsO0rkfazDh5cYZt6f+stjGpCMQkYpEANb2RQWXByZ/w=="
+    },
+    {
+      "name": "architectury-9.2.14-forge.jar",
+      "source": "modrinth",
+      "project": "lhGA9TYQ",
+      "version": "1MKTLiiG",
+      "url": "https://cdn.modrinth.com/data/lhGA9TYQ/versions/1MKTLiiG/architectury-9.2.14-forge.jar",
+      "hash": "sha512-z2fyBQyvoA8L7kLm1773f9uAisT3F0L3tNbVweb/tJVhpaJS8zLSt4qXZ721+qKEYReQ26MD+9xzauNteU9hxw=="
+    },
+    {
+      "name": "arrowcounter-1.0.0-forge.jar",
+      "source": "modrinth",
+      "project": "Ckqln7Hu",
+      "version": "recZ4w92",
+      "url": "https://cdn.modrinth.com/data/Ckqln7Hu/versions/recZ4w92/arrowcounter-1.0.0-forge.jar",
+      "hash": "sha512-MaZ5AJT6xcmJlB3bSboDjdWVN07F+QPNyLRXg9xrmqTYV/WukaNqFtqmLeQZ4p1Xjo4StyQryEF10kb9Z6evZA=="
+    },
+    {
+      "name": "BalancedExplorersCompass.jar",
+      "source": "curseforge",
+      "project": 994795,
+      "file": 5221163,
+      "url": "https://edge.forgecdn.net/files/5221/163/BalancedExplorersCompass.jar",
+      "hash": "sha512-cfU4qbY9Bvv9miTzgkRYksaA/xh9Wh9uOz7rvpUh9+GcGY1wcIK6JsWWeagNe6h8+cGKc8YgVu7YO38rVD5O9g=="
+    },
+    {
+      "name": "balm-forge-1.20.1-7.3.42.jar",
+      "source": "curseforge",
+      "project": 531761,
+      "file": 8545415,
+      "url": "https://edge.forgecdn.net/files/8545/415/balm-forge-1.20.1-7.3.42.jar",
+      "hash": "sha512-h+rAyVrnVPWy+hCrc/TCvkbJPsfXgIQOWFGY3MOvX+PRYMI23FiqjMaF+0JfMrtxe54jXg02qCIZeKxfERVSMg=="
+    },
+    {
+      "name": "biomeremover-1.0.3.jar",
+      "source": "curseforge",
+      "project": 1518619,
+      "file": 8217467,
+      "url": "https://edge.forgecdn.net/files/8217/467/biomeremover-1.0.3.jar",
+      "hash": "sha512-u+79wtwmIlDGzH49aE8oKBPHCFPlMVEfLbOc8ifW+sNThhfugU2mvQ8NtMLEB9mUa00P+A00p3XIvsKU3cptdg=="
+    },
+    {
+      "name": "Bookshelf-Forge-1.20.1-20.2.15.jar",
+      "source": "modrinth",
+      "project": "uy4Cnpcm",
+      "version": "7eS5OIHj",
+      "url": "https://cdn.modrinth.com/data/uy4Cnpcm/versions/7eS5OIHj/Bookshelf-Forge-1.20.1-20.2.15.jar",
+      "hash": "sha512-tePWAx6pGsplsFnITYE9JINHqHD6xIEc0enWSfKjfIV7vTLy8HG2lYnHs5QL9btL3AuC9igYuwMlW+FNI87xcA=="
+    },
+    {
+      "name": "born_in_chaos_[Forge]1.20.1_1.7.5.jar",
+      "source": "modrinth",
+      "project": "1kcHy4de",
+      "version": "8wmEhUSt",
+      "url": "https://cdn.modrinth.com/data/1kcHy4de/versions/8wmEhUSt/born_in_chaos_%5BForge%5D1.20.1_1.7.5.jar",
+      "hash": "sha512-i4ibQ9y9tIgqQUTUG0n34U9Wer4kBBzJV3CC+m9lN5V5aWbSA7socMVUGe4kqqFadDrhfcUVoz0k5g82GfWifw=="
+    },
+    {
+      "name": "BrewinAndChewin-1.20.1-3.2.1.jar",
+      "source": "modrinth",
+      "project": "hIu9KJTT",
+      "version": "9myDFPCD",
+      "url": "https://cdn.modrinth.com/data/hIu9KJTT/versions/9myDFPCD/BrewinAndChewin-1.20.1-3.2.1.jar",
+      "hash": "sha512-94TCUw805W5wpY7nNF6Vq8ebMSw5+772M5qxnf0g4oQs10FMXvI5XbK/oKm7EDav/Go75oWytzHuMZWy0NTrXQ=="
+    },
+    {
+      "name": "canary-mc1.20.1-0.3.3.jar",
+      "source": "modrinth",
+      "project": "qa2H4BS9",
+      "version": "lauzXB0n",
+      "url": "https://cdn.modrinth.com/data/qa2H4BS9/versions/lauzXB0n/canary-mc1.20.1-0.3.3.jar",
+      "hash": "sha512-OPC+x5Z/nTVORtrNvn0oTvgjJw3HN6c4it3hV8RaAl5T134EoApYKQBma4VALEYb7kuANF/H8D7bXCuWcIRCvQ=="
+    },
+    {
+      "name": "ChatShot (1.20-1.20.4-forge)-1.0.4.jar",
+      "source": "modrinth",
+      "project": "X2Zy7Oi6",
+      "version": "DrgZTqT1",
+      "url": "https://cdn.modrinth.com/data/X2Zy7Oi6/versions/DrgZTqT1/ChatShot%20%281.20-1.20.4-forge%29-1.0.4.jar",
+      "hash": "sha512-hH9BtYyWks7C1oo8eDR75vvBNQoApBOp9p1Gkdbq8mufQO7V50C/AXe/2UEEEWlAV1qyBaQl1qwsxSgNQuxcYw=="
+    },
+    {
+      "name": "clickthrough-plus-forge-3.5.1+1.20.1.jar",
+      "source": "modrinth",
+      "project": "fJi8nm80",
+      "version": "uF7HyxSR",
+      "url": "https://cdn.modrinth.com/data/fJi8nm80/versions/uF7HyxSR/clickthrough-plus-forge-3.5.1%2B1.20.1.jar",
+      "hash": "sha512-UPp6LaD4VlHxYe1ih1IKqsPQIRZSEXdOY1uxQReQ6wN7U6ZXZjJwLoZmb9DNI9grVUVBo+ItOVESrY3eggw8hg=="
+    },
+    {
+      "name": "collective-1.20.1-8.39.jar",
+      "source": "modrinth",
+      "project": "e0M1UDsY",
+      "version": "ZrHXYjUf",
+      "url": "https://cdn.modrinth.com/data/e0M1UDsY/versions/ZrHXYjUf/collective-1.20.1-8.39.jar",
+      "hash": "sha512-h3K2g8tNTV7BWplccX3sVT0KsH9D8xD8XjTeQCFq2Qq8SqoisDWgw4fDW5gEZV/e2g7cqM7UXulYj3tqjjoOhQ=="
+    },
+    {
+      "name": "configured-forge-1.20.1-2.2.3.jar",
+      "source": "curseforge",
+      "project": 457570,
+      "file": 5180900,
+      "url": "https://edge.forgecdn.net/files/5180/900/configured-forge-1.20.1-2.2.3.jar",
+      "hash": "sha512-9Z/jFPMhsKMP9M27yyvRKc4NFoQptM1NBdNBa14INtmBkhn8ySmq5lJnXQtiw6NWaJ4xzE85oKdu/MUQPiA50Q=="
+    },
+    {
+      "name": "CraftTweaker-forge-1.20.1-14.0.60.jar",
+      "source": "curseforge",
+      "project": 239197,
+      "file": 7772873,
+      "url": "https://edge.forgecdn.net/files/7772/873/CraftTweaker-forge-1.20.1-14.0.60.jar",
+      "hash": "sha512-EtvgaSeSwiX4EdIPKDSTJ2jc5BK9tHT69yF7yXWkGhchYX8piUH8UcNvZboTGzuE2b1VjoCjUo4sk+zhcJXhYg=="
+    },
+    {
+      "name": "cratedelight-26.07.01-1.20-forge.jar",
+      "source": "modrinth",
+      "project": "9rlXSyLg",
+      "version": "jCMNhRLo",
+      "url": "https://cdn.modrinth.com/data/9rlXSyLg/versions/jCMNhRLo/cratedelight-26.07.01-1.20-forge.jar",
+      "hash": "sha512-hAHG7tDr+n71rbw44XEU7LUd3sVeT+ErziDUIcpfRiqntgNnUfdvSj9c3wym7woUnDM5Dr92K16HSRqQpIvFlg=="
+    },
+    {
+      "name": "crescentlib-1.0.0.jar",
+      "source": "modrinth",
+      "project": "vCPw3wHY",
+      "version": "BI1gANPq",
+      "url": "https://cdn.modrinth.com/data/vCPw3wHY/versions/BI1gANPq/crescentlib_port-1.0.0.jar",
+      "hash": "sha512-9vd+S32Z/qP1omiluzFStCtMTC7aOs5oIVLELAyI9i3Dvb8jzwZHLrhF4dP++YOfgDlWwQjkp576Joq/Ar0lKw=="
+    },
+    {
+      "name": "cupboard-1.20.1-4.1.jar",
+      "source": "curseforge",
+      "project": 326652,
+      "file": 8746423,
+      "url": "https://edge.forgecdn.net/files/8746/423/cupboard-1.20.1-4.1.jar",
+      "hash": "sha512-rA6j1f4B91jHhQ46grhoOG+bOylwHo9frVSr55FdAomdQXYIk0Jde/arRjaiRdOblayPBPZGNcENhzBaFwtjVQ=="
+    },
+    {
+      "name": "cushions-1.20.1-1.0.3.jar",
+      "source": "curseforge",
+      "project": 1602723,
+      "file": 8413837,
+      "url": "https://edge.forgecdn.net/files/8413/837/cushions-1.20.1-1.0.3.jar",
+      "hash": "sha512-kZR93HnTqEq45bjxFTMPQpXo6HLlMs+Iv0hGA3dMLRLiu+1r8L86Ztzy/7CIX4imMLSC4hze34QJLvztxojuQQ=="
+    },
+    {
+      "name": "darkness-forge-1.20.1-2.0.103-fork.jar",
+      "source": "curseforge",
+      "project": 970641,
+      "file": 5080314,
+      "url": "https://edge.forgecdn.net/files/5080/314/darkness-forge-1.20.1-2.0.103-fork.jar",
+      "hash": "sha512-T0vLjJyeybOUhcoyG/rzmr851mx6v6GbQMqADE+cXYeLO/31eseB7wSKwxFgmwbyZWjPndooohqTMYVP2NmSug=="
+    },
+    {
+      "name": "Delightful-1.20.1-3.8.1.jar",
+      "source": "modrinth",
+      "project": "JtSnhtNJ",
+      "version": "HbEQIqIu",
+      "url": "https://cdn.modrinth.com/data/JtSnhtNJ/versions/HbEQIqIu/Delightful-1.20.1-3.8.1.jar",
+      "hash": "sha512-BA55B3vVkOXMpu0jUrVdDC2YLDgjuJipWC8i3vt5h34av51pdy70EHPDMPEaLqDTufHtZcLuPf8a7Ag6xhdjEg=="
+    },
+    {
+      "name": "diversity_better_bundle-forge-1.20.1-2.5.1.jar",
+      "source": "modrinth",
+      "project": "kmvb6gYQ",
+      "version": "wJFAXjkF",
+      "url": "https://cdn.modrinth.com/data/kmvb6gYQ/versions/wJFAXjkF/diversity_better_bundle-forge-1.20.1-2.5.1.jar",
+      "hash": "sha512-OIoPhabZPOOcNduKVyMrhGbZ6X6aLwuPuRelytlgW/GPZIgGzwK7cxao4YnU1rkBdjDJqpactktVkGPEj/5NVw=="
+    },
+    {
+      "name": "dragonmounts-1.20.1-1.2.3-beta.jar",
+      "source": "modrinth",
+      "project": "G3EPcczP",
+      "version": "NVLJuxL1",
+      "url": "https://cdn.modrinth.com/data/G3EPcczP/versions/NVLJuxL1/dragonmounts-1.20.1-1.2.3-beta.jar",
+      "hash": "sha512-CfgjnEZ6vFg3iOHuo0Dwptdk/ld9PUEYcxN97/UYUpqijOcXnk6rYdjnzdWshxR5xpHSCjdgBeOELK6Wko7/mg=="
+    },
+    {
+      "name": "dungeons-and-taverns-3.0.3.f[Forge].jar",
+      "source": "modrinth",
+      "project": "tpehi7ww",
+      "version": "ojHpWOrz",
+      "url": "https://cdn.modrinth.com/data/tpehi7ww/versions/ojHpWOrz/dungeons-and-taverns-3.0.3.f.jar",
+      "hash": "sha512-ZgCKdDn96VJwNQQzrb/3t0lErZfiFq0WXRGzoCNkeozRjBeqEt7SpY+nk/8pQz6by71V5v/Vo69E9yweoSwQiQ=="
+    },
+    {
+      "name": "dungeons-and-taverns-ancient-city-overhaul-1 [Forge].jar",
+      "source": "modrinth",
+      "project": "DNuNq5bb",
+      "version": "E9Fv5kp6",
+      "url": "https://cdn.modrinth.com/data/DNuNq5bb/versions/E9Fv5kp6/dungeons-and-taverns-ancient-city-overhaul-1.jar",
+      "hash": "sha512-dQrAU3Xs8NAP7v/FrCXHfQgpy8gl/wfMtob9siuopNMIQqmdqQad0KiHfOT9DNQtVBy5pbwDTMLWc3OFiCxVBQ=="
+    },
+    {
+      "name": "dungeons-and-taverns-pillager-outpost-rework-1.1.jar",
+      "source": "modrinth",
+      "project": "QIt10I7z",
+      "version": "kAjXYon3",
+      "url": "https://cdn.modrinth.com/data/QIt10I7z/versions/kAjXYon3/dungeons-and-taverns-pillager-outpost-rework-1.1.jar",
+      "hash": "sha512-u2/5qxoDPtszsRElZoWLEvb8wG8c7/GB1w58FnmSTxqqU8cNYcA48Oln8D3siUTZUQCczpN/3jJZnjf+x+0s7g=="
+    },
+    {
+      "name": "dungeons-and-taverns-stronghold-rework-1 [Forge].jar",
+      "source": "modrinth",
+      "project": "rYocd2LE",
+      "version": "XcN77mjg",
+      "url": "https://cdn.modrinth.com/data/rYocd2LE/versions/XcN77mjg/dungeons-and-taverns-stronghold-rework-1.jar",
+      "hash": "sha512-NmCRAZJThLwzlINoD6Jgp/JUJLHNbj6UdxmXl6QWh0Fdm6sceyGSwbmjIWsk2YUZ9q1sX+qfVzEpcVRoR3lkQw=="
+    },
+    {
+      "name": "dungeons-and-taverns-swamp-hut-rework-1 [Forge].jar",
+      "source": "modrinth",
+      "project": "nWSeFpQt",
+      "version": "vXDpyYWK",
+      "url": "https://cdn.modrinth.com/data/nWSeFpQt/versions/vXDpyYWK/dungeons-and-taverns-swamp-hut-rework-1.jar",
+      "hash": "sha512-qiygYojdLjGCg594MLWT55VTuilLt8GK598qX9KjYK7/X87XJAEREGkEcoXXZNpjmE3deTMzd8wzfk61GzuEzA=="
+    },
+    {
+      "name": "dynamiclights-v1.9-mc1.17-1.21.5-mod.jar",
+      "source": "curseforge",
+      "project": 910095,
+      "file": 7053902,
+      "url": "https://edge.forgecdn.net/files/7053/902/dynamiclights-v1.9-mc1.17-1.21.5-mod.jar",
+      "hash": "sha512-KXEGhHAPQB3kcVWqEv/dySL1Wpubw1U4yOHpL0HTiCMi3UyWsnou08VVs/j2HM9wJaFTMumc7LKsklfWbb9LvA=="
+    },
+    {
+      "name": "easy_mob_spawn_control-1.5.8.jar",
+      "source": "modrinth",
+      "project": "pTXV6gwq",
+      "version": "JWPy00Yk",
+      "url": "https://cdn.modrinth.com/data/pTXV6gwq/versions/JWPy00Yk/easy_mob_spawn_control-1.5.8.jar",
+      "hash": "sha512-wv0BDcNNJYo18BviO4S96a1Eco/wUw3No8T4TPOmLO8rOmMDXbUW1hGUwmBMuM8FV9HO/9BZdteS/HJtkLqrXQ=="
+    },
+    {
+      "name": "EasyShulkerBoxes-v8.0.2-1.20.1-Forge.jar",
+      "source": "modrinth",
+      "project": "gA5euN8S",
+      "version": "BG9Ajkjd",
+      "url": "https://cdn.modrinth.com/data/gA5euN8S/versions/BG9Ajkjd/EasyShulkerBoxes-v8.0.2-1.20.1-Forge.jar",
+      "hash": "sha512-AiddhCptK2PySOY7iJqRm3ysYokj3sbJOSYcAE2YwD43ES7YxHYXfGAh6wyQvxsylF0sP2QZNdBiefVIrf3pBQ=="
+    },
+    {
+      "name": "EasyTweaker 1.20.1-1.0.4.jar",
+      "source": "modrinth",
+      "project": "uFnl8Tqw",
+      "version": "nlFD2wmC",
+      "url": "https://cdn.modrinth.com/data/uFnl8Tqw/versions/nlFD2wmC/EasyTweaker%201.20.1-1.0.4.jar",
+      "hash": "sha512-63I/Esc1BZMvsVauPUZgTLchHiSjIQXMlWunBmIGIYS+aSUUUWps67m2JUkEwgkjCuIuN6PbQZ6mWKzmD96Fng=="
+    },
+    {
+      "name": "EggDelight-v1.2-1.20.1.jar",
+      "source": "modrinth",
+      "project": "gNPz4Cy4",
+      "version": "119f2d2e",
+      "url": "https://cdn.modrinth.com/data/gNPz4Cy4/versions/119f2d2e/EggDelight-v1.2-1.20.1.jar",
+      "hash": "sha512-aer7PqbV/+g8U+schVwb9wiqKeoqsDjBdh780p/95R3KpQGGyvA7fLebYN4Ls/j/kIQXxQPGLYDGZtpu20d6BQ=="
+    },
+    {
+      "name": "end_respawn_anchor_1.20.1-1.0.0.jar",
+      "source": "curseforge",
+      "project": 593753,
+      "file": 4643818,
+      "url": "https://edge.forgecdn.net/files/4643/818/end_respawn_anchor_1.20.1-1.0.0.jar",
+      "hash": "sha512-TYIIu5QBREbM7PqcTlY39pwLTgwGfgbs9R3NhOYphRfh0+g+NVTehOBVJegDIEtVNPGgcvOk3QYZereP4ezutQ=="
+    },
+    {
+      "name": "endrem_forge-5.3.3-R-1.20.1.jar",
+      "source": "modrinth",
+      "project": "ZJTGwAND",
+      "version": "SQS2aSUl",
+      "url": "https://cdn.modrinth.com/data/ZJTGwAND/versions/SQS2aSUl/endrem_forge-5.3.3-R-1.20.1.jar",
+      "hash": "sha512-kqrEta9NaXCMomYcxiirml8PSzUmAZREUdPqoaRkEbnb+zEpV6hKCxllUPnZ8URqy8DEfm0KAnnx/53wBflkOA=="
+    },
+    {
+      "name": "entity_model_features-3.3.5-1.20.1-forge.jar",
+      "source": "modrinth",
+      "project": "4I1XuqiY",
+      "version": "CMN1owfw",
+      "url": "https://cdn.modrinth.com/data/4I1XuqiY/versions/CMN1owfw/entity_model_features-3.3.5-1.20.1-forge.jar",
+      "hash": "sha512-alAn/rzSCcS8Z0NGUwR56lKwik8hbVyeCY8kr60Pd60vi1azo9ZCKQ35uU7u21wk6VSimdij/YI9QLsygx4Bjw=="
+    },
+    {
+      "name": "entity_texture_features-7.2.1-1.20.1-forge.jar",
+      "source": "modrinth",
+      "project": "BVzZfTc1",
+      "version": "x8jF2Smj",
+      "url": "https://cdn.modrinth.com/data/BVzZfTc1/versions/x8jF2Smj/entity_texture_features-7.2.1-1.20.1-forge.jar",
+      "hash": "sha512-1kWb+x4I3zYGMjMzg7rRUXHzWPCA+1If8F7Dvrn5UIpQ26cLdFP1gCcrx9oZ/Swn8oQRnoymrwF53cRkqmeBRQ=="
+    },
+    {
+      "name": "EpheroLib-1.20.1-FORGE-1.2.0.jar",
+      "source": "curseforge",
+      "project": 885449,
+      "file": 4889101,
+      "url": "https://edge.forgecdn.net/files/4889/101/EpheroLib-1.20.1-FORGE-1.2.0.jar",
+      "hash": "sha512-I2w04FixL4zOlHsg2QbV98YoxHy5i1bXYTYiJRhnskd5dM7L5YrnH3QUnAawzDAkmEQwSF5GljbeQq4dpxpKuw=="
+    },
+    {
+      "name": "eso-forge-1.20.1-1.2.2-all.jar",
+      "source": "modrinth",
+      "project": "CxaV51ez",
+      "version": "228OMT78",
+      "url": "https://cdn.modrinth.com/data/CxaV51ez/versions/228OMT78/eso-forge-1.20.1-1.2.2-all.jar",
+      "hash": "sha512-gVFU25TLXdQAGhKd/uwPaJ9gwzy5+M1bVyOqS9Qof6yZVMeU6KLonmVjJRcKdoCiK8UxJg8JmiXfdJS25hmgJQ=="
+    },
+    {
+      "name": "faewulf_lib-forge-1.20.1-1.4.0.jar",
+      "source": "modrinth",
+      "project": "q4N9H96q",
+      "version": "ocmSZ2t8",
+      "url": "https://cdn.modrinth.com/data/q4N9H96q/versions/ocmSZ2t8/faewulf_lib-forge-1.20.1-1.4.0.jar",
+      "hash": "sha512-uTzGaf78rgmsrgmXw3WNCBFe1piDiBA3Tz6fROUMxF5G0CZ37EZd7ik/nySRjTwdTl4xi0P+480LR0X01Rl/Xg=="
+    },
+    {
+      "name": "FarmersDelight-1.20.1-1.3.4.jar",
+      "source": "modrinth",
+      "project": "R2OftAxM",
+      "version": "SiIpcZzM",
+      "url": "https://cdn.modrinth.com/data/R2OftAxM/versions/SiIpcZzM/FarmersDelight-1.20.1-1.3.4.jar",
+      "hash": "sha512-kyrgq5X6B1W7Wnn78dHjHQ6G88D1GGeW7QaXOjAZphjujGak6uW5AZCa7WIyq7K9Ox/w4ZBfdPxwZE+tqUqAtQ=="
+    },
+    {
+      "name": "Fastload-Reforged-mc1.20.1-3.4.0.jar",
+      "source": "modrinth",
+      "project": "kCpssoSb",
+      "version": "5caSj7kt",
+      "url": "https://cdn.modrinth.com/data/kCpssoSb/versions/5caSj7kt/Fastload-Reforged-mc1.20.1-3.4.0.jar",
+      "hash": "sha512-uL5u0L73B8fDTYQEnraDE6XHh/bpyaiPuU2u1rzP7cbBgaH8pDH1O26KwDx7r3ZTQUtaV5LKtrUAxtZlAkiUMQ=="
+    },
+    {
+      "name": "ferritecore-6.0.1-forge.jar",
+      "source": "modrinth",
+      "project": "uXXizFIs",
+      "version": "DG5Fn9Sz",
+      "url": "https://cdn.modrinth.com/data/uXXizFIs/versions/DG5Fn9Sz/ferritecore-6.0.1-forge.jar",
+      "hash": "sha512-oZYKfAPcMtTMrMryiv3ZsHh1i71i0VqR1AOag/qTl6CY6JtpWR9r1RkCVNnul+UCUEFUua7HZK24xl8AC3W6LA=="
+    },
+    {
+      "name": "flib-1.20.1-0.0.16.jar",
+      "source": "modrinth",
+      "project": "FAUSd09K",
+      "version": "CDihtEoy",
+      "url": "https://cdn.modrinth.com/data/FAUSd09K/versions/CDihtEoy/flib-1.20.1-0.0.16.jar",
+      "hash": "sha512-1AafN8HYyAvDLR1pd9tBj3vX9qFKsdIrmlpJBQ/5LQO0xfczSsTXl5bHA65y1REb/R0Q1TrmsccKMBiPHJnOrg=="
+    },
+    {
+      "name": "forge-runiclib-1.20.1-4.3.11.jar",
+      "source": "modrinth",
+      "project": "mk0Htq87",
+      "version": "DyyjKTPx",
+      "url": "https://cdn.modrinth.com/data/mk0Htq87/versions/DyyjKTPx/forge-runiclib-1.20.1-4.3.11.jar",
+      "hash": "sha512-efJclarPLNza7tHOFzqt6/1toTM5+ddoac43yvB/nslXyEGrGyKBJ3vDtiZEe3W8FJmoLa3UTKEni3fRmSrDKQ=="
+    },
+    {
+      "name": "frightsdelight-forge-1.20.1-1.4.8.jar",
+      "source": "modrinth",
+      "project": "awWvXlb2",
+      "version": "r31i2Fd1",
+      "url": "https://cdn.modrinth.com/data/awWvXlb2/versions/r31i2Fd1/frightsdelight-forge-1.20.1-1.4.8.jar",
+      "hash": "sha512-Vl4EGLxq2LauGhG2g7Pq8pYL7+Q4srnkOl3UPZFpS/zFPMiDGZf1VTL2G7IlL/NzVJvQBcLkjE0eDkFJUhK3wQ=="
+    },
+    {
+      "name": "geckolib-forge-1.20.1-4.8.4.jar",
+      "source": "curseforge",
+      "project": 388172,
+      "file": 8285794,
+      "url": "https://edge.forgecdn.net/files/8285/794/geckolib-forge-1.20.1-4.8.4.jar",
+      "hash": "sha512-4925s2iMXcfjK+/lt4SUR6zwjn+DnEU+LnA03QHhlBGKakliBaqJ26eXcJ/sDAa46kaAU272sz+wwpqXbAnVdg=="
+    },
+    {
+      "name": "glassdoorsandtrapdoors-2.3.0-forge-1.20.1.jar",
+      "source": "curseforge",
+      "project": 527166,
+      "file": 6469668,
+      "url": "https://edge.forgecdn.net/files/6469/668/glassdoorsandtrapdoors-2.3.0-forge-1.20.1.jar",
+      "hash": "sha512-iRz293OYpkKgn4w4B2ryOosp7YjB2LeIECMfBa3K9t2cFxMKPSJ9pjqNtxRDqHJ/25BDalLrGkDo/xrBqUHMmQ=="
+    },
+    {
+      "name": "grand-teleport-forge-1.20.1-forge-build300.jar",
+      "source": "modrinth",
+      "project": "LPdgJJ0B",
+      "version": "tkl3Etv3",
+      "url": "https://cdn.modrinth.com/data/LPdgJJ0B/versions/tkl3Etv3/grand-teleport-forge-1.20.1-forge-build300.jar",
+      "hash": "sha512-7aRCJKCszv9EWD0tMnr6pzNS6QOH8xqcJFCbZ20R7pu0CuU2RXRarn7dAauSopGay9go/AzkT0OyiRCQWOt8Kg=="
+    },
+    {
+      "name": "GrassBeGone-Forge-1.20.1-1.0.0.jar",
+      "source": "curseforge",
+      "project": 1305263,
+      "file": 6759269,
+      "url": "https://edge.forgecdn.net/files/6759/269/GrassBeGone-Forge-1.20.1-1.0.0.jar",
+      "hash": "sha512-bfiQeo1wCRwk685QQGu0G3aHekUPMvTSpw08U4QohFfWb2LSadPOs9fs2dZKj+vvpi05VO+E905XVYQYL/J/9w=="
+    },
+    {
+      "name": "guiclock-1.20.1-4.7.jar",
+      "source": "modrinth",
+      "project": "g1yXisD2",
+      "version": "2bQaZYoX",
+      "url": "https://cdn.modrinth.com/data/g1yXisD2/versions/2bQaZYoX/guiclock-1.20.1-4.7.jar",
+      "hash": "sha512-5QL8CvQAljQzadMDOxEEaUb0cF7F4jatATemdQwmw9NZFCAuEdR6uUYJf8bzcQZ8bRUadZZaWdBEF74AAZ9K6w=="
+    },
+    {
+      "name": "hauntedharvest-1.20-3.2.0.jar",
+      "source": "modrinth",
+      "project": "a378ICDH",
+      "version": "Bg0FkKzl",
+      "url": "https://cdn.modrinth.com/data/a378ICDH/versions/Bg0FkKzl/hauntedharvest-1.20-3.2.0.jar",
+      "hash": "sha512-ZAYjKu4avDvjoyxwLTvOPZlIH5/cFjHPVkqh0SdqNYAZkvLz2UXONyDhHX3ajfPuJ9jou5EO5onEzIqhuJzjGA=="
+    },
+    {
+      "name": "hybrid-beta-v1.0.4.jar",
+      "source": "modrinth",
+      "project": "Jmx5kJiS",
+      "version": "CbXjARnR",
+      "url": "https://cdn.modrinth.com/data/Jmx5kJiS/versions/CbXjARnR/hybrid-beta-v1.0.4.jar",
+      "hash": "sha512-rCMqOT3P6wHgLl6R+B2v8qYqS5JPmkyMYpTIJLna2zf4yjwoZihvGPbjx7baw0knFTzDlHc8lflfDJeO9x0MIQ=="
+    },
+    {
+      "name": "infernalmobs-1.20.1.11.jar",
+      "source": "curseforge",
+      "project": 227875,
+      "file": 7605060,
+      "url": "https://edge.forgecdn.net/files/7605/60/infernalmobs-1.20.1.11.jar",
+      "hash": "sha512-SxZqF6k8wzPOSzhnp8SdJq22sploM0evxxW7hf/bAvQIDjLL925FNHTV0ZmzTgx8TX02iLLMKjoG9HpweZ70JQ=="
+    },
+    {
+      "name": "jamlib-forge-1.3.6+1.20.1-patch.1.jar",
+      "source": "modrinth",
+      "project": "IYY9Siz8",
+      "version": "PDIowNff",
+      "url": "https://cdn.modrinth.com/data/IYY9Siz8/versions/PDIowNff/jamlib-forge-1.3.6%2B1.20.1-patch.1.jar",
+      "hash": "sha512-D/LBhxz1v2auksCgL9jIAOIjYfHBUNs9B5Bc+l+IThEUV56fnNjP15O8cea0mYPSOvOGL/qaWiCZk5+VUqCJaw=="
+    },
+    {
+      "name": "jei-1.20.1-forge-15.56.0.205.jar",
+      "source": "modrinth",
+      "project": "u6dRKJwZ",
+      "version": "9jqubC9n",
+      "url": "https://cdn.modrinth.com/data/u6dRKJwZ/versions/9jqubC9n/jei-1.20.1-forge-15.56.0.205.jar",
+      "hash": "sha512-Ewb+FcgdVKqf+PPZ8EgSwNYf+qrkM8KWIfkm24+OLImGaczdmeAlhJhZ04t6LqwXDEZjkLRn9N+ndUK1290WeA=="
+    },
+    {
+      "name": "Kambrik-6.1.1+1.20.1-forge.jar",
+      "source": "modrinth",
+      "project": "zfbCkvdZ",
+      "version": "er56DwLJ",
+      "url": "https://cdn.modrinth.com/data/zfbCkvdZ/versions/er56DwLJ/Kambrik-6.1.1%2B1.20.1-forge.jar",
+      "hash": "sha512-bxniPw7H9ULnHZUjmjIvVFPLUOaJD5XJFSRyzHYpso/c8+TqtaALx2j4kyOP1lzZEjC17LjevBSzDWchtbCSPQ=="
+    },
+    {
+      "name": "kotlinforforge-4.12.0-all.jar",
+      "source": "modrinth",
+      "project": "ordsPcFz",
+      "version": "Zsh14XeQ",
+      "url": "https://cdn.modrinth.com/data/ordsPcFz/versions/Zsh14XeQ/kotlinforforge-4.12.0-all.jar",
+      "hash": "sha512-dn9AAw7Us3Cjg4+mWuG3mXTzGXk0L/98yDSg1fOesoYSZCUZNS/yod1SJs4fdF+LMVbuNiX/3gEhkTfQZMHuQA=="
+    },
+    {
+      "name": "leafscopperbackport-1.2.1-forge-1.20.1-FIXED.jar",
+      "source": "modrinth",
+      "project": "lp6okdhO",
+      "version": "NMMcb6Ro",
+      "url": "https://cdn.modrinth.com/data/lp6okdhO/versions/NMMcb6Ro/leafscopperbackport-1.2.1-forge-1.20.1-FIXED.jar",
+      "hash": "sha512-fZ9U7ArTA2bl4/Rr6tYCsgnAH1hdmHBstALsdSCIgi0UkX03xxCDBoCSIWFmWV8yXUfVMcRzN6Ppmtu/Eby6bg=="
+    },
+    {
+      "name": "lootr-forge-1.20-0.7.35.94.jar",
+      "source": "modrinth",
+      "project": "EltpO5cN",
+      "version": "mWTXC1ZX",
+      "url": "https://cdn.modrinth.com/data/EltpO5cN/versions/mWTXC1ZX/lootr-forge-1.20-0.7.35.94.jar",
+      "hash": "sha512-oExjcTdr/awrEMuyu5r33tEKwm+q6yUrWaqy8CwrIGTCxKtmX7bqIYJD6J1vI32HjGlRY4u5SO3q0sCmBN0COg=="
+    },
+    {
+      "name": "ls_spooky_foods-1.0.3-forge-1.20.1.jar",
+      "source": "modrinth",
+      "project": "Iab86Kv6",
+      "version": "O6KfE5sf",
+      "url": "https://cdn.modrinth.com/data/Iab86Kv6/versions/O6KfE5sf/ls_spooky_foods-1.0.3-forge-1.20.1.jar",
+      "hash": "sha512-E3Cuuqxssd9nnWFCw7Ut9rVKReyCkt6Klis80fyx1TSwrj/ZmTP0Co0iBptyqUnxEHON2O04mgZ/hTCYFBYVGA=="
+    },
+    {
+      "name": "MaFgLib-0.1.14-mc1.20.1.jar",
+      "source": "modrinth",
+      "project": "SKI34J7B",
+      "version": "adXONMb5",
+      "url": "https://cdn.modrinth.com/data/SKI34J7B/versions/adXONMb5/MaFgLib-0.1.14-mc1.20.1.jar",
+      "hash": "sha512-rkzCIPR4Q/5AwjUsP6lswDQpokTHak0CJZ2IyAf06ViXYwcxzbr46m4tzD9KlEqCFO1So4NENUZnk0cUSMmC7A=="
+    },
+    {
+      "name": "mapdistancefix-forge-1.1.1+mc1.20.1.jar",
+      "source": "modrinth",
+      "project": "51BNNAng",
+      "version": "TdCESFsc",
+      "url": "https://cdn.modrinth.com/data/51BNNAng/versions/TdCESFsc/mapdistancefix-forge-1.1.1%2Bmc1.20.1.jar",
+      "hash": "sha512-yywTN0apr3RqLiUS4pPlGqVlO8dSmh7oxTXh2E5UlAdZWzXslbTwTjh/58Ptrvuq9rZMF3hG+fQrEu6ayBr6fA=="
+    },
+    {
+      "name": "midnightlib-forge-1.9.2+1.20.1.jar",
+      "source": "modrinth",
+      "project": "codAaoxh",
+      "version": "EVVb5nP3",
+      "url": "https://cdn.modrinth.com/data/codAaoxh/versions/EVVb5nP3/midnightlib-forge-1.9.2%2B1.20.1.jar",
+      "hash": "sha512-pPUNRq0w3g9WIv1qqEFalJiJ0RSh3AUbLY0V/1BSc6/4D4tA1hGTynERJWejvjlomeltD/HCavMed6nGj3Dolg=="
+    },
+    {
+      "name": "miners_delight-1.20.1-1.4.5-backport.jar",
+      "source": "modrinth",
+      "project": "qMxbM4BQ",
+      "version": "p0INUam7",
+      "url": "https://cdn.modrinth.com/data/qMxbM4BQ/versions/p0INUam7/miners_delight-1.20.1-1.4.5-backport.jar",
+      "hash": "sha512-guZFcL8SLIZTdjXR+576OmWl2lrNQdIhfryuleM30GdbqU8O2jig7a9uQaO+RYOOBHWf+WysZMiA24WousSwFQ=="
+    },
+    {
+      "name": "mob-ai-tweaks-1.11.2.jar",
+      "source": "modrinth",
+      "project": "egIM2bKK",
+      "version": "sEVcufgn",
+      "url": "https://cdn.modrinth.com/data/egIM2bKK/versions/sEVcufgn/mob-ai-tweaks-1.11.2.jar",
+      "hash": "sha512-cYIkSgXjWwVdn8B3gt+T6Ik/ztUx/adP8qvUzEE7mnRvQ08f3R2xfwXetv2ryhhBa2dD+BUjtfGi7x3GagEiqQ=="
+    },
+    {
+      "name": "modernfix-forge-5.27.83+mc1.20.1.jar",
+      "source": "modrinth",
+      "project": "nmDcB62a",
+      "version": "jAZ7Ge3d",
+      "url": "https://cdn.modrinth.com/data/nmDcB62a/versions/jAZ7Ge3d/modernfix-forge-5.27.83%2Bmc1.20.1.jar",
+      "hash": "sha512-KYfUOrmRwxyU5T0W/gaU3SmkBfx832vmn1v1s9agal0bgrqPXY7LTfReWSxknjm8aXh8qmKzQXtVSDknk75uVQ=="
+    },
+    {
+      "name": "moonlight-1.20-2.16.35-forge.jar",
+      "source": "modrinth",
+      "project": "twkfQtEc",
+      "version": "W0ZWjZib",
+      "url": "https://cdn.modrinth.com/data/twkfQtEc/versions/W0ZWjZib/moonlight-1.20-2.16.35-forge.jar",
+      "hash": "sha512-57WCT5HA3N8k9AxNMpZubtlfZYpSZuIh4kaJqaLDn7Na9zo5puO7BERb18mp5VLJBbWaatx/G4iRtoNqgaS4/Q=="
+    },
+    {
+      "name": "MouseTweaks-forge-mc1.20.1-2.25.1.jar",
+      "source": "modrinth",
+      "project": "aC3cM3Vq",
+      "version": "7JVXOe3K",
+      "url": "https://cdn.modrinth.com/data/aC3cM3Vq/versions/7JVXOe3K/MouseTweaks-forge-mc1.20.1-2.25.1.jar",
+      "hash": "sha512-o7sCcsCho76SUN/uAwu4+GIX+moyvVNL6MlA/djEZsgAwt+Fh0h3mDztNuz8KMjO1sDUIQfBq2IThbS+mnxl6w=="
+    },
+    {
+      "name": "MyNethersDelight-1.20.1-1.10.4-backport.1.jar",
+      "source": "modrinth",
+      "project": "O53VhQoZ",
+      "version": "pOBasFQT",
+      "url": "https://cdn.modrinth.com/data/O53VhQoZ/versions/pOBasFQT/MyNethersDelight-1.20.1-1.10.4-backport.1.jar",
+      "hash": "sha512-5KFB+CeQ4ItnviCRzUFQJaMewpe4ujbTRxCP8QnZLIvs1gKYzQT/rATmEo77idYzryHozi7gOr97qxwznqH3RA=="
+    },
+    {
+      "name": "MyServerIsCompatible-1.20-1.0.jar",
+      "source": "modrinth",
+      "project": "13qq15Cg",
+      "version": "7jEatFH8",
+      "url": "https://cdn.modrinth.com/data/13qq15Cg/versions/7jEatFH8/MyServerIsCompatible-1.20-1.0.jar",
+      "hash": "sha512-+4d1GmDkhXnW+bsRfUWcbcFXyH/nHI4rwIi6hZ/yclEStTMNTD1MGrLSkHOgwmaO3Na29UepZmsoSwImFr+Zzw=="
+    },
+    {
+      "name": "mysterious_mountain_lib-1.6.34-1.20.1.jar",
+      "source": "modrinth",
+      "project": "ntMyNH8c",
+      "version": "m0IYPVS4",
+      "url": "https://cdn.modrinth.com/data/ntMyNH8c/versions/m0IYPVS4/mysterious_mountain_lib-1.6.34-1.20.1.jar",
+      "hash": "sha512-qDDs4fE/w988uQoWMLni3DxZKDGyVIuN+DHKQ2c1txePS5ZBNZHDxazCytXk4WuAypG7OWMlddPQOzYgoUTgfg=="
+    },
+    {
+      "name": "no-more-glow-lichen-1.0.1.jar",
+      "source": "modrinth",
+      "project": "6pRl7Gde",
+      "version": "3RjbClBb",
+      "url": "https://cdn.modrinth.com/data/6pRl7Gde/versions/3RjbClBb/no-more-glow-lichen-1.0.1.jar",
+      "hash": "sha512-Cti1pb0dEUhM1DjG7wAoWxNFDyIhv3R9h7LIV1wLFNUXsk0IPIxJ5g3t4Ri3B3LM5rBOB38zlPGpruqaaB7TiA=="
+    },
+    {
+      "name": "no-more-stone-variants-1.0.1.jar",
+      "source": "modrinth",
+      "project": "6m5a2WaQ",
+      "version": "iHEcQUPd",
+      "url": "https://cdn.modrinth.com/data/6m5a2WaQ/versions/iHEcQUPd/no-more-stone-variants-1.0.1.jar",
+      "hash": "sha512-TjJ78uTKlaJwiFO0lf1jOHyP+7W5BgIhmyeF1inFjbRUKJffdv6vDLxVg9tgbLGFTgwfx8Pcj7qp2uuDtK4lNw=="
+    },
+    {
+      "name": "NostalgicTweaks-mc1.20.1-Forge-2.0.0-beta.922.jar",
+      "source": "modrinth",
+      "project": "l1rj36Ob",
+      "version": "94eVgkTa",
+      "url": "https://cdn.modrinth.com/data/l1rj36Ob/versions/94eVgkTa/NostalgicTweaks-mc1.20.1-Forge-2.0.0-beta.922.jar",
+      "hash": "sha512-GzRfgWs2SLCx9l+jxSClcfiN6Kfoff7tS5kDP46N3Vlcypq5+tXXDAyn7i1eisF6MtVP9/0H4ZndlaGFqt8doQ=="
+    },
+    {
+      "name": "nyfsspiders-Forge-1.20.1-3.0.1.jar",
+      "source": "modrinth",
+      "project": "dOGM7ccu",
+      "version": "INtO3mib",
+      "url": "https://cdn.modrinth.com/data/dOGM7ccu/versions/INtO3mib/nyfsspiders-Forge-1.20.1-3.0.1.jar",
+      "hash": "sha512-ghVxCi9iKRie5suRS36a3ZbJG/GiVTnhBfhNiyWPsBiT+CE2UCcmA7DhfsJKoFQ4aroqey2Dfsr1ovwqZr1O8g=="
+    },
+    {
+      "name": "oceansdelight-1.0.2-1.20.jar",
+      "source": "modrinth",
+      "project": "DGiq4ZSW",
+      "version": "9jLLNENb",
+      "url": "https://cdn.modrinth.com/data/DGiq4ZSW/versions/9jLLNENb/oceansdelight-1.0.2-1.20.jar",
+      "hash": "sha512-ZLoDltcWjHPIEMiu/BNe69fC1XgOSC+zbpbeh9DyJmJbPrtCSTcriW7e2jNYle/aXRNIRlIuLkXAqNOpeuK/kw=="
+    },
+    {
+      "name": "ok_zoomer-forge-5.4.0-beta.9.jar",
+      "source": "modrinth",
+      "project": "aXf2OSFU",
+      "version": "8M3vtEOe",
+      "url": "https://cdn.modrinth.com/data/aXf2OSFU/versions/8M3vtEOe/ok_zoomer-forge-5.4.0-beta.9.jar",
+      "hash": "sha512-kQLs7k92L5T6lh14fUqfvmJ3TRNAZk7ZL5iTDTebos5vtIMp9ONVLl/mYmnYZ8imm1CcCt/uI92dhvjUQgU8Dw=="
+    },
+    {
+      "name": "OpenLoader-Forge-1.20.1-19.0.5.jar",
+      "source": "modrinth",
+      "project": "KwWsINvD",
+      "version": "CpX666bw",
+      "url": "https://cdn.modrinth.com/data/KwWsINvD/versions/CpX666bw/OpenLoader-Forge-1.20.1-19.0.5.jar",
+      "hash": "sha512-f15TBTxkKPwYtaip6B66OXbNdaUJV/Jdt4XV1yxXw44A2AADyTXvpUiufCRa2Sj3UZbYlbcB14cokKGuDKym+A=="
+    },
+    {
+      "name": "overlapless-1.20.1-1.2.0.jar",
+      "source": "curseforge",
+      "project": 1451998,
+      "file": 7722757,
+      "url": "https://edge.forgecdn.net/files/7722/757/overlapless-1.20.1-1.2.0.jar",
+      "hash": "sha512-8eL4KpuHnkUMXszt+DlqK6o9oG/0r8bR/6+pPnBGw04AKK+fCH1X9vP4XDibwFRAe5pJpwwKSMXl0uCl3tDguA=="
+    },
+    {
+      "name": "player-animation-lib-forge-1.0.2-rc1+1.20.jar",
+      "source": "modrinth",
+      "project": "gedNE4y2",
+      "version": "xe2EVE6q",
+      "url": "https://cdn.modrinth.com/data/gedNE4y2/versions/xe2EVE6q/player-animation-lib-forge-1.0.2-rc1%2B1.20.jar",
+      "hash": "sha512-y59qOqqUOCOoX91xbds8diOvKzUgkmw6mNFwxS0xkIiUgI+2HFK+o5uuYi26tZ1QtLrVb3ygUzqcM1DUEsM3KQ=="
+    },
+    {
+      "name": "PuzzlesLib-v8.1.33-1.20.1-Forge.jar",
+      "source": "modrinth",
+      "project": "QAGBst4M",
+      "version": "mIyVGf3d",
+      "url": "https://cdn.modrinth.com/data/QAGBst4M/versions/mIyVGf3d/PuzzlesLib-v8.1.33-1.20.1-Forge.jar",
+      "hash": "sha512-TgpiQ/cKf5m7YxlAv+yknzGxPsNPM42ZT+Ep8ERec4/9kl5cRA9Oa/gi+QE7uMIVbebfzWJ0HYXDyj6CIdhqGQ=="
+    },
+    {
+      "name": "quickstack-1.20.1-2.jar",
+      "source": "curseforge",
+      "project": 354522,
+      "file": 8080970,
+      "url": "https://edge.forgecdn.net/files/8080/970/quickstack-1.20.1-2.jar",
+      "hash": "sha512-jOj9iQXpnQ90Q0/TjCdrhBbWKsGI0AP6ERVgFsnnktGofWN8z7SqWlP+CRaqDreQYRStLFaDDvH24ykCUsBEqw=="
+    },
+    {
+      "name": "rhino-forge-2001.2.3-build.10.jar",
+      "source": "modrinth",
+      "project": "sk9knFPE",
+      "version": "uNALdylI",
+      "url": "https://cdn.modrinth.com/data/sk9knFPE/versions/uNALdylI/rhino-forge-2001.2.3-build.10.jar",
+      "hash": "sha512-TramNfPv87qhWFOb1VNEQhz2mxXij32ov1XzcKEcBx81JQY6b4G2f7/KVQrYqqt+Ygjfh/Zcpu0oUe3UbwMrWA=="
+    },
+    {
+      "name": "rightclickandmilk-1.20.1-1.0.3.jar",
+      "source": "modrinth",
+      "project": "JwsAYCZf",
+      "version": "C93odjA0",
+      "url": "https://cdn.modrinth.com/data/JwsAYCZf/versions/C93odjA0/rightclickandmilk-1.20.1-1.0.3.jar",
+      "hash": "sha512-+9Mx4kL+aCWQn0RMtayjWVfUSm3gHstcojm41xFWBF9XQBnt3Zlmlgj5Dq/bSTb6QqRSMMFzMJfL/2ndKk2Daw=="
+    },
+    {
+      "name": "rightclickharvest-forge-4.6.1+1.20.1.jar",
+      "source": "modrinth",
+      "project": "Cnejf5xM",
+      "version": "NFxivT5s",
+      "url": "https://cdn.modrinth.com/data/Cnejf5xM/versions/NFxivT5s/rightclickharvest-forge-4.6.1%2B1.20.1.jar",
+      "hash": "sha512-TFR8mrOFsuo/lC9h/Y/r4baD8GxOi/sNF7gInh0zd0AqL+2lya8XmbbhPG49sJJdxStJj0zzvBFbNqNT7GjhaA=="
+    },
+    {
+      "name": "rubidium-mc1.20.1-0.7.1a.jar",
+      "source": "curseforge",
+      "project": 574856,
+      "file": 4952685,
+      "url": "https://edge.forgecdn.net/files/4952/685/rubidium-mc1.20.1-0.7.1a.jar",
+      "hash": "sha512-5bpdokZyc8WEhUg5WIzeIDUY8NfR9W5DyhBgacZUSVcVoOQkMKC4ka9jE0HMPyjDvA8ueW2mnNeXcJorgT/ocw=="
+    },
+    {
+      "name": "SmartBrainLib-forge-1.20.1-1.15.jar",
+      "source": "curseforge",
+      "project": 661293,
+      "file": 5654964,
+      "url": "https://edge.forgecdn.net/files/5654/964/SmartBrainLib-forge-1.20.1-1.15.jar",
+      "hash": "sha512-1UFC6Miyj+POU5nkFt99Sh+h1rsYr/ZsYCm8YgHdZAKFObctCkIIGn4ki3mPZP+sNfeWQQUySfMcDU2sHNKO/w=="
+    },
+    {
+      "name": "smoothboot(reloaded)-mc1.20.1-0.0.4.jar",
+      "source": "modrinth",
+      "project": "z53V2L4P",
+      "version": "HkfL3iGO",
+      "url": "https://cdn.modrinth.com/data/z53V2L4P/versions/HkfL3iGO/smoothboot%28reloaded%29-mc1.20.1-0.0.4.jar",
+      "hash": "sha512-HPcGSRM58++uDUjQ3VlvJ6dPz6jpQAjX71Xhi+jG88Q3u3QCDkiRDhzHJK01iUv/zpR4j+j3ZcNwSNTMUyuiYQ=="
+    },
+    {
+      "name": "sniffers_delight-1.0.3-forge-1.20.1.jar",
+      "source": "modrinth",
+      "project": "xhk28oFn",
+      "version": "WE75BEgz",
+      "url": "https://cdn.modrinth.com/data/xhk28oFn/versions/WE75BEgz/sniffers_delight-1.0.3-forge-1.20.1.jar",
+      "hash": "sha512-IhMzDa63lZeELbBx3LaSqplLdWvmikMfLFAPhs9vVVHzwMGM7+z4kReIEfH9NCkb5LuyW1vtKSFKdGGzlYj7pw=="
+    },
+    {
+      "name": "solcarrot-1.20.1-1.15.1.jar",
+      "source": "curseforge",
+      "project": 277616,
+      "file": 4888575,
+      "url": "https://edge.forgecdn.net/files/4888/575/solcarrot-1.20.1-1.15.1.jar",
+      "hash": "sha512-/jKcRsaHeSTgL4ivEl0MPKljjmR3z3HTs5jCvKt5mICORxXCNHgsD/r9mne1DwkVdz13MegZA3XS/SROajeSHQ=="
+    },
+    {
+      "name": "sound-physics-remastered-forge-1.20.1-1.5.1.jar",
+      "source": "curseforge",
+      "project": 535489,
+      "file": 7032235,
+      "url": "https://edge.forgecdn.net/files/7032/235/sound-physics-remastered-forge-1.20.1-1.5.1.jar",
+      "hash": "sha512-9nWacEmUe04RT3VKSdzat9e18ZS1vVMRgqwwos3dtYV2zVatZbVojwOqQtfyTTQu46m39UdLngRj+YbV/WLVVQ=="
+    },
+    {
+      "name": "Splashy-Forge-1.20.1-14.0.5.jar",
+      "source": "modrinth",
+      "project": "f7b8GSGW",
+      "version": "AF3e231t",
+      "url": "https://cdn.modrinth.com/data/f7b8GSGW/versions/AF3e231t/Splashy-Forge-1.20.1-14.0.5.jar",
+      "hash": "sha512-4gVCsJcYVrKWvkHJZrTHObyWSaM2Wr9Aprv+pm7g02TdWXYyyfUeUxYBNkUaBwupWYJKuydmnANLQH7QVL2Smw=="
+    },
+    {
+      "name": "stable_anvil_cost-2.0.0.jar",
+      "source": "curseforge",
+      "project": 648830,
+      "file": 7012241,
+      "url": "https://edge.forgecdn.net/files/7012/241/stable_anvil_cost-2.0.0.jar",
+      "hash": "sha512-SqkjoXgJa/xxeSFCjSBkkRG0luF+aNbjD4NE9od3I/0r8xuN1V9zn5H7Pho9JLH267JZjuxPn890It0/yg/80A=="
+    },
+    {
+      "name": "structure_gel-1.20.1-2.16.2.jar",
+      "source": "modrinth",
+      "project": "T8TGycIQ",
+      "version": "xavY0MZc",
+      "url": "https://cdn.modrinth.com/data/T8TGycIQ/versions/xavY0MZc/structure_gel-1.20.1-2.16.2.jar",
+      "hash": "sha512-ZD966BQY4qRzgk813AbfNXoW4Xrh3Q9MbdAJWK66zIP7FThiQNR2e2rUHWuJc1d4u1ZAgM5hdKCjdPmsY/nO2A=="
+    },
+    {
+      "name": "structurecontrol-1.20.1-1.8.5.jar",
+      "source": "modrinth",
+      "project": "hBWEcrIL",
+      "version": "i8ZHIgHa",
+      "url": "https://cdn.modrinth.com/data/hBWEcrIL/versions/i8ZHIgHa/structurecontrol-1.20.1-1.8.5.jar",
+      "hash": "sha512-SuTERa5Lk6lemDqvV+CzYeFWjUG7lbOg6Ii0Uzt0qjx7Iho612Ugs5QAAVANkRNFs2KGxuu53LVnyp4Li/bokQ=="
+    },
+    {
+      "name": "structureessentials-1.20.1-5.0.jar",
+      "source": "curseforge",
+      "project": 832882,
+      "file": 7962587,
+      "url": "https://edge.forgecdn.net/files/7962/587/structureessentials-1.20.1-5.0.jar",
+      "hash": "sha512-pEe7Uu9lTj2WNzx12S3X5JdQY3XxOHtax08SkCEH/FYhK8ysH8L/00yh0XL5sYyViVI0LNzrkAchTB0btT0yuA=="
+    },
+    {
+      "name": "structuremaps-1.20.1-1.0.jar",
+      "source": "curseforge",
+      "project": 1038282,
+      "file": 6551276,
+      "url": "https://edge.forgecdn.net/files/6551/276/structuremaps-1.20.1-1.0.jar",
+      "hash": "sha512-7vu00T58jg1B1g0tHvBwn2KET4LV/SwBmgaPPhY8ggAZ8bmcfaSb6f6B2MfTGWm5jVyqW175PaxivKBcRFl4BQ=="
+    },
+    {
+      "name": "tenshilib-1.20.1-1.7.6-forge.jar",
+      "source": "modrinth",
+      "project": "P2rffivS",
+      "version": "5elJ9ZTS",
+      "url": "https://cdn.modrinth.com/data/P2rffivS/versions/5elJ9ZTS/tenshilib-1.20.1-1.7.6-forge.jar",
+      "hash": "sha512-SS8RsKmZrzBvB7Nj2O362YSc5ylOJgl1Xu6QbRUCsA/uvUMExs2b/hqF/72g3ltiJKN2k8TrS0KuZk1hoj2GZg=="
+    },
+    {
+      "name": "the_backwoods-1.6.0-forge-1.20.1.jar",
+      "source": "modrinth",
+      "project": "vOBTyVQ6",
+      "version": "MC4nEJjm",
+      "url": "https://cdn.modrinth.com/data/vOBTyVQ6/versions/MC4nEJjm/the_backwoods-1.6.0-forge-1.20.1.jar",
+      "hash": "sha512-l8HP1iVRW9aSydaGaUK1q9aITN9o/QpfZZQAo17/2fZZpgkT0VKsj+klZNFdP62edGiUbXy/NRqHoupdadl2vg=="
+    },
+    {
+      "name": "the_wonderland-3.0.3-1.20.1-forge.jar",
+      "source": "modrinth",
+      "project": "IXZPFrP2",
+      "version": "Xw8Geo0z",
+      "url": "https://cdn.modrinth.com/data/IXZPFrP2/versions/Xw8Geo0z/the_wonderland-3.0.3-1.20.1-forge.jar",
+      "hash": "sha512-JpxZHkKATCvT2NIikxXBsNVfwg/9Lgvzh88p5VmLarSv+AwAGUQHU4/t/OD5VditiqueWjCCvqKsm7eMSMLj4g=="
+    },
+    {
+      "name": "torchflower_arrows-1.20.1-1.0.jar",
+      "source": "modrinth",
+      "project": "kpaHKrJb",
+      "version": "WbRa1cR9",
+      "url": "https://cdn.modrinth.com/data/kpaHKrJb/versions/WbRa1cR9/torchflower_arrows-1.20.1-1.0.jar",
+      "hash": "sha512-zPk18tuhDKNRKDc+6kcdT2GoWDHEsx9nmlvq1WuBoD2BLrFgyeGe//Yo3fv04LWwU1FJqws2Gtqt4kjjHanHlw=="
+    },
+    {
+      "name": "torchflower_relit-1.0.0.jar",
+      "source": "modrinth",
+      "project": "hXkAAXvL",
+      "version": "DRm70FKR",
+      "url": "https://cdn.modrinth.com/data/hXkAAXvL/versions/DRm70FKR/torchflower_relit-1.0.0.jar",
+      "hash": "sha512-QpUkeTBew2RBeziNB3kV/IWEeHvcx5Vp4j7NzP7fiIW7a2a43nInePXxbbnox33IuljHpPEZAFHUl2wR2DZGDg=="
+    },
+    {
+      "name": "tru.e-ending-v1.1.0c.jar",
+      "source": "modrinth",
+      "project": "MCnBYP0b",
+      "version": "TO1g4SDa",
+      "url": "https://cdn.modrinth.com/data/MCnBYP0b/versions/TO1g4SDa/tru.e-ending-v1.1.0c.jar",
+      "hash": "sha512-S0vGFqgj/KXpHdFJRk8qkrGHl81PFRe6tztFp34jN9SAyFihKX7huy5Eclcl6Bfln5BOM99isy0Leis//+kuvQ=="
+    },
+    {
+      "name": "twilightdelight-2.2.9.jar",
+      "source": "modrinth",
+      "project": "d6cSefpO",
+      "version": "KneU49ff",
+      "url": "https://cdn.modrinth.com/data/d6cSefpO/versions/KneU49ff/twilightdelight-2.2.9.jar",
+      "hash": "sha512-G0eEO8sDdqSKr7OL3qeIgfwEhvdzL1wXtCWhc3cXc5D+oggMA3ul5gPdhMIQdJ98yup7v25C5RPUVpflc2F02A=="
+    },
+    {
+      "name": "twilightforest-1.20.1-4.3.2508-universal.jar",
+      "source": "curseforge",
+      "project": 227639,
+      "file": 5468648,
+      "url": "https://edge.forgecdn.net/files/5468/648/twilightforest-1.20.1-4.3.2508-universal.jar",
+      "hash": "sha512-NAtCyifKyMARqX7/WZm2deX34T+dWwNcqUdnzjho0haN062BRIotXnvfBs8I7WtLz5Dt+N9o5FLSIkSIaKpqfA=="
+    },
+    {
+      "name": "txnilib-forge-1.0.24-1.20.1.jar",
+      "source": "modrinth",
+      "project": "vBbPDuOs",
+      "version": "kQ8qnDHA",
+      "url": "https://cdn.modrinth.com/data/vBbPDuOs/versions/kQ8qnDHA/txnilib-forge-1.0.24-1.20.1.jar",
+      "hash": "sha512-Boga4gLZkDkJw0oXQvODCPegTk7Zxes70JRBkg0mZsb07lSzjtNoi2Eq3loG0qNbRfrYojLE6Pf2v1J/CC9ryQ=="
+    },
+    {
+      "name": "waystones-forge-1.20.1-14.1.21.jar",
+      "source": "modrinth",
+      "project": "LOpKHB2A",
+      "version": "Y0IgdaoP",
+      "url": "https://cdn.modrinth.com/data/LOpKHB2A/versions/Y0IgdaoP/waystones-forge-1.20.1-14.1.21.jar",
+      "hash": "sha512-N5ju8vgcL2Bm2dwtwiu+nRxLYtWqSUxZL/5n7n9PuAITYVBbPAsTWNT5ryflCx8S0pr7O0sLNitasifovhcQRw=="
+    },
+    {
+      "name": "yet_another_config_lib_v3-3.6.6+1.20.1-forge.jar",
+      "source": "modrinth",
+      "project": "1eAoo2KR",
+      "version": "sCWgXDYQ",
+      "url": "https://cdn.modrinth.com/data/1eAoo2KR/versions/sCWgXDYQ/yet_another_config_lib_v3-3.6.6%2B1.20.1-forge.jar",
+      "hash": "sha512-f92SOulMGtqb8FJPIc37tPhw6pOybQLzaYKVhYkvxaL2HmD0OmaG7mEf8RvejxI/F4J54t5FPI+zICZBU6Do2Q=="
+    },
+    {
+      "name": "YungsApi-1.20-Forge-4.0.6.jar",
+      "source": "modrinth",
+      "project": "Ua7DFN59",
+      "version": "PJOYAmAs",
+      "url": "https://cdn.modrinth.com/data/Ua7DFN59/versions/PJOYAmAs/YungsApi-1.20-Forge-4.0.6.jar",
+      "hash": "sha512-fYPZSpDlWnEvZQhIXARP8gKRbpubkWa3UXfLjy65GVQ7u+FUfRHEHP1HY4IPk0I19HwLJt2eibwQMJVK+p+4iQ=="
+    },
+    {
+      "name": "YungsBetterEndIsland-1.20-Forge-2.0.6.jar",
+      "source": "modrinth",
+      "project": "2BwBOmBQ",
+      "version": "Izqhg3Va",
+      "url": "https://cdn.modrinth.com/data/2BwBOmBQ/versions/Izqhg3Va/YungsBetterEndIsland-1.20-Forge-2.0.6.jar",
+      "hash": "sha512-pRt2/EHRkna+ouvggbFT075TxQLvnek1k5kPi3v2ROPk/Uz/F0d6vOFmkvI6/zB3vhdiYG8QyhBYdxdBrWUuLg=="
+    },
+    {
+      "name": "YungsBetterNetherFortresses-1.20-Forge-2.0.6.jar",
+      "source": "modrinth",
+      "project": "Z2mXHnxP",
+      "version": "2nUEz0zq",
+      "url": "https://cdn.modrinth.com/data/Z2mXHnxP/versions/2nUEz0zq/YungsBetterNetherFortresses-1.20-Forge-2.0.6.jar",
+      "hash": "sha512-vO7+r4Tf/XOGphEY1rHGwhB+F+eo9DQO/ywfAjTboObY9DkDUh1acDNDYqtuQGl4jlspz0LY7pzU8qmP62QRKw=="
+    }
+  ],
+  "resourcepacks": [
+    {
+      "name": "Golden Days Base.zip",
+      "source": "modrinth",
+      "project": "BFzJ6aQL",
+      "version": "uzk4VJgD",
+      "url": "https://cdn.modrinth.com/data/BFzJ6aQL/versions/uzk4VJgD/golden-days-base-16.2-%5B1.20-to-26.2%5D.zip",
+      "hash": "sha512-XRU7dw286Tszk6H32Y1lZX42HKtqmyaiYWGf9hdVOFDHgPS1CAlVnQnJPZE7FEVIrEwKjltH5mOPINIHAbE1Hg==",
+      "remove": [
+        "assets/minecraft/textures/block/andesite.png",
+        "assets/minecraft/textures/block/barrel_bottom.png",
+        "assets/minecraft/textures/block/barrel_side.png",
+        "assets/minecraft/textures/block/barrel_top.png",
+        "assets/minecraft/textures/block/barrel_top_open.png",
+        "assets/minecraft/textures/block/blast_furnace_front.png",
+        "assets/minecraft/textures/block/blast_furnace_front_on.png",
+        "assets/minecraft/textures/block/blast_furnace_side.png",
+        "assets/minecraft/textures/block/blast_furnace_top.png",
+        "assets/minecraft/textures/block/chiseled_deepslate.png",
+        "assets/minecraft/textures/block/cracked_deepslate_bricks.png",
+        "assets/minecraft/textures/block/cracked_deepslate_tiles.png",
+        "assets/minecraft/textures/block/crimson_nylium.png",
+        "assets/minecraft/textures/block/crimson_nylium_side.png",
+        "assets/minecraft/textures/block/deepslate_bricks.png",
+        "assets/minecraft/textures/block/deepslate_tiles.png",
+        "assets/minecraft/textures/block/diorite.png",
+        "assets/minecraft/textures/block/dirt_path_side.png",
+        "assets/minecraft/textures/block/dirt_path_top.png",
+        "assets/minecraft/textures/block/dropper_front.png",
+        "assets/minecraft/textures/block/dropper_front_horizontal.png",
+        "assets/minecraft/textures/block/lantern.png",
+        "assets/minecraft/textures/block/magma.png",
+        "assets/minecraft/textures/block/magma_emissive.png",
+        "assets/minecraft/textures/block/nether_wart_block.png",
+        "assets/minecraft/textures/block/observer_back.png",
+        "assets/minecraft/textures/block/observer_back_on.png",
+        "assets/minecraft/textures/block/observer_front.png",
+        "assets/minecraft/textures/block/observer_side.png",
+        "assets/minecraft/textures/block/polished_andesite.png",
+        "assets/minecraft/textures/block/polished_basalt_side.png",
+        "assets/minecraft/textures/block/polished_basalt_top.png",
+        "assets/minecraft/textures/block/redstone_lamp.png",
+        "assets/minecraft/textures/block/redstone_lamp_on.png",
+        "assets/minecraft/textures/block/scaffolding_side.png",
+        "assets/minecraft/textures/block/scaffolding_side_unstable.png",
+        "assets/minecraft/textures/block/scaffolding_top.png",
+        "assets/minecraft/textures/block/soul_lantern.png",
+        "assets/minecraft/textures/block/stripped_acacia_log.png",
+        "assets/minecraft/textures/block/stripped_acacia_log_top.png",
+        "assets/minecraft/textures/block/stripped_birch_log.png",
+        "assets/minecraft/textures/block/stripped_birch_log_top.png",
+        "assets/minecraft/textures/block/stripped_cherry_log.png",
+        "assets/minecraft/textures/block/stripped_cherry_log_top.png",
+        "assets/minecraft/textures/block/stripped_dark_oak_log.png",
+        "assets/minecraft/textures/block/stripped_dark_oak_log_top.png",
+        "assets/minecraft/textures/block/stripped_jungle_log.png",
+        "assets/minecraft/textures/block/stripped_jungle_log_top.png",
+        "assets/minecraft/textures/block/stripped_mangrove_log.png",
+        "assets/minecraft/textures/block/stripped_mangrove_log_top.png",
+        "assets/minecraft/textures/block/stripped_oak_log.png",
+        "assets/minecraft/textures/block/stripped_oak_log_top.png",
+        "assets/minecraft/textures/block/stripped_pale_oak_log.png",
+        "assets/minecraft/textures/block/stripped_pale_oak_log_top.png",
+        "assets/minecraft/textures/block/stripped_poplar_log.png",
+        "assets/minecraft/textures/block/stripped_poplar_log_top.png",
+        "assets/minecraft/textures/block/stripped_spruce_log.png",
+        "assets/minecraft/textures/block/stripped_spruce_log_top.png",
+        "assets/minecraft/textures/block/tuff.png",
+        "assets/minecraft/textures/block/warped_nylium.png",
+        "assets/minecraft/textures/block/warped_nylium_side.png",
+        "assets/minecraft/textures/block/warped_wart_block.png",
+        "assets/minecraft/textures/entity/enderdragon/dragon.png",
+        "assets/minecraft/textures/entity/enderdragon/dragon_eyes.png",
+        "assets/minecraft/textures/entity/enderman/enderman_eyes.png",
+        "assets/minecraft/textures/item/lantern.png",
+        "assets/minecraft/textures/item/netherite_upgrade_smithing_template.png",
+        "assets/minecraft/textures/item/soul_lantern.png"
+      ]
+    },
+    {
+      "name": "Golden Days Mod Compat.zip",
+      "source": "modrinth",
+      "project": "k5E8cAZw",
+      "version": "9qAphQna",
+      "url": "https://cdn.modrinth.com/data/k5E8cAZw/versions/9qAphQna/Golden%20Days%20Mod%20Compat.zip",
+      "hash": "sha512-UT8P+iT31tyDANIYnTmwSrtr4z+0QRYitqv3aNFV3tY0uGKs27SqmyXtUiHdAJuom1JeU0beUxlbz+qMCHrRKw==",
+      "keepNamespaces": [
+        "brewinandchewin",
+        "cratedelight",
+        "dummmmmmy",
+        "explorerscompass",
+        "farmersdelight",
+        "horseman",
+        "leafscopperbackport",
+        "naturescompass",
+        "oceansdelight",
+        "rusticdelight"
+      ]
+    },
+    {
+      "name": "Lootr Nostalgic Chests.zip",
+      "source": "modrinth",
+      "project": "FaN50vL6",
+      "version": "ZtKj75cM",
+      "url": "https://cdn.modrinth.com/data/FaN50vL6/versions/ZtKj75cM/Lootr_Nostalgic_Chests.zip",
+      "hash": "sha512-WeYwp3qgM5H346ELKrFSk62WB5ooZfavFBL3QUZbeBaYBcVYX3yYm5PiB+Pd47sN8AA35BEGphXQVxhmHodKeg=="
+    },
+    {
+      "name": "Comprogrammer Lotpwcraft.zip",
+      "source": "modrinth",
+      "project": "UpXgha2v",
+      "version": "HGadclOj",
+      "url": "https://cdn.modrinth.com/data/UpXgha2v/versions/HGadclOj/Comprogrammer.zip",
+      "hash": "sha512-9BvEiKZ8gHvhwN0DFI9H3ol/Agnm3uDX8vmv979ofLd32UdZ4Wyhlzgi4TlPonD/YrAdctqjNPyJ5wUIkPieXA=="
+    },
+    {
+      "name": "Portal Compat.zip",
+      "source": "bundle"
+    },
+    {
+      "name": "very important textures.zip",
+      "source": "curseforge",
+      "project": 1162556,
+      "file": 6006816,
+      "url": "https://edge.forgecdn.net/files/6006/816/Fox%20Girl.zip",
+      "hash": "sha512-6Vtcqf+deDn67/exR1qqNy2j9IlpVlbNQ/wyj7aOI/vk/kUGeUS49mJEMA4gt1sHCGZtk/YSwnznFdnxKcORdw=="
+    }
+  ]
+}
