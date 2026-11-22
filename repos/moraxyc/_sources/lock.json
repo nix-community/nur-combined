@@ -1136,19 +1136,6 @@
       },
       "fingerprint": "sha256-H7/fT4nfEg6N60/hpZLT4tL2Ehl2w1jA42zyrihYhcA="
     },
-    "revdiff": {
-      "version": "1.15.0",
-      "rawVersion": "v1.15.0",
-      "date": "2026-11-09",
-      "src": {
-        "fetcher": "github",
-        "owner": "umputun",
-        "repo": "revdiff",
-        "rev": "v1.15.0",
-        "hash": "sha256-5KJ8q4cDLiFP64iCAt5NvJ9lm4zF9R9snGRiOtxEGis="
-      },
-      "fingerprint": "sha256-puhKYPIlh7uymdir3MNRgcgVlGsQGxlFrB4tw7l4hPg="
-    },
     "sable-next": {
       "version": "26.11.4",
       "rawVersion": "26.11.4",

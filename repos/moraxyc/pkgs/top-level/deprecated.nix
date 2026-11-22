@@ -8,6 +8,7 @@ let
     cronet-go = "upstreamed";
     flapalerted = "upstreamed";
     ghostfolio = "upstreamed";
+    revdiff = "upstreamed";
     sing-box = "upstreamed";
     sub-store = "upstreamed";
     sub-store-frontend = "upstreamed";

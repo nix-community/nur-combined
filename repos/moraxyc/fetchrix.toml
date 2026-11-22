@@ -571,11 +571,6 @@ version = { source = "git", url = "https://github.com/charmedlabs/pixy2", unstab
 transform = ["strip-v"]
 fetch = { type = "git", url = "https://github.com/charmedlabs/pixy2", rev = "{version}" }
 
-[packages.revdiff]
-version = { source = "github-release", repo = "umputun/revdiff" }
-transform = ["strip-v"]
-fetch = { type = "github", repo = "umputun/revdiff", rev = "{version}" }
-
 [packages.sable-next]
 version = { source = "git-tag", url = "https://git.sable.moe/SableClient/sable-next.git", strip_prefix = "v", filter = "^v[0-9]+\\.[0-9]+\\.[0-9]+$" }
 transform = ["strip-v"]

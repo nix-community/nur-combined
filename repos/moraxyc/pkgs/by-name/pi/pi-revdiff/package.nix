@@ -5,14 +5,11 @@
   jq,
   typescript,
   revdiff,
-
-  sources,
-  source ? sources.revdiff,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "pi-revdiff";
-  inherit (source) version src;
+  inherit (revdiff) version src;
   __structuredAttrs = true;
   strictDeps = true;
 
