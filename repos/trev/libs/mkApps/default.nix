@@ -33,16 +33,22 @@ builtins.mapAttrs (
           inputsFrom = [ ];
           description = "Run ${name}";
         };
+    # mkDerivation replaces each input with its `dev` output and marks it
+    # with `outputSpecified`, which makes `getBin` return the `dev` output.
+    # Clear the mark so `getBin` picks `bin`, or `out` when there is none.
+    unspecifyOutput = p: if lib.isDerivation p then p // { outputSpecified = false; } else p;
     pathPackages =
       app.packages
-      ++ lib.subtractLists app.inputsFrom (
-        lib.flatten (
-          map (name: lib.catAttrs name app.inputsFrom) [
-            "buildInputs"
-            "nativeBuildInputs"
-            "propagatedBuildInputs"
-            "propagatedNativeBuildInputs"
-          ]
+      ++ map unspecifyOutput (
+        lib.subtractLists app.inputsFrom (
+          lib.flatten (
+            map (name: lib.catAttrs name app.inputsFrom) [
+              "buildInputs"
+              "nativeBuildInputs"
+              "propagatedBuildInputs"
+              "propagatedNativeBuildInputs"
+            ]
+          )
         )
       );
     program = stdenvNoCC.mkDerivation (finalAttrs: {
