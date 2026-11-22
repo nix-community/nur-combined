@@ -77,8 +77,13 @@ stdenv.mkDerivation (
       mkdir -p "$out/share/openmpt-tracker"
       # The DLLs are the mpg123/lame projects the GUI links against
       # (LINK_MPG123_DLL), so they have to ship next to the exe.
-      cp -a bin/release/vs2022-win10-static/amd64/. "$out/share/openmpt-tracker/"
-      rm -f "$out/share/openmpt-tracker/OpenMPT.pdb"
+      # MSBuild also leaves .pdb/.lib/.exp link artifacts next to the exe; ship
+      # only the binary and the two DLLs it loads at runtime.
+      install -m755 bin/release/vs2022-win10-static/amd64/OpenMPT.exe "$out/share/openmpt-tracker/"
+      install -m644 \
+        bin/release/vs2022-win10-static/amd64/openmpt-mpg123.dll \
+        bin/release/vs2022-win10-static/amd64/openmpt-lame.dll \
+        "$out/share/openmpt-tracker/"
       runHook postInstall
     '';
 
