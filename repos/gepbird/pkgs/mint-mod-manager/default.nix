@@ -35,7 +35,7 @@ let
     rustc = rustToolchain;
   };
 
-  mingwPkgs = pkgsCross.mingwW64;
+  mingwPkgs = pkgsCross.mingw-msvcrt-x86_64;
   mingwCompiler = mingwPkgs.buildPackages.gcc;
 in
 rustPlatform.buildRustPackage (finalAttrs: {
