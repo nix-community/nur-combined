@@ -28,8 +28,8 @@ let
 
       # nixpkgs' telegram-desktop already pulls its own tlottie and
       # wallet-engine. Forkgram needs the versions packaged here (the C API and
-      # the decode-sign-data-cell patch), so replace them rather than keeping
-      # both versions in the link path. pango is only in nixpkgs' Linux inputs.
+      # the signData cell decoding), so replace them rather than keeping both
+      # versions in the link path. pango is only in nixpkgs' Linux inputs.
       buildInputs =
         lib.filter (
           p: p != nixpkgs_pkgs.tlottie && p != nixpkgs_pkgs.wallet-engine
@@ -57,6 +57,12 @@ let
           lib.remove swift previousAttrs.nativeBuildInputs
         else
           previousAttrs.nativeBuildInputs;
+
+      # Forkgram calls signData cell decoding on the session, which the engine
+      # has since replaced with a free function over the raw BoC bytes.
+      patches = (previousAttrs.patches or [ ]) ++ [
+        ./decode-cell-with-engine-api.patch
+      ];
 
       postPatch = (previousAttrs.postPatch or "") + ''
         (

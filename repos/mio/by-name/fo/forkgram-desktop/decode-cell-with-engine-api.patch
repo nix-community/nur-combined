@@ -1,0 +1,49 @@
+--- a/Telegram/SourceFiles/wallet/wallet_ton_connect.cpp
++++ b/Telegram/SourceFiles/wallet/wallet_ton_connect.cpp
+@@ -25,6 +25,7 @@
+ 
+ #include "wallet_engine.hpp"
+ 
++#include <QtCore/QByteArray>
+ #include <QtCore/QUrl>
+ 
+ #include <limits>
+@@ -144,13 +145,20 @@
+ }
+ 
+ [[nodiscard]] std::vector<TonConnectSignDataField> DecodedCellFields(
+-		engine::TonConnectDerivedSession &session,
+ 		const std::string &schema,
+ 		const std::string &cell) {
+ 	using Decoding = engine::TonConnectSignDataCellDecoding;
+ 	auto result = std::vector<TonConnectSignDataField>();
+ 	try {
+-		const auto decoding = session.decode_sign_data_cell(schema, cell);
++		// The engine serializes a signData cell as padded base64, while its
++		// decoder reads the single-root BoC bytes themselves.
++		const auto bytes = QByteArray::fromBase64(
++			QByteArray::fromStdString(cell),
++			QByteArray::AbortOnBase64DecodingErrors);
++		const auto decoding = engine::decode_ton_connect_sign_data_cell(
++			schema,
++			std::vector<uint8_t>(bytes.begin(), bytes.end()),
++			false);
+ 		const auto decoded = std::get_if<Decoding::kDecoded>(
+ 			&decoding.get_variant());
+ 		if (!decoded) {
+@@ -334,12 +342,9 @@
+ 			result.type = Type::Cell;
+ 			result.data = QString::fromStdString(data.cell);
+ 			result.schema = QString::fromStdString(data.schema);
+-			if (session) {
+-				result.fields = DecodedCellFields(
+-					*session,
+-					data.schema,
+-					data.cell);
+-			}
++			result.fields = DecodedCellFields(
++				data.schema,
++				data.cell);
+ 		}
+ 	}, request.payload.get_variant());
+ 	return result;

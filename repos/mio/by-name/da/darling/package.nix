@@ -350,13 +350,29 @@ stdenv.mkDerivation (finalAttrs: {
           } "$@"
         }
 
+        # That fetch pulls every submodule (hundreds of MB), so a dropped
+        # connection must not leave a stale hash behind: retry before failing.
+        update_hash_retry() {
+          local attempt
+          for attempt in 1 2 3; do
+            if update_hash "$@"; then
+              return 0
+            fi
+            if [ "$attempt" -lt 3 ]; then
+              echo "update-darling: hash recheck failed (attempt $attempt), retrying" >&2
+              sleep $((attempt * 10))
+            fi
+          done
+          return 1
+        }
+
         if ! nix-update "$@"; then
           echo "nix-update failed; updating the hash for the pinned revision" >&2
-          update_hash || true
+          update_hash_retry || true
           exit 1
         fi
 
-        update_hash "$@"
+        update_hash_retry "$@"
       '';
     };
   };
