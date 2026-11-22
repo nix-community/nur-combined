@@ -49,7 +49,8 @@ stdenv.mkDerivation (
       wineserver -w || true
 
       # The wrappers translate unix paths to z:/... themselves; MSVC_ROOT is what
-      # build.py uses to locate afxnmcd/nafxcw/libcmt.
+      # build.py uses to locate the static MFC libraries (afxnmcd plus the
+      # charset's uafxcw) and libcmt.
       export MSVC_ROOT="${msvc-wine-toolchain}"
       export PATH="$MSVC_ROOT/bin/x64:$PATH"
 

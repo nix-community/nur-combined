@@ -2,8 +2,12 @@
 """Build OpenMPT's premake-generated .vcxproj projects with the MSVC tools under Wine.
 
 There is no MSBuild (and no .NET) here: the `Release|x64` ItemDefinitionGroups
-are translated into cl.exe / lib.exe / link.exe / rc.exe command lines directly,
-which is enough because the generated projects are plain compile+link graphs.
+and the config-level settings MSBuild would apply on top of them are translated
+into cl.exe / lib.exe / link.exe / rc.exe command lines directly, which is
+enough because the generated projects are plain compile+link graphs. The setting
+that matters most is `CharacterSet`, which MSBuild turns into
+`/D_UNICODE /DUNICODE` for cl and rc and which decides the static-MFC library:
+miss it and the tracker builds as ANSI, which it refuses to run as.
 
 Requires MSVC_ROOT to point at an msvc-wine install (VC/Tools/MSVC/..., kits/)
 and cl/lib/link/rc on PATH.
@@ -95,7 +99,7 @@ def load(proj):
             continue
         for e in g:
             t = e.tag.split("}")[1]
-            if t in ("ConfigurationType", "TargetName", "TargetExt"):
+            if t in ("ConfigurationType", "TargetName", "TargetExt", "CharacterSet"):
                 cfg[t] = (e.text or "").strip()
     for g in root.findall("m:ItemDefinitionGroup", NS):
         if COND not in g.get("Condition", ""):
@@ -118,6 +122,13 @@ def load(proj):
                 (cfg["items"] if t == "ClCompile" else cfg["rcitems"]).append((c.get("Include"), over))
             elif t == "ProjectReference":
                 cfg["refs"].append(c.get("Include"))
+    # MSBuild expands <CharacterSet>Unicode</CharacterSet> into UNICODE;_UNICODE
+    # for both cl and rc; the generated project leaves them implicit, so a driver
+    # that only reads the ItemDefinitionGroups silently builds an ANSI OpenMPT.
+    if cfg.get("CharacterSet") == "Unicode":
+        for key in ("cc", "rc"):
+            defs = cfg[key].get("PreprocessorDefinitions", "")
+            cfg[key]["PreprocessorDefinitions"] = ";".join(d for d in (defs, "UNICODE;_UNICODE") if d)
     return cfg
 
 
@@ -298,6 +309,9 @@ def make_output(cfg, objdir, libdir, bindir, log):
             os.path.join(libdir, os.path.splitext(os.path.basename(r.replace("\\", "/")))[0] + ".lib")
             for r in cfg["refs"]
         ]
+        # Windows import libraries the project declares (mpg123 needs shlwapi for
+        # the PathIs*W calls in its Unicode path conversion).
+        cmd += [d for d in cfg["link"].get("AdditionalDependencies", "").split(";") if d and "%(" not in d]
         cmd += objwin
         rc, o = run(cmd, cfg["dir"], log)
         print(f"[{cfg['name']}] dll rc={rc} ({len(objs)} objs)")
@@ -341,9 +355,15 @@ def link_exe(cfg, out, libdir, log, res=None):
     deps = [d for d in lk.get("AdditionalDependencies", "").split(";") if d and "%(" not in d]
     if not deps:
         # Static MFC: afxnmcd (the no-MFC-controls-in-dialogs variant) must come
-        # before nafxcw, exactly as afx.h's #pragma comment(lib, ...) order does.
-        deps = [_msvc_lib("afxnmcd.lib"), _msvc_lib("nafxcw.lib"), _msvc_lib("libcmt.lib")]
+        # before the charset-specific static MFC, exactly as afx.h's
+        # #pragma comment(lib, ...) order does. A Unicode build needs uafxcw.
+        mfc = "uafxcw.lib" if cfg.get("CharacterSet") == "Unicode" else "nafxcw.lib"
+        deps = [_msvc_lib("afxnmcd.lib"), _msvc_lib(mfc), _msvc_lib("libcmt.lib")]
     cmd = ["link", "/nologo", "/SUBSYSTEM:WINDOWS", "/MACHINE:X64"]
+    if cfg.get("CharacterSet") == "Unicode":
+        # /SUBSYSTEM:WINDOWS alone makes the CRT pull its WinMain entry, but a
+        # Unicode MFC app defines wWinMain (in uafxcw.lib), so name that entry.
+        cmd.append("/ENTRY:wWinMainCRTStartup")
     cmd.append("/OUT:" + os.path.join(bindir, cfg["name"] + ".exe"))
     cmd.append("/LIBPATH:" + libdir)
     if lk.get("GenerateDebugInformation", "").lower() == "true":
