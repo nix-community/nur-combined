@@ -31,6 +31,7 @@ lib.optionalAttrs (vacuModuleType == "nixos") {
       extraConfig = ''
         set -g mouse on
         set -g history-limit 250000
+        set -as terminal-features ',xterm*:hyperlinks'
       '';
     };
   };
