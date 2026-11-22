@@ -8,12 +8,12 @@
   # keep-sorted end
 }: let
   pname = "albedo-git";
-  version = "0-unstable-2026-11-21";
+  version = "0-unstable-2026-11-22";
 
   src = fetchFromTangled {
     did = "did:plc:l7hhzcbqqvpcquau5waryzdu";
-    rev = "915434675640ff613f833bec9b3a07698ba586a8";
-    hash = "sha256-VEU/5jTlNe7TR12sp3esSp6DaxanNwvGaCkbeAt3OiQ=";
+    rev = "52028ec98bedfa9148faa0ec0c1b22314bba4ffd";
+    hash = "sha256-fzCbjz1L4a0GfNs+4sgxMZt4FmIZIfGs2UroSinHP5E=";
   };
 
   chrome-headless-shell = callPackage ./chrome-headless-shell.nix {};

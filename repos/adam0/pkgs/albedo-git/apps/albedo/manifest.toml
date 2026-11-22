@@ -28,6 +28,7 @@ packages = [
   { name = "albedo_ext_files", version = "0.1.0", build_tools = ["gleam"], requirements = ["albedo_sdk", "gleam_json", "gleam_stdlib"], source = "local", path = "../../extensions/files" },
   { name = "albedo_ext_git", version = "0.1.0", build_tools = ["gleam"], requirements = ["albedo_bytes", "albedo_sdk", "gleam_stdlib"], source = "local", path = "../../extensions/git" },
   { name = "albedo_ext_github_copilot", version = "0.1.0", build_tools = ["gleam"], requirements = ["albedo_anthropic", "albedo_bytes", "albedo_clock", "albedo_env", "albedo_file", "albedo_http", "albedo_model", "albedo_models_dev", "albedo_openai", "albedo_process", "albedo_sdk", "gleam_json", "gleam_stdlib"], source = "local", path = "../../extensions/github_copilot" },
+  { name = "albedo_ext_google_ai_studio", version = "0.1.0", build_tools = ["gleam"], requirements = ["albedo_gemini", "albedo_http", "albedo_model", "albedo_models_dev", "albedo_openai", "albedo_sdk", "gleam_json", "gleam_stdlib"], source = "local", path = "../../extensions/google_ai_studio" },
   { name = "albedo_ext_hooks", version = "0.1.0", build_tools = ["gleam"], requirements = ["albedo_file", "albedo_sdk", "gleam_json", "gleam_stdlib"], source = "local", path = "../../extensions/hooks" },
   { name = "albedo_ext_imagegen", version = "0.1.0", build_tools = ["gleam"], requirements = ["albedo_bytes", "albedo_model", "albedo_process", "albedo_protect", "albedo_sdk", "gleam_erlang", "gleam_json", "gleam_stdlib"], source = "local", path = "../../extensions/imagegen" },
   { name = "albedo_ext_instructions", version = "0.1.0", build_tools = ["gleam"], requirements = ["albedo_env", "albedo_sdk", "gleam_stdlib"], source = "local", path = "../../extensions/instructions" },
@@ -128,6 +129,7 @@ albedo_ext_exa = { path = "../../extensions/exa" }
 albedo_ext_files = { path = "../../extensions/files" }
 albedo_ext_git = { path = "../../extensions/git" }
 albedo_ext_github_copilot = { path = "../../extensions/github_copilot" }
+albedo_ext_google_ai_studio = { path = "../../extensions/google_ai_studio" }
 albedo_ext_hooks = { path = "../../extensions/hooks" }
 albedo_ext_imagegen = { path = "../../extensions/imagegen" }
 albedo_ext_instructions = { path = "../../extensions/instructions" }
