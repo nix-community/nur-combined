@@ -28,6 +28,7 @@ in
   lain-kde-splashscreen = pkgs.callPackage ./pkgs/lain-kde-splashscreen { };
   artmatic = pkgs.callPackage ./pkgs/artmatic { };
   luker = pkgs.callPackage ./pkgs/luker { };
+  marmota-vehicle-tester = pkgs.callPackage ./pkgs/marmota-vehicle-tester { };
   xmcl = pkgs.callPackage ./pkgs/xmcl { };
   xmcl-bin = pkgs.callPackage ./pkgs/xmcl-bin { };
   sabaki = pkgs.callPackage ./pkgs/sabaki { };
