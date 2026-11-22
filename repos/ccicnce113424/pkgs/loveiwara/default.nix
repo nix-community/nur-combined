@@ -12,7 +12,6 @@
   alsa-lib,
   mpv-unwrapped,
   libnotify,
-  callPackage,
 }:
 let
   flutter = flutter347;
@@ -22,11 +21,6 @@ flutter.buildFlutterApplication {
   inherit version pubspecLock gitHashes;
 
   passthru.updateScript = [ ./update.sh ];
-
-  customSourceBuilders = {
-    sqlite3_flutter_libs = { src, ... }: src;
-    sqlite3 = callPackage ./sqlite3-flutter.nix { };
-  };
 
   desktopItems = [
     (makeDesktopItem {
