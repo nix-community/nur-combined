@@ -3,11 +3,11 @@
 { fetchurl }:
 
 let
-  version = "1.0.4";
+  version = "1.0.5";
   src = fetchurl {
     curlOptsList = [ "--compressed" ];
-    url = "https://github.com/gaboolic/rime-frost/releases/download/1.0.4/rime-frost-schemas.zip";
-    hash = "sha256-T0mYroP2PXV8CkrOGS9p1IJlvd+r4jFkK3Pjc57Q8vU=";
+    url = "https://github.com/gaboolic/rime-frost/releases/download/1.0.5/rime-frost-schemas.zip";
+    hash = "sha256-f6YX1ucY3vCWPtHPBCHV6mYtsucue89DCfQJVZfFx0s=";
   };
 in
 {
