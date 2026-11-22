@@ -3,14 +3,14 @@
     "type": "github",
     "repo": "obsproject/obs-studio"
   },
-  "version": "33.0.2",
+  "version": "33.0.3",
   "url": "https://github.com/obsproject/obs-studio/releases/download/{version}/OBS-Studio-{version}-macOS-{arch}.dmg",
   "arch": {
     "aarch64-darwin": "Apple",
     "x86_64-darwin": "Intel"
   },
   "hash": {
-    "aarch64-darwin": "sha256-+c2WURxe/dP/2aAGjju8J2xh/EUdEATj7qVlipy3BIg=",
-    "x86_64-darwin": "sha256-hOtYSonN74PzOFZV40hJbbsHFUWb4kmvocZ4fWDSzDM="
+    "aarch64-darwin": "sha256-kiEoc7b4TFQoUgPKw/hGWQrADfrXazEs8mYQD/Xt8Mg=",
+    "x86_64-darwin": "sha256-RSaXI9EmVWNSTLPWNf4JCgsOEQTjousC7lNVvRZ0KQM="
   }
 }
