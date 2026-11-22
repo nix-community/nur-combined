@@ -1221,13 +1221,13 @@
       },
       "derived": {
         "vendorHash": {
-          "hash": "sha256-TNuvY2Ge10ecI3U7/RjvYIODytipqLMrS5zynPDiaFk="
+          "hash": "sha256-u/PLMwxWQ6mNJC8Jx6CjUz9jDDsrbg9kNZ22a4cDPtM="
         }
       },
       "artifacts": {
         "composer.lock": "shlink/composer.lock"
       },
-      "fingerprint": "sha256-c0dPdttZ4qu/djUB9fDR49vv2JwR/rLNt/gMptNArG8="
+      "fingerprint": "sha256-Pg3VRKhseIRxIgWWFDz4ndppR+L18WmEmgxbb9bnzTg="
     },
     "subconverter": {
       "version": "0-unstable-2026-07-08",
