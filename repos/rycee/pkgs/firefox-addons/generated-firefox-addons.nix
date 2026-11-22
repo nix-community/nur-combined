@@ -1547,10 +1547,10 @@
     };
     "bramble" = buildMozillaXpiAddon {
       pname = "bramble";
-      version = "1.38.0";
+      version = "1.39.0";
       addonId = "firefox@bramble.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5280027/bramble-1.38.0.xpi";
-      sha256 = "1992edd322b17e17551d683f92343bcca348b4a173f912050413419135440010";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5287037/bramble-1.39.0.xpi";
+      sha256 = "feca3b53f11743ed80068dddbd14533eefe42b07f16050c331e63641ef98a965";
       meta = with lib;
       {
         homepage = "https://bramble.sh";
@@ -2073,10 +2073,10 @@
     };
     "clearurls" = buildMozillaXpiAddon {
       pname = "clearurls";
-      version = "1.27.3";
+      version = "1.28.0";
       addonId = "{74145f27-f039-47ce-a470-a662b129930a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4432106/clearurls-1.27.3.xpi";
-      sha256 = "54926b6e4274d5935a5fc0daa6320f1d371e3d2f1a5877467ca3ab22a65c4f20";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5286652/clearurls-1.28.0.xpi";
+      sha256 = "693601ba1f21c6940374f76acc2dd4bd3201869b0fe10ab1b927b593ee2508d1";
       meta = with lib;
       {
         homepage = "https://clearurls.xyz/";
@@ -3359,10 +3359,10 @@
     };
     "dictionaries" = buildMozillaXpiAddon {
       pname = "dictionaries";
-      version = "9.3.2";
+      version = "9.4.0";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5262593/dictionaries-9.3.2.xpi";
-      sha256 = "2b619b0f8cd258bbe58ceb95ee92e22df5f069bfed2ac67f40a3cf38947b3e57";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5285406/dictionaries-9.4.0.xpi";
+      sha256 = "179c0dcbd5faf800777f8069e3680289222bc6720c56e6b1a2aa1e08cfa536ac";
       meta = with lib;
       {
         homepage = "https://dictionariez.pnl.dev";
@@ -4548,10 +4548,10 @@
     };
     "floccus" = buildMozillaXpiAddon {
       pname = "floccus";
-      version = "5.13.0";
+      version = "5.14.0";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5224106/floccus-5.13.0.xpi";
-      sha256 = "71f658e689e67c17b3c605503e64400fa05c730618365b8d023b8e63bd1c8473";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5285330/floccus-5.14.0.xpi";
+      sha256 = "05c9e7ffe9f915829ef7305e3af6ebcb30eeaf43777a5b312ad5257757a523b0";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -10017,10 +10017,10 @@
     };
     "ophirofox" = buildMozillaXpiAddon {
       pname = "ophirofox";
-      version = "2.6.11115.2229";
+      version = "2.6.11121.1957";
       addonId = "{cfd3c5c2-31ec-4c1b-a28e-df38357d02d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5258554/ophirofox-2.6.11115.2229.xpi";
-      sha256 = "ad2ac2f2a53aa665ac8cdb4441ca53a1a5e0b7e5ba004f11c44c6ae1da76b1e7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5287441/ophirofox-2.6.11121.1957.xpi";
+      sha256 = "62cec66b534e28e138e6ec25e9a5da463ab506063ac0205f9f8b44d32158264d";
       meta = with lib;
       {
         homepage = "https://ophirofox.ophir.dev/";
@@ -11333,10 +11333,10 @@
     };
     "purpleadblock" = buildMozillaXpiAddon {
       pname = "purpleadblock";
-      version = "2.7.3";
+      version = "2.8.0";
       addonId = "{a7399979-5203-4489-9861-b168187b52e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5226642/purpleadblock-2.7.3.xpi";
-      sha256 = "458b6c935dd5ca08c419ecb702d903179b62abf7f35ce0fb84f8924260f822a3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5287733/purpleadblock-2.8.0.xpi";
+      sha256 = "9dfb2675eea4db745f276ec1f1d0f601e8dbb4eb41826dad16e45ecfb6c55740";
       meta = with lib;
       {
         description = "Blocks the ads Twitch puts in live streams by editing the stream playlists inside the Twitch player. No proxy, no data collected.";
@@ -12803,10 +12803,10 @@
     };
     "remove-youtube-s-suggestions" = buildMozillaXpiAddon {
       pname = "remove-youtube-s-suggestions";
-      version = "4.5.2";
+      version = "4.6.0";
       addonId = "{21f1ba12-47e1-4a9b-ad4e-3a0260bbeb26}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5110463/remove_youtube_s_suggestions-4.5.2.xpi";
-      sha256 = "123629ab8d86791d7b0072062c3d2fbc1438e4b7505ea781989c10952e1580f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5288510/remove_youtube_s_suggestions-4.6.0.xpi";
+      sha256 = "350bfc9ac99c66aa945108b9eee0a8caf46b02e519bef4c2b909413c1dd33794";
       meta = with lib;
       {
         homepage = "https://lawrencehook.com/rys/";
@@ -15012,15 +15012,15 @@
     };
     "toxcancel" = buildMozillaXpiAddon {
       pname = "toxcancel";
-      version = "1.4";
+      version = "1.5";
       addonId = "{135c3428-66bc-4b5b-9503-282dc00802e7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4995504/toxcancel-1.4.xpi";
-      sha256 = "15f7ee9aef6d9bf0018f37be3808d8536c2697bb5ca0d31a190f8c17ae288242";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5285524/toxcancel-1.5.xpi";
+      sha256 = "23b4aaca82ab22ac83fcdd55235721591b1a400ca57835471268a89225a077b9";
       meta = with lib;
       {
         description = "Redirects to a mirror of x (ie: an instance of Nitter) when the browser is about to load an x.com page";
         license = licenses.gpl3;
-        mozPermissions = [ "webRequest" "webRequestBlocking" ];
+        mozPermissions = [ "webRequest" "webRequestBlocking" "storage" ];
         platforms = platforms.all;
       };
     };
@@ -16758,10 +16758,10 @@
     };
     "web-clipper-obsidian" = buildMozillaXpiAddon {
       pname = "web-clipper-obsidian";
-      version = "1.8.4";
+      version = "1.8.5";
       addonId = "clipper@obsidian.md";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5282220/web_clipper_obsidian-1.8.4.xpi";
-      sha256 = "b0b01ad7febebd6172c9ca9337aad79470b6d036c45c7239f6525c37047d032c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5287417/web_clipper_obsidian-1.8.5.xpi";
+      sha256 = "fe8a5e2e20cfb22fd2ecac44379f945e1496d21bca5303760423bdcf977067f4";
       meta = with lib;
       {
         homepage = "https://obsidian.md/clipper";
@@ -17693,10 +17693,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.11.9";
+      version = "18.11.11";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5272342/youtube_subscription_groups-18.11.9.xpi";
-      sha256 = "705b5391ed7f72da94a831582b465180f96682937fed26e60300c654ffa364a4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5288080/youtube_subscription_groups-18.11.11.xpi";
+      sha256 = "a7be080b24b5297204672efc6baeff60216aa65bd263b43d3a8684dead48bb14";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
