@@ -31,12 +31,16 @@ Update the source pin to the latest `my` commit using the repository's updater:
 nix develop -c .github/scripts/run_updater.sh redrix-ec
 ```
 
-The updater resolves the version from the exact new source pin and reachable
-tags in the Chromium upstream repository, then writes that metadata to the
-package expression. If source or version resolution fails, it restores the
-original expression. Git history is fetched only at update time; builds remain
-offline. The independent `cryptoc` source stays explicitly pinned, while
-compiler and other Nixpkgs dependencies advance through `flake.lock`.
+The updater resolves the `my` branch through GitHub, computes a real source
+hash with `nix-prefetch-git`, and derives the version from reachable release
+tags in the Chromium upstream repository. `nix-update` 1.16 cannot complete
+its flake source-hash prefetch with the current Nix 2.35 setup: it evaluates a
+generated `builtins.getFlake` store path that is missing. The direct prefetch
+avoids that concrete failure while preserving a pinned immutable revision and
+hash. If source or version resolution fails, the updater restores the original
+expression. Git history is fetched only at update time; builds remain offline.
+The independent `cryptoc` source stays explicitly pinned, while compiler and
+other Nixpkgs dependencies advance through `flake.lock`.
 
 `redrix-coreboot` embeds this package's `ec.RW.flat`, so an EC package update
 also rebuilds coreboot. These packages produce firmware artifacts; building or
