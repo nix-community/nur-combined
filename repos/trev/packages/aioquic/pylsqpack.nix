@@ -11,13 +11,13 @@
 
 buildPythonPackage (final: {
   pname = "pylsqpack";
-  version = "1.1.1";
+  version = "1.1.2";
   pyproject = true;
 
   # the sdist includes the vendored ls-qpack sources
   src = fetchPypi {
     inherit (final) pname version;
-    hash = "sha256-0g2SDMrIqsX/osZfooFrdvbRHEe5sBFFrXhvwjmcGzs=";
+    hash = "sha256-hkInC5VfU5Dby57hkxc1HTPKI+mRfhWrnRd75KA/Nw4=";
   };
 
   build-system = [
