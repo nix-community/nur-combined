@@ -51,6 +51,17 @@
             "pkgs/rea/frida.nix"
           ];
         };
+      cachedFor =
+        system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        in
+        lib.filterAttrs (
+          _: package: lib.isDerivation package && lib.meta.availableOn pkgs.stdenv.hostPlatform package
+        ) (import ./cached.nix { inherit lib pkgs; });
       repositoryFor =
         system:
         import ./default.nix {
@@ -59,13 +70,21 @@
     in
     {
       overlays.default = final: _: {
-        so1ve = import ./default.nix { pkgs = final; };
+        so1ve = (import ./default.nix { pkgs = final; }) // {
+          cached = cachedFor final.stdenv.hostPlatform.system;
+        };
       };
 
       homeModules = import ./home-modules;
       nixosModules = import ./nixos-modules;
 
-      legacyPackages = forAllSystems repositoryFor;
+      legacyPackages = forAllSystems (
+        system:
+        (repositoryFor system)
+        // {
+          cached = cachedFor system;
+        }
+      );
 
       packages = forAllSystems (
         system:
