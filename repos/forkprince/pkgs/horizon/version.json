@@ -7,15 +7,15 @@
     "tag_prefix": "launcher@",
     "tag_filter": "^launcher@"
   },
-  "version": "0.2.98",
+  "version": "0.2.105",
   "platforms": {
     "x86_64-linux": {
       "file": "horizon-launcher-linux-x86_64.tar.gz",
-      "hash": "sha256-j9CJ/Zo45wM0/aIjbuuBo37cct+fdHpBz+GBxWr9FRM="
+      "hash": "sha256-3kS2kOllvMeV6yugIB3+BjDEQZXOVqstAczn3ohwKV0="
     },
     "aarch64-darwin": {
       "file": "horizon-launcher-macos-arm64.zip",
-      "hash": "sha256-PfLLEZJiFBq0e8Jadedak4Si7NSgOEuGG+GHZ8Mt7wM="
+      "hash": "sha256-1fogD7yDVRqvf/NYynsZmbgvqnlEqKDeq5dr97tcF/A="
     }
   }
 }

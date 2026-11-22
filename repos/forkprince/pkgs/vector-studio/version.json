@@ -4,27 +4,27 @@
     "type": "redirect",
     "version_regex": "([0-9]+\\.[0-9]+\\.[0-9]+)"
   },
-  "version": "0.1.34",
+  "version": "0.1.35",
   "platforms": {
     "aarch64-darwin": {
       "redirect_url": "https://tenzen.studio/api/v1/vector-studio/download?platform=darwin&arch=arm64&kind=dmg",
-      "url": "https://downloads.tenzen.studio/vector-studio/stable/darwin/0.1.34/Vector-Studio-0.1.34-mac-arm64.dmg",
-      "hash": "sha256-VNv6HciK+X/LT0rK9F7WwxP8UjzPG+mn8/IYUhczj0w="
+      "url": "https://downloads.tenzen.studio/vector-studio/stable/darwin/0.1.35/Vector-Studio-0.1.35-mac-arm64.dmg",
+      "hash": "sha256-v3W0HAgo6Hzj4rcUDnLVwa+1eALDWnDno81AVkxgWCg="
     },
     "x86_64-darwin": {
       "redirect_url": "https://tenzen.studio/api/v1/vector-studio/download?platform=darwin&arch=x64&kind=dmg",
-      "url": "https://downloads.tenzen.studio/vector-studio/stable/darwin/0.1.34/Vector-Studio-0.1.34-mac-x64.dmg",
-      "hash": "sha256-GltBuoA5jjzJ37sFU3RzwvhlCg0gDvjAmg6BnuZw5nQ="
+      "url": "https://downloads.tenzen.studio/vector-studio/stable/darwin/0.1.35/Vector-Studio-0.1.35-mac-x64.dmg",
+      "hash": "sha256-UtUF60nwgcvfOGdGO6n29jbAAWe59rLVj9C0TWBW2hA="
     },
     "aarch64-linux": {
       "redirect_url": "https://tenzen.studio/api/v1/vector-studio/download?platform=linux&arch=arm64&kind=appimage",
-      "url": "https://downloads.tenzen.studio/vector-studio/stable/linux/0.1.34/Vector-Studio-0.1.34-linux-arm64.AppImage",
-      "hash": "sha256-VBJmSJ9/6m/bojUPVVdK+xvu24SyqFpvzYg3epoifXw="
+      "url": "https://downloads.tenzen.studio/vector-studio/stable/linux/0.1.35/Vector-Studio-0.1.35-linux-arm64.AppImage",
+      "hash": "sha256-Mb5JgJz2Fwwv6O95wDzhcsTbcaT1VSuDyXft3XygKBU="
     },
     "x86_64-linux": {
       "redirect_url": "https://tenzen.studio/api/v1/vector-studio/download?platform=linux&arch=x64&kind=appimage",
-      "url": "https://downloads.tenzen.studio/vector-studio/stable/linux/0.1.34/Vector-Studio-0.1.34-linux-x64.AppImage",
-      "hash": "sha256-gxOfkY6kph40Qu1SQG9BO/efPvKDODAyr5Ni/EAEMhU="
+      "url": "https://downloads.tenzen.studio/vector-studio/stable/linux/0.1.35/Vector-Studio-0.1.35-linux-x64.AppImage",
+      "hash": "sha256-vpTYr1BZtVvilRgUtKMNrx+aIXaBOtUPoEbVA8HEtXY="
     }
   }
 }
