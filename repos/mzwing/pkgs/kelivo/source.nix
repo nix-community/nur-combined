@@ -3,11 +3,11 @@
 { fetchzip }:
 
 let
-  version = "1.3.6";
-  rev = "v1.3.6";
+  version = "1.3.7";
+  rev = "v1.3.7";
   src = fetchzip {
-    url = "https://codeload.github.com/Chevey339/kelivo/tar.gz/v1.3.6";
-    hash = "sha256-045kjd7uqYWO/1KDJ3jY3N0+pZ4pNXRs0MQM2vUfYOQ=";
+    url = "https://codeload.github.com/Chevey339/kelivo/tar.gz/v1.3.7";
+    hash = "sha256-un9/Tb5GpPTLgZSKZeenxAqQCrXqIVwxj0rpMyHPO/o=";
     extension = "tar.gz";
   };
 in
