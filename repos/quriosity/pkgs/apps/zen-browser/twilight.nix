@@ -6,7 +6,7 @@ let
 
   src = fetchurl {
     url = "https://github.com/zen-browser/desktop/releases/download/twilight-1/zen-x86_64.AppImage";
-    hash = "sha256-qSTxOAlN6VL5Iq8RfwH9BmOenppzIei1ONovq16+KUo=";
+    hash = "sha256-oPNQ0gBu8N01m+kmVR7LewYLVxjISFeSi0MhFwkZU7U=";
   };
 
   appimageContents = appimageTools.extract {
