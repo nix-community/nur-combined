@@ -67,6 +67,10 @@ mkCutefishDerivation {
       --replace-fail '/usr/include/harfbuzz' '${lib.getDev harfbuzz}/include/harfbuzz'
   '';
 
+  # Off by default in nixpkgs; builds and links cleanly with the CET shadow
+  # stack, so opt in here.
+  hardeningEnable = [ "shadowstack" ];
+
   extraNativeBuildInputs = [
     clang
     gn

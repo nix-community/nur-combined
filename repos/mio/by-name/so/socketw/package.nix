@@ -32,6 +32,10 @@ stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
   ];
 
+  # Off by default in nixpkgs; builds and links cleanly with the CET shadow
+  # stack, so opt in here.
+  hardeningEnable = [ "shadowstack" ];
+
   # CMakeCM's file(DOWNLOAD) of file:// JoinPaths.cmake fails on Darwin.
   # Vendor JoinPaths and drop the CMakeCM network/local resolver entirely.
   postPatch = ''

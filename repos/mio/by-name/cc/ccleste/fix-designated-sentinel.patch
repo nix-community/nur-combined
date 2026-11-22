@@ -1,0 +1,11 @@
+--- a/celeste.c
++++ b/celeste.c
+@@ -545,7 +545,7 @@
+ 		},
+ 	OBJ_PROP_LIST()
+ 	#undef X
+-	{0}
++	[OBJTYPE_COUNT] = {0}
+ };
+ 
+ #define OBJ_PROP(o) OBJTYPE_prop[(o)->type]

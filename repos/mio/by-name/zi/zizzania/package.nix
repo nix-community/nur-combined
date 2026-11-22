@@ -29,6 +29,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ libpcap ];
 
+  # Off by default in nixpkgs; builds and links cleanly with the CET shadow
+  # stack, so opt in here.
+  hardeningEnable = [ "shadowstack" ];
+
   # Both files config.Makefile would wget: the dry Makefile (project rules) and
   # uthash.h (the SETUP_HOOK the object files depend on).
   postPatch = ''

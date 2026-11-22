@@ -21,6 +21,10 @@ angelscript.overrideAttrs (
       hash = "sha256-ncs3pPsJErx3el8/Lsj+NSu7LQ1hPRlBmcTSvLGWL1s=";
     };
 
+    # Off by default in nixpkgs; builds and links cleanly with the CET shadow
+    # stack, so opt in here.
+    hardeningEnable = (old.hardeningEnable or [ ]) ++ [ "shadowstack" ];
+
     postPatch =
       (old.postPatch or "")
       + lib.optionalString (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) ''

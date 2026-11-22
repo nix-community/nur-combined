@@ -36,6 +36,10 @@ stdenv.mkDerivation (finalAttrs: {
     liblscp
   ];
 
+  # Off by default in nixpkgs; builds and links cleanly with the CET shadow
+  # stack, so opt in here.
+  hardeningEnable = [ "shadowstack" ];
+
   installPhase = ''
     runHook preInstall
 

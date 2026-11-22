@@ -36,6 +36,10 @@ stdenv.mkDerivation (finalAttrs: {
     "PREFIX=${placeholder "out"}"
   ];
 
+  # Off by default in nixpkgs; builds and links cleanly with the CET shadow
+  # stack, so opt in here.
+  hardeningEnable = [ "shadowstack" ];
+
   preInstall = ''
     mkdir -p "${placeholder "out"}/bin"
   '';

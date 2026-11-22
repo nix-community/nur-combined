@@ -68,6 +68,10 @@ stdenv.mkDerivation (finalAttrs: {
     ./init-data-dirs-to-nix-paths.patch
   ];
 
+  # Off by default in nixpkgs; builds and links cleanly with the CET shadow
+  # stack, so opt in here.
+  hardeningEnable = [ "shadowstack" ];
+
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=17"
     "-DCMAKE_CXX_STANDARD_REQUIRED=ON"

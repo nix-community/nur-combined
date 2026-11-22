@@ -18,6 +18,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
+  # Off by default in nixpkgs; builds and links cleanly with the CET shadow
+  # stack, so opt in here.
+  hardeningEnable = [ "shadowstack" ];
+
   meta = with lib; {
     description = "Command line utility to convert stl files to STEP brep files";
     homepage = "https://github.com/slugdev/stltostp";

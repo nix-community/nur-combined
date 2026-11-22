@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     owner = "LonkToThePast";
     repo = "ccleste";
     rev = "9a17a16de3006dbf2c5af79bd13e1d7c67fc7d31";
-    sha256 = "sha256-gxH1oKz+Q64ARM4yshGPNUp89TCO9hb0CGd1+/SC5Y4=";
+    hash = "sha256-gxH1oKz+Q64ARM4yshGPNUp89TCO9hb0CGd1+/SC5Y4=";
   };
 
   nativeBuildInputs = [
@@ -30,6 +30,10 @@ stdenv.mkDerivation rec {
     SDL2
     SDL2_mixer
   ];
+
+  # Off by default in nixpkgs; builds and links cleanly with the CET shadow
+  # stack, so opt in here.
+  hardeningEnable = [ "shadowstack" ];
 
   makeFlags = [
     "USE_FIXEDP=1"
@@ -51,6 +55,9 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./fix-palette.patch
+    # OBJTYPE_prop ends with a positional `{0}` after designated indices, which
+    # C23 and C++20 reject; name the index instead so it keeps the same size.
+    ./fix-designated-sentinel.patch
   ];
 
   postPatch = ''
@@ -63,7 +70,7 @@ stdenv.mkDerivation rec {
     let
       icon = fetchurl {
         url = "https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/Papirus/64x64/apps/celeste.svg";
-        sha256 = "sha256-PS43zAYy/+oNm8ykTvi/aGv8vWxVtqnbaKtVJI/prNY=";
+        hash = "sha256-PS43zAYy/+oNm8ykTvi/aGv8vWxVtqnbaKtVJI/prNY=";
       };
     in
     ''

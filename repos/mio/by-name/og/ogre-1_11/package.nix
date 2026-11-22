@@ -44,6 +44,10 @@ stdenv.mkDerivation (finalAttrs: {
     ./darwin-apple-silicon.patch
   ];
 
+  # Off by default in nixpkgs; builds and links cleanly with the CET shadow
+  # stack, so opt in here.
+  hardeningEnable = [ "shadowstack" ];
+
   nativeBuildInputs = [
     cmake
     ninja

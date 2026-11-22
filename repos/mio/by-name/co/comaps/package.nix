@@ -118,6 +118,10 @@ stdenv.mkDerivation (
         --replace-fail "/usr/bin/env python3" "${pythonEnv.interpreter}"
     '';
 
+    # Off by default in nixpkgs; builds and links cleanly with the CET shadow
+    # stack, so opt in here.
+    hardeningEnable = [ "shadowstack" ];
+
     nativeBuildInputs = [
       cmake
       ninja
