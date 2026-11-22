@@ -20,14 +20,11 @@ in
     ./graphical.nix
   ];
 
-  home.packages =
-    with pkgs;
-    [
-      nixd
-      jq
-      ripgrep
-    ]
-    ++ [ llmAgentPkgs.cursor-agent ];
+  home.packages = with pkgs; [
+    nixd
+    jq
+    ripgrep
+  ];
 
   programs = {
     home-manager.enable = true;

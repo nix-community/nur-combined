@@ -7,6 +7,7 @@
     ./dunst
     ./hypr
     ./cursor.nix
+    ./cursor-agent.nix
     ./zed.nix
     ./t3code.nix
   ];
