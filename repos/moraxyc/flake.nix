@@ -34,6 +34,10 @@
       systems = import inputs.systems;
       flake = {
         lib = import ./lib;
+        static = {
+          cities = import ./static/cities.nix;
+          countries = import ./static/countries.nix;
+        };
         hydraJobs = {
           inherit (self) ciPackages nixosTests;
         };

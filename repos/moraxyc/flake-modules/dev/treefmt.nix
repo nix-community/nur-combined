@@ -10,7 +10,6 @@
         settings.global.excludes = [
           ".envrc"
           "_sources/**"
-          "static/*.nix"
           "flake.lock"
         ];
         programs = {
