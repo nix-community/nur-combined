@@ -10,8 +10,8 @@
 }:
 
 let
-  version = "6.0.0-unstable-2026-11-13";
-  commit = "5cff94df38ef9f6bc8eaac361d84a6d8bb655fda";
+  version = "6.0.0-unstable-2026-11-16";
+  commit = "3150fede59eb77e3521c2f01b61f2c5d6074d9a2";
   lspSrc = fetchurl {
     url = "https://github.com/ocaml/ocaml-lsp/releases/download/1.28.1/lsp-1.28.1.tbz";
     hash = "sha256-ErUjebk01plnO9gmuhbiBodVWu3O/FWjnGivu2IPuhk=";
@@ -45,7 +45,7 @@ ocamlPkgs.buildDunePackage {
   src = fetchgit {
     url = "https://knot.cl.cam.ac.uk/jonmsterling.com/ocaml-forester";
     rev = commit;
-    hash = "sha256-3tf45fEicbnUeiDUR/ofQdBF3+jsJWkKf5bDyOElCPA=";
+    hash = "sha256-VkpI6nxetzHktHJyBHyOQRLJawkyZoq4oDbGTOOEmQU=";
   };
 
   strictDeps = true;

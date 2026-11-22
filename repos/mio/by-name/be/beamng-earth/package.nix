@@ -4,6 +4,7 @@
   fetchFromGitHub,
   python312,
   rustPlatform,
+  cmake,
   makeWrapper,
   makeDesktopItem,
   copyDesktopItems,
@@ -11,7 +12,7 @@
 }:
 
 let
-  version = "1.10.1-beta";
+  version = "1.10.1-beta.dev.555";
 
   python = python312.withPackages (
     ps: with ps; [
@@ -28,7 +29,7 @@ let
     owner = "TecnaGamer";
     repo = "BeamNG.Earth";
     tag = "v${version}";
-    hash = "sha256-O2xTp991vHJObYIUXtDpXyoVJOfddFkKvmFlzcHNyfE=";
+    hash = "sha256-X9092BUpxk9ovgA5I0QdBfJgauErCgssVIt70728/g4=";
   };
 
   # The world server's geometry kernels (native/earthfast): a pyo3 abi3
@@ -39,9 +40,13 @@ let
 
     cargoRoot = "native/earthfast";
     buildAndTestSubdir = "native/earthfast";
-    cargoHash = "sha256-xegeAxT9vrPBldOWlNCJVu3BripyjAvSdhoIPFy9ycM=";
+    cargoHash = "sha256-qEvf1/ntLNAGBh1W5nVh82pLLGQwFwejfUuI9iUGZOI=";
 
-    nativeBuildInputs = [ python312 ];
+    # turbojpeg-sys builds its bundled libjpeg-turbo with CMake.
+    nativeBuildInputs = [
+      cmake
+      python312
+    ];
     env.PYO3_PYTHON = "${python312.interpreter}";
 
     doCheck = false;

@@ -135,14 +135,14 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "darling";
-  version = "0.1.20260608-unstable-2026-11-18";
+  version = "0.1.20260608-unstable-2026-11-21";
 
   src = fetchFromGitHub {
     owner = "darlinghq";
     repo = "darling";
-    rev = "0542acd2b2247cf4211089896b6b6b757ae19bad";
+    rev = "572cc025999b285123d8d7c545a5b851a673a320";
     fetchSubmodules = true;
-    hash = "sha256-KF9GRMjjx6PiVhCOsrqPYS4UYwd9khhds5O3LFf4DtU=";
+    hash = "sha256-cZSvzs/Pe5Jjk4jdBhhmZrZbsMHG/QsFYbxeuvgvqL4=";
     # Remove 500MB of dependency test files to get under Hydra output limit
     postFetch = ''
       rm -r $out/src/external/openjdk/test

@@ -2,26 +2,36 @@
 #! nix-shell -i bash -p curl jq nix nix-update nixfmt-rfc-style
 # shellcheck shell=bash
 
-# Bumps BeamNG.Earth to the newest release tag (vX.Y.Z-beta; the rolling
-# vX.Y.Z-beta.dev.N tags are development snapshots) and refreshes both coupled
-# pins: the fetchFromGitHub source hash and native/earthfast's cargoHash, which
-# moves whenever upstream changes Cargo.lock.
+# Bumps BeamNG.Earth to the newest tag and refreshes both coupled pins: the
+# fetchFromGitHub source hash and native/earthfast's cargoHash, which moves
+# whenever upstream changes Cargo.lock.
+#
+# vX.Y.Z-beta tags are releases and the rolling vX.Y.Z-beta.dev.N tags are
+# development snapshots; `sort -V` ranks a snapshot above its stable
+# counterpart, so the newest one wins either way.
+#
+# An argument pins a specific tag instead, e.g.
+# `update.sh 1.10.1-beta.dev.555`.
 set -euo pipefail
 
 root=$(git rev-parse --show-toplevel)
 cd "$root"
 dir=by-name/be/beamng-earth
 
-tag=$(
-    curl -fsSL --retry 3 "https://api.github.com/repos/TecnaGamer/BeamNG.Earth/tags?per_page=100" |
-        jq -r '.[].name' |
-        grep -E '^v[0-9]+\.[0-9]+\.[0-9]+-beta$' |
-        sort -V |
-        tail -n 1
-)
-if [ -z "$tag" ]; then
-    echo "update.sh: no vX.Y.Z-beta release tag found" >&2
-    exit 1
+if [ $# -ge 1 ]; then
+    tag=v${1#v}
+else
+    tag=$(
+        curl -fsSL --retry 3 "https://api.github.com/repos/TecnaGamer/BeamNG.Earth/tags?per_page=100" |
+            jq -r '.[].name' |
+            grep -E '^v[0-9]+\.[0-9]+\.[0-9]+-beta(\.dev\.[0-9]+)?$' |
+            sort -V |
+            tail -n 1
+    )
+    if [ -z "$tag" ]; then
+        echo "update.sh: no vX.Y.Z-beta release tag found" >&2
+        exit 1
+    fi
 fi
 version=${tag#v}
 echo "update.sh: $version"

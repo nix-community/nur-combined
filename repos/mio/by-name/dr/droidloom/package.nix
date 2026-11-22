@@ -7,7 +7,7 @@
 # a sparse AOSP/Soong build with prebuilt base partitions and is not
 # reproducible inside the Nix sandbox; it is taken from the matching upstream
 # `droidloom-image` release package instead. Both come from the same release
-# cycle (host source rev of 2026-11-19, image 0.1.0-47).
+# cycle (host source rev of 2026-11-20, image 0.1.0-49).
 {
   lib,
   stdenv,
@@ -51,21 +51,21 @@
 }:
 
 let
-  version = "0.1.0-unstable-2026-11-19";
+  version = "0.1.0-unstable-2026-11-20";
 
   src = fetchFromGitHub {
     owner = "denialwm";
     repo = "droidloom";
-    rev = "20685a4620d0be15b4c103ecf830e2be0a3a92c8";
-    hash = "sha256-NYlH62PL0lQtuhTXCPcpCz3nohsodKHpcBxb/FVbwUc=";
+    rev = "572e1c51c5caf75183efe25ad811f98c1268bf56";
+    hash = "sha256-nyaxx2Ut096rlzx3mMi/McZW/ZJU5SFsofbE0Dx+h2Q=";
   };
 
   # Upstream publishes the Android image package for both architectures.
   # The x86_64 package carries the x86_64 Android images and Android-side
   # Droidloom components built by upstream's package workflow.
   imagePackage = fetchurl {
-    url = "https://github.com/denialwm/droidloom/releases/download/packages/droidloom-image-0.1.0-47-x86_64.pkg.tar.zst";
-    hash = "sha256-kD+vTPkQ5PS6B9YFRYf3M6O+r0MH4eTxRBsoKxKMYrA=";
+    url = "https://github.com/denialwm/droidloom/releases/download/packages/droidloom-image-0.1.0-49-x86_64.pkg.tar.zst";
+    hash = "sha256-ptzEnodycmKmskm9etDtFA0RSSULmD81HRUeW9r69p8=";
   };
 
   # Android ELF files target bionic and must not be rewritten by Nix's ELF

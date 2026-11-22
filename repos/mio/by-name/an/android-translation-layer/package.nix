@@ -19,6 +19,7 @@
   sqlite,
   libdrm,
   libgudev,
+  speechd,
   webkitgtk_6_0,
   ninja,
   art-standalone,
@@ -48,13 +49,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "android-translation-layer";
-  version = "0-unstable-2026-11-16";
+  version = "0-unstable-2026-11-22";
 
   src = fetchFromGitLab {
     owner = "android_translation_layer";
     repo = "android_translation_layer";
-    rev = "22a96b28ee007d610f610c6f37aa81509195e288";
-    hash = "sha256-DxfD0tpZRKgQrimfKhV4Eb/huTGrv9tWJnxto7FaOEo=";
+    rev = "94d69d8cdcbab7ac920420a0cd6d05625778068c";
+    hash = "sha256-i2k4v+hFom4c4eIIEMjTIWVM9+x8CcoWlGvGB7LBYAI=";
   };
 
   patches = [
@@ -104,6 +105,7 @@ stdenv.mkDerivation (finalAttrs: {
     libglvnd
     libsecret
     libgudev
+    speechd
     libportal-gtk4
     openxr-loader
     sqlite

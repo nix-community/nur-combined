@@ -82,8 +82,8 @@ let
   src = fetchFromGitHub {
     owner = "KytyPS5";
     repo = "KytyPS5";
-    tag = "KytyPS5-2026-11-20-a1fc5ae";
-    hash = "sha256-nx5gcMwYpF6t1rVr5Go3AkbEVMmbOJFN5HJQwhZJVic=";
+    tag = "KytyPS5-2026-11-21-727ccd1";
+    hash = "sha256-vETTEZGwWIDhbVP5mc2TWE82uI7EFrIsyBEdX1jD/Ko=";
   };
 
   # nixpkgs 26.11 dropped x86_64-darwin, and KytyPS5's macOS build is x86-64
@@ -317,7 +317,7 @@ if stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.system != "x86_64-darwin"
 else
   stdenv.mkDerivation {
     pname = "kytyps5";
-    version = "0-unstable-2026-11-20";
+    version = "0-unstable-2026-11-21";
     inherit src;
 
     patches = [ ./noto-fonts-local.patch ];

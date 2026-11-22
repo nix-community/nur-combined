@@ -117,8 +117,8 @@ let
           owner = "ggerganov";
           repo = "llama.cpp";
           # Pin from LocalAI backend/cpp/llama-cpp/Makefile (LLAMA_VERSION).
-          rev = "d998c676ff463b1b8ad94ad7c0b905e281422fad";
-          hash = "sha256-7ajFDpxzHN7Rr7oBy2RbzjiUviTikhsIJtqS9m7MeiQ=";
+          rev = "78e05298f0d68abff41d08d79fa7469264b2aff0";
+          hash = "sha256-iM3qp7ScTzWD82uXpVyCzLPYOQqCk056slDiy8vdUmo=";
           fetchSubmodules = true;
         };
         # Nixpkgs' llama-cpp patches target a different revision than this pin.
@@ -497,12 +497,12 @@ let
       stdenv;
 
   pname = "local-ai";
-  version = "5.0.0";
+  version = "5.0.1";
   src = fetchFromGitHub {
     owner = "mudler";
     repo = "LocalAI";
     tag = "v${version}";
-    hash = "sha256-SoeGJnbYsfOYopijMrajb3VwG2toczb7Cwb6YHWiF2U=";
+    hash = "sha256-f5qtSFEWXgzP7nNzXZnKMmuBrzrsumLRdcRT6khk+CY=";
   };
 
   prepare-sources =
@@ -552,7 +552,7 @@ let
   self = buildGoModule.override { stdenv = effectiveStdenv; } {
     inherit pname version src;
 
-    vendorHash = "sha256-C5oia7aGa5eou7Li7rhTLKDKF1UvOoOYZ5eJCUNuPOE=";
+    vendorHash = "sha256-A8CS8SrrB3gvOEsiOyHRAnAadEGAakEpVfAQzd/0u8Q=";
 
     env.NIX_CFLAGS_COMPILE = " -isystem ${opencv}/include/opencv4";
 

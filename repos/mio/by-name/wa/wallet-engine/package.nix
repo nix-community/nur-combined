@@ -11,12 +11,12 @@
 }:
 
 let
-  version = "0.0.7-unstable-2026-11-10";
+  version = "0.0.7-unstable-2026-11-18";
   src = fetchFromGitHub {
     owner = "i582";
     repo = "wallet-engine";
-    rev = "a396c520ba0f8130c5bbf265ffa6f6f729546eee";
-    hash = "sha256-H1l16+XpqLyoEJbhnmG98nL8y/mFrdtqNmlaevnvdGw=";
+    rev = "1d6f4a221afd09fbf5d66313cbc9fa1909e0bbbc";
+    hash = "sha256-YIrUnrelDfEer2X+lLtJdYRKwTyELs0eqaoaSyFGmvg=";
   };
 
   bindgenCargoDeps = rustPlatform.fetchCargoVendor {
@@ -32,8 +32,6 @@ let
     inherit version src;
 
     cargoHash = "sha256-b9LErZRUgVa/bHjmbN3ltW8vUoF9UhCjMAfFPSbpzbY=";
-
-    patches = [ ./decode-sign-data-cell.patch ];
 
     cargoBuildFlags = [ "--lib" ];
 
@@ -72,8 +70,6 @@ let
     };
   };
 in
-# uniffi-bindgen-cpp keeps a leading `_` on the C++ parameter and drops it in
-# the call, so the generated `_schema` / `_cell` method does not compile.
 stdenv.mkDerivation {
   pname = "wallet-engine";
   inherit version;
@@ -81,10 +77,6 @@ stdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
     cp -a ${engine} $out
-    chmod u+w $out/include/wallet_engine $out/include/wallet_engine/wallet_engine.cpp
-    substituteInPlace $out/include/wallet_engine/wallet_engine.cpp \
-      --replace-fail 'FfiConverterString::lower(schema)' 'FfiConverterString::lower(_schema)' \
-      --replace-fail 'FfiConverterString::lower(cell)' 'FfiConverterString::lower(_cell)'
     runHook postInstall
   '';
   passthru.updateScript = writeShellApplication {
