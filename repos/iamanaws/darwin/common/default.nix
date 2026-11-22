@@ -1,9 +1,8 @@
 { config, lib, ... }:
 
-with lib;
 {
-  time.timeZone = mkDefault config.device.timezone;
+  time.timeZone = lib.mkDefault config.device.timezone;
   environment.variables = {
-    LANG = mkDefault config.device.locale;
+    LANG = lib.mkDefault config.device.locale;
   };
 }

@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   hostRegistry,
+  ...
 }:
 let
   inherit (pkgs) lib;
@@ -68,7 +69,7 @@ let
       ) systemConfig.config.services.displayManager.sessionPackages
     ) "${host.name}: Hyprland is missing from the registered login sessions";
     assert builtins.deepSeq ([ systemDerivation.drvPath ] ++ homeDerivations) true;
-    pkgs.runCommand "integration-${host.name}" { } ''
+    pkgs.runCommand "hosts-${host.name}" { } ''
       ${lib.optionalString host.hostConfig.hyprland (
         lib.concatMapStringsSep "\n" (
           user:
@@ -83,6 +84,4 @@ let
       touch "$out"
     '';
 in
-lib.listToAttrs (
-  map (host: lib.nameValuePair "integration-${host.name}" (checkHost host)) nativeHosts
-)
+lib.listToAttrs (map (host: lib.nameValuePair host.name (checkHost host)) nativeHosts)

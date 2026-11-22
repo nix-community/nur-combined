@@ -2,13 +2,15 @@
   inputs,
   hostRegistry,
   lib,
+  flakeRoot,
+  ...
 }:
 let
   # Inspect arguments sent to Home Manager without evaluating every host's
   # packages. This also works on Linux for Darwin module selection.
   inspect =
     registry:
-    import ../lib/mkHome.nix {
+    import (flakeRoot + "/lib/mkHome.nix") {
       inherit lib;
       outputs = inputs.self;
       inherit (inputs) nixpkgs;

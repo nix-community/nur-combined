@@ -1,5 +1,6 @@
-{ lib, ... }:
+{ config, lib, ... }:
 let
+  recovery = "${config.networking.hostName}-recovery";
   networks = [
     {
       index = 1;
@@ -68,9 +69,9 @@ in
       settings.main.firewall-backend = "none";
       # An active hotspot stays up until: nmcli connection up wifi-1
       ensureProfiles.profiles = builtins.listToAttrs (map stationProfile networks) // {
-        alpha-recovery = {
+        ${recovery} = {
           connection = {
-            id = "alpha-recovery";
+            id = recovery;
             type = "wifi";
             interface-name = "wlan0";
             autoconnect = true;
@@ -78,7 +79,7 @@ in
           };
           wifi = {
             mode = "ap";
-            ssid = "alpha-recovery";
+            ssid = recovery;
             band = "bg";
             channel = 6;
           };
@@ -99,7 +100,7 @@ in
       };
     };
 
-    # Recovery clients can reach Alpha, without routing through other interfaces.
+    # Recovery clients can reach this host, without routing through other interfaces.
     nftables.enable = true;
     firewall = {
       filterForward = true;

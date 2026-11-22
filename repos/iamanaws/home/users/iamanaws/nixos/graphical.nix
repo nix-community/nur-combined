@@ -39,9 +39,9 @@ lib.optionalAttrs (hostConfig.isGraphical && hostConfig.isLinux) {
 
     iconTheme = {
       name = "kuyen-icons";
-      package = pkgs.kuyen-icons.overrideAttrs (_: {
+      package = pkgs.kuyen-icons.overrideAttrs (old: {
         propagatedBuildInputs = [ pkgs.adwaita-icon-theme ];
-        postInstall = ''
+        postInstall = (old.postInstall or "") + ''
           substituteInPlace $out/share/icons/kuyen-icons/index.theme \
             --replace-fail 'Inherits=breeze,breeze-dark' 'Inherits=Adwaita'
 

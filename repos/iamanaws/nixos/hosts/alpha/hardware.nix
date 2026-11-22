@@ -4,6 +4,7 @@
   flakeRoot,
   lib,
   modulesPath,
+  nixosModules,
   ...
 }:
 
@@ -13,7 +14,7 @@
     # Also supports the Zero 2 W.
     inputs.nixos-hardware.nixosModules.raspberry-pi-3
     (flakeRoot + /secrets)
-    ./wifi.nix
+    nixosModules.services.wifi-recovery
   ];
 
   boot = {

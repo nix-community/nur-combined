@@ -1,9 +1,9 @@
 { config, lib, ... }:
 
 let
+  inherit (lib) mkOption types;
   isDarwin = lib.hasSuffix "-darwin" config.device.system;
 in
-with lib;
 {
   options.device = {
     enable = mkOption {

@@ -1,19 +1,21 @@
-{ lib }:
+{ lib, flakeRoot, ... }:
 let
+  profileModule = import (flakeRoot + "/lib/profileModule.nix");
+  profiles = flakeRoot + "/nixos/profiles";
   resolve =
     profile:
-    import ../lib/profileModule.nix {
+    profileModule {
       inherit lib profile;
       name = "profile-check";
-      profilesDir = ../nixos/profiles;
+      profilesDir = profiles;
     };
 in
 assert resolve null == null;
-assert resolve "core" == ../nixos/profiles/core.nix;
-assert resolve "desktop" == ../nixos/profiles/desktop.nix;
-assert resolve "vm/virtualbox" == ../nixos/profiles/vm/virtualbox.nix;
+assert resolve "core" == profiles + "/core.nix";
+assert resolve "desktop" == profiles + "/desktop.nix";
+assert resolve "vm/virtualbox" == profiles + "/vm/virtualbox.nix";
 assert
-  import ../lib/profileModule.nix {
+  profileModule {
     inherit lib;
     name = "directory-profile-check";
     profilesDir = ./fixtures/profiles;

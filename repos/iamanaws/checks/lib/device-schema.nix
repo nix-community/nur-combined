@@ -1,10 +1,15 @@
-{ lib, hostRegistry }:
+{
+  lib,
+  hostRegistry,
+  nixosModules,
+  ...
+}:
 let
   evaluate =
     device:
     (lib.evalModules {
       modules = [
-        ../nixos/modules/device-options.nix
+        nixosModules.device-options
         { inherit device; }
       ];
     }).config.device;

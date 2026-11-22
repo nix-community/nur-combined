@@ -1,9 +1,8 @@
 { config, lib, ... }:
 
-with lib;
 {
-  networking.hostName = mkDefault config.device.hostname;
-  time.timeZone = mkDefault config.device.timezone;
-  i18n.defaultLocale = mkDefault config.device.locale;
-  system.stateVersion = mkDefault config.device.stateVersion;
+  networking.hostName = lib.mkDefault config.device.hostname;
+  time.timeZone = lib.mkDefault config.device.timezone;
+  i18n.defaultLocale = lib.mkDefault config.device.locale;
+  system.stateVersion = lib.mkDefault config.device.stateVersion;
 }

@@ -1,6 +1,11 @@
-{ pkgs, inputs }:
+{
+  pkgs,
+  inputs,
+  flakeRoot,
+  ...
+}:
 let
-  policy = import ../lib/ssh-policy.nix;
+  policy = import (flakeRoot + "/lib/ssh-policy.nix");
   client = inputs.self.nixosConfigurations.goliath.config;
   server = inputs.self.nixosConfigurations.daedalus.config;
   clientConfig = pkgs.writeText "ssh-client-config" client.environment.etc."ssh/ssh_config".text;
@@ -8,7 +13,7 @@ let
   serverConfig = server.environment.etc."ssh/sshd_config".source;
   expected = pkgs.writeText "ssh-policy.json" (builtins.toJSON policy);
 in
-pkgs.runCommand "ssh-policy-checks"
+pkgs.runCommand "nixos-services-openssh"
   {
     nativeBuildInputs = [
       pkgs.openssh
@@ -24,6 +29,6 @@ pkgs.runCommand "ssh-policy-checks"
       substituteInPlace ssh_config \
         --replace-fail ${proxyConfig} "$PWD/systemd-ssh-proxy.conf"
     ''}
-    python3 ${./ssh.py} ssh_config ${serverConfig} ${expected}
+    python3 ${./openssh.py} ssh_config ${serverConfig} ${expected}
     touch "$out"
   ''

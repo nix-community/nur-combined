@@ -115,6 +115,14 @@ let
     in
     merged;
 
+  # The NixOS module tree, with `modules/*` also reachable from the top level.
+  mkNixosModules =
+    root:
+    let
+      tree = mkModuleTree root;
+    in
+    tree // lib.filterAttrs (name: _: !(tree ? ${name})) (tree.modules or { });
+
   # Collect SSH keys from the same normalized records consumed by the builders.
   collectSshKeys =
     hostRegistry:
@@ -200,6 +208,7 @@ in
     dirNames
     discoverHostRegistry
     mkModuleTree
+    mkNixosModules
     collectSshKeys
     mkHmModulePath
     mkHostContext

@@ -10,8 +10,8 @@ lib.optionalAttrs hostConfig.isGraphical {
     enable = true;
     scripts = with pkgs.mpvScripts; [
       modernz
-      (mpv-cheatsheet-ng.overrideAttrs (_: {
-        postInstall = ''
+      (mpv-cheatsheet-ng.overrideAttrs (old: {
+        postInstall = (old.postInstall or "") + ''
           substituteInPlace "$out/share/mpv/scripts/cheatsheet.lua" \
             --replace-fail 'font_size = 8,' 'font_size = 5.5,' \
             --replace-fail 'usage_font_size = 6,' 'usage_font_size = 5,'

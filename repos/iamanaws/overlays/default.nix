@@ -1,4 +1,4 @@
-{ nur }:
+{ lib, nur }:
 
 let
   # This one contains whatever you want to overlay
@@ -57,5 +57,8 @@ in
 {
   inherit additions modifications;
   nur = final: prev: { inherit (additions final prev) nur; };
-  default = final: prev: additions final prev // modifications final prev;
+  default = lib.composeManyExtensions [
+    additions
+    modifications
+  ];
 }

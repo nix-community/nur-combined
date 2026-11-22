@@ -1,9 +1,14 @@
-{ lib }:
+{
+  lib,
+  flakeRoot,
+  nixosModules,
+  ...
+}:
 let
-  utils = import ../lib/hostUtils.nix { inherit lib; };
+  utils = import (flakeRoot + "/lib/hostUtils.nix") { inherit lib; };
   # Inspect builder arguments without evaluating either operating system.
   inputs = {
-    self = ../.;
+    self = flakeRoot;
     nixpkgs.lib = lib // {
       nixosSystem = args: args;
     };
@@ -15,7 +20,7 @@ let
       device =
         (lib.evalModules {
           modules = [
-            ../nixos/modules/device-options.nix
+            nixosModules.device-options
             {
               device = {
                 inherit system;
@@ -37,7 +42,7 @@ let
   linuxHost = fixture "x86_64-linux";
   darwinHost = fixture "aarch64-darwin";
   linux =
-    import ../lib/mkNixos.nix
+    import (flakeRoot + "/lib/mkNixos.nix")
       {
         inherit inputs;
         outputs = { };
@@ -47,7 +52,7 @@ let
         host = linuxHost;
       };
   darwin =
-    import ../lib/mkDarwin.nix
+    import (flakeRoot + "/lib/mkDarwin.nix")
       {
         inherit inputs;
         outputs = { };
@@ -67,5 +72,5 @@ in
 assert usesRecord linuxHost linux;
 assert usesRecord darwinHost darwin;
 # An omitted profile must actually select the schema's default profile module.
-assert lib.elem ../nixos/profiles/server.nix linux.modules;
+assert lib.elem nixosModules.profiles.server linux.modules;
 true

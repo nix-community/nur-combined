@@ -15,12 +15,7 @@ let
     hostConfig
     ;
   darwinModules = hostUtils.mkModuleTree (inputs.self + /darwin);
-  rawNixosModules = hostUtils.mkModuleTree (inputs.self + /nixos);
-  nixosModules =
-    rawNixosModules
-    // lib.filterAttrs (name: _: !(builtins.hasAttr name rawNixosModules)) (
-      rawNixosModules.modules or { }
-    );
+  nixosModules = hostUtils.mkNixosModules (inputs.self + /nixos);
   homeUsersRoot = inputs.self + "/home/users";
 
   hmModuleFor =
@@ -90,7 +85,7 @@ let
         };
         users = lib.mkMerge (
           map (u: {
-            ${u.name} = import (hmModuleFor u.name u.homeManager.module);
+            ${u.name}.imports = [ (hmModuleFor u.name u.homeManager.module) ];
           }) (lib.filter (u: u.homeManager.enable) users)
         );
       };

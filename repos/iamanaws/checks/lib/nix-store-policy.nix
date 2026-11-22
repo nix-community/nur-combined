@@ -1,4 +1,4 @@
-{ lib }:
+{ lib, flakeRoot, ... }:
 let
   gib = 1024 * 1024 * 1024;
   evaluate =
@@ -11,7 +11,7 @@ let
             type = lib.types.attrsOf lib.types.int;
           };
         }
-        ../lib/nix-store-policy.nix
+        (flakeRoot + "/lib/nix-store-policy.nix")
         { nix.settings = overrides; }
       ];
     }).config.nix.settings;

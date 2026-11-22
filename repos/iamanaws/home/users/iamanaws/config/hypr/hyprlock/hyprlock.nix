@@ -1,3 +1,5 @@
+{ lib, ... }:
+
 let
   # Load base configuration dynamically
   minimal = import ./config/minimal.nix;
@@ -8,7 +10,7 @@ in
   programs.hyprlock = {
     enable = true;
 
-    settings = minimal // {
+    settings = lib.recursiveUpdate minimal {
 
       # source = "$HOME/.config/hypr/mocha.conf";
 

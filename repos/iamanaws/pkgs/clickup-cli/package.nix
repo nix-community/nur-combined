@@ -37,7 +37,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --replace-fail '"America/New_York"' '"${tzdata}/share/zoneinfo/America/New_York"'
   '';
 
-  SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
+  env.SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
