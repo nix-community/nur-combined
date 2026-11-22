@@ -4,12 +4,15 @@
   pubspecLock,
   gitHashes,
   lib,
-  flutter,
+  flutter347,
   mpv-unwrapped,
   makeDesktopItem,
   copyDesktopItems,
   autoPatchelfHook,
 }:
+let
+  flutter = flutter347;
+in
 flutter.buildFlutterApplication (finalAttrs: {
   inherit (sources) pname src;
   inherit version pubspecLock gitHashes;
