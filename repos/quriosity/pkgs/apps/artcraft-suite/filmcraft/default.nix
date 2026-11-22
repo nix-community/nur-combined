@@ -38,16 +38,16 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "filmcraft";
-  version = "0.17.1";
+  version = "0.20.1";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "filmcraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-wNndq73/p3cl3AZKPp4PUsUSyzSnyqywA5NgnhHVrfk=";
+    hash = "sha256-efnUlfnS56t760z0hwQHGUtp4x7zzKnW6BJkyWwa1RQ=";
   };
 
-  cargoHash = "sha256-MTS7vSCFRwFRVfF3bOH8KH3GGJW5SOCxhTidu6cCbN0=";
+  cargoHash = "sha256-aQnPf3S3Mx/TsMNdbms2C2ACc4Zitggvw3PWcLEEZuI=";
   cargoBuildFlags = [ "--package" "filmcraft" "--package" "filmcraft-cli" ];
   cargoTestFlags = [ "--package" "filmcraft" "--package" "filmcraft-cli" ];
 

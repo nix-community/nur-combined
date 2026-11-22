@@ -2,11 +2,11 @@
 
 let
   pname = "horizon-launcher";
-  version = "launcher@0.2.63";
+  version = "launcher@0.2.103";
 
   src = fetchurl {
     url = "https://github.com/horizon-rust/horizon/releases/download/${version}/horizon-launcher-linux-x86_64.AppImage";
-    hash = "sha256-Yp1zV4GDVbrnhCmcQVeDv/0z+rO52yHVw+b0RkRVNNs=";
+    hash = "sha256-4YlvLdu6YJT6xAbEudlA2Fh3lipuELIgu0LPCf+MpfI=";
   };
 
   appimageContents = appimageTools.extract {
@@ -64,8 +64,8 @@ appimageTools.wrapType2 {
       #!/usr/bin/env nix-shell
       #!nix-shell -i bash -p curl jq common-updater-scripts
       repo="https://api.github.com/repos/horizon-rust/horizon/releases"
-      version="$(curl -sL "$repo" | jq 'map(select(.prerelease == false)) | .[0].tag_name' --raw-output)"
-      update-source-version horizon "''${version#v}"
+      version="$(curl -fsSL "$repo" | jq -er '[.[] | select(.prerelease == false and (.tag_name | test("^launcher@0\\.2\\.[0-9]+$")))] | first | .tag_name')"
+      update-source-version horizon "$version"
     '';
 
   meta = with lib; {

@@ -4,7 +4,7 @@ let
   cfg = config.quriosity.programs.artcraft-suite;
   helpers = import ../lib/artcraft-suite.nix { inherit lib; };
 
-  appPackage = id: pkgs.callPackage (../pkgs/apps/artcraft-suite + "/${id}") { };
+  appPackage = helpers.mkAppPackage pkgs;
 
   appRon = pkgs.writeText "artcraft-launcher-app.ron" (helpers.mkAppRon {
     inherit (cfg) theme language closeToTray;

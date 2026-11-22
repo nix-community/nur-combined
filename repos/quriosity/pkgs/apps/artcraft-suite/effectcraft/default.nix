@@ -38,19 +38,19 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "effectcraft";
-  version = "0.21.1";
+  version = "0.24.1";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "effectcraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-xI7yvrY6POSIhqsK2OuKwfy+EqY6N2APPPHXZuuFDIA=";
+    hash = "sha256-dtqPop1xmtd/duzJt02QCZj5zrtVtyvUI8hj4TbeSkc=";
   };
 
   # Patch craft-libs before cargo vendor scans its workspace manifests.
-  cargoHash = "sha256-8OlgOphOMTz0j/kpJja1JJiehNcJl6s5PYRREb0ioik=";
+  cargoHash = "sha256-uSJWpENwaMfzc7OSg6epVUmEpp5SPwwTQHHs9zgbfmg=";
   depsExtraArgs.postBuild = ''
-    menuManifest="$out/git/92d392cff132eaf53e13afff77f38b5c11b73aa0/crates/menu/Cargo.toml"
+    menuManifest="$out/git/e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545/crates/menu/Cargo.toml"
     if [ ! -f "$menuManifest" ]; then
       echo "craft-libs menu manifest not found in cargo vendor staging" >&2
       exit 1

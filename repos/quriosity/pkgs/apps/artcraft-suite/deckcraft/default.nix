@@ -38,16 +38,16 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "deckcraft";
-  version = "0.15.1";
+  version = "0.18.1";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "deckcraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-lWFYafZOIjz7uDe9imw4Pi+I2cLve34MyNdcIDD2YxU=";
+    hash = "sha256-nNoZvhnGEFNmh780GtHoQ4jczs65laFRq7+bF4akXTg=";
   };
 
-  cargoHash = "sha256-42sngkyPfSg7R0cW8EU0J2GZzX65gOPkbG8Mup8WjnI=";
+  cargoHash = "sha256-EntvUn7iSZYqvfrziVW+nAOOGilQFZNmcWiRS5qEhUM=";
   cargoPatches = [ ./remove-unused-egui-patches.patch ];
   postPatch = ''
     # Disable the automatic update check in deckcraft (it tries to fetch from the internet, which is not allowed in Nix builds).

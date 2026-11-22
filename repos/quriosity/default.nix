@@ -26,6 +26,7 @@
   horizon = pkgs.callPackage ./pkgs/apps/minecraft/horizon {};
   # Artcraft Suite
   artcraft-launcher = pkgs.callPackage ./pkgs/apps/artcraft-suite/artcraft-launcher {};
+  anicraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/anicraft {};
   photocraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/photocraft {};
   vectorcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/vectorcraft {};
   filmcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/filmcraft {};
@@ -41,6 +42,8 @@
   gridcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/gridcraft {};
   texturecraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/texturecraft {};
   materialcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/materialcraft {};
+  solidcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/solidcraft {};
+  mailcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/mailcraft {};
 
   # Compatibility tools
   ge-proton = pkgs.callPackage ./pkgs/compat-tools/ge-proton {};

@@ -35,17 +35,17 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cadcraft";
-  version = "0.17.1";
+  version = "0.20.1";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "cadcraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-qRzZk4M5hk+zTDq9IK9zy4aoK+hkeomVkS1BNfFqtW8=";
+    hash = "sha256-VwytPvrzszX3a2Kvibu0luUhTXVNzhrEk049/0jnRP4=";
   };
 
   # Patch craft-libs before cargo vendor scans its workspace manifests.
-  cargoHash = "sha256-ZxT3g5vQA7noA5qKhTnlP8AiPZlIUyzUne4y/VfgiJc=";
+  cargoHash = "sha256-bgjZlTpNuikV3VT892U84ksLIuJA2V6qYl6MPyCWqQo=";
   depsExtraArgs.postBuild = ''
     menuManifest="$out/git/92d392cff132eaf53e13afff77f38b5c11b73aa0/crates/menu/Cargo.toml"
     if [ ! -f "$menuManifest" ]; then

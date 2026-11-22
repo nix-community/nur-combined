@@ -36,16 +36,16 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "texturecraft";
-  version = "0.3.2";
+  version = "0.6.1";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "texturecraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-FPuchemFo/InofBy0Q1+CcKpAHilQUKgVJl5MF4MTIY=";
+    hash = "sha256-XuT3TLSGO4DvChp4NB71pKdpJbul9W6kUhNy752dM1A=";
   };
 
-  cargoHash = "sha256-S0UU/e1g6AHs6ndpNfHY4yIPzKtRq9Cfa6mmCWNjNGE=";
+  cargoHash = "sha256-wexsot0eXfFZ2BbgZ+BywpxVKcL6e1NPjc9Tnk7iDHY=";
   cargoBuildFlags = [ "--package" "texturecraft" "--package" "texturecraft-cli" ];
   cargoTestFlags = [ "--package" "texturecraft" "--package" "texturecraft-cli" ];
 

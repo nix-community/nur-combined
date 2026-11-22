@@ -1,7 +1,7 @@
 { lib }:
 
 let
-  # The Craft App Suite: the twelve apps the launcher knows about, in the launcher's
+  # The apps the launcher knows about, in the launcher's
   # display order (crates/core/src/catalog.rs). The launcher itself is not part of SUITE.
   appIds = [
     "photocraft"
@@ -10,6 +10,7 @@ let
     "lightcraft"
     "pdfcraft"
     "effectcraft"
+    "anicraft"
     "designcraft"
     "figcraft"
     "wordcraft"
@@ -19,7 +20,12 @@ let
     "gridcraft"
     "texturecraft"
     "materialcraft"
+    "solidcraft"
+    "mailcraft"
   ];
+
+  mkAppPackage = pkgs: id:
+    pkgs.callPackage (../pkgs/apps/artcraft-suite + "/${id}") { };
 
   # ThemeChoice (crates/ui-egui/src/theme.rs): System | Dark | Light.
   themeToRon = {
@@ -106,5 +112,5 @@ let
   };
 in
 {
-  inherit appIds themeToRon languageCodes mkSettingsRon mkAppRon mkAutostart mkOptions;
+  inherit appIds themeToRon languageCodes mkSettingsRon mkAppRon mkAutostart mkOptions mkAppPackage;
 }

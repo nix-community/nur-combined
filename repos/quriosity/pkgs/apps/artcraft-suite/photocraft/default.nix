@@ -38,16 +38,16 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "photocraft";
-  version = "0.20.2";
+  version = "0.23.1";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "photocraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-GIaCBK5zDpnOwNbefv+igBbQSVhC1KfRTP9OJj2zPYI=";
+    hash = "sha256-EhyYkRRQBvVX6CbSJX8gk4UOi/zHlE/jgC8wYUfm0ew=";
   };
 
-  cargoHash = "sha256-FYHbqEMhmLkQ/h1CAK9pZe/Rkn+jTNB0waiD+bu8uX0=";
+  cargoHash = "sha256-1L3JH41lUlbGF+Jq+XKb9t32EfvTdSpgd0GkkVPMg5E=";
   cargoBuildFlags = [ "--package" "photocraft" "--package" "photocraft-cli" ];
   cargoTestFlags = [ "--package" "photocraft" "--package" "photocraft-cli" ];
 

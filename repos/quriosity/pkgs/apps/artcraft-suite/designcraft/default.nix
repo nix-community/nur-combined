@@ -36,17 +36,17 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "designcraft";
-  version = "0.17.2";
+  version = "0.20.1";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "designcraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-ZbYBubUsmO/+VNL1QLDPDFTVDKiiITUxZEWPbHX2xDA=";
+    hash = "sha256-rsQfF66CymQ46Ty+RG76A46d6mD8HcMHCOH9EE6sog4=";
   };
 
   # Patch craft-libs before cargo vendor scans its workspace manifests.
-  cargoHash = "sha256-8cY3dvd0zU9fOHOGc8mDbFe8mqgwrO0+U2FcPE7Y5eE=";
+  cargoHash = "sha256-qIi0UVGMp3NzDqUFMEiVbY+QsZ7MKVVwlZ5naNpBSMo=";
   depsExtraArgs.postBuild = ''
     menuManifest="$out/git/92d392cff132eaf53e13afff77f38b5c11b73aa0/crates/menu/Cargo.toml"
     if [ ! -f "$menuManifest" ]; then

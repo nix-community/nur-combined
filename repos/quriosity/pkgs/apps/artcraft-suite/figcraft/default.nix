@@ -36,16 +36,16 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "figcraft";
-  version = "0.15.1";
+  version = "0.18.1";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "figcraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-nkDYjqEixE1zRJj/AiqVNIHQC5XnzqTf5hZREBX1UFc=";
+    hash = "sha256-L2mSlcFhvTcJMY2t+WIk+mIJfks6Kr9Sgvz0oHecsK8=";
   };
 
-  cargoHash = "sha256-JJiPU/L2My3aGpw00NlGwmSg4CHTpr4QiA0XvbdK0Ps=";
+  cargoHash = "sha256-GVTt+0fo+TfJMlnP5MbdayGN5GLgr0BipZV9LNiB3yI=";
   # `isolate_lowest_one` is unstable on the stable toolchain nixpkgs ships.
   patches = [ ./fix-isolate-lowest-one.patch ];
   cargoBuildFlags = [ "--package" "figcraft" "--package" "figcraft-cli" ];

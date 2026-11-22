@@ -45,17 +45,17 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "artcraft-launcher";
-  version = "0.14.1";
+  version = "0.19.2";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "craft-launcher";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-B9fL7JhAetm9qysaXpsnRyBBSQiNhUD1NeElYefr2+c=";
+    hash = "sha256-oqz4lBOuAlUJuUnaXIB0MbGXhMAX5yr1MuqxHhuPeWI=";
   };
 
   # Patch the Git checkout before fetchCargoVendor runs cargo metadata on it.
-  cargoHash = "sha256-w9Em50o8OlgD6Zb66yji6dIOSzz1VkzUYeBufaLKgos=";
+  cargoHash = "sha256-H9lBhDXjijRnj6SJQN2p/zuFI2s/wr2DSR9oparoumc=";
   # fetchCargoVendor uses a separate staging tree; prePatch runs too late to fix it.
   depsExtraArgs.postBuild = ''
     menuManifest="$out/git/92d392cff132eaf53e13afff77f38b5c11b73aa0/crates/menu/Cargo.toml"
