@@ -462,14 +462,14 @@
     },
     "horizon": {
       "version": "0-unstable-2026-11-22",
-      "rawVersion": "7bec6af9267e134ea96545c7d1d6770543320187",
+      "rawVersion": "a27fee23ca32b659220f5d27e8b7ba50ab420582",
       "date": "2026-11-22",
       "src": {
         "fetcher": "github",
         "owner": "horizon-rust",
         "repo": "horizon",
-        "rev": "7bec6af9267e134ea96545c7d1d6770543320187",
-        "hash": "sha256-+WAPPUSaN+xmRYWuhEJ2JwnNCm+/HzYTMe0KwlICMws="
+        "rev": "a27fee23ca32b659220f5d27e8b7ba50ab420582",
+        "hash": "sha256-NKuW+c2hvC0EtYcgf/eMWy5+viQqI9PlqR6JCgB67uA="
       },
       "derived": {
         "cargoLock": {
@@ -1017,15 +1017,15 @@
       "fingerprint": "sha256-GX8sG4ZE6Z12NYXX4mjZbg1jhycZenJvMY4FVk4rdZE="
     },
     "pi-processes": {
-      "version": "0.13.7",
-      "rawVersion": "0.13.7",
-      "date": "2026-11-20",
+      "version": "0.13.8",
+      "rawVersion": "0.13.8",
+      "date": "2026-11-22",
       "src": {
         "fetcher": "github",
         "owner": "aliou",
         "repo": "pi-processes",
-        "rev": "v0.13.7",
-        "hash": "sha256-mSDd8EY4rb51sVRkOYyiqKpuLVTicqfh0UnDcXastbU="
+        "rev": "v0.13.8",
+        "hash": "sha256-wV2Ib/DqwcayGtxA+RIs+Hl/24je1Q2wGfd4J42QrH4="
       },
       "derived": {
         "pnpmDepsHash": {
