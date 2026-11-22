@@ -1,24 +1,86 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (builtins) toFile;
+  inherit (builtins) ceil toFile;
   inherit (config) system;
-  inherit (config.programs) dux-shell;
-  inherit (lib) genAttrs mkDefault mkOption;
+  inherit (config.programs) dux-shell kitty niri;
+  inherit (lib) concatLines escapeShellArg genAttrs getExe mkOption trim;
   inherit (lib.hm.generators) toKDL;
-  inherit (pkgs) formats;
+  inherit (lib.types) attrs listOf str submodule;
+  inherit (pkgs) formats writeShellApplication writeText;
 
   dmsSettingsFormat = formats.json { };
+  character = 7.5 /* px */;
   hour = 60 * minute;
-  minute = 60;
+  minute = 60 /* s */;
+
+  aside = writeShellApplication {
+    name = "aside";
+    runtimeInputs = with pkgs; [ ddcutil jq kitty.package uutils-coreutils-noprefix ];
+    text = ''
+      brightness_percent='4'
+      id=${escapeShellArg system.host.displays.aside.name}
+
+      [[ "$(niri msg --json outputs | jq --arg 'id' "$id" 'has($id)')" == 'true' ]] || exit
+
+      bus_path="$(readlink --canonicalize-existing "/sys/class/drm/card1-$id/ddc")"
+      ddcutil --bus "''${bus_path#*-}" setvcp '0x10' "$brightness_percent"
+
+      exec kitty --app-id='local.aside' --hold journalctl --follow
+    '';
+  };
+
+  process-clipboard = writeShellApplication {
+    name = "process-clipboard";
+    runtimeInputs = with pkgs; [ filter-imf kitty.package libnotify wl-clipboard ];
+    text = let inherit (config.programs.process-clipboard) handlers; in ''
+      replace_with() { local text="$1"
+        wl-copy --type 'TEXT' "$text"
+        notify-send --icon 'edit-copy-symbolic' --transient 'Updated clipboard' "$text"
+      }
+
+      soft_fail() { local message="$1"
+        notify-send --icon 'dialog-error-symbolic' --transient "$message"
+      }
+
+      main() {
+        local text
+        if text="$(wl-paste --no-newline --type 'text')"; then
+          ${concatLines (map ({action, condition}: "if ${trim condition}; then ${trim action}; return 0; fi") handlers)}
+          soft_fail 'Failed to parse clipboard'
+        else
+          soft_fail 'Failed to read clipboard'
+        fi
+      }
+
+      main
+    '';
+  };
 in
 {
   imports = [ ../library/dms-inhibit.user.nix ];
 
-  # Pending nix-community/home-manager#9686
-  options.programs.dux-shell = {
-    pluginSettings = mkOption { inherit (dmsSettingsFormat) type; };
-    settings = mkOption { inherit (dmsSettingsFormat) type; };
+  options = {
+    programs.dux-shell = {
+      pluginSettings = mkOption { inherit (dmsSettingsFormat) type; };
+      settings = mkOption { inherit (dmsSettingsFormat) type; };
+    };
+
+    programs.niri = {
+      autoStart = mkOption { type = listOf (listOf str); default = [ ]; };
+      settings = mkOption { type = attrs; };
+      windowRules = mkOption {
+        type = listOf (submodule { options = { apply = mkOption { type = attrs; }; to = mkOption { type = listOf attrs; }; }; });
+        default = [ ];
+      };
+    };
+
+    programs.process-clipboard = {
+      handlers = mkOption {
+        type = listOf (submodule { options = { action = mkOption { type = str; }; condition = mkOption { type = str; }; }; });
+        default = [ ];
+      };
+    };
   };
 
   # TODO: Reintegrate or replace Stretch Break
@@ -27,139 +89,153 @@ in
     home.packages = with pkgs; [
       pkgs."3mf-thumbnailer"
       adwaita-icon-theme
-      emote
+      aside
     ];
 
     # Niri
-    xdg.configFile."niri/config.kdl".text =
+    programs.niri = {
+      autoStart = [
+        [ (getExe aside) ]
+      ];
+      settings = {
+        binds = let dms = args: { spawn = [ "dms" "ipc" "call" ] ++ args; }; in {
+          # System
+          "XF86NotificationCenter" = dms [ "keybinds" "toggle" "niri" ];
+          "Ctrl+Alt+Delete" = dms [ "powermenu" "toggle" ];
+          "Mod+Escape".toggle-keyboard-shortcuts-inhibit = { };
+          "Mod+L" = dms [ "lock" "lock" ];
+          "Mod+Shift+E".quit = { };
+
+          # Display
+          "XF86HangupPhone".power-off-monitors = { };
+          "XF86MonBrightnessDown" = dms [ "brightness" "decrement" "5" "" ] // { _props.allow-when-locked = true; };
+          "XF86MonBrightnessUp" = dms [ "brightness" "increment" "5" "" ] // { _props.allow-when-locked = true; };
+
+          # Volume
+          "XF86AudioMute" = dms [ "audio" "mute" ] // { _props.allow-when-locked = true; };
+          "XF86AudioLowerVolume" = dms [ "audio" "decrement" "3" ] // { _props.allow-when-locked = true; };
+          "XF86AudioRaiseVolume" = dms [ "audio" "increment" "3" ] // { _props.allow-when-locked = true; };
+          "XF86AudioMicMute" = dms [ "audio" "micmute" ];
+
+          # Playback
+          "XF86AudioPlay" = dms [ "mpris" "playPause" ];
+          "XF86AudioPause" = dms [ "mpris" "playPause" ];
+          "XF86AudioPrev" = dms [ "mpris" "previous" ];
+          "XF86AudioNext" = dms [ "mpris" "next" ];
+
+          # Screenshots
+          "Print".screenshot = { };
+          "Alt+Print".screenshot-window = { };
+          "Ctrl+Print".screenshot-screen = { };
+
+          # Applications
+          "XF86Favorites".spawn = [ (getExe pkgs.emote) ];
+          "Mod+Space" = dms [ "spotlight" "toggle" ];
+          "Mod+C".spawn = [ (getExe process-clipboard) ];
+          "Mod+N" = dms [ "notepad" "toggle" ];
+          "Mod+T".spawn = [ (getExe kitty.package) ];
+          "Mod+Shift+C" = dms [ "color-picker" "toggle" ];
+
+          # Window status
+          "F13".toggle-window-floating = { };
+          "Alt+F4" = { _props.repeat = false; close-window = { }; };
+
+          # Window size
+          "Mod+Return".expand-column-to-available-width = { };
+          "Mod+I".switch-preset-column-width-back = { };
+          "Mod+E".switch-preset-column-width = { };
+          "Mod+O".switch-preset-window-height = { };
+          "Mod+A".reset-window-height = { };
+
+          # Window motion
+          "Mod+Left".focus-column-left = { };
+          "MouseForward".focus-column-left = { };
+          "Mod+Ctrl+Left".move-column-left = { };
+          "Mod+Ctrl+Shift+Left".consume-or-expel-window-left = { };
+          "Mod+Right".focus-column-right = { };
+          "MouseBack".focus-column-right = { };
+          "Mod+Ctrl+Right".move-column-right = { };
+          "Mod+Ctrl+Shift+Right".consume-or-expel-window-right = { };
+          "Mod+Down".focus-window-down = { };
+          "Mod+Ctrl+Down".move-window-down = { };
+          "Mod+Up".focus-window-up = { };
+          "Mod+Ctrl+Up".move-window-up = { };
+
+          # Workspaces
+          "F14".toggle-overview = { };
+          "Mod+Page_Down".focus-workspace-down = { };
+          "Mod+Ctrl+Page_Down".move-column-to-workspace-down = { };
+          "Mod+Page_Up".focus-workspace-up = { };
+          "Mod+Ctrl+Page_Up".move-column-to-workspace-up = { };
+
+          # Monitors
+          "Mod+Alt+Left".focus-monitor-left = { };
+          "Mod+Alt+Ctrl+Left".move-column-to-monitor-left = { };
+          "Mod+Alt+Right".focus-monitor-right = { };
+          "Mod+Alt+Ctrl+Right".move-column-to-monitor-right = { };
+          "Mod+Alt+Down".focus-monitor-down = { };
+          "Mod+Alt+Ctrl+Down".move-column-to-monitor-down = { };
+          "Mod+Alt+Up".focus-monitor-up = { };
+          "Mod+Alt+Ctrl+Up".move-column-to-monitor-up = { };
+        };
+        config-notification.disable-failed = { };
+        cursor.xcursor-theme = "Adwaita";
+        environment.XDG_CURRENT_DESKTOP = "niri";
+        gestures.hot-corners.off = { };
+        hotkey-overlay.skip-at-startup = { };
+        layout = {
+          default-column-width.fixed = ceil (120 * character);
+          preset-column-widths._children = map (p: { proportion = p; }) [ (1.0 / 3) (1.0 / 2) (2.0 / 3) 1.0 ];
+        };
+        recent-windows.binds = {
+          "Alt+Tab".next-window._props.scope = "output";
+          "Alt+Shift+Tab".previous-window._props.scope = "output";
+        };
+        screenshot-path = "~/Downloads/screenshot %Y-%m-%dT%H:%M:%S.png";
+      };
+      windowRules = [
+        {
+          apply = { default-column-width.fixed = ceil (100 * character); };
+          to = [
+            { app-id = "^appimagekit-joplin$"; }
+            { app-id = "^local.result$"; }
+            { app-id = "^org.gnome.SystemMonitor$"; }
+          ];
+        }
+        {
+          apply = { open-floating = true; };
+          to = [
+            { app-id = "^firefox$"; title = "^Picture-in-Picture$"; }
+            { app-id = "^qemu$"; }
+            { app-id = "^Tor Browser$"; }
+            { app-id = "^wev$"; }
+            { app-id = "^xdg-desktop-portal$"; }
+          ];
+        }
+        {
+          apply = { open-fullscreen = true; open-on-output = system.host.displays.aside.name; };
+          to = [{ app-id = "^local.aside$"; }];
+        }
+      ];
+    };
+    xdg.configFile."niri/config.kdl".source =
       let
+        autostart._children = map (args: { spawn-at-startup = args; }) niri.autoStart;
         dms-override = {
           layout.focus-ring = {
             active-color = "#16161699";
             inactive-color = "#16161600";
           };
         };
-        settings = {
-          binds = let dms = args: [ "dms" "ipc" "call" ] ++ args; in {
-            # System
-            "XF86NotificationCenter".spawn = dms [ "keybinds" "toggle" "niri" ];
-            "Ctrl+Alt+Delete".spawn = dms [ "powermenu" "toggle" ];
-            "Mod+Escape".toggle-keyboard-shortcuts-inhibit = { };
-            "Mod+L".spawn = dms [ "lock" "lock" ];
-            "Mod+Shift+E".quit = { };
-
-            # Display
-            "XF86HangupPhone".power-off-monitors = { };
-            "XF86MonBrightnessDown" = { spawn = dms [ "brightness" "decrement" "5" "" ]; _props.allow-when-locked = true; };
-            "XF86MonBrightnessUp" = { spawn = dms [ "brightness" "increment" "5" "" ]; _props.allow-when-locked = true; };
-
-            # Volume
-            "XF86AudioMute" = { spawn = dms [ "audio" "mute" ]; _props.allow-when-locked = true; };
-            "XF86AudioLowerVolume" = { spawn = dms [ "audio" "decrement" "3" ]; _props.allow-when-locked = true; };
-            "XF86AudioRaiseVolume" = { spawn = dms [ "audio" "increment" "3" ]; _props.allow-when-locked = true; };
-            "XF86AudioMicMute".spawn = dms [ "audio" "micmute" ];
-
-            # Playback
-            "XF86AudioPlay".spawn = dms [ "mpris" "playPause" ];
-            "XF86AudioPause".spawn = dms [ "mpris" "playPause" ];
-            "XF86AudioPrev".spawn = dms [ "mpris" "previous" ];
-            "XF86AudioNext".spawn = dms [ "mpris" "next" ];
-
-            # Screenshots
-            "Print".screenshot = { };
-            "Alt+Print".screenshot-window = { };
-            "Ctrl+Print".screenshot-screen = { };
-
-            # Applications
-            "XF86Favorites".spawn = [ "emote" ];
-            "Mod+Space".spawn = dms [ "spotlight" "toggle" ];
-            "Mod+C".spawn = [ "/home/ak/.local/bin/clipboard-auto-dispatch" ];
-            "Mod+N".spawn = dms [ "notepad" "toggle" ];
-            "Mod+T".spawn = [ "kitty" ];
-            "Mod+Shift+C".spawn = dms [ "color-picker" "toggle" ];
-
-            # Window status
-            "F13".toggle-window-floating = { };
-            "Alt+F4" = { _props.repeat = false; close-window = { }; };
-
-            # Window size
-            "Mod+Return".expand-column-to-available-width = { };
-            "Mod+I".switch-preset-column-width-back = { };
-            "Mod+E".switch-preset-column-width = { };
-            "Mod+O".switch-preset-window-height = { };
-            "Mod+A".reset-window-height = { };
-
-            # Window motion
-            "Mod+Left".focus-column-left = { };
-            "MouseForward".focus-column-left = { };
-            "Mod+Ctrl+Left".move-column-left = { };
-            "Mod+Ctrl+Shift+Left".consume-or-expel-window-left = { };
-            "Mod+Right".focus-column-right = { };
-            "MouseBack".focus-column-right = { };
-            "Mod+Ctrl+Right".move-column-right = { };
-            "Mod+Ctrl+Shift+Right".consume-or-expel-window-right = { };
-            "Mod+Down".focus-window-down = { };
-            "Mod+Ctrl+Down".move-window-down = { };
-            "Mod+Up".focus-window-up = { };
-            "Mod+Ctrl+Up".move-window-up = { };
-
-            # Workspaces
-            "F14".toggle-overview = { };
-            "Mod+Page_Down".focus-workspace-down = { };
-            "Mod+Ctrl+Page_Down".move-column-to-workspace-down = { };
-            "Mod+Page_Up".focus-workspace-up = { };
-            "Mod+Ctrl+Page_Up".move-column-to-workspace-up = { };
-
-            # Monitors
-            "Mod+Alt+Left".focus-monitor-left = { };
-            "Mod+Alt+Ctrl+Left".move-column-to-monitor-left = { };
-            "Mod+Alt+Right".focus-monitor-right = { };
-            "Mod+Alt+Ctrl+Right".move-column-to-monitor-right = { };
-            "Mod+Alt+Down".focus-monitor-down = { };
-            "Mod+Alt+Ctrl+Down".move-column-to-monitor-down = { };
-            "Mod+Alt+Up".focus-monitor-up = { };
-            "Mod+Alt+Ctrl+Up".move-column-to-monitor-up = { };
-          };
-          config-notification.disable-failed = { };
-          cursor.xcursor-theme = "Adwaita";
-          environment.XDG_CURRENT_DESKTOP = "niri";
-          gestures.hot-corners.off = { };
-          hotkey-overlay.skip-at-startup = { };
-          layout = {
-            default-column-width.fixed = 900;
-            preset-column-widths._children = map (p: { proportion = p; }) [ (1.0 / 3) (1.0 / 2) (2.0 / 3) 1.0 ];
-          };
-          prefer-no-csd = { };
-          recent-windows.binds = {
-            "Alt+Tab".next-window._props.scope = "output";
-            "Alt+Shift+Tab".previous-window._props.scope = "output";
-          };
-          screenshot-path = "~/Downloads/screenshot %Y-%m-%dT%H:%M:%S.png";
-        };
-        window-rules._children = [
-          {
-            window-rule._children = [
-              { match._props = { app-id = "^appimagekit-joplin$"; }; }
-              { match._props = { app-id = "^org.gnome.SystemMonitor$"; }; }
-              { default-column-width.fixed = 750; }
-            ];
-          }
-          {
-            window-rule._children = [
-              { match._props = { app-id = "^firefox$"; title = "^Picture-in-Picture$"; }; }
-              { match._props = { app-id = "^qemu$"; }; }
-              { match._props = { app-id = "^Tor Browser$"; }; }
-              { match._props = { app-id = "^wev$"; }; }
-              { match._props = { app-id = "^xdg-desktop-portal$"; }; }
-              { open-floating = true; }
-            ];
-          }
-        ];
+        window-rules._children = map
+          ({ apply, to }: { window-rule._children = (map (m: { match._props = m; }) to) ++ [ apply ]; })
+          niri.windowRules;
       in
-      toKDL { } {
+      writeText "niri-config" (toKDL { } {
         _children = [
-          { include = toFile "settings.kdl" (toKDL { } settings); }
-          { include = toFile "window-rules.kdl" (toKDL { } window-rules); }
+          { include = "${writeText "settings.kdl" (toKDL { } niri.settings)}"; }
+          { include = "${writeText "window-rules.kdl" (toKDL { } window-rules)}"; }
+          { include = "${writeText "autostart.kdl" (toKDL { } autostart)}"; }
 
           # Generated by Dux Modular Shell
           { include = "dms/colors.kdl"; }
@@ -173,7 +249,7 @@ in
 
           { include = toFile "dms-override.kdl" (toKDL { } dms-override); }
         ];
-      };
+      });
 
     # Dux Modular Shell
     # TODO: theme
@@ -215,7 +291,7 @@ in
               { id = "battery"; showBatteryPercentOnlyOnBattery = true; }
               { id = "controlCenterButton"; }
             ];
-            screenPreferences = [{ inherit (system.host.mainDisplay) model name; }];
+            screenPreferences = [{ inherit (system.host.displays.main) model name; }];
             showOnLastDisplay = true;
             surfaceColor = "custom";
             surfaceCustomColor = "#000000";
@@ -275,7 +351,7 @@ in
         notificationPopupPosition = -1 /* top center */;
         osdPosition = 0 /* top right */;
         screenPreferences = genAttrs [ "lockScreen" "notepad" "notifications" "osd" "toast" ]
-          (s: [{ inherit (system.host.mainDisplay) model name; }]);
+          (s: [{ inherit (system.host.displays.main) model name; }]);
         showOnLastDisplay = { notepad = true; notifications = true; osd = true; toast = true; };
 
         # Locale

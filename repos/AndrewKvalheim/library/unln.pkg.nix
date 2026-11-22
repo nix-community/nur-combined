@@ -1,16 +1,13 @@
 { writeShellApplication
 
   # Dependencies
-, uutils-coreutils
+, uutils-coreutils-noprefix
 }:
 
-let
-  uutils-coreutils' = uutils-coreutils.override { prefix = null; };
-in
 writeShellApplication {
   name = "unln";
 
-  runtimeInputs = [ uutils-coreutils' ];
+  runtimeInputs = [ uutils-coreutils-noprefix ];
 
   text = ''
     canonical="$(readlink --canonicalize-existing "$1")"

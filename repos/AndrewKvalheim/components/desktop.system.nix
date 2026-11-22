@@ -49,7 +49,7 @@ in
       compositor = {
         name = "niri";
         customConfig = readFile duxGreeterNiriConfig + ''
-          output ${toKdl1String host.mainDisplay} { focus-at-startup; }
+          output ${toKdl1String host.displays.main.name} { focus-at-startup; }
         '';
       };
       configFiles = [

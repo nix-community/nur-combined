@@ -6,9 +6,7 @@ let
   inherit (config.services) organize-downloads;
   inherit (lib) concatStringsSep getExe getExe' mkOption replaceString;
   inherit (lib.types) listOf str;
-  inherit (pkgs) bash efficient-compression-tool findutils gnugrep inotify-tools libjxl lsof on-mains-power resholve unzip uutils-coreutils;
-
-  uutils-coreutils' = uutils-coreutils.override { prefix = null; };
+  inherit (pkgs) bash efficient-compression-tool findutils gnugrep inotify-tools libjxl lsof on-mains-power resholve unzip uutils-coreutils-noprefix;
 
   globs = map (g: "${homeDirectory}/${replaceString " " "\\ " g}") organize-downloads.globs;
 
@@ -24,19 +22,19 @@ let
         lsof
         on-mains-power
         unzip
-        uutils-coreutils'
+        uutils-coreutils-noprefix
       ];
       execer = [
         "cannot:${getExe' libjxl "cjxl"}"
-        "cannot:${getExe' uutils-coreutils' "date"}"
-        "cannot:${getExe' uutils-coreutils' "ls"}"
-        "cannot:${getExe' uutils-coreutils' "mkdir"}"
-        "cannot:${getExe' uutils-coreutils' "mv"}"
-        "cannot:${getExe' uutils-coreutils' "rm"}"
-        "cannot:${getExe' uutils-coreutils' "rmdir"}"
-        "cannot:${getExe' uutils-coreutils' "sleep"}"
-        "cannot:${getExe' uutils-coreutils' "stat"}"
-        "cannot:${getExe' uutils-coreutils' "touch"}"
+        "cannot:${getExe' uutils-coreutils-noprefix "date"}"
+        "cannot:${getExe' uutils-coreutils-noprefix "ls"}"
+        "cannot:${getExe' uutils-coreutils-noprefix "mkdir"}"
+        "cannot:${getExe' uutils-coreutils-noprefix "mv"}"
+        "cannot:${getExe' uutils-coreutils-noprefix "rm"}"
+        "cannot:${getExe' uutils-coreutils-noprefix "rmdir"}"
+        "cannot:${getExe' uutils-coreutils-noprefix "sleep"}"
+        "cannot:${getExe' uutils-coreutils-noprefix "stat"}"
+        "cannot:${getExe' uutils-coreutils-noprefix "touch"}"
       ];
       keep."$handler" = true;
     }

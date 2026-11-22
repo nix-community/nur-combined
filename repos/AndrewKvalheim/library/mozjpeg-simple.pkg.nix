@@ -8,20 +8,18 @@
 , imagemagick
 , libheif
 , mozjpeg
-, uutils-coreutils
+, uutils-coreutils-noprefix
 }:
 
 let
   inherit (builtins) readFile;
   inherit (lib) getExe getExe';
-
-  uutils-coreutils' = uutils-coreutils.override { prefix = null; };
 in
 resholve.writeScriptBin "mozjpeg" {
   interpreter = getExe bash;
-  inputs = [ exiftool file imagemagick libheif mozjpeg uutils-coreutils' ];
+  inputs = [ exiftool file imagemagick libheif mozjpeg uutils-coreutils-noprefix ];
   execer = [
     "cannot:${getExe exiftool}"
-    "cannot:${getExe' uutils-coreutils' "mktemp"}"
+    "cannot:${getExe' uutils-coreutils-noprefix "mktemp"}"
   ];
 } (readFile ./assets/mozjpeg.sh)

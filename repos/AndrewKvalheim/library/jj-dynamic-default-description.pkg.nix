@@ -4,16 +4,14 @@
   # Dependencies
 , bash
 , gawk
-, uutils-coreutils
+, uutils-coreutils-noprefix
 }:
 
 let
   inherit (builtins) readFile;
   inherit (lib) getExe;
-
-  uutils-coreutils' = uutils-coreutils.override { prefix = null; };
 in
 resholve.writeScriptBin "jj-dynamic-default-description" {
   interpreter = getExe bash;
-  inputs = [ gawk uutils-coreutils' ];
+  inputs = [ gawk uutils-coreutils-noprefix ];
 } (readFile ./assets/jj-dynamic-default-description.sh)

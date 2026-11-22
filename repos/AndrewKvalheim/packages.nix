@@ -18,6 +18,7 @@ specify {
   age-gopass = any;
   ai-robots-txt = any;
   album-art = any;
+  ansible = { version = "≥2.22"; search = pr 585918 "sha256-UmJZsNklnIqWOfXRrLkthDlvxt6jRGYWZnWMjR4bQsk="; }; # Compatibility with Python 3.15
   ansible-vault-pass-client = any;
   apex = any;
   attachments.deps = { inherit (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/303bd8071377433a2d8f76e684ec773d70c5b642.tar.gz") { config.allowUnfree = true; overlays = [ ]; }) yarn2nix-moretea; }; # TODO: Migrate

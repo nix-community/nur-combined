@@ -116,6 +116,18 @@ in
     "sync.${toString filesystem}.path" = "${homeDirectory}/akorg/resource/joplin-sync";
   };
 
+  # Clipboard handlers
+  programs.process-clipboard.handlers = [
+    # IMF → filtered IMF
+    {
+      condition = ''[[ "$text" == 'Return-Path: '* ]]'';
+      action = ''
+        kitty --app-id='local.result' \
+          sh -c "wl-paste --no-newline --type 'text' | CLICOLOR_FORCE='✓' filter-imf | wl-copy --type 'TEXT'"
+      '';
+    }
+  ];
+
   # Unison
   services.unison.pairs = {
     "3d-printing" = {

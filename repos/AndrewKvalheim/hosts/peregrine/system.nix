@@ -15,7 +15,10 @@ in
   host = {
     name = "peregrine";
     dir = ./.;
-    mainDisplay = { name = "DSI-1"; model = "Unknown"; };
+    displays = {
+      aside.name = "HDMI-A-1";
+      main = { name = "DSI-1"; model = "Unknown"; };
+    };
     metrics = rec {
       cpuCores = 4;
       cpuMarkMulti = 5345;

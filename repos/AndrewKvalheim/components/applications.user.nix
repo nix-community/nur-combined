@@ -245,7 +245,6 @@ in
       # System
       bustle
       dconf-editor
-      ddcutil
       displaycal
       dua
       gnome-console
@@ -309,6 +308,20 @@ in
         (name: script: genAttrs' (splitString "/" types)
           (type: nameValuePair "${type}…/${replaceString "/" "⧸" name}" script)))
       by-type;
+
+    # Clipboard handlers
+    programs.process-clipboard.handlers = [
+      # Issue reference → GitHub URL
+      {
+        condition = ''[[ "$text" =~ ^([^/#]*)/([^/#]*)#([[:digit:]]*)$ ]]'';
+        action = ''replace_with "https://github.com/''${BASH_REMATCH[1]}/''${BASH_REMATCH[2]}/issues/''${BASH_REMATCH[3]}"'';
+      }
+      # Issue URL → markdown link
+      {
+        condition = ''[[ "$text" =~ ^(https://[^/]+/([^/]+/[^/]+)/(issues|pull|pulls)/([[:digit:]]+))$ ]]'';
+        action = ''replace_with "[''${BASH_REMATCH[2]}#''${BASH_REMATCH[4]}](''${BASH_REMATCH[1]})"'';
+      }
+    ];
 
     # Configuration
     home.sessionVariables = {

@@ -13,15 +13,13 @@
 , gnugrep
 , gnused
 , imagemagick
-, uutils-coreutils
+, uutils-coreutils-noprefix
 , xdg-utils
 , xdpyinfo
 }:
 
 let
   inherit (lib) escapeShellArg licenses makeBinPath;
-
-  uutils-coreutils' = uutils-coreutils.override { prefix = null; };
 
   dependencies = {
     diff-image = [
@@ -32,7 +30,7 @@ let
       gnugrep
       gnused
       imagemagick
-      uutils-coreutils'
+      uutils-coreutils-noprefix
       xdg-utils
       xdpyinfo
     ];
@@ -41,7 +39,7 @@ let
       bash
       diffutils
       imagemagick
-      uutils-coreutils'
+      uutils-coreutils-noprefix
     ];
   };
 in

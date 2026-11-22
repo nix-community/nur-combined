@@ -412,6 +412,7 @@ downsample
 downthread
 downvote
 downvoted
+DPMS
 draggable
 drey
 drivable
@@ -1056,6 +1057,7 @@ orthoimagery
 ortholinear
 orthophoto
 OSCON
+OSD
 OSEM
 OSM
 OSMCha

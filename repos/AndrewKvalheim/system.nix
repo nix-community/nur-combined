@@ -39,7 +39,15 @@ in
   options = {
     host = {
       dir = mkOption { type = path; };
-      mainDisplay = { name = mkOption { type = str; }; model = mkOption { type = str; }; };
+
+      # Discover via:
+      #
+      #     edid-decode --skip-hex-dump "/sys/class/drm/card1-$name/edid" \
+      #       | awk '$1 == "Model:" { printf "0x%x\n", $2; exit }'
+      displays = {
+        aside = { name = mkOption { type = str; }; };
+        main = { name = mkOption { type = str; }; model = mkOption { type = str; }; };
+      };
 
       metrics = {
         cpuCores = mkOption { type = int; };

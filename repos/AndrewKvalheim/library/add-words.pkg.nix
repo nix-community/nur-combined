@@ -6,18 +6,16 @@
 , git
 , jujutsu
 , moreutils
-, uutils-coreutils
+, uutils-coreutils-noprefix
 }:
 
 let
   inherit (builtins) readFile;
   inherit (lib) getExe;
-
-  uutils-coreutils' = uutils-coreutils.override { prefix = null; };
 in
 resholve.writeScriptBin "add-words" {
   interpreter = getExe bash;
-  inputs = [ git jujutsu moreutils uutils-coreutils' ];
+  inputs = [ git jujutsu moreutils uutils-coreutils-noprefix ];
   execer = [
     "cannot:${getExe git}"
     "cannot:${getExe jujutsu}"
