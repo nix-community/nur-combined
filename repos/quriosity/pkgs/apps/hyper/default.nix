@@ -13,7 +13,6 @@
 , alsa-lib
 , nss
 , nspr
-, pyfa
 , cups
 , cairo
 , dbus-glib
@@ -32,11 +31,11 @@
 
 let
   pname = "hyper";
-  version = "4.0.0-q";
+  version = "4.0.0-q-canary.22";
 
   src = fetchurl {
-    url = "https://github.com/quine-global/hyper/releases/download/v${version}-canary.14/Hyper-${version}-canary.13-x86_64.AppImage";
-    hash = "sha256-0iV+0fC50J7lEKtKjCTQWqrh5HVmv/dhjqKULAci7V8=";
+    url = "https://github.com/quine-global/hyper/releases/download/v${version}/Hyper-${version}-x86_64.AppImage";
+    hash = "sha256-Ikgfspkgpx8gOdZeXyoLzQsakgy6StyfI0AsLjNeN3o=";
   };
 
   appimageContents = appimageTools.extract {
@@ -79,7 +78,6 @@ stdenv.mkDerivation {
     alsa-lib
     nss
     nspr
-    pyfa
     cups
     cairo
     dbus-glib
@@ -133,6 +131,5 @@ stdenv.mkDerivation {
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "hyper";
-    broken = true;
   };
 }

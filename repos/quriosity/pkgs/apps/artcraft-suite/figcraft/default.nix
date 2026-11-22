@@ -46,8 +46,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-GVTt+0fo+TfJMlnP5MbdayGN5GLgr0BipZV9LNiB3yI=";
-  # `isolate_lowest_one` is unstable on the stable toolchain nixpkgs ships.
-  patches = [ ./fix-isolate-lowest-one.patch ];
   cargoBuildFlags = [ "--package" "figcraft" "--package" "figcraft-cli" ];
   cargoTestFlags = [ "--package" "figcraft" "--package" "figcraft-cli" ];
 
