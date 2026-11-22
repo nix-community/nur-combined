@@ -47,6 +47,8 @@ in
   # including during nixos-rebuild switch. Restarting its audio utility restores
   # microphone detection without closing the browser or changing permissions.
   # https://github.com/brave/brave-browser/issues/13030
+  # Fixed in Chromium 159 (https://crbug.com/573614378); remove this once Brave
+  # is based on it.
   systemd.user.services.pipewire-pulse.serviceConfig.ExecStartPost = [
     # A recovery failure must not fail the audio server itself.
     "-${lib.getExe braveAudioReset}"

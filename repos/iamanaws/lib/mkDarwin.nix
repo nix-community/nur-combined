@@ -90,7 +90,7 @@ let
         };
         users = lib.mkMerge (
           map (u: {
-            ${u.name} = lib.mkDefault (import (hmModuleFor u.name u.homeManager.module));
+            ${u.name} = import (hmModuleFor u.name u.homeManager.module);
           }) (lib.filter (u: u.homeManager.enable) users)
         );
       };

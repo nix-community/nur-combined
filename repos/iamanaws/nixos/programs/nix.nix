@@ -37,7 +37,8 @@
       trusted-users = [ "@wheel" ];
     };
 
-    optimise.automatic = true;
+    # Redundant with auto-optimise-store
+    # optimise.automatic = true;
 
     gc = {
       automatic = true;

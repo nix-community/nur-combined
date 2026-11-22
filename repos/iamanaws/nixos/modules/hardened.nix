@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   hostConfig,
   lib,
@@ -60,7 +61,8 @@ in
 
     kernel-modules = {
       load = true; # allow runtime kernel module loading
-      disable.bluetooth-related = false; # allow Bluetooth with the maximum preset
+      # Block Bluetooth modules unless the host uses Bluetooth.
+      disable.bluetooth-related = !config.hardware.bluetooth.enable;
     };
 
     settings = {

@@ -17,7 +17,7 @@
     initrd = {
       availableKernelModules = [
         "xhci_pci"
-        "thunderbolt"
+        # "thunderbolt"
         "nvme"
         "usb_storage"
         "sd_mod"
@@ -69,4 +69,7 @@
   };
 
   hardware.bluetooth.enable = true;
+
+  # Thunderbolt 4 port. Also add "thunderbolt" to initrd list
+  # nix-mineral.kernel-modules.disable.thunderbolt-related = false;
 }

@@ -9,6 +9,7 @@ let
   # Evaluate maintained configurations without building their system closures.
   activeHosts = [
     hostRegistry.byBackend.nixos.archimedes
+    hostRegistry.byBackend.nixos.daedalus
     hostRegistry.byBackend.nixos.goliath
     hostRegistry.byBackend.nixos.pwnbox
     hostRegistry.byBackend.darwin.galileo

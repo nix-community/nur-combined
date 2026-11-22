@@ -28,7 +28,7 @@ let
         patches = [
           (final.fetchpatch2 {
             url = "https://github.com/NixOS/nixpkgs/pull/589125.patch?full_index=1";
-            hash = "sha256-A+XnmxJDVVBJzAbZ2KFNfy5oLnVZ4BFzd7zANg1ELV0=";
+            hash = "sha256-ysAloOLA2p0f3HhgFLLIpxiKbyJbcW4aSuGHQtIkg+M=";
           })
         ];
         patchFlags = [ "-p5" ];

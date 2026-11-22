@@ -28,6 +28,7 @@ let
     "gpt-5.5"
     "gpt-5.6-luna"
     "gpt-5.6-terra"
+    "gpt-5.6-sol"
   ];
 in
 {
@@ -66,21 +67,20 @@ in
         }
         # {
         #   provider = "cursor";
-        #   model = "gpt-5.6-sol";
+        #   model = "claude-opus-5-5";
         # }
         {
           provider = "cursor";
-          model = "claude-opus-5-5";
+          model = "claude-fable-5-2";
         }
         {
           provider = "cursor";
-          model = "claude-fable-5-2";
+          model = "gemini-4-argon";
         }
       ];
       providerModelPreferences = {
         codex.hiddenModels = hiddenGptModels ++ [
           "gpt-5.3-codex-spark"
-          "gpt-5.6-sol"
           # "gpt-6-luna"
           "gpt-6-sol"
           "gpt-6-astra"
@@ -102,7 +102,6 @@ in
             "gpt-5.1-codex-max"
             "gpt-5.2-codex"
             "gpt-5.4-nano"
-            # "gpt-5.6-sol"
             "composer-2"
             "composer-2.5"
             "deepseek-v41-flash-1017"
@@ -116,6 +115,7 @@ in
             "gemini-4-hydrogen"
             "gemini-4-carbon"
             "gemini-4-argon"
+            # "gemini-4-neon"
             "kimi-k2.5"
             "kimi-k2.7-code"
             "kimi-k3"

@@ -15,6 +15,8 @@
     # stable gets broken on unstable for aarch64-darwin
     package = pkgs.lixPackageSets.latest.lix;
     settings = {
+      auto-optimise-store = true;
+
       experimental-features = [
         "nix-command"
         "flakes"
@@ -27,7 +29,8 @@
       ];
     };
 
-    optimise.automatic = config.nix.enable;
+    # Redundant with auto-optimise-store
+    # optimise.automatic = config.nix.enable;
 
     gc = {
       automatic = config.nix.enable;

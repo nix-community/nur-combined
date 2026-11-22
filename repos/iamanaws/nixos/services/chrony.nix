@@ -20,7 +20,8 @@
       server ntppool1.time.nl iburst nts
       server nts.netnod.se iburst nts
       server ptbtime1.ptb.de iburst nts
-      server time.dfm.dk iburst nts
+      # Its IPv6 address rarely answers.
+      server time.dfm.dk iburst nts ipv4
       server time.cifelli.xyz iburst nts
 
       minsources 3

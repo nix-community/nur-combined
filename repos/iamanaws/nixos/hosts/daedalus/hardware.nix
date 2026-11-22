@@ -11,6 +11,9 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
+  # The sops age key lives under /home and is needed before users are created.
+  fileSystems."/home".neededForBoot = true;
+
   boot = {
     initrd = {
       availableKernelModules = [

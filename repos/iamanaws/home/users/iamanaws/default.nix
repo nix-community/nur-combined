@@ -24,6 +24,8 @@ in
     with pkgs;
     [
       nixd
+      jq
+      ripgrep
     ]
     ++ [ llmAgentPkgs.cursor-agent ];
 
