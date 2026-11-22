@@ -1,8 +1,8 @@
 diff --git a/app/tests/test_setup.py b/app/tests/test_setup.py
-index 7abde7a..5a8bd24 100644
+index 44a14d0..12a66d7 100644
 --- a/app/tests/test_setup.py
 +++ b/app/tests/test_setup.py
-@@ -1040,7 +1040,10 @@ class Unpacking(Base):
+@@ -1056,7 +1056,10 @@ class Unpacking(Base):
  class Jobs(Base):
      def test_first_run_end_to_end(self):
          s = self.setup()
@@ -14,7 +14,7 @@ index 7abde7a..5a8bd24 100644
          self.assertEqual(st['mode'], 'first-run')
          self.assertEqual(st['recommend']['pack'], 'small')
          self.assertNotIn('url', json.dumps(st['manifest']))
-@@ -1748,6 +1751,19 @@ def make_map(path, state='CA', extra=None):
+@@ -2442,6 +2445,19 @@ def make_map(path, state='CA', extra=None):
      return files
  
  
@@ -34,7 +34,7 @@ index 7abde7a..5a8bd24 100644
  class Maps(Base):
      def map_manifest(self, extra=None):
          files = make_map(self.tmp / 'Lastbook-Map-CA.zip', extra=extra)
-@@ -1965,7 +1981,8 @@ class Maps(Base):
+@@ -2659,7 +2675,8 @@ class Maps(Base):
              a = s.start('small', False)['need_bytes']
              b = s.start('small', False, map_id='CA')['need_bytes']
          self.assertEqual(b - a, mf.map('CA')['download_bytes'] + mf.map('CA')['installed_bytes'])
@@ -44,7 +44,7 @@ index 7abde7a..5a8bd24 100644
          self.assertIn('maps', s.state()['manifest'])
          self.assertEqual(s.start(None, False, map_id='CA')['code'], 'nothing')    # first run: a library first
  
-@@ -2111,6 +2128,56 @@ class AddressIndexes(Maps):
+@@ -2805,6 +2822,56 @@ class AddressIndexes(Maps):
          self.assertEqual(merged['address_indexes'][0]['files'], validated['address_indexes'][0]['files'])
  
  
@@ -345,7 +345,7 @@ index 0000000..1f53328
 +  ]
 +}
 diff --git a/docs/MAPS.md b/docs/MAPS.md
-index 7549295..bc988fb 100644
+index 7f24eba..7d8b944 100644
 --- a/docs/MAPS.md
 +++ b/docs/MAPS.md
 @@ -17,6 +17,7 @@ A map set lives in the data folder. `map-set.json` at its top lists the files an
@@ -356,7 +356,7 @@ index 7549295..bc988fb 100644
  | `derived/geo/water.sqlite` | `resource`, `spatial`, `feat`, `feat_idx` | Dams, reservoirs, lakes and ponds | `server.py` |
  | `derived/geo/crops.sqlite` | `resource`, `spatial`, `tile` | Orchards, vineyards and berries | `server.py` |
  | `derived/geo/terrain.sqlite` | `tile` | Elevation tiles for relief, contours and the 3D view | `server.py` |
-@@ -76,6 +77,7 @@ so ask before adding many.
+@@ -99,6 +100,7 @@ so ask before adding many.
  | `places.sqlite` | `tools/build_places.py` | USGS GNIS, Census gazetteers, named OpenStreetMap places |
  | address indexes | `tools/build_addresses.py`, then `packaging/address_indexes.py` | Overture Maps addresses |
  | a state map | `packaging/build_packs.py map <ST>`, published by `packaging/state_maps.py` | The base map, then every row inside the state's box |
@@ -364,7 +364,7 @@ index 7549295..bc988fb 100644
  
  Each tool's header says what it reads, what it writes and the licence of its source. Read it before you run one: some
  expect source files that are hundreds of gigabytes.
-@@ -100,6 +102,41 @@ expect source files that are hundreds of gigabytes.
+@@ -123,6 +125,41 @@ expect source files that are hundreds of gigabytes.
  - Address search knows US state names and US street words (`engine/address_search.py`, `tools/build_addresses.py`).
  - The base map of the world is drawn from `web/world-context.json` and `web/geographic-context.json`.
  
@@ -406,7 +406,7 @@ index 7549295..bc988fb 100644
  Coverage outside the US needs a decision on each of these first: which open source replaces each federal list, under
  what licence, what a "state" is elsewhere, and how addresses are written. That is a design discussion to have in an
  issue before any code.
-@@ -124,6 +161,8 @@ as one map.
+@@ -172,6 +209,8 @@ The design discussion is in #23, #25, #31 and #95.
  
  ## Checking a map change
  
@@ -416,7 +416,7 @@ index 7549295..bc988fb 100644
  - A change to a pack or map tool: `packaging/test_pack_tools.py` and `packaging/scan_pack.py` check what a map set may
    hold, and `scan_pack.py` lists the allowed files under `derived/geo/` (`GEO_FILES`).
 diff --git a/engine/setup/install.py b/engine/setup/install.py
-index 9eea2b8..529461f 100644
+index bcc6e20..166e52f 100644
 --- a/engine/setup/install.py
 +++ b/engine/setup/install.py
 @@ -100,7 +100,7 @@ def _member_parts(info, top_optional=False):
@@ -1023,10 +1023,10 @@ index 0000000..a5c56c7
 +if __name__ == '__main__':
 +    unittest.main()
 diff --git a/server.py b/server.py
-index 934cf60..d179ba6 100644
+index 1b45df0..205c40a 100644
 --- a/server.py
 +++ b/server.py
-@@ -714,22 +714,45 @@ def national_status():
+@@ -732,22 +732,45 @@ def national_status():
  
  
  SOCAL_CELL = 0.05
@@ -1083,7 +1083,7 @@ index 934cf60..d179ba6 100644
      return _socal['cells']
  
  
-@@ -1143,19 +1166,20 @@ def _resource_summary(cls, detail):
+@@ -1161,19 +1184,20 @@ def _resource_summary(cls, detail):
  
  @functools.lru_cache(maxsize=1)
  def socal_classes():
@@ -1108,7 +1108,7 @@ index 934cf60..d179ba6 100644
          if dedupe and not getattr(_tls, 'socal_fn', False):
              nat.create_function('socal', 3, lambda cls, lo, la: 1 if cls in socal_classes() and in_socal(lo, la) else 0, deterministic=True)
              _tls.socal_fn = True
-@@ -1613,7 +1637,12 @@ def map_info():
+@@ -1631,7 +1655,12 @@ def map_info():
      extra = {'aerial': has_aerial()}
      if pack:
          extra.update(map_contents())
@@ -1225,10 +1225,10 @@ index 5d90296..78c923b 100644
      st.noContours = info.contours === false;
      if (!info.layers) return;
 diff --git a/web/setup.js b/web/setup.js
-index 3c0fc10..36aa581 100644
+index 90c8b7e..094db84 100644
 --- a/web/setup.js
 +++ b/web/setup.js
-@@ -89,8 +89,11 @@
+@@ -90,8 +90,11 @@
      return Boolean(pack.revision && pack.revision !== current.content_revision);
    }
  
@@ -1242,7 +1242,7 @@ index 3c0fc10..36aa581 100644
    const mapById = id => maps().find(m => m.id === id);
    const mapName = id => id === 'us' ? 'the whole US' : (mapById(id) || {}).title || id;
    /* the detailed map the library will have once the chosen pack is in: the person's state map, or the one the pack carries */
-@@ -102,7 +105,8 @@
+@@ -103,7 +106,8 @@
    const addressById = id => addresses().find(a => a.id === id);
    const addressAdds = () => { const a = addressById(selectedState()); return a && a.available !== false && !((cur() || {}).address_indexes || []).includes(a.id) ? a : null };
    const mapMissing = () => !selectedState();
@@ -1252,16 +1252,16 @@ index 3c0fc10..36aa581 100644
    function packSummary(p) {
      const text = p.summary || '';
      if (p.id !== 'medium' || !maps().length) return text;
-@@ -228,7 +232,7 @@
+@@ -235,7 +239,7 @@
  
-     main.innerHTML = `${c ? `<button class="s-link" id="toManage">${ico('back')}<span>Library and local AI</span></button>` : ''}
-       <h1>${c ? 'Change the library' : 'Set up Lastbook'}</h1>
--      ${c ? '' : '<p class="lead">Choose your state and library. Lastbook downloads them for offline use.</p>'}
-+      ${c ? '' : '<p class="lead">Choose your state or region and library. Lastbook downloads them for offline use.</p>'}
+     main.innerHTML = `${c ? `<button class="s-link" id="toManage">${ico('back')}<span data-i18n="setup.settingsTitle">Library and local AI</span></button>` : ''}
+       ${c ? '<h1 data-i18n="setup.changeLibrary">Change the library</h1>' : '<h1 data-i18n="setup.title">Set up Lastbook</h1>'}
+-      ${c ? '' : '<p class="lead" data-i18n="setup.chooseIntro">Choose your state and library. Lastbook downloads them for offline use.</p>'}
++      ${c ? '' : '<p class="lead" data-i18n="setup.chooseIntro">Choose your state or region and library. Lastbook downloads them for offline use.</p>'}
        ${computer()}
        ${c ? '' : recommendLine()}
        ${found ? `<h2>Found on this computer</h2><div class="s-founds">${found}</div>` : ''}
-@@ -259,26 +263,29 @@
+@@ -267,26 +271,29 @@
      if (!box) return;
      main.querySelectorAll('[data-pack-summary]').forEach(el => { el.textContent = packSummary(packById(el.dataset.packSummary)) });
      const selected = selectedState();
@@ -1303,7 +1303,7 @@ index 3c0fc10..36aa581 100644
        <p class="s-hint" id="mapHint">${hint}</p>`;
      $('#mapSel').onchange = e => { choice.map = e.target.value; shortfall = null; mapSection(); summary(); $('#mapSel').focus() };
    }
-@@ -297,7 +304,7 @@
+@@ -305,7 +312,7 @@
      b.disabled = !need || !!short || mapMissing();
      const newPack = c && packNeedsInstall(packById(choice.pack)), newAi = c && choice.ai && !c.model, newMap = c && mapAdds(), newAddresses = c && addressAdds();
      const parts = [newPack && packById(choice.pack).title, newAi && 'the local AI', newMap && `the ${newMap.title} map`, newAddresses && !newMap && 'offline address search'].filter(Boolean);
@@ -1312,7 +1312,7 @@ index 3c0fc10..36aa581 100644
      if (newPack && choice.pack === c.pack && !mapMissing()) b.textContent = 'Download and install update';
      const ch = $('#chFolder'); if (ch) ch.onclick = pickFolder;
    }
-@@ -363,8 +370,8 @@
+@@ -371,8 +378,8 @@
          ${m && m.available !== false ? `<div class="s-row">${ico('ai', 's-ri')}<span><b>Local AI</b><small>${c.model ? 'On this computer · ' + size(m.size) : aiFits() ? 'Not installed · about ' + size(m.size) : esc((S.hardware.ai && S.hardware.ai.why) || 'Not for this computer.')}</small></span>
            ${c.model ? (!CAN.removeAi ? '' : confirmRemove ? `<span class="s-confirm"><button class="btn danger" id="rmYes">Remove</button><button class="btn plain" id="rmNo">Keep</button></span>` : '<button class="btn plain" id="rmAi">Remove</button>') : aiFits() ? `<button class="btn" id="addAi">Add</button>` : ''}</div>` : ''}
          ${maps().length ? (() => { const mNow = c.map && c.map !== 'base' ? c.map : packMap(c.pack);

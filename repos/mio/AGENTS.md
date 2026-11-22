@@ -19,8 +19,9 @@
      `.#legacyPackages.<system>.<pkg>` is the reliable installable; `.#packages.<system>.<pkg>` is not one (Nix reads it as `legacyPackages.<system>.packages.<system>.<pkg>`, and this overlay's `packages` attribute is a function). `nix build .#<pkg>` still works for packages whose per-system derivation is supported, e.g. `kytyps5`, which repackages itself from a pinned x86_64-darwin nixpkgs inside its own `package.nix` (the flake keeps nixpkgs as its only input).
   3. Review `git diff`: the script must update every coupled pin (version, src hash, dependency/FOD hashes, commit metadata), not just the version.
   4. `git add` new files, then verify with `nix build` for the package before committing; the gate is the package's own derivation, not just a successful evaluation.
-  5. Format changed Nix files with `nixfmt` (nixfmt-rfc-style). Don't reformat unrelated code, and never rewrite a patch file for formatting alone.
-  6. Keep the conventional versioning rules below; if a script produces a bad `version`, fix the script, not just the output.
+  5. When updating a main package, also check and fix up any patched/derived variants that build on it (e.g. `<pkg>_patched`, such as `lastbook_patched`): rebase their patches, refresh any variant-specific manifests/assets, and verify their `nix build` passes too.
+  6. Format changed Nix files with `nixfmt` (nixfmt-rfc-style). Don't reformat unrelated code, and never rewrite a patch file for formatting alone.
+  7. Keep the conventional versioning rules below; if a script produces a bad `version`, fix the script, not just the output.
 - `check_updates.py` reports the latest upstream commit for git-sourced packages even when the tracked file/release commit did not move (e.g. freebuff pins the commit that sets the npm release version, not branch HEAD). Confirm with the package's update script before bumping.
 - A package whose upstream lags (e.g. VSCodium has no release for the newest vscode tag) must not be bumped to a version its branding/patch set does not support; leave it and report why.
 - Standard Nixpkgs versioning rule: NEVER use a commit hash directly as `version`! For unreleased packages or builds tracking git commits/branches, follow the standard Nixpkgs convention:
