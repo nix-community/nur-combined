@@ -39,6 +39,8 @@ hardware.gpu-unlock = {
 
 The module adds the kernel module and firmware to the initrd and orders `gpu_unlock` before normally ordered NVIDIA initrd modules. It is disabled by default. Experimental RTX 4090 D, RTX 4070 Ti SUPER and RTX 4060 Ti 16GB support requires the corresponding `rtx4090dExperimental`, `ad103Experimental` or `ad106Experimental` option; AD103/AD106 also require exactly one PCI address.
 
+The firmware adds about 70 MB to every initrd. When the initrd loads no NVIDIA module, `initrd = false` keeps it out: a stage-2 unit loads `gpu_unlock` before udev and `systemd-modules-load` can load NVIDIA. An assertion rejects this while the initrd lists an NVIDIA module.
+
 Follow upstream's cold-boot and recovery instructions, keep a stock boot entry, and verify the hardware result independently. Compilation and a successful module load do not establish that a GPU was unlocked. Modified-memory boards are not validated by these package checks. This does not replace the normal NVIDIA driver's GSP firmware or repair VBIOS power-state tables.
 
 ## Automatic build repairs
