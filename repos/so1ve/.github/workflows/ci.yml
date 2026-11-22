@@ -6,9 +6,18 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      force_rebuild:
+        description: Rebuild all packages even if already cached
+        type: boolean
+        default: false
 
 permissions:
   contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   lint:
@@ -19,8 +28,188 @@ jobs:
       - run: nix fmt -- --ci
       - run: nix run nixpkgs#actionlint
 
+  plan:
+    runs-on: ubuntu-26.04
+    outputs:
+      has_builds: ${{ steps.plan.outputs.has_builds }}
+      matrix: ${{ steps.plan.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: accept-flake-config = true
+      - name: Plan uncached package builds
+        id: plan
+        env:
+          CACHE_URL: https://cache.so1ve.dev
+          EVENT_NAME: ${{ github.event_name }}
+          FORCE_REBUILD: ${{ inputs.force_rebuild == true }}
+          MAX_SHARDS: "8"
+          PR_HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          cache_base="$CACHE_URL"
+          if [[ "$EVENT_NAME" == "pull_request" && -n "$PR_NUMBER" && "$PR_HEAD_REPO" == "$REPOSITORY" ]]; then
+            cache_base="$CACHE_URL/pr/$REPOSITORY/$PR_NUMBER"
+          fi
+
+          targets_file="$(mktemp)"
+          printf '[]\n' >"$targets_file"
+
+          while IFS=' ' read -r system runner; do
+            pkgs_json="$(
+              NIXPKGS_ALLOW_UNFREE=1 nix eval --impure --json ".#packages.$system" \
+                --apply '
+                  packages:
+                  let
+                    filtered = builtins.removeAttrs packages [ "baidunetdisk" ];
+                  in
+                  map (name: {
+                    inherit name;
+                    storePath = builtins.unsafeDiscardStringContext (builtins.getAttr name filtered).outPath;
+                  }) (builtins.attrNames filtered)
+                '
+            )"
+
+            cached_json="$(
+              nix eval --json ".#legacyPackages.$system.cached" \
+                --apply '
+                  packages:
+                  map (name: {
+                    inherit name;
+                    storePath = builtins.unsafeDiscardStringContext (builtins.getAttr name packages).outPath;
+                  }) (builtins.attrNames packages)
+                '
+            )"
+
+            jq \
+              --arg system "$system" \
+              --arg runner "$runner" \
+              --argjson pkgs "$pkgs_json" \
+              --argjson cached "$cached_json" \
+              '
+                .
+                + ($pkgs | map({
+                    system: $system,
+                    runner: $runner,
+                    name: .name,
+                    attr: (".#packages." + $system + "." + (.name | tojson)),
+                    hash: (.storePath | sub("^/nix/store/"; "") | .[0:32])
+                  }))
+                + ($cached | map({
+                    system: $system,
+                    runner: $runner,
+                    name: ("cached." + .name),
+                    attr: (".#legacyPackages." + $system + ".cached." + (.name | tojson)),
+                    hash: (.storePath | sub("^/nix/store/"; "") | .[0:32])
+                  }))
+              ' "$targets_file" >"$targets_file.next"
+            mv "$targets_file.next" "$targets_file"
+          done <<'EOF'
+          x86_64-linux ubuntu-26.04
+          aarch64-linux ubuntu-26.04-arm
+          EOF
+
+          total_count="$(jq 'length' "$targets_file")"
+
+          if [[ "$FORCE_REBUILD" == "true" ]]; then
+            missing_json="$(<"$targets_file")"
+          else
+            checker="$(mktemp)"
+            cat <<'SCRIPT' >"$checker"
+          #!/usr/bin/env bash
+          set -euo pipefail
+          hash="$1"
+          cache_base="$2"
+          for base in "$cache_base" "https://cache.nixos.org"; do
+            code="$(curl --head --silent --output /dev/null --write-out '%{http_code}' --max-time 10 "$base/$hash.narinfo" || true)"
+            if [[ "$code" == "200" ]]; then
+              exit 0
+            fi
+          done
+          printf '%s\n' "$hash"
+          SCRIPT
+
+            missing_hashes="$(
+              jq --raw-output '.[].hash' "$targets_file" \
+                | sort -u \
+                | xargs -r -P 16 -I {} bash "$checker" {} "$cache_base"
+            )"
+            rm -f "$checker"
+
+            missing_json="$(
+              jq --arg missing "$missing_hashes" '
+                ($missing | split("\n") | map(select(length > 0)) | map({ (.): true }) | add // {}) as $missing_set
+                | map(select($missing_set[.hash] == true))
+              ' "$targets_file"
+            )"
+          fi
+
+          rm -f "$targets_file"
+
+          missing_count="$(jq 'length' <<<"$missing_json")"
+          cached_count="$((total_count - missing_count))"
+
+          matrix="$(
+            jq --compact-output --argjson max_shards "$MAX_SHARDS" '
+              group_by(.system)
+              | map(
+                  sort_by(.name) as $items
+                  | ($items | length) as $count
+                  | (if $count < $max_shards then $count else $max_shards end) as $shards
+                  | [
+                      range(0; $shards) as $shard
+                      | [
+                          range(0; $count)
+                          | select((. % $shards) == $shard)
+                          | $items[.]
+                        ] as $group
+                      | {
+                          system: $group[0].system,
+                          runner: $group[0].runner,
+                          label: (
+                            if ($group | length) == 1 then
+                              $group[0].name
+                            else
+                              "shard \($shard + 1)/\($shards), \($group | length) pkgs"
+                            end
+                          ),
+                          names: ($group | map(.name)),
+                          attrs: ($group | map(.attr))
+                        }
+                    ]
+                )
+              | add // []
+            ' <<<"$missing_json"
+          )"
+
+          {
+            echo "matrix=$matrix"
+            if ((missing_count > 0)); then
+              echo "has_builds=true"
+            else
+              echo "has_builds=false"
+            fi
+          } >>"$GITHUB_OUTPUT"
+
+          {
+            printf '### Build Plan\n\n'
+            printf -- '- Evaluated: **%s** targets\n' "$total_count"
+            printf -- '- Cached (skipped): **%s**\n' "$cached_count"
+            printf -- '- To build: **%s** across **%s** job(s)\n' "$missing_count" "$(jq 'length' <<<"$matrix")"
+            if ((missing_count > 0)); then
+              printf '\n| System | Job | Packages |\n| --- | --- | --- |\n'
+              jq --raw-output '.[] | "| " + .system + " | " + .label + " | " + (.names | join(", ")) + " |"' <<<"$matrix"
+            fi
+          } >>"$GITHUB_STEP_SUMMARY"
+
   build:
-    name: Build ${{ matrix.system }}
+    if: needs.plan.outputs.has_builds == 'true'
+    needs: plan
+    name: Build ${{ matrix.system }} (${{ matrix.label }})
     permissions:
       contents: read
       id-token: write
@@ -28,20 +217,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - system: x86_64-linux
-            runner: ubuntu-26.04
-          - system: aarch64-linux
-            runner: ubuntu-26.04-arm
+        include: ${{ fromJSON(needs.plan.outputs.matrix) }}
     runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@v7
       - uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: accept-flake-config = true
-      - uses: so1ve/firn@main
+      - uses: so1ve/firn@v1
         with:
           server: https://cache.so1ve.dev
       - uses: ./.github/actions/build-packages
         with:
           system: ${{ matrix.system }}
+          targets: ${{ toJSON(matrix.attrs) }}

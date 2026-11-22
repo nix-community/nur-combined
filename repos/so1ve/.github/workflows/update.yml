@@ -129,7 +129,7 @@ jobs:
       - name: Apply package update
         run: git apply "$RUNNER_TEMP/package-updates/${{ matrix.package }}.patch"
       - uses: cachix/install-nix-action@v31
-      - uses: so1ve/firn@main
+      - uses: so1ve/firn@v1
         with:
           server: https://cache.so1ve.dev
       - name: Build package
@@ -144,7 +144,7 @@ jobs:
           )"
 
           if grep --fixed-strings --line-regexp --quiet "$PACKAGE" <<<"$package_names"; then
-            nix build --impure ".#packages.$SYSTEM.$PACKAGE" --print-build-logs
+            nix build --impure ".#packages.$SYSTEM.$PACKAGE" --print-build-logs --print-out-paths >>"$FIRN_PATHS_FILE"
           else
             echo "$PACKAGE is not available on $SYSTEM; skipping"
           fi

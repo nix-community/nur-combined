@@ -1,10 +1,14 @@
 name: Build flake packages
-description: Build every package exposed for one system
+description: Build selected or all flake packages for one system
 
 inputs:
   system:
     description: Flake system to build
     required: true
+  targets:
+    description: Optional JSON array of flake installables to build
+    required: false
+    default: ""
 
 runs:
   using: composite
@@ -14,33 +18,35 @@ runs:
       env:
         NIXPKGS_ALLOW_UNFREE: "1"
         SYSTEM: ${{ inputs.system }}
+        TARGETS: ${{ inputs.targets }}
       run: |
-        package_names="$(
-          nix eval --impure --raw ".#packages.$SYSTEM" \
-            --apply 'packages: builtins.concatStringsSep "\n" (builtins.attrNames packages)'
-        )"
+        set -euo pipefail
 
-        if [[ -z "$package_names" ]]; then
-          echo "No packages found for $SYSTEM" >&2
-          exit 1
+        targets=()
+        if [[ -n "$TARGETS" ]]; then
+          mapfile -t targets < <(jq --raw-output '.[]' <<<"$TARGETS")
+        else
+          mapfile -t targets < <(
+            nix eval --impure --json ".#packages.$SYSTEM" \
+              --apply 'packages: builtins.attrNames (builtins.removeAttrs packages [ "baidunetdisk" ])' \
+              | jq --raw-output --arg system "$SYSTEM" '.[] | ".#packages." + $system + "." + tojson'
+
+            nix eval --json ".#legacyPackages.$SYSTEM.cached" \
+              --apply 'packages: builtins.attrNames packages' \
+              | jq --raw-output --arg system "$SYSTEM" '.[] | ".#legacyPackages." + $system + ".cached." + tojson'
+          )
         fi
 
-        while IFS= read -r package; do
-          if [[ "$package" == "baidunetdisk" ]]; then
-            continue
-          fi
+        if ((${#targets[@]} == 0)); then
+          echo "No packages to build for $SYSTEM"
+          exit 0
+        fi
 
-          echo "Building $package for $SYSTEM"
-          nix build --impure ".#packages.$SYSTEM.$package" --print-build-logs
-        done <<<"$package_names"
+        printf 'Building %d target(s) for %s:\n' "${#targets[@]}" "$SYSTEM"
+        printf '  %s\n' "${targets[@]}"
 
-        cached_names="$(
-          nix eval --raw ".#legacyPackages.$SYSTEM.cached" \
-            --apply 'packages: builtins.concatStringsSep "\n" (builtins.attrNames packages)'
-        )"
-
-        while IFS= read -r package; do
-          [[ -z "$package" ]] && continue
-          echo "Building cached package $package for $SYSTEM"
-          nix build ".#legacyPackages.$SYSTEM.cached.$package" --print-build-logs
-        done <<<"$cached_names"
+        if [[ -n "${FIRN_PATHS_FILE:-}" ]]; then
+          nix build --impure --no-link --keep-going --print-build-logs --print-out-paths "${targets[@]}" >>"$FIRN_PATHS_FILE"
+        else
+          nix build --impure --no-link --keep-going --print-build-logs "${targets[@]}"
+        fi
