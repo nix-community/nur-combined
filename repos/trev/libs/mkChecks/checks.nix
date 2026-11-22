@@ -54,7 +54,7 @@ let
   };
 
   # no build platform can run windows binaries, so nixpkgs would force doCheck off
-  cross = pkgs.pkgsCross.mingwW64.stdenvNoCC.mkDerivation {
+  cross = pkgs.pkgsCross.mingw-msvcrt-x86_64.stdenvNoCC.mkDerivation {
     pname = "mkchecks-cross";
     version = "1";
     src = pkgs.writeTextDir "fixture.txt" "fixture";

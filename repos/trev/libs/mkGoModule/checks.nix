@@ -127,7 +127,7 @@ let
   };
 
   # buildGoModule defaults to go's platforms, which don't include windows
-  windows = testPkgs.pkgsCross.mingwW64.mkGoModule {
+  windows = testPkgs.pkgsCross.mingw-msvcrt-x86_64.mkGoModule {
     pname = "fixture";
     version = "1.0.0";
     inherit src;
