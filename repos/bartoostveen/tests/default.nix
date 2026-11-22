@@ -5,6 +5,7 @@ args:
   git-pages = import ./git-pages.nix args;
   maubot-exporter = import ./maubot-exporter.nix args;
   mistserver = import ./mistserver.nix args;
+  sable = import ./sable.nix args;
   timedout-registry = import ./timedout-registry.nix args;
   uptime-kuma-matrix = import ./uptime-kuma-matrix.nix args;
   venator = import ./venator.nix args;

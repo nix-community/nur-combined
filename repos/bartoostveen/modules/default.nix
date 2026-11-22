@@ -5,6 +5,7 @@
   maubot-exporter = ./maubot-exporter.nix;
   meshcoretomqtt = ./meshcoretomqtt.nix;
   mistserver = ./mistserver.nix;
+  sable = ./sable.nix;
   ssacli = ./ssacli.nix;
   timedout-registry = ./timedout-registry.nix;
   uptime-kuma-matrix = ./uptime-kuma-matrix.nix;

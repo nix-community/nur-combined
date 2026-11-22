@@ -3,20 +3,17 @@
   stdenv,
   rustPlatform,
   nix-update-script,
+  sable-next-wasm,
   fetchFromForgejo,
   fetchPnpmDeps,
   pnpm_12,
   pnpmConfigHook,
   nodejs_26,
-  wasm-bindgen-cli_0_2_130,
-  llvmPackages,
-  binaryen,
 }:
 
 let
   pnpm = pnpm_12;
   nodejs = nodejs_26;
-  wasm-bindgen-cli = wasm-bindgen-cli_0_2_130;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "sable-next-unwrapped";
@@ -42,15 +39,6 @@ stdenv.mkDerivation (finalAttrs: {
     pnpm
     pnpmConfigHook
     nodejs
-    wasm-bindgen-cli
-
-    rustPlatform.rust.rustc
-    rustPlatform.rust.cargo
-    rustPlatform.cargoSetupHook
-    rustPlatform.bindgenHook
-    llvmPackages.bintools
-
-    binaryen
   ];
 
   pnpmDeps = fetchPnpmDeps {
@@ -61,8 +49,6 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   env = {
-    AR_wasm32_unknown_unknown = lib.getExe' llvmPackages.bintools-unwrapped "llvm-ar";
-    CC_wasm32_unknown_unknown = lib.getExe llvmPackages.clang-unwrapped;
     VITE_BUILD_HASH = finalAttrs.src.rev;
     SABLE_BUILD_FLAVOR = "stable";
     SABLE_FOSS = 1;
@@ -70,7 +56,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildPhase = ''
     runHook preBuild
-    pnpm build
+
+    mkdir -p src/generated/wasm
+    cp -r --no-preserve=mode ${sable-next-wasm}/. src/generated/wasm/
+
+    pnpm exec vite build
+
     runHook postBuild
   '';
 
