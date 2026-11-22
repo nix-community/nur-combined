@@ -9,7 +9,7 @@
 
 buildGoModule (finalAttrs: {
   pname = "incusos-flasher";
-  version = "202611212003-unstable-2026-11-20";
+  version = "202611222004-unstable-2026-11-20";
 
   src = fetchFromGitHub {
     owner = "lxc";
