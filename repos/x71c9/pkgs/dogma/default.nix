@@ -1,20 +1,19 @@
-{ lib, rustPlatform, fetchFromGitHub, installShellFiles, pkg-config, libgit2 }:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles, libgit2, pkg-config }:
 
 rustPlatform.buildRustPackage rec {
   pname = "dogma";
-  version = "3.4.1"; # without "v"
+  version = "3.4.2"; # without "v"
 
   src = fetchFromGitHub {
     owner = "x71c9";
     repo = "dogma";
     rev = "v${version}";
-    hash = "sha256-uob28SptaryJMprWZZ1BSTgb8Z1VjPiXb4oa10zgYn8=";
+    hash = "sha256-auRgNDE/YQdP2oKWSyG+cu7xsmkp49B6QZafrpUgz+U=";
   };
 
   cargoLock.lockFile = ./Cargo.lock;
 
   nativeBuildInputs = [ installShellFiles pkg-config ];
-
   buildInputs = [ libgit2 ];
 
   doCheck = false;
