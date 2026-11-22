@@ -1,0 +1,29 @@
+Xcode 26.3's Swift type checker gives up on the five-term row-count sum in
+DevModeView with "unable to type-check this expression in reasonable time".
+Bind each term to an Int first, as upstream's CI compiler does implicitly.
+diff --git a/purge/Views/DevModeView.swift b/purge/Views/DevModeView.swift
+index baec20d..b3b8307 100644
+--- a/purge/Views/DevModeView.swift
++++ b/purge/Views/DevModeView.swift
+@@ -624,13 +624,14 @@ struct DevToolsView: View {
+     /// Row counts mirror the dev tools list + chip aggregates (detected tools + all project artifacts),
+     /// excluding items tagged `.unknown` since they are hidden from display.
+     private var developerTotalRowCount: Int {
+-        store.devTools.filter { $0.isDetected && $0.safetyInfo.level != .unknown }.count +
+-            store.simulatorDevices.filter { $0.safetyInfo.level != .unknown }.count +
+-            store.simulatorRuntimes.filter { $0.safetyInfo.level != .unknown }.count +
+-            store.xcodeComponents.filter { $0.safetyInfo.level != .unknown }.count +
+-            store.projectGroups.reduce(0) { sum, group in
+-                sum + group.artifacts.filter { $0.safetyInfo.level != .unknown }.count
+-            }
++        let tools: Int = store.devTools.filter { $0.isDetected && $0.safetyInfo.level != .unknown }.count
++        let simulators: Int = store.simulatorDevices.filter { $0.safetyInfo.level != .unknown }.count
++        let runtimes: Int = store.simulatorRuntimes.filter { $0.safetyInfo.level != .unknown }.count
++        let components: Int = store.xcodeComponents.filter { $0.safetyInfo.level != .unknown }.count
++        let artifacts: Int = store.projectGroups.reduce(0) { sum, group in
++            sum + group.artifacts.filter { $0.safetyInfo.level != .unknown }.count
++        }
++        return tools + simulators + runtimes + components + artifacts
+     }
+ 
+     var body: some View {
