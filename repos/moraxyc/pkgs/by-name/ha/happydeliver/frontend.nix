@@ -24,6 +24,7 @@ buildNpmPackage (finalAttrs: {
   nativeBuildInputs = [ nodejs ];
 
   preBuild = ''
+    npm run prepare
     npm run generate:api
   '';
 

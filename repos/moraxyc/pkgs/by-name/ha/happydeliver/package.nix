@@ -18,16 +18,6 @@ buildGoModule (finalAttrs: {
     vendorHash
     ;
 
-  patches = [
-    ./0001-fix-analyzer-remove-hostname-filtering-for-Authentic.patch
-    ./0002-fix-analyzer-extract-DKIM-selector-from-DKIM-Signatu.patch
-    ./0003-feat-analyzer-add-parseLegacyIPRev-and-parseLegacyAl.patch
-  ];
-  modPostBuild = ''
-    substituteInPlace vendor/github.com/oapi-codegen/runtime/types/regexes.go \
-        --replace-fail ')))\\.?$' '))|dn42)\\.?$'
-  '';
-
   nativeBuildInputs = [
     writableTmpDirAsHomeHook
     oapi-codegen
@@ -40,7 +30,7 @@ buildGoModule (finalAttrs: {
   subPackages = [ "cmd/happyDeliver" ];
 
   preBuild = ''
-    oapi-codegen -config api/config-models.yaml api/openapi.yaml
+    oapi-codegen -config api/config-models.yaml api/schemas.yaml
     oapi-codegen -config api/config-server.yaml api/openapi.yaml
     cp -r ${finalAttrs.passthru.frontend} web/build
   '';
