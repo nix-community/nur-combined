@@ -56,7 +56,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "splash";
-  version = "1.7.0";
+  version = "1.7.1";
 
   # The engine is compiled here with the upstream Makefile, which drives
   # Xcode's clang++, metal and metallib through `xcrun -sdk macosx`. The
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     owner = "incoai";
     repo = "splash";
     tag = version;
-    hash = "sha256-TpOrLinozvpqkip4ep6sFbMi4xmBlaynGEup1whZQD0=";
+    hash = "sha256-eqDiKZvEcEvVvISud4upKdlFnMuj7lzqai3vES1+FHw=";
   };
 
   nativeBuildInputs = [
@@ -86,6 +86,11 @@ stdenv.mkDerivation rec {
   # arm64; stripping would invalidate that signature.
   dontStrip = true;
 
+  # The app's runtime is signed in buildPhase; rewriting a shebang in the
+  # bundle would break its seal. makeWrapper already writes the launcher with
+  # an absolute shell.
+  dontPatchShebangs = true;
+
   buildPhase = ''
     runHook preBuild
 
@@ -96,10 +101,13 @@ stdenv.mkDerivation rec {
     xcrun=/usr/bin/xcrun
 
     # Xcode 27 ships Metal as a separately downloaded toolchain; select it
-    # when the default `xcrun metal` cannot run.
+    # when the default `xcrun metal` cannot run. SwiftPM asks xcrun for the
+    # same tool, so point its lookup at that toolchain too.
+    swift_toolchain=
     metal="$xcrun -sdk macosx metal"
     if ! $metal --version >/dev/null 2>&1; then
       metal="$xcrun --toolchain com.apple.dt.toolchain.Metal -sdk macosx metal"
+      swift_toolchain=com.apple.dt.toolchain.Metal
     fi
 
     # Xcode 27's clang warns about the designated initializers upstream
@@ -112,36 +120,74 @@ stdenv.mkDerivation rec {
       METAL="$metal" \
       -j$NIX_BUILD_CORES all
 
+    # The SwiftUI app, built with the host Swift toolchain; SwiftPM fetches
+    # its pinned Sparkle and SwiftTerm packages into the writable scratch
+    # path. TOOLCHAINS only affects xcrun's tool lookup, not clang, and the
+    # app packaging below needs the default Xcode toolchain (actool).
+    run_swift() {
+      if [ -n "$swift_toolchain" ]; then
+        TOOLCHAINS="$swift_toolchain" PATH=/usr/bin:$PATH /usr/bin/swift "$@"
+      else
+        PATH=/usr/bin:$PATH /usr/bin/swift "$@"
+      fi
+    }
+    export HOME=$PWD/build/home
+    mkdir -p "$HOME"
+    run_swift build \
+      -c release \
+      --arch arm64 \
+      --package-path app \
+      --product Splash \
+      --scratch-path "$PWD/build/swift" \
+      --disable-sandbox
+    products=$(run_swift build \
+      -c release \
+      --arch arm64 \
+      --package-path app \
+      --product Splash \
+      --scratch-path "$PWD/build/swift" \
+      --disable-sandbox \
+      --show-bin-path)
+
+    # Stage the runtime the app and the CLI share, then assemble the app
+    # around it. The app's Python is the same wrapper the CLI uses.
+    runtime=$PWD/build/runtime
+    mkdir -p "$runtime/python/bin" "$runtime/engine"
+    cp -R install server LICENSE THIRD_PARTY_NOTICES "$runtime/"
+    install -m755 build/splash "$runtime/engine/splash"
+    install -m644 build/splash.metallib "$runtime/engine/splash.metallib"
+    if [ -f build/host-step.metallib ]; then
+      install -m644 build/host-step.metallib "$runtime/engine/host-step.metallib"
+    fi
+    printf '{\n  "version": "%s"\n}\n' "${version}" > "$runtime/release.json"
+    cat > "$runtime/python/bin/python3" <<EOF
+    #!${stdenv.shell}
+    exec ${pythonEnv}/bin/python3 "\$@"
+    EOF
+    chmod 755 "$runtime/python/bin/python3"
+
+    PATH=/usr/bin:$PATH ${python3}/bin/python3 ${./build-app.py} \
+      --source . \
+      --products "$products" \
+      --runtime "$runtime" \
+      --output build/Splash.app \
+      --version "${version}" \
+      --macos-min 26.4
+
     runHook postBuild
   '';
 
   installPhase = ''
     runHook preInstall
 
-    root=$out/share/splash
-    mkdir -p $root/python/bin $root/engine
-
-    cp -R install server LICENSE THIRD_PARTY_NOTICES $root/
-    install -m755 build/splash $root/engine/splash
-    install -m644 build/splash.metallib $root/engine/splash.metallib
-    # A Metal compiler that refuses the awake host-step kernels omits this
-    # library; the engine then runs awake host steps as plain ones.
-    if [ -f build/host-step.metallib ]; then
-      install -m644 build/host-step.metallib $root/engine/host-step.metallib
-    fi
-
-    printf '{\n  "version": "%s"\n}\n' "${version}" > $root/release.json
+    mkdir -p "$out/share" "$out/Applications"
+    cp -R build/runtime "$out/share/splash"
+    /usr/bin/ditto build/Splash.app "$out/Applications/Splash.app"
 
     # The launcher and server spawn ROOT/python/bin/python3 for the serving
     # process; the Nix environment supplies the pinned dependency set.
-    cat > $root/python/bin/python3 <<EOF
-    #!${stdenv.shell}
-    exec ${pythonEnv}/bin/python3 "\$@"
-    EOF
-    chmod 755 $root/python/bin/python3
-
     makeWrapper ${pythonEnv}/bin/python3 $out/bin/splash \
-      --add-flags "$root/install/launcher.py" \
+      --add-flags "$out/share/splash/install/launcher.py" \
       --set PYTHONDONTWRITEBYTECODE 1
 
     runHook postInstall
@@ -158,7 +204,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
-    description = "Local inference engine for Apple silicon";
+    description = "Local inference engine and desktop app for Apple silicon";
     homepage = "https://github.com/incoai/splash";
     license = lib.licenses.asl20;
     mainProgram = "splash";
