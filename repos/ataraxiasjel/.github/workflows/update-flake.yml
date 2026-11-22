@@ -3,7 +3,7 @@ name: "Update flake inputs"
 on:
   workflow_dispatch:
   schedule:
-    - cron: "32 5 * * 1" # weekly at 07:32 on Monday
+    - cron: "32 5 * * 1"
 
 permissions:
   contents: write

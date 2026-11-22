@@ -33,17 +33,19 @@ mkProtonBin (finalAttrs: {
   };
 
   passthru = {
-    updateScript = writeShellApplication {
-      name = "update-dwproton";
+    updateScript = "${
+      writeShellApplication {
+        name = "update-dwproton";
 
-      runtimeInputs = [
-        curl
-        jq
-        common-updater-scripts
-      ];
+        runtimeInputs = [
+          curl
+          jq
+          common-updater-scripts
+        ];
 
-      text = builtins.readFile ./update.sh;
-    };
+        text = builtins.readFile ./update.sh;
+      }
+    }/bin/update-dwproton";
   };
 
   meta = {

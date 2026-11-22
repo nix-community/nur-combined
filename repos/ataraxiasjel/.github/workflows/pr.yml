@@ -17,12 +17,10 @@ jobs:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup magic nix cache
         uses: DeterminateSystems/flakehub-cache-action@main
-      - name: Install and setup direnv
+      - name: Add devShell tools to PATH
         run: |
-          curl -sfL https://direnv.net/install.sh | bash
-          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
-          direnv allow .
-          direnv export gha >> "$GITHUB_ENV"
+          # shellcheck disable=SC2016
+          nix develop -c sh -c 'echo "$PATH"' | tr ':' '\n' >> "$GITHUB_PATH"
       - name: Show nixpkgs version
         run: nix flake metadata --json --inputs-from . nixpkgs | jq .url
       - name: Check evaluation

@@ -5,7 +5,7 @@
   pkg-config,
   autoreconfHook,
   curl,
-  fuse,
+  libfuse2,
   intltool,
   jansson,
   libargon2,
@@ -36,9 +36,10 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
+
   buildInputs = [
     curl
-    fuse
+    libfuse2
     intltool
     jansson
     libargon2

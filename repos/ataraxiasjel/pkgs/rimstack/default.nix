@@ -3,8 +3,12 @@
   coreutils,
   rustPlatform,
   fetchFromGitHub,
+  fontconfig,
   gitMinimal,
+  libxkbcommon,
+  pkg-config,
   qt6,
+  wayland,
   nix-update-script,
 }:
 
@@ -73,14 +77,20 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   nativeBuildInputs = [
     qt6.wrapQtAppsHook
+    pkg-config # gpui's fontconfig/freetype/xkbcommon build scripts
     gitMinimal # tests build throw-away mod repositories with git
   ];
 
-  buildInputs = with qt6; [
+  buildInputs = [
+    fontconfig # gpui: yeslogic-fontconfig-sys (freetype is propagated)
+    libxkbcommon
+    wayland
+  ]
+  ++ (with qt6; [
     qtbase
     qtdeclarative # QtQuick + QuickControls2, used through cxx-qt
     qtsvg
-  ];
+  ]);
 
   postInstall = ''
     install -Dm644 crates/app/assets/rimstack.desktop -t $out/share/applications

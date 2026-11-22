@@ -20,16 +20,34 @@ jobs:
         with:
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
-      # On PRs (e.g. the bot's flake-lock PR) push deps.json to the PR
-      # branch; on master pushes and manual runs commit on the default ref.
+      # On PRs push deps.json to the PR branch; on master pushes and manual runs commit
+      # on the default ref. If the PR branch is already merged and deleted, skip below.
+      - id: branch-check
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ steps.get-token.outputs.token }}
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            "${{ github.api_url }}/repos/${{ github.repository }}/branches/$HEAD_REF")
+          if [[ "$code" == "200" ]]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "PR branch '$HEAD_REF' is gone (HTTP $code); PR already merged — skipping, the push run on master will regenerate deps.json."
+          fi
       - uses: actions/checkout@v7
+        if: github.event_name != 'pull_request' || steps.branch-check.outputs.exists == 'true'
         with:
           token: ${{ steps.get-token.outputs.token }}
           ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref }}
       - uses: DeterminateSystems/determinate-nix-action@v3
+        if: github.event_name != 'pull_request' || steps.branch-check.outputs.exists == 'true'
       - name: Regenerate Gradle deps.json
+        if: github.event_name != 'pull_request' || steps.branch-check.outputs.exists == 'true'
         env:
-          # See auto-update.yml: bwrap fails on GitHub runners; pure hygiene wrapper.
+          # gradle's updater wraps gradle in bwrap, which GitHub runners can't run.
           USE_BWRAP: "0"
           NIXPKGS_ALLOW_UNFREE: "1"
           NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: "1"

@@ -14,6 +14,9 @@ on:
 jobs:
   tests:
     strategy:
+      # Keep the unstable leg building (and populating cachix) even when the
+      # stable leg dies.
+      fail-fast: false
       matrix:
         nurRepo:
           - ataraxiasjel
@@ -21,7 +24,7 @@ jobs:
           - ataraxiadev-foss
         nixpkgs:
           - nixos-unstable # Unstable from flake.lock, updated weekly
-          - nixos-26.05 # Latest stable
+          - nixos-26.05
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -53,12 +56,10 @@ jobs:
       - name: Override nixpkgs in flake to latest stable
         if: ${{ matrix.nixpkgs != 'nixos-unstable' }}
         run: nix flake lock --override-input nixpkgs "github:nixos/nixpkgs/${{ matrix.nixpkgs }}"
-      - name: Install and setup direnv
+      - name: Add devShell tools to PATH
         run: |
-          curl -sfL https://direnv.net/install.sh | bash
-          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
-          direnv allow .
-          direnv export gha >> "$GITHUB_ENV"
+          # shellcheck disable=SC2016
+          nix develop -c sh -c 'echo "$PATH"' | tr ':' '\n' >> "$GITHUB_PATH"
       - name: Show nixpkgs version
         run: nix flake metadata --json --inputs-from . nixpkgs | jq .url
       - name: Check evaluation

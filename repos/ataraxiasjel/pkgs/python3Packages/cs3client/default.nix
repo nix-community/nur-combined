@@ -27,7 +27,8 @@ buildPythonPackage rec {
     hash = "sha256-p22KESN9Wr+6oAHxgst0Ij+A3DRj78ugI4R2FvL6YzA=";
   };
 
-  PACKAGE_VERSION = version;
+  # setup.py reads the version from this env var (defaults to 0.0.0 otherwise).
+  env.PACKAGE_VERSION = version;
 
   build-system = [ setuptools ];
 
@@ -41,11 +42,6 @@ buildPythonPackage rec {
     pyopenssl
     requests
   ];
-
-  # FIXME: tests
-  # nativeCheckInputs = [
-  #   pytestCheckHook
-  # ];
 
   passthru.updateScript = nix-update-script { };
 

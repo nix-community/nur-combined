@@ -21,15 +21,12 @@ jobs:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup magic nix cache
         uses: DeterminateSystems/flakehub-cache-action@main
-      - name: Install and setup direnv
+      - name: Add devShell tools to PATH
         run: |
-          curl -sfL https://direnv.net/install.sh | bash
-          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
-          direnv allow .
-          direnv export gha >> "$GITHUB_ENV"
+          # shellcheck disable=SC2016
+          nix develop -c sh -c 'echo "$PATH"' | tr ':' '\n' >> "$GITHUB_PATH"
       - name: Show nixpkgs version
         run: |
-          direnv status
           nix flake metadata --json --inputs-from . nixpkgs | jq .url
       - name: Update packages
         id: update
@@ -42,12 +39,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NIXPKGS_ALLOW_UNFREE: 1
           NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
-          # suwayomi-server's gradle deps updater wraps gradle in bubblewrap, which
-          # fails on GitHub's ubuntu-latest with "bwrap: setting up uid map:
-          # Permission denied" (unprivileged user namespaces are restricted there;
-          # bwrap runs outside the nix sandbox, so sandbox=false would not help).
-          # nixpkgs honors USE_BWRAP=0 to skip it (pure hygiene wrapper, see
-          # gradle/update-deps.nix in nixpkgs).
+          # gradle's updater wraps gradle in bwrap, which GitHub runners can't run.
           USE_BWRAP: "0"
         timeout-minutes: 90
         run: |
@@ -104,9 +96,6 @@ jobs:
             MSG="${MSG:0:3900}… (truncated, see job log)"
           fi
           echo "Notifying Telegram chat about: $FAILED_LIST"
-          # No -f flag on purpose: on error we want the API body in the log
-          # (e.g. {"ok":false,"error_code":404,...}), not just `curl: (22)`.
-          # `|| true`: notify must never fail the job / block the PR.
           HTTP_CODE="$(curl -sS -o /tmp/tg-response.txt -w '%{http_code}' -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
             --data-urlencode "chat_id=${TG_CHAT}" \
             --data-urlencode "text=${MSG}" \

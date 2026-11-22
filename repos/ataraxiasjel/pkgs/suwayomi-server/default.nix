@@ -12,6 +12,8 @@
   jetbrains,
   suwayomi-webui,
   nix-update-script,
+  _experimental-update-script-combinators,
+  writeShellScript,
   electron,
   makeDesktopItem,
 
@@ -25,14 +27,14 @@ in
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "suwayomi-server";
-  version = "2.4.2366";
+  version = "2.4.2373";
 
   __structuredAttrs = true;
   src = fetchFromGitHub {
     owner = "Suwayomi";
     repo = "Suwayomi-Server";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-a54ltRYnCCemMFGbh8ENIc+PPautKwduV6hUcFJoMzI=";
+    hash = "sha256-yVoFA18/Trv3XOyCYCKc/DoudMsZhzw18VLNpltG1VI=";
   };
 
   patches = [
@@ -42,7 +44,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   postPatch = ''
     # Pin the dynamic version vals (upstream computes them via `git rev-list`,
     # which has no .git in the nix sandbox and would yield v2.3.0/r0).
-    # Other vals in Constants.kt (e.g. webviewJbrRelease) are left intact.
     sed -i -E \
       -e 's|^val getTachideskVersion = .*|val getTachideskVersion = { "v${finalAttrs.version}" }|' \
       -e 's|^val webUIRevisionTag = .*|val webUIRevisionTag = "r${suwayomi-webui.revision}"|' \
@@ -133,7 +134,16 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru = {
     inherit jetbrains suwayomi-webui;
-    updateScript = nix-update-script { };
+
+    # mitmCache.updateScript is baked at eval time — must be re-run via
+    # `nix build` after the version bump to regenerate deps.json.
+    updateScript = _experimental-update-script-combinators.sequence [
+      (nix-update-script { })
+      (writeShellScript "suwayomi-server-update-gradle-deps" ''
+        script="$(nix build .#suwayomi-server.mitmCache.updateScript --no-link --print-out-paths)"
+        exec "$script"
+      '')
+    ];
   };
 
   meta = {

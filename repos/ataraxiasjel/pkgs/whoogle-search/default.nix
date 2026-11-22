@@ -34,12 +34,13 @@ buildPythonApplication rec {
   pypaBuildFlags = [ "--sdist" ];
 
   makeWrapperArgs = [
-    "--suffix PATH : ${
-      lib.makeBinPath [
-        curl
-        openssl
-      ]
-    }"
+    "--suffix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [
+      curl
+      openssl
+    ])
   ];
 
   postPatch = ''

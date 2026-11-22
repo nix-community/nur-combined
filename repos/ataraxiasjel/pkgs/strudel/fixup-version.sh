@@ -1,20 +1,9 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash -p gnused gnugrep
-# Normalize `version` after `nix-update-script --version=branch`.
-#
-# Upstream tags are per-npm-package (e.g. `@strudel/codemirror@1.3.0`,
-# `superdough@1.3.0`) with independent versioning, so nix-update derives
-# versions like `@strudel/codemirror@1.3.0-unstable-YYYY-MM-DD` from whatever
-# tag the Codeberg API returns first. This package tracks the whole repo
-# (website build), not one npm subpackage, so the version must stay
-# `0-unstable-YYYY-MM-DD`. Rewrite the version line in place, preserving the
-# date nix-update just wrote.
-#
-# It is executed via passthru.updateScript sequence as a plain subprocess
-# in the user's environment (with network for the nix-update step, but this
-# fixup itself is a pure local rewrite), not inside a Nix build sandbox.
-#
-# Usage: fixup-version.sh <package-dir>   (e.g. ./pkgs/strudel)
+# Normalize `version` after `nix-update-script --version=branch`: upstream
+# tags are per-npm-package (`@strudel/codemirror@1.3.0`, …), so force the
+# snapshot form `0-unstable-YYYY-MM-DD`, keeping the date nix-update wrote.
+# Usage: fixup-version.sh <package-dir>
 
 set -euo pipefail
 

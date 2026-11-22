@@ -6,7 +6,6 @@
   setuptools,
   setuptools-scm,
   grpcio,
-  # nix-update-script,
 }:
 
 buildPythonPackage rec {
@@ -29,7 +28,6 @@ buildPythonPackage rec {
   dependencies = [ grpcio ];
 
   # TODO: fix version detection for v2
-  # passthru.updateScript = nix-update-script { };
   passthru.skipBulkUpdate = true;
 
   meta = with lib; {

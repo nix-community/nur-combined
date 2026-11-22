@@ -40,17 +40,19 @@ mkProtonBin (finalAttrs: {
   };
 
   passthru = {
-    updateScript = writeShellApplication {
-      name = "update-proton-ge";
+    updateScript = "${
+      writeShellApplication {
+        name = "update-proton-ge";
 
-      runtimeInputs = [
-        curl
-        jq
-        common-updater-scripts
-      ];
+        runtimeInputs = [
+          curl
+          jq
+          common-updater-scripts
+        ];
 
-      text = builtins.readFile ./update.sh;
-    };
+        text = builtins.readFile ./update.sh;
+      }
+    }/bin/update-proton-ge";
   };
 
   meta = {

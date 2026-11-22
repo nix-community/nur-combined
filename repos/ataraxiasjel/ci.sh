@@ -11,10 +11,8 @@ args=(
   "$@"
 )
 
-# Default to the checks for the current system (mirrors .github/workflows/build.yml).
-# nix-eval-jobs requires an explicit flake ref; without one it exits 1 with
-# "more arguments are required" and -- without this default -- the loop below
-# would iterate zero times and report a false success.
+# Default to the current system's checks (mirrors build.yml);
+# nix-eval-jobs requires an explicit flake ref.
 if [[ $# -eq 0 ]]; then
   args+=(--flake ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem)")
 fi

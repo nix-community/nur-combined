@@ -1,12 +1,7 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash -p curl jq gnused gnugrep
-# Update the `revision` (Suwayomi commit count) after `nix-update-script`
-# has already bumped `version` in default.nix.
-#
-# It is executed via passthru.updateScript sequence as a plain subprocess
-# in the user's environment (with network), not inside a Nix build sandbox.
-#
-# Usage: update-rev.sh <package-dir>   (e.g. ./pkgs/suwayomi-webui)
+# Update `revision` (Suwayomi commit count) in default.nix after
+# nix-update-script has bumped `version`. Usage: update-rev.sh <package-dir>
 
 set -euo pipefail
 

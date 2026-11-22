@@ -28,11 +28,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace-fail "==1.23.0" ""
   '';
 
-  build-system = [
-    setuptools
-    # wheel
-    # twine
-  ];
+  build-system = [ setuptools ];
 
   dependencies = [
     bottle
