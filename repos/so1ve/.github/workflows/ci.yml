@@ -23,6 +23,7 @@ jobs:
     name: Build ${{ matrix.system }}
     permissions:
       contents: read
+      id-token: write
       packages: write
     strategy:
       fail-fast: false
@@ -38,10 +39,9 @@ jobs:
       - uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: accept-flake-config = true
-      - uses: ./.github/actions/setup-cache
-        if: github.event_name != 'pull_request'
+      - uses: so1ve/firn@main
         with:
-          signing-key: ${{ secrets.ORANC_SIGNING_KEY }}
+          server: https://cache.so1ve.dev
       - uses: ./.github/actions/build-packages
         with:
           system: ${{ matrix.system }}

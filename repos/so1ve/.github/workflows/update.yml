@@ -106,6 +106,7 @@ jobs:
     name: Validate ${{ matrix.package }} (${{ matrix.target.system }})
     permissions:
       contents: read
+      id-token: write
       packages: write
     strategy:
       fail-fast: false
@@ -128,9 +129,9 @@ jobs:
       - name: Apply package update
         run: git apply "$RUNNER_TEMP/package-updates/${{ matrix.package }}.patch"
       - uses: cachix/install-nix-action@v31
-      - uses: ./.github/actions/setup-cache
+      - uses: so1ve/firn@main
         with:
-          signing-key: ${{ secrets.ORANC_SIGNING_KEY }}
+          server: https://cache.so1ve.dev
       - name: Build package
         env:
           NIXPKGS_ALLOW_UNFREE: "1"
