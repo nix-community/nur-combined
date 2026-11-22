@@ -13,7 +13,7 @@
 let
     maintainers = import ./maintainers.nix;
     hasIeda = pkgs.stdenv.hostPlatform.system == "x86_64-linux";
-    hasZig_0_16 = pkgs ? zig_0_16;
+    hasZig_0_17 = pkgs ? zig_0_17;
     hasDocxCli = builtins.elem pkgs.stdenv.hostPlatform.system [
         "x86_64-linux"
         "aarch64-linux"
@@ -69,7 +69,7 @@ in {
   # ...
 } // pkgs.lib.optionalAttrs hasIeda {
   ieda = resolvedIeda;
-} // pkgs.lib.optionalAttrs hasZig_0_16 {
+} // pkgs.lib.optionalAttrs hasZig_0_17 {
   kwm = pkgs.callPackage ./pkgs/kwm {
       inherit maintainers;
   };
