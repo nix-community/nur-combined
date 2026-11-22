@@ -95,14 +95,14 @@ let
 in
 buildNpmPackage rec {
   pname = "rea-agents";
-  version = "6.9.0";
+  version = "6.10.1";
 
   # Build the pinned upstream source tag; leave its package manifest and lockfile pristine.
   src = fetchFromGitHub {
     owner = "morluto";
     repo = "rea";
     rev = "refs/tags/rea-agents-${version}";
-    hash = "sha256-n96fXl7OKRIlQ/nKGBDjN8kT4RIr2atgrQAU379lsoQ=";
+    hash = "sha256-2ulhZ2GXe1xOHKLNuJo9mTivy4OTiWP9VLHEXnpn5YI=";
   };
 
   # REPO PATCH: re-pin REA's audited jadx-headless-mcp release to the version
@@ -143,7 +143,7 @@ buildNpmPackage rec {
   # Skip dependency lifecycle scripts: frida's installer attempts a toolchain
   # network download, and no locked Linux x86_64 dependency needs these scripts.
   npmFlags = [ "--ignore-scripts" ];
-  npmDepsHash = "sha256-xFNYn2vxfk8unZyJQ3YWOO3fFb3iJVU6Alav0A+TiSI=";
+  npmDepsHash = "sha256-cXQSwTmmu0sDcnFjpmdmaj01PU6gB0UZ+kp0T8EHKH4=";
 
   env = {
     HUSKY = "0";
@@ -164,11 +164,13 @@ buildNpmPackage rec {
     autoPatchelf "$tsrsDir"
   '';
 
-  # nodejs_26 (26.13.0) rejects `module.stripTypeScriptTypes(..., { mode:
-  # "transform" })` — Node 26 dropped that mode — and 6.9.0's
-  # `metadata:check`/verifier loaders require it, so take the lowest engine the
-  # package admits (`^22.23.4`): nixpkgs' nodejs_22 is exactly 22.23.4, while
-  # nodejs_24 is 24.21.0 and misses the ^24.22.1 floor.
+  # nodejs_26 (26.13.1) rejects `module.stripTypeScriptTypes(..., { mode:
+  # "transform" })` — Node 26 dropped that mode — and 6.10.1's
+  # `metadata:check`/verifier loaders still require it
+  # (scripts/lib/verifier-source-loader.mjs), so take the lowest engine the
+  # package admits (`^22.23.4`): nixpkgs' nodejs_22 is 22.23.5, which satisfies
+  # it. nodejs_24 is 24.22.2 and also clears the `^24.22.1` floor, but 22 stays
+  # the lowest admitted engine.
   nodejs = nodejs_22;
 
   nativeBuildInputs = [

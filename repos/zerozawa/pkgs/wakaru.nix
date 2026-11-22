@@ -5,16 +5,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "wakaru";
-  version = "1.16.0";
+  version = "1.17.0";
 
   src = fetchFromGitHub {
     owner = "pionxzh";
     repo = "wakaru";
     rev = "v${version}";
-    hash = "sha256-lo/EJC8BeU+C3KB5M1/3L68a4iUbW6w05ImsZHllsZo=";
+    hash = "sha256-SDpB2lrbzVxqhlJyd0iF1QmK3Mj7HV+9ZFigChyfuJI=";
   };
 
-  cargoHash = "sha256-j75BEvh1ig5kndB9Kd21m9OFaNokmB/LI1QQitL5z/E=";
+  cargoHash = "sha256-/KrAIkGtj2vgLqEEVsEC6elHlYQrCakkMLa/9Wmfjjc=";
   # Only the CLI; crates/wasm is a wasm32 cdylib we have no use for.
   cargoBuildFlags = [
     "-p"

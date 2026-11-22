@@ -10,13 +10,13 @@
 
 python313Packages.buildPythonPackage rec {
   pname = "sr-vulkan";
-  version = "2.1.0";
+  version = "2.2.1";
   format = "wheel";
 
   src = fetchPypi {
     pname = "sr_vulkan";
     inherit version;
-    hash = "sha256-gO4jTjYnezsm7fZlVJCDM651LrJtABig4xalUzFOnXQ=";
+    hash = "sha256-YgyrRk2PyacKP7hnXP6/QhnocsBqxQni38RCXqC+WFQ=";
     format = "wheel";
     dist = "cp37";
     python = "cp37";

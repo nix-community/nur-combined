@@ -12,20 +12,20 @@
 # and must be regenerated when `version` moves, so `npm ci` stays reproducible.
 buildNpmPackage rec {
   pname = "context-mode";
-  version = "2.2.0";
+  version = "2.2.1";
 
   src = fetchFromGitHub {
     owner = "mksglu";
     repo = "context-mode";
     rev = "v${version}";
-    hash = "sha256-/mYhbn+P6Ao0Pwzt3FMqfsu/KKApspzL8KRXvwqlz28=";
+    hash = "sha256-GSCMqHXdtKEl41+bML+ERmLYU3Vvt6n0BsalB9J09wQ=";
   };
 
   postPatch = ''
     cp ${./package-lock.json} package-lock.json
   '';
 
-  npmDepsHash = "sha256-l+G+J830va0upyvX9pxrTsrI24L/nTySJ+QwZ695PCw=";
+  npmDepsHash = "sha256-Bz0hVgH2C2f8eHnkdnLN/GKSCmksmSWcbEniPxNdM30=";
 
   nativeBuildInputs = [ makeBinaryWrapper ];
 
