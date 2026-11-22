@@ -55,6 +55,28 @@ lib.recurseIntoAttrs (
             ''cp -r node_modules/. "$out/lib/node_modules/"''
         }
 
+        ${lib.optionalString (name == "npm:@anionex/dsh-turn-rewind") ''
+          # Allow newer prerelease RCs within the same minor release line without
+          # bypassing compatibility checks across minor or major upgrades.
+          ${lib.getExe nodejs_24} -e '
+            const fs = require("node:fs");
+            const file = process.argv[1];
+            const pkg = JSON.parse(fs.readFileSync(file, "utf8"));
+            const range = pkg.peerDependencies?.["@deepseek-ai/dsh-settings"];
+            if (typeof range === "string") {
+              pkg.peerDependencies["@deepseek-ai/dsh-settings"] = range
+                .split("||")
+                .map((part) => {
+                  const trimmed = part.trim();
+                  const match = /^(\d+\.\d+\.\d+)-rc\.\d+$/.exec(trimmed);
+                  return match ? ">=" + trimmed + " <=" + match[1] : trimmed;
+                })
+                .join(" || ");
+              fs.writeFileSync(file, JSON.stringify(pkg, null, 2) + "\n");
+            }
+          ' "$out/lib/node_modules/${plugin.packageName}/package.json"
+        ''}
+
         # Resolve peers from dsh so plugins share the same module instances.
         ln -s ${deepseek-harness}/share/deepseek-harness/node_modules "$out/node_modules"
 

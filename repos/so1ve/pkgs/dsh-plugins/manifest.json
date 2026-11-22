@@ -6,10 +6,10 @@
     "npmDepsHash": "sha256-UiWBEbBbD3xzhVNaAHlGv/+Wf7TZ8cK6pSikl4GzUM0="
   },
   "npm:dsh-context": {
-    "version": "0.85.1",
-    "url": "https://registry.npmjs.org/dsh-context/-/dsh-context-0.85.1.tgz",
-    "integrity": "sha512-M0Ycbx86SQF19HYRe7zlfsvagtkVGInFUDSZ9je8ti1aSQbxwoECKk0xDd5YcbUCgJLZXMWAgEx61tE0tCkSPA==",
-    "npmDepsHash": "sha256-j7OrHyiOH3yrvCeBxB4ObthLng5XpO60XtLd/Ld6aL8="
+    "version": "0.87.0",
+    "url": "https://registry.npmjs.org/dsh-context/-/dsh-context-0.87.0.tgz",
+    "integrity": "sha512-7k/wVxWVj1Au9iJMPL4RCAypKGWaBHoELRxFt/z++ygj7xYBNszsvaTe/to7IiZqbvBSYrCcaJJec2Qfjm3m0w==",
+    "npmDepsHash": "sha256-FuLt0LLM2PCexTTthsNl2DKMpOtYBoG4eLVpAQdevd4="
   },
   "github:kingcharleslzy-ai/dsh-purge": {
     "version": "1.7.20",
@@ -19,10 +19,10 @@
     "npmDepsHash": "sha256-dUwVwG0Ai6Mdj/6Fpd7tELTTaFKvIfy6LnAyH0hLUO0="
   },
   "npm:@anionex/dsh-turn-rewind": {
-    "version": "0.3.13",
-    "url": "https://registry.npmjs.org/@anionex/dsh-turn-rewind/-/dsh-turn-rewind-0.3.13.tgz",
-    "integrity": "sha512-BPP1AeaJSkdBCT/UrdCVnwpb4f0QKOABkOXQdCcIavbkY6SZYgCRKLAmMUojC+bgskJOf9gunD3Xm16kEKk68A==",
-    "npmDepsHash": "sha256-V8Xl3FlAU8c1TX1TCVDYVHT+H3QgCYOL4VICMcHvk5s="
+    "version": "0.3.14",
+    "url": "https://registry.npmjs.org/@anionex/dsh-turn-rewind/-/dsh-turn-rewind-0.3.14.tgz",
+    "integrity": "sha512-WDoUVLWwM0+oPF/89gO34lIIIUxAUwKXD6Nt9hIVb8KD+Pk8B6PwIqaZSaw06T0mPIkt6cFQ1gzQx3eGKVH40g==",
+    "npmDepsHash": "sha256-qfgyureVpQ3BYw3o/ZK66PvghZQUWyeNtaRbpk4shUI="
   },
   "npm:@ychris12138/dsh-usage-stats": {
     "version": "0.3.8",

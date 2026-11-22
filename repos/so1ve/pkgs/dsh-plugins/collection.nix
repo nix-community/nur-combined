@@ -53,8 +53,12 @@ runCommand "dsh-plugins" { } ''
   ${host}/bin/dsh --profile web --dump-config > /dev/null
   ${host}/bin/dsh --profile web --help > /dev/null 2> "$TMPDIR/boot.log"
 
-  if test -s "$TMPDIR/boot.log"; then
-    cat "$TMPDIR/boot.log" >&2
+  # purge-host.nix already verifies patch anchors at build time; ignore
+  # dsh-purge-community's advisory notice for unlisted DSH RC versions.
+  grep -v '^\[dsh-purge-community\] DSH .* 未在已验证清单内' "$TMPDIR/boot.log" > "$TMPDIR/boot-errors.log" || true
+
+  if test -s "$TMPDIR/boot-errors.log"; then
+    cat "$TMPDIR/boot-errors.log" >&2
     exit 1
   fi
 ''

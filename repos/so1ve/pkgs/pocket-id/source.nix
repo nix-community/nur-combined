@@ -3,13 +3,13 @@
 { fetchzip }:
 
 let
-  version = "2.19.2";
-  rev = "v2.19.2";
-  pnpmDepsHash = "sha256-fb02Rv/SqoJ4ufOdKqwvMpPZLO/5KTzJjscpbM3+8M8=";
-  vendorHash = "sha256-DJqProNx+z3yPalEXzn3PAaHhREXxVE0XG8S7vZMeMk=";
+  version = "2.19.3";
+  rev = "v2.19.3";
+  pnpmDepsHash = "sha256-ioO8DfAs5UgqsRdwIHYhqQv67PLOslk03k+LXd1yKXA=";
+  vendorHash = "sha256-Cm/YWyByIaLgF/AVVo94kCQFncZlHafNP5aRA58rcDM=";
   src = fetchzip {
-    url = "https://codeload.github.com/pocket-id/pocket-id/tar.gz/v2.19.2";
-    hash = "sha256-Vwl5rTWjdyGOxlGBRb4cddBotDeONRv63kLHVSU7kCw=";
+    url = "https://codeload.github.com/pocket-id/pocket-id/tar.gz/v2.19.3";
+    hash = "sha256-OUMV3F9exAEQEJYndv1aToncDaMQ0ILck7RF3gBM63g=";
     extension = "tar.gz";
   };
 in
