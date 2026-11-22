@@ -41,6 +41,7 @@ let
     footpad = { };
     triggers = { };
     lckey = { };
+    applemods = { };
   };
   mappers = builtins.mapAttrs (name: value: compileName ({ inherit name; } // value)) mapperArgs;
   combinedOutputConfigObject = {
@@ -281,6 +282,19 @@ let
         # 1a86:e026
         VENDOR = 6790;
         PRODUCT = 57382;
+      };
+    }
+    {
+      JOB = [
+        ''echo "$DEVNODE: running job for apple magic keyboard"''
+        ''intercept -g "$DEVNODE" | caps2esc -m 1 | ${lib.getExe mappers.applemods} | mux -o main''
+      ];
+      DEVICE = {
+        # Magic Keyboard with Numeric Keypad, 05ac:026c, BUS_USB
+        VENDOR = 1452;
+        PRODUCT = 620;
+        BUSTYPE = 3;
+        EVENTS.EV_KEY = [ "KEY_CAPSLOCK" ];
       };
     }
     {
