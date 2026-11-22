@@ -85,6 +85,36 @@
     "hash": "sha256-VdwpP5fsclvNqJuppaOvwEwv2ofnAI5ZSz2V+UEdLF0="
   },
   {
+    "pname": "Microsoft.AspNetCore.App.Runtime.linux-x64",
+    "version": "8.0.33",
+    "hash": "sha256-6Fyns6E4os6WmK6gcogQl7L8SEvnK86gNDwtmbGUZKI="
+  },
+  {
+    "pname": "Microsoft.DotNet.ILCompiler",
+    "version": "8.0.33",
+    "hash": "sha256-J/vmXQul/23K4TuaYTnpNewFICFdKdX0LyI0FVueSyM="
+  },
+  {
+    "pname": "Microsoft.NET.ILLink.Tasks",
+    "version": "8.0.33",
+    "hash": "sha256-Pw5sZAESO7+F9x6Onb0KX753C4dm3at4Uz9on30n2Qw="
+  },
+  {
+    "pname": "Microsoft.NETCore.App.Host.linux-x64",
+    "version": "8.0.33",
+    "hash": "sha256-RIRrs9NI/sIj7Rce9zOhn7ZDcGLi4uZLvDwd6szv7h4="
+  },
+  {
+    "pname": "Microsoft.NETCore.App.Runtime.linux-x64",
+    "version": "8.0.33",
+    "hash": "sha256-2xa/T/ah2Q3ROUs52/lyON6LEBYwH2y1dJETJPOFF0A="
+  },
+  {
+    "pname": "runtime.linux-x64.Microsoft.DotNet.ILCompiler",
+    "version": "8.0.33",
+    "hash": "sha256-yZ80j6AQcaBd2RRz8HcoAw5BqsqK1rnBICuTEPQ73t8="
+  },
+  {
     "pname": "SkiaSharp",
     "version": "2.88.9",
     "hash": "sha256-jZ/4nVXYJtrz9SBf6sYc/s0FxS7ReIYM4kMkrhZS+24="
