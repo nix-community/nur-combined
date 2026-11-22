@@ -164,6 +164,22 @@ let
     vendorHash = null;
   };
 
+  # nixpkgs' go rather than go-latest, which is the same when nixpkgs has caught up
+  withGo = mkFixture {
+    pname = "with-go";
+    inherit (testPkgs) go;
+  };
+
+  # go picks the builder, before the fixed point
+  goFromFinalAttrs = testPkgs.mkGoModule (
+    finalAttrs:
+    fixtureArgs
+    // {
+      go = finalAttrs.passthru.goOverride;
+      passthru.goOverride = testPkgs.go;
+    }
+  );
+
   # an empty gomod2nix.toml still builds a cache, which is empty without checks
   nodepsModules = testPkgs.mkGoModule {
     pname = "nodeps";
@@ -196,6 +212,10 @@ assert static.pie == testPkgs.stdenv.hostPlatform.isLinux;
 assert !windows.pie;
 assert !staticArmv7.pie;
 assert !staticArmv7.goCache.pie;
+assert withGo.go.outPath == testPkgs.go.outPath;
+assert withGo.goCache.go.outPath == testPkgs.go.outPath;
+assert !(withGo.drvAttrs ? go);
+assert !(builtins.tryEval goFromFinalAttrs.drvPath).success;
 {
   build = testPkgs.runCommand "mkGoModule-build" { nativeBuildInputs = elfTools; } ''
     test "$(${fixture}/bin/fixture)" = "hello from dep"
@@ -206,6 +226,8 @@ assert !staticArmv7.goCache.pie;
     test "$(${nodepsModules}/bin/nodeps)" = "hello without deps"
     test "$(${modules}/bin/fixture)" = "hello from dep"
     test "$(${modulesBumped}/bin/fixture)" = "hello from dep"
+    test "$(${withGo}/bin/fixture)" = "hello from dep"
+    ${testPkgs.go}/bin/go version ${withGo}/bin/fixture | grep --quiet -F ': go${testPkgs.go.version}'
     # the same as `go mod vendor`
     diff ${fixture.goModules}/modules.txt ${modules.goModules}/modules.txt
     ${testPkgs.lib.optionalString testPkgs.stdenv.hostPlatform.isLinux ''

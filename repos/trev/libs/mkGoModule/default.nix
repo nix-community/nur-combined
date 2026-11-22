@@ -1,6 +1,7 @@
-# Wraps buildGoModule, building the dependencies in a separate derivation
-# (`goCache`) and restoring its build cache, so that source changes only
-# rebuild the main module's packages.
+# Wraps buildGoModule (with go-latest, see ../default.nix), building the
+# dependencies in a separate derivation (`goCache`) and restoring its build
+# cache, so that source changes only rebuild the main module's packages. `go`
+# replaces the go it's built with.
 #
 # The dependency derivation only uses the vendor directory, so it doesn't change
 # with the source or version. Go's build cache is content-addressed, entries are
@@ -138,237 +139,254 @@ let
         ++ lib.splitString "/" dir
       )
     );
-in
 
-lib.extendMkDerivation {
-  constructDrv = buildGoModule;
+  # mkGoModule with a buildGoModule, which picks go
+  withBuilder =
+    buildGoModule:
+    lib.extendMkDerivation {
+      constructDrv = buildGoModule;
 
-  excludeDrvArgNames = [
-    "goCacheArgs"
-  ];
+      excludeDrvArgNames = [
+        "go"
+        "goCacheArgs"
+      ];
 
-  extendDrvArgs =
-    finalAttrs:
-    {
-      src,
-      vendorHash ? throw "mkGoModule: either vendorHash or modules is required",
-      # path to a gomod2nix.toml, to fetch the dependencies without vendorHash
-      modules ? null,
-      sourceRoot ? null,
-      modRoot ? "./",
-      nativeBuildInputs ? [ ],
-      overrideModAttrs ? (finalAttrs: previousAttrs: { }),
-      # extra arguments for the dependency derivation
-      goCacheArgs ? { },
-      # position-independent executables, only used with cgo. gcc's link spec for
-      # 32-bit ARM has no static-pie case, so those would be linked dynamically
-      pie ?
-        stdenv.hostPlatform.isLinux
-        && lib.elem stdenv.hostPlatform.go.GOARCH pieArchs
-        && !(stdenv.hostPlatform.isStatic && stdenv.hostPlatform.isAarch32),
-      ...
-    }@args:
+      extendDrvArgs =
+        finalAttrs:
+        {
+          src,
+          vendorHash ? throw "mkGoModule: either vendorHash or modules is required",
+          # path to a gomod2nix.toml, to fetch the dependencies without vendorHash
+          modules ? null,
+          sourceRoot ? null,
+          modRoot ? "./",
+          nativeBuildInputs ? [ ],
+          overrideModAttrs ? (finalAttrs: previousAttrs: { }),
+          # extra arguments for the dependency derivation
+          goCacheArgs ? { },
+          # position-independent executables, only used with cgo. gcc's link spec for
+          # 32-bit ARM has no static-pie case, so those would be linked dynamically
+          pie ?
+            stdenv.hostPlatform.isLinux
+            && lib.elem stdenv.hostPlatform.go.GOARCH pieArchs
+            && !(stdenv.hostPlatform.isStatic && stdenv.hostPlatform.isAarch32),
+          ...
+        }@args:
 
-    assert lib.assertMsg (
-      !(args.proxyVendor or false)
-    ) "mkGoModule: proxyVendor is not supported, the dependencies are read from vendor/modules.txt";
+        assert lib.assertMsg (
+          !(args.proxyVendor or false)
+        ) "mkGoModule: proxyVendor is not supported, the dependencies are read from vendor/modules.txt";
 
-    let
-      pname = args.pname or (lib.getName args.name);
+        let
+          pname = args.pname or (lib.getName args.name);
 
-      # directory the source is unpacked to. Without -trimpath (which the check
-      # phase removes) build cache entries depend on the absolute path of the
-      # vendor directory, so the dependency derivation uses the same one.
-      srcDir =
-        if sourceRoot != null then
-          sourceRoot
-        else
-          stripHash (baseNameOf (builtins.unsafeDiscardStringContext "${src}"));
+          # directory the source is unpacked to. Without -trimpath (which the check
+          # phase removes) build cache entries depend on the absolute path of the
+          # vendor directory, so the dependency derivation uses the same one.
+          srcDir =
+            if sourceRoot != null then
+              sourceRoot
+            else
+              stripHash (baseNameOf (builtins.unsafeDiscardStringContext "${src}"));
 
-      goCache =
-        if modules == null && vendorHash == null then
-          null
-        else
-          (buildGoModule (
-            removeAttrs args depsExcludedArgs
-            // {
-              # without the version, which would change the output path
-              name = "${pname}-go-deps";
+          goCache =
+            if modules == null && vendorHash == null then
+              null
+            else
+              (buildGoModule (
+                removeAttrs args depsExcludedArgs
+                // {
+                  # without the version, which would change the output path
+                  name = "${pname}-go-deps";
 
-              src = null;
-              dontUnpack = true;
+                  src = null;
+                  dontUnpack = true;
 
-              nativeBuildInputs = nativeBuildInputs ++ [ zstd ];
+                  nativeBuildInputs = nativeBuildInputs ++ [ zstd ];
 
-              preConfigure = ''
-                mkdir -p "$NIX_BUILD_TOP"/${lib.escapeShellArg srcDir}/"$modRoot"
-                cd "$NIX_BUILD_TOP"/${lib.escapeShellArg srcDir}
-              '';
+                  preConfigure = ''
+                    mkdir -p "$NIX_BUILD_TOP"/${lib.escapeShellArg srcDir}/"$modRoot"
+                    cd "$NIX_BUILD_TOP"/${lib.escapeShellArg srcDir}
+                  '';
 
-              # go.mod has to be consistent with vendor/modules.txt, which lists the
-              # explicit requirements, replacements and go versions
-              postConfigure = ''
-                ${setBuildMode}
-                awk '
-                  BEGIN { print "module nix-go-deps\n\ngo ${lib.versions.majorMinor finalAttrs.passthru.go.version}\n" }
-                  /^# / {
-                    sub(/^# /, "")
-                    mod = $0
-                    split($0, parts, " => ")
-                    replace = index($0, " => ") ? parts[2] : ""
-                    split(parts[1], left, " ")
-                    path = left[1]; version = left[2]
-                    if (replace != "") print "replace " parts[1] " => " replace
-                    next
+                  # go.mod has to be consistent with vendor/modules.txt, which lists the
+                  # explicit requirements, replacements and go versions
+                  postConfigure = ''
+                    ${setBuildMode}
+                    awk '
+                      BEGIN { print "module nix-go-deps\n\ngo ${lib.versions.majorMinor finalAttrs.passthru.go.version}\n" }
+                      /^# / {
+                        sub(/^# /, "")
+                        mod = $0
+                        split($0, parts, " => ")
+                        replace = index($0, " => ") ? parts[2] : ""
+                        split(parts[1], left, " ")
+                        path = left[1]; version = left[2]
+                        if (replace != "") print "replace " parts[1] " => " replace
+                        next
+                      }
+                      /^## explicit/ && version != "" { print "require " path " " version }
+                    ' vendor/modules.txt > go.mod
+                  '';
+
+                  buildPhase = ''
+                    runHook preBuild
+
+                    flags=(''${tags:+-tags=$(concatStringsSep "," tags)} -p "$NIX_BUILD_CORES")
+
+                    # vendor/modules.txt lists every vendored package, including ones
+                    # excluded by build constraints. With gomod2nix.toml it lists every
+                    # package of the modules, which may import modules that aren't
+                    # vendored, go doesn't build anything when one of them is passed.
+                    # gomod2nix.toml generated with --with-deps lists the imported ones.
+                    mapfile -t packages < <(
+                      go list -e "''${flags[@]}" -f '{{if not (or .Error .DepsErrors)}}{{.ImportPath}}{{end}}' \
+                        ''${cachePackages:-$(grep -v '^#' vendor/modules.txt)}
+                    )
+                    echo "Building ''${#packages[@]} dependency packages"
+
+                    # packages that aren't used by the main module may need missing inputs,
+                    # those are left to the real build
+                    go build "''${flags[@]}" "''${packages[@]}" \
+                      || echo "Some dependency packages failed to build, they'll be built in the main derivation"
+
+                    if [ -n "$buildTestDeps" ]; then
+                      echo "Building dependency packages without -trimpath for the check phase"
+                      GOFLAGS="''${GOFLAGS//-trimpath/}" go build "''${flags[@]}" "''${packages[@]}" testing testing/internal/testdeps \
+                        || echo "Some dependency packages failed to build, they'll be built in the main derivation"
+                    fi
+
+                    runHook postBuild
+                  '';
+
+                  cachePackages = lib.optionals (modules != null) (lib.importTOML modules).cachePackages or [ ];
+
+                  buildTestDeps = finalAttrs.doCheck;
+                  doCheck = false;
+
+                  installPhase = ''
+                    runHook preInstall
+
+                    mkdir -p $out
+                    echo "$PWD" > $out/dir
+                    # go doesn't create the cache when there's nothing to build, e.g.
+                    # without dependencies or checks
+                    mkdir -p "$GOCACHE"
+                    tar --create --owner=0 --group=0 --numeric-owner -C "$GOCACHE" . \
+                      | zstd -T$NIX_BUILD_CORES -o $out/cache.tar.zst
+
+                    runHook postInstall
+                  '';
+
+                  dontFixup = true;
+
+                  # buildGoModule defaults to go's platforms, which don't include
+                  # e.g. windows, so use the main derivation's
+                  meta = lib.intersectAttrs {
+                    platforms = null;
+                    badPlatforms = null;
+                  } finalAttrs.meta;
+                }
+              )).overrideAttrs
+                (
+                  {
+                    # use the main derivation's vendor directory, so its source isn't needed
+                    inherit (finalAttrs) goModules vendorHash;
+
+                    # the build mode changes how packages are compiled
+                    inherit (finalAttrs) pie;
+
+                    # the cache can contain store paths, e.g. of go when built without -trimpath
+                    disallowedReferences = [ ];
                   }
-                  /^## explicit/ && version != "" { print "require " path " " version }
-                ' vendor/modules.txt > go.mod
-              '';
+                  // goCacheArgs
+                );
+        in
+        {
+          goCache = args.goCache or goCache;
 
-              buildPhase = ''
-                runHook preBuild
+          inherit pie;
 
-                flags=(''${tags:+-tags=$(concatStringsSep "," tags)} -p "$NIX_BUILD_CORES")
+          # buildGoModule only copies `goModules` with a vendorHash, the derivation it
+          # would use is replaced (see transformDrv)
+          vendorHash = if modules != null then "" else vendorHash;
 
-                # vendor/modules.txt lists every vendored package, including ones
-                # excluded by build constraints. With gomod2nix.toml it lists every
-                # package of the modules, which may import modules that aren't
-                # vendored, go doesn't build anything when one of them is passed.
-                # gomod2nix.toml generated with --with-deps lists the imported ones.
-                mapfile -t packages < <(
-                  go list -e "''${flags[@]}" -f '{{if not (or .Error .DepsErrors)}}{{.ImportPath}}{{end}}' \
-                    ''${cachePackages:-$(grep -v '^#' vendor/modules.txt)}
-                )
-                echo "Building ''${#packages[@]} dependency packages"
+          # without the version, which would change the output path of the dependency
+          # derivation on every version bump
+          overrideModAttrs = lib.composeExtensions (_: _: {
+            name = "${pname}-go-modules";
+          }) (lib.toExtension overrideModAttrs);
 
-                # packages that aren't used by the main module may need missing inputs,
-                # those are left to the real build
-                go build "''${flags[@]}" "''${packages[@]}" \
-                  || echo "Some dependency packages failed to build, they'll be built in the main derivation"
+          nativeBuildInputs = nativeBuildInputs ++ [ zstd ];
 
-                if [ -n "$buildTestDeps" ]; then
-                  echo "Building dependency packages without -trimpath for the check phase"
-                  GOFLAGS="''${GOFLAGS//-trimpath/}" go build "''${flags[@]}" "''${packages[@]}" testing testing/internal/testdeps \
-                    || echo "Some dependency packages failed to build, they'll be built in the main derivation"
-                fi
-
-                runHook postBuild
-              '';
-
-              cachePackages = lib.optionals (modules != null) (lib.importTOML modules).cachePackages or [ ];
-
-              buildTestDeps = finalAttrs.doCheck;
-              doCheck = false;
-
-              installPhase = ''
-                runHook preInstall
-
-                mkdir -p $out
-                echo "$PWD" > $out/dir
-                # go doesn't create the cache when there's nothing to build, e.g.
-                # without dependencies or checks
-                mkdir -p "$GOCACHE"
-                tar --create --owner=0 --group=0 --numeric-owner -C "$GOCACHE" . \
-                  | zstd -T$NIX_BUILD_CORES -o $out/cache.tar.zst
-
-                runHook postInstall
-              '';
-
-              dontFixup = true;
-
-              # buildGoModule defaults to go's platforms, which don't include
-              # e.g. windows, so use the main derivation's
-              meta = lib.intersectAttrs {
-                platforms = null;
-                badPlatforms = null;
-              } finalAttrs.meta;
-            }
-          )).overrideAttrs
-            (
-              {
-                # use the main derivation's vendor directory, so its source isn't needed
-                inherit (finalAttrs) goModules vendorHash;
-
-                # the build mode changes how packages are compiled
-                inherit (finalAttrs) pie;
-
-                # the cache can contain store paths, e.g. of go when built without -trimpath
-                disallowedReferences = [ ];
-              }
-              // goCacheArgs
-            );
-    in
-    {
-      goCache = args.goCache or goCache;
-
-      inherit pie;
-
-      # buildGoModule only copies `goModules` with a vendorHash, the derivation it
-      # would use is replaced (see transformDrv)
-      vendorHash = if modules != null then "" else vendorHash;
-
-      # without the version, which would change the output path of the dependency
-      # derivation on every version bump
-      overrideModAttrs = lib.composeExtensions (_: _: {
-        name = "${pname}-go-modules";
-      }) (lib.toExtension overrideModAttrs);
-
-      nativeBuildInputs = nativeBuildInputs ++ [ zstd ];
-
-      postConfigure = ''
-        ${setBuildMode}
-        if [ -n "''${goCache-}" ]; then
-          echo "Restoring go build cache from $goCache"
-          mkdir -p "$GOCACHE"
-          # with fresh modification times, go deletes entries unused for 5 days
-          zstd -d "$goCache/cache.tar.zst" --stdout | tar --extract --touch -C "$GOCACHE"
-          if [ "$(cat "$goCache/dir")" != "$PWD" ]; then
-            echo "Build directory differs from $(cat "$goCache/dir"), dependencies of tests will be rebuilt"
-          fi
-        fi
-      ''
-      + args.postConfigure or "";
-
-      # before the package's own postInstall, so it sees the final name
-      postInstall =
-        lib.optionalString (finalAttrs.meta.mainProgram or null != null) ''
-          (
-            shopt -s nullglob
-            mainProgram=${lib.escapeShellArg finalAttrs.meta.mainProgram}${stdenv.hostPlatform.extensions.executable}
-            binaries=("$out"/bin/*)
-            if [ ! -e "$out/bin/$mainProgram" ]; then
-              if [ "''${#binaries[@]}" -eq 1 ]; then
-                echo "Renaming $(basename "''${binaries[0]}") to $mainProgram"
-                mv "''${binaries[0]}" "$out/bin/$mainProgram"
-              else
-                echo "Not renaming binaries to $mainProgram, $out/bin has ''${#binaries[@]} entries"
+          postConfigure = ''
+            ${setBuildMode}
+            if [ -n "''${goCache-}" ]; then
+              echo "Restoring go build cache from $goCache"
+              mkdir -p "$GOCACHE"
+              # with fresh modification times, go deletes entries unused for 5 days
+              zstd -d "$goCache/cache.tar.zst" --stdout | tar --extract --touch -C "$GOCACHE"
+              if [ "$(cat "$goCache/dir")" != "$PWD" ]; then
+                echo "Build directory differs from $(cat "$goCache/dir"), dependencies of tests will be rebuilt"
               fi
             fi
-          )
-        ''
-        + args.postInstall or "";
+          ''
+          + args.postConfigure or "";
 
-      passthru = {
-        inherit goCache;
-      }
-      // args.passthru or { };
+          # before the package's own postInstall, so it sees the final name
+          postInstall =
+            lib.optionalString (finalAttrs.meta.mainProgram or null != null) ''
+              (
+                shopt -s nullglob
+                mainProgram=${lib.escapeShellArg finalAttrs.meta.mainProgram}${stdenv.hostPlatform.extensions.executable}
+                binaries=("$out"/bin/*)
+                if [ ! -e "$out/bin/$mainProgram" ]; then
+                  if [ "''${#binaries[@]}" -eq 1 ]; then
+                    echo "Renaming $(basename "''${binaries[0]}") to $mainProgram"
+                    mv "''${binaries[0]}" "$out/bin/$mainProgram"
+                  else
+                    echo "Not renaming binaries to $mainProgram, $out/bin has ''${#binaries[@]} entries"
+                  fi
+                fi
+              )
+            ''
+            + args.postInstall or "";
+
+          passthru = {
+            inherit goCache;
+          }
+          // args.passthru or { };
+        };
+
+      # buildGoModule always defines `goModules`, so it's replaced afterwards
+      transformDrv =
+        drv:
+        drv.overrideAttrs (
+          finalAttrs: previousAttrs: {
+            goModules =
+              if finalAttrs.modules or null != null then
+                importGoModules {
+                  pname = finalAttrs.pname or (lib.getName finalAttrs.name);
+                  inherit (finalAttrs) modules;
+                  inherit (finalAttrs.passthru) go;
+                  modDir = srcPath finalAttrs finalAttrs.modRoot;
+                }
+              else
+                previousAttrs.goModules;
+          }
+        );
     };
 
-  # buildGoModule always defines `goModules`, so it's replaced afterwards
-  transformDrv =
-    drv:
-    drv.overrideAttrs (
-      finalAttrs: previousAttrs: {
-        goModules =
-          if finalAttrs.modules or null != null then
-            importGoModules {
-              pname = finalAttrs.pname or (lib.getName finalAttrs.name);
-              inherit (finalAttrs) modules;
-              inherit (finalAttrs.passthru) go;
-              modDir = srcPath finalAttrs finalAttrs.modRoot;
-            }
-          else
-            previousAttrs.goModules;
-      }
-    );
-}
+  mkGoModule = withBuilder buildGoModule;
+in
+
+# go is an argument of buildGoModule rather than an attribute, so `go` is read
+# before the fixed point to pick the builder, and can't depend on finalAttrs.
+# Like nixpkgs' builders, it runs on the build platform.
+fnOrAttrs:
+let
+  go =
+    (lib.toFunction fnOrAttrs (throw "mkGoModule: go can't depend on finalAttrs, it picks the builder"))
+    .go or null;
+in
+(if go == null then mkGoModule else withBuilder (buildGoModule.override { inherit go; })) fnOrAttrs

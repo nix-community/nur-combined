@@ -20,7 +20,12 @@ let
     mkFlake = pkgs.callPackage ./mkFlake { };
     mkGleamBurrito = pkgs.callPackage ./mkGleamBurrito { };
     mkGleamPackage = pkgs.callPackage ./mkGleamPackage { };
-    mkGoModule = pkgs.callPackage ./mkGoModule { };
+    mkGoModule = pkgs.callPackage ./mkGoModule {
+      # go runs on the build platform, like in nixpkgs' builders
+      buildGoModule = pkgs.buildGoLatestModule.override {
+        go = pkgs.buildPackages.callPackage ../packages/go { };
+      };
+    };
     mkUvEnv = pkgs.callPackage ./mkUvEnv { };
     mkUvPackage = pkgs.callPackage ./mkUvPackage { };
     mkImage = pkgs.callPackage ./mkImage { };

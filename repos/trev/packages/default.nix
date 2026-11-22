@@ -19,7 +19,10 @@ in
   fix-hash = pkgs.callPackage ./fix-hash { };
   flake-release = pkgs.callPackage ./flake-release { };
   gleescript = pkgs.callPackage ./gleescript { inherit (libs) mkGleamPackage; };
+  go-latest = pkgs.callPackage ./go { };
   go-over = pkgs.callPackage ./go-over { inherit (libs) mkGleamPackage; };
+  go_1_26-latest = pkgs.callPackage ./go/1.26.nix { };
+  go_1_27-latest = pkgs.callPackage ./go/1.27.nix { };
   helium = pkgs.callPackage ./helium { };
   igsc = pkgs.callPackage ./igsc { };
   kotlin-lsp = pkgs.callPackage ./kotlin-lsp { };

@@ -134,6 +134,16 @@ Bundles your Gleam-on-Erlang project into an escript
 nix run github:spotdemo4/trevpkgs#gleescript
 ```
 
+### [go-latest](https://go.dev)
+
+Go programming language; latest patch release, ahead of nixpkgs. `go_1_27-latest` and `go_1_26-latest` track the latest patch release of each supported minor version, `go-latest` is the one for nixpkgs' `go_latest`. Each falls back to nixpkgs' go once it catches up, and `go-latest` falls back to nixpkgs' `go_latest` when it moves to a newer minor version
+
+```nix
+packages = with pkgs.trev; [
+  go-latest
+];
+```
+
 ### [go-over](https://github.com/bwireman/go-over)
 
 A tool to audit Erlang & Elixir dependencies
@@ -632,6 +642,8 @@ Either `vendorHash` or `modules` is required. `modules` points to a `gomod2nix.t
 
 Dependencies of tests are cached for the build directory used on Linux, on Darwin they're rebuilt in the check phase.
 
+It's built with [`go-latest`](#go-latest), `go` replaces it, e.g. with `pkgs.trev.go_1_26-latest` or `pkgs.go_1_26`. It can't depend on `finalAttrs`, and like nixpkgs' builders it runs on the build platform, so use `pkgs.buildPackages` when cross compiling.
+
 Go names binaries after their package's directory, so when `meta.mainProgram` is set and a single binary is installed, it's renamed to `meta.mainProgram`.
 
 On Linux, binaries are built as position-independent executables (`-buildmode=pie`) for ASLR when cgo is enabled. On static platforms (`pkgsStatic`) they're linked as static PIE binaries by the external linker. With `CGO_ENABLED = 0` Go's own linker is used, which can't build static PIE binaries, so they're left static. Static 32-bit ARM binaries are also left static, as gcc can't link static PIE binaries for it. Set `pie = false` to disable it.
@@ -650,6 +662,7 @@ pkgs.mkGoModule (finalAttrs: {
   version = "1.0.0";
   src = ./.;
   modules = ./gomod2nix.toml;
+  go = pkgs.trev.go_1_26-latest;
 });
 ```
 
