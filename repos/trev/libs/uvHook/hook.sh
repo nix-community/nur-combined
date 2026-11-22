@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# Functions for mkUvPackage, using the variables it sets.
+# Functions for mkUvPackage and mkUvEnv, using the variables they set.
 
 # the home directory isn't writable
 export UV_CACHE_DIR="$NIX_BUILD_TOP/.uv-cache"
@@ -8,7 +8,7 @@ export UV_CACHE_DIR="$NIX_BUILD_TOP/.uv-cache"
 uvExport() {
     # shellcheck disable=SC2154,SC2086
     uv export $uvExportFlags $uvExcludeFlags --output-file "$NIX_BUILD_TOP/requirements.txt"
-    if [ -n "${doCheck-}" ]; then
+    if [ -n "${doCheck-}" ] && [ -n "${uvCheckExportFlags-}" ]; then
         # shellcheck disable=SC2154,SC2086
         uv export $uvCheckExportFlags $uvExcludeFlags --output-file "$NIX_BUILD_TOP/requirements-check.txt"
     fi
@@ -16,8 +16,7 @@ uvExport() {
 
 # builds the project's wheel, unless it's virtual
 uvBuild() {
-    # shellcheck disable=SC2154
-    if [ -n "$uvBuildPython" ]; then
+    if [ -n "${uvBuildPython-}" ]; then
         # backends like uv_build run executables from the environment
         PATH="$(dirname "$uvBuildPython"):$PATH" \
             "$uvBuildPython" -m build --wheel --no-isolation --skip-dependency-check \

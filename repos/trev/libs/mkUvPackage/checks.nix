@@ -79,7 +79,7 @@ let
   wheelNames = package: map (wheel: wheel.name) package.uvWheels;
 
   # the wheels picked for other interpreters and platforms
-  pickWheels = import ./wheels.nix { inherit lib; };
+  pickWheels = import ../uvHook/wheels.nix { inherit lib; };
   picked =
     args:
     map (wheel: wheel.filename) (

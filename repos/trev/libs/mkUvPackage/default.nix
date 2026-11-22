@@ -4,11 +4,12 @@
 # uv.lock records the URL and sha256 of every wheel, so they're read during
 # evaluation and fetched with fetchurl, without a dependency hash to update.
 # One wheel is picked per package for the interpreter and platform (see
-# ./wheels.nix), and uv installs them offline from a flat index, evaluating the
-# lock's markers and checking every hash again. Packages that only have sdists
-# or no wheel for the platform aren't supported, unless they're excluded by
-# markers or replaced with `overrides.<name>`: a nixpkgs Python package (its
-# wheel in the `dist` output is used), a wheel or a directory of wheels.
+# ../uvHook/wheels.nix), and uv installs them offline from a flat index,
+# evaluating the lock's markers and checking every hash again. Packages that
+# only have sdists or no wheel for the platform aren't supported, unless they're
+# excluded by markers or replaced with `overrides.<name>`: a nixpkgs Python
+# package (its wheel in the `dist` output is used), a wheel or a directory of
+# wheels.
 #
 # The project itself is built with its build backend from nixpkgs, as uv.lock
 # doesn't lock build systems. The backend is picked from the requirements in
@@ -19,35 +20,19 @@
 # With `doCheck` (the default), a separate environment with the dependency
 # `groups` is created at the end of the build phase (`uvCheckEnv`) and activated
 # for the check phase, which runs pytest if it's installed. The shell functions
-# are in ./hook.sh, for custom phases.
+# are in ../uvHook/hook.sh, for custom phases.
 #
 # On Linux, autoPatchelfHook links the native extensions to libraries that
 # auditwheel doesn't bundle (libstdc++), add others to `buildInputs`.
 {
-  autoPatchelfHook,
-  cacert,
-  fetchurl,
+  callPackage,
   lib,
-  linkFarm,
-  makeSetupHook,
   python3,
   stdenv,
-  uv,
 }:
 
 let
-  pickWheels = import ./wheels.nix { inherit lib; };
-
-  hook = makeSetupHook { name = "mk-uv-package-hook"; } ./hook.sh;
-
-  # https://packaging.python.org/en/latest/specifications/name-normalization/
-  normalize =
-    name:
-    lib.toLower (
-      lib.concatStringsSep "-" (
-        lib.filter (part: lib.isString part && part != "") (builtins.split "[-_.]+" name)
-      )
-    );
+  uvHook = callPackage ../uvHook { };
 
   # the name of a requirement like `hatchling>=1.27` or `foo[bar]; extra == "x"`
   requirementName =
@@ -58,23 +43,7 @@ let
     if match == null then
       throw "mkUvPackage: can't parse the build requirement '${requirement}'"
     else
-      normalize (builtins.head match);
-
-  # flags for uv export
-  exportFlags =
-    { groups, extras }:
-    lib.concatLists (
-      [
-        [
-          "--frozen"
-          "--format=requirements.txt"
-          "--no-emit-project"
-          "--no-default-groups"
-        ]
-      ]
-      ++ map (group: [ "--group=${group}" ]) groups
-      ++ map (extra: [ "--extra=${extra}" ]) extras
-    );
+      uvHook.normalize (builtins.head match);
 in
 
 lib.extendMkDerivation {
@@ -114,39 +83,20 @@ lib.extendMkDerivation {
     let
       parsedLock = lib.importTOML lock;
 
-      # the root project, `virtual` if it has no build system
-      project = lib.findFirst (
-        package: (package.source.editable or package.source.virtual or null) == "."
-      ) null (parsedLock.package or [ ]);
+      project = uvHook.findProject parsedLock;
       isVirtual = project != null && project.source ? virtual;
 
-      overrideNames = map normalize (lib.attrNames overrides);
-
-      wheels =
-        map
-          (
-            wheel:
-            fetchurl {
-              name = wheel.filename;
-              inherit (wheel) url sha256;
-            }
-          )
-          (
-            lib.filter (wheel: !builtins.elem wheel.name overrideNames) (pickWheels {
-              lock = parsedLock;
-              inherit python;
-              platform = stdenv.hostPlatform;
-              libcVersion = if stdenv.hostPlatform.libc == "glibc" then stdenv.cc.libc.version else null;
-            })
-          );
-
-      # uv parses the filenames of wheels in --find-links
-      wheelIndex = linkFarm "${finalAttrs.pname}-wheels" (
-        map (wheel: {
-          inherit (wheel) name;
-          path = wheel;
-        }) wheels
-      );
+      uv = uvHook.drvAttrs {
+        inherit (finalAttrs) pname;
+        lock = parsedLock;
+        inherit python overrides;
+        exportFlags = uvHook.exportFlags {
+          groups = [ ];
+          inherit extras;
+        };
+        inherit nativeBuildInputs buildInputs;
+        env = args.env or { };
+      };
 
       # PEP 517's default for projects without [build-system]
       buildRequirements =
@@ -169,48 +119,18 @@ lib.extendMkDerivation {
           ) buildRequirements;
 
       buildPython = python.withPackages (_: [ python.pkgs.build ] ++ buildSystem);
-
-      # wheels of the overrides, found during the build
-      overridePaths = map (package: package.dist or package) (lib.attrValues overrides);
     in
-    {
+    uv.attrs
+    // {
       pname = args.pname or project.name or (throw "mkUvPackage: pname is required");
       version = args.version or project.version or (throw "mkUvPackage: version is required");
 
       inherit doCheck;
 
-      nativeBuildInputs = [
-        uv
-        hook
-      ]
-      ++ lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook
-      ++ nativeBuildInputs;
-
-      # auditwheel doesn't bundle libstdc++ and libgcc_s
-      buildInputs = lib.optional stdenv.hostPlatform.isLinux stdenv.cc.cc.lib ++ buildInputs;
-
       # stripping breaks some libraries patched by auditwheel
       dontStrip = args.dontStrip or true;
 
-      env = {
-        UV_NO_PROGRESS = "1";
-        UV_OFFLINE = "1";
-        UV_PYTHON_DOWNLOADS = "never";
-        UV_LINK_MODE = "copy";
-        # uv loads certificates even offline, and warns about stdenv's placeholder
-        SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
-      }
-      // args.env or { };
-
-      uvPython = python.interpreter;
-      uvWheelIndex = wheelIndex;
-      uvOverrides = overridePaths;
-      uvExportFlags = exportFlags {
-        groups = [ ];
-        inherit extras;
-      };
-      uvCheckExportFlags = exportFlags { inherit groups extras; };
-      uvExcludeFlags = map (name: "--no-emit-package=${name}") overrideNames;
+      uvCheckExportFlags = uvHook.exportFlags { inherit groups extras; };
 
       uvBuildPython = if isVirtual then "" else buildPython.interpreter;
 
@@ -260,7 +180,7 @@ lib.extendMkDerivation {
 
       passthru = {
         inherit python buildPython;
-        uvWheels = wheels;
+        uvWheels = uv.wheels;
         uvLock = parsedLock;
       }
       // passthru;

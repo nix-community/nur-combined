@@ -674,6 +674,23 @@ pkgs.mkUvPackage (finalAttrs: {
 });
 ```
 
+### mkUvEnv
+
+Builds a virtual environment from `uv.lock` the same way as `mkUvPackage`, for development shells and checks that need the dependencies, e.g. type checkers in the sandbox. Only the dependencies, the dependency `groups` and the `extras` are installed, the project isn't built. `python`, `overrides` and the supported packages are the same as `mkUvPackage`'s. Its main program is `python`.
+
+With `editableRoot`, the project is also installed editable with `python.pkgs.mkPythonEditablePackage`: a `.pth` file adds the root to `sys.path`, expanding environment variables when Python starts, and the entry points in `pyproject.toml` are installed.
+
+Only `uv.lock` and `pyproject.toml` are inputs, so with a path as `src` the environment doesn't change with the other files. They can be passed as `lock` and `pyproject` instead of `src`.
+
+```nix
+pkgs.mkUvEnv {
+  src = ./.;
+  python = pkgs.python314;
+  groups = [ "dev" ];
+  editableRoot = "$REPO_ROOT/src";
+};
+```
+
 ### bufFetchDeps & bufHook
 
 Creates a fixed-output derivation for [buf](https://buf.build/) dependencies
