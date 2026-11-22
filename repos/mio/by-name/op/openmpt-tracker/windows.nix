@@ -28,11 +28,9 @@ stdenv.mkDerivation (
       hash = "sha256-N7EZqfM9U+1F0R4S0kT6MTbWxVTH2T7NE7nuKEaKl5s=";
     };
 
-    # cl/lib/link/rc are run under Wine; python3 drives the project graph.
-    nativeBuildInputs = [
-      python3
-      wine
-    ];
+    # MSBuild drives upstream's committed .vcxproj files; the tools it invokes
+    # (cl/lib/link/rc) are Windows PE binaries and run under Wine.
+    nativeBuildInputs = [ wine ];
 
     dontConfigure = true;
     dontStrip = true;
@@ -48,17 +46,27 @@ stdenv.mkDerivation (
       wine boot --init || true
       wineserver -w || true
 
-      # The wrappers translate unix paths to z:/... themselves; MSVC_ROOT is what
-      # build.py uses to locate the static MFC libraries (afxnmcd plus the
-      # charset's uafxcw) and libcmt.
-      export MSVC_ROOT="${msvc-wine-toolchain}"
-      export PATH="$MSVC_ROOT/bin/x64:$PATH"
-
-      python3 ${./build.py} \
-        --src . \
-        --out "$TMPDIR/build" \
-        --jobs "$NIX_BUILD_CORES" \
-        --all
+      # Upstream's own build: MSBuild over the committed project files. The
+      # properties pin what this toolchain carries (its toolset directory is
+      # v145 and its SDK is 10.0.26100.0, while the projects ask for v143 and
+      # 10.0.22621.0), skip the UAP SDK check the payload cannot satisfy, and
+      # turn off Spectre-mitigated libraries, which are a separate component.
+      # UseEnv makes MSBuild take the wrapper's INCLUDE and LIB instead of
+      # recomputing them, which is what leaves the UCRT out otherwise.
+      # Serial on purpose: with /m the concurrent cl.exe instances under Wine
+      # die and MSBuild reports an empty "0 Error(s) ... FAILED", which reads as
+      # a build error in projects that build fine on their own.
+      export PATH="${msvc-wine-toolchain}/bin/x64:$PATH"
+      msbuild build/vs2022win10/OpenMPT.vcxproj \
+        /nologo \
+        /p:Configuration=Release \
+        /p:Platform=x64 \
+        /p:UseEnv=true \
+        /p:PlatformToolset=v145 \
+        /p:WindowsTargetPlatformVersion=10.0.26100.0 \
+        /p:WindowsSDKInstalled=true \
+        /p:WindowsSDK_Desktop_Support=true \
+        /p:SpectreMitigation=false
 
       runHook postBuild
     '';
@@ -69,7 +77,7 @@ stdenv.mkDerivation (
       mkdir -p "$out/share/openmpt-tracker"
       # The DLLs are the mpg123/lame projects the GUI links against
       # (LINK_MPG123_DLL), so they have to ship next to the exe.
-      cp -a "$TMPDIR"/build/bin/. "$out/share/openmpt-tracker/"
+      cp -a bin/release/vs2022-win10-static/amd64/. "$out/share/openmpt-tracker/"
       rm -f "$out/share/openmpt-tracker/OpenMPT.pdb"
       runHook postInstall
     '';

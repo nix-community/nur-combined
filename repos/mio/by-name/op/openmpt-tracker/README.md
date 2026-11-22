@@ -1,29 +1,23 @@
-# openmpt-tracker: upstream's MSBuild, and why this package does not use it yet
+# openmpt-tracker
 
-Upstream builds the tracker from premake-generated project files with MSBuild.
-That is the route this package wants, so the result of trying it is recorded
-here.
+Built with upstream's own build: `msbuild` from `msvc-wine-toolchain` drives the
+committed `build/vs2022win10/OpenMPT.vcxproj` and the projects it references,
+which in turn run cl/lib/link/rc under Wine.
 
-Where it stands with the toolchain as shipped (MSBuild 18.12.3, toolset `v145`,
-Windows SDK 10.0.26100.0):
+The toolchain carries the two things that build needs:
 
-- The stock `msbuild` wrapper dies with `TypeLoadException` on
-  `Microsoft.VisualStudio.Telemetry`. The assembly is in the payload
-  (`VC/Tools/MSVC/<ver>/bin/Hostx64/x64/`), just not next to `MSBuild.exe`
-  where .NET probes for it. Copying it there makes MSBuild run.
-- MSBuild then needs `/p:PlatformToolset=v145`
-  (the projects ask for `v143`, which this payload does not carry),
-  `/p:WindowsTargetPlatformVersion=10.0.26100.0` (the projects ask for
-  `10.0.22621.0`), `/p:WindowsSDKInstalled=true` and
-  `/p:WindowsSDK_Desktop_Support=true` (the SDK check looks for the UAP
-  `DesignTime` props, which the payload does not ship), and
-  `/p:SpectreMitigation=false` (no Spectre-mitigated libraries are installed).
-- It compiles at that point, but its own include computation leaves the UCRT out
-  (`Cannot open include file: 'stddef.h'`), and `rc.exe` still needs MFC's
-  `.rc` files healed before the GUI resources build.
+- `Microsoft.VisualStudio.Telemetry.dll` next to `MSBuild.exe`: the payload
+  ships it with the compiler, but .NET only probes next to the executable, so
+  without it MSBuild aborts at startup.
+- ATL/MFC's `.rc` files healed from their mixed-endian UTF-16 into plain text:
+  rc.exe reads them as UTF-16LE and otherwise stops with RC2255.
 
-Each remaining piece belongs to the toolchain (ship the telemetry assembly next
-to `MSBuild.exe`, fix the include set, heal ATL/MFC's resource scripts), not to
-this package. Until that lands, `build.py` stands in for MSBuild: it executes
-upstream's committed `.vcxproj` ItemDefinitionGroups through cl/lib/link/rc and
-does not reimplement any of upstream's build logic.
+Properties the projects need against this toolchain live in `windows.nix`:
+`PlatformToolset=v145` (the projects ask for v143), `WindowsTargetPlatformVersion`
+`10.0.26100.0` (they ask for 10.0.22621.0), `WindowsSDKInstalled` and
+`WindowsSDK_Desktop_Support` (the payload ships no UAP `DesignTime` props), and
+`SpectreMitigation=false` (Spectre-mitigated libraries are a separate VS
+component). `UseEnv=true` makes MSBuild take the wrapper's `INCLUDE`/`LIB`
+instead of recomputing them, which is what leaves the UCRT out otherwise.
+
+`update.sh` bumps the version and the source hash.

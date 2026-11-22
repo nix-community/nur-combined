@@ -139,13 +139,37 @@ stdenv.mkDerivation {
     runHook preInstall
     mkdir -p $out
     cp -a "$TMPDIR/msvc/." $out/
+    chmod -R u+w $out
+
+    # .NET probes for private assemblies next to the executable, and MSBuild.exe's
+    # own directory does not carry this one even though the payload ships it with
+    # the compiler; without it MSBuild aborts before running any target.
+    install -m 644 $out/vc/tools/msvc/*/bin/Hostx64/x64/Microsoft.VisualStudio.Telemetry.dll \
+      $out/MSBuild/Current/Bin/amd64/
+
+    # ATL/MFC ship resource scripts whose 2-byte units are partly big-endian;
+    # rc.exe reads them as UTF-16LE and stops with RC2255 ("named STRINGTABLEs
+    # are not allowed"). Every ASCII byte is paired with a zero half, so dropping
+    # the zero bytes recovers the text whatever endianness a line used. Healed
+    # once here, so rc.exe accepts them for every consumer of the toolchain.
+    python3 - $out <<'PY'
+    import glob, sys
+    for path in glob.glob(sys.argv[1] + "/VC/Tools/MSVC/*/atlmfc/include/*.rc"):
+        with open(path, "rb") as f:
+            data = f.read()
+        body = data[2:] if data[:2] in (b"\xff\xfe", b"\xfe\xff") else data
+        text = bytes(b for b in body if b).decode("latin-1")
+        with open(path, "w", encoding="latin-1") as f:
+            f.write(text)
+    PY
+
     runHook postInstall
   '';
 
   # ~4 GiB of unpacked toolchain: only build this when it is actually needed.
   outputHashMode = "recursive";
   outputHashAlgo = "sha256";
-  outputHash = "sha256-JwQl81MHZLqVBYySyRP1Oyp7q+Lix0+/UMsj5zeGOqE=";
+  outputHash = "sha256-a2QQjdhmkx9E/EtHz6M7joag4Z7peeIUe6EOOfDgIOg=";
   passthru = {
     inherit msvcVersion msvcToolsetVersion sdkVersion;
   };
