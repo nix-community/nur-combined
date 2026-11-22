@@ -25,6 +25,7 @@ Ray's personal [NUR](https://github.com/nix-community/NUR) repository
 | `firefoxpwa-xwayland` | [Usage](pkgs/firefoxpwa-xwayland/README.md) |
 | `flutter-rust-bridge-codegen` | [Upstream](https://github.com/fzyzcjy/flutter_rust_bridge) |
 | `gradle-language-server` | [Usage](pkgs/gradle-language-server/README.md) |
+| `haimacloud` | [Upstream](https://pc.haimacloud.com/) |
 | `herdr` | [Upstream](https://github.com/herdrdev/herdr) |
 | `kelivo` | [Upstream](https://github.com/Chevey339/kelivo) |
 | `kotlin-lsp` | [Usage](pkgs/kotlin-lsp/README.md) |
