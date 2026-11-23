@@ -15,13 +15,13 @@
 }:
 
 let
-  version = "0.2.1";
+  version = "0.2.2";
 
   dfdiskSrc = fetchFromGitHub {
     owner = "tylerstyle";
     repo = "dfdisk";
     tag = "v${version}";
-    hash = "sha256-/37FjjcqRoHQX0/dbhB+64bumCLqnxq35m15fOuiRGs=";
+    hash = "sha256-xKJ+N6zJLMnX7A637kGeme/xSb/9KgBHxbGv4eWMQTw=";
   };
 
   # dfdisk depends on dfcore via `path = "../dfcore"`; pin the revision
@@ -29,8 +29,8 @@ let
   dfcoreSrc = fetchFromGitHub {
     owner = "tylerstyle";
     repo = "dfcore";
-    rev = "d1a97cd05bbf6fb95123f9236fae37ea352926cf";
-    hash = "sha256-CUcFeUqfEKERS9RU9Y039uP/1MAeMXiKRkIWgfiClLU=";
+    rev = "d2d9fcecf150965cbce075366cf15b2813a77a14";
+    hash = "sha256-3YuDlCcEZkLknfkEpHKLDKEQ0KIzMLY3wE0gEB96IgY=";
   };
 
   # The tools dfdisk runs (package.nix passthru.runtimeTools); none is linked
@@ -59,13 +59,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
   sourceRoot = "${finalAttrs.src.name}/dfdisk";
 
-  cargoHash = "sha256-UoEK3Hdw+RtoAiC0GJSa5kkukWovLAJ+iYovn6xKGP8=";
+  cargoHash = "sha256-ERA6ACRqPpYaL/2f2s+5bNIQ2klOpeHUP8kNgiwUq6k=";
 
   # build.rs cannot run git in the sandbox. dfdiskSrc is fetched by tag (its
   # rev is "refs/tags/v..."), so the release workflow writes the tag's commit
   # here; the dfcore revision is the pinned one
   env = {
-    DFDISK_GIT_REV = "c7f29fe61f33fc70a72cd9dd2754ff9485948bee";
+    DFDISK_GIT_REV = "a5483a0be95ce4dbfb92e79cd0db009672835689";
     DFCORE_GIT_REV = dfcoreSrc.rev;
   };
 
