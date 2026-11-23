@@ -50,6 +50,9 @@ stdenv.mkDerivation (finalAttrs: {
     # qmake reports qtbase's own directories, but lrelease lives in qttools.
     substituteInPlace configure \
       --replace-fail '"$qt_bindir/lrelease"' '"$(command -v lrelease)"'
+    # Plugin discovery is hardcoded to /usr/lib*, which Nix cannot satisfy.
+    substituteInPlace lib/qpxscan/include/qpx_scan.h \
+      --replace-fail "/usr/lib/qpxtool" "$out/lib/qpxtool"
     # The store cannot hold setuid binaries; upstream installs three tools as 4755.
     for mf in console/{cdvdcontrol,f1tattoo,qscan}/Makefile; do
       substituteInPlace "$mf" --replace-fail 'install -m 4755' 'install -m 755'
