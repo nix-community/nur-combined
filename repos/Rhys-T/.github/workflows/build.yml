@@ -229,6 +229,7 @@ jobs:
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
         pushFilter: 'fpc-binary'
+        installCommand: "${{ matrix.runner == 'macos-15-intel' && 'nix-env --quiet -j8 -iA cachix -f \"<nixpkgs>\"' || '' }}"
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \
