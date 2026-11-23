@@ -12,7 +12,15 @@ def is_stable_tag(tag, allow_prerelease=False):
     if allow_prerelease:
         return True
     tl = tag.lower()
-    if 'dev' in tl or 'beta' in tl or 'alpha' in tl or 'rc' in tl or 'internal' in tl:
+    # Common prerelease markers. `preview` (v0.6.11-preview.7), `nightly`
+    # (v47.0.0-nightly.20261120) and `test` (5.2.1-test.9814) are all tagged
+    # as ordinary releases/tags upstream, so they must be filtered here or an
+    # unreleased build outranks the stable version and gets reported.
+    prerelease = (
+        'dev', 'beta', 'alpha', 'rc', 'internal',
+        'pre', 'preview', 'nightly', 'snapshot', 'canary', 'test',
+    )
+    if any(word in tl for word in prerelease):
         return False
     if re.search(r'b\d+$', tl):
         return False
@@ -280,7 +288,8 @@ def main():
             # tlottie: packaged for forkgram find_library; no need to track every upstream commit
             # video-speed-controller-firefox: abandoned firefox-port fork with no tags; ignore noisy fetch failures
             # wayback-machine-extension: pinned to master tip; release tags lag and would false-report
-            if pkg in ['polkit', 'minetest580', 'minetest591', 'irrlichtmt', 'ogre-1_11', 'electron_castlabs_38', 'ocaml-index', 'electron_36-bin', 'supertuxkart-evolution', 'tlottie', 'video-speed-controller-firefox', 'wayback-machine-extension', 'omnimux'] or 'plugin' in pkg:
+            # forester5: intentionally pinned to a 5.x-era commit; upstream main is 6.0 (packaged as `forester`)
+            if pkg in ['polkit', 'minetest580', 'minetest591', 'irrlichtmt', 'ogre-1_11', 'electron_castlabs_38', 'ocaml-index', 'electron_36-bin', 'supertuxkart-evolution', 'tlottie', 'video-speed-controller-firefox', 'wayback-machine-extension', 'omnimux', 'forester5'] or 'plugin' in pkg:
                 continue
                 
             pkg_nix = os.path.join(pkg_path, 'package.nix')
