@@ -19,7 +19,7 @@ let
   fhsenv =
     wechat.fhsenv or (buildFHSEnv {
       name = "wechat-fhsenv";
-      targetPkgs = pkgs: [ wechat ];
+      targetPkgs = _: [ wechat ];
     }).fhsenv;
 
   wechatOpt =

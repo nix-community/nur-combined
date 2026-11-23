@@ -83,7 +83,7 @@ let
 
       # xkbcommon pinned below 1.1 (1.5 introduced breaking API changes;
       # pin advised by the python-xkbcommon maintainer).
-      xkbcommon = pyPrev.xkbcommon.overridePythonAttrs (old: {
+      xkbcommon = pyPrev.xkbcommon.overridePythonAttrs (_: {
         version = "1.0.1";
         src = fetchPypi {
           pname = "xkbcommon";

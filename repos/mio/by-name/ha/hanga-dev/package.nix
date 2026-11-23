@@ -135,6 +135,7 @@ else
     meta = {
       description = "Hanga development build with tests";
       license = lib.licenses.mit;
+      platforms = lib.platforms.darwin;
       mainProgram = "hanga";
     };
   }

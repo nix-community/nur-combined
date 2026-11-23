@@ -99,11 +99,10 @@ stdenv.mkDerivation rec {
     sqlite
     wayland
     adwaita-icon-theme
-    desktop-file-utils
     nixos-appstream-data
   ];
 
-  patchPhase = ''
+  postPatch = ''
     cp ${./Cargo.lock} Cargo.lock
     substituteInPlace ./Cargo.toml \
         --replace-fail 'sqlx = { version = "0.6"' 'sqlx = { version = "0.7"'

@@ -1,7 +1,6 @@
 {
   lib,
   stdenv,
-  flutter,
   callPackage,
   copyDesktopItems,
   makeDesktopItem,
@@ -184,7 +183,7 @@ lib.overrideDerivation
     }
   ))
   (
-    old:
+    _:
     lib.optionalAttrs stdenv.hostPlatform.isDarwin {
       __noChroot = true;
     }

@@ -67,7 +67,15 @@ let
     fi
   '';
 
-  cb = if isDarwin then cbDarwin else cbLinux;
+  cb = (if isDarwin then cbDarwin else cbLinux).overrideAttrs (_: {
+    meta = {
+      description = "Cross-platform clipboard utility";
+      homepage = "https://github.com/nikitabobko/dotfiles";
+      license = lib.licenses.mit;
+      platforms = lib.platforms.linux ++ lib.platforms.darwin;
+      mainProgram = "cb";
+    };
+  });
 
 in
 cb

@@ -1,4 +1,5 @@
 {
+  lib,
   fetchFromGitHub,
   writeShellApplication,
   coreutils,
@@ -27,6 +28,9 @@ let
 in
 zenFlake.default.overrideAttrs (prevAttrs: {
   pname = "zen-browser-bin";
+  meta = (prevAttrs.meta or { }) // {
+    license = lib.licenses.mpl20;
+  };
   buildCommand =
     (prevAttrs.buildCommand or "")
     + (

@@ -14,7 +14,6 @@ let
   wine = if isDarwin then gcenx-wine-staging else wineWow64Packages.full;
 
   pname = "openmpt-tracker";
-  version = "0.8.10";
 
   # The MSVC toolchain is a package of this repository, not of nixpkgs, so it
   # has to be handed to the nested callPackage explicitly.

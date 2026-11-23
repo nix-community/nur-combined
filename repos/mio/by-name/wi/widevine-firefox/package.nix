@@ -2,7 +2,7 @@
 { stdenv, widevine-cdm, ... }:
 
 stdenv.mkDerivation {
-  name = "widevine-firefox";
+  pname = "widevine-firefox";
   version = widevine-cdm.version;
 
   buildCommand = ''

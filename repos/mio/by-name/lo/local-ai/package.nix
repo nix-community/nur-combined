@@ -111,7 +111,7 @@ let
 
   llama-cpp-grpc =
     (llama-cpp.overrideAttrs (
-      final: prev: {
+      _: prev: {
         name = "llama-cpp-grpc";
         src = fetchFromGitHub {
           owner = "ggerganov";

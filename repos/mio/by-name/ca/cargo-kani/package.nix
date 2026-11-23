@@ -1,6 +1,5 @@
 {
   lib,
-  stdenv,
   pkgs,
   fetchFromGitHub,
   pkg-config,
@@ -10,11 +9,12 @@
 }:
 
 let
-  fenix_repo = pkgs.fetchzip {
-    url = "https://github.com/nix-community/fenix/archive/main.tar.gz";
-    hash = "sha256-s0LM0VgI+LQF+hqO96lyqfpyrux6xS8CgcxTjv+g8qU=";
-  };
-  fenix = import fenix_repo { inherit pkgs; };
+  fenix = import (pkgs.fetchFromGitHub {
+    owner = "nix-community";
+    repo = "fenix";
+    rev = "012c1a71bd93921f320def3d0e586cc4dd332b65";
+    hash = "sha256-Rk0Z2OtU3NPrptAuqH1X5IqCAneX/qAdhwUhb2c4K7M=";
+  }) { inherit pkgs; };
   toolchain_components = fenix.targets.x86_64-unknown-linux-gnu.toolchainOf {
     channel = "nightly";
     date = "2026-08-21";
@@ -29,7 +29,7 @@ let
     toolchain_components.rust-src
   ];
 
-  # Kani 0.67.0
+  # Kani 0.68.0
   version = "0.68.0";
 
   rustPlatform = makeRustPlatform {
@@ -151,5 +151,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://model-checking.github.io/kani/";
     license = licenses.asl20;
     platforms = [ "x86_64-linux" ];
+    mainProgram = "cargo-kani";
   };
 }

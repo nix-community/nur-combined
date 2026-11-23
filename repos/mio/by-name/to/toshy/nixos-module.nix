@@ -46,7 +46,7 @@ in
       KERNEL=="uinput", SUBSYSTEM=="misc", GROUP="input", MODE="0660", TAG+="uaccess", RUN+="${pkgs.acl}/bin/setfacl -m g::rw /dev/uinput"
     '';
 
-    users.users = lib.genAttrs cfg.users (user: {
+    users.users = lib.genAttrs cfg.users (_: {
       extraGroups = [ "input" ];
     });
   };

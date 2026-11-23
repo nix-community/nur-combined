@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A set of tools for working with packages made with mkWindowsApp.";
+    description = "A set of tools for working with packages made with mkWindowsApp";
     homepage = "https://github.com/emmanuelrosa/erosanix";
     license = licenses.mit;
     maintainers = with maintainers; [ emmanuelrosa ];

@@ -9,7 +9,7 @@
 let
   python = python3.override {
     self = python;
-    packageOverrides = self: super: {
+    packageOverrides = self: _: {
 
       edge-tts = self.buildPythonPackage rec {
         pname = "edge-tts";

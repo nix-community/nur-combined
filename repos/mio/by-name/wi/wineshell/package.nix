@@ -45,7 +45,7 @@ mkWindowsApp rec {
   '';
 
   meta = with lib; {
-    description = "A Bash shell containing ${wineFlavor} with an ephemeral WINEPREFIX. Useful for running a Wine-compatible Windows program that you don't want to install.";
+    description = "A Bash shell containing ${wineFlavor} with an ephemeral WINEPREFIX. Useful for running a Wine-compatible Windows program that you don't want to install";
     homepage = "https://github.com/emmanuelrosa/erosanix";
     license = licenses.mit;
     maintainers = with maintainers; [ emmanuelrosa ];

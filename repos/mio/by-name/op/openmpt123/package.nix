@@ -14,7 +14,6 @@ let
   wine = if isDarwin then gcenx-wine-staging else wineWow64Packages.full;
 
   pname = "openmpt123";
-  version = "0.8.10";
 
   openmpt123Windows = pkgs.callPackage ./windows.nix { inherit pkgsCross; };
 

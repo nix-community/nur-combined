@@ -25,7 +25,7 @@
   # Some proprietary libs assume UCS2 unicode, especially on darwin :(
   ucsEncoding ? 4,
   # For the Python package set
-  packageOverrides ? (self: super: { }),
+  packageOverrides ? (_: _: { }),
   pkgsBuildBuild,
   pkgsBuildHost,
   pkgsBuildTarget,
@@ -255,7 +255,6 @@ let
     ++ lib.optional stdenv.hostPlatform.isLinux "ac_cv_func_lchmod=no"
     ++ lib.optional static "LDFLAGS=-static";
 
-  strictDeps = true;
   buildInputs =
     lib.optional (stdenv ? cc && stdenv.cc.libc != null) stdenv.cc.libc
     ++ [

@@ -3,9 +3,9 @@
 }:
 let
   # Latest commit from https://github.com/nix-community/robotnix/pull/390
-  robotnixSrc = builtins.fetchTarball {
+  robotnixSrc = pkgs.fetchzip {
     url = "https://github.com/nix-community/robotnix/archive/0e5d81d47974b70a8716c0ae3f8dca20ebada38f.tar.gz";
-    sha256 = "sha256-SvXKvEIAhs2fSenivvMGySWMBe0JAaV+Arb31iecMqI=";
+    hash = "sha256-SvXKvEIAhs2fSenivvMGySWMBe0JAaV+Arb31iecMqI=";
   };
   robotnixPkgs = import "${robotnixSrc}/pkgs" { system = pkgs.stdenv.hostPlatform.system; };
   robotnix = import robotnixSrc {

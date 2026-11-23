@@ -1,6 +1,5 @@
 {
   lib,
-  stdenv,
   fetchgit,
   fetchFromGitHub,
   nix-update-script,
@@ -19,7 +18,7 @@ let
   # memtrace's released version predates the compatibility work, and semgrep
   # relies on the full-arity visitors code generator.
   ocamlPackages = nixpkgs_pkgs.ocamlPackages.overrideScope (
-    oself: osuper: {
+    _: osuper: {
       memprof-limits = osuper.memprof-limits.overrideAttrs (old: {
         version = "0.2.1-unstable-2025-02-05";
         src = fetchgit {

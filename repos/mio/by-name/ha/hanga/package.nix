@@ -86,8 +86,8 @@ rustPlatform.buildRustPackage {
 
   meta = {
     description = "Hanga: Minecraft + Luanti + Teardown + GTA at the same time";
-    homepage = "https://example.com";
     license = lib.licenses.mit;
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
     mainProgram = "hanga";
   };
 }

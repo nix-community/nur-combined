@@ -3,7 +3,6 @@
 }:
 let
   pkgs = import nixpkgs { };
-  writeScript = pkgs.writeScript;
 
   assertFileExist = path: ''
     test -f "${path}" || echo "ERROR: ${path} is supposed to exist."

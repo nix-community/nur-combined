@@ -44,9 +44,14 @@ let
         ];
       })
     );
-    aria2-wrapped = pkgs.writeShellScriptBin "aria2" ''
+    aria2-wrapped = (pkgs.writeShellScriptBin "aria2" ''
       ${aria2}/bin/aria2c -s65536 -j65536 -x256 -k1k --file-allocation=none "$@"
-    '';
+    '').overrideAttrs (_: {
+      meta = aria2.meta // {
+        mainProgram = "aria2";
+        outputsToInstall = [ "out" ];
+      };
+    });
     caddy =
       let
         # Table mapping NixOS version + Caddy version + Go version to plugins hash

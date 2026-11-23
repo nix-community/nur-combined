@@ -7,7 +7,7 @@ let
 in
 telegram-desktop.overrideAttrs (old: {
   unwrapped = v3overridegcc (
-    old.unwrapped.overrideAttrs (old2: {
+    old.unwrapped.overrideAttrs (_: {
       # see https://github.com/Layerex/telegram-desktop-patches
       patches = (telegram-desktop.unwrapped.patches or [ ]) ++ [
         ./0001-telegramPatches.patch

@@ -11,7 +11,7 @@
 
 let
   py = python312Packages.override {
-    overrides = self: super: {
+    overrides = _: super: {
       terminado = super.terminado.overridePythonAttrs (_: {
         doCheck = false;
       });

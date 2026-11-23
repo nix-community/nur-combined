@@ -90,7 +90,7 @@ let
     hash = "sha256-VYf5f78ZGqYzpL9sriG8jOn/kta66ai2FF+4Ven+2FU=";
   };
 in
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "elyoffice-libreoffice";
   version = "26.2.6.3";
 
@@ -267,4 +267,4 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = [ "aarch64-darwin" ];
     sourceProvenance = [ lib.sourceTypes.fromSource ];
   };
-})
+}
