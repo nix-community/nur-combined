@@ -28,7 +28,9 @@ let
     rev = "04952e4811e7d44708e64986bbc82fdc3485c800";
     hash = "sha256-otZtis4vf7DQL7nNyHKApTgCHx0vhz6fj9+1wKt9Kbo=";
   };
-  sol2_3_3_1 = (sol2.override { lua = lua5_3; }).overrideAttrs (_old: {
+  # sol2 is header-only in current nixpkgs and no longer takes a lua override.
+  # BeamMP still expects the 3.3.1 headers, so keep that source pin.
+  sol2_3_3_1 = sol2.overrideAttrs (_old: {
     version = "3.3.1";
     src = fetchFromGitHub {
       owner = "ThePhD";
@@ -82,22 +84,23 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r ${commandlineSrc}/. deps/commandline/
 
     substituteInPlace CMakeLists.txt \
-      --replace 'include(cmake/Vcpkg.cmake) # needs to happen before project()' "" \
-      --replace 'find_package(CURL CONFIG REQUIRED)' 'find_package(CURL REQUIRED)' \
-      --replace 'add_subdirectory("deps/toml11")' 'find_package(toml11 CONFIG REQUIRED)'
+      --replace-fail 'include(cmake/Vcpkg.cmake) # needs to happen before project()' "" \
+      --replace-fail 'find_package(CURL CONFIG REQUIRED)' 'find_package(CURL REQUIRED)' \
+      --replace-fail 'add_subdirectory("deps/toml11")' 'find_package(toml11 CONFIG REQUIRED)'
 
     substituteInPlace cmake/StandardSettings.cmake \
-      --replace 'CHECKOUT_GIT_SUBMODULES "If git is found, initialize all submodules." ON' \
-                'CHECKOUT_GIT_SUBMODULES "If git is found, initialize all submodules." OFF'
+      --replace-fail 'CHECKOUT_GIT_SUBMODULES "If git is found, initialize all submodules." ON' \
+                     'CHECKOUT_GIT_SUBMODULES "If git is found, initialize all submodules." OFF'
 
     substituteInPlace src/TLuaEngine.cpp \
-      --replace 'Result->MarkReadyError(std::move(Res));' 'Result->MarkReadyError(sol::protected_function_result(std::move(Res)));' \
-      --replace 'Result->MarkReadySuccess(std::move(Res));' 'Result->MarkReadySuccess(sol::protected_function_result(std::move(Res)));'
+      --replace-fail 'Result->MarkReadyError(std::move(Res));' 'Result->MarkReadyError(sol::protected_function_result(std::move(Res)));' \
+      --replace-fail 'Result->MarkReadySuccess(std::move(Res));' 'Result->MarkReadySuccess(sol::protected_function_result(std::move(Res)));'
   '';
 
   cmakeFlags = [
     "-DCMAKE_TOOLCHAIN_FILE="
-    "-DCMAKE_CXX_FLAGS=-Wno-template-body -Wno-error=null-dereference"
+    # GCC does not support Clang's null-dereference warning category.
+    "-DCMAKE_CXX_FLAGS=-Wno-template-body"
     "-DBeamMP-Server_CHECKOUT_GIT_SUBMODULES=OFF"
     "-DBeamMP-Server_ENABLE_UNIT_TESTING=OFF"
   ];
