@@ -21,4 +21,5 @@
   rbonsai = pkgs.callPackage ./pkgs/rbonsai { };
   noto-fonts-emoji-blob-bin = pkgs.callPackage ./pkgs/blobmoji { };
   clockface-font = pkgs.callPackage ./pkgs/clockface-font { };
+  dfmic = pkgs.callPackage ./pkgs/dfmic { };
 }
