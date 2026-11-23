@@ -126,9 +126,9 @@ makeScope newScope (
       };
       contact-form-7 = {
         pname = "wp-contact-form-7";
-        version = "6.2.5";
+        version = "6.2.6";
         id = "contact-form-7";
-        hash = "sha256-h90pBFxrSzJhjtSk1eDJrmX4l98JMcB1bDhmRqlDh70=";
+        hash = "sha256-u6mNZwhe+PR4XGGAhrIvudTU5e8zbbYMn16NV8FC3FQ=";
       };
       indexnow = {
         pname = "indexnow";
