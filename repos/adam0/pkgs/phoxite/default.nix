@@ -1,0 +1,38 @@
+{
+  # keep-sorted start
+  fetchFromGitHub,
+  lib,
+  rustPlatform,
+  sqlite,
+  # keep-sorted end
+}:
+rustPlatform.buildRustPackage rec {
+  pname = "phoxite";
+  version = "0.12.0";
+
+  src = fetchFromGitHub {
+    owner = "samehelhawary";
+    repo = "phoxite";
+    tag = "v${version}";
+    hash = "sha256-W15u4S0fuWOBSJruiB2a1FI4P0wpOSpnVVchV5ZGvpQ=";
+  };
+
+  cargoHash = "sha256-WJGZyX5yD3VMtEavhPp5t+alRKuqU2cDa0uMmJIE26c=";
+  cargoBuildFlags = ["-p" "phoxite-lsp"];
+  cargoTestFlags = ["-p" "phoxite-lsp"];
+
+  # Fat LTO trades build time for runtime speed over upstream's thin LTO.
+  env.CARGO_PROFILE_RELEASE_LTO = "fat";
+
+  # libsqlite3-sys links the system library here despite rusqlite's bundled feature.
+  buildInputs = [sqlite];
+
+  meta = with lib; {
+    # keep-sorted start
+    description = "PHP, Laravel and Twig language server";
+    homepage = "https://github.com/samehelhawary/phoxite";
+    license = licenses.asl20;
+    mainProgram = "phoxite-lsp";
+    # keep-sorted end
+  };
+}

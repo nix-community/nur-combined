@@ -30,12 +30,14 @@ stdenv.mkDerivation {
   '';
 
   # The build.zig ranlib step hardcodes zig-out, so the default prefix it is
-  # (no --prefix): artifacts are copied out in installPhase instead.
+  # (no --prefix): artifacts are copied out in installPhase instead. build.zig
+  # defaults to a Debug build for the host CPU, so optimise fully and target the
+  # baseline CPU to keep cached binaries portable.
   buildPhase = ''
     runHook preBuild
 
     export HOME="$TMPDIR/home"
-    zig build --cache-dir "$TMPDIR/zig-cache" --global-cache-dir "$TMPDIR/zig-global-cache"
+    zig build --cache-dir "$TMPDIR/zig-cache" --global-cache-dir "$TMPDIR/zig-global-cache" -Doptimize=ReleaseFast -Dcpu=baseline
 
     runHook postBuild
   '';

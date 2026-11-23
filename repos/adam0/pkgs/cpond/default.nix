@@ -19,6 +19,9 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ncurses];
 
+  # The Makefile passes no optimisation flag, so gcc would build at -O0.
+  env.NIX_CFLAGS_COMPILE = "-O2";
+
   installPhase = ''
     runHook preInstall
 

@@ -24,4 +24,13 @@ in
     };
 
     cargoHash = "sha256-zCG5qPdG2bpG8elx//sXczRiTITh4Rp2MozmPLGCgtk=";
+
+    # Fat LTO and one codegen unit trade build time for runtime speed over
+    # upstream's thin LTO.
+    env = {
+      # keep-sorted start
+      CARGO_PROFILE_RELEASE_CODEGEN_UNITS = "1";
+      CARGO_PROFILE_RELEASE_LTO = "fat";
+      # keep-sorted end
+    };
   }

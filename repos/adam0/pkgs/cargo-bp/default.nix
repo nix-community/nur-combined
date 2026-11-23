@@ -26,6 +26,15 @@ rustPlatform.buildRustPackage rec {
   # One test fetches crates.io, and the other has a stale upstream snapshot.
   cargoTestFlags = ["-p" pname "--" "--skip" "add_template_registry_download_keeps_tempdir_alive" "--skip" "with_template_two_level_generation"];
 
+  # Fat LTO and one codegen unit trade build time for runtime speed; upstream
+  # sets no release profile.
+  env = {
+    # keep-sorted start
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS = "1";
+    CARGO_PROFILE_RELEASE_LTO = "fat";
+    # keep-sorted end
+  };
+
   nativeBuildInputs = [git pkg-config];
   # nixpkgs' cargo setup hook links these crates against system libraries.
   buildInputs = [oniguruma openssl];

@@ -96,11 +96,13 @@ in
 
     runtimeDeps = runtimeLibs;
 
+    # Upstream compresses the single-file bundle, which is decompressed on
+    # every launch; store paths favour startup time over size.
     dotnetFlags = [
       "-p:PublishSingleFile=true"
       "-p:SelfContained=true"
       "-p:PublishTrimmed=false"
-      "-p:EnableCompressionInSingleFile=true"
+      "-p:EnableCompressionInSingleFile=false"
       "-p:PublishReadyToRun=true"
       "-p:DebugType=none"
       "-p:DebugSymbols=false"
