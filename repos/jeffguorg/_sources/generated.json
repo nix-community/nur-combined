@@ -417,11 +417,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-zDal4hOgZHQghTwODJx+oA5+36GYYYW7hOQWmsb68RQ=",
+            "sha256": "sha256-5jTJ1n8pQGwkvZD8QGpWybIAHfOQ18X7Xf8ceKaWw1Q=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-2.7.2.tgz"
+            "url": "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-2.7.3.tgz"
         },
-        "version": "2.7.2"
+        "version": "2.7.3"
     },
     "kwok": {
         "cargoLock": null,
@@ -453,11 +453,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-7fUeN1Tz8UUpiubb/Z5tX17BeOM4bwQ5Wexx95gcUq8=",
+            "sha256": "sha256-b/7LIqn+AamPkPkaLvBKaXhQojv03eg62tL+gOUag1M=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v19.1.0/omp-darwin-x64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v19.1.1/omp-darwin-x64"
         },
-        "version": "v19.1.0"
+        "version": "v19.1.1"
     },
     "oh-my-pi-bin-amd64-linux": {
         "cargoLock": null,
@@ -468,11 +468,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-vitFxDe2I+FcKbH4yYqsuEL5IRgZZFS16e7YhDWemgE=",
+            "sha256": "sha256-BOlJD5OU2m1oBEdMwuQes9GPjiYhXfSzS91K1MDYpAE=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v19.1.0/omp-linux-x64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v19.1.1/omp-linux-x64"
         },
-        "version": "v19.1.0"
+        "version": "v19.1.1"
     },
     "oh-my-pi-bin-arm64-darwin": {
         "cargoLock": null,
@@ -483,11 +483,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-3KVkNmntXlU/cHvQZUmbq9D+MDBpa7skydoJx5ivWrs=",
+            "sha256": "sha256-1aMySs2YN1oBaYobDAGL5Iyu0pVsiqkEStE3/kO8BAA=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v19.1.0/omp-darwin-arm64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v19.1.1/omp-darwin-arm64"
         },
-        "version": "v19.1.0"
+        "version": "v19.1.1"
     },
     "oh-my-pi-bin-arm64-linux": {
         "cargoLock": null,
@@ -498,11 +498,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-eF6OUZrLVYUqheVJUnHXaKIhypLAlcBDzT6w1/jT6vw=",
+            "sha256": "sha256-8CL3IMSJnrJMbl403LuumK4F9VMrsD6X3/wCz8jdmm8=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v19.1.0/omp-linux-arm64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v19.1.1/omp-linux-arm64"
         },
-        "version": "v19.1.0"
+        "version": "v19.1.1"
     },
     "pi-agent": {
         "cargoLock": null,
