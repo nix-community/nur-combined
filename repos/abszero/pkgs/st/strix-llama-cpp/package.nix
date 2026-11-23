@@ -14,13 +14,13 @@
   (
     final: prev: {
       pname = "strix-llama-cpp";
-      version = "1.0.0";
+      version = "1.1.0";
 
       src = fetchFromGitHub {
         owner = "halo-box";
         repo = "strix-llama.cpp";
         tag = "v${final.version}";
-        hash = "sha256-fyXkZ3AAsUPvGJYPAUp/dXFGdGBkvnKNIgTfPXny3AA=";
+        hash = "sha256-rQ/mQxi4VlvHkklQgFoJBlUmnDJXcUR8Uv7UHsUiY2I=";
       };
 
       npmDepsHash = "sha256-hqYzdp1FwPhYkBP278fQXgY9NCKB6Q3P6Gko7BfP0m0=";
