@@ -15,16 +15,16 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "provenant";
-  version = "1.0.17";
+  version = "1.0.18";
 
   src = fetchFromGitHub {
     owner = "getprovenant";
     repo = "provenant";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-MxF6JscT6kNKBGIBn0enJK3/YNMUogqTn3IueBZYtKs=";
+    hash = "sha256-W58vJe39GFmuU98+ipTd8hFoe898mZ/jXm8IuK7t0JQ=";
   };
 
-  cargoHash = "sha256-hvXcOZTinZ4GHcDztPTdINVkTL+e56tDPOJpe1ktuU8=";
+  cargoHash = "sha256-RI2MTIEPyo9JTd3bQWGsPyF1hJN4Q9O35/nQqmlZfK0=";
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [
