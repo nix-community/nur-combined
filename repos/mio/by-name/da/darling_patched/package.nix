@@ -85,18 +85,17 @@ darling.overrideAttrs (
       ''
       + lib.concatStringsSep "\n" (
         lib.mapAttrsToList (path: src: ''
-          replace_submodule ${path} ${src}
+          replace_submodule ${
+            lib.escapeShellArgs [
+              path
+              src
+            ]
+          }
         '') submodules
       );
 
     # Upstream derives OBJC_IS_DEBUG_BUILD from NDEBUG, so Release is usable.
     cmakeBuildType = "Release";
-
-    # In-prefix darpath embeds LIBEXEC_PATH, which is the Nix install prefix, so it
-    # can map paths onto the installed files. mldr is already excluded for its rpath.
-    postFixup =
-      builtins.replaceStrings [ "--exclude=mldr" ] [ "--exclude=mldr --exclude=darpath" ]
-        old.postFixup;
 
     passthru = old.passthru // {
       tests = old.passthru.tests // {

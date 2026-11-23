@@ -22,7 +22,7 @@
 # privileged mount actions stay disabled by design; the rest of the launcher
 # (importing app bundles, launching prefixes, building a private VibeDarling
 # runtime) works normally.
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "darling-launcher";
   version = "0.1-unstable-2026-11-13";
 
@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
   # of the root-run helper path, which does not exist on NixOS.
   postPatch = ''
         substituteInPlace cmake/SelectPython.cmake \
-          --replace-warn 'set(LAUNCHER_STAT_TOOL "/usr/bin/stat")' \
+          --replace-fail 'set(LAUNCHER_STAT_TOOL "/usr/bin/stat")' \
                          'set(LAUNCHER_STAT_TOOL "${coreutils}/bin/stat")'
 
         # Upstream installs only the mount helpers and leaves the launcher itself
@@ -97,5 +97,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     mainProgram = "darling-launcher";
+    maintainers = [ lib.maintainers.mio ];
   };
-})
+}
