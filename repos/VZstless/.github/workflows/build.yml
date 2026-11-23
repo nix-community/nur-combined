@@ -9,7 +9,7 @@ on:
     # rebuild everyday at 2:51
     # TIP: Choose a random time here so not all repositories are build at once:
     # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
-    - cron:  '51 2 * * *'
+    - cron:  '45 11 * * *'
   workflow_dispatch:
 jobs:
   tests:
@@ -33,7 +33,7 @@ jobs:
         # Github found at
         # https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
-          - <YOUR_CACHIX_NAME>
+          - vzstless-nur
         nixPath:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
@@ -61,7 +61,7 @@ jobs:
     - name: Show disk space
       run: df -h /
     - name: Checkout repository
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
     - name: Install nix
       uses: cachix/install-nix-action@v31
       with:
