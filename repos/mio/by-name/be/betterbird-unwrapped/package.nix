@@ -13,7 +13,7 @@
 }:
 
 let
-  betterbirdVersion = "153.8.0esr-bb14-p1";
+  betterbirdVersion = "153.8.0esr-bb14-p2";
   majVer = lib.versions.major betterbirdVersion;
 
   thunderbird-unwrapped = thunderbird-153-unwrapped;
@@ -22,7 +22,7 @@ let
     owner = "Betterbird";
     repo = "thunderbird-patches";
     rev = betterbirdVersion;
-    hash = "sha256-oSQdgL36zWEKj3Fxwq2rgYOB4LXz1DiDTpXWFPwzVKY=";
+    hash = "sha256-oKkF+4jBmFOC6K4Os4DwwWqT180zL0cl62TmpO0Cew8=";
   };
 
   # Fetch and extract comm subdirectory
