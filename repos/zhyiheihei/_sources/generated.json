@@ -13,12 +13,12 @@
             "name": null,
             "owner": "akitaonrails",
             "repo": "ai-usagebar",
-            "rev": "v1.52.3",
-            "sha256": "sha256-HbH6qDBLE9JCOIMH2bwdxWKENo7OW3d6QUn5mvUm9pw=",
+            "rev": "v1.53.0",
+            "sha256": "sha256-I6Lqb3qWgtxdg0oUtllR+F0mzSt387wXzqAVx3natI4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.52.3"
+        "version": "v1.53.0"
     },
     "aioshutil": {
         "cargoLock": null,
@@ -231,11 +231,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-/HgBgsABifNy8AB4MIs1uozI9pN1YpnWquLS+6RljQg=",
+            "sha256": "sha256-i09wCJaLv2pjdhwBFLKGZ22KJXoZJTwZa73rJqdlBZY=",
             "type": "url",
-            "url": "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.287/nexttodo-linux-arm64"
+            "url": "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.329/nexttodo-linux-arm64"
         },
-        "version": "0.1.287"
+        "version": "0.1.329"
     },
     "nexttodo-linux-x64": {
         "cargoLock": null,
@@ -246,11 +246,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-if+dMcAmTeVAiu88GbqVUkZHl9vzDtqlhDt1Jg82/JI=",
+            "sha256": "sha256-BSpNEbAhXyhUAs9bSO0715NNqYulTmtvnByZs3D2EJs=",
             "type": "url",
-            "url": "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.287/nexttodo-linux-x64"
+            "url": "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.329/nexttodo-linux-x64"
         },
-        "version": "0.1.287"
+        "version": "0.1.329"
     },
     "nexus-media": {
         "cargoLock": null,
@@ -548,11 +548,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-p+Bm7rAY0V5ANUahTdNpIiD8mXZ2mx81JaBiDPqXT3M=",
+            "sha256": "sha256-66y95wLtxBevLUjdpXpXoRaQpbrOnpYD6Ig1ut1FavY=",
             "type": "url",
-            "url": "https://cdn-zcode.z.ai/zcode/electron/releases/3.18.2/linux-x64/ZCode-3.18.2-linux-x64.deb"
+            "url": "https://cdn-zcode.z.ai/zcode/electron/releases/3.19.1/linux-x64/ZCode-3.19.1-linux-x64.deb"
         },
-        "version": "3.18.2"
+        "version": "3.19.1"
     },
     "zhconv-rs": {
         "cargoLock": null,

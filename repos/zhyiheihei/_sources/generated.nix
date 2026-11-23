@@ -8,12 +8,12 @@
 {
   ai-usagebar = {
     pname = "ai-usagebar";
-    version = "v1.52.3";
+    version = "v1.53.0";
     src = fetchFromGitHub {
       owner = "akitaonrails";
       repo = "ai-usagebar";
-      tag = "v1.52.3";
-      hash = "sha256-HbH6qDBLE9JCOIMH2bwdxWKENo7OW3d6QUn5mvUm9pw=";
+      tag = "v1.53.0";
+      hash = "sha256-I6Lqb3qWgtxdg0oUtllR+F0mzSt387wXzqAVx3natI4=";
     };
   };
   aioshutil = {
@@ -118,18 +118,18 @@
   };
   nexttodo-linux-arm64 = {
     pname = "nexttodo-linux-arm64";
-    version = "0.1.287";
+    version = "0.1.329";
     src = fetchurl {
-      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.287/nexttodo-linux-arm64";
-      hash = "sha256-/HgBgsABifNy8AB4MIs1uozI9pN1YpnWquLS+6RljQg=";
+      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.329/nexttodo-linux-arm64";
+      hash = "sha256-i09wCJaLv2pjdhwBFLKGZ22KJXoZJTwZa73rJqdlBZY=";
     };
   };
   nexttodo-linux-x64 = {
     pname = "nexttodo-linux-x64";
-    version = "0.1.287";
+    version = "0.1.329";
     src = fetchurl {
-      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.287/nexttodo-linux-x64";
-      hash = "sha256-if+dMcAmTeVAiu88GbqVUkZHl9vzDtqlhDt1Jg82/JI=";
+      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.329/nexttodo-linux-x64";
+      hash = "sha256-BSpNEbAhXyhUAs9bSO0715NNqYulTmtvnByZs3D2EJs=";
     };
   };
   nexus-media = {
@@ -279,10 +279,10 @@
   };
   zcode = {
     pname = "zcode";
-    version = "3.18.2";
+    version = "3.19.1";
     src = fetchurl {
-      url = "https://cdn-zcode.z.ai/zcode/electron/releases/3.18.2/linux-x64/ZCode-3.18.2-linux-x64.deb";
-      hash = "sha256-p+Bm7rAY0V5ANUahTdNpIiD8mXZ2mx81JaBiDPqXT3M=";
+      url = "https://cdn-zcode.z.ai/zcode/electron/releases/3.19.1/linux-x64/ZCode-3.19.1-linux-x64.deb";
+      hash = "sha256-66y95wLtxBevLUjdpXpXoRaQpbrOnpYD6Ig1ut1FavY=";
     };
   };
   zhconv-rs = {
