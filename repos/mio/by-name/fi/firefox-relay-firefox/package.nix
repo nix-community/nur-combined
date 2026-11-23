@@ -3,6 +3,7 @@
   buildNpmPackage,
   fetchFromGitHub,
   nodejs_22,
+  bash,
 }:
 
 buildNpmPackage (finalAttrs: {
@@ -23,7 +24,10 @@ buildNpmPackage (finalAttrs: {
 
   npmDepsHash = "sha256-n4VmUjy5O/4W7H9C0WGEEJVUzBIExBnqEDonfPmlgLk=";
 
-  nativeBuildInputs = [ nodejs_22 ];
+  nativeBuildInputs = [
+    bash
+    nodejs_22
+  ];
 
   buildPhase = ''
     runHook preBuild
