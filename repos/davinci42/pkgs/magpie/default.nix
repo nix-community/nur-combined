@@ -13,22 +13,22 @@ let
   sources = {
     x86_64-linux = {
       asset = "magpie-cli-linux-amd64";
-      hash = "sha256-DuyKss0mzQpwOyIOGVPkCbtIf5vmAxA70q6RcqmImJQ=";
+      hash = "sha256-8g+MFl/we+uJL5kC1aQoCCa40ogRosDtpz1s/sPjcfA=";
     };
     aarch64-linux = {
       asset = "magpie-cli-linux-arm64";
-      hash = "sha256-A2/MxJ4taL4NuiB2LvOAsAmb2q/6KVGs2vgfgzPMO2k=";
+      hash = "sha256-PCKzVF8SJ+ai9hftEsFeBbDMVNV3XtK4akkx5/Ph5RA=";
     };
     aarch64-darwin = {
       asset = "magpie-cli-darwin-arm64";
-      hash = "sha256-L131SimoDVWZF7EhoTZjuXiHtiQdoGTO+Y7dQhXqYos=";
+      hash = "sha256-zgqxOdmPqiwRZZ0jk1c8bwxYG60QuUDqAVpJ+9jbvM4=";
     };
   };
   source = sources.${stdenvNoCC.hostPlatform.system};
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "magpie";
-  version = "0.1.4684";
+  version = "0.1.4685";
 
   src = fetchurl {
     url = "https://github.com/yetone/magpie-releases/releases/download/v${finalAttrs.version}/${source.asset}";
