@@ -7,10 +7,11 @@
   sdl3,
   zlib,
   nix-update-script,
+  writeShellApplication,
 }:
 
 let
-  version = "0.7.2";
+  version = "0.8.0";
 
   # cmake/Dependencies.cmake fetches libchdr from git at configure time; the
   # sandbox has no network, so it gets this pinned source tree instead.
@@ -29,7 +30,7 @@ stdenv.mkDerivation {
     owner = "matt-pulsipher";
     repo = "GT3-revisited";
     tag = "v${version}";
-    hash = "sha256-lXpoHbkh10sJ9oBB159/vJp18ksI6VEP2/qWFbRvO1w=";
+    hash = "sha256-J2ruhlWGnBT+cBFv60EeiyE7QapR9ZLA3EfIZ62NnO0=";
   };
 
   nativeBuildInputs = [
@@ -80,11 +81,19 @@ stdenv.mkDerivation {
       ''
   );
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version-regex"
-      "v(.*)"
-    ];
+  passthru.updateScript = writeShellApplication {
+    name = "update-gt3-revisited-unwrapped";
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="gt3-revisited-unwrapped"
+      exec ${
+        lib.escapeShellArgs (nix-update-script {
+          extraArgs = [
+            "--version-regex"
+            "v(.*)"
+          ];
+        })
+      } "$@"
+    '';
   };
 
   meta = {

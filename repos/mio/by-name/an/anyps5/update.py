@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-# Update AnyPS5 to the tip of upstream `main`.
+# Update AnyPS5 to the latest upstream release tag.
 #
 # The build copies each git submodule out of its pinned revision, so the main
-# source revision and all `3rdparty/*` pins have to move together. The version
-# keeps the repo convention `<latest-tag>-unstable-<commit-date>`.
+# source revision and all `3rdparty/*` pins have to move together. Both are
+# read from the release tag, so the package tracks released code rather than
+# the tip of `main`.
 import re
 import subprocess
 import sys
@@ -129,18 +130,18 @@ def main():
     pkg_nix = repo_root / "by-name/an/anyps5/package.nix"
     content = pkg_nix.read_text(encoding="utf-8")
 
-    rev, date, pinned = fetch_rev(REPO)
+    tag = latest_tag()
+    rev, date, pinned = fetch_rev(REPO, f"refs/tags/{tag}")
     submodules = {
         normalize_url(url): commit for url, commit in pinned.items() if normalize_url(url)
     }
-    # The main source block follows `main` itself, not a submodule pin.
-    submodules[MAIN_KEY] = rev
+    # The main source block follows the release tag, not a submodule pin.
+    submodules[MAIN_KEY] = tag
 
-    base = latest_tag().lstrip("v")
-    version = f"{base}-unstable-{date}"
+    version = tag.lstrip("v")
 
     old_version = re.search(r'(?m)^\s*version = "([^"]+)";', content).group(1)
-    print(f"Source:  {rev} ({date}), base tag {base}")
+    print(f"Source:  {rev} ({date}), release tag {tag}")
     print(f"Version: {old_version} -> {version}")
 
     if old_version != version:
@@ -155,8 +156,22 @@ def main():
         indent, name, body = m.group(1), m.group(2), m.group(3)
         owner = re.search(r'owner = "([^"]+)"', body).group(1)
         repo = re.search(r'repo = "([^"]+)"', body).group(1)
-        old_rev = re.search(r'rev = "([^"]+)"', body).group(1)
         key = ("github.com", owner.lower(), repo.lower())
+        if key == MAIN_KEY:
+            # The main source is fetched by release tag rather than revision.
+            old_tag = re.search(r'tag = "([^"]+)"', body).group(1)
+            if old_tag == tag:
+                continue
+            print(f"  {name}: {old_tag} -> {tag}")
+            new_hash = prefetch(
+                f"https://github.com/{owner}/{repo}/archive/refs/tags/{tag}.tar.gz", True
+            )
+            updated = rebuild(
+                indent, name, "fetchFromGitHub", set_attrs(body, {"tag": tag, "hash": new_hash})
+            )
+            replacements.append((m.start(), m.end(), updated))
+            continue
+        old_rev = re.search(r'rev = "([^"]+)"', body).group(1)
         new_rev = submodules.get(key)
         if not new_rev and key == ("github.com", "mbed-tls", "mbedtls-framework"):
             # The framework revision is pinned by the mbedtls submodule itself.
