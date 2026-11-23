@@ -71,9 +71,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   # Only the GUI uses Qt; leave the CLI tools unwrapped.
   dontWrapQtApps = true;
-  # The GUI spawns qscan/cdvdcontrol by name via QProcess, so it needs its peers on PATH.
+  # Suffix rather than prefix: a system-level security wrapper (e.g. NixOS
+  # security.wrappers with CAP_SYS_RAWIO) must win over the unwrapped store copy.
   postFixup = ''
-    wrapQtApp $out/bin/qpxtool --prefix PATH : $out/bin
+    wrapQtApp $out/bin/qpxtool --suffix PATH : $out/bin
   '';
 
   passthru.updateScript = nix-update-script { };
