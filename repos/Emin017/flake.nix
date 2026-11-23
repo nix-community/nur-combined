@@ -24,7 +24,13 @@
       packages = forAllSystems (
         system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
       );
-      modules = import ./modules; # NixOS/Home Manager modules
+      modules = import ./modules; # Legacy NixOS/Home Manager modules
+      homeManagerModules = {
+        clash-verge-tailscale = ./modules/clash-verge-tailscale;
+      };
+      darwinModules = {
+        clash-verge-tailscale = ./modules/darwin/clash-verge-tailscale.nix;
+      };
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
     };
 }
