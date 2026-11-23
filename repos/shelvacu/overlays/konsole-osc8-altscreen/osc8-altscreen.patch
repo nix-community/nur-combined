@@ -1,0 +1,367 @@
+diff --git a/src/Emulation.cpp b/src/Emulation.cpp
+index c45d24ff2..426385ea8 100644
+--- a/src/Emulation.cpp
++++ b/src/Emulation.cpp
+@@ -13,6 +13,7 @@
+ #include <QKeyEvent>
+ 
+ // Konsole
++#include "EscapeSequenceUrlExtractor.h"
+ #include "KonsoleSettings.h"
+ #include "Screen.h"
+ #include "ScreenWindow.h"
+@@ -124,6 +125,16 @@ void Emulation::setPeekPrimary(const bool doPeek)
+     Q_EMIT outputChanged();
+ }
+ 
++void Emulation::setUrlExtractorEnabled(bool enable, const QStringList &allowedLinkSchema)
++{
++    for (Screen *screen : _screen) {
++        screen->setEnableUrlExtractor(enable);
++        if (EscapeSequenceUrlExtractor *extractor = screen->urlExtractor()) {
++            extractor->setAllowedLinkSchema(allowedLinkSchema);
++        }
++    }
++}
++
+ void Emulation::setScreen(int index)
+ {
+     _activeScreenIndex = index;
+diff --git a/src/Emulation.h b/src/Emulation.h
+index 99230dea3..3c58a494d 100644
+--- a/src/Emulation.h
++++ b/src/Emulation.h
+@@ -208,6 +208,16 @@ public:
+ 
+     QList<int> getCurrentScreenCharacterCounts() const;
+ 
++    /**
++     * Enables or disables the OSC 8 URL extractor on both the primary and the
++     * alternate screen and sets the schemas it accepts.
++     *
++     * The extractor is per screen, so enabling it on the currently active
++     * screen alone leaves hyperlinks unparsed in full screen applications
++     * such as pagers, which run on the alternate screen.
++     */
++    void setUrlExtractorEnabled(bool enable, const QStringList &allowedLinkSchema);
++
+ public Q_SLOTS:
+ 
+     /** Change the size of the emulation's image */
+diff --git a/src/EscapeSequenceUrlExtractor.cpp b/src/EscapeSequenceUrlExtractor.cpp
+index 57d8d297d..62b273f5a 100644
+--- a/src/EscapeSequenceUrlExtractor.cpp
++++ b/src/EscapeSequenceUrlExtractor.cpp
+@@ -112,6 +112,23 @@ void EscapeSequenceUrlExtractor::historyLinesRemoved(int lines)
+                    std::end(_history));
+ }
+ 
++void EscapeSequenceUrlExtractor::screenLinesInserted(int from, int to, int count)
++{
++    const int firstRow = _screen->getHistLines() + from;
++    const int lastRow = _screen->getHistLines() + to;
++
++    for (auto &url : _history) {
++        if (url.begin.row >= firstRow && url.begin.row <= lastRow) {
++            url.begin.row += count;
++            url.end.row += count;
++        }
++    }
++
++    _history.removeIf([lastRow](const ExtractedUrl &url) {
++        return url.begin.row > lastRow;
++    });
++}
++
+ QVector<ExtractedUrl> EscapeSequenceUrlExtractor::history() const
+ {
+     return _history;
+diff --git a/src/EscapeSequenceUrlExtractor.h b/src/EscapeSequenceUrlExtractor.h
+index 55203c001..1444337d5 100644
+--- a/src/EscapeSequenceUrlExtractor.h
++++ b/src/EscapeSequenceUrlExtractor.h
+@@ -125,6 +125,14 @@ public:
+      */
+     void historyLinesRemoved(int lines);
+ 
++    /* Move the URL's down when lines are inserted in the region between the
++     * given screen rows, which is what happens when a full screen application
++     * scrolls back. URL's pushed past the end of the region are dropped.
++     * from and to are screen rows, the URL's are recorded with the scrollback
++     * counted in.
++     */
++    void screenLinesInserted(int from, int to, int count);
++
+     /* starts / stops URL Processing */
+ 
+ public Q_SLOTS:
+diff --git a/src/Screen.cpp b/src/Screen.cpp
+index 1b59c6151..d9c80a886 100644
+--- a/src/Screen.cpp
++++ b/src/Screen.cpp
+@@ -1434,6 +1434,9 @@ void Screen::scrollDown(int from, int n)
+     } else {
+         moveImage(loc(0, from + n), loc(0, from), loc(_columns - 1, _bottomMargin - n));
+     }
++    if (_escapeSequenceUrlExtractor) {
++        _escapeSequenceUrlExtractor->screenLinesInserted(from, _bottomMargin, n);
++    }
+     clearImage(loc(0, from), loc(_columns - 1, from + n - 1), ' ');
+ }
+ 
+@@ -2374,6 +2377,10 @@ void Screen::addHistLine()
+                 _escapeSequenceUrlExtractor->historyLinesRemoved(oldHistLines - newHistLines + 1);
+             }
+         }
++    } else if (_escapeSequenceUrlExtractor) {
++        // Without a history the line scrolled off the top is dropped, so the
++        // extracted URLs have to move up with the lines that are still shown.
++        _escapeSequenceUrlExtractor->historyLinesRemoved(1);
+     }
+ 
+     bool beginIsTL = (_selBegin == _selTopLeft);
+diff --git a/src/Vt102Emulation.cpp b/src/Vt102Emulation.cpp
+index 39cef2190..15276798a 100644
+--- a/src/Vt102Emulation.cpp
++++ b/src/Vt102Emulation.cpp
+@@ -653,7 +653,10 @@ void Vt102Emulation::osc_end(const uint cc)
+     // do not.
+     if (tokenBuffer[0] == XTERM_EXTENDED::URL_LINK) {
+         // printf '\e]8;;https://example.com\e\\This is a link\e]8;;\e\\\n'
+-        Q_EMIT toggleUrlExtractionRequest();
++        if (auto extractor = _currentScreen->urlExtractor()) {
++            // OSC 8 is per-screen; do not broadcast to all screens.
++            extractor->toggleUrlInput();
++        }
+     }
+ 
+     processSessionAttributeRequest(tokenBufferPos, cc);
+diff --git a/src/autotests/Vt102EmulationTest.cpp b/src/autotests/Vt102EmulationTest.cpp
+index 0de7afee1..a564a5e63 100644
+--- a/src/autotests/Vt102EmulationTest.cpp
++++ b/src/autotests/Vt102EmulationTest.cpp
+@@ -7,6 +7,9 @@
+ // Own
+ #include "Vt102EmulationTest.h"
+ 
++#include "EscapeSequenceUrlExtractor.h"
++#include "Screen.h"
++
+ #include <QSignalSpy>
+ #include <QTest>
+ 
+@@ -114,6 +117,140 @@ void Vt102EmulationTest::testParse()
+     sendAndCompare(&em, tertiaryDeviceAttributes, sizeof tertiaryDeviceAttributes, QStringLiteral(""), "\033P!|7E4B4445\033\\");
+ }
+ 
++void Vt102EmulationTest::testOsc8OnAlternateScreen()
++{
++    TestEmulation em;
++    em.reset();
++    em.setCodec(TestEmulation::Utf8Codec);
++    em.setUrlExtractorEnabled(true, {QStringLiteral("https://")});
++
++    const char link[] = "\033]8;;https://example.com\033\\Example\033]8;;\033\\";
++
++    em.receiveData(link, sizeof link - 1);
++    QCOMPARE(em._currentScreen->urlExtractor()->history().size(), qsizetype(1));
++
++    // Pagers such as less print on the alternate screen, hyperlinks have to
++    // be extracted there as well.
++    const char enterAlternateScreen[] = "\033[?1049h";
++    em.receiveData(enterAlternateScreen, sizeof enterAlternateScreen - 1);
++    QVERIFY(em._currentScreen->urlExtractor() != nullptr);
++
++    em.receiveData(link, sizeof link - 1);
++    QCOMPARE(em._currentScreen->urlExtractor()->history().size(), qsizetype(1));
++}
++
++void Vt102EmulationTest::testOsc8RowsMatchTextWhileScrolling()
++{
++    TestEmulation em;
++    em.reset();
++    em.setCodec(TestEmulation::Utf8Codec);
++    em.setUrlExtractorEnabled(true, {QStringLiteral("https://")});
++
++    const char enterAlternateScreen[] = "\033[?1049h";
++    em.receiveData(enterAlternateScreen, sizeof enterAlternateScreen - 1);
++
++    Screen *screen = em._currentScreen;
++    const int lines = screen->getLines();
++
++    // Start at the bottom, as a pager does when the shell prompt was there,
++    // and print more lines than fit so that the screen keeps scrolling.
++    const QByteArray toLastLine = QByteArrayLiteral("\033[") + QByteArray::number(lines) + QByteArrayLiteral(";1H");
++    em.receiveData(toLastLine.constData(), toLastLine.size());
++
++    for (int i = 1; i <= lines + 10; ++i) {
++        const QByteArray text = QByteArrayLiteral("Line") + QByteArray::number(i);
++        const QByteArray line = QByteArrayLiteral("\033]8;;https://example.com/") + QByteArray::number(i) + QByteArrayLiteral("\033\\") + text
++            + QByteArrayLiteral("\033]8;;\033\\\r\n");
++        em.receiveData(line.constData(), line.size());
++    }
++
++    const auto urls = em._currentScreen->urlExtractor()->history();
++    QVERIFY(!urls.isEmpty());
++
++    // Every recorded URL has to sit on the row that still shows its own text.
++    const int columns = screen->getColumns();
++    for (const auto &url : urls) {
++        const QString rowText = screen->text(url.begin.row * columns, (url.begin.row + 1) * columns - 1, Screen::PlainText);
++        QVERIFY2(rowText.contains(url.text),
++                 qPrintable(QStringLiteral("url %1 (%2) recorded on row %3 which shows '%4'")
++                                .arg(url.url, url.text, QString::number(url.begin.row), rowText.trimmed())));
++    }
++}
++
++void Vt102EmulationTest::testOsc8FollowsScrollingBack()
++{
++    TestEmulation em;
++    em.reset();
++    em.setCodec(TestEmulation::Utf8Codec);
++    em.setUrlExtractorEnabled(true, {QStringLiteral("https://")});
++
++    const char enterAlternateScreen[] = "\033[?1049h";
++    em.receiveData(enterAlternateScreen, sizeof enterAlternateScreen - 1);
++
++    Screen *screen = em._currentScreen;
++    const int lines = screen->getLines();
++
++    auto linkFor = [](int n) -> QByteArray {
++        const QByteArray text = QByteArrayLiteral("Line") + QByteArray::number(n);
++        return QByteArrayLiteral("\033]8;;https://example.com/") + QByteArray::number(n) + QByteArrayLiteral("\033\\") + text
++            + QByteArrayLiteral("\033]8;;\033\\");
++    };
++
++    // Fill the screen from the bottom, the way a pager does.
++    const QByteArray toLastLine = QByteArrayLiteral("\033[") + QByteArray::number(lines) + QByteArrayLiteral(";1H");
++    em.receiveData(toLastLine.constData(), toLastLine.size());
++    for (int i = 1; i <= lines * 2; ++i) {
++        const QByteArray line = linkFor(i) + QByteArrayLiteral("\r\n");
++        em.receiveData(line.constData(), line.size());
++    }
++
++    // Scroll back: the pager moves the screen down with a reverse index and
++    // draws the line that comes into view at the top.
++    for (int i = 5; i >= 1; --i) {
++        const QByteArray back = QByteArrayLiteral("\033[1;1H\033M") + linkFor(1000 + i);
++        em.receiveData(back.constData(), back.size());
++    }
++
++    const auto urls = screen->urlExtractor()->history();
++    QVERIFY(!urls.isEmpty());
++
++    const int columns = screen->getColumns();
++    for (const auto &url : urls) {
++        QVERIFY2(url.begin.row >= 0 && url.begin.row < screen->getLines(),
++                 qPrintable(QStringLiteral("url %1 (%2) recorded on row %3, outside the %4 line screen")
++                                .arg(url.url, url.text, QString::number(url.begin.row), QString::number(screen->getLines()))));
++        const QString rowText = screen->text(url.begin.row * columns, (url.begin.row + 1) * columns - 1, Screen::PlainText);
++        QVERIFY2(rowText.contains(url.text),
++                 qPrintable(QStringLiteral("url %1 (%2) recorded on row %3 which shows '%4'")
++                                .arg(url.url, url.text, QString::number(url.begin.row), rowText.trimmed())));
++    }
++}
++
++void Vt102EmulationTest::testOsc8FollowsAlternateScreenScrolling()
++{
++    TestEmulation em;
++    em.reset();
++    em.setCodec(TestEmulation::Utf8Codec);
++    em.setUrlExtractorEnabled(true, {QStringLiteral("https://")});
++
++    const char enterAlternateScreen[] = "\033[?1049h";
++    em.receiveData(enterAlternateScreen, sizeof enterAlternateScreen - 1);
++
++    // Print the link on the last line, as a pager does when the cursor was at
++    // the bottom of the screen, then scroll it up by one line.
++    const int lastLine = em._currentScreen->getLines();
++    const QByteArray toLastLine = QByteArrayLiteral("\033[") + QByteArray::number(lastLine) + QByteArrayLiteral(";1H");
++    em.receiveData(toLastLine.constData(), toLastLine.size());
++
++    const char link[] = "\033]8;;https://example.com\033\\Example\033]8;;\033\\\n";
++    em.receiveData(link, sizeof link - 1);
++
++    const auto urls = em._currentScreen->urlExtractor()->history();
++    QCOMPARE(urls.size(), qsizetype(1));
++    QCOMPARE(urls.at(0).begin.row, lastLine - 2);
++    QCOMPARE(urls.at(0).end.row, lastLine - 2);
++}
++
+ Q_DECLARE_METATYPE(std::vector<TestEmulation::Item>)
+ 
+ struct ItemToString {
+diff --git a/src/autotests/Vt102EmulationTest.h b/src/autotests/Vt102EmulationTest.h
+index 6bb92dcfd..520ae4a39 100644
+--- a/src/autotests/Vt102EmulationTest.h
++++ b/src/autotests/Vt102EmulationTest.h
+@@ -34,6 +34,11 @@ private Q_SLOTS:
+ 
+     void testBufferedUpdates();
+ 
++    void testOsc8OnAlternateScreen();
++    void testOsc8FollowsScrollingBack();
++    void testOsc8FollowsAlternateScreenScrolling();
++    void testOsc8RowsMatchTextWhileScrolling();
++
+ private:
+     static void sendAndCompare(TestEmulation *em, const char *input, size_t inputLen, const QString &expectedPrint, const QByteArray &expectedSent);
+ };
+diff --git a/src/session/SessionManager.cpp b/src/session/SessionManager.cpp
+index f16302511..c231b7ad2 100644
+--- a/src/session/SessionManager.cpp
++++ b/src/session/SessionManager.cpp
+@@ -19,7 +19,6 @@
+ // Konsole
+ #include "Emulation.h" // to connect the URL escape sequence extractor
+ #include "Enumeration.h"
+-#include "EscapeSequenceUrlExtractor.h"
+ #include "Screen.h"
+ #include "ShouldApplyProperty.h"
+ #include "konsoledebug.h"
+@@ -283,15 +282,8 @@ void SessionManager::applyProfile(Session *session, const Profile::Ptr &profile,
+         for (TerminalDisplay *view : views) {
+             view->screenWindow()->screen()->setReflowLines(enableReflowLines);
+             view->screenWindow()->screen()->setIgnoreWcWidth(ignoreWcWidth);
+-            view->screenWindow()->screen()->setEnableUrlExtractor(shouldEnableUrlExtractor);
+-            if (shouldEnableUrlExtractor) {
+-                view->screenWindow()->screen()->urlExtractor()->setAllowedLinkSchema(profile->escapedLinksSchema());
+-                connect(session->emulation(),
+-                        &Emulation::toggleUrlExtractionRequest,
+-                        view->screenWindow()->screen()->urlExtractor(),
+-                        &EscapeSequenceUrlExtractor::toggleUrlInput);
+-            }
+         }
++        session->emulation()->setUrlExtractorEnabled(shouldEnableUrlExtractor, profile->escapedLinksSchema());
+     }
+ }
+ 
+diff --git a/src/terminalDisplay/TerminalDisplay.cpp b/src/terminalDisplay/TerminalDisplay.cpp
+index c28fefb4a..87958a1fd 100644
+--- a/src/terminalDisplay/TerminalDisplay.cpp
++++ b/src/terminalDisplay/TerminalDisplay.cpp
+@@ -58,7 +58,6 @@
+ #include "../widgets/KonsolePrintManager.h"
+ #include "../widgets/TerminalDisplayAccessible.h"
+ #include "Emulation.h" // to connect the URL escape sequence extractor
+-#include "EscapeSequenceUrlExtractor.h"
+ #include "PrintOptions.h"
+ #include "Screen.h"
+ #include "ViewManager.h" // for colorSchemeForProfile. // TODO: Rewrite this.
+@@ -152,15 +151,7 @@ void TerminalDisplay::setScreenWindow(ScreenWindow *window)
+         auto profile = SessionManager::instance()->sessionProfile(_sessionController->session());
+         _screenWindow->screen()->setReflowLines(profile->property<bool>(Profile::ReflowLines));
+         _screenWindow->screen()->setIgnoreWcWidth(profile->property<bool>(Profile::IgnoreWcWidth));
+-        _screenWindow->screen()->setEnableUrlExtractor(profile->allowEscapedLinks());
+-
+-        if (_screenWindow->screen()->urlExtractor()) {
+-            _screenWindow->screen()->urlExtractor()->setAllowedLinkSchema(profile->escapedLinksSchema());
+-            connect(_sessionController->session()->emulation(),
+-                    &Emulation::toggleUrlExtractionRequest,
+-                    _screenWindow->screen()->urlExtractor(),
+-                    &EscapeSequenceUrlExtractor::toggleUrlInput);
+-        }
++        _sessionController->session()->emulation()->setUrlExtractorEnabled(profile->allowEscapedLinks(), profile->escapedLinksSchema());
+     }
+ }
+ 
