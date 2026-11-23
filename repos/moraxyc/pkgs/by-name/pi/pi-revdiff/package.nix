@@ -2,8 +2,8 @@
   lib,
   stdenvNoCC,
   bashNonInteractive,
-  jq,
-  typescript,
+  nodejs,
+  piBundleHook,
   revdiff,
 }:
 
@@ -14,38 +14,25 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   strictDeps = true;
 
   dontConfigure = true;
+  dontBuild = true;
 
-  nativeBuildInputs = [
-    jq
-    typescript
-  ];
+  nativeBuildInputs = [ piBundleHook ];
 
   # Needed in buildInputs so fixupPhase patches detect-ref.sh's shebang.
   buildInputs = [ bashNonInteractive ];
+
+  piBundleOutDir = "plugins/pi/dist";
+  piBundleEntries = [ "./plugins/pi/extensions/revdiff.ts" ];
+  piBundleCleanPaths = [
+    "plugins/pi/extensions"
+    "plugins/pi/README.md"
+  ];
 
   postPatch = ''
     # Resolve the Nix-built revdiff binary as fallback while preserving REVDIFF_BIN and PATH overrides.
     substituteInPlace plugins/pi/extensions/revdiff.ts \
       --replace-fail 'const local = path.join(REPO_ROOT, ".bin", "revdiff");' \
         'const local = "${lib.getExe revdiff}";'
-
-    # Set "type": "module" before tsc so NodeNext emits ESM matching import.meta.url.
-    jq '. + { type: "module" }' package.json > package.json.tmp
-    mv package.json.tmp package.json
-  '';
-
-  # Type checking needs the Pi peer dependencies, which the host provides at runtime.
-  buildPhase = ''
-    runHook preBuild
-
-    tsc plugins/pi/extensions/revdiff.ts \
-      --noCheck \
-      --target ES2022 \
-      --module NodeNext \
-      --moduleResolution NodeNext
-    rm plugins/pi/extensions/revdiff.ts
-
-    runHook postBuild
   '';
 
   installPhase = ''
@@ -58,6 +45,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  disallowedReferences = [ nodejs ];
 
   meta = {
     description = "Pi package for revdiff interactive diff review";

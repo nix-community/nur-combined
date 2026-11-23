@@ -25,6 +25,11 @@ buildNpmPackage (finalAttrs: {
 
   npmFlags = [ "--legacy-peer-deps" ];
 
+  postPatch = ''
+    substituteInPlace scripts/build.js \
+      --replace-fail 'format: "esm"' 'format: "esm", minify: true'
+  '';
+
   postBuild = ''
     node scripts/pi-extensions-dist.js dist
   '';

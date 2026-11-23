@@ -4,6 +4,8 @@
   importNpmLock,
   bashNonInteractive,
   gitMinimal,
+  nodejs,
+  piBundleHook,
   python3,
   typescript,
 
@@ -19,7 +21,10 @@ buildNpmPackage (finalAttrs: {
   npmDeps = importNpmLock source.npmDeps;
   npmConfigHook = importNpmLock.npmConfigHook;
 
-  nativeBuildInputs = [ typescript ];
+  nativeBuildInputs = [
+    typescript
+    piBundleHook
+  ];
   buildInputs = [ bashNonInteractive ];
 
   # The launcher tests execute bin/pi-worktree and generated scripts, but the sandbox has no /usr/bin/env.
@@ -67,6 +72,8 @@ buildNpmPackage (finalAttrs: {
     # npm wraps every bin with node, but this launcher is a bash script that resolves its own symlink.
     ln -sf ../lib/${finalAttrs.pname}/bin/pi-worktree $out/bin/pi-worktree
   '';
+
+  disallowedReferences = [ nodejs ];
 
   meta = {
     description = "Pi extension that runs parallel agents in isolated Git worktrees with resumable sessions";

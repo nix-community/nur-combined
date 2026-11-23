@@ -2,8 +2,8 @@
   lib,
   buildNpmPackage,
   importNpmLock,
-  esbuild,
   nodejs,
+  piBundleHook,
 
   sources,
   source ? sources.pi-lsp-client,
@@ -20,7 +20,9 @@ buildNpmPackage (finalAttrs: {
   # Pi loads this extension directly; keep Node out of the runtime closure.
   dontPatchShebangs = true;
 
-  nativeBuildInputs = [ esbuild ];
+  nativeBuildInputs = [ piBundleHook ];
+
+  piBundleFormat = "cjs";
 
   npmInstallFlags = [ "--omit=dev" ];
   npmFlags = [ "--legacy-peer-deps" ];
@@ -29,41 +31,6 @@ buildNpmPackage (finalAttrs: {
   postInstall = ''
     mv $out/lib/node_modules/pi-lsp-client $out/lib/${finalAttrs.pname}
     rm -rf $out/lib/node_modules
-
-    pkg="$out/lib/${finalAttrs.pname}"
-    esbuild "$pkg/src/index.ts" \
-      --bundle \
-      --platform=node \
-      --target=node${lib.versions.major nodejs.version} \
-      --format=cjs \
-      --external:@earendil-works/\* \
-      --external:@mariozechner/\* \
-      --external:typebox \
-      --external:typebox/\* \
-      --external:@sinclair/typebox \
-      --external:@sinclair/typebox/\* \
-      --outfile="$pkg/dist/index.cjs"
-
-    node -e '
-      const fs = require("node:fs");
-      const p = process.argv[1];
-      const pkg = JSON.parse(fs.readFileSync(p, "utf8"));
-      pkg.pi.extensions = ["./dist/index.cjs"];
-      fs.writeFileSync(p, JSON.stringify(pkg, null, 2) + "\n");
-    ' "$pkg/package.json"
-
-    rm -rf \
-      "$pkg/src" \
-      "$pkg/test" \
-      "$pkg/node_modules" \
-      "$pkg/.github" \
-      "$pkg/AGENTS.md" \
-      "$pkg/CHANGELOG.md" \
-      "$pkg/README.md" \
-      "$pkg/biome.json" \
-      "$pkg/bun.lock" \
-      "$pkg/tsconfig.json" \
-      "$pkg/vitest.config.ts"
   '';
 
   disallowedReferences = [ nodejs ];

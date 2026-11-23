@@ -2,8 +2,8 @@
   lib,
   buildNpmPackage,
   importNpmLock,
-  esbuild,
   nodejs,
+  piBundleHook,
   writableTmpDirAsHomeHook,
 
   sources,
@@ -28,7 +28,7 @@ buildNpmPackage (finalAttrs: {
   # Pi loads this extension directly; keep Node out of the runtime closure.
   dontPatchShebangs = true;
 
-  nativeBuildInputs = [ esbuild ];
+  nativeBuildInputs = [ piBundleHook ];
 
   postPatch = ''
     cp ${source.artifacts."package-lock.json"} package-lock.json
@@ -60,34 +60,6 @@ buildNpmPackage (finalAttrs: {
   postInstall = ''
     mv $out/lib/node_modules/pi-working-activity $out/lib/${finalAttrs.pname}
     rm -rf $out/lib/node_modules
-
-    pkg="$out/lib/${finalAttrs.pname}"
-    # Bundle into a single ESM entry so jiti skips TypeScript compilation while preserving the default export.
-    esbuild "$pkg/extensions/index.ts" \
-      --bundle \
-      --platform=node \
-      --target=node${lib.versions.major nodejs.version} \
-      --format=esm \
-      --external:@earendil-works/\* \
-      --external:@mariozechner/\* \
-      --external:typebox \
-      --external:typebox/\* \
-      --external:@sinclair/typebox \
-      --external:@sinclair/typebox/\* \
-      --outfile="$pkg/dist/index.mjs"
-
-    node -e '
-      const fs = require("node:fs");
-      const p = process.argv[1];
-      const pkg = JSON.parse(fs.readFileSync(p, "utf8"));
-      pkg.pi.extensions = ["./dist/index.mjs"];
-      fs.writeFileSync(p, JSON.stringify(pkg, null, 2) + "\n");
-    ' "$pkg/package.json"
-
-    rm -rf \
-      "$pkg/extensions" \
-      "$pkg/node_modules" \
-      "$pkg"/README*.md
   '';
 
   disallowedReferences = [ nodejs ];

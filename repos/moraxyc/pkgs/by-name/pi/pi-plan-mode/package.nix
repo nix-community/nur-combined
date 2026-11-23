@@ -1,6 +1,8 @@
 {
   lib,
   stdenvNoCC,
+  nodejs,
+  piBundleHook,
 
   sources,
   source ? sources.pi-plan-mode,
@@ -11,6 +13,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   __structuredAttrs = true;
   strictDeps = true;
 
+  dontPatchShebangs = true;
+
+  nativeBuildInputs = [ piBundleHook ];
+
   installPhase = ''
     runHook preInstall
 
@@ -19,6 +25,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  disallowedReferences = [ nodejs ];
 
   meta = {
     description = "Read-only plan mode with plan file editing for the Pi coding agent";

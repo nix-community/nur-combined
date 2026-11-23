@@ -3,6 +3,7 @@
   buildNpmPackage,
   importNpmLock,
   nodejs,
+  piBundleHook,
 
   sources,
   source ? sources.pi-cc-tools,
@@ -20,6 +21,12 @@ buildNpmPackage (finalAttrs: {
 
   # Pi loads this extension directly; keep Node out of the runtime closure.
   dontPatchShebangs = true;
+
+  nativeBuildInputs = [ piBundleHook ];
+
+  piBundleKeepNodeModules = true;
+  piBundleEsbuildFlags = [ "--external:@shikijs/cli" ];
+  piBundleCleanPaths = [ "node_modules/diff" ];
 
   npmFlags = [
     "--omit=dev"
@@ -43,9 +50,7 @@ buildNpmPackage (finalAttrs: {
 
   postInstall = ''
     mv $out/lib/node_modules/pi-claude-code-ui $out/lib/${finalAttrs.pname}
-    rm -rf $out/lib/node_modules "$out/lib/${finalAttrs.pname}/node_modules/.bin"
-    rm -f "$out/lib/${finalAttrs.pname}/node_modules/.package-lock.json"
-    grep -rlI '^#!/nix/store/' "$out/lib/${finalAttrs.pname}" | xargs -r sed -i '1s|^#!/nix/store/[^/]*/bin/node$|#!/usr/bin/env node|'
+    rm -rf $out/lib/node_modules
   '';
 
   disallowedReferences = [ nodejs ];

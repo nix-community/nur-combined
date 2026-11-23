@@ -5,7 +5,7 @@
   pnpm_11,
   fetchPnpmDeps,
   pnpmConfigHook,
-  esbuild,
+  piBundleHook,
 
   sources,
   source ? sources.pi-processes,
@@ -17,10 +17,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   strictDeps = true;
 
   nativeBuildInputs = [
-    nodejs
     pnpm_11
     pnpmConfigHook
-    esbuild
+    piBundleHook
   ];
 
   pnpmDeps = fetchPnpmDeps {
@@ -36,43 +35,16 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     "--no-optional"
   ];
 
-  buildPhase = ''
-    runHook preBuild
+  dontBuild = true;
 
-    for entry in processes processes-logs processes-dock; do
-      esbuild "extensions/$entry/index.ts" \
-        --bundle \
-        --platform=node \
-        --target=node${lib.versions.major nodejs.version} \
-        --format=cjs \
-        --external:@earendil-works/\* \
-        --external:@mariozechner/\* \
-        --external:typebox \
-        --external:typebox/\* \
-        --external:@sinclair/typebox \
-        --external:@sinclair/typebox/\* \
-        --outfile="dist/$entry.cjs"
-    done
-
-    node -e '
-      const fs = require("node:fs");
-      const pkg = JSON.parse(fs.readFileSync("package.json", "utf8"));
-      pkg.pi.extensions = [
-        "./dist/processes.cjs",
-        "./dist/processes-logs.cjs",
-        "./dist/processes-dock.cjs",
-      ];
-      fs.writeFileSync("package.json", JSON.stringify(pkg, null, 2) + "\n");
-    '
-
-    runHook postBuild
-  '';
+  piBundleFormat = "cjs";
+  piBundleSrcDir = ".";
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/lib/${finalAttrs.pname}
-    cp -r dist skills schema.json package.json $out/lib/${finalAttrs.pname}
+    cp -r skills schema.json package.json $out/lib/${finalAttrs.pname}
 
     runHook postInstall
   '';

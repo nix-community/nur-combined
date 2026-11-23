@@ -1,7 +1,8 @@
 {
   lib,
   stdenvNoCC,
-  typescript,
+  nodejs,
+  piBundleHook,
 
   sources,
   source ? sources.pi-simplify,
@@ -17,25 +18,22 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     sourceRoot+=/packages/pi-simplify
   '';
 
-  nativeBuildInputs = [ typescript ];
+  dontPatchShebangs = true;
 
-  # Type checking needs the Pi peer dependencies, which the host provides at runtime.
-  buildPhase = ''
-    runHook preBuild
+  nativeBuildInputs = [ piBundleHook ];
 
-    tsc -p tsconfig.build.json --noCheck --composite false --declaration false --declarationMap false --sourceMap false
-
-    runHook postBuild
-  '';
+  piBundleEntries = [ "./src/index.ts" ];
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/lib/${finalAttrs.pname}
-    cp -r dist package.json $out/lib/${finalAttrs.pname}
+    cp -r src package.json $out/lib/${finalAttrs.pname}
 
     runHook postInstall
   '';
+
+  disallowedReferences = [ nodejs ];
 
   meta = {
     description = "Code clarity, consistency, and maintainability review for the Pi coding agent";

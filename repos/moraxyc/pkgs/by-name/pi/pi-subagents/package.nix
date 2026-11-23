@@ -4,7 +4,7 @@
   importNpmLock,
   gitMinimal,
   nodejs,
-  esbuild,
+  piBundleHook,
   writableTmpDirAsHomeHook,
 
   sources,
@@ -23,7 +23,14 @@ buildNpmPackage (finalAttrs: {
   # Pi loads this extension directly; keep Node out of the runtime closure.
   dontPatchShebangs = true;
 
-  nativeBuildInputs = [ esbuild ];
+  nativeBuildInputs = [ piBundleHook ];
+
+  piBundleFormat = "cjs";
+  # Anchor __import_meta_url two levels below the package root so ../../skills resolves.
+  piBundleEsbuildFlags = [
+    "--define:import.meta.url=__import_meta_url"
+    ''--banner:js=const __import_meta_url = require("node:url").pathToFileURL(require("node:path").join(__dirname, "workflow", "index.cjs")).href;''
+  ];
 
   npmFlags = [
     "--legacy-peer-deps"
@@ -51,42 +58,6 @@ buildNpmPackage (finalAttrs: {
   postInstall = ''
     mv $out/lib/node_modules/@tintinweb/pi-subagents $out/lib/${finalAttrs.pname}
     rm -rf $out/lib/node_modules
-
-    pkg="$out/lib/${finalAttrs.pname}"
-    # Bundle into a single CJS entry so jiti skips multi-file TS resolution;
-    # anchor __import_meta_url two levels below the package root so ../../skills resolves.
-    esbuild "$pkg/src/index.ts" \
-      --bundle \
-      --platform=node \
-      --target=node${lib.versions.major nodejs.version} \
-      --format=cjs \
-      --external:@earendil-works/\* \
-      --external:@mariozechner/\* \
-      --external:typebox \
-      --external:typebox/\* \
-      --external:@sinclair/typebox \
-      --external:@sinclair/typebox/\* \
-      --define:import.meta.url=__import_meta_url \
-      --banner:js='const __import_meta_url = require("node:url").pathToFileURL(require("node:path").join(__dirname, "workflow", "index.cjs")).href;' \
-      --outfile="$pkg/dist/index.cjs"
-
-    node -e '
-      const fs = require("node:fs");
-      const p = process.argv[1];
-      const pkg = JSON.parse(fs.readFileSync(p, "utf8"));
-      pkg.pi.extensions = ["./dist/index.cjs"];
-      fs.writeFileSync(p, JSON.stringify(pkg, null, 2) + "\n");
-    ' "$pkg/package.json"
-
-    rm -rf \
-      "$pkg/src" \
-      "$pkg/node_modules" \
-      "$pkg/docs" \
-      "$pkg/examples" \
-      "$pkg"/README*.md \
-      "$pkg/CHANGELOG.md" \
-      "$pkg/CONTRIBUTING.md" \
-      "$pkg/SECURITY.md"
   '';
 
   disallowedReferences = [ nodejs ];

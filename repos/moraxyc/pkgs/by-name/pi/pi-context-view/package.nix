@@ -1,6 +1,8 @@
 {
   lib,
   stdenvNoCC,
+  nodejs,
+  piBundleHook,
 
   sources,
   source ? sources.pi-context-view,
@@ -11,6 +13,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   __structuredAttrs = true;
   strictDeps = true;
 
+  dontPatchShebangs = true;
+
+  nativeBuildInputs = [ piBundleHook ];
+
   installPhase = ''
     runHook preInstall
 
@@ -19,6 +25,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  disallowedReferences = [ nodejs ];
 
   meta = {
     description = "Context usage visualization and injection inspection for the Pi coding agent";

@@ -4,6 +4,8 @@
   buildNpmPackage,
   importNpmLock,
   bun,
+  nodejs,
+  piBundleHook,
   writableTmpDirAsHomeHook,
 
   sources,
@@ -27,6 +29,11 @@ buildNpmPackage (finalAttrs: {
       packageLock = lock;
     };
   npmConfigHook = importNpmLock.npmConfigHook;
+
+  # Pi loads this extension directly; keep Node out of the runtime closure.
+  dontPatchShebangs = true;
+
+  nativeBuildInputs = [ piBundleHook ];
 
   postPatch = ''
     cp ${source.artifacts."package-lock.json"} package-lock.json
@@ -60,8 +67,10 @@ buildNpmPackage (finalAttrs: {
 
   postInstall = ''
     mv $out/lib/node_modules/pi-emphasis $out/lib/${finalAttrs.pname}
-    rm -rf $out/lib/node_modules "$out/lib/${finalAttrs.pname}/node_modules"
+    rm -rf $out/lib/node_modules
   '';
+
+  disallowedReferences = [ nodejs ];
 
   meta = {
     description = "Display-only emphasis and status pills for assistant replies in the Pi coding agent";
