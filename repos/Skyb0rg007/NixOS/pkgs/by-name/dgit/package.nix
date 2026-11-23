@@ -11,7 +11,7 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "dgit";
-  version = "17.0";
+  version = "17.2";
   __structuredAttrs = true;
   strictDeps = true;
 
@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "dgit-team";
     repo = "dgit";
     tag = "debian/${finalAttrs.version}";
-    hash = "sha256-uVbWHGziWENkMzVWdMH5pfTsiDxDRExD9L8w+LqkHjM=";
+    hash = "sha256-o7YCFvY0h8GPiWVZ+fAPvzYidUY78cQ/gSxhZmLRIlc=";
   };
 
   nativeBuildInputs = [

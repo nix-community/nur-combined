@@ -14,7 +14,7 @@
 }:
 buildPythonPackage (finalAttrs: {
   pname = "cache-dit";
-  version = "1.5.3";
+  version = "1.5.6";
   __structuredAttrs = true;
   pyproject = true;
 
@@ -22,7 +22,7 @@ buildPythonPackage (finalAttrs: {
     owner = "vipshop";
     repo = "cache-dit";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-A6VWLtY05yKWUsGYSO4iAeviBYyEhfM85EeBr7eUI6s=";
+    hash = "sha256-jfoivH7Sro8xlybDxHhAUGBaYIKOfwfZOrs7GqHB9xE=";
   };
 
   build-system = [

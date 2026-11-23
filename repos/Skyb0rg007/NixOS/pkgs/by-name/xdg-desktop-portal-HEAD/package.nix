@@ -14,13 +14,13 @@
 xdg-desktop-portal.overrideAttrs (
   finalAttrs: prevAttrs: {
     pname = "xdg-desktop-portal-HEAD";
-    version = "1.22.1-unstable-2026-11-15";
+    version = "1.22.1-unstable-2026-11-19";
 
     src = fetchFromGitHub {
       owner = "flatpak";
       repo = "xdg-desktop-portal";
-      rev = "69b42b026cd7c470701b35e5de252389ea65314d";
-      hash = "sha256-l74Nf0d0Un40mfyD2GOm8wytQBo5g0xYxHb1gYoSEFs=";
+      rev = "3152e604cf0eb2e195e298944cc8c728ee8009a7";
+      hash = "sha256-wY6jVl0lRCdJgFWKiZc/cVwrOFK3lK2fGt5OTeNHKAg=";
     };
 
     # nixpkgs' patches, rebased onto the src/ -> desktop-portal/ rename. Its

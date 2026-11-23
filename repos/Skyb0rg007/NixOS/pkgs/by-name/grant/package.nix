@@ -8,14 +8,14 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "grant";
-  version = "0.7.1";
+  version = "0.8.0";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "anchore";
     repo = "grant";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-qnJms0gqszicNlMsS4kMxMsQNR1ILCovc4KldC1aH10=";
+    hash = "sha256-TbOwYQTX34Z/RsEVPEOdxzfhtQoTbysjCtgIwKcJspc=";
     leaveDotGit = true;
     postFetch = ''
       cd "$out"
@@ -26,7 +26,7 @@ buildGoModule (finalAttrs: {
     '';
   };
 
-  vendorHash = "sha256-2d+G5z+DS9BDqO8WhogTD019qJZVNcj6xYLctFIBC00=";
+  vendorHash = "sha256-Kr1NWf4xrkCe60zAUDM/H1XX8cldkDd+sHZ8H4CqQTo=";
 
   nativeBuildInputs = [ installShellFiles ];
 
