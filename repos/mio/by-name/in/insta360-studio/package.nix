@@ -73,7 +73,7 @@ mkWindowsAppNoCC rec {
     name = pname;
     src = fetchurl {
       url = "https://web.archive.org/web/20260115031537if_/https://res.insta360.com/static/ab6ade0de352acdcf2d92cb49649a602/20240326-174927.jpeg";
-      sha256 = "17cln3yd2gsybcq7dqi2saicp6zx7m6sxnjy6vpqz3x01kyami17";
+      hash = "sha256-J8Sq/Aygj4/vNl7ark09/ZvLotIi4nYwW14/0fywlJ0=";
     };
   };
 

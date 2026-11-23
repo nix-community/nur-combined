@@ -6,7 +6,7 @@
   msbuild,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "miscutil";
   version = "0-unstable-20101223";
 
@@ -46,4 +46,4 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };
-})
+}

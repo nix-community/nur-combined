@@ -10,7 +10,7 @@
   liblscp,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "konfyt";
   version = "1.8.0";
 
@@ -62,4 +62,4 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "konfyt";
     platforms = platforms.linux;
   };
-})
+}

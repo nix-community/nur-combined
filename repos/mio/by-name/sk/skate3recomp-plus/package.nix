@@ -54,7 +54,7 @@ let
 
   python = python3.withPackages (ps: [ ps.numpy ]);
 in
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "skate3recomp-plus";
   inherit version src;
 
@@ -161,4 +161,4 @@ stdenv.mkDerivation (finalAttrs: {
       "x86_64-linux"
     ];
   };
-})
+}

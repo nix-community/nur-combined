@@ -74,7 +74,7 @@ let
   executableName = "pake-${pname}";
 in
 assert lib.assertMsg (pname == lib.toLower pname) "makePakeApp: pname must be lowercase";
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   inherit pname version;
 
   dontUnpack = true;
@@ -238,4 +238,4 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = meta.mainProgram or pname;
     platforms = meta.platforms or lib.platforms.all;
   };
-})
+}

@@ -63,7 +63,7 @@ let
     '';
   };
 in
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "beamng-earth";
   inherit version src;
 
@@ -166,4 +166,4 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = lib.platforms.linux;
     sourceProvenance = [ lib.sourceTypes.fromSource ];
   };
-})
+}

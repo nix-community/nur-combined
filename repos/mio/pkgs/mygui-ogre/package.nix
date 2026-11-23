@@ -15,7 +15,7 @@
   ogre,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "mygui";
   version = "3.4.0";
 
@@ -55,4 +55,4 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.mit;
     platforms = platforms.linux;
   };
-})
+}

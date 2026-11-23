@@ -30,7 +30,7 @@ let
     owner = "chen-zeong";
     repo = "DTV";
     rev = "v${version}";
-    sha256 = "0n3bmr3phpbnzib71llxgcw75b4vkliq9h7nidzpz19p0s9k3wgl";
+    hash = "sha256-9PExkwY3hX9/i/bAhCOdm6xyOHud0nBW/HZdeEeua1g=";
   };
 
   patchedSrc = applyPatches {

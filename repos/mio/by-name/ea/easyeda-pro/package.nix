@@ -24,7 +24,7 @@ let
     };
   };
 in
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "easyeda-pro";
   inherit version;
 
@@ -117,4 +117,4 @@ stdenv.mkDerivation (finalAttrs: {
       "aarch64-linux"
     ];
   };
-})
+}

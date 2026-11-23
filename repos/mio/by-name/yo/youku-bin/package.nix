@@ -52,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url = "https://archive.kylinos.cn/kylin/partner/pool/youku-app_${finalAttrs.version}_amd64.deb";
-    sha256 = "c28ade22d41fa6074fce7f2cb06f9db4dfba439698bbea37b0f5735d9ae30075";
+    hash = "sha256-woreItQfpgdPzn8ssG+dtN+6Q5aYu+o3sPVzXZrjAHU=";
   };
 
   nativeBuildInputs = [

@@ -26,7 +26,7 @@ mkWindowsAppNoCC rec {
   # Official MSIX installer from winget manifest
   src = fetchurl {
     url = "https://affinity-update.serif.com/windows/3/studio/retail/Affinity-Affinity-Store-x64-3912-4bf44c776b9fb8dc4ea7f01eedebcde34012ba83.msix";
-    sha256 = "84d97a3e24f6c8048ff4cba00c4820883133359c4161129dba1975527f0c0428";
+    hash = "sha256-hNl6PiT2yASP9MugDEggiDEzNZxBYRKduhl1Un8MBCg=";
     name = "affinity-v3.msix";
   };
 

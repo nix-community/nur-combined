@@ -305,7 +305,7 @@ let
     freetype
   ];
 in
-rustPlatform.buildRustPackage (finalAttrs: {
+rustPlatform.buildRustPackage {
   pname = "elyoffice";
   inherit version src;
 
@@ -514,4 +514,4 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ];
     mainProgram = "ely-doc";
   };
-})
+}

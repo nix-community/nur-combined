@@ -51,7 +51,7 @@ let
     : > $out/apps/artcraft/.npmrc
   '';
 in
-rustPlatform.buildRustPackage (finalAttrs: {
+rustPlatform.buildRustPackage {
   pname = "artcraft";
   inherit version src;
 
@@ -228,4 +228,4 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mainProgram = "artcraft";
     maintainers = [ ];
   };
-})
+}

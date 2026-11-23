@@ -5,7 +5,7 @@
   android-tools,
 }:
 
-buildGoModule (finalAttrs: {
+buildGoModule {
   pname = "fdroidcl";
   version = "0.8.1-unstable-2026-05-23";
 
@@ -33,4 +33,4 @@ buildGoModule (finalAttrs: {
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ ];
   };
-})
+}

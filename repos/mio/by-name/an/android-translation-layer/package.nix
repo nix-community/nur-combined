@@ -47,7 +47,7 @@ let
     hash = "sha256-8J3GNp/8T+Q2LL1JtqxsSnRxN1rF2ITHGwpiWoicOMQ=";
   };
 in
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "android-translation-layer";
   version = "0-unstable-2026-11-22";
 
@@ -154,4 +154,4 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = with lib.maintainers; [ onny ];
     mainProgram = "android-translation-layer";
   };
-})
+}

@@ -30,7 +30,7 @@ let
       owner = "UnnoTed";
       repo = "fileb0x";
       rev = "v1.1.4";
-      sha256 = "sha256-/g4Im1R4VKVyl0qN3FYcvKTBHhiIKll4civs987Mo64=";
+      hash = "sha256-/g4Im1R4VKVyl0qN3FYcvKTBHhiIKll4civs987Mo64=";
     };
     vendorHash = "sha256-56A+xFvgJLS8xWodcSzMuN0fB+vXb4Qm8OwbAig2KSM=";
 
@@ -47,7 +47,7 @@ let
       repo = "wireguird";
       # https://github.com/UnnoTed/wireguird/pull/61#issuecomment-2449554201 and https://github.com/nvlbg/wireguird/tree/tray_tunnels_submenu
       rev = "6dac3cd8784118f4fe7ea6d544a583c26d589572";
-      sha256 = "sha256-iv0/HSu/6IOVmRZcyCazLdJyyBsu5PyTajLubk0speI=";
+      hash = "sha256-iv0/HSu/6IOVmRZcyCazLdJyyBsu5PyTajLubk0speI=";
     };
     proxyVendor = true;
 

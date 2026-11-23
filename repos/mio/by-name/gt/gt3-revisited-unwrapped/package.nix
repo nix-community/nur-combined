@@ -21,7 +21,7 @@ let
     hash = "sha256-jBk3Kd4q3HO3i2SxS0mBpQ80Vfm8vj1PQMXouK6Y/+k=";
   };
 in
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "gt3-revisited";
   inherit version;
 
@@ -105,4 +105,4 @@ stdenv.mkDerivation (finalAttrs: {
       "aarch64-linux"
     ];
   };
-})
+}

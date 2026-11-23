@@ -7,7 +7,7 @@
 # The same release and lockfile as `horizon`, so the tool that writes Horizon's
 # resources always matches the client that reads them: a version bump of
 # `horizon` carries over here, and the pins cannot drift apart.
-rustPlatform.buildRustPackage (finalAttrs: {
+rustPlatform.buildRustPackage {
   pname = "horizon-prepare";
   version = horizon.version;
 
@@ -38,4 +38,4 @@ rustPlatform.buildRustPackage (finalAttrs: {
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     mainProgram = "horizon-prepare";
   };
-})
+}

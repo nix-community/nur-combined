@@ -129,7 +129,7 @@ let
     (fetchpatch {
       name = "re_match_index.patch";
       url = "https://bugs.python.org/file43084/re_match_index.patch";
-      sha256 = "0l9rw6r5r90iybdkp3hhl2pf0h0s1izc68h5d3ywrm92pq32wz57";
+      hash = "sha256-p3wuBr4i1cz9aAUiw34MGkDgrqAQjjvb8hGkXLLhOVE=";
     })
 
     # Fix race-condition during pyc creation. Has a slight backwards

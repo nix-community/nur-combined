@@ -17,7 +17,7 @@
   lilv,
 }:
 
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation {
   pname = "septabee";
   version = "B-T1";
 
@@ -102,4 +102,4 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     maintainers = [ ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
-})
+}

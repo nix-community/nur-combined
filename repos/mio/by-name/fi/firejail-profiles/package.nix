@@ -3,7 +3,7 @@
   stdenvNoCC,
 }:
 
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation {
   pname = "firejail-profiles";
   version = "0-unstable-20260818";
 
@@ -24,4 +24,4 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
   };
-})
+}

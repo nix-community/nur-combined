@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     owner = "leopoldhub";
     repo = "fw-fanctrl-gui";
     rev = "c0e4c8c62285a605fb4169cf2a02d4c02564cd47";
-    sha256 = "046f4gqqglazc6nw369accg83sq3gizp50v1w4v5f6fd56zzdayk";
+    hash = "sha256-06v2vynNGVc24WGDcn98A+uBHmMqmcGtYV/Rh/EjzhA=";
   };
 
   pyproject = true;

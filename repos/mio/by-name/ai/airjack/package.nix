@@ -151,7 +151,7 @@ let
     zizzania
   ];
 in
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "airjack";
   version = "0-unstable-2026-11-21";
 
@@ -213,4 +213,4 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "airjack";
     platforms = lib.platforms.darwin;
   };
-})
+}

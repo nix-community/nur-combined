@@ -5,7 +5,7 @@
   python3Packages,
 }:
 
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation {
   pname = "binja-headless";
   version = "0-unstable-2025-02-13";
 
@@ -35,4 +35,4 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ ];
   };
-})
+}

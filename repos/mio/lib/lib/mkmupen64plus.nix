@@ -19,7 +19,7 @@
     # Attribute set passed to makeDesktopIcon, minus the 'name" attribute:
     src = fetchurl {
       url = "https://1000logos.net/wp-content/uploads/2017/07/Color-N64-Logo-500x393.jpg";
-      sha256 = "01hnfbrrgvb560m14hq4nwirhngl8mss6s6wmbl56bl7jnngzpig";
+      hash = "sha256-L97/rJWHLlPoqtxoo3VF9FmYI7cEQxIqMGXtl/NyFgY=";
     };
   },
   rom, # Run-time path to the N64 ROM file.

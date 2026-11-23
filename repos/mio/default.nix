@@ -39,7 +39,7 @@ let
           (pkgs.fetchpatch {
             name = "fix patch aria2 fast.patch";
             url = "https://github.com/agalwood/aria2/commit/baf6f1d02f7f8b81cd45578585bdf1152d81f75f.patch";
-            sha256 = "sha256-bLGaVJoHuQk9vCbBg2BOG79swJhU/qHgdkmYJNr7rIQ=";
+            hash = "sha256-bLGaVJoHuQk9vCbBg2BOG79swJhU/qHgdkmYJNr7rIQ=";
           })
         ];
       })

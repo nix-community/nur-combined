@@ -34,7 +34,7 @@ let
     stripRoot = false;
   };
 in
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "rocksmith2tab";
   version = "0-unstable-20250126";
 
@@ -151,4 +151,4 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = lib.platforms.linux;
     mainProgram = "rocksmith2tab";
   };
-})
+}

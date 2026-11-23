@@ -28,7 +28,7 @@ let
   };
   inherit (deps) python;
 in
-python.pkgs.buildPythonApplication (finalAttrs: {
+python.pkgs.buildPythonApplication {
   pname = "codexctl";
   version = "1.2.1-unstable-2026-11-11";
   pyproject = true;
@@ -103,4 +103,4 @@ python.pkgs.buildPythonApplication (finalAttrs: {
     mainProgram = "codexctl";
     platforms = lib.platforms.unix;
   };
-})
+}

@@ -108,7 +108,7 @@ let
     }
   );
 in
-rustPlatform.buildRustPackage (finalAttrs: {
+rustPlatform.buildRustPackage {
   pname = "serein";
   version = "1.0.0-unstable-2026-11-21";
 
@@ -297,4 +297,4 @@ rustPlatform.buildRustPackage (finalAttrs: {
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     mainProgram = "serein";
   };
-})
+}

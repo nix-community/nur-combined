@@ -36,7 +36,7 @@ let
     "PAL-ENSV" = "Burnout 3 Takedown (PAL-ENSV)";
   };
 in
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "takedawn";
   inherit version;
 
@@ -136,4 +136,4 @@ stdenv.mkDerivation (finalAttrs: {
       "aarch64-linux"
     ];
   };
-})
+}

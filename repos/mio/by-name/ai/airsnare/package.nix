@@ -10,7 +10,7 @@
 # links -framework CoreWLAN/-framework Foundation, which the stdenv's SDK
 # provides. Both setup prerequisites (the dry Makefile and uthash.h) are checked
 # into build_support/, so the build is offline.
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "airsnare";
   version = "0-unstable-2026-07-28";
 
@@ -51,4 +51,4 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "airsnare";
     platforms = lib.platforms.darwin;
   };
-})
+}

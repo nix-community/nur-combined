@@ -16,7 +16,7 @@ let
     hash = "sha256-8a0sUDbG1DXU6sAXtDCZa3CSuhuVrj9CvycBK6YUr5I=";
   };
 in
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "zizzania";
   version = "0-unstable-2023-12-09";
 
@@ -64,4 +64,4 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "zizzania";
     platforms = lib.platforms.unix;
   };
-})
+}

@@ -47,12 +47,12 @@ let
   tag = "linux-x64";
   src = fetchurl {
     url = "https://github.com/castlabs/electron-releases/releases/download/v${version}/electron-v${version}-${tag}.zip";
-    sha256 = "sha256-6o7GD8JOatYKIwTP2Ssr4QfItW2wgj4SRpRc7FGr7hM=";
+    hash = "sha256-6o7GD8JOatYKIwTP2Ssr4QfItW2wgj4SRpRc7FGr7hM=";
   };
   headers = fetchzip {
     name = "electron-${version}-headers";
     url = "https://artifacts.electronjs.org/headers/dist/v38.8.6/node-v38.8.6-headers.tar.gz";
-    sha256 = "sha256-EDv9Llkxml2Zd2oN0G8R2kiqMV1PkWxd7c8udVByFjc=";
+    hash = "sha256-EDv9Llkxml2Zd2oN0G8R2kiqMV1PkWxd7c8udVByFjc=";
     stripRoot = false;
   };
 

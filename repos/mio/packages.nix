@@ -96,7 +96,7 @@ exportedByName
         owner = "a1ive";
         repo = "grub";
         rev = "77322411ddd574b461ca7c2b666c881bae51d8bd";
-        sha256 = "0l51g7cm32dkamg3bgc58129rsdpvj2zjj4ff6w7c5ias7mzjzb0";
+        hash = "sha256-YH3569EqFna4cY5I+YXct+mcRECFvTVeVbOJUdl5oVA=";
       };
       patches = [ ];
       # Fix GCC-15 / C23 keyword conflicts with gnulib's stdbool by enforcing gnu11
@@ -236,12 +236,12 @@ exportedByName
               (pkgs.fetchpatch {
                 name = "12a.patch";
                 url = "https://github.com/PrismLauncher/PrismLauncher/commit/12acabdb57ba6f12fcf9047c28ec8afa7a4fb970.patch";
-                sha256 = "sha256-t+sanKiSEuqmshy6Y+Y9tfpDf+7L3A8d0CBcA+oqLUs=";
+                hash = "sha256-t+sanKiSEuqmshy6Y+Y9tfpDf+7L3A8d0CBcA+oqLUs=";
               })
               (pkgs.fetchpatch {
                 name = "911.patch";
                 url = "https://github.com/PrismLauncher/PrismLauncher/commit/911c0f3593dd6b825f6d91900e48bdf3b59ad3a9.patch";
-                sha256 = "sha256-mCkZ613f7kvMQTW+UOi2dcnvzHg/c2vhPcPGCvdz+0k=";
+                hash = "sha256-mCkZ613f7kvMQTW+UOi2dcnvzHg/c2vhPcPGCvdz+0k=";
               })
             ];
           })

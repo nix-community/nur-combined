@@ -21,7 +21,7 @@ mkWindowsAppNoCC rec {
 
   src = fetchurl {
     url = "https://web.archive.org/web/20260113123008if_/https://dl5.filehippo.com/d36/e13/1aca8e2afb2dd5e0ed17abef69d7a56eb3/LINE_V9.2.0.3431.exe?Expires=1768350598&Signature=bc1a2cdefb659fd5c3892fe5146398dc5ac6fefa&url=https://filehippo.com/download_line/9.2.0.3431/&Filename=LINE_V9.2.0.3431.exe";
-    sha256 = "469421829b4eda17af44236f1a684fe970899324677f741f22033a2218b40bf5"; # :hash:
+    hash = "sha256-RpQhgptO2hevRCNvGmhP6XCJkyRnf3QfIgM6Ihi0C/U="; # :hash:
   };
 
   dontUnpack = true;
@@ -82,7 +82,7 @@ mkWindowsAppNoCC rec {
 
     src = fetchurl {
       url = "https://line.me/favicon-32x32.png";
-      sha256 = "1kry4kab23d8knz1yggj3a0mdz56n7zf6g5hq4sbymdm103j4ksh";
+      hash = "sha256-UE8iBwi1Vb80wbA84/6xpvxWgRryPR++nagNsdQkPs8=";
     };
   };
 

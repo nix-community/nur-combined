@@ -23,7 +23,7 @@
   nix,
   writeShellApplication,
 }:
-clangStdenv.mkDerivation (finalAttrs: {
+clangStdenv.mkDerivation {
   pname = "art-standalone";
   version = "0-unstable-2026-11-04";
 
@@ -124,4 +124,4 @@ clangStdenv.mkDerivation (finalAttrs: {
     platforms = [ "x86_64-linux" ];
     maintainers = with lib.maintainers; [ onny ];
   };
-})
+}

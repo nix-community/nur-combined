@@ -81,7 +81,7 @@ let
     pyobjcFramework-CoreLocation
   ]);
 in
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "airjack-newpy";
   version = "0-unstable-2026-11-21";
 
@@ -150,4 +150,4 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "airjack";
     platforms = lib.platforms.darwin;
   };
-})
+}

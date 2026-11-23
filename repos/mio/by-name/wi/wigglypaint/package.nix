@@ -5,7 +5,7 @@
   decker,
   makeWrapper,
 }:
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation {
   pname = "wigglypaint";
   version = "1.4";
 
@@ -38,4 +38,4 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     maintainers = [ ];
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
   };
-})
+}
