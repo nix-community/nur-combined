@@ -18,18 +18,18 @@
 
 buildGoModule.override { go = go_1_27; } rec {
   pname = "easylpac";
-  version = "0.9.2";
+  version = "0.9.3";
 
   src = fetchFromGitHub {
     owner = "creamlike1024";
     repo = "EasyLPAC";
-    rev = version;
+    rev = "v${version}";
     fetchSubmodules = true;
-    hash = "sha256-skpnUWFQyBb0G9/2WZOS0dlTVe043UBZPY8k6Mrryrg=";
+    hash = "sha256-aVuxYyLEM+3f5/gr4/4UlocWbOeUKuZxJwMvdJbhwWA=";
   };
 
   proxyVendor = true;
-  vendorHash = "sha256-terM1t0NfTNCEE8BssP2vR2r8hNJ9gSRWEI/BPVeMBU=";
+  vendorHash = "sha256-bTh+XpBK3wPXLWrrMHgkKBFOkePrgT6+N8wDzR35BEI=";
 
   subPackages = [ "cmd/easylpac" ];
 
