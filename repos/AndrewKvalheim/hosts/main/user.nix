@@ -117,13 +117,13 @@ in
   };
 
   # Clipboard handlers
-  programs.process-clipboard.handlers = [
+  programs.process-clipboard.handlers = with pkgs; [
     # IMF → filtered IMF
     {
       condition = ''[[ "$text" == 'Return-Path: '* ]]'';
       action = ''
         kitty --app-id='local.result' \
-          sh -c "wl-paste --no-newline --type 'text' | CLICOLOR_FORCE='✓' filter-imf | wl-copy --type 'TEXT'"
+          sh -c "wl-paste --no-newline --type 'text' | CLICOLOR_FORCE='✓' ${getExe filter-imf} | wl-copy --type 'TEXT'"
       '';
     }
   ];

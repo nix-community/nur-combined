@@ -32,7 +32,7 @@ let
 
   process-clipboard = writeShellApplication {
     name = "process-clipboard";
-    runtimeInputs = with pkgs; [ filter-imf kitty.package libnotify wl-clipboard ];
+    runtimeInputs = with pkgs; [ kitty.package libnotify wl-clipboard ];
     text = let inherit (config.programs.process-clipboard) handlers; in ''
       replace_with() { local text="$1"
         wl-copy --type 'TEXT' "$text"

@@ -12,6 +12,10 @@
   host = {
     name = "wrangler";
     dir = ./.;
+    displays = {
+      aside.name = "HDMI-A-1";
+      main = { name = "eDP-1"; model = "0x416b"; };
+    };
     metrics = rec {
       cpuCores = 16;
       cpuMarkMulti = 16738;
