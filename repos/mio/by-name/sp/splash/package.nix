@@ -2,14 +2,57 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchzip,
   makeWrapper,
-  nix-update-script,
+  nix,
+  nix-update,
+  git,
+  cacert,
   writeShellApplication,
   python3,
   perl,
 }:
 
 let
+  sparkleVersion = "2.10.1";
+  swiftTermVersion = "1.20.0";
+
+  # The app's Package.swift pins these dependencies. Vendoring them keeps the
+  # build offline; Sparkle only publishes a binary SwiftPM artifact.
+  sparkle = fetchzip {
+    pname = "sparkle-spm";
+    version = sparkleVersion;
+    url = "https://github.com/sparkle-project/Sparkle/releases/download/${sparkleVersion}/Sparkle-for-Swift-Package-Manager.zip";
+    hash = "sha256-yMw24NHBebnIuCaQ2iRESWqwFnG2nYBO4RpKWxqmXpQ=";
+    stripRoot = false;
+  };
+
+  swiftTerm = fetchzip {
+    pname = "swiftterm";
+    version = swiftTermVersion;
+    url = "https://github.com/migueldeicaza/SwiftTerm/archive/refs/tags/v${swiftTermVersion}.tar.gz";
+    hash = "sha256-Tb2MQkBTAepzSr54p1fQadvHgtokmFBgmux/z36xHwA=";
+  };
+
+  # Sparkle's release archive is an xcframework, not a Swift package. A local
+  # manifest lets SwiftPM use it as a path dependency without its own package
+  # manifest and its tools-only dependencies.
+  sparklePackageSwift = builtins.toFile "Package.swift" ''
+    // swift-tools-version:5.5
+    import PackageDescription
+
+    let package = Package(
+        name: "Sparkle",
+        platforms: [.macOS(.v12)],
+        products: [
+            .library(name: "Sparkle", targets: ["Sparkle"])
+        ],
+        targets: [
+            .binaryTarget(name: "Sparkle", path: "Sparkle.xcframework")
+        ]
+    )
+  '';
+
   pythonEnv = python3.withPackages (ps: [
     ps.annotated-doc
     ps.anyio
@@ -54,7 +97,7 @@ let
     ps.typing-extensions
   ]);
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "splash";
   version = "1.7.1";
 
@@ -65,7 +108,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "incoai";
     repo = "splash";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-eqDiKZvEcEvVvISud4upKdlFnMuj7lzqai3vES1+FHw=";
   };
 
@@ -90,6 +133,31 @@ stdenv.mkDerivation rec {
   # bundle would break its seal. makeWrapper already writes the launcher with
   # an absolute shell.
   dontPatchShebangs = true;
+
+  postPatch = ''
+    mkdir -p app/Vendor/Sparkle app/Vendor/SwiftTerm
+    cp -a ${sparkle}/. app/Vendor/Sparkle/
+    cp -a ${swiftTerm}/. app/Vendor/SwiftTerm/
+    chmod -R u+w app/Vendor
+    cp ${sparklePackageSwift} app/Vendor/Sparkle/Package.swift
+
+    # SwiftTerm's manifest adds a demo executable and a DocC plugin that this
+    # app never builds. Remove them so SwiftPM does not resolve their remote
+    # dependencies.
+    patch -p1 < ${./swiftterm-package.patch}
+
+    substituteInPlace app/Package.swift \
+      --replace-fail \
+        '.package(url: "https://github.com/sparkle-project/Sparkle", exact: "${sparkleVersion}")' \
+        '.package(path: "Vendor/Sparkle")' \
+      --replace-fail \
+        '.package(url: "https://github.com/migueldeicaza/SwiftTerm", exact: "${swiftTermVersion}")' \
+        '.package(path: "Vendor/SwiftTerm")'
+
+    # Vendor sources are pinned here; the lockfiles only name the old remote
+    # dependencies and would make SwiftPM resolve them over the network.
+    find app -name Package.resolved -delete
+  '';
 
   buildPhase = ''
     runHook preBuild
@@ -120,10 +188,10 @@ stdenv.mkDerivation rec {
       METAL="$metal" \
       -j$NIX_BUILD_CORES all
 
-    # The SwiftUI app, built with the host Swift toolchain; SwiftPM fetches
-    # its pinned Sparkle and SwiftTerm packages into the writable scratch
-    # path. TOOLCHAINS only affects xcrun's tool lookup, not clang, and the
-    # app packaging below needs the default Xcode toolchain (actool).
+    # The SwiftUI app, built with the host Swift toolchain against the
+    # vendored Sparkle and SwiftTerm checkouts from postPatch. TOOLCHAINS
+    # only affects xcrun's tool lookup, not clang, and the app packaging below
+    # needs the default Xcode toolchain (actool).
     run_swift() {
       if [ -n "$swift_toolchain" ]; then
         TOOLCHAINS="$swift_toolchain" PATH=/usr/bin:$PATH /usr/bin/swift "$@"
@@ -131,7 +199,7 @@ stdenv.mkDerivation rec {
         PATH=/usr/bin:$PATH /usr/bin/swift "$@"
       fi
     }
-    export HOME=$PWD/build/home
+    export HOME="$PWD/build/home"
     mkdir -p "$HOME"
     run_swift build \
       -c release \
@@ -159,7 +227,7 @@ stdenv.mkDerivation rec {
     if [ -f build/host-step.metallib ]; then
       install -m644 build/host-step.metallib "$runtime/engine/host-step.metallib"
     fi
-    printf '{\n  "version": "%s"\n}\n' "${version}" > "$runtime/release.json"
+    printf '{\n  "version": "%s"\n}\n' "${finalAttrs.version}" > "$runtime/release.json"
     cat > "$runtime/python/bin/python3" <<EOF
     #!${stdenv.shell}
     exec ${pythonEnv}/bin/python3 "\$@"
@@ -171,7 +239,7 @@ stdenv.mkDerivation rec {
       --products "$products" \
       --runtime "$runtime" \
       --output build/Splash.app \
-      --version "${version}" \
+      --version "${finalAttrs.version}" \
       --macos-min 26.4
 
     runHook postBuild
@@ -195,19 +263,36 @@ stdenv.mkDerivation rec {
 
   doCheck = false;
 
-  passthru.updateScript = writeShellApplication {
-    name = "update-splash";
-    text = ''
-      export UPDATE_NIX_ATTR_PATH="splash"
-      exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
-    '';
+  passthru = {
+    inherit sparkleVersion swiftTermVersion;
+    updateScript = writeShellApplication {
+      name = "update-splash";
+      runtimeInputs = [
+        python3
+        nix
+        nix-update
+        git
+        cacert
+      ];
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="splash"
+        export SSL_CERT_FILE="${cacert}/etc/ssl/certs/ca-bundle.crt"
+        exec ${python3}/bin/python3 ${./update.py} "$@"
+      '';
+    };
   };
 
   meta = {
     description = "Local inference engine and desktop app for Apple silicon";
     homepage = "https://github.com/incoai/splash";
+    downloadPage = "https://github.com/incoai/splash/releases";
+    changelog = "https://github.com/incoai/splash/releases/tag/${finalAttrs.version}";
     license = lib.licenses.asl20;
-    mainProgram = "splash";
+    sourceProvenance = with lib.sourceTypes; [
+      fromSource
+      binaryNativeCode # vendored Sparkle.framework
+    ];
     platforms = [ "aarch64-darwin" ];
+    mainProgram = "splash";
   };
-}
+})
