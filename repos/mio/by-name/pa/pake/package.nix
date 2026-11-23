@@ -146,6 +146,9 @@ stdenv.mkDerivation (finalAttrs: {
           - arm64
       EOF
     '';
+    # pnpm.fetchDeps hashes depend on whether the build dir and $out share a
+    # partition (it hardlinks exec bits into the store, nixpkgs#422889), so this
+    # value can differ between machines. Regenerate it locally if it mismatches.
     hash = "sha256-BSBdtE4oLzuo+F7Y+WTvMNfjse1hZQnEy0JXsootkwQ=";
   };
 
