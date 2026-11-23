@@ -33,7 +33,7 @@ redistribution.
 | `wordcraft` | `0.18.1` | Word processor (official binary release) | No: redistribution review pending |
 | `gridcraft` | `0.19.1` | Spreadsheet editor (official binary release) | No: redistribution review pending |
 | `deckcraft` | `0.18.1` | Presentation editor (official binary release) | No: redistribution review pending |
-| `pdfcraft` | `0.21.1` | PDF viewer and editor (official binary release) | No: redistribution review pending |
+| `pdfcraft` | `0.22.0` | PDF viewer and editor (official binary release) | No: redistribution review pending |
 | `photocraft` | `0.23.1` | Image editor (official binary release) | No: redistribution review pending |
 | `filmcraft` | `0.20.1` | Video editor (official binary release) | No: redistribution review pending |
 | `soundcraft` | `0.20.1` | Digital audio workstation (official binary release) | No: redistribution review pending |
