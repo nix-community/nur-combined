@@ -3,10 +3,21 @@
   callPackage,
   fetchFromTangled,
   lib,
-  makeWrapper,
+  makeBinaryWrapper,
   symlinkJoin,
+  withPhoton ? true,
+  withWeb ? true,
   # keep-sorted end
 }: let
+  inherit
+    (lib)
+    # keep-sorted start
+    optionalAttrs
+    optionalString
+    optionals
+    # keep-sorted end
+    ;
+
   pname = "albedo-git";
   version = "0-unstable-2026-11-23";
 
@@ -22,6 +33,10 @@
   usageCore = callPackage ./usage-core.nix {};
 
   render = callPackage ./render.nix {inherit src;};
+
+  photon = callPackage ./photon.nix {inherit src;};
+
+  web = callPackage ./web.nix {inherit src;};
 
   server = callPackage ./server.nix {
     inherit
@@ -51,37 +66,47 @@
       # keep-sorted end
       ;
 
-    paths = [
-      # keep-sorted start
-      client
-      server
-      # keep-sorted end
-    ];
+    paths =
+      [
+        # keep-sorted start
+        client
+        server
+        # keep-sorted end
+      ]
+      ++ optionals withPhoton [photon];
 
-    nativeBuildInputs = [makeWrapper];
+    nativeBuildInputs = [makeBinaryWrapper];
 
     postBuild =
       (import ./install-notices.nix {inherit pname src;})
       + ''
-        rm $out/bin/albedo
-        makeWrapper ${client}/bin/albedo $out/bin/albedo --set-default ALBEDO_DAEMON ${server}/bin/albedo-daemon
+        for name in albedo albedo-{acp,tui,web}; do
+          rm $out/bin/$name
+          makeBinaryWrapper ${client}/bin/$name $out/bin/$name --inherit-argv0 --set-default ALBEDO_DAEMON ${server}/bin/albedo-daemon \
+            ${optionalString withPhoton "--prefix PATH : ${photon}/bin"} \
+            ${optionalString withWeb "--set-default ALBEDO_WEB_DIST ${web}"}
+        done
+        makeBinaryWrapper ${client}/libexec/albedo/albedo-server $out/bin/albedo-server --set-default ALBEDO_DAEMON ${server}/bin/albedo-daemon
       '';
 
-    passthru = {
-      updateSourceFiles = ["apps/albedo/manifest.toml"];
-      daemon = server;
-      tests.notices = callPackage ./notices-test.nix {
-        inherit package;
-      };
-      inherit
-        # keep-sorted start
-        client
-        render
-        server
-        usageCore
-        # keep-sorted end
-        ;
-    };
+    passthru =
+      {
+        updateSourceFiles = ["apps/albedo/manifest.toml"];
+        daemon = server;
+        tests.notices = callPackage ./notices-test.nix {
+          inherit package;
+        };
+        inherit
+          # keep-sorted start
+          client
+          render
+          server
+          usageCore
+          # keep-sorted end
+          ;
+      }
+      // optionalAttrs withPhoton {inherit photon;}
+      // optionalAttrs withWeb {inherit web;};
 
     meta = with lib; {
       # keep-sorted start
