@@ -398,13 +398,13 @@
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
-    version = "v4.0.1-Essential";
+    version = "v4.3.1-Essential";
     src = fetchFromGitHub {
       owner = "nekotrix";
       repo = "SVT-AV1-Essential";
-      rev = "v4.0.1-Essential";
+      rev = "v4.3.1-Essential";
       fetchSubmodules = false;
-      sha256 = "sha256-Xyvlirf0lGocQL5xYeWOVKYpDRXNs3O70AotTho/FTE=";
+      sha256 = "sha256-fg341eZde95kyrWb7NkCaLSkHNF7so7Tc/d/+kk+Vo8=";
     };
   };
   svt-av1-hdr = {
