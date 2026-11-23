@@ -2,11 +2,11 @@
   "nodes": {
     "magpie": {
       "locked": {
-        "lastModified": 1795289131,
-        "narHash": "sha256-hL9cFdl0qRL9/k0y94LbuNr8F6/CoOGm7iBMt9pYyoI=",
+        "lastModified": 1795428268,
+        "narHash": "sha256-Vt2kxeiOpr5RLPp187Sa5SwuFpWgtEri+NtVRVCYeO8=",
         "owner": "yetone",
         "repo": "magpie",
-        "rev": "e5c2eb9415011e668b20baca25f364bc47402d6b",
+        "rev": "7939ebe7feb9ac4f0fdda2694cb5c500151bc35b",
         "type": "github"
       }
     }
