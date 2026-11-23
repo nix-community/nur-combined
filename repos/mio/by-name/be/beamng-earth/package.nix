@@ -12,7 +12,7 @@
 }:
 
 let
-  version = "1.10.1-beta.dev.555";
+  version = "1.10.1-beta.dev.565";
 
   python = python312.withPackages (
     ps: with ps; [
@@ -29,7 +29,7 @@ let
     owner = "TecnaGamer";
     repo = "BeamNG.Earth";
     tag = "v${version}";
-    hash = "sha256-X9092BUpxk9ovgA5I0QdBfJgauErCgssVIt70728/g4=";
+    hash = "sha256-k6Hbk46tBgIvEHkzirAqRS+ZliJRoDPWWqGKCl86CFc=";
   };
 
   # The world server's geometry kernels (native/earthfast): a pyo3 abi3
@@ -40,7 +40,7 @@ let
 
     cargoRoot = "native/earthfast";
     buildAndTestSubdir = "native/earthfast";
-    cargoHash = "sha256-qEvf1/ntLNAGBh1W5nVh82pLLGQwFwejfUuI9iUGZOI=";
+    cargoHash = "sha256-ImoDywD6IDerCJTHI2bRaJ3LMiUluRNAngu0NzMV0jU=";
 
     # turbojpeg-sys builds its bundled libjpeg-turbo with CMake.
     nativeBuildInputs = [

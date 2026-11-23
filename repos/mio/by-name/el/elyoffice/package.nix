@@ -7,9 +7,9 @@
 # ElyDoc, ElyTable and ElyShow load a patched LibreOffice 26.2.6.3 LOK kernel
 # (139 patches, --enable-mergelibs). Upstream builds it in an AlmaLinux 8
 # container with bundled libraries, which is not something a Nix sandbox can
-# reproduce in reasonable time, so the matching kernel from the v0.1.16 release
-# is unpacked instead: the Arch package on x86_64-linux and the ElyDoc .app
-# from the arm64 DMG on aarch64-darwin. Everything else in this derivation is
+# reproduce in reasonable time, so the matching kernel from the release is
+# unpacked instead: the combined Arch package on x86_64-linux and the kernel.pkg
+# component of the arm64 product archive on aarch64-darwin. Everything else is
 # compiled from source. Kernels are installed as $out/lib/elyoffice/libreoffice
 # and linked from $out/bin/libreoffice, where the apps look for them.
 {
@@ -26,6 +26,8 @@
   zstd,
   sqlite,
   _7zz,
+  cpio,
+  gzip,
   git,
   git-lfs,
   zlib,
@@ -38,17 +40,20 @@
   libGL,
   fontconfig,
   freetype,
-  nix-update-script,
+  nix-update,
+  python3,
+  nix,
+  writeShellApplication,
 }:
 
 let
-  version = "0.1.16";
+  version = "0.1.17";
 
   src = fetchFromGitHub {
     owner = "ELY-Open-Source";
     repo = "ElyOffice";
     tag = "v${version}";
-    hash = "sha256-ihnQBhOXKGs06fnbJqXz0diQ3ik/Rn5OoWMxdH730/M=";
+    hash = "sha256-JS/4QqBx+G9QRtS1K7yahoG17WrI3CzBZ1jTKF5boPw=";
   };
 
   # ely-pdf-worker's build script links a static libcrypto beside MuPDF's own
@@ -119,8 +124,9 @@ let
     };
   };
 
-  # The released LOK kernel. Linux ships it inside each app's Arch package,
-  # macOS in the app bundle's Frameworks/Resources pair.
+  # The released LOK kernel. Linux ships it once in the combined Arch package,
+  # macOS in the kernel.pkg component of the product archive, as the
+  # Frameworks/Resources pair.
   kernel =
     if stdenv.hostPlatform.isDarwin then
       stdenv.mkDerivation {
@@ -128,11 +134,15 @@ let
         inherit version;
 
         src = fetchurl {
-          url = "https://github.com/ELY-Open-Source/ElyOffice/releases/download/v${version}/ElyDoc-${version}-arm64.dmg";
-          hash = "sha256-oZ+Df6B78KlxJ4u2Dhjlah3+f9KazleLRjJp51Ft/Fg=";
+          url = "https://github.com/ELY-Open-Source/ElyOffice/releases/download/v${version}/ElyOffice-${version}-arm64.pkg";
+          hash = "sha256-wkcf365qDPMy7eOybZSFwr3C3oHFM7e5LGRDkiWDUPg=";
         };
 
-        nativeBuildInputs = [ _7zz ];
+        nativeBuildInputs = [
+          _7zz
+          cpio
+          gzip
+        ];
 
         dontUnpack = true;
         dontFixup = true;
@@ -144,16 +154,12 @@ let
 
           # LibreOffice's macOS bundle layout: it reads its ini files from
           # Contents/Resources when the kernel sits in Contents/Frameworks,
-          # names it derives from the directory itself.
-          mkdir -p "$TMPDIR/dmg" \
-            "$out/lib/elyoffice/libreoffice/Contents/Frameworks" \
-            "$out/lib/elyoffice/libreoffice/Contents/Resources"
-          # The DMG is APFS; 7-Zip reads it, undmg does not.
-          7zz x -y -o"$TMPDIR/dmg" "$src" > /dev/null
-          app="$TMPDIR/dmg/ElyDoc.app/Contents"
-
-          cp -R "$app/Frameworks/." "$out/lib/elyoffice/libreoffice/Contents/Frameworks/"
-          cp -R "$app/Resources/." "$out/lib/elyoffice/libreoffice/Contents/Resources/"
+          # names it derives from the directory itself. upstream bundles those
+          # two trees, and nothing else, as the kernel.pkg component payload.
+          mkdir -p "$TMPDIR/pkg" "$out/lib/elyoffice/libreoffice/Contents"
+          7zz x -y -o"$TMPDIR/pkg" "$src" 'kernel.pkg/Payload' > /dev/null
+          gzip -dc "$TMPDIR/pkg/kernel.pkg/Payload" \
+            | (cd "$out/lib/elyoffice/libreoffice/Contents" && cpio -id --no-absolute-filenames)
           # 7-Zip materialises the signed files' xattrs as "name:com.apple.*".
           find "$out" -name '*:com.apple.*' -delete
 
@@ -172,8 +178,8 @@ let
         inherit version;
 
         src = fetchurl {
-          url = "https://github.com/ELY-Open-Source/ElyOffice/releases/download/v${version}/ely-doc-${version}-1-x86_64.pkg.tar.zst";
-          hash = "sha256-oYHNvL80lhiUaGnpWZywvx92+C74muc9Gh3LzM2wVzk=";
+          url = "https://github.com/ELY-Open-Source/ElyOffice/releases/download/v${version}/ely-office-${version}-1-x86_64.pkg.tar.zst";
+          hash = "sha256-i3rSqiXeswUIZSn/olpgp6jcDYcLA6qek9f6oMwYb+I=";
         };
 
         nativeBuildInputs = [ zstd ];
@@ -189,7 +195,7 @@ let
           mkdir unpack
           zstd -dc "$src" | tar -x -C unpack --no-same-owner
           mkdir -p $out/lib/elyoffice
-          cp -a unpack/opt/ely-office/ely-doc/bin/libreoffice \
+          cp -a unpack/opt/ely-office/libreoffice \
             $out/lib/elyoffice/libreoffice
 
           runHook postInstall
@@ -332,13 +338,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
       "ely-settings-0.2.0"
       "ely-terminal-0.2.0"
       "ely-tooling-0.2.0"
-    ] (_: "sha256-Sdz249hOBpqVh6hn52QFnZp9xHeRNVO7Afvd0OG4/Qk=");
+    ] (_: "sha256-2Atq3d6NfObbISw6sxrV+EDpmt9tdPL1P95NpLbO9v8=");
   };
 
-  # The worker's build script includes reference/mupdf/include.
+  # The worker's build script includes engines/mupdf-src/include, which
+  # scripts/build-mupdf.sh would populate from reference/mupdf plus patches.
   postPatch = ''
-    mkdir -p reference
-    ln -s ${mupdfSrc} reference/mupdf
+    mkdir -p engines
+    ln -s ${mupdfSrc} engines/mupdf-src
   ''
   + lib.optionalString stdenv.hostPlatform.isLinux ''
     # rustc lists libc before the worker's static MuPDF and OpenSSL
@@ -456,7 +463,18 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   passthru = {
     inherit kernel mupdf mupdfSrc;
-    updateScript = nix-update-script { };
+    updateScript = writeShellApplication {
+      name = "update-elyoffice";
+      runtimeInputs = [
+        nix
+        nix-update
+        python3
+      ];
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="elyoffice"
+        exec ${./update.sh} "$@"
+      '';
+    };
   };
 
   meta = {

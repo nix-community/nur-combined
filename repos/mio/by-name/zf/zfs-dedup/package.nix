@@ -12,16 +12,16 @@
 
 rustPlatform.buildRustPackage {
   pname = "zfs-dedup";
-  version = "0.1.0-unstable-2026-11-01";
+  version = "0.1.0-unstable-2026-11-22";
 
   src = fetchFromGitHub {
     owner = "Mic92";
     repo = "zfs-dedup";
-    rev = "1a82ddee296d7b3d7e2eed4994334bf2caae1823";
-    hash = "sha256-B4gC7f1GllpMztU2KzsVKgyOYTVTuA/RFR6ZCPvgy7s=";
+    rev = "346158305149f6fb1f8d6204c80c490529079b0e";
+    hash = "sha256-4Gm7qFq11VTMetlxfPnsBEClviq1YmsjuQvheTYoJh0=";
   };
 
-  cargoHash = "sha256-Ag6KumRtbQBFFeyDDtEGQtEJ9Fs8rJLa+tkq2LT/7gE=";
+  cargoHash = "sha256-NJMpi1a7eYZw810INf9pcitnZXJdQ7zxaAAGhLyNyOg=";
 
   nativeBuildInputs = [ makeWrapper ];
 

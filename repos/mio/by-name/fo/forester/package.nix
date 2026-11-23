@@ -7,11 +7,16 @@
   cid,
   ocaml-index,
   ocamlPackages,
+  git,
+  nix,
+  python3,
+  nixfmt-rfc-style,
+  writeShellApplication,
 }:
 
 let
-  version = "6.0.0-unstable-2026-11-16";
-  commit = "3150fede59eb77e3521c2f01b61f2c5d6074d9a2";
+  version = "6.0.0-unstable-2026-11-22";
+  commit = "172fc6479048e7448ed3756efb59a1e7c7a88a4a";
   lspSrc = fetchurl {
     url = "https://github.com/ocaml/ocaml-lsp/releases/download/1.28.1/lsp-1.28.1.tbz";
     hash = "sha256-ErUjebk01plnO9gmuhbiBodVWu3O/FWjnGivu2IPuhk=";
@@ -45,7 +50,7 @@ ocamlPkgs.buildDunePackage {
   src = fetchgit {
     url = "https://knot.cl.cam.ac.uk/jonmsterling.com/ocaml-forester";
     rev = commit;
-    hash = "sha256-VkpI6nxetzHktHJyBHyOQRLJawkyZoq4oDbGTOOEmQU=";
+    hash = "sha256-H2Hja60KoItn7SbAJm1H9pyXvHEQuE7Yq3RtpnXcLzs=";
   };
 
   strictDeps = true;
@@ -111,6 +116,19 @@ ocamlPkgs.buildDunePackage {
   preBuild = ''
     rm -rf docs
   '';
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-forester";
+    runtimeInputs = [
+      git
+      nix
+      python3
+      nixfmt-rfc-style
+    ];
+    text = ''
+      exec ${./update.sh} "$@"
+    '';
+  };
 
   meta = {
     description = "Tool for tending mathematical forests";
