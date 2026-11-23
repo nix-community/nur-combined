@@ -1,5 +1,13 @@
 {
-  description = "Nix User Repo from Victrix (VZstless).";
+  description = "Nix User Repo from VZstless.";
+  nixConfig = {
+    extra-substituters = [
+      "https://vzstless-nur.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "vzstless-nur.cachix.org-1:m9PoVZ5iQyNlsT2UHUD20nr0EJ2z1qiA9DhOTDWu3sA="
+    ];
+  };
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   outputs = { self, nixpkgs }:
     let
