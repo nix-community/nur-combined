@@ -132,7 +132,12 @@ jobs:
           nixpkgs_path="$(nix eval --raw --impure --expr \
             '(builtins.getFlake ("path:" + toString ./.)).inputs.nixpkgs.outPath')"
           export NIX_PATH="nixpkgs=$nixpkgs_path"
-          nix shell --inputs-from . nixpkgs#nix-update -c \
+          nix shell --impure --expr '
+            let flake = builtins.getFlake ("path:" + toString ./.);
+            in (import flake.inputs.nixpkgs {
+              overlays = [ (import ./lib/nix-update-overlay.nix) ];
+            }).nix-update
+          ' -c \
             nix-update --flake --use-update-script "$PACKAGE"
           # A package PR may only contain that package's changes.
           changed="$(git diff --name-only HEAD; git ls-files --others --exclude-standard; \

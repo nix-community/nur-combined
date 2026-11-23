@@ -21,6 +21,7 @@
         system: import ./default.nix {
           pkgs = import nixpkgs {
             inherit system;
+            overlays = [ (import ./lib/nix-update-overlay.nix) ];
             config = {
               allowUnfree = true;
             };
