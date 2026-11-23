@@ -4,7 +4,6 @@
   appimageTools,
   stdenv,
   callPackage,
-  ...
 }:
 
 let

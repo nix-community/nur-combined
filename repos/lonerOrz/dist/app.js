@@ -1,377 +1,306 @@
-/* ─────────────────────────────────────────────────────────────────────────────
-   loneros-nur · app.js
-   Particle background + package table with search, sort, and animations
-───────────────────────────────────────────────────────────────────────────── */
+const root = document.documentElement;
+const themeToggle = document.getElementById("theme-toggle");
+const themeColor = document.querySelector('meta[name="theme-color"]');
 
-// ── Particle System ──────────────────────────────────────────────────────────
+const applyTheme = (theme) => {
+  root.dataset.theme = theme;
+  themeColor.content = theme === "dark" ? "#0a0e17" : "#f7f9fc";
+  themeToggle.setAttribute(
+    "aria-label",
+    theme === "dark" ? "Switch to light theme" : "Switch to dark theme",
+  );
+};
 
-const canvas = document.getElementById("particles-canvas");
+applyTheme(root.dataset.theme || "dark");
+
+themeToggle.addEventListener("click", () => {
+  const next = root.dataset.theme === "dark" ? "light" : "dark";
+  applyTheme(next);
+  refreshPalette();
+  try {
+    localStorage.setItem("theme", next);
+  } catch {
+    // Storage may be unavailable; the theme still applies for this session.
+  }
+});
+
+const darkQuery = matchMedia("(prefers-color-scheme: dark)");
+darkQuery.addEventListener("change", (e) => {
+  try {
+    if (localStorage.getItem("theme")) return;
+  } catch {
+    return;
+  }
+  applyTheme(e.matches ? "dark" : "light");
+  refreshPalette();
+});
+
+const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
+const particleColors = () =>
+  ["--particle-a", "--particle-b"].map((name) =>
+    getComputedStyle(root).getPropertyValue(name).trim(),
+  );
+
+const parseColor = (value) => {
+  const parts = value.match(/[\d.]+/g) || [];
+  return parts.slice(0, 3).map(Number);
+};
+const COUNT = 36;
+const LINK_DIST = 120;
+const REPEL_DIST = 100;
 
 let particles = [];
-let connections = [];
-let animFrame;
-let particlesPaused = false;
-let mouse = { x: -9999, y: -9999 };
+let palette = [];
+let pointer = { x: -1e4, y: -1e4 };
+let paused = false;
 
-const PARTICLE_COUNT = 70;
-const CONNECTION_DIST = 140;
-const MOUSE_REPEL_DIST = 120;
-const COLORS = [
-  [88, 166, 255], // blue
-  [126, 231, 135], // green
-  [188, 140, 255], // purple
-];
-
-function debounce(fn, delay) {
-  let timer = null;
-  return function (...args) {
-    clearTimeout(timer);
-    timer = setTimeout(() => fn.apply(this, args), delay);
-  };
+function resize() {
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
 }
 
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-
-function createParticle() {
-  const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+function makeParticle() {
   return {
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
-    vx: (Math.random() - 0.5) * 0.18,
-    vy: (Math.random() - 0.5) * 0.18,
-    size: Math.random() * 1.8 + 0.4,
-    alpha: Math.random() * 0.35 + 0.08,
-    color,
-    pulse: Math.random() * Math.PI * 2,
-    pulseSpeed: 0.012 + Math.random() * 0.012,
+    vx: (Math.random() - 0.5) * 0.14,
+    vy: (Math.random() - 0.5) * 0.14,
+    r: Math.random() * 1.2 + 0.6,
+    a: Math.random() * 0.16 + 0.1,
+    color: Math.floor(Math.random() * palette.length),
   };
 }
 
-function initParticles() {
-  resizeCanvas();
-  particles = Array.from({ length: PARTICLE_COUNT }, createParticle);
+function refreshPalette() {
+  palette = particleColors().map(parseColor);
+  for (const p of particles) {
+    p.color = Math.floor(Math.random() * palette.length);
+  }
 }
 
-function animateParticles() {
-  if (particlesPaused) {
-    animFrame = requestAnimationFrame(animateParticles);
-    return;
-  }
+function init() {
+  resize();
+  palette = particleColors().map(parseColor);
+  particles = Array.from({ length: COUNT }, makeParticle);
+}
 
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+function frame() {
+  if (!paused) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Update and draw particles
-  particles.forEach((p) => {
-    p.pulse += p.pulseSpeed;
-    const pAlpha = p.alpha + Math.sin(p.pulse) * 0.06;
+    for (const p of particles) {
+      const dx = p.x - pointer.x;
+      const dy = p.y - pointer.y;
+      const d = Math.hypot(dx, dy);
+      if (d < REPEL_DIST && d > 0) {
+        const f = (1 - d / REPEL_DIST) * 0.014;
+        p.vx += (dx / d) * f;
+        p.vy += (dy / d) * f;
+      }
+      p.vx *= 0.997;
+      p.vy *= 0.997;
+      p.x = (p.x + p.vx + canvas.width) % canvas.width;
+      p.y = (p.y + p.vy + canvas.height) % canvas.height;
 
-    // Mouse repulsion
-    const dx = p.x - mouse.x;
-    const dy = p.y - mouse.y;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-    if (dist < MOUSE_REPEL_DIST && dist > 0) {
-      const force = (1 - dist / MOUSE_REPEL_DIST) * 0.4;
-      p.vx += (dx / dist) * force * 0.05;
-      p.vy += (dy / dist) * force * 0.05;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${palette[p.color]},${p.a})`;
+      ctx.fill();
     }
 
-    // Dampen velocity
-    p.vx *= 0.998;
-    p.vy *= 0.998;
-
-    p.x += p.vx;
-    p.y += p.vy;
-
-    // Wrap edges
-    if (p.x < -10) p.x = canvas.width + 10;
-    if (p.x > canvas.width + 10) p.x = -10;
-    if (p.y < -10) p.y = canvas.height + 10;
-    if (p.y > canvas.height + 10) p.y = -10;
-
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(${p.color[0]}, ${p.color[1]}, ${p.color[2]}, ${pAlpha})`;
-    ctx.fill();
-  });
-
-  // Draw connections
-  for (let i = 0; i < particles.length; i++) {
-    for (let j = i + 1; j < particles.length; j++) {
-      const a = particles[i];
-      const b = particles[j];
-      const dx = a.x - b.x;
-      const dy = a.y - b.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-
-      if (dist < CONNECTION_DIST) {
-        const alpha = (1 - dist / CONNECTION_DIST) * 0.12;
-        // Blend the two particle colors
-        const r = Math.round((a.color[0] + b.color[0]) / 2);
-        const g = Math.round((a.color[1] + b.color[1]) / 2);
-        const bv = Math.round((a.color[2] + b.color[2]) / 2);
-
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const a = particles[i];
+        const b = particles[j];
+        const d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d > LINK_DIST) continue;
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);
-        ctx.strokeStyle = `rgba(${r}, ${g}, ${bv}, ${alpha})`;
-        ctx.lineWidth = 0.8;
+        ctx.strokeStyle = `rgba(${palette[a.color]},${(1 - d / LINK_DIST) * 0.07})`;
+        ctx.lineWidth = 0.6;
         ctx.stroke();
       }
     }
   }
-
-  animFrame = requestAnimationFrame(animateParticles);
+  requestAnimationFrame(frame);
 }
 
-initParticles();
-animateParticles();
+init();
+requestAnimationFrame(frame);
 
-window.addEventListener(
-  "resize",
-  debounce(() => {
-    resizeCanvas();
-    initParticles();
-  }, 200),
-);
+addEventListener("resize", () => {
+  resize();
+  init();
+});
+
+addEventListener("pointermove", (e) => {
+  pointer.x = e.clientX;
+  pointer.y = e.clientY;
+});
+
+addEventListener("pointerleave", () => {
+  pointer = { x: -1e4, y: -1e4 };
+});
 
 document.addEventListener("visibilitychange", () => {
-  particlesPaused = document.hidden;
+  paused = document.hidden;
 });
 
-document.addEventListener("mousemove", (e) => {
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
-});
+const esc = (value) =>
+  String(value).replace(
+    /[&<>"']/g,
+    (c) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      })[c],
+  );
 
-document.addEventListener("mouseleave", () => {
-  mouse.x = -9999;
-  mouse.y = -9999;
-});
-
-// ── Data Loading ─────────────────────────────────────────────────────────────
-
-async function loadPackages() {
-  const tbody = document.getElementById("packages-body");
-
-  const loadingRow = document.createElement("tr");
-  loadingRow.id = "loading-row";
-  loadingRow.innerHTML = `<td colspan="6" style="text-align:center;padding:60px 0;border:none">
-       <div class="spinner"></div>
-       <div style="margin-top:18px;color:var(--muted);font-size:13px;letter-spacing:0.04em">Loading packages…</div>
-     </td>`;
-  tbody.appendChild(loadingRow);
-
-  try {
-    const response = await fetch("./packages.json");
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-
-    const data = await response.json();
-    document.getElementById("loading-row")?.remove();
-    return data;
-  } catch (err) {
-    document.getElementById("loading-row")?.remove();
-    console.error("Failed to load packages:", err);
-
-    const empty = document.getElementById("empty-state");
-    empty.style.display = "block";
-    empty.textContent = "Failed to load packages.json";
-    return [];
-  }
-}
-
-// ── Helpers ───────────────────────────────────────────────────────────────────
-
-function escapeHtml(text) {
-  return String(text)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
-}
-
-function getInstallCommand(name) {
-  return `nix run github:lonerOrz/loneros-nur#${name}`;
-}
-
-function copyToClipboard(text, btn) {
-  navigator.clipboard
-    .writeText(text)
-    .then(() => {
-      const original = btn.innerHTML;
-      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!`;
-      btn.style.cssText =
-        "background:rgba(63,185,80,0.28);border-color:rgba(63,185,80,0.6);color:#56d364;";
-      setTimeout(() => {
-        btn.innerHTML = original;
-        btn.style.cssText = "";
-      }, 1600);
-    })
-    .catch(() => {
-      /* clipboard API unavailable */
-    });
-}
-
-function normalizeLicense(license) {
+const licenseName = (license) => {
   if (!license) return "unknown";
   if (typeof license === "string") return license;
-  if (Array.isArray(license)) return license.map(normalizeLicense).join(", ");
+  if (Array.isArray(license)) return license.map(licenseName).join(", ");
   return license.shortName || license.spdxId || license.fullName || "unknown";
-}
+};
 
-// ── Render ────────────────────────────────────────────────────────────────────
+const toast = document.getElementById("copy-toast");
+let toastTimer;
 
-function renderTable(packages) {
-  const tbody = document.getElementById("packages-body");
+const showToast = (message, isError = false) => {
+  clearTimeout(toastTimer);
+  toast.textContent = message;
+  toast.toggleAttribute("data-error", isError);
+  toast.classList.add("visible");
+  toastTimer = setTimeout(() => toast.classList.remove("visible"), 1800);
+};
 
-  tbody.innerHTML = packages
-    .map(
-      (pkg, i) => `
-        <tr style="animation-delay:${Math.min(i * 22, 400)}ms">
-          <td data-label="Package">
-            <code>${escapeHtml(pkg.name)}</code>
-          </td>
+const copyCommand = async (name) => {
+  const command = `nix run github:lonerOrz/loneros-nur#${name}`;
+  try {
+    await navigator.clipboard.writeText(command);
+    showToast(`Copied ${name}`);
+  } catch {
+    showToast("Copy failed", true);
+  }
+};
 
-          <td data-label="Version" class="version">${escapeHtml(pkg.version || "—")}</td>
+const columns = [
+  "Package",
+  "Version",
+  "License",
+  "Description",
+  "Usage",
+  "Links",
+];
 
-          <td data-label="License">
-            <span class="license-badge">${escapeHtml(normalizeLicense(pkg.license))}</span>
-          </td>
-
-          <td data-label="Description" class="description">${escapeHtml(pkg.description || "")}</td>
-
-          <td data-label="Usage">
-            <button
-              class="install-btn"
-              onclick="copyToClipboard('${escapeHtml(getInstallCommand(pkg.name))}', this)"
-              title="Copy install command"
-              id="copy-btn-${escapeHtml(pkg.name)}"
-            >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-              </svg>
-              nix run
-            </button>
-          </td>
-
-          <td data-label="Links">
-            ${
-              pkg.homepage
-                ? `<a href="${escapeHtml(pkg.homepage)}" target="_blank" rel="noopener" class="homepage-link">Homepage</a>`
-                : `<span style="color:var(--muted);font-size:12px">—</span>`
-            }
-          </td>
-        </tr>
-      `,
-    )
+function render(rows) {
+  const body = document.getElementById("packages-body");
+  body.innerHTML = rows
+    .map((pkg) => {
+      const cells = [
+        `<code>${esc(pkg.name)}</code>`,
+        `<span class="version">${esc(pkg.version || "—")}</span>`,
+        `<span class="badge">${esc(licenseName(pkg.license))}</span>`,
+        `<span class="description">${esc(pkg.description || "")}</span>`,
+        `<button class="install" type="button" data-name="${esc(pkg.name)}">nix run</button>`,
+        pkg.homepage
+          ? `<a class="link" href="${esc(pkg.homepage)}" target="_blank" rel="noopener">Homepage</a>`
+          : `<span class="description">—</span>`,
+      ];
+      return `<tr>${cells.map((c, i) => `<td data-label="${columns[i]}">${c}</td>`).join("")}</tr>`;
+    })
     .join("");
 
-  // Animate counter
-  animateCounter(document.getElementById("package-count"), packages.length);
-
-  document.getElementById("empty-state").style.display =
-    packages.length === 0 ? "block" : "none";
+  document.getElementById("empty-state").hidden = rows.length > 0;
+  document.getElementById("package-count").textContent = rows.length;
 }
-
-function animateCounter(el, target) {
-  const duration = 500;
-  const start = performance.now();
-  const from = parseInt(el.textContent) || 0;
-
-  function tick(now) {
-    const t = Math.min((now - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - t, 3);
-    el.textContent = Math.round(from + (target - from) * eased);
-    if (t < 1) requestAnimationFrame(tick);
-  }
-
-  requestAnimationFrame(tick);
-}
-
-// ── Main ──────────────────────────────────────────────────────────────────────
 
 async function main() {
-  const packages = await loadPackages();
+  let all = [];
+  let shown = [];
+  let sortKey = "name";
+  let ascending = true;
 
-  let filteredPackages = [...packages];
-
-  let sortState = { key: "name", direction: 1 };
-
-  function sortPackages(key, direction) {
-    sortState = { key, direction };
-
-    document.querySelectorAll("th[data-sort]").forEach((th) => {
-      th.classList.remove("sorted");
-      const indicator = th.querySelector(".sort-indicator");
-      if (indicator) indicator.textContent = "↕";
-    });
-
-    const activeTh = document.querySelector(`th[data-sort="${key}"]`);
-    if (activeTh) {
-      activeTh.classList.add("sorted");
-      const indicator = activeTh.querySelector(".sort-indicator");
-      if (indicator) indicator.textContent = direction === 1 ? "↑" : "↓";
-    }
-
-    filteredPackages.sort((a, b) => {
-      const av = String(a[key] || "").toLowerCase();
-      const bv = String(b[key] || "").toLowerCase();
-      return av.localeCompare(bv) * direction;
-    });
-
-    renderTable(filteredPackages);
+  try {
+    const res = await fetch("./packages.json");
+    if (!res.ok) throw new Error(String(res.status));
+    all = await res.json();
+  } catch {
+    const empty = document.getElementById("empty-state");
+    empty.hidden = false;
+    empty.textContent =
+      "Failed to load packages.json. Serve this directory over HTTP.";
+    return;
   }
 
-  function filterPackages(query) {
-    const q = query.toLowerCase().trim();
-    filteredPackages = packages.filter((pkg) =>
-      [pkg.name, pkg.version, pkg.description, normalizeLicense(pkg.license)]
-        .join(" ")
-        .toLowerCase()
-        .includes(q),
-    );
-    sortPackages(sortState.key, sortState.direction);
-  }
+  const apply = () => {
+    const query = document
+      .getElementById("search-input")
+      .value.toLowerCase()
+      .trim();
+    shown = all
+      .filter((pkg) =>
+        [pkg.name, pkg.version, pkg.description, licenseName(pkg.license)]
+          .join(" ")
+          .toLowerCase()
+          .includes(query),
+      )
+      .sort((a, b) => {
+        const av = String(a[sortKey] ?? "").toLowerCase();
+        const bv = String(b[sortKey] ?? "").toLowerCase();
+        return av.localeCompare(bv) * (ascending ? 1 : -1);
+      });
+    render(shown);
+  };
 
-  // Initial render
-  sortPackages("name", 1);
-
-  // Search
-  const searchInput = document.getElementById("search-input");
-  const debouncedFilter = debounce((value) => filterPackages(value), 120);
-  searchInput.addEventListener("input", (e) => debouncedFilter(e.target.value));
-
-  // Clear search on Escape
-  searchInput.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      searchInput.value = "";
-      filterPackages("");
-    }
-  });
-
-  // Column sort
-  document.querySelectorAll("th[data-sort]").forEach((th) => {
+  const headers = [...document.querySelectorAll("th[data-sort]")];
+  for (const th of headers) {
     th.addEventListener("click", () => {
       const key = th.dataset.sort;
-      const direction = sortState.key === key ? sortState.direction * -1 : 1;
-      sortPackages(key, direction);
+      ascending = key === sortKey ? !ascending : true;
+      sortKey = key;
+      for (const h of headers) {
+        h.removeAttribute("aria-sort");
+        h.querySelector(".sort-indicator").textContent = "↕";
+      }
+      th.setAttribute("aria-sort", ascending ? "ascending" : "descending");
+      th.querySelector(".sort-indicator").textContent = ascending ? "↑" : "↓";
+      apply();
     });
-  });
+  }
 
-  // Keyboard shortcut: "/" to focus search
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "/" && document.activeElement !== searchInput) {
-      e.preventDefault();
-      searchInput.focus();
+  const input = document.getElementById("search-input");
+  let timer;
+  input.addEventListener("input", () => {
+    clearTimeout(timer);
+    timer = setTimeout(apply, 120);
+  });
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      input.value = "";
+      apply();
     }
   });
+  addEventListener("keydown", (e) => {
+    if (e.key === "/" && e.target !== input) {
+      e.preventDefault();
+      input.focus();
+    }
+  });
+
+  document.getElementById("packages-body").addEventListener("click", (e) => {
+    const button = e.target.closest(".install");
+    if (button) copyCommand(button.dataset.name);
+  });
+
+  headers[0].setAttribute("aria-sort", "ascending");
+  headers[0].querySelector(".sort-indicator").textContent = "↑";
+  apply();
 }
 
 main();

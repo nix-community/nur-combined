@@ -18,9 +18,9 @@ ______________________________________________________________________
 
 This repository contains subjective package selections that I personally use. These include:
 
-- Communication software (QQ, WeChat, etc.)
-- Development tools (Qwen-code, etc.)
-- Multimedia applications (MPV Handler, Linux Wallpaper Engine, WiliWili, etc.)
+- Communication software (QQ, WeChat, Feishu — each with a sandboxed variant)
+- Development tools (Qwen Code, etc.)
+- Multimedia applications (Linux Wallpaper Engine, WiliWili, etc.)
 - Various utilities and other applications
 
 For a complete list of available packages, please browse the [pkgs/](./pkgs) directory.
@@ -43,16 +43,16 @@ If you have enabled the [official NUR repository](https://github.com/nix-communi
   outputs = { self, nixpkgs, nur }: {
     # Use packages directly
     packages.x86_64-linux.qq = nur.repos.lonerOrz.qq;
-    packages.x86_64-linux.wechat = nur.repos.lonerOrz.wechat;
+    packages.x86_64-linux.qq-sandbox = nur.repos.lonerOrz.qq-sandbox;
 
     # Or in a NixOS configuration
     nixosConfigurations.myConfig = nixpkgs.lib.nixosSystem {
       modules = [
         ({ pkgs, ... }: {
           environment.systemPackages = with nur.repos.lonerOrz; [
-            qq
-            wechat
-            mpv-handler
+            qq-sandbox
+            wechat-sandbox
+            feishu-sandbox
           ];
         })
       ];
@@ -60,6 +60,37 @@ If you have enabled the [official NUR repository](https://github.com/nix-communi
   };
 }
 ```
+
+### Sandboxed chat apps
+
+`qq-sandbox`, `wechat-sandbox`, and `feishu-sandbox` wrap their respective
+upstream apps in a [NixPak](https://github.com/nixpak/nixpak) bubblewrap
+sandbox. They expose a few package arguments through `.override`:
+
+| Argument | Packages | Default | Purpose |
+| --- | --- | --- | --- |
+| `extraModules` | all three | `[ ]` | Extra NixPak modules, e.g. additional binds |
+| `enableCamera` | all three | `true` | Bind `/dev/video0` into the sandbox |
+| `fonts` | all three | `{ }` | Font aliases and `minimal` Fontconfig toggle |
+| `replaceBundledFonts` | `qq-sandbox` | `true` | Replace QQ's bundled fonts |
+| `xwechatDir`, `xwechatFilesDir` | `wechat-sandbox` | `null` | Host paths for WeChat data |
+| `workingDirectory` | `feishu-sandbox` | `$HOME/Downloads` | Directory before launching Feishu |
+
+For example, to grant QQ read-only access to `~/Pictures`:
+
+```nix
+nur.repos.lonerOrz.qq-sandbox.override {
+  extraModules = [
+    ({ sloth, ... }: {
+      bubblewrap.bind.ro = [ (sloth.concat' sloth.homeDir "/Pictures") ];
+    })
+  ];
+}
+```
+
+These packages set `passthru.autoUpdate = false`: only the underlying upstream
+apps are updated automatically, and the sandbox wrappers are versioned with
+them.
 
 If you haven't enabled NUR yet, please refer to the setup guide:
 [https://github.com/nix-community/NUR#using-the-repository](https://github.com/nix-community/NUR#using-the-repository)

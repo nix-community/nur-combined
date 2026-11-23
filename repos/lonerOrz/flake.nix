@@ -3,8 +3,9 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
+
+    nixpak = {
+      url = "github:nixpak/nixpak/3b061c82f9ccb99973154ffced2391535da7b66b";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -13,53 +14,45 @@
     {
       self,
       nixpkgs,
-      rust-overlay,
+      nixpak,
       ...
     }:
     let
+      inherit (nixpkgs) lib;
+
       systems = [
         "x86_64-linux"
         "aarch64-linux"
         "aarch64-darwin"
       ];
 
-      forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
+      eachSystem = f: lib.genAttrs systems (system: f system);
+
+      mkPkgs =
+        system:
+        import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = [
+            (import ./overlays { inherit nixpak; })
+          ];
+        };
+
+      legacyPackages = eachSystem (
+        system:
+        import ./default.nix {
+          pkgs = mkPkgs system;
+        }
+      );
+
+      packages = lib.mapAttrs (
+        system: attrs:
+        lib.filterAttrs (_: v: lib.isDerivation v && lib.meta.availableOn { inherit system; } v) attrs
+      ) legacyPackages;
     in
     {
-      formatter = forAllSystems (
-        system:
-        let
-          pkgs = import nixpkgs { inherit system; };
-        in
-        pkgs.callPackage ./formatter.nix { }
-      );
+      inherit legacyPackages packages;
 
-      legacyPackages = forAllSystems (
-        system:
-        let
-          pkgs = import nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
-            overlays = [
-              rust-overlay.overlays.default
-            ];
-          };
-
-          legacyPkgs = import ./default.nix {
-            inherit pkgs;
-          };
-        in
-        legacyPkgs
-      );
-
-      packages = forAllSystems (
-        system:
-        let
-          lib = nixpkgs.lib;
-        in
-        lib.filterAttrs (
-          _: v: lib.isDerivation v && lib.meta.availableOn { inherit system; } v
-        ) self.legacyPackages.${system}
-      );
+      formatter = eachSystem (system: (mkPkgs system).callPackage ./formatter.nix { });
     };
 }

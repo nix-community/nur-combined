@@ -2,9 +2,18 @@
 set -euo pipefail
 
 # 工具检测
-command -v nix-prefetch-url >/dev/null || { echo >&2 "请先安装 nix-prefetch-url"; exit 1; }
-command -v prefetch-npm-deps >/dev/null || { echo >&2 "请先安装 prefetch-npm-deps"; exit 1; }
-command -v jq >/dev/null || { echo >&2 "请先安装 jq"; exit 1; }
+command -v nix-prefetch-url >/dev/null || {
+  echo >&2 "请先安装 nix-prefetch-url"
+  exit 1
+}
+command -v prefetch-npm-deps >/dev/null || {
+  echo >&2 "请先安装 prefetch-npm-deps"
+  exit 1
+}
+command -v jq >/dev/null || {
+  echo >&2 "请先安装 jq"
+  exit 1
+}
 
 # 获取脚本所在目录
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -42,7 +51,7 @@ echo "Downloading npm package and generating package-lock.json..."
 tmp_dir=$(mktemp -d)
 cd "$tmp_dir"
 npm pack "@qwen-code/qwen-code@$latest_version" >/dev/null 2>&1
-tarball_name=$(ls *.tgz)   # 自动获取生成的 tarball 名称
+tarball_name=$(ls *.tgz) # 自动获取生成的 tarball 名称
 tar -xzf "$tarball_name"
 
 cd package

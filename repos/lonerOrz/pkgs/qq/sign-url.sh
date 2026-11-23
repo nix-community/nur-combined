@@ -4,7 +4,10 @@
 set -euo pipefail
 
 URL="${1:-$(cat)}"
-[ -n "${URL:-}" ] || { echo "usage: sign-url.sh <url>" >&2; exit 1; }
+[ -n "${URL:-}" ] || {
+  echo "usage: sign-url.sh <url>" >&2
+  exit 1
+}
 
 if ! command -v jq >/dev/null 2>&1; then
   echo "sign-url.sh: jq is required to parse the GetSign response" >&2

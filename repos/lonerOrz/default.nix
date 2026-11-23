@@ -4,54 +4,88 @@
   dir ? ./pkgs,
   pkgFileName ? "default.nix",
 }:
+
 let
-  lib = pkgs.lib;
+  inherit (pkgs) lib;
+
   entries = builtins.readDir dir;
-
   excludedNames = [ ];
-  names = lib.filter (name: !(lib.elem name excludedNames)) (builtins.attrNames entries);
 
-  addUpdateFile =
-    drv: file:
-    if lib.isDerivation drv && drv ? overrideAttrs then
-      drv.overrideAttrs (old: {
-        passthru = (old.passthru or { }) // {
-          updateFile = file;
-        };
-      })
-    else
-      # 非派生包（函数、普通属性集）直接返回
-      drv;
-
-  toEntry =
+  resolve =
     name:
     let
+      type = entries.${name};
       path = dir + "/${name}";
-      kind = entries.${name};
-      isNixFile = kind == "regular" && lib.hasSuffix ".nix" name;
-      subPath = path + "/${pkgFileName}";
-      hasDefaultNix = kind == "directory" && builtins.pathExists subPath;
+
+      isNixFile = type == "regular" && lib.hasSuffix ".nix" name;
+      isDirectory = type == "directory";
+
+      file = if isNixFile then path else path + "/${pkgFileName}";
     in
-    if isNixFile then
-      let
-        drv = pkgs.callPackage path { };
-      in
+    if lib.elem name excludedNames then
+      null
+    else if isNixFile then
       {
         name = lib.removeSuffix ".nix" name;
-        value = addUpdateFile drv path;
+        inherit file;
       }
-    else if hasDefaultNix then
-      let
-        drv = pkgs.callPackage subPath { };
-      in
+    else if isDirectory && builtins.pathExists file then
       {
-        inherit name;
-        value = addUpdateFile drv subPath;
+        inherit name file;
       }
     else
       null;
 
-  validEntries = builtins.filter (x: x != null) (map toEntry names);
+  resolved = lib.filter (entry: entry != null) (map resolve (builtins.attrNames entries));
+
+  duplicateNames = lib.attrNames (
+    lib.filterAttrs (_: group: builtins.length group > 1) (lib.groupBy (entry: entry.name) resolved)
+  );
+
+  defaultUpdateScript = pkgs.nix-update-script { };
+
+  addMetadata =
+    drv: file:
+    if lib.isDerivation drv && drv ? overrideAttrs then
+      drv.overrideAttrs (
+        old:
+        let
+          passthru = old.passthru or { };
+
+          hasUpdateScript =
+            (old ? updateScript) || ((old.meta or { }) ? updateScript) || (passthru ? updateScript);
+
+          autoUpdate = old.autoUpdate or (passthru.autoUpdate or true);
+        in
+        {
+          passthru =
+            passthru
+            // {
+              updateFile = file;
+            }
+            // lib.optionalAttrs (!hasUpdateScript && autoUpdate != false) {
+              updateScript = defaultUpdateScript;
+            };
+        }
+      )
+    else
+      drv;
+
+  packageScope = pkgs // packages;
+
+  packages =
+    if duplicateNames != [ ] then
+      throw ''
+        default.nix: duplicate package names detected:
+        ${lib.concatStringsSep ", " duplicateNames}
+      ''
+    else
+      builtins.listToAttrs (
+        map (entry: {
+          name = entry.name;
+          value = addMetadata (lib.callPackageWith packageScope entry.file { }) entry.file;
+        }) resolved
+      );
 
 in
-builtins.listToAttrs validEntries
+packages

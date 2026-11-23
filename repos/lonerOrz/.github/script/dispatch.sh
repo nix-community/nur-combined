@@ -51,38 +51,38 @@ EOF
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-  --base)
-    [[ $# -ge 2 ]] || usage
-    BASE_FILE="$2"
-    shift 2
-    ;;
-  --head)
-    [[ $# -ge 2 ]] || usage
-    HEAD_FILE="$2"
-    shift 2
-    ;;
-  --repo)
-    [[ $# -ge 2 ]] || usage
-    REPO="$2"
-    shift 2
-    ;;
-  --pr)
-    [[ $# -ge 2 ]] || usage
-    PR="$2"
-    shift 2
-    ;;
-  --dry-run)
-    DRY_RUN=1
-    shift
-    ;;
-  --ref)
-    [[ $# -ge 2 ]] || usage
-    REF="$2"
-    shift 2
-    ;;
-  *)
-    usage
-    ;;
+    --base)
+      [[ $# -ge 2 ]] || usage
+      BASE_FILE="$2"
+      shift 2
+      ;;
+    --head)
+      [[ $# -ge 2 ]] || usage
+      HEAD_FILE="$2"
+      shift 2
+      ;;
+    --repo)
+      [[ $# -ge 2 ]] || usage
+      REPO="$2"
+      shift 2
+      ;;
+    --pr)
+      [[ $# -ge 2 ]] || usage
+      PR="$2"
+      shift 2
+      ;;
+    --dry-run)
+      DRY_RUN=1
+      shift
+      ;;
+    --ref)
+      [[ $# -ge 2 ]] || usage
+      REF="$2"
+      shift 2
+      ;;
+    *)
+      usage
+      ;;
   esac
 done
 

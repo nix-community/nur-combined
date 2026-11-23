@@ -39,8 +39,8 @@ source_dir="$(
   find "$work_dir" \
     -maxdepth 1 \
     -type d \
-    -name "${repo}-*" |
-    head -n1
+    -name "${repo}-*" \
+    | head -n1
 )"
 
 if [[ -z "$source_dir" ]]; then
@@ -64,10 +64,10 @@ run_pnpm install \
 echo "Verifying better-sqlite3 version..."
 
 resolved_version="$(
-  run_pnpm list better-sqlite3 --depth Infinity 2>/dev/null |
-    grep -oE 'better-sqlite3@[0-9]+\.[0-9]+\.[0-9]+' |
-    head -n1 |
-    cut -d@ -f2
+  run_pnpm list better-sqlite3 --depth Infinity 2>/dev/null \
+    | grep -oE 'better-sqlite3@[0-9]+\.[0-9]+\.[0-9]+' \
+    | head -n1 \
+    | cut -d@ -f2
 )"
 
 if [[ "$resolved_version" != "13.0.3" ]]; then

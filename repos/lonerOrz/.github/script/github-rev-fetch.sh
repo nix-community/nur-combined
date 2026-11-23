@@ -14,7 +14,7 @@ if [ $# -lt 1 ]; then
 fi
 
 REPO="$1"
-BRANCH="${2:-main}"  # Default to 'main' if not specified
+BRANCH="${2:-main}" # Default to 'main' if not specified
 REPO_URL="https://github.com/${REPO}"
 
 # Build auth header if GITHUB_TOKEN is available

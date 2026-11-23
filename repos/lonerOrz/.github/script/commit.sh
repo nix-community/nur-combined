@@ -46,8 +46,8 @@ eval_version() {
 
 # Package meta.platforms (one per line); empty on failure / unset.
 eval_pkg_platforms() {
-  nix eval --json --impure --system x86_64-linux -f "$DEFAULT_NIX" "${1}.meta.platforms" 2>/dev/null |
-    jq -r '.[]? // empty' 2>/dev/null || true
+  nix eval --json --impure --system x86_64-linux -f "$DEFAULT_NIX" "${1}.meta.platforms" 2>/dev/null \
+    | jq -r '.[]? // empty' 2>/dev/null || true
 }
 
 # Intersection of stdin set with the set in file $1.
@@ -66,8 +66,8 @@ short() {
 
 # Prefer JSON .rev/.tag, else Nix literal; empty if none found.
 rev_of() {
-  jq -r '.rev // .tag // empty' "$1" 2>/dev/null ||
-    awk '/^[[:space:]]*(rev|tag)[[:space:]]*=[[:space:]]*"/ {
+  jq -r '.rev // .tag // empty' "$1" 2>/dev/null \
+    || awk '/^[[:space:]]*(rev|tag)[[:space:]]*=[[:space:]]*"/ {
       v = $0; sub(/.*[=][[:space:]]*"/, "", v); sub(/".*/, "", v); print v; exit
     }' "$1" 2>/dev/null
 }
@@ -76,9 +76,9 @@ changed_pkgs=$(
   {
     git diff --name-only --relative pkgs/ 2>/dev/null
     git ls-files --others --exclude-standard -- pkgs/ 2>/dev/null
-  } |
-    awk -F/ 'NF >= 2 { print $2 }' |
-    sort -u || true
+  } \
+    | awk -F/ 'NF >= 2 { print $2 }' \
+    | sort -u || true
 )
 
 if [ -z "$changed_pkgs" ]; then

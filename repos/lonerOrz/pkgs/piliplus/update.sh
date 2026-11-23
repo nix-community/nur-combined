@@ -56,6 +56,6 @@ echo ">> [4/4] Writing $version_file ..."
 tmp=$(mktemp)
 jq --arg v "$latest_tag" --arg a "$asset_name" --arg h "$new_hash" \
   '.version = $v | ."asset-name" = $a | ."x86_64-linux-hash" = $h' \
-  "$version_file" > "$tmp" && mv "$tmp" "$version_file"
+  "$version_file" >"$tmp" && mv "$tmp" "$version_file"
 
 echo "Done: $pname updated to $latest_tag ($asset_name)."

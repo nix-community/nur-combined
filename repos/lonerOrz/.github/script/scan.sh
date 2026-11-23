@@ -21,15 +21,23 @@ NIX_FLAGS=""
 
 while [[ $# -gt 0 ]]; do
   case $1 in
-    --impure) NIX_FLAGS="--impure"; export NIXPKGS_ALLOW_UNFREE=1; shift;;
-    --) shift; break;;
-    *) shift;;
+    --impure)
+      NIX_FLAGS="--impure"
+      export NIXPKGS_ALLOW_UNFREE=1
+      shift
+      ;;
+    --)
+      shift
+      break
+      ;;
+    *) shift ;;
   esac
 done
 
 # Unquoted heredoc: bash expands ${REPO_ROOT}, while nix's ${sys}/${n} are
 # written as \${...} so they survive literally into the Nix expression.
-FILTER_EXPR="$(cat <<NIX
+FILTER_EXPR="$(
+  cat <<NIX
   let
     f = builtins.getFlake "${REPO_ROOT}" ;
     systems = builtins.attrNames (f.packages or {}) ;

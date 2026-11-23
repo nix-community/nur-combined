@@ -42,9 +42,9 @@ sed -i -E \
   "$package_file"
 
 extract_hash() {
-  printf '%s\n' "$1" |
-    grep -oP 'got:\s*\Ksha256-[A-Za-z0-9+/=]+' |
-    head -n1
+  printf '%s\n' "$1" \
+    | grep -oP 'got:\s*\Ksha256-[A-Za-z0-9+/=]+' \
+    | head -n1
 }
 
 build_with_expected_failure() {
