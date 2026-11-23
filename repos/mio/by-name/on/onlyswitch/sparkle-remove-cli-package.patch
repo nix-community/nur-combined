@@ -1,0 +1,93 @@
+--- a/Sparkle.xcodeproj/project.pbxproj
++++ b/Sparkle.xcodeproj/project.pbxproj
+@@ -2632,9 +2632,6 @@
+ 				376769AF23442F320077B8F7 /* PBXTargetDependency */,
+ 			);
+ 			name = BinaryDelta;
+-			packageProductDependencies = (
+-				725C2EAB2782EF3C007CB7B5 /* ArgumentParser */,
+-			);
+ 			productName = BinaryDelta;
+ 			productReference = 5D06E8D00FD68C7C005AE3F6 /* BinaryDelta */;
+ 			productType = "com.apple.product-type.tool";
+@@ -2697,9 +2694,6 @@
+ 				72CCCC1F287B3DA100E7156B /* PBXTargetDependency */,
+ 			);
+ 			name = generate_appcast;
+-			packageProductDependencies = (
+-				727DBAE426B5BBFD00111F0C /* ArgumentParser */,
+-			);
+ 			productName = generate_appcast;
+ 			productReference = 7205C43E1E13049400E370AE /* generate_appcast */;
+ 			productType = "com.apple.product-type.tool";
+@@ -2939,9 +2933,6 @@
+ 				72CCCC1B287B3D9000E7156B /* PBXTargetDependency */,
+ 			);
+ 			name = generate_keys;
+-			packageProductDependencies = (
+-				727DBAE626B5C47800111F0C /* ArgumentParser */,
+-			);
+ 			productName = generate_keys;
+ 			productReference = EA1E285E22B66487004AA304 /* generate_keys */;
+ 			productType = "com.apple.product-type.tool";
+@@ -2960,9 +2951,6 @@
+ 				72CCCC1D287B3D9600E7156B /* PBXTargetDependency */,
+ 			);
+ 			name = sign_update;
+-			packageProductDependencies = (
+-				727DBAE826B5C48A00111F0C /* ArgumentParser */,
+-			);
+ 			productName = sign_update;
+ 			productReference = EA1E287622B666EB004AA304 /* sign_update */;
+ 			productType = "com.apple.product-type.tool";
+@@ -3103,9 +3091,6 @@
+ 				vi,
+ 			);
+ 			mainGroup = 0867D691FE84028FC02AAC07 /* Sparkle */;
+-			packageReferences = (
+-				727DBAE326B5BBFD00111F0C /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
+-			);
+ 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
+ 			projectDirPath = "";
+ 			projectRoot = "";
+@@ -4706,40 +4691,7 @@
+ 			defaultConfigurationName = Release;
+ 		};
+ /* End XCConfigurationList section */
+-
+-/* Begin XCRemoteSwiftPackageReference section */
+-		727DBAE326B5BBFD00111F0C /* XCRemoteSwiftPackageReference "swift-argument-parser" */ = {
+-			isa = XCRemoteSwiftPackageReference;
+-			repositoryURL = "https://github.com/apple/swift-argument-parser.git";
+-			requirement = {
+-				kind = upToNextMajorVersion;
+-				minimumVersion = 0.4.3;
+-			};
+-		};
+-/* End XCRemoteSwiftPackageReference section */
+ 
+-/* Begin XCSwiftPackageProductDependency section */
+-		725C2EAB2782EF3C007CB7B5 /* ArgumentParser */ = {
+-			isa = XCSwiftPackageProductDependency;
+-			package = 727DBAE326B5BBFD00111F0C /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
+-			productName = ArgumentParser;
+-		};
+-		727DBAE426B5BBFD00111F0C /* ArgumentParser */ = {
+-			isa = XCSwiftPackageProductDependency;
+-			package = 727DBAE326B5BBFD00111F0C /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
+-			productName = ArgumentParser;
+-		};
+-		727DBAE626B5C47800111F0C /* ArgumentParser */ = {
+-			isa = XCSwiftPackageProductDependency;
+-			package = 727DBAE326B5BBFD00111F0C /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
+-			productName = ArgumentParser;
+-		};
+-		727DBAE826B5C48A00111F0C /* ArgumentParser */ = {
+-			isa = XCSwiftPackageProductDependency;
+-			package = 727DBAE326B5BBFD00111F0C /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
+-			productName = ArgumentParser;
+-		};
+-/* End XCSwiftPackageProductDependency section */
+ 	};
+ 	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+ }

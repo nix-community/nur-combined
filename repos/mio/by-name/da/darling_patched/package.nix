@@ -16,7 +16,10 @@
 # constructors, weighted fonts, window alpha, other-mouse routing, and the
 # main-menu-title behavior (PR 15's idea, landed differently on the pinned
 # tree). The darlingserver bump and the cocotron image-resolution key fix live
-# in the base package, which needs them to build. Drafts, ARM64 ports,
+# in the base package, which needs them to build. darlingserver now keeps
+# microthread state on the Thread and reads the current thread through a
+# non-inlined getter (ef2f054), so the local worker-TLS patch is gone.
+# Drafts, ARM64 ports,
 # Docker/RPM packaging, and off-by-default options are not included. The
 # cocotron text-truncation, icns, and Backup-and-Sync pulls are not included:
 # the truncation search is wrong, the icns change releases an Objective-C image
@@ -60,8 +63,6 @@ darling.overrideAttrs (
       # PR 1802 rebased: link after dropping privileges, before resolving arguments.
       # https://github.com/darlinghq/darling/pull/1802
       ./link-host-directories.patch
-      # Microthreads can resume on another worker; never cache a worker TLS address.
-      ./microthread-tls.patch
       # https://github.com/darlinghq/darling/pull/1789
       (fetchpatch {
         name = "darling-pr-1789-coredata-cli.patch";
