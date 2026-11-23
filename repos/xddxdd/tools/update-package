@@ -8,6 +8,11 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+# nix-update's eval step and the nix-shell shebangs of the per-package update
+# scripts resolve <nixpkgs> through NIX_PATH; pin it to the flake-locked tree so
+# they match what the flake builds instead of drifting with the ambient channel.
+export NIX_PATH=nixpkgs=$(nix eval --impure --raw --expr '(builtins.getFlake (toString ./.)).inputs.nixpkgs.outPath')
+
 if [ $# -eq 0 ]; then
 	echo "Usage: $0 <attr-path>... | --path <prefix> | --all" >&2
 	exit 1

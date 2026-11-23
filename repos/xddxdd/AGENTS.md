@@ -293,7 +293,7 @@ appimageTools.wrapType2 {
 
 也可通过 flake app 调用：`nix run .#update-pkg -- <参数>`。顶层 `update` 命令会自动执行 `update-package --all`。
 
-`helpers/update.nix` 用 `builtins.getFlake "git+file://<仓库>"` 取 `flake.lock` 里的 nixpkgs（`inputs.nixpkgs.outPath`），不再 `import <nixpkgs>`；工作流也不再设置 `nix_path`，任何残留的 `<nixpkgs>` 引用会立刻失败而不是悄悄用频道版本。原因是频道的 nixpkgs 与 lock 无关：频道把 `openssl` 指到已被移出的 3.6 那一夜，`openssl_3_6 has been removed` 一次性打红了 8 个包（openssl-oqs-provider、easycliproxyapi、pi-web、waline、witch-weapon、strata、gpu-unlock、vuetorrent-backend 等），而当时的锁定 rev 里 `openssl` 仍是 3.5.9、这些包全部正常。
+`helpers/update.nix` 用 `builtins.getFlake "git+file://<仓库>"` 取 `flake.lock` 里的 nixpkgs（`inputs.nixpkgs.outPath`），不再 `import <nixpkgs>`。但 `<nixpkgs>` **不能整个去掉**：nix-update 的 `eval.nix` 用 `nix-instantiate` 求值仓库根（`pkgs/default.nix` 的 `pkgs ? import <nixpkgs> { }`），每个包的 `update-standalone.*` / `update.sh` 又都是 `#!/usr/bin/env nix-shell` 加上 `nix-shell` 生成的 `with import <nixpkgs> args;` 表达式，两处都必须能从 `NIX_PATH` 找到 nixpkgs。因此 `NIX_PATH` 由 `tools/update-package` 与顶层 `update` 命令（`flake-modules/_internal/commands.nix`，在 `nix flake update` 之后）显式设成 `<nixpkgs>=<锁定 nixpkgs 的 store 路径>`，而不是沿用 `channel:nixos-unstable`，也不是留空。留空的后果是整轮更新立刻全红：nix-update 报 `Could not find attribute '<attr>'`，所有 standalone 脚本报 `file 'nixpkgs' was not found in the Nix search path`。原因是频道的 nixpkgs 与 lock 无关：频道把 `openssl` 指到已被移出的 3.6 那一夜，`openssl_3_6 has been removed` 一次性打红了 8 个包（openssl-oqs-provider、easycliproxyapi、pi-web、waline、witch-weapon、strata、gpu-unlock、vuetorrent-backend 等），而当时的锁定 rev 里 `openssl` 仍是 3.5.9、这些包全部正常。
 
 #### 允许失败清单
 

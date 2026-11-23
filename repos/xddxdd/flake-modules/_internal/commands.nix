@@ -59,6 +59,9 @@ _: {
           set -uo pipefail
           export LANG=en_US.UTF-8
           nix flake update
+          # nix-update and the update-script shebangs need <nixpkgs>; pin it to the
+          # freshly locked tree rather than the runner's ambient channel.
+          export NIX_PATH=nixpkgs=$(nix eval --impure --raw --expr '(builtins.getFlake (toString ./.)).inputs.nixpkgs.outPath')
           is_allowed() {
             [ -f tools/auto-update-allowed-failures.txt ] &&
               grep -qxF "$1" tools/auto-update-allowed-failures.txt
