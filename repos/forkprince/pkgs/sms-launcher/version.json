@@ -6,19 +6,19 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "1.1.0",
+  "version": "1.2.0",
   "platforms": {
     "aarch64-darwin": {
       "file": "SMS-Launcher-{version}-mac-universal.dmg",
-      "hash": "sha256-E19LVI6CIzmTPp11p/ZrnhdnfFWeNF76UTop9rNiyHg="
+      "hash": "sha256-l3v7P3lNElmaJiJ6fbvEFIjVuTr6NQL5MUl4xl5/W7M="
     },
     "x86_64-darwin": {
       "file": "SMS-Launcher-{version}-mac-universal.dmg",
-      "hash": "sha256-E19LVI6CIzmTPp11p/ZrnhdnfFWeNF76UTop9rNiyHg="
+      "hash": "sha256-l3v7P3lNElmaJiJ6fbvEFIjVuTr6NQL5MUl4xl5/W7M="
     },
     "x86_64-linux": {
       "file": "SMS-Launcher.AppImage",
-      "hash": "sha256-ENfqFaDUWAAIn93su7hFO5UO6QG44FBUcP9JJqqQzng="
+      "hash": "sha256-BEs1fs4i0eAmhpzuSKgB8Cal3J7C/Rvj5C9DiaCw/Ak="
     }
   }
 }

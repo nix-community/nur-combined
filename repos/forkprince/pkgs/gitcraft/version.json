@@ -6,23 +6,23 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.1.40",
+  "version": "0.1.41",
   "platforms": {
     "aarch64-darwin": {
       "file": "GitCraft_{version}_universal.dmg",
-      "hash": "sha256-RPEdWyZYa16dot09etORP5ySvk8VGs9w8WSM5aGh4WM="
+      "hash": "sha256-YBOKBbSG+vIOHBNf31G2qIy8beNMK9CARe8iy1nz3wY="
     },
     "x86_64-darwin": {
       "file": "GitCraft_{version}_universal.dmg",
-      "hash": "sha256-RPEdWyZYa16dot09etORP5ySvk8VGs9w8WSM5aGh4WM="
+      "hash": "sha256-YBOKBbSG+vIOHBNf31G2qIy8beNMK9CARe8iy1nz3wY="
     },
     "aarch64-linux": {
       "file": "GitCraft_{version}_aarch64.AppImage",
-      "hash": "sha256-xACCRnv2X90Tm4UTKvXhgBdTShcmJuC/KFKrJ7myTTs="
+      "hash": "sha256-j6iubV3bw+GE3kjThqGf4oRsKnRq9/8VLxMCeM3LB8E="
     },
     "x86_64-linux": {
       "file": "GitCraft_{version}_amd64.AppImage",
-      "hash": "sha256-ldDzUkxFWO+Tt1AGshnTOolDs3DRBadTUdgmcJVyaNc="
+      "hash": "sha256-qCwwVqWFvt9SwoLwEW2aWBairbKIsS/TYFQfTXU+I0I="
     }
   }
 }

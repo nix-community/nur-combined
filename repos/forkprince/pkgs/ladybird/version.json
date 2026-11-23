@@ -1,0 +1,23 @@
+{
+  "name": "Ladybird",
+  "source": {
+    "type": "api",
+    "url": "https://download.ladybird.org/releases.json",
+    "version_path": ".releases[0].version"
+  },
+  "version": "2026.47.7",
+  "platforms": {
+    "x86_64-linux": {
+      "url": "https://apt.ladybird.org/pool/main/l/ladybird/ladybird_{version}-1~ubuntu24.04_amd64.deb",
+      "hash": "sha256-Z+M/CiNLZyc0uJZep91cY8jwthYxO5HUNSLFOtaGsdQ="
+    },
+    "aarch64-linux": {
+      "url": "https://apt.ladybird.org/pool/main/l/ladybird/ladybird_{version}-1~ubuntu24.04_arm64.deb",
+      "hash": "sha256-dVCjoT9qVFWgBCIBdCPzqMbplf1oQ4BruEH8XFvUlJw="
+    },
+    "aarch64-darwin": {
+      "url": "https://download.ladybird.org/macos/{version}/ladybird-{version}-macOS-arm64.dmg",
+      "hash": "sha256-02R7q8RCrKR1NUsZFYBFzVtfQPS+kv5Vdivo65Byftg="
+    }
+  }
+}

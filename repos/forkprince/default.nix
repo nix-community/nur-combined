@@ -51,6 +51,7 @@
     genoffice = lib.callPackage ./pkgs/genoffice {};
     opentubex = lib.callPackage ./pkgs/opentubex {};
     spotifast = lib.callPackage ./pkgs/spotifast {};
+    ladybird = lib.callPackage ./pkgs/ladybird {};
     gitcraft = lib.callPackage ./pkgs/gitcraft {};
     equicord = lib.callPackage ./pkgs/equicord {};
     sm64plus = lib.callPackage ./pkgs/sm64plus {};

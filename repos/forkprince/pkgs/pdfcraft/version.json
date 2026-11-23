@@ -6,23 +6,23 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.21.1",
+  "version": "0.22.0",
   "platforms": {
     "aarch64-darwin": {
       "file": "pdfcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-Gtyb89MZ5wfpJHAE2wWjKgWWNONxD+ebwU+S9onKTUo="
+      "hash": "sha256-rUXKUqeTx82huuGstnV7XuEvB7+uwizkNE5eVGA0BjQ="
     },
     "x86_64-darwin": {
       "file": "pdfcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-Gtyb89MZ5wfpJHAE2wWjKgWWNONxD+ebwU+S9onKTUo="
+      "hash": "sha256-rUXKUqeTx82huuGstnV7XuEvB7+uwizkNE5eVGA0BjQ="
     },
     "x86_64-linux": {
       "file": "pdfcraft-{version}-linux-x86_64.AppImage",
-      "hash": "sha256-cwJ2zamt2z1I8mxgJobRj8W8Dr42CmCi9SLXDP1CjSE="
+      "hash": "sha256-dx9hsHqvjMF+c8sfk/vohSbyewqoL/MtBxDiw3X0kkg="
     },
     "aarch64-linux": {
       "file": "pdfcraft-{version}-linux-aarch64.AppImage",
-      "hash": "sha256-40oTbx+aP+q9taTqj4+6G7PlrFTzliSQ5+BB/c9Y318="
+      "hash": "sha256-ft4cKApbJ+muMlI/553krrfY9C8V+8i4VpcZ3b75+p0="
     }
   }
 }

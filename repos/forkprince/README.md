@@ -84,6 +84,7 @@ This repository contains three types of packages:
 | [`keka-external-helper`](pkgs/keka-external-helper/default.nix) | [keka-external-helper](https://github.com/aonez/Keka/wiki/Default-application), helper application for the Keka file archiver |
 | [`kryoto-desktop`](pkgs/kryoto-desktop/default.nix) | [kryoto-desktop](https://github.com/kyrotooooo/kryoto-desktop), find a game, download it and play it |
 | [`kryoto-minecraft-launcher`](pkgs/kryoto-minecraft-launcher/default.nix) | [kryoto-minecraft-launcher](https://github.com/Kryoto-Dev/kryoto-minecraft-launcher), minecraft: Java Edition launcher with Fabric, Quilt, Forge, NeoForge and Modrinth/CurseForge mods |
+| [`ladybird`](pkgs/ladybird/default.nix) | [ladybird](https://ladybird.org), independent web browser using a novel engine based on web standards |
 | [`light-studio`](pkgs/light-studio/default.nix) | [light-studio](https://tenzen.studio/light/), lightroom alternative for photo library and RAW development |
 | [`lightcraft`](pkgs/lightcraft/default.nix) | [lightcraft](https://getartcraft.com/apps/lightcraft), photo editor with color grading and RAW developing |
 | [`linearmouse`](pkgs/linearmouse/default.nix) | [linearmouse](https://linearmouse.org/), customise mouse behavior |
