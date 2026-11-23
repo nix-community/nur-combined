@@ -19,11 +19,11 @@
 in
   stdenvNoCC.mkDerivation (finalAttrs: {
     pname = "modern-web-guidance";
-    version = "1.0.1";
+    version = "1.0.2";
 
     src = fetchurl {
       url = "https://registry.npmjs.org/modern-web-guidance/-/modern-web-guidance-${finalAttrs.version}.tgz";
-      hash = "sha256-cT09NE1vrVySZ/se2Nr/Xdct9GNOmtayvTsMoX+EOKM=";
+      hash = "sha256-jDRt8XjJYoSmUWkg4YL3B4nUZB8PuKyyITZCWVNsUA0=";
     };
 
     # Nix owns installation, so the npx install, update and uninstall commands, the update notice and telemetry are removed.

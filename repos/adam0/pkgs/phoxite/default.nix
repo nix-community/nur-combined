@@ -27,7 +27,9 @@ in
 
     cargoHash = "sha256-WJGZyX5yD3VMtEavhPp5t+alRKuqU2cDa0uMmJIE26c=";
     cargoBuildFlags = ["-p" "phoxite-lsp"];
-    cargoTestFlags = ["-p" "phoxite-lsp"];
+    # These query a second indexed file without waiting for the index, so they
+    # race the indexer on slower builders such as CI runners.
+    cargoTestFlags = ["-p" "phoxite-lsp" "--" "--skip" "a_joomla_site_names_what_its_files_declare" "--skip" "a_magento_module_names_what_its_xml_declares"];
 
     # Fat LTO trades build time for runtime speed over upstream's thin LTO.
     env.CARGO_PROFILE_RELEASE_LTO = "fat";

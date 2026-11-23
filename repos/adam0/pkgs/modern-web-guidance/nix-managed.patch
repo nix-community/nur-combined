@@ -52,7 +52,7 @@
  }
  function detectOS() {
    const platform = process2.platform;
-@@ -885,13 +876,9 @@
+@@ -946,13 +937,9 @@
    legacy-scan [path] [options]  Analyze codebase for legacy web platform patterns
    set-allow-origin-trials   Opt in to experimental Origin Trial guidance
    set-allow-volatile-features Opt in to volatile feature guidance
@@ -66,15 +66,15 @@
    -h, --help                Show this help
    -v, --version             Show version
  `);
-@@ -904,7 +891,6 @@
+@@ -965,7 +952,6 @@
    const skillVersion = typeof values["skill-version"] === "string" ? values["skill-version"] : null;
    const command = positionals[0];
    if (command === "legacy-scan" || command === "analyze") {
 -    maybeEmitUpdateMessage(skillVersion);
-     const { runAnalyzeCli, writeAnalyzeCliResult } = await import("./legacy-scan.mjs");
+     const { runLegacyScanCli, writeLegacyScanCliResult } = await import("./legacy-scan.mjs");
      const args = process.argv.slice(2);
      const cmdIdx = args.indexOf(command);
-@@ -925,7 +911,6 @@
+@@ -986,7 +972,6 @@
      printUsage();
      process.exit(values.help ? 0 : 1);
    }
@@ -82,19 +82,18 @@
    let loggerInstance;
    const getLogger = () => loggerInstance ??= new ClearcutLogger({ skillVersion });
    const arg = positionals.slice(1).join(" ");
-@@ -1023,39 +1008,9 @@
+@@ -1084,39 +1069,9 @@
      if (hasError) {
        process.exit(1);
      }
 -  } else if (command === "install") {
 -    const startTime = Date.now();
 -    const extraArgs = process.argv.slice(3).filter((a) => a !== "--choose");
--    const distTag = true ? "latest" : "latest";
--    const repoSource = distTag === "next" ? "https://github.com/GoogleChrome/modern-web-guidance/tree/next" : "GoogleChrome/modern-web-guidance";
--    const installArgs = `-y skills add ${repoSource} ${values.choose ? "" : "--skill modern-web-guidance"}`.split(" ").filter(Boolean).concat(extraArgs);
+-    const installArgs = `skills add GoogleChrome/modern-web-guidance ${values.choose ? "" : "--skill modern-web-guidance"}`.split(" ").filter(Boolean).concat(extraArgs);
 -    const detectedAgent = determineAgent().agent?.name;
 -    const env = detectedAgent ? { ...process.env, AI_AGENT: detectedAgent } : process.env;
--    const result = spawnSync("npx", installArgs, {
+-    const runner = getSkillsRunner(env);
+-    const result = spawnSync(runner.cmd, [...runner.prefixArgs, ...installArgs], {
 -      stdio: "inherit",
 -      shell: process.platform === "win32",
 -      env
@@ -110,7 +109,8 @@
 -  } else if (command === "update") {
 -    const startTime = Date.now();
 -    const skills = getOurCLIAdjacentSkillIDs();
--    const result = spawnSync("npx", ["-y", "skills", "update", ...skills], {
+-    const runner = getSkillsRunner();
+-    const result = spawnSync(runner.cmd, [...runner.prefixArgs, "skills", "update", ...skills], {
 -      stdio: "inherit",
 -      shell: process.platform === "win32"
 -    });
@@ -125,14 +125,15 @@
    } else if (command === "set-baseline") {
      const normalized = normalizeBaselineTarget(arg);
      if (!normalized) {
-@@ -1073,73 +1028,11 @@
+@@ -1134,74 +1089,11 @@
    } else if (command === "set-allow-volatile-features") {
      const code = await handleSetAllowVolatileFeatures();
      process.exit(code);
 -  } else if (command === "uninstall") {
 -    const startTime = Date.now();
 -    const skills = getOurCLIAdjacentSkillIDs();
--    const result = spawnSync("npx", ["-y", "skills", "remove", ...skills], {
+-    const runner = getSkillsRunner();
+-    const result = spawnSync(runner.cmd, [...runner.prefixArgs, "skills", "remove", ...skills], {
 -      stdio: "inherit",
 -      shell: process.platform === "win32"
 -    });
@@ -149,8 +150,8 @@
 -}
 -function getCLISkillVersion() {
 -  try {
--    const versionPath = join2(import.meta.dirname, "skill-version.txt");
--    const version = readFileSync3(versionPath, "utf8");
+-    const versionPath = join3(import.meta.dirname, "skill-version.txt");
+-    const version = readFileSync4(versionPath, "utf8");
 -    return version.trim();
 -  } catch (e) {
 -    return null;
@@ -158,10 +159,10 @@
 -}
 -function getOurCLIAdjacentSkillIDs() {
 -  try {
--    const parentDir = dirname2(import.meta.dirname);
--    const skillsPath = basename(parentDir) === "skills" ? parentDir : join2(dirname2(parentDir), "skills");
+-    const parentDir = dirname3(import.meta.dirname);
+-    const skillsPath = basename(parentDir) === "skills" ? parentDir : join3(dirname3(parentDir), "skills");
 -    const listing = readdirSync(skillsPath);
--    return listing.filter((name) => existsSync3(join2(skillsPath, name, "SKILL.md")));
+-    return listing.filter((name) => existsSync4(join3(skillsPath, name, "SKILL.md")));
 -  } catch (e) {
 -    return [];
 -  }
