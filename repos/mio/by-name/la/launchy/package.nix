@@ -4,7 +4,12 @@
   fetchFromGitHub,
   fetchzip,
   writableTmpDirAsHomeHook,
-  nix-update-script,
+  writeShellApplication,
+  python3,
+  nix,
+  nix-update,
+  git,
+  cacert,
 }:
 
 let
@@ -47,14 +52,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-Vd9bfgP4EsMMOBPVI9jq6aXl3ixyWIFIC1JSNnteY40=";
   };
 
-  # Sparkle ships as an SPM binary target. Vendor the release zip as a path
-  # dependency so `scripts/build_app.sh` can run fully offline.
+  # Sparkle ships an SPM binary target, but its Xcode project can build the
+  # framework from the tagged source. That keeps Launchy's provenance
+  # fromSource and avoids vendoring Sparkle's prebuilt framework.
   sparkle = fetchzip {
-    pname = "sparkle-spm";
+    pname = "sparkle";
     version = sparkleVersion;
-    url = "https://github.com/sparkle-project/Sparkle/releases/download/${sparkleVersion}/Sparkle-for-Swift-Package-Manager.zip";
-    hash = "sha256-yMw24NHBebnIuCaQ2iRESWqwFnG2nYBO4RpKWxqmXpQ=";
-    stripRoot = false;
+    url = "https://github.com/sparkle-project/Sparkle/archive/refs/tags/${sparkleVersion}.tar.gz";
+    hash = "sha256-U9sFD/aPaCi4zw38vlVMV2CVp2X8BppKCaJSZKmkj1M=";
   };
 
   nativeBuildInputs = [ writableTmpDirAsHomeHook ];
@@ -65,9 +70,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   dontFixup = true;
 
   postPatch = ''
-    mkdir -p Vendor/Sparkle
-    cp -a ${finalAttrs.sparkle}/. Vendor/Sparkle/
-    chmod -R u+w Vendor/Sparkle
+    mkdir -p Vendor/Sparkle .sparkle-src
+    cp -a ${finalAttrs.sparkle}/. .sparkle-src/
+    chmod -R u+w .sparkle-src
+
+    # swift-argument-parser is only used by Sparkle's command-line tools. Drop
+    # that package graph so the framework target builds without network access.
+    patch -p1 -d .sparkle-src < ${./sparkle-remove-cli-package.patch}
+
     cp ${sparklePackageSwift} Vendor/Sparkle/Package.swift
 
     substituteInPlace Package.swift \
@@ -100,6 +110,22 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     export ARCHES=${stdenvNoCC.hostPlatform.darwinArch}
     export SPARKLE_FRAMEWORK_SRC="$PWD/Vendor/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework"
 
+    sparkle_build="$PWD/build/sparkle"
+    mkdir -p "$sparkle_build"
+    /usr/bin/xcodebuild -quiet \
+      -project "$PWD/.sparkle-src/Sparkle.xcodeproj" \
+      -target Sparkle \
+      -configuration Release \
+      SYMROOT="$sparkle_build/build" \
+      OBJROOT="$sparkle_build/obj" \
+      ARCHS="arm64 x86_64" \
+      ONLY_ACTIVE_ARCH=NO \
+      -disableAutomaticPackageResolution \
+      build
+    /usr/bin/xcodebuild -create-xcframework \
+      -framework "$sparkle_build/build/Release/Sparkle.framework" \
+      -output "$PWD/Vendor/Sparkle/Sparkle.xcframework"
+
     ./scripts/build_app.sh
 
     runHook postBuild
@@ -117,7 +143,21 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru = {
     inherit sparkleVersion;
-    updateScript = nix-update-script { };
+    updateScript = writeShellApplication {
+      name = "update-launchy";
+      runtimeInputs = [
+        python3
+        nix
+        nix-update
+        git
+        cacert
+      ];
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="launchy"
+        export SSL_CERT_FILE="${cacert}/etc/ssl/certs/ca-bundle.crt"
+        exec ${python3}/bin/python3 ${./update.py} "$@"
+      '';
+    };
   };
 
   meta = {
@@ -127,10 +167,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     changelog = "https://github.com/Punshnut/macos-launchy/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.agpl3Only;
     platforms = lib.platforms.darwin;
-    sourceProvenance = with lib.sourceTypes; [
-      fromSource
-      binaryNativeCode # vendored Sparkle.framework
-    ];
+    sourceProvenance = with lib.sourceTypes; [ fromSource ];
     mainProgram = "launchy";
   };
 })
