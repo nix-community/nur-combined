@@ -45,9 +45,9 @@
     "version": "0.21.1"
   },
   "pdfcraft": {
-    "hash": "sha256-sI7+QWwdpFCwSz5OxfA4nXHXWA9DmPntoG0z0EcTx3A=",
-    "url": "https://github.com/storytold/pdfcraft/releases/download/v0.21.1/pdfcraft-0.21.1-linux-aarch64.tar.gz",
-    "version": "0.21.1"
+    "hash": "sha256-zhN3JlUBWOIsiHy49xAB47KdF0Gup0kuDw/0kFTi/gM=",
+    "url": "https://github.com/storytold/pdfcraft/releases/download/v0.22.0/pdfcraft-0.22.0-linux-aarch64.tar.gz",
+    "version": "0.22.0"
   },
   "photocraft": {
     "hash": "sha256-/MgcOK5ixy+p9P0ew9GDlkk7omFmJ5LWmVzDWQXOcdI=",
