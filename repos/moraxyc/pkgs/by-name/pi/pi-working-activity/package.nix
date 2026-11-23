@@ -62,25 +62,25 @@ buildNpmPackage (finalAttrs: {
     rm -rf $out/lib/node_modules
 
     pkg="$out/lib/${finalAttrs.pname}"
-    # Bundle into a single CJS entry so jiti skips TypeScript compilation.
+    # Bundle into a single ESM entry so jiti skips TypeScript compilation while preserving the default export.
     esbuild "$pkg/extensions/index.ts" \
       --bundle \
       --platform=node \
       --target=node${lib.versions.major nodejs.version} \
-      --format=cjs \
+      --format=esm \
       --external:@earendil-works/\* \
       --external:@mariozechner/\* \
       --external:typebox \
       --external:typebox/\* \
       --external:@sinclair/typebox \
       --external:@sinclair/typebox/\* \
-      --outfile="$pkg/dist/index.cjs"
+      --outfile="$pkg/dist/index.mjs"
 
     node -e '
       const fs = require("node:fs");
       const p = process.argv[1];
       const pkg = JSON.parse(fs.readFileSync(p, "utf8"));
-      pkg.pi.extensions = ["./dist/index.cjs"];
+      pkg.pi.extensions = ["./dist/index.mjs"];
       fs.writeFileSync(p, JSON.stringify(pkg, null, 2) + "\n");
     ' "$pkg/package.json"
 
