@@ -94,14 +94,14 @@
       "fingerprint": "sha256-u0VFI0su0LMZbAm1oXbugUs9wzhi3q6e3r1WUY7SWd0="
     },
     "artex": {
-      "version": "0-unstable-2026-11-22",
-      "rawVersion": "7b196bf6839287fa0cc87ee54a1e559640432129",
-      "date": "2026-11-22",
+      "version": "0-unstable-2026-11-23",
+      "rawVersion": "253a8eeac3b278cd4ff383674a31a0edcc34e143",
+      "date": "2026-11-23",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/RuoJi6/ARTEX.git",
-        "rev": "7b196bf6839287fa0cc87ee54a1e559640432129",
-        "hash": "sha256-15Bg6EJbboyIxlcK5yWf1hzUY2BNUJcsJvEpNxJiKkg="
+        "rev": "253a8eeac3b278cd4ff383674a31a0edcc34e143",
+        "hash": "sha256-TrRAKxtmiJUjnHTdHC0wNb89N5JUuKmrNZ5NyU+ds7g="
       },
       "derived": {
         "npmDeps": {
@@ -224,14 +224,14 @@
       "fingerprint": "sha256-FMvaZtjzuoVOt+mhktmw7VgKmKtLbLl8UX/zDvJ+MwY="
     },
     "cpa-usage-keeper": {
-      "version": "2.1.1-unstable-2026-11-20",
-      "rawVersion": "e5e8f1a4c85208be29e8ef80f0c262dfbe362a8b",
-      "date": "2026-11-20",
+      "version": "2.1.1-unstable-2026-11-23",
+      "rawVersion": "a0186173c8a740488a81fff78d944a624f62e02f",
+      "date": "2026-11-23",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/Willxup/cpa-usage-keeper.git",
-        "rev": "e5e8f1a4c85208be29e8ef80f0c262dfbe362a8b",
-        "hash": "sha256-8cs3bItYkV4S41hPacYgKD8+aLv2wRmgbCe5MQt3EI0="
+        "rev": "a0186173c8a740488a81fff78d944a624f62e02f",
+        "hash": "sha256-yzqGlzQ+SxP9LAaljx1NQ5BzFNZv79FLDPsWDCuYli4="
       },
       "derived": {
         "npmDeps": {
@@ -344,14 +344,14 @@
       "fingerprint": "sha256-30OsBkMRA0jMQKYo3jIET9P4D5xWLMEblIxAU7j2p2k="
     },
     "gaze": {
-      "version": "0.5.2-unstable-2026-11-21",
-      "rawVersion": "d0e4622ce9b4ff6967a9a69bc50ed3601fc6976f",
-      "date": "2026-11-21",
+      "version": "0.5.2-unstable-2026-11-22",
+      "rawVersion": "05105878c5e02d9e4cb93e30dab36d35cbb6c842",
+      "date": "2026-11-22",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/GunduLabs/gaze.git",
-        "rev": "d0e4622ce9b4ff6967a9a69bc50ed3601fc6976f",
-        "hash": "sha256-mO7g3jcvhwAq9aUsSf4FUq+tHkoWO0pga93HsyZYQjs="
+        "rev": "05105878c5e02d9e4cb93e30dab36d35cbb6c842",
+        "hash": "sha256-P6d+owkaZUe1xXV+tRx+HnSiy//+/5FUwWyoojqLOOQ="
       },
       "derived": {
         "cargoLock": {
@@ -474,15 +474,15 @@
       "fingerprint": "sha256-4jCQslnqwTJoijYP2CKfwBZjAzj2BCR/xHV7lz2D//4="
     },
     "horizon": {
-      "version": "0-unstable-2026-11-22",
-      "rawVersion": "a27fee23ca32b659220f5d27e8b7ba50ab420582",
-      "date": "2026-11-22",
+      "version": "0-unstable-2026-11-23",
+      "rawVersion": "2e7d2c6bb6f533224df1c4dfaf67548b9bd2c7c9",
+      "date": "2026-11-23",
       "src": {
         "fetcher": "github",
         "owner": "horizon-rust",
         "repo": "horizon",
-        "rev": "a27fee23ca32b659220f5d27e8b7ba50ab420582",
-        "hash": "sha256-NKuW+c2hvC0EtYcgf/eMWy5+viQqI9PlqR6JCgB67uA="
+        "rev": "2e7d2c6bb6f533224df1c4dfaf67548b9bd2c7c9",
+        "hash": "sha256-0UdAEAd02B5bn1wSst4wwWoEiaCxLucVGNE4oEUBSeY="
       },
       "derived": {
         "cargoLock": {
@@ -509,12 +509,12 @@
       "fingerprint": "sha256-OQm+NVjyhdgeM8gNfLr3Vq7mdt4gBlpJ+PyQBjCfaPg="
     },
     "jiufenxuezhang-ielts": {
-      "version": "0.9.21-rc.3",
-      "rawVersion": "0.9.21-rc.3",
+      "version": "0.9.21-rc.5",
+      "rawVersion": "0.9.21-rc.5",
       "src": {
         "fetcher": "url",
-        "url": "https://static.9fnnn.com/electron/stable/jiufenxuezhang-ielts-0.9.21-rc.3-universal.dmg",
-        "hash": "sha256-AhwlSuAScp1Tw+mZ7w1hDQGu7YbnlL2zAoBXzai9Vy4="
+        "url": "https://static.9fnnn.com/electron/stable/jiufenxuezhang-ielts-0.9.21-rc.5-universal.dmg",
+        "hash": "sha256-j7zm6S3JP0gNR5+MNFlmVsjuq0kp2H6qo6CrOzyYJuo="
       },
       "fingerprint": "sha256-mdqb1M4vkcpF3pYjpSYHRZ/stovbzouCMceT/0NbiWQ="
     },
@@ -531,14 +531,14 @@
       "fingerprint": "sha256-t9FqOeVHAGjQkgvnjnqYpKMvf9KM/sj0vdA2JRAu/Ts="
     },
     "lm-detector": {
-      "version": "0-unstable-2026-11-19",
-      "rawVersion": "70159b7536a2ceb55c478c8c9472da81d3627e59",
-      "date": "2026-11-19",
+      "version": "0-unstable-2026-11-23",
+      "rawVersion": "e0472890bea827d15ca883636a77d4c10bbe843b",
+      "date": "2026-11-23",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/Ikaleio/lm-detector.git",
-        "rev": "70159b7536a2ceb55c478c8c9472da81d3627e59",
-        "hash": "sha256-VAaFILfyW2FthoA9zqwmjIQqbfPEr18EEv9FjPTAIwQ="
+        "rev": "e0472890bea827d15ca883636a77d4c10bbe843b",
+        "hash": "sha256-qd+9gPP3XfW676/+k35GvkjCJiDRSbU7Xjt5qVTcSx0="
       },
       "artifacts": {
         "fix-workspace.patch": "lm-detector/fix-workspace.patch",
@@ -608,14 +608,14 @@
       "fingerprint": "sha256-vR7sJIoluiLgop9ZZHZKD6Or/5XOXg5rf4u3QaTDtco="
     },
     "meta-rules-dat": {
-      "version": "0-unstable-2026-11-22",
-      "rawVersion": "f3c812731fa7e0a61000db1f876f508b407364e2",
-      "date": "2026-11-22",
+      "version": "0-unstable-2026-11-23",
+      "rawVersion": "5f22a3b3371d1a489fb3d0df25d00db049a6a603",
+      "date": "2026-11-23",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/MetaCubeX/meta-rules-dat.git",
-        "rev": "f3c812731fa7e0a61000db1f876f508b407364e2",
-        "hash": "sha256-QncU7oYW6MAbWLugdbHaXVFGcPphUQYzyLGm0QVj8iE="
+        "rev": "5f22a3b3371d1a489fb3d0df25d00db049a6a603",
+        "hash": "sha256-6+MqDOfqAT3yTS6BMT+56yIm4IKK2z5XhErQ7Cs+/DQ="
       },
       "fingerprint": "sha256-wX3xYgeMbiaHcGTwYkJLKkmGHaWP1yW5YbKKukaREX0="
     },
@@ -1316,26 +1316,26 @@
       "fingerprint": "sha256-imgtibGyweQKSt73wcN8RnflrzCvxGnXE2OOGS5lLSs="
     },
     "v2ray-rules-dat": {
-      "version": "0-unstable-2026-11-21",
-      "rawVersion": "9c3ed9c8dde9ba3bf128defe8e8971c9a30a539d",
-      "date": "2026-11-21",
+      "version": "0-unstable-2026-11-22",
+      "rawVersion": "0568dcea85796a397c753e51725d7a1e40dad4c2",
+      "date": "2026-11-22",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/Loyalsoldier/v2ray-rules-dat.git",
-        "rev": "9c3ed9c8dde9ba3bf128defe8e8971c9a30a539d",
-        "hash": "sha256-L4axrOPueF00ov8Lh8/bHxMJ+cvUjl0KnpPEmm9VAm8="
+        "rev": "0568dcea85796a397c753e51725d7a1e40dad4c2",
+        "hash": "sha256-gdF05s7IRsKdCzHZNOSrxmsxZ7WM+hPHBqSjNl93nEI="
       },
       "fingerprint": "sha256-VCqt6bExRQnJkTY51zmxmoGSt/p7RbF3g/HsGQUjUqs="
     },
     "whois42d-ng": {
-      "version": "2.2.1-unstable-2026-11-16",
-      "rawVersion": "06d20530e7348409002c672a9eb07ba048450ece",
-      "date": "2026-11-16",
+      "version": "2.2.1-unstable-2026-11-23",
+      "rawVersion": "f9ff5e8de616d579b43beee0377c322611d44cc9",
+      "date": "2026-11-23",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/moraxyc/whois42d-ng.git",
-        "rev": "06d20530e7348409002c672a9eb07ba048450ece",
-        "hash": "sha256-bbEsr1nvcuWQkaJCePTMASiGZbY2v/YD6X9Z0g2dbMw="
+        "rev": "f9ff5e8de616d579b43beee0377c322611d44cc9",
+        "hash": "sha256-29a30L4Mo7Zd9ai67DxfKSyVCf8/9cOywUc0MxZMA8w="
       },
       "derived": {
         "cargoLock": {
