@@ -13,7 +13,7 @@
 }:
 
 let
-  version = "19.1.0";
+  version = "19.1.1";
 
   # Upstream's darwin release CI builds `pi_natives.<platform>.node` on a
   # Homebrew host, so the embedded addon hardcodes an absolute Homebrew install
@@ -26,11 +26,11 @@ let
   # locations omp searches before the broken `~/.omp` extraction.
   darwinAddon = {
     aarch64-darwin = {
-      name = "pi_natives.darwin-arm64.node";
+      namePrefix = "pi_natives.darwin-arm64";
       homebrewPcre2 = "/opt/homebrew/opt/pcre2/lib/libpcre2-8.0.dylib";
     };
     x86_64-darwin = {
-      name = "pi_natives.darwin-x64.node";
+      namePrefix = "pi_natives.darwin-x64";
       homebrewPcre2 = "/usr/local/opt/pcre2/lib/libpcre2-8.0.dylib";
     };
   };
@@ -40,19 +40,19 @@ let
   sources = {
     x86_64-linux = {
       url = "${baseUrl}/omp-linux-x64";
-      hash = "sha256-vitFxDe2I+FcKbH4yYqsuEL5IRgZZFS16e7YhDWemgE=";
+      hash = "sha256-BOlJD5OU2m1oBEdMwuQes9GPjiYhXfSzS91K1MDYpAE=";
     };
     aarch64-linux = {
       url = "${baseUrl}/omp-linux-arm64";
-      hash = "sha256-eF6OUZrLVYUqheVJUnHXaKIhypLAlcBDzT6w1/jT6vw=";
+      hash = "sha256-8CL3IMSJnrJMbl403LuumK4F9VMrsD6X3/wCz8jdmm8=";
     };
     x86_64-darwin = {
       url = "${baseUrl}/omp-darwin-x64";
-      hash = "sha256-7fUeN1Tz8UUpiubb/Z5tX17BeOM4bwQ5Wexx95gcUq8=";
+      hash = "sha256-b/7LIqn+AamPkPkaLvBKaXhQojv03eg62tL+gOUag1M=";
     };
     aarch64-darwin = {
       url = "${baseUrl}/omp-darwin-arm64";
-      hash = "sha256-3KVkNmntXlU/cHvQZUmbq9D+MDBpa7skydoJx5ivWrs=";
+      hash = "sha256-1aMySs2YN1oBaYobDAGL5Iyu0pVsiqkEStE3/kO8BAA=";
     };
   };
 in
@@ -125,23 +125,34 @@ stdenvNoCC.mkDerivation {
       in
       ''
         # `--help` is deliberately lightweight upstream and does not load native
-        # modules. `doctor` loads them, which extracts the embedded addon before
-        # it traps trying to dlopen its Homebrew-linked pcre2. Ignore that expected
-        # failure and assert that extraction completed.
+        # modules. `doctor` loads them, extracting the embedded addon under a
+        # build-specific `embedded-*` directory before dlopen fails on its
+        # Homebrew-linked pcre2. Ignore that expected failure and collect the
+        # extracted addon (including x64's modern/baseline filenames).
         export HOME="$TMPDIR/omp-home"
+        unset XDG_DATA_HOME PI_NATIVES_DIR
         mkdir -p "$HOME"
         $out/libexec/omp doctor > /dev/null 2>&1 || true
 
-        extracted="$HOME/.omp/natives/${version}/${addon.name}"
-        [ -f "$extracted" ] || { echo "oh-my-pi-bin: addon not extracted at $extracted" >&2; exit 1; }
+        versionedDir="$HOME/.omp/natives/${version}"
+        extractedAddons=$(find "$versionedDir" -type f -path '*/embedded-*/*' \
+          -name '${addon.namePrefix}*.node' -print)
+        [ -n "$extractedAddons" ] || {
+          echo "oh-my-pi-bin: no embedded addon extracted under $versionedDir" >&2
+          exit 1
+        }
 
         # Repoint pcre2 to the Nix store copy. The extracted addon is already
         # code-signed and install_name_tool preserves a valid signature across an
         # in-place edit, so (unlike an unsigned binary) no codesign step is needed.
-        install -Dm755 "$extracted" "$out/libexec/${addon.name}"
-        install_name_tool -change \
-          ${addon.homebrewPcre2} ${pcre2.out}/lib/libpcre2-8.0.dylib \
-          "$out/libexec/${addon.name}"
+        while IFS= read -r extracted; do
+          [ -n "$extracted" ] || continue
+          addonName=$(basename "$extracted")
+          install -Dm755 "$extracted" "$out/libexec/$addonName"
+          install_name_tool -change \
+            ${addon.homebrewPcre2} ${pcre2.out}/lib/libpcre2-8.0.dylib \
+            "$out/libexec/$addonName"
+        done <<< "$extractedAddons"
       ''
     );
 
