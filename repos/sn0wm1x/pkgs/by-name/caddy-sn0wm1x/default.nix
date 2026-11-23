@@ -7,6 +7,7 @@
   python3,
   nix,
   writeShellApplication,
+  runCommand,
 }:
 let
   versions = lib.importJSON ./versions.json;
@@ -22,17 +23,14 @@ let
     url = "https://raw.githubusercontent.com/klzgrad/forwardproxy/${versions.forwardproxyRevision}/caddy-sing-quic-bbrv1.patch";
     hash = versions.patchHash;
   };
-  idleTimeoutPatch = fetchpatch2 {
-    name = "caddy-read-idle-timeout.patch";
-    url = "https://raw.githubusercontent.com/klzgrad/forwardproxy/${versions.forwardproxyRevision}/caddy-read-idle-timeout.patch";
-    hash = versions.idleTimeoutPatchHash;
-  };
+  compatibleQuicPatch = runCommand "caddy-quic-compatible.patch" { nativeBuildInputs = [ python3 ]; } ''
+    python3 ${./relax-quic-patch.py} ${quicPatch} "$out"
+  '';
   patchedCaddy = applyPatches {
     name = "caddy-${caddy.version}-quic-bbrv1-source";
     src = caddy.src;
     patches = [
-      quicPatch
-      idleTimeoutPatch
+      (if lib.versionAtLeast caddy.version "2.11.9" then compatibleQuicPatch else quicPatch)
     ];
     patchFlags = [
       "-p1"
@@ -113,7 +111,6 @@ caddyWithPlugins.overrideAttrs (
       inherit
         plugins
         quicPatch
-        idleTimeoutPatch
         patchedCaddy
         ;
       updateScript = lib.getExe (writeShellApplication {
