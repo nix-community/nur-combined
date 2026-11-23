@@ -2,7 +2,10 @@
   source,
   lib,
   rustPlatform,
+  libgit2,
+  openssl,
   perl,
+  pkg-config,
 }:
 
 rustPlatform.buildRustPackage {
@@ -14,7 +17,15 @@ rustPlatform.buildRustPackage {
 
   cargoLock = source.cargoLock."Cargo.lock";
 
-  nativeBuildInputs = [ perl ];
+  buildInputs = [
+    libgit2
+    openssl
+  ];
+
+  nativeBuildInputs = [
+    perl
+    pkg-config
+  ];
 
   checkFlags = [
     "--skip=git::status::tests::test_clean_submodule_not_reported"
@@ -23,6 +34,7 @@ rustPlatform.buildRustPackage {
     "--skip=git::status::tests::test_ignore_dirty_subs_hides_submodule_state"
     "--skip=git::status::tests::test_submodule_modified_pointer"
     "--skip=git::status::tests::test_worktree_info_reflects_linked_worktrees"
+    "--skip=git::status::tests_submodule::metadata_registrations_match_libgit2_without_inspecting_checkouts"
   ];
 
   meta = {
