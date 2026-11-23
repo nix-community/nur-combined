@@ -1,25 +1,35 @@
 {
   fetchFromGitHub,
   lib,
+  nix-update-script,
+  pkg-config,
   rustPlatform,
+  sqlite,
   versionCheckHook,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "hatsu";
-  version = "0.3.3";
+  version = "0.3.6";
 
   src = fetchFromGitHub {
     owner = "importantimport";
     repo = "hatsu";
     rev = "refs/tags/v${version}";
-    hash = "sha256-mqs26srbEkGeQzeF4OdqI7o18Ajs+mmAXGLlVfS52sk=";
+    hash = "sha256-+UHisknNDRJU4YcQunszpUHLUZwLIZcKot2eN/iSVf8=";
   };
 
-  cargoHash = "sha256-5c6boVdq0XXbtVHqmIGoxJGQRh8lvn2jbmALPuOSMs4=";
+  cargoHash = "sha256-bzJn7za/GQpr4VSQ/btZiq10J4e2J978aFgdJ1tEkyQ=";
+
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ sqlite ];
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=unstable" "--use-github-releases" ];
+  };
 
   meta = {
     description = "Self-hosted and fully-automated ActivityPub bridge for static sites";
