@@ -8,6 +8,23 @@
 let
   inherit (pkgs) lib;
 
+  # NUR's restricted eval has no flake overlay; fetchFromGitHub is a derivation,
+  # so it works there where eval-time fetches do not.
+  nixpakApp =
+    pkgs.nixpakApp or (
+      let
+        locked = (builtins.fromJSON (builtins.readFile ./flake.lock)).nodes.nixpak.locked;
+        source = pkgs.fetchFromGitHub {
+          inherit (locked) owner repo rev;
+          sha256 = locked.narHash;
+        };
+        nixpakFlake = {
+          lib.nixpak = import (source + "/modules");
+        };
+      in
+      (pkgs.extend (import ./overlays { nixpak = nixpakFlake; })).nixpakApp
+    );
+
   entries = builtins.readDir dir;
   excludedNames = [ ];
 
@@ -71,7 +88,7 @@ let
     else
       drv;
 
-  packageScope = pkgs // packages;
+  packageScope = pkgs // packages // { inherit nixpakApp; };
 
   packages =
     if duplicateNames != [ ] then

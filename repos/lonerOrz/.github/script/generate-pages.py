@@ -12,9 +12,9 @@ DIST_DIR.mkdir(exist_ok=True)
 
 NIX_EXPR = r"""
 let
-  pkgs = import <nixpkgs> {};
+  flake = builtins.getFlake (builtins.toString ./.);
 
-  nur = import ./. { inherit pkgs; };
+  nur = flake.legacyPackages.${builtins.currentSystem};
 
   names = builtins.attrNames nur;
 
