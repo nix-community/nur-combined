@@ -60,7 +60,7 @@ def main() -> int:
         return run("nix-instantiate", "--eval", "--raw", "--attr", attrpath, nixpkgs_path)
 
     tags = get_tags()
-    valid_tags = [tag for tag in tags if re.match(f"^{MAJOR_VERSION}\\..*-bb[0-9]+$", tag)]
+    valid_tags = [tag for tag in tags if re.fullmatch(rf"{MAJOR_VERSION}\..*-bb\d+(?:-p\d+)?", tag)]
 
     print(f"{tags=} {valid_tags=}", file=sys.stderr)
 
