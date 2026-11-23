@@ -18,14 +18,10 @@
   x4-xmldiff = pkgs.callPackage ./pkgs/x4-xmldiff { };
   rime-lmdg = pkgs.callPackage ./pkgs/rime-lmdg { };
   v2dat = pkgs.callPackage ./pkgs/v2dat { };
-  pico-fido = pkgs.callPackage ./pkgs/pico-fido { };
   picoforge = pkgs.callPackage ./pkgs/picoforge { };
-  typewords = pkgs.callPackage ./pkgs/typewords { };
-  libtinycbor = pkgs.callPackage ./pkgs/libtinycbor { };
   virtualgamepad-pc = pkgs.libsForQt5.callPackage ./pkgs/virtualgamepad-pc { };
   kwm = pkgs.callPackage ./pkgs/kwm { };
   canoe = pkgs.callPackage ./pkgs/canoe { };
   kwim = pkgs.callPackage ./pkgs/kwim { };
-  linuxqq-clipsync = pkgs.callPackage ./pkgs/linuxqq-clipsync { };
   th-tshyn = pkgs.callPackage ./pkgs/th-tshyn { };
 }

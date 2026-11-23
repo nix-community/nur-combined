@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchpatch2,
   makeDesktopItem,
 
   libevdev,
@@ -26,6 +27,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [
     ./rpath.patch
+    # Fix build errors ("access/R_OK/W_OK was not declared in this scope")
+    # with newer toolchains, per upstream commit.
+    (fetchpatch2 {
+      name = "unistd-include.patch";
+      url = "https://github.com/kitswas/VirtualGamePad-PC/commit/1ff6f64bb50fd3b683ae895f253851c9269ad489.patch";
+      hash = "sha256-fi96eCyLl0yWIdmlfkgCVe0WITDxLW8OUafm4GD6OnQ=";
+    })
   ];
 
   nativeBuildInputs = [
