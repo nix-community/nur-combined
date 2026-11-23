@@ -171,6 +171,19 @@
       },
       "fingerprint": "sha256-Ds3z3eJJoB8HCrxaDvMob5uKhZIpcAsN645L7u21A+U="
     },
+    "cliproxy-antigravity": {
+      "version": "0.4.0",
+      "rawVersion": "v0.4.0",
+      "date": "2026-11-22",
+      "src": {
+        "fetcher": "github",
+        "owner": "adeebahmad01",
+        "repo": "cliproxy-antigravity",
+        "rev": "v0.4.0",
+        "hash": "sha256-GQ4JXhoHrcI2x7KkuBqUDECQVh1X6K2XHWxKm6VLWnA="
+      },
+      "fingerprint": "sha256-K/ydfckMqAkWgBYRA3GmlYgjn9xFu5HwlWPJImUnu9Q="
+    },
     "cliproxyapi": {
       "version": "8.1.1",
       "rawVersion": "v8.1.1",

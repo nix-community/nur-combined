@@ -93,6 +93,11 @@ kind = "cargo-vendor"
 strategy = "lockfile"
 sub_dir = "backend"
 
+[packages.cliproxy-antigravity]
+version = { source = "github-release", repo = "adeebahmad01/cliproxy-antigravity" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "adeebahmad01/cliproxy-antigravity", rev = "{version}" }
+
 [packages.cliproxyapi]
 version = { source = "github-release", repo = "router-for-me/cliproxyapi" }
 transform = ["strip-v"]
