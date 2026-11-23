@@ -65,8 +65,13 @@ def system():
     return run(["nix", "eval", "--raw", "--impure", "--expr", "builtins.currentSystem"]).stdout.strip()
 
 
-def fake_hash_loop(pkg_nix, label, pattern):
-    """Replace pattern's `h` group with lib.fakeHash, then with the real hash."""
+def fake_hash_loop(pkg_nix, label, pattern, attribute):
+    """Replace pattern's `h` group with lib.fakeHash, then with the real hash.
+
+    `attribute` must name the fixed-output derivation alone: building the
+    whole package makes Nix resolve every stale vendor hash at once and report
+    whichever fails first, which is not necessarily the one being tested.
+    """
     text = pkg_nix.read_text()
     match = re.search(pattern, text, re.S)
     if match is None:
@@ -77,7 +82,7 @@ def fake_hash_loop(pkg_nix, label, pattern):
     # in scope); a quoted "lib.fakeHash" would just be an invalid hash string.
     pkg_nix.write_text(text[: start - 1] + "lib.fakeHash" + text[end + 1 :])
 
-    expr = f".#legacyPackages.{system()}.wallet-engine"
+    expr = f".#legacyPackages.{system()}.wallet-engine.{attribute}"
     result = run(["nix", "build", expr, "--no-link"], check=False)
     got = re.search(r"got:\s+(sha256-[A-Za-z0-9+/=]+)", result.stderr)
     if got is None:
@@ -116,16 +121,17 @@ def main():
     pkg_nix.write_text(text)
     print(f"Source hash: {src_hash}")
 
-    # Order matters: each build reports the first hash mismatch it hits, so the
-    # library vendor tree must be fixed before the bindgen one.
-    for label, pattern in [
-        ("cargoHash", r'cargoHash = "(?P<h>[^"]+)";'),
+    # Each hash is resolved against its own fixed-output derivation, so one
+    # stale hash cannot mask the other.
+    for label, pattern, attribute in [
+        ("cargoHash", r'cargoHash = "(?P<h>[^"]+)";', "cargoDeps"),
         (
             "bindgenCargoDeps",
             r'bindgenCargoDeps = rustPlatform\.fetchCargoVendor \{.*?hash = "(?P<h>[^"]+)";',
+            "bindgenCargoDeps",
         ),
     ]:
-        old, new = fake_hash_loop(pkg_nix, label, pattern)
+        old, new = fake_hash_loop(pkg_nix, label, pattern, attribute)
         print(f"{label}: {old} -> {new}")
 
     # Upstream HEAD is not always buildable (1d6f4a2 broke the uniffi derives),

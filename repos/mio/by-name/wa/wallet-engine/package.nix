@@ -11,19 +11,19 @@
 }:
 
 let
-  version = "0.0.7-unstable-2026-11-18";
+  version = "0.0.7-unstable-2026-11-23";
   src = fetchFromGitHub {
     owner = "i582";
     repo = "wallet-engine";
-    rev = "1d6f4a221afd09fbf5d66313cbc9fa1909e0bbbc";
-    hash = "sha256-YIrUnrelDfEer2X+lLtJdYRKwTyELs0eqaoaSyFGmvg=";
+    rev = "88df18f89229e1dd6da624ada8fef66906211830";
+    hash = "sha256-lvgwLLND9H8zBFl9Tg7w/d2Ow59zw+8xXQw7HbGEKds=";
   };
 
   bindgenCargoDeps = rustPlatform.fetchCargoVendor {
     pname = "wallet-engine-bindgen";
     inherit version src;
     cargoRoot = "bindgen/cpp";
-    hash = "sha256-n3VKg3OMU9a4fbaxISWKEVXRe9vRe63/GeRdpmDEZTM=";
+    hash = "sha256-jM7V9TWzwwUU+Qnk0PBngR899utZmDxtj2wPL/TJa2Q=";
   };
 
   # Forkgram 7.3 looks up this exact checkout when DESKTOP_APP_USE_PACKAGED is set.
@@ -31,7 +31,7 @@ let
     pname = "wallet-engine";
     inherit version src;
 
-    cargoHash = "sha256-b9LErZRUgVa/bHjmbN3ltW8vUoF9UhCjMAfFPSbpzbY=";
+    cargoHash = "sha256-oIchzPdsfjg0lGm5bcd61iYTOb0JVRiTUZMzCyjUdkc=";
 
     cargoBuildFlags = [ "--lib" ];
 
@@ -79,18 +79,26 @@ stdenv.mkDerivation {
     cp -a ${engine} $out
     runHook postInstall
   '';
-  passthru.updateScript = writeShellApplication {
-    name = "update-wallet-engine";
-    runtimeInputs = [
-      python3
-      nix
-      git
-      coreutils
-    ];
-    text = ''
-      export UPDATE_NIX_ATTR_PATH="wallet-engine"
-      exec ${python3}/bin/python3 ${./update.py} "$@"
-    '';
+  passthru = {
+    # Exposed so update.py can resolve each vendor hash on its own. Building
+    # the whole package resolves both fixed-output derivations in parallel and
+    # only reports whichever one happened to fail first, which is the wrong
+    # hash for the other one.
+    inherit bindgenCargoDeps;
+    inherit (engine) cargoDeps;
+    updateScript = writeShellApplication {
+      name = "update-wallet-engine";
+      runtimeInputs = [
+        python3
+        nix
+        git
+        coreutils
+      ];
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="wallet-engine"
+        exec ${python3}/bin/python3 ${./update.py} "$@"
+      '';
+    };
   };
 
   meta = engine.meta;

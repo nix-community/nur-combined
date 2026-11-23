@@ -11,7 +11,7 @@
 }:
 
 let
-  version = "0.7.0";
+  version = "0.8.0";
 
   # tools/launcher/CMakeLists.txt downloads this header at configure time,
   # with the hash pinned beside the download. The sandbox has no network, so
@@ -31,7 +31,7 @@ stdenv.mkDerivation {
     owner = "NoRain211";
     repo = "doaxvb-re";
     tag = "v${version}";
-    hash = "sha256-kyjVv88iiza1WpW+ewFh4DCamgDja5qOX6LtwrlaX3k=";
+    hash = "sha256-VmwvN739deuIsmcUwXqiSSJJ7WCSY0fOLuAfpuvMXLk=";
   };
 
   nativeBuildInputs = [
