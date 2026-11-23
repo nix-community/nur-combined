@@ -33,7 +33,7 @@ jobs:
         run: |
           set -euo pipefail
           nix shell nixpkgs#nix-update -c bash -euc '
-            for package in baidunetdisk chatgpt lceda-pro qq; do
+            for package in baidunetdisk lceda-pro; do
               echo "::group::Update $package"
               export UPDATE_NIX_ATTR_PATH="$package"
               UPDATE_NIX_OLD_VERSION=$(nix eval --impure --raw ".#$package.version")
@@ -51,7 +51,7 @@ jobs:
       - name: Review changes
         run: |
           git diff --check
-          git diff -- pkgs/baidunetdisk/default.nix pkgs/chatgpt/package.nix pkgs/lceda-pro/default.nix pkgs/qq/default.nix
+          git diff -- pkgs/baidunetdisk/default.nix pkgs/lceda-pro/default.nix
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v8
@@ -66,6 +66,4 @@ jobs:
             Full Nix build validation is not performed by this workflow.
           add-paths: |
             pkgs/baidunetdisk/default.nix
-            pkgs/chatgpt/package.nix
             pkgs/lceda-pro/default.nix
-            pkgs/qq/default.nix
