@@ -20,7 +20,7 @@
 
 dbus_call() { # $1: dest, $2: object path, $3: method
     local args=(dbus-send --session --dest="$1" --print-reply "${@:2}")
-    echo "D-Bus calling with: ${args[@]}" >&2
+    echo "D-Bus calling with: ${args[*]}" >&2
     "${args[@]}"
 }
 
@@ -154,13 +154,13 @@ try_start() {
     if [[ -f "${WECHAT_CUSTOM_BINDS_CONFIG}" ]]; then
         mapfile -t WECHAT_CUSTOM_BINDS_PRESISTENT < "${WECHAT_CUSTOM_BINDS_CONFIG}"
     fi
-    cd ~ # 7Ji: two chdir.3 should be cheaper than a lot of per-dir calculation
+    cd ~ || exit 1 # 7Ji: two chdir.3 should be cheaper than a lot of per-dir calculation
     for WECHAT_CUSTOM_BIND in  "${WECHAT_CUSTOM_BINDS_RUNTIME[@]}" "${WECHAT_CUSTOM_BINDS_PRESISTENT[@]}"; do
         WECHAT_CUSTOM_BIND=$(readlink -f -- "${WECHAT_CUSTOM_BIND}")
         echo "Custom bind: '${WECHAT_CUSTOM_BIND}'"
         BWRAP_CUSTOM_BINDS+=(--bind "${WECHAT_CUSTOM_BIND}"{,})
     done
-    cd - > /dev/null
+    cd - > /dev/null || exit 1
 
     DBUS_SESSION_BUS_PATH=''
     if [[ "${DBUS_SESSION_BUS_ADDRESS}" ]]; then
@@ -322,7 +322,8 @@ try_start() {
         ;;
     *)
         # Multiple: persistent
-        local INSTANCE_DATA_DIR=$(echo -n "${WECHAT_MULTIPLE_INSTANCE}" | md5sum)
+        local INSTANCE_DATA_DIR
+        INSTANCE_DATA_DIR=$(echo -n "${WECHAT_MULTIPLE_INSTANCE}" | md5sum)
         INSTANCE_DATA_DIR="${INSTANCE_DATA_DIR::32}"
         echo "Multiple instance: name '${WECHAT_MULTIPLE_INSTANCE}' => id '${INSTANCE_DATA_DIR}'"
         INSTANCE_DATA_DIR="${WECHAT_HOME_DIR}/.multi_xwechat_instance/${INSTANCE_DATA_DIR}"
@@ -476,12 +477,12 @@ applet_dde() {
         echo "Fake deepin file manager: fallback: xdg-open to show '${path}' in file manager"
         exec xdg-open "${path}"
     else
-        echo "Fake deepin file manager: xdg-open with args $@"
+        printf 'Fake deepin file manager: xdg-open with args %s\n' "$*"
         exec xdg-open "$@"
     fi
     # At this stage, it's either: dbus-send not found, or xdg-open not found, this should not happen
     # In whatever case, bail out
-    echo "Fake deepin file manager: could not open any thing, original args: $@"
+    printf 'Fake deepin file manager: could not open any thing, original args: %s\n' "$*"
     return 1
 }
 

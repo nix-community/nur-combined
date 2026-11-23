@@ -2,6 +2,7 @@
   stdenv,
   lib,
   makeWrapper,
+  coreutils,
   gnugrep,
 }:
 stdenv.mkDerivation {
@@ -22,7 +23,12 @@ stdenv.mkDerivation {
   '';
 
   postInstall = ''
-    wrapProgram $out/bin/mkwindows-tools-gc --prefix PATH : ${lib.makeBinPath [ gnugrep ]}
+    wrapProgram $out/bin/mkwindows-tools-gc --prefix PATH : ${
+      lib.makeBinPath [
+        coreutils
+        gnugrep
+      ]
+    }
   '';
 
   meta = with lib; {

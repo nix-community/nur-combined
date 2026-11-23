@@ -1,4 +1,8 @@
-#! /usr/bin/bash
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+shopt -s nullglob
 
 function print_layer_info() {
   local status=$1
@@ -6,70 +10,68 @@ function print_layer_info() {
   local size=$3
   local mutable=$4
 
-  printf "%s\t%s\t%s\t%s\n" $id $size $mutable $status
+  printf '%s\t%s\t%s\t%s\n' "$id" "$size" "$mutable" "$status"
 }
 
-CACHE_DIR="$HOME/.cache/mkWindowsApp"
+CACHE_DIR="${HOME:?HOME is not set}/.cache/mkWindowsApp"
 
-printf "LAYER ID                                                        \tSIZE\tMUTABLE\tACTION\n"
+printf 'LAYER ID                                                        \tSIZE\tMUTABLE\tACTION\n'
 
 # API 0
-for file in $(ls $CACHE_DIR/*.referrers 2> /dev/null)
-do
-  filename=$(basename -s .referrers $file)
-  size=$(du -h -s "$CACHE_DIR/$filename")
+for file in "$CACHE_DIR"/*.referrers; do
+  filename=$(basename -s .referrers "$file")
+  size=$(du -h -s -- "$CACHE_DIR/$filename" 2>/dev/null | cut -f 1) || size="?"
   temp_file=$(mktemp --suffix .mkwindowsapp-gc)
 
-  for ref_path in $(cat $file)
-  do
-    if [ -e "$ref_path" ]
-    then
-      echo "$ref_path" >> "$temp_file"
+  while IFS= read -r ref_path || [[ -n $ref_path ]]; do
+    if [[ -e $ref_path ]]; then
+      printf '%s\n' "$ref_path" >> "$temp_file"
     fi
-  done
+  done < "$file"
 
-  if [ -s "$temp_file" ]
-  then
-    print_layer_info "keeping" $filename $size "?"
+  if [[ -s $temp_file ]]; then
+    print_layer_info "keeping" "$filename" "$size" "?"
     mv "$temp_file" "$file"
   else
-    print_layer_info "deleting" $filename $size "?"
-    rm -fR "$CACHE_DIR/$filename"
-    rm "$file"
-    rm "$temp_file"
+    print_layer_info "deleting" "$filename" "$size" "?"
+    rm -rf -- "${CACHE_DIR:?}/${filename:?}"
+    rm -f -- "$file"
+    rm -f -- "$temp_file"
   fi
 done
 
 # API 1
-for layer in $(find $CACHE_DIR/ -maxdepth 1 -type d | tail -n +2)
-do
-  if [ -f "$layer/api" ]
-  then
-    if [ "$(echo $layer | grep incomplete)" = "" ]
-    then
-      filename="$(basename $layer)"
-      size=$(du -h -s "$CACHE_DIR/$filename" | cut -f 1)
-      temp_file=$(mktemp --suffix .mkwindowsapp-gc)
-      mutable="?"
-      [[ -f $layer/mutable ]] && mutable=$(cat $layer/mutable)
+for layer in "$CACHE_DIR"/*/; do
+  layer=${layer%/}
+  if [[ ! -f "$layer/api" ]]; then
+    continue
+  fi
+  if [[ $layer == *incomplete* ]]; then
+    continue
+  fi
 
-      for ref_path in $(cat $layer/refs)
-      do
-        if [ -e "$ref_path" ]
-        then
-          echo "$ref_path" >> "$temp_file"
-        fi
-      done
+  filename=$(basename "$layer")
+  size=$(du -h -s -- "$CACHE_DIR/$filename" 2>/dev/null | cut -f 1) || size="?"
+  temp_file=$(mktemp --suffix .mkwindowsapp-gc)
+  mutable="?"
+  if [[ -f "$layer/mutable" ]]; then
+    mutable=$(<"$layer/mutable")
+  fi
 
-      if [ -s "$temp_file" ]
-      then
-        print_layer_info "keeping" $filename $size $mutable
-        mv "$temp_file" "$layer/refs"
-      else
-        print_layer_info "deleting" $filename $size $mutable
-        rm -fR "$layer"
-        rm "$temp_file"
+  if [[ -f "$layer/refs" ]]; then
+    while IFS= read -r ref_path || [[ -n $ref_path ]]; do
+      if [[ -e $ref_path ]]; then
+        printf '%s\n' "$ref_path" >> "$temp_file"
       fi
-    fi
+    done < "$layer/refs"
+  fi
+
+  if [[ -s $temp_file ]]; then
+    print_layer_info "keeping" "$filename" "$size" "$mutable"
+    mv "$temp_file" "$layer/refs"
+  else
+    print_layer_info "deleting" "$filename" "$size" "$mutable"
+    rm -rf -- "${layer:?}"
+    rm -f -- "$temp_file"
   fi
 done
