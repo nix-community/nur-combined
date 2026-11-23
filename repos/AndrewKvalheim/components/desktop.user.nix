@@ -200,6 +200,7 @@ in
             { app-id = "^appimagekit-joplin$"; }
             { app-id = "^local.result$"; }
             { app-id = "^org.gnome.SystemMonitor$"; }
+            { app-id = "^signal$"; }
           ];
         }
         {

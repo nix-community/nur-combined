@@ -13,7 +13,7 @@ let
 in
 stdenv.mkDerivation {
   pname = "doh";
-  version = "0.1-unstable-2026-04-28";
+  version = "0.1-unstable-2026-11-23";
   meta = {
     description = "Stand-alone application for DoH (DNS-over-HTTPS) name resolves and lookups";
     homepage = "https://github.com/curl/doh";
@@ -26,8 +26,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "curl";
     repo = "doh";
-    rev = "69895137f92407ae94b4f3b7ff2aa4be98eb1f20";
-    hash = "sha256-OZBufmM8CyvhTwVo1oRNo4LCd8Oj4J5ZolBWK7XOOMw=";
+    rev = "3e00e915a54e4f9cae1ce1068bc3cb55b47ff5d9";
+    hash = "sha256-zZMHxXik8fRpxwTQdO9F33JLs7YTNb4vBYS80RKZgwA=";
   };
 
   nativeBuildInputs = [ curl ];
