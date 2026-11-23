@@ -90,6 +90,7 @@ mkWindowsAppNoCC rec {
     homepage = "https://line.me";
     description = "LINE is new level of communication, and the very infrastructure of your life";
     license = licenses.unfree;
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     maintainers = with maintainers; [ emmanuelrosa ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "line";

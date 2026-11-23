@@ -32,6 +32,7 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
     mainProgram = "hanga-signal";
   };
 }

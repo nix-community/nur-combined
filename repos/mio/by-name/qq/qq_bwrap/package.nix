@@ -558,6 +558,7 @@ stdenv.mkDerivation {
     description = "New Linux QQ based on Electron, with bubblewrap sandbox and some tweaks";
     homepage = "https://im.qq.com/linuxqq/index.shtml";
     license = licenses.unfree;
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     maintainers = with maintainers; [ ];
     platforms = [
       "x86_64-linux"

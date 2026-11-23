@@ -5,7 +5,6 @@
   rustPlatform,
   pkg-config,
   makeWrapper,
-  callPackage,
   apple-sdk_14,
   cargo-kani,
 }:
@@ -65,22 +64,32 @@ rustPlatform.buildRustPackage {
 
   # Do not run standard cargo build
   buildPhase = ''
+    runHook preBuild
     echo "Skipping build phase for cargo-kani packaging"
+    runHook postBuild
   '';
 
   # Run cargo kani during the check phase
   checkPhase = ''
+    runHook preCheck
+
     export HOME=$TMPDIR/home
     mkdir -p $HOME
     export CARGO_IGNORE_RUST_VERSION=1
 
     # Run tests on specific targets to avoid evaluating unreachable things if possible, but we run on all by default
     cargo kani --default-unwind 3
+
+    runHook postCheck
   '';
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out
     echo "Kani checks passed" > $out/status
+
+    runHook postInstall
   '';
 
   meta = {

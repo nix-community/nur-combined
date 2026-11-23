@@ -80,6 +80,8 @@ stdenv.mkDerivation {
   env.AVALONIA_TELEMETRY_OPTOUT = "1";
 
   buildPhase = ''
+    runHook preBuild
+
     export DOTNET_NOLOGO=1
     export DOTNET_CLI_TELEMETRY_OPTOUT=1
     export HOME=$TMPDIR
@@ -94,12 +96,18 @@ stdenv.mkDerivation {
       -o $out/bin \
       -p:UseAppHost=true \
       -p:ContinuousIntegrationBuild=true
+
+    runHook postBuild
   '';
 
   installPhase = ''
+    runHook preInstall
+
     wrapProgram $out/bin/PCL.Frontend.Avalonia \
       --set DOTNET_ROOT "${dotnetCorePackages.runtime_10_0}/share/dotnet" \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeLibraries}"
+
+    runHook postInstall
   '';
 
   passthru.updateScript = writeShellApplication {

@@ -185,6 +185,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/mstorsjo/msvc-wine";
     license = lib.licenses.unfree;
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     maintainers = [ "maydayv7" ]; # The wrappers drive x86_64 PE binaries through Wine, which needs an
     # x86_64 Wine host: natively on x86_64, via Rosetta on Apple Silicon.
     # aarch64 Linux would need an x86_64 emulator, so it is not listed.

@@ -4,7 +4,7 @@
   makeWrapper,
   gnugrep,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "mkwindows-tools";
   version = "1.0.0";
   src = ./.;
@@ -12,9 +12,13 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/bin
 
     install -D gc.bash $out/bin/mkwindows-tools-gc
+
+    runHook postInstall
   '';
 
   postInstall = ''

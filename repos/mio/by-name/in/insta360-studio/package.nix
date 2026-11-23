@@ -82,6 +82,7 @@ mkWindowsAppNoCC rec {
     homepage = "https://www.insta360.com/download/insta360-studio";
     description = "Video editing software for Insta360 cameras";
     license = licenses.unfree;
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     maintainers = [ ];
     platforms = [ "x86_64-linux" ];
   };

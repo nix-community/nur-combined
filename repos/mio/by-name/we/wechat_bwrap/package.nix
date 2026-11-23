@@ -144,6 +144,7 @@ stdenv.mkDerivation {
     description = "WeChat (Universal) with bwrap sandbox (adapted from AUR)";
     homepage = "https://linux.weixin.qq.com/";
     license = licenses.unfree;
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     maintainers = [ ];
     platforms = [
       "x86_64-linux"

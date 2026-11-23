@@ -68,7 +68,7 @@ if stdenv.hostPlatform.isLinux then
       };
     };
   in
-  cargoNix.workspaceMembers.hanga.build.override {
+  (cargoNix.workspaceMembers.hanga.build.override {
     inherit crateOverrides;
     runTests = true;
     testCrateFlags = [ "--test-threads=1" ];
@@ -104,7 +104,15 @@ if stdenv.hostPlatform.isLinux then
       esac
       chmod +x "$f"
     '';
-  }
+  }).overrideAttrs
+    (_: {
+      meta = {
+        description = "Hanga development build with tests";
+        license = lib.licenses.mit;
+        platforms = lib.platforms.linux;
+        mainProgram = "hanga";
+      };
+    })
 else
   rustPlatform.buildRustPackage {
     pname = "hanga";

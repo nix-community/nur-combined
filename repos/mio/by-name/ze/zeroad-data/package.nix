@@ -15,8 +15,12 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/share/0ad
     cp -r binaries/data $out/share/0ad/
+
+    runHook postInstall
   '';
 
   meta = {

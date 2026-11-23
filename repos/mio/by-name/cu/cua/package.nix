@@ -14,10 +14,10 @@
 }:
 
 let
-  # Fetching microvm.nix using fetchzip with the modern SRI hash per the rule
+  # Pinned to a commit; a branch archive is mutable and breaks reproducibility.
   microvmSrc = fetchzip {
-    url = "https://github.com/astro/microvm.nix/archive/refs/heads/main.zip";
-    hash = "sha256-Gj7g9GkMZNj0u0VKvyN4uf2XUxdHd4JwKOsaSicGtAo=";
+    url = "https://github.com/astro/microvm.nix/archive/430a46d03ef15f1b8b715fafa85f21847960b783.zip";
+    hash = "sha256-mruPu1cqOVBxPiRwrh6r1tnX1OAzMggy+rDk6YuqhK8=";
   };
 
   launcher = writeShellScriptBin "cua" ''
@@ -66,6 +66,8 @@ stdenv.mkDerivation rec {
   src = microvmSrc;
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/share/microvm
     cp -r . $out/share/microvm
 
@@ -74,6 +76,8 @@ stdenv.mkDerivation rec {
     cp ${launcher}/bin/cua $out/bin/cua
     substituteInPlace $out/bin/cua \
       --replace-fail "@out@" "$out"
+
+    runHook postInstall
   '';
 
   meta = with lib; {

@@ -464,8 +464,7 @@ stdenv.mkDerivation (
     '';
 
     patches =
-      [ ]
-      ++ optionals (lib.versionOlder version "5") [
+      optionals (lib.versionOlder version "5") [
         (fetchpatch2 {
           name = "rename_iszero";
           url = "https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/b27ae2c0b704e83f950980102bc3f12f9ec17cb0";

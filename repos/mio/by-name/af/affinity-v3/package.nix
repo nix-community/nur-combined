@@ -166,6 +166,7 @@ mkWindowsAppNoCC rec {
     '';
     homepage = "https://affinity.serif.com/";
     license = licenses.unfree;
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     platforms = [ "x86_64-linux" ];
     mainProgram = pname;
     maintainers = [ ];

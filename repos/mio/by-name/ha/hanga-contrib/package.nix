@@ -20,7 +20,6 @@
   llvmPackages,
   patchelf,
   nim,
-  nim-unwrapped,
   koka,
   pkgsCross,
 }:
@@ -278,5 +277,6 @@ stdenv.mkDerivation {
   meta = {
     description = "Hanga contrib mods: Kotlin, TinyGo, Zig, nlvm/Nim, Koka, and Hoot examples";
     license = lib.licenses.mit;
+    platforms = lib.platforms.linux;
   };
 }

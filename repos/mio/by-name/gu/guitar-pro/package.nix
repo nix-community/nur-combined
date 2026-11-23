@@ -36,6 +36,7 @@ let
       with GUITAR_PRO_WINEPREFIX).
     '';
     license = licenses.unfree;
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     maintainers = [ ];
     platforms = [
       "x86_64-linux"

@@ -32,7 +32,7 @@
 }:
 
 let
-  manifestOf = src: builtins.fromJSON (builtins.readFile ./cpmfile.json);
+  manifestOf = _: builtins.fromJSON (builtins.readFile ./cpmfile.json);
 
   isOn = v: v == true || v == "true";
 
@@ -42,7 +42,7 @@ let
   # network for those too, and upstream's own Linux job downloads them. Fetching
   # them from the manifest keeps the bytes identical.
   fetchable =
-    manifest: lib.filterAttrs (name: entry: !(isOn (entry.ci or false)) && entry ? hash) manifest;
+    manifest: lib.filterAttrs (_: entry: !(isOn (entry.ci or false)) && entry ? hash) manifest;
 
   # CPMUtil's get_package_url: a release artifact when `artifact` is set, else
   # the GitHub source tarball for the pinned revision.

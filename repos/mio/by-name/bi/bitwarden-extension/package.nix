@@ -97,7 +97,7 @@ buildNpmPackage (finalAttrs: {
     changelog = "https://github.com/bitwarden/clients/releases/tag/${finalAttrs.src.tag}";
     description = "Secure and free password manager for all of your devices (Firefox Extension)";
     homepage = "https://bitwarden.com";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ ];
     platforms = lib.platforms.all;
   };

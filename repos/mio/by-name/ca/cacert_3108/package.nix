@@ -80,6 +80,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ buildcatrust ];
 
   buildPhase = ''
+    runHook preBuild
+
     mkdir unbundled hashed
     buildcatrust \
       --certdata_input certdata.txt \
@@ -92,9 +94,13 @@ stdenv.mkDerivation rec {
       --ca_unpacked_output unbundled \
       --ca_hashed_unpacked_output hashed \
       --p11kit_output ca-bundle.trust.p11-kit
+
+    runHook postBuild
   '';
 
   installPhase = ''
+    runHook preInstall
+
     install -D -t "$out/etc/ssl/certs" ca-bundle.crt
 
     # install standard PEM compatible bundle
@@ -110,6 +116,8 @@ stdenv.mkDerivation rec {
     # use cp as install doesn't copy symlinks
     mkdir -p $hashed/etc/ssl/certs/
     cp -P hashed/* $hashed/etc/ssl/certs/
+
+    runHook postInstall
   '';
 
   setupHook = ./setup-hook.sh;

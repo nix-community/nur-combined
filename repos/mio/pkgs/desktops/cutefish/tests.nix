@@ -155,7 +155,7 @@ in
     };
 
     testScript =
-      { ... }:
+      _:
       prelude
       + ''
 
@@ -196,7 +196,7 @@ in
     };
 
     testScript =
-      { ... }:
+      _:
       prelude
       + ''
 
@@ -224,7 +224,7 @@ in
     };
 
     testScript =
-      { ... }:
+      _:
       prelude
       + ''
 
@@ -277,7 +277,7 @@ in
     };
 
     testScript =
-      { ... }:
+      _:
       prelude
       + ''
 

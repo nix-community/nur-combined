@@ -93,6 +93,7 @@ mkWindowsAppNoCC rec {
     homepage = "https://www.getpaint.net/";
     description = "Image and photo editing software";
     license = licenses.unfree;
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     maintainers = [ "maydayv7" ];
     platforms = [
       "x86_64-linux"
