@@ -40,6 +40,7 @@
     sms-launcher = lib.callPackage ./pkgs/sms-launcher {};
     ab-download-manager = lib.callPackage ./pkgs/abdm {};
     osu-tachyon = lib.callPackage ./pkgs/osu-tachyon {};
+    openchamber = lib.callPackage ./pkgs/openchamber {};
     nintoolbox = lib.callPackage ./pkgs/nintoolbox {};
     oak-editor = lib.callPackage ./pkgs/oak-editor {};
     helixnotes = lib.callPackage ./pkgs/helixnotes {};
@@ -50,6 +51,7 @@
     genoffice = lib.callPackage ./pkgs/genoffice {};
     opentubex = lib.callPackage ./pkgs/opentubex {};
     spotifast = lib.callPackage ./pkgs/spotifast {};
+    gitcraft = lib.callPackage ./pkgs/gitcraft {};
     equicord = lib.callPackage ./pkgs/equicord {};
     sm64plus = lib.callPackage ./pkgs/sm64plus {};
     freebuff = lib.callPackage ./pkgs/freebuff {};

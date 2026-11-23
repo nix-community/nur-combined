@@ -74,7 +74,7 @@ const updated = await render(old);
 
 if (process.argv.includes("--check")) {
     if (updated !== old) {
-        console.error("README.md packages table is stale; run `bun scripts/gen-readme.js`");
+        console.error("README.md packages table is stale; run `bun scripts/list`");
         process.exit(1);
     }
 

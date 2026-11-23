@@ -2,9 +2,9 @@
 set -e
 
 if command -v bun >/dev/null 2>&1; then
-  bun ./scripts/list
+  bun ./scripts/list >/dev/null
 elif command -v nix-shell >/dev/null 2>&1; then
-  nix-shell -p bun --run "bun ./scripts/list"
+  nix-shell -p bun --run "bun ./scripts/list" >/dev/null
 else
   echo "Error: Neither bun nor nix-shell is installed." >&2
   exit 1

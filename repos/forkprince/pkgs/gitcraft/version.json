@@ -1,0 +1,28 @@
+{
+  "name": "GitCraft",
+  "source": {
+    "type": "github-release",
+    "repo": "MystifiedSky/GitCraft",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.1.40",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "GitCraft_{version}_universal.dmg",
+      "hash": "sha256-RPEdWyZYa16dot09etORP5ySvk8VGs9w8WSM5aGh4WM="
+    },
+    "x86_64-darwin": {
+      "file": "GitCraft_{version}_universal.dmg",
+      "hash": "sha256-RPEdWyZYa16dot09etORP5ySvk8VGs9w8WSM5aGh4WM="
+    },
+    "aarch64-linux": {
+      "file": "GitCraft_{version}_aarch64.AppImage",
+      "hash": "sha256-xACCRnv2X90Tm4UTKvXhgBdTShcmJuC/KFKrJ7myTTs="
+    },
+    "x86_64-linux": {
+      "file": "GitCraft_{version}_amd64.AppImage",
+      "hash": "sha256-ldDzUkxFWO+Tt1AGshnTOolDs3DRBadTUdgmcJVyaNc="
+    }
+  }
+}
