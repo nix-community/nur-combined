@@ -1108,6 +1108,22 @@
       },
       "fingerprint": "sha256-ZLANG+YUxoldl5tAV33NSy4/DlHWaRPvmBuTGTHhJwI="
     },
+    "pi-working-activity": {
+      "version": "0-unstable-2026-10-18",
+      "rawVersion": "8999ac3312df3a8d9e0b09ce81eb26d16ccab695",
+      "date": "2026-10-18",
+      "src": {
+        "fetcher": "github",
+        "owner": "ccch1mneyyy",
+        "repo": "working-activity",
+        "rev": "8999ac3312df3a8d9e0b09ce81eb26d16ccab695",
+        "hash": "sha256-ZmUEBU+9vckJqV9qSAIv+btbD/SWdvUtZv5Y5rnwz80="
+      },
+      "artifacts": {
+        "package-lock.json": "pi-working-activity/package-lock.json"
+      },
+      "fingerprint": "sha256-TRsZFm8CLvqm54hJmPgqRjzneLo2xhDk5TTao2rig80="
+    },
     "pi-worktree-extension": {
       "version": "2.0.5",
       "rawVersion": "v2.0.5",

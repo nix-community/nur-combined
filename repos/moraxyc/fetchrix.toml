@@ -557,6 +557,15 @@ fetch = { type = "github", repo = "nicobailon/pi-web-access", rev = "{version}" 
 kind = "npm-deps"
 strategy = "lockfile"
 
+[packages.pi-working-activity]
+version = { source = "git", url = "https://github.com/ccch1mneyyy/working-activity.git", unstable = { } }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "ccch1mneyyy/working-activity", rev = "{version}" }
+
+[packages.pi-working-activity.prepare]
+steps = [{ type = "npm-lock", args = ["--legacy-peer-deps"] }]
+artifacts."package-lock.json" = { type = "file", path = "package-lock.json" }
+
 [packages.pi-worktree-extension]
 version = { source = "github-release", repo = "AjayPoshak/pi-worktree-extension" }
 transform = ["strip-v"]
