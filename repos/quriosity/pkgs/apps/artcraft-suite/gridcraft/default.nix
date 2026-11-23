@@ -47,7 +47,17 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-vkNDu60fJy9GOqQSqZItees+XOmta1qB5x5ibm8nBuM=";
   cargoBuildFlags = [ "--package" "gridcraft" "--package" "gridcraft-cli" ];
-  cargoTestFlags = [ "--package" "gridcraft" "--package" "gridcraft-cli" ];
+  # These tests launch nested sandboxes and expect host paths such as /usr/bin/cat,
+  # which are unavailable inside a Nix build sandbox.
+  cargoTestFlags = [
+    "--package"
+    "gridcraft"
+    "--package"
+    "gridcraft-cli"
+    "--"
+    "--skip"
+    "sandbox::"
+  ];
 
   prePatch = ''
     # Cargo.lock lists some egui crates under [[patch.unused]] because the app
