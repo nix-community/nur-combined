@@ -5,13 +5,12 @@
 # series under ./patches) is built here too.
 #
 # ElyDoc, ElyTable and ElyShow load a patched LibreOffice 26.2.6.3 LOK kernel
-# (139 patches, --enable-mergelibs). Upstream builds it in an AlmaLinux 8
-# container with bundled libraries, which is not something a Nix sandbox can
-# reproduce in reasonable time, so the matching kernel from the release is
-# unpacked instead: the combined Arch package on x86_64-linux and the kernel.pkg
-# component of the arm64 product archive on aarch64-darwin. Everything else is
-# compiled from source. Kernels are installed as $out/lib/elyoffice/libreoffice
-# and linked from $out/bin/libreoffice, where the apps look for them.
+# (139 patches, --enable-mergelibs). On aarch64-darwin ./libreoffice.nix builds
+# it from the pinned LibreOffice/core commit, the same tree and flags as
+# upstream's scripts/build-libreoffice.sh. On x86_64-linux the matching kernel
+# is unpacked from the release's combined Arch package instead. Kernels are
+# installed as $out/lib/elyoffice/libreoffice and linked from
+# $out/bin/libreoffice, where the apps look for them.
 {
   lib,
   stdenv,
@@ -44,6 +43,8 @@
   python3,
   nix,
   writeShellApplication,
+  nixpkgs_pkgs,
+  buildKernelFromSource ? true,
 }:
 
 let
@@ -124,11 +125,15 @@ let
     };
   };
 
-  # The released LOK kernel. Linux ships it once in the combined Arch package,
-  # macOS in the kernel.pkg component of the product archive, as the
+  # macOS builds the kernel from source (./libreoffice.nix); Linux takes the one
+  # released in the combined Arch package. Either way the apps see the
   # Frameworks/Resources pair.
   kernel =
-    if stdenv.hostPlatform.isDarwin then
+    if stdenv.hostPlatform.isDarwin && buildKernelFromSource then
+      nixpkgs_pkgs.callPackage ./libreoffice.nix {
+        elyofficeSrc = src;
+      }
+    else if stdenv.hostPlatform.isDarwin then
       stdenv.mkDerivation {
         pname = "elyoffice-kernel";
         inherit version;
@@ -426,7 +431,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
       case "$app" in
         ely-doc | ely-table | ely-show)
           lok=(--set-default ELY_LOK_DIR "$out/lib/elyoffice/libreoffice/${
-            if stdenv.hostPlatform.isDarwin then "Contents/Frameworks" else "program"
+            if stdenv.hostPlatform.isDarwin then
+              if buildKernelFromSource then "Frameworks" else "Contents/Frameworks"
+            else
+              "program"
           }")
           ;;
       esac
@@ -484,8 +492,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
       ElyTree, ElyMark) are built from the pinned upstream source. ElyPDF and
       ElyMark link MuPDF 1.28.5 built here with Ely's patches, and the PDF
       worker links a static OpenSSL. ElyDoc, ElyTable and ElyShow load the
-      LibreOffice 26.2.6.3 kernel from the matching upstream release, which is
-      not rebuildable here (see the comments at the top of package.nix).
+      LibreOffice 26.2.6.3 kernel. On aarch64-darwin it is built from the
+      pinned LibreOffice/core commit with Ely's patches (see
+      ./libreoffice.nix); elsewhere it comes from the matching upstream
+      release.
     '';
     homepage = "https://github.com/ELY-Open-Source/ElyOffice";
     changelog = "https://github.com/ELY-Open-Source/ElyOffice/releases/tag/v${version}";
