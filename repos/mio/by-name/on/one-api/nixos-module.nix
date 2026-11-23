@@ -132,15 +132,27 @@ in
         RestartSec = 5;
         UMask = "0077";
 
-        # Hardening.  SystemCallFilter is deliberately not set: the Go runtime's
-        # syscall set changes between releases, and a filter that is right for
-        # one Go version can SIGSYS the service after a toolchain bump.
+        # Hardening.  SystemCallFilter is @system-service minus the sets an HTTP
+        # server never needs; if a future Go toolchain trips over it (EPERM or
+        # SIGSYS in the journal), add the missing set here rather than dropping
+        # the filter.  SystemCallErrorNumber reports denials as EPERM instead of
+        # killing the process, which makes such regressions debuggable.
         NoNewPrivileges = true;
         CapabilityBoundingSet = "";
+        AmbientCapabilities = "";
+        SystemCallFilter = [
+          "@system-service"
+          "~@clock @cpu-emulation @debug @module @mount @obsolete @privileged @raw-io @reboot @resources @swap"
+        ];
+        SystemCallErrorNumber = "EPERM";
+        # No JIT in the Go backend or cgo SQLite; if a future dependency needs
+        # W^X regions this has to be dropped for that dependency.
+        MemoryDenyWriteExecute = true;
         ProtectSystem = "strict";
         ProtectHome = true;
         PrivateTmp = true;
         PrivateDevices = true;
+        PrivateMounts = true;
         ProtectKernelTunables = true;
         ProtectKernelModules = true;
         ProtectKernelLogs = true;
