@@ -17,12 +17,12 @@
 
 buildPythonPackage (final: {
   pname = "aioquic";
-  version = "1.9.1";
+  version = "1.9.2";
   pyproject = true;
 
   src = fetchPypi {
     inherit (final) pname version;
-    hash = "sha256-y6JmDr+WGXA7w/I7Cp3aUgZ62U/MTrGMatneMOSc8BA=";
+    hash = "sha256-utvlErxp9F5SQUFZoFAUDqsPe6P5GqsijlXfpC9AlQQ=";
   };
 
   build-system = [
