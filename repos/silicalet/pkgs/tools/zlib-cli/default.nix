@@ -8,13 +8,13 @@
 
 buildGoModule (finalAttrs: {
   pname = "zlib-cli";
-  version = "0.0.15";
+  version = "0.0.16";
 
   src = fetchFromGitHub {
     owner = "heartleo";
     repo = "zlib";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-WGA2xn9HDtShuhZumoM7CfPEv46VJQdsuOgRK5XzsC0=";
+    hash = "sha256-RPzenQ/fxddo46Wzsij+YVqAOomsSN8meXyFwPC2aAA=";
   };
 
   vendorHash = "sha256-UmHkKNBEf6Phjnd9UwU7kj31JPKtiqxUazQ6Fov+WXU=";
