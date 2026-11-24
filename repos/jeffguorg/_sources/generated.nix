@@ -28,92 +28,92 @@
   };
   claude-code-bin-amd64-darwin = {
     pname = "claude-code-bin-amd64-darwin";
-    version = "2.1.330";
+    version = "2.1.331";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.330/darwin-x64/claude";
-      sha256 = "sha256-u+2Zu4o5uz+UOJxcmdPQLLdfP5g7XRvECxsNHvyoRxM=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.331/darwin-x64/claude";
+      sha256 = "sha256-tSSHcc/c2ykH9zgrdIWQyXZDna/7S7HzLyiI/BKgbro=";
     };
   };
   claude-code-bin-amd64-linux = {
     pname = "claude-code-bin-amd64-linux";
-    version = "2.1.330";
+    version = "2.1.331";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.330/linux-x64/claude";
-      sha256 = "sha256-85DqoIFOahv/dMu0est0y5yJ0wztgJ/gr1rwDHv+jrs=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.331/linux-x64/claude";
+      sha256 = "sha256-TACDnPRr6ys47DEBBfLVOPf5Mh/kbGNimbdLyrlGJrE=";
     };
   };
   claude-code-bin-arm64-darwin = {
     pname = "claude-code-bin-arm64-darwin";
-    version = "2.1.330";
+    version = "2.1.331";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.330/darwin-arm64/claude";
-      sha256 = "sha256-98UJO53WVg0Iryi8J7Ej+1UJHerjGArDnfGZUi2oaBU=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.331/darwin-arm64/claude";
+      sha256 = "sha256-SHRZHcOb/xGIkhuCy+uKROOjOw+SyIiz1DY5uTRBAfc=";
     };
   };
   claude-code-bin-arm64-linux = {
     pname = "claude-code-bin-arm64-linux";
-    version = "2.1.330";
+    version = "2.1.331";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.330/linux-arm64/claude";
-      sha256 = "sha256-YBb5DKx4PjZ/saqXx2ii77lKASiltGtw+z2Py72d1EQ=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.331/linux-arm64/claude";
+      sha256 = "sha256-Plr+p2z27VP0IHbYsXXE7j2as0zZuQRS2hFdIa0NXTE=";
     };
   };
   codex = {
     pname = "codex";
-    version = "rust-v0.171.0";
+    version = "rust-v0.172.0";
     src = fetchFromGitHub {
       owner = "openai";
       repo = "codex";
-      rev = "rust-v0.171.0";
+      rev = "rust-v0.172.0";
       fetchSubmodules = false;
-      sha256 = "sha256-Q0fxlAU4oJZOHJtsVVaJJ28XuupzpCYGO4IKn9TAwl0=";
+      sha256 = "sha256-MDLBCNRb/1DNPZWegnF2yFDQU4IdSsgQcYOh0JV3EN8=";
     };
     cargoLock."codex-rs/Cargo.lock" = {
-      lockFile = ./. + "/sha256-Q0fxlAU4oJZOHJtsVVaJJ28XuupzpCYGO4IKn9TAwl0=/codex-rs/Cargo.lock";
+      lockFile = ./. + "/sha256-MDLBCNRb_1DNPZWegnF2yFDQU4IdSsgQcYOh0JV3EN8=/codex-rs/Cargo.lock";
       outputHashes = {
         "nucleo-0.5.0" = "sha256-Hm4SxtTSBrcWpXrtSqeO0TACbUxq3gizg1zD/6Yw/sI=";
         "runfiles-0.1.0" = "sha256-uJpVLcQh8wWZA3GPv9D8Nt43EOirajfDJ7eq/FB+tek=";
+        "mxc-sdk-1.1.0" = "sha256-74e6KZTaErXycDIB5LxQduNvLhv1ULHlHmjmEW7sNmk=";
         "rmcp-3.6.0" = "sha256-yuWdAHp7ow5RkhQfnjot3Zxy17iGnkGdGYRB3T0kUgQ=";
-        "tungstenite-0.27.0" = "sha256-v7QB+5fhkVM1omJurCiPRp4C4fGJXs204mNC2fImGl4=";
+        "tungstenite-0.27.0" = "sha256-iskbqB2ebP+4iyRE4Ve5TgGXt9z12/Dpznhmwh0wrvI=";
         "v8-152.2.0" = "sha256-/sO2tkahl8n21xhZyefKO1WIJTwarGC53flSwRl/aGE=";
         "sqlx-core-0.9.0" = "sha256-kLvUfUy6vmL9LYU7nzHv+iB6cIJm2CjDf9Yo6wpWrWg=";
         "h3-0.0.8" = "sha256-fgE0AMj5d4iattTC/yQwnACV8uEu+KR7wD29xfEm8M0=";
-        "mxc-sdk-1.0.0" = "sha256-AI4l2yCbB/4UWweLFhEefEPqSt/ZB1V+Mk/svdAT8No=";
         "crossterm-0.29.0" = "sha256-ETTZx1d2rQqIOk6O822k2I2Hs9+uskbLB1pLke32P1k=";
-        "tokio-tungstenite-0.28.0" = "sha256-YzevKd17AF2PY5/mv9DBzu/PmZ7cUdW5NoK9gApk41I=";
+        "tokio-tungstenite-0.28.0" = "sha256-fTNFTRNKyV6gwpoYzqKfBG1VKbF5Foh3OLwj9gkf44M=";
       };
     };
   };
   codex-bin-amd64-darwin = {
     pname = "codex-bin-amd64-darwin";
-    version = "0.171.0";
+    version = "0.172.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.171.0-darwin-x64.tgz";
-      sha256 = "sha256-BfnPL7SoiTjfYJdZtz2NZJ1TGKIIjnhXWIjUgNY91fA=";
+      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.172.0-darwin-x64.tgz";
+      sha256 = "sha256-rhk4vpFfahKu2tEmpiLZdEgGXQ6aV8lPHvgYI0lbI9M=";
     };
   };
   codex-bin-amd64-linux = {
     pname = "codex-bin-amd64-linux";
-    version = "0.171.0";
+    version = "0.172.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.171.0-linux-x64.tgz";
-      sha256 = "sha256-4T1nr7BTPMYWC19BQOStB+Ks2Hrbqggbv2m4LpDPTlU=";
+      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.172.0-linux-x64.tgz";
+      sha256 = "sha256-SKXuXbqYx3RaSLjXKvhPkYgP7FhWJpYnMo/VZPYNQac=";
     };
   };
   codex-bin-arm64-darwin = {
     pname = "codex-bin-arm64-darwin";
-    version = "0.171.0";
+    version = "0.172.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.171.0-darwin-arm64.tgz";
-      sha256 = "sha256-GF4ceJ5f1Sg5DBqJppaNynkemqMTjbgw1Tr//ckHmuM=";
+      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.172.0-darwin-arm64.tgz";
+      sha256 = "sha256-SdtPFp7LaSIrS8IHSOO3HrjYMQ3El1YLTuMmLLB23lE=";
     };
   };
   codex-bin-arm64-linux = {
     pname = "codex-bin-arm64-linux";
-    version = "0.171.0";
+    version = "0.172.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.171.0-linux-arm64.tgz";
-      sha256 = "sha256-Jq4neIx9lirmQyGrpGc/kYuZtAxGVSRpML+WL6W4GwE=";
+      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.172.0-linux-arm64.tgz";
+      sha256 = "sha256-Qm85pbYgCuZwahN6FBkSyOu9vfxiAhmZ1oHB/TmSiio=";
     };
   };
   create-tauri-app = {
