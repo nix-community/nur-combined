@@ -25,6 +25,7 @@ in
 
     open-vmdk = callPackage ./open-vmdk.nix {};
     scsh3 = callPackage ./scsh3/package.nix {};
+    nje2 = callPackage ./nje2.nix {};
   }
   // optionalAttrs (!hasSuffix "-darwin" system) rec {
     # Packages that won't run on Darwin.
