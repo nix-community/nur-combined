@@ -43,6 +43,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   ];
 
   dependencies = with python3Packages; [
+    packaging
     pygobject3
     pyyaml
     rarfile
@@ -56,30 +57,39 @@ python3Packages.buildPythonApplication (finalAttrs: {
         --replace-fail '/app/bin/unrar' "${lib.getExe unrar-free}"
   '';
 
-  postInstall = ''
+  postInstall =
+    # Flatpak
     # https://github.com/NOMM-Team/nomm-app/blob/main/build/flatpak/moe.nomm.Nomm.yaml
-    APP_ID=moe.nomm.Nomm
-    install -D build/flatpak/$APP_ID.desktop $out/share/applications/$APP_ID.desktop
-    install -D build/flatpak/$APP_ID.metainfo.xml $out/share/metainfo/$APP_ID.metainfo.xml
-    install -D assets/icons/nomm-logo.svg $out/share/icons/hicolor/scalable/apps/$APP_ID.svg
-    cp src/nomm/*.yaml $out/${python3Packages.python.sitePackages}/..
-    cp release_bites.yaml $out/${python3Packages.python.sitePackages}/..
-    cp -r assets $out/${python3Packages.python.sitePackages}/..
-    find locale -name "*.po" | while read -r po; do
-      language_code=$(basename "$po" .po)
-      install -d "$out/share/locale/$language_code/LC_MESSAGES"
-      msgfmt "$po" -o "$out/share/locale/$language_code/LC_MESSAGES/$APP_ID.mo"
-    done
-
-    # fix broken images
-    export GDK_PIXBUF_MODULE_FILE="${
-      gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
-        extraLoaders = [
-          webp-pixbuf-loader
-        ];
-      }
-    }"
-  '';
+    ''
+      # Install desktop file
+      install -D build/flatpak/moe.nomm.Nomm.desktop $out/share/applications/moe.nomm.Nomm.desktop
+      # Install metainfo
+      install -D build/flatpak/moe.nomm.Nomm.metainfo.xml $out/share/metainfo/moe.nomm.Nomm.metainfo.xml
+      # Install logo
+      install -D assets/icons/nomm-logo.svg $out/share/icons/hicolor/scalable/apps/moe.nomm.Nomm.svg
+      # Other files (shenanigans)
+      install -d $out/share/nomm
+      cp src/nomm/*.yaml $out/${python3Packages.python.sitePackages}/..
+      cp release_bites.yaml $out/${python3Packages.python.sitePackages}/..
+      # Copy assets
+      cp -r assets $out/share/nomm/assets
+      # Localisation
+      find locale -name "*.po" | while read -r po; do
+        language_code=$(basename "$po" .po)
+        install -d "$out/share/locale/$language_code/LC_MESSAGES"
+        msgfmt "$po" -o "$out/share/locale/$language_code/LC_MESSAGES/moe.nomm.Nomm.mo"
+      done
+    ''
+    # Fix broken images
+    + ''
+      export GDK_PIXBUF_MODULE_FILE="${
+        gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
+          extraLoaders = [
+            webp-pixbuf-loader
+          ];
+        }
+      }"
+    '';
 
   dontWrapGApps = true;
 
