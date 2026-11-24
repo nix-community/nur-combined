@@ -12,6 +12,7 @@
 
 let
   blender = import ./pkgs/blender { inherit pkgs; };
+  claude-code = pkgs.callPackage ./pkgs/claude-code { };
 in
 {
   # The `lib`, `modules`, and `overlays` names are special
@@ -23,7 +24,8 @@ in
   guile-lsp-server = pkgs.callPackage ./pkgs/guile-lsp-server { };
   libmks = pkgs.callPackage ./pkgs/libmks { };
   chatgpt = pkgs.callPackage ./pkgs/chatgpt { };
-  claude-desktop = pkgs.callPackage ./pkgs/claude-desktop { };
+  inherit claude-code;
+  claude-desktop = pkgs.callPackage ./pkgs/claude-desktop { inherit claude-code; };
   antigravity = pkgs.callPackage ./pkgs/antigravity { };
   muse-code = pkgs.callPackage ./pkgs/muse-code { };
   qoder-cli = pkgs.callPackage ./pkgs/qoder-cli { };

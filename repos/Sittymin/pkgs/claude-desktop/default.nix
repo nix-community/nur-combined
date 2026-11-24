@@ -10,6 +10,7 @@
   alsa-lib,
   at-spi2-core,
   cairo,
+  claude-code,
   cups,
   dbus,
   expat,
@@ -129,6 +130,7 @@ let
   ];
 
   runtimeBins = [
+    claude-code
     glib
     qemu
     trash-cli
@@ -196,6 +198,18 @@ stdenv.mkDerivation (finalAttrs: {
       s{([A-Za-z0-9_\$]+)=\["/usr/libexec/virtiofsd","/usr/bin/virtiofsd"\]}{$1=["$ENV{VIRTIOFSD_PATH}"]} or die "failed to patch virtiofsd path\n";
       s{return ([A-Za-z0-9_\$]+)\.replace\("OVMF_CODE","OVMF_VARS"\)\.replace\("AAVMF_CODE","AAVMF_VARS"\)}{return $1.replace("OVMF_CODE","OVMF_VARS").replace("AAVMF_CODE","AAVMF_VARS").replace("edk2-aarch64-code.fd","edk2-arm-vars.fd")} or die "failed to patch firmware vars path\n";
     ' "$vmChunk"
+
+    ccdChunk="$(grep -l -F 'this.localBinaryPath=null,this.localBinaryInitPromise=null' "$asarRoot"/.vite/build/*.js | head -n1)"
+    if [[ ! -f "$ccdChunk" ]]; then
+      echo "Could not identify Claude Code Desktop chunk" >&2
+      exit 1
+    fi
+
+    # Use the Nix-provided Claude Code CLI instead of downloading it at runtime.
+    LOCAL_CLI_PATH="${claude-code}/bin/claude" \
+    perl -0pi -e '
+      s{\Qthis.localBinaryPath=null,this.localBinaryInitPromise=null\E}{this.localBinaryPath="$ENV{LOCAL_CLI_PATH}",this.localBinaryInitPromise=null} or die "failed to patch local CLI path\n";
+    ' "$ccdChunk"
 
     rm "$out/lib/claude-desktop/resources/app.asar"
     asar pack --unpack "*.node" "$asarRoot" "$out/lib/claude-desktop/resources/app.asar"

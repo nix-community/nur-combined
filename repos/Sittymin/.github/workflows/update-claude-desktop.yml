@@ -86,14 +86,93 @@ jobs:
 
           echo "Claude Desktop is at $version_amd64"
 
+      - name: Update Claude Code CLI metadata
+        shell: bash
+        env:
+          CLI_PACKAGE_FILE: pkgs/claude-code/default.nix
+          REPO_URL: https://downloads.claude.ai/claude-desktop/apt/stable
+        run: |
+          set -euo pipefail
+
+          tmp="$(mktemp -d)"
+          trap 'rm -rf "$tmp"' EXIT
+
+          # The Desktop .deb pins the Claude Code CLI build it expects.
+          # Keep the Nix CLI package on exactly that version.
+          deb_filename="$(curl -fsSL "$REPO_URL/dists/stable/main/binary-amd64/Packages" |
+            awk '
+              BEGIN { RS=""; FS="\n" }
+              {
+                package = ""
+                version = ""
+                filename = ""
+                for (i = 1; i <= NF; i++) {
+                  if ($i == "Package: claude-desktop") package = "claude-desktop"
+                  if ($i ~ "^Version: ") version = substr($i, 10)
+                  if ($i ~ "^Filename: ") filename = substr($i, 11)
+                }
+                if (package == "claude-desktop" && version != "" && filename != "") print version "\t" filename
+              }
+            ' |
+            sort -V |
+            tail -n1 |
+            cut -f2-)"
+          test -n "$deb_filename"
+
+          curl -fsSL "$REPO_URL/$deb_filename" -o "$tmp/claude-desktop.deb"
+          dpkg-deb -x "$tmp/claude-desktop.deb" "$tmp/root"
+          asar="$tmp/root/usr/lib/claude-desktop/resources/app.asar"
+          test -f "$asar"
+
+          cli_version="$(python3 - "$asar" <<'PY'
+          import re
+          import sys
+
+          data = open(sys.argv[1], "rb").read()
+          match = re.search(rb'\{"version":"([0-9]+\.[0-9]+\.[0-9]+)","manifest":\{"version":"\1"', data)
+          if match:
+              print(match.group(1).decode())
+              raise SystemExit(0)
+
+          marker = b'"baseUrl":"https://downloads.claude.ai/claude-code-releases"'
+          index = data.find(marker)
+          if index >= 0:
+              versions = re.findall(rb'"version":"([0-9]+\.[0-9]+\.[0-9]+)"', data[max(0, index - 20000):index])
+              if versions:
+                  print(versions[-1].decode())
+                  raise SystemExit(0)
+
+          raise SystemExit("could not find pinned Claude Code version in app.asar")
+          PY
+          )"
+          test -n "$cli_version"
+
+          hash_x64="$(nix store prefetch-file --json \
+            "https://registry.npmjs.org/@anthropic-ai/claude-code-linux-x64/-/claude-code-linux-x64-$cli_version.tgz" |
+            jq -r .hash)"
+          hash_arm64="$(nix store prefetch-file --json \
+            "https://registry.npmjs.org/@anthropic-ai/claude-code-linux-arm64/-/claude-code-linux-arm64-$cli_version.tgz" |
+            jq -r .hash)"
+          test -n "$hash_x64"
+          test -n "$hash_arm64"
+
+          CLI_VERSION="$cli_version" CLI_HASH_X64="$hash_x64" CLI_HASH_ARM64="$hash_arm64" \
+          perl -0pi -e '
+            s{version = "[^"]+";}{version = "$ENV{CLI_VERSION}";};
+            s{arch = "linux-x64";\n      hash = "[^"]+";}{arch = "linux-x64";\n      hash = "$ENV{CLI_HASH_X64}";};
+            s{arch = "linux-arm64";\n      hash = "[^"]+";}{arch = "linux-arm64";\n      hash = "$ENV{CLI_HASH_ARM64}";};
+          ' "$CLI_PACKAGE_FILE"
+
+          echo "Claude Desktop pins Claude Code $cli_version"
+
       - name: Detect package changes
         id: changes
         shell: bash
         run: |
           set -euo pipefail
 
-          if git diff --quiet -- pkgs/claude-desktop/default.nix; then
-            echo "Claude Desktop is already up to date."
+          if git diff --quiet -- pkgs/claude-desktop/default.nix pkgs/claude-code/default.nix; then
+            echo "Claude Desktop and Claude Code are already up to date."
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -112,6 +191,6 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add pkgs/claude-desktop/default.nix
-          git commit -m "update: claude-desktop"
+          git add pkgs/claude-desktop/default.nix pkgs/claude-code/default.nix
+          git commit -m "update: claude-desktop, claude-code"
           git push
