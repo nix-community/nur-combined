@@ -2,6 +2,7 @@
   lib,
   mkCutefishDerivation,
   cutefish-toolkit,
+  cutefish-ghostty-vt,
   icu,
   pcre2,
   libxkbcommon,
@@ -17,6 +18,7 @@ mkCutefishDerivation {
 
   extraBuildInputs = [
     cutefish-toolkit
+    cutefish-ghostty-vt
     icu
     pcre2
     libxkbcommon

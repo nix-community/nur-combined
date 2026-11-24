@@ -1,0 +1,13 @@
+--- a/libgnome-desktop/gnome-desktop-thumbnail-script.c
++++ b/libgnome-desktop/gnome-desktop-thumbnail-script.c
+@@ -31,7 +31,10 @@
+ #include <glib/gstdio.h>
+ #include <string.h>
+ #include <stdlib.h>
++#ifdef ENABLE_SECCOMP
++/* personality(2) is Linux-only; only the seccomp sandbox path uses PER_LINUX. */
+ #include <sys/personality.h>
++#endif
+ #include <sys/stat.h>
+ #include <fcntl.h>
+ 

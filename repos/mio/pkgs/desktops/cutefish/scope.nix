@@ -5,6 +5,7 @@ lib.makeScope newScope (self: {
   mkCutefishDerivation = self.callPackage ./mk.nix { };
 
   cutefish-toolkit = self.callPackage ../../../by-name/cu/cutefish-toolkit/package.nix { };
+  cutefish-ghostty-vt = self.callPackage ../../../by-name/cu/cutefish-ghostty-vt/package.nix { };
   cutefish-framework = self.callPackage ../../../by-name/cu/cutefish-framework/package.nix { };
   cutefish-core = self.callPackage ../../../by-name/cu/cutefish-core/package.nix { };
   cutefish-wallpapers = self.callPackage ../../../by-name/cu/cutefish-wallpapers/package.nix { };
