@@ -13,12 +13,12 @@
             "name": null,
             "owner": "akitaonrails",
             "repo": "ai-usagebar",
-            "rev": "v1.53.0",
-            "sha256": "sha256-I6Lqb3qWgtxdg0oUtllR+F0mzSt387wXzqAVx3natI4=",
+            "rev": "v1.54.0",
+            "sha256": "sha256-jlI2MfXCEzLZtBiwiL8bLo5yh10jJzt4+1JtM5t9Bm0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.53.0"
+        "version": "v1.54.0"
     },
     "aioshutil": {
         "cargoLock": null,
@@ -548,11 +548,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-66y95wLtxBevLUjdpXpXoRaQpbrOnpYD6Ig1ut1FavY=",
+            "sha256": "sha256-QC8O6g49+iPjF2UlrgjQ9BAc7WTdu+d8iK3ofFOrJWo=",
             "type": "url",
-            "url": "https://cdn-zcode.z.ai/zcode/electron/releases/3.19.1/linux-x64/ZCode-3.19.1-linux-x64.deb"
+            "url": "https://cdn-zcode.z.ai/zcode/electron/releases/4.0.0/linux-x64/ZCode-4.0.0-linux-x64.deb"
         },
-        "version": "3.19.1"
+        "version": "4.0.0"
     },
     "zhconv-rs": {
         "cargoLock": null,

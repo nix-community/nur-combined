@@ -55,7 +55,7 @@ Build artifacts are cached in the Attic binary cache:
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-| - [ ] |  | `ai-usagebar` | [ai-usagebar](https://github.com/akitaonrails/ai-usagebar) | 1.53.0 | Multi-provider AI plan usage widget, CLI and TUI |
+| - [ ] |  | `ai-usagebar` | [ai-usagebar](https://github.com/akitaonrails/ai-usagebar) | 1.54.0 | Multi-provider AI plan usage widget, CLI and TUI |
 | - [x] |  | `aioshutil` | [aioshutil](https://github.com/kumaraditya303/aioshutil) | 1.7a1 | Asynchronous shutil module |
 | - [x] |  | `cn2an` | [cn2an](https://github.com/Ailln/cn2an) | 0.5.24 | Convert Chinese numerals and Arabic numerals |
 | - [x] |  | `docker-proxy` | [docker-proxy](https://github.com/dqzboy/Docker-Proxy) | 5.1.9 | Self-hosted Docker registry proxy with host-based upstream routing |
@@ -84,7 +84,7 @@ Build artifacts are cached in the Attic binary cache:
 | - [x] |  | `vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 5.0.16 | Lightweight S3-compatible object storage with built-in web dashboard |
 | - [x] |  | `vertex` | [vertex](https://github.com/vertex-center/vertex) | 0.17.0 | Self-hosted lab manager for one-click container service installation |
 | - [ ] |  | `ws-scrcpy` | [ws-scrcpy](https://github.com/NetrisTV/ws-scrcpy) | 0-unstable-2026-09-30 | Control Android devices from your browser via scrcpy over WebSocket |
-| - [ ] | `x86_64-linux` | `zcode` | [zcode](https://zcode.z.ai) | 3.19.1 | Z.ai's official agentic development environment desktop app for GLM models |
+| - [ ] | `x86_64-linux` | `zcode` | [zcode](https://zcode.z.ai) | 4.0.0 | Z.ai's official agentic development environment desktop app for GLM models |
 | - [x] |  | `zhconv-rs` | [zhconv-rs](https://github.com/Gowee/zhconv-rs) | 0.4.2-1 | Fast Chinese variant conversion backed by Rust |
 </details>
 
@@ -112,7 +112,7 @@ Build artifacts are cached in the Attic binary cache:
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-| - [ ] |  | `uncategorized.ai-usagebar` | [ai-usagebar](https://github.com/akitaonrails/ai-usagebar) | 1.53.0 | Multi-provider AI plan usage widget, CLI and TUI |
+| - [ ] |  | `uncategorized.ai-usagebar` | [ai-usagebar](https://github.com/akitaonrails/ai-usagebar) | 1.54.0 | Multi-provider AI plan usage widget, CLI and TUI |
 | - [ ] |  | `uncategorized.docker-proxy` | [docker-proxy](https://github.com/dqzboy/Docker-Proxy) | 5.1.9 | Self-hosted Docker registry proxy with host-based upstream routing |
 | - [ ] |  | `uncategorized.docker-proxy-hubcmdui` | [docker-proxy-hubcmdui](https://github.com/dqzboy/Docker-Proxy) | 5.1.9 | Web management panel for the Docker-Proxy registry proxy |
 | - [ ] |  | `uncategorized.epd-food-server` | [epd-food-server](https://github.com/zhyiheihei/EPD-Dashboard) | 0.1.0 | 家庭食品存储看板服务端（REST API + PostgreSQL + BLE 推送） |
@@ -131,6 +131,6 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `uncategorized.vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 5.0.16 | Lightweight S3-compatible object storage with built-in web dashboard |
 | - [ ] |  | `uncategorized.vertex` | [vertex](https://github.com/vertex-center/vertex) | 0.17.0 | Self-hosted lab manager for one-click container service installation |
 | - [ ] |  | `uncategorized.ws-scrcpy` | [ws-scrcpy](https://github.com/NetrisTV/ws-scrcpy) | 0-unstable-2026-09-30 | Control Android devices from your browser via scrcpy over WebSocket |
-| - [ ] | `x86_64-linux` | `uncategorized.zcode` | [zcode](https://zcode.z.ai) | 3.19.1 | Z.ai's official agentic development environment desktop app for GLM models |
+| - [ ] | `x86_64-linux` | `uncategorized.zcode` | [zcode](https://zcode.z.ai) | 4.0.0 | Z.ai's official agentic development environment desktop app for GLM models |
 </details>
 

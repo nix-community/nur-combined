@@ -8,12 +8,12 @@
 {
   ai-usagebar = {
     pname = "ai-usagebar";
-    version = "v1.53.0";
+    version = "v1.54.0";
     src = fetchFromGitHub {
       owner = "akitaonrails";
       repo = "ai-usagebar";
-      tag = "v1.53.0";
-      hash = "sha256-I6Lqb3qWgtxdg0oUtllR+F0mzSt387wXzqAVx3natI4=";
+      tag = "v1.54.0";
+      hash = "sha256-jlI2MfXCEzLZtBiwiL8bLo5yh10jJzt4+1JtM5t9Bm0=";
     };
   };
   aioshutil = {
@@ -279,10 +279,10 @@
   };
   zcode = {
     pname = "zcode";
-    version = "3.19.1";
+    version = "4.0.0";
     src = fetchurl {
-      url = "https://cdn-zcode.z.ai/zcode/electron/releases/3.19.1/linux-x64/ZCode-3.19.1-linux-x64.deb";
-      hash = "sha256-66y95wLtxBevLUjdpXpXoRaQpbrOnpYD6Ig1ut1FavY=";
+      url = "https://cdn-zcode.z.ai/zcode/electron/releases/4.0.0/linux-x64/ZCode-4.0.0-linux-x64.deb";
+      hash = "sha256-QC8O6g49+iPjF2UlrgjQ9BAc7WTdu+d8iK3ofFOrJWo=";
     };
   };
   zhconv-rs = {
