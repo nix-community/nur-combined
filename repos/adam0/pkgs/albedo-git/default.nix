@@ -19,12 +19,12 @@
     ;
 
   pname = "albedo-git";
-  version = "0-unstable-2026-11-23";
+  version = "0-unstable-2026-11-24";
 
   src = fetchFromTangled {
     did = "did:plc:l7hhzcbqqvpcquau5waryzdu";
-    rev = "059136153e087d39337f9f5b0ba3a721d13f2ec4";
-    hash = "sha256-OtmBmPZ+ZZU4PaG4D8KJkwTA5GpDjGJltk2jYtEp6MI=";
+    rev = "d8e50cffffb973f9665f4ca3b2ac9e435e5da955";
+    hash = "sha256-g+P4Wc00nO1tyo3HQgo1gdbtYsmA8t1qRzKVyvb31Zg=";
   };
 
   chrome-headless-shell = callPackage ./chrome-headless-shell.nix {};
