@@ -10,10 +10,10 @@ rustPlatform.buildRustPackage rec {
 
   src = fetchCrate {
     inherit pname version;
-    hash = lib.fakeHash;
+    hash = "sha256-7cIZ/BYUghhYw6gAZ/D1++HS5acEPqpHXIOWs0fC0tk=";
   };
 
-  cargoHash = lib.fakeHash;  
+  cargoHash = "sha256-QUQH5AfypgQKKRLcOAcUFuV+44vVIq2albD4bLvP8wc=";  
 
   meta = {
     description = "Command-line interface for the Keres";
