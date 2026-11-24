@@ -30,15 +30,11 @@
     {
       packages = lib.genAttrs systems (
         system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-          nur = removeAttrs (import ./default.nix { inherit pkgs; }) [
+        lib.filterAttrs (_: lib.meta.availableOn { inherit system; }) (
+          removeAttrs (import ./default.nix { pkgs = nixpkgs.legacyPackages.${system}; }) [
             "nixosModules"
             "darwinModules"
-          ];
-        in
-        lib.filterAttrs (_: lib.meta.availableOn { inherit system; }) (
-          nur // import ./cached.nix { inherit pkgs; }
+          ]
         )
       );
 

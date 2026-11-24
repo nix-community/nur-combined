@@ -1,9 +1,9 @@
 # NUR packages
 
-Nix packages and NixOS/nix-darwin modules. `default.nix` exports packages and
-module paths for NUR and caller-supplied `pkgs`; `flake.nix` locks
-`nixpkgs/master` to expose prebuilt `packages.{x86_64-linux,aarch64-linux,aarch64-darwin}`,
-`nixosModules`, and `darwinModules` backed by `https://davinci42.cachix.org`.
+Personal Nix packages and NixOS/nix-darwin modules. `default.nix` exports
+packages and module paths for NUR and caller-supplied `pkgs`; `flake.nix` locks
+`nixpkgs` (`master`, shallow Git) to expose `packages.{x86_64-linux,aarch64-linux,aarch64-darwin}`,
+`overlays.default`, `nixosModules`, and `darwinModules`.
 
 | Package           | Modules                                       | Documentation                                             |
 | ----------------- | --------------------------------------------- | --------------------------------------------------------- |
@@ -11,17 +11,6 @@ module paths for NUR and caller-supplied `pkgs`; `flake.nix` locks
 | `fluxdown-server` | `nixosModules.fluxdown`                       | [FluxDown Server](pkgs/fluxdown-server/README.md)         |
 | `magpie`          | `nixosModules.magpie`, `darwinModules.magpie` | [Magpie gateway and agent manager](pkgs/magpie/README.md) |
 | `mnamer-rs`       | None                                          | [mnamer Rust rewrite](pkgs/mnamer-rs/README.md)           |
-
-## Cached upstream packages
-
-`cached.nix` re-exports selected `nixpkgs/master` packages through `flake.nix`
-(`packages.<system>`) for binary caching on `https://davinci42.cachix.org`,
-without adding them to the NUR `default.nix` index:
-
-- `azure-cli` (with `azure-devops` and `resource-graph` extensions)
-- `nix` (`nixVersions.latest`)
-- `rtk`
-- `zellij`
 
 ## Maintenance
 
@@ -56,7 +45,5 @@ These commands do not deploy, commit or push. For in-place updates, use
 ## Automated updates
 
 GitHub Actions updates `flake.lock` (`chore(flake): update nixpkgs`) and checks
-custom packages every 4 hours (`37 */4 * * *` UTC) or via `workflow_dispatch`.
-After 3-architecture builds (`x86_64-linux`, `aarch64-linux`, `aarch64-darwin`)
-succeed and push to `davinci42.cachix.org`, `main` is fast-forwarded automatically
-and the NUR index is refreshed.
+custom packages on `x86_64-linux` via `workflow_dispatch`. Validated updates
+fast-forward `main` automatically and refresh the NUR index.

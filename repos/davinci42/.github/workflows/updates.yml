@@ -1,8 +1,7 @@
+---
 name: Package updates
 
-on:
-  schedule:
-    - cron: '37 */4 * * *'
+"on":
   workflow_dispatch:
 
 permissions:
@@ -13,12 +12,15 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  prepare:
-    if: github.repository == 'DaVinci42/nur-packages' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+  update:
+    if: >-
+      github.repository == 'DaVinci42/nur-packages' &&
+      github.ref == format(
+        'refs/heads/{0}',
+        github.event.repository.default_branch
+      )
     runs-on: ubuntu-24.04
     timeout-minutes: 120
-    outputs:
-      sha: ${{ steps.candidate.outputs.sha }}
     env:
       PYTHONDONTWRITEBYTECODE: '1'
       NO_COLOR: '1'
@@ -36,55 +38,40 @@ jobs:
         with:
           extra_nix_config: |
             experimental-features = nix-command flakes
-      - uses: cachix/cachix-action@38b082610b782e7e93e209c35fd730d399dee866
-        with:
-          name: davinci42
-          skipPush: true
-      - name: Update flake.lock and packages
-        id: candidate
+      - name: Update flake.lock, validate packages, and publish
         env:
           GH_TOKEN: ${{ github.token }}
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           base=$(git rev-parse HEAD)
           nix flake update
-          git diff --quiet flake.lock || git commit -am "chore(flake): update nixpkgs"
+          git diff --quiet flake.lock ||
+            git commit -am "chore(flake): update nixpkgs"
           nix develop -c just check-updates --update --commit || pkg_failed=1
           head=$(git rev-parse HEAD)
           if [ "$head" != "$base" ]; then
-            git push -f origin HEAD:refs/heads/ci-candidate
-            echo "sha=$head" >> "$GITHUB_OUTPUT"
+            nix develop -c just check-all
+            target="refs/heads/${{ github.event.repository.default_branch }}"
+            git push origin "HEAD:$target"
+            nur_url='https://nur-update.nix-community.org/update?repo=davinci42'
+            for attempt in 1 2 3 4 5; do
+              status=$(
+                curl -sS -o /dev/null -w '%{http_code}' -X POST "$nur_url"
+              ) || status=000
+              case "$status" in
+                2*) break ;;
+                429|5*|000) sleep $((attempt * 15)) ;;
+                *)
+                  echo "::error::NUR index refresh failed with HTTP $status"
+                  exit 1
+                  ;;
+              esac
+            done
+            case "$status" in
+              2*) ;;
+              *)
+                echo "::warning::NUR index refresh still rate-limited ($status)"
+                ;;
+            esac
           fi
           exit "${pkg_failed:-0}"
-
-  cache:
-    needs: prepare
-    if: ${{ (success() || failure()) && needs.prepare.outputs.sha != '' }}
-    uses: ./.github/workflows/cache.yml
-    with:
-      ref: ${{ needs.prepare.outputs.sha }}
-    secrets: inherit
-
-  publish:
-    needs: [prepare, cache]
-    if: ${{ (success() || failure()) && needs.prepare.outputs.sha != '' && needs.cache.result == 'success' }}
-    runs-on: ubuntu-24.04
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-        with:
-          ref: ${{ needs.prepare.outputs.sha }}
-          fetch-depth: 0
-      - name: Fast-forward main and refresh NUR index
-        run: |
-          git push origin "HEAD:refs/heads/${{ github.event.repository.default_branch }}"
-          git push origin --delete ci-candidate || true
-          for attempt in 1 2 3 4 5; do
-            status=$(curl -sS -o /dev/null -w '%{http_code}' -X POST 'https://nur-update.nix-community.org/update?repo=davinci42') || status=000
-            case "$status" in
-              2*) exit 0 ;;
-              429|5*|000) sleep $((attempt * 15)) ;;
-              *) echo "::error::NUR index refresh failed with HTTP $status"; exit 1 ;;
-            esac
-          done
-          echo "::warning::NUR index refresh still rate-limited (HTTP $status) after retries"
