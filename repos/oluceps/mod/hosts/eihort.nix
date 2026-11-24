@@ -255,6 +255,54 @@
         };
       };
 
+      # Cloudflare Tunnel origins on host loopback. nftables admits only the
+      # cloudflared user, so Caddy may trust Cf-Connecting-IP on 8080 and the
+      # PostgreSQL bridge on 15432 is reachable only through the tunnel (where
+      # Access requires the Hyperdrive service token). pg_hba then demands
+      # TLS and the pii-ro password, read-only on database pii.
+      users.users.cloudflared.uid = 967;
+      networking.nftables.tables.cloudflared-origins = {
+        family = "inet";
+        content = ''
+          chain output {
+            type filter hook output priority filter; policy accept;
+            oifname "lo" tcp dport { 8080, 15432 } meta skuid != ${toString config.users.users.cloudflared.uid} reject with tcp reset
+          }
+        '';
+      };
+      # PostgreSQL runs in its realm namespace; bridge into its loopback.
+      systemd.sockets.pg-cf-pii = {
+        wantedBy = [ "sockets.target" ];
+        listenStreams = [ "127.0.0.1:15432" ];
+      };
+      systemd.services.pg-cf-pii = {
+        requires = [
+          "pg-cf-pii.socket"
+          "realm-net-postgresql.service"
+        ];
+        after = [
+          "pg-cf-pii.socket"
+          "realm-net-postgresql.service"
+        ];
+        bindsTo = [ "realm-net-postgresql.service" ];
+        unitConfig.JoinsNamespaceOf = "realm-net-postgresql.service";
+        serviceConfig = (import ../../lib/proxy-hardening.nix) // {
+          ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd 127.0.0.1:5432";
+          PrivateNetwork = true;
+          DynamicUser = true;
+          NoNewPrivileges = true;
+          CapabilityBoundingSet = "";
+          PrivateTmp = true;
+          PrivateDevices = true;
+          ProtectSystem = "strict";
+          ProtectHome = true;
+          RestrictAddressFamilies = [
+            "AF_UNIX"
+            "AF_INET"
+          ];
+        };
+      };
+
       services = {
         zfs = {
           autoScrub.enable = true;

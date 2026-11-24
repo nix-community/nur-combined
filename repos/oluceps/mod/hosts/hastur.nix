@@ -52,6 +52,8 @@
             vocat
             artex
             magpie
+            gamepad
+            # h3image
             # ipex
             # scx
           ])

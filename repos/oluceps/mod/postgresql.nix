@@ -57,6 +57,10 @@
           config.services.postgresql.settings.ident_file
         ];
         serviceConfig = {
+          LoadCredential = map config.fn.genCredPath [
+            "nyaw.cert"
+            "nyaw.key"
+          ];
           # Socket consumers bind-mount this directory into private /run trees.
           # Keep its inode across stops, restarts, and automatic recovery.
           RuntimeDirectoryPreserve = "yes";
@@ -71,7 +75,14 @@
         ];
         enableTCPIP = false;
         settings = {
-          listen_addresses = lib.mkForce "";
+          # Loopback of PostgreSQL's private namespace. The only way in from the
+          # host is the pg-cf-pii bridge in mod/hosts/eihort.nix.
+          listen_addresses = lib.mkForce "127.0.0.1";
+          # Hyperdrive requires TLS and verifies the *.nyaw.xyz certificate.
+          ssl = true;
+          ssl_min_protocol_version = "TLSv1.2";
+          ssl_cert_file = "/run/credentials/postgresql.service/nyaw.cert";
+          ssl_key_file = "/run/credentials/postgresql.service/nyaw.key";
           allow_alter_system = false;
           port = 5432;
           wal_buffers = "16MB";
@@ -109,6 +120,7 @@
           local seaweedfs seaweed peer map=local-seaweedfs
           local dn42abhoth,dn42nodens,dn42yidhra dn42 peer map=realm-autopeer
           local artex artex peer map=realm-artex
+          hostssl pii pii-ro 127.0.0.1/32 scram-sha-256
           local all all peer
         '';
       };

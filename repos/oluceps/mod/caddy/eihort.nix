@@ -78,6 +78,37 @@
         };
       };
 
+      # Cloudflare Tunnel origin for every tunnel HTTP hostname. nftables lets
+      # only the cloudflared user connect (mod/hosts/eihort.nix), so Caddy may
+      # trust the Cf-Connecting-IP header set by the edge.
+      caddy.settings.apps.http.servers.cf-edge = {
+        listen = [ "127.0.0.1:8080" ];
+        protocols = [ "h1" ];
+        automatic_https.disable = true;
+        trusted_proxies = {
+          source = "static";
+          ranges = [ "127.0.0.1/32" ];
+        };
+        client_ip_headers = [ "Cf-Connecting-IP" ];
+        routes = [
+          # A client can prepend arbitrary entries to the X-Forwarded-For the
+          # edge forwards. Replace it with the edge-asserted address; the
+          # upstream sees "<client>, 127.0.0.1".
+          {
+            handle = [
+              {
+                handler = "headers";
+                request.set = {
+                  "X-Forwarded-For" = [ "{http.vars.client_ip}" ];
+                  "X-Forwarded-Proto" = [ "https" ];
+                };
+              }
+            ];
+          }
+        ]
+        ++ config.caddy.settings.apps.http.servers.srv0.routes;
+      };
+
       vaultix.secrets."nyaw.key" = {
         mode = "400";
         owner = config.identity.user;

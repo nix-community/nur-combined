@@ -52,7 +52,10 @@
                     max_events = 60;
                   };
                   dynamic = {
-                    key = "{http.request.client_ip}";
+                    # client_ip is not an http.request placeholder; Caddy would key
+                    # every client on the literal string. vars.client_ip is the
+                    # address taken from the relay's X-Forwarded-For.
+                    key = "{http.vars.client_ip}";
                     window = "5s";
                     max_events = 5;
                   };

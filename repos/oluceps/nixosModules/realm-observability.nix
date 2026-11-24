@@ -397,8 +397,11 @@ in
         Type = "notify";
         User = workload.user;
         Group = workload.group;
-        ExecStartPre = "${caddy}/bin/caddy validate --config /etc/realm-observability/config.json";
-        ExecStart = "${caddy}/bin/caddy run --config /etc/realm-observability/config.json";
+        # The store path, not the /etc link: twice a switch restarted this unit
+        # while /etc still pointed at the previous generation, leaving the
+        # gateway on stale routes until the next restart.
+        ExecStartPre = "${caddy}/bin/caddy validate --config ${configfile}";
+        ExecStart = "${caddy}/bin/caddy run --config ${configfile}";
         Restart = "on-failure";
         RestartSec = "3s";
         StateDirectory = "realm-observability";

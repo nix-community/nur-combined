@@ -44,6 +44,7 @@
             adonbox
             proxypool
             arti
+            xlg
 
           ])
         )
@@ -53,6 +54,9 @@
         ];
 
       identity.user = "elen";
+      xlg = {
+        usIPv4 = "75.72.32.10";
+      };
       # xray.configFile = config.vaultix.secrets.xray.path;
       wgmesh = {
         configFile = "/var/lib/wgmesh/config.json";

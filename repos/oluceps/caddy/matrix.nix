@@ -40,7 +40,7 @@
               in
               {
                 handler = "vars";
-                root = pkgs.cinny.override { inherit conf; };
+                root = pkgs.sable.override { inherit conf; };
               }
             )
           ];
