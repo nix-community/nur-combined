@@ -10,6 +10,7 @@
         inherit (pkgs)
           deviceTrees
           ;
+        python314Packages = pkgs.python314Packages';
       };
     };
 }

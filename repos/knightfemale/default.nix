@@ -13,13 +13,15 @@ in
     biu
     comfyui-workflow-mcp
     flake-show-ng
-    lada
     ;
 
   legacyPackages = {
     inherit (pkgs')
       deviceTrees
       ;
+  }
+  // {
+    python314Packages = pkgs'.python314Packages';
   };
 
   nixosModules = {
