@@ -5,21 +5,21 @@
 }:
 let
   geolite2AsnSrc = fetchurl {
-    url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.19/GeoLite2-ASN.mmdb";
-    hash = "sha256-unxJZMcbUdKNwj7v1eQ3aAG/kEctJvdmZIquADr5OI4=";
+    url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.22/GeoLite2-ASN.mmdb";
+    hash = "sha256-9iGASWxyGWmPqp/ntsGqOroImABHOBi3GtiMIuErSiI=";
   };
   geolite2CitySrc = fetchurl {
-    url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.19/GeoLite2-City.mmdb";
-    hash = "sha256-BgqGmdMiluJFNt0j8X5lzhK6SJqc5geSHfCrAeQfozw=";
+    url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.22/GeoLite2-City.mmdb";
+    hash = "sha256-AycCz43ixa02ss3HPXHfYkd+9ISsuHLkwaJNe57IlmY=";
   };
   geolite2CountrySrc = fetchurl {
-    url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.19/GeoLite2-Country.mmdb";
-    hash = "sha256-M8avejNiw1h27WGSqVhzRAKrjN2dcfl9+9ozPrceHAA=";
+    url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.22/GeoLite2-Country.mmdb";
+    hash = "sha256-bnKCfWKR86O46UZ51wcAP27KQ7tayojojEtQEguWq7w=";
   };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "geolite2";
-  version = "2026.11.19";
+  version = "2026.11.22";
   __structuredAttrs = true;
   strictDeps = true;
   dontUnpack = true;

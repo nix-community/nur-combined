@@ -1,12 +1,12 @@
 {
   "aarch64-linux": {
-    "hash": "sha256-whjIyCtJ3o6Lt+QMMYbC0+Oo2byc9cpPn5hGm7euygY=",
-    "url": "https://github.com/mlm-games/Mages/releases/download/5.4.4/mages-5.4.4-aarch64.AppImage",
-    "version": "5.4.4"
+    "hash": "sha256-vIYfuyIMLlMfRsYCPkzz53bWMZGgK4sPOSPQmWeKCPk=",
+    "url": "https://github.com/mlm-games/Mages/releases/download/5.4.7/mages-5.4.7-aarch64.AppImage",
+    "version": "5.4.7"
   },
   "x86_64-linux": {
-    "hash": "sha256-tjOIFAQHSeptbT700sZvXykZE6XFavMASDLSeZlsBI8=",
-    "url": "https://github.com/mlm-games/Mages/releases/download/5.4.4/mages-5.4.4-x86_64.AppImage",
-    "version": "5.4.4"
+    "hash": "sha256-eVB25Jgt9crSRZResp7MXXELbM1IUT5lJnymHbEsFNc=",
+    "url": "https://github.com/mlm-games/Mages/releases/download/5.4.7/mages-5.4.7-x86_64.AppImage",
+    "version": "5.4.7"
   }
 }

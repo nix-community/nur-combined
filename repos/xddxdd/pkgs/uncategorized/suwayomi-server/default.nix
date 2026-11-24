@@ -9,10 +9,10 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "suwayomi-server";
-  version = "2.4.2366";
+  version = "2.4.2373";
   src = fetchurl {
     url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v${finalAttrs.version}/Suwayomi-Server-v${finalAttrs.version}.jar";
-    hash = "sha256-r5/rIK+dfr6eMHaebG68f8erHERziNQuAoCx2l/ge/0=";
+    hash = "sha256-3QXVI8x4W3rPkMn+rAvITFPV+zr1qyozZTZG4gduUhc=";
   };
   __structuredAttrs = true;
   strictDeps = true;

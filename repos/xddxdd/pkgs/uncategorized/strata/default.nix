@@ -11,7 +11,7 @@
 }:
 
 let
-  version = "0.2.17";
+  version = "0.2.20";
   cudaCapabilities = cudaPackages.backendStdenv.cudaCapabilities;
   cudaArchitectures = lib.concatMapStringsSep ";" (lib.replaceStrings
     [ "." ]
@@ -55,7 +55,7 @@ let
       owner = "Niko1221";
       repo = "Strata";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-P6V8EDElMtohpT60Ya94Hb2ebUz1ZjzJbb8O/L12ybE=";
+      hash = "sha256-ctXqRX9SrUXeib8OVNDSI5Iq8jdImoZsJvIDwRyZWqg=";
     };
 
     __structuredAttrs = true;
