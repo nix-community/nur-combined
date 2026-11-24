@@ -181,8 +181,8 @@
             "url": "https://github.com/Redrield/nurpkgs"
         },
         "Rhys-T": {
-            "rev": "94d8ccc5ae49d72f9c0ffc5f1d27649e553d8334",
-            "sha256": "1axs7vg0vrfcv6n94iabq9rgmhk8f8gq7p861wq4k879z7i4waxl",
+            "rev": "a29c8fd5d9604c52dd9675c3e397ed74e5b7c4df",
+            "sha256": "0hvb06vkkaaafgczr1ymaxrzhj9mw92k7kc3dh8zgazjihswaak0",
             "url": "https://github.com/Rhys-T/nur-packages"
         },
         "RossSmyth": {
@@ -251,8 +251,8 @@
             "url": "https://github.com/abemedia/nur-packages"
         },
         "abszero": {
-            "rev": "d1ebc101569307835ca8d73bf3e70c6c967b15cd",
-            "sha256": "1hf2iy0rzm76a2vqvi4k02b4hdqz62pgv5q5jzhmavazy7bx3xjn",
+            "rev": "614924bb3eb726d157fd9a61ad19f31eb66ed8e5",
+            "sha256": "16cav8i4fskrh9hl2vgd3damh4f1issx56chsrxqk2d94s6ilpws",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -588,8 +588,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "f8e4a7c46c459fd46466a556db7d5dc71cb9a332",
-            "sha256": "1q3m5wgi5g12ybf32nv5g782sp21bxvdi7xvzn7zx4ba3h83x45x",
+            "rev": "c633fdd061ae6eb223211e8cd8219778e5dc3aeb",
+            "sha256": "0irc840x631ni9q1bfswc2ydddb2zracx6q24vlrrmg5qi8cr92c",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -1647,8 +1647,8 @@
             "url": "https://github.com/ltpie123/nur-packages"
         },
         "lucasew": {
-            "rev": "baab92211e9764dba132c32d90b9c9e713c5f1cc",
-            "sha256": "1800hzryaf8svkk0advax5ag8i7rzp86j2hpzllbm6f2dhzzlpr6",
+            "rev": "37077a7e433303c10fcd162be3ba1d6fd78e16fe",
+            "sha256": "1h3gq946bivpxr86iw7n9slxiss9fylihn9l7wdbvdjh5mcq7hjf",
             "url": "https://github.com/lucasew/nixcfg"
         },
         "lucasfa": {
