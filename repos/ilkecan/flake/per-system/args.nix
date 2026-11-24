@@ -1,14 +1,15 @@
 {
-  self,
   inputs,
+  lib',
   ...
 }:
 
 {
   perSystem =
-    { pkgs, system, ... }:
+    { system, ... }:
     {
-      _module.args.lib' = import "${self}/lib.nix" { inherit pkgs; };
+      # Top-level module arguments are not visible in `perSystem`.
+      _module.args.lib' = lib';
       _module.args.pkgs = inputs.nixpkgs.legacyPackages.${system};
     };
 }

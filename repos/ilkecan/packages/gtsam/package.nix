@@ -5,45 +5,67 @@
   cmake,
   eigen,
   fetchFromGitHub,
+  metis,
   nix-update-script,
   onetbb,
+  spectra,
+  suitesparse,
   testers,
-  runTests ? false,
+  withBoost ? true,
+  withSuitesparse ? true,
   withTbb ? true,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gtsam";
-  version = "4.2.2";
+  version = "4.3.0";
 
   src = fetchFromGitHub {
     owner = "borglab";
     repo = "gtsam";
     tag = finalAttrs.version;
-    hash = "sha256-7qYwPDSPvqiDBD9PFGOn+S9NkvfGbHuFIhQ3NN1WwLo=";
+    hash = "sha256-dRX69eIZPmQ32d5k1K+JQbHv/iJ7cW6h9rUb4wUEKfk=";
   };
+
+  postPatch = ''
+    # Golden permutation captured with the bundled METIS 5.1.0; METIS 5.2.1
+    # returns a different but equally valid ordering
+    substituteInPlace gtsam/inference/tests/testOrdering.cpp \
+      --replace-fail "EXPECT(assert_equal(expected, ordering));" ""
+  '';
 
   strictDeps = true;
   __structuredAttrs = true;
 
+  # The cmake hook enables parallel building but not parallel checking
+  enableParallelBuilding = true;
+
   nativeBuildInputs = [ cmake ];
 
+  buildInputs = [
+    metis
+    spectra
+  ]
+  ++ lib.optionals withSuitesparse [ suitesparse ];
+
   propagatedBuildInputs = [
-    boost
     eigen
   ]
+  ++ lib.optionals withBoost [ boost ]
   ++ lib.optionals withTbb [ onetbb ];
 
   cmakeFlags = [
-    # TODO: enable GTSAM_USE_SYSTEM_SPECTRA after https://github.com/borglab/gtsam/pull/2632 lands
-
-    # TODO: remove after 4.3+; 4.2.2 declares cmake_minimum_required(VERSION 3.0)
-    (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.5")
-
     (lib.cmakeBool "GTSAM_USE_SYSTEM_EIGEN" true)
-    (lib.cmakeBool "GTSAM_USE_SYSTEM_METIS" false) # TODO: flip this after https://github.com/borglab/gtsam/pull/2631 lands
+    (lib.cmakeBool "GTSAM_USE_SYSTEM_METIS" true)
+    (lib.cmakeBool "GTSAM_USE_SYSTEM_SPECTRA" true)
+    (lib.cmakeBool "GTSAM_USE_SYSTEM_CCOLAMD" withSuitesparse)
+    (lib.cmakeBool "GTSAM_ENABLE_BOOST_SERIALIZATION" withBoost)
+    (lib.cmakeBool "GTSAM_USE_BOOST_FEATURES" withBoost)
     (lib.cmakeBool "GTSAM_WITH_TBB" withTbb)
-    (lib.cmakeBool "GTSAM_BUILD_TESTS" runTests)
+    (lib.cmakeBool "GTSAM_BUILD_TESTS" finalAttrs.finalPackage.doCheck)
+    # Defaults to ON for 4.3.0 and trips on new compiler warnings; upstream
+    # disabled it by default in https://github.com/borglab/gtsam/pull/2822
+    (lib.cmakeBool "GTSAM_BUILD_WITH_WERROR" false)
     (lib.cmakeBool "GTSAM_BUILD_WITH_CCACHE" false)
     (lib.cmakeBool "GTSAM_BUILD_EXAMPLES_ALWAYS" false)
     (lib.cmakeBool "GTSAM_BUILD_TIMING_ALWAYS" false)
@@ -51,7 +73,11 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "GTSAM_INSTALL_MATLAB_TOOLBOX" false)
   ];
 
-  doCheck = runTests;
+  doCheck = true;
+  # stdenv detects the check target with `make -n check`, which fails since
+  # 4.3.0 because testValuesCrossLibrary needs a helper library that `all`
+  # doesn't build; the `test` fallback doesn't build the tests
+  checkTarget = "check";
 
   passthru = {
     tests = {
@@ -80,7 +106,10 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://gtsam.org/";
     changelog = "https://github.com/borglab/gtsam/releases/tag/${finalAttrs.version}";
-    license = lib.licenses.bsd3;
+    license = with lib.licenses; [
+      bsd3
+      mit # bundled cephes
+    ];
     maintainers = with lib.maintainers; [ ilkecan ];
     platforms = lib.platforms.unix;
   };

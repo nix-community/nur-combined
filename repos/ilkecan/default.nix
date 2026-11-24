@@ -15,7 +15,10 @@ let
 in
 {
   # The `lib`, `modules`, and `overlays` names are special
-  lib = import ./lib.nix { inherit pkgs; };
+  lib = import ./lib.nix {
+    inherit (pkgs) lib;
+    nixpkgs = pkgs.path;
+  };
   inherit modules; # modules
   overlays = import ./overlays; # nixpkgs overlays
 

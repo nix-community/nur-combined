@@ -6,29 +6,12 @@
 }:
 
 let
-  inherit (lib)
-    concatLines
-    escapeShellArg
-    escapeShellArgs
-    isBool
-    literalExpression
-    literalMD
-    mapAttrs'
-    mapAttrsToList
-    mkEnableOption
-    mkIf
-    mkOption
-    nameValuePair
-    optional
-    types
-    ;
-
   cfg = config.programs.scopebuddy;
 
   configOptions = {
-    environment = mkOption {
+    environment = lib.mkOption {
       type =
-        with types;
+        with lib.types;
         attrsOf (
           nullOr (oneOf [
             str
@@ -45,9 +28,9 @@ let
       '';
     };
 
-    settings = mkOption {
+    settings = lib.mkOption {
       type =
-        with types;
+        with lib.types;
         attrsOf (oneOf [
           bool
           int
@@ -63,8 +46,8 @@ let
       '';
     };
 
-    gamescopeArgs = mkOption {
-      type = with types; nullOr (listOf str);
+    gamescopeArgs = lib.mkOption {
+      type = with lib.types; nullOr (listOf str);
       default = null;
       example = [
         "-W"
@@ -79,8 +62,8 @@ let
       '';
     };
 
-    commandPrefix = mkOption {
-      type = with types; listOf str;
+    commandPrefix = lib.mkOption {
+      type = with lib.types; listOf str;
       default = [ ];
       example = [ "gamemoderun" ];
       description = ''
@@ -88,8 +71,8 @@ let
       '';
     };
 
-    extraConfig = mkOption {
-      type = types.lines;
+    extraConfig = lib.mkOption {
+      type = lib.types.lines;
       default = "";
       description = ''
         Bash appended to the configuration file. The game command, including `commandPrefix`, is available in `$command`.
@@ -97,51 +80,52 @@ let
     };
   };
 
-  toShellValue = value: if isBool value then (if value then "1" else "0") else escapeShellArg value;
+  toShellValue =
+    value: if lib.isBool value then (if value then "1" else "0") else lib.escapeShellArg value;
 
   renderConfig =
     c:
-    concatLines (
-      mapAttrsToList (
+    lib.concatLines (
+      lib.mapAttrsToList (
         name: value: if value == null then "unset ${name}" else "export ${name}=${toShellValue value}"
       ) c.environment
-      ++ mapAttrsToList (name: value: "${name}=${toShellValue value}") c.settings
+      ++ lib.mapAttrsToList (name: value: "${name}=${toShellValue value}") c.settings
       # ScopeBuddy passes the gamescope arguments and the command through
       # `eval`, so each argument is quoted once more.
-      ++ optional (
+      ++ lib.optional (
         c.gamescopeArgs != null
-      ) "SCB_GAMESCOPE_ARGS=${escapeShellArg (escapeShellArgs c.gamescopeArgs)}"
-      ++ optional (
+      ) "SCB_GAMESCOPE_ARGS=${lib.escapeShellArg (lib.escapeShellArgs c.gamescopeArgs)}"
+      ++ lib.optional (
         c.commandPrefix != [ ]
-      ) "command=${escapeShellArg (escapeShellArgs c.commandPrefix)}\" $command\""
-      ++ optional (c.extraConfig != "") c.extraConfig
+      ) "command=${lib.escapeShellArg (lib.escapeShellArgs c.commandPrefix)}\" $command\""
+      ++ lib.optional (c.extraConfig != "") c.extraConfig
     );
 
   configFiles =
     dir: configs:
-    mapAttrs' (
-      name: c: nameValuePair "scopebuddy/${dir}${name}.conf" { text = renderConfig c; }
+    lib.mapAttrs' (
+      name: c: lib.nameValuePair "scopebuddy/${dir}${name}.conf" { text = renderConfig c; }
     ) configs;
 in
 {
   meta.maintainers = with lib.maintainers; [ ilkecan ];
 
   options.programs.scopebuddy = configOptions // {
-    enable = mkEnableOption "ScopeBuddy, a manager script for running games in gamescope";
+    enable = lib.mkEnableOption "ScopeBuddy, a manager script for running games in gamescope";
 
-    package = mkOption {
-      type = types.nullOr types.package;
+    package = lib.mkOption {
+      type = lib.types.nullOr lib.types.package;
       default = pkgs.callPackage ../../packages/scopebuddy/package.nix { };
-      defaultText = literalMD "the `scopebuddy` package from this repository, built with `pkgs`";
+      defaultText = lib.literalMD "the `scopebuddy` package from this repository, built with `pkgs`";
       description = ''
         The ScopeBuddy package to install, or `null` to not install it.
       '';
     };
 
-    profiles = mkOption {
-      type = types.attrsOf (types.submodule { options = configOptions; });
+    profiles = lib.mkOption {
+      type = lib.types.attrsOf (lib.types.submodule { options = configOptions; });
       default = { };
-      example = literalExpression ''
+      example = lib.literalExpression ''
         {
           noscope.environment.PROTON_ENABLE_WAYLAND = "1";
         }
@@ -151,10 +135,10 @@ in
       '';
     };
 
-    apps = mkOption {
-      type = types.attrsOf (types.submodule { options = configOptions; });
+    apps = lib.mkOption {
+      type = lib.types.attrsOf (lib.types.submodule { options = configOptions; });
       default = { };
-      example = literalExpression ''
+      example = lib.literalExpression ''
         {
           "1674890".environment.TZ = null;
         }
@@ -165,7 +149,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     assertions = [
       {
         assertion = !cfg.profiles ? scb;
@@ -173,7 +157,7 @@ in
       }
     ];
 
-    home.packages = mkIf (cfg.package != null) [ cfg.package ];
+    home.packages = lib.mkIf (cfg.package != null) [ cfg.package ];
 
     # ScopeBuddy switches to these profiles on its own (SCB_NOSCOPE=1 or no
     # gamescope, Game Mode) and writes an example profile to a missing one,

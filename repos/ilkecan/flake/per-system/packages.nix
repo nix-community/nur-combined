@@ -3,16 +3,10 @@
   ...
 }:
 
-let
-  inherit (lib)
-    filterAttrs
-    isDerivation
-    ;
-in
 {
   perSystem =
     { config, ... }:
     {
-      packages = filterAttrs (_: isDerivation) config.legacyPackages;
+      packages = lib.filterAttrs (_: lib.isDerivation) config.legacyPackages;
     };
 }

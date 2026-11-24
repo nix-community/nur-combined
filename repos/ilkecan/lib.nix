@@ -1,11 +1,9 @@
 {
-  pkgs,
+  lib,
+  nixpkgs,
 }:
 
 let
-  lib' = import ./lib {
-    inherit lib' pkgs;
-    inherit (pkgs) lib;
-  };
+  lib' = import ./lib { inherit lib lib' nixpkgs; };
 in
 lib'

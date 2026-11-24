@@ -6,7 +6,6 @@ let
   inherit (pkgs.lib)
     hasAttrByPath
     importTOML
-    mapAttrs
     optionalString
     substring
     warnOnInstantiate
@@ -41,4 +40,7 @@ let
     else
       pkg;
 in
-mapAttrs warnIfUpstreamed packages
+# NUR evaluates the repo without `pkgs` to reach its modules, so the attribute
+# names must not depend on it. Every entry in ./packages is a directory, for
+# which `packagesFromDirectoryRecursive` uses the directory name as is.
+builtins.mapAttrs (name: _: warnIfUpstreamed name packages.${name}) (builtins.readDir ./packages)

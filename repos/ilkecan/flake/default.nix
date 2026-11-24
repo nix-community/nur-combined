@@ -10,6 +10,7 @@
     inputs.flake-parts.flakeModules.modules
     inputs.git-hooks.flakeModule
 
+    ./args.nix
     ./flake-modules.nix
     ./home-modules.nix
     ./modules.nix

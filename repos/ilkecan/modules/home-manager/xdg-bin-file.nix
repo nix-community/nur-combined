@@ -7,12 +7,6 @@
 }:
 
 let
-  inherit (lib)
-    mapAttrs'
-    mkOption
-    nameValuePair
-    ;
-
   cfg = config.xdg;
 
   fileType =
@@ -24,7 +18,7 @@ in
 {
   meta.maintainers = with lib.maintainers; [ ilkecan ];
 
-  options.xdg.binFile = mkOption {
+  options.xdg.binFile = lib.mkOption {
     type = fileType "xdg.binFile" "`xdg.binHome`" cfg.binHome;
     default = { };
     description = ''
@@ -32,8 +26,8 @@ in
     '';
   };
 
-  config.home.file = mapAttrs' (
+  config.home.file = lib.mapAttrs' (
     name: file:
-    nameValuePair "${cfg.binHome}/${name}" (file // { executable = file.executable != false; })
+    lib.nameValuePair "${cfg.binHome}/${name}" (file // { executable = file.executable != false; })
   ) cfg.binFile;
 }
