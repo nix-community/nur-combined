@@ -328,10 +328,10 @@
     };
     "send-later" = buildMozillaXpiAddon {
       pname = "send-later";
-      version = "10.7.8";
+      version = "10.8.0";
       addonId = "sendlater3@kamens.us";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1042516/send_later-10.7.8-tb.xpi?src=";
-      sha256 = "c6290ebbc8a22431d9cd59d12a62835dbd0df749bba6ff162c07b4e84fc503f0";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1055938/send_later-10.8.0-tb.xpi?src=";
+      sha256 = "c4596ce4c0da267f0a5f1506056fa238a61e7bff65b2b82826e14a611fc43e3d";
       meta = with lib;
       {
         homepage = "https://extended-thunder.github.io/send-later/";
@@ -361,10 +361,10 @@
     };
     "tb-langpack-de" = buildMozillaXpiAddon {
       pname = "tb-langpack-de";
-      version = "161.0.20261117.204214";
+      version = "161.0.20261120.171716";
       addonId = "langpack-de@thunderbird.mozilla.org";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1055800/deutsch_de_language_pack-161.0.20261117.204214-tb.xpi?src=";
-      sha256 = "abefcfd7d22f779fc61a5934d304083eb59b45435e10da2b00874c0c35522b1c";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1056066/deutsch_de_language_pack-161.0.20261120.171716-tb.xpi?src=";
+      sha256 = "1d8f68b6c11aeae16c34c811adcd18988afc833108a72abe81420ebe65e93825";
       meta = with lib;
       {
         description = "Deutsch (de) Language Pack";
