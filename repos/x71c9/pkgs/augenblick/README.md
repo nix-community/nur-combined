@@ -1,6 +1,6 @@
 # augenblick
 
-Reminds you to blink. At regular intervals, it closes your screen like an eyelid — two black bars sweep in from the top and bottom and meet in the middle, then open again — so you rest your eyes. A `fill` movement covers the whole screen at once instead of sweeping.
+A blink reminder for the desktop. At regular intervals it closes the screen like an eyelid — two black bars sweep in from the top and bottom and meet in the middle, then open again — as a cue to rest the eyes. A `fill` movement covers the whole screen at once instead of sweeping.
 
 https://github.com/user-attachments/assets/7a6bac03-1e11-4abc-9f07-983a7cfbc963
 
@@ -39,7 +39,7 @@ Options:
 
 ### NixOS / Nix — NUR
 
-Add the NUR channel if you haven't already:
+Add the NUR channel, if not already present:
 
 ```bash
 nix-channel --add https://github.com/nix-community/NUR/archive/master.tar.gz nur
@@ -89,12 +89,13 @@ brew install x71c9/x71c9/augenblick
 
 ### Pre-built binaries
 
-Download the latest release for your platform from the
+Archives for each platform are attached to every release on the
 [releases page](https://github.com/x71c9/augenblick/releases).
 
 | Platform | File |
 |----------|------|
-| Linux x86\_64 | `augenblick-x86_64-unknown-linux-musl.tar.gz` |
+| Linux x86\_64 | `augenblick-x86_64-unknown-linux-gnu.tar.gz` |
+| Linux ARM64 | `augenblick-aarch64-unknown-linux-gnu.tar.gz` |
 | macOS Apple Silicon | `augenblick-aarch64-apple-darwin.tar.gz` |
 | macOS Intel | `augenblick-x86_64-apple-darwin.tar.gz` |
 
@@ -185,7 +186,7 @@ the theming tool (pywal templates, Stylix, home-manager, …) generates
 
 ## Requirements
 
-**Linux:** X11 with `libxcb` installed.
+**Linux:** X11 with `libxcb` installed, or a Wayland compositor that supports `wlr-layer-shell` (Sway, Hyprland and other wlroots-based compositors, KDE Plasma). GNOME does not support it.
 
 **macOS:** [XQuartz](https://www.xquartz.org) must be installed and running. Launch it before running augenblick:
 
