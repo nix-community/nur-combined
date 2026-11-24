@@ -3,15 +3,15 @@
 { fetchurl, stdenv }:
 
 let
-  version = "16.6.0.32198";
+  version = "16.8.0.34767";
   sources = {
     "x86_64-linux" = {
-      url = "https://dw.oray.com/sl/linux/awesun_16.6.0.32198_amd64.deb";
-      hash = "sha256-dtLVNEE6WKi79cV3teYXjj6vimhTBMAnrwL6TpItVjk=";
+      url = "https://dw.oray.com/sl/linux/awesun_16.8.0.34767_amd64.deb";
+      hash = "sha256-o+UBldLWOwKEMswbzVO5fse/Ha9jTr+tw60hHQEMPKg=";
     };
     "aarch64-linux" = {
-      url = "https://dw.oray.com/sl/linux/awesun_16.6.0.32198_arm64.deb";
-      hash = "sha256-t21KmdsZTQwoFBH9cbIUdsDHFCvthud/mwXI40k6ekc=";
+      url = "https://dw.oray.com/sl/linux/awesun_16.8.0.34767_arm64.deb";
+      hash = "sha256-/BdMYABjp1A5ZA874Ak0rvqoq8DxLahF2k7UxMv1OmA=";
     };
   };
   source =
