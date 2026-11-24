@@ -8,10 +8,10 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "whisper-vamp-plugin-bin";
-  version = "5.0.0";
+  version = "5.1.0";
   src = fetchzip {
     url = "https://github.com/Ircam-Partiels/whisper-vamp-plugin/releases/download/${finalAttrs.version}/Whisper-Vamp-Linux.zip";
-    sha256 = "sha256-5Ytoqmf4oHoIj38e6W6n1cCZiv+WfzMbIatcrRnK/n4=";
+    sha256 = "sha256-bPInwn+qV2erQhGi7DMAQtn63BHD3fqMwcUr6s9u8Pw=";
   };
   sourceRoot = ".";
 

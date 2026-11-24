@@ -8,10 +8,10 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "crepe-vamp-plugin-bin";
-  version = "4.1.0";
+  version = "4.2.0";
   src = fetchzip {
     url = "https://github.com/Ircam-Partiels/crepe-vamp-plugin/releases/download/${finalAttrs.version}/Crepe-Vamp-Linux.zip";
-    sha256 = "sha256-AIIxsXtp3cgQ1CC+AFbplOvznY0nu28cP0ANvrGG9vI=";
+    sha256 = "sha256-2wP1PKJ8LzPkQQeXiFdbsluLR18bDQOxaS9PDBju4BQ=";
   };
   sourceRoot = ".";
 

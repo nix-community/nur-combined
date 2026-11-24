@@ -412,9 +412,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "636ac6214dcb6770f6966c8132d73e6abaf7595c",
-      "url": "https://github.com/sudo-tee/opencode.nvim/archive/636ac6214dcb6770f6966c8132d73e6abaf7595c.tar.gz",
-      "hash": "sha256-9r1y1L7aA15JlGHYPkYJeOLPYJUNjtanKKxoSu4nHL4="
+      "revision": "82f8c927cb09fa73dcc6753ab0ecf219eb65032e",
+      "url": "https://github.com/sudo-tee/opencode.nvim/archive/82f8c927cb09fa73dcc6753ab0ecf219eb65032e.tar.gz",
+      "hash": "sha256-Fq0/Dzy7Zsjd0W3cN2KLLyPS9UYsqSqCLRx+0vqT6sw="
     },
     "org-bullets.nvim": {
       "type": "Git",
@@ -581,9 +581,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "51e2ae0631147ca9a2e772766009bbbe955b2711",
-      "url": "https://github.com/Aetf/ucw.nvim/archive/51e2ae0631147ca9a2e772766009bbbe955b2711.tar.gz",
-      "hash": "sha256-NxJD6HtiIE5ZH6GR8cV6WtszG8VmGqk0aIK8FngaE8U="
+      "revision": "21a03fa5592529dc25b887b9df23e9aa8d9d7767",
+      "url": "https://github.com/Aetf/ucw.nvim/archive/21a03fa5592529dc25b887b9df23e9aa8d9d7767.tar.gz",
+      "hash": "sha256-oEpDIIkf+k2v+aljZADS2FnuLU2ETitP2eBWvd3KOuA="
     },
     "vim-faust": {
       "type": "Git",
