@@ -8,13 +8,13 @@
 }:
 
 let
-  version = "10.52.1d";
+  version = "10.53.1a";
   pname = "ibkr-gateway";
 
   src = fetchurl {
     # Always serves the latest version; no versioned URL available
     url = "https://download2.interactivebrokers.com/installers/ibgateway/latest-standalone/ibgateway-latest-standalone-linux-x64.sh";
-    hash = "sha256-EUQ2UMAwV1G44jnIlORzDbikUsA6QSVSmPKfiaT8xgM=";
+    hash = "sha256-66aw+P6RZFhjQ7djcGWpWnSApL5yeS5gjqAlLPWUIps=";
     name = "${pname}-${version}-installer.sh";
   };
 
@@ -200,7 +200,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.etagHash = "cfa1c31dc10a3593742f125b362341ed";
+  passthru.etagHash = "47981d46e163af0a221e2008a2984092";
 
   meta = {
     description = "Interactive Brokers Gateway for automated trading";
