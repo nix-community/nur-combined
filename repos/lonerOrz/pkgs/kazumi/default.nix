@@ -25,13 +25,13 @@
 }:
 
 let
-  version = "2.4.4";
+  version = "2.4.6";
 
   src = fetchFromGitHub {
     owner = "Predidit";
     repo = "Kazumi";
     tag = version;
-    hash = "sha256-ipmUwW3o7TakkbFGqVUQmP9koCUiIedYu/hNtxKFjs8=";
+    hash = "sha256-aDnqyozwtxqpXwn5WRTqqroyp6m6zfgzy66p/+K5o90=";
   };
 
   echDeps = lib.importJSON ./ech-http-deps.json;
