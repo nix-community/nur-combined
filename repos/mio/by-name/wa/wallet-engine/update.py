@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Update wallet-engine to the tip of upstream's default branch.
 
-The package has three pins that must move together: the source revision (and
-its hash), the `cargoHash` of the library build, and the hash of the separate
-`bindgen/cpp` vendor tree. Upstream's tags stop at v0.0.7, so the version keeps
-the repo convention `<latest-tag>-unstable-<commit-date>`.
+The package has four pins that must move together: the source revision (and
+its hash), the `rustPatchesRev`/hash of Forkgram's wallet-engine patch from
+desktop-app/patches, the `cargoHash` of the library build, and the hash of the
+separate `bindgen/cpp` vendor tree. Upstream's tags stop at v0.0.7, so the
+version keeps the repo convention `<latest-tag>-unstable-<commit-date>`.
 
 The two vendor hashes are fixed-output derivations whose contents are produced
 by cargo, so they cannot be prefetched from a URL: force a mismatch with
@@ -50,8 +51,9 @@ def commit_date(sha):
         return git("-C", tmp, "log", "-1", "--format=%cs", "FETCH_HEAD")
 
 
-def sri_hash(url):
-    raw = run(["nix-prefetch-url", "--unpack", url]).stdout.strip().splitlines()[-1]
+def sri_hash(url, unpack=True):
+    args = ["nix-prefetch-url", "--unpack"] if unpack else ["nix-prefetch-url"]
+    raw = run([*args, url]).stdout.strip().splitlines()[-1]
     return run(
         ["nix", "hash", "convert", "--hash-algo", "sha256", "--to", "sri", raw]
     ).stdout.strip()
@@ -104,9 +106,18 @@ def main():
     rev = sys.argv[1] if len(sys.argv) > 1 else old_rev
     version = f"{latest_tag()}-unstable-{commit_date(rev)}"
 
+    # The patch and the engine commit are independent pins: forkgram's
+    # mac_packaged workflow names both. Take the patch commit as an optional
+    # second argument, defaulting to the current one.
+    old_patches_rev = re.search(r'(?m)^\s*rustPatchesRev = "([^"]+)";', text).group(
+        1
+    )
+    patches_rev = sys.argv[2] if len(sys.argv) > 2 else old_patches_rev
+
     old_version = re.search(r'(?m)^\s*version = "([^"]+)";', text).group(1)
     print(f"Version: {old_version} -> {version}")
     print(f"Source:  {old_rev} -> {rev}")
+    print(f"Patches: {old_patches_rev} -> {patches_rev}")
 
     # The vendor hashes are not URL-prefetchable, so they are always re-checked:
     # a revision can stay put while its vendored dependencies change.
@@ -114,11 +125,31 @@ def main():
     src_hash = sri_hash(f"https://github.com/i582/wallet-engine/archive/{rev}.tar.gz")
     text = re.sub(r'(?m)^(\s*version = )"[^"]+"', rf'\g<1>"{version}"', text, count=1)
     text = re.sub(r'(?m)^(\s*rev = )"[^"]+"', rf'\g<1>"{rev}"', text, count=1)
+    # Anchor to the src block: package.nix now has other `hash =` attributes.
     text = re.sub(
-        r'(?m)^(\s*hash = )"[^"]+"', rf'\g<1>"{src_hash}"', text, count=1
+        r'(?ms)^(  src = fetchFromGitHub \{\n.*?^\s*hash = )"[^"]+"',
+        rf'\g<1>"{src_hash}"',
+        text,
+        count=1,
+    )
+    patches_hash = sri_hash(
+        "https://raw.githubusercontent.com/desktop-app/patches/"
+        f"{patches_rev}/wallet-engine.patch",
+        unpack=False,
+    )
+    text = re.sub(
+        r'(?m)^(\s*rustPatchesRev = )"[^"]+"', rf'\g<1>"{patches_rev}"', text, count=1
+    )
+    text = re.sub(
+        r'(?m)^(\s*rustPatches = fetchurl \{.*?^\s*hash = )"[^"]+"',
+        rf'\g<1>"{patches_hash}"',
+        text,
+        count=1,
+        flags=re.S | re.M,
     )
     pkg_nix.write_text(text)
     print(f"Source hash: {src_hash}")
+    print(f"Patches hash: {patches_hash}")
 
     # Each hash is resolved against its own fixed-output derivation, so one
     # stale hash cannot mask the other.

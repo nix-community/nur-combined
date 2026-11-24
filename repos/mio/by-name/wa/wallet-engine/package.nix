@@ -3,6 +3,7 @@
   stdenv,
   rustPlatform,
   fetchFromGitHub,
+  fetchurl,
   python3,
   nix,
   git,
@@ -21,6 +22,15 @@ let
     hash = "sha256-729W7YCjkUCdL8Xk8BPHKdjpK6F+x1C9wnk/17TGhx4=";
   };
 
+  # Forkgram's own patch for this engine comes from the shared
+  # desktop-app/patches repo, at the commit its mac_packaged workflow pins
+  # next to WALLET_ENGINE. Fetch it rather than vendoring the ~12k-line delta.
+  rustPatchesRev = "8a28b8433af70771c3d101c776ad837a94bd47ec";
+  rustPatches = fetchurl {
+    url = "https://raw.githubusercontent.com/desktop-app/patches/${rustPatchesRev}/wallet-engine.patch";
+    hash = "sha256-R9zeNHfgVt6GuhPIz1Xq30sTCdDpBLvgarBZLw++LP4=";
+  };
+
   bindgenCargoDeps = rustPlatform.fetchCargoVendor {
     pname = "wallet-engine-bindgen";
     inherit version src;
@@ -36,7 +46,7 @@ let
     cargoHash = "sha256-b9LErZRUgVa/bHjmbN3ltW8vUoF9UhCjMAfFPSbpzbY=";
 
     # Forkgram builds this engine from a pinned commit plus its own patch set.
-    patches = [ ./wallet-engine.patch ];
+    patches = [ rustPatches ];
 
     cargoBuildFlags = [ "--lib" ];
 

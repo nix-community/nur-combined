@@ -1,6 +1,7 @@
 # Agent notes
 
 - In this flake repo, run `git add` for newly created files before `nix build .#...`, because untracked files are not included in flake evaluation.
+- Do not check upstream-published patches into this repo. Pin the patch's revision and fetch it with `fetchurl`/`fetchpatch` (SRI `hash =`), as `wallet-engine` does for Forkgram's patch in `desktop-app/patches`; keep that pin in the package expression and in its update script so it moves together with the source revision. Patches that exist only here (our own fixes) still live as files next to `package.nix`.
 - Use the modern SRI format for hashes (e.g. `hash = "sha256-..."`) instead of the legacy `sha256 = "..."` attribute. You can convert old hashes using `nix hash convert <hash>` or `nix hash to-sri --type sha256 <hash>`. Note that `builtins.fetchTarball` does NOT support the `hash` attribute (only the deprecated `sha256=` is supported); use `pkgs.fetchzip` instead when you need to fetch tarballs and use the modern `hash=` attribute.
 - NEVER FORCE PUSH! Just commit and `git push` normally. UNLESS YOU ACCIDENTLY PUSHED binary or other unneeded big files to git history ONLY IN THIS CASE push --force acceptable
 - ALWAYS confirm that `nix build` passes successfully and the built app functions correctly before committing and pushing any changes.

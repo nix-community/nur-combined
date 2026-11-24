@@ -82,7 +82,7 @@ DROP_IMPORT_PATTERNS = [
                r'(androidauto|appicon|musicrecognition|localmedia|cast)\..*$', re.M),
     re.compile(r'^import moe\.rukamori\.archivetune\.viewmodels\.'
                r'(AndroidAutoSettingsViewModel|IconViewModel|MusicRecognitionViewModel'
-               r'|LocalSongsViewModel)$', re.M),
+               r'|MusicRecognitionDetailsViewModel|LocalSongsViewModel)$', re.M),
     re.compile(r'^import moe\.rukamori\.archivetune\.ui\.screens\.settings\.'
                r'(AndroidAutoSettings|IconScreen)$', re.M),
     re.compile(r'^import moe\.rukamori\.archivetune\.ui\.screens\.library\.'
@@ -190,9 +190,12 @@ def drop_function(text, name):
                 end += 1
                 break
         end += 1
-    start = match.start()
-    while start > 0 and text[start - 1] == '\n':
-        start -= 1
+    # `match` starts at the line start and its leading `\s*` swallows any blank
+    # lines above the declaration, so anchor on the `fun` keyword's own line:
+    # that keeps the preceding newline and stops the following declaration
+    # being glued onto the previous one.
+    fun_pos = text.index('fun', match.start(), match.end())
+    start = text.rfind('\n', 0, fun_pos) + 1
     return text[:start] + text[end:].lstrip('\n')
 
 

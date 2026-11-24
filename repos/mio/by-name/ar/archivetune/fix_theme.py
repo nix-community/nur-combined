@@ -182,7 +182,7 @@ fun <T> allocateDummy(clazz: Class<T>): T {
         val instance = unsafeClass.getMethod("allocateInstance", Class::class.java).invoke(unsafe, clazz) as T
         for (field in clazz.declaredFields) {
             field.isAccessible = true
-            if (field.name.startsWith("\$\$delegate_") || field.name.startsWith("delegate")) {
+            if (field.name.startsWith("\\$\\$delegate_") || field.name.startsWith("delegate")) {
                 if (field.type.isInterface) {
                     val proxy = java.lang.reflect.Proxy.newProxyInstance(
                         clazz.classLoader,
