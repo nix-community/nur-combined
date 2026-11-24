@@ -6,9 +6,7 @@ Personal [NUR](https://github.com/nix-community/NUR) package set (flake, `x86_64
 
 | Package | Description |
 | --- | --- |
-| `chat-on-steroids` | [Chat On Steroids](https://github.com/totec448-spec/chat-on-steroids): local coding bridge for ChatGPT (MCP, Chrome integration, multi-agent workflows), wrapped from the upstream AppImage |
 | `limusic` | [Limusic](https://github.com/SimoHypers/limusic): native desktop YouTube Music client (Tauri, ad-free playback via libmpv), wrapped from the upstream AppImage |
-| `local-shell-mcp` | [local-shell-mcp](https://github.com/fwerkor/local-shell-mcp): MCP server giving LLMs a shell, from the upstream binary release |
 | `rpcs3-bin` | [RPCS3](https://rpcs3.net/) PlayStation 3 emulator, wrapped from the upstream nightly AppImage |
 
 ## Use
@@ -56,24 +54,21 @@ A nightly workflow (`.github/workflows/update.yaml`, also manually dispatchable)
 
 1. `nix flake update`: tracks nixos-unstable, so nixpkgs breakage surfaces here
    before NUR users hit it;
-2. `nix run .#update`: runs `nix-update --flake --build -u` on every package in
-   `pkgs/`;
+2. `nix run .#update`: runs `nix-update --flake --use-github-releases -u` on every
+   package in `pkgs/`;
 3. `nix flake check`: builds everything and runs the library check;
 
 then opens a single auto-merged PR (`updates/packages`). Any failure stops the run
 before the PR, and GitHub emails the failure.
 
-Conventions for `scripts/update.sh`:
+`nix run .#update` works the same locally (set `GITHUB_TOKEN` to avoid the GitHub
+API rate limit). Notes:
 
-- **Normal packages** need nothing special: nix-update compares against upstream
-  releases and rewrites `version` + `hash`.
-- **Per-package flags** (e.g. `--version-regex`, `--version=branch`) or custom
-  logic go in the derivation, the nixpkgs-idiomatic way. `-u` runs it when present:
-
-  ```nix
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
-  ```
-
-- **Opting out**: a package nix-update cannot evaluate (no `version`, e.g. a
-  static desktop entry) gets a `pkgs/<name>/no-auto-update` file
-  explaining why; the script skips it.
+- nix-update comes from its upstream flake (the `nix-update` input), not nixpkgs,
+  so fixes for new Nix releases arrive without waiting for nixos-unstable.
+- Versions come from the GitHub releases API rather than the `releases.atom`
+  feed, which also lists bare tags that may not have their assets yet; GitHub
+  pre-releases are skipped.
+- **Normal packages** need nothing special: nix-update rewrites `version` + `hash`.
+- **Custom logic** goes in the derivation as `passthru.updateScript`, which `-u`
+  runs instead; see `pkgs/rpcs3-bin` (nightly AppImage whose URL embeds a commit).

@@ -12,16 +12,15 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v5
-      - uses: cachix/install-nix-action@v31
-        with:
-          # nix-update runs passthru.updateScript via `import <nixpkgs>`.
-          nix_path: nixpkgs=flake:nixpkgs
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v32
       # NUR builds these packages against its users' nixpkgs, not our lock:
       # track nixos-unstable so breakage from nixpkgs shows up here first.
-      - name: Update nixpkgs
+      - name: Update flake inputs
         run: nix flake update
       - name: Update packages
+        env:
+          GITHUB_TOKEN: ${{ github.token }} # GitHub API rate limit
         run: nix run .#update
       - name: Check packages
         run: nix flake check -L

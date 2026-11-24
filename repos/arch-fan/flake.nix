@@ -1,10 +1,18 @@
 {
   description = "arch-fan NUR packages";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    # Upstream, not nixpkgs' copy: fixes for new Nix releases land here first.
+    nix-update = {
+      url = "github:Mic92/nix-update";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
   outputs =
-    { nixpkgs, ... }:
+    { nixpkgs, nix-update, ... }:
     let
       system = "x86_64-linux";
       inherit (nixpkgs) lib;
@@ -37,7 +45,10 @@
         program = lib.getExe (
           pkgs.writeShellApplication {
             name = "update";
-            runtimeInputs = [ pkgs.nix-update ];
+            runtimeInputs = [ nix-update.packages.${system}.default ];
+            # nix-update evaluates passthru.updateScript via `import <nixpkgs>`:
+            # point it at our nixpkgs instead of whatever the caller's NIX_PATH has.
+            runtimeEnv.NIX_PATH = "nixpkgs=${nixpkgs}";
             text = builtins.readFile ./scripts/update.sh;
           }
         );

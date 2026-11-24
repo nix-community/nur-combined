@@ -4,25 +4,13 @@
   lib,
 }:
 
-appimageTools.wrapAppImage (finalAttrs: {
+appimageTools.wrapType2 (finalAttrs: {
   pname = "limusic";
-  version = "1.3.0";
+  version = "1.4.1";
 
   src = fetchurl {
     url = "https://github.com/SimoHypers/limusic/releases/download/v${finalAttrs.version}/limusic_${finalAttrs.version}_amd64.AppImage";
-    hash = "sha256-skhW7OeTMN06Y/WvI5Tm+Dja50rtxh42d0Q96Qwrc4c=";
-  };
-
-  # wrapType2's extraction, plus: upstream forces GDK_BACKEND=x11; honor the
-  # caller's value and prefer Wayland.
-  contents = appimageTools.extract {
-    inherit (finalAttrs) pname version src;
-
-    postExtract = ''
-      substituteInPlace $out/apprun-hooks/linuxdeploy-plugin-gtk.sh \
-        --replace-fail 'export GDK_BACKEND=x11' \
-          'export GDK_BACKEND="''${GDK_BACKEND:-wayland,x11}"'
-    '';
+    hash = "sha256-sN96kSnmSNsEH395ovKMybORSQPwYqBwU/z8r0FS/DA=";
   };
 
   # The bundled libgcrypt needs it; appimageTools stopped providing it.
