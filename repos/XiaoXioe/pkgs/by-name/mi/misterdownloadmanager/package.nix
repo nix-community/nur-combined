@@ -74,6 +74,9 @@ stdenv.mkDerivation rec {
     wayland
   ];
 
+  # autoPatchelfHook mempertahankan runtimeDependencies di RUNPATH ELF untuk library dlopen.
+  runtimeDependencies = dlopenLibs;
+
   unpackPhase = ''
     runHook preUnpack
     dpkg-deb -x $src .
@@ -110,11 +113,6 @@ stdenv.mkDerivation rec {
       --suffix XDG_DATA_DIRS : "${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}"
 
     runHook postInstall
-  '';
-
-  # Tambahkan library dlopen ke RUNPATH biner asli setelah fixupPhase agar tidak dipangkas.
-  postFixup = ''
-    patchelf --add-rpath "${lib.makeLibraryPath dlopenLibs}" $out/bin/.misterdownloadmanager-wrapped
   '';
 
   meta = with lib; {
