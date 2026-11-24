@@ -253,13 +253,13 @@ exportedByName
     studioVariant = true;
   };
 
-  baobab = pkgs.baobab.overrideAttrs (old: {
+  baobab_patched = pkgs.baobab.overrideAttrs (old: {
     nativeBuildInputs =
       (old.nativeBuildInputs or [ ])
       ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isDarwin pkgs.desktopToDarwinBundle;
   });
 
-  evince = pkgs.evince.overrideAttrs (old: {
+  evince_patched = pkgs.evince.overrideAttrs (old: {
     nativeBuildInputs =
       (old.nativeBuildInputs or [ ])
       ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isDarwin pkgs.desktopToDarwinBundle;
