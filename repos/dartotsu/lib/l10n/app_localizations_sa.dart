@@ -333,8 +333,7 @@ class AppLocalizationsSa extends AppLocalizations {
   String get settingsNetwork => 'जालम्';
 
   @override
-  String get settingsNetworkDesc =>
-      'उपयोक्तृ एजेण्ट्, प्रमाणपत्राणि, DNS तथा प्रॉक्सी';
+  String get settingsNetworkDesc => 'User agent, certificates, DNS and proxy';
 
   @override
   String get settingsAccountDesc => 'अनुसरणसेवा लॉगिन् च';
@@ -1354,7 +1353,7 @@ class AppLocalizationsSa extends AppLocalizations {
   String get defaultFont => 'मूलभूतम्';
 
   @override
-  String get materialYou => 'सामग्री त्वं';
+  String get materialYou => 'Material You';
 
   @override
   String get materialYouDesc => 'सिस्टम्-तः गतिशीलः वर्णः';
@@ -1414,7 +1413,7 @@ class AppLocalizationsSa extends AppLocalizations {
   String get checkNow => 'इदानीं परीक्षस्व';
 
   @override
-  String get userAgent => 'उपयोक्ता-एजेण्ट्';
+  String get userAgent => 'User-Agent';
 
   @override
   String get settingDefault => 'मूलभूतम्';
@@ -1425,7 +1424,7 @@ class AppLocalizationsSa extends AppLocalizations {
   }
 
   @override
-  String get dnsOverHttps => 'DNS-over-HTTPS इति';
+  String get dnsOverHttps => 'DNS-over-HTTPS';
 
   @override
   String get dnsDefault => 'मूलभूतम् (Cloudflare)';
@@ -1518,7 +1517,7 @@ class AppLocalizationsSa extends AppLocalizations {
   String get version => 'संस्करणम्';
 
   @override
-  String get gitHub => 'गित्हब';
+  String get gitHub => 'GitHub';
 
   @override
   String get gitHubDesc => 'कोडः, समस्याः, रिलीज्स् च';
@@ -1551,7 +1550,7 @@ class AppLocalizationsSa extends AppLocalizations {
   String get contributorsLoadFailed => 'योगदातारः आनेतुं न शक्यन्ते';
 
   @override
-  String get forks => 'हंसाः';
+  String get forks => 'Forks';
 
   @override
   String get forksDesc => 'Dartotsu उपरि निर्मिताः परियोजनाः';
@@ -1740,7 +1739,7 @@ class AppLocalizationsSa extends AppLocalizations {
   String get linkSettingsFailed => 'सिस्टम्-सेटिंग्स् उद्घाटयितुं न शक्यन्ते';
 
   @override
-  String get discordRichPresence => 'समृद्ध उपस्थिति';
+  String get discordRichPresence => 'Rich Presence';
 
   @override
   String get discordRichPresenceTokenDesc =>
@@ -1873,7 +1872,7 @@ class AppLocalizationsSa extends AppLocalizations {
   String get discordTokenRemovedSnack => 'Discord टोकन् अपनीतम्';
 
   @override
-  String get discordRichPresenceRow => 'असहमति समृद्ध उपस्थिति';
+  String get discordRichPresenceRow => 'Discord Rich Presence';
 
   @override
   String get discordRichPresenceRowOn => 'सक्रिय · रूपपरिवर्तनार्थं स्पृश';
@@ -2072,6 +2071,24 @@ class AppLocalizationsSa extends AppLocalizations {
       'comick.dev इत्यत्र पञ्जीकृतं कस्टम् क्लायन्ट् आईडी';
 
   @override
+  String get traktClientId => 'Trakt Client ID';
+
+  @override
+  String get traktClientIdDesc =>
+      'Sign in with your own Trakt app instead of the built-in one';
+
+  @override
+  String get traktCreateApp => 'Create a Trakt app';
+
+  @override
+  String get traktCreateAppDesc => 'Opens your apps on trakt.tv';
+
+  @override
+  String traktRedirectHelp(String uris) {
+    return 'On trakt.tv/oauth/applications create an app and add these Redirect URIs, one per line:\n\n$uris\n\nThen paste its Client ID here, save and sign in again.';
+  }
+
+  @override
   String get couldNotUpdateKitsuSettings =>
       'तव Kitsu सेटिंग्स् अद्यतनितुं न शक्यन्ते';
 
@@ -2147,7 +2164,7 @@ class AppLocalizationsSa extends AppLocalizations {
 
   @override
   String serviceError(String service, String error) {
-    return '__प०__: __प१__ २.';
+    return '$service: $error';
   }
 
   @override
@@ -3674,7 +3691,7 @@ class AppLocalizationsSa extends AppLocalizations {
   String get sortNewest => 'नूतनतमानि';
 
   @override
-  String get sortAz => 'अ–झ';
+  String get sortAz => 'A–Z';
 
   @override
   String get sortMostFavourited => 'अतिप्रियानि';
@@ -3770,6 +3787,11 @@ class AppLocalizationsSa extends AppLocalizations {
 
   @override
   String get continueWatching => 'दर्शनं चालय';
+
+  @override
+  String splitSection(String section, String kind) {
+    return '$section · $kind';
+  }
 
   @override
   String get continueReading => 'पठनं चालय';
@@ -4048,7 +4070,7 @@ class AppLocalizationsSa extends AppLocalizations {
 
   @override
   String userTitle(String name, String title) {
-    return '__प०__ · __प१__ २.';
+    return '$name · $title';
   }
 
   @override
@@ -4452,7 +4474,7 @@ class AppLocalizationsSa extends AppLocalizations {
 
   @override
   String syncPushFailed(String service, String error) {
-    return '__प०__: __प१__ २.';
+    return '$service: $error';
   }
 
   @override
@@ -8503,7 +8525,7 @@ class AppLocalizationsSa extends AppLocalizations {
 
   @override
   String get sourceWhyVerdictSkipped =>
-      'उपरिष्टाद् नियमैः एतत् शीर्षकं लङ्घितम् अस्ति । सूचनासेटिङ्ग्स् मध्ये तान् परिवर्तयन्तु, अथवा तथापि परीक्षार्थं "अधुना परीक्ष्यताम्" इत्यस्य उपयोगं कुरुत ।';
+      'उपरिष्टाद् नियमैः एतत् शीर्षकं लङ्घितम् अस्ति । सूचनासेटिङ्ग्स् मध्ये तान् परिवर्तयन्तु, अथवा तथापि परीक्षार्थं \"अधुना परीक्ष्यताम्\" इत्यस्य उपयोगं कुरुत ।';
 
   @override
   String get sourceWhyVerdictBroken =>

@@ -337,8 +337,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get settingsNetwork => 'Сеть';
 
   @override
-  String get settingsNetworkDesc =>
-      'Пользовательский агент, сертификаты, DNS и прокси';
+  String get settingsNetworkDesc => 'User agent, certificates, DNS and proxy';
 
   @override
   String get settingsAccountDesc => 'Сервис учёта и вход';
@@ -1356,7 +1355,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get defaultFont => 'По умолчанию';
 
   @override
-  String get materialYou => 'Материальный ты';
+  String get materialYou => 'Material You';
 
   @override
   String get materialYouDesc => 'Динамические цвета системы';
@@ -1416,7 +1415,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get checkNow => 'Проверить сейчас';
 
   @override
-  String get userAgent => 'Пользовательский агент';
+  String get userAgent => 'User-Agent';
 
   @override
   String get settingDefault => 'По умолчанию';
@@ -1553,7 +1552,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get contributorsLoadFailed => 'Не удалось загрузить участников';
 
   @override
-  String get forks => 'Вилки';
+  String get forks => 'Forks';
 
   @override
   String get forksDesc => 'Проекты на основе Dartotsu';
@@ -1742,7 +1741,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get linkSettingsFailed => 'Не удалось открыть настройки системы';
 
   @override
-  String get discordRichPresence => 'Богатое присутствие';
+  String get discordRichPresence => 'Rich Presence';
 
   @override
   String get discordRichPresenceTokenDesc =>
@@ -1876,7 +1875,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get discordTokenRemovedSnack => 'Токен Discord удалён';
 
   @override
-  String get discordRichPresenceRow => 'Богатое присутствие Discord';
+  String get discordRichPresenceRow => 'Discord Rich Presence';
 
   @override
   String get discordRichPresenceRowOn => 'Вкл. · нажми, чтобы поменять вид';
@@ -2073,6 +2072,24 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get comickClientIdDesc =>
       'Пользовательский идентификатор клиента, зарегистрированный на сайте comick.dev.';
+
+  @override
+  String get traktClientId => 'Trakt Client ID';
+
+  @override
+  String get traktClientIdDesc =>
+      'Sign in with your own Trakt app instead of the built-in one';
+
+  @override
+  String get traktCreateApp => 'Create a Trakt app';
+
+  @override
+  String get traktCreateAppDesc => 'Opens your apps on trakt.tv';
+
+  @override
+  String traktRedirectHelp(String uris) {
+    return 'On trakt.tv/oauth/applications create an app and add these Redirect URIs, one per line:\n\n$uris\n\nThen paste its Client ID here, save and sign in again.';
+  }
 
   @override
   String get couldNotUpdateKitsuSettings =>
@@ -3679,7 +3696,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get sortNewest => 'Новые';
 
   @override
-  String get sortAz => 'А – Я';
+  String get sortAz => 'A–Z';
 
   @override
   String get sortMostFavourited => 'Чаще всего в избранном';
@@ -3781,6 +3798,11 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get continueWatching => 'Продолжить просмотр';
+
+  @override
+  String splitSection(String section, String kind) {
+    return '$section · $kind';
+  }
 
   @override
   String get continueReading => 'Продолжить чтение';
@@ -4652,7 +4674,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get commentsSpoiler => 'Спойлер';
 
   @override
-  String get commentsGif => 'гифка';
+  String get commentsGif => 'GIF';
 
   @override
   String get commentsGifSearch => 'Поиск GIF';
@@ -5699,7 +5721,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get playerSectionEngine => 'Движок';
 
   @override
-  String get playerSectionMpv => 'минивэн';
+  String get playerSectionMpv => 'mpv';
 
   @override
   String get playerSpeed => 'Скорость воспроизведения';

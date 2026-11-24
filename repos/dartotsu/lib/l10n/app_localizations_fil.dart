@@ -334,7 +334,7 @@ class AppLocalizationsFil extends AppLocalizations {
   String get settingsNetwork => 'Network';
 
   @override
-  String get settingsNetworkDesc => 'User agent, certificate, DNS at proxy';
+  String get settingsNetworkDesc => 'User agent, certificates, DNS and proxy';
 
   @override
   String get settingsAccountDesc => 'Tracking service at sign-in';
@@ -1358,7 +1358,7 @@ class AppLocalizationsFil extends AppLocalizations {
   String get defaultFont => 'Default';
 
   @override
-  String get materialYou => 'Materyal Ikaw';
+  String get materialYou => 'Material You';
 
   @override
   String get materialYouDesc => 'Dynamic na kulay mula sa system';
@@ -1418,7 +1418,7 @@ class AppLocalizationsFil extends AppLocalizations {
   String get checkNow => 'I-check ngayon';
 
   @override
-  String get userAgent => 'Ahente ng Gumagamit';
+  String get userAgent => 'User-Agent';
 
   @override
   String get settingDefault => 'Default';
@@ -1555,7 +1555,7 @@ class AppLocalizationsFil extends AppLocalizations {
   String get contributorsLoadFailed => 'Hindi ma-load ang mga contributor';
 
   @override
-  String get forks => 'Mga tinidor';
+  String get forks => 'Forks';
 
   @override
   String get forksDesc => 'Mga proyektong ginawa batay sa Dartotsu';
@@ -2078,6 +2078,24 @@ class AppLocalizationsFil extends AppLocalizations {
   @override
   String get comickClientIdDesc =>
       'Custom na client ID na nakarehistro sa comick.dev';
+
+  @override
+  String get traktClientId => 'Trakt Client ID';
+
+  @override
+  String get traktClientIdDesc =>
+      'Sign in with your own Trakt app instead of the built-in one';
+
+  @override
+  String get traktCreateApp => 'Create a Trakt app';
+
+  @override
+  String get traktCreateAppDesc => 'Opens your apps on trakt.tv';
+
+  @override
+  String traktRedirectHelp(String uris) {
+    return 'On trakt.tv/oauth/applications create an app and add these Redirect URIs, one per line:\n\n$uris\n\nThen paste its Client ID here, save and sign in again.';
+  }
 
   @override
   String get couldNotUpdateKitsuSettings =>
@@ -3784,6 +3802,11 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String get continueWatching => 'Ituloy ang panonood';
+
+  @override
+  String splitSection(String section, String kind) {
+    return '$section · $kind';
+  }
 
   @override
   String get continueReading => 'Ituloy ang pagbabasa';

@@ -330,7 +330,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get settingsNetwork => 'רשת';
 
   @override
-  String get settingsNetworkDesc => 'סוכן משתמש, אישורים, DNS ופרוקסי';
+  String get settingsNetworkDesc => 'User agent, certificates, DNS and proxy';
 
   @override
   String get settingsAccountDesc => 'שירות מעקב והתחברות';
@@ -1331,7 +1331,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get defaultFont => 'ברירת מחדל';
 
   @override
-  String get materialYou => 'חומר אתה';
+  String get materialYou => 'Material You';
 
   @override
   String get materialYouDesc => 'צבע דינמי מהמערכת';
@@ -1391,7 +1391,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get checkNow => 'בדוק עכשיו';
 
   @override
-  String get userAgent => 'משתמש-סוכן';
+  String get userAgent => 'User-Agent';
 
   @override
   String get settingDefault => 'ברירת מחדל';
@@ -1528,7 +1528,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get contributorsLoadFailed => 'אי אפשר לטעון את התורמים';
 
   @override
-  String get forks => 'מזלגות';
+  String get forks => 'Forks';
 
   @override
   String get forksDesc => 'פרויקטים שנבנו על בסיס Dartotsu';
@@ -1714,7 +1714,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get linkSettingsFailed => 'אי אפשר לפתוח את הגדרות המערכת';
 
   @override
-  String get discordRichPresence => 'נוכחות עשירה';
+  String get discordRichPresence => 'Rich Presence';
 
   @override
   String get discordRichPresenceTokenDesc =>
@@ -1846,7 +1846,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get discordTokenRemovedSnack => 'טוקן Discord הוסר';
 
   @override
-  String get discordRichPresenceRow => 'נוכחות עשירה בדיסקורד';
+  String get discordRichPresenceRow => 'Discord Rich Presence';
 
   @override
   String get discordRichPresenceRowOn => 'פעיל · הקש כדי לשנות את המראה';
@@ -2042,6 +2042,24 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get comickClientIdDesc => 'מזהה לקוח מותאם אישית רשום ב-comick.dev';
+
+  @override
+  String get traktClientId => 'Trakt Client ID';
+
+  @override
+  String get traktClientIdDesc =>
+      'Sign in with your own Trakt app instead of the built-in one';
+
+  @override
+  String get traktCreateApp => 'Create a Trakt app';
+
+  @override
+  String get traktCreateAppDesc => 'Opens your apps on trakt.tv';
+
+  @override
+  String traktRedirectHelp(String uris) {
+    return 'On trakt.tv/oauth/applications create an app and add these Redirect URIs, one per line:\n\n$uris\n\nThen paste its Client ID here, save and sign in again.';
+  }
 
   @override
   String get couldNotUpdateKitsuSettings => 'אי אפשר לעדכן את הגדרות Kitsu שלך';
@@ -3641,7 +3659,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get sortNewest => 'החדשים ביותר';
 
   @override
-  String get sortAz => 'א–ז';
+  String get sortAz => 'A–Z';
 
   @override
   String get sortMostFavourited => 'הכי אהובים';
@@ -3736,6 +3754,11 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get continueWatching => 'המשך לצפות';
+
+  @override
+  String splitSection(String section, String kind) {
+    return '$section · $kind';
+  }
 
   @override
   String get continueReading => 'המשך לקרוא';
@@ -8404,7 +8427,7 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get sourceWhyVerdictSkipped =>
-      'הכללים שלמעלה מדלגים על כותרת זו. שנה אותם בהגדרות ההתראות, או השתמש ב"בדוק עכשיו" כדי להפעיל אותה בכל זאת.';
+      'הכללים שלמעלה מדלגים על כותרת זו. שנה אותם בהגדרות ההתראות, או השתמש ב\"בדוק עכשיו\" כדי להפעיל אותה בכל זאת.';
 
   @override
   String get sourceWhyVerdictBroken =>

@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.KeyEvent
 import ani.aayush262.dartotsu.channels.VolumeKeys
+import ani.aayush262.dartotsu.channels.registerAuth
 import ani.aayush262.dartotsu.channels.registerBiometric
 import ani.aayush262.dartotsu.channels.registerContent
 import ani.aayush262.dartotsu.channels.registerDownloads
@@ -11,6 +12,7 @@ import ani.aayush262.dartotsu.channels.registerExternal
 import ani.aayush262.dartotsu.channels.registerLinks
 import ani.aayush262.dartotsu.channels.registerMedia
 import ani.aayush262.dartotsu.channels.registerNetwork
+import ani.aayush262.dartotsu.channels.registerOrientation
 import ani.aayush262.dartotsu.channels.registerWidget
 import ani.aayush262.dartotsu.pip.PipChannel
 import ani.aayush262.dartotsu.pip.PipController
@@ -34,6 +36,8 @@ class MainActivity : FlutterActivity() {
         registerMedia(messenger)
         registerContent(messenger)
         registerExternal(messenger)
+        registerAuth(messenger)
+        registerOrientation(messenger)
         registerLinks(messenger)
     }
 

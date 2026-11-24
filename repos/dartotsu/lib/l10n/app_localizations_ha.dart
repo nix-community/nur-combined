@@ -335,8 +335,7 @@ class AppLocalizationsHa extends AppLocalizations {
   String get settingsNetwork => 'Hanyar sadarwa';
 
   @override
-  String get settingsNetworkDesc =>
-      'Wakilin mai amfani, takaddun shaida, DNS da wakili';
+  String get settingsNetworkDesc => 'User agent, certificates, DNS and proxy';
 
   @override
   String get settingsAccountDesc => 'Sabis ɗin bibiya da shiga';
@@ -1349,7 +1348,7 @@ class AppLocalizationsHa extends AppLocalizations {
   String get defaultFont => 'Tsoho';
 
   @override
-  String get materialYou => 'Material Ka';
+  String get materialYou => 'Material You';
 
   @override
   String get materialYouDesc => 'Launi mai canzawa daga system';
@@ -1410,7 +1409,7 @@ class AppLocalizationsHa extends AppLocalizations {
   String get checkNow => 'Duba yanzu';
 
   @override
-  String get userAgent => 'Mai amfani-Agent';
+  String get userAgent => 'User-Agent';
 
   @override
   String get settingDefault => 'Tsoho';
@@ -1547,7 +1546,7 @@ class AppLocalizationsHa extends AppLocalizations {
   String get contributorsLoadFailed => 'An kasa ɗora masu bayar da gudunmawa';
 
   @override
-  String get forks => 'cokali mai yatsu';
+  String get forks => 'Forks';
 
   @override
   String get forksDesc => 'Ayyukan da aka gina a kan Dartotsu';
@@ -1734,7 +1733,7 @@ class AppLocalizationsHa extends AppLocalizations {
   String get linkSettingsFailed => 'Ba a iya buɗe saitunan system ba';
 
   @override
-  String get discordRichPresence => 'Kasancewar Arziki';
+  String get discordRichPresence => 'Rich Presence';
 
   @override
   String get discordRichPresenceTokenDesc =>
@@ -1868,7 +1867,7 @@ class AppLocalizationsHa extends AppLocalizations {
   String get discordTokenRemovedSnack => 'An cire token ɗin Discord';
 
   @override
-  String get discordRichPresenceRow => 'Rikici Rigar Kasancewar';
+  String get discordRichPresenceRow => 'Discord Rich Presence';
 
   @override
   String get discordRichPresenceRowOn => 'A kunne · danna don canza kamanninsa';
@@ -2065,6 +2064,24 @@ class AppLocalizationsHa extends AppLocalizations {
   @override
   String get comickClientIdDesc =>
       'ID na abokin ciniki na al\'ada yayi rijista akan comick.dev';
+
+  @override
+  String get traktClientId => 'Trakt Client ID';
+
+  @override
+  String get traktClientIdDesc =>
+      'Sign in with your own Trakt app instead of the built-in one';
+
+  @override
+  String get traktCreateApp => 'Create a Trakt app';
+
+  @override
+  String get traktCreateAppDesc => 'Opens your apps on trakt.tv';
+
+  @override
+  String traktRedirectHelp(String uris) {
+    return 'On trakt.tv/oauth/applications create an app and add these Redirect URIs, one per line:\n\n$uris\n\nThen paste its Client ID here, save and sign in again.';
+  }
 
   @override
   String get couldNotUpdateKitsuSettings =>
@@ -3669,7 +3686,7 @@ class AppLocalizationsHa extends AppLocalizations {
   String get sortNewest => 'Mafi sabo';
 
   @override
-  String get sortAz => 'A-Z';
+  String get sortAz => 'A–Z';
 
   @override
   String get sortMostFavourited => 'Mafi yawan so';
@@ -3764,6 +3781,11 @@ class AppLocalizationsHa extends AppLocalizations {
 
   @override
   String get continueWatching => 'Ci gaba da kallo';
+
+  @override
+  String splitSection(String section, String kind) {
+    return '$section · $kind';
+  }
 
   @override
   String get continueReading => 'Ci gaba da karantawa';

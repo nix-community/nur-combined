@@ -332,7 +332,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get settingsNetwork => 'شبکه';
 
   @override
-  String get settingsNetworkDesc => 'عامل کاربر، گواهی ها، DNS و پروکسی';
+  String get settingsNetworkDesc => 'User agent, certificates, DNS and proxy';
 
   @override
   String get settingsAccountDesc => 'سرویس ردیابی و ورود';
@@ -1339,7 +1339,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get defaultFont => 'پیش‌فرض';
 
   @override
-  String get materialYou => 'مادی شما';
+  String get materialYou => 'Material You';
 
   @override
   String get materialYouDesc => 'رنگ پویا از سیستم';
@@ -1399,7 +1399,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get checkNow => 'الان بررسی کن';
 
   @override
-  String get userAgent => 'کاربر-عامل';
+  String get userAgent => 'User-Agent';
 
   @override
   String get settingDefault => 'پیش‌فرض';
@@ -1536,7 +1536,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get contributorsLoadFailed => 'مشارکت‌کننده‌ها بارگذاری نشدن';
 
   @override
-  String get forks => 'چنگال';
+  String get forks => 'Forks';
 
   @override
   String get forksDesc => 'پروژه‌هایی که روی Dartotsu ساخته شدن';
@@ -1723,7 +1723,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get linkSettingsFailed => 'تنظیمات سیستم باز نشد';
 
   @override
-  String get discordRichPresence => 'حضور غنی';
+  String get discordRichPresence => 'Rich Presence';
 
   @override
   String get discordRichPresenceTokenDesc =>
@@ -2052,6 +2052,24 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get comickClientIdDesc => 'شناسه مشتری سفارشی ثبت شده در comick.dev';
+
+  @override
+  String get traktClientId => 'Trakt Client ID';
+
+  @override
+  String get traktClientIdDesc =>
+      'Sign in with your own Trakt app instead of the built-in one';
+
+  @override
+  String get traktCreateApp => 'Create a Trakt app';
+
+  @override
+  String get traktCreateAppDesc => 'Opens your apps on trakt.tv';
+
+  @override
+  String traktRedirectHelp(String uris) {
+    return 'On trakt.tv/oauth/applications create an app and add these Redirect URIs, one per line:\n\n$uris\n\nThen paste its Client ID here, save and sign in again.';
+  }
 
   @override
   String get couldNotUpdateKitsuSettings => 'تنظیمات Kitsu به‌روز نشد';
@@ -3750,6 +3768,11 @@ class AppLocalizationsFa extends AppLocalizations {
   String get continueWatching => 'ادامه تماشا';
 
   @override
+  String splitSection(String section, String kind) {
+    return '$section · $kind';
+  }
+
+  @override
   String get continueReading => 'ادامه خوندن';
 
   @override
@@ -4756,7 +4779,7 @@ class AppLocalizationsFa extends AppLocalizations {
       'ISBN چاپ‌شده بالای بارکد پشت جلد رو تایپ کن.';
 
   @override
-  String get barcodeIsbnHint => 'شابک';
+  String get barcodeIsbnHint => 'ISBN';
 
   @override
   String get barcodeInvalid => 'این ISBN معتبر نیست';

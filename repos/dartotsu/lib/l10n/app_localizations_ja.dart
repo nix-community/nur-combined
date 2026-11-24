@@ -327,7 +327,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settingsNetwork => 'ネットワーク';
 
   @override
-  String get settingsNetworkDesc => 'ユーザーエージェント、証明書、DNS、プロキシ';
+  String get settingsNetworkDesc => 'User agent, certificates, DNS and proxy';
 
   @override
   String get settingsAccountDesc => '管理サービスとログイン';
@@ -1315,7 +1315,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get defaultFont => 'デフォルト';
 
   @override
-  String get materialYou => 'マテリアル・ユー';
+  String get materialYou => 'Material You';
 
   @override
   String get materialYouDesc => 'システムのダイナミックカラー';
@@ -1375,7 +1375,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get checkNow => '今すぐ確認';
 
   @override
-  String get userAgent => 'ユーザーエージェント';
+  String get userAgent => 'User-Agent';
 
   @override
   String get settingDefault => 'デフォルト';
@@ -1509,7 +1509,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get contributorsLoadFailed => 'コントリビューターを読み込めなかったよ';
 
   @override
-  String get forks => 'フォーク';
+  String get forks => 'Forks';
 
   @override
   String get forksDesc => 'Dartotsuをベースにしたプロジェクト';
@@ -1692,7 +1692,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get linkSettingsFailed => 'システム設定を開けなかったよ';
 
   @override
-  String get discordRichPresence => '豊かな存在感';
+  String get discordRichPresence => 'Rich Presence';
 
   @override
   String get discordRichPresenceTokenDesc =>
@@ -1822,7 +1822,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get discordTokenRemovedSnack => 'Discordトークンを削除したよ';
 
   @override
-  String get discordRichPresenceRow => 'Discord のリッチなプレゼンス';
+  String get discordRichPresenceRow => 'Discord Rich Presence';
 
   @override
   String get discordRichPresenceRowOn => 'オン · タップして見た目を変更';
@@ -2015,6 +2015,24 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get comickClientIdDesc => 'comick.dev に登録されたカスタム クライアント ID';
+
+  @override
+  String get traktClientId => 'Trakt Client ID';
+
+  @override
+  String get traktClientIdDesc =>
+      'Sign in with your own Trakt app instead of the built-in one';
+
+  @override
+  String get traktCreateApp => 'Create a Trakt app';
+
+  @override
+  String get traktCreateAppDesc => 'Opens your apps on trakt.tv';
+
+  @override
+  String traktRedirectHelp(String uris) {
+    return 'On trakt.tv/oauth/applications create an app and add these Redirect URIs, one per line:\n\n$uris\n\nThen paste its Client ID here, save and sign in again.';
+  }
 
   @override
   String get couldNotUpdateKitsuSettings => 'Kitsuの設定を更新できなかったよ';
@@ -3599,7 +3617,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get sortNewest => '新着';
 
   @override
-  String get sortAz => 'A ～ Z';
+  String get sortAz => 'A–Z';
 
   @override
   String get sortMostFavourited => 'お気に入り順';
@@ -3691,6 +3709,11 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get continueWatching => '続きを見る';
+
+  @override
+  String splitSection(String section, String kind) {
+    return '$section · $kind';
+  }
 
   @override
   String get continueReading => '続きを読む';
@@ -5542,7 +5565,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get playerSectionEngine => 'エンジン';
 
   @override
-  String get playerSectionMpv => 'MPV';
+  String get playerSectionMpv => 'mpv';
 
   @override
   String get playerSpeed => '再生速度';

@@ -334,8 +334,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settingsNetwork => 'Red';
 
   @override
-  String get settingsNetworkDesc =>
-      'Agente de usuario, certificados, DNS y proxy';
+  String get settingsNetworkDesc => 'User agent, certificates, DNS and proxy';
 
   @override
   String get settingsAccountDesc =>
@@ -1360,7 +1359,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get defaultFont => 'Predeterminada';
 
   @override
-  String get materialYou => 'material usted';
+  String get materialYou => 'Material You';
 
   @override
   String get materialYouDesc => 'Color dinámico del sistema';
@@ -1421,7 +1420,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get checkNow => 'Comprobar ahora';
 
   @override
-  String get userAgent => 'Agente de usuario';
+  String get userAgent => 'User-Agent';
 
   @override
   String get settingDefault => 'Predeterminado';
@@ -1432,7 +1431,7 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get dnsOverHttps => 'DNS sobre HTTPS';
+  String get dnsOverHttps => 'DNS-over-HTTPS';
 
   @override
   String get dnsDefault => 'Predeterminado (Cloudflare)';
@@ -1559,7 +1558,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'No se pudieron cargar los colaboradores';
 
   @override
-  String get forks => 'Horquillas';
+  String get forks => 'Forks';
 
   @override
   String get forksDesc => 'Proyectos creados sobre Dartotsu';
@@ -1751,7 +1750,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'No se pudieron abrir los ajustes del sistema';
 
   @override
-  String get discordRichPresence => 'Rica presencia';
+  String get discordRichPresence => 'Rich Presence';
 
   @override
   String get discordRichPresenceTokenDesc =>
@@ -1886,7 +1885,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get discordTokenRemovedSnack => 'Token de Discord eliminado';
 
   @override
-  String get discordRichPresenceRow => 'Presencia rica en discordia';
+  String get discordRichPresenceRow => 'Discord Rich Presence';
 
   @override
   String get discordRichPresenceRowOn =>
@@ -2084,6 +2083,24 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get comickClientIdDesc =>
       'ID de cliente personalizado registrado en comick.dev';
+
+  @override
+  String get traktClientId => 'Trakt Client ID';
+
+  @override
+  String get traktClientIdDesc =>
+      'Sign in with your own Trakt app instead of the built-in one';
+
+  @override
+  String get traktCreateApp => 'Create a Trakt app';
+
+  @override
+  String get traktCreateAppDesc => 'Opens your apps on trakt.tv';
+
+  @override
+  String traktRedirectHelp(String uris) {
+    return 'On trakt.tv/oauth/applications create an app and add these Redirect URIs, one per line:\n\n$uris\n\nThen paste its Client ID here, save and sign in again.';
+  }
 
   @override
   String get couldNotUpdateKitsuSettings =>
@@ -3696,7 +3713,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get sortNewest => 'Más recientes';
 
   @override
-  String get sortAz => 'A-Z';
+  String get sortAz => 'A–Z';
 
   @override
   String get sortMostFavourited => 'Más favoritos';
@@ -3792,6 +3809,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get continueWatching => 'Seguir viendo';
+
+  @override
+  String splitSection(String section, String kind) {
+    return '$section · $kind';
+  }
 
   @override
   String get continueReading => 'Seguir leyendo';
@@ -5705,7 +5727,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get playerSectionEngine => 'Motor';
 
   @override
-  String get playerSectionMpv => 'monovolumen';
+  String get playerSectionMpv => 'mpv';
 
   @override
   String get playerSpeed => 'Velocidad de reproducción';

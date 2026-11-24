@@ -1,14 +1,16 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Logger.dart';
 import '../../../Utils/Functions/AppWindow.dart';
 
 const kAuthPort = 43721;
+
+const _channel = MethodChannel('dartotsu/auth');
 
 bool get _desktop => Platform.isLinux || Platform.isWindows;
 
@@ -33,20 +35,21 @@ const _donePage =
 <body style="font-family:sans-serif;text-align:center;margin-top:20vh">
 <p>Signed in. You can close this tab and return to Dartotsu.</p>''';
 
-Future<HttpServer> _bind() async {
-  try {
-    return await HttpServer.bind(
-      InternetAddress.loopbackIPv6,
-      kAuthPort,
-      v6Only: false,
-    );
-  } on SocketException {
-    return HttpServer.bind(InternetAddress.loopbackIPv4, kAuthPort);
-  }
+Future<List<HttpServer>> _bind() async {
+  final v4 = await HttpServer.bind(InternetAddress.loopbackIPv4, kAuthPort);
+  final v6 = await HttpServer.bind(
+    InternetAddress.loopbackIPv6,
+    kAuthPort,
+    v6Only: true,
+  ).then<HttpServer?>((server) => server, onError: (Object _) => null);
+  return [v4, ?v6];
 }
 
+Future<void> Function()? _abortLoopback;
+
 Future<String> _viaLoopback(Uri url, Uri callback, Duration timeout) async {
-  final server = await _bind();
+  await _abortLoopback?.call();
+  final servers = await _bind();
   final done = Completer<String>();
 
   void respond(HttpRequest request, String body) {
@@ -56,7 +59,7 @@ Future<String> _viaLoopback(Uri url, Uri callback, Duration timeout) async {
     unawaited(request.response.close());
   }
 
-  final sub = server.listen((request) {
+  void handle(HttpRequest request) {
     final uri = request.uri;
     if (uri.path != callback.path) {
       request.response.statusCode = HttpStatus.notFound;
@@ -70,8 +73,28 @@ Future<String> _viaLoopback(Uri url, Uri callback, Duration timeout) async {
     if (!done.isCompleted) {
       done.complete(callback.replace(query: uri.query).toString());
     }
-  });
+  }
 
+  final subs = [for (final server in servers) server.listen(handle)];
+  var closed = false;
+
+  Future<void> close() async {
+    if (closed) return;
+    closed = true;
+    for (final sub in subs) {
+      await sub.cancel();
+    }
+    for (final server in servers) {
+      await server.close(force: true);
+    }
+  }
+
+  Future<void> abort() async {
+    if (!done.isCompleted) done.completeError(const AuthCancelled());
+    await close();
+  }
+
+  _abortLoopback = abort;
   try {
     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
       throw StateError('Could not open the browser');
@@ -86,8 +109,8 @@ Future<String> _viaLoopback(Uri url, Uri callback, Duration timeout) async {
     }
     return result;
   } finally {
-    await sub.cancel();
-    await server.close(force: true);
+    if (identical(_abortLoopback, abort)) _abortLoopback = null;
+    await close();
   }
 }
 
@@ -100,38 +123,9 @@ bool completeAuthLink(Uri uri) {
   if (pending == null || redirect == null || pending.isCompleted) return false;
   final expected = Uri.parse(redirect);
   if (uri.scheme != expected.scheme || uri.host != expected.host) return false;
+  if (expected.host.isEmpty && uri.path != expected.path) return false;
   pending.complete(uri.toString());
   return true;
-}
-
-Future<String> _viaSession(String url, Uri callback, Duration timeout) async {
-  final link = Completer<String>();
-  _pendingLink = link;
-  _pendingRedirect = callback.toString();
-  final session = FlutterWebAuth2.authenticate(
-    url: url,
-    callbackUrlScheme: callback.scheme,
-    options: const FlutterWebAuth2Options(windowName: 'Dartotsu'),
-  );
-  unawaited(
-    session.then<void>(
-      (result) {
-        if (!link.isCompleted) link.complete(result);
-      },
-      onError: (Object e, StackTrace st) async {
-        await Future<void>.delayed(const Duration(seconds: 60));
-        if (!link.isCompleted) link.completeError(e, st);
-      },
-    ),
-  );
-  try {
-    return await link.future.timeout(timeout);
-  } finally {
-    if (identical(_pendingLink, link)) {
-      _pendingLink = null;
-      _pendingRedirect = null;
-    }
-  }
 }
 
 class AuthCancelled implements Exception {
@@ -141,25 +135,31 @@ class AuthCancelled implements Exception {
   String toString() => 'Sign-in cancelled';
 }
 
-Future<String?> _viaApp(String url, Uri callback, Duration timeout) async {
+Future<String?> _awaitLink(
+  Uri callback,
+  Duration timeout,
+  Future<bool> Function() open,
+) async {
   final link = Completer<String>();
   _pendingLink = link;
   _pendingRedirect = callback.toString();
+  var away = false;
   Timer? grace;
   final lifecycle = AppLifecycleListener(
-    onResume: () {
+    onHide: () {
+      away = true;
       grace?.cancel();
-      grace = Timer(const Duration(seconds: 4), () {
+    },
+    onResume: () {
+      if (!away) return;
+      grace?.cancel();
+      grace = Timer(const Duration(milliseconds: 2500), () {
         if (!link.isCompleted) link.completeError(const AuthCancelled());
       });
     },
   );
   try {
-    final opened = await launchUrl(
-      Uri.parse(url),
-      mode: LaunchMode.externalNonBrowserApplication,
-    ).catchError((Object _) => false);
-    if (!opened) return null;
+    if (!await open()) return null;
     return await link.future.timeout(timeout);
   } finally {
     grace?.cancel();
@@ -171,6 +171,61 @@ Future<String?> _viaApp(String url, Uri callback, Duration timeout) async {
   }
 }
 
+Future<bool> _openApp(String url) => launchUrl(
+  Uri.parse(url),
+  mode: LaunchMode.externalNonBrowserApplication,
+).catchError((Object _) => false);
+
+Future<bool> _openTab(String url) async {
+  try {
+    final opened = await _channel.invokeMethod<bool>('openTab', {'url': url});
+    if (opened ?? false) return true;
+  } catch (e, st) {
+    logError('BrowserAuth', e, st);
+  }
+  return launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+}
+
+Future<String> _viaTab(String url, Uri callback, Duration timeout) async {
+  final result = await _awaitLink(callback, timeout, () => _openTab(url));
+  if (result == null) throw StateError('Could not open the browser');
+  return result;
+}
+
+Future<String> _viaWebSession(
+  String url,
+  Uri callback,
+  Duration timeout,
+) async {
+  try {
+    final result = await _channel
+        .invokeMethod<String>('authenticate', {
+          'url': url,
+          'scheme': callback.scheme,
+        })
+        .timeout(
+          timeout,
+          onTimeout: () {
+            unawaited(_cancelSession());
+            throw const AuthCancelled();
+          },
+        );
+    if (result == null || result.isEmpty) throw const AuthCancelled();
+    return result;
+  } on PlatformException catch (e) {
+    if (e.code == 'CANCELED') throw const AuthCancelled();
+    rethrow;
+  }
+}
+
+Future<void> _cancelSession() async {
+  try {
+    await _channel.invokeMethod<void>('cancel');
+  } catch (e, st) {
+    logError('BrowserAuth', e, st);
+  }
+}
+
 Future<String> browserAuthenticate({
   required String url,
   required String redirect,
@@ -179,9 +234,10 @@ Future<String> browserAuthenticate({
 }) async {
   final callback = Uri.parse(redirect);
   if (_desktop) return _viaLoopback(Uri.parse(url), callback, timeout);
-  if (preferApp) {
-    final result = await _viaApp(url, callback, timeout);
+  if (preferApp && (Platform.isAndroid || Platform.isIOS)) {
+    final result = await _awaitLink(callback, timeout, () => _openApp(url));
     if (result != null) return result;
   }
-  return _viaSession(url, callback, timeout);
+  if (Platform.isAndroid) return _viaTab(url, callback, timeout);
+  return _viaWebSession(url, callback, timeout);
 }

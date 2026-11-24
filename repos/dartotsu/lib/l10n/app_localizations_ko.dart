@@ -327,7 +327,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settingsNetwork => '네트워크';
 
   @override
-  String get settingsNetworkDesc => '사용자 에이전트, 인증서, DNS 및 프록시';
+  String get settingsNetworkDesc => 'User agent, certificates, DNS and proxy';
 
   @override
   String get settingsAccountDesc => '트래킹 서비스와 로그인';
@@ -1317,7 +1317,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get defaultFont => '기본';
 
   @override
-  String get materialYou => '재료 당신';
+  String get materialYou => 'Material You';
 
   @override
   String get materialYouDesc => '시스템의 다이내믹 컬러';
@@ -1377,7 +1377,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get checkNow => '지금 확인';
 
   @override
-  String get userAgent => '사용자 에이전트';
+  String get userAgent => 'User-Agent';
 
   @override
   String get settingDefault => '기본';
@@ -1512,7 +1512,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get contributorsLoadFailed => '기여자를 불러오지 못했어요';
 
   @override
-  String get forks => '포크';
+  String get forks => 'Forks';
 
   @override
   String get forksDesc => 'Dartotsu를 기반으로 만든 프로젝트';
@@ -1694,7 +1694,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get linkSettingsFailed => '시스템 설정을 열 수 없어요';
 
   @override
-  String get discordRichPresence => '풍부한 존재감';
+  String get discordRichPresence => 'Rich Presence';
 
   @override
   String get discordRichPresenceTokenDesc =>
@@ -1823,7 +1823,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get discordTokenRemovedSnack => 'Discord 토큰을 삭제했어요';
 
   @override
-  String get discordRichPresenceRow => '불일치의 풍부한 존재';
+  String get discordRichPresenceRow => 'Discord Rich Presence';
 
   @override
   String get discordRichPresenceRowOn => '켜짐 · 탭해서 모양 변경';
@@ -2016,6 +2016,24 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get comickClientIdDesc => 'comick.dev에 등록된 사용자 정의 클라이언트 ID';
+
+  @override
+  String get traktClientId => 'Trakt Client ID';
+
+  @override
+  String get traktClientIdDesc =>
+      'Sign in with your own Trakt app instead of the built-in one';
+
+  @override
+  String get traktCreateApp => 'Create a Trakt app';
+
+  @override
+  String get traktCreateAppDesc => 'Opens your apps on trakt.tv';
+
+  @override
+  String traktRedirectHelp(String uris) {
+    return 'On trakt.tv/oauth/applications create an app and add these Redirect URIs, one per line:\n\n$uris\n\nThen paste its Client ID here, save and sign in again.';
+  }
 
   @override
   String get couldNotUpdateKitsuSettings => 'Kitsu 설정을 업데이트하지 못했어요';
@@ -3601,7 +3619,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get sortNewest => '최신순';
 
   @override
-  String get sortAz => 'A~Z';
+  String get sortAz => 'A–Z';
 
   @override
   String get sortMostFavourited => '즐겨찾기 많은 순';
@@ -3693,6 +3711,11 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get continueWatching => '이어서 보기';
+
+  @override
+  String splitSection(String section, String kind) {
+    return '$section · $kind';
+  }
 
   @override
   String get continueReading => '이어서 읽기';
@@ -7331,7 +7354,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get downloadSourceMissing => '이 에피소드의 소스가 설치되어 있지 않아요';
 
   @override
-  String get downloadDashDrm => '';
+  String get downloadDashDrm => 'This stream is DRM protected';
 
   @override
   String get downloadDashNoVideo => 'DASH 매니페스트에 비디오가 없습니다.';

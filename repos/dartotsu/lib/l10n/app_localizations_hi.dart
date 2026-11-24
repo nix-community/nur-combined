@@ -333,8 +333,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get settingsNetwork => 'नेटवर्क';
 
   @override
-  String get settingsNetworkDesc =>
-      'उपयोगकर्ता एजेंट, प्रमाणपत्र, डीएनएस और प्रॉक्सी';
+  String get settingsNetworkDesc => 'User agent, certificates, DNS and proxy';
 
   @override
   String get settingsAccountDesc => 'ट्रैकिंग सर्विस और साइन-इन';
@@ -1343,7 +1342,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get defaultFont => 'डिफ़ॉल्ट';
 
   @override
-  String get materialYou => 'सामग्री आप';
+  String get materialYou => 'Material You';
 
   @override
   String get materialYouDesc => 'सिस्टम से डायनामिक रंग';
@@ -1403,7 +1402,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get checkNow => 'अभी चेक करो';
 
   @override
-  String get userAgent => 'उपयोगकर्ता-एजेंट';
+  String get userAgent => 'User-Agent';
 
   @override
   String get settingDefault => 'डिफ़ॉल्ट';
@@ -1414,7 +1413,7 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get dnsOverHttps => 'डीएनएस-ओवर-एचटीटीपीएस';
+  String get dnsOverHttps => 'DNS-over-HTTPS';
 
   @override
   String get dnsDefault => 'डिफ़ॉल्ट (Cloudflare)';
@@ -1507,7 +1506,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get version => 'वर्ज़न';
 
   @override
-  String get gitHub => 'गिटहब';
+  String get gitHub => 'GitHub';
 
   @override
   String get gitHubDesc => 'सोर्स, इश्यू और रिलीज़';
@@ -1540,7 +1539,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get contributorsLoadFailed => 'कंट्रीब्यूटर लोड नहीं हो पाए';
 
   @override
-  String get forks => 'कांटे';
+  String get forks => 'Forks';
 
   @override
   String get forksDesc => 'Dartotsu पर बने प्रोजेक्ट';
@@ -1728,7 +1727,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get linkSettingsFailed => 'सिस्टम सेटिंग्स नहीं खुल पाईं';
 
   @override
-  String get discordRichPresence => 'समृद्ध उपस्थिति';
+  String get discordRichPresence => 'Rich Presence';
 
   @override
   String get discordRichPresenceTokenDesc =>
@@ -1861,7 +1860,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get discordTokenRemovedSnack => 'Discord टोकन हटा दिया गया';
 
   @override
-  String get discordRichPresenceRow => 'कलह समृद्ध उपस्थिति';
+  String get discordRichPresenceRow => 'Discord Rich Presence';
 
   @override
   String get discordRichPresenceRowOn => 'ऑन · लुक बदलने के लिए टैप करो';
@@ -2057,6 +2056,24 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get comickClientIdDesc => 'कस्टम क्लाइंट आईडी कॉमिक.डेव पर पंजीकृत है';
+
+  @override
+  String get traktClientId => 'Trakt Client ID';
+
+  @override
+  String get traktClientIdDesc =>
+      'Sign in with your own Trakt app instead of the built-in one';
+
+  @override
+  String get traktCreateApp => 'Create a Trakt app';
+
+  @override
+  String get traktCreateAppDesc => 'Opens your apps on trakt.tv';
+
+  @override
+  String traktRedirectHelp(String uris) {
+    return 'On trakt.tv/oauth/applications create an app and add these Redirect URIs, one per line:\n\n$uris\n\nThen paste its Client ID here, save and sign in again.';
+  }
 
   @override
   String get couldNotUpdateKitsuSettings =>
@@ -3660,7 +3677,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get sortNewest => 'सबसे नया';
 
   @override
-  String get sortAz => 'ए-जेड';
+  String get sortAz => 'A–Z';
 
   @override
   String get sortMostFavourited => 'सबसे ज़्यादा फ़ेवरेट';
@@ -3756,6 +3773,11 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get continueWatching => 'देखना जारी रखो';
+
+  @override
+  String splitSection(String section, String kind) {
+    return '$section · $kind';
+  }
 
   @override
   String get continueReading => 'पढ़ना जारी रखो';
@@ -4769,7 +4791,7 @@ class AppLocalizationsHi extends AppLocalizations {
       'वॉल्यूम के पीछे बारकोड के ऊपर छपा ISBN टाइप करो।';
 
   @override
-  String get barcodeIsbnHint => 'आईएसबीएन';
+  String get barcodeIsbnHint => 'ISBN';
 
   @override
   String get barcodeInvalid => 'ये सही ISBN नहीं है';
@@ -5652,7 +5674,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get playerSectionEngine => 'इंजन';
 
   @override
-  String get playerSectionMpv => 'एमपीवी';
+  String get playerSectionMpv => 'mpv';
 
   @override
   String get playerSpeed => 'प्लेबैक स्पीड';

@@ -333,8 +333,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsNetwork => 'Ağ';
 
   @override
-  String get settingsNetworkDesc =>
-      'Kullanıcı aracısı, sertifikalar, DNS ve proxy';
+  String get settingsNetworkDesc => 'User agent, certificates, DNS and proxy';
 
   @override
   String get settingsAccountDesc => 'Takip servisi ve giriş';
@@ -387,7 +386,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get watchOrderOpenFailed => 'Bu başlık açılamadı';
 
   @override
-  String get watchOrderCurrent => '';
+  String get watchOrderCurrent => 'You are here';
 
   @override
   String get watchOrderCredit =>
@@ -1350,7 +1349,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get defaultFont => 'Varsayılan';
 
   @override
-  String get materialYou => 'Malzeme Siz';
+  String get materialYou => 'Material You';
 
   @override
   String get materialYouDesc => 'Sistemden dinamik renk';
@@ -1410,7 +1409,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get checkNow => 'Şimdi kontrol et';
 
   @override
-  String get userAgent => 'Kullanıcı Aracısı';
+  String get userAgent => 'User-Agent';
 
   @override
   String get settingDefault => 'Varsayılan';
@@ -1421,7 +1420,7 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get dnsOverHttps => 'HTTPS üzerinden DNS';
+  String get dnsOverHttps => 'DNS-over-HTTPS';
 
   @override
   String get dnsDefault => 'Varsayılan (Cloudflare)';
@@ -1547,7 +1546,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get contributorsLoadFailed => 'Katkıda bulunanlar yüklenemedi';
 
   @override
-  String get forks => 'Çatallar';
+  String get forks => 'Forks';
 
   @override
   String get forksDesc => 'Dartotsu üzerine kurulan projeler';
@@ -1737,7 +1736,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get linkSettingsFailed => 'Sistem ayarları açılamadı';
 
   @override
-  String get discordRichPresence => 'Zengin Varlık';
+  String get discordRichPresence => 'Rich Presence';
 
   @override
   String get discordRichPresenceTokenDesc =>
@@ -1870,7 +1869,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get discordTokenRemovedSnack => 'Discord token\'ı silindi';
 
   @override
-  String get discordRichPresenceRow => 'Discord Zengin Durumu';
+  String get discordRichPresenceRow => 'Discord Rich Presence';
 
   @override
   String get discordRichPresenceRowOn =>
@@ -2067,6 +2066,24 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get comickClientIdDesc => 'Comik.dev\'de kayıtlı özel müşteri kimliği';
+
+  @override
+  String get traktClientId => 'Trakt Client ID';
+
+  @override
+  String get traktClientIdDesc =>
+      'Sign in with your own Trakt app instead of the built-in one';
+
+  @override
+  String get traktCreateApp => 'Create a Trakt app';
+
+  @override
+  String get traktCreateAppDesc => 'Opens your apps on trakt.tv';
+
+  @override
+  String traktRedirectHelp(String uris) {
+    return 'On trakt.tv/oauth/applications create an app and add these Redirect URIs, one per line:\n\n$uris\n\nThen paste its Client ID here, save and sign in again.';
+  }
 
   @override
   String get couldNotUpdateKitsuSettings => 'Kitsu ayarların güncellenemedi';
@@ -3671,7 +3688,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get sortNewest => 'En yeniler';
 
   @override
-  String get sortAz => 'A\'dan Z\'ye';
+  String get sortAz => 'A–Z';
 
   @override
   String get sortMostFavourited => 'En çok favorilenenler';
@@ -3767,6 +3784,11 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get continueWatching => 'İzlemeye devam et';
+
+  @override
+  String splitSection(String section, String kind) {
+    return '$section · $kind';
+  }
 
   @override
   String get continueReading => 'Okumaya devam et';

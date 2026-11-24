@@ -330,7 +330,7 @@ class AppLocalizationsAm extends AppLocalizations {
   String get settingsNetwork => 'አውታረ መረብ';
 
   @override
-  String get settingsNetworkDesc => 'የተጠቃሚ ወኪል፣ የምስክር ወረቀቶች፣ ዲ ኤን ኤስ እና ተኪ';
+  String get settingsNetworkDesc => 'User agent, certificates, DNS and proxy';
 
   @override
   String get settingsAccountDesc => 'የመከታተያ አገልግሎትና መግቢያ';
@@ -1325,7 +1325,7 @@ class AppLocalizationsAm extends AppLocalizations {
   String get defaultFont => 'ነባሪ';
 
   @override
-  String get materialYou => 'ቁሳቁስ እርስዎ';
+  String get materialYou => 'Material You';
 
   @override
   String get materialYouDesc => 'ከሲስተሙ ተለዋዋጭ ቀለም';
@@ -1385,7 +1385,7 @@ class AppLocalizationsAm extends AppLocalizations {
   String get checkNow => 'አሁን ፈልግ';
 
   @override
-  String get userAgent => 'ተጠቃሚ-ወኪል';
+  String get userAgent => 'User-Agent';
 
   @override
   String get settingDefault => 'ነባሪ';
@@ -1396,7 +1396,7 @@ class AppLocalizationsAm extends AppLocalizations {
   }
 
   @override
-  String get dnsOverHttps => 'ዲ ኤን ኤስ-በላይ-ኤችቲቲፒኤስ';
+  String get dnsOverHttps => 'DNS-over-HTTPS';
 
   @override
   String get dnsDefault => 'ነባሪ (Cloudflare)';
@@ -1521,7 +1521,7 @@ class AppLocalizationsAm extends AppLocalizations {
   String get contributorsLoadFailed => 'አበርካቾችን መጫን አልተቻለም';
 
   @override
-  String get forks => 'ሹካዎች';
+  String get forks => 'Forks';
 
   @override
   String get forksDesc => 'በDartotsu ላይ የተገነቡ ፕሮጀክቶች';
@@ -1706,7 +1706,7 @@ class AppLocalizationsAm extends AppLocalizations {
   String get linkSettingsFailed => 'የሲስተም ቅንብሮችን መክፈት አልተቻለም';
 
   @override
-  String get discordRichPresence => 'የበለጸገ መገኘት';
+  String get discordRichPresence => 'Rich Presence';
 
   @override
   String get discordRichPresenceTokenDesc =>
@@ -1838,7 +1838,7 @@ class AppLocalizationsAm extends AppLocalizations {
   String get discordTokenRemovedSnack => 'የDiscord ቶከን ተወግዷል';
 
   @override
-  String get discordRichPresenceRow => 'አለመግባባት ሀብታም መገኘት';
+  String get discordRichPresenceRow => 'Discord Rich Presence';
 
   @override
   String get discordRichPresenceRowOn => 'በርቷል · እንዴት እንደሚታይ ለመቀየር ንካ';
@@ -2032,6 +2032,24 @@ class AppLocalizationsAm extends AppLocalizations {
 
   @override
   String get comickClientIdDesc => 'ብጁ ደንበኛ መታወቂያ በcomick.dev ላይ ተመዝግቧል';
+
+  @override
+  String get traktClientId => 'Trakt Client ID';
+
+  @override
+  String get traktClientIdDesc =>
+      'Sign in with your own Trakt app instead of the built-in one';
+
+  @override
+  String get traktCreateApp => 'Create a Trakt app';
+
+  @override
+  String get traktCreateAppDesc => 'Opens your apps on trakt.tv';
+
+  @override
+  String traktRedirectHelp(String uris) {
+    return 'On trakt.tv/oauth/applications create an app and add these Redirect URIs, one per line:\n\n$uris\n\nThen paste its Client ID here, save and sign in again.';
+  }
 
   @override
   String get couldNotUpdateKitsuSettings => 'የKitsu ቅንብሮችህን ማዘመን አልተቻለም';
@@ -3622,7 +3640,7 @@ class AppLocalizationsAm extends AppLocalizations {
   String get sortNewest => 'አዲሱ';
 
   @override
-  String get sortAz => 'አ–ዜ';
+  String get sortAz => 'A–Z';
 
   @override
   String get sortMostFavourited => 'በጣም የተወደደ';
@@ -3717,6 +3735,11 @@ class AppLocalizationsAm extends AppLocalizations {
 
   @override
   String get continueWatching => 'መመልከት ቀጥል';
+
+  @override
+  String splitSection(String section, String kind) {
+    return '$section · $kind';
+  }
 
   @override
   String get continueReading => 'ማንበብ ቀጥል';

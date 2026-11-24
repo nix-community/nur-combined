@@ -333,7 +333,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get settingsNetwork => 'Rangkaian';
 
   @override
-  String get settingsNetworkDesc => 'Ejen pengguna, sijil, DNS dan proksi';
+  String get settingsNetworkDesc => 'User agent, certificates, DNS and proxy';
 
   @override
   String get settingsAccountDesc => 'Perkhidmatan penjejakan dan log masuk';
@@ -1350,7 +1350,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get defaultFont => 'Lalai';
 
   @override
-  String get materialYou => 'Bahan Anda';
+  String get materialYou => 'Material You';
 
   @override
   String get materialYouDesc => 'Warna dinamik daripada sistem';
@@ -1410,7 +1410,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get checkNow => 'Semak sekarang';
 
   @override
-  String get userAgent => 'Ejen Pengguna';
+  String get userAgent => 'User-Agent';
 
   @override
   String get settingDefault => 'Lalai';
@@ -1547,7 +1547,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get contributorsLoadFailed => 'Tak dapat muat penyumbang';
 
   @override
-  String get forks => 'garpu';
+  String get forks => 'Forks';
 
   @override
   String get forksDesc => 'Projek yang dibina di atas Dartotsu';
@@ -1736,7 +1736,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get linkSettingsFailed => 'Tak dapat buka tetapan sistem';
 
   @override
-  String get discordRichPresence => 'Kehadiran Kaya';
+  String get discordRichPresence => 'Rich Presence';
 
   @override
   String get discordRichPresenceTokenDesc =>
@@ -1869,7 +1869,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get discordTokenRemovedSnack => 'Token Discord dibuang';
 
   @override
-  String get discordRichPresenceRow => 'Kehadiran Kaya Perselisihan';
+  String get discordRichPresenceRow => 'Discord Rich Presence';
 
   @override
   String get discordRichPresenceRowOn => 'Hidup · ketuk untuk tukar rupanya';
@@ -2066,6 +2066,24 @@ class AppLocalizationsMs extends AppLocalizations {
   @override
   String get comickClientIdDesc =>
       'ID pelanggan tersuai yang didaftarkan di comick.dev';
+
+  @override
+  String get traktClientId => 'Trakt Client ID';
+
+  @override
+  String get traktClientIdDesc =>
+      'Sign in with your own Trakt app instead of the built-in one';
+
+  @override
+  String get traktCreateApp => 'Create a Trakt app';
+
+  @override
+  String get traktCreateAppDesc => 'Opens your apps on trakt.tv';
+
+  @override
+  String traktRedirectHelp(String uris) {
+    return 'On trakt.tv/oauth/applications create an app and add these Redirect URIs, one per line:\n\n$uris\n\nThen paste its Client ID here, save and sign in again.';
+  }
 
   @override
   String get couldNotUpdateKitsuSettings =>
@@ -3768,6 +3786,11 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get continueWatching => 'Teruskan menonton';
+
+  @override
+  String splitSection(String section, String kind) {
+    return '$section · $kind';
+  }
 
   @override
   String get continueReading => 'Teruskan membaca';
@@ -5883,7 +5906,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get playerPictureProcessed => 'Dengan shader dan warna';
 
   @override
-  String get playerPictureProcessedDesc => '';
+  String get playerPictureProcessedDesc => 'The frame as you see it now';
 
   @override
   String get playerPictureSaved => 'Bingkai disimpan';

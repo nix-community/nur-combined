@@ -333,8 +333,7 @@ class AppLocalizationsNe extends AppLocalizations {
   String get settingsNetwork => 'नेटवर्क';
 
   @override
-  String get settingsNetworkDesc =>
-      'प्रयोगकर्ता एजेन्ट, प्रमाणपत्र, DNS र प्रोक्सी';
+  String get settingsNetworkDesc => 'User agent, certificates, DNS and proxy';
 
   @override
   String get settingsAccountDesc => 'ट्र्याकिङ सेवा र साइन-इन';
@@ -1340,7 +1339,7 @@ class AppLocalizationsNe extends AppLocalizations {
   String get defaultFont => 'डिफल्ट';
 
   @override
-  String get materialYou => 'सामग्री तपाईं';
+  String get materialYou => 'Material You';
 
   @override
   String get materialYouDesc => 'सिस्टमबाट डायनामिक रङ';
@@ -1400,7 +1399,7 @@ class AppLocalizationsNe extends AppLocalizations {
   String get checkNow => 'अहिले जाँच गर';
 
   @override
-  String get userAgent => 'प्रयोगकर्ता-एजेन्ट';
+  String get userAgent => 'User-Agent';
 
   @override
   String get settingDefault => 'डिफल्ट';
@@ -1537,7 +1536,7 @@ class AppLocalizationsNe extends AppLocalizations {
   String get contributorsLoadFailed => 'योगदानकर्ता लोड गर्न सकिएन';
 
   @override
-  String get forks => 'फोर्क्स';
+  String get forks => 'Forks';
 
   @override
   String get forksDesc => 'Dartotsu मा आधारित प्रोजेक्टहरू';
@@ -1722,7 +1721,7 @@ class AppLocalizationsNe extends AppLocalizations {
   String get linkSettingsFailed => 'सिस्टम सेटिङ खोल्न सकिएन';
 
   @override
-  String get discordRichPresence => 'धनी उपस्थिति';
+  String get discordRichPresence => 'Rich Presence';
 
   @override
   String get discordRichPresenceTokenDesc =>
@@ -1854,7 +1853,7 @@ class AppLocalizationsNe extends AppLocalizations {
   String get discordTokenRemovedSnack => 'Discord टोकन हटाइयो';
 
   @override
-  String get discordRichPresenceRow => 'Discord रिच उपस्थिति';
+  String get discordRichPresenceRow => 'Discord Rich Presence';
 
   @override
   String get discordRichPresenceRowOn => 'अन · लुक बदल्न ट्याप गर';
@@ -2050,6 +2049,24 @@ class AppLocalizationsNe extends AppLocalizations {
   @override
   String get comickClientIdDesc =>
       'comick.dev मा आफू अनुकूल ग्राहक ID दर्ता गरियो';
+
+  @override
+  String get traktClientId => 'Trakt Client ID';
+
+  @override
+  String get traktClientIdDesc =>
+      'Sign in with your own Trakt app instead of the built-in one';
+
+  @override
+  String get traktCreateApp => 'Create a Trakt app';
+
+  @override
+  String get traktCreateAppDesc => 'Opens your apps on trakt.tv';
+
+  @override
+  String traktRedirectHelp(String uris) {
+    return 'On trakt.tv/oauth/applications create an app and add these Redirect URIs, one per line:\n\n$uris\n\nThen paste its Client ID here, save and sign in again.';
+  }
 
   @override
   String get couldNotUpdateKitsuSettings =>
@@ -3651,7 +3668,7 @@ class AppLocalizationsNe extends AppLocalizations {
   String get sortNewest => 'नयाँ';
 
   @override
-  String get sortAz => 'A-Z';
+  String get sortAz => 'A–Z';
 
   @override
   String get sortMostFavourited => 'सबैभन्दा मनपर्ने';
@@ -3746,6 +3763,11 @@ class AppLocalizationsNe extends AppLocalizations {
 
   @override
   String get continueWatching => 'हेर्न जारी राख';
+
+  @override
+  String splitSection(String section, String kind) {
+    return '$section · $kind';
+  }
 
   @override
   String get continueReading => 'पढ्न जारी राख';
