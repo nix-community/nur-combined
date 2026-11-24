@@ -15,14 +15,14 @@
     "version": "0.18.1"
   },
   "designcraft": {
-    "hash": "sha256-6RYw1M31eMyx4vOfiOJOhSDxSC1RrkcUZX7kceIjf0Q=",
-    "url": "https://github.com/storytold/designcraft/releases/download/v0.20.1/designcraft-0.20.1-linux-x86_64.tar.gz",
-    "version": "0.20.1"
+    "hash": "sha256-IR50ufXO5b/DzbRpg9C9sf29CRZL/YB/T/cHBpNdQK4=",
+    "url": "https://github.com/storytold/designcraft/releases/download/v0.21.1/designcraft-0.21.1-linux-x86_64.tar.gz",
+    "version": "0.21.1"
   },
   "effectcraft": {
-    "hash": "sha256-XOA5NpAUQif6kYboIwitY4pu9tn5dsmW5tA7W1G2Wns=",
-    "url": "https://github.com/storytold/effectcraft/releases/download/v0.24.1/effectcraft-0.24.1-linux-x86_64.tar.gz",
-    "version": "0.24.1"
+    "hash": "sha256-byn/fgNZkJ/h2/b9PP2EMKA2I0m2EsXrLPyP7nueJ2A=",
+    "url": "https://github.com/storytold/effectcraft/releases/download/v0.25.1/effectcraft-0.25.1-linux-x86_64.tar.gz",
+    "version": "0.25.1"
   },
   "figcraft": {
     "hash": "sha256-gnbSrFXG939686QRqbAEFdP+sLWWB6VFIzETQOZT/Bk=",
