@@ -146,6 +146,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Run Valve's ARM64 SteamOS in a lightweight VM on Apple Silicon";
+    mainProgram = "steamac-vm";
     homepage = "https://fxgl.github.io/steamac/";
     license = lib.licenses.asl20;
     platforms = [ "aarch64-darwin" ];
