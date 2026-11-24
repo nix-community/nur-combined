@@ -71,6 +71,7 @@ let
           "2.11.7:go1.26.9" = "sha256-uTLEiufQgJuyW26eLOTzl5rH8zlVVXmuRjt3s0n1FmQ=";
           "2.11.7:go1.26.10" = "sha256-NipEUMcDqSFOhqdWHcKX8hKnFX1L0ers2CQe8Ww+x1s=";
           "2.11.9:go1.27.3" = "sha256-EO/aQrRPcWBv/NQXif52oPNyfh5FjfIk6rr22Mqn9Iw=";
+          "2.11.9:go1.27.4" = "";
         };
         nixosVersion = pkgs.lib.versions.majorMinor pkgs.lib.version;
         caddyVersion = pkgs.caddy.version;
