@@ -128,7 +128,7 @@ class MusicDatabase(
     }
 
     class WritableDatabaseShim {
-        val version: Int = 37
+        val version: Int = 41
     }
 
     val openHelper: OpenHelperShim get() = OpenHelperShim()
