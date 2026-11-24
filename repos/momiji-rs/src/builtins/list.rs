@@ -11,6 +11,8 @@
 use crate::error::Error;
 use crate::scanner::Pos;
 use crate::value::{List, ListSep, Number, SassStr, Value};
+use std::borrow::Cow;
+use std::rc::Rc;
 
 /// The names the list family owns by name (the single source of truth,
 /// mirroring the `try_call` match arms below). `length`/`nth` are list-owned:
@@ -81,9 +83,14 @@ fn fn_slash(pos_args: &[Value], pos: Pos) -> Result<Value, Error> {
 /// own items and separator; a map yields its entries as `key value` space
 /// lists (comma-separated); any other value (including `null`) is a
 /// single-element list. dart-sass reports a lone non-list as space-separated.
-fn as_items(v: &Value) -> (Vec<Value>, ListSep) {
+///
+/// A list is borrowed, never copied: reading one element (`nth`, `index`) must
+/// not cost the whole list, and a builtin that returns a new list collects its
+/// result straight into one `Rc<[Value]>` (see [`collect_items`]) instead of
+/// copying the source into a `Vec` and then copying that `Vec` again.
+fn as_items(v: &Value) -> (Cow<'_, [Value]>, ListSep) {
     match v {
-        Value::List(l) => (l.items.to_vec(), l.sep),
+        Value::List(l) => (Cow::Borrowed(&l.items), l.sep),
         Value::Map(m) => {
             let items = m
                 .entries
@@ -97,10 +104,19 @@ fn as_items(v: &Value) -> (Vec<Value>, ListSep) {
                     })
                 })
                 .collect();
-            (items, ListSep::Comma)
+            (Cow::Owned(items), ListSep::Comma)
         }
-        other => (vec![other.clone()], ListSep::Space),
+        other => (Cow::Owned(vec![other.clone()]), ListSep::Space),
     }
+}
+
+/// Collect a builtin's result list into its shared buffer in one allocation of
+/// exactly the final length. `Rc<[T]>: FromIterator` sizes the allocation up
+/// front only for an exact-size (`TrustedLen`) iterator such as `cloned`,
+/// `chain` and `once` over slices; anything else collects into a `Vec` first
+/// and then copies it, so keep the iterator to those adapters.
+fn collect_items<I: Iterator<Item = Value>>(items: I) -> Rc<[Value]> {
+    items.collect()
 }
 
 /// The element count of a value treated as a list.
@@ -209,12 +225,15 @@ fn fn_set_nth(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result
     let params = ["list", "n", "value"];
     super::check_arity(params.len(), pos_args, named, pos)?;
     let list = super::require(&params, pos_args, named, 0, pos)?;
-    let (mut items, sep) = as_items(list);
-    let idx = resolve_index(&params, pos_args, named, 1, items.len(), pos)?;
-    let value = super::require(&params, pos_args, named, 2, pos)?.clone();
-    if let Some(slot) = items.get_mut(idx) {
-        *slot = value;
-    }
+    let (src, sep) = as_items(list);
+    let idx = resolve_index(&params, pos_args, named, 1, src.len(), pos)?;
+    let value = super::require(&params, pos_args, named, 2, pos)?;
+    let items = collect_items(
+        src.iter()
+            .enumerate()
+            .map(|(i, v)| if i == idx { value } else { v })
+            .cloned(),
+    );
     // `set-nth` preserves the source list's bracketing (dart-sass).
     let bracketed = matches!(list, Value::List(l) if l.bracketed);
     Ok(Value::List(List::new(items, sep, bracketed)))
@@ -271,8 +290,7 @@ fn fn_join(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Va
         Some(v) => v.is_truthy(),
     };
 
-    let mut items = items1;
-    items.extend(items2);
+    let items = collect_items(items1.iter().chain(items2.iter()).cloned());
     Ok(Value::List(List::new(items, sep, bracketed)))
 }
 
@@ -293,7 +311,7 @@ fn fn_append(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<
     super::check_arity(params.len(), pos_args, named, pos)?;
     let list = super::require(&params, pos_args, named, 0, pos)?;
     let val = super::require(&params, pos_args, named, 1, pos)?.clone();
-    let (mut items, _) = as_items(list);
+    let (src, _) = as_items(list);
 
     let sep = match super::arg(&params, pos_args, named, 2) {
         Some(v) => match parse_separator(v, pos)? {
@@ -305,7 +323,7 @@ fn fn_append(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<
     // `append` keeps the source list's bracketing (dart-sass).
     let bracketed = matches!(list, Value::List(l) if l.bracketed);
 
-    items.push(val);
+    let items = collect_items(src.iter().cloned().chain(std::iter::once(val)));
     Ok(Value::List(List::new(items, sep, bracketed)))
 }
 
@@ -356,20 +374,18 @@ fn fn_is_bracketed(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> R
 /// shortest input. With a single element per row the row is that bare value;
 /// when any input is empty (length 0) the result is the empty list.
 fn fn_zip(pos_args: &[Value]) -> Result<Value, Error> {
-    let lists: Vec<Vec<Value>> = pos_args.iter().map(|v| as_items(v).0).collect();
+    let lists: Vec<Cow<'_, [Value]>> = pos_args.iter().map(|v| as_items(v).0).collect();
     let rows = lists.iter().map(|l| l.len()).min().unwrap_or(0);
-    let mut out = Vec::with_capacity(rows);
-    for i in 0..rows {
-        let row: Vec<Value> = lists.iter().map(|l| l[i].clone()).collect();
-        out.push(Value::List(List {
-            items: row.into(),
+    let out = collect_items((0..rows).map(|i| {
+        Value::List(List {
+            items: collect_items(lists.iter().map(|l| l[i].clone())),
             sep: ListSep::Space,
             bracketed: false,
             keywords: None,
-        }));
-    }
+        })
+    }));
     Ok(Value::List(List {
-        items: out.into(),
+        items: out,
         sep: ListSep::Comma,
         bracketed: false,
         keywords: None,

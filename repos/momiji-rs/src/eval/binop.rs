@@ -1,4 +1,5 @@
 use super::*;
+use std::borrow::Cow;
 
 /// Evaluate the `/` operator. When `slash` is set and both operands are
 /// numbers, produce a slash-separated value that serializes as `a/b` but
@@ -153,7 +154,17 @@ pub(super) fn binary_add(l: Value, r: Value, pos: Pos) -> Result<Value, Error> {
         Value::Str(s) => s.quoted,
         _ => matches!(&r, Value::Str(s) if s.quoted),
     };
-    let text = format!("{}{}", concat_str(&l), concat_str(&r));
+    // Sized exactly, so the buffer never grows; `into` then copies it once
+    // into the shared `Rc<str>`. The block drops the operands first: a
+    // non-string operand's serialization is an owned buffer, and it must not
+    // still be alive while the `Rc` is allocated.
+    let text = {
+        let (a, b) = (concat_str(&l), concat_str(&r));
+        let mut text = String::with_capacity(a.len() + b.len());
+        text.push_str(&a);
+        text.push_str(&b);
+        text
+    };
     Ok(Value::Str(SassStr {
         text: text.into(),
         quoted,
@@ -293,10 +304,15 @@ pub(super) fn coerce_pair(a: &Number, b: &Number, pos: Pos) -> Result<(f64, f64,
     }
 }
 
-pub(super) fn concat_str(v: &Value) -> String {
+/// One side of a `+` string concatenation: a string's own text, borrowed, or
+/// any other value's CSS form. Borrowing matters: concatenation is how a
+/// stylesheet grows a large string, and copying each operand out first only to
+/// copy it again into the result made every `+` allocate the result's size
+/// several times over.
+fn concat_str(v: &Value) -> Cow<'_, str> {
     match v {
-        Value::Str(s) => s.text.to_string(),
-        other => other.to_css(false),
+        Value::Str(s) => Cow::Borrowed(&s.text),
+        other => Cow::Owned(other.to_css(false)),
     }
 }
 

@@ -338,11 +338,11 @@ pub(crate) fn modify_in_space_full(
         let missing_in_src = |cat: ChannelCategory| {
             (0..3).any(|i| orig.channels[i].is_none() && channel_category(orig.space, i) == Some(cat))
         };
-        for i in 0..3 {
-            if work.channels[i].is_none() {
+        for (i, ch) in work.channels.iter_mut().enumerate() {
+            if ch.is_none() {
                 let authored = channel_category(space, i).is_some_and(missing_in_src);
                 if !authored {
-                    work.channels[i] = Some(0.0);
+                    *ch = Some(0.0);
                 }
             }
         }

@@ -253,7 +253,7 @@ impl<'a> Evaluator<'a> {
                         if track_spans {
                             splat_pos_spans.extend(std::iter::repeat(sp).take(l.items.len()));
                         }
-                        splat_pos.extend(l.items.to_vec());
+                        splat_pos.extend(l.items.iter().cloned());
                         // An argument-list splat (`$args...`) also forwards its
                         // captured keyword arguments as named arguments.
                         if let Some(kw) = l.keywords {

@@ -660,9 +660,9 @@ pub(super) fn channel_powerless(space: ColorSpace, idx: usize, conv: &ModernColo
 /// set to missing, so the missing-channel error serializes it as `none`.
 pub(super) fn null_powerless(mc: &ModernColor, space: ColorSpace) -> ModernColor {
     let mut out = mc.clone();
-    for idx in 0..3 {
+    for (idx, ch) in out.channels.iter_mut().enumerate() {
         if channel_powerless(space, idx, mc) {
-            out.channels[idx] = None;
+            *ch = None;
         }
     }
     out

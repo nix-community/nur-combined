@@ -13,7 +13,10 @@ permissions:
 jobs:
   benchmarks:
     name: Run benchmarks
-    runs-on: ubuntu-latest
+    # Pinned: ubuntu-latest is Ubuntu 26.04, which the CodSpeed runner
+    # (v4.19.1) rejects as "Unsupported system". 24.04 is also the image every
+    # earlier baseline was measured on.
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v6
 

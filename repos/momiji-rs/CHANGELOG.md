@@ -212,6 +212,25 @@ Conformance is tracked separately as a ratchet against the official
 
 ### Performance
 
+- **List builtins no longer copy their list argument, and string `+` builds its
+  result once.** `nth` and `index` copied the whole list to read one element,
+  so a `@for` loop over a list's elements was quadratic. `join`, `append`,
+  `set-nth` and `zip` copied each input into a `Vec`, grew it, and then copied
+  it again into the result. `+` on strings copied both operands, grew a buffer
+  of unknown size, and then copied it. They now borrow their inputs and fill
+  the result in one exact-size allocation. Output is unchanged.
+  `tests/alloc_bounds.rs` counts allocations to keep it that way. macOS/arm64,
+  release CLI, peak RSS and wall time:
+
+  ```
+                                                         before            now
+    $s: $s + $s, 28 times (a 256 MB string)          1363 MB 0.64 s   1026 MB 0.32 s
+    $l: join($l, $l), 24 times (16M elements)        3744 MB 2.17 s   2051 MB 0.37 s
+    append 4000 elements, then nth over each         1624 MB 0.29 s    492 MB 0.10 s
+  ```
+
+  Ordinary stylesheets are unaffected (the bench corpus is within noise).
+
 - **A `sasso` of another version on `PATH` no longer slows every npm CLI run.**
   The npm CLI hands its command line to a `sasso` binary on `PATH` only when
   that binary is exactly the package's version. To find out, it ran the binary

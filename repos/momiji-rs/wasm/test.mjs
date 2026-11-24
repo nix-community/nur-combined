@@ -3487,7 +3487,16 @@ console.log("ok: cli — version/help/stdin/style/file @use/load-path/errors + e
     // `--version` line is exercised below, by a file whose marker matches.
     const claimed = runWith(packageSaying("--version"), argv("i2.css"), { PATH: strangerDir });
     compiles("a stranger whose --version output equals the package version", claimed, "i2.css");
-    assert.match(claimed.stderr, /carries no sasso version marker/, "cli: … declined from the file, without being run");
+    // The marker scan reads at most `MARKER_SCAN_BYTES` (8 MiB, wasm/npm/cli.mjs)
+    // from the end. Past that it gives no answer, and the CLI falls back to the
+    // `--version` shape check by design. Ubuntu 26.04's `echo` is uutils'
+    // 11.8 MB multi-call binary, so there the stranger is run and declined by
+    // that check instead. Either way it is never handed the command line.
+    if (statSync(echo).size <= 8 << 20) {
+      assert.match(claimed.stderr, /carries no sasso version marker/, "cli: … declined from the file, without being run");
+    } else {
+      assert.match(claimed.stderr, /does not answer --version with/, "cli: … declined by its --version line, past the scan budget");
+    }
   }
 
   // The version marker (`VERSION_MARKER` in src/main.rs) is read before any
