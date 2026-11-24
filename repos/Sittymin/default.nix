@@ -24,6 +24,7 @@ in
   libmks = pkgs.callPackage ./pkgs/libmks { };
   chatgpt = pkgs.callPackage ./pkgs/chatgpt { };
   claude-desktop = pkgs.callPackage ./pkgs/claude-desktop { };
+  antigravity = pkgs.callPackage ./pkgs/antigravity { };
   muse-code = pkgs.callPackage ./pkgs/muse-code { };
   qoder-cli = pkgs.callPackage ./pkgs/qoder-cli { };
   qoder-cn = pkgs.callPackage ./pkgs/qoder-cn { };

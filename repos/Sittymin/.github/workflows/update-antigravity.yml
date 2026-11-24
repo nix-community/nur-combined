@@ -1,0 +1,83 @@
+name: Update Antigravity package
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "37 3 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-antigravity
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: experimental-features = nix-command flakes
+
+      - name: Update package metadata
+        shell: bash
+        env:
+          PACKAGE_FILE: pkgs/antigravity/default.nix
+          RELEASES_URL: https://antigravity-hub-auto-updater-974169037036.us-central1.run.app/releases
+        run: |
+          set -euo pipefail
+
+          latest="$(curl -fsSL "$RELEASES_URL" | jq -r '.[0] | "\(.version)-\(.execution_id)"')"
+          test -n "$latest"
+
+          base="https://storage.googleapis.com/antigravity-public/antigravity-hub/$latest"
+          hash_x86_64="$(nix store prefetch-file --json "$base/linux-x64/Antigravity.tar.gz" | jq -r '.hash')"
+          hash_aarch64="$(nix store prefetch-file --json "$base/linux-arm/Antigravity.tar.gz" | jq -r '.hash')"
+
+          test -n "$hash_x86_64"
+          test -n "$hash_aarch64"
+
+          VERSION="$latest" HASH_X86_64="$hash_x86_64" HASH_AARCH64="$hash_aarch64" \
+          perl -0pi -e '
+            s{version = "[^"]+";}{version = "$ENV{VERSION}";};
+            s{arch = "linux-x64";\n      hash = "[^"]+";}{arch = "linux-x64";\n      hash = "$ENV{HASH_X86_64}";};
+            s{arch = "linux-arm";\n      hash = "[^"]+";}{arch = "linux-arm";\n      hash = "$ENV{HASH_AARCH64}";};
+          ' "$PACKAGE_FILE"
+
+          echo "Antigravity is at $latest"
+
+      - name: Detect package changes
+        id: changes
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet -- pkgs/antigravity/default.nix; then
+            echo "Antigravity is already up to date."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Validate updated package
+        if: steps.changes.outputs.changed == 'true'
+        run: nix build .#antigravity --print-build-logs
+
+      - name: Commit and push changes
+        if: steps.changes.outputs.changed == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pkgs/antigravity/default.nix
+          git commit -m "update: antigravity"
+          git push
