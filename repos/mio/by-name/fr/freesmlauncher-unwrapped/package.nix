@@ -91,6 +91,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
+  # QFileSystemWatcher (FSEvents) cannot start under the darwin build sandbox,
+  # which makes the ResourceFolderModel test time out. Keep Linux sandboxed.
+  __noChroot = stdenv.hostPlatform.isDarwin;
+
   dontWrapQtApps = true;
 
   passthru = {
