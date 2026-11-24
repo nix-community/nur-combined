@@ -2,14 +2,11 @@
   lib,
   pkgs,
   stdenv,
-
   cmake,
-
   spdlog,
   boost,
   wge,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wge-apic";
   version = "2025-11-07";
@@ -20,14 +17,14 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-9pk6aC5hsCmZCHxE36ypx6WZkhL9L0+4/kVnKu3I12U=";
   };
   sourceRoot = "${finalAttrs.src.name}/wge-apic";
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     spdlog
     boost
     wge
   ];
-  patches = [ ./no_vcpkg.patch ];
-  patchFlags = [ "-p2" ];
+  patches = [./no_vcpkg.patch];
+  patchFlags = ["-p2"];
   # std::expected
   env.CXXFLAGS = "-std=gnu++23";
   # pass into CMakeLists

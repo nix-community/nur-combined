@@ -2,13 +2,11 @@
   lib,
   mkNginxPlugin,
   fetchFromGitHub,
-
   spdlog,
   fmt,
   wge,
   wge-apic,
 }:
-
 mkNginxPlugin (finalAttrs: {
   pname = "wge";
   version = "2025-11-07";
@@ -27,8 +25,8 @@ mkNginxPlugin (finalAttrs: {
     wge-apic
   ];
 
-  patches = [ ./nginx_config.patch ];
-  patchFlags = [ "-p2" ];
+  patches = [./nginx_config.patch];
+  patchFlags = ["-p2"];
   postPatch = ''
     substituteInPlace config --replace-fail '$ngx_addon_dir/../wge-apic' '${wge-apic}/include'
   '';

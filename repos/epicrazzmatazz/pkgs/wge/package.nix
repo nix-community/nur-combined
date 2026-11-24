@@ -2,12 +2,10 @@
   pkgs,
   lib,
   stdenv,
-
   # native build inputs
   cmake,
   ninja,
   pkg-config,
-
   # vcpkgs dependencies
   antlr4, # 4.13.2 or higher
   spdlog,
@@ -22,13 +20,10 @@
   #boost-uuid,
   #boost-unordered,
   #boost-interprocess,
-
   # non-vcpkgs dependencies
   ragel, # 6.10 specifically
   jdk, # 21 or higher
-}:
-
-let
+}: let
   vcpkgFakePackage = target: name: ''
     Package : ${name}
     Architecture : ${target}
@@ -64,54 +59,53 @@ let
     libxml2
     boost.dev
   ];
-  modSecurity = pkgs.fetchFromGitHub {
-
-  };
+  modSecurity =
+    pkgs.fetchFromGitHub {
+    };
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "wge";
-  version = "1.0.0";
-  src = pkgs.fetchFromGitHub {
-    owner = "stone-rhino";
-    repo = "wge";
-    rev = "release-${finalAttrs.version}";
-    hash = "sha256-cuQ99sJZ9vnPP/C7M2Be94ltrVwy47rDWhDRtctCyKg=";
-    fetchSubmodules = true;
-  };
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "wge";
+    version = "1.0.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "stone-rhino";
+      repo = "wge";
+      rev = "release-${finalAttrs.version}";
+      hash = "sha256-cuQ99sJZ9vnPP/C7M2Be94ltrVwy47rDWhDRtctCyKg=";
+      fetchSubmodules = true;
+    };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-  ];
+    nativeBuildInputs = [
+      cmake
+      ninja
+      pkg-config
+    ];
 
-  buildInputs = [
-    ragel
-    jdk
-  ]
-  ++ realCPPPackages;
+    buildInputs =
+      [
+        ragel
+        jdk
+      ]
+      ++ realCPPPackages;
 
-  env.NIX_ANTLR_JAR_PATH = "${antlr4}/share/java";
-  patches = [ ./no_vcpkg.patch ];
-  dontUseCmakeBuildDir = true;
-  dontUseCmakeConfigurePhase = true;
-  cmakeBuildType = "release";
-  ninjaFlags = [
-    "-C"
-    "build/release"
-  ];
+    env.NIX_ANTLR_JAR_PATH = "${antlr4}/share/java";
+    patches = [./no_vcpkg.patch];
+    dontUseCmakeBuildDir = true;
+    dontUseCmakeConfigurePhase = true;
+    cmakeBuildType = "release";
+    ninjaFlags = [
+      "-C"
+      "build/release"
+    ];
 
-  # this is a hack to decouple from vcpkg, which relies on fetching
-  # dependencies from the internet. inspired by the method taken by
-  # https://github.com/NixOS/nixpkgs/blob/release-22.11/pkgs/applications/networking/remote/rustdesk/default.nix
-  postUnpack =
-    let
+    # this is a hack to decouple from vcpkg, which relies on fetching
+    # dependencies from the internet. inspired by the method taken by
+    # https://github.com/NixOS/nixpkgs/blob/release-22.11/pkgs/applications/networking/remote/rustdesk/default.nix
+    postUnpack = let
       vcpkg_target = "x64-linux";
       updates_vcpkg_file = pkgs.writeText "update_vcpkg_wge" (
         lib.concatStringsSep "\n\n" (lib.map (vcpkgFakePackage vcpkg_target) fakeCPPPackages)
       );
-    in
-    ''
+    in ''
       export VCPKG_ROOT="$TMP/vcpkg";
 
       mkdir -p $VCPKG_ROOT/.vcpkg-root
@@ -123,41 +117,41 @@ stdenv.mkDerivation (finalAttrs: {
       ln -s {${lib.concatStringsSep "," (lib.catAttrs "out" realCPPPackages)}}/lib/* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
     '';
 
-  # disable benchmark from building, it pulls in ModSecurity source and tries to compile
-  postPatch = ''
-    substituteInPlace CMakeLists.txt --replace-fail "add_subdirectory(benchmarks/modsecurity)" ""
-    substituteInPlace CMakeLists.txt --replace-fail "add_subdirectory(benchmarks/wge)" ""
-    substituteInPlace CMakeLists.txt --replace-fail "add_dependencies(wge_install_target wge)" ""
-  '';
+    # disable benchmark from building, it pulls in ModSecurity source and tries to compile
+    postPatch = ''
+      substituteInPlace CMakeLists.txt --replace-fail "add_subdirectory(benchmarks/modsecurity)" ""
+      substituteInPlace CMakeLists.txt --replace-fail "add_subdirectory(benchmarks/wge)" ""
+      substituteInPlace CMakeLists.txt --replace-fail "add_dependencies(wge_install_target wge)" ""
+    '';
 
-  preConfigure = ''
-    export CLASSPATH=".:$${NIX_ANTLR_JAR_PATH}/antlr-4.13.2-complete.jar:$CLASSPATH"
-    alias antlr4='${jdk}/bin/java -Xmx500M -cp "$${NIX_ANTLR_JAR_PATH}/antlr-4.13.2-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
-    alias grun='${jdk}/bin/java -Xmx500M -cp "$${NIX_ANTLR_JAR_PATH}/antlr-4.13.2-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig'
-  '';
+    preConfigure = ''
+      export CLASSPATH=".:$${NIX_ANTLR_JAR_PATH}/antlr-4.13.2-complete.jar:$CLASSPATH"
+      alias antlr4='${jdk}/bin/java -Xmx500M -cp "$${NIX_ANTLR_JAR_PATH}/antlr-4.13.2-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
+      alias grun='${jdk}/bin/java -Xmx500M -cp "$${NIX_ANTLR_JAR_PATH}/antlr-4.13.2-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig'
+    '';
 
-  configurePhase = ''
-    runHook preConfigure
-    cmake --preset=release
-    runHook postConfigure
-  '';
-  buildPhase = ''
-    cmake --build build/release
-  '';
-  installPhase = ''
-    cmake --install build/release --prefix $out
-  '';
+    configurePhase = ''
+      runHook preConfigure
+      cmake --preset=release
+      runHook postConfigure
+    '';
+    buildPhase = ''
+      cmake --build build/release
+    '';
+    installPhase = ''
+      cmake --install build/release --prefix $out
+    '';
 
-  doCheck = true;
-  checkPhase = ''
-    ./build/release/test/test
-  '';
+    doCheck = true;
+    checkPhase = ''
+      ./build/release/test/test
+    '';
 
-  meta = {
-    description = "Web application firewall built with C++ and compatible with OWASP Core Rule Set.";
-    homepage = "https://stone-rhino.github.io/wge/";
-    downloadPage = "https://github.com/stone-rhino/wge/releases/tag/release-1.0.0";
-    license = lib.licenses.mit;
-    maintainers = [];
-  };
-})
+    meta = {
+      description = "Web application firewall built with C++ and compatible with OWASP Core Rule Set.";
+      homepage = "https://stone-rhino.github.io/wge/";
+      downloadPage = "https://github.com/stone-rhino/wge/releases/tag/release-1.0.0";
+      license = lib.licenses.mit;
+      maintainers = [];
+    };
+  })
