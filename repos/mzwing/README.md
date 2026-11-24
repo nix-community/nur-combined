@@ -3,7 +3,7 @@
 mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 
 ![Build and populate cache](https://github.com/mzwing/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
-[![Cachix Cache](https://img.shields.io/badge/cachix-mzwing-blue.svg)](https://mzwing.cachix.org)
+[![Binary cache](https://img.shields.io/badge/cache-firn-blue.svg)](https://nix-cache.service.mzwing.eu.org)
 
 ## Packages
 

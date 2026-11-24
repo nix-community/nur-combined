@@ -26,7 +26,6 @@ jobs:
       - name: Set up Nix
         uses: mzwing/nix-actions/nix/setup@master
         with:
-          cachix-pull: 'false'
           install-devenv: 'true'
 
       # A reader: update.yml is the sole writer of this cache family.

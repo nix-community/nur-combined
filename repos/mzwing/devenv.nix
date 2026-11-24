@@ -36,8 +36,6 @@ in {
       typenix
     ]);
 
-  cachix.pull = ["mzwing"];
-
   enterTest = ''
     act --version
     actionlint -version

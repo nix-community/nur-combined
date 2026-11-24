@@ -21,20 +21,19 @@ concurrency:
 jobs:
   build:
     name: Distributed build
+    permissions:
+      contents: read
+      id-token: write
+      packages: write
     uses: mzwing/nix-actions/.github/workflows/distributed-build.yml@master
     with:
       name-prefix: nur
-      # Only `out` reaches Cachix; every other closure stays private, and the retained set outgrew the 10 GiB Actions cache quota.
-      store-cache-remote: ${{ vars.STORE_CACHE_REMOTE }}
-      # Leaves the rest of the coordinator's 350 minutes to publish and reconcile.
+      # Leaves the rest of the coordinator's 350 minutes to publish
       build-timeout-minutes: 250
     secrets:
       TS_OAUTH_CLIENT_ID: ${{ secrets.TS_OAUTH_CLIENT_ID }}
       TS_OAUTH_SECRET: ${{ secrets.TS_OAUTH_SECRET }}
-      CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      RCLONE_CONFIG: ${{ secrets.RCLONE_CONFIG }}
 
-  # Needs the cache job green too, not just the build: a red cache job means the generation never persisted, which is worth a look before NUR re-indexes.
   nur-update:
     name: Trigger NUR update
     needs: build
@@ -42,7 +41,7 @@ jobs:
     steps:
       - run: curl -XPOST "https://nur-update.nix-community.org/update?repo=mzwing"
 
-  # Replaces nix-config's own schedule, which raced this build and pinned nur revisions Cachix did not have yet.
+  # Replaces nix-config's own schedule, which raced this build and pinned nur revisions firn did not have yet
   nix-config-update:
     name: Trigger nix-config update
     needs: build
