@@ -24,4 +24,5 @@
   canoe = pkgs.callPackage ./pkgs/canoe { };
   kwim = pkgs.callPackage ./pkgs/kwim { };
   th-tshyn = pkgs.callPackage ./pkgs/th-tshyn { };
+  alibabapuhuiti3 = pkgs.callPackage ./pkgs/alibabapuhuiti3 { };
 }
