@@ -1,8 +1,8 @@
 diff --git a/docs/SETUP-API.md b/docs/SETUP-API.md
-index 2e3da6a..1174487 100644
+index 781eb57..c0f896f 100644
 --- a/docs/SETUP-API.md
 +++ b/docs/SETUP-API.md
-@@ -85,7 +85,8 @@ fails as `checksum`, and a 200 to a Range goes on over one connection from the h
+@@ -90,7 +90,8 @@ fails as `checksum`, and a 200 to a Range goes on over one connection from the h
  - The model goes to `LastbookData/models/<file>`. After its SHA-256 matches, setup calls `llm_local.mark_checked(path)`, so
    the AI does not read 17 GB a second time.
  - Space needed = download size + unpacked size + 2 GB, on the disk that holds the target. A zip is deleted once it is
@@ -12,34 +12,34 @@ index 2e3da6a..1174487 100644
  - Manual downloads are recognized (`found()` in `engine/setup/api.py`) in these places only, and offered under *Found on
    this computer* as *Use the file you already have*:
    - a `Lastbook-*.zip`, or a file named like one in the manifest (pack, model, state map, address index), in the folder
-@@ -108,7 +109,7 @@ are served by `engine/setup/api.py` alone. In normal mode `server.py` hands `/ap
+@@ -116,7 +117,7 @@ are served by `engine/setup/api.py` alone. In normal mode `server.py` hands `/ap
  | Request | Answer |
  |---|---|
- | `GET /api/setup/state` | `{mode: "first-run" or "manage", hardware, manifest: {source: "bundled" or "fetched", packs, models}, current: {folder, pack, model} or null, found: [...], recommend: {pack, ai, why}, job}` |
+ | `GET /api/setup/state` | `{mode: "first-run" or "manage", hardware, manifest: {source: "bundled" or "fetched", packs, models}, current: {folder, pack, model, cloud_only, cloud_counting} or null (cloud_only: `{files, folders, bytes, examples}` of the library that are only in iCloud, counted from metadata in the background; null until counted and on other systems. cloud_counting: true only while a Mac counts, so the page knows when to ask again), found: [...], recommend: {pack, ai, why}, job}` |
 -| `POST /api/setup/start` `{pack, ai: true or false, folder?}` | the new `job`, or `{error, need_bytes, free_bytes}` |
 +| `POST /api/setup/start` `{pack, ai: true or false, folder?, force?}` | the new `job`, or `{error, need_bytes, free_bytes}`. `force: true` skips the free-space checks (start, each file, unpack) that the person chose to override |
  | `GET /api/setup/job` | `job` |
  | `POST /api/setup/pause`, `/resume`, `/cancel`, `/retry` | `job` |
  | `POST /api/setup/use` `{path, library?}` | uses a library or file already on this computer: `job` (verify, then unpack or activate). With `library: true` (*Open another library folder* in manage mode) only an existing LastbookData, or the folder holding one, is accepted: a file or a folder of pack zips is refused (`code: not_library`) and nothing starts. The library that is open now is refused (`code: current`) |
 diff --git a/engine/setup/api.py b/engine/setup/api.py
-index df5c905..0bd5100 100644
+index 48decf5..00bad44 100644
 --- a/engine/setup/api.py
 +++ b/engine/setup/api.py
-@@ -532,11 +532,11 @@ class Setup:
+@@ -577,11 +577,11 @@ class Setup:
              return p.parent if p.name == DATA_NAME else p
          return self.current.parent if self.current else self.default_parent
  
--    def start(self, pack_id=None, ai=False, folder=None, sources=None, explicit=False, repair=False, map_id=None, address_id=None, copy_to=None):
-+    def start(self, pack_id=None, ai=False, folder=None, sources=None, explicit=False, repair=False, map_id=None, address_id=None, copy_to=None, force=False):
+-    def start(self, pack_id=None, ai=False, folder=None, sources=None, explicit=False, repair=False, map_id=None, address_id=None, copy_to=None, check=False):
++    def start(self, pack_id=None, ai=False, folder=None, sources=None, explicit=False, repair=False, map_id=None, address_id=None, copy_to=None, check=False, force=False):
          if copy_to:
              return self._start_copy(copy_to)
-         if repair:
--            return self._start_repair(ai)
-+            return self._start_repair(ai, force)
+         if repair or check:
+-            return self._start_repair(ai, check_only=check)
++            return self._start_repair(ai, check_only=check, force=force)
          with self.lock:
              if self.job and self.job['state'] in ACTIVE + ('paused',):
                  return {'error': 'A download is already under way. Pause or cancel it first.', 'code': 'busy'}
-@@ -615,9 +615,11 @@ class Setup:
+@@ -660,9 +660,11 @@ class Setup:
                      except OSError:
                          pass
              free, _ = hardware.disk_of(parent)
@@ -52,7 +52,7 @@ index df5c905..0bd5100 100644
              items = []
              if pack:
                  items.append({'id': pack['id'], 'kind': 'pack', 'title': pack['title'], 'state': 'waiting', 'bytes_done': 0,
-@@ -635,7 +637,7 @@ class Setup:
+@@ -680,7 +682,7 @@ class Setup:
                          'folder': str(target),
                          'plan': {'pack': pack, 'model': model, 'map': mp, 'addresses': addresses, 'parent': str(parent), 'target': str(target), 'work': str(work),
                                   'sources': {k: v for k, v in srcs.items() if k in names}, 'explicit': explicit,
@@ -61,25 +61,26 @@ index df5c905..0bd5100 100644
              s = self._settings()
              s['work'] = str(work)
              self._save_settings(s)
-@@ -644,7 +646,7 @@ class Setup:
+@@ -689,7 +691,7 @@ class Setup:
              self._run()
              return self.public_job()
  
--    def _start_repair(self, ai):
-+    def _start_repair(self, ai, force=False):
+-    def _start_repair(self, ai, check_only=False):
++    def _start_repair(self, ai, check_only=False, force=False):
          """Re-check the open library's files (pack-manifest.tsv) and the model's SHA-256. What is wrong is fetched again: the pack is
-         downloaded and switched to as in an upgrade, the model replaced in place. Nothing is downloaded if all is well."""
-         with self.lock:
-@@ -682,7 +684,7 @@ class Setup:
+         downloaded and switched to as in an upgrade, the model replaced in place. Nothing is downloaded if all is well.
+         check_only (Check now): the same check, and nothing is ever downloaded or changed; the result is kept (current_info 'checked')
+@@ -732,7 +734,8 @@ class Setup:
              self.job = {'id': uuid.uuid4().hex[:12], 'state': 'waiting', 'items': items, 'error': None, 'started': _now(), 'folder': str(target),
-                         'repair': True,
+                         'repair': True, 'check': check_only,
                          'plan': {'pack': pack, 'model': model, 'map': mp, 'parent': str(parent), 'target': str(target), 'work': str(work),
--                                 'sources': {k: v for k, v in srcs.items() if k in names}, 'explicit': False, 'retried': {},
-+                                 'sources': {k: v for k, v in srcs.items() if k in names}, 'explicit': False, 'force': bool(force), 'retried': {},
-                                  'switch': True, 'repair': True}}
-             s = self._settings()
-             s['work'] = str(work)
-@@ -1229,7 +1231,7 @@ class Setup:
+-                                 'sources': {} if check_only else {k: v for k, v in srcs.items() if k in names}, 'explicit': False, 'retried': {},
++                                 'sources': {} if check_only else {k: v for k, v in srcs.items() if k in names}, 'explicit': False,
++                                 'force': bool(force), 'retried': {},
+                                  'switch': not check_only, 'repair': True, 'check_only': check_only}}
+             if not check_only:
+                 self.job['plan']['map_damaged'] = map_damaged
+@@ -1302,7 +1305,7 @@ class Setup:
              except OSError:
                  still = f['size']
              free, _ = hardware.disk_of(work)
@@ -88,7 +89,7 @@ index df5c905..0bd5100 100644
                  raise download.Failed('no_space', f'Downloading {name} needs {_gb(still)} free, and the disk has {_gb(free)}. Free some space, then try again.',
                                        need_bytes=still, free_bytes=free)
          while True:
-@@ -1257,7 +1259,7 @@ class Setup:
+@@ -1337,7 +1340,7 @@ class Setup:
                  return
              need = install.need_bytes(pack, None, set(plan['sources']))
              free, _ = hardware.disk_of(work.parent)
@@ -97,7 +98,7 @@ index df5c905..0bd5100 100644
                  raise download.Failed('no_space', f'{len(bad)} files need fetching again. That needs {_gb(need)} free, and the disk has {_gb(free)}.')
              with self.lock:
                  it['bytes_total'], it['bytes_done'] = pack['download_bytes'], 0
-@@ -1273,7 +1275,7 @@ class Setup:
+@@ -1353,7 +1356,7 @@ class Setup:
          total = sum(install.check_zip(path, pack['installed_bytes'])[1] for path, _ in got)   # every member checked before any is written
          still = max(total - _tree_size(staged), 0)
          free, _ = hardware.disk_of(work)
@@ -106,17 +107,17 @@ index df5c905..0bd5100 100644
              raise download.Failed('no_space', f'Unpacking needs {_gb(still)} free, and the disk has {_gb(free)}. Free some space, then try again.')
          for path, _ in got:
              lib = install.unpack(path, staged, pack['installed_bytes'], control, lambda d, t: tracker.progress(d, t, 'unpacking'))
-@@ -1593,7 +1595,7 @@ def _default():
+@@ -1690,7 +1693,7 @@ def _default():
  ROUTES = {
      ('GET', 'state'): lambda s, b: s.state(),
      ('GET', 'job'): lambda s, b: s.public_job(),
--    ('POST', 'start'): lambda s, b: s.start(b.get('pack'), bool(b.get('ai')), b.get('folder'), repair=bool(b.get('repair')), map_id=b.get('map') or None, address_id=b.get('address_id') or None, copy_to=b.get('copy_to') or None),
-+    ('POST', 'start'): lambda s, b: s.start(b.get('pack'), bool(b.get('ai')), b.get('folder'), repair=bool(b.get('repair')), map_id=b.get('map') or None, address_id=b.get('address_id') or None, copy_to=b.get('copy_to') or None, force=bool(b.get('force'))),
+-    ('POST', 'start'): lambda s, b: s.start(b.get('pack'), bool(b.get('ai')), b.get('folder'), repair=bool(b.get('repair')), map_id=b.get('map') or None, address_id=b.get('address_id') or None, copy_to=b.get('copy_to') or None, check=b.get('check') is True),
++    ('POST', 'start'): lambda s, b: s.start(b.get('pack'), bool(b.get('ai')), b.get('folder'), repair=bool(b.get('repair')), map_id=b.get('map') or None, address_id=b.get('address_id') or None, copy_to=b.get('copy_to') or None, check=b.get('check') is True, force=bool(b.get('force'))),
      ('POST', 'pause'): lambda s, b: s.pause(),
      ('POST', 'resume'): lambda s, b: s.resume(),
      ('POST', 'cancel'): lambda s, b: s.cancel(),
 diff --git a/web/setup.css b/web/setup.css
-index 60b2f07..eb27d87 100644
+index 15507f9..e611c8a 100644
 --- a/web/setup.css
 +++ b/web/setup.css
 @@ -73,6 +73,8 @@ html.plat-mac.in-app .s-top{padding-top:30px}   /* below the traffic lights of a
@@ -129,10 +130,10 @@ index 60b2f07..eb27d87 100644
  .s-folder{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
  .s-folder>svg{width:22px;height:22px;color:var(--ink3);flex:none}
 diff --git a/web/setup.js b/web/setup.js
-index 094db84..3933c9e 100644
+index 649580d..0fa6fc6 100644
 --- a/web/setup.js
 +++ b/web/setup.js
-@@ -74,6 +74,7 @@
+@@ -76,6 +76,7 @@
    let choice = { pack: null, ai: false, map: null };   // map: the selected state code
    let folder = '';
    let shortfall = null;   // the answer to a start that had no room: {need_bytes, free_bytes}
@@ -140,7 +141,7 @@ index 094db84..3933c9e 100644
    let pollT = 0;
    let confirmCancel = false, confirmRemove = false, confirmOld = false;
    let note = '', noteOk = false;
-@@ -254,8 +255,8 @@
+@@ -256,8 +257,8 @@
          <button class="s-link" id="haveFile">Choose a library zip or AI model file</button>
        </div>
        <p class="s-note" id="haveNote" hidden></p>`;
@@ -151,7 +152,7 @@ index 094db84..3933c9e 100644
      main.querySelectorAll('[data-use]').forEach(b => b.onclick = () => useFile((S.found || [])[+b.dataset.use].path, b));
      $('#start').onclick = start;
      if ($('#toManage')) $('#toManage').onclick = () => go('manage');
-@@ -295,7 +296,7 @@
+@@ -297,7 +298,7 @@
        <label class="s-maplabel" for="mapSel">Choose your state or region</label>
        <select id="mapSel" class="s-select" required aria-describedby="mapHint"><option value="" disabled${selected ? '' : ' selected'}>Select an area</option>${opts}</select>
        <p class="s-hint" id="mapHint">${hint}</p>`;
@@ -160,7 +161,7 @@ index 094db84..3933c9e 100644
    }
    function summary() {
      const { dl, need } = plan(), d = diskFor(folder), free = d ? d.free_bytes : null;
-@@ -305,16 +306,19 @@
+@@ -307,16 +308,19 @@
      $('#sum').innerHTML = need ? `
        <div class="s-nums"><span><small>Download</small><b>${dl ? size(dl) : 'None'}</b></span><span><small>Space needed</small><b>${size(short ? short.need_bytes : need)}</b></span><span><small>Free on ${esc(diskName(d))}</small><b>${short ? size(short.free_bytes) : free != null ? size(free) : 'Checked at start'}</b></span></div>
        ${free == null && !short ? '' : `<div class="s-meter${short ? ' bad' : ''}" role="img" aria-label="Uses ${Math.round(pct)} percent of the free space"><i style="width:${pct}%"></i></div>`}
@@ -182,7 +183,7 @@ index 094db84..3933c9e 100644
    }
    const folderRow = () => `<div class="s-folder">${ico('folder')}<span><small>Saves to</small><b title="${esc(folder)}">${esc(home(folder))}</b></span>${cur() ? '' : '<button class="btn plain" id="chFolder">Change…</button>'}</div>`;
  
-@@ -326,6 +330,7 @@
+@@ -328,6 +332,7 @@
          folder = asData(r.path);
          if (r.free_bytes != null) (S.hardware.disks = S.hardware.disks || []).push({ path: r.path, name: r.disk, free_bytes: r.free_bytes });   // the chosen place's own disk
          shortfall = null;
@@ -190,7 +191,7 @@ index 094db84..3933c9e 100644
          const pc = main.querySelector('.s-pc'); if (pc) pc.outerHTML = computer();
        }
        summary();
-@@ -358,7 +363,7 @@
+@@ -360,7 +365,7 @@
    async function start() {
      if (mapMissing()) { $('#mapSel')?.focus(); return }
      const b = $('#start'); b.disabled = true;
@@ -199,7 +200,7 @@ index 094db84..3933c9e 100644
      if (r && r.need_bytes) { shortfall = r; summary(); return }
      if (!r || r.error) { b.disabled = false; const n = $('#haveNote'); n.hidden = false; n.textContent = (r && r.error) || 'Setup could not start.'; return }
      S.job = r; go('job'); poll();
-@@ -590,7 +595,7 @@
+@@ -657,7 +662,7 @@
    }
    async function jobAct(a, b) {
      if (a === 'model-file') { await haveLibrary(true, b); return }
