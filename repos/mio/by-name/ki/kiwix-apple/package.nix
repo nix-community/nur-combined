@@ -56,13 +56,13 @@ stdenvNoCC.mkDerivation (
   finalAttrs:
   {
     pname = "kiwix-apple";
-    version = "3.16.1";
+    version = "3.19.0";
 
     src = fetchFromGitHub {
       owner = "kiwix";
       repo = "kiwix-apple";
-      tag = "3.16.1";
-      hash = "sha256-S11TRgExgsgckbiV+ozxrmunj4dKPacL4fhMiQrrgR0=";
+      tag = finalAttrs.version;
+      hash = "sha256-tMK2W4yn3rH1e/G/K3zOhQoe9KGqrktWvfFJAelxvnI=";
     };
 
     strictDeps = true;

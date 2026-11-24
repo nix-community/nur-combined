@@ -19,13 +19,13 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "purge";
-  version = "1.18.0";
+  version = "1.18.1";
 
   src = fetchFromGitHub {
     owner = "jithin-sabu";
     repo = "purge-app";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-zumS4WY0rGSWlI2dbJDoNXtFqDrIA8ngz/yJ/0Os66U=";
+    hash = "sha256-6POZ0Hkdgriu1cOnfGIlmIkFquw5hseu1UkcsbbCZ7w=";
   };
 
   # Xcode 26.3's type checker times out on one long row-count sum; the patch
