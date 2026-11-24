@@ -2,11 +2,11 @@
   description = "Nix packages and NixOS/nix-darwin modules";
 
   inputs = {
-    nixpkgs.url = "git+https://github.com/NixOS/nixpkgs?shallow=1";
+    nixpkgs.url = "git+https://github.com/NixOS/nixpkgs?ref=nixos-unstable&shallow=1";
   };
 
   outputs =
-    { self, nixpkgs }:
+    { nixpkgs, ... }:
     let
       inherit (nixpkgs) lib;
       systems = [
@@ -15,9 +15,14 @@
         "aarch64-darwin"
       ];
       modules = import ./default.nix { pkgs = null; };
-      overlay = _: prev: {
+      overlay = final: prev: {
         nur = prev.nur or { } // {
-          davinci42 = self.packages.${prev.stdenv.hostPlatform.system} // prev.nur.davinci42 or { };
+          davinci42 =
+            removeAttrs (import ./default.nix { pkgs = final; }) [
+              "nixosModules"
+              "darwinModules"
+            ]
+            // prev.nur.davinci42 or { };
         };
       };
       wrapModules = lib.mapAttrs (

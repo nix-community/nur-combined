@@ -2,8 +2,10 @@
 
 Personal Nix packages and NixOS/nix-darwin modules. `default.nix` exports
 packages and module paths for NUR and caller-supplied `pkgs`; `flake.nix` locks
-`nixpkgs` (`master`, shallow Git) to expose `packages.{x86_64-linux,aarch64-linux,aarch64-darwin}`,
-`overlays.default`, `nixosModules`, and `darwinModules`.
+`nixpkgs` (`nixos-unstable`, shallow Git) to expose
+`packages.{x86_64-linux,aarch64-linux,aarch64-darwin}`, `overlays.default`,
+`nixosModules`, and `darwinModules`, with Linux binary caches on
+`https://davinci42.cachix.org`.
 
 | Package           | Modules                                       | Documentation                                             |
 | ----------------- | --------------------------------------------- | --------------------------------------------------------- |
@@ -45,5 +47,6 @@ These commands do not deploy, commit or push. For in-place updates, use
 ## Automated updates
 
 GitHub Actions updates `flake.lock` (`chore(flake): update nixpkgs`) and checks
-custom packages on `x86_64-linux` via `workflow_dispatch`. Validated updates
-fast-forward `main` automatically and refresh the NUR index.
+custom packages via `workflow_dispatch`. After `x86_64-linux` and
+`aarch64-linux` builds succeed and push to `davinci42.cachix.org`, `main` is
+fast-forwarded automatically and the NUR index is refreshed.
