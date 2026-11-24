@@ -179,107 +179,6 @@ index 84b470da398..c73fed3a843 100644
            path: 'flake.lock',
            type: 'addition',
          },
-diff --git a/lib/modules/manager/nix/artifacts.ts b/lib/modules/manager/nix/artifacts.ts
-index de4600e7244..7face2a07f7 100644
---- a/lib/modules/manager/nix/artifacts.ts
-+++ b/lib/modules/manager/nix/artifacts.ts
-@@ -3,27 +3,56 @@
- import { logger } from '../../../logger/index.ts';
- import { findGithubToken } from '../../../util/check-token.ts';
- import { getEnv } from '../../../util/env.ts';
--import { exec } from '../../../util/exec/index.ts';
- import type { ExecOptions, ExtraEnv } from '../../../util/exec/types.ts';
--import { readLocalFile } from '../../../util/fs/index.ts';
-+import {
-+  ensureCacheDir,
-+  getSiblingFileName,
-+  readLocalFile,
-+  writeLocalFile,
-+} from '../../../util/fs/index.ts';
-+import { withGitEnvironment } from '../../../util/git/exec.ts';
- import { getRepoStatus } from '../../../util/git/index.ts';
- import * as hostRules from '../../../util/host-rules.ts';
- import { regEx } from '../../../util/regex.ts';
- import type { UpdateArtifact, UpdateArtifactsResult } from '../types.ts';
- import { resolveToolConstraint } from '../util.ts';
- 
-+const gitExec = withGitEnvironment();
-+
- export async function updateArtifacts({
-   packageFileName,
-   config,
-   updatedDeps,
-+  newPackageFileContent,
- }: UpdateArtifact): Promise<UpdateArtifactsResult[] | null> {
--  const lockFileName = packageFileName.replace(regEx(/\.nix$/), '.lock');
--  const existingLockFileContent = await readLocalFile(lockFileName, 'utf8');
-+  const lockFileName = getSiblingFileName(packageFileName, 'flake.lock');
-+  const existingLockFileContent = await readLocalFile(lockFileName);
-+
-+  logger.trace({ packageFileName, updatedDeps }, 'nix.updateArtifacts');
-+
-   if (!existingLockFileContent) {
-     logger.debug('No flake.lock found');
-     return null;
-   }
- 
-+  let updateCommand = 'flake update';
-+  if (!config.isLockFileMaintenance) {
-+    const inputs = updatedDeps
-+      .map(({ depName }) => depName)
-+      .filter(isNonEmptyStringAndNotWhitespace)
-+      .map((depName) => quote(depName))
-+      .join(' ');
-+    if (!inputs) {
-+      logger.debug('No flake inputs to update');
-+      return null;
-+    }
-+    updateCommand += ` ${inputs}`;
-+  }
-+
-+  // Nix reads flake.nix from the working tree, while Renovate keeps package
-+  // file updates in memory until artifact generation has finished.
-+  await writeLocalFile(packageFileName, newPackageFileContent);
-+
-   let cmd = `nix --extra-experimental-features 'nix-command flakes' `;
- 
-   const token = findGithubToken(
-@@ -52,21 +81,15 @@
-     }
-   }
- 
--  if (config.isLockFileMaintenance) {
--    cmd += 'flake update';
--  } else {
--    const inputs = updatedDeps
--      .map(({ depName }) => depName)
--      .filter(isNonEmptyStringAndNotWhitespace)
--      .map((depName) => quote(depName))
--      .join(' ');
--    cmd += `flake update ${inputs}`;
--  }
-+  cmd += updateCommand;
-   const execOptions: ExecOptions = {
-     cwdFile: packageFileName,
-     // extraEnv forwards it into the Docker sidecar but is only the lowest
-     // precedence layer; env forces it past an ambient NIX_CONFIG.
--    extraEnv,
-+    extraEnv: {
-+      ...extraEnv,
-+      NIX_CACHE_HOME: await ensureCacheDir('nix'),
-+    },
-     env: extraEnv,
-     toolConstraints: [
-       {
-@@ -78,7 +101,7 @@
-   };
- 
-   try {
--    await exec(cmd, execOptions);
-+    await gitExec(cmd, execOptions);
- 
-     const status = await getRepoStatus();
-     if (!status.modified.includes(lockFileName)) {
 diff --git a/lib/modules/manager/nix/extract.spec.ts b/lib/modules/manager/nix/extract.spec.ts
 index 96f9df54109..6fdf9b5c97f 100644
 --- a/lib/modules/manager/nix/extract.spec.ts
@@ -4354,3 +4253,104 @@ index 7f0313b7dd2..9da750ecc91 100644
      it('does not group single upgrade by default', () => {
        const { groupSingleUpdates } = getConfig();
        const branch = [
+diff --git a/lib/modules/manager/nix/artifacts.ts b/lib/modules/manager/nix/artifacts.ts
+index de4600e7244..7face2a07f7 100644
+--- a/lib/modules/manager/nix/artifacts.ts
++++ b/lib/modules/manager/nix/artifacts.ts
+@@ -3,27 +3,56 @@
+ import { logger } from '../../../logger/index.ts';
+ import { findGithubToken } from '../../../util/check-token.ts';
+ import { getEnv } from '../../../util/env.ts';
+-import { exec } from '../../../util/exec/index.ts';
+ import type { ExecOptions, ExtraEnv } from '../../../util/exec/types.ts';
+-import { readLocalFile } from '../../../util/fs/index.ts';
++import {
++  ensureCacheDir,
++  getSiblingFileName,
++  readLocalFile,
++  writeLocalFile,
++} from '../../../util/fs/index.ts';
++import { withGitEnvironment } from '../../../util/git/exec.ts';
+ import { getRepoStatus } from '../../../util/git/index.ts';
+ import * as hostRules from '../../../util/host-rules.ts';
+ import { regEx } from '../../../util/regex.ts';
+ import type { UpdateArtifact, UpdateArtifactsResult } from '../types.ts';
+ import { resolveToolConstraint } from '../util.ts';
+ 
++const gitExec = withGitEnvironment();
++
+ export async function updateArtifacts({
+   packageFileName,
+   config,
+   updatedDeps,
++  newPackageFileContent,
+ }: UpdateArtifact): Promise<UpdateArtifactsResult[] | null> {
+-  const lockFileName = packageFileName.replace(regEx(/\.nix$/), '.lock');
+-  const existingLockFileContent = await readLocalFile(lockFileName, 'utf8');
++  const lockFileName = getSiblingFileName(packageFileName, 'flake.lock');
++  const existingLockFileContent = await readLocalFile(lockFileName);
++
++  logger.trace({ packageFileName, updatedDeps }, 'nix.updateArtifacts');
++
+   if (!existingLockFileContent) {
+     logger.debug('No flake.lock found');
+     return null;
+   }
+ 
++  let updateCommand = 'flake update';
++  if (!config.isLockFileMaintenance) {
++    const inputs = updatedDeps
++      .map(({ depName }) => depName)
++      .filter(isNonEmptyStringAndNotWhitespace)
++      .map((depName) => quote(depName))
++      .join(' ');
++    if (!inputs) {
++      logger.debug('No flake inputs to update');
++      return null;
++    }
++    updateCommand += ` ${inputs}`;
++  }
++
++  // Nix reads flake.nix from the working tree, while Renovate keeps package
++  // file updates in memory until artifact generation has finished.
++  await writeLocalFile(packageFileName, newPackageFileContent);
++
+   let cmd = `nix --extra-experimental-features 'nix-command flakes' `;
+ 
+   const token = findGithubToken(
+@@ -52,21 +81,15 @@
+     }
+   }
+ 
+-  if (config.isLockFileMaintenance) {
+-    cmd += 'flake update';
+-  } else {
+-    const inputs = updatedDeps
+-      .map(({ depName }) => depName)
+-      .filter(isNonEmptyStringAndNotWhitespace)
+-      .map((depName) => quote(depName))
+-      .join(' ');
+-    cmd += `flake update ${inputs}`;
+-  }
++  cmd += updateCommand;
+   const execOptions: ExecOptions = {
+     cwdFile: packageFileName,
+     // extraEnv forwards it into the Docker sidecar but is only the lowest
+     // precedence layer; env forces it past an ambient NIX_CONFIG.
+-    extraEnv,
++    extraEnv: {
++      ...extraEnv,
++      NIX_CACHE_HOME: await ensureCacheDir('nix'),
++    },
+     env: extraEnv,
+     toolConstraints: [
+       {
+@@ -78,7 +101,7 @@
+   };
+ 
+   try {
+-    await exec(cmd, execOptions);
++    await gitExec(cmd, execOptions);
+ 
+     const status = await getRepoStatus();
+     if (!status.modified.includes(lockFileName)) {
