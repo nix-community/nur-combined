@@ -123,9 +123,9 @@ in
           name = "mzwing";
         }
       ];
+      # aarch64-linux is paused until Hydra publishes current Electron binaries
       platforms = [
         "x86_64-linux"
-        "aarch64-linux"
       ];
     };
   }

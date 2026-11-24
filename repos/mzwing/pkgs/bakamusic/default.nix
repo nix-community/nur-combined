@@ -10,7 +10,7 @@
   wrapGAppsHook3,
   nodejs_24,
   electron,
-  electron_43 ? electron,
+  electron_44 ? electron,
   mpv-unwrapped,
   vips,
   gsettings-desktop-schemas,
@@ -32,7 +32,7 @@
 
   pins = lib.importJSON ./pins.json;
 
-  electronPkg = electron_43;
+  electronPkg = electron_44;
 
   # Replace only mpv's codec backend with LibreMPEG.
   librempeg = callPackage ./librempeg.nix {};
@@ -347,9 +347,9 @@ in
           name = "mzwing";
         }
       ];
+      # aarch64-linux is paused until Hydra publishes current Electron binaries
       platforms = [
         "x86_64-linux"
-        "aarch64-linux"
       ];
       # Upstream vendored native modules with private or platform-specific sources.
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];
