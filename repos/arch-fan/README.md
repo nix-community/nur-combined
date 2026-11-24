@@ -6,7 +6,7 @@ Personal [NUR](https://github.com/nix-community/NUR) package set (flake, `x86_64
 
 | Package | Description |
 | --- | --- |
-| `limusic` | [Limusic](https://github.com/SimoHypers/limusic): native desktop YouTube Music client (Tauri, ad-free playback via libmpv), wrapped from the upstream AppImage |
+| `limusic` | [Limusic](https://github.com/SimoHypers/limusic): native desktop YouTube Music client (Tauri, ad-free playback via libmpv), from the upstream `.deb` linked against nixpkgs libraries |
 | `rpcs3-bin` | [RPCS3](https://rpcs3.net/) PlayStation 3 emulator, wrapped from the upstream nightly AppImage |
 
 ## Use
@@ -50,7 +50,8 @@ nothing extra.
 
 ## Updates
 
-A nightly workflow (`.github/workflows/update.yaml`, also manually dispatchable):
+A weekly workflow (`.github/workflows/update.yaml`, Mondays 00:00 UTC, also
+manually dispatchable):
 
 1. `nix flake update`: tracks nixos-unstable, so nixpkgs breakage surfaces here
    before NUR users hit it;
