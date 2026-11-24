@@ -28,6 +28,7 @@
     wayland-protocols = null;
     wayland-scanner = null;
     libportal-gtk4 = null;
+    speechd = null;
     webkitgtk_6_0 = null;
   }
 )).overrideAttrs
@@ -87,6 +88,7 @@
       ++ lib.optionals stdenv.hostPlatform.isDarwin [
         ./android-translation-layer-darwin-compat.patch
         ./android-translation-layer-darwin-runtime.patch
+        ./android-translation-layer-darwin-tts-stub.patch
         ./android-translation-layer-darwin-api.patch
         ./android-translation-layer-darwin-looper.patch
       ];
@@ -113,6 +115,7 @@
           --replace-fail "dependency('libdrm')" "dependency('dummy', required: false)" \
           --replace-fail "dependency('gudev-1.0')" "dependency('dummy', required: false)" \
           --replace-fail "dependency('webkitgtk-6.0')" "dependency('dummy', required: false)" \
+          --replace-fail "dependency('speech-dispatcher')" "dependency('dummy', required: false)" \
           --replace-warn "'-lasound'" "" \
           --replace-warn "'-Wl,-z,lazy'," ""
       '';

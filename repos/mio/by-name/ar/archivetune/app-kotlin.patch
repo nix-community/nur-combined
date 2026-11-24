@@ -13,21 +13,6 @@ index 0530599af..22718f0fc 100644
  val AppTypography = buildTypography(AppFontFamily)
  val SystemTypography = buildTypography(FontFamily.Default)
  
-diff --git a/app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/HeaderDownloadProgressIndicator.kt b/app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/HeaderDownloadProgressIndicator.kt
-index 3f2a99cf1..cfbe0bb0a 100644
---- a/app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/HeaderDownloadProgressIndicator.kt
-+++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/HeaderDownloadProgressIndicator.kt
-@@ -40,8 +40,8 @@ fun HeaderDownloadProgressIndicator(
-         CircularProgressIndicator(
-             progress = { boundedProgress },
-             modifier = Modifier.size(36.dp),
--            color = MaterialTheme.colorScheme.onSurface,
--            trackColor = MaterialTheme.colorScheme.outlineVariant,
-+            color = androidx.compose.ui.graphics.Color.Gray,
-+            trackColor = androidx.compose.ui.graphics.Color.Gray,
-             strokeWidth = 3.dp,
-         )
-         Icon(
 diff --git a/app/src/main/kotlin/moe/rukamori/archivetune/utils/ArtworkStorage.kt b/app/src/main/kotlin/moe/rukamori/archivetune/utils/ArtworkStorage.kt
 index bf4eaf098..f8aa82570 100644
 --- a/app/src/main/kotlin/moe/rukamori/archivetune/utils/ArtworkStorage.kt

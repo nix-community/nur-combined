@@ -6,13 +6,13 @@ with open('app/src/main/kotlin/moe/rukamori/archivetune/ui/theme/Theme.kt', 'r')
 # Replace MaterialExpressiveTheme
 c = re.sub(
     r'MaterialExpressiveTheme\(\s*colorScheme = animatedColorScheme,\s*motionScheme = motionScheme,\s*typography = typography,\s*shapes = expressiveShapes,\s*content = content,\s*\)',
-    r'androidx.compose.material3.MaterialTheme(\n            colorScheme = animatedColorScheme,\n            typography = typography,\n            content = content,\n        )',
+    r'androidx.compose.material3.MaterialTheme(\n            colorScheme = animatedColorScheme,\n            shapes = expressiveShapes,\n            typography = typography,\n            content = content,\n        )',
     c, flags=re.MULTILINE
 )
 
 c = re.sub(
     r'MaterialExpressiveTheme\(\s*colorScheme = animatedColorScheme,\s*motionScheme = motionScheme,\s*typography = typography,\s*shape = expressiveShapes,\s*content = content,\s*\)',
-    r'androidx.compose.material3.MaterialTheme(\n            colorScheme = animatedColorScheme,\n            typography = typography,\n            content = content,\n        )',
+    r'androidx.compose.material3.MaterialTheme(\n            colorScheme = animatedColorScheme,\n            shapes = expressiveShapes,\n            typography = typography,\n            content = content,\n        )',
     c, flags=re.MULTILINE
 )
 
@@ -39,15 +39,11 @@ c = re.sub(
 c = re.sub(r'dynamicDarkColorScheme\(.*?\)', 'androidx.compose.material3.darkColorScheme()', c, flags=re.DOTALL)
 c = re.sub(r'dynamicLightColorScheme\(.*?\)', 'androidx.compose.material3.lightColorScheme()', c, flags=re.DOTALL)
 
-# Remove dynamicColorScheme
-c = re.sub(
-    r'dynamicColorScheme\(\s*seedColor = seedColor,\s*isDark = isDark,\s*contrastLevel = contrastLevel,\s*style = style,\s*\)',
-    r'if (isDark) androidx.compose.material3.darkColorScheme() else androidx.compose.material3.lightColorScheme()',
-    c, flags=re.DOTALL
-)
+# Keep the materialkolor `dynamicColorScheme` call: android-stubs reimplements it so the
+# seed colour still yields a light or dark scheme (it used to be inlined to the default
+# Material palette, which silently dropped every custom theme colour).
 
 # Remove dynamic imports
-c = re.sub(r'import com.materialkolor.dynamic.*?\n', '', c, flags=re.MULTILINE)
 c = re.sub(r'import androidx.compose.material3.MaterialExpressiveTheme.*?\n', '', c, flags=re.MULTILINE)
 c = re.sub(r'import androidx.compose.material3.MotionScheme.*?\n', '', c, flags=re.MULTILINE)
 c = re.sub(r'import androidx.compose.material3.dynamicDarkColorScheme.*?\n', '', c, flags=re.MULTILINE)

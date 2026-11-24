@@ -43,6 +43,9 @@ Platform services use native macOS APIs:
   referencing it after the call, and older copies are removed.
 - Vibration maps to `NSHapticFeedbackManager` trackpad haptics and honours cancel.
 
+`TextToSpeech` has no speech-dispatcher backend on Darwin: the JNI entry points are
+stubbed so initialising the engine reports failure instead of failing to link.
+
 WebView is implemented with `WKWebView` behind `ATL_UGLY_ENABLE_WEBVIEW`, embedded
 into the GTK widget hierarchy and clipped to the widget's visible bounds.
 `android-asset://` loads APK assets, JavaScript evaluation and navigation callbacks

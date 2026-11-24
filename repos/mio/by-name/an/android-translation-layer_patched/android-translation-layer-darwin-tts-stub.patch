@@ -1,0 +1,58 @@
+--- a/src/api-impl-jni/android_speech_tts_TextToSpeech.c
++++ b/src/api-impl-jni/android_speech_tts_TextToSpeech.c
+@@ -1,3 +1,49 @@
++#ifdef __APPLE__
++
++#include "defines.h"
++#include "util.h"
++
++#include "generated_headers/android_speech_tts_TextToSpeech.h"
++
++/* No speech-dispatcher on Darwin: keep the natives linked so TextToSpeech
++ * reports an unavailable engine instead of failing with UnsatisfiedLinkError. */
++JNIEXPORT jlong JNICALL Java_android_speech_tts_TextToSpeech_native_1initializer(JNIEnv *env, jclass this, jstring package_name)
++{
++	(void)env;
++	(void)this;
++	(void)package_name;
++	return 0;
++}
++
++JNIEXPORT void JNICALL Java_android_speech_tts_TextToSpeech_native_1setOnUtteranceCompletedListener(JNIEnv *env, jclass this, jlong connection, jobject listener)
++{
++	(void)env;
++	(void)this;
++	(void)connection;
++	(void)listener;
++}
++
++JNIEXPORT jboolean JNICALL Java_android_speech_tts_TextToSpeech_native_1setLanguage(JNIEnv *env, jclass this, jlong connection, jstring lang)
++{
++	(void)env;
++	(void)this;
++	(void)connection;
++	(void)lang;
++	return JNI_FALSE;
++}
++
++JNIEXPORT jboolean JNICALL Java_android_speech_tts_TextToSpeech_native_1speak(JNIEnv *env, jclass this, jlong connection, jstring text, jstring utterance_id)
++{
++	(void)env;
++	(void)this;
++	(void)connection;
++	(void)text;
++	(void)utterance_id;
++	return JNI_FALSE;
++}
++
++#else
++
+ #include <libspeechd.h>
+ 
+ #include "defines.h"
+@@ -88,3 +134,5 @@
+ 
+ 	return msg_id != -1;
+ }
++
++#endif

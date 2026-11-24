@@ -46,6 +46,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import moe.rukamori.archivetune.LocalAnimationsDisabled
 import moe.rukamori.archivetune.constants.DarkModeKey
 import moe.rukamori.archivetune.constants.PureBlackKey
 import moe.rukamori.archivetune.ui.component.BottomSheetMenu
@@ -62,7 +63,11 @@ import moe.rukamori.archivetune.ui.screens.navigationBuilder
 import moe.rukamori.archivetune.ui.screens.search.OnlineSearchScreen
 import moe.rukamori.archivetune.ui.screens.search.onlineSearchResultRoute
 import moe.rukamori.archivetune.ui.screens.settings.DarkMode
+import moe.rukamori.archivetune.ui.screens.settings.ThemePalettes
 import moe.rukamori.archivetune.ui.theme.ArchiveTuneTheme
+import moe.rukamori.archivetune.ui.theme.DefaultThemeColor
+import moe.rukamori.archivetune.ui.theme.ThemeSeedPalette
+import moe.rukamori.archivetune.ui.theme.ThemeSeedPaletteCodec
 import moe.rukamori.archivetune.utils.rememberEnumPreference
 import moe.rukamori.archivetune.utils.rememberPreference
 import moe.rukamori.archivetune.viewmodels.HomeViewModel
@@ -126,6 +131,46 @@ fun main() {
                 if (darkTheme == DarkMode.AUTO) isSystemInDarkTheme else darkTheme == DarkMode.ON
             }
             val pureBlack = pureBlackEnabled && useDarkTheme
+
+            val enableDynamicTheme by rememberPreference(DynamicThemeKey, defaultValue = true)
+            val customThemeColorValue by rememberPreference(CustomThemeColorKey, defaultValue = "default")
+            val disableAnimations by rememberPreference(DisableAnimationsKey, defaultValue = false)
+            val fontPreference by rememberEnumPreference(FontPreferenceKey, defaultValue = AppFontPreference.DEFAULT)
+            val customFontUri by rememberPreference(CustomFontUriKey, defaultValue = "")
+
+            val customThemeSeedPalette =
+                remember(customThemeColorValue) {
+                    when {
+                        customThemeColorValue.startsWith("#") -> null
+                        customThemeColorValue.startsWith("seedPalette:") ->
+                            ThemeSeedPaletteCodec.decodeFromPreference(customThemeColorValue)
+                        else ->
+                            ThemePalettes.findById(customThemeColorValue)?.let {
+                                ThemeSeedPalette(
+                                    primary = it.primary,
+                                    secondary = it.secondary,
+                                    tertiary = it.tertiary,
+                                    neutral = it.neutral,
+                                )
+                            }
+                    }
+                }
+            val customThemeColor =
+                remember(customThemeColorValue, customThemeSeedPalette) {
+                    if (customThemeColorValue.startsWith("#")) {
+                        try {
+                            val colorString = customThemeColorValue.removePrefix("#")
+                            Color(android.graphics.Color.parseColor("#$colorString"))
+                        } catch (_: Exception) {
+                            DefaultThemeColor
+                        }
+                    } else {
+                        customThemeSeedPalette?.primary ?: DefaultThemeColor
+                    }
+                }
+            // There is no artwork or wallpaper to extract on the desktop, so "dynamic" theme
+            // keeps the default colour; a chosen palette or colour always applies.
+            val themeColor = if (enableDynamicTheme) DefaultThemeColor else customThemeColor
 
             val navController = rememberNavController()
             val currentBackStackEntry by navController.currentBackStackEntryAsState()
@@ -217,10 +262,16 @@ fun main() {
                 LocalSyncUtils provides getGlobalSyncUtils(),
                 LocalMenuState provides menuState,
                 LocalBottomSheetPageState provides bottomSheetPageState,
+                LocalAnimationsDisabled provides disableAnimations,
             ) {
                 ArchiveTuneTheme(
                     darkTheme = useDarkTheme,
                     pureBlack = pureBlack,
+                    themeColor = themeColor,
+                    seedPalette = if (!enableDynamicTheme) customThemeSeedPalette else null,
+                    disableAnimations = disableAnimations,
+                    fontPreference = fontPreference,
+                    customFontUri = customFontUri,
                 ) {
                     Box(
                         modifier = Modifier
