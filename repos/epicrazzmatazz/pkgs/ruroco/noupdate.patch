@@ -1,0 +1,113 @@
+diff --git a/src/client/config.rs b/src/client/config.rs
+index 87fafb2..09773f3 100644
+--- a/src/client/config.rs
++++ b/src/client/config.rs
+@@ -91,8 +91,6 @@ pub(crate) enum CommandsClient {
+     Gen(GenCommand),
+     /// Send a command to a specific address.
+     Send(SendCommand),
+-    /// Update the client binary
+-    Update(UpdateCommand),
+     /// Run the wizard to set up the server side.
+     Wizard(WizardCommand),
+ }
+diff --git a/src/client/mod.rs b/src/client/mod.rs
+index 363cb92..2bffa08 100644
+--- a/src/client/mod.rs
++++ b/src/client/mod.rs
+@@ -4,7 +4,6 @@ use crate::client::config::{CliClient, CommandsClient};
+ use crate::client::gen::Generator;
+ use crate::client::lock::ClientLock;
+ use crate::client::send::Sender;
+-use crate::client::update::Updater;
+ use crate::client::wizard::Wizard;
+ 
+ /// data structures for using CLI arguments for the client binary
+@@ -13,7 +12,6 @@ pub mod counter;
+ pub mod gen;
+ pub(crate) mod lock;
+ pub mod send;
+-pub(crate) mod update;
+ pub(crate) mod util;
+ mod wizard;
+ 
+@@ -34,13 +32,6 @@ pub fn run_client(client: CliClient) -> anyhow::Result<()> {
+             Ok(())
+         }
+         CommandsClient::Send(send_command) => Sender::create(send_command)?.send(),
+-        CommandsClient::Update(update_command) => Updater::create(
+-            update_command.force,
+-            update_command.version,
+-            update_command.bin_path,
+-            update_command.server,
+-        )?
+-        .update(),
+         CommandsClient::Wizard(_) => Wizard::create().run(),
+     }
+ }
+diff --git a/src/client/wizard.rs b/src/client/wizard.rs
+index 08e7316..8e22b6d 100644
+--- a/src/client/wizard.rs
++++ b/src/client/wizard.rs
+@@ -1,4 +1,3 @@
+-use crate::client::update::Updater;
+ use crate::client::util::set_permissions;
+ use crate::common::info;
+ use anyhow::Context;
+@@ -52,8 +51,8 @@ impl Wizard {
+     }
+ 
+     fn update() -> anyhow::Result<()> {
+-        info("Updating/Installing ruroco server binaries");
+-        Updater::create(true, None, None, true)?.update()
++        info("Updating is disabled on this build of ruroco");
++        Ok(())
+     }
+ 
+     fn init_config_file() -> anyhow::Result<()> {
+diff --git a/src/ui/dashboard.slint b/src/ui/dashboard.slint
+index e14e919..972a5b0 100644
+--- a/src/ui/dashboard.slint
++++ b/src/ui/dashboard.slint
+@@ -149,17 +149,4 @@ export component Dashboard inherits VerticalLayout {
+             }
+         }
+     }
+-
+-    VerticalLayout {
+-        height: 25%;
+-        alignment: end;
+-
+-        Button {
+-            height: 50px;
+-            text: "Update Application";
+-            clicked => {
+-                SlintRustBridge.update_application();
+-            }
+-        }
+-    }
+ }
+diff --git a/src/ui/rust_slint_bridge.rs b/src/ui/rust_slint_bridge.rs
+index 8a9b817..46b711f 100644
+--- a/src/ui/rust_slint_bridge.rs
++++ b/src/ui/rust_slint_bridge.rs
+@@ -1,5 +1,3 @@
+-#[cfg(target_os = "linux")]
+-use crate::client::update::Updater;
+ #[cfg(target_os = "android")]
+ use crate::ui::android_update::update_android;
+ 
+@@ -121,12 +119,10 @@ impl RustSlintBridge {
+     fn add_on_update_application(&self) {
+         self.app.global::<SlintRustBridge>().on_update_application(move || {
+             Self::err_log_wrap("Updating application".to_string(), || {
+-                #[cfg(target_os = "linux")]
+-                let update_result = Updater::create(false, None, None, false)?.update();
+                 #[cfg(target_os = "android")]
+                 let update_result = update_android();
+ 
+-                update_result
++                Ok(())
+             });
+         });
+     }

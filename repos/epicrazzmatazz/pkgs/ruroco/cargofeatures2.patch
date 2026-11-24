@@ -1,0 +1,128 @@
+diff --git a/Cargo.toml b/Cargo.toml
+index 8f701cb..6da4842 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -5,18 +5,20 @@ edition = "2021"
+ repository = "https://github.com/beac0n/ruroco"
+ 
+ [dependencies]
+-clap = { version = "4.5", features = ["derive", "string"] }
+-openssl = { version = "0.10" }
+-serde = { version = "1.0", features = ["derive"] }
+-toml = "0.9"
+-slint = "1.10"
+-jni = "0.21"
+-ndk-context = "0.1"
+-reqwest = { version = "0.12", features = ["blocking", "json"] }
++anyhow = "1.0"
+ base64 = "0.22"
+ blake2 = "0.10.6"
+ chrono = { version = "0.4", features = ["clock"] }
+-anyhow = "1.0"
++clap = { version = "4.5", features = ["derive", "string"] }
++openssl = { version = "0.10" }
++reqwest = { version = "0.12", features = ["blocking", "json"], optional = true } # only needed for client to update itself
++serde = { version = "1.0", features = ["derive"] }
++slint = { version = "1.10", optional = true }
++toml = { version = "0.9", optional = true }
++
++# android dependencies
++jni = { version = "0.21", optional = true }
++ndk-context = { version = "0.1", optional = true }
+ 
+ [dev-dependencies]
+ test-with = { version = "*", default-features = false, features = [] }
+@@ -26,11 +28,35 @@ tempfile = "3.23.0"
+ crate-type = ["lib", "cdylib"]
+ 
+ [features]
++default = ["with-gui", "with-server"]
+ release-build = ["openssl/vendored"]
+-android-build = ["slint/backend-android-activity-06"]
++android-build = ["dep:ndk-context", "dep:jni", "slint/backend-android-activity-06"]
++with-server = ["dep:toml"]
++with-gui = ["dep:slint", "dep:toml", "dep:slint-build", "with-client"]
++with-client = ["dep:reqwest"]
+ 
+ [build-dependencies]
+-slint-build = "1.9.2"
++slint-build = { version = "1.9.2", optional = true }
++
++[[bin]]
++name = "client"
++path = "src/bin/client.rs"
++required-features = ["with-client"]
++
++[[bin]]
++name = "client_ui"
++path = "src/bin/client_ui.rs"
++required-features = ["with-gui"]
++
++[[bin]]
++name = "server"
++path = "src/bin/server.rs"
++required-features = ["with-server"]
++
++[[bin]]
++name = "commander"
++path = "src/bin/commander.rs"
++required-features = ["with-server"]
+ 
+ [profile.dev]
+ opt-level = 0
+diff --git a/build.rs b/build.rs
+index 18cf5fd..3507b49 100644
+--- a/build.rs
++++ b/build.rs
+@@ -1,5 +1,9 @@
++#[cfg(feature = "with-gui")]
+ fn main() {
+     let config = slint_build::CompilerConfiguration::new().with_style("fluent".into());
+ 
+     slint_build::compile_with_config("src/ui/app.slint", config).expect("Slint build failed");
+ }
++
++#[cfg(not(feature = "with-gui"))]
++fn main() {}
+diff --git a/src/lib.rs b/src/lib.rs
+index 277a988..49b54d3 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -2,11 +2,14 @@
+ //! This file exposes all the modules that are needed by the client, server and commander
+ 
+ /// provides functionality to sending data to the server and for generating key file
++#[cfg(feature = "with-client")]
+ pub mod client;
+ /// common functionality used by client, server and commander
+ pub mod common;
+ 
+ /// responsible for receiving data from the client and sending that data to the commander
++#[cfg(feature = "with-server")]
+ pub mod server;
+ /// includes everything needed to run the user interface
++#[cfg(feature = "with-gui")]
+ pub mod ui;
+diff --git a/src/server/mod.rs b/src/server/mod.rs
+index e820147..c4a83ce 100644
+--- a/src/server/mod.rs
++++ b/src/server/mod.rs
+@@ -184,7 +184,7 @@ pub fn run_server(server: CliServer) -> anyhow::Result<()> {
+     Server::create_from_path(&server.config)?.run()
+ }
+ 
+-#[cfg(test)]
++#[cfg(all(test, feature = "with-client", feature = "with-server"))]
+ mod tests {
+     use crate::client::gen::Generator;
+     use crate::common::protocol::MSG_SIZE;
+diff --git a/tests/integration_test.rs b/tests/integration_test.rs
+index dd11e19..baea742 100644
+--- a/tests/integration_test.rs
++++ b/tests/integration_test.rs
+@@ -1,4 +1,4 @@
+-#[cfg(test)]
++#[cfg(all(test, feature = "with-client", feature = "with-server"))]
+ mod tests {
+     use ruroco::client::config::SendCommand;
+     use ruroco::client::counter::Counter;

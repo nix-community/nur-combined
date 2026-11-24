@@ -1,0 +1,108 @@
+diff --git a/Cargo.toml b/Cargo.toml
+index 8f701cb..75c7dad 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -5,32 +5,58 @@ edition = "2021"
+ repository = "https://github.com/beac0n/ruroco"
+ 
+ [dependencies]
+-clap = { version = "4.5", features = ["derive", "string"] }
+-openssl = { version = "0.10" }
+-serde = { version = "1.0", features = ["derive"] }
+-toml = "0.9"
+-slint = "1.10"
+-jni = "0.21"
+-ndk-context = "0.1"
+-reqwest = { version = "0.12", features = ["blocking", "json"] }
++anyhow = "1.0"
+ base64 = "0.22"
+ blake2 = "0.10.6"
+ chrono = { version = "0.4", features = ["clock"] }
+-anyhow = "1.0"
++clap = { version = "4.5", features = ["derive", "string"] }
++openssl = { version = "0.10" }
++serde = { version = "1.0", features = ["derive"] }
++toml = { version = "0.9", optional = true }
++slint = { version = "1.10", optional = true }
++# only needed for client to update itself
++reqwest = { version = "0.12", features = ["blocking", "json"], optional = true }
++
++# android dependencies
++jni = { version = "0.21", optional = true }
++ndk-context = { version = "0.1", optional = true }
+ 
+ [dev-dependencies]
+ test-with = { version = "*", default-features = false, features = [] }
+ tempfile = "3.23.0"
+ 
++[build-dependencies]
++slint-build = { version = "1.9.2", optional = true }
++
+ [lib]
+ crate-type = ["lib", "cdylib"]
+ 
+ [features]
+ release-build = ["openssl/vendored"]
+-android-build = ["slint/backend-android-activity-06"]
++android-build = ["dep:ndk-context", "slint/backend-android-activity-06"]
++server = ["dep:toml"]
++client-gui = ["dep:slint", "dep:toml", "dep:slint-build", "client-nogui"]
++client-nogui = ["dep:reqwest"]
+ 
+-[build-dependencies]
+-slint-build = "1.9.2"
++[[bin]]
++name = "ruroco-client"
++path = "src/bin/client.rs"
++required-features = ["client-nogui"]
++
++[[bin]]
++name = "ruroco-client-ui"
++path = "src/bin/client_ui.rs"
++required-features = ["client-gui"]
++
++[[bin]]
++name = "ruroco-server"
++path = "src/bin/server.rs"
++required-features = ["server"]
++
++[[bin]]
++name = "ruroco-commander"
++path = "src/bin/commander.rs"
++required-features = ["server"]
+ 
+ [profile.dev]
+ opt-level = 0
+diff --git a/build.rs b/build.rs
+index 18cf5fd..002a5d0 100644
+--- a/build.rs
++++ b/build.rs
+@@ -1,5 +1,9 @@
++#[cfg(feature = "client-gui")]
+ fn main() {
+     let config = slint_build::CompilerConfiguration::new().with_style("fluent".into());
+ 
+     slint_build::compile_with_config("src/ui/app.slint", config).expect("Slint build failed");
+ }
++
++#[cfg(not(feature = "client-gui"))]
++fn main() {}
+diff --git a/src/lib.rs b/src/lib.rs
+index 277a988..c4902e65 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -2,11 +2,14 @@
+ //! This file exposes all the modules that are needed by the client, server and commander
+ 
+ /// provides functionality to sending data to the server and for generating key file
++#[cfg(feature = "client-nogui")]
+ pub mod client;
+ /// common functionality used by client, server and commander
+ pub mod common;
+ 
+ /// responsible for receiving data from the client and sending that data to the commander
++#[cfg(feature = "server")]
+ pub mod server;
+ /// includes everything needed to run the user interface
++#[cfg(feature = "client-gui")]
+ pub mod ui;

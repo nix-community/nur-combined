@@ -1,0 +1,12 @@
+diff --git a/src/server/commander.rs b/src/server/commander.rs
+index 069cbd7..5213369 100644
+--- a/src/server/commander.rs
++++ b/src/server/commander.rs
+@@ -103,6 +103,7 @@ impl Commander {
+             .arg("-c")
+             .arg(command)
+             .env(format!("{ENV_PREFIX}IP"), ip.to_string())
++            .env("PATH", "/run/current-system/sw/bin")
+             .output()
+         {
+             Ok(result) => {

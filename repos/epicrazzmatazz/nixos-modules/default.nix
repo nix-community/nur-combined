@@ -1,0 +1,3 @@
+{
+	ruroco = ./ruroco.nix;
+}
