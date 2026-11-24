@@ -7,7 +7,7 @@
 
 ## Package Requirements
 
-- Packages that also exist in nixpkgs, but are maintained here to track newer upstream releases, must use a `-latest` suffix (e.g. `uv-build-latest`, `aioquic-latest`) so the overlays don't replace the nixpkgs versions that other packages depend on.
+- Packages that also exist in nixpkgs, but are maintained here to track newer upstream releases, must use a `-latest` suffix (e.g. `uv-build-latest`, `aioquic-latest`) so the packages overlay doesn't replace the nixpkgs versions that other packages depend on. The `trev` overlay also adds them without the suffix (e.g. `pkgs.trev.go` for `go-latest`), so don't add unsuffixed aliases by hand.
 
 ## Version Control Requirements
 
