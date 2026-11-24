@@ -26,6 +26,12 @@ PACKAGES = {
         "unpack": True,
         "file": "pkgs/by-name/gh/ghost-downloader-3/package.nix",
     },
+    "misterdownloadmanager": {
+        "type": "github_release",
+        "repo": "anefzaoui/misterdownloadmanager",
+        "url_template": "https://github.com/anefzaoui/misterdownloadmanager/releases/download/v{version}/MisterDownloadManager-{version}-linux-x86_64.deb",
+        "file": "pkgs/by-name/mi/misterdownloadmanager/package.nix",
+    },
     "streambert": {
         "type": "github_release",
         "repo": "truelockmc/streambert",

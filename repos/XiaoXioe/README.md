@@ -17,6 +17,7 @@ Paket-paket mandiri yang bisa dieksekusi langsung atau diinstal secara global:
 | :--- | :--- |
 | `binance` | Utilitas / Klien CLI untuk ekosistem dan trading Binance. |
 | `disbox` | Alat bantu untuk menjadikan Discord sebagai media penyimpanan *cloud*. |
+| `misterdownloadmanager` | Download manager *open-source* berbasis Rust pengganti IDM dengan penangkap video (YouTube, TikTok, HLS/DASH), BitTorrent, dan ekstensi browser. |
 | `streambert` | Utilitas *streaming* / pemrosesan media. |
 | `teldrive` | *Mount* atau gunakan Telegram API sebagai penyimpanan *cloud* tak terbatas. |
 | `uabea` | Unity Assets Bundle Extractor Avalon. |
