@@ -24,6 +24,7 @@
       );
 
       overlays.default = final: prev: {
+        mare = final.callPackage ./pkgs/mare { };
         clinvk = final.callPackage ./pkgs/clinvk { };
         sing-box = final.callPackage ./pkgs/sing-box { };
         sing-box-openconnect-auth = final.callPackage ./pkgs/sing-box-openconnect-auth { };

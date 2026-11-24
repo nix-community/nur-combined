@@ -8,6 +8,7 @@
   modules = import ./modules;
   overlays = import ./overlays;
 
+  mare = pkgs.callPackage ./pkgs/mare { };
   clinvk = pkgs.callPackage ./pkgs/clinvk { };
   sing-box = pkgs.callPackage ./pkgs/sing-box { };
   sing-box-openconnect-auth = pkgs.callPackage ./pkgs/sing-box-openconnect-auth { };

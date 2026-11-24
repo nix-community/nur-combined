@@ -6,6 +6,7 @@ Nix User Repository packages maintained by SignalRidge.
 
 ## Packages
 
+- **mare** - Hyperextensible AI coding agent harness (Rust core, Lua 5.5 plugins)
 - **clinvk** - Unified AI CLI wrapper for multiple backends (Claude, Codex, Gemini)
 - **sing-box** - sing-box with F5 OpenConnect patches, synced from [sing-box-patches](https://github.com/signalridge/sing-box-patches)
 - **sing-box-openconnect-auth** - Shell adapter for external OpenConnect authentication, with Buf and jq
