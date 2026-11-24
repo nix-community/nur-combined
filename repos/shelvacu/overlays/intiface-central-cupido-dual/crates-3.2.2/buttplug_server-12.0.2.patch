@@ -1,0 +1,298 @@
+diff --git a/src/device/protocol_impl/cupido.rs b/src/device/protocol_impl/cupido.rs
+index 644392c4..831c2760 100644
+--- a/src/device/protocol_impl/cupido.rs
++++ b/src/device/protocol_impl/cupido.rs
+@@ -5,77 +5,251 @@
+ // Licensed under the BSD 3-Clause license. See LICENSE file in the project root
+ // for full license information.
+ 
++use std::sync::{
++  Arc,
++  atomic::{AtomicU32, Ordering},
++};
++
++use futures_util::{FutureExt, future::BoxFuture};
+ use uuid::Uuid;
+ 
+ use crate::device::{
+-  hardware::{HardwareCommand, HardwareWriteCmd},
++  hardware::{Hardware, HardwareCommand, HardwareEvent, HardwareSubscribeCmd, HardwareWriteCmd},
+   protocol::{ProtocolHandler, generic_protocol_setup},
+ };
+-use buttplug_core::errors::ButtplugDeviceError;
++use buttplug_core::{
++  errors::ButtplugDeviceError,
++  message::{InputReadingV4, InputTypeReading, InputValue},
++};
+ use buttplug_server_device_config::Endpoint;
+ 
+ generic_protocol_setup!(Cupido, "cupido");
+ 
++const TAPPING: u32 = 0;
++const VIBRATION: u32 = 1;
++const VIBRATION_PATTERN: u32 = 2;
++const TAPPING_PATTERN: u32 = 3;
++
++// Motor ids in the B0 01 pattern frame
++const VIBRATION_MOTOR: u8 = 0;
++const TAPPING_MOTOR: u8 = 1;
++
+ #[derive(Default)]
+-pub struct Cupido {}
++pub struct Cupido {
++  tapping_level: AtomicU32,
++  vibration_level: AtomicU32,
++  // 0 = default: pattern 1 for vibration, direct level (B0 03) for tapping
++  vibration_pattern: AtomicU32,
++  tapping_pattern: AtomicU32,
++}
++
++fn pattern_frame(motor: u8, pattern: u32, strength: u32) -> Vec<u8> {
++  let pattern = if strength == 0 { 0 } else { pattern as u8 };
++  vec![0xb0, 0x01, 0, motor, pattern, strength as u8]
++}
++
++fn direct_frame(level: u32) -> Vec<u8> {
++  vec![0xb0, 0x03, 0, 0, 0, level as u8, 0xaa]
++}
++
++impl Cupido {
++  fn vibration_frame(&self) -> Vec<u8> {
++    let pattern = self.vibration_pattern.load(Ordering::Relaxed).max(1);
++    pattern_frame(
++      VIBRATION_MOTOR,
++      pattern,
++      self.vibration_level.load(Ordering::Relaxed),
++    )
++  }
++
++  fn tapping_frame(&self) -> Vec<u8> {
++    let level = self.tapping_level.load(Ordering::Relaxed);
++    match self.tapping_pattern.load(Ordering::Relaxed) {
++      0 => direct_frame(level),
++      // Pattern strength is 0-100, the tapping feature is 0-255
++      pattern => {
++        let strength = if level == 0 {
++          0
++        } else {
++          ((level * 100 + 127) / 255).max(1)
++        };
++        pattern_frame(TAPPING_MOTOR, pattern, strength)
++      }
++    }
++  }
++
++  fn set_tapping_pattern(&self, pattern: u32) -> Vec<Vec<u8>> {
++    let old = self.tapping_pattern.swap(pattern, Ordering::Relaxed);
++    if self.tapping_level.load(Ordering::Relaxed) == 0 || old == pattern {
++      return vec![];
++    }
++    let stop_old = if old == 0 {
++      direct_frame(0)
++    } else {
++      pattern_frame(TAPPING_MOTOR, 0, 0)
++    };
++    vec![stop_old, self.tapping_frame()]
++  }
++}
++
++fn write(feature_id: Uuid, frames: Vec<Vec<u8>>) -> Vec<HardwareCommand> {
++  frames
++    .into_iter()
++    .map(|data| HardwareWriteCmd::new(&[feature_id], Endpoint::Tx, data, false).into())
++    .collect()
++}
+ 
+ impl ProtocolHandler for Cupido {
+   fn handle_output_vibrate_cmd(
+     &self,
+-    _feature_index: u32,
++    feature_index: u32,
+     feature_id: Uuid,
+     speed: u32,
+   ) -> Result<Vec<HardwareCommand>, ButtplugDeviceError> {
+-    Ok(vec![
+-      HardwareWriteCmd::new(
+-        &[feature_id],
+-        Endpoint::Tx,
+-        vec![0xb0, 0x03, 0, 0, 0, speed as u8, 0xaa],
+-        false,
+-      )
+-      .into(),
+-    ])
++    let frame = match feature_index {
++      TAPPING => {
++        self.tapping_level.store(speed, Ordering::Relaxed);
++        self.tapping_frame()
++      }
++      VIBRATION => {
++        self.vibration_level.store(speed, Ordering::Relaxed);
++        self.vibration_frame()
++      }
++      _ => return self.command_unimplemented("OutputCmd (Vibrate Actuator)"),
++    };
++    Ok(write(feature_id, vec![frame]))
++  }
++
++  fn handle_output_led_cmd(
++    &self,
++    feature_index: u32,
++    feature_id: Uuid,
++    level: u32,
++  ) -> Result<Vec<HardwareCommand>, ButtplugDeviceError> {
++    let frames = match feature_index {
++      VIBRATION_PATTERN => {
++        let old = self.vibration_pattern.swap(level, Ordering::Relaxed);
++        if self.vibration_level.load(Ordering::Relaxed) == 0 || old.max(1) == level.max(1) {
++          vec![]
++        } else {
++          vec![self.vibration_frame()]
++        }
++      }
++      TAPPING_PATTERN => self.set_tapping_pattern(level),
++      _ => return self.command_unimplemented("OutputCmd (Led Actuator)"),
++    };
++    Ok(write(feature_id, frames))
+   }
+ 
+-  /* -- expensive if we're not caching the battery
+   fn handle_battery_level_cmd(
+     &self,
++    device_index: u32,
+     device: Arc<Hardware>,
+-    message: SensorReadCmd,
+-  ) -> BoxFuture<Result<ButtplugServerMessage, ButtplugDeviceError>> {
++    feature_index: u32,
++    feature_id: Uuid,
++  ) -> BoxFuture<'_, Result<InputReadingV4, ButtplugDeviceError>> {
+     let mut device_notification_receiver = device.event_stream();
++    let disconnected = || {
++      ButtplugDeviceError::ProtocolSpecificError(
++        "Cupido".to_owned(),
++        "Cupido Device disconnected while getting Battery info.".to_owned(),
++      )
++    };
+     async move {
+       device
+-        .subscribe(&HardwareSubscribeCmd::new(Endpoint::Rx))
++        .subscribe(&HardwareSubscribeCmd::new(feature_id, Endpoint::Rx))
++        .await?;
++      device
++        .write_value(&HardwareWriteCmd::new(
++          &[feature_id],
++          Endpoint::Tx,
++          vec![0xb0, 0x00],
++          false,
++        ))
+         .await?;
+       while let Ok(event) = device_notification_receiver.recv().await {
+-        return match event {
+-          HardwareEvent::Notification(_, endpoint, data) => {
+-            if endpoint != Endpoint::Rx {
+-              continue;
+-            }
+-            if data.len() == 6 && data[0..5] != vec![0xb0, 0, 0, 0, 1] {
+-              continue;
+-            }
+-            let battery_reading = SensorReading::new(
+-              message.device_index(),
+-              *message.sensor_index(),
+-              *message.input_type(),
+-              vec![data[5] as i32],
+-            );
+-            Ok(battery_reading.into())
++        match event {
++          // Reply is B0 00 xx xx xx <percent>; other B0 frames share this endpoint
++          HardwareEvent::Notification(_, Endpoint::Rx, data)
++            if data.len() == 6 && data[0] == 0xb0 && data[1] == 0x00 =>
++          {
++            return Ok(InputReadingV4::new(
++              device_index,
++              feature_index,
++              InputTypeReading::Battery(InputValue::new(data[5])),
++            ));
+           }
+-          HardwareEvent::Disconnected(_) => Err(ButtplugDeviceError::ProtocolSpecificError(
+-            "Cupido".to_owned(),
+-            "Cupido Device disconnected while getting Battery info.".to_owned(),
+-          )),
+-        };
++          HardwareEvent::Disconnected(_) => return Err(disconnected()),
++          _ => continue,
++        }
+       }
+-      Err(ButtplugDeviceError::ProtocolSpecificError(
+-        "Cupido".to_owned(),
+-        "Cupido Device disconnected while getting Battery info.".to_owned(),
+-      ))
++      Err(disconnected())
+     }
+     .boxed()
+-  }*/
++  }
++}
++
++#[cfg(test)]
++mod tests {
++  use super::*;
++
++  fn data(cmds: Vec<HardwareCommand>) -> Vec<Vec<u8>> {
++    cmds
++      .into_iter()
++      .map(|c| match c {
++        HardwareCommand::Write(w) => w.data().clone(),
++        other => panic!("unexpected {other:?}"),
++      })
++      .collect()
++  }
++
++  #[test]
++  fn vibration_pattern() {
++    let c = Cupido::default();
++    let id = Uuid::nil();
++    // Not running: just remembered
++    assert!(data(c.handle_output_led_cmd(VIBRATION_PATTERN, id, 4).unwrap()).is_empty());
++    assert_eq!(
++      data(c.handle_output_vibrate_cmd(VIBRATION, id, 50).unwrap()),
++      vec![vec![0xb0, 0x01, 0, 0, 4, 50]]
++    );
++    assert_eq!(
++      data(c.handle_output_led_cmd(VIBRATION_PATTERN, id, 0).unwrap()),
++      vec![vec![0xb0, 0x01, 0, 0, 1, 50]]
++    );
++    // 0 and 1 are the same pattern
++    assert!(data(c.handle_output_led_cmd(VIBRATION_PATTERN, id, 1).unwrap()).is_empty());
++    assert_eq!(
++      data(c.handle_output_vibrate_cmd(VIBRATION, id, 0).unwrap()),
++      vec![vec![0xb0, 0x01, 0, 0, 0, 0]]
++    );
++  }
++
++  #[test]
++  fn tapping_pattern() {
++    let c = Cupido::default();
++    let id = Uuid::nil();
++    assert_eq!(
++      data(c.handle_output_vibrate_cmd(TAPPING, id, 255).unwrap()),
++      vec![vec![0xb0, 0x03, 0, 0, 0, 255, 0xaa]]
++    );
++    assert_eq!(
++      data(c.handle_output_led_cmd(TAPPING_PATTERN, id, 3).unwrap()),
++      vec![
++        vec![0xb0, 0x03, 0, 0, 0, 0, 0xaa],
++        vec![0xb0, 0x01, 0, 1, 3, 100]
++      ]
++    );
++    assert_eq!(
++      data(c.handle_output_vibrate_cmd(TAPPING, id, 1).unwrap()),
++      vec![vec![0xb0, 0x01, 0, 1, 3, 1]]
++    );
++    assert_eq!(
++      data(c.handle_output_led_cmd(TAPPING_PATTERN, id, 0).unwrap()),
++      vec![
++        vec![0xb0, 0x01, 0, 1, 0, 0],
++        vec![0xb0, 0x03, 0, 0, 0, 1, 0xaa]
++      ]
++    );
++  }
+ }

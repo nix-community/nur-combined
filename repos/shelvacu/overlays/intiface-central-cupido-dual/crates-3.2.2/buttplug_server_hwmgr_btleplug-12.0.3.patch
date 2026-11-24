@@ -1,0 +1,20 @@
+diff --git a/src/btleplug_adapter_task.rs b/src/btleplug_adapter_task.rs
+index 031a378e..fab5eeb3 100644
+--- a/src/btleplug_adapter_task.rs
++++ b/src/btleplug_adapter_task.rs
+@@ -241,6 +241,15 @@ impl BtleplugAdapterTask {
+                 CentralEvent::DeviceDiscovered(peripheral_id) | CentralEvent::DeviceUpdated(peripheral_id) => {
+                   self.maybe_add_peripheral(&peripheral_id, &adapter, &mut tried_addresses).await;
+                 }
++                // BlueZ keeps devices around after they disconnect, so a device coming back only
++                // shows up as advertisement updates, never as DeviceDiscovered/DeviceUpdated.
++                CentralEvent::RssiUpdate { id: peripheral_id, .. }
++                | CentralEvent::ManufacturerDataAdvertisement { id: peripheral_id, .. }
++                | CentralEvent::ServicesAdvertisement { id: peripheral_id, .. } => {
++                  if !tried_addresses.iter().any(|info| info.peripheral_id == peripheral_id) {
++                    self.maybe_add_peripheral(&peripheral_id, &adapter, &mut tried_addresses).await;
++                  }
++                }
+                 CentralEvent::DeviceDisconnected(peripheral_id) => {
+                   debug!("BTLEPlug Device disconnected: {:?}", peripheral_id);
+                   tried_addresses.retain(|info| info.peripheral_id != peripheral_id);
