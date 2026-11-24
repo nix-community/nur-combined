@@ -1,0 +1,132 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Jorge Javier Araya Navarro <jorge@esavara.cr>
+Date: Thu, 4 Sep 2026 00:00:00 +0000
+Subject: [PATCH] Add BOF4_DATA_DIR env var support for locating .src tables
+
+Both jpextractor and extractor open .src data files (hiragana, katakana,
+kanji, items, etc.) using fopen with relative paths. Add a get_data_path()
+helper that checks the BOF4_DATA_DIR environment variable first, falling
+back to the current directory. This allows the Nix package to install the
+.src files in a separate data directory and wrap the binaries with
+BOF4_DATA_DIR set.
+
+---
+diff --git a/src/extractor.c b/src/extractor.c
+index 316cec0..5760ca4 100644
+--- a/src/extractor.c
++++ b/src/extractor.c
+@@ -1,5 +1,17 @@
+ #include "extractor.h"
+
++static const char *get_data_path(const char *filename)
++{
++    static char path[1024];
++    const char *datadir = getenv("BOF4_DATA_DIR");
++    if (datadir != NULL && datadir[0] != '\0')
++    {
++        snprintf(path, sizeof(path), "%s/%s", datadir, filename);
++        return path;
++    }
++    return filename;
++}
++
+ int main(int argc, char *argv[])
+ {
+     /*
+@@ -54,7 +66,7 @@ int main(int argc, char *argv[])
+      * Load tables
+      */
+
+-    FILE *acc_source = fopen("acc_en.src", "r");
++    FILE *acc_source = fopen(get_data_path("acc_en.src"), "r");
+     if (acc_source == NULL)
+     {
+         printf("Error reading accessory table!");
+@@ -62,7 +74,7 @@ int main(int argc, char *argv[])
+         return 6;
+     }
+
+-    FILE *abils_source = fopen("abils_en.src", "r");
++    FILE *abils_source = fopen(get_data_path("abils_en.src"), "r");
+     if (abils_source == NULL)
+     {
+         printf("Error reading accessory table!");
+@@ -71,7 +83,7 @@ int main(int argc, char *argv[])
+         return 6;
+     }
+
+-    FILE *armor_source = fopen("armor_en.src", "r");
++    FILE *armor_source = fopen(get_data_path("armor_en.src"), "r");
+     if (armor_source == NULL)
+     {
+         printf("Error reading armor table!");
+@@ -81,7 +93,7 @@ int main(int argc, char *argv[])
+         return 6;
+     }
+
+-    FILE *items_source = fopen("items_en.src", "r");
++    FILE *items_source = fopen(get_data_path("items_en.src"), "r");
+     if (items_source == NULL)
+     {
+         printf("Error reading items table!");
+@@ -92,7 +104,7 @@ int main(int argc, char *argv[])
+         return 6;
+     }
+
+-    FILE *weapons_source = fopen("weapons_en.src", "r");
++    FILE *weapons_source = fopen(get_data_path("weapons_en.src"), "r");
+     if (weapons_source == NULL)
+     {
+         printf("Error reading weapons table!");
+diff --git a/src/jpextractor.c b/src/jpextractor.c
+index 54b8735..66de945 100644
+--- a/src/jpextractor.c
++++ b/src/jpextractor.c
+@@ -1,5 +1,17 @@
+ #include "jpextractor.h"
+
++static const char *get_data_path(const char *filename)
++{
++    static char path[1024];
++    const char *datadir = getenv("BOF4_DATA_DIR");
++    if (datadir != NULL && datadir[0] != '\0')
++    {
++        snprintf(path, sizeof(path), "%s/%s", datadir, filename);
++        return path;
++    }
++    return filename;
++}
++
+ int main(int argc, char *argv[])
+ {
+     /*
+@@ -54,7 +66,7 @@ int main(int argc, char *argv[])
+      * Load tables
+      */
+
+-    FILE *hiragana_source = fopen("hiragana.src", "r");
++    FILE *hiragana_source = fopen(get_data_path("hiragana.src"), "r");
+     if (hiragana_source == NULL)
+     {
+         printf("Hiragana table not found!\n");
+@@ -62,7 +74,7 @@ int main(int argc, char *argv[])
+         return 6;
+     }
+
+-    FILE *katakana_source = fopen("katakana.src", "r");
++    FILE *katakana_source = fopen(get_data_path("katakana.src"), "r");
+     if (katakana_source == NULL)
+     {
+         printf("Katakana table not found!\n");
+@@ -71,7 +83,7 @@ int main(int argc, char *argv[])
+         return 7;
+     }
+
+-    FILE *kanji_source = fopen("kanji.src", "r");
++    FILE *kanji_source = fopen(get_data_path("kanji.src"), "r");
+     if (kanji_source == NULL)
+     {
+         printf("Kanji table not found!\n");
+
+--
+2.48.1

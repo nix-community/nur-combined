@@ -1,0 +1,11 @@
+--- a/src/main/java/tm/ui/TMUI.java
++++ b/src/main/java/tm/ui/TMUI.java
+@@ -448,7 +448,7 @@
+
+ 		///////// Read specs
+ 		try {
+-			TMSpecReader.readSpecsFromFile(new File("tmspec.xml"));
++			TMSpecReader.readSpecs();
+ 		} catch (SAXParseException e) {
+ 			JOptionPane.showMessageDialog(this,
+ 					xlate("Parser_Parse_Error") + "\n" +

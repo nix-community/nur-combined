@@ -1,0 +1,40 @@
+--- a/src/main/java/tm/utils/XMLParser.java
++++ b/src/main/java/tm/utils/XMLParser.java
+@@ -41,16 +41,23 @@
+
+ public class XMLParser {
+
+-	public static Document parse(File file)
++	public static Document parse(InputStream inputStream)
++			throws SAXException, SAXParseException, ParserConfigurationException, IOException {
++		return parse(inputStream, null);
++	}
++
++	public static Document parse(InputStream inputStream, String systemId)
+ 			throws SAXException, SAXParseException, ParserConfigurationException, IOException {
+ 		Document document = null;
+ 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+ 		factory.setValidating(true);
+ 		try {
+ 			DocumentBuilder builder = factory.newDocumentBuilder();
+-			InputStream inputStream = new FileInputStream(file);
+ 			InputSource is = new InputSource(inputStream);
+ 			is.setEncoding("UTF-8");
++			if (systemId != null) {
++				is.setSystemId(systemId);
++			}
+
+ 			builder.setErrorHandler(
+ 					new org.xml.sax.ErrorHandler() { // ignore fatal errors (an exception is guaranteed)
+@@ -87,6 +94,11 @@
+ 		return document;
+ 	}
+
++	public static Document parse(File file)
++			throws SAXException, SAXParseException, ParserConfigurationException, IOException {
++		return parse(new FileInputStream(file), file.toURI().toString());
++	}
++
+ 	public static String getNodeValue(Node n) {
+ 		String value = "";
+ 		if (n != null) {
