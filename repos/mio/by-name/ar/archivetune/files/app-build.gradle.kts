@@ -93,7 +93,6 @@ dependencies {
     implementation(project(":lyrics:lrcred"))
     implementation(project(":lyrics:binimum"))
     implementation(project(":lyrics:megalobiz"))
-    implementation(project(":lyrics:musixmatch"))
 
     // Real Compose-lifecycle integration. The port used to ship hand-written stubs in
     // :android-stubs, but those shadowed the real classes at runtime (their lifecycle

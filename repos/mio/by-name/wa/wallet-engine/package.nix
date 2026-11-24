@@ -11,27 +11,32 @@
 }:
 
 let
-  version = "0.0.7-unstable-2026-11-23";
+  # Forkgram 7.4.6 builds this engine from its own pinned commit plus the patch
+  # set from desktop-app/patches; see .github/workflows/mac_packaged.yml there.
+  version = "0.0.7-unstable-2026-10-02";
   src = fetchFromGitHub {
     owner = "i582";
     repo = "wallet-engine";
-    rev = "88df18f89229e1dd6da624ada8fef66906211830";
-    hash = "sha256-lvgwLLND9H8zBFl9Tg7w/d2Ow59zw+8xXQw7HbGEKds=";
+    rev = "e59e0d89d7ee90c388bf36e3334c5b276f396697";
+    hash = "sha256-729W7YCjkUCdL8Xk8BPHKdjpK6F+x1C9wnk/17TGhx4=";
   };
 
   bindgenCargoDeps = rustPlatform.fetchCargoVendor {
     pname = "wallet-engine-bindgen";
     inherit version src;
     cargoRoot = "bindgen/cpp";
-    hash = "sha256-jM7V9TWzwwUU+Qnk0PBngR899utZmDxtj2wPL/TJa2Q=";
+    hash = "sha256-n3VKg3OMU9a4fbaxISWKEVXRe9vRe63/GeRdpmDEZTM=";
   };
 
-  # Forkgram 7.3 looks up this exact checkout when DESKTOP_APP_USE_PACKAGED is set.
+  # Forkgram looks up this exact checkout when DESKTOP_APP_USE_PACKAGED is set.
   engine = rustPlatform.buildRustPackage {
     pname = "wallet-engine";
     inherit version src;
 
-    cargoHash = "sha256-oIchzPdsfjg0lGm5bcd61iYTOb0JVRiTUZMzCyjUdkc=";
+    cargoHash = "sha256-b9LErZRUgVa/bHjmbN3ltW8vUoF9UhCjMAfFPSbpzbY=";
+
+    # Forkgram builds this engine from a pinned commit plus its own patch set.
+    patches = [ ./wallet-engine.patch ];
 
     cargoBuildFlags = [ "--lib" ];
 

@@ -81,20 +81,20 @@ let
   lyricsSrc = fetchFromGitHub {
     owner = "rukamori";
     repo = "lyrics";
-    rev = "aa6fcd688ae464a56b044989f3bd7632afb8cadf";
-    hash = "sha256-LqmCZuzCzJFu9J/G0Dc/EuPrSxrzao0iCldB1r9CZQo=";
+    rev = "182e0d3a86bb94c9f5e5b7d90b8f91f7cee1c8ec";
+    hash = "sha256-SaDa80YYHG6EO91wDEa0j7cn4eP1DxGDfvry8YjqJEc=";
   };
 
   # The :core submodule lives in a separate repo; fetch it at the pinned commit.
   coreSrc = fetchFromGitHub {
     owner = "rukamori";
     repo = "core";
-    rev = "bfd998cf3d6f1ab9f0c69b75eb68f983e63f8bcd";
-    hash = "sha256-8BijRMUVUK7U0cVP4owgJ4+aE6y5c5KLpOwOVU6BmP0=";
+    rev = "c331f66f3cfb7b1dfcf77599eb284a9a4974c55a";
+    hash = "sha256-j6S1dxEMSY1HRv/5vQUGrL6tDsWoeYH2s54ZXRbvrGE=";
   };
   unwrapped = stdenv.mkDerivation (finalAttrs: {
     pname = "archivetune-unwrapped";
-    version = "16.0.0";
+    version = "16.1.0";
 
     strictDeps = true;
 
@@ -102,7 +102,7 @@ let
       owner = "rukamori";
       repo = "ArchiveTune";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-gUiqJ2CHbx5/gg4LPdBsdv2FZOQpaAvfFCCtdxDaoJo=";
+      hash = "sha256-QAt3PkBpDDREKIVmXkAOnwCo9FdiFkIII1sZ+Rrf33A=";
     };
 
     patches = [ ];
@@ -122,6 +122,8 @@ let
       rm -f app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt
       rm -rf app/src/main/kotlin/moe/rukamori/archivetune/widget
       rm -rf app/src/main/kotlin/moe/rukamori/archivetune/aod
+      # Media3 player decorator used only by the Android MusicService, which the port replaces.
+      rm -f app/src/main/kotlin/moe/rukamori/archivetune/playback/MediaSessionNavigationPlayer.kt
 
       # Files the port replaces wholesale. These are kept as real files rather than
       # as full-file patches: upstream rewrites them constantly (adding flavours,
@@ -174,6 +176,9 @@ let
         app/src/main/kotlin/moe/rukamori/archivetune/playback/bitperfect/BitPerfectOutput.kt
       python3 ${./fix_theme.py}
       patch -p1 < ${./sed-replacements.patch}
+
+      # Compose Desktop's DialogProperties has no Android window-insets flag.
+      find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "/decorFitsSystemWindows = false,/d" {} +
 
       cp ${./files/MusicDatabase.kt} app/src/main/kotlin/moe/rukamori/archivetune/db/MusicDatabase.kt
       cp ${./files/DatabaseDao.kt} app/src/main/kotlin/moe/rukamori/archivetune/db/DatabaseDao.kt

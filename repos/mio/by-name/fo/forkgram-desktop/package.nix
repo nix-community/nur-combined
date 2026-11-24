@@ -9,21 +9,45 @@
   tlottie,
   wallet-engine,
   swift,
+  rustPlatform,
+  cargo,
+  rustc,
+  writeShellScript,
   nix-update-script,
 }:
 
 let
+  # 7.4.6 builds the widget helper (Telegram/ThirdParty/twidget) with cargo. The
+  # lock file is vendored from that submodule: cargo runs from the build tree with
+  # a CARGO_HOME the cmake script controls, so wrap it to use the vendored crates
+  # and stay offline.
+  widgetHelperCargoDeps = rustPlatform.fetchCargoVendor {
+    name = "forkgram-widget-helper-cargo-vendor";
+    src = ./widget-cargo;
+    hash = "sha256-NAjFvRuwebJ3sWVNhnEfyzBa3i8MTFG3lHJ7f3Keqb4=";
+  };
+
+  widgetHelperCargo = writeShellScript "forkgram-widget-helper-cargo" ''
+    cargo_home="''${TMPDIR:-/tmp}/forkgram-widget-helper-cargo"
+    mkdir -p "$cargo_home"
+    sed "s|@vendor@|${widgetHelperCargoDeps}|g" \
+      "${widgetHelperCargoDeps}/.cargo/config.toml" > "$cargo_home/config.toml"
+    export CARGO_HOME="$cargo_home"
+    export CARGO_NET_OFFLINE=true
+    export PATH="${cargo}/bin:${rustc}/bin:$PATH"
+    exec ${cargo}/bin/cargo "$@"
+  '';
   unwrapped = telegram-desktop.unwrapped.overrideAttrs (
     finalAttrs: previousAttrs: {
       pname = "forkgram-desktop-unwrapped";
-      version = "7.4.5";
+      version = "7.4.6";
 
       src = fetchFromGitHub {
         owner = "forkgram";
         repo = "tdesktop";
         tag = "v${finalAttrs.version}";
         fetchSubmodules = true;
-        hash = "sha256-SlWUhMKRuvF7Dp6pQvMFml55+dXVb2H1qZzCP3Eg1Ak=";
+        hash = "sha256-K55ARXQOhJ9gCGQedGDIXWoA0KwaTo6doR+/g8kKFhc=";
       };
 
       # nixpkgs' telegram-desktop already pulls its own tlottie and
@@ -49,20 +73,21 @@ let
       # compiles on macOS (Telegram/lib_translate).
       cmakeFlags =
         previousAttrs.cmakeFlags
+        ++ [ (lib.cmakeFeature "TDESKTOP_CARGO" "${widgetHelperCargo}") ]
         ++ lib.optionals stdenv.hostPlatform.isDarwin [
           (lib.cmakeBool "DESKTOP_APP_DISABLE_SWIFT6" true)
         ];
       nativeBuildInputs =
-        if stdenv.hostPlatform.isDarwin then
-          lib.remove swift previousAttrs.nativeBuildInputs
-        else
-          previousAttrs.nativeBuildInputs;
-
-      # Forkgram calls signData cell decoding on the session, which the engine
-      # has since replaced with a free function over the raw BoC bytes.
-      patches = (previousAttrs.patches or [ ]) ++ [
-        ./decode-cell-with-engine-api.patch
-      ];
+        (
+          if stdenv.hostPlatform.isDarwin then
+            lib.remove swift previousAttrs.nativeBuildInputs
+          else
+            previousAttrs.nativeBuildInputs
+        )
+        ++ [
+          cargo
+          rustc
+        ];
 
       postPatch = (previousAttrs.postPatch or "") + ''
         (

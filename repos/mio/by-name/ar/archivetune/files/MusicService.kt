@@ -31,6 +31,7 @@ import androidx.datastore.preferences.DesktopPreferenceStore
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
@@ -1333,6 +1334,10 @@ class MusicService {
     val localPlayer: DesktopPlayer get() = desktopPlayerImpl
 
     val currentMediaMetadata = MutableStateFlow<MediaMetadata?>(null)
+
+    /* Playback failures are surfaced by the desktop player through DesktopPlayerImpl. */
+    private val _unrecoveredPlaybackFailure = MutableStateFlow<PlaybackFailure?>(null)
+    val unrecoveredPlaybackFailure = _unrecoveredPlaybackFailure.asStateFlow()
     val sleepTimer by lazy { SleepTimer(CoroutineScope(Dispatchers.Default), desktopPlayerImpl, this) }
 
     /* Desktop player applies volume itself; the sleep-timer fade is a no-op here. */

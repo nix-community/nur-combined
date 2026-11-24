@@ -1123,7 +1123,6 @@ index 1b45df0..205c40a 100644
  
  
 diff --git a/tools/build_map.py b/tools/build_map.py
-index 427b4fc..a809602 100644
 --- a/tools/build_map.py
 +++ b/tools/build_map.py
 @@ -2,7 +2,7 @@
@@ -1135,18 +1134,7 @@ index 427b4fc..a809602 100644
  
  Input is a copy extracted from library-data/geography/openstreetmap/socal-latest-free.gpkg.zip;
  the original archive is only read. Output tables:
-@@ -16,6 +16,10 @@ from array import array
- 
- SRC, DST = sys.argv[1], sys.argv[2]
- Q = 1e6
-+CLIP = [float(v) for v in sys.argv[3].split(',')] if len(sys.argv) > 3 else None      # [west, south, east, north]
-+SOURCE = sys.argv[4] if len(sys.argv) > 4 else 'OpenStreetMap contributors, via Geofabrik socal-latest-free.gpkg.zip (ODbL 1.0)'
-+DATA_AS_OF = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()) if CLIP else '2026-10-25T21:21:21Z'
-+BOUNDS = ','.join(f'{v:.6f}' for v in CLIP) if CLIP else '-121.36,32.50,-114.10,35.89'
- 
- ROAD_Z = {'motorway': 5, 'trunk': 6, 'motorway_link': 10, 'trunk_link': 10, 'primary': 8, 'primary_link': 12,
-           'secondary': 10, 'secondary_link': 13, 'tertiary': 11, 'tertiary_link': 13, 'residential': 13,
-@@ -110,6 +114,13 @@ def bbox(parts):
+@@ -109,6 +109,13 @@
      return min(xs), max(xs), min(ys), max(ys)
  
  
@@ -1160,19 +1148,20 @@ index 427b4fc..a809602 100644
  def area_z(minx, maxx, miny, maxy, base):
      """Small polygons only appear when zoomed in."""
      size = max(maxx - minx, maxy - miny)
-@@ -122,6 +133,11 @@ def area_z(minx, maxx, miny, maxy, base):
- def main():
+@@ -125,8 +132,11 @@
+       CREATE TABLE meta(key TEXT PRIMARY KEY, value TEXT);'''
+ 
+ 
+-def build(src, dst, metadata):
++def build(src, dst, metadata, *, clip=None, extracts=()):
      t0 = time.time()
-     src = sqlite3.connect(SRC)
-+    databases = ['main']
-+    for index, path in enumerate(sys.argv[5:], 1):
-+        alias = f'extract{index}'
-+        src.execute(f'ATTACH DATABASE ? AS {alias}', (path,))
-+        databases.append(alias)
-     dst = sqlite3.connect(DST)
-     dst.executescript('''PRAGMA journal_mode=OFF; PRAGMA synchronous=OFF;
-       DROP TABLE IF EXISTS feat; DROP TABLE IF EXISTS feat_idx; DROP TABLE IF EXISTS poi; DROP TABLE IF EXISTS meta;
-@@ -140,13 +156,21 @@ def main():
++    for index, path in enumerate(extracts, 1):
++        src.execute(f'ATTACH DATABASE ? AS extract{index}', (path,))
++    databases = ['main', *(f'extract{index}' for index in range(1, len(extracts) + 1))]
+     dst.executescript('PRAGMA journal_mode=OFF; PRAGMA synchronous=OFF;')
+     dst.executescript(MAP_SCHEMA)
+     fid = [0]
+@@ -140,13 +150,21 @@
          dst.execute('INSERT INTO feat_idx VALUES (?,?,?,?,?,?,?)', (fid[0], *bx, minz, 30))
  
      def each(table, cols='fclass,name'):
@@ -1190,25 +1179,28 @@ index 427b4fc..a809602 100644
 +                parts = gpkg_parts(row[0])
              except Exception:
                  continue
-+            if CLIP and not intersects(parts, CLIP):
++            if clip and not intersects(parts, clip):
 +                continue
 +            yield parts, row[1:]
  
      # Water bodies
      for parts, (cls, name) in each('gis_osm_water_a_free'):
-@@ -196,9 +220,9 @@ def main():
-             dst.execute('INSERT INTO poi VALUES (?,?,?,?,?)', (pid, cls, name, (minx + maxx) / 2, (miny + maxy) / 2))
-     dst.execute('CREATE INDEX poi_cls ON poi(cls, lon, lat)')
-     dst.executemany('INSERT INTO meta VALUES (?,?)', [
--        ('source', 'OpenStreetMap contributors, via Geofabrik socal-latest-free.gpkg.zip (ODbL 1.0)'),
--        ('data_as_of', '2026-10-25T21:21:21Z'),
--        ('bounds', '-121.36,32.50,-114.10,35.89'),
-+        ('source', SOURCE),
-+        ('data_as_of', DATA_AS_OF),
-+        ('bounds', BOUNDS),
-         ('built', time.strftime('%Y-%m-%dT%H:%M:%S')),
-     ])
-     dst.commit()
+@@ -203,10 +221,11 @@
+ 
+ if __name__ == '__main__':
+     src, dst = sys.argv[1:3]
++    clip = [float(v) for v in sys.argv[3].split(',')] if len(sys.argv) > 3 else None
+     with sqlite3.connect(src) as source, sqlite3.connect(dst) as output:
+         build(source, output, {
+-            'source': 'OpenStreetMap contributors, via Geofabrik socal-latest-free.gpkg.zip (ODbL 1.0)',
+-            'data_as_of': '2026-10-25T21:21:21Z',
+-            'bounds': '-121.36,32.50,-114.10,35.89',
++            'source': sys.argv[4] if len(sys.argv) > 4 else 'OpenStreetMap contributors, via Geofabrik socal-latest-free.gpkg.zip (ODbL 1.0)',
++            'data_as_of': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()) if clip else '2026-10-25T21:21:21Z',
++            'bounds': ','.join(f'{v:.6f}' for v in clip) if clip else '-121.36,32.50,-114.10,35.89',
+             'built': time.strftime('%Y-%m-%dT%H:%M:%S'),
+-        })
++        }, clip=clip, extracts=sys.argv[5:])
 diff --git a/web/map.js b/web/map.js
 index 5d90296..78c923b 100644
 --- a/web/map.js

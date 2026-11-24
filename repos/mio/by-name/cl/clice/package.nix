@@ -32,7 +32,7 @@ stdenv.mkDerivation (
     # needs its own hash. Kept outside the derivation attributes, which are
     # coerced to strings.
     depsHashes = {
-      x86_64-linux = "sha256-4bTvyioIu6oCZD7NRrgyhGZeCrtBHO5IT92ljiSPDAQ=";
+      x86_64-linux = "sha256-VXhhwGH4xfOBQ4Pb64yeg/7rGYv/BufekWvLmXlw1W0=";
       aarch64-darwin = "sha256-MSZLrZPZV9p4YwuqtFGIGJ0RrpUktZz5LJkG79cYXxg=";
     };
 
@@ -40,7 +40,7 @@ stdenv.mkDerivation (
     # from. The branch is rewritten on every clice release, so a branch URL would
     # make the fixed-output hash stale within a day; the commit keeps the build
     # reproducible. Bump it together with the hash when updating clice.
-    registryRev = "4d2099bd2b80f63c38b57ef74fb53b4f6b429837";
+    registryRev = "aea68cb2dd021c9c84a481beb79377390d55f10f";
 
     # Extra flags of the darwin build: the server cannot listen in the sandbox
     # (--batch) and links cache ThinLTO output in $TMPDIR. The link action does
@@ -62,13 +62,13 @@ stdenv.mkDerivation (
   in
   {
     pname = "clice";
-    version = "1.1.2026112308";
+    version = "1.1.2026112310";
 
     src = fetchFromGitHub {
       owner = "clice-io";
       repo = "clice";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-fbB2Iczp2QC4rtLL4YjH6bNtH5ARZidQbuLeJOVlrCM=";
+      hash = "sha256-K6P+VhUIzNAsQHiO2nhLF0AGIrNnAiHem9JFBE7OG6Y=";
     };
 
     deps = stdenv.mkDerivation {

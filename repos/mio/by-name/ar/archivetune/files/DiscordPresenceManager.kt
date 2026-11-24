@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
  * small read-only surface the debug settings screen renders.
  */
 object DiscordPresenceManager {
+    val isRunningFlow: StateFlow<Boolean> = MutableStateFlow(false)
     val lastRpcStartTimeFlow: StateFlow<Long?> = MutableStateFlow(null)
     val lastRpcEndTimeFlow: StateFlow<Long?> = MutableStateFlow(null)
 

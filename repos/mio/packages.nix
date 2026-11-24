@@ -249,16 +249,6 @@ exportedByName
       ];
     });
 
-  davinci-resolve-studio2033 = davinci-resolve2033.override {
-    studioVariant = true;
-  };
-
-  baobab_patched = pkgs.baobab.overrideAttrs (old: {
-    nativeBuildInputs =
-      (old.nativeBuildInputs or [ ])
-      ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isDarwin pkgs.desktopToDarwinBundle;
-  });
-
   # Wine app variants (bases live in by-name; mkWindowsAppNoCC is no-IFD).
   # https://github.com/NixOS/nixpkgs/issues/10165
   # https://discourse.nixos.org/t/what-is-your-approach-to-packaging-wine-applications-with-nix-derivations/12799/1

@@ -45,6 +45,10 @@ open class MutablePreferences(
         }
     }
 
+    operator fun <T> minusAssign(key: Preferences.Key<T>) {
+        values.remove(key.name)
+    }
+
     @Suppress("UNCHECKED_CAST")
     fun <T> remove(key: Preferences.Key<T>): T? = values.remove(key.name) as? T
 

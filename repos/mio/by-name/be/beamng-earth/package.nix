@@ -12,7 +12,7 @@
 }:
 
 let
-  version = "1.10.1-beta.dev.567";
+  version = "1.10.1-beta.dev.574";
 
   python = python312.withPackages (
     ps: with ps; [
@@ -29,7 +29,7 @@ let
     owner = "TecnaGamer";
     repo = "BeamNG.Earth";
     tag = "v${version}";
-    hash = "sha256-RF29MBgVTR+kd2sfnlY/z/0FsmrrF58TSJTdiNLsR/U=";
+    hash = "sha256-mrEQMwoe/dx4CjPw5Nc9vkan1WxpK1Nz2U5s4vL90Ds=";
   };
 
   # The world server's geometry kernels (native/earthfast): a pyo3 abi3

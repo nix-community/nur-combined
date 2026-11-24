@@ -46,6 +46,7 @@ data class YoutubeiStreamRequest(
     val cookie: String? = null,
     val visitorData: String? = null,
     val dataSyncId: String? = null,
+    val accountIndex: Int? = null,
     val sessionPoToken: String? = null,
     val videoPoToken: String? = null,
     val language: String = "en",
@@ -78,7 +79,7 @@ data class YoutubeiNetworkConfiguration(
     val proxyPassword: String?,
     val dns: Dns,
     val interceptors: List<Interceptor> = emptyList(),
-    val networkIdentity: String? = null,
+    val networkIdentity: String,
 )
 
 class YoutubeiException(

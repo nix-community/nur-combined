@@ -13,6 +13,7 @@ by cargo, so they cannot be prefetched from a URL: force a mismatch with
 
 import re
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 
@@ -39,11 +40,6 @@ def latest_tag():
     if not versions:
         raise SystemExit("error: no release tags found upstream")
     return max(versions, key=lambda v: tuple(int(x) for x in v.split(".")))
-
-
-def head_commit():
-    """Latest commit on the default branch, without cloning the history."""
-    return git("ls-remote", REPO, "HEAD").split()[0]
 
 
 def commit_date(sha):
@@ -101,10 +97,13 @@ def main():
     original = pkg_nix.read_text()
     text = original
 
-    rev = head_commit()
+    old_rev = re.search(r'(?m)^\s*rev = "([^"]+)";', text).group(1)
+    # Forkgram builds this engine from a pinned commit (plus a patch set from
+    # desktop-app/patches), not from upstream HEAD, so only bump to an explicit
+    # revision that forkgram's .github/workflows/mac_packaged.yml names.
+    rev = sys.argv[1] if len(sys.argv) > 1 else old_rev
     version = f"{latest_tag()}-unstable-{commit_date(rev)}"
 
-    old_rev = re.search(r'(?m)^\s*rev = "([^"]+)";', text).group(1)
     old_version = re.search(r'(?m)^\s*version = "([^"]+)";', text).group(1)
     print(f"Version: {old_version} -> {version}")
     print(f"Source:  {old_rev} -> {rev}")
