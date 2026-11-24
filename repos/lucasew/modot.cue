@@ -440,7 +440,7 @@ options: webapp: {
 
 #is_whiterun: runtime.hostname == "whiterun"
 #is_riverwood: runtime.hostname == "riverwood"
-#is_massan: runtime.hostname == "MacBook-Air-de-Lucas.local"
+#is_massan: runtime.goos == "darwin" && strings.Contains(runtime.hostname, "Air-de-Lucas")
 #is_ravenrock: runtime.hostname == "ravenrock"
 #is_grokbot: strings.HasPrefix(runtime.hostname, "grok-bot-vm-")
 #is_openbot: runtime.hostname == "openbot"
