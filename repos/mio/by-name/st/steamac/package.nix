@@ -24,7 +24,7 @@ let
     hash = "sha256-fVIJ7kihxxmQ8eEiIEHsAFUe/JiEQ4p4xkxYw2WuJMU=";
   };
 
-  spirvCross = applyPatches {
+  spirvCrossSrc = applyPatches {
     name = "SPIRV-Cross-steamac";
     src = fetchFromGitHub {
       owner = "utmapp";
@@ -39,44 +39,11 @@ let
     );
   };
 
-  moltenvkExternal =
-    repo: rev: hash:
-    fetchFromGitHub {
-      owner = "KhronosGroup";
-      inherit repo rev hash;
-    };
-
-  moltenvkDeps = callPackage ./moltenvk-deps.nix {
-    inherit moltenvkSrc spirvCross;
-    spirvTools =
-      moltenvkExternal "SPIRV-Tools" "262bdab48146c937467f826699a40da0fdfc0f1a"
-        "sha256-H+t7ZH4SB+XgWTLj9XaJWZwAWk8M2QeC98Zi5ay8PBc=";
-    spirvHeaders =
-      moltenvkExternal "SPIRV-Headers" "b824a462d4256d720bebb40e78b9eb8f78bbb305"
-        "sha256-HjJjMuqTrYv5LUOWcexzPHb8nhOT4duooDAhDsd44Zo=";
-    vulkanHeaders =
-      moltenvkExternal "Vulkan-Headers" "6aefb8eb95c8e170d0805fd0f2d02832ec1e099a"
-        "sha256-yuINyOugmlb4o6akLAMU9t3R2ArK9ddbuUZPyKOl56s=";
-    vulkanTools =
-      moltenvkExternal "Vulkan-Tools" "013058f74e2356347f8d9317233bc769816c9dfb"
-        "sha256-2CCFO3VMhBWKyoWaz7dLfOE+MKBFqaajiAMSYwTvnDI=";
-    volk = fetchFromGitHub {
-      owner = "zeux";
-      repo = "volk";
-      rev = "59660878571aa99e3c9a366bb1d19fdcd701f0e7";
-      hash = "sha256-W3PKNtk4L17VkjC7M/bNuq16OZjIAA5MFmX3u26+HZc=";
-    };
-    cereal = fetchFromGitHub {
-      owner = "USCiLab";
-      repo = "cereal";
-      rev = "a56bad8bbb770ee266e930c95d37fff2a5be7fea";
-      hash = "sha256-Q2/W74G5DYvgjPpzPRDWcWdqmEVyaY9wZaoMlfvfOnM=";
-    };
-  };
+  spirvCross = callPackage ./spirv-cross.nix { inherit spirvCrossSrc; };
 
   moltenvk = callPackage ./moltenvk.nix {
     steamacSrc = src;
-    inherit moltenvkSrc moltenvkDeps;
+    inherit moltenvkSrc spirvCross;
   };
 
   virglrendererSrc = callPackage ./virglrenderer-src.nix { steamacSrc = src; };

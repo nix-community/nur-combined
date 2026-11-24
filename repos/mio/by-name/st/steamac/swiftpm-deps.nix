@@ -84,7 +84,7 @@ stdenv.mkDerivation {
   '';
 
   outputHashMode = "recursive";
-  outputHash = "sha256-/VYR40K4BT4FM8XdSWRDH33lGQS9EqkJdnL2kXsvFcY=";
+  outputHash = "sha256-+dmzNhayPDfYynbb1fGiT0K5o9TSDyOdDI3jXGBBzzY=";
 
   meta = {
     description = "SwiftPM dependency cache for the Steamac launcher";

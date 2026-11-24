@@ -142,6 +142,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontFixup = true;
 
+  passthru.moltenvk = moltenvk;
+
   meta = {
     description = "Run Valve's ARM64 SteamOS in a lightweight VM on Apple Silicon";
     homepage = "https://fxgl.github.io/steamac/";
