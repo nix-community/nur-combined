@@ -9,13 +9,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "obsidian-git";
-  version = "2.43.0";
+  version = "2.44.0";
 
   src = fetchFromGitHub {
     owner = "Vinzent03";
     repo = "obsidian-git";
     rev = version;
-    sha256 = "sha256-ZSEerv8rmIPvhtkl8AKKddxG0RSFvfjFz2WYt9QAQUg=";
+    sha256 = "sha256-laNg+FVA80lYchBpSlPj1R0Se6xr0BoZKPKsDENenuA=";
   };
 
   nativeBuildInputs = [
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
   pnpmDeps = fetchPnpmDeps {
     fetcherVersion = 4;
     inherit pname version src patches;
-    hash = "sha256-d2YnBQogvcMQtfdefkO9rTv9B2aFq4qXDr6dGrKi4c0=";
+    hash = "sha256-gmcQSfGPqo8rukHfTwb5znwcRbXpNi8QSR/LpMpWzt4=";
   };
 
   meta = {
