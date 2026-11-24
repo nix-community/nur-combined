@@ -23,6 +23,7 @@ in
   guile-lsp-server = pkgs.callPackage ./pkgs/guile-lsp-server { };
   libmks = pkgs.callPackage ./pkgs/libmks { };
   chatgpt = pkgs.callPackage ./pkgs/chatgpt { };
+  claude-desktop = pkgs.callPackage ./pkgs/claude-desktop { };
   muse-code = pkgs.callPackage ./pkgs/muse-code { };
   qoder-cli = pkgs.callPackage ./pkgs/qoder-cli { };
   qoder-cn = pkgs.callPackage ./pkgs/qoder-cn { };

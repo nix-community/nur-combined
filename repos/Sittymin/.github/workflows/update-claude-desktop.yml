@@ -1,0 +1,117 @@
+name: Update Claude Desktop package
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "27 3 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-claude-desktop
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: experimental-features = nix-command flakes
+
+      - name: Update package metadata
+        shell: bash
+        env:
+          PACKAGE_FILE: pkgs/claude-desktop/default.nix
+          REPO_URL: https://downloads.claude.ai/claude-desktop/apt/stable
+        run: |
+          set -euo pipefail
+
+          tmp="$(mktemp -d)"
+          trap 'rm -rf "$tmp"' EXIT
+
+          latest_field() {
+            local deb_arch="$1"
+            local field="$2"
+            curl -fsSL "$REPO_URL/dists/stable/main/binary-$deb_arch/Packages" |
+              awk -v field="$field" '
+                BEGIN { RS=""; FS="\n" }
+                {
+                  package = ""
+                  version = ""
+                  value = ""
+                  for (i = 1; i <= NF; i++) {
+                    if ($i == "Package: claude-desktop") package = "claude-desktop"
+                    if ($i ~ "^Version: ") version = substr($i, 10)
+                    if ($i ~ "^" field ": ") value = substr($i, length(field) + 3)
+                  }
+                  if (package == "claude-desktop" && version != "" && value != "") print version "\t" value
+                }
+              ' |
+              sort -V |
+              tail -n1 |
+              cut -f2-
+          }
+
+          version_amd64="$(latest_field amd64 Version)"
+          version_arm64="$(latest_field arm64 Version)"
+          sha_amd64="$(latest_field amd64 SHA256)"
+          sha_arm64="$(latest_field arm64 SHA256)"
+
+          test -n "$version_amd64"
+          test -n "$version_arm64"
+          test -n "$sha_amd64"
+          test -n "$sha_arm64"
+
+          if [ "$version_amd64" != "$version_arm64" ]; then
+            echo "Version mismatch: amd64=$version_amd64 arm64=$version_arm64" >&2
+            exit 1
+          fi
+
+          hash_amd64="$(nix hash convert --hash-algo sha256 --to sri "$sha_amd64")"
+          hash_arm64="$(nix hash convert --hash-algo sha256 --to sri "$sha_arm64")"
+
+          VERSION="$version_amd64" HASH_AMD64="$hash_amd64" HASH_ARM64="$hash_arm64" \
+          perl -0pi -e '
+            s{version = "[^"]+";}{version = "$ENV{VERSION}";};
+            s{debArch = "amd64";\n      hash = "[^"]+";}{debArch = "amd64";\n      hash = "$ENV{HASH_AMD64}";};
+            s{debArch = "arm64";\n      hash = "[^"]+";}{debArch = "arm64";\n      hash = "$ENV{HASH_ARM64}";};
+          ' "$PACKAGE_FILE"
+
+          echo "Claude Desktop is at $version_amd64"
+
+      - name: Detect package changes
+        id: changes
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet -- pkgs/claude-desktop/default.nix; then
+            echo "Claude Desktop is already up to date."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Validate updated package
+        if: steps.changes.outputs.changed == 'true'
+        run: nix build .#claude-desktop --print-build-logs
+
+      - name: Commit and push changes
+        if: steps.changes.outputs.changed == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pkgs/claude-desktop/default.nix
+          git commit -m "update: claude-desktop"
+          git push
