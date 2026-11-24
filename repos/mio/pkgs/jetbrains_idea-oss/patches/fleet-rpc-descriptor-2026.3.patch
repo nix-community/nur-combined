@@ -1,0 +1,61 @@
+--- a/platform/kernel/rpc.backend/src/impl/remoteApiDescriptorUtils.kt
++++ b/platform/kernel/rpc.backend/src/impl/remoteApiDescriptorUtils.kt
+@@ -1,7 +1,9 @@
+ // Copyright 2000-2025 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
+ package com.intellij.platform.rpc.backend.impl
+ 
++import fleet.rpc.RemoteApi
+ import fleet.rpc.RemoteApiDescriptor
++import fleet.rpc.RpcSignature
+ 
+ // Must stay in sync with:
+ // com.jetbrains.fleet.rpc.plugin.FqnKt.getRemoteApiDescriptorImplClassName
+@@ -17,11 +19,23 @@
+     apiInterface.classLoader.loadClass(descriptorClassName)
+   }
+   catch (e: ClassNotFoundException) {
+-    throw IllegalStateException(
+-      "Couldn't get remoteApiDescriptor for ${apiInterface.name}: generated descriptor $descriptorClassName not found. " +
+-      "Is ${apiInterface.name} annotated with @Rpc and compiled with the rpc compiler plugin?", e
+-    )
++    // The rpc compiler plugin is not loaded by the JPS build, so the generated
++    // descriptor class does not exist; the backend is unusable for real calls
++    // but the IDE has to start and build its search index.
++    return MissingRemoteApiDescriptor(apiInterface.name)
+   }
+ 
+   return descriptorClass.getField("INSTANCE").get(null) as RemoteApiDescriptor<*>
+ }
++
++private class MissingRemoteApiDescriptor(private val apiFqn: String) : RemoteApiDescriptor<RemoteApi<*>> {
++  override fun getSignature(methodName: String): RpcSignature = error("RPC compiler plugin is not enabled")
++
++  override fun clientStub(proxy: suspend (String, Array<Any?>) -> Any?): RemoteApi<*> =
++    error("RPC compiler plugin is not enabled")
++
++  override fun getApiFqn(): String = apiFqn
++
++  override suspend fun call(impl: RemoteApi<*>, methodName: String, args: Array<Any?>): Any? =
++    error("RPC compiler plugin is not enabled")
++}
+--- a/fleet/rpc/srcCommonMain/fleet/rpc/FleetApi.kt
++++ b/fleet/rpc/srcCommonMain/fleet/rpc/FleetApi.kt
+@@ -70,5 +70,17 @@
+  * This function requires rpc compiler plugin to work properly, otherwise throws [IllegalStateException] in runtime.
+  */
+ inline fun <reified T : RemoteApi<*>> remoteApiDescriptor(descriptor: RemoteApiDescriptor<T>? = null): RemoteApiDescriptor<T> {
+-  return descriptor ?: error("Couldn't get remoteApiDescriptor for ${T::class}, enable RPC plugin")
++  // The rpc compiler plugin is not loaded by the JPS build, so no descriptor is
++  // passed at compile time; keep a stub so callers can start.
++  return descriptor ?: object : RemoteApiDescriptor<T> {
++    override fun getSignature(methodName: String): RpcSignature = error("RPC compiler plugin is not enabled")
++
++    override fun clientStub(proxy: suspend (String, Array<Any?>) -> Any?): T =
++      error("RPC compiler plugin is not enabled")
++
++    override fun getApiFqn(): String = T::class.qualifiedName ?: "Unknown"
++
++    override suspend fun call(impl: T, methodName: String, args: Array<Any?>): Any? =
++      error("RPC compiler plugin is not enabled")
++  }
+ }

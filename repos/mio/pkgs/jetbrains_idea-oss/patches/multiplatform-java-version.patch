@@ -1,0 +1,12 @@
+--- a/platform/util/multiplatform/src/com/intellij/util/JavaVersionShim.kt
++++ b/platform/util/multiplatform/src/com/intellij/util/JavaVersionShim.kt
+@@ -7,6 +7,7 @@
+ /**
+  * see implementation [com.intellij.util.currentJavaVersionPlatformSpecificJvm], [com.intellij.util.currentJavaVersionPlatformSpecificWasmJs]
+  */
+-internal fun currentJavaVersionPlatformSpecific(): JavaVersion = linkToActual()
++// linkToActual() needs the expects compiler plugin, which the JPS build does not load.
++internal fun currentJavaVersionPlatformSpecific(): JavaVersion = DefaultJavaVersion
+ 
+ internal val DefaultJavaVersion: JavaVersion = JavaVersion.compose(21, 0, 0, 0, false)
+\ No newline at end of file

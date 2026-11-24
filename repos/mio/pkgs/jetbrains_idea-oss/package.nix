@@ -1,47 +1,44 @@
 {
-  lib,
-  stdenvNoCC,
-  fetchurl,
-  unzip,
+  applyPatches,
   callPackage,
+  fetchurl,
+  fsnotifier,
   jetbrains,
-  kotlin,
-  jdk25,
+  lib,
+  maven,
   path,
+  stdenv,
+  stdenvNoCC,
+  unzip,
+  zlib,
 }:
 
 let
-  inherit (lib)
-    concatStringsSep
-    escapeShellArg
-    filter
-    hasSuffix
-    ;
+  # The 2026.3 tree pins Kotlin 2.4.21-RC in .idea/kotlinc.xml and is developed
+  # against JBR 25.
+  kotlinVersion = "2.4.21-RC";
+  jcefBuild = "263-b16";
+  jcefArch = if stdenv.hostPlatform.isAarch64 then "aarch64" else "x64";
 
-  version = "2026.2.3";
-  buildNumber = "262.10968.63";
-
-  kotlinDistVersion = "2.4.0";
-  kotlinIdeOldVersion = "2.3.20";
-
+  # The source tree refers to this jar through the $KOTLIN_COMPOSE_COMPILER_PLUGIN$ macro.
+  # The JPS build uses kotlin-dist-for-ide, so the non-embeddable plugin is required
+  # (the -embeddable jar wants the relocated kotlin-compiler-embeddable classes).
   composeCompilerPlugin = fetchurl {
-    url = "https://repo1.maven.org/maven2/org/jetbrains/kotlin/kotlin-compose-compiler-plugin/2.4.0/kotlin-compose-compiler-plugin-2.4.0.jar";
-    hash = "sha256-9bN4dvo6XS0n7/L+0xidsOzh9Ufz6cY1tJ+WnmMdFcE=";
+    url = "https://repo1.maven.org/maven2/org/jetbrains/kotlin/kotlin-compose-compiler-plugin/${kotlinVersion}/kotlin-compose-compiler-plugin-${kotlinVersion}.jar";
+    hash = "sha256-VzMlspgfPIwMxptbrM74yAlsRlWr9XomzBEOyhg9x6o=";
   };
 
+  # Upstream's compiler distribution for this release, so the compiler matches
+  # the kotlin-jps-plugin-classpath jar recorded in source_args.json.
   kotlinDist = stdenvNoCC.mkDerivation {
     pname = "kotlin-dist-for-ide";
-    version = kotlinDistVersion;
-
+    version = kotlinVersion;
     src = fetchurl {
-      url = "https://cache-redirector.jetbrains.com/intellij-dependencies/org/jetbrains/kotlin/kotlin-dist-for-ide/${kotlinDistVersion}/kotlin-dist-for-ide-${kotlinDistVersion}.jar";
-      hash = "sha256-0SuZblD+eyRaClBFusjAvVy8Inp5LkS0GwroDgQshJA=";
+      url = "https://packages.jetbrains.team/maven/p/ij/intellij-dependencies/org/jetbrains/kotlin/kotlin-dist-for-ide/${kotlinVersion}/kotlin-dist-for-ide-${kotlinVersion}.jar";
+      hash = "sha256-+Bpd3wanezqYCCxvEi39RWgLfH31Y1VPb+DcUC/zV2A=";
     };
-
     nativeBuildInputs = [ unzip ];
-
     dontUnpack = true;
-
     installPhase = ''
       runHook preInstall
       mkdir -p $out
@@ -50,198 +47,164 @@ let
     '';
   };
 
-  # Recreate the kotlin override used by nixpkgs' JPS builder so we can
-  # substitute its store path with substituteInPlace --replace-fail.
-  kotlinNixpkgs = kotlin.overrideAttrs (oldAttrs: {
-    version = "2.2.20";
-    src = fetchurl {
-      url = oldAttrs.src.url;
-      hash = "sha256-gfAmTJBztcu9s/+EGM8sXawHaHn8FW+hpkYvWlrMRCA=";
-    };
-  });
-
-  # JPS builder from nixpkgs (idea-oss still uses this on unstable; Bazel is not merged yet).
-  # 2026.2 needs JDK 25; the builder still looks up jetbrains.jdk-no-jcef-21.
-  mkJetBrainsSource = callPackage "${path}/pkgs/applications/editors/jetbrains/source/build.nix" {
-    jetbrains = jetbrains // {
-      jdk-no-jcef-21 = jdk25;
-    };
+  # The JCEF plugin binaries are normally downloaded while building the distribution.
+  jcefArchive = fetchurl {
+    url = "https://cache-redirector.jetbrains.com/intellij-jbr/jcef-linux-${jcefArch}-${jcefBuild}.tar.gz";
+    hash =
+      {
+        x64 = "sha256-rMmW7P+kPXcux5YpTek6a1UmszR4wPdswWq1+RdHTJ0=";
+        aarch64 = "sha256-s2vJRKRZDagNm4dWqqnlH6Fux4oBo77dOmsFtclp7Zs=";
+      }
+      .${jcefArch};
   };
 
-  jpsBootstrapJavaFlags = [
-    "--add-exports java.base/sun.nio.ch=ALL-UNNAMED"
-    "--add-exports java.base/jdk.internal.ref=ALL-UNNAMED"
-    "--add-opens java.base/jdk.internal.ref=ALL-UNNAMED"
-    "--add-opens java.base/java.util=ALL-UNNAMED"
-    "--add-opens java.base/java.lang=ALL-UNNAMED"
-    "--add-opens java.base/sun.nio.ch=ALL-UNNAMED"
+  # Native helpers that 2026.3 adds to the distribution are normally downloaded
+  # while packaging (versions from build/dependencies.properties).
+  restarterArchive = fetchurl {
+    url = "https://cache-redirector.jetbrains.com/intellij-dependencies/org/jetbrains/intellij/deps/restarter/243.6005/restarter-243.6005.tar.gz";
+    hash = "sha256-PW27NRcB5xupXEfHcgsYadfxKxmWcotBySNm8qKgx2g=";
+  };
+
+  libwebpArchive = fetchurl {
+    url = "https://cache-redirector.jetbrains.com/intellij-dependencies/org/jetbrains/intellij/deps/libwebp/1.6.0/libwebp-1.6.0.tar.gz";
+    hash = "sha256-Sl2P7EY4rgelbo0AkphlDQfNBsXd29Bt6Dwo1cYvaKU=";
+  };
+
+  libGhosttyVtArchive = fetchurl {
+    url = "https://packages.jetbrains.team/files/p/ij/intellij-build-dependencies/libghostty-vt/libghostty-vt-0.1.0-tip+3a3047f6b.8.zip.zst";
+    hash = "sha256-a1HgeiFLEU+HJMSrDt4uMaqJ8DdyOKt2ouJQZLvh2jk=";
+  };
+
+  # The pinned nixpkgs' source builder only grew the toolchain/patch parameters
+  # used below in NixOS/nixpkgs#592379, which is not merged yet; apply that
+  # delta here and drop it once the flake's nixpkgs pin has it.
+  jetbrainsSource = applyPatches {
+    name = "jetbrains-builders";
+    src = "${path}/pkgs/applications/editors/jetbrains";
+    patches = [ ./patches/source-build-params.patch ];
+  };
+
+  mkJetBrainsSource = callPackage "${jetbrainsSource}/source/build.nix" { };
+
+  src = mkJetBrainsSource (
+    lib.importJSON ./source_args.json
+    // {
+      jbr = jetbrains.jdk-no-jcef;
+      kotlinHome = kotlinDist;
+      mvnDeps = ./idea_maven_artefacts.json;
+      noDownloadPatch = ./patches/no-download-2026.3.patch;
+      sbomPatch = ./patches/disable-sbom-generation-2026.3.patch;
+      jacksonPatch = ./patches/bump-jackson-core-in-source-2026.3.patch;
+      extraPatches = [
+        ./patches/jps-compilation-2026.3.patch
+        # 2026.3 dropped project-jdk-name from .idea/misc.xml, but build-scripts
+        # still register the project SDK as jbr-25.
+        ./patches/misc-project-jdk.patch
+        # The JPS build does not load the 'expects' compiler plugin, so
+        # linkToActual() calls stay unlinked and fail when the build tools
+        # evaluate them.
+        ./patches/multiplatform-java-version.patch
+        # JPS hands Java sources to the Kotlin compiler; the Kotlin 2.4 java
+        # source analysis then cannot see a file's second top-level type, so
+        # move the package-private helper types Kotlin uses into own files.
+        ./patches/split-inlay-interfaces.patch
+        ./patches/split-java-helper-types.patch
+        # The JPS build does not run the 'expects' compiler plugin, so bind the
+        # linkToActual() shims to their JVM implementations instead.
+        ./patches/fleet-shims-jvm-2026.3.patch
+        # Likewise the rpc compiler plugin is not loaded, so the generated
+        # RemoteApiDescriptor classes do not exist; stub them out.
+        ./patches/fleet-rpc-descriptor-2026.3.patch
+        # The restarter, libwebp and libghostty-vt archives are normally
+        # downloaded while building the distribution; use store copies instead.
+        ./patches/stage-native-binaries-2026.3.patch
+      ];
+      jpsBootstrapPatches = [ ./patches/jps-bootstrap-2026.3.patch ];
+      jpsBootstrapJavaFlags = [
+        "--add-exports=java.base/sun.nio.ch=ALL-UNNAMED"
+        "--add-exports=java.base/jdk.internal.ref=ALL-UNNAMED"
+        "--add-opens=java.base/jdk.internal.ref=ALL-UNNAMED"
+        "--add-opens=java.base/java.util=ALL-UNNAMED"
+        "--add-opens=java.base/java.lang=ALL-UNNAMED"
+        "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED"
+      ];
+      # Upstream compiles with -Werror; the Kotlin build used here still emits
+      # warnings on a few upstream call sites, so do not fail on them.
+      extraPostPatch = ''
+        find . -name '*.iml' -exec sed -i 's/ -Werror//g' {} +
+
+        # IntelliJ's test modules use internal Kotlin APIs from unrelated
+        # modules, which this JPS setup does not expose; build production only.
+        sed -i '/setTypeId("java-test")/d' \
+          platform/build-scripts/src/org/jetbrains/intellij/build/impl/JpsCompilationRunner.kt
+
+        # build.nix's compose substitution is anchored to end of line, but the
+        # macro sits inside <arg>...</arg>; replace it wherever it appears.
+        find . -name '*.iml' -exec sed -i 's|\$KOTLIN_COMPOSE_COMPILER_PLUGIN\$|'"${composeCompilerPlugin}"'|g' {} +
+
+        # kotlin-dist-for-ide emits type annotations that make javac resolve
+        # library APIs through the module classpath, so export the library
+        # modules that upstream JPS only makes visible to direct dependents.
+        find . -name '*.iml' -exec sed -i -E 's|(<orderEntry type="module" module-name="intellij\.libraries\.[^"]*") />|\1 exported="" />|g' {} +
+        substituteInPlace platform/external-system-impl/intellij.platform.externalSystem.impl.iml \
+          --replace-fail '<orderEntry type="module" module-name="intellij.platform.ide.core" />' \
+          '<orderEntry type="module" module-name="intellij.platform.ide.core" exported="" />'
+        substituteInPlace java/compiler/impl/intellij.java.compiler.impl.iml \
+          --replace-fail '<orderEntry type="module" module-name="intellij.platform.buildView" />' \
+          '<orderEntry type="module" module-name="intellij.platform.buildView" exported="" />'
+        substituteInPlace fleet/multiplatform.shims/fleet.multiplatform.shims.iml \
+          --replace-fail '<orderEntry type="module" module-name="fleet.util.multiplatform" scope="PROVIDED" />' \
+          '<orderEntry type="module" module-name="fleet.util.multiplatform" />'
+
+        # Point the build-script downloaders at the prefetched native archives.
+        substituteInPlace platform/build-scripts/src/org/jetbrains/intellij/build/NativeBinaryDownloader.kt \
+          --replace-fail '"RESTARTER_ARCHIVE_HERE"' '"${restarterArchive}"' \
+          --replace-fail '"LIBWEBP_ARCHIVE_HERE"' '"${libwebpArchive}"'
+        substituteInPlace platform/build-scripts/downloader/src/org/jetbrains/intellij/build/dependencies/TerminalLibGhosttyVtDownloader.kt \
+          --replace-fail '"LIBGHOSTTY_VT_ARCHIVE_HERE"' '"${libGhosttyVtArchive}"'
+      '';
+      copyM2Repo = true;
+      composeCompilerPlugin = composeCompilerPlugin;
+      jcefArchive = jcefArchive;
+    }
+  );
+in
+jetbrains.mkJetBrainsProduct {
+  inherit src fsnotifier;
+  inherit (src)
+    version
+    buildNumber
+    ;
+  # this is jetbrains-libdbm but using the sources from the IDE build.
+  jetbrains-libdbm = src.libdbm;
+  # the jdk is bundled on Darwin.
+  jdk = if lib.meta.availableOn stdenv.hostPlatform jetbrains.jdk then jetbrains.jdk else null;
+
+  pname = "intellij-idea-oss";
+  wmClass = "jetbrains-idea";
+  product = "IntelliJ IDEA Open Source";
+  productShort = "IDEA";
+
+  extraLdPath = [ zlib ];
+  extraWrapperArgs = [
+    ''--set M2_HOME "${maven}/maven"''
+    ''--set M2 "${maven}/maven/bin"''
   ];
 
-  bumpKotlinIdeArtifacts = ''
-    for artefact in kotlin-dist-for-ide kotlin-jps-plugin-classpath kotlin-jps-plugin-tests-for-ide; do
-      find . -type f -name '*.xml' -exec sed -i \
-        -e "s|''${artefact}:${kotlinIdeOldVersion}|''${artefact}:${kotlinDistVersion}|g" \
-        -e "s|''${artefact}/${kotlinIdeOldVersion}|''${artefact}/${kotlinDistVersion}|g" \
-        -e "s|''${artefact}-${kotlinIdeOldVersion}|''${artefact}-${kotlinDistVersion}|g" \
-        {} +
-    done
-  '';
-
-  patchJpsBootstrap =
-    drv:
-    drv.overrideAttrs (oldJps: {
-      patches = (oldJps.patches or [ ]) ++ [ ./jps-bootstrap.patch ];
-
-      postPatch = ''
-        substituteInPlace src/main/java/org/jetbrains/jpsBootstrap/KotlinCompiler.kt \
-          --replace-fail 'KOTLIN_PATH_HERE' '${kotlinDist}'
-        ${bumpKotlinIdeArtifacts}
-      '';
-
-      # Flags must be JVM options (before the main class), not wrapper args.
-      postFixup = (oldJps.postFixup or "") + ''
-        substituteInPlace $out/bin/jps-bootstrap \
-          --replace-fail '-cp ' '${concatStringsSep " " jpsBootstrapJavaFlags} -cp '
-      '';
-    });
-
-  src =
-    (mkJetBrainsSource {
-      inherit version buildNumber;
-      buildType = "idea";
-      ideaHash = "sha256-IRUOQKg4D9DYmk2solPg6yPf8E4NxQje9UkpfrEEodU=";
-      androidHash = "sha256-COTM3G1SM/KBwJz0pOoqJsVVKGu7beCY12ExEChTB+c=";
-      jpsHash = "sha256-nxjoLBpiHYzeYwgjbCSSjTFQTFOtBJTqz1VkmPzXijs=";
-      restarterHash = "sha256-acCmC58URd6p9uKZrm0qWgdZkqu9yqCs23v8qgxV2Ag=";
-      mvnDeps = ./idea_maven_artefacts.json;
-      kotlin-jps-plugin = {
-        version = kotlinDistVersion;
-        hash = "sha256-gNeFz+QwnbAkYGmzMT0RoRn+juOL2LECvYu0l4ocYb4=";
-      };
-
-      repositories = [
-        "repo1.maven.org/maven2"
-        "packages.jetbrains.team/maven/p/ij/intellij-dependencies"
-        "dl.google.com/dl/android/maven2"
-        "download.jetbrains.com/teamcity-repository"
-        "packages.jetbrains.team/maven/p/grazi/grazie-platform-public"
-        "packages.jetbrains.team/maven/p/kpm/public"
-        "packages.jetbrains.team/maven/p/ki/maven"
-        "maven.pkg.jetbrains.space/public/p/compose/dev"
-        "packages.jetbrains.team/maven/p/amper/amper"
-        "packages.jetbrains.team/maven/p/kt/bootstrap"
-      ];
-    }).overrideAttrs
-      (old: {
-        patches = filter (p: !hasSuffix "no-download.patch" (toString p)) old.patches ++ [
-          ./no-download-2026.2.patch
-        ];
-
-        nativeBuildInputs = map (
-          input:
-          if input != null && (input.pname or "") == "jps-bootstrap" then patchJpsBootstrap input else input
-        ) old.nativeBuildInputs;
-
-        postPatch = (old.postPatch or "") + ''
-          substituteInPlace \
-            platform/build-scripts/src/org/jetbrains/intellij/build/kotlin/KotlinCompilerDependencyDownloader.kt \
-            --replace-fail '${kotlinNixpkgs}' '${kotlinDist}'
-
-          # Ensure Maven doesn't try to download missing older versions of kotlin-jps-plugin-classpath
-          find . \( -name "*.iml" -o -name "*.xml" \) -print0 | xargs -0 sed -i 's/kotlin-jps-plugin-classpath:2.2.0/kotlin-jps-plugin-classpath:2.4.0/g'
-          find . \( -name "*.iml" -o -name "*.xml" \) -print0 | xargs -0 sed -i 's|kotlin-jps-plugin-classpath/2.2.0/kotlin-jps-plugin-classpath-2.2.0|kotlin-jps-plugin-classpath/2.4.0/kotlin-jps-plugin-classpath-2.4.0|g'
-          find . \( -name "*.iml" -o -name "*.xml" \) -print0 | xargs -0 sed -i 's/kotlin-jps-plugin-classpath:2.3.20/kotlin-jps-plugin-classpath:2.4.0/g'
-          find . \( -name "*.iml" -o -name "*.xml" \) -print0 | xargs -0 sed -i 's|kotlin-jps-plugin-classpath/2.3.20/kotlin-jps-plugin-classpath-2.3.20|kotlin-jps-plugin-classpath/2.4.0/kotlin-jps-plugin-classpath-2.4.0|g'
-          find . \( -name "*.iml" -o -name "*.xml" \) -print0 | xargs -0 sed -i '/<verification>/,/<\/verification>/d'
-
-          # Fix compilation of buildScripts.bazel due to API changes in Kotlin 2.4 compiler CLI arguments
-          sed -i '/argumentWithoutValue/,+2d' platform/build-scripts/bazel/src/org/jetbrains/intellij/build/bazel/BazelBuildFileGenerator.kt
-          sed -i '/booleanArgumentWithValue/,+2d' platform/build-scripts/bazel/src/org/jetbrains/intellij/build/bazel/BazelBuildFileGenerator.kt
-
-          export COMPOSE_COMPILER_PLUGIN="${composeCompilerPlugin}"
-          export KOTLIN_IDE_NEW=${escapeShellArg kotlinDistVersion}
-          ${bumpKotlinIdeArtifacts}
-          # source (not bash) so stdenv's substituteInPlace is in scope
-          (
-            set -euo pipefail
-            source ${./fix-kotlin-compile.sh}
-          )
-        '';
-
-        configurePhase = ''
-          runHook preConfigure
-
-          cp -r "$repo"/.m2 ../.m2
-          chmod -R +w ../.m2
-
-          export JPS_BOOTSTRAP_COMMUNITY_HOME="$PWD"
-          jps-bootstrap \
-            -Dorg.jetbrains.jps.incremental.dependencies.resolution.sha256.checksum.ignored=true \
-            -Dbuild.number=${buildNumber} \
-            -Djps.kotlin.home=${kotlinDist} \
-            -Dintellij.build.target.os=linux \
-            -Dintellij.build.target.arch=x64 \
-            -Dintellij.build.skip.build.steps=mac_artifacts,mac_dmg,mac_sit,windows_exe_installer,windows_sign,repair_utility_bundle_step,sources_archive \
-            -Dintellij.build.unix.snaps=false \
-            --java-argfile-target=java_argfile \
-            "$PWD" \
-            intellij.idea.community.build \
-            OpenSourceCommunityInstallersBuildTarget
-
-          runHook postConfigure
-        '';
-
-        buildPhase = ''
-          runHook preBuild
-          java -Dorg.jetbrains.jps.incremental.dependencies.resolution.sha256.checksum.ignored=true -Djps.kotlin.home=${kotlinDist} -Dkotlin.compiler.execution.strategy=in-process "@java_argfile"
-          runHook postBuild
-        '';
-      });
-
-  oldDesktopItem = jetbrains.idea-oss.desktopItem or null;
-  oldLibdbm = jetbrains.idea-oss.jetbrains-libdbm or null;
-  oldFsnotifier = jetbrains.idea-oss.fsnotifier or null;
-
-  desktopItem =
-    if oldDesktopItem != null then
-      oldDesktopItem.override {
-        startupWMClass = "jetbrains-idea";
-      }
-    else
-      null;
-
-  fromStrings =
-    lib.optional (oldDesktopItem != null) "item=${oldDesktopItem}"
-    ++ lib.optional (oldLibdbm != null && src ? libdbm) "${oldLibdbm}/lib/libdbm.so"
-    ++ lib.optional (oldFsnotifier != null && src ? fsnotifier) "${oldFsnotifier}/bin/fsnotifier";
-
-  toStrings =
-    lib.optional (desktopItem != null) "item=${desktopItem}"
-    ++ lib.optional (oldLibdbm != null && src ? libdbm) "${src.libdbm}/lib/libdbm.so"
-    ++ lib.optional (oldFsnotifier != null && src ? fsnotifier) "${src.fsnotifier}/bin/fsnotifier";
-
-in
-jetbrains.idea-oss.overrideAttrs (
-  old:
-  {
-    inherit desktopItem;
-    wmClass = "jetbrains-idea";
-    jetbrains-libdbm = src.libdbm;
-    inherit src;
-    inherit (src)
-      version
-      buildNumber
-      libdbm
-      ;
-    # nixpkgs marks the older idea-oss as vulnerable; this is a newer source build.
-    meta = (old.meta or { }) // {
-      knownVulnerabilities = [ ];
-    };
-  }
-  // lib.optionalAttrs (old ? installPhase) {
-    installPhase = builtins.replaceStrings fromStrings toStrings old.installPhase;
-  }
-  // lib.optionalAttrs (src ? fsnotifier) {
-    inherit (src) fsnotifier;
-  }
-)
+  meta = {
+    homepage = "https://www.jetbrains.com/idea/";
+    changelog = "https://www.jetbrains.com/idea/whatsnew/";
+    description = "Free Java, Kotlin, Groovy and Scala IDE from JetBrains (built from source)";
+    longDescription = ''
+      IDE for Java SE, Groovy & Scala development Powerful environment for building Google Android apps Integration with JUnit, TestNG, popular SCMs, Ant & Maven.
+      Also known as IntelliJ.
+    '';
+    maintainers = with lib.maintainers; [
+      gytis-ivaskevicius
+      tymscar
+    ];
+    teams = [ lib.teams.jetbrains ];
+    license = lib.licenses.asl20;
+    sourceProvenance = [ lib.sourceTypes.fromSource ];
+  };
+}
