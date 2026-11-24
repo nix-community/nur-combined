@@ -67,8 +67,8 @@
   },
   {
     "pname": "Microsoft.AspNetCore.App.Runtime.linux-arm64",
-    "version": "10.0.14",
-    "hash": "sha256-c41UcdrE8SRJSj6n7G1I61ogyJFVm+2jbGPCrGuLEf4="
+    "version": "10.0.15",
+    "hash": "sha256-oQj2fkOZ/pktp4mc2eXX0bSFhnXrQGOqaNjsidPAWYc="
   },
   {
     "pname": "Microsoft.AspNetCore.App.Runtime.linux-arm64",
@@ -92,8 +92,8 @@
   },
   {
     "pname": "Microsoft.AspNetCore.App.Runtime.osx-arm64",
-    "version": "10.0.14",
-    "hash": "sha256-DE4dIxqSfOIdmcyRtUvMnyg6ksLkCfSNR4H46D3usJw="
+    "version": "10.0.15",
+    "hash": "sha256-gaw774It9pQwEYDCI8maasEAqs7BNkpQhzem9iaTVwU="
   },
   {
     "pname": "Microsoft.AspNetCore.App.Runtime.osx-arm64",
@@ -127,8 +127,8 @@
   },
   {
     "pname": "Microsoft.NETCore.App.Host.linux-arm64",
-    "version": "10.0.14",
-    "hash": "sha256-gPbYZ2GicZDAsa1wkj0AK9Anf5SXMVUPlcPvhmBtH08="
+    "version": "10.0.15",
+    "hash": "sha256-tAeOJespE8PAHlO6TPo1FeJFkG+OztcTbcEa7OA0Yo0="
   },
   {
     "pname": "Microsoft.NETCore.App.Host.linux-arm64",
@@ -152,8 +152,8 @@
   },
   {
     "pname": "Microsoft.NETCore.App.Host.osx-arm64",
-    "version": "10.0.14",
-    "hash": "sha256-AmvhboHCGQp2QwbU0OPnmKTRjWNyMCBql37gtATr9OE="
+    "version": "10.0.15",
+    "hash": "sha256-/eQrn2pLGn/zlp8pxHcJXcQR//TMNheiPknzCdYqnQA="
   },
   {
     "pname": "Microsoft.NETCore.App.Host.osx-arm64",
@@ -177,8 +177,8 @@
   },
   {
     "pname": "Microsoft.NETCore.App.Runtime.linux-arm64",
-    "version": "10.0.14",
-    "hash": "sha256-EW28OcS+l66F9EwwH5+FPMDRMFP12Ey7e9+s6XAHdII="
+    "version": "10.0.15",
+    "hash": "sha256-2WEGVDbXKuSvcQHSt0Diw5QQLol40Rcxcz/9hDd70qY="
   },
   {
     "pname": "Microsoft.NETCore.App.Runtime.linux-arm64",
@@ -202,8 +202,8 @@
   },
   {
     "pname": "Microsoft.NETCore.App.Runtime.osx-arm64",
-    "version": "10.0.14",
-    "hash": "sha256-nBUUbXD+sj3httJwdFOTgPh3Bs8pOqwXMZAQWlW9ruc="
+    "version": "10.0.15",
+    "hash": "sha256-5GTo7TgSTBxVw7YKHF5oIBU+I2ZEBhcSJfui9gCkbO4="
   },
   {
     "pname": "Microsoft.NETCore.App.Runtime.osx-arm64",
