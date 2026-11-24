@@ -34,12 +34,12 @@
     });
     hbmame' = mame''.overrideAttrs (old: rec {
         pname = "hbmame";
-        version = "0.289.4";
+        version = "0.289.6";
         src = fetchFromGitHub {
             owner = "Robbbert";
             repo = "hbmame";
             tag = "tag${builtins.replaceStrings [ "." ] [ "" ] (lib.removePrefix "0." version)}";
-            hash = "sha256-wNOkXbdo1TBkEzzwRO8VDrf9yEuvLMqGG28jX6NhZs4=";
+            hash = "sha256-JoJKG/0qmsL9aZlmZoL2so1xKAdeDCbbcTpkkkfxhbM=";
             forceFetchGit = true; # Avoids unstable hash issues - see:
             # https://github.com/NixOS/nixpkgs/issues/84312
             # https://github.com/NixOS/nixpkgs/issues/259488
