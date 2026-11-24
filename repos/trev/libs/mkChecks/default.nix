@@ -22,11 +22,14 @@ let
             fullName = prefix + name;
             # a path is shorthand for a group that needs no extra arguments
             group = if builtins.isPath check then callChecks check { } else check;
+
+            # finding groups forces every check value, even when only the names are listed
+            isGroup =
+              builtins.addErrorContext
+                "while checking whether check '${fullName}' is a check group (mkChecks evaluates every check value to list check names)"
+                (group._type or null == "checks");
           in
-          if group._type or null == "checks" then
-            mkChecks "${fullName}-" group.checks
-          else
-            { ${fullName} = mkCheck fullName check; }
+          if isGroup then mkChecks "${fullName}-" group.checks else { ${fullName} = mkCheck fullName check; }
         ) checks
       );
 in

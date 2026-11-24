@@ -575,6 +575,23 @@ checks = pkgs.mkChecks {
 }
 ```
 
+To find groups, `mkChecks` evaluates every check value when the check names are listed, on every system. Flake commands list the outputs of every system, so a check that fails to evaluate on one system (for example, a package that is missing on darwin) breaks `nix fmt`, `nix build`, and `nix flake check` on all of them. A check must evaluate on every system, or be wrapped so that it does. An attrset with `src = …` is fine, since `src` isn't evaluated until the check is built:
+
+```nix
+checks = pkgs.mkChecks {
+  # fails on systems without the package, even when listing linux checks
+  server = self.packages.${system}.server;
+
+  # only evaluates self.packages.${system}.server when built
+  server-test = {
+    src = self.packages.${system}.server;
+    script = "go test ./...";
+  };
+};
+```
+
+There's no need to inherit packages into `checks`: [`mkFlake`](#mkflake) already adds each package as a `package_<name>` check.
+
 `mkCheck` builds a single check, taking the same attributes as an entry in `mkChecks`:
 
 ```nix

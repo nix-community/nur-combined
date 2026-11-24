@@ -199,6 +199,22 @@ let
           '';
         };
       }).src-derivation-cross-failure;
+
+  # tryEval drops error messages, so evaluate a broken check with nix-instantiate to read the trace
+  errorContextExpr = pkgs.writeText "mkchecks-error-context.nix" ''
+    let
+      lib = import ${pkgs.path + "/lib"};
+      mkChecks = import ${./default.nix} {
+        inherit lib;
+        mkCheck = name: check: check;
+        callChecks = throw "callChecks is not used";
+      };
+    in
+    builtins.attrNames (mkChecks {
+      working.script = "true";
+      broken = throw "mkchecks-broken-check";
+    })
+  '';
 in
 # derivations are passed through untouched so their hashes match the packages
 assert checks.direct-derivation.outPath == direct.outPath;
@@ -229,4 +245,28 @@ checks
     grep -F mkchecks-cross-script-ran ${crossFailure}/testBuildFailure.log
     touch $out
   '';
+
+  error-context =
+    pkgs.runCommand "mkChecks-error-context"
+      {
+        nativeBuildInputs = [ pkgs.nix ];
+      }
+      ''
+        # a private store, so nix-instantiate doesn't need the daemon or /nix/var
+        export HOME="$TMPDIR"
+        export NIX_STORE_DIR="$TMPDIR/store"
+        export NIX_STATE_DIR="$TMPDIR/state"
+        export NIX_LOG_DIR="$TMPDIR/log"
+        export NIX_CONF_DIR="$TMPDIR/etc"
+
+        if nix-instantiate --eval --strict --show-trace ${errorContextExpr} 2>error.log; then
+          echo "expected listing the check names to fail" >&2
+          exit 1
+        fi
+
+        cat error.log >&2
+        grep -F mkchecks-broken-check error.log
+        grep -F "while checking whether check 'broken' is a check group (mkChecks evaluates every check value to list check names)" error.log
+        touch $out
+      '';
 }
