@@ -1,0 +1,43 @@
+Swift 6.2's type checker aborts these two expressions with
+"unable to type-check this expression in reasonable time". Split the
+String and [UInt8] concatenation chains into statements; the values are
+unchanged.
+
+--- a/host/launcher/Sources/steamac-vm/GameStats.swift	2026-11-24 15:49:45
++++ b/host/launcher/Sources/steamac-vm/GameStats.swift	2026-11-24 15:49:51
+@@ -408,10 +408,15 @@
+         updateActivity()
+         guard let s = live.removeValue(forKey: id) else { return }
+         let report = makeReport(s, end: how)
+-        log("game stats: \(id) ended (\(how.rawValue)): ran \(report.runS) s, played \(report.playS) s, "
+-            + "window \(report.launched ? "yes" : "no")"
+-            + (report.fps.map { String(format: ", %.1f FPS avg, 1%% low %.1f", $0.avg, $0.low1) } ?? "")
+-            + (report.mem?.hostMiB.map { ", host peak \($0) MiB" } ?? ""))
++        var msg = "game stats: \(id) ended (\(how.rawValue)): ran \(report.runS) s, played \(report.playS) s, "
++        msg += "window \(report.launched ? "yes" : "no")"
++        if let fps = report.fps {
++            msg += String(format: ", %.1f FPS avg, 1%% low %.1f", fps.avg, fps.low1)
++        }
++        if let host = report.mem?.hostMiB {
++            msg += ", host peak \(host) MiB"
++        }
++        log(msg)
+         store.record(report)
+         // Offer sharing once, after a game the player saw (never while the VM shuts down).
+         if how != .shutdown && report.launched { store.offerSharingIfNeeded(beside: vmWindow()) }
+--- a/host/launcher/Sources/steamac-vm/Stream/StreamInput.swift	2026-11-24 15:49:45
++++ b/host/launcher/Sources/steamac-vm/Stream/StreamInput.swift	2026-11-24 15:49:51
+@@ -296,8 +296,11 @@
+         check(has(.keyboard, EV.KEY, KEY.Z, 1) && has(.keyboard, EV.KEY, KEY.SLASH, 1), "ASCII text")
+         input.handle(packet(0x55000004, [2, 2] + le(3) + [0xff, 0xff, 0xff, 0xff]))
+         check(remote[2]?.kind == .dualShock4 && remote[2]?.capabilities == 3, "controller arrival")
+-        let stateBody = le(0x1a) + le(2) + le(4) + le(0x14) + le(0x5405) + [128, 255]
+-            + le(32767) + le(32767) + le(0x8000) + le(0x8000) + le(0x9c) + le(0) + le(0x55)
++        var stateBody = le(0x1a) + le(2) + le(4) + le(0x14) + le(0x5405)
++        stateBody += [UInt8]([128, 255])
++        stateBody += le(32767) + le(32767)
++        stateBody += le(0x8000) + le(0x8000)
++        stateBody += le(0x9c) + le(0) + le(0x55)
+         input.handle(packet(0x0c, stateBody))
+         if let pad = remote[2] {
+             let s = GamepadBridge.read(pad, as: pad.kind, swapABXY: false, deadzone: 0)
