@@ -15,13 +15,14 @@
   fetchFromGitHub,
   alsa-lib,
   udev,
+  dbus,
   pkg-config,
   makeWrapper,
   gnumake,
 }:
 
 let
-  version = "0.1.6";
+  version = "0.1.8";
 in
 rustPlatform.buildRustPackage {
   pname = "rustel";
@@ -30,8 +31,8 @@ rustPlatform.buildRustPackage {
   src = fetchFromGitHub {
     owner = "tzfm";
     repo = "rustel";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-p5tPJug6tSLq76MmBvFS0bP9wMpeF9cxOyXIsAomq8U=";
+    rev = "b561fb5ef3d455d8f6eeee1637f9cf7af6fa447b";
+    hash = "sha256-jjg6rRic4gUyUh+iYMA+lG98apHCDL6PQ4Bj+cEInfw=";
   };
 
   cargoLock = {
@@ -42,7 +43,9 @@ rustPlatform.buildRustPackage {
       "rquickjs-core-0.14.0" = "sha256-TN+vf/LCPHv8v+daszuYLcANgOSs1jmwO1DlgUQd1C8=";
       "rquickjs-macro-0.14.0" = "sha256-TN+vf/LCPHv8v+daszuYLcANgOSs1jmwO1DlgUQd1C8=";
       "rquickjs-sys-0.14.0" = "sha256-TN+vf/LCPHv8v+daszuYLcANgOSs1jmwO1DlgUQd1C8=";
-      "rustel-hydra-0.1.0" = "sha256-ibcnQt5wVu428vh2hB/gAg7nsyKm7icMgmaAjg1IMPY=";
+      "pulseaudio-0.3.2" = "sha256-ZXJfa85d+kADapuVZDoY59SCt4IEqlRGQs8OMkjpTkg=";
+      "rustel-hydra-0.2.3" = "sha256-xVmiYfJk4jxyev9U7vAWzVzluho6XVwpuiWcOjzqUAA=";
+      "rustel-studio-themes-0.2.0" = "sha256-I/sMNtf5+HIHD3fo5T+VYnxd2vS0AxNOmAfj2WSvVu0=";
       "rustel-talkit-0.1.1" = "sha256-mBvB19oCqnqtzxLfoqoHY3uP2ZgyFfcoz4gkxF0SlBA=";
     };
   };
@@ -56,6 +59,7 @@ rustPlatform.buildRustPackage {
   buildInputs = [
     alsa-lib
     udev
+    dbus
   ];
 
   doCheck = false;

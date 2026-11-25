@@ -50,7 +50,7 @@
         let
           pkgs = import nixpkgs { inherit system; };
           fenixPkgs = fenix.packages.${system};
-          # Use the minimal stable toolchain (Rust >= 1.99.0 as of now, >= 1.98.1 required)
+          # Use the minimal Rust toolchain required by Rustel (Rust >= 1.100.0).
           rustToolchain = fenixPkgs.minimal.toolchain;
         in
         import ./default.nix {
