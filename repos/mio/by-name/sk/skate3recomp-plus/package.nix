@@ -19,6 +19,9 @@
   gtk3,
   libx11,
   libxcb,
+  moltenvk,
+  vulkan-loader,
+  makeWrapper,
   # Skate 3 Recompiled+ contains no game code or data: the build recompiles
   # the guest's default.xex and EAWebkit.xex, which come from your own
   # extracted retail disc. discImage defaults to the archive.org copy of the
@@ -106,13 +109,23 @@ clangStdenv.mkDerivation {
     pkg-config
     python
   ]
-  ++ lib.optional (discImage != null) extract-xiso;
+  ++ lib.optional (discImage != null) extract-xiso
+  ++ lib.optional stdenv.hostPlatform.isDarwin makeWrapper;
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
-    gtk3
-    libx11
-    libxcb
-  ];
+  buildInputs =
+    lib.optionals stdenv.hostPlatform.isLinux [
+      gtk3
+      libx11
+      libxcb
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      # The runtime reaches Vulkan the way upstream's macOS package does: volk
+      # dlopens the loader by name, and the loader picks the driver from the
+      # ICD manifest. Nothing is linked, so postFixup points the launcher at
+      # both.
+      moltenvk
+      vulkan-loader
+    ];
 
   # sdk.nix applies the fork's SDK patch and stores the tree without git
   # metadata, so the configure-time "is the patch applied" check cannot run.
@@ -193,6 +206,11 @@ clangStdenv.mkDerivation {
       -DFETCHCONTENT_SOURCE_DIR_FREETYPE=${freetypeSrc}
       -DPython3_EXECUTABLE=${python}/bin/python3
     )
+    ${lib.optionalString stdenv.hostPlatform.isDarwin ''
+      # Upstream's macOS runner sets this explicitly; both the game and the SDK
+      # are ARM64-only on Darwin.
+      cmake_args+=(-DCMAKE_OSX_ARCHITECTURES=arm64)
+    ''}
     ${lib.optionalString (titleUpdatePackage != null) ''
       cmake_args+=(-DSKATE3_TITLE_UPDATE_PACKAGE="$PWD/TU_12K2276_000000C000000.00000000000O3")
     ''}
@@ -215,6 +233,20 @@ clangStdenv.mkDerivation {
     done
     [ -f "$bin_dir/settings.toml" ] && install -Dm644 "$bin_dir/settings.toml" "$out/bin/settings.toml"
     runHook postInstall
+  '';
+
+  # Upstream's macOS package copies MoltenVK next to the executable and writes
+  # the ICD manifest beside it; the store paths are used instead, so the
+  # launcher gets both through its environment.
+  postFixup = lib.optionalString stdenv.hostPlatform.isDarwin ''
+    wrapProgram $out/bin/skate3 \
+      --prefix DYLD_FALLBACK_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          vulkan-loader
+          moltenvk
+        ]
+      } \
+      --set VK_ICD_FILENAMES ${moltenvk}/share/vulkan/icd.d/MoltenVK_icd.json
   '';
 
   passthru = {
