@@ -9,14 +9,14 @@
   symlinkJoin,
 }:
 let
-  version = "7.1.0-unstable-2026-11-20";
+  version = "7.1.0-unstable-2026-11-25";
 
   src = fetchFromGitHub {
     owner = "bethington";
     repo = "ghidra-mcp";
-    rev = "8dbbb1f677166fe483d605f925d60da080e448f2";
+    rev = "e4accf69f1b6259cbdbe241e7c4b99ded24b0cd5";
     fetchSubmodules = false;
-    sha256 = "sha256-4xWLBpdkktFCf2yI4bHDqpE+jXqZ8k8QdPM9Nh0Yf1w=";
+    sha256 = "sha256-8X7o/xsbgJK4KQdc1Byz+vOiXM3kTLFtGoh8F6B6Gt8=";
   };
 in
 symlinkJoin {

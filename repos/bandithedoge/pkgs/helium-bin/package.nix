@@ -32,15 +32,15 @@
   commandLineArgs ? "",
 }:
 let
-  version = "0.22.2.1";
+  version = "0.22.4.1";
   sources = {
     x86_64-linux = fetchzip {
       url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-x86_64_linux.tar.xz";
-      sha256 = "sha256-iv4gh9SJjXpVFpJYVE/fwSY0mbx+WGmedR9s/sgPqEA=";
+      sha256 = "sha256-rL9xaaBRQYHrS+geTO6PKvwyvQQ8cazjYx8lNZv6dy4=";
     };
     aarch64-linux = fetchzip {
       url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-arm64_linux.tar.xz";
-      sha256 = "sha256-ZwXui+nEy0YU9R4xR2hWWbD/RT9zO3JlXbEvVos7oaw=";
+      sha256 = "sha256-I2D4iKOJi93ToTUuifQeTxzHJixYDPhIffpcTU59FFE=";
     };
   };
 in
