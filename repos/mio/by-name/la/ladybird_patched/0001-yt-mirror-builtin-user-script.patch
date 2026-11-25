@@ -165,20 +165,20 @@ index 00000000..d80c708c
 +    install();
 +})();
 diff --git a/Services/WebContent/PageClient.cpp b/Services/WebContent/PageClient.cpp
-index 621c4c55..3e8a7b7c 100644
+index 33af9678..782da574 100644
 --- a/Services/WebContent/PageClient.cpp
 +++ b/Services/WebContent/PageClient.cpp
-@@ -14,6 +14,7 @@
- #include <AK/Utf16String.h>
+@@ -15,6 +15,7 @@
  #include <AK/Utf16StringBuilder.h>
+ #include <LibAudio/OutputSession.h>
  #include <LibCore/Process.h>
 +#include <LibCore/Resource.h>
  #include <LibCore/Timer.h>
  #include <LibDevTools/IndexedDBSerialization.h>
  #include <LibGC/Heap.h>
-@@ -361,6 +362,13 @@ void PageClient::page_did_change_replicated_navigable_state(Web::HTML::CrossProc
+@@ -418,6 +419,13 @@ void PageClient::page_did_set_opener_browsing_context(Web::HTML::CrossProcessId
  
- void PageClient::page_did_completely_finish_loading(Web::HTML::CrossProcessId navigable_id)
+ void PageClient::page_did_completely_finish_loading(Web::HTML::CrossProcessId navigable_id, Web::DOM::Document const& document)
  {
 +    if (auto* navigable = as_if<Web::HTML::LocalNavigable>(page().navigable_with_id(navigable_id).ptr())) {
 +        if (navigable->is_top_level_traversable()) {
@@ -187,12 +187,12 @@ index 621c4c55..3e8a7b7c 100644
 +        }
 +    }
 +
-     client().async_did_completely_finish_loading(m_id, navigable_id);
+     client().async_did_completely_finish_loading(m_id, navigable_id, document.id());
  }
  
-@@ -918,6 +926,13 @@ void PageClient::page_did_change_active_document_in_top_level_browsing_context(W
+@@ -1044,6 +1052,13 @@ void PageClient::page_did_change_active_document_in_top_level_browsing_context(W
  
- void PageClient::page_did_finish_loading(Web::HTML::CrossProcessId navigable_id, Optional<Utf16String> const& navigation_id)
+ void PageClient::page_did_finish_loading(Web::HTML::CrossProcessId navigable_id, Web::HTML::CrossProcessId document_id)
  {
 +    if (auto* navigable = as_if<Web::HTML::LocalNavigable>(page().navigable_with_id(navigable_id).ptr())) {
 +        if (navigable->is_top_level_traversable()) {
@@ -201,10 +201,10 @@ index 621c4c55..3e8a7b7c 100644
 +        }
 +    }
 +
-     client().async_did_finish_loading(m_id, navigable_id, navigation_id);
+     client().async_did_finish_loading(m_id, navigable_id, document_id);
  }
  
-@@ -1958,6 +1973,74 @@ void PageClient::run_javascript(StringView js_source)
+@@ -2463,6 +2478,74 @@ void PageClient::run_javascript(StringView js_source)
          dbgln("Exception :(");
  }
  
@@ -234,7 +234,7 @@ index 621c4c55..3e8a7b7c 100644
 +    if (!is_youtube_document(document.url()))
 +        return;
 +
-+    auto document_id = document.unique_id().value();
++    auto document_id = document.id();
 +    if (m_documents_with_injected_user_scripts.contains(document_id))
 +        return;
 +    if (m_documents_with_pending_user_script_injection.contains(document_id))
@@ -258,12 +258,12 @@ index 621c4c55..3e8a7b7c 100644
 +
 +void PageClient::run_site_user_script(Web::DOM::Document& document, String const& source, StringView label)
 +{
-+    m_documents_with_pending_user_script_injection.remove(document.unique_id().value());
++    m_documents_with_pending_user_script_injection.remove(document.id());
 +
 +    if (!document.is_fully_active())
 +        return;
 +
-+    m_documents_with_injected_user_scripts.set(document.unique_id().value());
++    m_documents_with_injected_user_scripts.set(document.id());
 +
 +    auto& settings = document.relevant_settings_object();
 +    auto base_url = settings.api_base_url();
@@ -280,33 +280,33 @@ index 621c4c55..3e8a7b7c 100644
  {
      client().async_did_output_js_console_message(m_id, move(console_output));
 diff --git a/Services/WebContent/PageClient.h b/Services/WebContent/PageClient.h
-index a57ac21c..562c5be0 100644
+index b989bad0..8f97cb8b 100644
 --- a/Services/WebContent/PageClient.h
 +++ b/Services/WebContent/PageClient.h
-@@ -119,6 +119,8 @@ public:
-     void js_console_input(StringView js_source);
-     void did_execute_js_console_input(JsonValue const&);
+@@ -130,6 +130,8 @@ public:
+     void did_execute_js_console_input(WebView::DebuggerValue const&);
+     ErrorOr<WebView::DebuggerObjectProperties> console_object_properties(u64 object_id);
      void run_javascript(StringView js_source);
 +    void maybe_inject_site_user_scripts(Web::DOM::Document&);
 +    void run_site_user_script(Web::DOM::Document&, String const& source, StringView label);
      void did_output_js_console_message(WebView::ConsoleOutput);
-     void console_peer_did_misbehave(char const* reason);
  
-@@ -381,6 +383,9 @@ private:
+     Vector<Web::CSS::StyleSheetIdentifier> list_style_sheets() const;
+@@ -452,6 +454,9 @@ private:
  
      GC::Ptr<WebContentConsoleClient> m_top_level_document_console_client;
  
-+    HashTable<i64> m_documents_with_injected_user_scripts;
-+    HashTable<i64> m_documents_with_pending_user_script_injection;
++    HashTable<Web::HTML::CrossProcessId> m_documents_with_injected_user_scripts;
++    HashTable<Web::HTML::CrossProcessId> m_documents_with_pending_user_script_injection;
 +
      RefPtr<Core::Timer> m_frame_timer;
      FrameTimerPurpose m_frame_timer_purpose { FrameTimerPurpose::Inactive };
      Optional<double> m_last_scheduled_frame_dispatch_time;
 diff --git a/UI/cmake/ResourceFiles.cmake b/UI/cmake/ResourceFiles.cmake
-index 3c0a9142..a44a55fd 100644
+index 36576f82..45e5a1bb 100644
 --- a/UI/cmake/ResourceFiles.cmake
 +++ b/UI/cmake/ResourceFiles.cmake
-@@ -36,6 +36,11 @@ set(SITE_COMPATIBILITY_RESOURCES
+@@ -35,6 +35,11 @@ set(SITE_COMPATIBILITY_RESOURCES
  )
  list(TRANSFORM SITE_COMPATIBILITY_RESOURCES PREPEND "${LADYBIRD_SOURCE_DIR}/WebCompat/")
  
@@ -318,7 +318,7 @@ index 3c0a9142..a44a55fd 100644
  set(ABOUT_PAGES
      about.html
      blocking.html
-@@ -174,6 +179,10 @@ function(copy_resources_to_build base_directory bundle_target)
+@@ -177,6 +182,10 @@ function(copy_resources_to_build base_directory bundle_target)
          DESTINATION ${base_directory} TARGET ${bundle_target}
      )
  
@@ -329,7 +329,7 @@ index 3c0a9142..a44a55fd 100644
      copy_resource_set(ladybird/about-pages RESOURCES ${ABOUT_PAGES}
          DESTINATION ${base_directory} TARGET ${bundle_target}
      )
-@@ -216,6 +225,7 @@ function(install_ladybird_resources destination component)
+@@ -219,6 +228,7 @@ function(install_ladybird_resources destination component)
      install(FILES ${THEMES} DESTINATION "${destination}/themes" COMPONENT ${component})
      install(FILES ${INTERNAL_RESOURCES} DESTINATION "${destination}/ladybird" COMPONENT ${component})
      install(FILES ${SITE_COMPATIBILITY_RESOURCES} DESTINATION "${destination}/ladybird/site-compatibility" COMPONENT ${component})
