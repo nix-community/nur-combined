@@ -79,6 +79,7 @@ src.git = "https://github.com/ntfsprogs-plus/ntfsprogs-plus"
 [open-orpheus-dev]
 cargo_lock = ["Cargo.lock"]
 fetch.github = "YUCLing/open-orpheus"
+git.fetchSubmodules = true
 src.git = "https://github.com/YUCLing/open-orpheus"
 
 [pilinara]

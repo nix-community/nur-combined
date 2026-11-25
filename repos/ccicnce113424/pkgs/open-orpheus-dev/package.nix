@@ -57,6 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     repo = "open-orpheus";
     tag = "v${finalAttrs.version}";
     hash = "sha256-ddgamtPhsE0pkPSG2AfHdBUwYwffkMfMaPdbFogW5iQ=";
+    fetchSubmodules = true;
   };
 
   pnpmDeps = fetchPnpmDeps {
