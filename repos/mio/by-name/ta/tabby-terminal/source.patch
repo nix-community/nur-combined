@@ -1,0 +1,60 @@
+diff --git a/app/src/plugins.ts b/app/src/plugins.ts
+--- a/app/src/plugins.ts
++++ b/app/src/plugins.ts
+@@ -20 +20,3 @@
+-const builtinPluginsPath = process.env.TABBY_DEV ? path.dirname(remote.app.getAppPath()) : path.join((process as any).resourcesPath, 'builtin-plugins')
++const builtinPluginsPath = process.env.TABBY_BUILTIN_PLUGINS ?? (
++    process.env.TABBY_DEV ? path.dirname(remote.app.getAppPath()) : path.join((process as any).resourcesPath, 'builtin-plugins')
++)
+diff --git a/scripts/vars.mjs b/scripts/vars.mjs
+--- a/scripts/vars.mjs
++++ b/scripts/vars.mjs
+@@ -13 +13 @@
+-export let version = childProcess.execSync('git describe --tags', { encoding:'utf-8' })
++export let version = process.env.TABBY_VERSION ?? childProcess.execSync('git describe --tags', { encoding:'utf-8' })
+diff --git a/package.json b/package.json
+--- a/package.json
++++ b/package.json
+@@ -89 +88,0 @@
+-    "eslint/strip-ansi": "6.0.0",
+diff --git a/scripts/install-deps.mjs b/scripts/install-deps.mjs
+--- a/scripts/install-deps.mjs
++++ b/scripts/install-deps.mjs
+@@ -12,3 +12 @@
+-sh.exec(`yarn install --force --network-timeout 1000000`, { fatal: true })
+-// Some native packages might fail to build before patch-package gets a chance to run via postinstall
+-sh.exec(`yarn postinstall`, { fatal: false })
++sh.exec(`fixup-yarn-lock yarn.lock && yarn install --force --ignore-scripts --network-timeout 1000000`, { fatal: true })
+@@ -18,2 +18 @@
+-sh.exec(`yarn install --force --network-timeout 1000000`, { fatal: true })
+-sh.exec(`yarn patch-package`, { fatal: true })
++sh.exec(`fixup-yarn-lock yarn.lock && yarn install --force --ignore-scripts --network-timeout 1000000`, { fatal: true })
+@@ -25 +25 @@
+-    sh.exec(`yarn install --force --network-timeout 1000000`, { fatal: true })
++    sh.exec(`fixup-yarn-lock yarn.lock && yarn install --force --ignore-scripts --network-timeout 1000000`, { fatal: true })
+diff --git a/scripts/prepackage-plugins.mjs b/scripts/prepackage-plugins.mjs
+--- a/scripts/prepackage-plugins.mjs
++++ b/scripts/prepackage-plugins.mjs
+@@ -25 +25 @@
+-    sh.exec(`yarn install --force --production`, { fatal: true })
++    sh.exec(`fixup-yarn-lock yarn.lock && yarn install --force --ignore-scripts --production`, { fatal: true })
+diff --git a/tabby-terminal/patches/ansi-color+0.2.1.patch b/tabby-terminal/patches/ansi-color+0.2.1.patch
+deleted file mode 100644
+--- a/tabby-terminal/patches/ansi-color+0.2.1.patch
++++ /dev/null
+@@ -1,15 +0,0 @@
+-diff --git a/node_modules/ansi-color/lib/ansi-color.js b/node_modules/ansi-color/lib/ansi-color.js
+-index 1062c87..4fc2847 100644
+---- a/node_modules/ansi-color/lib/ansi-color.js
+-+++ b/node_modules/ansi-color/lib/ansi-color.js
+-@@ -32,8 +32,8 @@ exports.set = function(str, color) {
+-   var color_attrs = color.split("+");
+-   var ansi_str = "";
+-   for(var i=0, attr; attr = color_attrs[i]; i++) {
+--    ansi_str += "\033[" + ANSI_CODES[attr] + "m";
+-+    ansi_str += "\x1b[" + ANSI_CODES[attr] + "m";
+-   }
+--  ansi_str += str + "\033[" + ANSI_CODES["off"] + "m";
+-+  ansi_str += str + "\x1b[" + ANSI_CODES["off"] + "m";
+-   return ansi_str;
+- };
