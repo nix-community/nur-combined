@@ -149,6 +149,11 @@ default_border pixel 2
 hide_edge_borders smart
 focus_on_window_activation urgent
 
+# Games
+# Steam launches games behind Big Picture, which keeps a fullscreen window on
+# top. Force game windows fullscreen and focused so they actually show up.
+for_window [class="^steam_app_"] fullscreen enable, focus
+
 # Wayland environment
 exec_always systemctl --user import-environment XDG_SESSION_TYPE XDG_CURRENT_DESKTOP WAYLAND_DISPLAY DISPLAY SWAYSOCK PATH
 exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
