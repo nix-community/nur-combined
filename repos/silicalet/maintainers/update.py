@@ -119,6 +119,7 @@ DEFAULT_PACKAGES = [
     "dnspick",
     "folia-major-bin",
     "ghost-downloader-3",
+    "honk-bin",
     "ipgw",
     "kuake-cli",
     "meatshell-bin",
@@ -328,6 +329,45 @@ def update_nix_package(package):
     run([str(wrapped), *args], cwd=REPO_ROOT, env=nix_update_env())
 
 
+def honk_release():
+    # /latest excludes prereleases. Walk releases newest first, skipping
+    # diagnostic tags (debug.*, debug-diag.*, etc.) and unpublished drafts.
+    page = 1
+    while True:
+        releases = github_json(
+            f"https://api.github.com/repos/daeuniverse/honk/releases?per_page=100&page={page}"
+        )
+        for release in releases:
+            tag = release.get("tag_name", "")
+            if not release.get("draft") and tag.startswith("v") and VERSION_RE.fullmatch(tag[1:]):
+                return release
+        if len(releases) < 100:
+            raise UpdateError("no published v* release found for daeuniverse/honk")
+        page += 1
+
+
+def update_honk_bin(system):
+    if system not in SYSTEMS:
+        raise UpdateError(f"unsupported architecture: {system}")
+    release = honk_release()
+    version = release_version(release)
+    arch = system.removesuffix("-linux")
+    pins = {"version": version}
+    # Resolve both archives before changing either pin.
+    for field, variant in (("hash", "full"), ("noDoonaHash", "native-api")):
+        name = f"honk-core-v{version}-{arch}-unknown-linux-musl-{variant}.tar.gz"
+        asset = asset_record(release, name)
+        url = asset.get("browser_download_url")
+        if not url:
+            raise UpdateError(f"release asset has no download URL: {name}")
+        pins[field] = sri_hash(asset.get("digest"), url)
+    path = REPO_ROOT / "pkgs/tools/honk/sources" / f"{system}.nix"
+    for field, value in pins.items():
+        replace_nix_string(path, field, value)
+    print(f"Updated honk-bin for {system} to {version}", flush=True)
+    validate_package("honk-bin", system)
+
+
 def update_binary_package(package, system):
     spec = BINARY_PACKAGES[package]
     systems = spec.get("systems", SYSTEMS)
@@ -439,6 +479,16 @@ def update_rea():
 
 
 def update_package(package, system):
+    if package == "honk":
+        raise UpdateError(
+            "honk is manually pinned. For a new official v* release, update the source tag/hash "
+            "in pkgs/tools/honk together with Crane git dependency hashes from the Cargo locks, "
+            "stable and eBPF nightly toolchains, bpf-linker and both Doona UI assets. "
+            "Build with and without Doona before committing. Use honk-bin for binary updates."
+        )
+    if package == "honk-bin":
+        update_honk_bin(system)
+        return
     if package == "rea":
         update_rea()
     elif package == "craft-suite-bin":
@@ -459,6 +509,7 @@ def usage():
     print("Available packages:")
     for package in DEFAULT_PACKAGES:
         print(f"  {package}")
+    print("  honk (source pins require a coordinated manual update; excluded from --all)")
 
 
 def parse_args(argv):

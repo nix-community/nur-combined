@@ -1,0 +1,3 @@
+{
+  honk = ./honk.nix;
+}

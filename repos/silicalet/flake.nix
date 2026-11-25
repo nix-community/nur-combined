@@ -2,11 +2,17 @@
   description = "My personal NUR repository";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.cangjie-nixpkgs.url = "github:NixOS/nixpkgs/50ab793786d9de88ee30ec4e4c24fb4236fc2674";
+  inputs.crane.url = "github:ipetkov/crane";
+  inputs.crane.flake = false;
+  inputs.rust-overlay.url = "github:oxalica/rust-overlay";
+  inputs.rust-overlay.flake = false;
   outputs =
     {
       self,
       cangjie-nixpkgs,
+      crane,
       nixpkgs,
+      rust-overlay,
     }:
     let
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
@@ -20,6 +26,8 @@
         system:
         import ./default.nix {
           cangjieBuildPkgs = cangjieBuildPkgsFor system;
+          craneSrc = crane;
+          rustOverlaySrc = rust-overlay;
           pkgs = pkgsFor system;
         }
       );
@@ -63,8 +71,6 @@
         }
       );
       nixosModules = import ./nixos-modules;
-      # homeModules = import ./home-modules;
-      # darwinModules = import ./darwin-modules;
-      # flakeModules = import ./flake-modules;
+      homeModules = import ./home-modules;
     };
 }

@@ -14,7 +14,8 @@ jobs:
     uses: ./.github/workflows/update-packages.yml
     with:
       category: tools
+      # honk source pins require manual coordination; only binaries auto-update.
       packages: >-
-        amber-lsp code996 dnspick ipgw kuake-cli neu-cli nodecode-bin qrypt-bin
-        quarkpan quien uipro-cli zlib-cli
-      arm-packages: qrypt-bin
+        amber-lsp code996 dnspick honk-bin ipgw kuake-cli neu-cli nodecode-bin
+        qrypt-bin quarkpan quien uipro-cli zlib-cli
+      arm-packages: honk-bin qrypt-bin

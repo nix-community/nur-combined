@@ -247,6 +247,51 @@ application's version, download URL, and SHA-256 independently for each
 architecture. CI builds the full suite on native x86_64 and ARM64 runners;
 each application's build also checks its bundled CLI's `--help` command.
 
+## Honk
+
+`honk-bin` packages the official static musl release; `honk` builds `honk-core`
+and its embedded eBPF object from source. Both target `x86_64-linux` and
+`aarch64-linux`. The default `full` build includes Clash API, Native API and
+both editions of Doona. Setting `withDoona = false` via `package.override`
+selects the upstream `native-api` feature set: no embedded UI **and no Clash API**.
+
+```nix
+{ inputs, pkgs, ... }:
+{
+  imports = [ inputs.nur-packages-silicalet.nixosModules.honk ];
+  services.honk-proxy = {
+    enable = true;
+    configDir = "/etc/honk"; # entry: /etc/honk/config.dae
+    # Alternatively, set only configFile = "/run/secrets/honk.dae";
+    # package = inputs.nur-packages-silicalet.packages.${pkgs.stdenv.hostPlatform.system}.honk;
+    doona = true;
+  };
+}
+```
+
+Use exactly one absolute runtime path string. `configFile` may be a symlink;
+Honk resolves `include { config.d/*.dae }` against the **resolved entry's parent**.
+The module does not read credentials at evaluation time or copy them into the
+store. The entry, include tree, symlinks and their parents must be controlled
+by the administrator: `honk-core.service` reads them as root.
+
+`doona` selects the package variant, not a listener. To serve the UI, explicitly
+enable `experimental.native_api` in the Honk config with authentication, bind
+to loopback and choose `ui: 'embedded'` or `'embedded-lite'`. The module opens
+no firewall ports by default. It supplies nixpkgs' `v2ray-geoip` and
+`v2ray-domain-list-community` through `DAE_LOCATION_ASSET`; override `assets`
+or `assetsPath` for a different dataset.
+
+For a CLI-only installation, import `homeModules.honk` in Home Manager and set
+`programs.honk.enable = true`. It does not start a user service. Real interception
+requires Linux 6.12+, cgroup v2 and mounted bpffs; keep a recovery path for the
+first start. Hot-reloadable config changes use `systemctl reload honk-core`;
+native API or interface changes require a restart.
+
+`honk-bin` full and native-api release hashes update together per architecture.
+The source package is updated manually so the Honk tag, Rust toolchains, Cargo
+Git dependencies, BPF linker and Doona assets can be checked together.
+
 ## Update packages
 
 Update selected packages:
@@ -305,7 +350,7 @@ Package updates run in independent category workflows, daily at 03:17 UTC
 | Workflow | Category | ARM64 binary updates |
 | --- | --- | --- |
 | `update-apps.yml` | `pkgs/apps` | craft-suite, meatshell, neomacs, nyaterm, nyaterm-gpui |
-| `update-tools.yml` | `pkgs/tools` | qrypt |
+| `update-tools.yml` | `pkgs/tools` | honk-bin, qrypt |
 | `update-ctf.yml` | `pkgs/ctf` (REA) | Frida bindings for both architectures are handled by the REA updater |
 
 These workflows call `update-packages.yml`, which is reusable rather than a

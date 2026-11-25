@@ -7,11 +7,29 @@
 # commands such as:
 #     nix-build -A mypackage
 
+let
+  lockedInput =
+    name:
+    let
+      inherit ((builtins.fromJSON (builtins.readFile ./flake.lock)).nodes.${name}.locked)
+        owner
+        repo
+        rev
+        narHash
+        ;
+    in
+    builtins.fetchTarball {
+      url = "https://github.com/${owner}/${repo}/archive/${rev}.tar.gz";
+      sha256 = narHash;
+    };
+in
 {
   cangjieBuildPkgs ? import (builtins.fetchTarball {
     url = "https://github.com/NixOS/nixpkgs/archive/50ab793786d9de88ee30ec4e4c24fb4236fc2674.tar.gz";
     sha256 = "sha256-/bVBlRpECLVzjV19t5KMdMFWSwKLtb5RyXdjz3LJT+g=";
   }) { system = pkgs.stdenv.hostPlatform.system; },
+  craneSrc ? lockedInput "crane",
+  rustOverlaySrc ? lockedInput "rust-overlay",
   pkgs ? import <nixpkgs> { },
 }:
 
@@ -19,10 +37,8 @@
   # The `lib`, `overlays`, `nixosModules`, `homeModules`,
   # `darwinModules` and `flakeModules` names are special
   lib = import ./lib { inherit pkgs; }; # functions
-  nixosModules = import ./nixos-modules; # NixOS modules
-  # homeModules = { }; # Home Manager modules
-  # darwinModules = { }; # nix-darwin modules
-  # flakeModules = { }; # flake-parts modules
+  nixosModules = import ./nixos-modules;
+  homeModules = import ./home-modules;
   overlays = import ./overlays; # nixpkgs overlays
 
   amber-lsp = pkgs.callPackage ./pkgs/tools/amber-lsp { };
@@ -58,4 +74,17 @@
   winpodx-bin = pkgs.callPackage ./pkgs/apps/winpodx/binary.nix { };
   zlib-cli = pkgs.callPackage ./pkgs/tools/zlib-cli { };
 }
+//
+  pkgs.lib.optionalAttrs
+    (builtins.elem pkgs.stdenv.hostPlatform.system [
+      "x86_64-linux"
+      "aarch64-linux"
+    ])
+    {
+      honk = pkgs.callPackage ./pkgs/tools/honk {
+        craneLib = import craneSrc { inherit pkgs; };
+        rust-bin = (pkgs.buildPackages.extend (import rustOverlaySrc)).rust-bin;
+      };
+      honk-bin = pkgs.callPackage ./pkgs/tools/honk/binary.nix { };
+    }
 // (pkgs.callPackage ./pkgs/apps/craft-suite { })
