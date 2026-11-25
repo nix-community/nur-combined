@@ -13,15 +13,10 @@
 }:
 
 let
-  # Host Xcode, same approach as compositor/telegram-mac: keep the Nix
-  # sandbox but block accidental Homebrew deps under /usr/local.
-  xcodeSandboxProfile = ''
-    (allow file-read* file-write* process-exec mach-lookup)
-    (deny file-read* file-write* process-exec mach-lookup (subpath "/usr/local") (with no-log))
-    (allow file-read* process-exec (subpath "/var/run/com.apple.security.cryptexd"))
-    (allow file-read* process-exec (subpath "/private/var/run/com.apple.security.cryptexd"))
-    (allow file-read* (subpath "/System/Library/AssetsV2/com_apple_MobileAsset_MetalToolchain"))
-  '';
+  # Host Xcode, same approach as compositor/telegram-mac; see
+  # shared/xcode-sandbox.nix. Upstream builds its app icon with Icon Composer,
+  # so the Metal toolchain has to be reachable.
+  xcodeSandbox = import ../../../shared/xcode-sandbox.nix;
 
   sparkleVersion = "2.10.1";
 
@@ -64,7 +59,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ writableTmpDirAsHomeHook ];
 
-  sandboxProfile = xcodeSandboxProfile;
+  sandboxProfile = xcodeSandbox.withMetalToolchain;
 
   # Preserve the app-bundle layout and any ad-hoc codesign from the toolchain.
   dontFixup = true;

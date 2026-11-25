@@ -33,15 +33,9 @@ let
   # Upstream lipo steps expect a universal pair; only the host slice is built.
   foreignRustTarget = if arch == "arm64" then "x86_64-apple-darwin" else "aarch64-apple-darwin";
 
-  # Xcode is supplied by the host, like nixpkgs' macvim. Keep the sandbox
-  # enabled while preventing accidental dependencies on Homebrew in /usr/local.
-  xcodeSandboxProfile = ''
-    (allow file-read* file-write* process-exec mach-lookup)
-    (deny file-read* file-write* process-exec mach-lookup (subpath "/usr/local") (with no-log))
-    (allow file-read* process-exec (subpath "/var/run/com.apple.security.cryptexd"))
-    (allow file-read* process-exec (subpath "/private/var/run/com.apple.security.cryptexd"))
-    (allow file-read* (subpath "/System/Library/AssetsV2/com_apple_MobileAsset_MetalToolchain"))
-  '';
+  # Xcode is supplied by the host, like nixpkgs' macvim; see
+  # shared/xcode-sandbox.nix.
+  xcodeSandbox = import ../../../shared/xcode-sandbox.nix;
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "telegram-mac";
@@ -120,7 +114,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     writableTmpDirAsHomeHook
   ];
 
-  sandboxProfile = xcodeSandboxProfile;
+  sandboxProfile = xcodeSandbox.withMetalToolchain;
   dontUseCmakeConfigure = true;
   dontUseMesonConfigure = true;
   dontFixup = true; # Preserve the Xcode bundle layout and ad-hoc signatures.

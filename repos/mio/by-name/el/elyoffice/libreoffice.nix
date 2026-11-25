@@ -46,12 +46,9 @@ let
   pin = "8221e31b3ac356a1623c672912a3d2b492f7e3d1";
   dictionariesPin = "9925407d67e752a75cff6a1b2d7b713b7ef0380c";
 
-  # Xcode's tools talk to system services the default sandbox denies; the same
-  # profile the compositor package uses. Homebrew is kept out of reach.
-  xcodeSandboxProfile = ''
-    (allow file-read* file-write* process-exec mach-lookup)
-    (deny file-read* file-write* process-exec mach-lookup (subpath "/usr/local") (with no-log))
-  '';
+  # Xcode's tools talk to system services the default sandbox denies; see
+  # shared/xcode-sandbox.nix. Homebrew is kept out of reach.
+  xcodeSandbox = import ../../../shared/xcode-sandbox.nix;
 
   # LibreOffice downloads these into external/tarballs while it builds. The
   # pinned list is generated from a configured tree by scripts/lo-tarballs.sh.
@@ -128,7 +125,7 @@ stdenv.mkDerivation {
     coreutils
   ];
 
-  sandboxProfile = xcodeSandboxProfile;
+  sandboxProfile = xcodeSandbox.base;
 
   # kernel.sh signs every framework and hashes the result; fixup would rewrite
   # both.

@@ -55,7 +55,9 @@ stdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    local wechat_root="$out/libexec/wechat-universal"
+    # Not `local`: stdenv runs the phase under `set -e`, and bash rejects
+    # `local` outside a function.
+    wechat_root="$out/libexec/wechat-universal"
 
     install -Dm755 libuosdevicea.so "$wechat_root/usr/lib/license/libuosdevicea.so"
     echo 'DISTRIB_ID=uos' | install -Dm644 /dev/stdin "$wechat_root/etc/lsb-release"

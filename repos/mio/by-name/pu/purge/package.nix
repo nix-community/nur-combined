@@ -8,12 +8,9 @@
 }:
 
 let
-  # Builds against the host's Xcode, like nixpkgs' macvim. Keep the sandbox
-  # enabled while preventing accidental dependencies on Homebrew in /usr/local.
-  xcodeSandboxProfile = ''
-    (allow file-read* file-write* process-exec mach-lookup)
-    (deny file-read* file-write* process-exec mach-lookup (subpath "/usr/local") (with no-log))
-  '';
+  # Builds against the host's Xcode, like nixpkgs' macvim; see
+  # shared/xcode-sandbox.nix.
+  xcodeSandbox = import ../../../shared/xcode-sandbox.nix;
 
   arch = stdenvNoCC.hostPlatform.darwinArch;
 in
@@ -41,7 +38,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ writableTmpDirAsHomeHook ];
 
-  sandboxProfile = xcodeSandboxProfile;
+  sandboxProfile = xcodeSandbox.base;
 
   # Preserve the app-bundle layout of the helper tools.
   dontFixup = true;
@@ -59,7 +56,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
       nativeBuildInputs = [ writableTmpDirAsHomeHook ];
 
-      sandboxProfile = xcodeSandboxProfile;
+      sandboxProfile = xcodeSandbox.base;
 
       buildCommand = ''
         export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer

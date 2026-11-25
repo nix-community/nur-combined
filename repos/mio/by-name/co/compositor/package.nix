@@ -8,10 +8,8 @@
 }:
 
 let
-  xcodeSandboxProfile = ''
-    (allow file-read* file-write* process-exec mach-lookup)
-    (deny file-read* file-write* process-exec mach-lookup (subpath "/usr/local") (with no-log))
-  '';
+  # The app is built by the host's Xcode; see shared/xcode-sandbox.nix.
+  xcodeSandbox = import ../../../shared/xcode-sandbox.nix;
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "compositor";
@@ -45,7 +43,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
       nativeBuildInputs = [ writableTmpDirAsHomeHook ];
 
-      sandboxProfile = xcodeSandboxProfile;
+      sandboxProfile = xcodeSandbox.base;
 
       buildCommand = ''
         export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
@@ -59,7 +57,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         cd src
 
         mkdir -p "$out"
-        set +e
         env PATH="$DEVELOPER_DIR/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH" \
         xcodebuild -resolvePackageDependencies \
           -scheme Compositor \
@@ -67,7 +64,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
           -derivedDataPath "$TMPDIR/derived" \
           -IDEPackageSupportDisableManifestSandbox=YES \
           -IDEPackageSupportDisablePluginExecutionSandbox=YES
-        set -e
 
         rm -rf "$out/repositories"
         find "$out" -name .git -print0 | xargs -0 rm -rf
@@ -95,7 +91,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ writableTmpDirAsHomeHook ];
 
-  sandboxProfile = xcodeSandboxProfile;
+  sandboxProfile = xcodeSandbox.base;
+
+  # The bundle is ad-hoc signed by Xcode (CODE_SIGN_IDENTITY below), and fixup
+  # would strip the binaries and rewrite load commands, invalidating that
+  # signature; the app keeps the layout Xcode produced.
+  dontFixup = true;
 
   buildPhase = ''
     runHook preBuild
@@ -112,7 +113,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     substituteInPlace build/swiftpm/workspace-state.json \
       --replace-fail '@SPM@' "$PWD/build/swiftpm"
 
-    local -a xcodebuildFlags=(
+    # A plain assignment: `local` is only valid inside a function, and stdenv
+    # runs the phase under `set -e`.
+    xcodebuildFlags=(
       -project Compositor.xcodeproj
       -scheme Compositor
       -configuration Release

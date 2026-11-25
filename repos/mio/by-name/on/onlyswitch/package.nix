@@ -13,15 +13,9 @@
 }:
 
 let
-  # Host Xcode, same approach as launchy/compositor: keep the Nix sandbox but
-  # block accidental Homebrew dependencies under /usr/local.
-  xcodeSandboxProfile = ''
-    (allow file-read* file-write* process-exec mach-lookup)
-    (deny file-read* file-write* process-exec mach-lookup (subpath "/usr/local") (with no-log))
-    (allow file-read* process-exec (subpath "/var/run/com.apple.security.cryptexd"))
-    (allow file-read* process-exec (subpath "/private/var/run/com.apple.security.cryptexd"))
-    (allow file-read* (subpath "/System/Library/AssetsV2/com_apple_MobileAsset_MetalToolchain"))
-  '';
+  # Host Xcode, same approach as launchy/compositor; see
+  # shared/xcode-sandbox.nix. The widget and app icon need the Metal toolchain.
+  xcodeSandbox = import ../../../shared/xcode-sandbox.nix;
 
   arch = stdenvNoCC.hostPlatform.darwinArch;
   sparkleVersion = "2.10.0";
@@ -62,7 +56,7 @@ let
 
     nativeBuildInputs = [ writableTmpDirAsHomeHook ];
 
-    sandboxProfile = xcodeSandboxProfile;
+    sandboxProfile = xcodeSandbox.withMetalToolchain;
 
     dontFixup = true;
 
@@ -178,7 +172,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     python3
   ];
 
-  sandboxProfile = xcodeSandboxProfile;
+  sandboxProfile = xcodeSandbox.withMetalToolchain;
 
   # Preserve the app bundle, widget, helper, and Sparkle framework layout.
   dontFixup = true;
@@ -202,7 +196,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         python3
       ];
 
-      sandboxProfile = xcodeSandboxProfile;
+      sandboxProfile = xcodeSandbox.withMetalToolchain;
 
       buildCommand = ''
         export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
