@@ -6,11 +6,11 @@
 
 stdenvNoCC.mkDerivation {
   pname = "manpages-ro-dev";
-  version = "4.31.0-1";
+  version = "4.27.0-1";
 
   src = fetchurl {
-    url = "http://deb.debian.org/debian/pool/main/m/manpages-l10n/manpages-ro-dev_4.31.0-1_all.deb";
-    hash = "sha256-6syptn8mK81TUwlvpfGfBjrW2fXiw8d2usX+1Jx+LXg=";
+    url = "https://deb.debian.org/debian/pool/main/m/manpages-l10n/manpages-ro-dev_4.27.0-1_all.deb";
+    hash = "sha256-3IbC2oiy9m+vmnjR8MdNzCJfx1S2E1OyL0EE7+BTDoM=";
   };
 
   nativeBuildInputs = [ dpkg ];
