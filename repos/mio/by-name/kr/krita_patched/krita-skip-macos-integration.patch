@@ -1,0 +1,17 @@
+krita: allow skipping the macOS Finder integration plugins
+
+krita/integration builds the Spotlight importer and the Quick Look
+thumbnailer/preview with `xcodebuild archive`. That needs a full Xcode
+installation and an Xcode project archive step, which neither the Nix
+sandbox nor nixpkgs' xcbuild provides, so the target fails the whole
+build. These plugins only add Finder integration, so let the package
+skip them.
+
+--- a/krita/integration/CMakeLists.txt
++++ b/krita/integration/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-if (APPLE)
++if (APPLE AND NOT KRITA_SKIP_MACOS_INTEGRATION)
+ project(kritaintegration)
+ 
+ if (NOT MACOS_UNIVERSAL)

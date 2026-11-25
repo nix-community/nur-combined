@@ -1,0 +1,17 @@
+kdoctools: do not prepend the install prefix to an absolute datadir
+
+ECM's KDE_INSTALL_DATADIR_KF is already absolute in Nix builds, so
+prepending CMAKE_INSTALL_PREFIX produced a doubled path. Linux builds never
+hit the broken fallback because Qt also searches XDG_DATA_DIRS (which the
+wrapper points at kdoctools' share directory), but macOS Qt ignores
+XDG_DATA_DIRS, so meinproc6 fails with "Could not find kdoctools catalogs"
+when generating man pages for packages built against kdoctools.
+
+--- a/config-kdoctools.h.cmake
++++ b/config-kdoctools.h.cmake
+@@ -2,4 +2,4 @@
+ 
+ #define DOCBOOK_XML_CURRDTD "@DocBookXML4_DTD_DIR@"
+ 
+-#define KDOCTOOLS_INSTALL_DATADIR_KF "${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_DATADIR_KF}"
++#define KDOCTOOLS_INSTALL_DATADIR_KF "${KDE_INSTALL_DATADIR_KF}"

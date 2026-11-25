@@ -1,0 +1,20 @@
+krita: include QMutex by its class header on macOS
+
+On macOS, Nix' Qt installs its headers as forwarding stubs that
+`#include_next` the real framework header. `<qmutex.h>` resolves to such
+a stub and its `include_next` never reaches QtCore.framework, so the
+Qt6 macOS build of `kis_extended_modifiers_mapper_osx.mm` fails with
+"unknown type name 'QMutex'". The Qt-documented `<QMutex>` spelling
+resolves straight to the framework header.
+
+--- a/libs/ui/input/kis_extended_modifiers_mapper_osx.mm
++++ b/libs/ui/input/kis_extended_modifiers_mapper_osx.mm
+@@ -8,7 +8,7 @@
+ 
+ #import <QDebug>
+ #import <QFlag>
+-#import <qmutex.h>
++#import <QMutex>
+ #import <AppKit/AppKit.h>
+ 
+ #include "krita_container_utils.h"
