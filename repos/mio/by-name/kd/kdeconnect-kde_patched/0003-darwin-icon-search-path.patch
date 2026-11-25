@@ -1,0 +1,28 @@
+--- a/indicator/indicatorhelper_mac.cpp
++++ b/indicator/indicatorhelper_mac.cpp
+@@ -31,7 +31,10 @@
+ 
+ void IndicatorHelper::iconPathHook()
+ {
+-    const QString iconPath = QStandardPaths::locate(QStandardPaths::AppDataLocation, QStringLiteral("kdeconnect-icons"), QStandardPaths::LocateDirectory);
++    QString iconPath = QString::fromLocal8Bit(qgetenv("KDECONNECT_ICON_DIR"));
++    if (iconPath.isEmpty()) {
++        iconPath = QStandardPaths::locate(QStandardPaths::AppDataLocation, QStringLiteral("kdeconnect-icons"), QStandardPaths::LocateDirectory);
++    }
+     if (!iconPath.isNull()) {
+         QStringList themeSearchPaths = QIcon::themeSearchPaths();
+         themeSearchPaths << iconPath;
+@@ -65,7 +68,12 @@
+ void IndicatorHelper::systrayIconHook(KStatusNotifierItem &systray)
+ {
+     QString iconPathInBundle = QStringLiteral("kdeconnect-icons/hicolor/scalable/apps/kdeconnectindicator.svg");
+-    QString iconPath = QStandardPaths::locate(QStandardPaths::AppLocalDataLocation, iconPathInBundle);
++    QString iconPath = QString::fromLocal8Bit(qgetenv("KDECONNECT_ICON_DIR"));
++    if (iconPath.isEmpty()) {
++        iconPath = QStandardPaths::locate(QStandardPaths::AppLocalDataLocation, iconPathInBundle);
++    } else {
++        iconPath += QLatin1String("/hicolor/scalable/apps/kdeconnectindicator.svg");
++    }
+     QIcon icon(iconPath);
+     icon.setIsMask(true); // Make icon adapt to menu bar color
+     systray.setIconByPixmap(icon);

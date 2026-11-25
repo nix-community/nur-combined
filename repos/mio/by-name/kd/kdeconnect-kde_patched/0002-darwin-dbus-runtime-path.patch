@@ -1,0 +1,30 @@
+--- a/core/dbushelper.cpp
++++ b/core/dbushelper.cpp
+@@ -88,9 +88,15 @@
+ 
+     QString kdeconnectDBusConfiguration;
+     QString dbusDaemonExecutable = QStandardPaths::findExecutable(QStringLiteral("dbus-daemon"), {QCoreApplication::applicationDirPath()});
+-    if (!dbusDaemonExecutable.isNull()) {
++    if (const QByteArray override = qgetenv("KDECONNECT_DBUS_DAEMON"); !override.isEmpty()) {
++        dbusDaemonExecutable = QString::fromLocal8Bit(override);
++    }
++    if (const QByteArray override = qgetenv("KDECONNECT_DBUS_CONFIG"); !override.isEmpty()) {
++        kdeconnectDBusConfiguration = QString::fromLocal8Bit(override);
++    }
++    if (!dbusDaemonExecutable.isNull() && kdeconnectDBusConfiguration.isEmpty()) {
+         kdeconnectDBusConfiguration = QStandardPaths::locate(QStandardPaths::AppDataLocation, QStringLiteral("dbus-1/session.conf"));
+-    } else {
++    } else if (dbusDaemonExecutable.isNull()) {
+         // macOS Debug env
+         dbusDaemonExecutable = QLatin1String(qgetenv("craftRoot")) + QLatin1String("/../bin/dbus-daemon");
+         kdeconnectDBusConfiguration = QLatin1String(qgetenv("craftRoot")) + QLatin1String("/../share/dbus-1/session.conf");
+@@ -149,6 +155,9 @@
+     }
+ 
+     setLaunchctlEnv(dbusAddress);
++    QByteArray sessionBusAddress = QByteArrayLiteral("unix:path=");
++    sessionBusAddress += dbusAddress.toLocal8Bit();
++    qputenv("DBUS_SESSION_BUS_ADDRESS", sessionBusAddress);
+ 
+     if (!QDBusConnection::sessionBus().isConnected()) {
+         qCCritical(KDECONNECT_CORE) << "Invalid env:" << dbusAddress;

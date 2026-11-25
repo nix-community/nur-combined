@@ -1,0 +1,23 @@
+--- a/dbusinterfaces/CMakeLists.txt
++++ b/dbusinterfaces/CMakeLists.txt
+@@ -7,8 +7,18 @@ function(geninterface source_file output_basename)
+     if(${source_file} MATCHES ".*\.xml$")
+         set(xml_file ${source_file})
+     else()
+-        set(xml_file ${CMAKE_CURRENT_BINARY_DIR}/${output_basename}.xml)
+-        qt_generate_dbus_interface(${source_file} ${xml_file})
++        set(raw_xml_file ${CMAKE_CURRENT_BINARY_DIR}/${output_basename}.xml)
++        qt_generate_dbus_interface(${source_file} ${raw_xml_file})
++        # qdbuscpp2xml on Darwin emits empty signatures for Qt's special
++        # D-Bus types but records the Qt type in an annotation; fill them in.
++        set(xml_file ${CMAKE_CURRENT_BINARY_DIR}/${output_basename}.fixed.xml)
++        add_custom_command(
++            OUTPUT ${xml_file}
++            COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/fix-dbus-interface-signatures.py
++                    ${raw_xml_file} ${xml_file}
++            DEPENDS ${raw_xml_file}
++            COMMENT "Normalising D-Bus type signatures in ${output_basename}.xml"
++        )
+     endif()
+ 
+     # Fixes "redefinition of 'MediaPlayer2' as different kind of symbol"
