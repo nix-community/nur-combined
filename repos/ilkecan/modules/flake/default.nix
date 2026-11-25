@@ -1,5 +1,3 @@
 {
-  # Add your flake-parts modules here
-  #
-  # my-module = ./my-module;
+  per-system-flake-inputs = ./per-system-flake-inputs.nix;
 }
