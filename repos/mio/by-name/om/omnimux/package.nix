@@ -69,8 +69,8 @@ let
     src = fetchFromGitHub {
       owner = "zortax";
       repo = "gpui-terminal";
-      rev = "45c63e57181d27c260124a81c7e4b68a6b6e57b0";
-      hash = "sha256-CTGjQWr1qZSzfgYvULuJ33n9SmWZaynvno9pZ570uaY=";
+      rev = "51f0292938876c8da3de03f0139088591e3be518";
+      hash = "sha256-TFYuLZcbjaJTyWZWf4lUfblbTz9lufI94fWFJekKqE4=";
     };
     patches = [ ./patches/gpui-terminal.patch ];
   };

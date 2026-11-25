@@ -13,7 +13,7 @@ App-level behavior (appearance sync, Settings, packaging) lives in Omnimux’s [
 | Project | [zortax/gpui-terminal](https://github.com/zortax/gpui-terminal) |
 | Author | Leonard Seibold (`git[@]zrtx.de`) |
 | Upstream package version | `0.1.0` (as in vendored `Cargo.toml`) |
-| Git commit we vendored | [`45c63e57181d27c260124a81c7e4b68a6b6e57b0`](https://github.com/zortax/gpui-terminal/commit/45c63e57181d27c260124a81c7e4b68a6b6e57b0) (“update Cargo.toml”) |
+| Git commit we vendored | [`51f0292938876c8da3de03f0139088591e3be518`](https://github.com/zortax/gpui-terminal/commit/51f0292938876c8da3de03f0139088591e3be518) (“update readme”) |
 | Recorded in | `.cargo_vcs_info.json` (`git.sha1`) |
 | First vendored in nurpkgs | commit `457e38f2` (*fix: scroll to tmux, cursor viewport, tab drag, Ctrl+/- zoom*) |
 | License | MIT OR Apache-2.0 (see `LICENSE-*` in this directory) |
@@ -87,7 +87,7 @@ Rough chronological / thematic summary of edits under this vendor tree:
 
 ## Refresh / rebase tips
 
-1. Diff any updated vendor tree against upstream baseline commit `45c63e57…` to update `patches/gpui-terminal.patch`.
+1. Diff any updated vendor tree against upstream baseline commit `51f02929…` to update `patches/gpui-terminal.patch`.
 2. Prefer small, documented patches; keep this file updated when patch behavior changes.
 3. After updating patch files, `git add` them before `nix build` (flake eval ignores untracked files).
 
@@ -124,7 +124,7 @@ Keep `src/`, `Cargo.toml`, `LICENSE-APACHE`, `.cargo_vcs_info.json`. Do **not** 
 # Vendored gpui-pre platform crates (0.3.8)
 
 Omnimux depends on crates.io **`gpui-pre` 0.3.8** + **`gpui-pre-platform`** +
-**`gpui-component` 0.7.1** (no longer vendors the monolithic `gpui-ce` tree).
+**`gpui-component` 0.7.2** (no longer vendors the monolithic `gpui-ce` tree).
 Platform backends are split: we path-patch only the crates that carry Omnimux
 deltas via `[patch.crates-io]` in `src/Cargo.toml`.
 

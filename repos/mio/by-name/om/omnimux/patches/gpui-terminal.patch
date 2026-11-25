@@ -1,6 +1,8 @@
+diff --git a/Cargo.toml b/Cargo.toml
+index 5d3e4a4..3e56ef3 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -8,8 +8,8 @@
+@@ -8,8 +8,8 @@ repository = "https://github.com/zortax/gpui-terminal"
  authors = ["Leonard Seibold <git[@]zrtx.de"]
  
  [dependencies]
@@ -11,7 +13,10 @@
  anyhow = "1"
  portable-pty = "0.9"
  ropey = "1"
---- a/src/color_scheme.rs
+diff --git a/src/color_scheme.rs b/src/color_scheme.rs
+new file mode 100644
+index 0000000..5918eca
+--- /dev/null
 +++ b/src/color_scheme.rs
 @@ -0,0 +1,232 @@
 +//! Contour / Ghostty color-scheme reporting (DEC mode 2031 + DSR 996/997).
@@ -246,9 +251,11 @@
 +        }));
 +    }
 +}
+diff --git a/src/colors.rs b/src/colors.rs
+index d26733c..f1f31e6 100644
 --- a/src/colors.rs
 +++ b/src/colors.rs
-@@ -108,6 +108,15 @@
+@@ -108,6 +108,15 @@ pub struct ColorPalette {
  
      /// Default cursor color
      cursor: Hsla,
@@ -264,7 +271,7 @@
  }
  
  impl Default for ColorPalette {
-@@ -231,28 +240,31 @@
+@@ -231,28 +240,31 @@ impl Default for ColorPalette {
          }
  
          // Default terminal colors
@@ -305,7 +312,7 @@
          }
      }
  }
-@@ -390,6 +402,66 @@
+@@ -390,6 +402,66 @@ impl ColorPalette {
      pub fn cursor(&self) -> Hsla {
          self.cursor
      }
@@ -372,7 +379,7 @@
  }
  
  /// Converts an RGB color to GPUI's Hsla color format.
-@@ -467,19 +539,25 @@
+@@ -467,19 +539,25 @@ impl ColorPaletteBuilder {
  
      /// Sets the background color.
      pub fn background(mut self, r: u8, g: u8, b: u8) -> Self {
@@ -401,9 +408,11 @@
          self
      }
  
+diff --git a/src/event.rs b/src/event.rs
+index 719b950..8e6494b 100644
 --- a/src/event.rs
 +++ b/src/event.rs
-@@ -31,14 +31,17 @@
+@@ -43,14 +43,17 @@
  //!
  //! [`EventListener`]: alacritty_terminal::event::EventListener
  
@@ -423,7 +432,7 @@
  pub enum TerminalEvent {
      /// The terminal has new content to display and needs a redraw.
      Wakeup,
-@@ -53,12 +56,37 @@
+@@ -65,12 +68,37 @@ pub enum TerminalEvent {
      ClipboardStore(String),
  
      /// The terminal wants to load data from the clipboard.
@@ -462,7 +471,7 @@
  /// An event proxy that implements alacritty's EventListener trait.
  ///
  /// This struct forwards relevant terminal events to a channel that can be
-@@ -123,35 +151,27 @@
+@@ -135,35 +163,27 @@ impl EventListener for GpuiEventProxy {
                  // For simplicity, we ignore the clipboard type and just store the data
                  self.send(TerminalEvent::ClipboardStore(data));
              }
@@ -510,7 +519,7 @@
          }
      }
  }
-@@ -230,12 +250,22 @@
+@@ -242,12 +262,22 @@ mod tests {
          let (tx, rx) = channel();
          let proxy = GpuiEventProxy::new(tx);
  
@@ -535,7 +544,10 @@
      }
  
      #[test]
---- a/src/ime.rs
+diff --git a/src/ime.rs b/src/ime.rs
+new file mode 100644
+index 0000000..cea2f82
+--- /dev/null
 +++ b/src/ime.rs
 @@ -0,0 +1,183 @@
 +//! IME (Input Method Editor) support for CJK and other composing input.
@@ -721,9 +733,11 @@
 +        None
 +    }
 +}
+diff --git a/src/input.rs b/src/input.rs
+index c79327e..029cec4 100644
 --- a/src/input.rs
 +++ b/src/input.rs
-@@ -189,6 +189,12 @@
+@@ -189,6 +189,12 @@ pub fn keystroke_to_bytes(keystroke: &Keystroke, mode: TermMode) -> Option<Vec<u
      if keystroke.modifiers.control {
          let key = keystroke.key.as_str();
  
@@ -736,7 +750,7 @@
          // Ctrl+A through Ctrl+Z map to 0x01 through 0x1a
          if key.len() == 1 {
              let ch = key.chars().next().unwrap();
-@@ -393,6 +399,10 @@
+@@ -393,6 +399,10 @@ mod tests {
          // Ctrl+Space = 0x00
          let ctrl_space = Keystroke::parse("ctrl-space").unwrap();
          assert_eq!(keystroke_to_bytes(&ctrl_space, mode), Some(vec![0x00]));
@@ -747,11 +761,13 @@
      }
  
      #[test]
+diff --git a/src/lib.rs b/src/lib.rs
+index 98e3caf..81ef616 100644
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -338,9 +338,12 @@
- //! to accommodate tall glyphs.
+@@ -339,9 +339,12 @@
  
+ pub mod box_drawing;
  pub mod clipboard;
 +pub mod color_scheme;
  pub mod colors;
@@ -762,7 +778,7 @@
  pub mod mouse;
  pub mod render;
  pub mod terminal;
-@@ -350,9 +353,10 @@
+@@ -351,9 +354,10 @@ pub mod view;
  pub use clipboard::Clipboard;
  pub use colors::{ColorPalette, ColorPaletteBuilder};
  pub use event::{GpuiEventProxy, TerminalEvent};
@@ -776,7 +792,10 @@
 +    BellCallback, ClipboardStoreCallback, ContextMenuCallback, ExitCallback, KeyHandler,
 +    LinkClickCallback, ResizeCallback, TerminalConfig, TerminalView, TitleCallback,
  };
---- a/src/links.rs
+diff --git a/src/links.rs b/src/links.rs
+new file mode 100644
+index 0000000..5b72de7
+--- /dev/null
 +++ b/src/links.rs
 @@ -0,0 +1,220 @@
 +//! URL / OSC 8 hyperlink discovery for Cmd/Ctrl+click.
@@ -999,16 +1018,20 @@
 +        let _ = std::mem::size_of::<alacritty_terminal::term::cell::Hyperlink>();
 +    }
 +}
+diff --git a/src/main.rs b/src/main.rs
+index 4c57bff..3ef3fac 100644
 --- a/src/main.rs
 +++ b/src/main.rs
-@@ -136,6 +136,7 @@
-                 line_height_multiplier: 1.05,
+@@ -136,6 +136,7 @@ fn main() -> Result<()> {
+                 line_height_multiplier: 1.0,
                  padding: Edges::all(px(8.0)),
                  colors,
 +                ..Default::default()
              };
  
              // Create resize callback that notifies the PTY
+diff --git a/src/mouse.rs b/src/mouse.rs
+index 4f3e67c..89efd7e 100644
 --- a/src/mouse.rs
 +++ b/src/mouse.rs
 @@ -3,6 +3,7 @@
@@ -1028,7 +1051,7 @@
  use alacritty_terminal::term::TermMode;
  use gpui::{MouseButton, Pixels, Point};
  
-@@ -189,6 +190,38 @@
+@@ -189,6 +190,38 @@ pub fn pixel_to_cell(
      AlacPoint::new(Line(row), Column(col))
  }
  
@@ -1067,7 +1090,7 @@
  /// Determine the selection type based on the number of clicks.
  ///
  /// # Arguments
-@@ -287,9 +320,9 @@
+@@ -287,9 +320,9 @@ pub fn mouse_button_report(
      // Bit 2: Shift, Bit 3: Alt, Bit 4: Control
      let button_value = button_code | modifiers;
  
@@ -1079,7 +1102,7 @@
  
      // SGR format: ESC [ < button ; col ; row M/m
      // M for press, m for release
-@@ -299,6 +332,31 @@
+@@ -299,6 +332,31 @@ pub fn mouse_button_report(
      Some(sequence.into_bytes())
  }
  
@@ -1111,7 +1134,7 @@
  /// Generate scroll wheel report escape sequence.
  ///
  /// This function generates the escape sequence for scroll wheel events.
-@@ -347,7 +405,7 @@
+@@ -347,7 +405,7 @@ pub fn scroll_report(
  
          // SGR format uses 1-based indexing
          let col = point.column.0 + 1;
@@ -1120,10 +1143,11 @@
  
          // Mouse wheel events are always "pressed" (M), never released
          let sequence = format!("\x1b[<{};{};{}M", button_value, col, row);
-@@ -519,6 +577,27 @@
+@@ -518,6 +576,27 @@ mod tests {
+         assert_eq!(point.line.0, 0);
      }
  
-     #[test]
++    #[test]
 +    fn test_selection_side_halves() {
 +        let origin = point(px(0.0), px(0.0));
 +        let cw = px(10.0);
@@ -1144,15 +1168,16 @@
 +        );
 +    }
 +
-+    #[test]
+     #[test]
      fn test_selection_type_from_clicks() {
          assert_eq!(selection_type_from_clicks(1), SelectionType::Simple);
-         assert_eq!(selection_type_from_clicks(2), SelectionType::Word);
+diff --git a/src/render.rs b/src/render.rs
+index d25f568..74bef46 100644
 --- a/src/render.rs
 +++ b/src/render.rs
-@@ -60,16 +60,17 @@
- //! ```
+@@ -62,16 +62,17 @@
  
+ use crate::box_drawing;
  use crate::colors::ColorPalette;
 -use crate::event::GpuiEventProxy;
 +
@@ -1173,7 +1198,7 @@
  };
  
  /// A batched run of text with consistent styling.
-@@ -169,6 +170,9 @@
+@@ -171,6 +172,9 @@ pub struct TerminalRenderer {
      /// Font family name (e.g., "Fira Code", "Menlo")
      pub font_family: String,
  
@@ -1183,7 +1208,7 @@
      /// Font size in pixels
      pub font_size: Pixels,
  
-@@ -221,6 +225,7 @@
+@@ -223,6 +227,7 @@ impl TerminalRenderer {
  
          Self {
              font_family,
@@ -1191,7 +1216,7 @@
              font_size,
              cell_width,
              cell_height,
-@@ -229,6 +234,20 @@
+@@ -231,6 +236,20 @@ impl TerminalRenderer {
          }
      }
  
@@ -1212,25 +1237,43 @@
      /// Measure cell dimensions based on actual font metrics.
      ///
      /// This method measures the actual width and height of characters
-@@ -238,38 +257,44 @@
+@@ -241,40 +260,44 @@ impl TerminalRenderer {
      ///
      /// * `window` - The GPUI window for text system access
      pub fn measure_cell(&mut self, window: &mut Window) {
--        // Measure using a reference character (M is typically the widest)
+-        // Measure using '│' (U+2502, BOX DRAWINGS LIGHT VERTICAL)
+-        // This character spans the full cell height in terminal fonts, making it
+-        // ideal for measuring exact cell dimensions used by TUIs
 -        let font = Font {
 -            family: self.font_family.clone().into(),
 -            features: FontFeatures::default(),
 -            fallbacks: None,
 -            weight: FontWeight::NORMAL,
 -            style: FontStyle::Normal,
--        };
--
--        let text_run = TextRun {
 +        // Measure cell *width* with ASCII 'M' so geometry stays on the primary
 +        // monospace font (│ may come from a Nerd fallback with a different advance).
 +        let width_run = TextRun {
-             len: 1,
++            len: 1,
++            font: self.gpui_font(FontWeight::NORMAL, FontStyle::Normal),
++            color: gpui::black(),
++            background_color: None,
++            underline: None,
++            strikethrough: None,
+         };
++        let shaped_width = window
++            .text_system()
++            .shape_line("M".into(), self.font_size, &[width_run], None);
++        if shaped_width.width > px(0.0) {
++            self.cell_width = shaped_width.width;
++        }
+ 
+-        let text_run = TextRun {
+-            len: "│".len(),
 -            font,
++        // Line height: prefer box-drawing metrics when available, else 'M'.
++        let measure_char = "│";
++        let height_run = TextRun {
++            len: measure_char.len(),
 +            font: self.gpui_font(FontWeight::NORMAL, FontStyle::Normal),
              color: gpui::black(),
              background_color: None,
@@ -1238,36 +1281,19 @@
              strikethrough: None,
          };
 -
--        // Shape a single 'M' character to get its metrics
--        let shaped = window
-+        let shaped_width = window
+-        // Shape the box-drawing character to get cell metrics
+         let shaped = window
              .text_system()
--            .shape_line("M".into(), self.font_size, &[text_run], None);
+-            .shape_line("│".into(), self.font_size, &[text_run], None);
 -
--        // Get the width from the shaped line (accessed via Deref to LineLayout)
+-        // Get the width from the shaped line
 -        if shaped.width > px(0.0) {
 -            self.cell_width = shaped.width;
-+            .shape_line("M".into(), self.font_size, &[width_run], None);
-+        if shaped_width.width > px(0.0) {
-+            self.cell_width = shaped_width.width;
-         }
- 
--        // Calculate height from ascent + descent with multiplier for tall glyphs (nerd fonts, etc.)
--        let line_height = shaped.ascent + shaped.descent;
-+        // Line height: prefer box-drawing metrics when available, else 'M'.
-+        let measure_char = "│";
-+        let height_run = TextRun {
-+            len: measure_char.len(),
-+            font: self.gpui_font(FontWeight::NORMAL, FontStyle::Normal),
-+            color: gpui::black(),
-+            background_color: None,
-+            underline: None,
-+            strikethrough: None,
-+        };
-+        let shaped = window
-+            .text_system()
+-        }
+-
+-        // Calculate height from ascent + descent with optional multiplier
 +            .shape_line(measure_char.into(), self.font_size, &[height_run], None);
-+        let line_height = (shaped.ascent + shaped.descent).ceil();
+         let line_height = (shaped.ascent + shaped.descent).ceil();
          if line_height > px(0.0) {
              self.cell_height = line_height * self.line_height_multiplier;
 +        } else {
@@ -1278,7 +1304,7 @@
          }
      }
  
-@@ -308,9 +333,15 @@
+@@ -313,9 +336,15 @@ impl TerminalRenderer {
                  continue;
              }
  
@@ -1297,7 +1323,7 @@
              let bold = cell.flags.contains(Flags::BOLD);
              let italic = cell.flags.contains(Flags::ITALIC);
              let underline = cell.flags.contains(Flags::UNDERLINE);
-@@ -445,11 +476,13 @@
+@@ -450,11 +479,13 @@ impl TerminalRenderer {
      /// * `term` - The terminal state
      /// * `window` - The GPUI window
      /// * `cx` - The application context
@@ -1314,7 +1340,7 @@
          window: &mut Window,
          _cx: &mut App,
      ) {
-@@ -458,6 +491,10 @@
+@@ -463,6 +494,10 @@ impl TerminalRenderer {
          let num_lines = grid.screen_lines();
          let num_cols = grid.columns();
          let colors = term.colors();
@@ -1325,7 +1351,7 @@
  
          // Calculate default background color
          let default_bg = self.palette.resolve(
-@@ -481,9 +518,15 @@
+@@ -486,9 +521,15 @@ impl TerminalRenderer {
              y: bounds.origin.y + padding.top,
          };
  
@@ -1343,7 +1369,7 @@
  
              // Collect cells for this line
              let cells: Vec<(usize, Cell)> = (0..num_cols)
-@@ -495,6 +538,11 @@
+@@ -500,6 +541,11 @@ impl TerminalRenderer {
                  })
                  .collect();
  
@@ -1355,7 +1381,7 @@
              // Layout the row for backgrounds
              let (backgrounds, _) = self.layout_row(line_idx, cells.iter().cloned(), colors);
  
-@@ -525,6 +573,75 @@
+@@ -530,6 +576,75 @@ impl TerminalRenderer {
                  ));
              }
  
@@ -1431,18 +1457,7 @@
              // Calculate vertical offset to center text in cell
              // The multiplier adds extra height; we want to distribute it evenly top/bottom
              let base_height = self.cell_height / self.line_height_multiplier;
-@@ -532,45 +649,93 @@
- 
-             // Paint each character individually at exact cell positions
-             // This ensures perfect alignment for terminal emulation
--            for (col_idx, cell) in cells {
-+            for &(col_idx, ref cell) in &cells {
-                 let ch = cell.c;
- 
--                // Skip empty cells (space or null)
-+                // Skip empty cells (space or null) and wide-char spacers.
-+                // (Spacers always have ch=' ' but guard on the flag too so
-+                // any future alacritty change can't accidentally repaint them.)
+@@ -609,10 +724,22 @@ impl TerminalRenderer {
                  if ch == ' ' || ch == '\0' {
                      continue;
                  }
@@ -1460,7 +1475,18 @@
 +                    continue;
 +                }
  
--                let x = origin.x + self.cell_width * (col_idx as f32);
+                 let x = origin.x + self.cell_width * (*col_idx as f32);
+                 let fg_color = self.palette.resolve(cell.fg, colors);
+-
+                 if box_drawing::is_box_drawing_char(ch) {
+                     let cell_bounds = Bounds {
+                         origin: Point { x, y: y_base },
+@@ -654,8 +781,44 @@ impl TerminalRenderer {
+                     continue;
+                 }
+ 
+-                let x = origin.x + self.cell_width * (*col_idx as f32);
+-                let fg_color = self.palette.resolve(cell.fg, colors);
 +                // Wide chars (emoji, CJK, …) occupy 2 grid columns.
 +                // NotoColorEmoji (and most CJK fonts) report 1em advance so
 +                // the shaped glyph is ~1×cell_width wide even though alacritty
@@ -1473,7 +1499,10 @@
 +                        let next_cell = &cells[col_idx + 1].1;
 +                        // Alacritty clears WIDE_CHAR_SPACER if a literal space is printed over it.
 +                        // We still want to treat it as a 2-cell slot if the next cell is empty/space.
-+                        if next_cell.flags.contains(Flags::WIDE_CHAR_SPACER) || next_cell.c == ' ' || next_cell.c == '\0' {
++                        if next_cell.flags.contains(Flags::WIDE_CHAR_SPACER)
++                            || next_cell.c == ' '
++                            || next_cell.c == '\0'
++                        {
 +                            cell_cols = 2.0_f32;
 +                        } else {
 +                            is_wide = false;
@@ -1485,11 +1514,8 @@
 +                let slot_width = self.cell_width * cell_cols;
 +
 +                // Centre glyph horizontally within the slot
-+                let x_slot = origin.x + self.cell_width * (col_idx as f32);
-                 let y = origin.y + self.cell_height * (line_idx as f32) + vertical_offset;
- 
--                // Get cell colors
--                let fg_color = self.palette.resolve(cell.fg, colors);
++                let x_slot = origin.x + self.cell_width * (*col_idx as f32);
++
 +                // Reverse video (soft cursors / selections in TUIs)
 +                let (fg_color, _bg_color) = {
 +                    let mut fg = self.palette.resolve(cell.fg, colors);
@@ -1500,12 +1526,15 @@
 +                    (fg, bg)
 +                };
  
-                 // Get cell flags for styling
+                 // For regular text, apply vertical offset for centering
+                 let y = y_base + vertical_offset;
+@@ -664,27 +827,30 @@ impl TerminalRenderer {
                  let flags = cell.flags;
                  let bold = flags.contains(alacritty_terminal::term::cell::Flags::BOLD);
                  let italic = flags.contains(alacritty_terminal::term::cell::Flags::ITALIC);
 -                let underline = flags.contains(alacritty_terminal::term::cell::Flags::UNDERLINE);
-+                let underline = flags.contains(alacritty_terminal::term::cell::Flags::UNDERLINE) || (ctrl_held && url_cols.iter().any(|r| r.contains(&col_idx)));
++                let underline = flags.contains(alacritty_terminal::term::cell::Flags::UNDERLINE)
++                    || (ctrl_held && url_cols.iter().any(|r| r.contains(col_idx)));
  
                  // Create font with styling
 -                let font = Font {
@@ -1539,7 +1568,7 @@
                  let text_run = TextRun {
                      len: char_str.len(),
                      font,
-@@ -595,40 +760,92 @@
+@@ -709,40 +875,92 @@ impl TerminalRenderer {
                          .text_system()
                          .shape_line(text, self.font_size, &[text_run], None);
  
@@ -1576,26 +1605,6 @@
 -            Color::Named(alacritty_terminal::vte::ansi::NamedColor::Cursor),
 -            colors,
 -        );
--
--        let cursor_bounds = Bounds {
--            origin: Point {
--                x: cursor_x,
--                y: cursor_y,
--            },
--            size: Size {
--                width: self.cell_width,
--                height: self.cell_height,
--            },
--        };
--
--        window.paint_quad(quad(
--            cursor_bounds,
--            px(0.0),
--            cursor_color,
--            Edges::<Pixels>::default(),
--            transparent_black(),
--            Default::default(),
--        ));
 +        // Paint cursor only when the app wants it visible. TUIs like cursor-agent
 +        // often hide the hardware cursor (CSI ?25l) and draw their own, while
 +        // parking the VTE cursor just above the tmux status line — painting that
@@ -1614,7 +1623,17 @@
 +                        Color::Named(alacritty_terminal::vte::ansi::NamedColor::Cursor),
 +                        colors,
 +                    );
-+
+ 
+-        let cursor_bounds = Bounds {
+-            origin: Point {
+-                x: cursor_x,
+-                y: cursor_y,
+-            },
+-            size: Size {
+-                width: self.cell_width,
+-                height: self.cell_height,
+-            },
+-        };
 +                    let cursor_bounds = match cursor.shape {
 +                        CursorShape::Underline => Bounds {
 +                            origin: Point {
@@ -1648,7 +1667,15 @@
 +                            },
 +                        },
 +                    };
-+
+ 
+-        window.paint_quad(quad(
+-            cursor_bounds,
+-            px(0.0),
+-            cursor_color,
+-            Edges::<Pixels>::default(),
+-            transparent_black(),
+-            Default::default(),
+-        ));
 +                    window.paint_quad(quad(
 +                        cursor_bounds,
 +                        px(0.0),
@@ -1663,6 +1690,8 @@
      }
  }
  
+diff --git a/src/terminal.rs b/src/terminal.rs
+index 13e24df..e6cc810 100644
 --- a/src/terminal.rs
 +++ b/src/terminal.rs
 @@ -46,11 +46,36 @@
@@ -1703,7 +1732,7 @@
  /// Simple dimensions implementation for terminal initialization.
  struct TermDimensions {
      columns: usize,
-@@ -159,17 +184,25 @@
+@@ -159,17 +184,25 @@ impl TerminalState {
      /// let terminal = TerminalState::new(80, 24, event_proxy);
      /// ```
      pub fn new(cols: usize, rows: usize, event_proxy: GpuiEventProxy) -> Self {
@@ -1737,6 +1766,8 @@
          let parser = Processor::new();
  
          Self {
+diff --git a/src/view.rs b/src/view.rs
+index 5f13027..b44c8fe 100644
 --- a/src/view.rs
 +++ b/src/view.rs
 @@ -14,8 +14,10 @@
@@ -1778,7 +1809,7 @@
  use gpui::{Edges, *};
  use std::io::{Read, Write};
  use std::sync::Arc;
-@@ -137,6 +153,14 @@
+@@ -137,6 +153,14 @@ pub struct TerminalConfig {
      /// Color palette for terminal colors (16 ANSI colors, 256 extended colors,
      /// foreground, background, and cursor colors)
      pub colors: ColorPalette,
@@ -1793,8 +1824,8 @@
  }
  
  impl Default for TerminalConfig {
-@@ -150,6 +174,11 @@
-             line_height_multiplier: 1.2,
+@@ -150,6 +174,11 @@ impl Default for TerminalConfig {
+             line_height_multiplier: 1.0,
              padding: Edges::all(px(0.0)),
              colors: ColorPalette::default(),
 +            font_fallbacks: vec![
@@ -1805,7 +1836,7 @@
          }
      }
  }
-@@ -297,6 +326,13 @@
+@@ -297,6 +326,13 @@ pub type TitleCallback = Box<dyn Fn(&mut Window, &mut Context<TerminalView>, &st
  /// ```
  pub type ClipboardStoreCallback = Box<dyn Fn(&mut Window, &mut Context<TerminalView>, &str)>;
  
@@ -1819,7 +1850,7 @@
  /// Callback for terminal exit events.
  ///
  /// This callback is invoked when the terminal process exits (e.g., shell exits,
-@@ -409,8 +445,69 @@
+@@ -409,8 +445,69 @@ pub struct TerminalView {
      /// Callback for clipboard store requests
      clipboard_store_callback: Option<ClipboardStoreCallback>,
  
@@ -1889,7 +1920,7 @@
  }
  
  impl TerminalView {
-@@ -458,16 +555,23 @@
+@@ -458,16 +555,23 @@ impl TerminalView {
          // Create event proxy for alacritty
          let event_proxy = GpuiEventProxy::new(event_tx);
  
@@ -1916,7 +1947,7 @@
  
          // Create focus handle
          let focus_handle = cx.focus_handle();
-@@ -477,10 +581,11 @@
+@@ -477,10 +581,11 @@ impl TerminalView {
              Box::new(stdin_writer) as Box<dyn Write + Send>
          ));
  
@@ -1932,7 +1963,7 @@
  
          // Spawn background thread to read from stdout
          // This thread sends bytes through the async channel
-@@ -488,32 +593,64 @@
+@@ -488,32 +593,64 @@ impl TerminalView {
              Self::read_stdout_blocking(stdout_reader, bytes_tx);
          });
  
@@ -2014,7 +2045,7 @@
                  }
              }
          });
-@@ -531,7 +668,111 @@
+@@ -531,7 +668,111 @@ impl TerminalView {
              bell_callback: None,
              title_callback: None,
              clipboard_store_callback: None,
@@ -2126,7 +2157,7 @@
          }
      }
  
-@@ -653,6 +894,25 @@
+@@ -653,6 +894,25 @@ impl TerminalView {
          self
      }
  
@@ -2152,7 +2183,7 @@
      /// Set a callback to be invoked when the terminal process exits.
      ///
      /// The callback receives a mutable reference to the window and context,
-@@ -679,10 +939,9 @@
+@@ -679,10 +939,9 @@ impl TerminalView {
  
      /// Background thread that reads from stdout.
      ///
@@ -2166,7 +2197,7 @@
      fn read_stdout_blocking<R: Read + Send + 'static>(
          mut stdout_reader: R,
          bytes_tx: flume::Sender<Vec<u8>>,
-@@ -696,7 +955,7 @@
+@@ -696,7 +955,7 @@ impl TerminalView {
                      break;
                  }
                  Ok(n) => {
@@ -2175,7 +2206,7 @@
                      let bytes = buffer[..n].to_vec();
                      if bytes_tx.send(bytes).is_err() {
                          break; // Channel closed
-@@ -715,80 +974,376 @@
+@@ -715,80 +974,376 @@ impl TerminalView {
      /// Converts GPUI keystrokes to terminal escape sequences and writes them
      /// to the stdin writer. If a key handler is set and returns true, the event
      /// is consumed and not sent to the terminal.
@@ -2588,7 +2619,7 @@
      }
  
      /// Process pending terminal events.
-@@ -800,9 +1355,7 @@
+@@ -800,9 +1355,7 @@ impl TerminalView {
          // Process terminal events (from alacritty event proxy)
          while let Ok(event) = self.event_rx.try_recv() {
              match event {
@@ -2599,7 +2630,7 @@
                  TerminalEvent::Bell => {
                      if let Some(ref callback) = self.bell_callback {
                          callback(window, cx);
-@@ -814,13 +1367,67 @@
+@@ -814,13 +1367,67 @@ impl TerminalView {
                      }
                  }
                  TerminalEvent::ClipboardStore(text) => {
@@ -2623,8 +2654,11 @@
 +                        }
 +                        crate::terminal::Osc52Policy::Disabled
 +                        | crate::terminal::Osc52Policy::OnlyPaste => {}
-+                    }
-+                }
+                     }
+                 }
+-                TerminalEvent::ClipboardLoad => {
+-                    // Terminal wants to load data from clipboard
+-                    // TODO: Implement clipboard integration
 +                TerminalEvent::ClipboardLoad(format) => {
 +                    match self.config.osc52 {
 +                        crate::terminal::Osc52Policy::OnlyPaste
@@ -2642,11 +2676,8 @@
 +                        }
 +                        crate::terminal::Osc52Policy::Disabled
 +                        | crate::terminal::Osc52Policy::OnlyCopy => {}
-                     }
-                 }
--                TerminalEvent::ClipboardLoad => {
--                    // Terminal wants to load data from clipboard
--                    // TODO: Implement clipboard integration
++                    }
++                }
 +                TerminalEvent::PtyWrite(data) => {
 +                    self.write_pty_str(&data);
 +                }
@@ -2672,7 +2703,7 @@
                  }
                  TerminalEvent::Exit => {
                      if let Some(ref callback) = self.exit_callback {
-@@ -831,6 +1438,76 @@
+@@ -831,6 +1438,76 @@ impl TerminalView {
          }
      }
  
@@ -2749,7 +2780,7 @@
      /// Get the current terminal dimensions.
      ///
      /// # Returns
-@@ -850,6 +1527,9 @@
+@@ -850,6 +1527,9 @@ impl TerminalView {
      /// * `cols` - New number of columns
      /// * `rows` - New number of rows
      pub fn resize(&mut self, cols: usize, rows: usize) {
@@ -2759,7 +2790,7 @@
          self.state.resize(cols, rows);
      }
  
-@@ -871,6 +1551,80 @@
+@@ -871,6 +1551,80 @@ impl TerminalView {
          &self.focus_handle
      }
  
@@ -2840,7 +2871,7 @@
      /// Update the terminal configuration.
      ///
      /// This method updates the terminal's configuration, including font settings,
-@@ -881,8 +1635,39 @@
+@@ -881,8 +1635,39 @@ impl TerminalView {
      /// * `config` - The new configuration to apply
      /// * `cx` - The context for triggering a repaint
      pub fn update_config(&mut self, config: TerminalConfig, cx: &mut Context<Self>) {
@@ -2880,7 +2911,7 @@
          self.renderer.font_size = config.font_size;
          self.renderer.line_height_multiplier = config.line_height_multiplier;
          self.renderer.palette = config.colors.clone();
-@@ -890,7 +1675,13 @@
+@@ -890,7 +1675,13 @@ impl TerminalView {
          // Store the new config
          self.config = config;
  
@@ -2895,7 +2926,7 @@
          cx.notify();
      }
  
-@@ -915,27 +1706,74 @@
+@@ -915,27 +1706,74 @@ impl Render for TerminalView {
          // Process any pending events
          self.process_events(window, cx);
  
@@ -2973,7 +3004,7 @@
                          // Measure actual cell dimensions from the font
                          let mut measured_renderer = renderer.clone();
                          measured_renderer.measure_cell(window);
-@@ -948,49 +1786,130 @@
+@@ -948,49 +1786,130 @@ impl Render for TerminalView {
                          let cell_width_f32: f32 = measured_renderer.cell_width.into();
                          let cell_height_f32: f32 = measured_renderer.cell_height.into();
  
@@ -2987,9 +3018,6 @@
 -                        }
 -                        impl Dimensions for TermSize {
 -                            fn total_lines(&self) -> usize {
--                                self.rows
--                            }
--                            fn screen_lines(&self) -> usize {
 -                                self.rows
 +                        // Match Zed: next_up before floor so f32 noise under fractional
 +                        // scaling does not drop the last row/column.
@@ -3036,14 +3064,17 @@
 +                            if cols_changed {
 +                                view.clear_pinned_selection();
                              }
--                            fn columns(&self) -> usize {
--                                self.cols
+-                            fn screen_lines(&self) -> usize {
+-                                self.rows
 +                            if needs_resize {
 +                                if let Some(ref callback) = resize_callback {
 +                                    callback(cols, rows);
 +                                }
 +                                view.state.resize(cols, rows);
                              }
+-                            fn columns(&self) -> usize {
+-                                self.cols
+-                            }
 -                            fn last_column(&self) -> alacritty_terminal::index::Column {
 -                                alacritty_terminal::index::Column(self.cols.saturating_sub(1))
 -                            }
@@ -3141,7 +3172,7 @@
                      },
                  )
                  .size_full(),
-@@ -998,5 +1917,20 @@
+@@ -998,5 +1917,20 @@ impl Render for TerminalView {
      }
  }
  
