@@ -10,10 +10,12 @@
   python3,
   coreutils,
   findutils,
+  runCommandLocal,
   cmake,
   ninja,
   pkg-config,
   extract-xiso,
+  unzip,
   gtk3,
   libx11,
   libxcb,
@@ -36,11 +38,24 @@
     url = "https://ia800405.us.archive.org/8/items/skate-3_202405/Skate%203.iso";
     hash = "sha256-0hsrtoSG2No9Txw1y0jIS7jiKp9s1FVTIwA8JJAqDD8=";
   },
-  # Required: the recompiled code is generated against the Title Update 3
-  # payloads (Skate 3 title 454108E6, 3.0.0.0 -> 3.0.3.0), and the codegen
-  # patches do not apply to the base disc image alone. E.g.
-  #   titleUpdatePackage = /path/to/TU_12K2276_000000C000000.00000000000O3;
-  titleUpdatePackage ? null,
+  # The codegen patches are written against the Title Update 3 payloads (Skate 3
+  # title 454108E6, 3.0.0.0 -> 3.0.3.0) and do not apply to the base disc image
+  # alone. The default archive carries both TU3 and TU4; only the TU3 STFS
+  # container is unpacked from it. Override either input to use your own.
+  titleUpdateZip ? fetchurl {
+    name = "Skate3TU4_TU3.zip";
+    url = "https://web.archive.org/web/20261125184301if_/https://download.digiex.net/Consoles/Xbox360/TitleUpdates/Skate3TU4_TU3.zip";
+    hash = "sha256-9SoKCNnaIzkpHvbBcRKWRgAzrwG4o9eocBhOc1dOSVw=";
+  },
+  titleUpdatePackage ?
+    runCommandLocal "TU_12K2276_000000C000000.00000000000O3"
+      {
+        nativeBuildInputs = [ unzip ];
+      }
+      ''
+        unzip -p ${titleUpdateZip} TU_12K2276_000000C000000.00000000000O3 > $out
+        chmod 444 $out
+      '',
 }:
 
 let
