@@ -3,17 +3,17 @@
 { fetchurl, stdenv }:
 
 let
-  version = "2.8.0";
+  version = "2.9.0";
   sources = {
     "x86_64-linux" = {
       name = "antigravity-ide.tar.gz";
-      url = "https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/2.8.0-6733682917113856/linux-x64/Antigravity%20IDE.tar.gz";
-      hash = "sha256-e6o2uqsoXLRhAa+Vi4975jBUWNuaRNiz0JONYfOFl9c=";
+      url = "https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/2.9.0-4671306730438656/linux-x64/Antigravity%20IDE.tar.gz";
+      hash = "sha256-8Bk98lWONf+Y+v6CmlwxihrglXlCNDWX65+XCY4nayM=";
     };
     "aarch64-linux" = {
       name = "antigravity-ide.tar.gz";
-      url = "https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/2.8.0-6733682917113856/linux-arm/Antigravity%20IDE.tar.gz";
-      hash = "sha256-2Phc5AMGWHqAp0eK9N6FyxC4PPJt2RebkCr6mTP8+fI=";
+      url = "https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/2.9.0-4671306730438656/linux-arm/Antigravity%20IDE.tar.gz";
+      hash = "sha256-OpJuMeW820b50NrON9m6SCQ0J9SFGLfqd51rh1li3go=";
     };
   };
   source =
