@@ -20,13 +20,13 @@
   writeShellScript,
 }:
 let
-  version = "1.43.1";
+  version = "1.44.0";
 
   src = fetchFromGitHub {
     owner = "FaithBeam";
     repo = "stalker-gamma-cli";
     rev = version;
-    sha256 = "sha256-gTGuemiYFN/eLSlaUvTTBiGC7GCissyCasVaIyPIImw=";
+    sha256 = "sha256-lUL8Zsij/jKltaOmxW/gjS1x+xId1XH7jkmDOByU/wU=";
   };
 in
 {
