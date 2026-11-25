@@ -21,13 +21,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "scopebuddy";
-  version = "1.5.0";
+  version = "1.5.1";
 
   src = fetchFromGitHub {
     owner = "OpenGamingCollective";
     repo = "ScopeBuddy";
     tag = finalAttrs.version;
-    hash = "sha256-Z4KE6Qs5dcNdoEra1sx69I8EsxztAeVNGgO0ltYz7r0=";
+    hash = "sha256-+O+DifgDFLg0OEJPdFb6EcgfGmQu/uDycNWsTzDm+pc=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
