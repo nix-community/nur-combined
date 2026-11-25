@@ -1,6 +1,7 @@
 {
   lib,
   stdenv,
+  clangStdenv,
   stdenvNoCC,
   fetchFromGitHub,
   git,
@@ -11,6 +12,7 @@
   cmake,
   ninja,
   pkg-config,
+  extract-xiso,
   gtk3,
   xorg,
   # Skate 3 Recompiled+ contains no game code or data: the build recompiles
@@ -20,9 +22,14 @@
   #     defaultXex = /path/to/Skate3-disc/default.xex;
   #     eaWebkitXex = /path/to/Skate3-disc/data/webkit/EAWebkit.xex;
   #   }
+  # or hand it the disc image and let the build unpack those two files, e.g.
+  #   skate3recomp-plus.override { discImage = /path/to/Skate\ 3.iso; }
   defaultXex ? null,
   eaWebkitXex ? null,
-  # Optional Skate 3 Title Update 3 STFS package used for codegen, e.g.
+  discImage ? null,
+  # Required: the recompiled code is generated against the Title Update 3
+  # payloads (Skate 3 title 454108E6, 3.0.0.0 -> 3.0.3.0), and the codegen
+  # patches do not apply to the base disc image alone. E.g.
   #   titleUpdatePackage = /path/to/TU_12K2276_000000C000000.00000000000O3;
   titleUpdatePackage ? null,
 }:
@@ -52,9 +59,20 @@ let
     gameSrc = src;
   };
 
+  # The SDK pulls freetype in with FetchContent at configure time. The sandbox
+  # has no network, so it gets the same tag as a pinned source directory.
+  freetypeSrc = fetchFromGitHub {
+    owner = "freetype";
+    repo = "freetype";
+    tag = "VER-2-13-3";
+    hash = "sha256-4l90lDtpgm5xlh2m7ifrqNy373DTRTULRkAzicrM93c=";
+  };
+
   python = python3.withPackages (ps: [ ps.numpy ]);
 in
-stdenv.mkDerivation {
+# The rexglue SDK refuses to configure with anything but Clang 18 or newer, so
+# the build uses clangStdenv even where the default stdenv is GCC.
+clangStdenv.mkDerivation {
   pname = "skate3recomp-plus";
   inherit version src;
 
@@ -63,7 +81,8 @@ stdenv.mkDerivation {
     ninja
     pkg-config
     python
-  ];
+  ]
+  ++ lib.optional (discImage != null) extract-xiso;
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     gtk3
@@ -73,9 +92,21 @@ stdenv.mkDerivation {
 
   # sdk.nix applies the fork's SDK patch and stores the tree without git
   # metadata, so the configure-time "is the patch applied" check cannot run.
+  # The SDK is also a git submodule the release tarball leaves empty, and some
+  # of its sources are listed by their submodule path rather than through
+  # REXSDK_DIR, so put our patched tree in the submodule's place. It is copied
+  # rather than linked because the SDK's build links its own libraries into
+  # ${REXSDK_DIR}/out, which a store path does not allow.
   postPatch = ''
     substituteInPlace cmake/RexGlue.cmake \
       --replace-fail 'if(NOT _skate3_sdk_patch_result EQUAL 0)' 'if(FALSE)'
+    rm -rf third_party/rexglue-sdk
+    cp -a ${sdk} third_party/rexglue-sdk
+    chmod -R u+w third_party/rexglue-sdk
+    # The recompiler segfaults while exiting (its cvar registrars unregister
+    # after the registry is destroyed), which fails every codegen target even
+    # though the code was written. See the patch for the fix.
+    patch -p1 -d third_party/rexglue-sdk --input ${./rexglue-cli-skip-static-dtors.patch}
   '';
 
   dontConfigure = true;
@@ -85,20 +116,43 @@ stdenv.mkDerivation {
   buildPhase = ''
     runHook preBuild
 
-    ${lib.optionalString (defaultXex == null || eaWebkitXex == null) ''
+    ${lib.optionalString (discImage == null && (defaultXex == null || eaWebkitXex == null)) ''
       echo "skate3recomp-plus: the build recompiles the game from your own Skate 3 disc." >&2
-      echo "Extract the disc and override the package with the two executables:" >&2
+      echo "Override the package with the disc image, or with the two executables" >&2
+      echo "from an extracted disc:" >&2
+      echo "  nix build --impure --expr 'with import ./. {}; skate3recomp-plus.override {" >&2
+      echo "    discImage = /path/to/Skate\ 3.iso; }'" >&2
       echo "  nix build --impure --expr 'with import ./. {}; skate3recomp-plus.override {" >&2
       echo "    defaultXex = /path/to/Skate3-disc/default.xex;" >&2
       echo "    eaWebkitXex = /path/to/Skate3-disc/data/webkit/EAWebkit.xex; }'" >&2
       exit 1
     ''}
 
+    ${lib.optionalString (titleUpdatePackage == null) ''
+      echo "skate3recomp-plus: codegen is generated against the Title Update 3 payloads" >&2
+      echo "(Skate 3 title 454108E6, 3.0.0.0 -> 3.0.3.0), so the TU3 package is required;" >&2
+      echo "its patches do not apply to the base disc image. Override the package with" >&2
+      echo "your own TU3 package:" >&2
+      echo "  skate3recomp-plus.override {" >&2
+      echo "    titleUpdatePackage = /path/to/TU_12K2276_000000C000000.00000000000O3; }" >&2
+      exit 1
+    ''}
+
     # Only these two files are read at build time; the game's assets are
     # installed at run time from the player's own disc.
     mkdir -p game/data/webkit
-    install -m444 ${toString defaultXex} game/default.xex
-    install -m444 ${toString eaWebkitXex} game/data/webkit/EAWebkit.xex
+    ${lib.optionalString (discImage != null) ''
+      # extract-xiso has no single-file mode, so unpack the disc and keep only
+      # the two executables the recompiler reads.
+      extract-xiso -q -x -d disc ${toString discImage}
+      install -m444 disc/default.xex game/default.xex
+      install -m444 disc/data/webkit/EAWebkit.xex game/data/webkit/EAWebkit.xex
+      rm -rf disc
+    ''}
+    ${lib.optionalString (discImage == null) ''
+      install -m444 ${toString defaultXex} game/default.xex
+      install -m444 ${toString eaWebkitXex} game/data/webkit/EAWebkit.xex
+    ''}
 
     ${lib.optionalString (titleUpdatePackage != null) ''
       install -m444 ${toString titleUpdatePackage} ./TU_12K2276_000000C000000.00000000000O3
@@ -107,11 +161,12 @@ stdenv.mkDerivation {
     cmake_args=(
       -G Ninja
       -DCMAKE_BUILD_TYPE=RelWithDebInfo
-      -DREXSDK_DIR=${sdk}
+      -DREXSDK_DIR="$PWD/third_party/rexglue-sdk"
       -DREXGLUE_USE_VULKAN=ON
       -DREXGLUE_ENABLE_TRACY=OFF
       -DSKATE3_GAME_DATA_ROOT="$PWD/game"
       -DSKATE3_STAGE_INSTALLER=OFF
+      -DFETCHCONTENT_SOURCE_DIR_FREETYPE=${freetypeSrc}
       -DPython3_EXECUTABLE=${python}/bin/python3
     )
     ${lib.optionalString (titleUpdatePackage != null) ''

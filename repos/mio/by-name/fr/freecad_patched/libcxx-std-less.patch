@@ -1,0 +1,49 @@
+Add the less-than operators that libc++ 22 requires for its transparent
+std::less lookups. The existing std::less specializations are kept because
+FreeCAD 1.1.4 still ships this header unchanged for libstdc++ builds.
+
+diff --git a/src/Mod/Sketcher/App/GeoEnum.h b/src/Mod/Sketcher/App/GeoEnum.h
+--- a/src/Mod/Sketcher/App/GeoEnum.h
++++ b/src/Mod/Sketcher/App/GeoEnum.h
+@@ -122,6 +122,10 @@ class SketcherExport GeoElementId
+      */
+     bool operator!=(const GeoElementId& obj) const;
+ 
++    /** @brief strict weak ordering for use as a key in ordered containers
++     */
++    bool operator<(const GeoElementId& obj) const;
++
+     /** @brief Underlying GeoId (see GeoEnum for definition)
+      */
+     int GeoId;
+@@ -154,7 +158,13 @@ inline int GeoElementId::posIdAsInt() const
+ 
+     return static_cast<int>(Pos);
+ }
+ 
++inline bool GeoElementId::operator<(const GeoElementId& obj) const
++{
++    return (GeoId != obj.GeoId) ? (GeoId < obj.GeoId)
++                                : (static_cast<int>(Pos) < static_cast<int>(obj.Pos));
++}
++
+ #ifndef FC_OS_WIN32
+ constexpr const GeoElementId GeoElementId::RtPnt = GeoElementId(GeoEnum::RtPnt, PointPos::start);
+ constexpr const GeoElementId GeoElementId::HAxis = GeoElementId(GeoEnum::HAxis, PointPos::none);
+diff --git a/src/Mod/Sketcher/Gui/EditModeCoinManagerParameters.h b/src/Mod/Sketcher/Gui/EditModeCoinManagerParameters.h
+--- a/src/Mod/Sketcher/Gui/EditModeCoinManagerParameters.h
++++ b/src/Mod/Sketcher/Gui/EditModeCoinManagerParameters.h
+@@ -231,6 +231,13 @@ public:
+             || this->geoTypeId != obj.geoTypeId;
+     }
+ 
++    // Orders by layer, then field index; geoTypeId does not take part.
++    inline bool operator<(const MultiFieldId& obj) const
++    {
++        return (this->layerId != obj.layerId) ? (this->layerId < obj.layerId)
++                                              : (this->fieldIndex < obj.fieldIndex);
++    }
++
+     int fieldIndex = -1;
+     int layerId = 0;
+     int geoTypeId = 0;

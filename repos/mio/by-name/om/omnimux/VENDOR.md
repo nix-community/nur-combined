@@ -180,7 +180,7 @@ from that PR omitted (`KeyDownEvent` lacks the fields it needs).
 - Register bundled fonts with `CTFontManagerRegisterGraphicsFont`.
 - Treat Symbols Nerd Font like Segoe Fluent Icons for the `m`-glyph load gate.
 
-`gpui-component` 0.7.1 is used from crates.io (maximized window-border guard is upstream).
+`gpui-component` 0.7.2 is used from crates.io (maximized window-border guard is upstream).
 Default theme still ships a `drag_border` JSON key while schema expects `drag.border`;
 serde ignores the typo and falls back to `primary` — acceptable, not worth re-vendoring
 the whole crate for.

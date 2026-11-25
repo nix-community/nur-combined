@@ -61,7 +61,11 @@ stdenvNoCC.mkDerivation {
     python3 ${gameSrc}/tools/apply_sdk_patches.py --sdk sdk
     git -C sdk submodule update --init --recursive
 
-    ${findutils}/bin/find sdk -name .git -prune -exec rm -rf {} +
+    # Drop the superproject's .git directory (indexes, reflogs and checkout
+    # timestamps would make the same clone hash differently on every run) but
+    # keep the submodules' .git files: the SDK's configure step refuses to run
+    # without them, and they only hold a relative gitdir path.
+    ${findutils}/bin/find sdk -name .git -type d -prune -exec rm -rf {} +
     ${findutils}/bin/find sdk \( -name '*.pyc' -o -name __pycache__ -o -name FETCH_HEAD -o -name ORIG_HEAD \) -prune -exec rm -rf {} +
     ${findutils}/bin/find sdk -exec ${coreutils}/bin/touch -h -d @1 {} +
 
@@ -77,7 +81,7 @@ stdenvNoCC.mkDerivation {
 
   outputHashMode = "recursive";
   outputHashAlgo = "sha256";
-  outputHash = "sha256-Y1HhY9xrY44faeLAMf4EkIyEnc7pTfwgplTAMa7SkWs=";
+  outputHash = "sha256-R4ibeHk/YgXbgaGDCNHDlQNiNSc0dKOWI2ve+9NnK38=";
 
   meta = {
     description = "rexglue SDK fork patched for Skate 3 Recompiled+";
