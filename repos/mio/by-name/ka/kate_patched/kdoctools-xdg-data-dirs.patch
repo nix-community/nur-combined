@@ -1,0 +1,24 @@
+--- a/src/xslt.cpp
++++ b/src/xslt.cpp
+@@ -380,6 +380,21 @@
+     const QString fileName = QStringLiteral("kf6/kdoctools/") + file;
+     QStringList result = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, fileName, option);
+ 
++    // Qt's macOS QStandardPaths ignores XDG_DATA_DIRS, but nixpkgs wraps its
++    // Qt tools with XDG_DATA_DIRS pointing at the packages whose resources
++    // they need. Honor it here so the installed kdoctools catalogs are found.
++    const QStringList dataDirs =
++        QString::fromLocal8Bit(qgetenv("XDG_DATA_DIRS")).split(QLatin1Char(':'), Qt::SkipEmptyParts);
++    for (const QString &dataDir : dataDirs) {
++        const QString candidate = dataDir + QLatin1Char('/') + fileName;
++        const QFileInfo info(candidate);
++        if (option == QStandardPaths::LocateFile && info.isFile()) {
++            result.append(info.absoluteFilePath());
++        } else if (option == QStandardPaths::LocateDirectory && info.isDir()) {
++            result.append(info.absoluteFilePath());
++        }
++    }
++
+     // fallback to stuff installed with KDocTools
+     const QFileInfo fileInInstallDataDir(QStringLiteral(KDOCTOOLS_INSTALL_DATADIR_KF) + QStringLiteral("/kdoctools/") + file);
+     if (fileInInstallDataDir.exists()) {

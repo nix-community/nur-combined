@@ -9,7 +9,7 @@
   buildNpmPackage,
   nix-update-script,
   nodejs_22,
-  electron_41,
+  electron_43,
   makeShellWrapper,
   copyDesktopItems,
   makeDesktopItem,
@@ -22,7 +22,7 @@
 }:
 
 let
-  electron = electron_41;
+  electron = electron_43;
   nodejs = nodejs_22;
 in
 buildNpmPackage (finalAttrs: {
