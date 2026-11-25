@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
   pnpmDeps = fetchPnpmDeps {
     fetcherVersion = 4;
     inherit pname version src patches;
-    hash = "sha256-141XxVmSZNbRJaqFNSP0eA0F61QOuZUBhjdSmAVdS+g=";
+    hash = "sha256-gmcQSfGPqo8rukHfTwb5znwcRbXpNi8QSR/LpMpWzt4=";
   };
 
   meta = {
