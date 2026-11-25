@@ -2,6 +2,8 @@
 
 A blink reminder for the desktop. At regular intervals it closes the screen like an eyelid — two black bars sweep in from the top and bottom and meet in the middle, then open again — as a cue to rest the eyes. A `fill` movement covers the whole screen at once instead of sweeping.
 
+The name is German for "moment", literally "glance of the eye"; in Heidegger it denotes the "moment of vision".
+
 https://github.com/user-attachments/assets/7a6bac03-1e11-4abc-9f07-983a7cfbc963
 
 https://github.com/user-attachments/assets/7e22e591-1fbe-4ca1-9e5e-e41ee1ef960b
