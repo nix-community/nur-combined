@@ -433,6 +433,15 @@ fetch = { type = "github", repo = "svkozak/pi-acp", rev = "{version}" }
 kind = "npm-deps"
 strategy = "lockfile"
 
+[packages.pi-ask]
+version = { source = "github-release", repo = "eko24ive/pi-ask" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "eko24ive/pi-ask", rev = "{version}" }
+
+[packages.pi-ask.derive.pnpmDepsHash]
+strategy = "fod"
+attr = ".#pi-ask.pnpmDeps"
+
 [packages.pi-ast-sgrep]
 version = { source = "github-release", repo = "AdityaVG13/ast-sgrep" }
 transform = ["strip-v"]

@@ -851,6 +851,24 @@
       },
       "fingerprint": "sha256-a+ZX2O2XKUh34ENKYHxrgXjE7Vi/nqYJ3R2a9AAuQ4s="
     },
+    "pi-ask": {
+      "version": "1.2.0",
+      "rawVersion": "v1.2.0",
+      "date": "2026-08-16",
+      "src": {
+        "fetcher": "github",
+        "owner": "eko24ive",
+        "repo": "pi-ask",
+        "rev": "v1.2.0",
+        "hash": "sha256-lHAJMmtlnZyHU+QYUOyAiwnksm+DBu1FPqXhhr9qPLo="
+      },
+      "derived": {
+        "pnpmDepsHash": {
+          "hash": "sha256-0Y4KzM6bdyiFhX+n+bxSSPDZW1gvoNx8slfVno41u5k="
+        }
+      },
+      "fingerprint": "sha256-iwHXrsiYoshwUdzzJpGu2ooRmJL8CyZETJNVi3xkqYw="
+    },
     "pi-ast-sgrep": {
       "version": "2.7.0",
       "rawVersion": "v2.7.0",
