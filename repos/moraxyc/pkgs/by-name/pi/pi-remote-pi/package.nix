@@ -65,6 +65,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     rm -rf "$out/lib/${finalAttrs.pname}/node_modules/.bin" \
       "$out/lib/${finalAttrs.pname}/node_modules/.modules.yaml" \
       "$out/lib/${finalAttrs.pname}/node_modules/.pnpm/lock.yaml"
+    node ${./fixup-host-deps.mjs} "$out/lib/${finalAttrs.pname}"
     grep -rlI '^#!/nix/store/' "$out/lib/${finalAttrs.pname}" \
       | xargs -r sed -i '1s|^#!/nix/store/[^/]*/bin/node$|#!/usr/bin/env node|'
 
@@ -73,11 +74,23 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       "$out/lib/${finalAttrs.pname}/dist/bin/supervisord.js"
 
     makeWrapper ${lib.getExe nodejs-slim} $out/bin/remote-pi \
+      --add-flags "--import" \
+      --add-flags "$out/lib/${finalAttrs.pname}/cli-stub-loader.mjs" \
       --add-flags "$out/lib/${finalAttrs.pname}/dist/index.js"
     makeWrapper ${lib.getExe nodejs-slim} $out/bin/pi-supervisord \
       --add-flags "$out/lib/${finalAttrs.pname}/dist/bin/supervisord.js"
 
     runHook postInstall
+  '';
+
+  doInstallCheck = true;
+  installCheckPhase = ''
+    runHook preInstallCheck
+
+    HOME="$TMPDIR" "$out/bin/remote-pi" --help >/dev/null
+    "$out/bin/pi-supervisord" --help >/dev/null
+
+    runHook postInstallCheck
   '';
 
   disallowedReferences = [ nodejs ];
