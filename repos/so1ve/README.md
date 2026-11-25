@@ -42,7 +42,8 @@ Ray's personal [NUR](https://github.com/nix-community/NUR) repository
 | `xwayland-satellite` | [Upstream](https://github.com/Supreeeme/xwayland-satellite) |
 | `yanhekt-autoslides` | [Upstream](https://github.com/BIT-Admin/Yanhekt-AutoSlides) |
 | `winboat-unstable` | [Usage](pkgs/winboat-unstable/README.md) |
-| `yesplaymusic` | [Upstream](https://github.com/qier222/YesPlayMusic) |
+| `yesplaymusic` | [Usage](pkgs/yesplaymusic/README.md) |
+| `yesplaymusic-plugins` | [Plugin catalog and updates](pkgs/yesplaymusic-plugins/README.md) |
 
 ## [NUR](https://github.com/nix-community/NUR)
 

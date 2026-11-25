@@ -1,0 +1,32 @@
+{
+  "emby": {
+    "repository": "qier222/ypm-plugin-emby",
+    "description": "Official Emby music source plugin for YesPlayMusic 3.0",
+    "license": "mit"
+  },
+  "jellyfin": {
+    "repository": "qier222/ypm-plugin-jellyfin",
+    "description": "Official Jellyfin music source plugin for YesPlayMusic 3.0",
+    "license": "mit"
+  },
+  "netease": {
+    "repository": "lymzzyh/ypm-plugin-netease",
+    "description": "NetEase Cloud Music source plugin for YesPlayMusic 3.0",
+    "license": "mit"
+  },
+  "plex": {
+    "repository": "qier222/ypm-plugin-plex",
+    "description": "Official Plex Media Server music source plugin for YesPlayMusic 3.0",
+    "license": "mit"
+  },
+  "qqmusic": {
+    "repository": "lymzzyh/ypm-plugin-qqmusic",
+    "description": "QQ Music source plugin for YesPlayMusic 3.0",
+    "license": "mit"
+  },
+  "subsonic": {
+    "repository": "qier222/ypm-plugin-subsonic",
+    "description": "Official Subsonic / Navidrome music source plugin for YesPlayMusic 3.0",
+    "license": "mit"
+  }
+}

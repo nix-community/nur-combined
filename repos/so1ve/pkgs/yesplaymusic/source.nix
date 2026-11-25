@@ -3,11 +3,11 @@
 { fetchurl, stdenv }:
 
 let
-  version = "0.4.11";
+  version = "3.0.0";
   sources = {
     "x86_64-linux" = {
-      url = "https://github.com/qier222/YesPlayMusic/releases/download/v0.4.11/YesPlayMusic-0.4.11.AppImage";
-      hash = "sha256-4aAT7x1/+N0fdG7DvsdZqLT6aYfwdsuQpHfcB/EaErc=";
+      url = "https://github.com/qier222/YesPlayMusic/releases/download/v3.0.0/YesPlayMusic-3.0.0-linux-x64.tar.gz";
+      hash = "sha256-+rb4BxNye3AJ5HW4y3QBF95YrkNQuAWegWzAnLA4GgM=";
     };
   };
   source =

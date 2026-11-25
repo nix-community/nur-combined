@@ -1,0 +1,44 @@
+{
+  "emby": {
+    "id": "emby",
+    "version": "0.1.0",
+    "rev": "32958108cb5e5ff4c73b8a1d0ab12659438ef586",
+    "url": "https://codeload.github.com/qier222/ypm-plugin-emby/tar.gz/32958108cb5e5ff4c73b8a1d0ab12659438ef586",
+    "hash": "sha256-tL4+reOL9xtzuzMYZU6qm9+OfjcyVX2KrP4URjx5gRg="
+  },
+  "jellyfin": {
+    "id": "jellyfin",
+    "version": "0.1.0",
+    "rev": "8fdc2f9f8a624cb78e59e31b56c3fdb205b18432",
+    "url": "https://codeload.github.com/qier222/ypm-plugin-jellyfin/tar.gz/8fdc2f9f8a624cb78e59e31b56c3fdb205b18432",
+    "hash": "sha256-tzbth0ph00btGlPEZuIekUJ6J+cuE9Jo4qu1sPdjEUg="
+  },
+  "netease": {
+    "id": "netease",
+    "version": "1.2.0",
+    "rev": "15622912b676dd421cbd00eec53fcc0bd75f093b",
+    "url": "https://codeload.github.com/lymzzyh/ypm-plugin-netease/tar.gz/15622912b676dd421cbd00eec53fcc0bd75f093b",
+    "hash": "sha256-SJ82OCx/WO4rmz/hbiFljqpal5C0x8lPeoEWcU8R7tE="
+  },
+  "plex": {
+    "id": "plex",
+    "version": "0.1.0",
+    "rev": "55e613adbc81ad0b17714e89712407c9fe9f335d",
+    "url": "https://codeload.github.com/qier222/ypm-plugin-plex/tar.gz/55e613adbc81ad0b17714e89712407c9fe9f335d",
+    "hash": "sha256-MT3Qm/iD5e4rx15jLtyfa9BLmy15k53wg49HaqCJ09s="
+  },
+  "qqmusic": {
+    "id": "qqmusic",
+    "version": "0.2.0",
+    "rev": "f8956a0d8087b610bd66e5d288242ae7f2f6182b",
+    "url": "https://codeload.github.com/lymzzyh/ypm-plugin-qqmusic/tar.gz/f8956a0d8087b610bd66e5d288242ae7f2f6182b",
+    "hash": "sha256-/1kh323phfg+rOKiTlDOTD8MN2FGHO9OJ2r5+mBOuPM="
+  },
+  "subsonic": {
+    "id": "subsonic",
+    "version": "0.1.0",
+    "rev": "dbd089b0f114d0761bdb76f15422424e431890ef",
+    "url": "https://codeload.github.com/qier222/ypm-plugin-subsonic/tar.gz/dbd089b0f114d0761bdb76f15422424e431890ef",
+    "hash": "sha256-gaT3HAmIv7/jsBU7T9uXbN+GFDHfEc4a0DAq8kBbcd4="
+  }
+}

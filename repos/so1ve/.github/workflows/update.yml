@@ -103,7 +103,7 @@ jobs:
   validate:
     if: needs.prepare.outputs.changed == 'true'
     needs: prepare
-    name: Validate ${{ matrix.package }} (${{ matrix.target.system }})
+    name: Validate and Build ${{ matrix.package }} (${{ matrix.target.system }})
     permissions:
       contents: read
       id-token: write

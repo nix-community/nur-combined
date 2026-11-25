@@ -1,34 +1,34 @@
 {
   lib,
   buildNpmPackage,
+  callPackage,
   deepseek-harness,
-  fetchzip,
   nodejs_24,
 }:
 
 let
+  pluginLib = callPackage ../../lib/plugins.nix { };
   catalog = import ./catalog.nix { inherit lib; };
-  manifest = builtins.fromJSON (builtins.readFile ./manifest.json);
 in
-lib.recurseIntoAttrs (
-  lib.mapAttrs (
-    name: plugin:
+pluginLib.mkPluginSet {
+  inherit catalog;
+  manifestPath = ./manifest.json;
+  filter = _: plugin: !plugin.bundled;
+
+  buildPlugin =
+    {
+      name,
+      plugin,
+      source,
+    }:
     let
-      source = manifest.${name};
       fromGit = lib.hasPrefix "github:" name;
     in
     buildNpmPackage {
       pname = lib.strings.sanitizeDerivationName plugin.packageName;
       inherit (source) version;
 
-      src =
-        if fromGit then
-          fetchzip {
-            inherit (source) url hash;
-            extension = "tar.gz";
-          }
-        else
-          ./locks + "/${plugin.packageName}";
+      src = if fromGit then pluginLib.fetchGitHubArchive source else ./locks + "/${plugin.packageName}";
 
       nodejs = nodejs_24;
       inherit (source) npmDepsHash;
@@ -127,6 +127,5 @@ lib.recurseIntoAttrs (
         license = lib.licenses.${plugin.license};
         platforms = deepseek-harness.meta.platforms;
       };
-    }
-  ) (lib.filterAttrs (_: plugin: !plugin.bundled) catalog)
-)
+    };
+}

@@ -11,8 +11,11 @@ let
 in
 packages
 // {
-  dsh-plugins = pkgs.callPackage ./pkgs/dsh-plugins { inherit (packages) deepseek-harness; };
   hmcl = pkgs.hmcl.override { inherit (packages) terracotta; };
+  dsh-plugins = pkgs.callPackage ./pkgs/dsh-plugins { inherit (packages) deepseek-harness; };
+  yesplaymusic = pkgs.callPackage ./pkgs/yesplaymusic {
+    inherit (packages) yesplaymusic-plugins;
+  };
 
   homeModules = import ./home-modules;
   nixosModules = import ./nixos-modules;

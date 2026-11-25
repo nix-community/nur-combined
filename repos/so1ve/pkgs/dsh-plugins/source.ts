@@ -1,12 +1,16 @@
 import * as fs from "node:fs/promises";
-import { defineSource, github, npm, tempDir } from "nix-repin";
+import { defineSource, npm, tempDir } from "nix-repin";
+import {
+  cooldownCutoff,
+  fetchGitHubCommitArchive,
+  formatJson,
+  parseGitHubSource,
+} from "../../lib/plugin-sources.ts";
 import catalog from "./catalog.json" with { type: "json" };
-
-const json = (value: unknown) => `${JSON.stringify(value, null, 2)}\n`;
 
 export default defineSource(async () => {
   // Delay npm releases and dependencies by 24 hours; Git uses commit dates.
-  const before = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+  const before = cooldownCutoff(24);
   const files: Record<string, string> = {};
   const manifest: Record<string, unknown> = {};
 
@@ -14,17 +18,13 @@ export default defineSource(async () => {
     // Built-in bundles are already pinned by the host's package-lock.json.
     if ("bundled" in plugin && plugin.bundled) continue;
 
-    if (source.startsWith("github:")) {
-      const repository = source.slice("github:".length);
-      const { rev } = await github.latestCommit({
+    const repository = parseGitHubSource(source);
+    if (repository !== null) {
+      const { rev, url, hash, storePath } = await fetchGitHubCommitArchive({
         repository,
         branch: "branch" in plugin ? plugin.branch : undefined,
         before,
       });
-      const { url, hash, storePath } = await github.prefetchArchive(
-        repository,
-        rev,
-      );
 
       const metadata = JSON.parse(
         await fs.readFile(`${storePath}/package.json`, "utf8"),
@@ -62,7 +62,7 @@ export default defineSource(async () => {
       dependencies: { [packageName]: "latest" },
     };
 
-    await fs.writeFile(`${tmp.path}/package.json`, json(packageJson));
+    await fs.writeFile(`${tmp.path}/package.json`, formatJson(packageJson));
     await npm.writeLock(tmp.path, { before, legacyPeerDeps: true });
 
     const lock = JSON.parse(await fs.readFile(lockPath, "utf8"));
@@ -85,16 +85,16 @@ export default defineSource(async () => {
       lock.packages[`node_modules/${packageName}`];
     packageJson.dependencies[packageName] = version;
     lock.packages[""].dependencies = packageJson.dependencies;
-    const lockContents = json(lock);
+    const lockContents = formatJson(lock);
     await fs.writeFile(lockPath, lockContents);
     const npmDepsHash = await npm.hash(lockPath);
 
     manifest[source] = { version, url, integrity, npmDepsHash };
-    files[`locks/${packageName}/package.json`] = json(packageJson);
+    files[`locks/${packageName}/package.json`] = formatJson(packageJson);
     files[`locks/${packageName}/package-lock.json`] = lockContents;
   }
 
-  files["manifest.json"] = json(manifest);
+  files["manifest.json"] = formatJson(manifest);
 
   return files;
 });

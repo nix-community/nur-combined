@@ -2,11 +2,11 @@
   callPackage,
   deepseek-harness,
   lib,
-  runCommand,
   writeText,
 }:
 
 let
+  pluginLib = callPackage ../../lib/plugins.nix { };
   host = callPackage ./purge-host.nix { inherit deepseek-harness; };
   plugins = lib.filterAttrs (_: lib.isDerivation) (callPackage ./. { deepseek-harness = host; });
   names = lib.remove "github:kingcharleslzy-ai/dsh-purge" (builtins.attrNames plugins) ++ [
@@ -33,32 +33,35 @@ let
     }
   );
 in
-runCommand "dsh-plugins" { } ''
-  export DSH_HOME="$TMPDIR/dsh-check"
-  profile="$DSH_HOME/profiles/web"
+pluginLib.mkPluginCollection {
+  name = "dsh-plugins";
+  inherit plugins;
+  extraLinks = {
+    deepseek-harness-purge = host;
+  };
+  extraCheck = ''
+    export DSH_HOME="$TMPDIR/dsh-check"
+    profile="$DSH_HOME/profiles/web"
 
-  mkdir -p "$out" "$profile"
-  ln -s ${host} "$out/deepseek-harness-purge"
-  ln -s ${profile} "$profile/package.json"
+    mkdir -p "$profile"
+    ln -s ${profile} "$profile/package.json"
 
-  ${lib.concatMapStringsSep "\n" (name: ''
-    mkdir -p "$profile/node_modules/${builtins.dirOf plugins.${name}.packageName}"
-    ln -s ${plugins.${name}}/lib/node_modules/${plugins.${name}.packageName} \
-      "$profile/node_modules/${plugins.${name}.packageName}"
+    ${lib.concatMapStringsSep "\n" (name: ''
+      mkdir -p "$profile/node_modules/${builtins.dirOf plugins.${name}.packageName}"
+      ln -s ${plugins.${name}}/lib/node_modules/${plugins.${name}.packageName} \
+        "$profile/node_modules/${plugins.${name}.packageName}"
+    '') names}
 
-    mkdir -p "$out/${builtins.dirOf name}"
-    ln -s ${plugins.${name}} "$out/${name}"
-  '') names}
+    ${host}/bin/dsh --profile web --dump-config > /dev/null
+    ${host}/bin/dsh --profile web --help > /dev/null 2> "$TMPDIR/boot.log"
 
-  ${host}/bin/dsh --profile web --dump-config > /dev/null
-  ${host}/bin/dsh --profile web --help > /dev/null 2> "$TMPDIR/boot.log"
+    # purge-host.nix already verifies patch anchors at build time; ignore
+    # dsh-purge-community's advisory notice for unlisted DSH RC versions.
+    grep -v '^\[dsh-purge-community\] DSH .* 未在已验证清单内' "$TMPDIR/boot.log" > "$TMPDIR/boot-errors.log" || true
 
-  # purge-host.nix already verifies patch anchors at build time; ignore
-  # dsh-purge-community's advisory notice for unlisted DSH RC versions.
-  grep -v '^\[dsh-purge-community\] DSH .* 未在已验证清单内' "$TMPDIR/boot.log" > "$TMPDIR/boot-errors.log" || true
-
-  if test -s "$TMPDIR/boot-errors.log"; then
-    cat "$TMPDIR/boot-errors.log" >&2
-    exit 1
-  fi
-''
+    if test -s "$TMPDIR/boot-errors.log"; then
+      cat "$TMPDIR/boot-errors.log" >&2
+      exit 1
+    fi
+  '';
+}

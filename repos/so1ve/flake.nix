@@ -95,6 +95,9 @@
           (
             repository
             // repository.dsh-plugins
+            // lib.mapAttrs' (name: plugin: lib.nameValuePair "yesplaymusic-plugin-${name}" plugin) (
+              lib.filterAttrs (_: lib.isDerivation) repository.yesplaymusic-plugins
+            )
             // {
               deepseek-harness-purge = pkgs.callPackage ./pkgs/dsh-plugins/purge-host.nix {
                 deepseek-harness = repository.deepseek-harness;
@@ -102,6 +105,10 @@
 
               dsh-plugins = pkgs.callPackage ./pkgs/dsh-plugins/collection.nix {
                 deepseek-harness = repository.deepseek-harness;
+              };
+
+              yesplaymusic-plugins = pkgs.callPackage ./pkgs/yesplaymusic-plugins/collection.nix {
+                inherit (repository) yesplaymusic;
               };
             }
           )
