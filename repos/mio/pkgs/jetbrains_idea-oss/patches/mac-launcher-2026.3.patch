@@ -1,0 +1,45 @@
+--- a/platform/build-scripts/src/org/jetbrains/intellij/build/impl/MacDistributionBuilder.kt
++++ b/platform/build-scripts/src/org/jetbrains/intellij/build/impl/MacDistributionBuilder.kt
+@@ -284,10 +284,13 @@
+ 
+   private fun layoutMacCli(macDistDir: Path, arch: JvmArchitecture) {
+     val executable = context.productProperties.baseFileName
+-    val (execPath, licensePath) = NativeBinaryDownloader.getLauncher(context, OsFamily.MACOS, arch)
++    val execPath = Path.of("XPLAT_LAUNCHER_PREBUILT_PATH_HERE/macOS-${arch.archName}/xplat-launcher")
++    val licensePath = Path.of("XPLAT_LAUNCHER_PREBUILT_PATH_HERE/license/xplat-launcher-third-party-licenses.html")
+     val copy = macDistDir.resolve("bin/${executable}")
+     context.addExtraExecutablePattern(OsFamily.MACOS, "bin/${executable}")
+     copyFile(execPath, copy)
++    // The launcher may come from a read-only location (a store path); MachOUuid opens it for writing.
++    copy.toFile().setWritable(true)
+     MachOUuid(copy, customizer, context).patch()
+     copyFile(licensePath, macDistDir.resolve("license/launcher-third-party-libraries.html"))
+     macDistDir.resolve("Resources").createDirectories()
+@@ -296,9 +299,12 @@
+   private fun layoutMacApp(docTypes: String?, macDistDir: Path, arch: JvmArchitecture) {
+     copyDir(context.paths.communityHomeDir.resolve("platform/build-scripts/resources/mac/Contents"), macDistDir)
+ 
+-    val (execPath, licensePath) = NativeBinaryDownloader.getLauncher(context, OsFamily.MACOS, arch)
++    val execPath = Path.of("XPLAT_LAUNCHER_PREBUILT_PATH_HERE/macOS-${arch.archName}/xplat-launcher")
++    val licensePath = Path.of("XPLAT_LAUNCHER_PREBUILT_PATH_HERE/license/xplat-launcher-third-party-licenses.html")
+     val copy = macDistDir.resolve("MacOS/${context.productProperties.baseFileName}")
+     copyFile(execPath, copy)
++    // The launcher may come from a read-only location (a store path); MachOUuid opens it for writing.
++    copy.toFile().setWritable(true)
+     MachOUuid(copy, customizer, context).patch()
+     copyFile(licensePath, macDistDir.resolve("license/launcher-third-party-libraries.html"))
+ 
+--- a/platform/build-scripts/src/org/jetbrains/intellij/build/impl/macOS/MachOUuid.kt
++++ b/platform/build-scripts/src/org/jetbrains/intellij/build/impl/macOS/MachOUuid.kt
+@@ -93,6 +93,11 @@
+   }
+ 
+   fun patch() {
++    // Rewriting the UUID invalidates the signature of the file, so it is only done when the build signs
++    // it again. Without a signing step the binaries keep the signatures they were shipped with.
++    if (!context.isMacCodeSignEnabled) {
++      return
++    }
+     patchFile()
+     if (canBeSignedLocally) {
+       runProcess(listOf("codesign", "--sign", "-", "--force", executable.toString()), inheritOut = true)

@@ -1,6 +1,14 @@
 --- a/source/build.nix
 +++ b/source/build.nix
-@@ -31,6 +31,22 @@
+@@ -18,6 +18,7 @@
+   runCommand,
+   rustPlatform,
+   stdenvNoCC,
++  unzip,
+   # keep-sorted end
+ }:
+ {
+@@ -31,6 +32,40 @@
    mvnDeps,
    repositories,
    kotlin-jps-plugin,
@@ -20,10 +28,28 @@
 +  jpsBootstrapPatches ? [ ],
 +  jpsBootstrapJavaFlags ? [ ],
 +  copyM2Repo ? false,
++  # `jbr` is a JDK in the usual layout; a macOS JBR keeps it under Contents/Home.
++  jbrHome ? "${jbr}/lib/openjdk",
++  jbrJava ? "${jbr}/bin/java",
++  # The platform the distribution is built for.
++  targetOs ? "linux",
++  targetArch ? "x64",
++  buildStepsToSkip ? "mac_artifacts,mac_dmg,mac_sit,windows_exe_installer,windows_sign,repair_utility_bundle_step,sources_archive",
++  unixSnaps ? false,
++  # Nix builds the Linux native helpers (restarter, fsnotifier, libdbm) itself and
++  # stages them in the source tree. Other targets take prebuilt ones while packaging.
++  stageLinuxNativeBinaries ? true,
++  # A prebuilt JBR archive for the target platform. Packaging normally downloads it;
++  # with this set the sources read the store path instead.
++  bundledRuntime ? null,
++  # The build scripts resolve libraries from `$user.home/.m2/repository`. Some
++  # platforms get a user.home the build cannot write to (and that does not hold
++  # the copied repository), so they point the JVMs at the build directory.
++  jvmUserHome ? null,
  }:
  let
    kotlin' = kotlin.overrideAttrs (oldAttrs: {
-@@ -41,7 +57,7 @@
+@@ -41,7 +76,7 @@
      };
    });
  
@@ -32,7 +58,7 @@
  
    ideaSrc = fetchFromGitHub {
      owner = "jetbrains";
-@@ -99,8 +115,10 @@
+@@ -99,8 +134,10 @@
        makeWrapper
        # keep-sorted end
      ];
@@ -45,16 +71,23 @@
      buildPhase = ''
        runHook preBuild
  
-@@ -116,6 +134,7 @@
+@@ -115,7 +152,8 @@
+       mkdir -p $out/share/java/
        cp "$BUILD_HOME/jps-bootstrap.classes.jar" $out/share/java/jps-bootstrap.jar
        cp -r "$BUILD_HOME/jps-bootstrap.out.lib" $out/share/java/jps-bootstrap-classpath
-       makeWrapper ${jbr}/bin/java $out/bin/jps-bootstrap \
+-      makeWrapper ${jbr}/bin/java $out/bin/jps-bootstrap \
++      makeWrapper ${jbrJava} $out/bin/jps-bootstrap \
 +        ${lib.concatMapStringsSep " " (flag: "--add-flags ${lib.escapeShellArg flag}") jpsBootstrapJavaFlags} \
          --add-flags "-cp $out/share/java/jps-bootstrap-classpath/'*' org.jetbrains.jpsBootstrap.JpsBootstrapMain"
  
        runHook postInstall
-@@ -197,11 +216,13 @@
-   ];
+@@ -194,56 +232,92 @@
+     jps-bootstrap
+     p7zip
+     # keep-sorted end
+-  ];
++  ]
++  ++ lib.optional (targetOs == "mac") unzip;
    repo = mvnRepo;
  
 -  patches = [
@@ -72,7 +105,17 @@
  
    # Regarding brokenPlugins.json:
    #  We provide an empty brokenPlugins.json because the original file is 2.8 MB in size and can't be reliably
-@@ -214,7 +235,7 @@
+   #  downloaded without hash changes. The file is not important for the IDEs to function properly.
+   postPatch = ''
+-    cp ${restarter}/bin/restarter bin/linux/amd64/restarter
+-    cp ${fsnotifier}/bin/fsnotifier bin/linux/amd64/fsnotifier
+-    cp ${libdbm}/lib/libdbm.so bin/linux/amd64/libdbm.so
++    ${lib.optionalString stageLinuxNativeBinaries ''
++      cp ${restarter}/bin/restarter bin/linux/amd64/restarter
++      cp ${fsnotifier}/bin/fsnotifier bin/linux/amd64/fsnotifier
++      cp ${libdbm}/lib/libdbm.so bin/linux/amd64/libdbm.so
++    ''}
+ 
      substituteInPlace \
        platform/build-scripts/src/org/jetbrains/intellij/build/kotlin/KotlinCompilerDependencyDownloader.kt \
        --replace-fail 'JPS_PLUGIN_CLASSPATH_HERE' '${kotlin-jps-plugin-classpath}' \
@@ -80,8 +123,20 @@
 +      --replace-fail 'KOTLIN_PATH_HERE' '${kotlinc}'
      substituteInPlace \
        platform/build-scripts/downloader/src/org/jetbrains/intellij/build/dependencies/JdkDownloader.kt \
-       --replace-fail 'JDK_PATH_HERE' '${jbr}/lib/openjdk'
-@@ -228,18 +249,38 @@
+-      --replace-fail 'JDK_PATH_HERE' '${jbr}/lib/openjdk'
++      --replace-fail 'JDK_PATH_HERE' '${jbrHome}'
+     substituteInPlace \
+       platform/build-scripts/src/org/jetbrains/intellij/build/impl/brokenPlugins.kt \
+       --replace-fail 'BROKEN_PLUGINS_HERE' '${./brokenPlugins.json}'
+     substituteInPlace \
+       platform/build-scripts/src/org/jetbrains/intellij/build/impl/LinuxDistributionBuilder.kt \
+       --replace-fail 'XPLAT_LAUNCHER_PREBUILT_PATH_HERE' '${xplat-launcher}'
++    ${lib.optionalString (targetOs == "mac") ''
++      substituteInPlace \
++        platform/build-scripts/src/org/jetbrains/intellij/build/impl/MacDistributionBuilder.kt \
++        --replace-fail 'XPLAT_LAUNCHER_PREBUILT_PATH_HERE' '${xplat-launcher}'
++    ''}
+     substituteInPlace \
        build/deps/src/org/jetbrains/intellij/build/impl/BundledMavenDownloader.kt \
        --replace-fail 'MAVEN_REPO_HERE' '${mvnRepo}/.m2/repository/' \
        --replace-fail 'MAVEN_PATH_HERE' '${maven}/maven'
@@ -94,6 +149,11 @@
 +      find . -type f -name '*.iml' -exec sed -i \
 +        's|$KOTLIN_COMPOSE_COMPILER_PLUGIN$|${composeCompilerPlugin}|g' {} +
 +    ''}
++    ${lib.optionalString (bundledRuntime != null) ''
++      substituteInPlace \
++        platform/build-scripts/src/org/jetbrains/intellij/build/impl/BundledRuntimeImpl.kt \
++        --replace-fail 'JBR_ARCHIVE_HERE' '${bundledRuntime}'
++    ''}
  
      echo '${buildNumber}.SNAPSHOT' > build.txt
 +    ${extraPostPatch}
@@ -103,6 +163,7 @@
      runHook preConfigure
  
 -    ln -s "$repo"/.m2 ../.m2
++    ${lib.optionalString (jvmUserHome != null) ''export _JAVA_OPTIONS="-Duser.home=${jvmUserHome}"''}
 +    ${
 +      if copyM2Repo then
 +        ''
@@ -118,16 +179,51 @@
      jps-bootstrap \
        -Dbuild.number=${buildNumber} \
 -      -Djps.kotlin.home=${kotlin'} \
+-      -Dintellij.build.target.os=linux \
+-      -Dintellij.build.target.arch=x64 \
+-      -Dintellij.build.skip.build.steps=mac_artifacts,mac_dmg,mac_sit,windows_exe_installer,windows_sign,repair_utility_bundle_step,sources_archive \
+-      -Dintellij.build.unix.snaps=false \
 +      -Djps.kotlin.home=${kotlinc} \
-       -Dintellij.build.target.os=linux \
-       -Dintellij.build.target.arch=x64 \
-       -Dintellij.build.skip.build.steps=mac_artifacts,mac_dmg,mac_sit,windows_exe_installer,windows_sign,repair_utility_bundle_step,sources_archive \
-@@ -255,7 +296,7 @@
++      -Dintellij.build.target.os=${targetOs} \
++      -Dintellij.build.target.arch=${targetArch} \
++      -Dintellij.build.skip.build.steps=${buildStepsToSkip} \
++      -Dintellij.build.unix.snaps=${lib.boolToString unixSnaps} \
+       --java-argfile-target=java_argfile \
+       "$PWD" \
+       ${targetClass} \
+@@ -254,17 +328,29 @@
+   buildPhase = ''
      runHook preBuild
  
++    ${lib.optionalString (jvmUserHome != null) ''export _JAVA_OPTIONS="-Duser.home=${jvmUserHome}"''}
      java \
 -      -Djps.kotlin.home=${kotlin'} \
 +      -Djps.kotlin.home=${kotlinc} \
        "@java_argfile"
  
      runHook postBuild
+   '';
+-  installPhase = ''
+-    runHook preInstall
+-    mv out/*/artifacts/*-no-jbr.tar.gz $out
+-    runHook postInstall
+-  '';
++  installPhase =
++    if targetOs == "mac" then
++      ''
++        runHook preInstall
++        mkdir -p $out
++        # The macOS distribution of the community products is a ZIP whose root is the
++        # product's .app directory; unpack it so that it can be wrapped as a bundle.
++        unzip -q out/*/artifacts/*.mac.${targetArch}.zip -d $out
++        runHook postInstall
++      ''
++    else
++      ''
++        runHook preInstall
++        mv out/*/artifacts/*-no-jbr.tar.gz $out
++        runHook postInstall
++      '';
+ 
+   passthru = {
+     inherit

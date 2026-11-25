@@ -1,0 +1,11 @@
+--- a/platform/build-scripts/src/org/jetbrains/intellij/build/impl/BundledRuntimeImpl.kt
++++ b/platform/build-scripts/src/org/jetbrains/intellij/build/impl/BundledRuntimeImpl.kt
+@@ -127,7 +127,7 @@
+     "https://cache-redirector.jetbrains.com/intellij-jbr/${archiveName(os, arch, libc, prefix)}"
+ 
+   override fun resolveArchive(os: OsFamily, arch: JvmArchitecture, libc: LibcImpl, prefix: String): ResolvedDownload =
+-    resolveFileForReading(downloadUrlFor(os, arch, libc, prefix), paths.communityHomeDirRoot, httpSession)
++    ResolvedDownload(file = Path.of("JBR_ARCHIVE_HERE"), sha256 = null)
+ 
+   /**
+    * Update this method together with:
