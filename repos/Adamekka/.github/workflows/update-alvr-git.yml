@@ -45,7 +45,7 @@ jobs:
           fi
           printf 'base_sha=%s\n' "$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
-          nix run nixpkgs#nix-update -- --flake --version branch=master \
+          scripts/nix-update --flake --version branch=master \
             --override-filename pkgs/alvr-git/default.nix alvr-git
 
           changed_files="$(git diff --name-only)"

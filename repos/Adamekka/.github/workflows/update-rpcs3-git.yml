@@ -25,11 +25,11 @@ jobs:
       - name: Update package
         env:
           # nix-update starts nested Nix commands, so this must be inherited rather
-          # than passed only to the outer `nix run`.
+          # than passed only to the outer command.
           NIX_CONFIG: |
             fallback = true
           NIXPKGS_ALLOW_UNFREE: "1"
-        run: nix run nixpkgs#nix-update -- --flake --use-update-script rpcs3-git
+        run: scripts/nix-update --flake --use-update-script rpcs3-git
 
       - name: Validate and push package update
         env:

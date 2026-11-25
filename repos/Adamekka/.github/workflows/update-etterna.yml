@@ -43,24 +43,7 @@ jobs:
             exit 1
           fi
           printf 'base_sha=%s\n' "$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
-          # Since Nix 2.35, `nix flake metadata` reports the flake's store path
-          # without copying the source there, so nix-update 1.16.0 evaluates a
-          # missing path. `nix flake archive` reports the same path and copies it.
-          nix_update_expr=$(cat <<'EOF'
-          let
-            flake = builtins.getFlake ("git+file://" + builtins.getEnv "PWD" + "?shallow=1");
-            pkgs = flake.inputs.nixpkgs.legacyPackages.${builtins.currentSystem};
-          in
-          pkgs.nix-update.overridePythonAttrs (old: {
-            postPatch = (old.postPatch or "") + ''
-              substituteInPlace nix_update/options.py --replace-fail \
-                '"nix", "flake", "metadata", "--json"' '"nix", "flake", "archive", "--json"'
-            '';
-          })
-          EOF
-          )
-          nix_update=$(nix build --impure --no-link --print-out-paths --expr "$nix_update_expr")
-          "$nix_update/bin/nix-update" \
+          scripts/nix-update \
             --flake --version stable --use-github-releases etterna
           if git diff --quiet -- pkgs/etterna/default.nix; then
             printf 'changed=false\n' >> "$GITHUB_OUTPUT"

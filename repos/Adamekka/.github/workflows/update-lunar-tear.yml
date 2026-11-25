@@ -25,10 +25,10 @@ jobs:
       - name: Update package
         env:
           # nix-update starts nested Nix commands, so this must be inherited rather
-          # than passed only to the outer `nix run`.
+          # than passed only to the outer command.
           NIX_CONFIG: |
             fallback = true
-        run: nix run nixpkgs#nix-update -- --flake --use-update-script lunar-tear
+        run: scripts/nix-update --flake --use-update-script lunar-tear
 
       - name: Commit and push package update
         run: |

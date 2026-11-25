@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Runs nix-update from this flake's locked nixpkgs with the arguments given.
+set -euo pipefail
+
+repo=$(realpath "$(dirname "$0")/..")
+
+# Since Nix 2.35, `nix flake metadata` reports the flake's store path without
+# copying the source there, so nix-update before 1.17.0 evaluates a missing
+# path. `nix flake archive` reports the same path and copies it. 1.17.0 fixes
+# this upstream, so the patch is skipped once the locked nixpkgs ships it; drop
+# the override then. `shallow=1` allows the depth-1 Actions checkout.
+nix_update_expr=$(
+  cat <<'EOF'
+{ repo }:
+let
+  flake = builtins.getFlake ("git+file://" + repo + "?shallow=1");
+  pkgs = flake.inputs.nixpkgs.legacyPackages.${builtins.currentSystem};
+in
+pkgs.nix-update.overridePythonAttrs (old: {
+  postPatch =
+    (old.postPatch or "")
+    + pkgs.lib.optionalString (pkgs.lib.versionOlder old.version "1.17.0") ''
+      substituteInPlace nix_update/options.py --replace-fail \
+        '"nix", "flake", "metadata", "--json"' '"nix", "flake", "archive", "--json"'
+    '';
+})
+EOF
+)
+
+nix_update=$(nix build --impure --no-link --print-out-paths \
+  --expr "$nix_update_expr" --argstr repo "$repo")
+exec "$nix_update/bin/nix-update" "$@"
