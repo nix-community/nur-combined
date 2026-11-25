@@ -2,6 +2,7 @@
 	pkg-config,
 	perl, # openssl-sys build dep
 	openssl,
+	writableTmpDirAsHomeHook,
 	fetchFromGitHub,
 	rustPlatform,
 	nixosTests,
@@ -20,6 +21,8 @@ rustPlatform.buildRustPackage rec {
 	};
 
 	nativeBuildInputs = [ pkg-config perl ];
+	# upstream tests try to create config dir in home
+	nativeCheckInputs = [ writableTmpDirAsHomeHook ];
 	buildInputs = [ openssl ];
 
 	# ./commander.patch 
