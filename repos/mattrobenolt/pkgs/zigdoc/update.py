@@ -19,7 +19,7 @@ HASHES_FILE = SCRIPT_DIR / "hashes.json"
 
 
 def prefetch_source(version: str) -> str:
-    url = f"https://github.com/rockorager/zigdoc/archive/v{version}.tar.gz"
+    url = f"https://github.com/baskingspot/zigdoc/archive/v{version}.tar.gz"
     raw = subprocess.run(
         ["nix-prefetch-url", "--unpack", url],
         capture_output=True,
@@ -37,7 +37,7 @@ def prefetch_source(version: str) -> str:
 def main() -> None:
     data = load_hashes(HASHES_FILE)
     current = data["version"]
-    latest = fetch_github_latest_release("rockorager", "zigdoc")
+    latest = fetch_github_latest_release("baskingspot", "zigdoc")
     print(f"Current: {current}, Latest: {latest}")
 
     version = latest if should_update(current, latest) else current

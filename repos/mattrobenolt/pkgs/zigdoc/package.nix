@@ -14,7 +14,7 @@ stdenvNoCC.mkDerivation {
   inherit version;
 
   src = fetchFromGitHub {
-    owner = "rockorager";
+    owner = "baskingspot";
     repo = "zigdoc";
     rev = "v${version}";
     hash = versionData.sourceHash;
@@ -24,7 +24,7 @@ stdenvNoCC.mkDerivation {
 
   meta = with lib; {
     description = "Generate documentation from Zig source code";
-    homepage = "https://github.com/rockorager/zigdoc";
+    homepage = "https://github.com/baskingspot/zigdoc";
     license = licenses.mit;
     maintainers = [ ];
     mainProgram = "zigdoc";

@@ -8,26 +8,25 @@ let
   versionData = builtins.fromJSON (builtins.readFile ./hashes.json);
   inherit (versionData) version hashes;
 
-  targets = {
-    "x86_64-linux" = "x86_64-linux";
-    "aarch64-linux" = "aarch64-linux";
-    "aarch64-darwin" = "aarch64-macos";
+  assets = {
+    "x86_64-linux" = "linux-x64";
+    "aarch64-linux" = "linux-arm64";
+    "aarch64-darwin" = "macos-arm64";
   };
 
-  target =
-    targets.${stdenv.hostPlatform.system}
-      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  asset =
+    assets.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 in
 stdenv.mkDerivation {
   pname = "ziglint";
   inherit version;
 
   src = fetchurl {
-    url = "https://github.com/rockorager/ziglint/releases/download/v${version}/ziglint-${target}.tar.gz";
-    hash = hashes.${target} or (throw "Missing ziglint hash for target ${target}");
+    url = "https://github.com/baskingspot/ziglint/releases/download/v${version}/ziglint-v${version}-${asset}.tar.gz";
+    hash = hashes.${asset};
   };
 
-  sourceRoot = ".";
+  sourceRoot = "ziglint-v${version}-${asset}";
 
   dontBuild = true;
   dontFixup = true;
@@ -43,7 +42,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "An opinionated linter for Zig";
-    homepage = "https://github.com/rockorager/ziglint";
+    homepage = "https://github.com/baskingspot/ziglint";
     license = licenses.mit;
     platforms = [
       "x86_64-linux"

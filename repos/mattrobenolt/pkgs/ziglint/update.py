@@ -17,12 +17,12 @@ from updater import (
 
 SCRIPT_DIR = Path(__file__).parent
 HASHES_FILE = SCRIPT_DIR / "hashes.json"
-OWNER = "rockorager"
+OWNER = "baskingspot"
 REPO = "ziglint"
 ASSETS = {
-    "x86_64-linux": "ziglint-x86_64-linux.tar.gz",
-    "aarch64-linux": "ziglint-aarch64-linux.tar.gz",
-    "aarch64-macos": "ziglint-aarch64-macos.tar.gz",
+    "linux-x64": "ziglint-v{version}-linux-x64.tar.gz",
+    "linux-arm64": "ziglint-v{version}-linux-arm64.tar.gz",
+    "macos-arm64": "ziglint-v{version}-macos-arm64.tar.gz",
 }
 
 
@@ -34,7 +34,9 @@ def main() -> None:
 
     version = latest if should_update(current, latest) else current
     release = fetch_release(OWNER, REPO, f"v{version}")
-    hashes = release_asset_hashes(release, ASSETS)
+    hashes = release_asset_hashes(
+        release, {target: name.format(version=version) for target, name in ASSETS.items()}
+    )
 
     if not save_if_changed(HASHES_FILE, {"version": version, "hashes": hashes}):
         print("Already up to date")
