@@ -46,6 +46,19 @@
             patches+=" $(find "$toshllmSrc/patches/llama" -name '*.patch' -print | \
                 awk -F/ '{print $NF"\t"$0}' | sort | cut -f2-) ${./package-lock.patch}"
         '';
+        # Fix linker error when building ggml-metal.dylib:
+        # Undefined symbols for architecture x86_64:
+        #   "_ggml_backend_meta_pass_counter", referenced from:
+        #       _ggml_metal_exchange_reduce in ggml-metal-context.m.o
+        #       _tosh_mgpu_trace_report in ggml-metal-context.m.o
+        postPatch = (old.postPatch or "") + ''
+            substituteInPlace ggml/src/ggml-backend-meta.cpp --replace-fail \
+                'extern "C" std::atomic<uint64_t> * ggml_backend_meta_pass_counter(void)' \
+                'extern "C" GGML_API std::atomic<uint64_t> * ggml_backend_meta_pass_counter(void)'
+            substituteInPlace ggml/src/ggml-metal/ggml-metal-context.m --replace-fail \
+                'extern _Atomic uint64_t * ggml_backend_meta_pass_counter(void);' \
+                'GGML_API _Atomic uint64_t * ggml_backend_meta_pass_counter(void);'
+        '';
         cmakeFlags = builtins.filter (flag: !(lib.any (x: lib.hasInfix x flag) [
             "LLAMA_BUILD_NUMBER"
             "LLAMA_BUILD_COMMIT"
