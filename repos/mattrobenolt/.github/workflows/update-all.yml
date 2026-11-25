@@ -92,12 +92,6 @@ jobs:
           nix build .#ziglint --no-link
           echo "✓ ziglint builds"
 
-          nix build .#zed --no-link
-          echo "✓ zed builds"
-
-          nix build .#zed-preview --no-link
-          echo "✓ zed-preview builds"
-
       - name: Test binaries
         if: steps.verify-diff.outputs.changed == 'true'
         run: |

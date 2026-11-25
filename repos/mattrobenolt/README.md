@@ -42,7 +42,6 @@ See [`pkgs/go-bin/README.md`](./pkgs/go-bin/README.md) for the resolution rules 
 - [`qmd`](https://github.com/tobi/qmd) - On-device search engine for Markdown and knowledge bases
 - [`skills-ref`](https://github.com/agentskills/agentskills/tree/main/skills-ref) - Reference CLI for validating and reading Agent Skills
 - [`txtar`](https://github.com/mattrobenolt/txtar) - Go-style txtar archive tool (pre-built binary)
-- `zed` / `zed-preview` - Linux Zed editor packages for stable and preview releases
 - `zigdoc` - Generate documentation from Zig source code
 - `ziglint` - An opinionated linter for Zig
 - `tracy` - Tracy profiler

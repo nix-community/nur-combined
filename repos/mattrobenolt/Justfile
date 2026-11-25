@@ -86,11 +86,6 @@ update-zigdoc:
 update-ziglint:
     @just update ziglint
 
-[doc("Update Zed package (stable + preview)")]
-[group("updates")]
-update-zed:
-    @just update zed
-
 [doc("Update all packages")]
 [group("updates")]
-update-all: update-benchstat update-go update-hunk update-inbox update-prismacat update-qmd update-skills-ref update-txtar update-zigdoc update-ziglint update-zed
+update-all: update-benchstat update-go update-hunk update-inbox update-prismacat update-qmd update-skills-ref update-txtar update-zigdoc update-ziglint

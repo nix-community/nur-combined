@@ -35,7 +35,8 @@ def main() -> None:
     version = latest if should_update(current, latest) else current
     release = fetch_release(OWNER, REPO, f"v{version}")
     hashes = release_asset_hashes(
-        release, {target: name.format(version=version) for target, name in ASSETS.items()}
+        release,
+        {target: name.format(version=version) for target, name in ASSETS.items()},
     )
 
     if not save_if_changed(HASHES_FILE, {"version": version, "hashes": hashes}):

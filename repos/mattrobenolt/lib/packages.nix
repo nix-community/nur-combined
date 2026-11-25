@@ -6,8 +6,6 @@ let
 
   goVersions = readJSON ../pkgs/go-bin/versions.json;
   goHashes = readJSON ../pkgs/go-bin/hashes.json;
-  zedVersions = readJSON ../pkgs/zed/versions.json;
-  zedHashes = readJSON ../pkgs/zed/hashes.json;
 
   makeGoVersion =
     pkgs:
@@ -56,14 +54,6 @@ let
       go-bin = makeGo pkgs latestGoVersion;
     };
 
-  zedPackage =
-    pkgs: channel:
-    let
-      version = zedVersions.${channel};
-      hashes = zedHashes.${version};
-    in
-    pkgs.callPackage ../pkgs/zed/package.nix { inherit version hashes channel; };
-
   overlay =
     _final: prev:
     goPackages prev
@@ -79,8 +69,6 @@ let
       zigdoc = prev.callPackage ../pkgs/zigdoc/package.nix { };
       ziglint = prev.callPackage ../pkgs/ziglint/package.nix { };
       tracy = prev.callPackage ../pkgs/tracy/package.nix { };
-      zed = zedPackage prev "stable";
-      zed-preview = zedPackage prev "preview";
     };
 
 in
@@ -111,8 +99,5 @@ in
         tracy
         ;
       default = pkgs.ziglint;
-    }
-    // lib.optionalAttrs pkgs.stdenv.isLinux {
-      inherit (pkgs) zed zed-preview;
     };
 }
