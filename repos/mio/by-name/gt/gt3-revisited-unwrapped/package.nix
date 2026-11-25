@@ -6,6 +6,7 @@
   ninja,
   sdl3,
   zlib,
+  desktopToDarwinBundle,
   nix-update-script,
   writeShellApplication,
 }:
@@ -33,53 +34,92 @@ stdenv.mkDerivation {
     hash = "sha256-J2ruhlWGnBT+cBFv60EeiyE7QapR9ZLA3EfIZ62NnO0=";
   };
 
+  patches = [
+    ./0001-use-desktop-to-darwin-bundle.patch
+    ./0002-disable-automatic-update-dialog.patch
+  ];
+
   nativeBuildInputs = [
     cmake
     ninja
-  ];
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [ desktopToDarwinBundle ];
 
   buildInputs = [
     sdl3
     zlib
   ];
 
-  # The .app's icon is rendered with sips and iconutil, and the bundle is
-  # sealed with codesign: macOS tools the Nix build sandbox does not expose.
-  # The bundle is installed without an icon, and Nix's fixup signs the
-  # executable after patching it.
-  postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
-    substituteInPlace cmake/Packaging.cmake \
-      --replace-fail 'target_sources(gt3r PRIVATE ''${_icns})' '# no .icns: sips is not available in the Nix build' \
-      --replace-fail 'MACOSX_BUNDLE_ICON_FILE gt3r.icns' ""
-  '';
-
   cmakeFlags = [
     "-DGT3R_BUILD_TESTS=OFF"
     "-DGT3R_BUILD_TOOLS=OFF"
+    # desktopToDarwinBundle creates the .app from the installed desktop entry
+    # and icon, avoiding upstream's sips/iconutil/codesign bundle phase.
+    "-DGT3R_DARWIN_BUNDLE=OFF"
     "-DFETCHCONTENT_SOURCE_DIR_LIBCHDR=${libchdr}"
   ];
 
   # The game reads the disc image at run time; nothing from it is built in.
   installPhase = ''
     runHook preInstall
-  ''
-  + (
-    if stdenv.hostPlatform.isDarwin then
-      ''
-        app=$(find . -maxdepth 3 -type d -name 'gt3r.app' -print -quit)
-        if [ -z "$app" ]; then
-          echo "gt3-revisited: no gt3r.app in the build tree ($PWD)" >&2
-          exit 1
-        fi
-        mkdir -p $out/Applications $out/bin
-        cp -R "$app" "$out/Applications/GT3 Revisited.app"
-        ln -s "../Applications/GT3 Revisited.app/Contents/MacOS/gt3r" $out/bin/gt3r
-      ''
-    else
-      ''
-        cmake --install . --prefix $out
-      ''
-  );
+    cmake --install . --prefix $out
+  '';
+
+  postFixup = lib.optionalString stdenv.hostPlatform.isDarwin ''
+    plist="$out/Applications/GT3 Revisited.app/Contents/Info.plist"
+    cat > "$plist" <<EOF
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+      <key>CFBundleDevelopmentRegion</key>
+      <string>en</string>
+      <key>CFBundleExecutable</key>
+      <string>GT3 Revisited</string>
+      <key>CFBundleIconFile</key>
+      <string>gt3r.icns</string>
+      <key>CFBundleIdentifier</key>
+      <string>org.gt3revisited.gt3r</string>
+      <key>CFBundleInfoDictionaryVersion</key>
+      <string>6.0</string>
+      <key>CFBundleName</key>
+      <string>GT3 Revisited</string>
+      <key>CFBundleDisplayName</key>
+      <string>GT3 Revisited</string>
+      <key>CFBundlePackageType</key>
+      <string>APPL</string>
+      <key>CFBundleShortVersionString</key>
+      <string>${version}</string>
+      <key>CFBundleVersion</key>
+      <string>${version}</string>
+      <key>LSApplicationCategoryType</key>
+      <string>public.app-category.racing-games</string>
+      <key>LSMinimumSystemVersion</key>
+      <string>12.0</string>
+      <key>NSHighResolutionCapable</key>
+      <true/>
+      <key>GCSupportsControllerUserInteraction</key>
+      <true/>
+      <key>CFBundleDocumentTypes</key>
+      <array>
+        <dict>
+          <key>CFBundleTypeName</key>
+          <string>PS2 disc image</string>
+          <key>CFBundleTypeRole</key>
+          <string>Viewer</string>
+          <key>LSHandlerRank</key>
+          <string>Alternate</string>
+          <key>CFBundleTypeExtensions</key>
+          <array>
+            <string>iso</string>
+            <string>chd</string>
+          </array>
+        </dict>
+      </array>
+    </dict>
+    </plist>
+    EOF
+  '';
 
   passthru.updateScript = writeShellApplication {
     name = "update-gt3-revisited-unwrapped";

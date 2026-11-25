@@ -1,0 +1,26 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: NUR Packages <nur@example.invalid>
+Date: Wed, 25 Nov 2026 00:00:00 +1100
+Subject: [PATCH] Do not open the update dialog after a background check
+
+Nix owns package updates. Keep the check result for Settings and the
+title-bar badge, but require an explicit user action before presenting
+the upstream download/update dialog.
+
+---
+ src/app/updates.cpp | 7 ++++---
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/src/app/updates.cpp b/src/app/updates.cpp
+--- a/src/app/updates.cpp
++++ b/src/app/updates.cpp
+@@ -93,6 +93,5 @@ void Updates::start(App& app) {
+ void Updates::update_due() {
+-    const net::GameVersion& ours = net::this_game_version();
+-    net::GameVersion v = net::prompt_version(latest_, min_online_);
+-    startup_due_ = net::show_startup_prompt(ours, latest_, min_online_, dismissed_) &&
+-                   (!shown_.known() || net::compare_core(v, shown_) > 0);
++    // Nix owns package updates. The check result still updates Settings and the badge, but only
++    // an explicit request may open the dialog and its upstream download links.
++    startup_due_ = false;
+ }
