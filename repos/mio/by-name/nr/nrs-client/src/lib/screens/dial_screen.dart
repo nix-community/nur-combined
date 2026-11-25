@@ -82,7 +82,6 @@ class _DialScreenState extends State<DialScreen> {
 
   String _selectedCountry = 'AU';
   bool _userManuallySwitchedCountry = false;
-  String? _detectedGeoCountry;
 
   String _selectedState = 'NSW';
   bool _obscurePassword = true;
@@ -161,7 +160,6 @@ class _DialScreenState extends State<DialScreen> {
       final msg = pack.message;
       final country = msg.country.toUpperCase();
       setState(() {
-        _detectedGeoCountry = country;
         if (!_userManuallySwitchedCountry && (country == 'NZ' || country == 'AU')) {
           if (_selectedCountry != country) {
             _selectedCountry = country;
@@ -196,12 +194,25 @@ class _DialScreenState extends State<DialScreen> {
 
   void _onCountryChanged(String newCountry) {
     if (newCountry == _selectedCountry) return;
+    if (_isLoggingIn) return;
+    final hadAuthentication = _isAuthenticated || (_userToken?.isNotEmpty ?? false);
     setState(() {
       _selectedCountry = newCountry;
       _userManuallySwitchedCountry = true;
       _selectedState = newCountry == 'NZ' ? 'Auckland' : 'NSW';
       _loginError = null;
+      if (hadAuthentication) {
+        _isAuthenticated = false;
+        _userToken = null;
+        _phoneController.clear();
+        _passwordController.clear();
+        _displayName = '';
+        _nrsId = '';
+      }
     });
+    if (hadAuthentication) {
+      widget.onLogout?.call();
+    }
     try {
       CheckGeoStatusRequest(
         proxyUrl: widget.proxyUrl.isEmpty ? null : widget.proxyUrl,
@@ -216,7 +227,7 @@ class _DialScreenState extends State<DialScreen> {
 
     if (phone.isEmpty) {
       setState(() => _loginError = _selectedCountry == 'NZ'
-          ? 'Please enter your registered NZ phone number / TRS User ID'
+          ? 'Please enter your registered NZ Relay email address'
           : 'Please enter your registered NRS phone number');
       return;
     }
@@ -262,11 +273,22 @@ class _DialScreenState extends State<DialScreen> {
     });
   }
 
-  void _confirmEmergencyCall() {
-    final isNz = _selectedCountry == 'NZ';
-    final emNumber = isNz ? '111' : '000';
-    final emTitle = isNz ? 'EMERGENCY CALL: TRIPLE ONE (111)' : 'EMERGENCY CALL: TRIPLE ZERO (000)';
-    final emService = isNz ? 'NZ Relay' : 'NRS';
+  void _startRelayEmergencyCall(String emNumber) {
+    _setPreset(emNumber, 'EMERGENCY $emNumber');
+    widget.onStartCall(
+      emNumber,
+      _displayName.isNotEmpty ? _displayName : _nameController.text.trim(),
+      _nrsId.isNotEmpty ? _nrsId : '',
+      'EMERGENCY $emNumber',
+      _selectedState,
+      password: null,
+      token: null,
+      country: _selectedCountry,
+    );
+  }
+
+  void _confirmAuEmergencyCall(String emNumber) {
+    final emTitle = 'EMERGENCY CALL: $emNumber';
 
     showDialog(
       context: context,
@@ -277,9 +299,9 @@ class _DialScreenState extends State<DialScreen> {
           style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
         ),
         content: Text(
-          'You are about to initiate an emergency call to $emTitle.\n\n'
-          'The Relay Officer will immediately connect you with Police, Fire, or Ambulance.\n\n'
-          'Emergency calls do NOT require an $emService login or registration.\n\n'
+          'You are about to connect to NRS for an emergency call to $emNumber.\n\n'
+          'The Relay Officer will contact Police, Fire, or Ambulance on your behalf.\n\n'
+          'NRS emergency calls do not require login or registration.\n\n'
           'Do you wish to proceed?',
         ),
         actions: [
@@ -291,19 +313,49 @@ class _DialScreenState extends State<DialScreen> {
             style: FilledButton.styleFrom(backgroundColor: Colors.red),
             onPressed: () {
               Navigator.of(ctx).pop();
-              _setPreset(emNumber, 'EMERGENCY $emNumber');
-              widget.onStartCall(
-                emNumber,
-                _displayName.isNotEmpty ? _displayName : _nameController.text.trim(),
-                _phoneController.text.trim(),
-                'EMERGENCY $emNumber',
-                _selectedState,
-                password: null,
-                token: null,
-                country: _selectedCountry,
-              );
+              _startRelayEmergencyCall(emNumber);
             },
-            child: Text('Connect to $emNumber Now'),
+            child: const Text('Connect to NRS'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showNzEmergencyOptions() {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        icon: const Icon(Icons.emergency, color: Colors.red, size: 44),
+        title: const Text('NZ Emergency Options'),
+        content: const Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'NZ Relay does not recommend emergency calls and cannot prioritise them.',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 12),
+            Text('Use these direct options whenever possible:'),
+            SizedBox(height: 8),
+            Text('1. Call 111 directly if you can use a phone.'),
+            Text('2. Registered 111TXT users can text 111.'),
+            Text('3. Deaf Emergency TTY: 0800 16 16 16.'),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: const Text('Close'),
+          ),
+          FilledButton(
+            style: FilledButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              _startRelayEmergencyCall('111');
+            },
+            child: const Text('Use NZ Relay as last resort'),
           ),
         ],
       ),
@@ -320,12 +372,15 @@ class _DialScreenState extends State<DialScreen> {
     }
 
     final isNz = _selectedCountry == 'NZ';
-    final isEmergency = isNz
-        ? (number == '111' || number == '112' || number == '911')
-        : (number == '000' || number == '112' || number == '911');
+    final isNzEmergency = isNz && number == '111';
+    final isAuEmergency = !isNz && (number == '000' || number == '112');
 
-    if (isEmergency) {
-      _confirmEmergencyCall();
+    if (isNzEmergency) {
+      _showNzEmergencyOptions();
+      return;
+    }
+    if (isAuEmergency) {
+      _confirmAuEmergencyCall(number);
       return;
     }
 
@@ -359,9 +414,9 @@ class _DialScreenState extends State<DialScreen> {
       }
     }
 
-    final callerNumber = _phoneController.text.trim().isNotEmpty
-        ? _phoneController.text.trim()
-        : (isNz ? '0' : '000');
+    final callerNumber = isNz && _nrsId.isNotEmpty
+        ? _nrsId
+        : (_phoneController.text.trim().isNotEmpty ? _phoneController.text.trim() : (isNz ? '' : '000'));
 
     widget.onStartCall(
       number,
@@ -487,7 +542,7 @@ class _DialScreenState extends State<DialScreen> {
             ),
             const SizedBox(height: 16),
 
-            // Emergency Fast Access Card (Exempt from login)
+            // Emergency access card
             Card(
               color: Colors.red.shade50,
               elevation: 0,
@@ -506,11 +561,13 @@ class _DialScreenState extends State<DialScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            isNz ? 'Emergency: Triple One (111)' : 'Emergency: Triple Zero (000)',
+                            isNz ? 'Emergency: Use 111TXT or TTY' : 'Emergency: Triple Zero (000)',
                             style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
                           ),
-                          const Text(
-                            'Police • Fire • Ambulance (No login required)',
+                          Text(
+                            isNz
+                                ? 'NZ Relay cannot prioritise emergency calls'
+                                : 'Police • Fire • Ambulance (NRS emergency access)',
                             style: TextStyle(fontSize: 12, color: Colors.redAccent),
                           ),
                         ],
@@ -518,8 +575,8 @@ class _DialScreenState extends State<DialScreen> {
                     ),
                     FilledButton(
                       style: FilledButton.styleFrom(backgroundColor: Colors.red),
-                      onPressed: _confirmEmergencyCall,
-                      child: Text(isNz ? 'Call 111' : 'Call 000'),
+                      onPressed: isNz ? _showNzEmergencyOptions : () => _confirmAuEmergencyCall('000'),
+                      child: Text(isNz ? 'Options' : 'Call 000'),
                     ),
                   ],
                 ),
@@ -583,18 +640,18 @@ class _DialScreenState extends State<DialScreen> {
                     ] else ...[
                       Text(
                         isNz
-                            ? 'NZ Relay / TRS accounts allow registered users to make standard text relay calls. Enter your registered NZ phone number / TRS User ID and password.'
+                            ? 'Enter the email address and password registered with NZ Relay.'
                             : 'Mandatory for standard relay calls since April 2021. Enter your registered NRS phone number and password.',
                         style: const TextStyle(fontSize: 12, color: Colors.grey),
                       ),
                       const SizedBox(height: 12),
                       TextField(
                         controller: _phoneController,
-                        keyboardType: TextInputType.phone,
+                        keyboardType: isNz ? TextInputType.emailAddress : TextInputType.phone,
                         decoration: InputDecoration(
-                          labelText: isNz ? 'Registered NZ Phone / TRS User ID' : 'Registered NRS Phone Number',
-                          hintText: isNz ? 'e.g. 021 123 4567 or TRS User ID' : 'e.g. 0412 345 678',
-                          prefixIcon: const Icon(Icons.phone_android),
+                          labelText: isNz ? 'Registered NZ Relay Email' : 'Registered NRS Phone Number',
+                          hintText: isNz ? 'e.g. name@example.com' : 'e.g. 0412 345 678',
+                          prefixIcon: Icon(isNz ? Icons.email : Icons.phone_android),
                           border: const OutlineInputBorder(),
                           isDense: true,
                         ),
@@ -669,7 +726,7 @@ class _DialScreenState extends State<DialScreen> {
             // State / Region Selection
             DropdownButtonFormField<String>(
               key: ValueKey('region_$_selectedCountry'),
-              value: safeSelectedState,
+              initialValue: safeSelectedState,
               decoration: InputDecoration(
                 labelText: isNz ? 'Region' : 'State / Territory',
                 prefixIcon: const Icon(Icons.location_on),

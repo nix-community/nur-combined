@@ -1,25 +1,26 @@
-# NRS Internet Relay Client
+# NRS and NZ Relay Client
 
-A cross-platform National Relay Service (NRS) Internet Relay client for Australia (`https://nrschat.nrscall.gov.au/nrs/internetrelay`), built with [Flutter](https://flutter.dev) and [Rinf](https://github.com/cunarist/rinf) (Rust native logic).
+A cross-platform National Relay Service (NRS) Internet Relay and New Zealand Relay text-relay client, built with [Flutter](https://flutter.dev) and [Rinf](https://github.com/cunarist/rinf) (Rust native logic).
+
+This is an unofficial client and is not affiliated with NRS, NZ Relay, the Australian Government, MBIE, or Concentrix.
 
 ---
 
 ## 🎯 Features
 
-- **Standard NRS Internet Relay Support**: Connects to the Australian National Relay Service to place calls via a text Relay Officer (RO).
+- **NRS and NZ Relay Text Calling**: Connects to the selected relay provider to place calls via a text Relay Officer.
 - **Relay Turn-Taking UI**:
   - Auto-appends **`GA`** (*Go Ahead*) to messages by default as required by relay conventions.
   - Quick action buttons for **`GA`**, **`GA to SK`** (*Ready to wrap up*), **`SK`** (*Stop Keying / Goodbye*), and **`SKSK`** (*Terminate call*).
   - Quick phrases: *Please repeat*, *Please spell that*, *Hold / Resume*.
-- **Emergency Priority (Triple Zero `000`)**:
-  - One-tap priority access to emergency services (Police, Fire, Ambulance) via NRS.
+- **Emergency Guidance**:
+  - Australian emergency calls can use NRS.
+  - NZ users are directed to 111, 111TXT, or the Deaf Emergency TTY first. NZ Relay does not prioritise emergency calls.
 - **Australian Presets**:
   - Built-in numbers for NRS Helpdesk (`1800 555 660`), Police Non-Emergency (`131 444`), and healthdirect (`1800 022 222`).
-- **GeoIP & Proxy Bypass**:
+- **GeoIP & Proxy Support**:
   - `nrschat.nrscall.gov.au` restricts access to Australian IP addresses (redirecting non-AU IPs to `geoinfo.html`).
   - The client includes built-in SOCKS5 and HTTP proxy support (`reqwest` with proxy integration) and a one-click GeoIP connection tester.
-- **Simulator / Test Mode**:
-  - A local Relay Officer simulation engine that emulates the complete call flow (queueing, RO assignment, dialing, ringing, answered party speech, and turn-taking) for testing outside Australia.
 - **Transcript Export**:
   - Export chat transcripts to formatted `.txt` or `.json` with one click.
 
@@ -29,14 +30,14 @@ A cross-platform National Relay Service (NRS) Internet Relay client for Australi
 
 ```
 Flutter Frontend (Dart)
-  ├── DialScreen        (Keypad, presets, emergency 000, call notes)
+  ├── DialScreen        (Keypad, presets, regional emergency guidance, call notes)
   ├── ChatScreen        (Turn-taking UI, message bubbles, transcript)
-  └── SettingsDialog    (Proxy config, GeoIP tester, Simulator mode)
+  └── SettingsDialog    (Proxy config and gateway reachability check)
          ▲
          │  Rinf Signals (Bincode / Rust FFI)
          ▼
 Rust Backend (`native/hub`)
-  ├── CallActor         (Session management, timing, turn tokens, simulation)
+  ├── CallActor         (Session management, timing and turn tokens)
   ├── GeoActor          (GeoIP verification & proxy checking)
   └── NRS Transport     (reqwest HTTP/SOCKS5 client)
 ```

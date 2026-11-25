@@ -5,6 +5,22 @@ use tokio::spawn;
 
 pub struct AuthActor;
 
+const NZ_API_BASE: &str = "https://www.nzrelay.co.nz/trsapi/services/rest/";
+
+pub(crate) fn extract_nz_account_key(body: &serde_json::Value) -> Result<String, String> {
+    let status = body.get("status").and_then(|value| value.as_i64());
+    let account_key = body
+        .get("accountKey")
+        .and_then(|value| value.as_str())
+        .unwrap_or_default();
+
+    if status != Some(0) || account_key.trim().is_empty() {
+        return Err("NZ Relay did not provide a usable account key".to_string());
+    }
+
+    Ok(account_key.to_string())
+}
+
 fn base64_encode(data: &[u8]) -> String {
     const CHARSET: &[u8; 64] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     let mut out = String::with_capacity((data.len() + 2) / 3 * 4);
@@ -54,7 +70,10 @@ impl AuthActor {
         let clean_user = if is_nz {
             let u = username.trim().to_string();
             if u.is_empty() {
-                return Err("Please enter a valid email address or username".to_string());
+                return Err("Please enter the email address registered with NZ Relay".to_string());
+            }
+            if !u.contains('@') {
+                return Err("NZ Relay login requires the registered email address".to_string());
             }
             u
         } else {
@@ -83,14 +102,20 @@ impl AuthActor {
 
         let timestamp = chrono::Local::now().timestamp_millis();
 
-        let (login_url, payload, use_basic_auth) = if is_nz {
+        let nz_account_key = if is_nz {
+            Some(Self::fetch_nz_account_key(&client, timestamp).await?)
+        } else {
+            None
+        };
+
+        let (login_url, payload) = if is_nz {
             let enc_password = base64_encode(password.as_bytes());
             let pl = serde_json::json!({
                 "userName": clean_user,
                 "password": enc_password,
                 "requestGateway": "2",
                 "duplicateRequest": "false",
-                "requestIdentificationNumber": timestamp,
+                "requestIdentificationNumber": timestamp + 1,
                 "deviceData": {
                     "appName": "TRS",
                     "appVersion": "1.0",
@@ -100,7 +125,7 @@ impl AuthActor {
                     "osVersion": "15.0"
                 }
             });
-            ("https://www.nzrelay.co.nz/trsapi/services/rest/user/login", pl, true)
+            (format!("{NZ_API_BASE}user/login"), pl)
         } else {
             let enc_password = format!("{{ENC}}{}", base64_encode(password.as_bytes()));
             let pl = serde_json::json!({
@@ -118,7 +143,10 @@ impl AuthActor {
                     "osVersion": "15.0"
                 }
             });
-            ("https://nrschat.nrscall.gov.au/nrsapi/services/rest/user/login", pl, false)
+            (
+                "https://nrschat.nrscall.gov.au/nrsapi/services/rest/user/login".to_string(),
+                pl,
+            )
         };
 
         let mut req_builder = client
@@ -126,8 +154,8 @@ impl AuthActor {
             .header("Content-Type", "application/json")
             .header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:128.0) Gecko/20100101 Firefox/128.0");
 
-        if use_basic_auth {
-            req_builder = req_builder.header("Authorization", "Basic dHJzYXBpOlRyNUwxdjNAMjAyMQ==");
+        if let Some(ref account_key) = nz_account_key {
+            req_builder = req_builder.header("Authorization", format!("Basic {account_key}"));
         }
 
         let resp = req_builder
@@ -135,6 +163,14 @@ impl AuthActor {
             .send()
             .await
             .map_err(|e| format!("Network request failed: {}", e))?;
+
+        let http_status = resp.status();
+        if !http_status.is_success() {
+            return Err(format!(
+                "Gateway returned HTTP {} while signing in",
+                http_status.as_u16()
+            ));
+        }
 
         let text = resp
             .text()
@@ -175,6 +211,41 @@ impl AuthActor {
             }
             Err(err_msg)
         }
+    }
+
+    async fn fetch_nz_account_key(
+        client: &reqwest::Client,
+        request_id: i64,
+    ) -> Result<String, String> {
+        let response = client
+            .post(format!("{NZ_API_BASE}user/getAccountDetails"))
+            .header("Content-Type", "application/json")
+            .header(
+                "User-Agent",
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:128.0) Gecko/20100101 Firefox/128.0",
+            )
+            .json(&serde_json::json!({
+                "deviceData": {},
+                "requestIdentificationNumber": request_id,
+                "duplicateRequest": false
+            }))
+            .send()
+            .await
+            .map_err(|e| format!("Failed to obtain NZ Relay account key: {e}"))?;
+
+        let http_status = response.status();
+        if !http_status.is_success() {
+            return Err(format!(
+                "NZ Relay account-key endpoint returned HTTP {}",
+                http_status.as_u16()
+            ));
+        }
+
+        let body = response
+            .json::<serde_json::Value>()
+            .await
+            .map_err(|e| format!("Invalid NZ Relay account-key response: {e}"))?;
+        extract_nz_account_key(&body)
     }
 
     async fn handle_login(req: LoginRequest) {

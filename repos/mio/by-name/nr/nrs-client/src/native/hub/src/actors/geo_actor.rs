@@ -97,7 +97,7 @@ impl GeoActor {
                             status: st.to_string(),
                             detected_ip,
                             country: "NZ".to_string(),
-                            details: format!("Connected to NZ Relay successfully (Auckland gateway, HTTP {}). Ready for relay calls.", status.as_u16()),
+                            details: format!("NZ Relay gateway is reachable (HTTP {}). Account login and call availability are not verified by this test.", status.as_u16()),
                         }
                         .send_signal_to_dart();
                     } else {
@@ -152,7 +152,7 @@ impl GeoActor {
                             status: st.to_string(),
                             detected_ip,
                             country: "AU".to_string(),
-                            details: format!("Connected to NRS successfully (HTTP {}). Ready for relay calls.", status.as_u16()),
+                            details: format!("NRS portal is reachable from this IP (HTTP {}). Account login and call availability are not verified by this test.", status.as_u16()),
                         }
                         .send_signal_to_dart();
                     } else {

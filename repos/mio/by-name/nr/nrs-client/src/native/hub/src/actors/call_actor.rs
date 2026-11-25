@@ -15,6 +15,14 @@ const CLIENT_KEY: &str = "123@TAPAC$$DevInt";
 const AU_OMNI_SHELL_BASE: &str = "https://omnicustomwebsyd.concentrix.com/NRS/NRSOMNIShell/Prod/omniChatService.asmx";
 const NZ_OMNI_SHELL_BASE: &str = "https://omnicustomwebauc.concentrix.com/NZRelay/omnishell/prod/omniChatService.asmx";
 
+pub(crate) fn is_emergency_number(is_nz: bool, number: &str) -> bool {
+    if is_nz {
+        number == "111"
+    } else {
+        number == "000" || number == "112"
+    }
+}
+
 #[derive(Clone)]
 struct StoredMessage {
     timestamp: String,
@@ -33,6 +41,7 @@ struct ConcentrixSession {
 
 pub struct CallActor {
     active_call: Arc<AtomicBool>,
+    connected: Arc<AtomicBool>,
     call_duration: Arc<AtomicU64>,
     messages: Arc<Mutex<Vec<StoredMessage>>>,
     http_client: Arc<Mutex<Option<reqwest::Client>>>,
@@ -43,6 +52,7 @@ pub struct CallActor {
 impl CallActor {
     pub fn start() {
         let active_call = Arc::new(AtomicBool::new(false));
+        let connected = Arc::new(AtomicBool::new(false));
         let call_duration = Arc::new(AtomicU64::new(0));
         let messages = Arc::new(Mutex::new(Vec::new()));
         let http_client = Arc::new(Mutex::new(None));
@@ -51,6 +61,7 @@ impl CallActor {
 
         let actor = Arc::new(Self {
             active_call: active_call.clone(),
+            connected: connected.clone(),
             call_duration: call_duration.clone(),
             messages: messages.clone(),
             http_client: http_client.clone(),
@@ -151,6 +162,7 @@ impl CallActor {
 
     async fn handle_connect(&self, req: ConnectCallRequest) {
         self.active_call.store(true, Ordering::SeqCst);
+        self.connected.store(false, Ordering::SeqCst);
         self.call_duration.store(0, Ordering::SeqCst);
         {
             let mut msgs = self.messages.lock().await;
@@ -167,19 +179,15 @@ impl CallActor {
             *c = if is_nz { "NZ".to_string() } else { "AU".to_string() };
         }
 
-        let is_emergency = if is_nz {
-            req.recipient_phone == "111" || req.recipient_phone == "112" || req.recipient_phone == "911"
-        } else {
-            req.recipient_phone == "000" || req.recipient_phone == "112" || req.recipient_phone == "911"
-        };
+        let is_emergency = is_emergency_number(is_nz, &req.recipient_phone);
 
         CallStateSignal {
             state: "connecting".to_string(),
             status_message: if is_emergency {
                 if is_nz {
-                    "Initiating Priority Emergency Connection to 111...".to_string()
+                    "Connecting to NZ Relay for an emergency call to 111. Emergency calls cannot be prioritised.".to_string()
                 } else {
-                    "Initiating Priority Emergency Connection to Triple Zero (000)...".to_string()
+                    "Connecting to NRS for an emergency call to Triple Zero (000)...".to_string()
                 }
             } else if is_nz {
                 "Connecting to New Zealand Relay Service (NZ Relay)...".to_string()
@@ -195,12 +203,14 @@ impl CallActor {
 
         let recipient_number = req.recipient_phone.clone();
         let active_flag = self.active_call.clone();
+        let connected_flag = self.connected.clone();
         let duration_counter = self.call_duration.clone();
         let actor_for_session = Arc::new(self.clone());
 
         // Spawn call duration timer task
         {
             let active = active_flag.clone();
+            let connected = connected_flag.clone();
             let duration = duration_counter.clone();
             let num = recipient_number.clone();
             spawn(async move {
@@ -208,6 +218,9 @@ impl CallActor {
                     sleep(Duration::from_secs(1)).await;
                     if !active.load(Ordering::SeqCst) {
                         break;
+                    }
+                    if !connected.load(Ordering::SeqCst) {
+                        continue;
                     }
                     let secs = duration.fetch_add(1, Ordering::SeqCst) + 1;
                     if secs % 2 == 0 {
@@ -231,13 +244,9 @@ impl CallActor {
         });
     }
 
-    async fn run_live_nrs_session(&self, req: ConnectCallRequest) {
+    async fn run_live_nrs_session(&self, mut req: ConnectCallRequest) {
         let is_nz = req.country.as_deref().map(|c| c.eq_ignore_ascii_case("NZ")).unwrap_or(false);
-        let is_emergency = if is_nz {
-            req.recipient_phone == "111" || req.recipient_phone == "112" || req.recipient_phone == "911"
-        } else {
-            req.recipient_phone == "000" || req.recipient_phone == "112" || req.recipient_phone == "911"
-        };
+        let is_emergency = is_emergency_number(is_nz, &req.recipient_phone);
 
         // Step 1: Resolve Authentication Token
         let user_token = if is_emergency {
@@ -249,8 +258,11 @@ impl CallActor {
                 } else if let Some(ref pwd) = req.password {
                     self.record_and_emit_message("system", "Authenticating with NZ Relay Credentials...").await;
                     match AuthActor::authenticate(&req.caller_phone, pwd, req.proxy_url.as_deref(), Some("NZ")).await {
-                        Ok((tok, first_name, _, _)) => {
+                        Ok((tok, first_name, _, nrs_id)) => {
                             self.record_and_emit_message("system", &format!("Authentication successful for {}.", first_name)).await;
+                            if !nrs_id.is_empty() {
+                                req.caller_phone = nrs_id;
+                            }
                             tok
                         }
                         Err(err) => {
@@ -264,8 +276,11 @@ impl CallActor {
             } else if let Some(ref pwd) = req.password {
                 self.record_and_emit_message("system", "Authenticating with NZ Relay Credentials...").await;
                 match AuthActor::authenticate(&req.caller_phone, pwd, req.proxy_url.as_deref(), Some("NZ")).await {
-                    Ok((tok, first_name, _, _)) => {
+                    Ok((tok, first_name, _, nrs_id)) => {
                         self.record_and_emit_message("system", &format!("Authentication successful for {}.", first_name)).await;
+                        if !nrs_id.is_empty() {
+                            req.caller_phone = nrs_id;
+                        }
                         tok
                     }
                     Err(err) => {
@@ -282,8 +297,11 @@ impl CallActor {
             } else if let Some(ref pwd) = req.password {
                 self.record_and_emit_message("system", "Authenticating with NRS User Credentials...").await;
                 match AuthActor::authenticate(&req.caller_phone, pwd, req.proxy_url.as_deref(), Some("AU")).await {
-                    Ok((tok, first_name, _, _)) => {
+                    Ok((tok, first_name, _, nrs_id)) => {
                         self.record_and_emit_message("system", &format!("Authentication successful for {}.", first_name)).await;
+                        if !nrs_id.is_empty() {
+                            req.caller_phone = nrs_id;
+                        }
                         tok
                     }
                     Err(err) => {
@@ -302,8 +320,11 @@ impl CallActor {
         } else if let Some(ref pwd) = req.password {
             self.record_and_emit_message("system", "Authenticating with NRS User Credentials...").await;
             match AuthActor::authenticate(&req.caller_phone, pwd, req.proxy_url.as_deref(), Some("AU")).await {
-                Ok((tok, first_name, _, _)) => {
+                Ok((tok, first_name, _, nrs_id)) => {
                     self.record_and_emit_message("system", &format!("Authentication successful for {}.", first_name)).await;
+                    if !nrs_id.is_empty() {
+                        req.caller_phone = nrs_id;
+                    }
                     tok
                 }
                 Err(err) => {
@@ -487,12 +508,19 @@ impl CallActor {
         let mut agent_name = "Relay Officer".to_string();
         let mut page_histo: u64 = 0;
 
-        let mut attempts = 0;
-        while self.active_call.load(Ordering::SeqCst) && attempts < 30 {
-            attempts += 1;
+        while self.active_call.load(Ordering::SeqCst) {
             let init_resp = client.get(&initiate_url).send().await;
             match init_resp {
                 Ok(resp) => {
+                    if !resp.status().is_success() {
+                        self.record_and_emit_message(
+                            "system",
+                            &format!("Relay gateway returned HTTP {} while requesting an officer.", resp.status().as_u16()),
+                        )
+                        .await;
+                        sleep(Duration::from_secs(3)).await;
+                        continue;
+                    }
                     let text = resp.text().await.unwrap_or_default();
                     if text.contains("-6") {
                         CallStateSignal {
@@ -518,16 +546,34 @@ impl CallActor {
                         .send_signal_to_dart();
                         sleep(Duration::from_secs(3)).await;
                         continue;
+                    } else if text.contains("-3") || text.contains("AGENT NOT AVAILABLE") {
+                        self.handle_error(
+                            "The relay service reports that no officer or agent is currently available.",
+                            &req.recipient_phone,
+                        )
+                        .await;
+                        return;
                     } else if let Ok(val) = serde_json::from_str::<serde_json::Value>(&text) {
                         if let Some(arr) = val.as_array() {
                             if let Some(first) = arr.first() {
                                 if let Some(room) = first.get("ChatRoomId").and_then(|v| v.as_str()) {
-                                    chat_room_id = room.to_string();
+                                    if !room.trim().is_empty() {
+                                        chat_room_id = room.to_string();
+                                    }
                                 }
                                 if let Some(agent) = first.get("AgentName").and_then(|v| v.as_str()) {
                                     if !agent.trim().is_empty() {
                                         agent_name = agent.trim().to_string();
                                     }
+                                }
+                                if chat_room_id.is_empty() {
+                                    self.record_and_emit_message(
+                                        "system",
+                                        "Relay gateway did not assign a chat room. Waiting before retrying.",
+                                    )
+                                    .await;
+                                    sleep(Duration::from_secs(3)).await;
+                                    continue;
                                 }
                                 if let Some(p) = first.get("pagehisto").and_then(|v| v.as_u64()) {
                                     page_histo = p;
@@ -536,6 +582,13 @@ impl CallActor {
                             }
                         }
                     }
+
+                    self.record_and_emit_message(
+                        "system",
+                        "Relay gateway returned an unexpected response. Waiting before retrying.",
+                    )
+                    .await;
+                    sleep(Duration::from_secs(3)).await;
                 }
                 Err(e) => {
                     self.record_and_emit_message("system", &format!("Handshake attempt error: {}", e)).await;
@@ -559,6 +612,8 @@ impl CallActor {
                 page_histo,
             });
         }
+
+        self.connected.store(true, Ordering::SeqCst);
 
         CallStateSignal {
             state: "connected".to_string(),
@@ -764,10 +819,10 @@ fn url_encode(input: &str) -> String {
                 self.handle_send_message(SendRelayMessageRequest { text: "Please spell that GA".to_string(), append_ga: false }).await;
             }
             "EMERGENCY_000" => {
-                self.record_and_emit_message("system", "PRIORITY EMERGENCY 000 RELAY ACTIVE").await;
+                self.record_and_emit_message("system", "EMERGENCY 000 RELAY REQUESTED").await;
             }
             "EMERGENCY_111" => {
-                self.record_and_emit_message("system", "PRIORITY EMERGENCY 111 RELAY ACTIVE").await;
+                self.record_and_emit_message("system", "EMERGENCY 111 RELAY REQUESTED. NZ Relay cannot prioritise this call.").await;
             }
             _ => {}
         }
@@ -775,6 +830,7 @@ fn url_encode(input: &str) -> String {
 
     async fn handle_error(&self, error_msg: &str, recipient_phone: &str) {
         self.active_call.store(false, Ordering::SeqCst);
+        self.connected.store(false, Ordering::SeqCst);
         self.record_and_emit_message("system", &format!("ERROR: {}", error_msg)).await;
         CallStateSignal {
             state: "error".to_string(),
@@ -789,6 +845,7 @@ fn url_encode(input: &str) -> String {
 
     async fn handle_disconnect(&self, reason: String) {
         self.active_call.store(false, Ordering::SeqCst);
+        self.connected.store(false, Ordering::SeqCst);
         let duration = self.call_duration.load(Ordering::SeqCst);
 
         let current_session = {
@@ -894,6 +951,7 @@ impl Clone for CallActor {
     fn clone(&self) -> Self {
         Self {
             active_call: self.active_call.clone(),
+            connected: self.connected.clone(),
             call_duration: self.call_duration.clone(),
             messages: self.messages.clone(),
             http_client: self.http_client.clone(),

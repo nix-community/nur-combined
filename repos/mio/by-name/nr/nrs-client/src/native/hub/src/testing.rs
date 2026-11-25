@@ -1,5 +1,8 @@
 #[cfg(test)]
 mod tests {
+    use crate::actors::auth_actor::extract_nz_account_key;
+    use crate::actors::call_actor::is_emergency_number;
+
     #[test]
     fn test_relay_turn_tokens() {
         let msg1 = "Hello, I am calling regarding my account GA";
@@ -106,20 +109,15 @@ mod tests {
 
     #[test]
     fn test_nz_relay_campaign_and_emergency() {
-        // NZ Emergency numbers
-        let check_nz_emergency = |num: &str| num == "111" || num == "112" || num == "911";
-        assert!(check_nz_emergency("111"));
-        assert!(check_nz_emergency("112"));
-        assert!(check_nz_emergency("911"));
-        assert!(!check_nz_emergency("000"));
-        assert!(!check_nz_emergency("021123456"));
+        assert!(is_emergency_number(true, "111"));
+        assert!(!is_emergency_number(true, "112"));
+        assert!(!is_emergency_number(true, "911"));
+        assert!(!is_emergency_number(true, "000"));
 
-        // AU Emergency numbers
-        let check_au_emergency = |num: &str| num == "000" || num == "112" || num == "911";
-        assert!(check_au_emergency("000"));
-        assert!(check_au_emergency("112"));
-        assert!(check_au_emergency("911"));
-        assert!(!check_au_emergency("111"));
+        assert!(is_emergency_number(false, "000"));
+        assert!(is_emergency_number(false, "112"));
+        assert!(!is_emergency_number(false, "911"));
+        assert!(!is_emergency_number(false, "111"));
 
         // NZ Campaign is always "Text Relay"
         let nz_campaign = "Text Relay";
@@ -127,30 +125,19 @@ mod tests {
     }
 
     #[test]
-    fn test_nz_relay_auth_header() {
-        const CHARSET: &[u8; 64] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-        let raw = "trsapi:Tr5L1v3@2021";
-        let data = raw.as_bytes();
-        let mut out = String::with_capacity((data.len() + 2) / 3 * 4);
-        for chunk in data.chunks(3) {
-            let b0 = chunk[0];
-            let b1 = if chunk.len() > 1 { chunk[1] } else { 0 };
-            let b2 = if chunk.len() > 2 { chunk[2] } else { 0 };
-            out.push(CHARSET[(b0 >> 2) as usize] as char);
-            out.push(CHARSET[(((b0 & 3) << 4) | (b1 >> 4)) as usize] as char);
-            if chunk.len() > 1 {
-                out.push(CHARSET[(((b1 & 0xF) << 2) | (b2 >> 6)) as usize] as char);
-            } else {
-                out.push('=');
-            }
-            if chunk.len() > 2 {
-                out.push(CHARSET[(b2 & 0x3F) as usize] as char);
-            } else {
-                out.push('=');
-            }
-        }
-        let basic_header = format!("Basic {}", out);
-        assert_eq!(basic_header, "Basic dHJzYXBpOlRyNUwxdjNAMjAyMQ==");
+    fn test_nz_relay_account_key_parsing() {
+        let valid = serde_json::json!({
+            "keyValuePairs": [],
+            "status": 0,
+            "accountKey": "temporary-account-key"
+        });
+        assert_eq!(extract_nz_account_key(&valid), Ok("temporary-account-key".to_string()));
+
+        let missing_key = serde_json::json!({"status": 0, "accountKey": ""});
+        assert!(extract_nz_account_key(&missing_key).is_err());
+
+        let rejected = serde_json::json!({"status": 1, "accountKey": "key"});
+        assert!(extract_nz_account_key(&rejected).is_err());
     }
 
     #[test]

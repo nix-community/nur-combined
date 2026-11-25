@@ -94,7 +94,7 @@ lib.overrideDerivation
       extraWrapProgramArgs = lib.optionalString stdenv.hostPlatform.isLinux "--prefix LD_LIBRARY_PATH : $out/app/nrs-client/lib";
 
       meta = {
-        description = "Client for the Australian National Relay Service (NRS) and New Zealand Relay (NZ Relay) built with Flutter and Rinf";
+        description = "Unofficial client for the Australian National Relay Service (NRS) and New Zealand Relay (NZ Relay)";
         homepage = "https://nrschat.nrscall.gov.au/nrs/internetrelay";
         license = lib.licenses.mit;
         platforms = lib.platforms.linux ++ lib.platforms.darwin;
@@ -122,7 +122,7 @@ lib.overrideDerivation
       installPhase = ''
         runHook preInstall
         mkdir -p $out/Applications $out/bin
-        cp -r build/macos/Build/Products/Release/nrs_client.app $out/Applications/
+        cp -a build/macos/Build/Products/Release/nrs_client.app $out/Applications/
         ln -s $out/Applications/nrs_client.app/Contents/MacOS/nrs_client $out/bin/nrs_client
         runHook postInstall
       '';
