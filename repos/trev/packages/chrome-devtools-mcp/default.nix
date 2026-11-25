@@ -12,11 +12,11 @@
 # package instead, it is fully bundled and has no runtime dependencies
 stdenvNoCC.mkDerivation (final: {
   pname = "chrome-devtools-mcp";
-  version = "1.13.0";
+  version = "1.14.0";
 
   src = fetchzip {
     url = "https://registry.npmjs.org/chrome-devtools-mcp/-/chrome-devtools-mcp-${final.version}.tgz";
-    hash = "sha256-Tq62vmf6Z2OxG7cQ+PYuI5OYrBVeUbfkGGPXFrhb3L8=";
+    hash = "sha256-jU9sKhQe+IUj/2HhXMMuwWSJFZ4IeesfP57Ke44bG4c=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
