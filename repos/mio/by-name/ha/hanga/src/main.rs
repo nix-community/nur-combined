@@ -22,9 +22,9 @@ use hanga::bindings::{
 };
 use hanga::i18n::{self, Locale, TextCommand};
 use hanga::{
-    action_fingerprint, apply_mouse_look, catalog_index, catalog_name, clamp_hotbar_index,
-    pulse_remaining,
-    clamp_mod_state, clamp_voxel_type, clamp_wallet, contract_is_offered, fracture_offsets,
+    action_fingerprint, advance_wanted_idle, apply_mouse_look, catalog_index, catalog_name,
+    clamp_hotbar_index, clamp_mod_state, clamp_voxel_type, clamp_wallet, contract_is_offered,
+    fracture_offsets, pulse_remaining,
     inventory_add, inventory_craft_pair, inventory_insert_stack, inventory_pick_stack,
     inventory_place_stack, inventory_selected, inventory_take, is_action_physically_possible,
     is_connected_to_ground,
@@ -3672,18 +3672,23 @@ fn guest_globalstep(time: Res<Time>, mod_runtime: Res<ModRuntime>) {
 
 fn wanted_decay(
     time: Res<Time>,
-    mut timer: Local<f32>,
+    mut idle: Local<(f32, u32)>,
     mut players: Query<&mut ModState, With<Player>>,
     agents: Query<(Entity, &AgentAi)>,
     mut commands: Commands,
     mod_runtime: Res<ModRuntime>,
 ) {
-    *timer += time.delta_secs();
-    if *timer < 8.0 {
+    // The mod's `tick` decays one star per idle interval. A new crime restarts
+    // the window, so the crime is never forgiven on the next tick.
+    let highest = players.iter().map(|state| state.0).max().unwrap_or(0);
+    let (elapsed, tick_now) = advance_wanted_idle(idle.0, time.delta_secs(), highest, idle.1);
+    idle.0 = elapsed;
+    idle.1 = highest;
+    if !tick_now {
         return;
     }
-    let dt_ms = (*timer * 1000.0) as i32;
-    *timer = 0.0;
+    let dt_ms = (elapsed * 1000.0) as i32;
+    idle.0 = 0.0;
     let mut wanted = 0i32;
     for mut state in players.iter_mut() {
         wanted = state.0 as i32;

@@ -84,6 +84,25 @@ pub fn clamp_mod_state(value: i32, min: i32, max: i32) -> i32 {
     value.clamp(min, max)
 }
 
+/// Quiet seconds the mod's `tick` needs before it may decay a wanted star.
+pub const WANTED_IDLE_SECS: f32 = 8.0;
+
+/// Advance the idle window the host hands to the mod's `tick` (wanted decay).
+///
+/// The mod decays one star per quiet interval, so the window only runs while
+/// the player is already wanted at the same level: a fresh crime or a clear
+/// player restarts it, instead of a new crime inheriting time served before it
+/// and decaying on the next frame.
+///
+/// Returns the window after `dt` and whether the mod should be ticked now.
+pub fn advance_wanted_idle(elapsed: f32, dt: f32, state: u32, last_state: u32) -> (f32, bool) {
+    if state == 0 || state > last_state {
+        return (dt, false);
+    }
+    let next = elapsed + dt;
+    (next, next >= WANTED_IDLE_SECS)
+}
+
 // ─── Teardown / fracture helpers ──────────────────────────────────────────────
 
 /// A voxel is supported if it sits below the ground plane, or the cell
@@ -1064,6 +1083,32 @@ mod tests {
         assert_eq!(clamp_mod_state(6, 0, 5), 5, "WASM overflow must be clamped");
         assert_eq!(clamp_mod_state(i32::MAX, 0, 5), 5);
         assert_eq!(clamp_mod_state(i32::MIN, 0, 5), 0);
+    }
+
+    #[test]
+    fn wanted_idle_restarts_on_a_fresh_crime() {
+        // 7.9 s of quiet must not count towards the crime that just happened.
+        let (elapsed, fire) = advance_wanted_idle(7.9, 0.1, 3, 2);
+        assert!(!fire, "a fresh crime must not decay immediately");
+        assert_eq!(elapsed, 0.1);
+    }
+
+    #[test]
+    fn wanted_idle_decays_after_eight_quiet_seconds() {
+        let mut window = (0.0, false);
+        for _ in 0..7 {
+            window = advance_wanted_idle(window.0, 1.0, 2, 2);
+            assert!(!window.1, "decay must wait for the full interval");
+        }
+        window = advance_wanted_idle(window.0, 1.0, 2, 2);
+        assert!(window.1, "eight quiet seconds must ask the mod to tick");
+    }
+
+    #[test]
+    fn wanted_idle_never_accumulates_while_clear() {
+        let (elapsed, fire) = advance_wanted_idle(9.0, 0.5, 0, 0);
+        assert!(!fire, "a clear player must not carry a full window");
+        assert_eq!(elapsed, 0.5);
     }
 
     // ── voxel_has_support / fracture_offsets ──────────────────────────────────
