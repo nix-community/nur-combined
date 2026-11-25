@@ -122,6 +122,7 @@ files are copied from following locations. some are modified in this repo and so
 
 + versionCheckHomeHook <https://github.com/numtide/llm-agents.nix/tree/main/packages/versionCheckHomeHook> commit 04df876de28f0684a0d7110444d7f64da5c14d17
 + ryubing_patched (`by-name/ry/ryubing_patched/`) — nixpkgs' `ryubing` with the Darwin packaging added: installs the desktop file and icon so `desktopToDarwinBundle` can generate a macOS application bundle.
++ famistudio_patched (`by-name/fa/famistudio_patched/`) — nixpkgs' `famistudio` with the Darwin packaging added: installs a desktop entry and the upstream scalable icon so `desktopToDarwinBundle` can generate `FamiStudio.app`.
 + celeste64 (`by-name/ce/celeste64/`) — copied from nixpkgs commit [ac6b2166e7a9375683b8e98f860f273222337b16](https://github.com/NixOS/nixpkgs/tree/ac6b2166e7a9375683b8e98f860f273222337b16/pkgs/by-name/ce/celeste64) (`nixpkgs-unstable` lock); Darwin: `desktopToDarwinBundle`, Linux-only `runtimeDeps`, platforms include `*-darwin`
 + telegram-desktop_682 nixpkgs 8dc49b8b206a683d1f6605e0fd993c0f5d49c98d
 + jetbrains_idea-oss — IntelliJ IDEA Community built from JetBrains `idea/2026.3`
