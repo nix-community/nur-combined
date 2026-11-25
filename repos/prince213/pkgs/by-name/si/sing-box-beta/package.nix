@@ -26,6 +26,11 @@
 
   vendorHash = "sha256-3SyWbFw727nZRCaECDl+Bu1w1yhYB+fzUxvCKw2om6w=";
 
+  # https://github.com/NixOS/nixpkgs/pull/592763
+  env = (previousAttrs.env or { }) // {
+    CGO_LDFLAGS_ALLOW = "-l:libcronet\\.a";
+  };
+
   postInstall =
     lib.replaceString
       "install -Dm444 release/config/sing-box.rules $out/share/polkit-1/rules.d/sing-box.rules"
