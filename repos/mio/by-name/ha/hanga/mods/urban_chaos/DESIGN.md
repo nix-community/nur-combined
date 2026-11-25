@@ -66,8 +66,9 @@ and what you are holding. This game owns the jobs.
 | 2 | chop-shop | sidewalk bench (504, 2, 520) | hold brick, concrete, or a workbench |
 | 3+ | armored-truck | road (510, 2, 495) | be in a vehicle at the mark |
 
-Accept is J, cash-out is K, fence is L (when wanted is 0). Completing smash or
-chop-shop takes the selected item.
+Accept is J, cash-out is K, fence is L (when wanted is 0 and you are holding
+loot). Completing smash or chop-shop takes the selected item, and fencing takes
+the loot you sell.
 
 ## Soft-body fidelity
 

@@ -2624,7 +2624,9 @@ fn validate_incoming_actions(
                     info!("Mod refused verb {verb} (state {}, kind {kind}, danger {danger})", mod_state.0);
                     continue;
                 }
-                if verb == ACTION_COMPLETE && take {
+                // Cashing out a job takes the proof; fencing sells the loot in
+                // hand, so both consume the selected stack.
+                if (verb == ACTION_COMPLETE && take) || verb == ACTION_FENCE {
                     let slot = inventory.selected;
                     let mut items = inventory.items.clone();
                     let mut counts = inventory.counts;

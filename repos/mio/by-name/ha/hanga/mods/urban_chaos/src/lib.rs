@@ -1015,7 +1015,8 @@ pub fn mod_can_complete(
                 _ => near,
             })
         }
-        ACTION_FENCE => i32::from(player_state <= 0),
+        // Fencing sells the held loot, so empty hands have nothing to sell.
+        ACTION_FENCE => i32::from(player_state <= 0 && !held.is_empty()),
         _ => 0,
     }
 }
@@ -2045,9 +2046,14 @@ mod tests {
     }
 
     #[test]
-    fn fence_only_when_cold() {
-        assert_eq!(mod_can_complete(ACTION_FENCE, 0, "", 0, "", 0, false, false), 1);
-        assert_eq!(mod_can_complete(ACTION_FENCE, 2, "", 0, "", 0, false, false), 0);
+    fn fence_only_when_cold_and_holding_loot() {
+        assert_eq!(mod_can_complete(ACTION_FENCE, 0, "", 0, "glass", 0, false, false), 1);
+        assert_eq!(
+            mod_can_complete(ACTION_FENCE, 0, "", 0, "", 0, false, false),
+            0,
+            "fencing empty hands must not pay"
+        );
+        assert_eq!(mod_can_complete(ACTION_FENCE, 2, "", 0, "glass", 0, false, false), 0);
     }
 
     #[test]
