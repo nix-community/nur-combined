@@ -1,0 +1,35 @@
+diff --git a/setup/install.py b/setup/install.py
+--- a/setup/install.py
++++ b/setup/install.py
+@@ -135,11 +135,4 @@ class Develop(Command):
+     def pre_sub_commands(self, opts):
+-        if not (islinux or isbsd or ishaiku):
+-            self.info(
+-                '\nSetting up a source based development environment is only '
+-                'supported on linux. On other platforms, see the User Manual'
+-                ' for help with setting up a development environment.'
+-            )
+-            raise SystemExit(1)
+         # Ensure any config files created as a side effect of importing calibre
+         # during the build process are in /tmp
+         os.environ['CALIBRE_CONFIG_DIRECTORY'] = os.environ.get('CALIBRE_CONFIG_DIRECTORY', '/tmp/calibre-install-config')
+diff --git a/src/calibre/utils/ipc/launch.py b/src/calibre/utils/ipc/launch.py
+--- a/src/calibre/utils/ipc/launch.py
++++ b/src/calibre/utils/ipc/launch.py
+@@ -70,3 +70,1 @@ def headless_exe_path(exe_name='calibre-parallel'):
+ def headless_exe_path(exe_name='calibre-parallel'):
+-    if ismacos and not hasattr(sys, 'running_from_setup'):
+-        return os.path.join(macos_headless_bundle_path(), exe_name)
+     return exe_path(exe_name)
+@@ -103,11 +103,3 @@ class Worker:
+     @property
+     def gui_executable(self):
+-        if ismacos and not hasattr(sys, 'running_from_setup'):
+-            if self.job_name == 'ebook-viewer':
+-                return os.path.join(macos_viewer_bundle_path(), self.exe_name)
+-            if self.job_name == 'ebook-edit':
+-                return os.path.join(macos_edit_book_bundle_path(), self.exe_name)
+-
+-            return os.path.join(getattr(sys, 'executables_location'), self.exe_name)
+-
+         return self.executable
