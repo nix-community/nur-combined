@@ -89,27 +89,20 @@ stdenv.mkDerivation (finalAttrs: {
   + (
     if stdenv.hostPlatform.isDarwin then
       ''
-        mkdir -p $out/Applications/BeamMP-Launcher.app/Contents/{MacOS,Resources}
-        cp BeamMP-Launcher $out/Applications/BeamMP-Launcher.app/Contents/MacOS/
+        app=$out/Applications/BeamMP-Launcher.app
+        mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
+        cp BeamMP-Launcher "$app/Contents/MacOS/"
 
-        # Create Info.plist
-        cat > $out/Applications/BeamMP-Launcher.app/Contents/Info.plist <<EOF
-        <?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-        <plist version="1.0">
-        <dict>
-          <key>CFBundleExecutable</key>
-          <string>BeamMP-Launcher</string>
-          <key>CFBundleIdentifier</key>
-          <string>com.beammp.launcher</string>
-          <key>CFBundleName</key>
-          <string>BeamMP-Launcher</string>
-          <key>CFBundlePackageType</key>
-          <string>APPL</string>
-          <key>CFBundleVersion</key>
-          <string>${finalAttrs.version}</string>
-        </dict>
-        </plist>
+        # The bundle metadata is generated rather than hand-written as XML, so
+        # the strings (e.g. the commit-based version) are escaped correctly.
+        cat > "$app/Contents/Info.plist" <<'EOF'
+        ${lib.generators.toPlist { escape = true; } {
+          CFBundleExecutable = "BeamMP-Launcher";
+          CFBundleIdentifier = "com.beammp.launcher";
+          CFBundleName = "BeamMP-Launcher";
+          CFBundlePackageType = "APPL";
+          CFBundleVersion = finalAttrs.version;
+        }}
         EOF
       ''
     else

@@ -67,6 +67,8 @@ lib.overrideDerivation
       '';
 
       dontUseCmakeConfigure = true;
+      # Fixup strips and re-signs Mach-O files, which would invalidate the
+      # signatures the app bundle's build already applied.
       dontFixup = stdenv.hostPlatform.isDarwin;
 
       postPatch = ''
@@ -103,65 +105,15 @@ lib.overrideDerivation
     // lib.optionalAttrs stdenv.hostPlatform.isDarwin {
       buildPhase = ''
         runHook preBuild
-        export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
-        export PATH="$DEVELOPER_DIR/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
-        export CFFIXED_USER_HOME=$HOME
 
-        export REAL_DEV_DIR=/Applications/Xcode.app/Contents/Developer
-        export FAKE_XCODE="$(pwd)/FakeXcode.app"
-        export FAKE_DEV_DIR="$FAKE_XCODE/Contents/Developer"
-
-        mkdir -p "$FAKE_DEV_DIR/usr/bin"
-        ln -s /Applications/Xcode.app/Contents/Info.plist "$FAKE_XCODE/Contents/"
-        ln -s /Applications/Xcode.app/Contents/version.plist "$FAKE_XCODE/Contents/"
-
-        for file in "$REAL_DEV_DIR"/*; do
-          if [[ "$(basename "$file")" != "usr" ]]; then
-            ln -s "$file" "$FAKE_DEV_DIR/"
-          fi
-        done
-
-        mkdir -p "$FAKE_DEV_DIR/usr"
-        for file in "$REAL_DEV_DIR/usr"/*; do
-          if [ "$(basename "$file")" != "bin" ]; then
-            ln -s "$file" "$FAKE_DEV_DIR/usr/"
-          fi
-        done
-        mkdir -p "$FAKE_DEV_DIR/usr/bin"
-        for file in "$REAL_DEV_DIR/usr/bin"/*; do
-          ln -s "$file" "$FAKE_DEV_DIR/usr/bin/"
-        done
-
-        rm -f "$FAKE_DEV_DIR/usr/bin/xcodebuild"
-        cat << 'EOF2' > "$FAKE_DEV_DIR/usr/bin/xcodebuild"
-        #!/bin/bash
-        exec "$REAL_DEV_DIR/usr/bin/xcodebuild" ARCHS=$(uname -m) ONLY_ACTIVE_ARCH=YES -IDEPackageSupportDisableManifestSandbox=YES -IDEPackageSupportDisablePluginExecutionSandbox=YES "$@"
-        EOF2
-        chmod +x "$FAKE_DEV_DIR/usr/bin/xcodebuild"
-
-        mkdir -p "$(pwd)/custom_bin"
-        cat << 'EOF3' > "$(pwd)/custom_bin/rsync"
-        #!/bin/bash
-        /usr/bin/rsync "$@"
-        status=$?
-        if [[ "$status" == 0 ]]; then
-          for arg in "$@"; do
-            last_arg="$arg"
-          done
-          if [[ -d "$last_arg" ]]; then
-            chmod -R u+w "$last_arg" || true
-          fi
-        fi
-        exit $status
-        EOF3
-        chmod +x "$(pwd)/custom_bin/rsync"
-
-        export DEVELOPER_DIR="$FAKE_DEV_DIR"
-        export PATH="$(pwd)/custom_bin:$PATH"
+        source ${../../../shared/darwin-xcode-shim.sh}
+        fakeXcodeSetup
 
         export SSL_CERT_FILE="${cacert}/etc/ssl/certs/ca-bundle.crt"
-        export GIT_SSL_CAINFO="${cacert}/etc/ssl/certs/ca-bundle.crt"
+        export GIT_SSL_CAINFO="$SSL_CERT_FILE"
 
+        # Nixpkgs sets LD=ld, which makes xcodebuild invoke ld directly while it
+        # still passes -Xlinker flags meant for clang.
         unset LD
 
         flutter build macos -v --release
