@@ -16,6 +16,8 @@ let
 
     # Unmaintained
     exloli-next = "unmaintained";
+    horizon-client = "unmaintained";
+    horizon-prepare = "unmaintained";
     mautrix-telegramgo = "unmaintained";
 
     # Packaged upstream

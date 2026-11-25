@@ -14,27 +14,27 @@
   libxi,
   libxrandr,
   libxcb,
-  horizon-prepare,
+  sunrise-prepare,
   sources,
-  source ? sources.horizon,
+  source ? sources.sunrise,
 }:
 rustPlatform.buildRustPackage {
-  pname = "horizon-client";
+  pname = "sunrise-client";
   inherit (source) version src;
 
   cargoLock = source.cargoLock;
 
   cargoBuildFlags = [
-    "--package=horizon-game"
-    "--bin=horizon-client"
-    "--package=horizon-client-lib"
-    "--bin=horizon-ctl"
+    "--package=sunrise-game"
+    "--bin=sunrise-client"
+    "--package=sunrise-client-lib"
+    "--bin=sunrise-ctl"
   ];
 
   env = {
-    HORIZON_VERSION = source.version;
-    # horizon-mod-host's build script falls back to `git rev-parse HEAD`, but the source has no .git.
-    HORIZON_GAME_BUILD_ID = source.rawVersion;
+    SUNRISE_VERSION = source.version;
+    # sunrise-mod-host's build script falls back to `local` when SUNRISE_GAME_BUILD_ID is unset.
+    SUNRISE_GAME_BUILD_ID = source.rawVersion;
   };
 
   nativeBuildInputs = [ pkg-config ];
@@ -59,17 +59,23 @@ rustPlatform.buildRustPackage {
         libxrandr
         libxcb
       ]
-    } $out/bin/horizon-client
+    } $out/bin/sunrise-client
   '';
 
-  passthru = { inherit horizon-prepare; };
+  passthru = { inherit sunrise-prepare; };
 
   meta = {
-    description = "Minecraft: Java Edition rebuilt in Rust";
-    homepage = "https://github.com/horizon-rust/horizon";
-    license = lib.licenses.mit;
+    description = "Sunrise, Minecraft: Java Edition 26.3 rewritten in Rust, and sunrise-ctl";
+    homepage = "https://playsunrise.net";
+    license = {
+      fullName = "PolyForm Shield License 1.0.0";
+      spdxId = "PolyForm-Shield-1.0.0";
+      url = "https://polyformproject.org/licenses/shield/1.0.0/";
+      free = false;
+      redistributable = true;
+    };
     maintainers = with lib.maintainers; [ moraxyc ];
-    mainProgram = "horizon-client";
+    mainProgram = "sunrise-client";
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

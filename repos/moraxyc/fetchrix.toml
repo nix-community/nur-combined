@@ -247,14 +247,6 @@ version = { source = "github-tag", repo = "HMCL-dev/HMCL", strip_prefix = "v", f
 transform = ["strip-v"]
 fetch = { type = "github", repo = "HMCL-dev/HMCL", rev = "v{version}" }
 
-[packages.horizon]
-version = { source = "git", url = "https://github.com/horizon-rust/horizon.git", unstable = { } }
-fetch = { type = "github", repo = "horizon-rust/horizon", rev = "{version}" }
-
-[packages.horizon.derive.cargoLock]
-kind = "cargo-vendor"
-strategy = "lockfile"
-
 [packages.hysteria-realm-server]
 version = { source = "github-release", repo = "apernet/hysteria-realm-server" }
 transform = ["strip-v"]
@@ -639,6 +631,14 @@ select = "composerVendor"
 version = { source = "git", url = "https://github.com/tindy2013/subconverter", unstable = { } }
 transform = ["strip-v"]
 fetch = { type = "git", url = "https://github.com/tindy2013/subconverter", rev = "{version}" }
+
+[packages.sunrise]
+version = { source = "git", url = "https://github.com/sunrise-org/sunrise.git", unstable = { } }
+fetch = { type = "github", repo = "sunrise-org/sunrise", rev = "{version}" }
+
+[packages.sunrise.derive.cargoLock]
+kind = "cargo-vendor"
+strategy = "lockfile"
 
 [packages.superpowers-skills]
 version = { source = "git", url = "https://github.com/obra/superpowers.git", unstable = { } }

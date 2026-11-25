@@ -39,7 +39,7 @@ version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d122413f284cf2d62fb1b7db97e02edb8cda96d769b16e443a4f6195e35662b0"
 dependencies = [
- "crypto-common",
+ "crypto-common 0.1.7",
  "generic-array",
 ]
 
@@ -151,10 +151,13 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470"
 
 [[package]]
-name = "arbitrary"
-version = "1.5.0"
+name = "ar_archive_writer"
+version = "0.5.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3bc62ac97cc33321f50863d514c3bc38a453947a8f9e781137e47c7401020aed"
+checksum = "523e5e187fff36fcb8d1d19ccf0ca4ca43ec3d158316057f66dc6f72716bc5ec"
+dependencies = [
+ "object",
+]
 
 [[package]]
 name = "arboard"
@@ -169,7 +172,7 @@ dependencies = [
  "objc2-foundation 0.3.2",
  "parking_lot",
  "percent-encoding",
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2",
  "wl-clipboard-rs",
  "x11rb",
 ]
@@ -262,17 +265,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "async-trait"
-version = "0.1.92"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "82f6aeea286b8eb4dd3431a1be1b59d290ace00f5bfd8e2a159bc2a05e2c1667"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 3.0.6",
-]
-
-[[package]]
 name = "atomic-waker"
 version = "1.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -283,6 +275,30 @@ name = "autocfg"
 version = "1.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f2032f911046de80f0a198e0901378627c33f59ea0ac00e363d481118bd70a53"
+
+[[package]]
+name = "aws-lc-rs"
+version = "1.19.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "048006790404103c488e6c5616b3e7e702a71292aadda08e8f7698a9e0d2eb53"
+dependencies = [
+ "aws-lc-sys",
+ "untrusted 0.7.1",
+ "zeroize",
+]
+
+[[package]]
+name = "aws-lc-sys"
+version = "0.47.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8bfbe32ac36b3c428696ce315464181bc4029d689fd58e3f2a4e58c252242f52"
+dependencies = [
+ "cc",
+ "cmake",
+ "dunce",
+ "fs_extra",
+ "pkg-config",
+]
 
 [[package]]
 name = "base64"
@@ -348,6 +364,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "block-buffer"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d2f6c7dbe95a6ed67ad9f18e57daf93a2f034c524b99fd2b76d18fdfeb6660aa"
+dependencies = [
+ "hybrid-array",
+]
+
+[[package]]
 name = "block-padding"
 version = "0.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -375,6 +400,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "bstr"
+version = "1.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a680398c10c7bc0488067c4612226ea905a85f607134b69f3068d505d58c4214"
+dependencies = [
+ "memchr",
+ "serde_core",
+]
+
+[[package]]
 name = "btoi"
 version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -394,9 +429,6 @@ name = "bumpalo"
 version = "3.20.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "72f5acc6cb2ba439de613abc23857ec3d78374d8ed5ac84e9d11336e87da8649"
-dependencies = [
- "allocator-api2",
-]
 
 [[package]]
 name = "bytemuck"
@@ -486,7 +518,7 @@ dependencies = [
  "io-lifetimes",
  "ipnet",
  "maybe-owned",
- "rustix 1.1.6",
+ "rustix 1.1.5",
  "rustix-linux-procfs",
  "windows-sys 0.59.0",
  "winx",
@@ -501,34 +533,43 @@ dependencies = [
  "cap-primitives",
  "io-extras",
  "io-lifetimes",
- "rustix 1.1.6",
+ "rustix 1.1.5",
 ]
 
 [[package]]
-name = "cargo-horizon-mod"
+name = "cargo-sunrise-mod"
 version = "0.1.0"
 dependencies = [
  "base64 0.22.1",
  "dunce",
- "horizon-addresses",
- "horizon-mod-package",
- "horizon-mod-source",
- "horizon-mod-surface",
- "horizon-mod-vocab",
- "horizon-port-pack",
- "horizon-release-sign",
+ "getrandom 0.4.3",
  "libc",
+ "lzma-rust2",
+ "object",
+ "png",
  "ring",
  "rustc-demangle",
+ "semver",
  "serde",
  "serde_json",
- "sha2",
+ "sha2 0.10.9",
+ "sunrise-addresses",
+ "sunrise-attestation",
+ "sunrise-jar-fetch",
+ "sunrise-mod-api-gen",
+ "sunrise-mod-package",
+ "sunrise-mod-pipeline",
+ "sunrise-mod-source",
+ "sunrise-mod-surface",
+ "sunrise-native-build",
+ "sunrise-port-pack",
+ "sunrise-proxy",
+ "sunrise-release-sign",
+ "tar",
  "tempfile",
  "toml",
  "toml_edit",
- "wasm-encoder 0.261.0",
- "wasmparser 0.261.0",
- "wat",
+ "url",
  "zip",
 ]
 
@@ -624,7 +665,7 @@ version = "0.4.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "773f3b9af64447d2ce9850330c473515014aa235e6a783b02db81ff39e4a3dad"
 dependencies = [
- "crypto-common",
+ "crypto-common 0.1.7",
  "inout",
  "zeroize",
 ]
@@ -639,12 +680,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "cmake"
+version = "0.1.58"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c0f78a02292a74a88ac736019ab962ece0bc380e3f977bf72e376c5d78ff0678"
+dependencies = [
+ "cc",
+]
+
+[[package]]
 name = "cms"
 version = "0.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7b77c319abfd5219629c45c34c89ba945ed3c5e49fcde9d16b6c3885f118a730"
 dependencies = [
- "const-oid",
+ "const-oid 0.9.6",
  "der",
  "spki",
  "x509-cert",
@@ -700,6 +750,12 @@ name = "const-oid"
 version = "0.9.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c2459377285ad874054d797f3ccebf984978aa39129f6eafde5cdc8315b612f8"
+
+[[package]]
+name = "const-oid"
+version = "0.10.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "be95d4a884358a21a199689323c29e9256b4a1b315e22f183d155422041d3a9a"
 
 [[package]]
 name = "core-foundation"
@@ -773,7 +829,7 @@ dependencies = [
  "jni 0.21.1",
  "js-sys",
  "libc",
- "mach2 0.4.3",
+ "mach2",
  "ndk",
  "ndk-context",
  "num-derive",
@@ -785,15 +841,6 @@ dependencies = [
  "wasm-bindgen-futures",
  "web-sys",
  "windows 0.54.0",
-]
-
-[[package]]
-name = "cpp_demangle"
-version = "0.5.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0667304c32ea56cb4cd6d2d7c0cfe9a2f8041229db8c033af7f8d69492429def"
-dependencies = [
- "cfg-if",
 ]
 
 [[package]]
@@ -815,151 +862,14 @@ dependencies = [
 ]
 
 [[package]]
-name = "cranelift-assembler-x64"
-version = "0.137.1"
+name = "crc-fast"
+version = "1.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "80552083a2db143c5d951debe9f59a7d9f22084c70abe450fed5220060fa26c3"
+checksum = "e75b2483e97a5a7da73ac68a05b629f9c53cff58d8ed1c77866079e18b00dba5"
 dependencies = [
- "cranelift-assembler-x64-meta",
+ "digest 0.10.7",
+ "spin",
 ]
-
-[[package]]
-name = "cranelift-assembler-x64-meta"
-version = "0.137.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7cf84b7e5f0aa42cb0d55cabf01c520fdb70a50d8b572a841ee875083589d643"
-dependencies = [
- "cranelift-srcgen",
-]
-
-[[package]]
-name = "cranelift-bforest"
-version = "0.137.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "81d47ec2358cdbace0520ac212c003656b529f0c60e43fbbe9a331632cd9e8fc"
-dependencies = [
- "cranelift-entity",
- "wasmtime-internal-core",
-]
-
-[[package]]
-name = "cranelift-bitset"
-version = "0.137.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eebb94b54db96b26e387bc8c698823d83d9254d551a6ed846a60cebf62ed7135"
-dependencies = [
- "serde",
- "serde_derive",
- "wasmtime-internal-core",
-]
-
-[[package]]
-name = "cranelift-codegen"
-version = "0.137.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "be81b89cb7b186a26cf2014c312aeb17737da988b4444d16a0cb3424d637d44e"
-dependencies = [
- "bumpalo",
- "cranelift-assembler-x64",
- "cranelift-bforest",
- "cranelift-bitset",
- "cranelift-codegen-meta",
- "cranelift-codegen-shared",
- "cranelift-control",
- "cranelift-entity",
- "cranelift-isle",
- "gimli",
- "hashbrown 0.17.1",
- "libm",
- "log",
- "postcard",
- "pulley-interpreter",
- "regalloc2",
- "rustc-hash 2.1.3",
- "serde",
- "serde_derive",
- "sha2",
- "smallvec",
- "target-lexicon",
- "wasmtime-internal-core",
-]
-
-[[package]]
-name = "cranelift-codegen-meta"
-version = "0.137.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cb1b64a509c3814932fb9845ce8da835cd10d62c6c56dacfdcd9af389d3bf313"
-dependencies = [
- "cranelift-assembler-x64-meta",
- "cranelift-codegen-shared",
- "cranelift-srcgen",
- "heck",
- "pulley-interpreter",
-]
-
-[[package]]
-name = "cranelift-codegen-shared"
-version = "0.137.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e667a0e9ed3bbbed0e7e52cd2dea85a645745b39f547097e2fca0bf317cac9df"
-
-[[package]]
-name = "cranelift-control"
-version = "0.137.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a5fa7d5123705226a368b6b1c7b10f23036c35e8041ffdd5f6505790f5c31404"
-dependencies = [
- "arbitrary",
-]
-
-[[package]]
-name = "cranelift-entity"
-version = "0.137.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a1bffb83ac1d7052691d1710ca8eb334d4fcaad363e589f2b89d38d97bda5776"
-dependencies = [
- "cranelift-bitset",
- "serde",
- "serde_derive",
- "wasmtime-internal-core",
-]
-
-[[package]]
-name = "cranelift-frontend"
-version = "0.137.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1bc727c856bf57eae76c72ac4f9b1eaf49947a2b02f699798262fc8399557b7a"
-dependencies = [
- "cranelift-codegen",
- "hashbrown 0.17.1",
- "log",
- "smallvec",
- "target-lexicon",
-]
-
-[[package]]
-name = "cranelift-isle"
-version = "0.137.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a92e743f35915d55cd3d3178aab483661f78c2f9274aa704f29be69e3789c5bd"
-
-[[package]]
-name = "cranelift-native"
-version = "0.137.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "127c50e5e2b2b97116d4e2c079db6ce29b07303cd1ab48a8bb4c2abbf16a7a68"
-dependencies = [
- "cranelift-codegen",
- "libc",
- "mach2 0.6.0",
- "target-lexicon",
-]
-
-[[package]]
-name = "cranelift-srcgen"
-version = "0.137.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6f34b169b8cbbaed2b4995205f1d02d7eac4b2771df5479255fe5483e1334a39"
 
 [[package]]
 name = "crc32fast"
@@ -1022,6 +932,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "crypto-common"
+version = "0.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ce6e4c961d6cd6c9a86db418387425e8bdeaf05b3c8bc1411e6dca4c252f1453"
+dependencies = [
+ "hybrid-array",
+]
+
+[[package]]
 name = "cty"
 version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1042,8 +961,22 @@ dependencies = [
  "cfg-if",
  "cpufeatures 0.2.17",
  "curve25519-dalek-derive",
- "fiat-crypto",
+ "fiat-crypto 0.2.9",
  "rand_core 0.6.4",
+ "rustc_version",
+ "subtle",
+]
+
+[[package]]
+name = "curve25519-dalek"
+version = "5.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b5eed333089e2e1c1ac8c6c0398e5e2497b4c9926ca6d0365ed1e099afa5bc23"
+dependencies = [
+ "cfg-if",
+ "cpufeatures 0.3.1",
+ "curve25519-dalek-derive",
+ "fiat-crypto 0.3.0",
  "rustc_version",
  "subtle",
 ]
@@ -1077,7 +1010,7 @@ version = "0.7.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e7c1832837b905bbfb5101e07cc24c8deddf52f93225eee6ead5f4d63d53ddcb"
 dependencies = [
- "const-oid",
+ "const-oid 0.9.6",
  "der_derive",
  "flagset",
  "pem-rfc7468",
@@ -1141,9 +1074,20 @@ version = "0.10.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9ed9a281f7bc9b7576e61468ba615a66a5c8cfdff42420a70aa82701a3b1e292"
 dependencies = [
- "block-buffer",
- "crypto-common",
+ "block-buffer 0.10.4",
+ "crypto-common 0.1.7",
  "subtle",
+]
+
+[[package]]
+name = "digest"
+version = "0.11.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f1dd6dbb5841937940781866fa1281a1ff7bd3bf827091440879f9994983d5c2"
+dependencies = [
+ "block-buffer 0.12.1",
+ "const-oid 0.10.3",
+ "crypto-common 0.2.2",
 ]
 
 [[package]]
@@ -1254,7 +1198,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "39cab71617ae0d63f51a36d69f866391735b51691dbda63cf6f96d042b63efeb"
 dependencies = [
  "libc",
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -1295,6 +1239,12 @@ name = "fiat-crypto"
 version = "0.2.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "28dea519a9695b9977216879a3ebfddf92f1c08c05d984f8996aecd6ecdc811d"
+
+[[package]]
+name = "fiat-crypto"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "64cd1e32ddd350061ae6edb1b082d7c54915b5c672c389143b9a63403a109f24"
 
 [[package]]
 name = "filetime"
@@ -1408,7 +1358,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "94e7099f6313ecacbe1256e8ff9d617b75d1bcb16a6fddef94866d225a01a14a"
 dependencies = [
  "io-lifetimes",
- "rustix 1.1.6",
+ "rustix 1.1.5",
  "windows-sys 0.59.0",
 ]
 
@@ -1418,33 +1368,15 @@ version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7e72ed92b67c146290f88e9c89d60ca163ea417a446f61ffd7b72df3e7f1dfd5"
 dependencies = [
- "rustix 1.1.6",
+ "rustix 1.1.5",
  "windows-sys 0.61.2",
 ]
 
 [[package]]
-name = "futures"
-version = "0.3.34"
+name = "fs_extra"
+version = "1.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9a31d2a3fbaaeb2af2368bbdd904aa8e812d3c04a1ee10d3171f52d556e5d0a3"
-dependencies = [
- "futures-channel",
- "futures-core",
- "futures-io",
- "futures-sink",
- "futures-task",
- "futures-util",
-]
-
-[[package]]
-name = "futures-channel"
-version = "0.3.34"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b1f9e3d69d39e4862ffed03ed071a76f9a13ba1d9109d355b0f0aa6b15e393c4"
-dependencies = [
- "futures-core",
- "futures-sink",
-]
+checksum = "42703706b716c37f96a77aea830392ad231f44c9e9a67872fa5548707e11b11c"
 
 [[package]]
 name = "futures-core"
@@ -1459,12 +1391,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "53c0fa8157de1303bfffdaa1cc2a673bfffb60102f76b0ef4441659124373fed"
 
 [[package]]
-name = "futures-sink"
-version = "0.3.34"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1944426bf7d03f1d14f708785e4b33efd750b36d48a157b836b3efc15ede8e1d"
-
-[[package]]
 name = "futures-task"
 version = "0.3.34"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1476,12 +1402,8 @@ version = "0.3.34"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0d50a92467f8ba5dd6e3ee5d4bd04d73ab2e4e1c44474a0674821dfce14b79bc"
 dependencies = [
- "futures-channel",
  "futures-core",
- "futures-io",
- "futures-sink",
  "futures-task",
- "memchr",
  "pin-project-lite",
  "slab",
 ]
@@ -1502,7 +1424,7 @@ version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1bd49230192a3797a9a4d6abe9b3eed6f7fa4c8a8a4947977c6f80025f92cbd8"
 dependencies = [
- "rustix 1.1.6",
+ "rustix 1.1.5",
  "windows-link",
 ]
 
@@ -1595,9 +1517,6 @@ version = "0.33.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0bf7f043f89559805f8c7cacc432749b2fa0d0a0a9ee46ce47164ed5ba7f126c"
 dependencies = [
- "fnv",
- "hashbrown 0.16.1",
- "indexmap",
  "stable_deref_trait",
 ]
 
@@ -1617,6 +1536,19 @@ name = "glam"
 version = "0.30.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "19fc433e8437a212d1b6f1e68c7824af3aed907da60afa994e7f542d18d12aa9"
+
+[[package]]
+name = "globset"
+version = "0.4.22"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "71217a07f20b48b4938c14203b77b610f8a7fa6762c3f75394a10c5f31e5aee0"
+dependencies = [
+ "aho-corasick",
+ "bstr",
+ "log",
+ "regex-automata",
+ "regex-syntax",
+]
 
 [[package]]
 name = "glow"
@@ -1692,8 +1624,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ed5909b6e89a2db4456e54cd5f673791d7eca6732202bbf2a9cc504fe2f9b84a"
 dependencies = [
  "foldhash 0.2.0",
- "serde",
- "serde_core",
 ]
 
 [[package]]
@@ -1751,1112 +1681,16 @@ version = "0.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6c49c37c09c17a53d937dfbb742eb3a961d65a994e6bcdcf37e7399d0cc8ab5e"
 dependencies = [
- "digest",
+ "digest 0.10.7",
 ]
 
 [[package]]
-name = "horizon-addresses"
-version = "0.1.0"
-
-[[package]]
-name = "horizon-anticheat"
-version = "0.1.0"
-dependencies = [
- "serde",
- "toml",
-]
-
-[[package]]
-name = "horizon-assets"
-version = "0.1.0"
-dependencies = [
- "flate2",
- "horizon-core",
- "log",
- "miniz_oxide 0.8.9",
- "png",
- "serde",
- "serde_json",
- "zip",
-]
-
-[[package]]
-name = "horizon-bench"
-version = "0.1.0"
-dependencies = [
- "horizon-system",
- "serde",
- "serde_json",
-]
-
-[[package]]
-name = "horizon-bots"
-version = "0.1.0"
-dependencies = [
- "horizon-protocol",
- "serde_json",
-]
-
-[[package]]
-name = "horizon-chat-filter"
-version = "0.1.0"
-dependencies = [
- "horizon-server-files",
- "serde",
- "serde_json",
- "toml",
-]
-
-[[package]]
-name = "horizon-client"
-version = "0.1.0"
-dependencies = [
- "ab_glyph",
- "bytemuck",
- "cap-fs-ext",
- "cap-std",
- "chrono",
- "crc32fast",
- "flate2",
- "fs4",
- "gilrs",
- "glam",
- "horizon-anticheat",
- "horizon-assets",
- "horizon-bench",
- "horizon-chat-filter",
- "horizon-client-core",
- "horizon-client-gameplay",
- "horizon-client-input",
- "horizon-client-lib",
- "horizon-client-render",
- "horizon-command",
- "horizon-core",
- "horizon-cosmetics",
- "horizon-dualsense",
- "horizon-engine-slots",
- "horizon-friends",
- "horizon-game-discovery",
- "horizon-gameplay",
- "horizon-guest-stack",
- "horizon-hooks",
- "horizon-items",
- "horizon-java-properties",
- "horizon-mod-api",
- "horizon-mod-api-gen",
- "horizon-mod-api-macros",
- "horizon-mod-package",
- "horizon-mod-runtime",
- "horizon-mod-vocab",
- "horizon-mod-wasm",
- "horizon-narrator",
- "horizon-optifine",
- "horizon-perf",
- "horizon-perf-format",
- "horizon-protocol",
- "horizon-server-files",
- "horizon-shader-api",
- "horizon-shaders",
- "horizon-system",
- "horizon-telemetry",
- "horizon-threads",
- "horizon-world",
- "log",
- "naga",
- "objc2 0.6.5",
- "objc2-app-kit 0.3.2",
- "objc2-foundation 0.3.2",
- "png",
- "pollster",
- "rustix 1.1.6",
- "serde",
- "serde_json",
- "sha1",
- "sha2",
- "tempfile",
- "toml",
- "ureq",
- "wat",
- "wgpu",
- "winit",
- "winresource",
- "zip",
-]
-
-[[package]]
-name = "horizon-client-core"
-version = "0.1.0"
-dependencies = [
- "horizon-assets",
- "horizon-core",
- "horizon-world",
- "serde_json",
-]
-
-[[package]]
-name = "horizon-client-gameplay"
-version = "0.1.0"
-dependencies = [
- "glam",
- "horizon-client-lib",
- "horizon-core",
- "horizon-world",
- "log",
- "serde_json",
-]
-
-[[package]]
-name = "horizon-client-input"
-version = "0.1.0"
-dependencies = [
- "arboard",
- "horizon-client-core",
- "horizon-engine-slots",
- "horizon-hooks",
- "horizon-mod-api-macros",
- "horizon-theme",
- "log",
- "png",
- "winit",
-]
-
-[[package]]
-name = "horizon-client-lib"
-version = "0.1.0"
-dependencies = [
- "ab_glyph",
- "bytemuck",
- "cap-fs-ext",
- "cap-std",
- "chrono",
- "crc32fast",
- "dunce",
- "flate2",
- "fs4",
- "getrandom 0.3.4",
- "gilrs",
- "glam",
- "horizon-anticheat",
- "horizon-assets",
- "horizon-bench",
- "horizon-client-core",
- "horizon-client-input",
- "horizon-client-render",
- "horizon-command",
- "horizon-core",
- "horizon-engine-slots",
- "horizon-game-discovery",
- "horizon-guest-stack",
- "horizon-hdr",
- "horizon-hooks",
- "horizon-items",
- "horizon-java-properties",
- "horizon-mcp",
- "horizon-mod-api",
- "horizon-mod-api-macros",
- "horizon-mod-package",
- "horizon-mod-runtime",
- "horizon-mod-vocab",
- "horizon-mod-wasm",
- "horizon-narrator",
- "horizon-optifine",
- "horizon-perf",
- "horizon-perf-format",
- "horizon-protocol",
- "horizon-server-files",
- "horizon-shader-api",
- "horizon-shaders",
- "horizon-telemetry",
- "horizon-theme",
- "horizon-threads",
- "horizon-world",
- "log",
- "miniz_oxide 0.8.9",
- "mio",
- "naga",
- "objc2 0.6.5",
- "objc2-app-kit 0.3.2",
- "objc2-foundation 0.3.2",
- "open",
- "png",
- "pollster",
- "rayon",
- "rustix 1.1.6",
- "same-file",
- "serde",
- "serde_json",
- "sha1",
- "sha2",
- "shlex",
- "smallvec",
- "tempfile",
- "unicode-bidi",
- "ureq",
- "wgpu",
- "windows-sys 0.61.2",
- "winit",
- "xxhash-rust",
- "zip",
-]
-
-[[package]]
-name = "horizon-client-render"
-version = "0.1.0"
-dependencies = [
- "ab_glyph",
- "base64 0.22.1",
- "bytemuck",
- "chrono",
- "cpal",
- "flate2",
- "glam",
- "half",
- "horizon-assets",
- "horizon-client-core",
- "horizon-client-input",
- "horizon-command",
- "horizon-core",
- "horizon-engine-slots",
- "horizon-guest-stack",
- "horizon-hdr",
- "horizon-hooks",
- "horizon-items",
- "horizon-mod-api",
- "horizon-mod-api-macros",
- "horizon-mod-package",
- "horizon-mod-runtime",
- "horizon-mod-vocab",
- "horizon-narrator",
- "horizon-optifine",
- "horizon-perf",
- "horizon-perf-format",
- "horizon-polytone",
- "horizon-protocol",
- "horizon-shader-api",
- "horizon-shaders",
- "horizon-system",
- "horizon-theme",
- "horizon-threads",
- "horizon-world",
- "image-webp",
- "log",
- "lz4_flex",
- "miniz_oxide 0.8.9",
- "naga",
- "png",
- "pollster",
- "rustix 1.1.6",
- "serde",
- "serde_json",
- "sha1",
- "sha2",
- "smallvec",
- "symphonia",
- "tempfile",
- "unicode-bidi",
- "ureq",
- "wgpu",
- "winit",
- "zip",
- "zune-jpeg",
-]
-
-[[package]]
-name = "horizon-command"
-version = "0.1.0"
-dependencies = [
- "horizon-client-core",
- "horizon-core",
- "horizon-items",
- "horizon-protocol",
- "horizon-world",
-]
-
-[[package]]
-name = "horizon-core"
-version = "0.1.0"
-dependencies = [
- "libm",
- "serde",
- "serde_json",
- "unicode_names2",
-]
-
-[[package]]
-name = "horizon-cosmetics"
-version = "0.1.0"
-dependencies = [
- "base64 0.22.1",
- "glam",
- "horizon-addresses",
- "png",
- "serde",
- "serde_json",
- "ureq",
-]
-
-[[package]]
-name = "horizon-discord"
-version = "0.1.0"
-dependencies = [
- "horizon-platform",
- "log",
- "serde_json",
-]
-
-[[package]]
-name = "horizon-dualsense"
-version = "0.1.0"
-dependencies = [
- "cpal",
- "hidapi",
- "log",
- "windows 0.62.2",
-]
-
-[[package]]
-name = "horizon-engine-slots"
-version = "0.1.0"
-dependencies = [
- "horizon-mod-vocab",
-]
-
-[[package]]
-name = "horizon-friends"
-version = "0.1.0"
-dependencies = [
- "chacha20poly1305",
- "getrandom 0.3.4",
- "hkdf",
- "horizon-addresses",
- "horizon-platform",
- "if-addrs",
- "serde",
- "serde_json",
- "sha2",
- "socket2 0.6.5",
- "spake2",
-]
-
-[[package]]
-name = "horizon-game"
-version = "0.1.0"
-dependencies = [
- "horizon-client",
- "horizon-core",
- "horizon-guest-stack",
- "horizon-mod-host",
- "horizon-mod-package",
- "horizon-protocol",
- "horizon-theme",
- "serde_json",
- "tempfile",
- "winresource",
-]
-
-[[package]]
-name = "horizon-game-discovery"
-version = "0.1.0"
-dependencies = [
- "horizon-mod-source",
- "proc-macro2",
- "quote",
- "serde_json",
- "syn 2.0.119",
-]
-
-[[package]]
-name = "horizon-gameplay"
-version = "0.1.0"
-dependencies = [
- "horizon-assets",
- "horizon-client-core",
- "horizon-client-lib",
- "horizon-command",
- "horizon-core",
- "horizon-engine-slots",
- "horizon-items",
- "horizon-mod-package",
- "horizon-mod-runtime",
- "horizon-mod-vocab",
- "horizon-protocol",
- "horizon-threads",
- "horizon-world",
- "log",
- "serde_json",
-]
-
-[[package]]
-name = "horizon-guest-stack"
-version = "0.1.0"
-dependencies = [
- "libc",
-]
-
-[[package]]
-name = "horizon-hdr"
-version = "0.1.0"
-dependencies = [
- "ash",
- "wayland-backend",
- "wayland-client",
- "wayland-protocols",
- "wgpu",
-]
-
-[[package]]
-name = "horizon-heartbeat"
-version = "0.1.0"
-dependencies = [
- "horizon-platform",
- "horizon-telemetry",
- "log",
-]
-
-[[package]]
-name = "horizon-hooks"
-version = "0.1.0"
-
-[[package]]
-name = "horizon-hot-paths-game"
-version = "0.1.0"
-dependencies = [
- "horizon-client",
- "horizon-guest-stack",
- "horizon-mod-api",
- "horizon-mod-host",
- "horizon-mod-package",
-]
-
-[[package]]
-name = "horizon-internals"
-version = "0.1.0"
-
-[[package]]
-name = "horizon-items"
-version = "0.1.0"
-dependencies = [
- "horizon-client-core",
- "horizon-core",
- "horizon-mod-package",
- "horizon-mod-vocab",
- "horizon-world",
- "log",
- "serde",
- "serde_json",
-]
-
-[[package]]
-name = "horizon-java-properties"
-version = "0.1.0"
-
-[[package]]
-name = "horizon-mcp"
-version = "0.1.0"
-dependencies = [
- "serde_json",
-]
-
-[[package]]
-name = "horizon-mod-api"
-version = "0.1.0"
-dependencies = [
- "bytemuck",
- "glam",
- "horizon-core",
- "horizon-mod-api-gen",
- "horizon-mod-api-macros",
- "horizon-mod-runtime",
- "horizon-mod-vocab",
- "log",
- "serde",
- "serde_json",
-]
-
-[[package]]
-name = "horizon-mod-api-gen"
-version = "0.1.0"
-dependencies = [
- "heck",
- "horizon-game-discovery",
- "horizon-mod-source",
- "horizon-mod-surface",
- "prettyplease",
- "proc-macro2",
- "quote",
- "serde",
- "serde_json",
- "sha2",
- "syn 2.0.119",
- "tempfile",
- "toml",
- "wit-parser",
-]
-
-[[package]]
-name = "horizon-mod-api-gen-tests"
-version = "0.1.0"
-dependencies = [
- "horizon-client-core",
- "horizon-core",
- "horizon-mod-api-gen",
- "horizon-mod-api-macros",
- "horizon-mod-runtime",
- "log",
- "serde_json",
-]
-
-[[package]]
-name = "horizon-mod-api-macros"
-version = "0.1.0"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.119",
-]
-
-[[package]]
-name = "horizon-mod-deps"
-version = "0.1.0"
-dependencies = [
- "gif",
- "mysql",
- "quinn",
- "redis",
- "rusqlite",
- "rusty-opus",
- "snap",
- "tungstenite",
- "yaml-rust2",
-]
-
-[[package]]
-name = "horizon-mod-dimension-game"
-version = "0.1.0"
-dependencies = [
- "horizon-client",
- "horizon-mod-api",
- "horizon-mod-host",
- "horizon-mod-package",
- "horizon-mod-wasm",
- "log",
- "tempfile",
- "wat",
-]
-
-[[package]]
-name = "horizon-mod-host"
-version = "0.1.0"
-dependencies = [
- "horizon-client",
- "horizon-engine-slots",
- "horizon-guest-stack",
- "horizon-mod-api",
- "horizon-mod-package",
- "horizon-mod-points",
- "horizon-mod-render",
- "horizon-mod-wasm",
- "libloading",
- "log",
- "serde",
- "serde_json",
- "sha2",
-]
-
-[[package]]
-name = "horizon-mod-package"
-version = "0.1.0"
-dependencies = [
- "cap-fs-ext",
- "cap-std",
- "getrandom 0.4.3",
- "horizon-core",
- "horizon-mod-api",
- "horizon-mod-api-macros",
- "horizon-mod-surface",
- "horizon-mod-vocab",
- "horizon-shader-api",
- "libc",
- "log",
- "minisign-verify",
- "os_pipe",
- "png",
- "rustix 1.1.6",
- "semver",
- "serde",
- "serde_json",
- "sha2",
- "socket2 0.6.5",
- "subtle",
- "tar",
- "tempfile",
- "toml",
- "wasmparser 0.261.0",
- "wat",
- "windows-sys 0.61.2",
- "xz4rust",
- "zip",
-]
-
-[[package]]
-name = "horizon-mod-points"
-version = "0.1.0"
-
-[[package]]
-name = "horizon-mod-render"
-version = "0.1.0"
-dependencies = [
- "bytemuck",
- "glam",
- "horizon-client-render",
- "horizon-engine-slots",
- "horizon-mod-api",
- "horizon-mod-api-gen",
- "horizon-mod-api-macros",
- "wgpu",
-]
-
-[[package]]
-name = "horizon-mod-runtime"
-version = "0.1.0"
-dependencies = [
- "horizon-core",
-]
-
-[[package]]
-name = "horizon-mod-source"
-version = "0.1.0"
-dependencies = [
- "horizon-mod-surface",
- "proc-macro2",
- "quote",
- "syn 2.0.119",
- "tempfile",
- "toml",
-]
-
-[[package]]
-name = "horizon-mod-surface"
-version = "0.1.0"
-dependencies = [
- "libc",
- "proc-macro2",
- "serde",
- "serde_json",
- "sha2",
- "syn 2.0.119",
-]
-
-[[package]]
-name = "horizon-mod-vocab"
-version = "0.1.0"
-dependencies = [
- "bytemuck",
- "glam",
- "horizon-core",
- "horizon-items",
- "horizon-mod-api",
- "horizon-mod-api-gen",
- "horizon-mod-api-macros",
- "horizon-mod-runtime",
- "log",
- "serde",
- "serde_json",
-]
-
-[[package]]
-name = "horizon-mod-wasm"
-version = "0.1.0"
-dependencies = [
- "horizon-client-core",
- "horizon-core",
- "horizon-guest-stack",
- "horizon-java-properties",
- "horizon-mod-api",
- "horizon-mod-api-gen",
- "horizon-mod-api-macros",
- "horizon-mod-package",
- "horizon-mod-runtime",
- "horizon-threads",
- "horizon-world",
- "libc",
- "log",
- "rustix 1.1.6",
- "serde_json",
- "sha2",
- "tempfile",
- "wasmparser 0.261.0",
- "wasmtime",
- "wat",
- "windows-sys 0.61.2",
-]
-
-[[package]]
-name = "horizon-mod-wasm-wire-loopback"
-version = "0.1.0"
-dependencies = [
- "horizon-core",
- "horizon-game-discovery",
- "horizon-mod-api",
- "horizon-mod-api-gen",
- "horizon-mod-runtime",
- "horizon-world",
- "log",
- "serde_json",
-]
-
-[[package]]
-name = "horizon-modding-examples"
-version = "0.0.0"
-dependencies = [
- "horizon-mod-api",
-]
-
-[[package]]
-name = "horizon-name-tag"
-version = "0.1.0"
-dependencies = [
- "horizon-hooks",
- "horizon-platform",
-]
-
-[[package]]
-name = "horizon-narrator"
-version = "0.1.0"
-dependencies = [
- "libloading",
- "log",
- "objc2 0.6.5",
- "objc2-app-kit 0.3.2",
- "objc2-foundation 0.3.2",
- "windows 0.62.2",
-]
-
-[[package]]
-name = "horizon-official"
-version = "0.1.0"
-dependencies = [
- "horizon-addresses",
- "horizon-discord",
- "horizon-friends",
- "horizon-game",
- "horizon-heartbeat",
- "horizon-name-tag",
- "horizon-official-servers",
- "horizon-perf-share",
- "horizon-platform",
- "horizon-theme",
- "log",
- "winresource",
-]
-
-[[package]]
-name = "horizon-official-servers"
-version = "0.1.0"
-dependencies = [
- "horizon-addresses",
- "horizon-platform",
- "log",
-]
-
-[[package]]
-name = "horizon-optifine"
-version = "0.1.0"
-dependencies = [
- "horizon-assets",
- "horizon-core",
- "horizon-system",
- "log",
- "regex",
- "zip",
-]
-
-[[package]]
-name = "horizon-perf"
-version = "0.1.0"
-dependencies = [
- "flate2",
- "horizon-bench",
- "horizon-perf-format",
- "horizon-perf-share",
- "prost",
- "regex",
- "serde",
- "serde_json",
-]
-
-[[package]]
-name = "horizon-perf-format"
-version = "0.1.0"
-dependencies = [
- "flate2",
- "prost",
- "prost-build",
- "prost-types",
- "protox",
-]
-
-[[package]]
-name = "horizon-perf-share"
-version = "0.1.0"
-dependencies = [
- "getrandom 0.3.4",
- "horizon-addresses",
- "horizon-platform",
- "log",
- "open",
- "serde",
- "serde_json",
- "ureq",
- "url",
-]
-
-[[package]]
-name = "horizon-platform"
-version = "0.1.0"
-dependencies = [
- "horizon-bench",
- "horizon-core",
- "horizon-guest-stack",
- "horizon-hooks",
- "horizon-java-properties",
- "horizon-mod-api-gen",
- "horizon-mod-package",
- "horizon-perf-format",
- "horizon-prepare",
- "horizon-protocol",
- "horizon-server-files",
- "horizon-system",
- "horizon-world",
-]
-
-[[package]]
-name = "horizon-polytone"
-version = "0.1.0"
-dependencies = [
- "log",
- "regex",
- "serde_json",
-]
-
-[[package]]
-name = "horizon-port-pack"
-version = "0.1.0"
-dependencies = [
- "horizon-mod-api",
- "horizon-mod-api-gen",
- "horizon-mod-package",
- "serde",
- "serde_json",
- "sha1",
- "sha2",
- "toml",
- "ureq",
- "url",
- "zip",
-]
-
-[[package]]
-name = "horizon-port-pack-cli"
-version = "0.1.0"
-dependencies = [
- "horizon-addresses",
- "horizon-port-pack",
-]
-
-[[package]]
-name = "horizon-prepare"
-version = "0.1.0"
-dependencies = [
- "crc32fast",
- "libc",
- "regex",
- "sha1",
- "sha2",
- "zip",
-]
-
-[[package]]
-name = "horizon-protocol"
-version = "0.1.0"
-dependencies = [
- "aes",
- "flate2",
- "getrandom 0.3.4",
- "horizon-core",
- "horizon-mod-runtime",
- "horizon-threads",
- "horizon-world",
- "idna",
- "idna_adapter",
- "ipconfig",
- "log",
- "serde_json",
- "sha1",
- "sha2",
- "socket2 0.5.10",
-]
-
-[[package]]
-name = "horizon-relay"
-version = "0.1.0"
-dependencies = [
- "getrandom 0.3.4",
- "horizon-friends",
- "serde_json",
-]
-
-[[package]]
-name = "horizon-release-sign"
-version = "0.1.0"
-dependencies = [
- "base64 0.22.1",
- "ring",
-]
-
-[[package]]
-name = "horizon-server"
-version = "0.1.0"
-dependencies = [
- "ab_glyph",
- "base64 0.22.1",
- "chrono",
- "getrandom 0.3.4",
- "horizon-anticheat",
- "horizon-chat-filter",
- "horizon-mcp",
- "horizon-platform",
- "horizon-release-sign",
- "horizon-server-launch",
- "libc",
- "p12-keystore",
- "png",
- "rcgen",
- "rustls",
- "serde",
- "serde_json",
- "sha1",
- "sha2",
- "toml",
- "ureq",
- "windows-sys 0.61.2",
- "zip",
-]
-
-[[package]]
-name = "horizon-server-files"
-version = "0.1.0"
-dependencies = [
- "base64 0.22.1",
- "getrandom 0.3.4",
- "horizon-core",
- "horizon-java-properties",
- "horizon-protocol",
- "horizon-world",
- "log",
- "serde",
- "ureq",
- "windows-sys 0.61.2",
-]
-
-[[package]]
-name = "horizon-server-launch"
-version = "0.1.0"
-dependencies = [
- "dunce",
- "horizon-anticheat",
- "horizon-chat-filter",
- "horizon-core",
- "horizon-platform",
- "horizon-server-files",
- "serde",
- "toml",
- "toml_edit",
- "windows-sys 0.61.2",
-]
-
-[[package]]
-name = "horizon-shader-api"
-version = "0.1.0"
-dependencies = [
- "bytemuck",
- "naga",
- "png",
- "serde",
- "serde_json",
- "sha2",
- "toml",
- "zip",
-]
-
-[[package]]
-name = "horizon-shaders"
-version = "0.1.0"
-dependencies = [
- "half",
- "horizon-core",
- "naga",
- "png",
- "zip",
-]
-
-[[package]]
-name = "horizon-system"
-version = "0.1.0"
-
-[[package]]
-name = "horizon-telemetry"
-version = "0.1.0"
-dependencies = [
- "getrandom 0.3.4",
- "horizon-addresses",
- "horizon-platform",
- "ruzstd",
- "serde",
- "serde_json",
- "ureq",
-]
-
-[[package]]
-name = "horizon-theme"
-version = "0.1.0"
-
-[[package]]
-name = "horizon-threads"
-version = "0.1.0"
-dependencies = [
- "addr2line",
- "framehop",
- "horizon-guest-stack",
- "libc",
- "libmimalloc-sys",
- "memmap2",
- "mimalloc",
- "object 0.39.1",
- "rustc-demangle",
- "windows-sys 0.61.2",
-]
-
-[[package]]
-name = "horizon-world"
-version = "0.1.0"
+name = "hybrid-array"
+version = "0.4.15"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "27f864f10dfb56725ce5ce5472bc52252c8f93a4ab86327122cebf62c5f59a17"
 dependencies = [
- "cap-fs-ext",
- "cap-std",
- "flate2",
- "horizon-assets",
- "horizon-core",
- "horizon-threads",
- "indexmap",
- "libm",
- "log",
- "lz4_flex",
- "postcard",
- "rustix 1.1.6",
- "serde",
- "serde_json",
- "sha2",
- "xxhash-rust",
+ "typenum",
 ]
 
 [[package]]
@@ -2967,12 +1801,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "id-arena"
-version = "2.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3d3067d79b975e8844ca9eb072e16b31c3c1c36928edf9c6789548c524d0d954"
-
-[[package]]
 name = "idna"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3004,6 +1832,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "ignore"
+version = "0.4.35"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "df0a7d5f105e76bda602bed0a44af048542d3c9af12ec35aaf16f106c6f34270"
+dependencies = [
+ "crossbeam-deque",
+ "globset",
+ "log",
+ "memchr",
+ "regex-automata",
+ "same-file",
+ "walkdir",
+ "winapi-util",
+]
+
+[[package]]
 name = "image-webp"
 version = "0.2.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3021,8 +1865,6 @@ checksum = "cc4e190f5d26ca7051642629da2c52fc03bde85a03197c99408dcd291734c855"
 dependencies = [
  "equivalent",
  "hashbrown 0.17.1",
- "serde",
- "serde_core",
 ]
 
 [[package]]
@@ -3086,7 +1928,7 @@ version = "0.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4d40460c0ce33d6ce4b0630ad68ff63d6661961c48b6dba35e5a4d81cfb48222"
 dependencies = [
- "socket2 0.6.5",
+ "socket2",
  "widestring",
  "windows-registry",
  "windows-result 0.4.1",
@@ -3132,6 +1974,58 @@ name = "itoa"
 version = "1.0.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8f42a60cbdf9a97f5d2305f08a87dc4e09308d1276d28c869c684d7777685682"
+
+[[package]]
+name = "jiff"
+version = "0.2.46"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "175dc66334db3b9ab9985bf8b61cfed50dc16d20964bb47f9e479adcae984a7f"
+dependencies = [
+ "jiff-core",
+ "jiff-static",
+ "jiff-tzdb-platform",
+ "log",
+ "portable-atomic",
+ "portable-atomic-util",
+ "serde_core",
+ "windows-link",
+]
+
+[[package]]
+name = "jiff-core"
+version = "0.1.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e599b80292e597019b8b3e392de3f4bea2959ddfb8c7dff60e035e9e311a2c1b"
+dependencies = [
+ "log",
+]
+
+[[package]]
+name = "jiff-static"
+version = "0.2.46"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c7b1af7547d47354bc438d797e3854601bde8f8d185780c5ba4ab27afa54f1ba"
+dependencies = [
+ "jiff-core",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.119",
+]
+
+[[package]]
+name = "jiff-tzdb"
+version = "0.1.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0980fca2cc272465bd60e82397607ba9f33add9e48defd77923301bbd03808f2"
+
+[[package]]
+name = "jiff-tzdb-platform"
+version = "0.1.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "875a5a69ac2bab1a891711cf5eccbec1ce0341ea805560dcd90b7a2e925132e8"
+dependencies = [
+ "jiff-tzdb",
+]
 
 [[package]]
 name = "jni"
@@ -3250,12 +2144,6 @@ name = "lazy_static"
 version = "1.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "20870f649af7073d53e38067b2a84312175d56ea15217e1b15bc83506ec50afb"
-
-[[package]]
-name = "leb128fmt"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "09edd9e8b54e49e587e4f6295a7d29c3ea94d469cb40ab8ca70b288248a81db2"
 
 [[package]]
 name = "libc"
@@ -3444,6 +2332,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ecbdfe44b1bd960b68170b417450a628c43f7cf56bb3c5317e61cb230ee7f226"
 
 [[package]]
+name = "lzma-rust2"
+version = "0.25.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ef1d73c59a56771343712b22ea5615092c612c16ba291c0979e3105dfeec4890"
+dependencies = [
+ "sha2 0.11.1",
+]
+
+[[package]]
 name = "mach2"
 version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3453,31 +2350,26 @@ dependencies = [
 ]
 
 [[package]]
-name = "mach2"
-version = "0.6.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dae608c151f68243f2b000364e1f7b186d9c29845f7d2d85bd31b9ad77ad552b"
-
-[[package]]
 name = "maybe-owned"
 version = "0.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4facc753ae494aeb6e3c22f839b158aebd4f9270f55cd3c79906c45476c47ab4"
 
 [[package]]
+name = "md-5"
+version = "0.10.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d89e7ee0cfbedfc4da3340218492196241d89eefb6dab27de5df917a6d2e78cf"
+dependencies = [
+ "cfg-if",
+ "digest 0.10.7",
+]
+
+[[package]]
 name = "memchr"
 version = "2.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cf8baf1c55e62ffcace7a9f06f4bd9cd3f0c4beb022d3b367256b91b87513d98"
-
-[[package]]
-name = "memfd"
-version = "0.6.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "57804b2c9b69967f1536a56f86297e367a33b19e98852ed624b84551cdbc0d90"
-dependencies = [
- "rustix 1.1.6",
-]
 
 [[package]]
 name = "memmap2"
@@ -3596,7 +2488,7 @@ dependencies = [
  "percent-encoding",
  "rustls",
  "rustls-pemfile",
- "socket2 0.6.5",
+ "socket2",
  "twox-hash",
  "url",
  "webpki",
@@ -3625,7 +2517,7 @@ dependencies = [
  "serde",
  "serde_json",
  "sha1",
- "sha2",
+ "sha2 0.10.9",
  "thiserror 2.0.21",
  "uuid",
 ]
@@ -3870,6 +2762,18 @@ dependencies = [
  "objc2-core-audio",
  "objc2-core-audio-types",
  "objc2-core-foundation",
+ "objc2-foundation 0.3.2",
+]
+
+[[package]]
+name = "objc2-av-foundation"
+version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "478ae33fcac9df0a18db8302387c666b8ef08a3e2d62b510ca4fc278a384b6c0"
+dependencies = [
+ "bitflags 2.13.2",
+ "block2 0.6.2",
+ "objc2 0.6.5",
  "objc2-foundation 0.3.2",
 ]
 
@@ -4159,18 +3063,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "object"
-version = "0.40.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dd229a0361b9d0d4396176e02d65897f487eebeab7caa6d443855ee152ca0b9c"
-dependencies = [
- "crc32fast",
- "hashbrown 0.17.1",
- "indexmap",
- "memchr",
-]
-
-[[package]]
 name = "oid-registry"
 version = "0.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4228,7 +3120,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7d8fae84b431384b68627d0f9b3b1245fcf9f46f6c0e3dc902e9dce64edd1967"
 dependencies = [
  "libc",
- "windows-sys 0.45.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -4258,7 +3150,7 @@ dependencies = [
  "rand 0.10.3",
  "rc2",
  "sha1",
- "sha2",
+ "sha2 0.10.9",
  "thiserror 2.0.21",
  "x509-parser",
 ]
@@ -4292,7 +3184,7 @@ version = "0.12.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f8ed6a7761f76e3b9f92dfb0a60a6a6477c61024b775147ff0973a02653abaf2"
 dependencies = [
- "digest",
+ "digest 0.10.7",
  "hmac",
 ]
 
@@ -4403,9 +3295,9 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "695b3df3d3cc1015f12d70235e35b6b79befc5fa7a9b95b951eab1dd07c9efc2"
 dependencies = [
  "cms",
- "const-oid",
+ "const-oid 0.9.6",
  "der",
- "digest",
+ "digest 0.10.7",
  "spki",
  "x509-cert",
  "zeroize",
@@ -4422,7 +3314,7 @@ dependencies = [
  "der",
  "pbkdf2",
  "scrypt",
- "sha2",
+ "sha2 0.10.9",
  "spki",
 ]
 
@@ -4461,7 +3353,7 @@ dependencies = [
  "concurrent-queue",
  "hermit-abi",
  "pin-project-lite",
- "rustix 1.1.6",
+ "rustix 1.1.5",
  "windows-sys 0.61.2",
 ]
 
@@ -4673,26 +3565,13 @@ dependencies = [
 ]
 
 [[package]]
-name = "pulley-interpreter"
-version = "50.0.1"
+name = "psm"
+version = "0.1.32"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "64c66a82a3d48db9b7c2ba1307e06fcb81a35ba82952f58bc1bfb218321f7c0b"
+checksum = "4dcd034599e63b970727f70d79e02d62390a4a84f7c6b827c27c46d5ac3fa622"
 dependencies = [
- "cranelift-bitset",
- "log",
- "pulley-macros",
- "wasmtime-internal-core",
-]
-
-[[package]]
-name = "pulley-macros"
-version = "50.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "138a9a5997d9cba5e54c7c3b836d7164f2bfe0852c7e98d5835e1708d6efdf36"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 3.0.6",
+ "ar_archive_writer",
+ "cc",
 ]
 
 [[package]]
@@ -4723,7 +3602,7 @@ dependencies = [
  "quinn-udp",
  "rustc-hash 2.1.3",
  "rustls",
- "socket2 0.6.5",
+ "socket2",
  "thiserror 2.0.21",
  "tokio",
  "tracing",
@@ -4761,9 +3640,9 @@ dependencies = [
  "cfg_aliases",
  "libc",
  "once_cell",
- "socket2 0.6.5",
+ "socket2",
  "tracing",
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -4920,7 +3799,7 @@ dependencies = [
  "itoa",
  "percent-encoding",
  "ryu",
- "socket2 0.6.5",
+ "socket2",
  "url",
  "xxhash-rust",
 ]
@@ -4950,21 +3829,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "737970939a87c6fa31e7acad13307bccbb017a073b695b6089a2c484f929e20e"
 dependencies = [
  "bitflags 2.13.2",
-]
-
-[[package]]
-name = "regalloc2"
-version = "0.15.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "757712e8e61590d6d4f5d563483755538b5aa13467837a3b41cd9832509a7f85"
-dependencies = [
- "allocator-api2",
- "bumpalo",
- "hashbrown 0.17.1",
- "log",
- "rustc-hash 2.1.3",
- "serde",
- "smallvec",
 ]
 
 [[package]]
@@ -5012,7 +3876,7 @@ dependencies = [
  "cfg-if",
  "getrandom 0.2.17",
  "libc",
- "untrusted",
+ "untrusted 0.9.0",
  "windows-sys 0.52.0",
 ]
 
@@ -5081,15 +3945,15 @@ dependencies = [
 
 [[package]]
 name = "rustix"
-version = "1.1.6"
+version = "1.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e5e76742e5294153d4dde1207dbec5bdd81eef6fabdc0d2118babadabfd858aa"
+checksum = "891efababe418670775f199f0d233d84843c227a0949a883ce15b37c78d6629d"
 dependencies = [
  "bitflags 2.13.2",
  "errno",
  "libc",
  "linux-raw-sys 0.12.1",
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -5099,7 +3963,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2fc84bf7e9aa16c4f2c758f27412dc9841341e16aa682d9c7ac308fe3ee12056"
 dependencies = [
  "once_cell",
- "rustix 1.1.6",
+ "rustix 1.1.5",
 ]
 
 [[package]]
@@ -5144,7 +4008,7 @@ checksum = "4443b1b6d39d7c663139942cc4558262562d2c84123bb6282ef177009ca8b281"
 dependencies = [
  "ring",
  "rustls-pki-types",
- "untrusted",
+ "untrusted 0.9.0",
 ]
 
 [[package]]
@@ -5173,6 +4037,18 @@ name = "ryu"
 version = "1.0.23"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9774ba4a74de5f7b1c1451ed6cd5285a32eddb5cccb8cc655a4e50009e06477f"
+
+[[package]]
+name = "ryu-js"
+version = "1.0.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1f232fd0249f55adbe7f15bee58bbbd3d40708000b84e6482066d2ba599e08a9"
+
+[[package]]
+name = "safe_arch"
+version = "1.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "42c6efa15875e6ecb39ca61fb0b0c1a40b84fac5a5ffe71eef7d1000c8eb3f5f"
 
 [[package]]
 name = "salsa20"
@@ -5218,7 +4094,7 @@ checksum = "0516a385866c09368f0b5bcd1caff3366aace790fcd46e2bb032697bb172fd1f"
 dependencies = [
  "pbkdf2",
  "salsa20",
- "sha2",
+ "sha2 0.10.9",
 ]
 
 [[package]]
@@ -5288,6 +4164,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "serde_json_canonicalizer"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "87f7bb64f8c7e9f783fdfe883b5fe93a90bee1597c63705baa91842c5f698620"
+dependencies = [
+ "ryu-js",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "serde_spanned"
 version = "1.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5304,7 +4191,7 @@ checksum = "a978451301f4db1d02937a4ab3ccce137717b81826e79b7d49ffe3244a13c3b8"
 dependencies = [
  "cfg-if",
  "cpufeatures 0.2.17",
- "digest",
+ "digest 0.10.7",
 ]
 
 [[package]]
@@ -5315,7 +4202,18 @@ checksum = "a7507d819769d01a365ab707794a4084392c824f54a7a6a7862f8c3d0892b283"
 dependencies = [
  "cfg-if",
  "cpufeatures 0.2.17",
- "digest",
+ "digest 0.10.7",
+]
+
+[[package]]
+name = "sha2"
+version = "0.11.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "47d7069beb7d6ac7b9acd1039986e73443f24234f41074da099d6f994ac9ad19"
+dependencies = [
+ "cfg-if",
+ "cpufeatures 0.3.1",
+ "digest 0.11.3",
 ]
 
 [[package]]
@@ -5323,6 +4221,141 @@ name = "shlex"
 version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f8fadd59c855ef2080decdef8ff161eb6661b86933c9d82e5ba29dc602a55aba"
+
+[[package]]
+name = "sigstore-bundle"
+version = "0.17.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2ecfbb7645777e68567ddfc81a07d57071c36246ff57cd52613224e34ed82e65"
+dependencies = [
+ "jiff",
+ "sigstore-types",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "sigstore-crypto"
+version = "0.17.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3b3876f3dcd98b7ce983e017e3c2dea6392fefdc2f076d61df4a045e38f53054"
+dependencies = [
+ "aws-lc-rs",
+ "const-oid 0.9.6",
+ "curve25519-dalek 5.0.0",
+ "der",
+ "futures-io",
+ "jiff",
+ "rustls-pki-types",
+ "sigstore-types",
+ "spki",
+ "thiserror 2.0.21",
+ "x509-cert",
+]
+
+[[package]]
+name = "sigstore-merkle"
+version = "0.17.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "966b4f6e66a447826e8afef42fccd645032aee1a152c4751f2651335221d091d"
+dependencies = [
+ "sigstore-crypto",
+ "sigstore-types",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "sigstore-rekor"
+version = "0.17.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "662380aad93d9e4b1571c4ea263ad9d50e9509ff342a10d1672dd560af32ee6d"
+dependencies = [
+ "base64 0.23.1",
+ "hex",
+ "jiff",
+ "serde",
+ "serde_json",
+ "sigstore-merkle",
+ "sigstore-types",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "sigstore-trust-root"
+version = "0.17.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2be7d164a8d5137fce8915e76d2b5d67d1db0e2308ad4555f0a9921bc5479b67"
+dependencies = [
+ "jiff",
+ "serde",
+ "serde_json",
+ "sigstore-crypto",
+ "sigstore-types",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "sigstore-tsa"
+version = "0.17.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "071266fa194f8ebc5fecbfac40fd6bed4373f8af229b55bf79253f1789869544"
+dependencies = [
+ "cms",
+ "const-oid 0.9.6",
+ "der",
+ "hex",
+ "jiff",
+ "rustls-pki-types",
+ "rustls-webpki",
+ "sigstore-crypto",
+ "sigstore-types",
+ "thiserror 2.0.21",
+ "tracing",
+ "x509-cert",
+]
+
+[[package]]
+name = "sigstore-types"
+version = "0.17.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4b7f9226a4d3c1c187ccdc874536a0e581e009427837659519148f57869bb9be"
+dependencies = [
+ "base64 0.23.1",
+ "hex",
+ "jiff",
+ "pem",
+ "serde",
+ "serde_json",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "sigstore-verify"
+version = "0.17.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "62796f3096793c477dc44d468c1ba8b226b98be6877a3063317e0741d3c0f475"
+dependencies = [
+ "base64 0.23.1",
+ "const-oid 0.9.6",
+ "futures-io",
+ "hex",
+ "jiff",
+ "rustls-pki-types",
+ "rustls-webpki",
+ "serde",
+ "serde_json",
+ "serde_json_canonicalizer",
+ "sigstore-bundle",
+ "sigstore-crypto",
+ "sigstore-merkle",
+ "sigstore-rekor",
+ "sigstore-trust-root",
+ "sigstore-tsa",
+ "sigstore-types",
+ "thiserror 2.0.21",
+ "tls_codec",
+ "tracing",
+ "x509-cert",
+]
 
 [[package]]
 name = "simd-adler32"
@@ -5372,9 +4405,6 @@ name = "smallvec"
 version = "1.16.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f9395f0f0eee849a9b707b2f06bb92a6a422090e2123bb2ef8e87a0e61892a8e"
-dependencies = [
- "serde",
-]
 
 [[package]]
 name = "smithay-client-toolkit"
@@ -5418,16 +4448,6 @@ checksum = "199905e6153d6405f9728fe44daace35f8f837bbf830bb6e85fbd5828709a886"
 
 [[package]]
 name = "socket2"
-version = "0.5.10"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e22376abed350d73dd1cd119b57ffccad95b4e585a7cda43e286245ce23c0678"
-dependencies = [
- "libc",
- "windows-sys 0.52.0",
-]
-
-[[package]]
-name = "socket2"
 version = "0.6.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c3d1e2c7f27f8d4cb10542a02c49005dbd6e93095799d6f3be745fae9f8fedd4"
@@ -5453,11 +4473,17 @@ version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c5482afe85a0b6ce956c945401598dbc527593c77ba51d0a87a586938b1b893a"
 dependencies = [
- "curve25519-dalek",
+ "curve25519-dalek 4.1.3",
  "hkdf",
  "rand_core 0.6.4",
- "sha2",
+ "sha2 0.10.9",
 ]
+
+[[package]]
+name = "spin"
+version = "0.10.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "023a211cb3138dbc438680b32560ad89f699977624c9f8dbb95a47d5b4c07dd3"
 
 [[package]]
 name = "spirv"
@@ -5485,6 +4511,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6ce2be8dc25455e1f91df71bfa12ad37d7af1092ae736f3a6cd0e37bc7810596"
 
 [[package]]
+name = "stacker"
+version = "0.1.25"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "707f49d46706bacf8a2b00d51dace3f9de527c13eec3778f570c411f89e69967"
+dependencies = [
+ "cc",
+ "cfg-if",
+ "libc",
+ "psm",
+ "windows-sys 0.61.2",
+]
+
+[[package]]
 name = "static_assertions"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5501,6 +4540,1226 @@ name = "subtle"
 version = "2.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "13c2bddecc57b384dee18652358fb23172facb8a2c51ccc10d74c157bdea3292"
+
+[[package]]
+name = "sunrise-addresses"
+version = "0.1.0"
+
+[[package]]
+name = "sunrise-assets"
+version = "0.1.0"
+dependencies = [
+ "flate2",
+ "log",
+ "miniz_oxide 0.8.9",
+ "png",
+ "serde",
+ "serde_json",
+ "sunrise-core",
+ "zip",
+]
+
+[[package]]
+name = "sunrise-attestation"
+version = "0.1.0"
+dependencies = [
+ "aws-lc-rs",
+ "serde",
+ "serde_json",
+ "sigstore-trust-root",
+ "sigstore-types",
+ "sigstore-verify",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "sunrise-audio-input"
+version = "0.1.0"
+dependencies = [
+ "alsa",
+ "alsa-sys",
+ "block2 0.6.2",
+ "libc",
+ "objc2 0.6.5",
+ "objc2-av-foundation",
+ "objc2-core-audio",
+]
+
+[[package]]
+name = "sunrise-bench"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "sunrise-system",
+]
+
+[[package]]
+name = "sunrise-border"
+version = "0.1.0"
+dependencies = [
+ "sunrise-core",
+]
+
+[[package]]
+name = "sunrise-bots"
+version = "0.1.0"
+dependencies = [
+ "serde_json",
+ "sunrise-core",
+ "sunrise-protocol",
+]
+
+[[package]]
+name = "sunrise-client"
+version = "0.1.0"
+dependencies = [
+ "ab_glyph",
+ "bytemuck",
+ "cap-fs-ext",
+ "cap-std",
+ "chrono",
+ "cipher",
+ "crypto-common 0.1.7",
+ "digest 0.10.7",
+ "flate2",
+ "fnv",
+ "fs4",
+ "gilrs",
+ "glam",
+ "indexmap",
+ "libc",
+ "log",
+ "naga",
+ "png",
+ "pollster",
+ "rustix 1.1.5",
+ "serde",
+ "serde_json",
+ "sha1",
+ "sha2 0.10.9",
+ "socket2",
+ "sunrise-assets",
+ "sunrise-bench",
+ "sunrise-client-core",
+ "sunrise-client-gameplay",
+ "sunrise-client-input",
+ "sunrise-client-lib",
+ "sunrise-client-render",
+ "sunrise-command",
+ "sunrise-core",
+ "sunrise-dualsense",
+ "sunrise-friends",
+ "sunrise-gameplay",
+ "sunrise-hooks",
+ "sunrise-items",
+ "sunrise-java-properties",
+ "sunrise-mod-api",
+ "sunrise-mod-api-gen",
+ "sunrise-mod-api-macros",
+ "sunrise-mod-package",
+ "sunrise-mod-runtime",
+ "sunrise-mod-vocab",
+ "sunrise-narrator",
+ "sunrise-optifine",
+ "sunrise-perf",
+ "sunrise-perf-format",
+ "sunrise-protocol",
+ "sunrise-server-files",
+ "sunrise-shader-api",
+ "sunrise-shaders",
+ "sunrise-system",
+ "sunrise-telemetry",
+ "sunrise-theme",
+ "sunrise-threads",
+ "sunrise-world",
+ "tempfile",
+ "toml",
+ "ureq",
+ "wgpu",
+ "winit",
+ "zip",
+]
+
+[[package]]
+name = "sunrise-client-core"
+version = "0.1.0"
+dependencies = [
+ "log",
+ "serde_json",
+ "sunrise-assets",
+ "sunrise-core",
+ "sunrise-mod-vocab",
+ "sunrise-world",
+]
+
+[[package]]
+name = "sunrise-client-gameplay"
+version = "0.1.0"
+dependencies = [
+ "glam",
+ "log",
+ "serde",
+ "serde_json",
+ "sunrise-client-lib",
+ "sunrise-core",
+ "sunrise-protocol",
+ "sunrise-threads",
+ "sunrise-world",
+ "winit",
+]
+
+[[package]]
+name = "sunrise-client-input"
+version = "0.1.0"
+dependencies = [
+ "arboard",
+ "log",
+ "png",
+ "sunrise-client-core",
+ "sunrise-core",
+ "sunrise-mod-api-macros",
+ "sunrise-theme",
+ "winit",
+]
+
+[[package]]
+name = "sunrise-client-lib"
+version = "0.1.0"
+dependencies = [
+ "ab_glyph",
+ "bytemuck",
+ "chrono",
+ "dunce",
+ "flate2",
+ "fs4",
+ "getrandom 0.3.4",
+ "gilrs",
+ "glam",
+ "log",
+ "mio",
+ "naga",
+ "open",
+ "png",
+ "pollster",
+ "rayon",
+ "rustix 1.1.5",
+ "serde",
+ "serde_json",
+ "sha1",
+ "sha2 0.10.9",
+ "stacker",
+ "sunrise-assets",
+ "sunrise-bench",
+ "sunrise-client-core",
+ "sunrise-client-input",
+ "sunrise-client-lib",
+ "sunrise-client-render",
+ "sunrise-command",
+ "sunrise-core",
+ "sunrise-dualsense",
+ "sunrise-hooks",
+ "sunrise-items",
+ "sunrise-java-properties",
+ "sunrise-mcp",
+ "sunrise-mod-api",
+ "sunrise-mod-api-macros",
+ "sunrise-mod-package",
+ "sunrise-mod-runtime",
+ "sunrise-mod-vocab",
+ "sunrise-narrator",
+ "sunrise-optifine",
+ "sunrise-perf",
+ "sunrise-perf-format",
+ "sunrise-protocol",
+ "sunrise-server-files",
+ "sunrise-shader-api",
+ "sunrise-shaders",
+ "sunrise-telemetry",
+ "sunrise-theme",
+ "sunrise-threads",
+ "sunrise-world",
+ "tempfile",
+ "ureq",
+ "wgpu",
+ "winit",
+ "xxhash-rust",
+ "zip",
+]
+
+[[package]]
+name = "sunrise-client-render"
+version = "0.1.0"
+dependencies = [
+ "ab_glyph",
+ "alsa",
+ "base64 0.22.1",
+ "bytemuck",
+ "chrono",
+ "cpal",
+ "flate2",
+ "glam",
+ "half",
+ "image-webp",
+ "libc",
+ "log",
+ "lz4_flex",
+ "miniz_oxide 0.8.9",
+ "naga",
+ "png",
+ "pollster",
+ "rustix 1.1.5",
+ "serde",
+ "serde_json",
+ "sha1",
+ "sha2 0.10.9",
+ "smallvec",
+ "sunrise-assets",
+ "sunrise-audio-input",
+ "sunrise-border",
+ "sunrise-client-core",
+ "sunrise-client-input",
+ "sunrise-command",
+ "sunrise-connected",
+ "sunrise-core",
+ "sunrise-glsl",
+ "sunrise-hdr",
+ "sunrise-hooks",
+ "sunrise-items",
+ "sunrise-java-properties",
+ "sunrise-mod-api",
+ "sunrise-mod-api-macros",
+ "sunrise-mod-package",
+ "sunrise-mod-pipeline",
+ "sunrise-mod-runtime",
+ "sunrise-mod-vocab",
+ "sunrise-narrator",
+ "sunrise-optifine",
+ "sunrise-perf",
+ "sunrise-perf-format",
+ "sunrise-polytone",
+ "sunrise-protocol",
+ "sunrise-render-core",
+ "sunrise-render-shaderpack",
+ "sunrise-shader-api",
+ "sunrise-shaders",
+ "sunrise-system",
+ "sunrise-theme",
+ "sunrise-threads",
+ "sunrise-world",
+ "symphonia",
+ "tempfile",
+ "unicode-bidi",
+ "ureq",
+ "wgpu",
+ "winit",
+ "zip",
+ "zune-jpeg",
+]
+
+[[package]]
+name = "sunrise-command"
+version = "0.1.0"
+dependencies = [
+ "sunrise-client-core",
+ "sunrise-core",
+ "sunrise-items",
+ "sunrise-mod-vocab",
+ "sunrise-protocol",
+ "sunrise-world",
+]
+
+[[package]]
+name = "sunrise-connected"
+version = "0.1.0"
+
+[[package]]
+name = "sunrise-core"
+version = "0.1.0"
+dependencies = [
+ "crc-fast",
+ "crc32fast",
+ "libm",
+ "md-5",
+ "rustc-hash 2.1.3",
+ "safe_arch",
+ "serde",
+ "serde_json",
+ "stacker",
+ "unicode_names2",
+]
+
+[[package]]
+name = "sunrise-deflate"
+version = "0.1.0"
+dependencies = [
+ "crc32fast",
+ "simd-adler32",
+]
+
+[[package]]
+name = "sunrise-dependency-rule"
+version = "0.1.0"
+dependencies = [
+ "semver",
+]
+
+[[package]]
+name = "sunrise-discord"
+version = "0.1.0"
+dependencies = [
+ "log",
+ "serde_json",
+ "sunrise-platform",
+]
+
+[[package]]
+name = "sunrise-dualsense"
+version = "0.1.0"
+dependencies = [
+ "cpal",
+ "hidapi",
+ "log",
+]
+
+[[package]]
+name = "sunrise-friends"
+version = "0.1.0"
+dependencies = [
+ "chacha20poly1305",
+ "getrandom 0.3.4",
+ "hkdf",
+ "if-addrs",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "socket2",
+ "spake2",
+ "sunrise-addresses",
+ "sunrise-platform",
+]
+
+[[package]]
+name = "sunrise-game"
+version = "0.1.0"
+dependencies = [
+ "serde_json",
+ "sunrise-client",
+ "sunrise-client-lib",
+ "sunrise-core",
+ "sunrise-mod-host",
+ "sunrise-mod-package",
+ "sunrise-protocol",
+ "tempfile",
+ "winresource",
+]
+
+[[package]]
+name = "sunrise-game-discovery"
+version = "0.1.0"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "serde_json",
+ "sunrise-mod-source",
+ "syn 2.0.119",
+]
+
+[[package]]
+name = "sunrise-gameplay"
+version = "0.1.0"
+dependencies = [
+ "log",
+ "serde_json",
+ "sunrise-assets",
+ "sunrise-client-core",
+ "sunrise-client-lib",
+ "sunrise-core",
+ "sunrise-items",
+ "sunrise-mod-api",
+ "sunrise-mod-runtime",
+ "sunrise-mod-vocab",
+ "sunrise-protocol",
+ "sunrise-threads",
+ "sunrise-world",
+]
+
+[[package]]
+name = "sunrise-glsl"
+version = "0.1.0"
+dependencies = [
+ "naga",
+ "pp-rs",
+ "wgpu-types",
+]
+
+[[package]]
+name = "sunrise-hdr"
+version = "0.1.0"
+dependencies = [
+ "ash",
+ "wayland-backend",
+ "wayland-client",
+ "wayland-protocols",
+ "wgpu",
+]
+
+[[package]]
+name = "sunrise-heartbeat"
+version = "0.1.0"
+dependencies = [
+ "log",
+ "sunrise-platform",
+ "sunrise-telemetry",
+]
+
+[[package]]
+name = "sunrise-hooks"
+version = "0.1.0"
+
+[[package]]
+name = "sunrise-hot-paths-game"
+version = "0.1.0"
+dependencies = [
+ "sunrise-client",
+ "sunrise-mod-api",
+ "sunrise-mod-host",
+ "sunrise-mod-package",
+]
+
+[[package]]
+name = "sunrise-internals"
+version = "0.1.0"
+
+[[package]]
+name = "sunrise-items"
+version = "0.1.0"
+dependencies = [
+ "log",
+ "serde",
+ "serde_json",
+ "sunrise-client-core",
+ "sunrise-core",
+ "sunrise-mod-package",
+ "sunrise-mod-vocab",
+ "sunrise-world",
+]
+
+[[package]]
+name = "sunrise-jar-fetch"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+]
+
+[[package]]
+name = "sunrise-java-properties"
+version = "0.1.0"
+
+[[package]]
+name = "sunrise-mcp"
+version = "0.1.0"
+dependencies = [
+ "serde_json",
+]
+
+[[package]]
+name = "sunrise-mod-api"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "glam",
+ "log",
+ "serde",
+ "serde_json",
+ "sunrise-core",
+ "sunrise-mod-api-gen",
+ "sunrise-mod-api-macros",
+ "sunrise-mod-runtime",
+ "sunrise-mod-vocab",
+]
+
+[[package]]
+name = "sunrise-mod-api-gen"
+version = "0.1.0"
+dependencies = [
+ "heck",
+ "prettyplease",
+ "proc-macro2",
+ "quote",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "sunrise-game-discovery",
+ "sunrise-mod-source",
+ "sunrise-mod-surface",
+ "syn 2.0.119",
+ "tempfile",
+ "toml",
+]
+
+[[package]]
+name = "sunrise-mod-api-gen-tests"
+version = "0.1.0"
+dependencies = [
+ "log",
+ "serde_json",
+ "sunrise-core",
+ "sunrise-mod-api-gen",
+ "sunrise-mod-api-macros",
+ "sunrise-mod-runtime",
+]
+
+[[package]]
+name = "sunrise-mod-api-macros"
+version = "0.1.0"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.119",
+]
+
+[[package]]
+name = "sunrise-mod-deps"
+version = "0.1.0"
+dependencies = [
+ "gif",
+ "mysql",
+ "quinn",
+ "redis",
+ "rusqlite",
+ "rusty-opus",
+ "snap",
+ "tungstenite",
+ "yaml-rust2",
+]
+
+[[package]]
+name = "sunrise-mod-dimension-game"
+version = "0.1.0"
+dependencies = [
+ "log",
+ "sunrise-client",
+ "sunrise-mod-api",
+ "sunrise-mod-host",
+ "tempfile",
+]
+
+[[package]]
+name = "sunrise-mod-host"
+version = "0.1.0"
+dependencies = [
+ "libloading",
+ "log",
+ "memchr",
+ "object",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "sunrise-client",
+ "sunrise-hooks",
+ "sunrise-mod-api",
+ "sunrise-mod-package",
+ "sunrise-mod-render",
+]
+
+[[package]]
+name = "sunrise-mod-package"
+version = "0.1.0"
+dependencies = [
+ "base64 0.22.1",
+ "cap-fs-ext",
+ "cap-std",
+ "getrandom 0.4.3",
+ "libc",
+ "log",
+ "minisign-verify",
+ "object",
+ "os_pipe",
+ "png",
+ "rustix 1.1.5",
+ "same-file",
+ "semver",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "socket2",
+ "subtle",
+ "sunrise-assets",
+ "sunrise-core",
+ "sunrise-game-discovery",
+ "sunrise-mod-source",
+ "sunrise-mod-surface",
+ "sunrise-mod-vocab",
+ "sunrise-shader-api",
+ "syn 2.0.119",
+ "tar",
+ "tempfile",
+ "toml",
+ "url",
+ "windows-sys 0.61.2",
+ "xz4rust",
+ "zip",
+ "zune-jpeg",
+]
+
+[[package]]
+name = "sunrise-mod-pipeline"
+version = "0.1.0"
+dependencies = [
+ "naga",
+ "sunrise-glsl",
+ "wgpu-types",
+]
+
+[[package]]
+name = "sunrise-mod-render"
+version = "0.1.0"
+dependencies = [
+ "glam",
+ "sunrise-client-render",
+ "sunrise-mod-api",
+ "sunrise-mod-api-gen",
+ "sunrise-mod-api-macros",
+ "wgpu",
+]
+
+[[package]]
+name = "sunrise-mod-runtime"
+version = "0.1.0"
+dependencies = [
+ "sunrise-core",
+]
+
+[[package]]
+name = "sunrise-mod-source"
+version = "0.1.0"
+dependencies = [
+ "ignore",
+ "proc-macro2",
+ "quote",
+ "sunrise-mod-surface",
+ "syn 2.0.119",
+ "tempfile",
+ "toml",
+]
+
+[[package]]
+name = "sunrise-mod-surface"
+version = "0.1.0"
+dependencies = [
+ "libc",
+ "proc-macro2",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "syn 2.0.119",
+]
+
+[[package]]
+name = "sunrise-mod-vocab"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "glam",
+ "log",
+ "serde",
+ "serde_json",
+ "sunrise-core",
+ "sunrise-mod-api",
+ "sunrise-mod-api-gen",
+ "sunrise-mod-api-macros",
+ "sunrise-mod-runtime",
+]
+
+[[package]]
+name = "sunrise-modding-examples"
+version = "0.0.0"
+dependencies = [
+ "log",
+ "sunrise-mod-api",
+]
+
+[[package]]
+name = "sunrise-narrator"
+version = "0.1.0"
+dependencies = [
+ "libloading",
+ "log",
+ "objc2 0.6.5",
+ "objc2-app-kit 0.3.2",
+ "objc2-foundation 0.3.2",
+ "windows 0.62.2",
+]
+
+[[package]]
+name = "sunrise-native-build"
+version = "0.1.0"
+dependencies = [
+ "flate2",
+ "libc",
+ "object",
+ "proc-macro2",
+ "semver",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "sunrise-addresses",
+ "sunrise-mod-package",
+ "sunrise-mod-vocab",
+ "sunrise-platform",
+ "syn 2.0.119",
+ "tar",
+ "tempfile",
+ "toml",
+]
+
+[[package]]
+name = "sunrise-official"
+version = "0.1.0"
+dependencies = [
+ "log",
+ "sunrise-addresses",
+ "sunrise-discord",
+ "sunrise-friends",
+ "sunrise-game",
+ "sunrise-heartbeat",
+ "sunrise-perf-overlay",
+ "sunrise-perf-share",
+ "sunrise-platform",
+ "sunrise-reconnect",
+ "winresource",
+]
+
+[[package]]
+name = "sunrise-optifine"
+version = "0.1.0"
+dependencies = [
+ "log",
+ "regex",
+ "sunrise-assets",
+ "sunrise-connected",
+ "sunrise-system",
+ "zip",
+]
+
+[[package]]
+name = "sunrise-parity-fixtures"
+version = "0.1.0"
+dependencies = [
+ "ab_glyph",
+ "bytemuck",
+ "cap-fs-ext",
+ "cap-std",
+ "chrono",
+ "cipher",
+ "crypto-common 0.1.7",
+ "digest 0.10.7",
+ "flate2",
+ "fnv",
+ "fs4",
+ "gilrs",
+ "glam",
+ "indexmap",
+ "libc",
+ "log",
+ "naga",
+ "png",
+ "pollster",
+ "rustix 1.1.5",
+ "serde",
+ "serde_json",
+ "sha1",
+ "sha2 0.10.9",
+ "socket2",
+ "sunrise-assets",
+ "sunrise-bench",
+ "sunrise-client-core",
+ "sunrise-client-gameplay",
+ "sunrise-client-input",
+ "sunrise-client-lib",
+ "sunrise-client-render",
+ "sunrise-command",
+ "sunrise-core",
+ "sunrise-dualsense",
+ "sunrise-friends",
+ "sunrise-gameplay",
+ "sunrise-hooks",
+ "sunrise-items",
+ "sunrise-java-properties",
+ "sunrise-mod-api",
+ "sunrise-mod-api-gen",
+ "sunrise-mod-api-macros",
+ "sunrise-mod-package",
+ "sunrise-mod-runtime",
+ "sunrise-mod-source",
+ "sunrise-mod-vocab",
+ "sunrise-narrator",
+ "sunrise-optifine",
+ "sunrise-perf",
+ "sunrise-perf-format",
+ "sunrise-protocol",
+ "sunrise-server-files",
+ "sunrise-shader-api",
+ "sunrise-shaders",
+ "sunrise-system",
+ "sunrise-telemetry",
+ "sunrise-theme",
+ "sunrise-threads",
+ "sunrise-world",
+ "syn 2.0.119",
+ "tempfile",
+ "toml",
+ "ureq",
+ "wgpu",
+ "winit",
+ "zip",
+]
+
+[[package]]
+name = "sunrise-perf"
+version = "0.1.0"
+dependencies = [
+ "flate2",
+ "prost",
+ "regex",
+ "serde",
+ "serde_json",
+ "sunrise-bench",
+ "sunrise-perf-format",
+ "sunrise-perf-share",
+]
+
+[[package]]
+name = "sunrise-perf-format"
+version = "0.1.0"
+dependencies = [
+ "flate2",
+ "prost",
+ "prost-build",
+ "prost-types",
+ "protox",
+]
+
+[[package]]
+name = "sunrise-perf-overlay"
+version = "0.1.0"
+dependencies = [
+ "sunrise-platform",
+]
+
+[[package]]
+name = "sunrise-perf-share"
+version = "0.1.0"
+dependencies = [
+ "getrandom 0.3.4",
+ "open",
+ "serde",
+ "serde_json",
+ "subtle",
+ "sunrise-addresses",
+ "sunrise-platform",
+ "ureq",
+ "url",
+]
+
+[[package]]
+name = "sunrise-platform"
+version = "0.1.0"
+dependencies = [
+ "sunrise-bench",
+ "sunrise-core",
+ "sunrise-hooks",
+ "sunrise-java-properties",
+ "sunrise-mod-api-gen",
+ "sunrise-perf-format",
+ "sunrise-proxy",
+ "sunrise-server-files",
+ "sunrise-system",
+ "sunrise-world",
+]
+
+[[package]]
+name = "sunrise-polytone"
+version = "0.1.0"
+dependencies = [
+ "log",
+ "regex",
+ "serde_json",
+]
+
+[[package]]
+name = "sunrise-port-pack"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "sha1",
+ "sha2 0.10.9",
+ "sunrise-jar-fetch",
+ "sunrise-mod-api",
+ "sunrise-mod-api-gen",
+ "sunrise-mod-package",
+ "sunrise-proxy",
+ "toml",
+ "ureq",
+ "url",
+ "zip",
+]
+
+[[package]]
+name = "sunrise-prepare"
+version = "0.1.0"
+dependencies = [
+ "libc",
+ "regex",
+ "sha1",
+ "sha2 0.10.9",
+ "sunrise-core",
+ "sunrise-proxy",
+ "ureq",
+ "zip",
+]
+
+[[package]]
+name = "sunrise-protocol"
+version = "0.1.0"
+dependencies = [
+ "aes",
+ "base64 0.22.1",
+ "flate2",
+ "getrandom 0.3.4",
+ "ipconfig",
+ "log",
+ "serde",
+ "serde_json",
+ "sha1",
+ "sha2 0.10.9",
+ "socket2",
+ "sunrise-core",
+ "sunrise-mod-runtime",
+ "sunrise-threads",
+ "sunrise-world",
+ "zlib-rs",
+]
+
+[[package]]
+name = "sunrise-proxy"
+version = "0.1.0"
+dependencies = [
+ "ureq",
+ "url",
+]
+
+[[package]]
+name = "sunrise-reconnect"
+version = "0.1.0"
+dependencies = [
+ "sunrise-platform",
+]
+
+[[package]]
+name = "sunrise-relay"
+version = "0.1.0"
+dependencies = [
+ "getrandom 0.3.4",
+ "serde_json",
+ "sunrise-friends",
+]
+
+[[package]]
+name = "sunrise-release-sign"
+version = "0.1.0"
+dependencies = [
+ "base64 0.22.1",
+ "ring",
+]
+
+[[package]]
+name = "sunrise-render-core"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "glam",
+]
+
+[[package]]
+name = "sunrise-render-shaderpack"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "glam",
+ "half",
+ "log",
+ "naga",
+ "pollster",
+ "serde_json",
+ "sha2 0.10.9",
+ "smallvec",
+ "sunrise-core",
+ "sunrise-render-core",
+ "sunrise-shaders",
+ "tempfile",
+ "wgpu",
+]
+
+[[package]]
+name = "sunrise-server"
+version = "0.1.0"
+dependencies = [
+ "ab_glyph",
+ "base64 0.22.1",
+ "chrono",
+ "dunce",
+ "getrandom 0.3.4",
+ "libc",
+ "p12-keystore",
+ "png",
+ "rcgen",
+ "rustls",
+ "serde",
+ "serde_json",
+ "sha1",
+ "sha2 0.10.9",
+ "sunrise-mcp",
+ "sunrise-platform",
+ "sunrise-release-sign",
+ "sunrise-server-launch",
+ "toml",
+ "ureq",
+ "windows-sys 0.61.2",
+ "zip",
+]
+
+[[package]]
+name = "sunrise-server-files"
+version = "0.1.0"
+dependencies = [
+ "base64 0.22.1",
+ "getrandom 0.3.4",
+ "log",
+ "serde",
+ "sunrise-core",
+ "sunrise-java-properties",
+ "sunrise-protocol",
+ "ureq",
+]
+
+[[package]]
+name = "sunrise-server-launch"
+version = "0.1.0"
+dependencies = [
+ "dunce",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "sunrise-core",
+ "sunrise-platform",
+ "toml",
+ "toml_edit",
+ "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "sunrise-shader-api"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "naga",
+ "png",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "toml",
+ "zip",
+]
+
+[[package]]
+name = "sunrise-shaders"
+version = "0.1.0"
+dependencies = [
+ "half",
+ "naga",
+ "png",
+ "sunrise-core",
+ "sunrise-glsl",
+ "zip",
+]
+
+[[package]]
+name = "sunrise-stage"
+version = "0.1.0"
+dependencies = [
+ "serde_json",
+ "sunrise-mod-api-gen",
+ "sunrise-mod-package",
+ "sunrise-mod-source",
+ "sunrise-mod-surface",
+ "tempfile",
+]
+
+[[package]]
+name = "sunrise-system"
+version = "0.1.0"
+
+[[package]]
+name = "sunrise-telemetry"
+version = "0.1.0"
+dependencies = [
+ "getrandom 0.3.4",
+ "ruzstd",
+ "serde",
+ "serde_json",
+ "sunrise-addresses",
+ "sunrise-platform",
+ "ureq",
+]
+
+[[package]]
+name = "sunrise-theme"
+version = "0.1.0"
+
+[[package]]
+name = "sunrise-threads"
+version = "0.1.0"
+dependencies = [
+ "addr2line",
+ "framehop",
+ "libc",
+ "libmimalloc-sys",
+ "memmap2",
+ "mimalloc",
+ "object",
+ "rustc-demangle",
+ "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "sunrise-world"
+version = "0.1.0"
+dependencies = [
+ "cap-fs-ext",
+ "cap-std",
+ "crc32fast",
+ "flate2",
+ "libm",
+ "log",
+ "lz4_flex",
+ "postcard",
+ "rustix 1.1.5",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "sunrise-assets",
+ "sunrise-core",
+ "sunrise-deflate",
+ "sunrise-mod-api-macros",
+ "sunrise-mod-vocab",
+ "sunrise-threads",
+ "xxhash-rust",
+]
 
 [[package]]
 name = "symphonia"
@@ -5628,12 +5887,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "target-lexicon"
-version = "0.13.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "adb6935a6f5c20170eeceb1a3835a49e12e19d792f6dd344ccc76a985ca5a6ca"
-
-[[package]]
 name = "tempfile"
 version = "3.27.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5642,8 +5895,8 @@ dependencies = [
  "fastrand",
  "getrandom 0.4.3",
  "once_cell",
- "rustix 1.1.6",
- "windows-sys 0.59.0",
+ "rustix 1.1.5",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -5767,6 +6020,27 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fd3ca314f692efd6c868f8408f53fe444634a845f96c028b97d35f6a1f79f0ee"
 
 [[package]]
+name = "tls_codec"
+version = "0.4.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0de2e01245e2bb89d6f05801c564fa27624dbd7b1846859876c7dad82e90bf6b"
+dependencies = [
+ "tls_codec_derive",
+ "zeroize",
+]
+
+[[package]]
+name = "tls_codec_derive"
+version = "0.4.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2d2e76690929402faae40aebdda620a2c0e25dd6d3b9afe48867dfd95991f4bd"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.119",
+]
+
+[[package]]
 name = "tokio"
 version = "1.53.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5775,7 +6049,7 @@ dependencies = [
  "libc",
  "mio",
  "pin-project-lite",
- "socket2 0.6.5",
+ "socket2",
  "windows-sys 0.61.2",
 ]
 
@@ -5838,7 +6112,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "63e71662fa4b2a2c3a26f570f037eb95bb1f85397f3cd8076caed2f026a6d100"
 dependencies = [
  "pin-project-lite",
+ "tracing-attributes",
  "tracing-core",
+]
+
+[[package]]
+name = "tracing-attributes"
+version = "0.1.31"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7490cfa5ec963746568740651ac6781f701c9c5ea257c58e057f3ba8cf69e8da"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.119",
 ]
 
 [[package]]
@@ -5959,9 +6245,15 @@ version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fc1de2c688dc15305988b563c3854064043356019f97a4b46276fe734c4f07ea"
 dependencies = [
- "crypto-common",
+ "crypto-common 0.1.7",
  "subtle",
 ]
+
+[[package]]
+name = "untrusted"
+version = "0.7.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a156c684c91ea7d62626509bce3cb4e1d9ed5c4d978f7b4352658f96a4c26b4a"
 
 [[package]]
 name = "untrusted"
@@ -6113,253 +6405,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "wasm-encoder"
-version = "0.261.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2608e8bb6d67fd68f5a8d0eb1363d6e7bcbc1f8ded5a0bd3a1e382462b876b22"
-dependencies = [
- "leb128fmt",
- "wasmparser 0.261.0",
-]
-
-[[package]]
-name = "wasm-encoder"
-version = "0.263.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0b883a26aea02eaabe2d2c3fba7eb039ef5cdcb5d5201ae5551e73d5e251a81f"
-dependencies = [
- "leb128fmt",
- "wasmparser 0.263.0",
-]
-
-[[package]]
-name = "wasmparser"
-version = "0.261.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4f20f20e44f7e8aeb6744823ea9d869ede51e51be4fdaedede2852282e54d2d8"
-dependencies = [
- "bitflags 2.13.2",
- "hashbrown 0.17.1",
- "indexmap",
- "semver",
- "serde",
-]
-
-[[package]]
-name = "wasmparser"
-version = "0.263.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4f5fa0a054ae153606df820eb0a84213e28cda41bbe04ba2628e71b6ba100fcb"
-dependencies = [
- "bitflags 2.13.2",
- "indexmap",
- "semver",
-]
-
-[[package]]
-name = "wasmprinter"
-version = "0.261.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "86a21c9e3325655ba02de3e645bc8357a8b3651a2e3ada25b6dbc37560deb9b7"
-dependencies = [
- "anyhow",
- "termcolor",
- "wasmparser 0.261.0",
-]
-
-[[package]]
-name = "wasmtime"
-version = "50.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fdfacce893df54d319b29720e79edb001cd1b48faaf78fdb3b9c608eaeeea29f"
-dependencies = [
- "addr2line",
- "async-trait",
- "bitflags 2.13.2",
- "bumpalo",
- "cc",
- "futures",
- "libc",
- "log",
- "mach2 0.6.0",
- "memfd",
- "object 0.40.0",
- "once_cell",
- "postcard",
- "pulley-interpreter",
- "rayon",
- "rustix 1.1.6",
- "serde",
- "serde_derive",
- "smallvec",
- "target-lexicon",
- "wasmparser 0.261.0",
- "wasmtime-environ",
- "wasmtime-internal-core",
- "wasmtime-internal-cranelift",
- "wasmtime-internal-fiber",
- "wasmtime-internal-jit-debug",
- "wasmtime-internal-jit-icache-coherence",
- "wasmtime-internal-unwinder",
- "wasmtime-internal-versioned-export-macros",
- "windows-sys 0.61.2",
-]
-
-[[package]]
-name = "wasmtime-environ"
-version = "50.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f79df81f2a5d7a1cb8b9eb35b4a2d7a8cb8e948bd3e5a1f79036c0094879275a"
-dependencies = [
- "anyhow",
- "cpp_demangle",
- "cranelift-bforest",
- "cranelift-bitset",
- "cranelift-entity",
- "gimli",
- "hashbrown 0.17.1",
- "indexmap",
- "log",
- "object 0.40.0",
- "postcard",
- "rustc-demangle",
- "semver",
- "serde",
- "serde_derive",
- "smallvec",
- "target-lexicon",
- "wasm-encoder 0.261.0",
- "wasmparser 0.261.0",
- "wasmprinter",
- "wasmtime-internal-component-util",
- "wasmtime-internal-core",
-]
-
-[[package]]
-name = "wasmtime-internal-component-util"
-version = "50.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "33c2836b127721e0abdc3490545cdc6d5269d1050a19a4057909901c16e1b781"
-
-[[package]]
-name = "wasmtime-internal-core"
-version = "50.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e765a08b721bf2b2e5cbd3e9365a71b497d57fc5e8b2cf73ddf12d85d502d7fa"
-dependencies = [
- "anyhow",
- "hashbrown 0.17.1",
- "libm",
- "serde",
-]
-
-[[package]]
-name = "wasmtime-internal-cranelift"
-version = "50.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "25e8f190dd62c021d278ab0bd4afab06426844831d6a35dc369835754ad997d4"
-dependencies = [
- "cranelift-codegen",
- "cranelift-control",
- "cranelift-entity",
- "cranelift-frontend",
- "cranelift-native",
- "gimli",
- "itertools",
- "log",
- "object 0.40.0",
- "pulley-interpreter",
- "smallvec",
- "target-lexicon",
- "thiserror 2.0.21",
- "wasmparser 0.261.0",
- "wasmtime-environ",
- "wasmtime-internal-core",
- "wasmtime-internal-unwinder",
- "wasmtime-internal-versioned-export-macros",
-]
-
-[[package]]
-name = "wasmtime-internal-fiber"
-version = "50.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6326d47c759c0478489a034f1282a6f516ce97594f9af785539697d03add17ec"
-dependencies = [
- "cc",
- "libc",
- "rustix 1.1.6",
- "wasmtime-environ",
- "wasmtime-internal-versioned-export-macros",
- "windows-sys 0.61.2",
-]
-
-[[package]]
-name = "wasmtime-internal-jit-debug"
-version = "50.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9b78d046468d9aaf81e97954165369693084f43e313daad47f959b1169d596d3"
-dependencies = [
- "cc",
- "wasmtime-internal-versioned-export-macros",
-]
-
-[[package]]
-name = "wasmtime-internal-jit-icache-coherence"
-version = "50.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ac3e5f3cb3fdc12489163dc60741696dddb32c9ed0662ff59c8dfb177ffd7a07"
-dependencies = [
- "libc",
- "wasmtime-internal-core",
- "windows-sys 0.61.2",
-]
-
-[[package]]
-name = "wasmtime-internal-unwinder"
-version = "50.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bbf9357720c1477c43f88dace11923737e8aa87abe5f46f90e23c93a2a0fb3fe"
-dependencies = [
- "cranelift-codegen",
- "log",
- "object 0.40.0",
- "wasmtime-environ",
-]
-
-[[package]]
-name = "wasmtime-internal-versioned-export-macros"
-version = "50.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ce7c663ad018cc86ce824e21b35b8bed9877ee9ca6af8ef8672e28852450392e"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 3.0.6",
-]
-
-[[package]]
-name = "wast"
-version = "263.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "69d90bcf581b501aa1c358bc5dc0faa979cd375796908860ebcb6d1d70b907c7"
-dependencies = [
- "bumpalo",
- "leb128fmt",
- "memchr",
- "unicode-width 0.2.2",
- "wasm-encoder 0.263.0",
-]
-
-[[package]]
-name = "wat"
-version = "1.263.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bbc9c5aca783b3f1838be89f3f9937c528b90ec5faa6fb62d809726c16a7d8f7"
-dependencies = [
- "wast",
-]
-
-[[package]]
 name = "wayland-backend"
 version = "0.3.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6367,7 +6412,7 @@ checksum = "38a91b4eaddff87b1cd1074985e3713da4af2c49742d1b356b2c01670a67a078"
 dependencies = [
  "cc",
  "downcast-rs",
- "rustix 1.1.6",
+ "rustix 1.1.5",
  "scoped-tls",
  "smallvec",
  "wayland-sys",
@@ -6380,7 +6425,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e3c36a0f861ad76d0901f2800b46321410d9f73f2ea88aac0650d86c32688073"
 dependencies = [
  "bitflags 2.13.2",
- "rustix 1.1.6",
+ "rustix 1.1.5",
  "wayland-backend",
  "wayland-scanner",
 ]
@@ -6402,7 +6447,7 @@ version = "0.31.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4a52d18780be9b1314328a3de5f930b73d2200112e3849ca6cb11822793fb34d"
 dependencies = [
- "rustix 1.1.6",
+ "rustix 1.1.5",
  "wayland-client",
  "xcursor",
 ]
@@ -6495,7 +6540,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ed63aea5ce73d0ff405984102c42de94fc55a6b75765d621c65262469b3c9b53"
 dependencies = [
  "ring",
- "untrusted",
+ "untrusted 0.9.0",
 ]
 
 [[package]]
@@ -6721,7 +6766,7 @@ version = "0.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c2a7b1c03c876122aa43f3020e6c3c3ee5c05081c9a00739faf7503aeba10d22"
 dependencies = [
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -7040,8 +7085,6 @@ checksum = "589f6da84c646204747d1270a2a5661ea66ed1cced2631d546fdfb155959f9ec"
 [[package]]
 name = "winit"
 version = "0.30.13"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a6755fa58a9f8350bd1e472d4c3fcc25f824ec358933bba33306d0b63df5978d"
 dependencies = [
  "ahash",
  "android-activity",
@@ -7125,25 +7168,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1ebf944e87a7c253233ad6766e082e3cd714b5d03812acc24c318f549614536e"
 
 [[package]]
-name = "wit-parser"
-version = "0.261.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "962e43c4db2da607b50839a531e5b63473268b40efdf8028d5c54b572ca4f6f6"
-dependencies = [
- "anyhow",
- "hashbrown 0.17.1",
- "id-arena",
- "indexmap",
- "log",
- "semver",
- "serde",
- "serde_derive",
- "serde_json",
- "unicode-ident",
- "wasmparser 0.261.0",
-]
-
-[[package]]
 name = "wl-clipboard-rs"
 version = "0.9.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -7152,7 +7176,7 @@ dependencies = [
  "libc",
  "log",
  "os_pipe",
- "rustix 1.1.6",
+ "rustix 1.1.5",
  "thiserror 2.0.21",
  "tree_magic_mini",
  "wayland-backend",
@@ -7189,7 +7213,7 @@ dependencies = [
  "libc",
  "libloading",
  "once_cell",
- "rustix 1.1.6",
+ "rustix 1.1.5",
  "x11rb-protocol",
 ]
 
@@ -7205,9 +7229,10 @@ version = "0.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1301e935010a701ae5f8655edc0ad17c44bad3ac5ce8c39185f75453b720ae94"
 dependencies = [
- "const-oid",
+ "const-oid 0.9.6",
  "der",
  "spki",
+ "tls_codec",
 ]
 
 [[package]]
@@ -7263,10 +7288,10 @@ checksum = "e450f9b2ed1dff33c94c12589a87338689467b9c4f5d8a5710bd09a847d2c8a7"
 name = "xtask"
 version = "0.1.0"
 dependencies = [
- "horizon-addresses",
- "horizon-mod-api-gen",
- "horizon-mod-package",
- "horizon-theme",
+ "sunrise-addresses",
+ "sunrise-mod-api-gen",
+ "sunrise-mod-package",
+ "sunrise-theme",
 ]
 
 [[package]]
@@ -7370,6 +7395,20 @@ name = "zeroize"
 version = "1.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e13084392c5e4bc371903e2935a5eaeed24905a7511356b883835e18a78f6879"
+dependencies = [
+ "zeroize_derive",
+]
+
+[[package]]
+name = "zeroize_derive"
+version = "1.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3c50655cbb0fe3fc43170059e702f1ce5e19b84cec58dc87b037a09935c2f328"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.119",
+]
 
 [[package]]
 name = "zerotrie"
@@ -7418,7 +7457,6 @@ dependencies = [
  "nix",
  "typed-path",
  "windows-sys 0.61.2",
- "zopfli",
 ]
 
 [[package]]
@@ -7432,18 +7470,6 @@ name = "zmij"
 version = "1.0.23"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "29666d0abbfad1e3dc4dcf6144730dd3a3ab225bbbdac83319345b1b44ccfc1b"
-
-[[package]]
-name = "zopfli"
-version = "0.8.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "aaf7fc5d30c28483d93805c4a5e12b05bbb52407fa67c5f8bd552374cd01fb11"
-dependencies = [
- "bumpalo",
- "crc32fast",
- "log",
- "simd-adler32",
-]
 
 [[package]]
 name = "zune-core"
