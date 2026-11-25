@@ -1,14 +1,14 @@
 { lib, fetchurl, appimageTools, buildFHSEnv }:
 let
   pname = "meitou-launcher";
-  version = "1.20.0";
+  version = "1.21.2";
   # Upstream's prebuilt launcher: a NativeAOT executable, so no .NET SDK, NuGet
   # lock or source build is involved. The AppImage is only unpacked; it is never
   # run as a mounted AppImage, so the bundled Velopack updater does not consider
   # the launcher installed and leaves updates to Nix.
   src = fetchurl {
     url = "https://github.com/VlcekM/MeitouClient/releases/download/launcher-v${version}/MeitouLauncher-linux-x64.AppImage";
-    hash = "sha256-xNG5aYi8pLA5r/L32WF7Wvaoz5cC4z3l3jEYNNrtYO8=";
+    hash = "sha256-CsArMeWrFGVBgpL0Ff3dJwiAxKEVcnhqwuGDcdtqhDQ=";
   };
   contents = appimageTools.extractType2 { inherit pname version src; };
 in
