@@ -28,10 +28,10 @@ let
 in
 {
   stable = mkSources {
-    version = "0.1.11";
+    version = "0.1.12";
     desktopFile = "T3-Code-x86_64.AppImage";
-    cliHash = "sha256-K2kcB/W8ta3qSoY9UySq59shvW2CKAzsd4eDbcqgE+E=";
-    desktopHash = "sha256-i6oGp7uqP3KdaUZvshHtcAbWpuTYALns2s2DH9FoaxQ=";
+    cliHash = "sha256-m6PbRuNVT7mXD9Xt6egjwvbW9nY/QDQL1MjvawlQHFQ=";
+    desktopHash = "sha256-ZrkVUVcd9tKbVctZApXt9BHP+WyVqP6z9Bw8pZXXIuI=";
   };
 
   nightly = mkSources {
