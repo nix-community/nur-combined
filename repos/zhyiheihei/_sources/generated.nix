@@ -8,12 +8,12 @@
 {
   ai-usagebar = {
     pname = "ai-usagebar";
-    version = "v1.54.0";
+    version = "v1.55.0";
     src = fetchFromGitHub {
       owner = "akitaonrails";
       repo = "ai-usagebar";
-      tag = "v1.54.0";
-      hash = "sha256-jlI2MfXCEzLZtBiwiL8bLo5yh10jJzt4+1JtM5t9Bm0=";
+      tag = "v1.55.0";
+      hash = "sha256-d+A1ooFvZs6YXJCRi8fV6kSC9nOUUDzGCFWfQ2Cx7z4=";
     };
   };
   aioshutil = {

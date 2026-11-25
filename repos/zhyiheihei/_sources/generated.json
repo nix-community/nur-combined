@@ -13,12 +13,12 @@
             "name": null,
             "owner": "akitaonrails",
             "repo": "ai-usagebar",
-            "rev": "v1.54.0",
-            "sha256": "sha256-jlI2MfXCEzLZtBiwiL8bLo5yh10jJzt4+1JtM5t9Bm0=",
+            "rev": "v1.55.0",
+            "sha256": "sha256-d+A1ooFvZs6YXJCRi8fV6kSC9nOUUDzGCFWfQ2Cx7z4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.54.0"
+        "version": "v1.55.0"
     },
     "aioshutil": {
         "cargoLock": null,

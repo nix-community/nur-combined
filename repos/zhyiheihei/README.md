@@ -55,7 +55,7 @@ Build artifacts are cached in the Attic binary cache:
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-| - [ ] |  | `ai-usagebar` | [ai-usagebar](https://github.com/akitaonrails/ai-usagebar) | 1.54.0 | Multi-provider AI plan usage widget, CLI and TUI |
+| - [ ] |  | `ai-usagebar` | [ai-usagebar](https://github.com/akitaonrails/ai-usagebar) | 1.55.0 | Multi-provider AI plan usage widget, CLI and TUI |
 | - [x] |  | `aioshutil` | [aioshutil](https://github.com/kumaraditya303/aioshutil) | 1.7a1 | Asynchronous shutil module |
 | - [x] |  | `cn2an` | [cn2an](https://github.com/Ailln/cn2an) | 0.5.24 | Convert Chinese numerals and Arabic numerals |
 | - [x] |  | `docker-proxy` | [docker-proxy](https://github.com/dqzboy/Docker-Proxy) | 5.1.9 | Self-hosted Docker registry proxy with host-based upstream routing |
@@ -112,7 +112,7 @@ Build artifacts are cached in the Attic binary cache:
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-| - [ ] |  | `uncategorized.ai-usagebar` | [ai-usagebar](https://github.com/akitaonrails/ai-usagebar) | 1.54.0 | Multi-provider AI plan usage widget, CLI and TUI |
+| - [ ] |  | `uncategorized.ai-usagebar` | [ai-usagebar](https://github.com/akitaonrails/ai-usagebar) | 1.55.0 | Multi-provider AI plan usage widget, CLI and TUI |
 | - [ ] |  | `uncategorized.docker-proxy` | [docker-proxy](https://github.com/dqzboy/Docker-Proxy) | 5.1.9 | Self-hosted Docker registry proxy with host-based upstream routing |
 | - [ ] |  | `uncategorized.docker-proxy-hubcmdui` | [docker-proxy-hubcmdui](https://github.com/dqzboy/Docker-Proxy) | 5.1.9 | Web management panel for the Docker-Proxy registry proxy |
 | - [ ] |  | `uncategorized.epd-food-server` | [epd-food-server](https://github.com/zhyiheihei/EPD-Dashboard) | 0.1.0 | 家庭食品存储看板服务端（REST API + PostgreSQL + BLE 推送） |
