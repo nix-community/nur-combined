@@ -6,15 +6,15 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "1.4.273",
+  "version": "1.4.274",
   "platforms": {
     "aarch64-darwin": {
       "file": "orca-macos-arm64.dmg",
-      "hash": "sha256-u3n6m4OH3OS3DNZOurloBeCdMb6yQwVCGWkv/jhYoJk="
+      "hash": "sha256-4j8W1Cs4Pu2dbs21LuZs1YAFWKv0e9RnZxrqqSYenLQ="
     },
     "x86_64-darwin": {
       "file": "orca-macos-x64.dmg",
-      "hash": "sha256-1gV8IXqt8zxGqcNHMR6GiMFXdsBPgaHbIfzq/eo4/ZY="
+      "hash": "sha256-VeLvoBaM7ktky6re9+WW/i7WNboAmet78Yr+Vhk0yYI="
     }
   }
 }

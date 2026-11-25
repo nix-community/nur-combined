@@ -5,23 +5,23 @@
     "url": "https://registry.npmjs.org/freebuff/latest",
     "version_path": ".version"
   },
-  "version": "0.2.36",
+  "version": "0.2.38",
   "platforms": {
     "x86_64-linux": {
       "url": "https://github.com/CodebuffAI/codebuff-community/releases/download/freebuff-v{version}/freebuff-linux-x64.tar.gz",
-      "hash": "sha256-Zy1mw0RPdGnMIbnIocLAbAlnbKj2oXcVaCgldaRFppU="
+      "hash": "sha256-BxKzZToMBrsL0aqbeN7lGYKimy7dXP8vHBAHzno1XhM="
     },
     "aarch64-linux": {
       "url": "https://github.com/CodebuffAI/codebuff-community/releases/download/freebuff-v{version}/freebuff-linux-arm64.tar.gz",
-      "hash": "sha256-7XUqWJWKAaMXLuvdo7f6v/J9TcCZ6Uxdijptpdl2kqM="
+      "hash": "sha256-zWji5BKVV4pUXNAgQ3+5E8+26arCRzGRVnWZhZObJw8="
     },
     "x86_64-darwin": {
       "url": "https://github.com/CodebuffAI/codebuff-community/releases/download/freebuff-v{version}/freebuff-darwin-x64.tar.gz",
-      "hash": "sha256-mCgIPc0NOfACnT7aqBGSKlwa3InqTktwi+01P2i4krw="
+      "hash": "sha256-6hWlq6V0tESVu5+eBMSKR6vURdRbVct+zibBXBXow3k="
     },
     "aarch64-darwin": {
       "url": "https://github.com/CodebuffAI/codebuff-community/releases/download/freebuff-v{version}/freebuff-darwin-arm64.tar.gz",
-      "hash": "sha256-qj9bU3jyOVIoeyJXPzycL9srBNMHdvLjSyGAuDJWU24="
+      "hash": "sha256-5Ub6sl+EWfLX3T+WYW38teq4qHgxT9R3o/wBosfW0j4="
     }
   }
 }
