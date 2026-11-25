@@ -7,8 +7,10 @@
   woff2,
   makeDesktopItem,
   copyDesktopItems,
+  testers,
   nix-update-script,
   writeShellApplication,
+  pkgs,
   wayland,
   libxkbcommon,
   libx11,
@@ -98,6 +100,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
       startupNotify = false;
     })
   ];
+
+  passthru.tests.nixos = testers.runNixOSTest (
+    import ./test.nix {
+      flightdeck = finalAttrs.finalPackage;
+      nixpkgsPath = pkgs.path;
+    }
+  );
 
   passthru.updateScript = writeShellApplication {
     name = "update-flightdeck";

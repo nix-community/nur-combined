@@ -76,6 +76,7 @@
           capcut_5 = self.legacyPackages.x86_64-linux.capcut_5.tests.nixos;
           adobe-acrobat-reader = self.legacyPackages.x86_64-linux.adobe-acrobat-reader.tests.nixos;
           wine4office = self.legacyPackages.x86_64-linux.wine4office-word.tests.nixos;
+          flightdeck = self.legacyPackages.x86_64-linux.flightdeck.tests.nixos;
           # Droidloom host tools, module wiring, payload and lifecycle daemon.
           droidloom = self.legacyPackages.x86_64-linux.droidloom.tests.nixos;
           # lastbook_patched: boot the app under Xvfb and screenshot setup.
