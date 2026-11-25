@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import json
 import os
 from pathlib import Path
 import re
@@ -77,10 +78,12 @@ def compute_deps_hash(repo_root: Path, *, refresh: bool) -> str | None:
     deps_expr = "pkgs.clice.deps"
     if refresh:
         deps_expr += '.overrideAttrs (_: { outputHash = ""; outputHashAlgo = "sha256"; })'
+    # Quote the path as a Nix string; import accepts either a path or a string.
+    repo_arg = json.dumps(str(repo_root))
     proc = subprocess.run(
         [
             "nix-build", "--no-out-link", "--expr",
-            f"let pkgs = import {repo_root} {{}}; in {deps_expr}",
+            f"let pkgs = import {repo_arg} {{}}; in {deps_expr}",
         ],
         text=True,
         stdout=subprocess.PIPE,
@@ -193,4 +196,8 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except Exception as e:  # The update script should fail with a message, not a traceback.
+        print(f"error: {e}", file=sys.stderr)
+        sys.exit(1)

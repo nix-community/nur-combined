@@ -120,6 +120,7 @@ class MusicService {
         private val onNextRequested: (() -> Unit)? = null,
         private val onPreviousRequested: (() -> Unit)? = null,
         private val onTrackStarted: (() -> Unit)? = null,
+        private val onTrackReady: (() -> Unit)? = null,
     ) {
         companion object {
             fun findMpvExecutable(): String? {
@@ -331,10 +332,9 @@ class MusicService {
                 sendRaw("{\"command\": [\"loadfile\", \"null://\", \"append\"]}\n")
             }
             sendRaw("{\"command\": [\"set_property\", \"pause\", ${!playWhenReady}]}\n")
-            if (playWhenReady) {
-                isPlaying = true
-                onPlaybackStateChanged(true)
-            }
+            // Playback state is driven by mpv (playback-restart, file-loaded,
+            // pause property) once the file is actually open. Announcing
+            // isPlaying here made the player look ready before it was.
         }
 
         fun play() {
@@ -424,6 +424,8 @@ class MusicService {
                 isPlaying = true
                 onPlaybackStateChanged(true)
                 onTrackStarted?.invoke()
+            } else if (json.contains("\"event\":\"file-loaded\"")) {
+                onTrackReady?.invoke()
             }
         }
 
@@ -469,7 +471,6 @@ class MusicService {
                     if (_isPlaying != playing) {
                         _isPlaying = playing
                         if (playing) {
-                            playbackState = Player.STATE_READY
                             playStartTime = System.currentTimeMillis() - pausedPosition
                         }
                         service.historyTracker.onPlaybackStateChanged(playing)
@@ -492,6 +493,18 @@ class MusicService {
                 runOnMain {
                     trackLoadPending = false
                     playStartTime = System.currentTimeMillis() - pausedPosition
+                }
+            },
+            onTrackReady = {
+                runOnMain {
+                    // mpv has opened the file; like Media3's STATE_READY this is
+                    // independent of whether playback is currently paused.
+                    if (playbackState != Player.STATE_IDLE) {
+                        playbackState = Player.STATE_READY
+                        listeners.forEach {
+                            it.onPlaybackStateChanged(playbackState)
+                        }
+                    }
                 }
             },
             onDurationChanged = { _ ->
@@ -555,6 +568,15 @@ class MusicService {
             }
             currentPlayingId = cleanId
             trackLoadPending = true
+            // Match Media3: a track that is being resolved/opened is BUFFERING,
+            // which is what upstream's player UI uses to show its buffering
+            // indicator (and to stop the seek bar from running).
+            if (playbackState != Player.STATE_BUFFERING) {
+                playbackState = Player.STATE_BUFFERING
+                listeners.forEach {
+                    it.onPlaybackStateChanged(playbackState)
+                }
+            }
             System.err.println("[ArchiveTune/Audio] loadTrack: mediaId=$cleanId, startPositionMs=$startPositionMs, playWhenReady=$playWhenReady")
 
             CoroutineScope(Dispatchers.IO).launch {
@@ -596,7 +618,7 @@ class MusicService {
         override var playWhenReady: Boolean = false
             set(value) {
                 field = value
-                if (value && playbackState == Player.STATE_READY) {
+                if (value) {
                     if (!_isPlaying) {
                         _isPlaying = true
                         playStartTime = System.currentTimeMillis() - pausedPosition
