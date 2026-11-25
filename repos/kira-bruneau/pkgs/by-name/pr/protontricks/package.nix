@@ -24,7 +24,7 @@ let
 
   winetricks' = winetricks.overrideAttrs (attrs: {
     patches = (attrs.patches or [ ]) ++ [
-      # Ignore expected popups for steam wine prefix (but still log to stdout)
+      # Ignore expected popups for steam wine prefix (but still log to stderr)
       ./ignore-expected-popups.patch
     ];
   });
