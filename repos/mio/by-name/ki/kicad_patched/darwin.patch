@@ -1,0 +1,107 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nix packaging <nix@localhost>
+Date: Wed, 25 Nov 2026 00:00:00 +1100
+Subject: [PATCH] support Nix's non-framework Python on macOS
+
+KiCad's macOS install rules assume PYTHON_FRAMEWORK is populated. Nix's
+Python package is not a framework, so configuring with an empty value must
+not call set_target_properties with an empty property. The install rules
+also must not try to copy a framework that does not exist.
+
+KiCad would otherwise set PYTHONHOME to the nonexistent embedded framework.
+Nix supplies the interpreter and its PYTHONPATH through the wrapper, so only
+set PYTHONHOME when KiCad is running from its normal app bundle location.
+---
+ CMakeLists.txt                 | 12 ++++++----
+ kicad/CMakeLists.txt           | 30 ++++++++++++++++++++++-------
+ scripting/python_scripting.cpp |  6 +++++-
+ 3 files changed, 39 insertions(+), 9 deletions(-)
+
+diff --git a/kicad/CMakeLists.txt b/kicad/CMakeLists.txt
+--- a/kicad/CMakeLists.txt
++++ b/kicad/CMakeLists.txt
+@@ -230,10 +230,14 @@ if( APPLE )
+         set( PYTHON_FRAMEWORK_HELPER "0" )
+     endif()
+
+-    set_target_properties( kicad PROPERTIES BUILD_RPATH ${PYTHON_FRAMEWORK} )
++    if( PYTHON_FRAMEWORK )
++        set_target_properties( kicad PROPERTIES BUILD_RPATH ${PYTHON_FRAMEWORK} )
++    endif()
+     set_target_properties( kicad PROPERTIES INSTALL_RPATH
+             "@executable_path/../Frameworks;@executable_path/../Frameworks/Python.framework" )
+-    set_target_properties( kicad-cli PROPERTIES BUILD_RPATH ${PYTHON_FRAMEWORK} )
++    if( PYTHON_FRAMEWORK )
++        set_target_properties( kicad-cli PROPERTIES BUILD_RPATH ${PYTHON_FRAMEWORK} )
++    endif()
+     set_target_properties( kicad-cli PROPERTIES INSTALL_RPATH
+             "@executable_path/../Frameworks;@executable_path/../Frameworks/Python.framework" )
+
+@@ -241,7 +245,10 @@ if( APPLE )
+         set( KICAD_CMAKE_MODULE_PATH \"${KICAD_CMAKE_MODULE_PATH}\" )
+         set( OSX_BUNDLE_INSTALL_BIN_DIR \"${OSX_BUNDLE_INSTALL_BIN_DIR}\" )
+         set( OSX_BUNDLE_INSTALL_LIB_DIR \"${OSX_BUNDLE_INSTALL_LIB_DIR}\" )
+-        set( PYTHON_FRAMEWORK \"${PYTHON_FRAMEWORK}\" )
++        if( PYTHON_FRAMEWORK )
++            set( PYTHON_FRAMEWORK \"${PYTHON_FRAMEWORK}\" )
++            set( PYTHON_FRAMEWORK_HELPER \"1\" )
++        endif()
+     " )
+
+     install( CODE [[
+@@ -254,8 +261,10 @@ if( APPLE )
+             )
+
+         # Now install Python framework properly (GET_RUNTIME_DEPENDENCIES can't do this)
+-        execute_process( COMMAND rm ${OSX_BUNDLE_INSTALL_LIB_DIR}/Python )
+-        execute_process( COMMAND cp -RP ${PYTHON_FRAMEWORK} ${OSX_BUNDLE_INSTALL_LIB_DIR}/ )
++        if( PYTHON_FRAMEWORK_HELPER )
++            execute_process( COMMAND rm ${OSX_BUNDLE_INSTALL_LIB_DIR}/Python )
++            execute_process( COMMAND cp -RP ${PYTHON_FRAMEWORK} ${OSX_BUNDLE_INSTALL_LIB_DIR}/ )
++        endif()
+     ]] )
+
+     # move all individual app bundles into main bundle
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1259,7 +1259,7 @@ if( KICAD_BUILD_I18N )
+ endif()
+
+ if( APPLE )
+-    set( KICAD_OSX_CODESIGN ON
++    set( KICAD_OSX_CODESIGN OFF
+             CACHE BOOL "Sign KiCad.app on macOS" FORCE )
+     set( KICAD_OSX_SIGNING_ID "-"
+             CACHE STRING "macOS Signing ID, defaults to ad-hoc" FORCE )
+diff --git a/scripting/python_scripting.cpp b/scripting/python_scripting.cpp
+--- a/scripting/python_scripting.cpp
++++ b/scripting/python_scripting.cpp
+@@ -328,6 +328,7 @@ bool SCRIPTING::scriptingSetup()
+
+     wxString pyhome;
+
++#if 0
+     pyhome += Pgm().GetExecutablePath() +
+               wxT( "Contents/Frameworks/Python.framework/Versions/Current" );
+
+@@ -336,6 +337,7 @@ bool SCRIPTING::scriptingSetup()
+     }
+
+     // set $PYTHONHOME
+     wxSetEnv( wxT( "PYTHONHOME" ), pyhome );
++#endif
+ #else
+     wxString pypath;
+
+diff --git a/cmake/InstallSteps/InstallMacOS.cmake b/cmake/InstallSteps/InstallMacOS.cmake
+--- a/cmake/InstallSteps/InstallMacOS.cmake
++++ b/cmake/InstallSteps/InstallMacOS.cmake
+@@ -3,3 +3,7 @@
+ function( install_runtime_deps exe libs dest )
++    # Nix's Darwin fixup phase rewrites and validates library paths for the
++    # packaged app. KiCad's bundler can encounter two Nix store providers of
++    # the same system library (for example libiconv), so leave this to fixup.
++    return()
+     # set(CMAKE_MESSAGE_LOG_LEVEL DEBUG)
+     message( DEBUG "install_runtime_deps ${exe}\n  libs: ${libs}\n  dest: ${dest}" )
