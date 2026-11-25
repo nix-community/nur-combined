@@ -6,7 +6,7 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "pi-cc-extensions";
-  version = "1.0.21";
+  version = "1.0.22";
 
   __structuredAttrs = true;
 
@@ -14,13 +14,13 @@ buildNpmPackage (finalAttrs: {
     owner = "minuque";
     repo = "pi-cc-extensions";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Rd8dfwEdyfCzkrjiOlzVNYxbOa3iTamTgAkYCTYz+kc=";
+    hash = "sha256-eYkj5HfYksSo/nzxML2kB+2JJrzuQTq+Yn4Ju7Vv4ow=";
   };
 
   patches = [ ./displayPath.patch ];
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-s7Mxe/mUzlSGPVi/R4qTnAToaXRZixE0UrAECwyXupI=";
+  npmDepsHash = "sha256-wbTJ/3H/N/xtxSlxOnjltrb71dea0L4LgrYmXM9rWj4=";
 
   dontNpmBuild = true;
 
