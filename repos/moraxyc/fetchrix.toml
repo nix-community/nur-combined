@@ -530,6 +530,15 @@ fetch = { type = "github", repo = "aliou/pi-processes", rev = "v{version}" }
 strategy = "fod"
 attr = ".#pi-processes.pnpmDeps"
 
+[packages.pi-remote-pi]
+version = { source = "git", url = "https://github.com/jacobaraujo7/remote_pi.git", unstable = { stable = { source = "manual", version = "0.7.0" } } }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "jacobaraujo7/remote_pi", rev = "{version}" }
+
+[packages.pi-remote-pi.derive.pnpmDepsHash]
+strategy = "fod"
+attr = ".#pi-remote-pi.pnpmDeps"
+
 [packages.pi-simplify]
 version = { source = "github-tag", repo = "MattDevy/pi-extensions", strip_prefix = "pi-simplify-v", filter = "^pi-simplify-v[0-9]+\\.[0-9]+\\.[0-9]+$" }
 transform = ["strip-v"]
@@ -585,6 +594,16 @@ fetch = { type = "github", repo = "sipeed/picoclaw", rev = "v{version}" }
 version = { source = "git", url = "https://github.com/charmedlabs/pixy2", unstable = { } }
 transform = ["strip-v"]
 fetch = { type = "git", url = "https://github.com/charmedlabs/pixy2", rev = "{version}" }
+
+[packages.remote-pi-relay]
+version = { source = "git", url = "https://github.com/jacobaraujo7/remote_pi.git", unstable = { stable = { source = "manual", version = "0.3.1" } } }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "jacobaraujo7/remote_pi", rev = "{version}" }
+
+[packages.remote-pi-relay.derive.cargoLock]
+kind = "cargo-vendor"
+strategy = "lockfile"
+sub_dir = "relay"
 
 [packages.sable-next]
 version = { source = "git-tag", url = "https://git.sable.moe/SableClient/sable-next.git", strip_prefix = "v", filter = "^v[0-9]+\\.[0-9]+\\.[0-9]+$" }

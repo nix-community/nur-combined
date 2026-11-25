@@ -1047,6 +1047,24 @@
       },
       "fingerprint": "sha256-sO6+e3cTxMxud2ka6gjVLoo7mlyA5XuzXcBiIaRwOqg="
     },
+    "pi-remote-pi": {
+      "version": "0.7.0-unstable-2026-11-23",
+      "rawVersion": "7fd991d14251418239fdedc724fb558e0c991053",
+      "date": "2026-11-23",
+      "src": {
+        "fetcher": "github",
+        "owner": "jacobaraujo7",
+        "repo": "remote_pi",
+        "rev": "7fd991d14251418239fdedc724fb558e0c991053",
+        "hash": "sha256-1FOcFsg7umajKz9c7j3EHybLfhgKf4PlUBztsp93HIo="
+      },
+      "derived": {
+        "pnpmDepsHash": {
+          "hash": "sha256-JW9780umvKis04+N8RNnfAmFF2/w2+YyNqbwKTEEOoM="
+        }
+      },
+      "fingerprint": "sha256-p3ORBoQa1YYiABiDczo2QZEBQEMSnHeD47C5OeEZoOI="
+    },
     "pi-simplify": {
       "version": "0.2.3",
       "rawVersion": "0.2.3",
@@ -1165,6 +1183,24 @@
         "hash": "sha256-w0t7KqV8OS3PJBdZtLn86zknQYo70rBv7fuK/UFx9zQ="
       },
       "fingerprint": "sha256-H7/fT4nfEg6N60/hpZLT4tL2Ehl2w1jA42zyrihYhcA="
+    },
+    "remote-pi-relay": {
+      "version": "0.3.1-unstable-2026-11-23",
+      "rawVersion": "7fd991d14251418239fdedc724fb558e0c991053",
+      "date": "2026-11-23",
+      "src": {
+        "fetcher": "github",
+        "owner": "jacobaraujo7",
+        "repo": "remote_pi",
+        "rev": "7fd991d14251418239fdedc724fb558e0c991053",
+        "hash": "sha256-1FOcFsg7umajKz9c7j3EHybLfhgKf4PlUBztsp93HIo="
+      },
+      "derived": {
+        "cargoLock": {
+          "lockfile": "remote-pi-relay/src/relay/Cargo.lock"
+        }
+      },
+      "fingerprint": "sha256-0jBQDZwHN42A/9uLQDOE0djRGrQUuI3xdQ5+9NlzAn0="
     },
     "sable-next": {
       "version": "26.11.4",
