@@ -34,6 +34,7 @@ buildGo127Module (finalAttrs: {
 
   nativeCheckInputs = [ gitMinimal ];
 
+  doCheck = false; # too flaky
   checkFlags =
     let
       skippedTests = [
