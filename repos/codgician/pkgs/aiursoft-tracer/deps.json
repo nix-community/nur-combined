@@ -101,13 +101,13 @@
   },
   {
     "pname": "Aiursoft.UiStack",
-    "version": "11.0.0",
-    "hash": "sha256-4f3B5HfyBtWuxUCXi2Ji5Twjfs6Q/xFTBLB8ynpyL4E="
+    "version": "10.1.0",
+    "hash": "sha256-VA40DVEFEbw2AnlWWbuc5LW+Hv4qnPcqNn0yAGGY4aM="
   },
   {
     "pname": "Aiursoft.WebTools",
-    "version": "10.0.22",
-    "hash": "sha256-lma8+7+6mQYY0JMB0hSOyPbnftSRMArd0IQFRgNftXE="
+    "version": "10.0.23",
+    "hash": "sha256-Oi8dkcPkA/LGJu+nb96p1urH75ZBt4DAnatYQkw/W+s="
   },
   {
     "pname": "Aiursoft.WebTools.Abstractions",
