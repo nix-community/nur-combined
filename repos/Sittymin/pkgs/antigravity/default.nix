@@ -67,16 +67,16 @@
 }:
 
 let
-  version = "2.35.0-6394266482769920";
+  version = "2.35.1-4615540875067392";
 
   sources = {
     x86_64-linux = {
       arch = "linux-x64";
-      hash = "sha256-uIcZy9X0CMASHud9KXQBGidIMGslkdNG60iKILxR7Ck=";
+      hash = "sha256-2SEDmob7+g0GloyXPq3/qDVytDSjUadxuK2fJBpJPX4=";
     };
     aarch64-linux = {
       arch = "linux-arm";
-      hash = "sha256-pvXCEPbGswr3HC4w7sAoUX53gB76y6ZxevuFgLm5DQs=";
+      hash = "sha256-w2qY5t/gbtlYnflcviagAmQTECGrd5x6DzBcgIy6iXM=";
     };
   };
 
