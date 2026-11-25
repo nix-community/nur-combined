@@ -21,5 +21,8 @@
 
 		  # "run remote command" listener daemon and client
 		  ruroco = callPackage ./pkgs/ruroco {};
+
+		  # "color-icon-matrix barcode" implementation
+		  libcimbar = callPackage ./pkgs/libcimbar {};
 	  };
   in self
