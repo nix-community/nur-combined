@@ -16,16 +16,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "postman-gpui";
-  version = "0.1.3-unstable-2026-11-11";
+  version = "0.1.4-unstable-2026-11-24";
 
   src = fetchFromGitHub {
     owner = "847850277";
     repo = "postman-gpui";
-    rev = "deef1840dfa3dcb8be3d2e98c353883605cbe382";
-    hash = "sha256-xLwZ26XHTgY4x+CaE3QYCk6Ml8JGwH9+rsD2HKMsjM0=";
+    rev = "5d400a7ea165af32707bfb7726245946c3600871";
+    hash = "sha256-9uR465+9bwuDeoowiLjBkWInVIOEHHCbxqBadFhd8Sk=";
   };
 
-  cargoHash = "sha256-Ly3f4GJwYYmckJgsn/AqzTunqtdFQ5dMCy9Q7i4Vonc=";
+  cargoHash = "sha256-IfKDHSdaJSaq5Y/+wkMMS4WRMldr4mTodFMHM++3/rg=";
 
   nativeBuildInputs = [
     pkg-config
