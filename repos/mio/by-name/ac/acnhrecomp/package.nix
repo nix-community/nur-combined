@@ -40,13 +40,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "acnhrecomp";
-  version = "0.9.0";
+  version = "0.11.0";
 
   src = fetchFromGitHub {
     owner = "Nycolazs";
     repo = "ACNHRecomp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-b80NfFeSn1ondnbITLPn4J3IaoJetBZGpP9Tum9lHz8=";
+    hash = "sha256-OWPSjp0rDe3wjQTQwWZp/ZyRssXCofhTZdnT8abxrU0=";
   };
 
   nativeBuildInputs = [

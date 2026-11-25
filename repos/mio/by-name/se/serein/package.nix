@@ -110,13 +110,13 @@ let
 in
 rustPlatform.buildRustPackage {
   pname = "serein";
-  version = "1.0.0-unstable-2026-11-23";
+  version = "1.0.0-unstable-2026-11-24";
 
   src = fetchFromGitHub {
     owner = "ViceVerse-cz";
     repo = "Serein";
-    rev = "16b235feb309d6cf6071d19dfd939ea9af18b73f";
-    hash = "sha256-VA22xQVS7RY3PFydUpAlt3/SAIVH5xsoIM8ssxtpA2s=";
+    rev = "fd92226e971051d8f43dc2b48b1fc641e90075ba";
+    hash = "sha256-oN9IaCzkMcyZqfu7hpSrZmplZ15lcvucPXQ6bMIAayQ=";
   };
 
   # Keep bundled symbols local so each copy stays consistent.
@@ -127,7 +127,7 @@ rustPlatform.buildRustPackage {
   # copies, as it did before; keep that.
   dontCargoUseSystemLibs = true;
 
-  cargoHash = "sha256-Klx8Y+kHKeZmDEHwsuYeqAH3rIkt//BLqKExkOE7ySo=";
+  cargoHash = "sha256-J/js7Dfn3+y1RLQfzPWVibNmDGwR9AUV3PGOx8Iei3M=";
 
   cargoBuildFlags = [
     "--package"

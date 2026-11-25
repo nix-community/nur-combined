@@ -82,8 +82,8 @@ let
   src = fetchFromGitHub {
     owner = "KytyPS5";
     repo = "KytyPS5";
-    tag = "KytyPS5-2026-11-23-cc817b6";
-    hash = "sha256-rGJAxJeMB8fI4Kerhn159oiFB9kLEJH50ypmwY69hs4=";
+    tag = "KytyPS5-2026-11-25-8b82ca2";
+    hash = "sha256-CtGj1nv3SAlN3Gqb/CkWrAY49Y7CeLtHriD+9AORxjM=";
   };
 
   # nixpkgs 26.11 dropped x86_64-darwin, and KytyPS5's macOS build is x86-64
@@ -238,6 +238,13 @@ let
     hash = "sha256-tNFWIT9ydfozB8dWcmTMuZLCQmQudTFJIkSr0aG7S44=";
   };
 
+  openalSoft = fetchFromGitHub {
+    owner = "kcat";
+    repo = "openal-soft";
+    rev = "b2c48f7718ef3fcf67921a8b6534c4914e328970";
+    hash = "sha256-+yG5qB5sg86RgmFIaPNNsLZZ1IM0AvNdzWPVN/PQLGw=";
+  };
+
   zarchive = applyPatches {
     src = fetchFromGitHub {
       owner = "Exzap";
@@ -317,7 +324,7 @@ if stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.system != "x86_64-darwin"
 else
   stdenv.mkDerivation {
     pname = "kytyps5";
-    version = "0-unstable-2026-11-23";
+    version = "0-unstable-2026-11-25";
     inherit src;
 
     patches = [ ./noto-fonts-local.patch ];
@@ -339,6 +346,7 @@ else
       cp -rT ${imgui} 3rdparty/imgui
       cp -rT ${magicEnum} 3rdparty/magic_enum
       cp -rT ${nlohmannJson} 3rdparty/nlohmann_json
+      cp -rT ${openalSoft} 3rdparty/openal-soft
       cp -rT ${spdlog} 3rdparty/spdlog
       cp -rT ${tracy} 3rdparty/tracy
       cp -rT ${xxHash} 3rdparty/xxHash

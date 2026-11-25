@@ -5,6 +5,7 @@
   fetchFromGitHub,
   bazel_9,
   cacert,
+  cctools,
   curl,
   apple-sdk,
   python3,
@@ -35,14 +36,14 @@ stdenv.mkDerivation (
     # which are coerced to strings.
     depsHashes = {
       x86_64-linux = "sha256-VXhhwGH4xfOBQ4Pb64yeg/7rGYv/BufekWvLmXlw1W0=";
-      aarch64-darwin = "sha256-MSZLrZPZV9p4YwuqtFGIGJ0RrpUktZz5LJkG79cYXxg=";
+      aarch64-darwin = "sha256-PG2nRb4Fi3ROFF7fYM8Kf0SAdfv8wO94Ge0shTAVjL0=";
     };
 
     # Commit of the gh-pages branch of clice-io/bazel that `deps` is vendored
     # from. The branch is rewritten on every clice release, so a branch URL
     # would make the fixed-output hash stale within a day; the commit keeps the
     # build reproducible. Bump it together with the source revision.
-    registryRev = "aea68cb2dd021c9c84a481beb79377390d55f10f";
+    registryRev = "3c9bfb272430225c6d465aff1d4e2034630610a0";
 
     # The darwin build cannot listen in the sandbox (--batch), and its link
     # actions cache ThinLTO output in $TMPDIR. The link action does not inherit
@@ -60,16 +61,44 @@ stdenv.mkDerivation (
         "--linkopt=-L${lib.getLib zlib}/lib"
       ]
     );
+
+    # The version stamping selects on the release triple through xclang's
+    # platform constraints (macOS is told apart from Linux only by its C
+    # library), so Bazel needs a target platform that carries them; the default
+    # host platform has none.
+    bazelPlatform =
+      {
+        x86_64-linux = "x86_64-unknown-linux-gnu";
+        aarch64-linux = "aarch64-unknown-linux-gnu";
+        x86_64-darwin = "x86_64-apple-darwin";
+        aarch64-darwin = "aarch64-apple-darwin";
+      }
+      .${stdenv.hostPlatform.system};
+
+    # xclang's platform repositories ask xcrun for the macOS host's SDK; the
+    # build has no Xcode, and the toolchain is pointed at nixpkgs' apple-sdk
+    # everywhere else, so answer with that one.
+    xcrun = writeShellApplication {
+      name = "xcrun";
+      text = ''
+        if [ "$1" = "--show-sdk-path" ]; then
+          echo "${apple-sdk.sdkroot}"
+          exit 0
+        fi
+        echo "xcrun: unsupported invocation: $*" >&2
+        exit 1
+      '';
+    };
   in
   {
     pname = "clice";
-    version = "1.1.2026112310";
+    version = "1.1.2026112412";
 
     src = fetchFromGitHub {
       owner = "clice-io";
       repo = "clice";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-K6P+VhUIzNAsQHiO2nhLF0AGIrNnAiHem9JFBE7OG6Y=";
+      hash = "sha256-fa3z+cF2flt+5TgBKCzHFJP0sMfDjjDdhhdUgjgkKnc=";
     };
 
     deps = stdenvNoCC.mkDerivation {
@@ -82,7 +111,9 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals stdenv.hostPlatform.isDarwin [
         cacert
+        cctools # rules_python's macOS interpreter repository relinks with it
         curl
+        xcrun
       ];
 
       strictDeps = true;
@@ -120,7 +151,8 @@ stdenv.mkDerivation (
         ''}
 
         # Fetch all external repositories from the network.
-        bazel vendor -c opt --config=RelWithDebInfo //... --vendor_dir=$out
+        bazel vendor -c opt --config=RelWithDebInfo \
+          --platforms=@xclang//platforms:${bazelPlatform} //... --vendor_dir=$out
 
         ${lib.optionalString stdenv.hostPlatform.isDarwin ''
           # The main build expects the vendored registry index under
@@ -178,8 +210,12 @@ stdenv.mkDerivation (
       patchelf
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      # The SDK the link is given as its sysroot.
+      # The SDK the link is given as its sysroot, the xcrun the platform
+      # repositories of the toolchain ask for it with, and the install_name_tool
+      # rules_python's interpreter repository relinks with.
       apple-sdk
+      cctools
+      xcrun
     ];
 
     buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ zlib ];
@@ -235,7 +271,8 @@ stdenv.mkDerivation (
       # ships text-based stubs only, whose system reexports are not in the
       # store, so system symbols are bound at load time, as the Darwin stdenv
       # does.
-      bazel ${lib.optionalString stdenv.hostPlatform.isDarwin "--batch"} build -c opt --config=RelWithDebInfo //:bin/clice --vendor_dir=$TMPDIR/vendor ${darwinBazelFlags}
+      bazel ${lib.optionalString stdenv.hostPlatform.isDarwin "--batch"} build -c opt --config=RelWithDebInfo \
+        --platforms=@xclang//platforms:${bazelPlatform} //:bin/clice --vendor_dir=$TMPDIR/vendor ${darwinBazelFlags}
 
       runHook postBuild
     '';

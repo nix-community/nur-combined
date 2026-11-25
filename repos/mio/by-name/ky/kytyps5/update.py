@@ -34,6 +34,7 @@ SUBMODULES = {
     "3rdparty/imgui": ("ocornut", "imgui"),
     "3rdparty/magic_enum": ("Neargye", "magic_enum"),
     "3rdparty/nlohmann_json": ("nlohmann", "json"),
+    "3rdparty/openal-soft": ("kcat", "openal-soft"),
     "3rdparty/spdlog": ("gabime", "spdlog"),
     "3rdparty/tracy": ("wolfpld", "tracy"),
     "3rdparty/xxHash": ("Cyan4973", "xxHash"),

@@ -13,13 +13,13 @@ let
   # of a release is the commit that sets freebuff/cli/release/package.json to
   # that version. `update.py` resolves that commit from npm and keeps these in
   # sync; the build below passes the version through to the binary.
-  version = "0.2.36";
+  version = "0.2.38";
 
   src = fetchFromGitHub {
     owner = "CodebuffAI";
     repo = "freebuff";
-    rev = "b4005bdbd5be9aab10668e97bd42b2b072638391";
-    hash = "sha256-yMYi00Ct1BRzu+UkiPLnurd3qGldtTCFrCGuH18LOEw=";
+    rev = "164ccbbca13043d4035eb3bb0251f762acca5d54";
+    hash = "sha256-umyhFbSCNv4yaEz3HuI3KS+tZ8ZCdiSV2jpo3SWjod0=";
   };
 
   # The CLI validates its client environment at startup (common/src/env.ts) and
@@ -59,8 +59,8 @@ let
   # `bun install` resolves the platform-specific payloads (the OpenTUI native
   # bundles, ripgrep, ...), so every target has its own hash.
   workspaceDepsHashes = {
-    x86_64-linux = "sha256-/PWZsbaa1jtCd41xQav1rTqFLSfOliheOEuGyp2grL0=";
-    aarch64-darwin = "sha256-vZP60IirN6WjWsLAwgPD/iJqCuUSMZnRQB/0kN5D0a4=";
+    x86_64-linux = "sha256-hg+ZULOPRzq8xDqQvYDyCUaiXIyKlcqu2dkxZAn848I=";
+    aarch64-darwin = "sha256-Z04BNHPpRfuaauEuJhfmW+giip0SUN5sE7ZVCfdrBug=";
   };
 
   workspaceDeps = stdenvNoCC.mkDerivation {
