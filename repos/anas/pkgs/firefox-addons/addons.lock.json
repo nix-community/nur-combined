@@ -20,7 +20,7 @@
   },
   {
     "addonId": "{a8cf72f7-09b7-4cd4-9aaa-7a023bf09916}",
-    "hash": "sha256:4335973a222d50f4c385152a58447b5429026d546eec8685a214499f34921bb3",
+    "hash": "sha256:2ecdcaf52897480f6653cbc091aa0e5f7fe8addb69cf02ef9bd4740056da1d4b",
     "homepage": "https://time-tracker-4-browser.app/en/",
     "licenseId": 22,
     "permissions": [
@@ -32,12 +32,12 @@
     ],
     "slug": "besttimetracker",
     "summary": "Track time, analyze your habits and block addictive sites",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5241470/besttimetracker-4.7.0.xpi",
-    "version": "4.7.0"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5295604/besttimetracker-4.7.1.xpi",
+    "version": "4.7.1"
   },
   {
     "addonId": "{74145f27-f039-47ce-a470-a662b129930a}",
-    "hash": "sha256:54926b6e4274d5935a5fc0daa6320f1d371e3d2f1a5877467ca3ab22a65c4f20",
+    "hash": "sha256:693601ba1f21c6940374f76acc2dd4bd3201869b0fe10ab1b927b593ee2508d1",
     "homepage": "https://clearurls.xyz/",
     "licenseId": 12,
     "permissions": [
@@ -249,12 +249,12 @@
     ],
     "slug": "clearurls",
     "summary": "Automatically removes tracking parameters from URLs",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4432106/clearurls-1.27.3.xpi",
-    "version": "1.27.3"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5286652/clearurls-1.28.0.xpi",
+    "version": "1.28.0"
   },
   {
     "addonId": "{5cce4ab5-3d47-41b9-af5e-8203eea05245}",
-    "hash": "sha256:916187f4885c782d185bc578991afb87fcf05e89a95e0ab412425dc2a53c7a3a",
+    "hash": "sha256:da1a5b6ba9715dc104b156d03f58b8b0e2534a1183cb15c98fc9183575e2d89c",
     "homepage": "https://soitis.dev/control-panel-for-twitter",
     "licenseId": 22,
     "permissions": [
@@ -264,8 +264,8 @@
     ],
     "slug": "control-panel-for-twitter",
     "summary": "Gives you more control over Twitter and adds missing features and UI improvements",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5265265/control_panel_for_twitter-4.99.2.xpi",
-    "version": "4.99.2"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5297310/control_panel_for_twitter-4.99.4.xpi",
+    "version": "4.99.4"
   },
   {
     "addonId": "crxviewer-firefox@robwu.nl",
@@ -308,7 +308,7 @@
   },
   {
     "addonId": "floccus@handmadeideas.org",
-    "hash": "sha256:71f658e689e67c17b3c605503e64400fa05c730618365b8d023b8e63bd1c8473",
+    "hash": "sha256:05c9e7ffe9f915829ef7305e3af6ebcb30eeaf43777a5b312ad5257757a523b0",
     "homepage": "https://floccus.org",
     "licenseId": 3338,
     "permissions": [
@@ -323,8 +323,8 @@
     ],
     "slug": "floccus",
     "summary": "Securely synchronize bookmarks across Chrome, Firefox, Edge, and more using your own cloud storage.",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5224106/floccus-5.13.0.xpi",
-    "version": "5.13.0"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5285330/floccus-5.14.0.xpi",
+    "version": "5.14.0"
   },
   {
     "addonId": "foxytab@eros.man",
@@ -1003,7 +1003,7 @@
   },
   {
     "addonId": "{531906d3-e22f-4a6c-a102-8057b88a1a63}",
-    "hash": "sha256:0bd60baef8d6f153574e15ce599135b573c1d7c727ae6fbc1499c49e8b491fa5",
+    "hash": "sha256:15bf2a1ea115b89cf94415d5d8a7d6ef2979f5b3d3410aa9de7fbf70a80bc269",
     "homepage": "https://www.getsinglefile.com",
     "licenseId": 7714,
     "permissions": [
@@ -1016,8 +1016,8 @@
     ],
     "slug": "single-file",
     "summary": "Save an entire web page—including images and styling—as a single HTML file.",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5274593/single_file-1.39.0.xpi",
-    "version": "1.39.0"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5284257/single_file-1.40.0.xpi",
+    "version": "1.40.0"
   },
   {
     "addonId": "sponsorBlocker@ajay.app",
@@ -1120,7 +1120,7 @@
   },
   {
     "addonId": "uBlock0@raymondhill.net",
-    "hash": "sha256:debffadf7d5117bd2d4e9218e27bfdf3112544fd2e87f14882d274a11dc95375",
+    "hash": "sha256:894ea48dedd26a637ab98ba627ae70b7ed94798eabfd4b089f5e5e73524a24eb",
     "homepage": "https://github.com/gorhill/uBlock#ublock-origin",
     "licenseId": 6,
     "permissions": [
@@ -1151,8 +1151,8 @@
     ],
     "slug": "ublock-origin",
     "summary": "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5282683/ublock_origin-1.76.6.xpi",
-    "version": "1.76.6"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5290541/ublock_origin-1.77.0.xpi",
+    "version": "1.77.0"
   },
   {
     "addonId": "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}",
