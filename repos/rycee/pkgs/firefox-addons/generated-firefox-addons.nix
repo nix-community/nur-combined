@@ -140,10 +140,10 @@
     };
     "adblocker-ultimate" = buildMozillaXpiAddon {
       pname = "adblocker-ultimate";
-      version = "4.4.5";
+      version = "4.4.7";
       addonId = "adblockultimate@adblockultimate.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5211605/adblocker_ultimate-4.4.5.xpi";
-      sha256 = "ae167a5e6a6b3a4b94ac1f8fd8583e0a51d40b55ec5e149b32543ec8d8c13308";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5294771/adblocker_ultimate-4.4.7.xpi";
+      sha256 = "893261776c8577dbd86ea9a96b44d53475fa94b971d7210c2c31da0b9746cd2d";
       meta = with lib;
       {
         homepage = "https://adblockultimate.net";
@@ -1165,10 +1165,10 @@
     };
     "betterttv" = buildMozillaXpiAddon {
       pname = "betterttv";
-      version = "7.7.33";
+      version = "7.7.34";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5246581/betterttv-7.7.33.xpi";
-      sha256 = "531840dfcfc2c0f5901cfcf8782cd52b49ff3d51d7aa4e9cae9798d373d26afe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5300937/betterttv-7.7.34.xpi";
+      sha256 = "7dcf7ae7ec06d9f2932049a537f9fdedc91dd3ff3d39e82c12fb03a61edcccda";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -1547,10 +1547,10 @@
     };
     "bramble" = buildMozillaXpiAddon {
       pname = "bramble";
-      version = "1.39.0";
+      version = "1.40.0";
       addonId = "firefox@bramble.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5287037/bramble-1.39.0.xpi";
-      sha256 = "feca3b53f11743ed80068dddbd14533eefe42b07f16050c331e63641ef98a965";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5298174/bramble-1.40.0.xpi";
+      sha256 = "830fe5824c267fbdb326636d20b40b17df3d149fa71e2df85b093e98033c4084";
       meta = with lib;
       {
         homepage = "https://bramble.sh";
@@ -5555,10 +5555,10 @@
     };
     "header-editor" = buildMozillaXpiAddon {
       pname = "header-editor";
-      version = "5.6.1";
+      version = "5.6.2";
       addonId = "headereditor-amo@addon.firefoxcn.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5246886/header_editor-5.6.1.xpi";
-      sha256 = "6f5a0cb4e1faf221a3710151cb144b66ffc12ce3be8f10eaa6e6f2cba05ffa03";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5298252/header_editor-5.6.2.xpi";
+      sha256 = "fec4dda3cd6bae1c48809d5a26801f56c7e548d67183eb051c913a6e7d27fb9e";
       meta = with lib;
       {
         homepage = "https://he.firefoxcn.net/en/";
@@ -5936,10 +5936,10 @@
     };
     "immersive-translate" = buildMozillaXpiAddon {
       pname = "immersive-translate";
-      version = "1.35.3";
+      version = "1.35.4";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5275933/immersive_translate-1.35.3.xpi";
-      sha256 = "56c3226ac9ad00b72742597df8dd096317c2b8e5f0d1a396494e4bcb677e71dc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5281574/immersive_translate-1.35.4.xpi";
+      sha256 = "8d2f91b7c6089e63f010b5daebb0a489d7bbcf66711b0c6924cce066e98317a8";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -7948,10 +7948,10 @@
     };
     "lockedin-yt" = buildMozillaXpiAddon {
       pname = "lockedin-yt";
-      version = "1.2.5";
+      version = "1.2.6";
       addonId = "kartik@lockedin.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5283350/lockedin_yt-1.2.5.xpi";
-      sha256 = "4800ba5198fdc6d7a10e91b0907e2e425989c7dd850b86d1717060f6f0c2c712";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5301868/lockedin_yt-1.2.6.xpi";
+      sha256 = "ac6ac5e2f04d163f1ebe4765aadd97e51a525480332383f0b64c0fc0863acbb0";
       meta = with lib;
       {
         homepage = "https://kartikrashmin.github.io/LockedIn-YT/";
@@ -10564,10 +10564,10 @@
     };
     "print-friendly-pdf" = buildMozillaXpiAddon {
       pname = "print-friendly-pdf";
-      version = "7.8.0";
+      version = "7.9.0";
       addonId = "jid0-YQz0l1jthOIz179ehuitYAOdBEs@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5277332/print_friendly_pdf-7.8.0.xpi";
-      sha256 = "8e3c909c2280b545fc9adc1c62b4f5ee59d1410c9533027d92feb51dd00ecb92";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5300229/print_friendly_pdf-7.9.0.xpi";
+      sha256 = "e21554c204e37f7a426119527a41a2ef33470193065cc4d2a068a4f5dbb70251";
       meta = with lib;
       {
         homepage = "https://www.printfriendly.com/";
@@ -13724,10 +13724,10 @@
     };
     "snowflake" = buildMozillaXpiAddon {
       pname = "snowflake";
-      version = "0.10.2";
+      version = "0.10.3";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5235096/torproject_snowflake-0.10.2.xpi";
-      sha256 = "e08b13930ba54349e30352bc960ce2da3e9bcfcb185a32a144cb1ddfeefc0b6c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5302147/torproject_snowflake-0.10.3.xpi";
+      sha256 = "6ff89738e88b02f9789bec1a34a54d9be7fba8ee348c8244b35969b31cdd23f7";
       meta = with lib;
       {
         homepage = "https://snowflake.torproject.org/";
@@ -15908,10 +15908,10 @@
     };
     "v2ex-polish" = buildMozillaXpiAddon {
       pname = "v2ex-polish";
-      version = "2.5.16";
+      version = "2.5.17";
       addonId = "leokudev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5293641/v2ex_polish-2.5.16.xpi";
-      sha256 = "6a82df2b2e39b929ae13ca1639f7061e51da0e836038a2ca08be9c8cd0f9cdb5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5302778/v2ex_polish-2.5.17.xpi";
+      sha256 = "132c5d5f1316ab9ab1ea63a5e2917c11cf7e7050f80d6c182845be6544647858";
       meta = with lib;
       {
         description = "专为 V2EX 用户设计，提供了丰富的扩展功能。";
@@ -16675,10 +16675,10 @@
     };
     "wave-accessibility-tool" = buildMozillaXpiAddon {
       pname = "wave-accessibility-tool";
-      version = "3.3.1.0";
+      version = "3.3.4.0";
       addonId = "{9bbf6724-d709-492e-a313-bfed0415a224}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4796228/wave_accessibility_tool-3.3.1.0.xpi";
-      sha256 = "27bfadfc72b713ba1feaa7c257fedc5282221a15269f90d6a219348a3b49bf3b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5302563/wave_accessibility_tool-3.3.4.0.xpi";
+      sha256 = "9901701cf919fa34228cbce32ef390e806d577f3524ee10ec7e636a1b232a894";
       meta = with lib;
       {
         description = "Evaluate web accessibility within the Firefox browser. When activated, the WAVE extension injects icons and indicators into your page to give feedback about accessibility and to facilitate manual evaluation.";
@@ -17693,10 +17693,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.11.14";
+      version = "18.11.15";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5291604/youtube_subscription_groups-18.11.14.xpi";
-      sha256 = "bcaa0dc9c0b1e35756ff6e38c80869a96a580168a53293bb4b24b212a253889d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5301216/youtube_subscription_groups-18.11.15.xpi";
+      sha256 = "2c5300612e2b8eaec1040fb427172d64795de7015aea1b17ff79f8e7258197dd";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
