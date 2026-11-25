@@ -216,7 +216,9 @@ let
           version = lib.getVersion prev.name;
         in
         prev.src.overrideAttrs {
-          url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
+          urls = [
+            "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi"
+          ];
         };
     });
 
