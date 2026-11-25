@@ -4,6 +4,7 @@
   clangStdenv,
   stdenvNoCC,
   fetchFromGitHub,
+  fetchurl,
   git,
   cacert,
   python3,
@@ -14,19 +15,27 @@
   pkg-config,
   extract-xiso,
   gtk3,
-  xorg,
+  libx11,
+  libxcb,
   # Skate 3 Recompiled+ contains no game code or data: the build recompiles
   # the guest's default.xex and EAWebkit.xex, which come from your own
-  # extracted retail disc. Point these at those two files, e.g.
+  # extracted retail disc. discImage defaults to the archive.org copy of the
+  # disc, which the build unpacks for those two files; override it with your
+  # own image, e.g.
+  #   skate3recomp-plus.override { discImage = /path/to/Skate\ 3.iso; }
+  # or pass the two executables from an extracted disc instead:
   #   skate3recomp-plus.override {
+  #     discImage = null;
   #     defaultXex = /path/to/Skate3-disc/default.xex;
   #     eaWebkitXex = /path/to/Skate3-disc/data/webkit/EAWebkit.xex;
   #   }
-  # or hand it the disc image and let the build unpack those two files, e.g.
-  #   skate3recomp-plus.override { discImage = /path/to/Skate\ 3.iso; }
   defaultXex ? null,
   eaWebkitXex ? null,
-  discImage ? null,
+  discImage ? fetchurl {
+    name = "Skate_3.iso";
+    url = "https://ia800405.us.archive.org/8/items/skate-3_202405/Skate%203.iso";
+    hash = "sha256-0hsrtoSG2No9Txw1y0jIS7jiKp9s1FVTIwA8JJAqDD8=";
+  },
   # Required: the recompiled code is generated against the Title Update 3
   # payloads (Skate 3 title 454108E6, 3.0.0.0 -> 3.0.3.0), and the codegen
   # patches do not apply to the base disc image alone. E.g.
@@ -86,8 +95,8 @@ clangStdenv.mkDerivation {
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     gtk3
-    xorg.libX11
-    xorg.libxcb
+    libx11
+    libxcb
   ];
 
   # sdk.nix applies the fork's SDK patch and stores the tree without git

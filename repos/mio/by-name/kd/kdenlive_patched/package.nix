@@ -159,9 +159,9 @@ base.overrideAttrs (old: {
       exe="$bundle/Contents/MacOS/kdenlive"
       if [ -x "$exe" ]; then
         ln -sfn "../../../share" "$bundle/Contents/Resources"
-      for lib in ${opentimelineio}/lib/libopentime*.dylib ${opentimelineio}/lib/libopentimelineio*.dylib; do
-        ln -sfn "$lib" "$bundle/Contents/MacOS/$(basename "$lib")"
-      done
+        for lib in ${opentimelineio}/lib/libopentime*.dylib ${opentimelineio}/lib/libopentimelineio*.dylib; do
+          ln -sfn "$lib" "$bundle/Contents/MacOS/$(basename "$lib")"
+        done
         ln -sfn "kdenlive.app/Contents/MacOS/kdenlive" "$out/bin/kdenlive"
         mkdir -p "$out/Applications"
         ln -sfn "../bin/kdenlive.app" "$out/Applications/kdenlive.app"
