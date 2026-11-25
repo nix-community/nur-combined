@@ -119,6 +119,7 @@ class MusicService {
         private val onTrackEnded: () -> Unit,
         private val onNextRequested: (() -> Unit)? = null,
         private val onPreviousRequested: (() -> Unit)? = null,
+        private val onTrackStarted: (() -> Unit)? = null,
     ) {
         companion object {
             fun findMpvExecutable(): String? {
@@ -298,6 +299,12 @@ class MusicService {
         ) {
             ensureStarted()
             System.err.println("[ArchiveTune/Audio] mpv.load: url=$url, startPosMs=$startPosMs, playWhenReady=$playWhenReady, hasNext=$hasNext, isConnected=$isConnected")
+            // A new file replaces the previous one, so its position/duration no
+            // longer describe what is on screen. Without this reset the UI kept
+            // showing the old track's time (or a ticking 0:00) while mpv opened
+            // the new file.
+            currentPositionMs = 0L
+            durationMs = 0L
             val escaped = url.replace("\\", "\\\\").replace("\"", "\\\"")
             sendRaw("{\"command\": [\"loadfile\", \"$escaped\", \"replace\"]}\n")
             if (startPosMs > 0) {
@@ -416,6 +423,7 @@ class MusicService {
             } else if (json.contains("\"event\":\"playback-restart\"")) {
                 isPlaying = true
                 onPlaybackStateChanged(true)
+                onTrackStarted?.invoke()
             }
         }
 
@@ -473,8 +481,18 @@ class MusicService {
                 }
             },
             onPositionChanged = { posMs ->
-                pausedPosition = posMs
-                playStartTime = System.currentTimeMillis()
+                // Events from the outgoing file still arrive while the next URL
+                // is being resolved; they must not move the new track's clock.
+                if (!trackLoadPending) {
+                    pausedPosition = posMs
+                    playStartTime = System.currentTimeMillis()
+                }
+            },
+            onTrackStarted = {
+                runOnMain {
+                    trackLoadPending = false
+                    playStartTime = System.currentTimeMillis() - pausedPosition
+                }
             },
             onDurationChanged = { _ ->
             },
@@ -518,6 +536,16 @@ class MusicService {
 
         private var currentPlayingId: String? = null
 
+        /**
+         * True from the moment a new track is requested until mpv actually
+         * starts it. While set, [currentPosition] reports the requested start
+         * position instead of extrapolating a wall-clock position, so a track
+         * that is still resolving/buffering does not appear to play 0:00, 0:01,
+         * 0:02 ...
+         */
+        @Volatile
+        private var trackLoadPending: Boolean = false
+
         private fun loadTrack(mediaId: String, startPositionMs: Long, playWhenReady: Boolean) {
             checkQueueContinuation()
             val cleanId = mediaId.trim().removePrefix("song/")
@@ -526,6 +554,7 @@ class MusicService {
                 return
             }
             currentPlayingId = cleanId
+            trackLoadPending = true
             System.err.println("[ArchiveTune/Audio] loadTrack: mediaId=$cleanId, startPositionMs=$startPositionMs, playWhenReady=$playWhenReady")
 
             CoroutineScope(Dispatchers.IO).launch {
@@ -603,6 +632,9 @@ class MusicService {
 
         override val currentPosition: Long
             get() {
+                // A track that is still loading has no position yet: keep showing
+                // its start instead of letting the wall clock run.
+                if (trackLoadPending) return pausedPosition
                 val mpvPos = mpvPlayer.currentPositionMs
                 if (mpvPos > 0) return mpvPos
                 if (!_isPlaying) return pausedPosition
@@ -774,6 +806,7 @@ class MusicService {
             pause()
             playbackState = Player.STATE_IDLE
             currentPlayingId = null
+            trackLoadPending = false
             mpvPlayer.stop()
             listeners.forEach { it.onPlaybackStateChanged(playbackState) }
         }
@@ -975,6 +1008,7 @@ class MusicService {
             currentMediaItemIndex = -1
             pausedPosition = 0L
             currentPlayingId = null
+            trackLoadPending = false
             mpvPlayer.stop()
             listeners.forEach {
                 it.onTimelineChanged(_timeline, Player.TIMELINE_CHANGE_REASON_PLAYLIST_CHANGED)

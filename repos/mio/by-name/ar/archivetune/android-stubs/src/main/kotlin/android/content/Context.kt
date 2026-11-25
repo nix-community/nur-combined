@@ -134,29 +134,7 @@ open class Context {
     open fun bindService(intent: Intent, conn: Any, flags: Int): Boolean = false
     open fun unbindService(conn: Any) {}
     open fun getSharedPreferences(name: String, mode: Int): SharedPreferences =
-        object : SharedPreferences {
-            override fun getString(key: String, defValue: String?): String? = defValue
-
-            override fun getStringSet(key: String, defValues: Set<String>?): Set<String>? = defValues
-
-            override fun getInt(key: String, defValue: Int): Int = defValue
-
-            override fun getLong(key: String, defValue: Long): Long = defValue
-
-            override fun getFloat(key: String, defValue: Float): Float = defValue
-
-            override fun getBoolean(key: String, defValue: Boolean): Boolean = defValue
-
-            override fun contains(key: String): Boolean = false
-
-            override fun edit(): SharedPreferences.Editor = NoopEditor
-
-            override fun getAll(): MutableMap<String, Any?> = mutableMapOf()
-
-            override fun registerOnSharedPreferenceChangeListener(listener: Any) {}
-
-            override fun unregisterOnSharedPreferenceChangeListener(listener: Any) {}
-        }
+        DesktopSharedPreferences.get(name)
     open fun openFileOutput(name: String, mode: Int): java.io.FileOutputStream =
         java.io.FileOutputStream(File(DesktopStoragePaths.dataDir, name), (mode and MODE_APPEND) != 0)
     open fun openOrCreateDatabase(name: String, mode: Int, factory: SQLiteDatabase.CursorFactory?): SQLiteDatabase = SQLiteDatabase()

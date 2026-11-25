@@ -133,6 +133,9 @@ let
       install -m644 ${./files/settings.gradle.kts} settings.gradle.kts
       install -m644 ${./files/modules-build.gradle.kts} modules/build.gradle.kts
       install -m644 ${./files/AodShapeUtils.kt} app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/AodShapeUtils.kt
+      # Canvas video is an ExoPlayer/PlayerView surface; the desktop port has no
+      # player to build, so render nothing instead of hitting ExoPlayer.Builder's TODO.
+      install -m644 ${./files/CanvasArtworkPlayer.kt} app/src/main/kotlin/moe/rukamori/archivetune/ui/player/CanvasArtworkPlayer.kt
       install -m644 ${./files/ShowMediaInfo.kt} app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/ShowMediaInfo.kt
       install -m644 ${./files/AppUpdateInstaller.kt} app/src/main/kotlin/moe/rukamori/archivetune/utils/AppUpdateInstaller.kt
       # Android-only playback service layer. MusicService is a MediaSessionService and
@@ -166,6 +169,8 @@ let
       # Remaining small source patches
       patch -p1 < ${./root-build.patch}
       patch -p1 < ${./app-kotlin.patch}
+      # Do not fake a ticking position while the service is still switching items.
+      patch -p1 < ${./player-loading-position.patch}
       patch -p1 < ${./app-source.patch}
       patch -p1 < ${./history-refresh.patch}
       # Drop the Android-only subsystems (see narrow.py), then shim the rest.

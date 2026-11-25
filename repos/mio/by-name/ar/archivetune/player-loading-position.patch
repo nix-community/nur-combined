@@ -1,0 +1,24 @@
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/ui/player/Player.kt
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/player/Player.kt
+@@ -926,7 +926,6 @@
+     )
+ 
+     LaunchedEffect(mediaMetadata?.id, playbackState, aodModeEnabled) {
+-        val startTime = SystemClock.elapsedRealtime()
+         if (playbackState == STATE_READY) {
+             while (isActive) {
+                 delay(if (aodModeEnabled) 500L else 100L)
+@@ -935,8 +934,11 @@
+                 val currentPlayerDuration = playerConnection.player.duration
+ 
+                 if (isTransitioning) {
+-                    val elapsedSinceStart = SystemClock.elapsedRealtime() - startTime
+-                    position = elapsedSinceStart
++                    // The service still has to switch to this item, so there is
++                    // no playback position yet. Do not fake one from the wall
++                    // clock: the time label would tick 0:00, 0:01, 0:02 ...
++                    // while the track is loading.
++                    position = 0L
+                     mediaMetadata?.let {
+                         val metaDuration = it.duration.toLong() * 1000
+                         duration = if (metaDuration > 0) metaDuration else 0L
