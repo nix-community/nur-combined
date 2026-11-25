@@ -3,11 +3,11 @@
     "gomod2nix": {
       "flake": false,
       "locked": {
-        "lastModified": 1789480480,
-        "narHash": "sha256-VBlBE2kv8GZVv9ER9R854iwKunnUccR0MLeidjaYysw=",
+        "lastModified": 1795561541,
+        "narHash": "sha256-KhkKRATg4md3qWk1ych9qo0lNPFLkRkk3qflYA05hdc=",
         "owner": "mzwing",
         "repo": "gomod2nix",
-        "rev": "6d77e78cd95ad43dc8c6317c43791e6f6b88651d",
+        "rev": "4dccb95f898a338ba2d46b2f09ec53ee37f6da3b",
         "type": "github"
       },
       "original": {
