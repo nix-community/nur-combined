@@ -451,10 +451,10 @@
   };
   waywallen-display-bin = {
     pname = "waywallen-display-bin";
-    version = "0.4.6";
+    version = "0.4.7";
     src = fetchurl {
-      url = "https://github.com/waywallen/waywallen-display/releases/download/v0.4.6/waywallen-kde-0.4.6-x86_64.zip";
-      sha256 = "sha256-+YZHswHRbAD3Ea3H3L+MptI/I3+tGDXxORYHmtnAMs4=";
+      url = "https://github.com/waywallen/waywallen-display/releases/download/v0.4.7/waywallen-kde-0.4.7-x86_64.zip";
+      sha256 = "sha256-zLJMSAF18S0Ezo0wuaXBzUbQBb80ksLmIuHxbDJCdUI=";
     };
   };
 }
