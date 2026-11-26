@@ -9,14 +9,14 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pyrosm";
-  version = "0.29.0";
+  version = "0.29.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "HTenkanen";
     repo = "pyrosm";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-gzZ/x64voOzBMTVy70W8JHZ0FI1+z5OezTD7t9Fz7Lc=";
+    hash = "sha256-zj2JKxcsoxvyIyJLaCH/qyxj4JRevQsBJx1q7ot0noY=";
   };
 
   build-system = with python3Packages; [

@@ -9,7 +9,7 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "torchgeo";
-  version = "0.10.0";
+  version = "0.10.1";
   pyproject = true;
 
   __structuredAttrs = true;
@@ -18,7 +18,7 @@ python3Packages.buildPythonPackage (finalAttrs: {
     owner = "torchgeo";
     repo = "torchgeo";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Uvx92HCQyCSjgdQPOtpHwvx4irr7kJsfs481Xl/mEEI=";
+    hash = "sha256-CDUCaccz2WlKqoawlFAkjzr3Jp74iQB68mnqLY/SR4E=";
   };
 
   build-system = with python3Packages; [ uv-build ];
