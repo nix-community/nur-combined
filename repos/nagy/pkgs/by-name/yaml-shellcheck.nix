@@ -7,14 +7,14 @@
 
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "yaml-shellcheck";
-  version = "1.9.0";
+  version = "1.10.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "mschuett";
     repo = "yaml-shellcheck";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-wxMrHnTdoyI5s+F56HUcoaqU1ovIlwtaGtuisTcLhJU=";
+    hash = "sha256-emBhVCnDE2eIKjEloNFf2DZpM3K1dYhS2TgdSGI9r88=";
   };
 
   postPatch = ''

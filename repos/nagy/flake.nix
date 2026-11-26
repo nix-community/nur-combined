@@ -61,6 +61,8 @@
   inputs.emacs-bruvtab = {
     url = "github:nagy/emacs-bruvtab";
     inputs.nixpkgs.follows = "nixpkgs";
+    inputs.treefmt-nix.follows = "treefmt-nix";
+    inputs.bruvtab.follows = "bruvtab";
     inputs.flake-parts.follows = "flake-parts";
   };
 
@@ -115,6 +117,7 @@
   inputs.go-mod-ts-extras-mode = {
     url = "github:nagy/go-mod-ts-extras-mode";
     inputs.nixpkgs.follows = "nixpkgs";
+    inputs.treefmt-nix.follows = "treefmt-nix";
     inputs.flake-parts.follows = "flake-parts";
   };
 

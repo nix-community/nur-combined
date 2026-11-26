@@ -8,14 +8,14 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "carta";
-  version = "0.0.13";
+  version = "0.0.15";
 
   src = fetchCrate {
     inherit (finalAttrs) pname version;
-    hash = "sha256-kx6CmyGW8V033DxA4dOKopZ6i+LQvQcaVufVp2IvXhA=";
+    hash = "sha256-hE4dgeQoG/I44eJ0yxXs0FRUrjXaze04f/nVF9CLLuI=";
   };
 
-  cargoHash = "sha256-WhOA/n8KTt8rdRCmHNcF8FkFcTUxGGseVV/WCq+8t0I=";
+  cargoHash = "sha256-3AxmqUxq+JMBcHH/N104kEXojfm6NouSTC0HQID58WM=";
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;

@@ -14,12 +14,12 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "aioice";
-  version = "0.10.2";
+  version = "0.15.1";
   pyproject = true;
 
   src = fetchPypi {
     inherit (finalAttrs) pname version;
-    hash = "sha256-vyNsaCnuM8jlQFNdMc1aBmtTHLVt4r6UxGvnbWixqAY=";
+    hash = "sha256-xYXgz6ZmRqYXFT1fERgUpOxH374cz6TXwfYViGbe548=";
   };
 
   build-system = [

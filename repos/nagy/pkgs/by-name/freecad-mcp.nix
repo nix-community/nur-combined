@@ -7,14 +7,14 @@
 
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "freecad-mcp";
-  version = "0.1.28";
+  version = "0.1.32";
 
   pyproject = true;
 
   src = fetchPypi {
     pname = "freecad_mcp";
     inherit (finalAttrs) version;
-    hash = "sha256-Bqj8YRIgqKEAPO5DfkDseQiYeIMKJma558aqS8PugrE=";
+    hash = "sha256-40Y+R1XQDWnFHn+z8VKUSWTKhITv/3fkDdCHd69o3zU=";
   };
 
   build-system = [
@@ -28,11 +28,6 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     python3.pkgs.python-dotenv
     python3.pkgs.typer
     python3.pkgs.validators
-  ];
-
-  # Upstream pins `certifi>=2026.10.19`, this nixpkgs carries an older release.
-  pythonRelaxDeps = [
-    "certifi"
   ];
 
   pythonImportsCheck = [

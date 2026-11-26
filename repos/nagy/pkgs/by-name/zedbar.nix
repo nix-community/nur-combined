@@ -7,16 +7,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "zedbar";
-  version = "0.5.1";
+  version = "0.7.0";
 
   src = fetchFromGitHub {
     owner = "eventualbuddha";
     repo = "zedbar";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-r/sQknpi8v3YemIXuH0r8rlFBHIsiqcGt6VlA3MRWAg=";
+    hash = "sha256-n3dL0XbeRXOY967p4nCDgFLEXvHqA0TCoodMU47xFZw=";
   };
 
-  cargoHash = "sha256-UJkFGTKF+UNBXbCwcobsfFE4tGkLRl7xqDftn6rys3E=";
+  cargoHash = "sha256-+Hixz8DwJRwW2v9+sEf4cqc3DFlwLFwfexFhD3ZdDiY=";
 
   nativeCheckInputs = [ zbar ];
 

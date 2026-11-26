@@ -7,17 +7,17 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "uuinfo";
-  version = "0.7.5";
+  version = "0.8.0";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "Racum";
     repo = "uuinfo";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-OUR5siS6uQcZL1HyJVdAB5WZ86jf8eVj22N6UJtx8oc=";
+    hash = "sha256-47vGr5z3/kSFdqmzdscC/Domsq/EKQNs8rHf1cEOHPg=";
   };
 
-  cargoHash = "sha256-lA0gLTh00yYmuqyYNI3o8021JmuNlRczIeVU1Sl8aGM=";
+  cargoHash = "sha256-HF9eJ/AQJDQUQeDLuXV37UD4ML2I6ZiToSRV0pFTf3U=";
 
   # Integration tests hardcode target/debug/uuinfo but Nix builds in release mode
   doCheck = false;
