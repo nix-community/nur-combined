@@ -203,19 +203,19 @@
       "fingerprint": "sha256-0ZOszgPQKtup+CvOCK4zA28HzJnx0SDYVVtsN6lPoR8="
     },
     "cpa-reductant": {
-      "version": "0.1.4",
-      "rawVersion": "v0.1.4",
-      "date": "2026-11-23",
+      "version": "0.1.5",
+      "rawVersion": "v0.1.5",
+      "date": "2026-11-26",
       "src": {
         "fetcher": "github",
         "owner": "Moraxyc",
         "repo": "cpa-reductant",
-        "rev": "v0.1.4",
-        "hash": "sha256-8HpCV1uXv5knfIl+XzQZWZwiTugCu6sns/pD4xMgeVE="
+        "rev": "v0.1.5",
+        "hash": "sha256-A9FWnJ+WBhOSo9WiYb/nrzkYeq4qpKrEZ2YPysAyFvA="
       },
       "derived": {
         "vendorHash": {
-          "hash": "sha256-EzlrpPbNYcYNlc4crUlWayrc8UvL5JE56RaSF1XLIKs="
+          "hash": "sha256-BSGauJiOIwLEOW6ZHlmVZnMYjYmLBaB7XfuP7tLzeqo="
         }
       },
       "artifacts": {
