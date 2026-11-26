@@ -4,6 +4,8 @@
 
 # Spotlight
 
+### 🌐 Official Website: [https://danny19862025.github.io/spotlight/](https://danny19862025.github.io/spotlight/)
+
 **A fast, native Linux launcher built in Rust and GTK 4.**  
 Launch apps, search files, calculate, manage clipboard pins, run local AI, and control your desktop — all from one keyboard shortcut.
 
