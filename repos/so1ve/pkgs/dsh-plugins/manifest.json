@@ -22,7 +22,7 @@
     "version": "0.3.14",
     "url": "https://registry.npmjs.org/@anionex/dsh-turn-rewind/-/dsh-turn-rewind-0.3.14.tgz",
     "integrity": "sha512-WDoUVLWwM0+oPF/89gO34lIIIUxAUwKXD6Nt9hIVb8KD+Pk8B6PwIqaZSaw06T0mPIkt6cFQ1gzQx3eGKVH40g==",
-    "npmDepsHash": "sha256-qfgyureVpQ3BYw3o/ZK66PvghZQUWyeNtaRbpk4shUI="
+    "npmDepsHash": "sha256-tVIEd6fxxtBQI64ZPVAjQ3TdtNnoaVnr7fHky9w+mnY="
   },
   "npm:@ychris12138/dsh-usage-stats": {
     "version": "0.3.8",
