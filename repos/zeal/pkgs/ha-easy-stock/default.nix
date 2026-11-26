@@ -20,8 +20,6 @@ buildHomeAssistantComponent rec {
     description = "Yahoo Finance stock/ETF/crypto tracker for Home Assistant";
     homepage = "https://github.com/derspe/ha-easy-stock";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [
-      zeal
-    ];
+    maintainers = with lib.maintainers; [ zeal ];
   };
 }

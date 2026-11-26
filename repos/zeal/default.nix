@@ -26,4 +26,5 @@
   # ...
   mpvScripts.playlist-dir-conf = pkgs.callPackage ./pkgs/playlist-dir-conf { };
   home-assistant-custom-components.ha-easy-stock = pkgs.callPackage ./pkgs/ha-easy-stock { };
+  home-assistant-custom-components.ha-creality-ws = pkgs.callPackage ./pkgs/ha-creality-ws { };
 }

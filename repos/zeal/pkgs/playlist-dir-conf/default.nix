@@ -19,5 +19,6 @@ mpvScripts.buildLua {
     longDescription = "MPV script that loads a mpv.conf from the directory of the playlist, extending `--use-filedir-conf` behavior to work with playlists";
     homepage = "https://github.com/zzzealed/mpv-playlist-dir-conf";
     license = lib.licenses.agpl3Only;
+    maintainers = with lib.maintainers; [ zeal ];
   };
 }
