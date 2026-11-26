@@ -1,0 +1,204 @@
+diff --git a/VPhoneDaemon/Daemon/GuestAPI.swift b/VPhoneDaemon/Daemon/GuestAPI.swift
+index 8496550..c41e600 100644
+--- a/VPhoneDaemon/Daemon/GuestAPI.swift
++++ b/VPhoneDaemon/Daemon/GuestAPI.swift
+@@ -53,18 +53,11 @@ enum GuestAPI {
+     static func health() -> [String: Any] {
+         let ip = preferredAddress(networkInfo()["addresses"] as? [String] ?? [])
+         let version = ProcessInfo.processInfo.operatingSystemVersion
+-        return [
+-            "name": "vphoned",
+-            "api_version": 1,
+-            "status": "ok",
+-            "os": GuestRuntimePlatform.isVisionOS ? "visionOS" : GuestRuntimePlatform.productName,
+-            "binary_hash": binaryHash,
+-            "instance": instance,
+-            "ios": "\(version.majorVersion).\(version.minorVersion).\(version.patchVersion)",
+-            "ip": ip ?? "",
+-            "setup_pending": GuestRuntimePlatform.isVisionOS ? false : setupAssistantPending(),
+-            "mobilegestalt_restart_pending": GuestMobileGestaltCache.restartPending(),
+-            "capabilities": GuestRuntimePlatform.isVisionOS ? (GuestRuntimePlatform.visionOSCapabilities + scriptCapabilities() + visionOSImmersionCapabilities) : [
++        let capabilities: [String]
++        if GuestRuntimePlatform.isVisionOS {
++            capabilities = GuestRuntimePlatform.visionOSCapabilities + scriptCapabilities() + visionOSImmersionCapabilities
++        } else {
++            let baseCapabilities: [String] = [
+                 "touch",
+                 "touch2",
+                 "touch_edge",
+@@ -125,8 +118,22 @@ enum GuestAPI {
+                 "motion_gyroscope_toggle",
+                 "motion_attitude",
+                 "methods",
+-            ] + pointerCapabilities() + scriptCapabilities() + GuestHomePodDisplay.capabilities
+-                + GuestHomePodDebug.capabilities + GuestHomeViewDistance.capabilities + GuestCryptex.capabilities,
++            ]
++            capabilities = baseCapabilities + pointerCapabilities() + scriptCapabilities() + GuestHomePodDisplay.capabilities
++                + GuestHomePodDebug.capabilities + GuestHomeViewDistance.capabilities + GuestCryptex.capabilities
++        }
++        return [
++            "name": "vphoned",
++            "api_version": 1,
++            "status": "ok",
++            "os": GuestRuntimePlatform.isVisionOS ? "visionOS" : GuestRuntimePlatform.productName,
++            "binary_hash": binaryHash,
++            "instance": instance,
++            "ios": "\(version.majorVersion).\(version.minorVersion).\(version.patchVersion)",
++            "ip": ip ?? "",
++            "setup_pending": GuestRuntimePlatform.isVisionOS ? false : setupAssistantPending(),
++            "mobilegestalt_restart_pending": GuestMobileGestaltCache.restartPending(),
++            "capabilities": capabilities,
+         ]
+     }
+ 
+diff --git a/VPhoneDaemon/VPhoneDaemon.xcodeproj/project.pbxproj b/VPhoneDaemon/VPhoneDaemon.xcodeproj/project.pbxproj
+index 0718d21..48ed77f 100644
+--- a/VPhoneDaemon/VPhoneDaemon.xcodeproj/project.pbxproj
++++ b/VPhoneDaemon/VPhoneDaemon.xcodeproj/project.pbxproj
+@@ -178,7 +178,7 @@
+ 			runOnlyForDeploymentPostprocessing = 0;
+ 			shellPath = /bin/zsh;
+ 			showEnvVarsInLog = 0;
+-			shellScript = "set -euo pipefail\nroot=\"$(cd \"$SRCROOT/..\" && pwd)\"\n# Use this build's device SDK and product suffix without requiring a simulator runtime.\n# Preserve an explicit SwiftPM mirror configuration in the nested resolver.\n/usr/bin/env -i HOME=\"$HOME\" TMPDIR=\"${TMPDIR:-/tmp}\" PATH=\"/usr/bin:/bin:/usr/sbin:/sbin\" ${DEVELOPER_DIR:+\"DEVELOPER_DIR=$DEVELOPER_DIR\"} ${SWIFTPM_NETRC_DATA:+\"SWIFTPM_NETRC_DATA=$SWIFTPM_NETRC_DATA\"} ${SWIFTPM_MIRROR_CONFIG:+\"SWIFTPM_MIRROR_CONFIG=$SWIFTPM_MIRROR_CONFIG\"} /usr/bin/xcodebuild -hideShellScriptEnvironment -project \"$root/VPhoneExecutable/VPhoneCommand/VPhoneCommand.xcodeproj\" -scheme VPhoneSign -configuration \"$CONFIGURATION\" -sdk \"$PLATFORM_NAME\" -derivedDataPath \"$root/.build/XcodeSignGuest-$CONFIGURATION\" CODE_SIGNING_ALLOWED=NO SUPPORTS_MACCATALYST=NO EFFECTIVE_PLATFORM_NAME=\"$EFFECTIVE_PLATFORM_NAME\" build\n";
++			shellScript = "set -euo pipefail\nroot=\"$(cd \"$SRCROOT/..\" && pwd)\"\n# Use this build's device SDK and product suffix without requiring a simulator runtime.\n# Preserve an explicit SwiftPM mirror configuration in the nested resolver.\nxcode_home=\"$root/.build/xcode-signer-home\"\n/bin/mkdir -p \"$xcode_home\"\n/usr/bin/env -i HOME=\"$xcode_home\" CFFIXED_USER_HOME=\"$xcode_home\" TMPDIR=\"${TMPDIR:-/tmp}\" PATH=\"/usr/bin:/bin:/usr/sbin:/sbin\" ${DEVELOPER_DIR:+\"DEVELOPER_DIR=$DEVELOPER_DIR\"} ${SWIFTPM_NETRC_DATA:+\"SWIFTPM_NETRC_DATA=$SWIFTPM_NETRC_DATA\"} ${SWIFTPM_MIRROR_CONFIG:+\"SWIFTPM_MIRROR_CONFIG=$SWIFTPM_MIRROR_CONFIG\"} /usr/bin/xcodebuild -hideShellScriptEnvironment -disableAutomaticPackageResolution -onlyUsePackageVersionsFromResolvedFile -skipMacroValidation -skipPackagePluginValidation -IDEPackageSupportDisableManifestSandbox=YES -IDEPackageSupportDisablePluginExecutionSandbox=YES OTHER_SWIFT_FLAGS='$(inherited) -Xfrontend -disable-sandbox' -project \"$root/VPhoneExecutable/VPhoneCommand/VPhoneCommand.xcodeproj\" -scheme VPhoneSign -configuration \"$CONFIGURATION\" -sdk \"$PLATFORM_NAME\" -derivedDataPath \"$root/.build/XcodeSignGuest-$CONFIGURATION\" CODE_SIGNING_ALLOWED=NO SUPPORTS_MACCATALYST=NO EFFECTIVE_PLATFORM_NAME=\"$EFFECTIVE_PLATFORM_NAME\" build\n";
+ 		};
+ /* End PBXShellScriptBuildPhase section */
+ 
+diff --git a/VPhoneExecutable/VPhoneCommand/FirmwarePatcher/DyldSharedCache/DyldSharedCachePatchTransaction.swift b/VPhoneExecutable/VPhoneCommand/FirmwarePatcher/DyldSharedCache/DyldSharedCachePatchTransaction.swift
+index 9b64e69..f6dec02 100644
+--- a/VPhoneExecutable/VPhoneCommand/FirmwarePatcher/DyldSharedCache/DyldSharedCachePatchTransaction.swift
++++ b/VPhoneExecutable/VPhoneCommand/FirmwarePatcher/DyldSharedCache/DyldSharedCachePatchTransaction.swift
+@@ -110,8 +110,8 @@ enum DyldSharedCachePatchTransaction {
+             let operationError = error
+             var failures: [String] = []
+             // Restore the branch before its destination, then restore hashes.
+-            let ordered = snapshots.filter { $0.vma != nil }.reversed()
+-                + snapshots.filter { $0.vma == nil }.reversed()
++            let ordered: [Snapshot] = Array(snapshots.filter { $0.vma != nil }.reversed())
++                + Array(snapshots.filter { $0.vma == nil }.reversed())
+             for item in ordered {
+                 do { try (restoring ?? restore)(item) }
+                 catch { failures.append("\(item.label): \(error.localizedDescription)") }
+diff --git a/VPhoneExecutable/VPhoneVirtualization/Build/StageBundle.sh b/VPhoneExecutable/VPhoneVirtualization/Build/StageBundle.sh
+index c757397..2f0b57f 100755
+--- a/VPhoneExecutable/VPhoneVirtualization/Build/StageBundle.sh
++++ b/VPhoneExecutable/VPhoneVirtualization/Build/StageBundle.sh
+@@ -18,12 +18,21 @@ location_app="$bundle/Contents/Helpers/VPhoneLocation.app"
+ # Xcode exports the bundle target's SDK and package paths to build phases. Nested
+ # xcodebuild must resolve each project's own graph, especially the iOS daemon.
+ build_project() {
+-    /usr/bin/env -i HOME="$HOME" TMPDIR="${TMPDIR:-/tmp}" \
++    local xcode_home="$root/.build/xcode-home"
++    /bin/mkdir -p "$xcode_home"
++    /usr/bin/env -i HOME="$xcode_home" CFFIXED_USER_HOME="$xcode_home" TMPDIR="${TMPDIR:-/tmp}" \
+         PATH="/usr/bin:/bin:/usr/sbin:/sbin" \
+         ${DEVELOPER_DIR:+"DEVELOPER_DIR=$DEVELOPER_DIR"} \
+         ${SWIFTPM_NETRC_DATA:+"SWIFTPM_NETRC_DATA=$SWIFTPM_NETRC_DATA"} \
+         ${SWIFTPM_MIRROR_CONFIG:+"SWIFTPM_MIRROR_CONFIG=$SWIFTPM_MIRROR_CONFIG"} \
+-        /usr/bin/xcodebuild -hideShellScriptEnvironment "$@"
++        /usr/bin/xcodebuild -hideShellScriptEnvironment \
++            -disableAutomaticPackageResolution \
++            -onlyUsePackageVersionsFromResolvedFile \
++            -skipMacroValidation \
++            -skipPackagePluginValidation \
++            -IDEPackageSupportDisableManifestSandbox=YES \
++            -IDEPackageSupportDisablePluginExecutionSandbox=YES \
++            OTHER_SWIFT_FLAGS='$(inherited) -Xfrontend -disable-sandbox' "$@"
+ }
+ 
+ build_project -project "$root/VPhoneExecutable/VPhoneCommand/VPhoneRestore/VPhoneRestore.xcodeproj" \
+@@ -31,6 +40,10 @@ build_project -project "$root/VPhoneExecutable/VPhoneCommand/VPhoneRestore/VPhon
+     -destination 'platform=macOS,arch=arm64' \
+     -derivedDataPath "$root/.build/XcodeRestore" CODE_SIGNING_ALLOWED=NO build
+ 
++# Xcode 26 places a second libssl module map in this include directory and
++# searches both restore and command products when compiling the command.
++/bin/rm -f "$root/.build/XcodeRestore/Build/Products/$configuration/include/module.modulemap"
++
+ build_project -project "$root/VPhoneExecutable/VPhoneCommand/VPhoneCommand.xcodeproj" \
+     -scheme VPhoneCommand -configuration "$configuration" \
+     -destination 'platform=macOS,arch=arm64' \
+@@ -50,11 +63,14 @@ build_project -project "$root/VPhoneDaemon/VPhoneDaemon.xcodeproj" \
+ # links against the iPhoneOS SDK's IOKit headers and stub, targeted at tvOS.
+ tvos_frameworks="$root/.build/XcodeDaemon/tvos-frameworks"
+ iphoneos_iokit="$(/usr/bin/xcrun --sdk iphoneos --show-sdk-path)/System/Library/Frameworks/IOKit.framework/Versions/A"
++iphoneos_include="$(/usr/bin/xcrun --sdk iphoneos --show-sdk-path)/usr/include"
+ /bin/rm -rf "$tvos_frameworks"
+-/bin/mkdir -p "$tvos_frameworks/IOKit.framework"
++/bin/mkdir -p "$tvos_frameworks/IOKit.framework" "$tvos_frameworks/include"
+ /bin/cp -R "$iphoneos_iokit/Headers" "$tvos_frameworks/IOKit.framework/Headers"
++/bin/cp -R "$iphoneos_include/xpc" "$tvos_frameworks/include/xpc"
+ # Xcode 27's iPhoneOS SDK adds arm64e.x1; tvOS has arm64 and arm64e alone.
+-/usr/bin/sed -E -e 's/, *arm64e?\.[a-z0-9]+-ios//g' -e 's/arm64e?-ios/arm64-tvos, arm64e-tvos/' \
++/usr/bin/sed -E -e 's/, *arm64e?\.[a-z0-9]+-ios//g' \
++    -e 's/arm64-ios/arm64-tvos/g' -e 's/arm64e-ios/arm64e-tvos/g' \
+     "$iphoneos_iokit/IOKit.tbd" > "$tvos_frameworks/IOKit.framework/IOKit.tbd"
+ if ! /usr/bin/grep -q 'arm64-tvos' "$tvos_frameworks/IOKit.framework/IOKit.tbd" ||
+     /usr/bin/grep -q -- '-ios[] ,]' "$tvos_frameworks/IOKit.framework/IOKit.tbd"; then
+@@ -66,14 +82,16 @@ build_project -project "$root/VPhoneDaemon/VPhoneDaemon.xcodeproj" \
+     -sdk appletvos \
+     -derivedDataPath "$root/.build/XcodeDaemon" CODE_SIGNING_ALLOWED=NO \
+     SUPPORTS_MACCATALYST=NO EFFECTIVE_PLATFORM_NAME=-appletvos \
+-    FRAMEWORK_SEARCH_PATHS="$tvos_frameworks" build
++    FRAMEWORK_SEARCH_PATHS='$(inherited) '"$tvos_frameworks" \
++    HEADER_SEARCH_PATHS='$(inherited) '"$tvos_frameworks/include" build
+ 
+ build_project -project "$root/VPhoneExecutable/VPhoneEscalator/VPhoneEscalator.xcodeproj" \
+     -scheme VPhoneEscalator -configuration "$configuration" \
+     -derivedDataPath "$root/.build/XcodeAMFIAllow" \
+     ARCHS="arm64e arm64e.x1" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_ALLOWED=NO build
+ 
+-/usr/bin/make -C "$root/VPhoneGuestComponents" OUT="$root/.build/guest-components" all
++CPATH="$iphoneos_include''${CPATH:+:$CPATH}" \
++    /usr/bin/make -C "$root/VPhoneGuestComponents" OUT="$root/.build/guest-components" all
+ 
+ command_products="$root/.build/XcodeCommand/Build/Products/$configuration"
+ daemon_products="$root/.build/XcodeDaemon/Build/Products/$configuration-iphoneos"
+diff --git a/VPhoneExecutable/VPhoneVirtualization/UI/UserInterface/Panels/Motion/VPhoneAttitudeDial.swift b/VPhoneExecutable/VPhoneVirtualization/UI/UserInterface/Panels/Motion/VPhoneAttitudeDial.swift
+index 1bc5780..9acb572 100644
+--- a/VPhoneExecutable/VPhoneVirtualization/UI/UserInterface/Panels/Motion/VPhoneAttitudeDial.swift
++++ b/VPhoneExecutable/VPhoneVirtualization/UI/UserInterface/Panels/Motion/VPhoneAttitudeDial.swift
+@@ -264,8 +264,8 @@ struct VPhoneAttitudeLinearScale: View {
+             }
+             .frame(width: vertical ? geometry.size.width : 720, height: vertical ? 720 : geometry.size.height)
+             .offset(
+-                x: vertical ? 0 : geometry.size.width / 2 - 360 - value * 2,
+-                y: vertical ? geometry.size.height / 2 - 360 + value * 2 : 0,
++                x: vertical ? 0 : geometry.size.width / 2 - 360 - CGFloat(value * 2),
++                y: vertical ? geometry.size.height / 2 - 360 + CGFloat(value * 2) : 0,
+             )
+             Rectangle().fill(color)
+                 .frame(width: vertical ? 20 : 2, height: vertical ? 2 : 20)
+diff --git a/VPhoneExecutable/VPhoneVirtualization/VPhoneVirtualization.xcodeproj/project.pbxproj b/VPhoneExecutable/VPhoneVirtualization/VPhoneVirtualization.xcodeproj/project.pbxproj
+index 49b8ec2..731e9cd 100644
+--- a/VPhoneExecutable/VPhoneVirtualization/VPhoneVirtualization.xcodeproj/project.pbxproj
++++ b/VPhoneExecutable/VPhoneVirtualization/VPhoneVirtualization.xcodeproj/project.pbxproj
+@@ -264,7 +264,7 @@
+ 			runOnlyForDeploymentPostprocessing = 0;
+ 			shellPath = /bin/zsh;
+ 			showEnvVarsInLog = 0;
+-			shellScript = "set -euo pipefail\nroot=\"$(cd \"$SRCROOT/../..\" && pwd)\"\n/usr/bin/xcodebuild -hideShellScriptEnvironment -project \"$root/VPhoneKit/VPhoneKit.xcodeproj\" -scheme VPhoneArchiveKit -configuration \"$CONFIGURATION\" -destination 'platform=macOS,arch=arm64' -derivedDataPath \"$root/.build/XcodeKit\" CODE_SIGNING_ALLOWED=NO build\n";
++			shellScript = "set -euo pipefail\nroot=\"$(cd \"$SRCROOT/../..\" && pwd)\"\n/bin/mkdir -p \"$root/.build/xcode-kit-home\"\nexport HOME=\"$root/.build/xcode-kit-home\" CFFIXED_USER_HOME=\"$root/.build/xcode-kit-home\"\n/usr/bin/xcodebuild -hideShellScriptEnvironment -project \"$root/VPhoneKit/VPhoneKit.xcodeproj\" -scheme VPhoneArchiveKit -configuration \"$CONFIGURATION\" -destination 'platform=macOS,arch=arm64' -derivedDataPath \"$root/.build/XcodeKit\" -disableAutomaticPackageResolution -onlyUsePackageVersionsFromResolvedFile -skipMacroValidation -skipPackagePluginValidation -IDEPackageSupportDisableManifestSandbox=YES -IDEPackageSupportDisablePluginExecutionSandbox=YES OTHER_SWIFT_FLAGS='$(inherited) -Xfrontend -disable-sandbox' CODE_SIGNING_ALLOWED=NO build\n";
+ 		};
+ /* End PBXShellScriptBuildPhase section */
+ 
+diff --git a/VPhoneGuestComponents/Makefile b/VPhoneGuestComponents/Makefile
+index 8819755..fc5b409 100644
+--- a/VPhoneGuestComponents/Makefile
++++ b/VPhoneGuestComponents/Makefile
+@@ -6,6 +6,7 @@ STAGE := $(OUT)/stage
+ ARCHIVE := $(OUT)/siblings.tar
+ CLANG := xcrun --sdk iphoneos clang
+ MACOS_SDK := $(shell xcrun --sdk macosx --show-sdk-path)
++IPHONEOS_SDK := $(shell xcrun --sdk iphoneos --show-sdk-path)
+ MACH_EXC_DEFS := $(MACOS_SDK)/usr/include/mach/mach_exc.defs
+ LAUNCHHOOK_GENERATED := $(OUT)/generated/launchhook
+ MACHPORTS_GENERATED := $(OUT)/generated/machports
+@@ -571,6 +572,7 @@ test-visionos-ipc:
+ $(CRYPTEXSTAGING): $(CRYPTEXSTAGING_SOURCE)
+ 	@mkdir -p $(STAGE)/cryptexstaging
+ 	xcrun --sdk appletvos clang -arch arm64e -mtvos-version-min=27.0 -Os \
++		-I$(IPHONEOS_SDK)/usr/include \
+ 		-Wall -Wextra -Werror -Wno-unused-parameter -dynamiclib \
+ 		-install_name /usr/lib/libvphonecryptexstaging.dylib \
+ 		-o $@ $< -framework CoreFoundation -lcryptex_core -Wl,-not_for_dyld_shared_cache
