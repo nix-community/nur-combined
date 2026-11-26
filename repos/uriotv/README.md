@@ -32,7 +32,7 @@ redistribution.
 | `lantern-engine` | `0.9.42` | Lantern Engine by Awaken, built from source (needs your own game dump) | Yes |
 | `wordcraft` | `0.19.1` | Word processor (official binary release) | No: redistribution review pending |
 | `gridcraft` | `0.19.1` | Spreadsheet editor (official binary release) | No: redistribution review pending |
-| `deckcraft` | `0.18.1` | Presentation editor (official binary release) | No: redistribution review pending |
+| `deckcraft` | `0.19.1` | Presentation editor (official binary release) | No: redistribution review pending |
 | `pdfcraft` | `0.22.0` | PDF viewer and editor (official binary release) | No: redistribution review pending |
 | `photocraft` | `0.23.1` | Image editor (official binary release) | No: redistribution review pending |
 | `filmcraft` | `0.20.1` | Video editor (official binary release) | No: redistribution review pending |
