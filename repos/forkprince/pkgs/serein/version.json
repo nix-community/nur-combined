@@ -6,15 +6,15 @@
     "skip_prerelease": false,
     "tag_prefix": "v"
   },
-  "version": "1.0.0-nightly.20261125.104",
+  "version": "1.0.0-nightly.20261126.105",
   "platforms": {
     "x86_64-linux": {
       "file": "serein-v{version}-Linux-X64.AppImage",
-      "hash": "sha256-p8O28G0fjKIi+Wac9lixuBKL8dblIeWI3WX2p4nr7nU="
+      "hash": "sha256-Cf5ItHO9+5TsbBshSLEeV0U1/hRwEnNOt0JRbLUShYY="
     },
     "aarch64-darwin": {
       "file": "serein-v{version}-macOS-ARM64.zip",
-      "hash": "sha256-iRXc5I2OJv2BYexoLHimg0pvRTn8y2EYTq7gaS+y6aY="
+      "hash": "sha256-VrN7MRLcCZqu/XQPCvZwVAerlPBEyy6WTPBV4biK9Q0="
     }
   }
 }
