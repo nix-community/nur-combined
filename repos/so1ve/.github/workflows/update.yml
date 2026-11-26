@@ -43,17 +43,44 @@ jobs:
         id: updates
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          MAX_JOBS: "6"
         run: |
           changed=()
           failed=()
-          mkdir -p "$RUNNER_TEMP/per-package"
+          mkdir -p "$RUNNER_TEMP/per-package" "$RUNNER_TEMP/update-logs"
 
+          nix run .#update -- --version
+          updater="$(nix eval --raw .#apps.x86_64-linux.update.program)"
+
+          all_packages=()
           for source in pkgs/*/source.ts; do
-            directory="$(dirname "$source")"
-            package="$(basename "$directory")"
-            echo "::group::Update $package"
+            all_packages+=("$(basename "$(dirname "$source")")")
+          done
 
-            if nix run .#update -- "$package"; then
+          worker="$(mktemp)"
+          cat <<'SCRIPT' >"$worker"
+          #!/usr/bin/env bash
+          set -u
+          updater="$1"
+          log_dir="$2"
+          package="$3"
+          if "$updater" "$package" >"$log_dir/$package.log" 2>&1; then
+            echo 0 >"$log_dir/$package.status"
+          else
+            echo "$?" >"$log_dir/$package.status"
+          fi
+          SCRIPT
+
+          printf '%s\n' "${all_packages[@]}" \
+            | xargs -r -P "$MAX_JOBS" -I {} bash "$worker" "$updater" "$RUNNER_TEMP/update-logs" {}
+          rm -f "$worker"
+
+          for package in "${all_packages[@]}"; do
+            directory="pkgs/$package"
+            echo "::group::Update $package"
+            cat "$RUNNER_TEMP/update-logs/$package.log"
+
+            if [[ "$(<"$RUNNER_TEMP/update-logs/$package.status")" == 0 ]]; then
               git add -- "$directory"
               if ! git diff --cached --quiet HEAD -- "$directory"; then
                 git diff --cached HEAD --binary --full-index -- "$directory" \

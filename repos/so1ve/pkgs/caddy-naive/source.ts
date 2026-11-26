@@ -1,3 +1,6 @@
+import * as fs from "node:fs/promises";
+import * as path from "node:path";
+
 import { defineSource, github, nix, runCommand } from "nix-repin";
 
 export default defineSource(async (context) => {
@@ -15,6 +18,31 @@ export default defineSource(async (context) => {
   const plugin =
     `github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@${version}`;
   const root = await nix.findFlakeRoot(context.packageDirectory);
+  const caddyVersion = (
+    await runCommand("nix", [
+      "eval",
+      "--impure",
+      "--raw",
+      "--expr",
+      `(builtins.getFlake ${nix.string(`path:${root}`)}).inputs.nixpkgs.legacyPackages.\${builtins.currentSystem}.caddy.version`,
+    ])
+  ).trim();
+
+  if (
+    await context.shouldSkip(async () => {
+      const existing = await fs
+        .readFile(path.join(context.packageDirectory, "source.nix"), "utf8")
+        .catch(() => "");
+
+      return (
+        existing.includes(`plugins = [ ${nix.string(plugin)} ];`) &&
+        existing.includes(`caddyVersion = ${nix.string(caddyVersion)};`)
+      );
+    })
+  ) {
+    return false;
+  }
+
   const expression = `let
   flake = builtins.getFlake ${nix.string(`path:${root}`)};
   pkgs = flake.inputs.nixpkgs.legacyPackages.\${builtins.currentSystem};
@@ -48,6 +76,7 @@ in (pkgs.caddy.withPlugins {
     "source.nix": `${nix.HEADER}{ }:
 
 {
+  caddyVersion = ${nix.string(caddyVersion)};
   plugins = [ ${nix.string(plugin)} ];
   hash = ${nix.string(hash)};
 }

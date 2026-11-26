@@ -1,4 +1,4 @@
-import { defineSource, github, Source } from "nix-repin";
+import { defineSource, github, Source, type SourceFiles } from "nix-repin";
 
 const waywallen = github.release({
   assets: {
@@ -26,11 +26,19 @@ const plugins = {
   },
 };
 
-export default defineSource(waywallen, async (source) => {
+export default defineSource(async (source) => {
+  const forced = !(await source.shouldSkip(() => true));
+  const files: SourceFiles = {};
+
+  const app = new Source(source.packageDirectory, forced);
+  if (await app.apply(waywallen)) {
+    Object.assign(files, app.files());
+  }
+
   const entries = Object.entries(plugins);
-  const sources = await Promise.all(
+  const pluginSources = await Promise.all(
     entries.map(async ([name, { release }]) => {
-      const plugin = new Source(source.packageDirectory);
+      const plugin = new Source(source.packageDirectory, true);
       await plugin.apply(github.release(release));
 
       return [`plugins/${name}.nix`, plugin.files()["source.nix"]] as const;
@@ -41,7 +49,8 @@ export default defineSource(waywallen, async (source) => {
   );
 
   return {
-    ...Object.fromEntries(sources),
+    ...files,
+    ...Object.fromEntries(pluginSources),
     "plugins/catalog.json": JSON.stringify(catalog, null, 2) + "\n",
   };
 });

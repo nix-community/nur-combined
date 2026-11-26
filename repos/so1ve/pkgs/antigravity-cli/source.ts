@@ -1,10 +1,14 @@
-import { fetchurl } from "nix-repin";
+import { defineSource, fetchurl } from "nix-repin";
 
 const baseUrl =
   "https://storage.googleapis.com/antigravity-public/antigravity-cli";
 
-export default async () => {
+export default defineSource(async (source) => {
   const version = (await (await fetch(`${baseUrl}/latest`)).text()).trim();
+  if (await source.shouldSkip(() => source.matches({ version }))) {
+    return false;
+  }
+
   const { platforms } = (await (
     await fetch(`${baseUrl}/${version}/manifest.json`)
   ).json()) as { platforms: Record<string, { url: string }> };
@@ -16,4 +20,4 @@ export default async () => {
       "aarch64-linux": platforms["linux-arm"].url,
     },
   });
-};
+});
