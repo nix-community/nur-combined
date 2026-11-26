@@ -13,13 +13,6 @@ let
   version = "4.0.0-beta.9";
   pname = "xpilot";
 
-  # dwarfs 0.14.0 does not build against this nixpkgs's toolchain
-  dwarfs' = (dwarfs.override { fmt = pkgs.fmt_11; }).overrideAttrs (old: {
-    env = (old.env or { }) // {
-      CXXFLAGS = "${old.env.CXXFLAGS or ""} -include cstring";
-    };
-  });
-
   src = fetchurl {
     url = "https://downloads.xpilot.app/artifacts/${version}/linux-x64/xPilot.AppImage";
     hash = "sha256-JPvB2hLg1ez9K2ZfZGpk/WZqXfektG8Uf9I2WiQeOew=";
@@ -31,7 +24,7 @@ let
   appimageContents = stdenv.mkDerivation {
     name = "${pname}-${version}-extracted";
     inherit src;
-    nativeBuildInputs = [ dwarfs' ];
+    nativeBuildInputs = [ dwarfs ];
     dontUnpack = true;
     dontConfigure = true;
     dontBuild = true;
