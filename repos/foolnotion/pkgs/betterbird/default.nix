@@ -26,11 +26,11 @@
 
 let
   pname = "betterbird";
-  version = "153.5.0esr-bb11";
+  version = "153.8.0esr-bb14";
 
   src = fetchurl {
     url = "https://www.betterbird.eu/downloads/LinuxArchive/betterbird-${version}.en-US.linux-x86_64.tar.xz";
-    hash = "sha256-JTsXYMm3pVAqIQyQ1TD4fuvcroe3rxOvIT1Q/7JV3BE=";
+    hash = "sha256-mJVp7tUip2eSoYFoHIyqqs7hhVmbD1uMT/Wk/p2SEpI=";
   };
 in
 stdenv.mkDerivation {
