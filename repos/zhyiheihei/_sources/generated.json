@@ -369,11 +369,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-6EKNseJrLKl9uH0+TrIkkQ4+61wvTdUFKG6zv92kdnU=",
+            "sha256": "sha256-f8garb/qIN6epFEIQyYRf37+pXDsqzcAv5Z3reosxnk=",
             "type": "url",
-            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.3.0/sublinkPro-linux-amd64"
+            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.3.1/sublinkPro-linux-amd64"
         },
-        "version": "1.3.0"
+        "version": "1.3.1"
     },
     "sublinkpro-linux-arm64": {
         "cargoLock": null,
@@ -384,11 +384,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-RtQEARjwiHgGzCXlsYcvxx8+M7k6G74H+O2WU9OOH8M=",
+            "sha256": "sha256-VB3c7ME5iHxaq3Iowjwd/l/af1S6D5cDIHNrMPWbUHE=",
             "type": "url",
-            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.3.0/sublinkPro-linux-arm64"
+            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.3.1/sublinkPro-linux-arm64"
         },
-        "version": "1.3.0"
+        "version": "1.3.1"
     },
     "sun-panel": {
         "cargoLock": null,

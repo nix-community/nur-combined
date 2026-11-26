@@ -188,18 +188,18 @@
   };
   sublinkpro-linux-amd64 = {
     pname = "sublinkpro-linux-amd64";
-    version = "1.3.0";
+    version = "1.3.1";
     src = fetchurl {
-      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.3.0/sublinkPro-linux-amd64";
-      hash = "sha256-6EKNseJrLKl9uH0+TrIkkQ4+61wvTdUFKG6zv92kdnU=";
+      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.3.1/sublinkPro-linux-amd64";
+      hash = "sha256-f8garb/qIN6epFEIQyYRf37+pXDsqzcAv5Z3reosxnk=";
     };
   };
   sublinkpro-linux-arm64 = {
     pname = "sublinkpro-linux-arm64";
-    version = "1.3.0";
+    version = "1.3.1";
     src = fetchurl {
-      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.3.0/sublinkPro-linux-arm64";
-      hash = "sha256-RtQEARjwiHgGzCXlsYcvxx8+M7k6G74H+O2WU9OOH8M=";
+      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.3.1/sublinkPro-linux-arm64";
+      hash = "sha256-VB3c7ME5iHxaq3Iowjwd/l/af1S6D5cDIHNrMPWbUHE=";
     };
   };
   sun-panel = {

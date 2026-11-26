@@ -75,7 +75,7 @@ Build artifacts are cached in the Attic binary cache:
 | - [x] |  | `pyromark` | [pyromark](https://github.com/monosans/pyromark) | 0.10.6 | Blazingly fast Markdown parser |
 | - [ ] | `x86_64-linux` | `qingjian` | [qingjian](https://qingjian.app) | 0.3.4 | Pinyin input method with translation hints for language learners |
 | - [ ] |  | `rtkbt` | [rtkbt](https://github.com/radxa/rtkbt) | 2022-06-07 | Realtek Bluetooth UART attach tool and RTL8852BS firmware |
-| - [x] |  | `sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.3.0 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
+| - [x] |  | `sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.3.1 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
 | - [x] |  | `sun-panel` | [sun-panel](https://github.com/hslr-s/sun-panel) | 1.8.1 | Server and NAS navigation panel, homepage, browser homepage |
 | - [x] |  | `tachidesk-server` | [tachidesk-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.4.2373 | Self-hosted manga reader and aggregator server |
 | - [x] |  | `telegramify-markdown` | [telegramify-markdown](https://github.com/sudoskys/telegramify-markdown) | 1.4.1 | Convert Markdown to Telegram plain text and entities |
@@ -125,7 +125,7 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `uncategorized.nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 5.14.3 | Vue 3 web frontend for the Nexus Media media library manager |
 | - [ ] | `x86_64-linux` | `uncategorized.qingjian` | [qingjian](https://qingjian.app) | 0.3.4 | Pinyin input method with translation hints for language learners |
 | - [ ] |  | `uncategorized.rtkbt` | [rtkbt](https://github.com/radxa/rtkbt) | 2022-06-07 | Realtek Bluetooth UART attach tool and RTL8852BS firmware |
-| - [ ] |  | `uncategorized.sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.3.0 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
+| - [ ] |  | `uncategorized.sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.3.1 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
 | - [ ] |  | `uncategorized.sun-panel` | [sun-panel](https://github.com/hslr-s/sun-panel) | 1.8.1 | Server and NAS navigation panel, homepage, browser homepage |
 | - [ ] |  | `uncategorized.tachidesk-server` | [tachidesk-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.4.2373 | Self-hosted manga reader and aggregator server |
 | - [ ] |  | `uncategorized.vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 5.0.16 | Lightweight S3-compatible object storage with built-in web dashboard |
