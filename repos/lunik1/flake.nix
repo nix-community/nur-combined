@@ -59,7 +59,7 @@
                 src = ./.;
                 hooks = {
                   actionlint.enable = true;
-                  nixfmt-rfc-style.enable = true;
+                  nixfmt.enable = true;
                   shellcheck = {
                     enable = true;
                     excludes = [ "^\\.envrc$" ];

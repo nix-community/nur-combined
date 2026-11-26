@@ -8,6 +8,7 @@ with pkgs;
   amazing-marvin = callPackage ./pkgs/amazing-marvin { };
   asap-condensed = callPackage ./pkgs/asap-condensed { };
   bach = callPackage ./pkgs/bach { };
+  deltoid = callPackage ./pkgs/deltoid { };
   doukutsu-rs = callPackage ./pkgs/doukutsu-rs { };
   efficient-compression-tool = callPackage ./pkgs/efficient-compression-tool { };
   fsrcnnx-x2-8-0-4-1 = callPackage ./pkgs/mpv-shaders/fsrcnnx { variant = "8-0-4-1"; };

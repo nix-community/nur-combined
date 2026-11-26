@@ -15,6 +15,7 @@ pr_branch="automated/update-packages"
 targets=(
   "bach|"
   "doukutsu-rs|"
+  "deltoid|"
   "efficient-compression-tool|"
   "fsrcnnx-x2-8-0-4-1|"
   "fsrcnnx-x2-16-0-4-1|"
