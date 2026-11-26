@@ -58,6 +58,7 @@ mod selector;
 // Source Map v3 generation: the encoding primitives + JSON model (Phase A),
 // wired into emit (Phase B/C) and surfaced through `compile_with_source_map`.
 mod sourcemap;
+mod stack;
 mod value;
 
 /// This compiler's version, as in `Cargo.toml`.
@@ -192,6 +193,10 @@ pub struct Options<'a> {
     /// when the output contains non-ASCII (dart-sass `charset`, default `true`).
     /// `false` suppresses it.
     pub charset: bool,
+    /// How many bytes of native stack a compile may use before it fails with
+    /// `Stack Overflow`; `None` picks a default. Set with
+    /// [`Options::with_stack_limit`].
+    pub(crate) stack_limit: Option<usize>,
 }
 
 /// The kind of a diagnostic delivered to a [`WarnHandler`].
@@ -307,6 +312,7 @@ impl Default for Options<'_> {
             quiet_deps: None,
             silenced_deprecations: Vec::new(),
             charset: true,
+            stack_limit: None,
         }
     }
 }
@@ -464,6 +470,34 @@ impl<'a> Options<'a> {
         self.charset = charset;
         self
     }
+
+    /// Let a compile use up to `bytes` of the calling thread's native stack.
+    ///
+    /// A stylesheet decides how deep sasso recurses: a recursive `@function` or
+    /// `@mixin`, a long `@import` chain, or deeply nested source. Past this
+    /// limit the compile fails with the error `Stack Overflow`, as dart-sass
+    /// does, instead of overflowing the stack, which aborts the process.
+    ///
+    /// Set it a margin below the stack the compile runs on, leaving room for
+    /// the frames above the call. Without it, sasso assumes 6 MiB on the
+    /// process's main thread (Rust names it `main`) and 768 KiB on any other,
+    /// which is safe on a 1 MiB thread such as a Ruby worker's. A compile run
+    /// on a thread you spawned with a bigger stack can be given more: with
+    /// `stack_size(64 << 20)`, a limit of `60 << 20` is reasonable.
+    ///
+    /// The limit counts bytes, not levels, because one level costs very
+    /// different amounts depending on what recurses and on the build. In a
+    /// release build, a recursive `@function` costs about 6 KiB a level.
+    #[must_use]
+    pub fn with_stack_limit(mut self, bytes: usize) -> Self {
+        self.stack_limit = Some(bytes);
+        self
+    }
+
+    /// The stack limit this compile runs with.
+    fn effective_stack_limit(&self) -> usize {
+        self.stack_limit.unwrap_or_else(stack::default_limit)
+    }
 }
 
 /// Compile SCSS source to CSS.
@@ -490,7 +524,10 @@ pub fn compile(source: &str, options: &Options<'_>) -> Result<String, Error> {
     // the guard, so there is no double-leave.
     let guard = arena::Scope::enter();
     // All allocations here bump from the arena (when ScopedAlloc is installed).
-    let result = compile_inner(source, options);
+    let result = {
+        let _stack = stack::enter(options.effective_stack_limit());
+        compile_inner(source, options)
+    };
     // Leave the scope WITHOUT resetting yet: depth drops to 0, so the arena is
     // now inactive and subsequent allocations route to the system allocator —
     // but the arena memory is still intact and `result` may point into it.
@@ -542,7 +579,10 @@ pub fn compile_with_source_map(source: &str, options: &Options<'_>) -> Result<Co
     // Mirror `compile`'s arena bracketing so the returned value is deep-cloned
     // out to the system allocator before the arena is reset.
     let guard = arena::Scope::enter();
-    let result = compile_inner_sm(source, options);
+    let result = {
+        let _stack = stack::enter(options.effective_stack_limit());
+        compile_inner_sm(source, options)
+    };
     let outermost = arena::leave_no_reset();
     let owned = result.clone();
     drop(result);

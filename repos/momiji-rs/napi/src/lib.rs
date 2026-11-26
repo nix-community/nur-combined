@@ -54,6 +54,22 @@ use sasso::{
 // ---------------------------------------------------------------- bridge core
 
 /// Request kinds sent to the JS bridge function (id, kind, ...payload).
+/// The stack of every thread this addon spawns to compile on: the main
+/// thread's size rather than std's 2 MiB default, so a nesting depth that
+/// compiles on the JS thread compiles here too.
+const COMPILE_STACK: usize = 8 << 20;
+
+/// How much of [`COMPILE_STACK`] a compile may use before it fails with
+/// `Stack Overflow` (#308), leaving 1 MiB for the thread's own frames. A
+/// compile on the JS thread or a Node worker, whose stack this addon does not
+/// size, keeps the library's conservative default.
+const COMPILE_STACK_LIMIT: usize = 7 << 20;
+
+thread_local! {
+    /// Set on the threads this addon spawns with [`COMPILE_STACK`].
+    static ON_COMPILE_THREAD: std::cell::Cell<bool> = const { std::cell::Cell::new(false) };
+}
+
 const KIND_CANONICALIZE: u32 = 0;
 const KIND_LOAD: u32 = 1;
 const KIND_WARN: u32 = 2;
@@ -225,6 +241,13 @@ pub struct CompileConfig {
     /// Whether warn events should cross the bridge (a logger or stderr routing
     /// exists JS-side). Always true from the wrapper today.
     pub want_warn: bool,
+    /// Bytes of native stack a SYNC compile may use before it fails with
+    /// `Stack Overflow` (#308). Only the caller knows which JS thread it is on:
+    /// the wrapper passes one for Node's main thread, whose 8 MiB stack JS
+    /// uses about 1 MiB of, and none for a worker, whose stack the user sizes.
+    /// Unset, the library's conservative default applies. A compile on a
+    /// thread this addon spawns ignores it and uses `COMPILE_STACK_LIMIT`.
+    pub stack_limit: Option<u32>,
 }
 
 #[napi(object)]
@@ -683,6 +706,11 @@ fn compile_parts(
     if let Some(w) = warn {
         opts = opts.with_warn_handler(w);
     }
+    if ON_COMPILE_THREAD.with(std::cell::Cell::get) {
+        opts = opts.with_stack_limit(COMPILE_STACK_LIMIT);
+    } else if let Some(limit) = cfg.stack_limit {
+        opts = opts.with_stack_limit(limit as usize);
+    }
     for (sig, f) in functions {
         opts = opts.with_function(&sig, f);
     }
@@ -746,7 +774,9 @@ pub fn compile_string_async(
     let (deferred, promise) = env.create_deferred::<NativeResult, _>()?;
     std::thread::Builder::new()
         .name("sasso-compile".into())
+        .stack_size(COMPILE_STACK)
         .spawn(move || {
+            ON_COMPILE_THREAD.with(|t| t.set(true));
             let user = if cfg.has_user_importers {
                 UserBridge::Tsfn(&tsfn)
             } else {
@@ -919,11 +949,12 @@ pub fn compile_batch(jobs: Vec<BatchJob>, threads: u32, stop_on_error: bool) -> 
             let shared = shared.clone();
             std::thread::Builder::new()
                 .name("sasso-batch".into())
-                // The main thread's size rather than std's 2 MiB default: these
-                // compiles ran on the JS thread or a Node worker before, and a
-                // nesting depth that compiled there must not overflow here.
-                .stack_size(8 << 20)
-                .spawn(move || batch_thread(&shared))
+                // These compiles ran on the JS thread or a Node worker before.
+                .stack_size(COMPILE_STACK)
+                .spawn(move || {
+                    ON_COMPILE_THREAD.with(|t| t.set(true));
+                    batch_thread(&shared)
+                })
                 .ok()
         })
         .collect();

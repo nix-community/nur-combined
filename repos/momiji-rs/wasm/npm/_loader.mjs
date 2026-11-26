@@ -275,6 +275,19 @@ export function makeApi(syncWasmUrl, asyncWasmUrl) {
     view.setUint32(outLenCell, bytes.length, true); // *out_len (usize == u32)
   }
 
+  // An exception that escaped a wasm call skipped the module's own unwinding:
+  // its stack pointer, its arena scope and its stack guard were left where the
+  // exception found them, so every later compile on that instance would start
+  // from a corrupted state (#308). The callers discard the instance; this
+  // turns the exception into what to throw. V8 raises `RangeError` when the
+  // engine's native stack runs out, which wasm call frames share with JS; that
+  // is the overflow sasso's own guard cannot see, so it reads as dart-sass's
+  // `Stack Overflow` like the one the guard reports.
+  function wasmFault(e) {
+    if (e instanceof RangeError) return new Exception("Error: Stack Overflow", "Stack Overflow");
+    return e;
+  }
+
   // Read the result buffer after a sasso_compile2 call, free scratch, and throw
   // on a Sass error. Shared by the sync and async drivers.
   function readResult(w, outPtr, m, wantMap) {
@@ -483,62 +496,73 @@ export function makeApi(syncWasmUrl, asyncWasmUrl) {
     return frame;
   }
 
-  const syncHost = {
-    host_canonicalize(uPtr, uLen, fromImport, cPtr, cLen, outPtr, outLen) {
-      const url = readStr(syncEx, uPtr, uLen);
-      const containing = cLen ? readStr(syncEx, cPtr, cLen) : null;
-      try {
-        const canon = syncChain ? syncChain.canonicalize(url, fromImport !== 0, containing) : null;
-        if (canon == null) return 0;
-        deliver(syncEx, frameCanon(syncChain, canon), outPtr, outLen);
-        return 1;
-      } catch (e) {
-        deliver(syncEx, encoder.encode(errMessage(e)), outPtr, outLen);
-        return -1;
-      }
-    },
-    host_load(kPtr, kLen, outPtr, outLen) {
-      const canon = readStr(syncEx, kPtr, kLen);
-      try {
-        const res = syncChain ? syncChain.load(canon) : null;
-        if (res == null) return 0;
-        deliver(syncEx, frameLoad(res), outPtr, outLen);
-        return 1;
-      } catch (e) {
-        deliver(syncEx, encoder.encode(errMessage(e)), outPtr, outLen);
-        return -1;
-      }
-    },
-    host_call_function(index, argsPtr, argsLen, outPtr, outLen) {
-      try {
-        const argBytes = argsLen ? new Uint8Array(syncEx.memory.buffer, argsPtr, argsLen).slice() : new Uint8Array(0);
-        const fn = syncFunctions[index];
-        if (!fn) throw new Error(`sasso: custom function #${index} is not registered`);
-        const r = fn(deserializeArgs(argBytes));
-        if (r && typeof r.then === "function") {
-          throw new Error("sasso: asynchronous custom functions require compileStringAsync / compileAsync");
+  // Host functions for ONE sync instance. They reach memory through
+  // `self.ex`, the instance they were created for, never the global `syncEx`:
+  // a compile re-entered from a custom function or importer can fault and
+  // retire the global instance while the outer compile is still running on
+  // this one, and the outer compile's replies must still land in its own
+  // memory (#308).
+  function makeSyncHost(self) {
+    return {
+      host_canonicalize(uPtr, uLen, fromImport, cPtr, cLen, outPtr, outLen) {
+        const url = readStr(self.ex, uPtr, uLen);
+        const containing = cLen ? readStr(self.ex, cPtr, cLen) : null;
+        try {
+          const canon = syncChain ? syncChain.canonicalize(url, fromImport !== 0, containing) : null;
+          if (canon == null) return 0;
+          deliver(self.ex, frameCanon(syncChain, canon), outPtr, outLen);
+          return 1;
+        } catch (e) {
+          deliver(self.ex, encoder.encode(errMessage(e)), outPtr, outLen);
+          return -1;
         }
-        if (r == null) throw new Error("sasso: a custom function returned no value");
-        deliver(syncEx, serializeValue(r), outPtr, outLen);
-        return 1;
-      } catch (e) {
-        deliver(syncEx, encoder.encode(errMessage(e)), outPtr, outLen);
-        return -1;
-      }
-    },
-    host_warn(bufPtr, bufLen) {
-      try {
-        dispatchWarn(syncLogger, decodeWarn(syncEx, bufPtr, bufLen));
-      } catch {
-        // A logging failure must never fail the compile.
-      }
-    },
-  };
+      },
+      host_load(kPtr, kLen, outPtr, outLen) {
+        const canon = readStr(self.ex, kPtr, kLen);
+        try {
+          const res = syncChain ? syncChain.load(canon) : null;
+          if (res == null) return 0;
+          deliver(self.ex, frameLoad(res), outPtr, outLen);
+          return 1;
+        } catch (e) {
+          deliver(self.ex, encoder.encode(errMessage(e)), outPtr, outLen);
+          return -1;
+        }
+      },
+      host_call_function(index, argsPtr, argsLen, outPtr, outLen) {
+        try {
+          const argBytes = argsLen ? new Uint8Array(self.ex.memory.buffer, argsPtr, argsLen).slice() : new Uint8Array(0);
+          const fn = syncFunctions[index];
+          if (!fn) throw new Error(`sasso: custom function #${index} is not registered`);
+          const r = fn(deserializeArgs(argBytes));
+          if (r && typeof r.then === "function") {
+            throw new Error("sasso: asynchronous custom functions require compileStringAsync / compileAsync");
+          }
+          if (r == null) throw new Error("sasso: a custom function returned no value");
+          deliver(self.ex, serializeValue(r), outPtr, outLen);
+          return 1;
+        } catch (e) {
+          deliver(self.ex, encoder.encode(errMessage(e)), outPtr, outLen);
+          return -1;
+        }
+      },
+      host_warn(bufPtr, bufLen) {
+        try {
+          dispatchWarn(syncLogger, decodeWarn(self.ex, bufPtr, bufLen));
+        } catch {
+          // A logging failure must never fail the compile.
+        }
+      },
+    };
+  }
 
+  let syncModule = null; // compiled once; an instance is rebuilt after a fault
   function syncInstance() {
     if (syncEx) return syncEx;
-    const module = new WebAssembly.Module(readFileSync(syncWasmUrl));
-    syncEx = new WebAssembly.Instance(module, { sasso_host: syncHost }).exports;
+    if (!syncModule) syncModule = new WebAssembly.Module(readFileSync(syncWasmUrl));
+    const self = { ex: null };
+    self.ex = new WebAssembly.Instance(syncModule, { sasso_host: makeSyncHost(self) }).exports;
+    syncEx = self.ex;
     if (pendingArenaBytes !== null) syncEx.sasso_set_arena_bytes(pendingArenaBytes);
     return syncEx;
   }
@@ -546,7 +570,15 @@ export function makeApi(syncWasmUrl, asyncWasmUrl) {
   function compileRawSync(scss, opts) {
     const w = syncInstance();
     const m = marshalIn(w, scss, opts);
-    const outPtr = callCompile2(w, m, opts);
+    let outPtr;
+    try {
+      outPtr = callCompile2(w, m, opts);
+    } catch (e) {
+      // A compile re-entered from a custom function may have replaced the
+      // instance already; only drop the one that faulted.
+      if (syncEx === w) syncEx = null;
+      throw wasmFault(e);
+    }
     return readResult(w, outPtr, m, opts.wantMap);
   }
 
@@ -720,6 +752,7 @@ export function makeApi(syncWasmUrl, asyncWasmUrl) {
       functions: [], // index -> user custom function for the in-flight compile
       logger: null, // dart-sass `logger` for the in-flight compile
       pendingDelivery: null, // a Promise<{rc, bytes}>, then its resolved value
+      faulted: false, // an exception escaped a wasm call: never reuse it
     };
     // Host fns read engine.ex lazily at call time, so wiring the import object
     // before the instance exists is safe.
@@ -754,6 +787,19 @@ export function makeApi(syncWasmUrl, asyncWasmUrl) {
   }
 
   function releaseEngine(engine) {
+    if (engine.faulted) {
+      // Its state is corrupt (see `wasmFault`): retire it, and give a waiter
+      // a fresh engine in its place.
+      const i = enginePool.indexOf(engine);
+      if (i !== -1) enginePool.splice(i, 1);
+      const next = engineWaiters.shift();
+      if (next) {
+        const fresh = makeEngine();
+        fresh.busy = true;
+        next(fresh);
+      }
+      return;
+    }
     engine.chain = null;
     engine.functions = [];
     engine.logger = null;
@@ -788,13 +834,21 @@ export function makeApi(syncWasmUrl, asyncWasmUrl) {
   async function compileRawAsync(engine, scss, opts) {
     const w = engine.ex;
     const m = marshalIn(w, scss, opts);
-    let outPtr = callCompile2(w, m, opts);
+    const call = () => {
+      try {
+        return callCompile2(w, m, opts);
+      } catch (e) {
+        engine.faulted = true;
+        throw wasmFault(e);
+      }
+    };
+    let outPtr = call();
     if (engine.ready) {
       while (w.asyncify_get_state() === ASYNCIFY_UNWINDING) {
         w.asyncify_stop_unwind();
         engine.pendingDelivery = await engine.pendingDelivery; // Promise<{rc,bytes}> -> value
         w.asyncify_start_rewind(engine.data);
-        outPtr = callCompile2(w, m, opts);
+        outPtr = call();
       }
     }
     return readResult(w, outPtr, m, opts.wantMap);
@@ -893,7 +947,8 @@ export function makeApi(syncWasmUrl, asyncWasmUrl) {
       throw new TypeError("compileString(source): source must be a string");
     }
     const chain = buildChain(options, false);
-    const callbacks = registerFunctions(syncInstance(), options);
+    const instance = syncInstance();
+    const callbacks = registerFunctions(instance, options);
     const prevChain = syncChain;
     const prevFns = syncFunctions;
     const prevLog = syncLogger;
@@ -907,7 +962,9 @@ export function makeApi(syncWasmUrl, asyncWasmUrl) {
       syncChain = prevChain;
       syncFunctions = prevFns;
       syncLogger = prevLog;
-      syncEx.sasso_clear_functions();
+      // Retired when the compile faulted (see `wasmFault`); the next compile
+      // builds a fresh one.
+      if (syncEx === instance) instance.sasso_clear_functions();
     }
     return makeResult(raw, options.url ? toFileUrl(options.url).href : null, chain.loaded);
   }
@@ -921,7 +978,8 @@ export function makeApi(syncWasmUrl, asyncWasmUrl) {
     const entryHref = toFileUrl(entryPath).href;
     const syntax = options.syntax != null ? syntaxCode(options.syntax) : syntaxForPath(entryPath);
     const chain = buildChain(options, false);
-    const callbacks = registerFunctions(syncInstance(), options);
+    const instance = syncInstance();
+    const callbacks = registerFunctions(instance, options);
     const prevChain = syncChain;
     const prevFns = syncFunctions;
     const prevLog = syncLogger;
@@ -935,7 +993,9 @@ export function makeApi(syncWasmUrl, asyncWasmUrl) {
       syncChain = prevChain;
       syncFunctions = prevFns;
       syncLogger = prevLog;
-      syncEx.sasso_clear_functions();
+      // Retired when the compile faulted (see `wasmFault`); the next compile
+      // builds a fresh one.
+      if (syncEx === instance) instance.sasso_clear_functions();
     }
     return makeResult(raw, entryHref, chain.loaded);
   }

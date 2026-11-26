@@ -193,6 +193,7 @@ impl<'a> Evaluator<'a> {
     }
 
     pub(super) fn eval_expr_inner(&mut self, expr: &Expr) -> Result<Value, Error> {
+        crate::stack::check()?;
         match expr {
             Expr::Number(v, unit) => Ok(Value::Number(Number::with_shared_unit(*v, unit))),
             Expr::Color(c) => Ok(Value::Color(c.clone())),

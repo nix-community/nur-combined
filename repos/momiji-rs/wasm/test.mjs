@@ -7069,4 +7069,50 @@ for (const how of ["fails-to-start", "dies"]) {
   console.log("ok: custom functions — number/string/color/list/map/rest, override, error, async (Phase 4)");
 }
 
+// Runaway recursion (#308). It used to trap with "memory access out of
+// bounds" at about 170 levels and leave the instance unusable for every later
+// compile. It now fails with dart-sass's `Stack Overflow`, whichever stack ran
+// out: sasso's own guard on the module's shadow stack, or V8's native stack
+// (which wasm call frames share with JS, and which the mixin path reaches
+// first), after which the instance is replaced.
+{
+  const fn = (n) => `@function f($n) { @if $n <= 0 { @return 0; } @return f($n - 1) + 1; }\na { b: f(${n}); }\n`;
+  const mixin = (n) => `@mixin m($n) { @if $n > 0 { @include m($n - 1); } @else { x: y; } }\na { @include m(${n}); }\n`;
+  const overflows = (e) => e instanceof size.Exception && e.sassMessage === "Stack Overflow";
+  for (const api of [size, speed]) {
+    assert.ok(api.compileString(fn(300)).css.includes("b: 300"), "recursion: 300 levels of @function compile");
+    assert.throws(() => api.compileString(fn(100000)), overflows, "recursion: runaway @function");
+    assert.throws(() => api.compileString(mixin(100000)), overflows, "recursion: runaway @mixin");
+    assert.throws(() => api.compileString(`a { b: ${"(".repeat(100000)}1${")".repeat(100000)}; }`), overflows, "recursion: nested parens");
+    // The instance that overflowed is gone, so the full depth is back.
+    assert.ok(api.compileString(fn(300)).css.includes("b: 300"), "recursion: the next compile gets the whole stack");
+    await assert.rejects(api.compileStringAsync(mixin(100000)), overflows, "recursion: runaway @mixin (async)");
+    const after = await Promise.all([1, 2, 3].map(() => api.compileStringAsync(fn(300))));
+    assert.ok(after.every((r) => r.css.includes("b: 300")), "recursion: async engines recover");
+    // A compile re-entered from a custom function overflows while the outer
+    // compile is still running on the same instance. The outer compile's
+    // replies must still reach its own memory, so it finishes normally.
+    const caught = api.compileString("a { b: inner(); }", {
+      functions: {
+        "inner()": () => {
+          try {
+            api.compileString(mixin(100000));
+            return new size.SassString("compiled");
+          } catch (e) {
+            return new size.SassString(e.sassMessage);
+          }
+        },
+      },
+    });
+    assert.ok(caught.css.includes('b: "Stack Overflow"'), `recursion: a nested overflow leaves the outer compile intact: ${caught.css}`);
+    assert.throws(
+      () => api.compileString("a { b: inner(); }", { functions: { "inner()": () => api.compileString(mixin(100000)) } }),
+      (e) => e instanceof size.Exception && /Stack Overflow/.test(e.message),
+      "recursion: an uncaught nested overflow fails the outer compile as a Sass error",
+    );
+    assert.ok(api.compileString(fn(300)).css.includes("b: 300"), "recursion: and the next compile is whole");
+  }
+  console.log("ok: runaway recursion — Stack Overflow, sync and async, and the engine recovers");
+}
+
 console.log("all wasm modern-API + importer + CLI + custom-function tests passed");

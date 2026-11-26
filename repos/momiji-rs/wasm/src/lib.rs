@@ -41,6 +41,12 @@ use sasso::{
 #[global_allocator]
 static GLOBAL: sasso::ScopedAlloc = sasso::ScopedAlloc;
 
+/// How much of the module's 4 MiB shadow stack (set in build.rs) a compile may
+/// use before it fails with `Stack Overflow` (#308), leaving 512 KiB for the
+/// frames above it. Set explicitly: the library's default depends on the
+/// thread's name, which says nothing about a wasm stack.
+const STACK_LIMIT: usize = (4 << 20) - (512 << 10);
+
 /// Override the bump arena's reservation size, in **bytes**, before the first
 /// compile. `0` disables the arena (every allocation forwards to the system
 /// allocator: lower memory, slower). The region is reserved on the first
@@ -469,7 +475,8 @@ pub extern "C" fn sasso_compile4(
                 .with_source_map_include_sources(include_sources != 0)
                 .with_charset(charset != 0)
                 .with_unicode(unicode != 0)
-                .with_anonymous_diagnostics(true);
+                .with_anonymous_diagnostics(true)
+                .with_stack_limit(STACK_LIMIT);
             if compressed != 0 {
                 opts = opts.with_style(OutputStyle::Compressed);
             }

@@ -7,6 +7,7 @@
 // before a one-entry compile (measured 2026-10-02, Linux/x86_64; #272).
 
 import { createRequire } from "node:module";
+import { isMainThread } from "node:worker_threads";
 import { resolve as resolvePath, isAbsolute } from "node:path";
 import { pathToFileURL, fileURLToPath } from "node:url";
 import { decodeUtf8 } from "./_utf8.mjs";
@@ -14,6 +15,9 @@ import { syntaxCode, syntaxForPath } from "./_syntax.mjs";
 import { Exception } from "./_exception.mjs";
 import { normalizeSilenced } from "./_deprecations.mjs";
 import { assertAddonVersion, platformKey, SUPPORTED } from "./_addon.mjs";
+
+/** See `stackLimit` in `buildCfg`. */
+const MAIN_THREAD_STACK_LIMIT = 6 * 1024 * 1024;
 
 const require_ = createRequire(import.meta.url);
 // `require`, not `import`: see `require_` in _addon.mjs.
@@ -192,6 +196,12 @@ export function buildCfg(options, syntax, urlForCore) {
     hasUserImporters: !!(options.importers && options.importers.length),
     functionSignatures: options.functions ? Object.keys(options.functions) : [],
     wantWarn: true,
+    // A sync compile runs on this JS thread. Node's main thread has an 8 MiB
+    // native stack, of which V8 lets JS use about 1 MiB, so a compile may use
+    // 6 MiB of it before failing with `Stack Overflow` (#308). A worker's stack
+    // is whatever the user sized it to, so there the addon keeps its
+    // conservative default. Compiles on the addon's own threads ignore this.
+    stackLimit: isMainThread ? MAIN_THREAD_STACK_LIMIT : undefined,
   };
 }
 

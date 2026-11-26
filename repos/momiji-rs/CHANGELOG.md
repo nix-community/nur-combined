@@ -43,6 +43,49 @@ Conformance is tracked separately as a ratchet against the official
 
 ### Fixed
 
+- **Runaway recursion fails with `Stack Overflow` instead of crashing**
+  (#308). A recursive `@function` or `@mixin` (with or without `@content`), an
+  endless `@import` chain, or source nested thousands of levels deep (rules,
+  parentheses, `not`, `@media` and `@supports` conditions, plain CSS, the
+  indented syntax) overflowed the native
+  stack. Natively that aborted the process (SIGABRT), taking any host that
+  embeds sasso with it. In wasm it trapped with "memory access out of bounds"
+  and left the instance broken for every later compile. dart-sass reports
+  `Stack Overflow`, and sasso now does too, pointing at the call that recursed
+  with the call stack under it.
+
+  The guard measures how many bytes of stack the compile has used, not how
+  many levels deep it is, because a level costs several times more in some
+  recursions and in debug builds. `Options::with_stack_limit(bytes)` sets the
+  limit. Without it, sasso uses 6 MiB on the process's main thread and
+  768 KiB on any other thread, which is safe on a 1 MiB Ruby worker thread.
+  Each front end now sets a limit to match the stack it runs on:
+
+  - **CLI:** every compile runs on a thread with a 64 MiB stack and a 60 MiB
+    limit, so the main thread's `ulimit -s` no longer decides how deep a
+    stylesheet may recurse. Before, a single file compiled on the main thread
+    and parallel workers ran on std's 2 MiB default.
+  - **npm native addon:** its compile threads get 8 MiB stacks (the async
+    path was on 2 MiB) and a 7 MiB limit. A sync compile on Node's main
+    thread gets 6 MiB; on a worker thread it keeps the default.
+  - **npm wasm:** the module's stack grows from 1 MiB to 4 MiB, with a
+    3.5 MiB limit. When V8's own native stack runs out first, which happens
+    on the `@mixin` path, the `RangeError` becomes the same `Stack Overflow`
+    exception and the instance is replaced. More generally, any exception that
+    escapes the module now retires the instance instead of reusing its
+    corrupted state.
+
+  How deep recursion can go now, with a release build on macOS/arm64
+  (dart-sass 1.104.1 reaches about 530 `@function` and 460 `@mixin` levels):
+
+  ```
+                                      @function     @mixin
+    CLI                                  ~9500       ~14600
+    npm native, main thread              ~1040        ~1480
+    npm native, async and batch          ~1210        ~1730
+    npm wasm                              ~640         ~350 (V8's stack)
+  ```
+
 - **A module first loaded inside a `meta.load-css` copy is still emitted by a
   later `@use`.** When a module's first load came from a stylesheet that
   `meta.load-css` was copying, sasso marked it as emitted. Its CSS had gone

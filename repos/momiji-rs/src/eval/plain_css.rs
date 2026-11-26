@@ -243,6 +243,7 @@ impl<'a> Evaluator<'a> {
     /// own first-level bubbling), bare declarations, comments, and nested
     /// at-rules.
     fn css_at_body(&mut self, stmts: &[Stmt], frames: bool) -> Result<Vec<OutNode>, Error> {
+        crate::stack::check()?;
         if frames {
             check_keyframes_body(stmts)?;
         }
@@ -675,6 +676,7 @@ impl<'a> Evaluator<'a> {
     /// [`Evaluator::css_body`] and the non-bubbling arm of
     /// [`Evaluator::css_rule_children`]).
     fn css_body_stmt(&mut self, stmt: &Stmt, items: &mut Vec<OutItem>) -> Result<(), Error> {
+        crate::stack::check()?;
         match stmt {
             Stmt::Decl(d) => {
                 let prop = trim_shared(self.eval_template_shared(&d.property)?);

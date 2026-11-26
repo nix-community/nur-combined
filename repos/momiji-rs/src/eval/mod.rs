@@ -3354,6 +3354,7 @@ impl<'a> Evaluator<'a> {
     /// (declarations join the block, nested rules bubble out), and every
     /// nested-block construct that reuses it.
     fn exec(&mut self, stmts: &[Stmt], parents: &[String], sink: &mut Sink<'_>) -> Result<(), Error> {
+        crate::stack::check()?;
         for stmt in stmts {
             match stmt {
                 Stmt::VarDecl(v) => self.apply_var(v)?,
@@ -3516,6 +3517,7 @@ impl<'a> Evaluator<'a> {
                     full_length,
                     frame_name,
                 } => {
+                    crate::stack::check_at(*pos, *length).map_err(|e| self.finalize_error(e))?;
                     // Push a diagnostic call frame so an error/warning raised in
                     // the mixin body unwinds through this `@include` call site.
                     let saved = self.enter_call(*pos, *length, Rc::clone(frame_name));

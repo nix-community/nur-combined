@@ -68,6 +68,7 @@ impl Parser {
     }
 
     fn comma_list(&mut self) -> Result<Expr, Error> {
+        crate::stack::check_at(self.sc.position(), 0)?;
         let first = self.space_list()?;
         let mut rest = Vec::new();
         loop {
@@ -510,6 +511,7 @@ impl Parser {
     }
 
     fn unary(&mut self) -> Result<Expr, Error> {
+        crate::stack::check_at(self.sc.position(), 0)?;
         // `not` is a unary operator over a single expression (dart-sass
         // `identifierLike` → `UnaryOperation(not, singleExpression())`), so it
         // binds tighter than every binary operator: `not 1 + 2` is

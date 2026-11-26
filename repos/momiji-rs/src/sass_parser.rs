@@ -165,6 +165,8 @@ impl Transpiler {
     /// used only to validate that a deeper indent is consistent. Emits SCSS into
     /// `self.out`.
     fn parse_block(&mut self, block_indent: usize, _parent_indent: usize) -> Result<(), Error> {
+        let line = self.lines.get(self.idx).map_or(1, |l| l.line);
+        crate::stack::check_at(Pos { line, col: 1 }, 0)?;
         loop {
             // Skip blank lines.
             let Some(i) = self.next_nonblank(self.idx) else {

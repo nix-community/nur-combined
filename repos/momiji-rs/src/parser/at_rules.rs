@@ -877,6 +877,7 @@ impl Parser {
     /// dart-sass `_supportsConditionInParens`: a parenthesised condition, a
     /// function call, or a lone interpolation.
     fn parse_supports_condition_in_parens(&mut self) -> Result<SupportsCondition, Error> {
+        crate::stack::check_at(self.sc.position(), 0)?;
         if self.looking_at_interpolated_identifier() {
             let pos = self.sc.position();
             let identifier = self.parse_interpolated_identifier()?;
@@ -1927,6 +1928,7 @@ impl Parser {
     /// `(not <in-parens>)` → `not <in-parens>`, `((cond) and/or (cond)…)` group,
     /// or a raw `#{…}` interpolation operand.
     fn parse_media_in_parens(&mut self) -> Result<MediaInParens, Error> {
+        crate::stack::check_at(self.sc.position(), 0)?;
         self.skip_media_ws();
         // A raw interpolation operand is spliced verbatim.
         if self.sc.peek() == Some('#') && self.sc.peek_at(1) == Some('{') {

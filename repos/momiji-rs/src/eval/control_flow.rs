@@ -476,6 +476,9 @@ impl<'a> Evaluator<'a> {
         args: &[CallArg],
         call: Option<(Pos, usize)>,
     ) -> Result<Value, Error> {
+        if let Some((pos, len)) = call {
+            crate::stack::check_at(pos, len)?;
+        }
         // Arguments evaluate in the CALLER's environment; the body (and the
         // parameter defaults) run against the callable's LEXICAL closure.
         let (evaled, arg_spans) = self.eval_call_args_spanned(args)?;
@@ -515,6 +518,7 @@ impl<'a> Evaluator<'a> {
     /// nested control flow). Functions emit no CSS, so a returned value
     /// short-circuits the whole call.
     pub(super) fn run_fn_body(&mut self, stmts: &[Stmt]) -> Result<Option<Value>, Error> {
+        crate::stack::check()?;
         for stmt in stmts {
             match stmt {
                 Stmt::VarDecl(v) => self.apply_var(v)?,

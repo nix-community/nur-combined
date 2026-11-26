@@ -509,7 +509,7 @@ fn main() -> ExitCode {
     }
     let args: Vec<String> = std::env::args().skip(1).collect();
     match parse_args(&args) {
-        Ok(Action::Run(cli)) => run(cli),
+        Ok(Action::Run(cli)) => run_on_big_stack(cli),
         Ok(Action::Help) => {
             print!("{USAGE}");
             ExitCode::SUCCESS
@@ -1621,26 +1621,34 @@ fn compile_all<U: Borrow<Unit> + Sync>(
     let slots: Vec<Mutex<Option<Outcome>>> = (0..n).map(|_| Mutex::new(None)).collect();
     std::thread::scope(|scope| {
         for _ in 0..jobs.min(n) {
-            scope.spawn(|| loop {
-                if stop_on_error && failed.load(Ordering::Relaxed) {
-                    break;
-                }
-                let i = next.fetch_add(1, Ordering::Relaxed);
-                if i >= n {
-                    break;
-                }
-                // Re-check after claiming: a failure another worker reported
-                // between the check above and the claim must not start this
-                // unit either (its slot stays `None`, "not run").
-                if stop_on_error && failed.load(Ordering::Relaxed) {
-                    break;
-                }
-                let outcome = compile_unit(units[i].borrow(), shared);
-                if outcome.status != Status::Ok {
-                    failed.store(true, Ordering::Relaxed);
-                }
-                *slots[i].lock().unwrap_or_else(|p| p.into_inner()) = Some(outcome);
-            });
+            let worker = std::thread::Builder::new().stack_size(WORKER_STACK);
+            // `scope.spawn` with a stack size: it panics the same way if the
+            // thread cannot start.
+            worker
+                .spawn_scoped(scope, || {
+                    ON_WORKER.with(|w| w.set(true));
+                    loop {
+                        if stop_on_error && failed.load(Ordering::Relaxed) {
+                            break;
+                        }
+                        let i = next.fetch_add(1, Ordering::Relaxed);
+                        if i >= n {
+                            break;
+                        }
+                        // Re-check after claiming: a failure another worker reported
+                        // between the check above and the claim must not start this
+                        // unit either (its slot stays `None`, "not run").
+                        if stop_on_error && failed.load(Ordering::Relaxed) {
+                            break;
+                        }
+                        let outcome = compile_unit(units[i].borrow(), shared);
+                        if outcome.status != Status::Ok {
+                            failed.store(true, Ordering::Relaxed);
+                        }
+                        *slots[i].lock().unwrap_or_else(|p| p.into_inner()) = Some(outcome);
+                    }
+                })
+                .expect("failed to spawn thread");
         }
     });
     slots
@@ -2221,6 +2229,41 @@ fn output_is_fresh(output: &Path, input: Option<&Path>, deps: &[PathBuf]) -> boo
     true
 }
 
+/// The stack of every thread the CLI compiles on: the one [`run_on_big_stack`]
+/// starts and each parallel worker [`compile_all`] spawns. It is reserved, not
+/// committed: a compile touches only what it recurses into. Sized here rather
+/// than inherited, so how deep a stylesheet may recurse does not depend on the
+/// main thread's stack (`ulimit -s`) or on std's 2 MiB thread default.
+const WORKER_STACK: usize = 64 << 20;
+
+/// How much of [`WORKER_STACK`] a compile may use before it fails with
+/// `Stack Overflow` (#308), leaving room for the thread's own frames.
+const WORKER_STACK_LIMIT: usize = 60 << 20;
+
+thread_local! {
+    /// Set on the threads started with [`WORKER_STACK`]. Any other thread
+    /// compiles with the library's default limit.
+    static ON_WORKER: std::cell::Cell<bool> = const { std::cell::Cell::new(false) };
+}
+
+/// [`run`] on a thread with [`WORKER_STACK`], so every compile the CLI makes
+/// gets the same limit. Exits 1 if that thread cannot be started.
+fn run_on_big_stack(cli: Cli) -> ExitCode {
+    let spawned = std::thread::Builder::new()
+        .stack_size(WORKER_STACK)
+        .spawn(move || {
+            ON_WORKER.with(|w| w.set(true));
+            run(cli)
+        });
+    match spawned {
+        Ok(handle) => handle.join().unwrap_or(ExitCode::FAILURE),
+        Err(e) => {
+            eprintln!("sasso: could not start the compile thread: {e}");
+            ExitCode::FAILURE
+        }
+    }
+}
+
 /// Build the per-unit options. A helper fn (not a closure) so the returned
 /// `Options` can borrow `unit`/`shared` for the caller's lifetime.
 fn options_for<'a>(
@@ -2242,6 +2285,11 @@ fn options_for<'a>(
         .with_charset(shared.charset)
         .with_source_map_include_sources(shared.embed_sources)
         .with_warn_handler(warn);
+    let opts = if ON_WORKER.with(std::cell::Cell::get) {
+        opts.with_stack_limit(WORKER_STACK_LIMIT)
+    } else {
+        opts
+    };
     let opts = if shared.silenced.is_empty() {
         opts
     } else {

@@ -7,6 +7,7 @@ use super::*;
 
 impl Parser {
     pub(super) fn parse_statements(&mut self, top: bool) -> Result<Vec<Stmt>, Error> {
+        crate::stack::check_at(self.sc.position(), 0)?;
         let mut stmts = Vec::new();
         loop {
             self.skip_trivia(&mut stmts)?;
