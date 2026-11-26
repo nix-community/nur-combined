@@ -14,7 +14,13 @@ buildNpmPackage {
   pname = "deepseek-harness";
   inherit (source) version;
 
-  src = ./.;
+  src = lib.fileset.toSource {
+    root = ./.;
+    fileset = lib.fileset.unions [
+      ./package.json
+      ./package-lock.json
+    ];
+  };
 
   nodejs = nodejs_24;
   inherit (source) npmDepsHash;

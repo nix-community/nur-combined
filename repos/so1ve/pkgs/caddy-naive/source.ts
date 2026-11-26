@@ -1,6 +1,6 @@
-import { defineSource, github, nix, runCommand } from "nix-repin";
+import { defineSource, github, nix } from "nix-repin";
 
-export default defineSource(async (context) => {
+export default defineSource(async (source) => {
   const { rev } = await github.latestCommit({
     repository: "klzgrad/forwardproxy",
     branch: "naive",
@@ -12,55 +12,28 @@ export default defineSource(async (context) => {
     throw new Error(`Go module version lookup failed: ${response.status}`);
   }
   const { Version: version } = (await response.json()) as { Version: string };
-  const plugin =
-    `github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@${version}`;
-  const root = await nix.findFlakeRoot(context.packageDirectory);
-  const caddyVersion = (
-    await runCommand("nix", [
-      "eval",
-      "--impure",
-      "--raw",
-      "--expr",
-      `(builtins.getFlake ${nix.string(`path:${root}`)}).inputs.nixpkgs.legacyPackages.\${builtins.currentSystem}.caddy.version`,
-    ])
-  ).trim();
+  const plugin = `github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@${version}`;
+  const caddyVersion = await nix.evalNixpkgs<string>(
+    source.packageDirectory,
+    "caddy.version",
+  );
 
   if (
-    await context.shouldSkip(() =>
-      context.matches({ caddyVersion, plugins: [plugin] }),
+    await source.shouldSkip(() =>
+      source.matches({ caddyVersion, plugins: [plugin] }),
     )
   ) {
     return false;
   }
 
-  const expression = `let
+  const root = await nix.findFlakeRoot(source.packageDirectory);
+  const hash = await nix.fixedOutputHash(`let
   flake = builtins.getFlake ${nix.string(`path:${root}`)};
   pkgs = flake.inputs.nixpkgs.legacyPackages.\${builtins.currentSystem};
 in (pkgs.caddy.withPlugins {
   plugins = [ ${nix.string(plugin)} ];
   hash = pkgs.lib.fakeHash;
-}).src`;
-
-  // withPlugins vendors Caddy and the plugin together. Ask Nix for that hash.
-  let hash: string;
-  try {
-    await runCommand("nix", [
-      "build",
-      "--impure",
-      "--no-link",
-      "--expr",
-      expression,
-    ]);
-    throw new Error(
-      "Expected a source hash mismatch from the placeholder hash",
-    );
-  } catch (error) {
-    const match = String(error).match(
-      /hash mismatch in fixed-output derivation[\s\S]*?got:\s+(sha256-[A-Za-z0-9+/]+=*)/,
-    );
-    if (!match) throw error;
-    hash = match[1];
-  }
+}).src`);
 
   return {
     "source.nix": `${nix.HEADER}{ }:

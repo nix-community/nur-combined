@@ -15,7 +15,13 @@ buildNpmPackage {
   pname = "rea";
   inherit (source) version npmDepsHash;
 
-  src = ./.;
+  src = lib.fileset.toSource {
+    root = ./.;
+    fileset = lib.fileset.unions [
+      ./package.json
+      ./package-lock.json
+    ];
+  };
   nodejs = nodejs_24;
   npmFlags = [ "--ignore-scripts" ];
   dontNpmBuild = true;
