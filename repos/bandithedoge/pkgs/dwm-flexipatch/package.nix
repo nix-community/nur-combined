@@ -14,8 +14,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "bakkeby";
     repo = "dwm-flexipatch";
-    rev = "fbe995b99b1c5c398934bd8557acd1a7c9261d29";
-    hash = "sha256-t4wCAjJAFtTJASxB/8Dn1a4S8tyby4dm0wpFKfoSrKM=";
+    rev = "2b8821250921c798a0287a5a238f497dbf455a42";
+    hash = "sha256-hgvBLU0mS+InaqMbCpk7lRDJ2KBKs3rMfbmuNNRrsYo=";
   };
 
   buildInputs = [
