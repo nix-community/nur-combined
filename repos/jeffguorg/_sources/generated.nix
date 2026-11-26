@@ -242,10 +242,10 @@
   };
   kimi-code = {
     pname = "kimi-code";
-    version = "2.8.0";
+    version = "2.8.1";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-2.8.0.tgz";
-      sha256 = "sha256-98o8LaX7+Za10qvLMlSVReLWLRgKBwx5SwheMnYq0rY=";
+      url = "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-2.8.1.tgz";
+      sha256 = "sha256-fjOrq2dAvQ7uqazAT8BQklvgQGFzaDAX9BMywbWg8Qo=";
     };
   };
   kwok = {
@@ -261,34 +261,34 @@
   };
   oh-my-pi-bin-amd64-darwin = {
     pname = "oh-my-pi-bin-amd64-darwin";
-    version = "v19.2.0";
+    version = "v19.2.1";
     src = fetchurl {
-      url = "https://github.com/can1357/oh-my-pi/releases/download/v19.2.0/omp-darwin-x64";
-      sha256 = "sha256-5WWDABvlq/Y8cHg8SK4ofJxkRpJhrfSlROMHa3h4un8=";
+      url = "https://github.com/can1357/oh-my-pi/releases/download/v19.2.1/omp-darwin-x64";
+      sha256 = "sha256-T6ziZ1D1Z5hXpgamHfIrFYeSXUswjVk43kcNjHgM2HE=";
     };
   };
   oh-my-pi-bin-amd64-linux = {
     pname = "oh-my-pi-bin-amd64-linux";
-    version = "v19.2.0";
+    version = "v19.2.1";
     src = fetchurl {
-      url = "https://github.com/can1357/oh-my-pi/releases/download/v19.2.0/omp-linux-x64";
-      sha256 = "sha256-dMtkHT/Nwi+j8hQdr6TmbJ/FgdfS1xdT5pAWCYBHLDE=";
+      url = "https://github.com/can1357/oh-my-pi/releases/download/v19.2.1/omp-linux-x64";
+      sha256 = "sha256-6Lk3+b8CO6oUe90wCtVCGvCm74sfNQxHqak9X8qU/so=";
     };
   };
   oh-my-pi-bin-arm64-darwin = {
     pname = "oh-my-pi-bin-arm64-darwin";
-    version = "v19.2.0";
+    version = "v19.2.1";
     src = fetchurl {
-      url = "https://github.com/can1357/oh-my-pi/releases/download/v19.2.0/omp-darwin-arm64";
-      sha256 = "sha256-Vs85DqUHkboImHgxjQEHqVnG8Fw/ua19QiAjKCvjkm8=";
+      url = "https://github.com/can1357/oh-my-pi/releases/download/v19.2.1/omp-darwin-arm64";
+      sha256 = "sha256-Q5QxGYN2ErLaciUKt+/iL/jKI56r69T3AvNOOhRP3T0=";
     };
   };
   oh-my-pi-bin-arm64-linux = {
     pname = "oh-my-pi-bin-arm64-linux";
-    version = "v19.2.0";
+    version = "v19.2.1";
     src = fetchurl {
-      url = "https://github.com/can1357/oh-my-pi/releases/download/v19.2.0/omp-linux-arm64";
-      sha256 = "sha256-XjC/sdHasXeNJMV23bI8lC2zFZ9TaoBau0zaZh/WB/s=";
+      url = "https://github.com/can1357/oh-my-pi/releases/download/v19.2.1/omp-linux-arm64";
+      sha256 = "sha256-ktTM5LFIFPa4OKqG3OxjWfDLCJy8wwDoRjy7UyaZH+A=";
     };
   };
   pi-agent = {
