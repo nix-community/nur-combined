@@ -11,7 +11,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ksh93";
-  version = "1.0.10-unstable-2026-11-24";
+  version = "1.0.10-unstable-2026-11-25";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -19,8 +19,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "ksh93";
     repo = "ksh";
-    rev = "342a9c37591bbfe55fc1d118396f74715a709dd9";
-    hash = "sha256-IjseWNopwo5EqVFhaX/9SWwg57Cih409HYsFkrKl63c=";
+    rev = "789b6310f8963ae6971671bd03253aba6f63a2db";
+    hash = "sha256-vs3kAKIdDbRjRXwW5/uY7AOxDNx6gh2p4QhsVeV/jZQ=";
   };
 
   patches = [
