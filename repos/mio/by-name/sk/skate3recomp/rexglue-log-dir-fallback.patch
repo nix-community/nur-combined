@@ -1,0 +1,23 @@
+Store logs under user data when the executable folder is read-only.
+The executable lives in the Nix store, so its sibling logs/ directory cannot be
+created. Fall back to the writable user data root instead of aborting at startup.
+
+--- a/src/ui/rex_app.cpp
++++ b/src/ui/rex_app.cpp
+@@ -416,7 +416,15 @@ bool ReXApp::SetupEnvironment() {
+                                         log_level_str, category_levels);
+   if (log_file_cvar.empty()) {
+     log_config.app_name = std::string(GetName());
+-    log_config.log_dir = (exe_dir / "logs").string();
++    // Prefer logs beside the app; if that folder is read-only (Nix store,
++    // macOS app translocation, DMG), fall back to the user data root.
++    auto logs_dir = exe_dir / "logs";
++    std::error_code logs_ec;
++    std::filesystem::create_directories(logs_dir, logs_ec);
++    if (logs_ec && !user_data_root_.empty()) {
++      logs_dir = user_data_root_ / "logs";
++    }
++    log_config.log_dir = logs_dir.string();
+   }
+ 
+   rex::InitLogging(log_config);

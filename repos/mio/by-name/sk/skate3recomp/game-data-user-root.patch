@@ -1,0 +1,19 @@
+Install game data under the user root when the app directory is read-only.
+The Nix package lives in the store, so resolving game data beside the executable
+would make first-run setup try to extract into the store. Keep installed content
+in the writable per-user directory instead, matching the plus fork.
+
+--- a/src/skate3_app_common.cpp
++++ b/src/skate3_app_common.cpp
+@@ -360,6 +360,11 @@
+   const auto resolved_user_root = ResolveSkate3UserRoot(paths);
+ 
+   paths.user_data_root = resolved_user_root;
++#if !defined(_WIN32)
++  // Installed content must survive replacing a read-only app bundle or Nix
++  // store path. Put first-run setup and the game files in the user directory.
++  if (paths.game_data_root.empty()) paths.game_data_root = resolved_user_root / "game";
++#endif
+   if (original_cache_root.empty() || original_cache_root == old_cache_root) {
+     paths.cache_root = resolved_user_root / "cache";
+   }

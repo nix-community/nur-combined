@@ -1,0 +1,24 @@
+--- a/src/rexglue/main.cpp
++++ b/src/rexglue/main.cpp
+@@ -13,6 +13,7 @@
+ #include "ui/ui.h"
+ 
+ #include <chrono>
++#include <cstdio>
+ #include <cstdlib>
+ #include <filesystem>
+ #include <map>
+@@ -162,5 +163,12 @@
+     rexglue::ui::DoneSummary(elapsed);
+   }
+   rexglue::ui::Shutdown();
+-  return exit_code;
++
++  // The cvar FlagRegistrars unregister themselves from static destructors,
++  // which run after the cvar registry itself has been destroyed, so exiting
++  // main segfaults inside rex::cvar::UnregisterFlag. Everything the tool
++  // produced has already been written and flushed, so skip static
++  // destruction entirely.
++  std::fflush(nullptr);
++  std::_Exit(exit_code);
+ }

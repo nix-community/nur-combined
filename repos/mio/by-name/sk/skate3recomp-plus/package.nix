@@ -17,6 +17,7 @@
   ffmpeg,
   extract-xiso,
   unzip,
+  unar,
   gtk3,
   gsettings-desktop-schemas,
   libx11,
@@ -61,6 +62,18 @@
         unzip -p ${titleUpdateZip} TU_12K2276_000000C000000.00000000000O3 > $out
         chmod 444 $out
       '',
+  # Skate 2 is required for New San Van. The pinned archive contains an
+  # extracted disc folder (default.xex and data/), so setup can install it
+  # directly. Override it with an ISO, extracted folder, or another archive.
+  skate2DiscArchive ? fetchurl {
+    name = "Skate_2.rar";
+    url = "https://dn721607.ca.archive.org/0/items/skate-2_202508/Skate%202.rar";
+    hash = "sha256-sy+gpfd5kKP4v5rnfVhgrPn1Z86DKuLaXJz1RWVjZzU=";
+  },
+  # The three Skate 2 map packs are mandatory for New San Van. Pass a folder
+  # containing the extracted .big files, or a RAR that holds them. There is no
+  # public default; override this with your own legally obtained DLC.
+  skate2Dlc ? null,
 }:
 
 let
@@ -97,6 +110,38 @@ let
     hash = "sha256-4l90lDtpgm5xlh2m7ifrqNy373DTRTULRkAzicrM93c=";
   };
 
+  # The archive stores the disc as "Skate 2/", not an ISO. Extract it once and
+  # expose the folder under a stable name for the setup dialog.
+  skate2Disc =
+    if skate2DiscArchive == null then
+      null
+    else
+      runCommandLocal "Skate_2-disc" { nativeBuildInputs = [ unar ]; } ''
+        mkdir -p $out
+        source=${lib.escapeShellArg (toString skate2DiscArchive)}
+        if [ -d "$source" ]; then
+          ln -s "$source" "$out/disc"
+        elif [[ "$source" == *.iso || "$source" == *.ISO ]]; then
+          ln -s "$source" "$out/disc"
+        else
+          mkdir -p "$out/extract"
+          unar -q -f -o "$out/extract" "$source"
+          disc=$(find "$out/extract" -type f -name default.xex -print -quit)
+          if [ -n "$disc" ]; then
+            mv "$(dirname "$disc")" "$out/disc"
+          else
+            iso=$(find "$out/extract" -type f \( -name '*.iso' -o -name '*.ISO' \) -print -quit)
+            if [ -z "$iso" ]; then
+              echo "skate3recomp-plus: Skate 2 archive contains no disc" >&2
+              exit 1
+            fi
+            mv "$iso" "$out/disc"
+          fi
+          rm -rf "$out/extract"
+        fi
+        test -e "$out/disc"
+      '';
+
   python = python3.withPackages (ps: [ ps.numpy ]);
 in
 # The rexglue SDK refuses to configure with anything but Clang 18 or newer, so
@@ -111,6 +156,7 @@ clangStdenv.mkDerivation {
     pkg-config
     python
     ffmpeg
+    unar
   ]
   ++ lib.optional (discImage != null) extract-xiso
   ++ lib.optional stdenv.hostPlatform.isLinux wrapGAppsHook3
@@ -249,6 +295,20 @@ clangStdenv.mkDerivation {
     ${lib.optionalString (discImage != null) ''
       ln -s ${discImage} "$out/bin/Skate_3.iso"
     ''}
+    ${lib.optionalString (titleUpdatePackage != null) ''
+      ln -s ${titleUpdatePackage} "$out/bin/TU3"
+    ''}
+    ${lib.optionalString (skate2Disc != null) ''
+      ln -s ${skate2Disc}/disc "$out/bin/Skate_2"
+    ''}
+    ${lib.optionalString (skate2Dlc != null) ''
+      if [ -d ${lib.escapeShellArg (toString skate2Dlc)} ]; then
+        ln -s ${lib.escapeShellArg (toString skate2Dlc)} "$out/bin/Skate_2_DLC"
+      else
+        mkdir -p "$out/bin/Skate_2_DLC"
+        unar -q -f -o "$out/bin/Skate_2_DLC" ${lib.escapeShellArg (toString skate2Dlc)}
+      fi
+    ''}
     runHook postInstall
   '';
 
@@ -268,7 +328,8 @@ clangStdenv.mkDerivation {
 
   postFixup =
     lib.optionalString stdenv.hostPlatform.isLinux ''
-      wrapProgram $out/bin/skate3 "''${gappsWrapperArgs[@]}"
+      wrapProgram $out/bin/skate3 "''${gappsWrapperArgs[@]}" \
+        --set SKATE3_AUTO_SETUP 1
     ''
     + lib.optionalString stdenv.hostPlatform.isDarwin ''
       wrapProgram $out/bin/skate3 \
@@ -278,7 +339,8 @@ clangStdenv.mkDerivation {
             moltenvk
           ]
         } \
-        --set VK_ICD_FILENAMES ${moltenvk}/share/vulkan/icd.d/MoltenVK_icd.json
+        --set VK_ICD_FILENAMES ${moltenvk}/share/vulkan/icd.d/MoltenVK_icd.json \
+        --set SKATE3_AUTO_SETUP 1
     '';
 
   passthru = {
@@ -291,8 +353,10 @@ clangStdenv.mkDerivation {
     longDescription = ''
       Skate 3 Recompiled+ adds Skate 2's New San Vanelona, a native Vulkan
       renderer and fixes to a recompilation of Skate 3. Its source ships no
-      game data: the pinned disc image is used for code generation and runtime
-      setup, and can be replaced with your own retail disc image.
+      game data: the pinned Skate 3 and Skate 2 discs are used for code
+      generation and first-run setup, the pinned TU3 package is staged for the
+      game, and both can be replaced with your own retail files. New San Van
+      also needs the three Skate 2 map packs, supplied through skate2Dlc.
     '';
     homepage = "https://github.com/dougieprishpreed/skate3recomp-plus";
     # No license file in the repository; it is built on the rexglue SDK and

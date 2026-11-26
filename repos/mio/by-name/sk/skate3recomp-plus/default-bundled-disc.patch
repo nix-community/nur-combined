@@ -1,22 +1,100 @@
-Use the disc image supplied to the Nix build as the default setup source.
-The image is linked beside the executable, so setup does not make the player
-select the same ISO again after it was already used for recompilation.
+Fill first-time setup from the compile-time discs, title update and DLC.
+When the Nix package bundles all required inputs, preselect them and install automatically instead of asking the player to pick the same files again.
 
 --- a/src/skate3_setup_dialog.cpp
 +++ b/src/skate3_setup_dialog.cpp
-@@ -189,8 +189,14 @@
-     sky_choice_ = REXCVAR_GET(skate3_skate2_night) ? 2 : REXCVAR_GET(skate3_skate2_sky) ? 0 : 1;
-     inputs_.s3 = {paths_.game_data_root, true};
+@@ -8,6 +8,7 @@
+ #include <array>
+ #include <atomic>
+ #include <chrono>
++#include <cstdlib>
+ #include <functional>
+ #include <fstream>
+ #include <iterator>
+@@ -191,8 +192,70 @@
      rows_[0].ready = ValidateSetupGame(inputs_.s3, 0x454108E6, rows_[0].error);
-+    const auto bundled_iso = SetupResourceRoot() / "Skate_3.iso";
-+    if (!rows_[0].ready && fs::is_regular_file(bundled_iso)) {
-+      inputs_.s3 = {bundled_iso, false};
+     rows_[0].error.clear();
+     if (rows_[0].ready) rows_[0].detail = "Already installed";
++    const auto resources = SetupResourceRoot();
++    const auto bundled_s3 = resources / "Skate_3.iso";
++    if (!rows_[0].ready && fs::is_regular_file(bundled_s3)) {
++      inputs_.s3 = {bundled_s3, false};
 +      rows_[0].ready = true;
 +      rows_[0].detail = "Compile-time disc image";
 +    }
-     rows_[0].error.clear();
--    if (rows_[0].ready) rows_[0].detail = "Already installed";
-+    if (rows_[0].ready && rows_[0].detail.empty()) rows_[0].detail = "Already installed";
++    const auto bundled_s2 = resources / "Skate_2";
++    if (fs::is_regular_file(bundled_s2) || fs::is_directory(bundled_s2)) {
++      inputs_.s2 = {bundled_s2, fs::is_directory(bundled_s2)};
++      rows_[1].ready = ValidateSetupGame(inputs_.s2, 0x4541087F, rows_[1].error);
++      rows_[1].error.clear();
++      if (rows_[1].ready) rows_[1].detail = "Compile-time disc";
++    }
      rows_[2].ready = IsTitleUpdateInstalled(paths_.game_data_root);
      if (rows_[2].ready) { rows_[2].detail = "Verified and installed"; inputs_.verified_tu = paths_.game_data_root; }
++    const auto bundled_tu = resources / "TU3";
++    if (!rows_[2].ready && fs::is_regular_file(bundled_tu)) {
++      const auto stage = ContentInstallRoot(paths_.user_data_root) / "install-state" /
++                        ("tu-bundled-" + std::to_string(std::random_device{}()));
++      try {
++        fs::create_directories(stage.parent_path());
++        fs::create_directory(stage);
++        std::string error;
++        const bool ok = StageTitleUpdateFromFile(bundled_tu, stage, error) &&
++                        IsTitleUpdateInstalled(stage);
++        if (ok) {
++          inputs_.verified_tu = stage;
++          rows_[2] = {true, "Compile-time Title Update 3", {}};
++          tu_stages_.push_back(stage);
++        } else {
++          std::error_code ec; fs::remove_all(stage, ec);
++          rows_[2] = {false, {}, error.empty() ? "The bundled update could not be verified." : error};
++        }
++      } catch (const std::exception& e) {
++        std::error_code ec; fs::remove_all(stage, ec);
++        rows_[2] = {false, {}, e.what()};
++      }
++    }
++    const auto bundled_dlc2 = resources / "Skate_2_DLC";
++    if (fs::is_directory(bundled_dlc2)) {
++      std::string message;
++      rows_[4].ready = DiscoverSetupDlc(bundled_dlc2, 0x4541087F, inputs_.dlc2, message);
++      if (rows_[4].ready) rows_[4].detail = "Compile-time DLC  /  " + message;
++      else rows_[4].error = message;
++    }
++    if (const char* auto_setup = std::getenv("SKATE3_AUTO_SETUP");
++        auto_setup != nullptr && *auto_setup != '\0' && !Updating() &&
++        rows_[0].ready && rows_[1].ready && rows_[2].ready && rows_[4].ready &&
++        rows_[3].error.empty()) {
++      // Save the default sky before installing; the world loader reads these
++      // values at startup. The normal wizard path does the same on Install.
++      // Mirror the wizard's Install handling so an unavailable night sky
++      // falls back instead of selecting data this build cannot provide.
++      night_available_ = SanitariumAvailable();
++      if (sky_choice_ == 2 && !night_available_)
++        sky_choice_ = REXCVAR_GET(skate3_skate2_sky) ? 0 : 1;
++      REXCVAR_SET(skate3_skate2_night, sky_choice_ == 2);
++      if (sky_choice_ != 2) REXCVAR_SET(skate3_skate2_sky, sky_choice_ == 0);
++      rex::cvar::SaveConfigValues(settings_path_, {"skate3_skate2_sky", "skate3_skate2_night"});
++      REXLOG_INFO("Setup: automatic installation from compile-time inputs");
++      auto_close_ = true;
++      StartInstall();
++    }
    }
+   void Join() { if (worker_.joinable()) worker_.join(); }
+   void Shutdown() {
+@@ -412,6 +470,7 @@
+     }
+     ImGui::End(); ImGui::PopFont(); ImGui::PopStyleVar(); ImGui::PopStyleColor(5);
+     ImGui::GetStyle().FontScaleDpi=saved_dpi;
++    if (auto_close_ && installed_ && error_.empty()) { *finished_=true; Close(); }
+   }
+  private:
+   using Completion=std::function<void()>;
+@@ -508,6 +567,7 @@
+   SetupInputs inputs_;
+   std::array<Row,5> rows_{};
+   bool busy_=false,installed_=false,background_attempted_=false;
++  bool auto_close_=false;
+   bool sky_step_=false,night_available_=false;
+   int sky_choice_=0;  // 0 = Skate 2 sky, 1 = Skate 3 sky, 2 = Night
+   std::string status_,error_;
