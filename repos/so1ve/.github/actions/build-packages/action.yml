@@ -29,11 +29,11 @@ runs:
           mapfile -t targets < <(
             nix eval --impure --json ".#packages.$SYSTEM" \
               --apply 'packages: builtins.attrNames (builtins.removeAttrs packages [ "baidunetdisk" ])' \
-              | jq --raw-output --arg system "$SYSTEM" '.[] | ".#packages." + $system + "." + tojson'
+              | jq --raw-output --arg system "$SYSTEM" '.[] | ".#packages." + $system + "." + tojson + "^*"'
 
             nix eval --json ".#legacyPackages.$SYSTEM.cached" \
               --apply 'packages: builtins.attrNames packages' \
-              | jq --raw-output --arg system "$SYSTEM" '.[] | ".#legacyPackages." + $system + ".cached." + tojson'
+              | jq --raw-output --arg system "$SYSTEM" '.[] | ".#legacyPackages." + $system + ".cached." + tojson + "^*"'
           )
         fi
 

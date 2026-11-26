@@ -66,10 +66,15 @@ jobs:
                   packages:
                   let
                     filtered = builtins.removeAttrs packages [ "baidunetdisk" ];
+                    storePathsOf =
+                      pkg:
+                      map (output: builtins.unsafeDiscardStringContext (builtins.getAttr output pkg).outPath) (
+                        pkg.outputs or [ "out" ]
+                      );
                   in
                   map (name: {
                     inherit name;
-                    storePath = builtins.unsafeDiscardStringContext (builtins.getAttr name filtered).outPath;
+                    storePaths = storePathsOf (builtins.getAttr name filtered);
                   }) (builtins.attrNames filtered)
                 '
             )"
@@ -78,9 +83,16 @@ jobs:
               nix eval --json ".#legacyPackages.$system.cached" \
                 --apply '
                   packages:
+                  let
+                    storePathsOf =
+                      pkg:
+                      map (output: builtins.unsafeDiscardStringContext (builtins.getAttr output pkg).outPath) (
+                        pkg.outputs or [ "out" ]
+                      );
+                  in
                   map (name: {
                     inherit name;
-                    storePath = builtins.unsafeDiscardStringContext (builtins.getAttr name packages).outPath;
+                    storePaths = storePathsOf (builtins.getAttr name packages);
                   }) (builtins.attrNames packages)
                 '
             )"
@@ -96,15 +108,15 @@ jobs:
                     system: $system,
                     runner: $runner,
                     name: .name,
-                    attr: (".#packages." + $system + "." + (.name | tojson)),
-                    hash: (.storePath | sub("^/nix/store/"; "") | .[0:32])
+                    attr: (".#packages." + $system + "." + (.name | tojson) + "^*"),
+                    hashes: (.storePaths | map(sub("^/nix/store/"; "") | .[0:32]))
                   }))
                 + ($cached | map({
                     system: $system,
                     runner: $runner,
                     name: ("cached." + .name),
-                    attr: (".#legacyPackages." + $system + ".cached." + (.name | tojson)),
-                    hash: (.storePath | sub("^/nix/store/"; "") | .[0:32])
+                    attr: (".#legacyPackages." + $system + ".cached." + (.name | tojson) + "^*"),
+                    hashes: (.storePaths | map(sub("^/nix/store/"; "") | .[0:32]))
                   }))
               ' "$targets_file" >"$targets_file.next"
             mv "$targets_file.next" "$targets_file"
@@ -134,7 +146,7 @@ jobs:
           SCRIPT
 
             missing_hashes="$(
-              jq --raw-output '.[].hash' "$targets_file" \
+              jq --raw-output '.[].hashes[]' "$targets_file" \
                 | sort -u \
                 | xargs -r -P 16 -I {} bash "$checker" {} "$cache_base"
             )"
@@ -143,7 +155,7 @@ jobs:
             missing_json="$(
               jq --arg missing "$missing_hashes" '
                 ($missing | split("\n") | map(select(length > 0)) | map({ (.): true }) | add // {}) as $missing_set
-                | map(select($missing_set[.hash] == true))
+                | map(select(.hashes | any($missing_set[.] == true)))
               ' "$targets_file"
             )"
           fi

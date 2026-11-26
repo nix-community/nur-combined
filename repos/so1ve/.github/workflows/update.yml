@@ -171,7 +171,7 @@ jobs:
           )"
 
           if grep --fixed-strings --line-regexp --quiet "$PACKAGE" <<<"$package_names"; then
-            nix build --impure ".#packages.$SYSTEM.$PACKAGE" --print-build-logs --print-out-paths >>"$FIRN_PATHS_FILE"
+            nix build --impure ".#packages.$SYSTEM.\"$PACKAGE\"^*" --print-build-logs --print-out-paths >>"$FIRN_PATHS_FILE"
           else
             echo "$PACKAGE is not available on $SYSTEM; skipping"
           fi
