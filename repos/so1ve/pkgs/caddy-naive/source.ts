@@ -1,6 +1,3 @@
-import * as fs from "node:fs/promises";
-import * as path from "node:path";
-
 import { defineSource, github, nix, runCommand } from "nix-repin";
 
 export default defineSource(async (context) => {
@@ -29,16 +26,9 @@ export default defineSource(async (context) => {
   ).trim();
 
   if (
-    await context.shouldSkip(async () => {
-      const existing = await fs
-        .readFile(path.join(context.packageDirectory, "source.nix"), "utf8")
-        .catch(() => "");
-
-      return (
-        existing.includes(`plugins = [ ${nix.string(plugin)} ];`) &&
-        existing.includes(`caddyVersion = ${nix.string(caddyVersion)};`)
-      );
-    })
+    await context.shouldSkip(() =>
+      context.matches({ caddyVersion, plugins: [plugin] }),
+    )
   ) {
     return false;
   }

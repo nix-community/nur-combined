@@ -1,9 +1,6 @@
-import * as fs from "node:fs/promises";
-import * as path from "node:path";
+import { defineSource, fetchurl, github, nix } from "nix-repin";
 
-import { defineSource, fetchurl, github, nix, type SourceFiles } from "nix-repin";
-
-export default defineSource(async (source) => {
+const dingtalk = async () => {
   const response = await fetch(
     `https://www.dingtalk.com/win/d/qd=linux_amd64`,
   );
@@ -19,59 +16,34 @@ export default defineSource(async (source) => {
   const match = new URL(url).pathname.match(
     /^\/dingtalk-desktop\/xc_dingtalk_update\/linux_deb\/Release\/com\.alibabainc\.dingtalk_([\d.]+)_amd64\.deb$/,
   )!;
-  const version = match[1];
 
+  return fetchurl({
+    version: match[1],
+    urls: {
+      "x86_64-linux": url,
+    },
+  });
+};
+
+const screenshare = defineSource(async (source) => {
   const repository = "lzl200110/dingtalk-wayland-screenshare";
   const { date, rev } = await github.latestCommit({
     branch: "master",
     repository,
   });
-
-  const skipApp = await source.shouldSkip(async () => {
-    const existing = await fs
-      .readFile(path.join(source.packageDirectory, "source.nix"), "utf8")
-      .catch(() => "");
-
-    return (
-      existing.includes(`version = ${nix.string(version)};`) &&
-      existing.includes(`url = ${nix.string(url)};`)
-    );
-  });
-
-  const skipScreenshare = await source.shouldSkip(async () => {
-    const existing = await fs
-      .readFile(
-        path.join(source.packageDirectory, "screenshare-source.nix"),
-        "utf8",
-      )
-      .catch(() => "");
-
-    return existing.includes(`rev = ${nix.string(rev)};`);
-  });
-
-  if (skipApp && skipScreenshare) {
-    return false;
+  if (
+    await source.shouldSkip(() =>
+      source.matches({ rev }, "screenshare-source.nix"),
+    )
+  ) {
+    return;
   }
 
-  const files: SourceFiles = {};
-  if (!skipApp) {
-    Object.assign(
-      files,
-      await fetchurl({
-        version,
-        urls: {
-          "x86_64-linux": url,
-        },
-      }),
-    );
-  }
-  if (!skipScreenshare) {
-    const screenshare = await github.prefetchArchive(repository, rev);
-    files["screenshare-source.nix"] = nix.renderArchive(screenshare, {
-      date,
-      rev,
-    });
-  }
+  const archive = await github.prefetchArchive(repository, rev);
 
-  return files;
+  return {
+    "screenshare-source.nix": nix.renderArchive(archive, { date, rev }),
+  };
 });
+
+export default defineSource(dingtalk, screenshare);
