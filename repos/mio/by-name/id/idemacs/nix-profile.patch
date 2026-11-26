@@ -1,0 +1,81 @@
+diff --git a/vscode/init.el b/vscode/init.el
+index 0ac4063..ade620e 100644
+--- a/vscode/init.el
++++ b/vscode/init.el
+@@ -5,11 +5,9 @@
+ (defun idemacs-maximize-frame ()
+   (set-frame-parameter nil 'fullscreen 'maximized))
+ (add-hook 'after-init-hook #'idemacs-maximize-frame)
+-(defvar idemacs-first-start-p nil)
+ (let ((file (locate-user-emacs-file "custom.el")))
+   (unless (file-exists-p file)
+-    (make-empty-file file)
+-    (setq idemacs-first-start-p t))
++    (make-empty-file file))
+   (setq custom-file file))
+ 
+ ;; We load `custom-file' last, so our configuration cannot
+@@ -35,18 +33,14 @@
+ 
+ (require 'package)
+ (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+-(when idemacs-first-start-p
+-  (setq package-check-signature nil))
+ 
+-(setq use-package-always-ensure t
+-      use-package-enable-imenu-support t
++(require 'use-package)
++(setq use-package-enable-imenu-support t
+       use-package-compute-statistics t)
+-(unless (package-installed-p 'use-package)
+-  (package-install 'use-package)
+-  (require 'use-package))
+ 
+ ;; * VSCode-like configuration *
+ (add-to-list 'load-path (locate-user-emacs-file "lisp/"))
++(add-to-list 'load-path (expand-file-name "lisp/" (file-name-directory load-file-name)))
+ (require 'idemacs-ui)
+ (require 'idemacs-buffer-display)
+ (require 'idemacs-ui-manage)
+@@ -123,13 +117,6 @@
+   ;; :hook (kill-emacs . recentf-cleanup)
+   (run-with-idle-timer 10 t #'recentf-save-list))
+ 
+-;; This probably goes against my policy of only having mature,
+-;; well-maintained, and well-debugged packages. But there's nothing
+-;; else that does the job quite as nicely.
+-(unless (package-installed-p 'explain-pause-mode)
+-  (package-vc-install
+-   '(explain-pause-mode :vc-backend Git :url "https://www.github.com/lastquestion/explain-pause-mode")))
+-
+ (use-package explain-pause-mode
+   :ensure nil)
+ 
+diff --git a/vscode/lisp/idemacs-ui-manage.el b/vscode/lisp/idemacs-ui-manage.el
+index 2398aa7..10cf1e5 100644
+--- a/vscode/lisp/idemacs-ui-manage.el
++++ b/vscode/lisp/idemacs-ui-manage.el
+@@ -45,7 +45,8 @@
+ (use-package desktop
+   :hook (after-init . (lambda () (desktop-save-mode 1)))
+   :config
+-  (setq desktop-save t
++  (setq desktop-path (list user-emacs-directory)
++        desktop-save t
+         desktop-load-locked-desktop 'check-pid))
+ 
+ ;; FIXME: in VSCode, opening a window that doesn't exist creates a new window
+diff --git a/vscode/lisp/idemacs-ui.el b/vscode/lisp/idemacs-ui.el
+index 5bfea23..550d983 100644
+--- a/vscode/lisp/idemacs-ui.el
++++ b/vscode/lisp/idemacs-ui.el
+@@ -173,9 +173,6 @@ All other buffers are grouped into \"User\"."
+ 
+ ;; clickable buttons to fold/collapse headings (in a column, after line numbers)
+ ;; https://emacs.stackexchange.com/questions/112/actionable-code-folding-in-emacs-fringe
+-(unless (package-installed-p 'hideshowvis)
+-  (package-vc-install
+-   '(hideshowvis :vc-backend Git :url "https://github.com/emacsmirror/hideshowvis")))
+ (add-hook 'prog-mode-hook #'hideshowvis-enable)
+ 
+ (use-package yascroll
