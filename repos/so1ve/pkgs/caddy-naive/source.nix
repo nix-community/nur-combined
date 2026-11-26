@@ -3,6 +3,7 @@
 { }:
 
 {
+  caddyVersion = "2.11.9";
   plugins = [ "github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@v0.0.0-20261022172731-e747854e7874" ];
   hash = "sha256-hXRjaerm/G9VUgXFAodRf/gbWOd0VXaqgUi18ZaUxkY=";
 }
