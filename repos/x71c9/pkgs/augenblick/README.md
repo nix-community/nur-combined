@@ -188,11 +188,15 @@ the theming tool (pywal templates, Stylix, home-manager, …) generates
 
 ## Running as a systemd user service
 
-`contrib/augenblick.service` starts augenblick with your graphical session.
-It is meant to be installed by distro packages as `/usr/lib/systemd/user/augenblick.service`, so `ExecStart` is `/usr/bin/augenblick`.
-For a `cargo install` build, change it to `%h/.cargo/bin/augenblick`.
+`contrib/augenblick.service` is a systemd user unit that starts augenblick with the graphical session (`graphical-session.target`).
+The AUR packages `augenblick` and `augenblick-bin` install it as `/usr/lib/systemd/user/augenblick.service`, with `ExecStart=/usr/bin/augenblick`.
+With one of these packages installed, the unit is enabled with:
 
-Install it by hand:
+```bash
+systemctl --user enable --now augenblick.service
+```
+
+Manual installation, for installs that do not ship the unit:
 
 ```bash
 install -Dm644 contrib/augenblick.service ~/.config/systemd/user/augenblick.service
@@ -200,7 +204,11 @@ systemctl --user daemon-reload
 systemctl --user enable --now augenblick.service
 ```
 
-The service needs `WAYLAND_DISPLAY` or `DISPLAY` in the user manager's environment. Most desktop sessions import them automatically; on Sway, Hyprland and similar, add this to your compositor config:
+A `cargo install` build places the binary in `~/.cargo/bin`, so the copied unit requires `ExecStart=%h/.cargo/bin/augenblick`.
+
+The unit starts only when `WAYLAND_DISPLAY` or `DISPLAY` is set in the environment of the systemd user manager.
+Most desktop sessions import both variables automatically.
+On Sway, Hyprland and other wlroots-based compositors, the compositor configuration has to run:
 
 ```bash
 systemctl --user import-environment WAYLAND_DISPLAY DISPLAY
