@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spotlight — Native Rust + GTK 4 Linux Productivity Launcher</title>
+  <meta name="description" content="A fast, native Linux launcher built in Rust and GTK 4 for KDE Plasma on Wayland. Launch apps, search files, encrypt clipboard pins, run visual WASM workflows, and use local-only Ollama AI." />
+  <link rel="icon" type="image/svg+xml" href="images/spotlight.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Top Scroll Progress Light Beam -->
+  <div class="scroll-beam" id="scrollBeam"></div>
+
+  <!-- Cursor-Tracking Ambient Spotlight -->
+  <div class="cursor-spotlight" aria-hidden="true"></div>
+
+  <!-- Opening Beam Curtain Reveal -->
+  <div class="beam-intro" aria-hidden="true">
+    <div class="beam-intro-mark">
+      <div class="beam-intro-slash">/</div>
+      <span>Spotlight</span>
+    </div>
+  </div>
+
+  <!-- Sticky Navigation -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#" class="brand">
+        <span class="brand-badge">/</span>
+        <span>Spotlight</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#screenshots">Screenshots</a>
+        <a href="#features">Features</a>
+        <a href="#commands">Cheat Sheet</a>
+        <a href="#quickstart">Quick Start</a>
+        <a href="https://github.com/danny19862025/spotlight/blob/main/docs/GUIDE.md" target="_blank" rel="noopener">Full Guide</a>
+        <a href="https://github.com/danny19862025/spotlight" target="_blank" rel="noopener" class="nav-cta">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-pill reveal">
+          <span class="dot"></span>
+          <span>v0.4+ · Native Rust + GTK 4 · Built for KDE Plasma on Wayland</span>
+        </div>
+
+        <h1 class="reveal" data-delay="80">
+          One shortcut.<br />
+          <span class="gradient-text">Every Linux superpower.</span>
+        </h1>
+
+        <p class="hero-sub reveal" data-delay="150">
+          A blazing-fast, beginner-friendly native launcher with zero Electron, zero accounts, and zero cloud telemetry. Launch apps, search files, encrypt clipboard pins, run visual WASM workflows, and chat with 100% local Ollama AI.
+        </p>
+
+        <div class="hero-actions reveal" data-delay="210">
+          <a href="#quickstart" class="btn btn-primary">Get Started in 3 Minutes →</a>
+          <a href="#screenshots" class="btn btn-secondary">Explore 8 Screenshots</a>
+          <a href="https://github.com/danny19862025/spotlight/blob/main/docs/GUIDE.md" target="_blank" rel="noopener" class="btn btn-secondary">Read Full User Guide</a>
+        </div>
+
+        <!-- Interactive Live Spotlight Simulator -->
+        <div class="sim-wrapper reveal reveal-tilt" data-delay="280">
+          <div class="sim-glow" aria-hidden="true"></div>
+          <div class="sim-window">
+            <div class="sim-top">
+              <div class="sim-logo">/</div>
+              <input
+                type="text"
+                id="simInput"
+                class="sim-input"
+                aria-label="Try Spotlight live simulator"
+                placeholder="Type a command or click a preset below..."
+              />
+            </div>
+            <div class="sim-chips" role="tablist" aria-label="Try commands">
+              <button class="sim-chip active" data-sim="vault">clip vault</button>
+              <button class="sim-chip" data-sim="workflow">workflow</button>
+              <button class="sim-chip" data-sim="ai">ai ask</button>
+              <button class="sim-chip" data-sim="git">git status</button>
+              <button class="sim-chip" data-sim="calc">10 km to mi</button>
+              <button class="sim-chip" data-sim="palette">palette</button>
+              <button class="sim-chip" data-sim="pomodoro">pomodoro 25m</button>
+              <button class="sim-chip" data-sim="event">add event</button>
+            </div>
+            <div class="sim-results" id="simResults"></div>
+            <div class="sim-footer">
+              <span>/ Spotlight Interactive Preview · Try typing above</span>
+              <span>Open ↵ &nbsp;&nbsp; Actions Tab &nbsp;&nbsp; Guide F1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture & Privacy Metrics -->
+    <section class="metrics">
+      <div class="container metrics-grid">
+        <div class="reveal" data-delay="0">
+          <div class="metric-val">Rust <span>+ GTK 4</span></div>
+          <div class="metric-label">Pure native Cairo UI · Zero Electron</div>
+        </div>
+        <div class="reveal" data-delay="70">
+          <div class="metric-val"><span>103</span> Topics</div>
+          <div class="metric-label">Built-in searchable F1 Guide</div>
+        </div>
+        <div class="reveal" data-delay="140">
+          <div class="metric-val"><span>Argon2id</span></div>
+          <div class="metric-label">XChaCha20-Poly1305 Clipboard Vault</div>
+        </div>
+        <div class="reveal" data-delay="210">
+          <div class="metric-val"><span>Wasmi</span> Sandbox</div>
+          <div class="metric-label">Import-free visual WASM workflows</div>
+        </div>
+        <div class="reveal" data-delay="280">
+          <div class="metric-val"><span>100%</span> Local AI</div>
+          <div class="metric-label">Verified OLLAMA_NO_CLOUD=1</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 Unique Screenshots Interactive Showcase -->
+    <section class="section" id="screenshots">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-kicker">Visual Tour · 8 Unique Views</span>
+          <h2>See every side of Spotlight</h2>
+          <p>Switch tabs below for a curtain-reveal preview of each module, or click any screenshot to inspect it full-screen.</p>
+        </div>
+
+        <div class="stage-tabs reveal" id="stageTabs"></div>
+
+        <div class="stage-grid reveal reveal-curtain">
+          <div class="stage-frame" id="stageFrame" title="Click to zoom full-screen">
+            <img id="stageImg" src="images/spotlight.png" alt="Spotlight Screenshot" />
+            <span class="stage-zoom-hint">Click to zoom ⤢</span>
+          </div>
+          <div class="stage-info">
+            <span class="stage-info-badge" id="stageBadge">Real GTK 4 Capture</span>
+            <h3 id="stageTitle">Instant, Clutter-Free Main Launcher</h3>
+            <p id="stageDesc"></p>
+            <ul class="stage-bullets" id="stageBullets"></ul>
+            <div class="stage-cmds" id="stageCmds"></div>
+          </div>
+        </div>
+
+        <!-- All 8 Screenshots Filmstrip Grid -->
+        <div class="gallery-grid" id="galleryGrid"></div>
+      </div>
+    </section>
+
+    <!-- Deep Feature Explorer -->
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-kicker">Full Capability Suite</span>
+          <h2>Simple on day one. Unstoppable on day hundred.</h2>
+          <p>Filter by category to explore every native tool built into Spotlight.</p>
+        </div>
+
+        <div class="filter-bar reveal" id="featureFilters">
+          <button class="stage-tab active" data-cat="all">All Features (12)</button>
+          <button class="stage-tab" data-cat="everyday">Everyday Search</button>
+          <button class="stage-tab" data-cat="security">Security &amp; Local AI</button>
+          <button class="stage-tab" data-cat="dev">Developer Toolkit</button>
+          <button class="stage-tab" data-cat="desktop">Desktop &amp; Media</button>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature-card reveal" data-cat="everyday">
+            <div class="feature-icon">🔍</div>
+            <h3>Apps, Files, Recent &amp; Ripgrep</h3>
+            <p>Fuzzy-launch apps ranked by favorites and usage. Pinned Search File and Recent views stay separate from main search, with image thumbnails, <code>~/.spotlightignore</code>, Tab file actions, and live streaming <code>ripgrep</code> content search.</p>
+            <div class="feature-tags"><code>Search File</code><code>Recent</code><code>rg rust</code><code>in: notes</code></div>
+          </article>
+
+          <article class="feature-card reveal" data-cat="everyday" data-delay="60">
+            <div class="feature-icon">🧮</div>
+            <h3>Calculator, Units, Currency &amp; Language</h3>
+            <p>Evaluate math expressions with trig/powers/percentages, convert units offline, fetch daily currency rates via Frankfurter, look up English definitions, translate words offline with FreeDict, and view inline <code>tldr</code> cheat sheets.</p>
+            <div class="feature-tags"><code>10 km to mi</code><code>100 USD to AUD</code><code>define</code><code>tldr tar</code></div>
+          </article>
+
+          <article class="feature-card reveal" data-cat="everyday" data-delay="120">
+            <div class="feature-icon">📝</div>
+            <h3>Quick Notes, Obsidian, Todos &amp; Snippets</h3>
+            <p>Capture Markdown notes from anywhere with automatic Obsidian vault detection. Manage checkbox tasks in <code>todos.md</code>, and expand trigger snippets (<code>;sig</code>) inside Spotlight or desktop-wide via Espanso.</p>
+            <div class="feature-tags"><code>note ...</code><code>todo add</code><code>;sig</code><code>{clipboard}</code></div>
+          </article>
+
+          <article class="feature-card reveal" data-cat="security">
+            <div class="feature-icon">🔐</div>
+            <h3>Secure Clipboard Vault &amp; Paste Queue</h3>
+            <p>Encrypt pinned text and PNG images with Argon2id + XChaCha20-Poly1305. Pins auto-expire in 1 hour, copy with sensitive metadata + 30s timeout, and stream sequentially through an in-memory Paste Queue.</p>
+            <div class="feature-tags"><code>vault</code><code>clip pinned</code><code>clip queue</code><code>0600</code></div>
+          </article>
+
+          <article class="feature-card reveal" data-cat="security" data-delay="60">
+            <div class="feature-icon">⚡</div>
+            <h3>Visual No-Code WASM Workflows</h3>
+            <p>Build 1–12 step chains visually—like Screenshot → OCR → Translate Locally → Save Note—compiled into genuine import-free binary <code>.wasm</code> modules executed inside Wasmi with a 10,000-fuel cap.</p>
+            <div class="feature-tags"><code>workflow</code><code>workflow run</code><code>Wasmi</code><code>0 imports</code></div>
+          </article>
+
+          <article class="feature-card reveal" data-cat="security" data-delay="120">
+            <div class="feature-icon">🧠</div>
+            <h3>Context-Aware Local AI (Ollama)</h3>
+            <p>Ask questions about your selected project, open KWin windows, and <code>todos.md</code>—or summarize your clipboard—using verified loopback-only Ollama (<code>OLLAMA_NO_CLOUD=1</code>) with an exact snapshot preview before sending.</p>
+            <div class="feature-tags"><code>ai ask</code><code>ai summarize clipboard</code><code>127.0.0.1</code></div>
+          </article>
+
+          <article class="feature-card reveal" data-cat="dev">
+            <div class="feature-icon">🌿</div>
+            <h3>Git Dashboard, IDE Projects &amp; GitHub</h3>
+            <p>Reopen recent VS Code, VSCodium, and JetBrains projects, set active project context, inspect all dirty Git repositories under <code>~/Projects</code>, clone repos, and browse open GitHub PRs and issues.</p>
+            <div class="feature-tags"><code>git status</code><code>code</code><code>jetbrains</code><code>gh pr list</code></div>
+          </article>
+
+          <article class="feature-card reveal" data-cat="dev" data-delay="60">
+            <div class="feature-icon">🐳</div>
+            <h3>Docker/Podman Logs, HTTP Scratch &amp; Dotenv</h3>
+            <p>Start/stop containers, live-tail logs inside Spotlight, launch interactive container shells, test REST endpoints with pretty JSON in HTTP Scratch, diff <code>.env</code> vs <code>.env.example</code>, and open SSH aliases in Konsole.</p>
+            <div class="feature-tags"><code>docker logs</code><code>docker exec</code><code>get https://</code><code>dotenv diff</code></div>
+          </article>
+
+          <article class="feature-card reveal" data-cat="dev" data-delay="120">
+            <div class="feature-icon">🧩</div>
+            <h3>WASM Extension Store &amp; Generators</h3>
+            <p>Browse <code>community-plugins.toml</code> and install SHA-256 verified WASM plugins, or run custom scripts. Includes offline UUID, SHA/MD5 hashing, Base64, JSON formatter, case converter, Lorem Ipsum, QR codes, and OCR.</p>
+            <div class="feature-tags"><code>store</code><code>uuid</code><code>json format</code><code>qr hello</code></div>
+          </article>
+
+          <article class="feature-card reveal" data-cat="desktop">
+            <div class="feature-icon">🎨</div>
+            <h3>Screenshot, Image, PDF &amp; Color Toolkit</h3>
+            <p>Capture via desktop portal with instant OCR, QR decode, compress, and pin actions. Compress to WebP, resize to 1080p, extract 5-color palettes, extract PDF text, pick screen colors (HEX/RGB/HSL), and measure pixels with a multi-monitor ruler.</p>
+            <div class="feature-tags"><code>screenshot</code><code>palette</code><code>pdf text</code><code>measure</code></div>
+          </article>
+
+          <article class="feature-card reveal" data-cat="desktop" data-delay="60">
+            <div class="feature-icon">🪟</div>
+            <h3>KDE Window Layouts, Calendar &amp; Pomodoro</h3>
+            <p>Tile windows into halves/quarters, switch KWin windows and virtual desktops, save and restore workspace layouts, create natural-language calendar events, check free meeting slots, and run persistent Pomodoro timers with auto-Caffeinate.</p>
+            <div class="feature-tags"><code>layout save work</code><code>add event</code><code>pomodoro 25m</code><code>meet in 2h</code></div>
+          </article>
+
+          <article class="feature-card reveal" data-cat="desktop" data-delay="120">
+            <div class="feature-icon">🎛️</div>
+            <h3>Music, Browsers, System, Passwords &amp; Themes</h3>
+            <p>Control MPRIS players, search Firefox/Chrome/Brave history &amp; bookmarks, copy secrets via <code>rbw</code>/KeePassXC, GPG-encrypt files, run ping/dig/port/Wi-Fi scans, switch speakers/Bluetooth/dark mode/wallpapers, and sync dotfiles to a private GitHub repo.</p>
+            <div class="feature-tags"><code>music</code><code>pass</code><code>encrypt file</code><code>wallpaper next</code></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Beginner Command Cheat Sheet -->
+    <section class="section" id="commands">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-kicker">Beginner Cheat Sheet</span>
+          <h2>Search &amp; click any command to copy</h2>
+          <p>Try typing <em>git</em>, <em>vault</em>, <em>pdf</em>, <em>music</em>, or <em>ai</em> below.</p>
+        </div>
+
+        <div class="cheat-box reveal">
+          <input
+            type="search"
+            id="cheatSearch"
+            class="cheat-search"
+            placeholder="Filter 36+ Spotlight commands (e.g. clipboard, docker, calendar, ocr)..."
+            aria-label="Filter Spotlight commands"
+          />
+          <div class="cheat-grid" id="cheatGrid"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3-Minute Beginner Quick Start -->
+    <section class="section" id="quickstart">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-kicker">Quick Start · 3 Minutes</span>
+          <h2>Install Spotlight on your Linux distro</h2>
+          <p>Build natively as your normal user—no <code>sudo</code> needed during install.</p>
+        </div>
+
+        <div class="quickstart-card reveal">
+          <div class="distro-tabs" id="distroTabs"></div>
+
+          <div class="step-block">
+            <div class="step-title">
+              <span class="step-num">1</span>
+              <span>Install dependencies (or install directly with Nix)</span>
+            </div>
+            <div class="code-block">
+              <pre id="depsCode"></pre>
+              <button class="copy-btn" data-target="depsCode">Copy</button>
+            </div>
+          </div>
+
+          <div class="step-block" id="buildStep">
+            <div class="step-title">
+              <span class="step-num">2</span>
+              <span>Clone, build, and launch (requires stable Rust)</span>
+            </div>
+            <div class="code-block">
+              <pre id="buildCode">git clone https://github.com/danny19862025/spotlight.git
+cd spotlight
+cargo fetch --locked
+sh install.sh
+"$HOME/.local/bin/spotlight"</pre>
+              <button class="copy-btn" data-target="buildCode">Copy</button>
+            </div>
+          </div>
+
+          <div class="step-block" style="margin-bottom: 0;">
+            <div class="step-title">
+              <span class="step-num">3</span>
+              <span>Bind Meta+Space on KDE &amp; enable optional login autostart</span>
+            </div>
+            <div class="code-block">
+              <pre id="shortcutCode">~/.local/bin/spotlight --install-shortcut
+~/.local/bin/spotlight --autostart</pre>
+              <button class="copy-btn" data-target="shortcutCode">Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Full-Screen Lightbox Modal -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot viewer">
+    <div class="lightbox-inner">
+      <img id="lightboxImg" src="" alt="" />
+      <div class="lightbox-bar">
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+        <div class="lightbox-controls">
+          <button class="btn btn-secondary" id="lbPrev">← Prev</button>
+          <button class="btn btn-secondary" id="lbNext">Next →</button>
+          <button class="btn btn-primary" id="lbClose">Close ✕</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Copy Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>Spotlight</strong> · Native Rust + GTK 4 Linux Launcher · MIT License
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/danny19862025/spotlight" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/danny19862025/spotlight/blob/main/docs/GUIDE.md" target="_blank" rel="noopener">Full User Guide</a>
+        <a href="https://github.com/danny19862025/spotlight/blob/main/docs/INSTALL.md" target="_blank" rel="noopener">Install Guide</a>
+        <a href="https://github.com/danny19862025/spotlight/blob/main/docs/TOOLS.md" target="_blank" rel="noopener">Tools Reference</a>
+        <a href="https://github.com/danny19862025/spotlight/blob/main/docs/SECURE_WORKFLOWS.md" target="_blank" rel="noopener">Security &amp; AI</a>
+        <a href="https://github.com/danny19862025/spotlight/blob/main/docs/WASM.md" target="_blank" rel="noopener">WASM SDK</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
