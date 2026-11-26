@@ -443,10 +443,10 @@
   };
   waywallen-bin = {
     pname = "waywallen-bin";
-    version = "0.6.1";
+    version = "0.6.2";
     src = fetchurl {
-      url = "https://github.com/waywallen/waywallen/releases/download/v0.6.1/waywallen-0.6.1-x86_64.AppImage";
-      sha256 = "sha256-3RxYx+rN7hKR/DrZsOC82GTWtf6xxQZbirFzeNF25i0=";
+      url = "https://github.com/waywallen/waywallen/releases/download/v0.6.2/waywallen-0.6.2-x86_64.AppImage";
+      sha256 = "sha256-Ln2vGXFDkGP+OQlPnWj8A0GAkKsmX5XOjM5bHL+9Lpc=";
     };
   };
   waywallen-display-bin = {
