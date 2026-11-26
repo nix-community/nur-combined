@@ -1,0 +1,70 @@
+diff --git a/cmake/DependenciesConfig.cmake b/cmake/DependenciesConfig.cmake
+--- a/cmake/DependenciesConfig.cmake
++++ b/cmake/DependenciesConfig.cmake
+@@ -9,1 +9,1 @@
+-        FIND_PACKAGE_OPTIONS COMPONENTS system thread filesystem wave
++        FIND_PACKAGE_OPTIONS COMPONENTS thread filesystem wave
+diff --git a/cmake/dependencies-helpers/Boost.cmake b/cmake/dependencies-helpers/Boost.cmake
+--- a/cmake/dependencies-helpers/Boost.cmake
++++ b/cmake/dependencies-helpers/Boost.cmake
+@@ -5,1 +5,1 @@
+-        find_package(Boost REQUIRED COMPONENTS system thread filesystem wave)
++        find_package(Boost REQUIRED COMPONENTS thread filesystem wave)
+diff --git a/source/shiny/Main/ShaderSet.cpp b/source/shiny/Main/ShaderSet.cpp
+--- a/source/shiny/Main/ShaderSet.cpp
++++ b/source/shiny/Main/ShaderSet.cpp
+@@ -32,1 +32,1 @@
+-		p = p.branch_path();
++		p = p.parent_path();
+diff --git a/source/ogre/common/Def_Str.h b/source/ogre/common/Def_Str.h
+--- a/source/ogre/common/Def_Str.h
++++ b/source/ogre/common/Def_Str.h
+@@ -37,2 +37,2 @@
+-#define s2r(s)  Ogre::StringConverter::parseReal(s)
+-#define s2i(s)  Ogre::StringConverter::parseInt(s)
++#define s2r(s)  Ogre::StringConverter::parseReal(Ogre::String(s))
++#define s2i(s)  Ogre::StringConverter::parseInt(Ogre::String(s))
+diff --git a/source/ogre/common/GuiCom_Util.cpp b/source/ogre/common/GuiCom_Util.cpp
+--- a/source/ogre/common/GuiCom_Util.cpp
++++ b/source/ogre/common/GuiCom_Util.cpp
+@@ -183,1 +183,1 @@
+-		string relativeTo = wp->getUserString("RelativeTo");
++		string relativeTo = string(wp->getUserString("RelativeTo"));
+@@ -267,1 +267,1 @@
+-			wp->setUserString("tip", LanguageManager::getInstance().replaceTags(wp->getUserString("tip")));
++			wp->setUserString("tip", LanguageManager::getInstance().replaceTags(string(wp->getUserString("tip"))));
+@@ -293,1 +293,1 @@
+-		String s = TR(wp->getUserString("tip"));
++		String s = TR(string(wp->getUserString("tip")));
+diff --git a/source/ogre/common/PointerFix.cpp b/source/ogre/common/PointerFix.cpp
+--- a/source/ogre/common/PointerFix.cpp
++++ b/source/ogre/common/PointerFix.cpp
+@@ -26,2 +26,2 @@
+-		const std::string& key = info->findAttribute("key");
+-		const std::string& value = info->findAttribute("value");
++		const std::string key(info->findAttribute("key"));
++		const std::string value(info->findAttribute("value"));
+diff --git a/source/ogre/common/MessageBox/Attribute.h b/source/ogre/common/MessageBox/Attribute.h
+--- a/source/ogre/common/MessageBox/Attribute.h
++++ b/source/ogre/common/MessageBox/Attribute.h
+@@ -35,1 +35,1 @@
+-		virtual const std::string& getFieldTypeName() = 0;
++		virtual std::string getFieldTypeName() = 0;
+@@ -50,1 +50,1 @@
+-		virtual const std::string& getFieldTypeName()
++		virtual std::string getFieldTypeName()
+@@ -52,1 +52,1 @@
+-			return FieldType::getClassTypeName();
++			return std::string(FieldType::getClassTypeName());
+diff --git a/source/ogre/common/MessageBox/BaseLayout.h b/source/ogre/common/MessageBox/BaseLayout.h
+--- a/source/ogre/common/MessageBox/BaseLayout.h
++++ b/source/ogre/common/MessageBox/BaseLayout.h
+@@ -212,1 +212,1 @@
+-			return static_cast<T*>(_createFakeWidgetT(T::getClassTypeName(), _parent));
++			return static_cast<T*>(_createFakeWidgetT(std::string(T::getClassTypeName()), _parent));
+diff --git a/source/ogre/common/MessageBox/MessageBox.cpp b/source/ogre/common/MessageBox/MessageBox.cpp
+--- a/source/ogre/common/MessageBox/MessageBox.cpp
++++ b/source/ogre/common/MessageBox/MessageBox.cpp
+@@ -34,1 +34,1 @@
+-		mButtonType = Button::getClassTypeName();
++		mButtonType = std::string(Button::getClassTypeName());

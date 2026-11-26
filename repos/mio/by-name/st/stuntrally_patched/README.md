@@ -1,16 +1,11 @@
 # stuntrally_patched
 
-Patched `stuntrally` package from Nixpkgs.
+Patched `stuntrally` package from Nixpkgs for the revision pinned by this flake.
 
-## Build issue in upstream Nixpkgs
+## Build issue in the pinned Nixpkgs revision
 
-In nixos-unstable with GCC 16, `mygui` (the GUI library bundled/vendored for stuntrally in Nixpkgs) fails to compile because `std::allocator<void>::const_pointer` was removed in C++20:
-
-```
-MyGUI_Allocator.h:54:87: error: 'const_pointer' in 'class std::allocator<void>' does not name a type
-   54 |                 template<typename U> struct rebind { typedef typename std::allocator<U>::const_pointer other; };
-```
+With newer GCC releases, `mygui` (the GUI library bundled for stuntrally in Nixpkgs) and the game can select a C++ standard newer than the versions they support.
 
 ## Fix
 
-Patch `MyGUIEngine/include/MyGUI_Allocator.h` to use `const void* = 0` when specializing `rebind` for `void`, and pass the patched `mygui` dependency to `stuntrally`.
+Build both MyGUI and stuntrally as C++17 and require that standard. This mirrors the fix in [Nixpkgs commit 710de4985ce4](https://github.com/NixOS/nixpkgs/commit/710de4985ce44dd6cd338fbc1ec6885ded6ce1e2), which landed after this flake's pinned Nixpkgs revision.
