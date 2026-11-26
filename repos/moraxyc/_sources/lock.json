@@ -185,15 +185,15 @@
       "fingerprint": "sha256-K/ydfckMqAkWgBYRA3GmlYgjn9xFu5HwlWPJImUnu9Q="
     },
     "cliproxyapi": {
-      "version": "8.1.6",
-      "rawVersion": "v8.1.6",
+      "version": "8.1.7",
+      "rawVersion": "v8.1.7",
       "date": "2026-11-26",
       "src": {
         "fetcher": "github",
         "owner": "router-for-me",
         "repo": "cliproxyapi",
-        "rev": "v8.1.6",
-        "hash": "sha256-HeoZwhXchYj0s9NtkSXayrv1PB8Lr1jGtpK/rN3VZho="
+        "rev": "v8.1.7",
+        "hash": "sha256-oqFb2NeEkR0SR2vK3PSemajpOLMaU+LpgovK7Ym3e2s="
       },
       "derived": {
         "vendorHash": {
