@@ -6,18 +6,23 @@
 
 buildGoModule (finalAttrs: {
   pname = "pigo";
-  version = "1.4.6";
+  version = "1.5.1";
 
   src = fetchFromGitHub {
     owner = "esimov";
     repo = "pigo";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-0K1d/VCsUaYj/uQ2yUIsc8KdGOQVqAUSaIRnyRYdt+s=";
+    hash = "sha256-0URCxLdKVOMoA8Pfw0WR4Qd84O/fE8s1cPb6cI0i6QM=";
   };
 
-  vendorHash = "sha256-MkJVs/i0dPRUz5kUhSFYU+eR1SuVgO01U5ubWVWMUfk=";
+  vendorHash = "sha256-492moVBnRSMwU2UH3mEtOh/FmnznSChYBSZtukVVtvM=";
 
-  deleteVendor = true;
+  # Upstream moved the library from `core`/`cascade` to `pkg` in 1.5.0 and
+  # dropped `demos/native`, but these example commands still import it, so
+  # `go mod download` fails for the module as a whole.
+  postPatch = ''
+    rm -rf examples/native
+  '';
 
   ldflags = [
     "-s"
