@@ -5,18 +5,17 @@
 set -euo pipefail
 
 platform=$1
-launcher=$2
-bun=$3
+bun=$2
 
-selfpath=github.com/yetone/magpie/internal/selfpath
+appdir=github.com/yetone/magpie/internal/appdir
 
-# Upstream moves and renames files often, so every pattern finds its code
-# wherever it is: the whole tree is scanned, not a list of files. Vendored and
-# upstream Go, and tests, are left as they are.
+# Follow call sites across files, leaving vendored code, tests and other platforms alone.
 globs=(
 	--globs '!third_party/**'
 	--globs '!vendor/**'
 	--globs '!**/*_test.go'
+	--globs '!**/*_{android,darwin,windows}.go'
+	--globs '!**/*_{android,darwin,windows}_*.go'
 )
 
 rewrite() {
@@ -34,7 +33,7 @@ replace_function() {
 
 go_files() {
 	grep -rl --include='*.go' --exclude='*_test.go' \
-		--exclude-dir=third_party --exclude-dir=vendor --exclude-dir=selfpath \
+		--exclude-dir=third_party --exclude-dir=vendor --exclude-dir=appdir \
 		"$1" . || true
 }
 
@@ -51,131 +50,242 @@ if [[ $platform == darwin ]]; then
 fi
 
 marker=$(mktemp)
+trap 'rm -f "$marker"' EXIT
 
-# Nix starts magpie through $out/bin/magpie, whose wrapper sets the environment
-# it needs (Bun, GTK, PATH). os.Executable reports the wrapped binary beside it,
-# $out/bin/.magpie-wrapped, so every path magpie names or runs itself names the
-# launcher instead: selfpath.Program is the magpie on PATH when it is this
-# install's (a profile link survives a store update), else this one's
-# $out/bin/magpie.
-rewrite 'os.Executable()' 'selfpath.Program()'
-
-# A restart into an update, and the restart handover, run the launcher.
-rewrite 'update.Executable()' 'update.Program()'
-
-# Two callers need the file that runs, not the launcher: update.Executable is
-# what PackagedBy reads to know a package manager installed this magpie, and
-# ownMagpie compares the port's holder in /proc/<pid>/exe with it.
+# Only substitute the launcher in code that names or starts magpie. Leave
+# appdir's own discovery and code identifying or inspecting the running file.
 ast-grep scan --inline-rules '
-id: selfpath-real-exe
+id: nix-self-launcher
 language: Go
 rule:
-  pattern: selfpath.Program()
+  pattern: os.Executable()
+  not:
+    inside:
+      stopBy: end
+      all:
+        - any:
+            - kind: function_declaration
+            - kind: method_declaration
+            - kind: func_literal
+        - any:
+            - has:
+                field: name
+                regex: "^(Executable|ownMagpie|keepWebData|appIconFor|sourceKey|wslFirewallCommand|cpuProfile|heapProfile|goroutineDump)$"
+            - has:
+                pattern: appdir.Launcher()
+                stopBy: end
+fix: appdir.LaunchProgram(os.Executable)
+' --update-all . "${globs[@]}" --globs '!internal/appdir/**'
+
+# Shared executable lookups also serve update and cleanup code. Only change
+# their use in functions that launch, hand over to, or follow a successor.
+ast-grep scan --inline-rules '
+id: nix-restart-launcher
+language: Go
+rule:
+  pattern: $RESOLVE()
   inside:
-    kind: function_declaration
-    has:
-      field: name
-      regex: "^(Executable|ownMagpie)$"
     stopBy: end
-fix: selfpath.Executable()
+    all:
+      - any:
+          - kind: function_declaration
+          - kind: method_declaration
+          - kind: func_literal
+      - any:
+          - has:
+              stopBy: end
+              any:
+                - pattern: relaunchBinary($EXE, $$$ARGS)
+                - pattern: beginHandover($BUNDLE, $EXE, $$$ARGS)
+                - pattern: update.Reexec($EXE, $$$ARGS)
+                - pattern: takeOver($EXE)
+          - has:
+              field: name
+              regex: "^(newServeFollow|DataAfterExit)$"
+constraints:
+  RESOLVE:
+    regex: "^(executable|update\\.Executable)$"
+fix: appdir.LaunchProgram($RESOLVE)
 ' --update-all . "${globs[@]}"
 
-# A program kept as a value rather than called: the uninstaller's --data-after.
-files=$(go_files '= os\.Executable$')
-if [[ -n $files ]]; then
-	while IFS= read -r file; do
-		sed -i 's/= os\.Executable$/= selfpath.Program/' "$file"
-	done <<<"$files"
-fi
-
-# The program a link, an agent config (Claude Code's status line, an MCP
-# server) or a login item names, and the one ReadCLI reports (cliExe).
-replace_function 'Program() (string, error)' 'return selfpath.Program()'
-replace_function 'cliProgram() (string, error)' 'return selfpath.Program()'
-
-# The login item keeps the launcher unresolved, so a profile link survives.
-replace_function 'self() (string, error)' 'return selfpath.Program()'
+# A profile switch can replace the launcher with one of the same size and mtime.
+rewrite 'now.Size() != $STARTED.Size() || !now.ModTime().Equal($STARTED.ModTime())' \
+	'!os.SameFile(now, $STARTED) || now.Size() != $STARTED.Size() || !now.ModTime().Equal($STARTED.ModTime())'
 
 # Refresh old Nix paths without enabling disabled entries or changing custom commands.
 replace_function 'refresh() error' '
 	body, err := os.ReadFile(record())
 	if os.IsNotExist(err) { return nil }
 	if err != nil { return err }
+	if !starts(keys(body)) { return nil }
 	lines := strings.Split(string(body), "\n")
-	for i, line := range lines {
-		key, value, ok := strings.Cut(line, "=")
-		if !ok || strings.TrimSpace(key) != "Exec" { continue }
-		value = strings.TrimSpace(value)
-		if !strings.HasSuffix(value, " " + Arg) { return nil }
-		exe := strings.Trim(strings.TrimSuffix(value, " " + Arg), "\"")
-		if !strings.HasPrefix(exe, "/nix/store/") || !strings.HasSuffix(exe, "/bin/.magpie-wrapped") && !strings.HasSuffix(exe, "/bin/magpie") { return nil }
-		launcher, err := self()
-		if err != nil { return err }
-		q := strings.NewReplacer("\\", "\\\\", "\"", "\\\"", "\x60", "\\\x60", "$", "\\$").Replace(launcher)
-		replacement := "Exec=\"" + q + "\" " + Arg
-		if line == replacement { return nil }
-		lines[i] = replacement
-		return os.WriteFile(record(), []byte(strings.Join(lines, "\n")), 0o644)
-	}
-	return nil
+	i := appdir.NixDesktopExec(lines, Arg)
+	if i < 0 { return nil }
+	launcher := appdir.Launcher()
+	if launcher == "" { return nil }
+	q := strings.NewReplacer(`\`, `\\`, `"`, `\"`, "`", "\\`", `$`, `\$`).Replace(launcher)
+	replacement := "Exec=\"" + q + "\" " + Arg
+	if lines[i] == replacement { return nil }
+	lines[i] = replacement
+	return writeRecord(strings.Join(lines, "\n"))
 '
 
-# Nix supplies the desktop entry; upstream still cleans up legacy entries.
-replace_function 'registerScheme() error' 'return nil'
+# The packaged desktop entry wins once a legacy Nix entry stops shadowing it.
+# Leave unpackaged builds' registration and user-owned entries alone.
+ast-grep scan --inline-rules '
+id: nix-retire-scheme-entry
+language: Go
+rule:
+  pattern: $DATA := dataHome()
+  inside:
+    kind: function_declaration
+    stopBy: end
+    has:
+      pattern: proc.Command("xdg-mime", "default", $$$ARGS)
+      stopBy: end
+fix: |
+  $DATA := dataHome()
+  if wrapper := os.Getenv("MAGPIE_EXECUTABLE"); wrapper != "" {
+    return appdir.RetireNixDesktopEntry($DATA, wrapper)
+  }
+' --update-all . "${globs[@]}"
 
-# The launcher itself, a package of its own: every place that names or runs
-# magpie uses selfpath.Program, and only the two exceptions above use the file
-# that runs.
-mkdir -p internal/selfpath
-cat >internal/selfpath/selfpath.go <<EOF
-// Package selfpath names the program that starts this magpie: Nix's wrapper
-// beside the binary os.Executable reports.
-package selfpath
+cat >internal/appdir/nix_packaging_linux.go <<'EOF'
+package appdir
 
 import (
 	"os"
-	"os/exec"
 	"path/filepath"
+	"strings"
 )
 
-// Program is the launcher to run or name for this magpie: the magpie on PATH
-// when it is this install's, else the installed launcher. An AppImage is itself.
-func Program() (string, error) {
+// LaunchProgram selects a launcher for code that is about to name or start magpie.
+func LaunchProgram(executable func() (string, error)) (string, error) {
 	if a := os.Getenv("APPIMAGE"); a != "" {
 		return a, nil
 	}
-	if p, err := exec.LookPath("magpie"); err == nil {
-		if abs, err := filepath.Abs(p); err == nil {
-			if r, err := filepath.EvalSymlinks(abs); err == nil && r == "$launcher" {
-				return abs, nil
-			}
-		}
+	if p := Launcher(); p != "" {
+		return p, nil
 	}
-	return "$launcher", nil
+	return executable()
 }
 
-// Executable is the running binary, symlinks resolved.
-func Executable() (string, error) {
-	exe, err := os.Executable()
-	if err != nil {
-		return "", err
+func desktopKey(lines []string, wanted string) int {
+	index, inEntry := -1, false
+	for i, line := range lines {
+		line = strings.TrimSpace(line)
+		if strings.HasPrefix(line, "[") {
+			inEntry = line == "[Desktop Entry]"
+		}
+		if key, _, ok := strings.Cut(line, "="); inEntry && ok && strings.TrimSpace(key) == wanted {
+			index = i
+		}
 	}
-	return filepath.EvalSymlinks(exe)
+	return index
+}
+
+func desktopValue(line string) string {
+	_, value, _ := strings.Cut(line, "=")
+	return strings.TrimSpace(value)
+}
+
+// NixDesktopExec finds the effective Exec line of an old Nix Magpie entry.
+func NixDesktopExec(lines []string, arg string) int {
+	index := desktopKey(lines, "Exec")
+	if index < 0 {
+		return -1
+	}
+	exe, ok := strings.CutSuffix(desktopValue(lines[index]), " " + arg)
+	if !ok {
+		return -1
+	}
+	exe = strings.Trim(exe, `"`)
+	storePath, ok := strings.CutPrefix(exe, "/nix/store/")
+	if !ok {
+		return -1
+	}
+	pkg, rel, _ := strings.Cut(storePath, "/")
+	_, name, _ := strings.Cut(pkg, "-")
+	if name != "magpie" && !strings.HasPrefix(name, "magpie-") {
+		return -1
+	}
+	switch rel {
+	case "bin/magpie", "bin/.magpie-wrapped", "libexec/magpie/magpie":
+		return index
+	}
+	return -1
+}
+
+// RetireNixDesktopEntry removes a legacy entry only if the desktop can see
+// the replacement shipped by this package. Other user entries stay in place.
+func RetireNixDesktopEntry(data, wrapper string) error {
+	const desktop = "magpie.desktop"
+	entry := filepath.Join(data, "applications", desktop)
+	info, err := os.Lstat(entry)
+	if os.IsNotExist(err) || err == nil && !info.Mode().IsRegular() {
+		return nil
+	}
+	if err != nil {
+		return err
+	}
+	body, err := os.ReadFile(entry)
+	if err != nil {
+		return err
+	}
+	lines := strings.Split(string(body), "\n")
+	if NixDesktopExec(lines, "%u") < 0 && NixDesktopExec(lines, "%U") < 0 {
+		return nil
+	}
+	i := desktopKey(lines, "MimeType")
+	if i < 0 || !strings.Contains(";" + desktopValue(lines[i]) + ";", ";x-scheme-handler/magpie;") {
+		return nil
+	}
+	for _, key := range []string{"Hidden", "NoDisplay"} {
+		if i := desktopKey(lines, key); i >= 0 && (desktopValue(lines[i]) == "true" || desktopValue(lines[i]) == "1") {
+			return nil
+		}
+	}
+	share := filepath.Join(filepath.Dir(wrapper), "..", "share")
+	packaged, err := os.Stat(filepath.Join(share, "applications", desktop))
+	if err != nil {
+		return nil
+	}
+	dirs := Getenv("XDG_DATA_DIRS")
+	if dirs == "" {
+		dirs = "/usr/local/share:/usr/share"
+	}
+	for _, dir := range filepath.SplitList(dirs) {
+		// GApps adds the app's own share to its environment even under nix run.
+		if !filepath.IsAbs(dir) || filepath.Clean(dir) == share {
+			continue
+		}
+		candidate, err := os.Stat(filepath.Join(dir, "applications", desktop))
+		if os.IsNotExist(err) {
+			continue
+		}
+		if err != nil || !os.SameFile(candidate, packaged) {
+			return nil
+		}
+		if err := os.Remove(entry); !os.IsNotExist(err) {
+			return err
+		}
+		break
+	}
+	return nil
 }
 EOF
 
-# Every file that now names selfpath gets its import, wherever it is.
-files=$(go_files 'selfpath\.')
+# Give newly patched call sites their import wherever they are in the tree.
+files=$(go_files 'appdir\.\(LaunchProgram\|NixDesktopExec\|RetireNixDesktopEntry\)')
 if [[ -n $files ]]; then
 	while IFS= read -r file; do
-		grep -q "$selfpath" "$file" && continue
+		grep -Fq "$appdir" "$file" && continue
 		ast-grep run --lang go --pattern 'import ($$$IMPORTS)' \
-			--rewrite "import (\$\$\$IMPORTS; \"$selfpath\")" --update-all "$file" ||
-			sed -i "0,/^package .*/s//&\n\nimport \"$selfpath\"/" "$file"
+			--rewrite "import (\$\$\$IMPORTS; \"$appdir\")" --update-all "$file" ||
+			sed -i "0,/^package .*/s//&\n\nimport \"$appdir\"/" "$file"
 	done <<<"$files"
 fi
 
 # Only what this patch changed is formatted; upstream files stay as they are.
 find . \( -path ./vendor -o -path ./third_party \) -prune -o \
 	-name '*.go' -newer "$marker" -exec goimports -w {} +
-rm -f "$marker"

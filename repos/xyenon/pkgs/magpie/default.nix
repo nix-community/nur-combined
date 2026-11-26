@@ -28,21 +28,20 @@ buildGoModule (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "magpie";
-  version = "0.1.4828";
+  version = "0.1.4829";
 
   src = fetchFromGitHub {
     owner = "yetone";
     repo = "magpie";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-LcHg8rLNs2syw/PwBsExUbOFHqF7d042IHJt2H9VNc8=";
+    hash = "sha256-ciSsT3JegYYdOfkz3kYR+R5VeyPYYLlzzR2rhI76eY4=";
   };
 
   vendorHash = "sha256-Adyhp/oY0nWiSXOwrsbHTEFp60H9aJWUoPKUUUrYItc=";
 
   # Apply runtime policies before compiling the installed application.
   postPatch = ''
-    bash ${./patch.sh} ${stdenv.hostPlatform.parsed.kernel.name} \
-      "$out/bin/magpie" ${lib.getExe bun}
+    bash ${./patch.sh} ${stdenv.hostPlatform.parsed.kernel.name} ${lib.getExe bun}
   '';
 
   subPackages = [ "." ];
@@ -81,6 +80,7 @@ buildGoModule (finalAttrs: {
       ''
         gappsWrapperArgs+=(
           --prefix PATH : ${lib.makeBinPath [ xdg-utils ]}
+          --set MAGPIE_EXECUTABLE "$out/bin/magpie"
           --set MAGPIE_BUN ${lib.getExe bun}
         )
       ''
@@ -88,7 +88,9 @@ buildGoModule (finalAttrs: {
       # macOS puts MAGPIE_BUN in main.go (patch.sh): no wrapper, so
       # os.Executable is the bundle's own binary and Launch Services tracks it.
       lib.optionalString linuxNoGui ''
-        wrapProgram "$out/bin/magpie" --set MAGPIE_BUN ${lib.getExe bun}
+        wrapProgram "$out/bin/magpie" \
+          --set MAGPIE_EXECUTABLE "$out/bin/magpie" \
+          --set MAGPIE_BUN ${lib.getExe bun}
       '';
 
   desktopItems = lib.optionals linuxGui [
