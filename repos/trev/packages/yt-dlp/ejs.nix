@@ -22,8 +22,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "yt-dlp";
     repo = "ejs";
-    rev = "40b7a7d4aee59853043ab204b6ee0d96ec92c646";
-    hash = "sha256-+1Ygb4D9PKI/gUhmq/94qrfU9IP3zGhCQHAMt2XhUZo=";
+    rev = "c47fb1b54215afa4f6a3d557ad65bb724022f6ba";
+    hash = "sha256-JJpQrT/zIQNqEGkasArKNSL4kqJovcl91RqTPDg3yfk=";
   };
 
   pnpmDeps = fetchPnpmDeps {

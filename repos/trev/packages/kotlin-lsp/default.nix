@@ -15,7 +15,7 @@
 let
   # EAP builds stop working 30 days after this UTC build date,
   # from idea/IntelliJServerApplicationInfo.xml in lib/language-server.main.jar
-  buildDate = "202611031640";
+  buildDate = "202611231638";
 
   # converts a UTC "YYYYMMDDhhmm" timestamp to seconds since the epoch
   toEpoch =
@@ -55,23 +55,23 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "kotlin-lsp";
-  version = "271.2085.0";
+  version = "271.3588.0";
 
   src =
     let
       sources = {
         x86_64-linux = fetchzip {
           url = "https://download.jetbrains.com/language-server/kotlin-server/${finalAttrs.version}/kotlin-server-${finalAttrs.version}.tar.gz";
-          hash = "sha256-lB+KkyW8h0j4Xpi//+IVxJvdSu2XFRS2QOwGHfrRG58=";
+          hash = "sha256-TzJu1YaT1n7FUqX572ykGwkR2DYJxUgkHucKdgOurMU=";
         };
         aarch64-linux = fetchzip {
           url = "https://download.jetbrains.com/language-server/kotlin-server/${finalAttrs.version}/kotlin-server-${finalAttrs.version}-aarch64.tar.gz";
-          hash = "sha256-gGQ1WrTurM9uE3RmzabCAHiTLTEgUVO3hgvH5ft9IXM=";
+          hash = "sha256-noXfn0iWYirdMIqamJeyYWXqRS8r+EB0FbpHx1dhPw4=";
         };
         aarch64-darwin = fetchzip {
           url = "https://download.jetbrains.com/language-server/kotlin-server/${finalAttrs.version}/kotlin-server-${finalAttrs.version}-aarch64.sit";
           extension = "zip";
-          hash = "sha256-33Jos2E3fi8rxqEbZuJ6t3LnPZEIEFgNUq4VLHT5yjk=";
+          hash = "sha256-kFzXsT+/r8pEBTZLPbOCuYEw1LNcVlFDvGdS7c1mTa8=";
         };
       };
     in
