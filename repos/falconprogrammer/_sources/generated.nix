@@ -55,13 +55,13 @@
   };
   spec-kit = {
     pname = "spec-kit";
-    version = "v1.4.4";
+    version = "v1.4.5";
     src = fetchFromGitHub {
       owner = "github";
       repo = "spec-kit";
-      rev = "v1.4.4";
+      rev = "v1.4.5";
       fetchSubmodules = false;
-      sha256 = "sha256-1oQjzaK01LO0eoAItz2V+26E+aSll4PcTEdhZUTl0Mk=";
+      sha256 = "sha256-q1ffeAfkPWttwftD32rse+0CXMA2vHYvpxz6aenqSqM=";
     };
   };
   timew-sync-client = {

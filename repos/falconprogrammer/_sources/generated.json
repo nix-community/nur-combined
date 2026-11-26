@@ -100,12 +100,12 @@
             "name": null,
             "owner": "github",
             "repo": "spec-kit",
-            "rev": "v1.4.4",
-            "sha256": "sha256-1oQjzaK01LO0eoAItz2V+26E+aSll4PcTEdhZUTl0Mk=",
+            "rev": "v1.4.5",
+            "sha256": "sha256-q1ffeAfkPWttwftD32rse+0CXMA2vHYvpxz6aenqSqM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.4.4"
+        "version": "v1.4.5"
     },
     "timew-sync-client": {
         "cargoLock": null,
