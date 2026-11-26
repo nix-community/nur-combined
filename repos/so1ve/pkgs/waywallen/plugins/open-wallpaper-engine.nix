@@ -3,15 +3,15 @@
 { fetchurl, stdenv }:
 
 let
-  version = "0.3.4";
+  version = "0.4.1";
   sources = {
     "aarch64-linux" = {
-      url = "https://github.com/waywallen/open-wallpaper-engine/releases/download/v0.3.4/org.waywallen.open-wallpaper-engine-0.3.4-linux-aarch64.zip";
-      hash = "sha256-vZu7HhjwMnuzwXUcBtSc7t3AROEsqBxgBMpo5vypoS0=";
+      url = "https://github.com/waywallen/open-wallpaper-engine/releases/download/v0.4.1/open-wallpaper-engine-0.4.1-linux-aarch64.zip";
+      hash = "sha256-sjL3eglHsAmHiExKXHtjls5RVUnj/TIs1Pj04DybbaI=";
     };
     "x86_64-linux" = {
-      url = "https://github.com/waywallen/open-wallpaper-engine/releases/download/v0.3.4/org.waywallen.open-wallpaper-engine-0.3.4-linux-x86_64.zip";
-      hash = "sha256-lNsQcUfGLKKaG0TKmaMtgJ7Z8PiJ84HKJo9m6c0IeuI=";
+      url = "https://github.com/waywallen/open-wallpaper-engine/releases/download/v0.4.1/open-wallpaper-engine-0.4.1-linux-x86_64.zip";
+      hash = "sha256-dK3+Ij+c8hqmXX4bCPRlY1/aDV9dAJbYKUQYil06vOM=";
     };
   };
   source =
