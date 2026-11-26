@@ -3,6 +3,6 @@
 {
   lockFile = ./Cargo.lock;
   outputHashes = {
-    "smithay-0.7.0" = "sha256-DUSciVTN5Ds2AYZVaGmMu7DBINRxu3CIdUCT4QCplTY=";
+    "smithay-0.7.0" = "sha256-Yn7oLcMYLdve2COfYBKyr9zYMvGZBdgPeED2oWM4Vpg=";
   };
 }
