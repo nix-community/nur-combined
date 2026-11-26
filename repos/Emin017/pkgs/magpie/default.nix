@@ -17,11 +17,11 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "magpie";
-  version = "0.1.4526";
+  version = "0.1.4839";
 
   src = fetchurl {
     url = "https://github.com/yetone/magpie-releases/releases/download/v${finalAttrs.version}/magpie-linux-amd64";
-    hash = "sha256-mFkW/ByihaNgF8wVhpAqZQ4XaOlf4cPkBQzh/OyypJ4=";
+    hash = "sha256-tJ9kBBO7hflRgwD/ukqSCQlXcULerH9MWh+hIa6o0J4=";
   };
 
   icon = fetchurl {
