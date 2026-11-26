@@ -16,9 +16,9 @@ const plugins = {
     release: {
       assets: {
         "aarch64-linux":
-          "org\\.waywallen\\.open-wallpaper-engine-{version}-linux-aarch64\\.zip",
+          "open-wallpaper-engine-{version}-linux-aarch64\\.zip",
         "x86_64-linux":
-          "org\\.waywallen\\.open-wallpaper-engine-{version}-linux-x86_64\\.zip",
+          "open-wallpaper-engine-{version}-linux-x86_64\\.zip",
       },
       repository: "waywallen/open-wallpaper-engine",
       stripPrefix: "v",
