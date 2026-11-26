@@ -14,6 +14,7 @@
   cmake,
   ninja,
   pkg-config,
+  ffmpeg,
   extract-xiso,
   unzip,
   gtk3,
@@ -108,15 +109,18 @@ clangStdenv.mkDerivation {
     ninja
     pkg-config
     python
+    ffmpeg
   ]
   ++ lib.optional (discImage != null) extract-xiso
-  ++ lib.optional stdenv.hostPlatform.isDarwin makeWrapper;
+  ++ lib.optional (stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isDarwin) makeWrapper;
 
   buildInputs =
     lib.optionals stdenv.hostPlatform.isLinux [
       gtk3
       libx11
       libxcb
+      # volk dlopens the Vulkan loader by name, so nothing links it.
+      vulkan-loader
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       # The runtime reaches Vulkan the way upstream's macOS package does: volk
@@ -144,6 +148,7 @@ clangStdenv.mkDerivation {
     # after the registry is destroyed), which fails every codegen target even
     # though the code was written. See the patch for the fix.
     patch -p1 -d third_party/rexglue-sdk --input ${./rexglue-cli-skip-static-dtors.patch}
+    patch -p1 --input ${./installer-nix-python.patch}
   '';
 
   dontConfigure = true;
@@ -202,9 +207,10 @@ clangStdenv.mkDerivation {
       -DREXGLUE_USE_VULKAN=ON
       -DREXGLUE_ENABLE_TRACY=OFF
       -DSKATE3_GAME_DATA_ROOT="$PWD/game"
-      -DSKATE3_STAGE_INSTALLER=OFF
       -DFETCHCONTENT_SOURCE_DIR_FREETYPE=${freetypeSrc}
       -DPython3_EXECUTABLE=${python}/bin/python3
+      -DSKATE3_INSTALLER_PYTHON_ROOT=${python}
+      -DSKATE3_INSTALLER_FFMPEG=${ffmpeg}/bin/ffmpeg
     )
     ${lib.optionalString stdenv.hostPlatform.isDarwin ''
       # Upstream's macOS runner sets this explicitly; both the game and the SDK
@@ -228,6 +234,9 @@ clangStdenv.mkDerivation {
     runHook preInstall
     bin_dir=$(dirname "$(find . -type f -name skate3 -perm -u+x -print -quit)")
     install -Dm755 "$bin_dir/skate3" "$out/bin/skate3"
+    if [ -d "$bin_dir/installer" ]; then
+      cp -a "$bin_dir/installer" "$out/bin/"
+    fi
     for lib in "$bin_dir"/*.so* "$bin_dir"/*.dylib; do
       [ -e "$lib" ] && cp -a "$lib" "$out/bin/"
     done
@@ -235,19 +244,25 @@ clangStdenv.mkDerivation {
     runHook postInstall
   '';
 
-  # Upstream's macOS package copies MoltenVK next to the executable and writes
-  # the ICD manifest beside it; the store paths are used instead, so the
-  # launcher gets both through its environment.
-  postFixup = lib.optionalString stdenv.hostPlatform.isDarwin ''
-    wrapProgram $out/bin/skate3 \
-      --prefix DYLD_FALLBACK_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          vulkan-loader
-          moltenvk
-        ]
-      } \
-      --set VK_ICD_FILENAMES ${moltenvk}/share/vulkan/icd.d/MoltenVK_icd.json
-  '';
+  # volk reaches the Vulkan loader through dlopen rather than a DT_NEEDED
+  # entry. Upstream's macOS package also copies MoltenVK and its ICD manifest
+  # next to the executable; the store paths are used instead, so the launcher
+  # gets both through its environment.
+  postFixup =
+    lib.optionalString stdenv.hostPlatform.isLinux ''
+      wrapProgram $out/bin/skate3 \
+        --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ vulkan-loader ]}
+    ''
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      wrapProgram $out/bin/skate3 \
+        --prefix DYLD_FALLBACK_LIBRARY_PATH : ${
+          lib.makeLibraryPath [
+            vulkan-loader
+            moltenvk
+          ]
+        } \
+        --set VK_ICD_FILENAMES ${moltenvk}/share/vulkan/icd.d/MoltenVK_icd.json
+    '';
 
   passthru = {
     inherit sdk;

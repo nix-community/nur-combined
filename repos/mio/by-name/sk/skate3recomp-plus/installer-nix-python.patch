@@ -1,0 +1,19 @@
+Allow the private installer runtime to keep the absolute links into the Nix
+store that python3.withPackages produces. Upstream's packaging rejects them
+because a portable release must be self-contained; a Nix build keeps the
+referenced store paths instead.
+
+--- a/tools/package_nsv_installer.py
++++ b/tools/package_nsv_installer.py
+@@ -74,9 +74,10 @@ def stage_posix_python(runtime, destination):
+         target = destination / relative
+         if source.is_symlink():
+             if not source.resolve().is_relative_to(runtime):
+-                raise ValueError('The private interpreter contains an external symlink')
+-            link = source.readlink()
++                link = source.resolve()
++            else:
++                link = source.readlink()
+             target.parent.mkdir(parents=True, exist_ok=True)
+             if target.is_symlink() and target.readlink() == link:
+                 continue
