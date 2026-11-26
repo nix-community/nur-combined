@@ -44,7 +44,7 @@ in
       # keep-sorted end
     ];
     # Must match the vendored modules of the pinned Albedo revision.
-    vendorHash = "sha256-/5RQfj2hLn6lHAF58O6vvOrIKpeCDywqc2ROCQ9oFBQ=";
+    vendorHash = "sha256-RCjbIsDc/7rcLqIdSyueko7Gx6R51kZFygInOd9SZcE=";
 
     # keep-sorted start
     ALBEDO_NO_BROWSER = "1";
