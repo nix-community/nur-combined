@@ -1,0 +1,220 @@
+diff --git a/lib/modules/manager/gleam/extract.spec.ts b/lib/modules/manager/gleam/extract.spec.ts
+index 63ac46d1a..a9194a9ea 100644
+--- a/lib/modules/manager/gleam/extract.spec.ts
++++ b/lib/modules/manager/gleam/extract.spec.ts
+@@ -62,6 +62,81 @@ describe('modules/manager/gleam/extract', () => {
+     ]);
+   });
+ 
++  it('should extract table dependencies and skip path and git ones', async () => {
++    const gleamTomlString = codeBlock`
++      name = "test_gleam_toml"
++      version = "1.0.0"
++
++      [dependencies]
++      gleam_stdlib = { version = ">= 0.44.0 and < 2.0.0" }
++      local_dep = { path = "../local_dep" }
++      git_dep = { git = "https://github.com/example/git_dep.git", ref = "main" }
++      odd_dep = {}
++
++      [dev-dependencies]
++      gleeunit = ">= 1.0.0 and < 2.0.0"
++    `;
++    const lockFileContent = codeBlock`
++      packages = [
++        { name = "git_dep", version = "1.0.0", build_tools = ["gleam"], requirements = [], source = "git", repo = "https://github.com/example/git_dep.git", commit = "4ee2a4c0d1b6b3ae4b0ca4e1cd8f68eadbd36a94" },
++        { name = "gleam_stdlib", version = "1.2.0", build_tools = ["gleam"], requirements = [], otp_app = "gleam_stdlib", source = "hex", outer_checksum = "93D27B978967D61211E06BB1F1062BCF36B6E546F67A575EFA928605F467AF65" },
++        { name = "gleeunit", version = "1.11.0", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "gleeunit", source = "hex", outer_checksum = "EC31ABA74256AEA531EDF8169931D775BBB384FED0A8A1BDC4DD9354E3E21826" },
++        { name = "local_dep", version = "0.1.0", build_tools = ["gleam"], requirements = ["gleam_stdlib"], source = "local", path = "../local_dep" },
++      ]
++
++      [requirements]
++      git_dep = { git = "https://github.com/example/git_dep.git", ref = "main" }
++      gleam_stdlib = { version = ">= 0.44.0 and < 2.0.0" }
++      gleeunit = { version = ">= 1.0.0 and < 2.0.0" }
++      local_dep = { path = "../local_dep" }
++    `;
++
++    fs.getSiblingFileName.mockReturnValueOnce('manifest.toml');
++    fs.readLocalFile.mockResolvedValueOnce(lockFileContent);
++    fs.localPathExists.mockResolvedValueOnce(true);
++    const extracted = await gleamManager.extractPackageFile(
++      gleamTomlString,
++      'gleam.toml',
++    );
++    expect(extracted).toEqual({
++      deps: [
++        {
++          currentValue: '>= 0.44.0 and < 2.0.0',
++          datasource: 'hex',
++          depName: 'gleam_stdlib',
++          depType: 'dependencies',
++          lockedVersion: '1.2.0',
++        },
++        {
++          datasource: 'hex',
++          depName: 'local_dep',
++          depType: 'dependencies',
++          skipReason: 'path-dependency',
++        },
++        {
++          datasource: 'hex',
++          depName: 'git_dep',
++          depType: 'dependencies',
++          skipReason: 'git-dependency',
++        },
++        {
++          datasource: 'hex',
++          depName: 'odd_dep',
++          depType: 'dependencies',
++          skipReason: 'unspecified-version',
++        },
++        {
++          currentValue: '>= 1.0.0 and < 2.0.0',
++          datasource: 'hex',
++          depName: 'gleeunit',
++          depType: 'devDependencies',
++          lockedVersion: '1.11.0',
++        },
++      ],
++      lockFiles: ['manifest.toml'],
++    });
++  });
++
+   it('should return null when no dependencies are found', async () => {
+     const gleamTomlString = codeBlock`
+       name = "test_gleam_toml"
+diff --git a/lib/modules/manager/gleam/extract.ts b/lib/modules/manager/gleam/extract.ts
+index bbf179826..008344b70 100644
+--- a/lib/modules/manager/gleam/extract.ts
++++ b/lib/modules/manager/gleam/extract.ts
+@@ -1,3 +1,4 @@
++import { isString } from '@sindresorhus/is';
+ import { logger } from '../../../logger/index.ts';
+ import { coerceArray } from '../../../util/array.ts';
+ import { getSiblingFileName, localPathExists } from '../../../util/fs/index.ts';
+@@ -6,6 +7,7 @@ import { HexDatasource } from '../../datasource/hex/index.ts';
+ import { api as versioning } from '../../versioning/hex/index.ts';
+ import type { PackageDependency, PackageFileContent } from '../types.ts';
+ import { extractLockFileVersions } from './locked-version.ts';
++import type { GleamDependency } from './schema.ts';
+ import { GleamToml } from './schema.ts';
+ 
+ const dependencySections = ['dependencies', 'dev-dependencies'] as const;
+@@ -24,29 +26,40 @@ function mapSectionKey(sectionKey: string): string {
+ function toPackageDep({
+   name,
+   sectionKey,
+-  version,
++  requirement,
+ }: {
+   name: string;
+   sectionKey: string;
+-  version: string;
++  requirement: GleamDependency;
+ }): PackageDependency {
+-  return {
++  const dep: PackageDependency = {
+     depName: name,
+     depType: mapSectionKey(sectionKey),
+     datasource: HexDatasource.id,
+-    currentValue: version,
+   };
++  if (isString(requirement)) {
++    dep.currentValue = requirement;
++  } else if (isString(requirement.version)) {
++    dep.currentValue = requirement.version;
++  } else if (isString(requirement.path)) {
++    dep.skipReason = 'path-dependency';
++  } else if (isString(requirement.git)) {
++    dep.skipReason = 'git-dependency';
++  } else {
++    dep.skipReason = 'unspecified-version';
++  }
++  return dep;
+ }
+ 
+ function toPackageDeps({
+   deps,
+   sectionKey,
+ }: {
+-  deps?: Record<string, string>;
++  deps?: Record<string, GleamDependency>;
+   sectionKey: string;
+ }): PackageDependency[] {
+-  return Object.entries(coerceObject(deps)).map(([name, version]) =>
+-    toPackageDep({ name, sectionKey, version }),
++  return Object.entries(coerceObject(deps)).map(([name, requirement]) =>
++    toPackageDep({ name, sectionKey, requirement }),
+   );
+ }
+ 
+@@ -95,6 +108,9 @@ export async function extractPackageFile(
+   packageFileContent.lockFiles = [lockFileName];
+ 
+   for (const dep of packageFileContent.deps) {
++    if (dep.skipReason) {
++      continue;
++    }
+     const packageName = dep.depName!;
+     const versions = coerceArray(versionsByPackage.get(packageName));
+     const lockedVersion = versioning.getSatisfyingVersion(
+diff --git a/lib/modules/manager/gleam/readme.md b/lib/modules/manager/gleam/readme.md
+index e7a7b6b85..77f460909 100644
+--- a/lib/modules/manager/gleam/readme.md
++++ b/lib/modules/manager/gleam/readme.md
+@@ -4,6 +4,18 @@ Renovate can update `gleam.toml` and/or `manifest.toml` files.
+ 
+ The `gleam` manager extracts dependencies for the `hex` datasource, and uses Renovate's implementation of Hex SemVer to evaluate `gleam.toml` updates.
+ 
++Renovate updates dependencies whose requirement is a version range, either as a string or as a `version` table:
++
++```toml
++[dependencies]
++gleam_stdlib = ">= 0.44.0 and < 2.0.0"
++gleam_json = { version = ">= 3.0.0 and < 4.0.0" }
++local_package = { path = "../local_package" }
++git_package = { git = "https://github.com/example/git_package.git", ref = "main" }
++```
++
++Renovate skips `path` and `git` dependencies, and still updates the rest of the file.
++
+ ### How Renovate updates `manifest.toml` files
+ 
+ The `gleam` manager uses the `gleam` program to update `manifest.toml` files.
+diff --git a/lib/modules/manager/gleam/schema.ts b/lib/modules/manager/gleam/schema.ts
+index 895673f97..4afb9d22f 100644
+--- a/lib/modules/manager/gleam/schema.ts
++++ b/lib/modules/manager/gleam/schema.ts
+@@ -1,11 +1,22 @@
+ import { z } from 'zod/v4';
+ import { Toml } from '../../../util/schema-utils/index.ts';
+ 
++// A requirement is a Hex version range, as a string or a `version` table, or a
++// `path` or `git` table for a dependency that does not come from Hex.
++const GleamDependency = z.union([
++  z.string(),
++  z.object({
++    version: z.string().optional(),
++    path: z.string().optional(),
++    git: z.string().optional(),
++  }),
++]);
++
+ export const GleamToml = Toml.pipe(
+   z.object({
+     name: z.string(),
+-    dependencies: z.record(z.string(), z.string()).optional(),
+-    ['dev-dependencies']: z.record(z.string(), z.string()).optional(),
++    dependencies: z.record(z.string(), GleamDependency).optional(),
++    ['dev-dependencies']: z.record(z.string(), GleamDependency).optional(),
+   }),
+ );
+ 
+@@ -21,5 +32,6 @@ export const ManifestToml = Toml.pipe(
+   }),
+ );
+ 
++export type GleamDependency = z.infer<typeof GleamDependency>;
+ export type GleamToml = z.infer<typeof GleamToml>;
+ export type ManifestToml = z.infer<typeof ManifestToml>;

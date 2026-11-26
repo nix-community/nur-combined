@@ -27,7 +27,13 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-bNXofe/YIOtxiuV40Icl5os0WfDyKpowt30Edm4NCMU=";
   };
 
-  patches = [ ./45258.diff ];
+  patches = [
+    ./45258.diff
+    # gleam.toml dependencies may be tables, such as `{ path = "../a" }`, which the gleam
+    # manager's schema rejects, skipping the whole file: extract `version` tables and skip path
+    # and git dependencies instead
+    ./gleam-table-dependencies.diff
+  ];
 
   postPatch = ''
     substituteInPlace package.json \
@@ -115,6 +121,21 @@ stdenv.mkDerivation (finalAttrs: {
       --enabled-managers=npm
     popd
 
+    # gleam-table-dependencies.diff: a path dependency is skipped, not the whole gleam.toml
+    gleamDir="$(mktemp -d)"
+    printf '%s\n' 'name = "app"' '[dependencies]' 'gleam_stdlib = "~> 1.0"' \
+      'local_dep = { path = "./local_dep" }' > "$gleamDir/gleam.toml"
+    printf '%s\n' '{}' > "$gleamDir/renovate.json"
+    pushd "$gleamDir"
+    LOG_LEVEL=debug "$out/bin/renovate" \
+      --platform=local \
+      --dry-run=extract \
+      --repository-cache=disabled \
+      --enabled-managers=gleam > extract.log 2>&1
+    grep -q '"skipReason": "path-dependency"' extract.log
+    grep -q '"depName": "gleam_stdlib"' extract.log
+    popd
+
     runHook postInstallCheck
   '';
 
@@ -130,7 +151,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "Cross-platform dependency automation, with patches for nix";
+    description = "Cross-platform dependency automation, with patches for nix and gleam";
     homepage = "https://github.com/renovatebot/renovate";
     changelog = "https://github.com/renovatebot/renovate/releases/tag/${finalAttrs.version}";
     license = lib.licenses.agpl3Only;
