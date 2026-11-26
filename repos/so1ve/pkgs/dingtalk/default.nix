@@ -81,7 +81,7 @@
 }:
 
 let
-  screenshareHook = lib.optionalString stdenv.isx86_64 (
+  screenshareHook = lib.optionalString stdenv.hostPlatform.isx86_64 (
     "${callPackage ./wayland-screenshare.nix { }}/lib/libdingtalkhook.so"
   );
 
@@ -226,7 +226,7 @@ stdenv.mkDerivation (finalAttrs: {
       --unset WAYLAND_DISPLAY \
       --set QT_QPA_PLATFORM xcb \
       --set QT_AUTO_SCREEN_SCALE_FACTOR 1 \
-      ${lib.optionalString stdenv.isx86_64 "--prefix LD_PRELOAD : ${screenshareHook}"} \
+      ${lib.optionalString stdenv.hostPlatform.isx86_64 "--prefix LD_PRELOAD : ${screenshareHook}"} \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}"
 
     install -Dm444 "$out/lib/Resources/image/common/about/logo.png" \
@@ -257,7 +257,7 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  passthru = lib.optionalAttrs stdenv.isx86_64 {
+  passthru = lib.optionalAttrs stdenv.hostPlatform.isx86_64 {
     dingtalk-wayland-screenshare = callPackage ./wayland-screenshare.nix { };
   };
 

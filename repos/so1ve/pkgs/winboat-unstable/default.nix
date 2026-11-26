@@ -78,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
     outputHashMode = "recursive";
   };
 
-  guest-server = pkgsCross.mingwW64.callPackage ./guest-server.nix {
+  guest-server = pkgsCross.mingw-msvcrt-x86_64.callPackage ./guest-server.nix {
     inherit source;
     version = appVersion;
   };
