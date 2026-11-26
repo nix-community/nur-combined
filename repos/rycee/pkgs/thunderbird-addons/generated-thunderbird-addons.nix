@@ -99,10 +99,10 @@
     };
     "filtaquilla" = buildMozillaXpiAddon {
       pname = "filtaquilla";
-      version = "6.3.2";
+      version = "6.3.3";
       addonId = "filtaquilla@mesquilla.com";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1054016/filtaquilla-6.3.2-tb.xpi?src=";
-      sha256 = "6a2a9e2ef883b28ddaba17daf041d61ec7cd65e561ed28d5e099823ef2284a7f";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1056237/filtaquilla-6.3.3-tb.xpi?src=";
+      sha256 = "513e2499003147f6fe8c2b88619fdd095a332d7761791b9d0df9e07a0f6149f7";
       meta = with lib;
       {
         homepage = "http://quickfilters.mozdev.org/filtaquilla.html";
@@ -361,10 +361,10 @@
     };
     "tb-langpack-de" = buildMozillaXpiAddon {
       pname = "tb-langpack-de";
-      version = "153.8.20261120.213735";
+      version = "162.0.20261124.205120";
       addonId = "langpack-de@thunderbird.mozilla.org";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1056146/deutsch_de_language_pack-153.8.20261120.213735-tb.xpi?src=";
-      sha256 = "680395eabf819605aba8fcdc33cced255c99e1f48ee3582fde63f42cd020f47c";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1056286/deutsch_de_language_pack-162.0.20261124.205120-tb.xpi?src=";
+      sha256 = "d4ce273746f7a2b0a4b084f3156dbad9eaf88d19d328664f48fd36ea97f61bd9";
       meta = with lib;
       {
         description = "Deutsch (de) Language Pack";
