@@ -11,22 +11,22 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    x86_64-linux = "18iq27p8l37554n2mdhaykq725znp49bd814csgnq8343y80hgn7";
-    aarch64-linux = "0b4rq1spfwbidy63s9dknqyag7lzpmvzpmmgrli30vfrl18ih6ax";
-    x86_64-darwin = "080jxn8wfj4rrv9wvmzkahpp13yjkyrsnkl1pbl3c5dbcbfa9cld";
-    aarch64-darwin = "1mm83xx9p02ia9wx0ccbps3qac5pzfm3zgarkrz3alpdyp3ym9bd";
+    x86_64-linux = "0s6xhzwjrzyxkxa94f1dmbwvvizm0a2w6kbb1wfiwl6jhk8khfz0";
+    aarch64-linux = "1kk4p1bjj750fsaaf77h7ca139lnk0f87h3bp901jmb2l9vir3zv";
+    x86_64-darwin = "09pkgngbslkv9s78nr57i4qjd5l44ypmp0r8d8nbnkxx40c9b3m0";
+    aarch64-darwin = "0lacwj3589za4y4a9adifjhbqf9dhmh7db1cyaxw71l7jqqj2p5j";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/nickheyer/icebath/releases/download/v1.1.2/icebath_1.1.2_linux_amd64.tar.gz";
-    aarch64-linux = "https://github.com/nickheyer/icebath/releases/download/v1.1.2/icebath_1.1.2_linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/nickheyer/icebath/releases/download/v1.1.2/icebath_1.1.2_darwin_amd64.tar.gz";
-    aarch64-darwin = "https://github.com/nickheyer/icebath/releases/download/v1.1.2/icebath_1.1.2_darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/nickheyer/icebath/releases/download/v1.2.1/icebath_1.2.1_linux_amd64.tar.gz";
+    aarch64-linux = "https://github.com/nickheyer/icebath/releases/download/v1.2.1/icebath_1.2.1_linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/nickheyer/icebath/releases/download/v1.2.1/icebath_1.2.1_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://github.com/nickheyer/icebath/releases/download/v1.2.1/icebath_1.2.1_darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "icebath";
-  version = "1.1.2";
+  version = "1.2.1";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
