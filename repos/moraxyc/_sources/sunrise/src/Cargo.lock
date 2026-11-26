@@ -548,7 +548,6 @@ dependencies = [
  "object",
  "png",
  "ring",
- "rustc-demangle",
  "semver",
  "serde",
  "serde_json",
@@ -4666,7 +4665,6 @@ dependencies = [
  "sunrise-perf-format",
  "sunrise-protocol",
  "sunrise-server-files",
- "sunrise-shader-api",
  "sunrise-shaders",
  "sunrise-system",
  "sunrise-telemetry",
@@ -4734,7 +4732,6 @@ dependencies = [
  "flate2",
  "fs4",
  "getrandom 0.3.4",
- "gilrs",
  "glam",
  "log",
  "mio",
@@ -4757,7 +4754,6 @@ dependencies = [
  "sunrise-client-render",
  "sunrise-command",
  "sunrise-core",
- "sunrise-dualsense",
  "sunrise-hooks",
  "sunrise-items",
  "sunrise-java-properties",
@@ -4773,7 +4769,6 @@ dependencies = [
  "sunrise-perf-format",
  "sunrise-protocol",
  "sunrise-server-files",
- "sunrise-shader-api",
  "sunrise-shaders",
  "sunrise-telemetry",
  "sunrise-theme",
@@ -4841,7 +4836,6 @@ dependencies = [
  "sunrise-protocol",
  "sunrise-render-core",
  "sunrise-render-shaderpack",
- "sunrise-shader-api",
  "sunrise-shaders",
  "sunrise-system",
  "sunrise-theme",
@@ -5193,7 +5187,6 @@ dependencies = [
  "sunrise-mod-source",
  "sunrise-mod-surface",
  "sunrise-mod-vocab",
- "sunrise-shader-api",
  "syn 2.0.119",
  "tar",
  "tempfile",
@@ -5211,6 +5204,7 @@ version = "0.1.0"
 dependencies = [
  "naga",
  "sunrise-glsl",
+ "sunrise-mod-vocab",
  "wgpu-types",
 ]
 
@@ -5298,6 +5292,7 @@ dependencies = [
 name = "sunrise-native-build"
 version = "0.1.0"
 dependencies = [
+ "filetime",
  "flate2",
  "libc",
  "object",
@@ -5402,7 +5397,6 @@ dependencies = [
  "sunrise-perf-format",
  "sunrise-protocol",
  "sunrise-server-files",
- "sunrise-shader-api",
  "sunrise-shaders",
  "sunrise-system",
  "sunrise-telemetry",
@@ -5663,20 +5657,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "sunrise-shader-api"
-version = "0.1.0"
-dependencies = [
- "bytemuck",
- "naga",
- "png",
- "serde",
- "serde_json",
- "sha2 0.10.9",
- "toml",
- "zip",
-]
-
-[[package]]
 name = "sunrise-shaders"
 version = "0.1.0"
 dependencies = [
@@ -5758,6 +5738,8 @@ dependencies = [
  "sunrise-mod-api-macros",
  "sunrise-mod-vocab",
  "sunrise-threads",
+ "tar",
+ "ureq",
  "xxhash-rust",
 ]
 
