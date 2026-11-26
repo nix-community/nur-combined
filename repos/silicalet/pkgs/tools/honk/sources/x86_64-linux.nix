@@ -1,5 +1,5 @@
 {
-  version = "0.1.0-beta.6";
-  hash = "sha256-J4O48IVvwa7NHNHZEdmpBMWTzVB89h5fok+9cHUxckQ=";
-  noDoonaHash = "sha256-/uEF4bVdyaLm1wQKYp2Ur3v5+zQuvZhn9Nt7I/JIGq0=";
+  version = "0.1.0-beta.7";
+  hash = "sha256-nz0iSo3OOPfhUcYUB6tu3bPHoYJ18T6zdDMCsaEgxmw=";
+  noDoonaHash = "sha256-cSDkUs/W35+zWs7R8qgz6ZdYsIrE7hrYdoYJHeNYc8U=";
 }
