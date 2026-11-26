@@ -1,7 +1,7 @@
 {
   lib,
   fetchFromGitHub,
-  flutter347,
+  flutter350,
   libayatana-appindicator,
   buildGo127Module,
   rustPlatform,
@@ -10,11 +10,13 @@
   autoPatchelfHook,
   imagemagick,
   sqlite,
+  pkg-config,
+  gtk3,
 }:
 
 let
   pname = "flclash";
-  version = "0.9.3";
+  version = "0.9.5";
 
   src = fetchFromGitHub {
     owner = "chen08209";
@@ -25,7 +27,7 @@ let
       export GIT_CONFIG_KEY_0=url.https://github.com/.insteadOf
       export GIT_CONFIG_VALUE_0=git@github.com:
     '';
-    hash = "sha256-HVyVBCmFzSAdp2NtPS8vIwqo67d/e0klgAHd/MbJzEg=";
+    hash = "sha256-+EBrNQnR4o6LShhN/g3fUQT8Ef6FFJjnuFLwFMGexH0=";
     fetchSubmodules = true;
   };
 
@@ -42,7 +44,7 @@ let
 
     modRoot = "core";
 
-    vendorHash = "sha256-9rvq8PtXDxwORx80GBQa4CHIm2b3iDqWRkA55osiQl0=";
+    vendorHash = "sha256-UqV876KJcvr4xCdo2SktvGdNaj0v9YgADPWV6Pu22aQ=";
 
     env.CGO_ENABLED = 0;
 
@@ -62,7 +64,12 @@ let
 
     sourceRoot = "${src.name}/plugins/rust_api/rust";
 
-    cargoHash = "sha256-IWXqZxqjiV4frGpGeHSBvPPQWbr0tzzNDzp+9BQ0ZG4=";
+    cargoHash = "sha256-PbZtKbvjgfQSbIuPO43SBsD7BeLWa2dlB4DdDaz6G7I=";
+
+    # The Linux target links against GTK/GDK (the tray implementation and
+    # global hotkeys), so the corresponding -sys crates need pkg-config.
+    nativeBuildInputs = [ pkg-config ];
+    buildInputs = [ gtk3 ];
 
     installPhase = ''
       runHook preInstall
@@ -100,7 +107,7 @@ let
     '';
   };
 in
-flutter347.buildFlutterApplication {
+flutter350.buildFlutterApplication {
   inherit pname version src;
 
   pubspecLock = lib.importJSON ./pubspec.lock.json;
@@ -141,10 +148,9 @@ flutter347.buildFlutterApplication {
     substituteInPlace pubspec.yaml \
       --replace-fail "build_assets: true" "build_assets: false"
 
-    # Dart 3.13.0 as bundled with flutter347 does not accept the `final`
-    # modifier on named parameters (written against Dart >=3.13.2). The
-    # modifier only forbids reassigning the parameter inside the function
-    # body, so it can be dropped safely.
+    # The `final` modifier on named parameters is not understood with the
+    # language version this package declares (sdk: '>=3.10.0'). It only marks
+    # the parameter as non-reassignable inside the body, so drop it.
     sed --in-place --regexp-extended \
       's/^(\s*)final (VoidCallback\? onPressed,)$/\1\2/' \
       lib/views/profiles/custom/groups.dart \
@@ -205,7 +211,7 @@ flutter347.buildFlutterApplication {
   passthru = {
     inherit core rustApi helper;
     updateScript = ./update.sh;
-    flutter = flutter347;
+    flutter = flutter350;
   };
 
   meta = meta // {
