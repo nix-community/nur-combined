@@ -26,8 +26,8 @@ mihomo-oix has a manifest of binary hashes for each platform and an update scrip
 
 The script verifies that the rolling release has a consistent version across all platforms before updating `versions.json`.
 
-codex-bin stores its release version and per-platform CLI and code-mode host
-binary hashes in `pkgs/codex-bin/versions.json`. Use
-`./pkgs/codex-bin/update.sh [tag]` (default: latest stable release) to update all
-components together. Tags use the `rust-v<version>` format. The script replaces
-the manifest only after every component has been downloaded successfully.
+codex-bin stores its release version and per-platform release archive hashes in
+`pkgs/codex-bin/versions.json`. Use `./pkgs/codex-bin/update.sh [tag]` (default:
+latest stable release) to update them together. Tags use the `rust-v<version>`
+format. The script replaces the manifest only after every archive has been
+downloaded successfully.

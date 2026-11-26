@@ -9,7 +9,7 @@ A personal [NUR](https://github.com/nix-community/NUR) package repository.
 | `patchelf-unstable` | 0.19.3-unstable-2026-10-30 | Same as nixpkgs patchelf |
 | `portop` | v0.4.0 | Linux, Darwin |
 | `mihomo-oix` | alpha-oix-5413cd5 | x86_64-linux (amd64-v3), aarch64-linux, aarch64-darwin |
-| `codex-bin` | 0.170.0 | aarch64-darwin, x86_64-linux (musl binaries) |
+| `codex-bin` | 0.171.0 | aarch64-darwin, x86_64-linux (musl CLI) |
 
 The initial versions and hashes were migrated from nix-conf.
 
@@ -44,10 +44,10 @@ The default overlay reuses this overlay, which explicitly passes the previous sc
 `rime-ice` package to avoid resolving its own replacement through `callPackage`.
 
 `mihomo-oix` provides `bin/mihomo`; the overlay does not replace nixpkgs' `mihomo` attribute.
-`codex-bin` provides `bin/codex` and `bin/codex-code-mode-host`, shell completions,
-and the package layout required by the daemon. The overlay leaves nixpkgs' `codex`
-attribute unchanged. This package uses official release binaries; no `codex-src`
-package is provided.
+`codex-bin` installs the official release archive, including the daemon package
+layout, exec server, and voice runtime. It exposes `bin/codex` and
+`bin/codex-code-mode-host` and installs shell completions. The overlay leaves
+nixpkgs' `codex` attribute unchanged. No `codex-src` package is provided.
 Flake `packages` outputs are filtered by platform.
 `patchelf-unstable` includes the pinned LOAD segment fix from nix-conf (upstream PR #672); the overlay does not replace the standard `patchelf` package.
 
@@ -81,9 +81,9 @@ succeed.
 updating its binary hash manifest.
 
 `codex-bin` defaults to the latest stable GitHub release, or accepts a tag such
-as `rust-v0.167.0`. It updates the version and hashes of both the CLI and
-code-mode host for every supported platform together in `versions.json`, and
-replaces the manifest only after all downloads succeed.
+as `rust-v0.171.0`. It updates the version and release archive hash for every
+supported platform together in `versions.json`, and replaces the manifest only
+after all downloads succeed.
 
 To update all five supported packages from this checkout:
 

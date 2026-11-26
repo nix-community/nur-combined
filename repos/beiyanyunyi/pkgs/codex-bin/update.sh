@@ -31,32 +31,18 @@ trap 'rm -f "$TMP" "$TMP.next"' EXIT
 
 jq --arg version "$VERSION" '.version = $version' "$JSON_FILE" > "$TMP"
 
-for system in $(jq -r 'keys[] | select(. != "version")' "$JSON_FILE"); do
-  name=$(jq -r --arg system "$system" '.[$system].name' "$JSON_FILE")
-  codehost_name=$(jq -r --arg system "$system" \
-    '.[$system] | .codehost.name // (.name | sub("^codex-"; "codex-code-mode-host-"))' "$JSON_FILE")
+platforms=$(jq -er 'del(.version) | to_entries[] | [.key, .value.target] | @tsv' "$JSON_FILE")
+while IFS=$'\t' read -r system target; do
+  url="https://github.com/$OWNER/$REPO/releases/download/$TAG/codex-package-$target.tar.zst"
 
-  for component in codex codehost; do
-    if [[ "$component" == "codex" ]]; then
-      asset_name="$name"
-      path=$(jq -cn --arg system "$system" '[$system]')
-    else
-      asset_name="$codehost_name"
-      path=$(jq -cn --arg system "$system" '[$system, "codehost"]')
-    fi
-    url="https://github.com/$OWNER/$REPO/releases/download/$TAG/$asset_name.zst"
+  echo "Prefetching $system ..."
+  echo "  url: $url"
+  hash=$(nix store prefetch-file "$url" --json | jq -er .hash)
+  echo "  hash: $hash"
 
-    echo "Prefetching $system ($component) ..."
-    echo "  url: $url"
-
-    hash=$(nix store prefetch-file "$url" --json | jq -er .hash)
-
-    echo "  hash: $hash"
-    jq --argjson path "$path" --arg name "$asset_name" --arg hash "$hash" \
-      'setpath($path + ["name"]; $name) | setpath($path + ["hash"]; $hash)' "$TMP" > "$TMP.next"
-    mv "$TMP.next" "$TMP"
-  done
-done
+  jq --arg system "$system" --arg hash "$hash" '.[$system].hash = $hash' "$TMP" > "$TMP.next"
+  mv "$TMP.next" "$TMP"
+done <<< "$platforms"
 
 mv "$TMP" "$JSON_FILE"
 echo "Updated $JSON_FILE"
