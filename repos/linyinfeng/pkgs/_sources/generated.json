@@ -23,7 +23,7 @@
     "baibot": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-DAZN81MeHUB2NWmK2lgeeZmMnQc4qc_n6gZvDyYqh1M=/Cargo.lock",
+                "sha256-NsGmRd7IOvksY1hfk1a1hBZIy4v+P5fj5cQESgaF9wM=/Cargo.lock",
                 {}
             ]
         },
@@ -39,12 +39,12 @@
             "name": null,
             "owner": "etkecc",
             "repo": "baibot",
-            "rev": "v2026.11.24.0",
-            "sha256": "sha256-DAZN81MeHUB2NWmK2lgeeZmMnQc4qc/n6gZvDyYqh1M=",
+            "rev": "v2026.11.25.0",
+            "sha256": "sha256-NsGmRd7IOvksY1hfk1a1hBZIy4v+P5fj5cQESgaF9wM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2026.11.24.0"
+        "version": "v2026.11.25.0"
     },
     "codestable": {
         "cargoLock": null,
@@ -187,12 +187,12 @@
             "name": null,
             "owner": "intel",
             "repo": "linux-intel-lts",
-            "rev": "lts-v6.18.60-linux-261111T082753Z",
-            "sha256": "sha256-nprqDJrz55Yd040qa7kqjV8jAnscFUUyiCs/flc6MyQ=",
+            "rev": "lts-v6.18.64-linux-261119T045755Z",
+            "sha256": "sha256-9UTwQAp8NT7+WoEwMKsqTvvRockBHh8Wrj/sSI75bW4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "lts-v6.18.60-linux-261111T082753Z"
+        "version": "lts-v6.18.64-linux-261119T045755Z"
     },
     "linux-intel-mainline-tracking": {
         "cargoLock": null,
