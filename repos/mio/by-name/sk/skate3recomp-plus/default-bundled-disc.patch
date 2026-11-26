@@ -1,0 +1,22 @@
+Use the disc image supplied to the Nix build as the default setup source.
+The image is linked beside the executable, so setup does not make the player
+select the same ISO again after it was already used for recompilation.
+
+--- a/src/skate3_setup_dialog.cpp
++++ b/src/skate3_setup_dialog.cpp
+@@ -189,8 +189,14 @@
+     sky_choice_ = REXCVAR_GET(skate3_skate2_night) ? 2 : REXCVAR_GET(skate3_skate2_sky) ? 0 : 1;
+     inputs_.s3 = {paths_.game_data_root, true};
+     rows_[0].ready = ValidateSetupGame(inputs_.s3, 0x454108E6, rows_[0].error);
++    const auto bundled_iso = SetupResourceRoot() / "Skate_3.iso";
++    if (!rows_[0].ready && fs::is_regular_file(bundled_iso)) {
++      inputs_.s3 = {bundled_iso, false};
++      rows_[0].ready = true;
++      rows_[0].detail = "Compile-time disc image";
++    }
+     rows_[0].error.clear();
+-    if (rows_[0].ready) rows_[0].detail = "Already installed";
++    if (rows_[0].ready && rows_[0].detail.empty()) rows_[0].detail = "Already installed";
+     rows_[2].ready = IsTitleUpdateInstalled(paths_.game_data_root);
+     if (rows_[2].ready) { rows_[2].detail = "Verified and installed"; inputs_.verified_tu = paths_.game_data_root; }
+   }

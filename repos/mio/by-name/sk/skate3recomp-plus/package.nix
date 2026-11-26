@@ -18,16 +18,17 @@
   extract-xiso,
   unzip,
   gtk3,
+  gsettings-desktop-schemas,
   libx11,
   libxcb,
   moltenvk,
   vulkan-loader,
   makeWrapper,
-  # Skate 3 Recompiled+ contains no game code or data: the build recompiles
-  # the guest's default.xex and EAWebkit.xex, which come from your own
-  # extracted retail disc. discImage defaults to the archive.org copy of the
-  # disc, which the build unpacks for those two files; override it with your
-  # own image, e.g.
+  wrapGAppsHook3,
+  # Skate 3 Recompiled+'s source contains no game code. The build recompiles
+  # the guest's default.xex and EAWebkit.xex, and the complete disc image also
+  # supplies the runtime installer. discImage defaults to the archive.org copy
+  # of the disc; override it with your own image, e.g.
   #   skate3recomp-plus.override { discImage = /path/to/Skate\ 3.iso; }
   # or pass the two executables from an extracted disc instead:
   #   skate3recomp-plus.override {
@@ -112,11 +113,13 @@ clangStdenv.mkDerivation {
     ffmpeg
   ]
   ++ lib.optional (discImage != null) extract-xiso
-  ++ lib.optional (stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isDarwin) makeWrapper;
+  ++ lib.optional stdenv.hostPlatform.isLinux wrapGAppsHook3
+  ++ lib.optional stdenv.hostPlatform.isDarwin makeWrapper;
 
   buildInputs =
     lib.optionals stdenv.hostPlatform.isLinux [
       gtk3
+      gsettings-desktop-schemas
       libx11
       libxcb
       # volk dlopens the Vulkan loader by name, so nothing links it.
@@ -149,6 +152,7 @@ clangStdenv.mkDerivation {
     # though the code was written. See the patch for the fix.
     patch -p1 -d third_party/rexglue-sdk --input ${./rexglue-cli-skip-static-dtors.patch}
     patch -p1 --input ${./installer-nix-python.patch}
+    patch -p1 --input ${./default-bundled-disc.patch}
   '';
 
   dontConfigure = true;
@@ -180,8 +184,9 @@ clangStdenv.mkDerivation {
       exit 1
     ''}
 
-    # Only these two files are read at build time; the game's assets are
-    # installed at run time from the player's own disc.
+    # Only these two files are read during code generation. The complete disc
+    # image is kept for the runtime installer so it can be used without asking
+    # the player to select the same ISO again.
     mkdir -p game/data/webkit
     ${lib.optionalString (discImage != null) ''
       # extract-xiso has no single-file mode, so unpack the disc and keep only
@@ -241,6 +246,9 @@ clangStdenv.mkDerivation {
       [ -e "$lib" ] && cp -a "$lib" "$out/bin/"
     done
     [ -f "$bin_dir/settings.toml" ] && install -Dm644 "$bin_dir/settings.toml" "$out/bin/settings.toml"
+    ${lib.optionalString (discImage != null) ''
+      ln -s ${discImage} "$out/bin/Skate_3.iso"
+    ''}
     runHook postInstall
   '';
 
@@ -248,10 +256,19 @@ clangStdenv.mkDerivation {
   # entry. Upstream's macOS package also copies MoltenVK and its ICD manifest
   # next to the executable; the store paths are used instead, so the launcher
   # gets both through its environment.
+  preFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
+    gappsWrapperArgs+=(
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ vulkan-loader ]}
+    )
+  '';
+
+  # The installer contains executable helpers of its own; wrap only the game
+  # entry point with the GTK schemas and Vulkan loader.
+  dontWrapGApps = stdenv.hostPlatform.isLinux;
+
   postFixup =
     lib.optionalString stdenv.hostPlatform.isLinux ''
-      wrapProgram $out/bin/skate3 \
-        --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ vulkan-loader ]}
+      wrapProgram $out/bin/skate3 "''${gappsWrapperArgs[@]}"
     ''
     + lib.optionalString stdenv.hostPlatform.isDarwin ''
       wrapProgram $out/bin/skate3 \
@@ -270,12 +287,12 @@ clangStdenv.mkDerivation {
   };
 
   meta = {
-    description = "Enhanced native Skate 3 recompilation (needs your own disc)";
+    description = "Enhanced native Skate 3 recompilation";
     longDescription = ''
       Skate 3 Recompiled+ adds Skate 2's New San Vanelona, a native Vulkan
-      renderer and fixes to a recompilation of Skate 3. It ships no game data:
-      the build recompiles default.xex from your own extracted retail disc,
-      and the game is installed from that disc at run time.
+      renderer and fixes to a recompilation of Skate 3. Its source ships no
+      game data: the pinned disc image is used for code generation and runtime
+      setup, and can be replaced with your own retail disc image.
     '';
     homepage = "https://github.com/dougieprishpreed/skate3recomp-plus";
     # No license file in the repository; it is built on the rexglue SDK and
