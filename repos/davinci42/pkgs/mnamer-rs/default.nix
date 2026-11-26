@@ -9,12 +9,12 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mnamer-rs";
-  version = "3.0.0-dev5";
+  version = "3.0.0-dev9";
 
   src = fetchCrate {
     pname = "mnamer";
     inherit (finalAttrs) version;
-    hash = "sha256-3l70YFbFxKKKUvnBo2d3i/+oAjQ3r+VAEnAeO3KrJSU=";
+    hash = "sha256-6FLh02YHoZ9CgMe/RRz5GIk53efogbp1GlnCWHsBzv0=";
   };
 
   cargoLock.lockFile = ./Cargo.lock;
