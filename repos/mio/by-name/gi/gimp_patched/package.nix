@@ -19,4 +19,11 @@ else
     };
 
     mesonFlags = (old.mesonFlags or [ ]) ++ [ "-Dxcursor=disabled" ];
+
+    # GIMP's macOS relocation support overwrites the wrapper's GDK pixbuf
+    # loader cache with a path that does not exist in nixpkgs' split output.
+    # Without SVG icon support this aborts while initializing the status bar.
+    preFixup = (old.preFixup or "") + ''
+      gappsWrapperArgs+=(--set GIMP_NO_WRAPPER 1)
+    '';
   })
