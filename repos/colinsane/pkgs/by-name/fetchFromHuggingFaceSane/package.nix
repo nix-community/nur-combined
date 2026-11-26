@@ -24,12 +24,13 @@
 #   - calls itself a "streaming proxy"
 # - <https://huffingface.co/>: drop-in replacement for the ~300 most popular models, http only (no `git clone`)
 #   - observed: 13 - 30 MB/s
-# - <https://pirateface.co>: reuses hf.co ${owner}/${repo} namespace, but distributes models via bittorrent
-#   - most models have 0 seeders; your DL will never complete.
 # - <https://modelscope.cn>: mirrors hf.co API and repos
 #   - their mirroring process recreates the git repo though. so one would need to specify a separate `rev` for modelscope v.s. hf.
 #     or maybe try mirroring at the lfs level instead
 #   - observed: steady 12 MB/s DL
+# - <https://pirateface.co>: reuses hf.co ${owner}/${repo} namespace, but distributes models via bittorrent
+#   - most models have 0 seeders; your DL will never complete.
+# - <https://llama.garden/>: like pirateface, but includes web seeds
 # - <https://ai.gitcode.com/hf_mirrors/>: mirrors hf.co repos.
 {
   fetchgit,

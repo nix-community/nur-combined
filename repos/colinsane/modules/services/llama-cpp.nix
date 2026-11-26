@@ -34,6 +34,19 @@ in
       models-dir = "${pkgs.llama-cpp-models}";
       models-preset = "${pkgs.llama-cpp-models}/presets.ini";
 
+      # Decode-first defaults measured on desko with Qwen3.6-35B-A3B.
+      # device = "none" => disables GPU. GPU is < 50% as performant for prompt processing than CPU.
+      # the cost of disabling GPU is that text generation rate decreases as context increases.
+      # below 32k tokens, CPU clearly outperforms; above 64k, GPU outperforms.
+      device = "none";
+      numa = "numactl";
+      threads = 48;
+      threads-batch = 48;
+      # XXX(2026-11-22): flash attention destroys CPU decode speed by up to 35%. 
+      flash-attn = "off";
+      # XXX(2026-11-22): default of 4 parallel slots decreases decode speed by 10-20% _even when only one slot is active_.
+      parallel = 1;
+
       # XXX(2026-04-01): if omitted, llama-cpp will attempt the model's native context, and decrease until it fits into RAM.
       # ctx-size = 131072;
       # ctx-size = 65536;
@@ -65,7 +78,6 @@ in
       # cache-type-v = "q8_0";
       no-warmup = true;  # faster load -> eval, by not feeding it a dummy prompt on load
       no-mmproj = true;  # don't load vision weights
-      # parallel = 1;
 
       # coherence (keep the model from becoming pathological)
       # in actuality, tweaking DRY settings seems to induce typos in non-quantized models!
@@ -80,7 +92,6 @@ in
       # TODO: potential performance optimizations:
       # "--slot-save-path" "PATH"  # persist KV cache to disk
       # "--lookup-cache-dynamic" "FNAME"
-      # "--flash-attn" [on|off|auto]
       # "--no-kv-offload"  # XXX(2026-04-01) this would SIGNIFICANTLY reduce GPU memory usage, but breaks Claude tool use: "failed to parse grammar".
       # "--spec-default"  # speculative decoding
       # "--no-host"
@@ -94,6 +105,12 @@ in
       isSystemUser = true;
     };
 
+    # bind to node 0 and use one hardware thread per physical core.
+    # llama-cpp does not perform well in multi-socket mode; use node 0 for better locality with the GPU, where it's attached.
+    # TODO: enable tensor-level parallelism and drop this -> 30% perf improvement. <https://github.com/ggml-org/llama.cpp/pull/32461>
+    systemd.services.llama-cpp.serviceConfig.CPUAffinity = "0-127";
+    systemd.services.llama-cpp.serviceConfig.NUMAPolicy = "bind";
+    systemd.services.llama-cpp.serviceConfig.NUMAMask = "0";
     systemd.services.llama-cpp.serviceConfig.DynamicUser = lib.mkForce false;  # not required, but DynamicUser is confusing
     systemd.services.llama-cpp.serviceConfig.User = "llama-cpp";
     systemd.services.llama-cpp.environment.MESA_SHADER_CACHE_DIR = "/var/cache/llama-cpp";

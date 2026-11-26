@@ -39,34 +39,35 @@ let
       models = lib.map (p: {
         inherit (p) id;
         name = p.id;
+        # TODO: populate `contextWindow`, `reasoning`, `input`, `compat` fields
       }) llamaCppModelList;
     };
   };
 
-  pollinationsModelsJson = (pkgs.formats.json { }).generate "pollination-models.json" {
-    providers.poll = {
-      baseUrl = "https://text.pollinations.ai/v1";
-      api = "openai-completions";
-      apiKey = "none";
-      models = [
-        {
-          id = "gpt-oss-20b";
-          name = "gpt-oss-20b";
-          cost.input = 0;
-          cost.output = 0;
-          cost.cacheRead = 0;
-          cost.cacheWrite = 0;
-          # guesses, from nanogpt's oss-20b
-          contextWindow = 128000;
-          maxTokens = 16384;
-          reasoning = true;
-          input = [
-            "text"
-          ];
-        }
-      ];
-    };
-  };
+  # pollinationsModelsJson = (pkgs.formats.json { }).generate "pollination-models.json" {
+  #   providers.poll = {
+  #     baseUrl = "https://text.pollinations.ai/v1";
+  #     api = "openai-completions";
+  #     apiKey = "none";
+  #     models = [
+  #       {
+  #         id = "gpt-oss-20b";
+  #         name = "gpt-oss-20b";
+  #         cost.input = 0;
+  #         cost.output = 0;
+  #         cost.cacheRead = 0;
+  #         cost.cacheWrite = 0;
+  #         # guesses, from nanogpt's oss-20b
+  #         contextWindow = 128000;
+  #         maxTokens = 16384;
+  #         reasoning = true;
+  #         input = [
+  #           "text"
+  #         ];
+  #       }
+  #     ];
+  #   };
+  # };
 
   # config docs: <https://github.com/earendil-works/pi/tree/main/packages/coding-agent/docs/mcp.md>
   # schema is similar to pi-mcp-adapter's: <https://github.com/nicobailon/pi-mcp-adapter#config>
@@ -381,6 +382,18 @@ in
       persistStats = false;
     };
 
+    fs.".config/pi/extensions/subagent/config.json".symlink.target =
+      (pkgs.formats.json { }).generate "pi-subagents-config.json" {
+        # pi-subagents: don't declare the subagent tools until actually wanted.
+        # they consume ~1.2k of context, which 95% of sessions don't use.
+        # `toolActivation = "dynamic"` means to instead declare just one `subagents_enable` tool:
+        # once called, the tools are enabled by prepending them into the system prompt (in effect).
+        # for llama-cpp, this forces a full cache invalidation; for openai/anthropic, it somehow does not.
+        # see: <https://github.com/nicobailon/pi-subagents/issues/2589>
+        toolActivation = "dynamic";
+        pinToolDeclarations = false;
+      };
+
     fs.".pi/agent/claude-bridge.json".symlink.target = "../../.config/pi/claude-bridge.json";
     fs.".config/pi/claude-bridge.json".symlink.target =
       (pkgs.formats.json { }).generate "pi-claude-bridge.json"
@@ -424,12 +437,16 @@ in
       pkgs.runCommand "pi-models.json"
         {
           nativeBuildInputs = [ pkgs.jq ];
+          __structuredAttrs = true;
+          models = [
+            "${pkgs.nanogpt-data}/share/pi/models-nanogpt.json"
+            "${llamaCppModelsJson}"
+            ((pkgs.formats.json { }).generate "disabled.json" {}) # "${pollinationsModelsJson}"
+          ];
         }
         ''
           jq --slurp '.[0] * .[1] * .[2]' \
-            ${pkgs.nanogpt-data}/share/pi/models-nanogpt.json \
-            ${llamaCppModelsJson} \
-            ${pollinationsModelsJson} \
+            "''${models[@]}" \
             > $out
         '';
     fs.".config/pi/settings.json".symlink.target = (pkgs.formats.json { }).generate "pi-settings.json" {
@@ -439,9 +456,9 @@ in
       # defaultModel = llamaCppModels.qwen3_5-122b-a10b-ud-q4_k_xl.id;
       # defaultModel = llamaCppModels.qwen3_5-122b-a10b-ud-iq4_xs.id;
       # defaultModel = llamaCppModels.qwen-agentworld-35b-a3b-ud-iq3_s.id;
-      # defaultModel = llamaCppModels.qwen3_6-35b-a3b-mtp-ud-q4_k_m.id;
+      defaultModel = llamaCppModels.qwen3_6-35b-a3b-mtp-ud-q4_k_m.id;
       # defaultModel = llamaCppModels.spark-x2_6-4b-q4_k_m.id;  # about 2x faster than qwen3.6
-      defaultModel = llamaCppModels.nvidia-nemotron-3_5-bolt-e4b-ud-iq3_xxs.id; # less capable than Qwen-based models, but much faster
+      # defaultModel = llamaCppModels.nvidia-nemotron-3_5-bolt-e4b-ud-iq3_xxs.id; # less capable than Qwen-based models, but much faster
       defaultProvider = "llama-cpp";
       defaultThinkingLevel = "medium";
       editorPaddingX = 0;
@@ -484,7 +501,7 @@ in
         pkgs.pi-offline-provider # provides `offline/*` models
       ];
       enabledModels =
-        lib.mapAttrsToList (_: m: m.id) llamaCppModels
+        lib.mapAttrsToList (_: m: "llama-cpp/${m.id}") llamaCppModels
         ++ (lib.optionals cfg.pi-offline-provider (
           lib.mapAttrsToList (_: m: "offline/${m.id}") offlineModels.models
         ))
@@ -508,11 +525,13 @@ in
           # "google/gemma-4-31b-it"
           # "moonshotai/kimi-k2.6"
           # "moonshotai/kimi-k3"  # N.B.: k3 is worse than terra in most measures (cost, capability, speed)
-          # "z-ai/glm-5.3-flash" # $0.30/1M output <https://nano-gpt.com/models/text/z-ai/glm-5.3-flash>
           "openai/gpt-6-luna" # $0.50/1M output <https://nano-gpt.com/models/text/openai/gpt-6-luna>
           "openai/gpt-6.2-sol" # $10/1M output <https://nano-gpt.com/models/text/openai/gpt-6.2-sol>
           # "anthropic/claude-sonnet-5.5" # $10/1M output <https://nano-gpt.com/models/text/anthropic/claude-sonnet-5.5>
           "anthropic/claude-opus-5.5" # $20/1M output <https://nano-gpt.com/models/text/anthropic/claude-opus-5.5>
+          "deepseek/deepseek-v4-flash-latest"  # $0.60/1M output <https://nano-gpt.com/models/text/deepseek/deepseek-v4-flash-latest>
+          "qwen/qwen3.8-flash"  # $0.47/1M output <https://nano-gpt.com/models/text/qwen/qwen3.8-flash>
+          "z-ai/glm-5.3-flash" # $0.30/1M output <https://nano-gpt.com/models/text/z-ai/glm-5.3-flash>
           # "deepseek/deepseek-latest"
           # "zai-org/glm-latest"
           # "x-ai/grok-latest"

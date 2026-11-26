@@ -14,10 +14,10 @@ let
   );
 in
   llama-cpp'.overrideAttrs (finalAttrs: prevAttrs: {
-    version = "12618";
+    version = "12632";
     src = prevAttrs.src.override {
       tag = "b${finalAttrs.version}";
-      hash = "sha256-Iw0WeqEJjxrC2neFe3rCf9Jyx3OWvxrLAvTRyJGyBO4=";
+      hash = "sha256-8OxpJVMO3Kq4h7yrm8YjOcXk9QhaZPZdzDA0scqyVv0=";
     };
     npmRoot = "ui/lib/ui";
     makeCacheWritable = true;

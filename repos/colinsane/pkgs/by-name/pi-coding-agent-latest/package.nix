@@ -14,12 +14,12 @@
   writeShellApplication,
 }:
 let
-  version = "1.6.0-unstable-2026-11-21";
+  version = "1.6.0-unstable-2026-11-22";
   src = fetchFromGitHub {
     owner = "earendil-works";
     repo = "pi";
-    rev = "780bf31fcaeb252fa9b68df3964c735eae75bde3";
-    hash = "sha256-DXtQkI4DK+cUxm+wJQurob6jbpUEASyqyyYXk/aKlXk=";
+    rev = "9c4652688590abb836b40ebd1e4725ecf9a7c7d1";
+    hash = "sha256-R9uf5rOVqKNwEGZLZp97TjPFi8KT9kGDJt1aCG1dJPI=";
   };
   # Pin the latest published catalog separately: upstream's pin can lag behind main.
   modelCatalogHash = "dd93eb2741d05a80f41ffb94b5a1c1ccf33d2866d73292940251fd72584eb4bc";

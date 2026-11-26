@@ -63,6 +63,8 @@ in
       alias.uncommit = "reset HEAD~1";
       alias.unstage = "restore --staged :/";
 
+      branch.autoSetupMerge = "always"; # have `git checkout master && git checkout -b FOO` cause `FOO` to track `master`.
+
       cinnabar.check = "no-version-check"; # git-cinnabar: don't check for new release every invocation :(
 
       commit.verbose = true; # have `git commit` populate both status *and* diff to the editor
