@@ -3,17 +3,17 @@
 { fetchurl, stdenv }:
 
 let
-  version = "0.0.86";
+  version = "0.0.162";
   sources = {
     "x86_64-linux" = {
-      name = "JetBrains.kotlin-server-0.0.86-linux-x64.zip";
-      url = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/JetBrains/vsextensions/kotlin-server/0.0.86/vspackage?targetPlatform=linux-x64";
-      hash = "sha256-5+JbMXiDy0nWgcB7RhiG4jBJ6OhiDqna71C81q8gPTs=";
+      name = "JetBrains.kotlin-server-0.0.162-linux-x64.zip";
+      url = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/JetBrains/vsextensions/kotlin-server/0.0.162/vspackage?targetPlatform=linux-x64";
+      hash = "sha256-hFt/6xz0pZrzjv2AT2gwstCcZooKBlt4MrVeH/IfH/g=";
     };
     "aarch64-linux" = {
-      name = "JetBrains.kotlin-server-0.0.86-linux-arm64.zip";
-      url = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/JetBrains/vsextensions/kotlin-server/0.0.86/vspackage?targetPlatform=linux-arm64";
-      hash = "sha256-qqfkdM1TLIYMLf355gU1w5xTcKcB2bMQDVP+h45FILU=";
+      name = "JetBrains.kotlin-server-0.0.162-linux-arm64.zip";
+      url = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/JetBrains/vsextensions/kotlin-server/0.0.162/vspackage?targetPlatform=linux-arm64";
+      hash = "sha256-nknkLhVUUwRTILn7pwFXs7BHYQJFd7AYyDsFX/oWge0=";
     };
   };
   source =

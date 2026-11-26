@@ -15,10 +15,10 @@
   },
   "netease": {
     "id": "netease",
-    "version": "1.2.0",
-    "rev": "15622912b676dd421cbd00eec53fcc0bd75f093b",
-    "url": "https://codeload.github.com/lymzzyh/ypm-plugin-netease/tar.gz/15622912b676dd421cbd00eec53fcc0bd75f093b",
-    "hash": "sha256-SJ82OCx/WO4rmz/hbiFljqpal5C0x8lPeoEWcU8R7tE="
+    "version": "1.2.2",
+    "rev": "93c9171e50a1c086732d0654b46670035b88acd8",
+    "url": "https://codeload.github.com/lymzzyh/ypm-plugin-netease/tar.gz/93c9171e50a1c086732d0654b46670035b88acd8",
+    "hash": "sha256-75yT4wA3wdAVZjVqRd1OOHvhIHOoxcXW3QrV7vufcSw="
   },
   "plex": {
     "id": "plex",
