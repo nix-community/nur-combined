@@ -15,6 +15,12 @@ buildDotnetModule {
   patches = [ ./writable-data.patch ];
   # Nix owns updates: never replace the source-built engine with release binaries.
   postPatch = ''
+    # 0.9.43 retired the SuperMedo/shadNet online account (OnlineSettings retires
+    # online_password) and removed LauncherSettings.OnlinePassword, but left one use
+    # in the unused Core/SuperMedo.cs, so the launcher no longer compiles from the
+    # tag. Drop that dead check; a no-op once upstream removes it too.
+    substituteInPlace launcher/windows/BloodborneLauncher/Core/SuperMedo.cs \
+      --replace-quiet ': s.OnlinePassword.Length == 0 ? L.T("Enter your SuperMedo account password on the Online page first.")' ""
     # fetch-deps runs with a fresh, writable $HOME. The first .NET 8 CLI call then
     # runs NuGet's one-time migration under a named mutex, and .NET 8 places named
     # mutex files under the passwd home directory, not $HOME. A systemd DynamicUser

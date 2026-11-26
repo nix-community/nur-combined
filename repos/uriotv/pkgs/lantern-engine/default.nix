@@ -2,10 +2,10 @@
   copyDesktopItems, bash, python3, coreutils, findutils, gnugrep, gnused, gawk,
   util-linux, xdg-utils, cacert }:
 let
-  version = "0.9.42";
+  version = "0.9.43";
   src = fetchzip {
     url = "https://github.com/Awakenchan/LanternEngine/archive/refs/tags/v${version}.tar.gz";
-    hash = "sha256-xV2Aa6wM2qgrg/uoJI/7NjdPcXSgaJzUyED7KfK0LMY=";
+    hash = "sha256-o1ZbAk1q0PIBI7tbhThf1IojUyEvsik4QWoFTLkHfhA=";
   };
   engine = callPackage ./engine.nix { inherit src version; };
   launcher = callPackage ./launcher.nix { inherit src version; };
