@@ -1,15 +1,15 @@
 {
-  "version": "alpha-oix-1e25c2f",
+  "version": "alpha-oix-143772f",
   "aarch64-darwin": {
     "name": "mihomo-darwin-arm64",
-    "hash": "sha256-lM0qa35ARfi9OS0D4u4zWWTJHtLAXoEKNAOtR8qv6JA="
+    "hash": "sha256-+iNB2NvEOgBS06vXtVZc/uI3Y/RhlwZ4SltplKGqfK4="
   },
   "x86_64-linux": {
     "name": "mihomo-linux-amd64-v3",
-    "hash": "sha256-w4JAOpVsHHhsCjcNsatbF2eiWChtG15oRjWZj6XIUgQ="
+    "hash": "sha256-6BODBc4IFhpiqsAJ+mLHzwjb9HHbzis8zCTTJ6VR48Y="
   },
   "aarch64-linux": {
     "name": "mihomo-linux-arm64",
-    "hash": "sha256-dyybabTvY/YsjDAZHD6KZvvaW3SrKcnln25u3bnJuTY="
+    "hash": "sha256-SAcQc8SJ8GPGy0X/OATPBlI9QaKFPSTqYv7gr+ppLJ0="
   }
 }
