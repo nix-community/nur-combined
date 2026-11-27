@@ -337,3 +337,42 @@ find something. Upstream's release binary on this exact ESP finds it, so the dif
 is in our build, not the disk.
 
 <!-- menu-marker:end -->
+
+<!-- resolved:start -->
+### Resolved: the packaged binaries boot and render the menu
+
+The build was never broken. Two things had to be right in the ESP, and one of them was
+missing from the test image:
+
+1. `freeldr.ini` and `font.ttf` must sit **in the same directory as the loader**, not at
+   the ESP root: `load_ini_file` opens `freeldr.ini` relative to
+   `open_parent_dir(loaded_image->FilePath)`. Without it, `show_menu` returns
+   `EFI_NOT_FOUND` and `efi_main` unwinds straight back to firmware - the symptom that
+   looked like "quibble doesn't boot".
+2. A boot option that resolves on the test machine. The release config points at
+   `multi(0)disk(0)rdisk(0)partition(3)\Windows`, so on a one-partition test disk
+   `parse_arc_name` returns `EFI_INVALID_PARAMETER` and quibble stops after the menu.
+
+Verified layout (both `quibble` and `quibble_patched`):
+
+```
+gpt disk 128 MiB, ESP fat32 1..65 MiB (parted + mkfs.vfat -F 32 -s 1)
+  \EFI\BOOT\BOOTX64.EFI   <- our quibble.efi
+  \EFI\BOOT\freeldr.ini   <- config, next to the loader
+  \EFI\BOOT\font.ttf
+  \drivers\btrfs.efi, \drivers\ntfs.efi
+boot: qemu-system-x86_64 -machine q35 -m 2048 -smp 2 -display none
+      -drive if=pflash,...OVMF_CODE.fd -drive if=pflash,...OVMF_VARS.fd
+      -drive if=ide,...disk.img        (plus -serial file: to see firmware output)
+```
+
+Result: `BdsDxe: starting Boot0002`, no exception, and the quibble menu is on screen
+(1.79% non-black at 2560x1600 sampled at 6 s, against a black screen without the config).
+Booting an OS from there needs a real Windows install, which is task 5.
+
+Packaging gap found here: our install ships `quibble.efi`, `drivers/`, `LICENCE` and
+`README.md`, but not the `font.ttf` in upstream's source tree and release archive.
+`freeldr.ini` is not in the source at all, so it cannot be shipped - the docs must say to
+put it beside the loader.
+
+<!-- resolved:end -->

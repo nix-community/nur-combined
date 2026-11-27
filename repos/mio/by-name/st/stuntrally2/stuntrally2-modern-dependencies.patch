@@ -42,6 +42,13 @@ diff --git a/source/sound/SoundBaseMgr.cpp b/source/sound/SoundBaseMgr.cpp
 +	if (efx == ALC_FALSE)		LogO("@  EFX extention not found !");
 +	if (efx == ALC_FALSE)		reverb = false;
 +	else if (efx == ALC_TRUE)	LogO("@  EFX extension found.");
+diff --git a/source/ogre/BaseApp_Create.cpp b/source/ogre/BaseApp_Create.cpp
+--- a/source/ogre/BaseApp_Create.cpp
++++ b/source/ogre/BaseApp_Create.cpp
+@@ -172,1 +172,0 @@
+-	delete mSplitMgr;
+@@ -177,0 +176,1 @@
++	delete mSplitMgr;
 diff --git a/source/editor/TerrainEdit.cpp b/source/editor/TerrainEdit.cpp
 --- a/source/editor/TerrainEdit.cpp
 +++ b/source/editor/TerrainEdit.cpp

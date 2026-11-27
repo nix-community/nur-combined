@@ -80,6 +80,7 @@ mingw.stdenv.mkDerivation {
     install -Dm644 ntfs/ntfs.efi $out/share/quibble/drivers/ntfs.efi
     install -Dm644 ${src}/README.md $out/share/quibble/README.md
     install -Dm644 ${src}/LICENCE $out/share/quibble/LICENCE
+    install -Dm644 ${src}/font.ttf $out/share/quibble/font.ttf
 
     runHook postInstall
   '';
