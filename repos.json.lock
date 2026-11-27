@@ -677,11 +677,6 @@
             "sha256": "0kv7fm6s3c8y7arh5b7x7fv02zvlfn404l3abrl0sm9gi17vh6zi",
             "url": "https://github.com/codgician/nur-packages"
         },
-        "colinsane": {
-            "rev": "c56dc4134b839679503befe84f3695eeeced8e55",
-            "sha256": "1m38sr3qz4kyw5n8lhs7v7py0yhy06q9f6jzj7gsqhxrk300vx0h",
-            "url": "https://git.uninsane.org/colin/nix-files"
-        },
         "colorman": {
             "rev": "26215976a192e9f0e1366f414e801963951bfad1",
             "sha256": "0ppw5swkg0awp2vh439fp0msa4sf2p49fq9zrc47h93y90s2vihg",
@@ -1808,8 +1803,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "d703cabd1733cee32b4655471bd2d435baa7a18e",
-            "sha256": "1jarvvkjpm8bh760fkns793b0vcpj2vhnqwgrb1pglhdybkgszcg",
+            "rev": "987e437adbfa337155c306f3899ac9f20e00b715",
+            "sha256": "08nj3f3i6r8izwq828jpyypkvc1cnm9jgsq0gn9xzic0fdq76hww",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "mirdukkkkk": {
