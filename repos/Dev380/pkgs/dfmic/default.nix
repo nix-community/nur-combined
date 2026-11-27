@@ -75,76 +75,87 @@
     then "${openvino}/runtime/lib/intel64"
     else "${openvino}/lib";
 in
-  rustPlatform.buildRustPackage {
-    pname = "dfmic";
-    version = "0.1.0";
+  # Bound so `passthru.modelsPath` can name this derivation's own output: only
+  # `outPath` is a real path from outside the build (see the comment there).
+  let
+    self = rustPlatform.buildRustPackage {
+      pname = "dfmic";
+      version = "0.1.0";
 
-    src = source;
+      src = source;
 
-    # Cargo.lock is in the repository, so no separate cargoHash is needed.
-    cargoLock.lockFile = "${source}/Cargo.lock";
+      # Cargo.lock is in the repository, so no separate cargoHash is needed.
+      cargoLock.lockFile = "${source}/Cargo.lock";
 
-    # pipewire-sys and libspa-sys run bindgen, which needs libclang.
-    nativeBuildInputs = [pkg-config makeWrapper rustPlatform.bindgenHook];
-    buildInputs = [
-      pipewire
-      openvino
-      libGL
-      wayland
-      libxkbcommon
-      fontconfig
-      freetype
-    ];
+      # pipewire-sys and libspa-sys run bindgen, which needs libclang.
+      nativeBuildInputs = [pkg-config makeWrapper rustPlatform.bindgenHook];
+      buildInputs = [
+        pipewire
+        openvino
+        libGL
+        wayland
+        libxkbcommon
+        fontconfig
+        freetype
+      ];
 
-    env.RUSTFLAGS = "-L native=${pipewire.dev}/lib -L native=${openvinoLib}";
-    cargoBuildFlags = ["--features" "gui"];
+      env.RUSTFLAGS = "-L native=${pipewire.dev}/lib -L native=${openvinoLib}";
+      cargoBuildFlags = ["--features" "gui"];
 
-    # The GUI tests are behind the feature, so the flag has to be repeated here.
-    doCheck = true;
-    cargoTestFlags = ["--features" "gui"];
+      # The GUI tests are behind the feature, so the flag has to be repeated here.
+      doCheck = true;
+      cargoTestFlags = ["--features" "gui"];
 
-    # Order matters: the rpath goes on the ELF *before* wrapProgram replaces it
-    # with a shell script, or patchelf is handed a script and fails.
-    postFixup = ''
-      # Slint's winit backend dlopens libwayland and libEGL, which the auto-patcher
-      # cannot see because nothing links against them.
-      patchelf --add-rpath ${lib.makeLibraryPath [wayland libxkbcommon libGL]} $out/bin/dfmic
-      wrapProgram $out/bin/dfmic --prefix PATH : ${runtimePath}
-    '';
-
-    postInstall =
-      ''
-        install -Dm644 ${source}/nix/dfmic.desktop $out/share/applications/dfmic.desktop
-        # One size: upstream only ships a 256x256 icon, and installing it at 128 as
-        # well would leave a mislabelled file in the theme.
-        install -Dm644 ${source}/nix/icon.png \
-          $out/share/icons/hicolor/256x256/apps/dfmic.png
-      ''
-      + lib.optionalString withModels ''
-        mkdir -p $out/share/dfmic/models/${modelVersion}
-        tar -xzf ${modelArchive} -C $out/share/dfmic/models/${modelVersion} --strip-components=1
+      # Order matters: the rpath goes on the ELF *before* wrapProgram replaces it
+      # with a shell script, or patchelf is handed a script and fails.
+      postFixup = ''
+        # Slint's winit backend dlopens libwayland and libEGL, which the auto-patcher
+        # cannot see because nothing links against them.
+        patchelf --add-rpath ${lib.makeLibraryPath [wayland libxkbcommon libGL]} $out/bin/dfmic
+        wrapProgram $out/bin/dfmic --prefix PATH : ${runtimePath}
       '';
 
-    meta = {
-      description = "DeepFilterNet3_ll noise suppression as a PipeWire virtual microphone on the Intel NPU";
-      homepage = "https://github.com/Dev380/dfmic";
-      # The crates are MIT OR Apache-2.0; see the repository's own `license` field.
-      license = lib.licenses.OR [lib.licenses.mit lib.licenses.asl20];
-      mainProgram = "dfmic";
-      # OpenVINO's NPU plugin, the Intel NPU driver and PipeWire are all Linux-only.
-      platforms = ["x86_64-linux"];
-      # The model bundle is a 18 MB download; the rest builds from source.
-      broken = false;
-    };
+      postInstall =
+        ''
+          install -Dm644 ${source}/nix/dfmic.desktop $out/share/applications/dfmic.desktop
+          # One size: upstream only ships a 256x256 icon, and installing it at 128 as
+          # well would leave a mislabelled file in the theme.
+          install -Dm644 ${source}/nix/icon.png \
+            $out/share/icons/hicolor/256x256/apps/dfmic.png
+        ''
+        + lib.optionalString withModels ''
+          mkdir -p $out/share/dfmic/models/${modelVersion}
+          tar -xzf ${modelArchive} -C $out/share/dfmic/models/${modelVersion} --strip-components=1
+        '';
 
-    passthru = {
-      inherit withModels;
-      # Where the IR lives in this variant, for a module or script that has to pass
-      # `--models`. `null` when nothing is bundled, so a caller cannot point the
-      # daemon at a store path that does not exist.
-      modelsPath =
-        if withModels
-        then placeholder "out" + "/share/dfmic/models/${modelVersion}"
-        else null;
+      meta = {
+        description = "DeepFilterNet3_ll noise suppression as a PipeWire virtual microphone on the Intel NPU";
+        homepage = "https://github.com/Dev380/dfmic";
+        # The crates are MIT OR Apache-2.0; see the repository's own `license` field.
+        license = lib.licenses.OR [lib.licenses.mit lib.licenses.asl20];
+        mainProgram = "dfmic";
+        # OpenVINO's NPU plugin, the Intel NPU driver and PipeWire are all Linux-only.
+        platforms = ["x86_64-linux"];
+        # The model bundle is a 18 MB download; the rest builds from source.
+        broken = false;
+      };
+
+      passthru = {
+        inherit withModels;
+        # Where the IR lives in this variant, for a caller that has to pass `--models`.
+        # `null` when nothing is bundled, so nobody points the daemon at a store path
+        # that does not exist.
+        #
+        # `outPath` rather than `placeholder "out"`: the latter is only an output
+        # path *inside* a derivation's build, and evaluates to a bare hash
+        # (`/1rz4g4zn…/…`) when read through `passthru` from outside, which is not a
+        # real path. This also gives the string the derivation as its context, so
+        # referring to it keeps the model in the closure.
+        modelsPath =
+          if withModels
+          then "${self}/share/dfmic/models/${modelVersion}"
+          else null;
+      };
     };
-  }
+  in
+    self

@@ -7,17 +7,12 @@
 #     nix-build -A mypackage
 {
   pkgs ? import <nixpkgs> {},
-  # The dfmic checkout the package builds, when it comes from somewhere other
-  # than the pinned tarball (the flake passes its `dfmic` input here).
+  # The dfmic checkout the package builds. The flake passes its `dfmic` input
+  # here; plain `nix-build default.nix` falls back to the pinned tarball.
   dfmicSrc ? null,
 }: {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib {inherit pkgs;}; # functions
-  # The NixOS module. A set of modules, as NUR expects, so
-  # `nixpkgs-nur.modules.dfmic` works as well as a plain `imports`.
-  modules = {
-    dfmic = import ./modules/dfmic.nix;
-  };
 
   example-package = pkgs.callPackage ./pkgs/example-package {};
   ez = pkgs.callPackage ./pkgs/ez {};

@@ -21,9 +21,6 @@ CI code from [cryolitia](https://github.com/nix-community/nur-combined/tree/dca4
 | `noto-fonts-emoji-blob-bin` | Blobmoji emoji font |
 | `clockface-font` | clockface icon font |
 
-Modules live in `modules/` (`nur.repos.dev380.modules.dfmic`) and are also
-exported as `nixosModules.dfmic`.
-
 ## dfmic
 
 A virtual microphone that removes background noise with DeepFilterNet3_ll, running
@@ -50,34 +47,42 @@ nix build .#dfmic
 
 The build runs the crate's tests, GUI ones included.
 
-### NixOS module
+### Running it as a service
 
-A user service — PipeWire, the session bus and the desktop are all per-user, and
-`CAP_SYS_NICE` needs a system-wide capability wrapper.
+This repository ships the package, not a NixOS module: the service is a *user*
+unit, and which user, which microphone and whether to take over the default are
+all machine-local decisions. A minimal home-manager service:
 
 ```nix
-{
-  imports = [nur.repos.dev380.modules.dfmic]; # or nur.nixosModules.dfmic
-
-  services.dfmic = {
-    enable = true;
-    package = nur.repos.dev380.dfmic;
-    # source = "alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__Mic1__source";
+systemd.user.services.dfmic = {
+  Unit = {
+    After = ["pipewire.service" "wireplumber.service"];
+    PartOf = ["pipewire.service"];
   };
-}
+  Service = {
+    ExecStart = "${pkgs.nur.repos.dev380.dfmic}/bin/dfmic run --device NPU";
+    # The daemon forks these: `pw-metadata` to restore the default source after
+    # an unclean stop, and curl/tar/gzip for the model download.
+    Environment = ["PATH=${lib.makeBinPath (with pkgs; [pipewire curl coreutils gnutar gzip])}"];
+    Restart = "on-failure";
+    RestartSec = 3;
+  };
+  Install.WantedBy = ["default.target"];
+};
 ```
 
-Enabling the module installs the daemon and its unit. Turning it on at login is
-still a per-user choice: `dfmic autostart on`, or the switch in the window.
+Realtime scheduling needs two things, both of which bite if you skip them:
 
-| option | default | meaning |
-| --- | --- | --- |
-| `package` | *(required)* | `nur.repos.dev380.dfmic` |
-| `models` | `"download"` | `"download"` or `"bundled"` — see below |
-| `device` | `"NPU"` | OpenVINO device; there is deliberately no CPU fallback |
-| `source` | `null` | capture node name; `null` follows the system default |
-| `takeDefault` | `true` | become the default source while filtering, then hand it back |
-| `realtime` | `true` | grant `CAP_SYS_NICE` to the NPU worker (shorter worst case) |
+```nix
+security.rtkit.enable = true;                 # system-wide
+Service.LimitRTTIME = 200000;                 # on the unit
+```
+
+`LimitRTTIME` is what rtkit checks before granting a request — it refuses a
+caller whose budget exceeds its own 200 ms maximum. `LimitRTPRIO` will not work
+in its place: a user unit's value is accepted by systemd and silently ignored,
+because the user manager itself runs at 0. Without either the daemon says so once
+and filters at normal priority, which still works.
 
 ### The model: download or bundle
 
@@ -97,16 +102,16 @@ passes the raw microphone through, unfiltered.
 For a machine that is never online, put the same graphs in the closure:
 
 ```nix
-services.dfmic = {
-  enable = true;
-  package = nur.repos.dev380.dfmic.override { withModels = true; };
-  models = "bundled";
-};
+let
+  dfmic = nur.repos.dev380.dfmic.override { withModels = true; };
+in {
+  # `modelsPath` is where the IR sits in this variant, so nothing has to know the
+  # store layout. It is `null` for the download variant, which is how a unit can
+  # tell the difference instead of pointing at a path that does not exist.
+  systemd.user.services.dfmic.serviceConfig.ExecStart =
+    "${dfmic}/bin/dfmic run --device NPU --models ${dfmic.modelsPath}";
+}
 ```
-
-`models` reconciles `package`: asking for `"bundled"` with the default package
-rebuilds it with the model, and `"download"` with a bundled package drops it. The
-module then passes `--models` itself, so nothing has to know the store path.
 
 ### Verifying it works
 

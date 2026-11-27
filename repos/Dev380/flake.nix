@@ -48,12 +48,18 @@
     );
     packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
 
-    # Both a set of modules (NUR's convention) and a single module. This is a
-    # NixOS module, not a home-manager one: the service needs systemd, PipeWire
-    # and a system-wide capability wrapper.
-    modules.dfmic = import ./modules/dfmic.nix;
-    nixosModules.dfmic = self.modules.dfmic;
-    nixosModules.default = self.nixosModules.dfmic;
+    # The overlay NUR builds for a repository, so this flake can be consumed the
+    # same way as the aggregate: `nixpkgs.overlays = [ my-nur.overlays.default ]`
+    # puts the packages on a plain `pkgs`.
+    #
+    # Only `dfmic` is exposed, and `lib` is deliberately not carried over:
+    # `default.nix` has a `lib` attribute of this repository's own helper
+    # functions, and putting that on `pkgs` shadows `pkgs.lib` for everything
+    # downstream — `lib.optionals` and friends then vanish, and the failures
+    # surface inside unrelated packages.
+    overlays.default = final: _prev: {
+      dfmic = final.callPackage ./pkgs/dfmic {dfmicSrc = dfmic;};
+    };
     ciJobs = let
       lib = nixpkgs.lib;
       isBuildable = platform: p: ((!p.meta.broken) && (lib.meta.availableOn {system = platform;} p));

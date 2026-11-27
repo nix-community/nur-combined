@@ -3,11 +3,11 @@
     "dfmic": {
       "flake": false,
       "locked": {
-        "lastModified": 1795754174,
-        "narHash": "sha256-aez84HGAvLYOgf49Q3vOoQ32hl9Q7s8iw6fJ6kXbCio=",
+        "lastModified": 1795802804,
+        "narHash": "sha256-v2Ct3xewarrUnL5aLqr085CpRsbjtNekUGwkzKQDHsw=",
         "owner": "Dev380",
         "repo": "dfmic",
-        "rev": "1bf536b576a88520f656f9528092c766283ec71a",
+        "rev": "a75eaf81821a775e94fc1eb140801430f3816971",
         "type": "github"
       },
       "original": {
