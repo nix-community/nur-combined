@@ -445,7 +445,7 @@
     },
     "pipewire-bluez5-lhdc-git": {
         "cargoLock": null,
-        "date": "2026-11-25",
+        "date": "2026-11-26",
         "extract": null,
         "name": "pipewire-bluez5-lhdc-git",
         "passthru": null,
@@ -455,13 +455,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "f9b66f76a4a3a7b70100136c8f952b5ba3aef9b1",
-            "sha256": "sha256-cFEj9wMdSkHgIdKL8qgzXeJ2o7fI5WmD7zGqtHZ3SEE=",
+            "rev": "55effb168593fe830236fe3d50dea910334b9b08",
+            "sha256": "sha256-CLOzfbj0zkFVNhTJLU160/DS+32zs0u5z60iX/gswkM=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.freedesktop.org/pipewire/pipewire.git"
         },
-        "version": "f9b66f76a4a3a7b70100136c8f952b5ba3aef9b1"
+        "version": "55effb168593fe830236fe3d50dea910334b9b08"
     },
     "pipewire-bluez5-lhdc-jd-git": {
         "cargoLock": null,
