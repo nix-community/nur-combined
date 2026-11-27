@@ -39,9 +39,8 @@ jobs:
             flutter: false
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
+      # This action mounts a fresh filesystem over $GITHUB_WORKSPACE, so it has
+      # to run before checkout or it hides the repository checkout underneath.
       - name: Maximize build space
         if: matrix.runner == 'ubuntu-24.04'
         uses: mio-19/maximize-build-space@fc881a613ad2a34aca9c9624518214ebc21dfc0c # v10
@@ -56,6 +55,9 @@ jobs:
           remove-codeql: 'true'
           remove-docker-images: 'true'
 
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
       - name: Install system dependencies
         run: |
           sudo apt-get update
@@ -64,7 +66,7 @@ jobs:
             libx11-dev libxcursor-dev libxi-dev libxrandr-dev \
             libwayland-dev libxkbcommon-dev libxcb-render0-dev \
             libxcb-shape0-dev libxcb-xfixes0-dev libfontconfig1-dev \
-            libfreetype6-dev libgl1-mesa-dev clang cmake ninja-build libgtk-3-dev
+            libfreetype6-dev libgl1-mesa-dev clang lld cmake ninja-build libgtk-3-dev
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
@@ -149,7 +151,7 @@ jobs:
 
       - name: Upload Linux Artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: linux-${{ matrix.arch }}-artifacts
           path: staging/*
@@ -257,7 +259,7 @@ jobs:
 
       - name: Upload macOS Artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: macos-${{ matrix.arch }}-artifacts
           path: staging/*
@@ -399,7 +401,7 @@ jobs:
 
       - name: Upload Windows Artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: windows-artifacts
           path: staging/*
@@ -416,7 +418,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Download all artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         continue-on-error: true
         with:
           path: release-artifacts/
@@ -445,7 +447,7 @@ jobs:
 
       - name: Publish Nightly Release
         if: steps.check_artifacts.outputs.has_artifacts == 'true'
-        uses: softprops/action-gh-release@c95fe1489396fe8a9ec87453c663f53724e23043 # v2.2.1
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
         with:
           tag_name: nightly
           name: "Daily Release (${{ steps.date.outputs.date }})"

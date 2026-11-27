@@ -88,6 +88,9 @@ Rough chronological / thematic summary of edits under this vendor tree:
 ## Refresh / rebase tips
 
 1. Diff any updated vendor tree against upstream baseline commit `51f02929…` to update `patches/gpui-terminal.patch`.
+   When bumping that baseline, update both `patchedGpuiTerminal.src.rev` in
+   `package.nix` and the `gpui-terminal` URL in
+   `scripts/prepare-omnimux-vendor.py` (the non-Nix CI build).
 2. Prefer small, documented patches; keep this file updated when patch behavior changes.
 3. After updating patch files, `git add` them before `nix build` (flake eval ignores untracked files).
 

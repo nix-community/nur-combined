@@ -18,6 +18,8 @@ OMNIMUX_DIR = os.path.join(REPO_ROOT, "by-name", "om", "omnimux")
 VENDOR_DIR = os.path.join(OMNIMUX_DIR, "src", "vendor")
 PATCHES_DIR = os.path.join(OMNIMUX_DIR, "patches")
 
+# Keep these URLs and versions in sync with by-name/om/omnimux/package.nix
+# and VENDOR.md; CI uses this script instead of Nix fetch+patch.
 SOURCES = [
     {
         "name": "alacritty_terminal",
@@ -49,8 +51,8 @@ SOURCES = [
     },
     {
         "name": "gpui-terminal",
-        "url": "https://github.com/zortax/gpui-terminal/archive/45c63e57181d27c260124a81c7e4b68a6b6e57b0.tar.gz",
-        "archive_subfolder": "gpui-terminal-45c63e57181d27c260124a81c7e4b68a6b6e57b0",
+        "url": "https://github.com/zortax/gpui-terminal/archive/51f0292938876c8da3de03f0139088591e3be518.tar.gz",
+        "archive_subfolder": "gpui-terminal-51f0292938876c8da3de03f0139088591e3be518",
         "dest": "gpui-terminal",
         "patch": os.path.join(PATCHES_DIR, "gpui-terminal.patch"),
     },
@@ -114,10 +116,14 @@ def main():
                 else:
                     src_folder = extract_dir
 
-            shutil.copytree(src_folder, dest_dir)
-
+            # Patch in the temporary extraction directory, which is outside
+            # the nurpkgs git work tree. `git apply` resolves paths against the
+            # repository root, so running it inside src/vendor silently ignores
+            # every hunk and reports success.
             if item.get("patch") and os.path.isfile(item["patch"]):
-                apply_patch(dest_dir, item["patch"])
+                apply_patch(src_folder, item["patch"])
+
+            shutil.copytree(src_folder, dest_dir)
 
     print("All Omnimux vendored dependencies prepared successfully in:", VENDOR_DIR)
 
