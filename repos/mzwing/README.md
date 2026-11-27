@@ -28,6 +28,7 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | `codegraph` | [Usage](https://github.com/colbymchenry/codegraph) |
 | `cpa-plugin-antigravity-coding-filter` | [Usage](https://github.com/jellyfish-p/cpa-plugin-antigravity-coding-filter) |
 | `getopts-fish` | [Usage](https://github.com/jorgebucaran/getopts.fish) |
+| `git-cow` | [Usage](https://github.com/gabrielkoerich/git-cow) |
 | `gryph` | [Usage](https://github.com/safedep/gryph) |
 | `haru` | [Usage](https://github.com/HyacinthHaru/haru) |
 | `hfd` | [Usage](https://gist.github.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f) |
