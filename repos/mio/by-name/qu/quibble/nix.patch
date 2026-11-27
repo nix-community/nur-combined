@@ -1,40 +1,25 @@
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index d9a4788..186c9c1 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -5,6 +5,10 @@ project(quibble VERSION 20230328)
- set(CMAKE_CXX_STANDARD 20)
- set(CMAKE_CXX_STANDARD_REQUIRED ON)
- 
-+set(CMAKE_C_STANDARD_LIBRARIES "")
-+set(CMAKE_CXX_STANDARD_LIBRARIES "")
-+link_libraries(gcc)
-+
- configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/config.h)
- 
- if(MSVC)
-@@ -30,6 +34,8 @@ set(SRC_FILES src/apiset.cpp
-     src/mem.cpp
-     src/menu.cpp
-     src/misc.cpp
-+    src/compat.cpp
-+    src/setjmp.S
-     src/peload.cpp
-     src/reg.cpp
-     src/tinymt32.cpp
 diff --git a/mingw-amd64.cmake b/mingw-amd64.cmake
-index 414c27d..5029e63 100644
+index 414c27d..3b59bb5 100644
 --- a/mingw-amd64.cmake
 +++ b/mingw-amd64.cmake
-@@ -5,7 +5,10 @@ SET(CMAKE_CXX_COMPILER x86_64-w64-mingw32-g++)
+@@ -5,7 +5,19 @@ SET(CMAKE_CXX_COMPILER x86_64-w64-mingw32-g++)
  SET(CMAKE_RC_COMPILER x86_64-w64-mingw32-windres)
  SET(CMAKE_SYSTEM_PROCESSOR "AMD64")
  
 -set(CMAKE_EXE_LINKER_FLAGS "-static")
 +set(CMAKE_EXE_LINKER_FLAGS "-static -nostdlib -nodefaultlibs -Wl,--disable-runtime-pseudo-reloc")
 +
++# The image is freestanding, so the compiler ABI probes cannot link.
 +set(CMAKE_C_COMPILER_WORKS 1)
 +set(CMAKE_CXX_COMPILER_WORKS 1)
++
++# libgcc and the freestanding runtime archive (compat.cpp, setjmp.S) are
++# appended after the project's own link libraries.  The path arrives as
++# QUIBBLE_RT_ARCHIVE because cmakeFlags cannot carry the space in the list.
++if(DEFINED QUIBBLE_RT_ARCHIVE)
++    set(CMAKE_C_STANDARD_LIBRARIES "${QUIBBLE_RT_ARCHIVE} -lgcc" CACHE STRING "" FORCE)
++    set(CMAKE_CXX_STANDARD_LIBRARIES "${QUIBBLE_RT_ARCHIVE} -lgcc" CACHE STRING "" FORCE)
++endif()
  
  SET(CMAKE_FIND_ROOT_PATH /usr/x86_64-w64-mingw32)
  

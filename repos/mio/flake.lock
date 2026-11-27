@@ -3,7 +3,9 @@
     "claude-desktop-src": {
       "inputs": {
         "flake-parts": "flake-parts",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1795514048,
@@ -22,7 +24,9 @@
     },
     "flake-parts": {
       "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib"
+        "nixpkgs-lib": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1793576659,
@@ -39,53 +43,20 @@
       }
     },
     "kytyps5-nixpkgs": {
+      "flake": false,
       "locked": {
-        "lastModified": 1794918815,
-        "narHash": "sha256-lsIUChCLfoCyf0VO6CzedtMZBV62+1W86nT3XGCIgiw=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "94d362415787ffff528f73820996aeedd97ff0dd",
-        "type": "github"
+        "lastModified": 1795548719,
+        "narHash": "sha256-hiJcmxuN8iH2GjYU2MFwJu5aZrwM05C49zil9UWxbOA=",
+        "rev": "b79fb186802610f5363769394ba4a4b921ea15c9",
+        "type": "tarball",
+        "url": "https://releases.nixos.org/nixpkgs/26.05-darwin/nixpkgs-darwin-26.05pre1019514.b79fb1868026/nixexprs.tar.zst"
       },
       "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "94d362415787ffff528f73820996aeedd97ff0dd",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://nixos.org/channels/nixpkgs-26.05-darwin/nixexprs.tar.zst"
       }
     },
     "nixpkgs": {
-      "locked": {
-        "lastModified": 1795249095,
-        "narHash": "sha256-8JDgyVvWUZg5m9hNlL8Ge9aT647ng3Ukc8NPMiKNTPQ=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "93a9ed0a866099a230ed5146a5bb7d16fd5c9b14",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-lib": {
-      "locked": {
-        "lastModified": 1793504054,
-        "narHash": "sha256-ThkfL3D/FhCiZFc9+3BtxwuMmpuK+/bGtXCSo1+yVew=",
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
-        "rev": "7851ba61fd862b277cb6a9cef37394bc18bb94e4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
       "locked": {
         "lastModified": 1795371335,
         "narHash": "sha256-3Xq+XlDu5l+UJ0cc+Jigs84+tz7Qu92NgXVHgJwC52M=",
@@ -118,7 +89,7 @@
       "inputs": {
         "claude-desktop-src": "claude-desktop-src",
         "kytyps5-nixpkgs": "kytyps5-nixpkgs",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
         "nova-nix-src": "nova-nix-src"
       }
     }

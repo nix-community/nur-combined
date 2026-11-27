@@ -15,9 +15,12 @@
   };
   inputs.claude-desktop-src = {
     url = "github:aaddrick/claude-desktop-debian/v3.3.20+claude6.28899.6";
+    inputs.nixpkgs.follows = "nixpkgs";
+    inputs.flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
   };
   inputs.kytyps5-nixpkgs = {
-    url = "github:NixOS/nixpkgs/94d362415787ffff528f73820996aeedd97ff0dd";
+    url = "https://nixos.org/channels/nixpkgs-26.05-darwin/nixexprs.tar.zst";
+    flake = false;
   };
   outputs =
     inputs@{
@@ -77,33 +80,37 @@
       # x86_64) and heavy: each run downloads ~1.5 GiB of images and needs KVM.
       checks.x86_64-linux =
         let
+          packages = self.legacyPackages.x86_64-linux;
           cutefishTests = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/desktops/cutefish/tests.nix {
             cutefishModule = self.nixosModules.cutefish;
           };
+          packageTests = builtins.concatLists (
+            map (
+              packageName:
+              let
+                package = packages.${packageName};
+              in
+              if nixpkgs.lib.isDerivation package && package ? tests && builtins.isAttrs package.tests then
+                map (testName: {
+                  name = "${packageName}-${testName}";
+                  value = package.tests.${testName};
+                }) (builtins.attrNames package.tests)
+              else
+                [ ]
+            ) (builtins.attrNames packages)
+          );
         in
-        {
-          miodroid-nixos = self.legacyPackages.x86_64-linux.miodroid.tests.nixos;
-          miodroid-nixos-rootless = self.legacyPackages.x86_64-linux.miodroid.tests.nixos-rootless;
-          miodroid-nixos-rootless-grow = self.legacyPackages.x86_64-linux.miodroid.tests.nixos-rootless-grow;
-          miodroid-desktop-sockets = self.legacyPackages.x86_64-linux.miodroid.tests.desktop-sockets;
+        builtins.listToAttrs packageTests
+        // {
           cutefish = cutefishTests.basic;
           cutefish-dm = cutefishTests.dm;
           cutefish-dm-greeter = cutefishTests.greeter;
           cutefish-dm-splash = cutefishTests.splash;
-          # Wine mkWindowsApp packages: X11 + FUSE overlay smoke tests.
-          notepad-plus-plus = self.legacyPackages.x86_64-linux.notepad-plus-plus.tests.nixos;
-          capcut = self.legacyPackages.x86_64-linux.capcut.tests.nixos;
-          capcut_5 = self.legacyPackages.x86_64-linux.capcut_5.tests.nixos;
-          adobe-acrobat-reader = self.legacyPackages.x86_64-linux.adobe-acrobat-reader.tests.nixos;
-          wine4office = self.legacyPackages.x86_64-linux.wine4office-word.tests.nixos;
-          flightdeck = self.legacyPackages.x86_64-linux.flightdeck.tests.nixos;
-          # Droidloom host tools, module wiring, payload and lifecycle daemon.
-          droidloom = self.legacyPackages.x86_64-linux.droidloom.tests.nixos;
           # lastbook_patched: boot the app under Xvfb and screenshot setup.
           lastbook-patched-setup =
             nixpkgs.legacyPackages.x86_64-linux.callPackage ./by-name/la/lastbook_patched/vm-test.nix
               {
-                lastbook = self.legacyPackages.x86_64-linux.lastbook_patched;
+                lastbook = packages.lastbook_patched;
               };
         };
       cached-cuda = forAllSystems (

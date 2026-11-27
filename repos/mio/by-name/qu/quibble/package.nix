@@ -22,6 +22,31 @@ let
     fetchSubmodules = true;
     hash = "sha256-4xT7adK0v52coMvDPJ8nhXOyBWgMJ0o21R1QGRG4zZ4=";
   };
+
+  # The UEFI image is built freestanding, without mingw's CRT or default
+  # libraries.  FreeType needs a real setjmp/longjmp for its raster-overflow and
+  # validator recovery paths, and FreeType/HarfBuzz reference libc string and
+  # printf entry points; the va_list formatting backends stay upstream's stubs.
+  # They are linked in as an archive so upstream's source list is untouched.
+  runtime = mingw.stdenv.mkDerivation {
+    pname = "quibble-runtime";
+    inherit version;
+    dontUnpack = true;
+
+    buildPhase = ''
+      runHook preBuild
+      $CXX -c ${./compat.cpp} -o compat.o -ffreestanding -fno-stack-protector -fno-exceptions
+      $CC -c ${./setjmp.S} -o setjmp.o
+      $AR rcs libquibble-rt.a compat.o setjmp.o
+      runHook postBuild
+    '';
+
+    installPhase = ''
+      runHook preInstall
+      install -Dm644 libquibble-rt.a $out/lib/libquibble-rt.a
+      runHook postInstall
+    '';
+  };
 in
 mingw.stdenv.mkDerivation {
   pname = "quibble";
@@ -41,22 +66,12 @@ mingw.stdenv.mkDerivation {
 
   patches = [ ./nix.patch ];
 
-  # The UEFI image is built freestanding, without mingw's CRT or default
-  # libraries.  FreeType needs a real setjmp/longjmp for its raster-overflow and
-  # validator recovery paths; setjmp.S saves the full Windows x64 jmp_buf
-  # state.  compat.cpp supplies the libc string entry points and the non-va_list
-  # printf aliases referenced by FreeType/HarfBuzz (the va_list formatting
-  # backends remain upstream's deliberate stubs).
-  postPatch = ''
-    cp ${./compat.cpp} src/compat.cpp
-    cp ${./setjmp.S} src/setjmp.S
-  '';
-
+  # Upstream's own preset; the freestanding link flags and the runtime archive
+  # hook are part of nix.patch, so the toolchain file stays upstream's.
   cmakeFlags = [
     "-DCMAKE_TOOLCHAIN_FILE=../mingw-amd64.cmake"
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
-    "-DCMAKE_C_STANDARD_LIBRARIES="
-    "-DCMAKE_CXX_STANDARD_LIBRARIES="
+    "-DQUIBBLE_RT_ARCHIVE=${runtime}/lib/libquibble-rt.a"
   ];
 
   installPhase = ''
