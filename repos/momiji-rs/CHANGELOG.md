@@ -11,6 +11,20 @@ Conformance is tracked separately as a ratchet against the official
 
 ## [Unreleased]
 
+## [0.22.1] - 2026-11-27
+
+_0.22.0's binaries, C ABI tarballs and npm packages. The code is 0.22.0's;
+only the release runners changed._
+
+### Fixed
+
+- **The release builds again on Apple silicon.** GitHub no longer serves the
+  `macos-14` runner, and on the v0.22.0 tag every job on it was cancelled:
+  cargo-dist's `aarch64-apple-darwin` build, and with it the GitHub release
+  and every binary, as well as both macOS C ABI tarballs. So 0.22.0 reached
+  crates.io (`sasso`, `sasso-core`, `sasso-macros`) and nothing else, and the
+  npm line goes from 0.21.0 to 0.22.1. Those jobs run on `macos-15` now.
+
 ## [0.22.0] - 2026-11-27
 
 _Sass at Rust compile time, and no more process aborts on deep stylesheets.
@@ -4431,7 +4445,8 @@ real-world SCSS byte-identically to dart-sass.
 - Distribution: CLI binary (prebuilt via cargo-dist), library crate, and a
   zero-dependency WebAssembly build published to npm as `@momiji-rs/sasso`.
 
-[Unreleased]: https://github.com/momiji-rs/sasso/compare/v0.22.0...HEAD
+[Unreleased]: https://github.com/momiji-rs/sasso/compare/v0.22.1...HEAD
+[0.22.1]: https://github.com/momiji-rs/sasso/compare/v0.22.0...v0.22.1
 [0.22.0]: https://github.com/momiji-rs/sasso/compare/v0.21.0...v0.22.0
 [0.21.0]: https://github.com/momiji-rs/sasso/compare/v0.20.0...v0.21.0
 [0.20.0]: https://github.com/momiji-rs/sasso/compare/v0.19.3...v0.20.0

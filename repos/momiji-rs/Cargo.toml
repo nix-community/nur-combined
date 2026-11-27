@@ -182,7 +182,7 @@ exclude = ["wasm", "ffi", "napi"]
 # binary reaches into `sasso-core`'s unexported path rules, so they are only
 # ever released together. Bump `version` and every `=` pin below as one.
 [workspace.package]
-version = "0.22.0"
+version = "0.22.1"
 edition = "2021"
 rust-version = "1.74"
 license = "MIT OR Apache-2.0"
@@ -190,8 +190,8 @@ homepage = "https://github.com/momiji-rs/sasso"
 repository = "https://github.com/momiji-rs/sasso"
 
 [workspace.dependencies]
-sasso-core = { path = "core", version = "=0.22.0" }
-sasso-macros = { path = "macros", version = "=0.22.0" }
+sasso-core = { path = "core", version = "=0.22.1" }
+sasso-macros = { path = "macros", version = "=0.22.1" }
 
 [workspace.lints.rust]
 unsafe_code = "deny"
@@ -236,6 +236,15 @@ source-tarball = false
 # `v[0-9]+...` so the decoupled `npm-v*` line (release-wasm.yml) does NOT fire
 # here. Tell `dist plan` not to fail its generated-file freshness check on it.
 allow-dirty = ["ci"]
+
+# The Apple-silicon build's runner. dist 0.32 defaults it to `macos-14`, which
+# GitHub no longer serves: on the v0.22.0 tag the job was cancelled within a
+# second ("The configuration 'macos-14-arm64-us-default' is not supported"),
+# and with it the GitHub release, its binaries and the npm line. The runner
+# is read from the tagged commit when `dist plan` runs, so this takes effect
+# on the next tag.
+[workspace.metadata.dist.github-custom-runners]
+aarch64-apple-darwin = "macos-15"
 
 [dev-dependencies]
 divan = { version = "5.0.0", package = "codspeed-divan-compat" }

@@ -44,9 +44,9 @@ jobs:
           - triple: aarch64-unknown-linux-musl
             runner: ubuntu-24.04-arm
           - triple: aarch64-apple-darwin
-            runner: macos-14
+            runner: macos-15
           - triple: x86_64-apple-darwin
-            runner: macos-14            # cross-compiled on the arm64 runner
+            runner: macos-15            # cross-compiled on the arm64 runner
           - triple: x86_64-pc-windows-msvc
             runner: windows-latest
     steps:

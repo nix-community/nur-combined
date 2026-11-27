@@ -95,7 +95,7 @@ jobs:
         include:
           # `triple` names the cargo-dist release asset whose binary ships
           # in the package (see "fetch the release binary").
-          - { target: darwin-arm64,    runner: macos-14,         triple: aarch64-apple-darwin }
+          - { target: darwin-arm64,    runner: macos-15,         triple: aarch64-apple-darwin }
           # macos-13 is retired/starved; macos-15-intel is GitHub's continued
           # Intel-mac runner label.
           - { target: darwin-x64,      runner: macos-15-intel,   triple: x86_64-apple-darwin }
