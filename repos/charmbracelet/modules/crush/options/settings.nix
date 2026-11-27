@@ -431,6 +431,19 @@ lib.mkOption {
               description = "Paths to files containing context information for the AI";
             };
 
+            coreutils = lib.mkOption {
+              type = lib.types.nullOr (
+                lib.types.enum [
+                  "turtle"
+                  "system"
+                  "auto"
+                  "off"
+                ]
+              );
+              default = "auto";
+              description = "How core utilities run in Crush shells.";
+            };
+
             data_directory = lib.mkOption {
               type = lib.types.nullOr lib.types.str;
               default = ".crush";
@@ -483,6 +496,39 @@ lib.mkOption {
               type = lib.types.nullOr (lib.types.listOf lib.types.str);
               default = null;
               description = "List of built-in tools to disable and hide from the agent";
+            };
+
+            experimental = lib.mkOption {
+              type = lib.types.submodule {
+                options = {
+                  client_server = lib.mkOption {
+                    type = lib.types.nullOr lib.types.bool;
+                    default = false;
+                    description = "Run the agent in a background server that the TUI attaches to. Overridden by CRUSH_CLIENT_SERVER.";
+                  };
+
+                  server_detach_grace = lib.mkOption {
+                    type = lib.types.nullOr lib.types.int;
+                    default = 10;
+                    description = "Seconds a workspace survives after a client's connection drops. 0 tears it down at once. Overridden by CRUSH_SERVER_DETACH_GRACE.";
+                  };
+
+                  server_idle_timeout = lib.mkOption {
+                    type = lib.types.nullOr lib.types.int;
+                    default = 60;
+                    description = "Seconds the server stays alive after its last workspace closes. 0 shuts it down at once. Overridden by CRUSH_SERVER_IDLE_TIMEOUT.";
+                  };
+
+                  server_ready_timeout = lib.mkOption {
+                    type = lib.types.nullOr lib.types.int;
+                    default = null;
+                    description = "Seconds a client waits for the server to become ready. Overridden by CRUSH_SERVER_READY_TIMEOUT.";
+                  };
+
+                };
+              };
+              default = { };
+              description = "Experimental features. They are unfinished and may change or be removed in any release.";
             };
 
             global_context_paths = lib.mkOption {
