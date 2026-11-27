@@ -325,6 +325,32 @@
         "type": "github"
       }
     },
+    "emacs-list-mode": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1795725185,
+        "narHash": "sha256-z055UnUKvHCUKYSWkm8duOU5RfxVqlMO7GnqEdQ5yTo=",
+        "owner": "nagy",
+        "repo": "emacs-list-mode",
+        "rev": "993165d4d71519364a0b06feada1dc3184871b00",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nagy",
+        "repo": "emacs-list-mode",
+        "type": "github"
+      }
+    },
     "emacs-map-extras": {
       "inputs": {
         "flake-parts": [
@@ -891,6 +917,7 @@
         "emacs-git-bug": "emacs-git-bug",
         "emacs-gitlab-modes": "emacs-gitlab-modes",
         "emacs-ipfs-modes": "emacs-ipfs-modes",
+        "emacs-list-mode": "emacs-list-mode",
         "emacs-map-extras": "emacs-map-extras",
         "emacs-network-modes": "emacs-network-modes",
         "emacs-openstack-modes": "emacs-openstack-modes",

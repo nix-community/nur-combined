@@ -160,6 +160,13 @@ let
           magit = self.magit;
         };
 
+        list-mode =
+          (flakes.emacs-list-mode or (builtins.getFlake "github:nagy/emacs-list-mode"))
+          .packages.${pkgs.stdenv.hostPlatform.system}.list-mode.override
+            {
+              emacs = self.emacs;
+            };
+
         ctags-mode =
           (flakes.emacs-ctags-mode or (builtins.getFlake "github:nagy/emacs-ctags-mode"))
           .packages.${pkgs.stdenv.hostPlatform.system}.ctags-mode.overrideAttrs

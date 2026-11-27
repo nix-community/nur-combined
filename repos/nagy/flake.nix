@@ -182,6 +182,13 @@
     inputs.flake-parts.follows = "flake-parts";
   };
 
+  inputs.emacs-list-mode = {
+    url = "github:nagy/emacs-list-mode";
+    inputs.nixpkgs.follows = "nixpkgs";
+    inputs.treefmt-nix.follows = "treefmt-nix";
+    inputs.flake-parts.follows = "flake-parts";
+  };
+
   inputs.nixos-el = {
     url = "github:nagy/nixos.el";
     inputs.nixpkgs.follows = "nixpkgs";
