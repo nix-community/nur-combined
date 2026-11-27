@@ -1,0 +1,21 @@
+diff --git a/tests/pe_fixture.py b/tests/pe_fixture.py
+index 67e3adc..90d5d6d 100644
+--- a/tests/pe_fixture.py
++++ b/tests/pe_fixture.py
+@@ -4,5 +4,6 @@
+ test plugin and lifting it like the game's .asi files.
+ """
+ from pathlib import Path
++import os
+ import struct
+ import subprocess
+@@ -124,7 +125,8 @@ def build(directory, source=Path(__file__).with_name('pe_plugin.s')):
+     directory = Path(directory)
+     directory.mkdir(parents=True, exist_ok=True)
+     obj = directory / 'pe_plugin.obj'
+-    subprocess.run(['clang', '-target', 'i386-pc-windows-msvc', '-c', str(source), '-o', str(obj)], check=True)
++    clang = os.environ.get('PE_FIXTURE_CLANG', 'clang')
++    subprocess.run([clang, '-target', 'i386-pc-windows-msvc', '-c', str(source), '-o', str(obj)], check=True)
+     data, symbols = link_dll(obj)
+     path = directory / 'testpe.asi'
+     path.write_bytes(data)
