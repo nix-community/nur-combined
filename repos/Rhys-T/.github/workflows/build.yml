@@ -10,6 +10,10 @@ on:
         description: "--upterm: run an Upterm session before running `nix-fast-build`"
         required: false
         default: "false"
+      liveoutput:
+        description: "--liveoutput: force `nix-fast-build` to show build output live"
+        required: false
+        default: "false"
   pull_request:
     paths:
       - '.github/workflows/build.yml'
@@ -290,7 +294,7 @@ jobs:
         nix flake lock "$tempFlake"
         nix shell 'github:Mic92/nix-fast-build${{ matrix.nixFastBuildFlakeArgs }}' --override-input nixpkgs myNixpkgs 'myNixpkgs#ansifilter' -c bash -c '
           set -o pipefail
-          nix-fast-build -f "$tempFlake#cacheOutputs" --skip-cached --no-nom --result-file /tmp/build-status.json 2>&1 | \
+          nix-fast-build -f "$tempFlake#cacheOutputs"${{ github.event.inputs.liveoutput == 'true' && ' --stall-timeout 0' || ' ' }} --skip-cached --no-nom --result-file /tmp/build-status.json 2>&1 | \
             tee >(ansifilter > /tmp/build-uncached.log)
         '
     - name: Upload build logs
