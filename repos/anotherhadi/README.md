@@ -25,7 +25,7 @@
 | `revshell`          | TUI to search, render and copy reverse shell one-liners: bind shells, MSFVenom, HoaxShell and shellcode included, with a scriptable CLI  | [anotherhadi/revshell](https://github.com/anotherhadi/revshell)                   | 2026-11-12 |
 | `settuings`         | TUI to manage Linux system settings like wifi and bluetooth, without leaving the terminal                                                | [anotherhadi/settuings](https://github.com/anotherhadi/settuings)                 | 2026-08-13 |
 | `spilltea`          | TUI intercepting proxy for pentesters and bug bounty hunters, a lightweight terminal-first alternative to Burp Suite and Caido           | [anotherhadi/spilltea](https://github.com/anotherhadi/spilltea)                   | 2026-11-27 |
-| `steep`             | TUI to edit, replay and fuzz raw HTTP requests, powered by ffuf                                                                          | [anotherhadi/steep](https://github.com/anotherhadi/steep)                         | 2026-11-12 |
+| `steep`             | TUI to edit, replay and fuzz raw HTTP requests, powered by ffuf                                                                          | [anotherhadi/steep](https://github.com/anotherhadi/steep)                         | 2026-11-27 |
 | `usbguard-tui`      | TUI for managing USB devices via usbguard                                                                                                | [anotherhadi/usbguard-tui](https://github.com/anotherhadi/usbguard-tui)           | 2026-11-18 |
 
 <!-- PACKAGES:END -->
