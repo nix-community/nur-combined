@@ -317,3 +317,23 @@ no exception is raised. So the remaining question is narrow: what runs after
 `change_stack` and why it bails out.
 
 <!-- markers:end -->
+
+<!-- menu-marker:start -->
+### Where it actually stops: `show_menu` returns EFI_NOT_FOUND
+
+Instrumenting the branches of `stack_changed` (which runs on the switched stack) gives:
+
+```
+b=00000000   look_for_block_devices
+m=00000000   entered stack_changed
+n=0000000e   show_menu -> EFI_NOT_FOUND (14)
+e=0000000e   took the EFI_ERROR branch, print_error("show_menu"), return
+k=00000000   change_stack returned, efi_main unwinds
+R=00000000   efi_main returns EFI_SUCCESS to firmware
+```
+
+So everything quibble does to set itself up succeeds; only the boot-menu path cannot
+find something. Upstream's release binary on this exact ESP finds it, so the difference
+is in our build, not the disk.
+
+<!-- menu-marker:end -->
