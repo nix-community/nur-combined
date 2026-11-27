@@ -201,12 +201,35 @@ The harness works; our images do not start under it.
       OpenSSL-generated vectors (empty plaintext/AAD, one block, 60 bytes with
       odd-length AAD, and the 96-byte/24-byte-AAD wrapped-key shape), with
       AES-256 itself also checked against FIPS-197 via `openssl enc`.
-- [ ] Wiring, in order: read `DD_FIELD_CRYPTO_KEY_OBJ` from the zapified DSL
-      dir, unwrap the 96-byte key blob with the 32-byte raw keyfile (version-1
-      AAD is LE guid, crypt, version = 24 bytes), decode salt/IV from
-      `blk_dva[2]` and IV2 from the fill field, build `blkptr_auth_buf_t` for
-      the AAD, and decrypt before decompression in `zio_read_impl`.  The key
-      has to follow the objset through the read path: `dnode_read`/`zio_read`
+- [x] SHA-512 and HMAC-SHA512 (`crypto/sha512.c`), needed because an encrypted
+      dataset's non-leaf blocks are authenticated with SHA512-HMAC-256 (GCM
+      only covers leaf data).  Round constants are generated from OpenZFS's
+      `sha2_generic.c` so they match what wrote the pool; the KAT compares
+      against Python's hashlib/hmac.  Found and fixed a real bug on the way:
+      SHA-512's length field is 128 bits, so padding must zero through offset
+      120 before writing the low 64 bits - filling only to 112 left bytes
+      112..119 uninitialised and the digest depended on the stack.
+- [x] Key store implemented and verified against a real encrypted pool
+      (`key-store.patch`, plus `zfse_set_wrapping_key()` and the
+      `test/enc_read_test.c` driver in this package).  The DSL dir's
+      `com.datto:crypto_key_obj` entry is a ZAP whose
+      `DSL_CRYPTO_MASTER_KEY_1`/`HMAC_KEY_1` blobs are the 96-byte wrapped key,
+      `DSL_CRYPTO_IV`/`MAC` are the GCM IV and tag, and the version-1 AAD is
+      LE(guid, crypt, version) = 24 bytes.  Measured in the ZFS VM: with the
+      dataset's raw keyfile the reader prints `dataset key loaded:
+      aes-256-gcm, guid 3e6a9e1ae144ac64`; with any other 32 bytes it prints
+      `dataset key unwrap failed - wrong keyfile?`; with no key it still refuses
+      each block explicitly.  So the wrapped key's GCM tag is checked before the
+      key is accepted, not merely decoded.
+- [ ] Wiring the key into reads, in order: HKDF-SHA512(master, salt=the 8 bytes
+      from `blk_dva[2]`, info=NULL, 32 bytes) derives the per-block key; for a
+      leaf the AAD is empty, the GCM tag is `blk_cksum.zc_word[2..3]`, and the
+      IV is `blk_dva[2].dva_word[1]` plus `BP_GET_IV2` (bits 32..63 of
+      `blk_fill`); decrypt before decompression.  Authenticated (non-encrypted)
+      metadata needs SHA512-HMAC-256 over the `blkptr_auth_buf_t` AAD plus the
+      dnode's authenticated prefix (+ unencrypted bonus buffers), and indirect
+      blocks are a plain SHA-512 over the portable fields of their children.
+      The per-objset key must follow the read path: `dnode_read`/`zio_read`
       currently pass only `spa_t` and `blkptr_t`.
 - [ ] Not attempted yet: passphrase datasets (PBKDF2-HMAC-SHA512; SHA-512 is
       absent from `src/engine/`), AES-256-CCM datasets, and `encryptionroot`

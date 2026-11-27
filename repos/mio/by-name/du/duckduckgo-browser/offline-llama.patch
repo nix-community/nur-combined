@@ -1,0 +1,8 @@
+diff --git a/scripts/embed_llama_framework.sh b/scripts/embed_llama_framework.sh
+--- a/scripts/embed_llama_framework.sh
++++ b/scripts/embed_llama_framework.sh
+@@ -35,2 +35,2 @@
+-	echo "Downloading llama.cpp ${LLAMA_TAG}"
+-	curl --fail --location --silent --show-error --retry 3 --output "${zip_path}" "${LLAMA_ZIP_URL}"
++	echo "Using pinned llama.cpp ${LLAMA_TAG} archive"
++	cp "${LLAMA_CPP_ARCHIVE}" "${zip_path}"

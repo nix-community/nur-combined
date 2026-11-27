@@ -98,7 +98,33 @@ runNixOSTest {
     machine.succeed("zpool import -d /dev tank")
     machine.succeed("zpool set bootfs=tank/enc tank")
     machine.succeed("zpool export tank")
-    status, out = machine.execute("native_read_test /dev/loop0 0 1073741824")
+
+    # The key store: with the right raw keyfile the reader must find the
+    # dataset's crypto_key_obj and unwrap it (the GCM tag over the wrapped key
+    # is the check).  Block decryption does not exist yet, so the mount is
+    # still refused after the key is loaded - the assertion is about the
+    # messages, not about a working mount.
+    status, out = machine.execute(
+        "ZFS_KEY_FILE=/root/zfs.key enc_read_test /dev/loop0 0 1073741824"
+    )
+    print(out)
+    assert "dataset key loaded: aes-256-gcm" in out, out
+    assert "unwrap failed" not in out, out
+
+    # Any other 32 bytes must fail the tag check rather than be accepted.
+    machine.succeed("head -c 32 /dev/urandom > /root/bad.key")
+    status, out = machine.execute(
+        "ZFS_KEY_FILE=/root/bad.key enc_read_test /dev/loop0 0 1073741824"
+    )
+    print(out)
+    assert "dataset key unwrap failed" in out, out
+    assert "dataset key loaded" not in out, out
+
+    # And the plain-text reader must still refuse encrypted blocks explicitly
+    # when it has no key at all.
+    status, out = machine.execute(
+        "native_read_test /dev/loop0 0 1073741824"
+    )
     print(out)
     assert "encrypted datasets are not supported" in out, out
     assert "ALL PASSED" not in out, out

@@ -53,7 +53,19 @@ mingw.stdenv.mkDerivation {
   patches = [
     ./nix.patch
     ./encrypted-dataset.patch
+    ./key-store.patch
   ];
+
+  # The AES-256-GCM and SHA-512 code lives next to this package, in crypto/,
+  # and is compiled into the reader like its other engine sources.  It is plain
+  # freestanding C with no libc, which is what the EFI image needs.
+  postPatch = ''
+    cp ${./crypto}/aesgcm.c ${./crypto}/aesgcm.h \
+      ${./crypto}/sha512.c ${./crypto}/sha512.h ${./crypto}/sha512_consts.h \
+      src/engine/
+    sed -i 's#    src/engine/nvlist.c#    src/engine/aesgcm.c src/engine/sha512.c src/engine/nvlist.c#' \
+      CMakeLists.txt
+  '';
 
   cmakeFlags = [
     "-DCMAKE_TOOLCHAIN_FILE=../mingw-amd64.cmake"
@@ -92,9 +104,10 @@ mingw.stdenv.mkDerivation {
 
       The pool must stay inside FreeBSD's read-only feature set (create it with
       a `compatibility=` that keeps to it), and compression is limited to lz4,
-      lzjb, zle and none.  Encrypted datasets are not supported: the reader
-      has no key store and no AES, and this package's patch makes it report
-      that instead of failing the block's checksum.  `GetArcName` is not
+      lzjb, zle and none.  Encrypted datasets are not readable yet: the key
+      store is implemented (a raw keyfile is unwrapped and MAC-verified while
+      the dataset is opened), but block decryption is not, so the reader still
+      reports that instead of failing the block's checksum.  `GetArcName` is not
       implemented, so `freeldr.ini` keeps the ordinary `multi(...)partition(N)`
       form, and `OpenZFS.sys` must be a boot-start driver in the guest.
     '';

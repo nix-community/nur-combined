@@ -1,0 +1,221 @@
+diff --git a/src/engine/zfsimpl.c b/src/engine/zfsimpl.c
+index b0b446b..1690590 100644
+--- a/src/engine/zfsimpl.c
++++ b/src/engine/zfsimpl.c
+@@ -1,3 +1,6 @@
++#include "aesgcm.h"
++#include "sha512.h"
++
+ /*-
+  * Copyright (c) 2007 Doug Rabson
+  * All rights reserved.
+@@ -3607,6 +3610,159 @@ done:
+ }
+ #endif
+ 
++
++/*
++ * Encrypted datasets: the key store.
++ *
++ * An encrypted dataset's DSL dir is a ZAP object with an entry pointing at a
++ * second ZAP (``com.datto:crypto_key_obj'') that holds the dataset key, wrapped
++ * with the dataset's wrapping key.  For keyformat=raw that wrapping key is the
++ * raw keyfile, so the reader needs it handed in (zfs_set_wrapping_key) before
++ * the dataset can be opened; keyformat=passphrase additionally needs PBKDF2 and
++ * is not handled here.
++ *
++ * The wrapped blob is 96 bytes (32-byte master key + 64-byte HMAC key) and the
++ * MAC over it is a 16-byte AES-GCM tag, so a wrong key fails the tag check
++ * rather than yielding a plausible-looking key.
++ */
++#define	ZIO_CRYPT_AES_256_GCM_ID	8ULL	/* zio_crypt_table index */
++#define	DSL_KEY_MASTER_LEN	32
++#define	DSL_KEY_HMAC_LEN	64
++#define	DSL_KEY_WRAPPED_LEN	(DSL_KEY_MASTER_LEN + DSL_KEY_HMAC_LEN)
++
++struct zfs_dataset_key {
++	boolean_t	loaded;
++	uint64_t	crypt;
++	uint64_t	version;
++	uint64_t	guid;
++	uint8_t		key[DSL_KEY_MASTER_LEN];
++	uint8_t		hmac[DSL_KEY_HMAC_LEN];
++};
++
++static struct zfs_dataset_key dataset_key;
++static uint8_t wrapping_key[32];
++static boolean_t wrapping_key_set = B_FALSE;
++
++void
++zfs_set_wrapping_key(const uint8_t *key)
++{
++	memcpy(wrapping_key, key, sizeof (wrapping_key));
++	wrapping_key_set = B_TRUE;
++}
++
++static void
++zfs_put_le64(uint8_t *p, uint64_t v)
++{
++	int i;
++
++	for (i = 0; i < 8; i++)
++		p[i] = (uint8_t)(v >> (8 * i));
++}
++
++/*
++ * Unwrap the dataset key.  version 1 authenticates guid, crypto suite and
++ * version (24 bytes of AAD); the original version 0 only authenticated the
++ * guid.
++ */
++static int
++zfs_unwrap_dataset_key(const uint8_t *wrapped, const uint8_t *iv,
++    const uint8_t *mac, uint64_t crypt, uint64_t version, uint64_t guid)
++{
++	uint8_t aad[24];
++	uint8_t plain[DSL_KEY_WRAPPED_LEN];
++	size_t aad_len;
++
++	if (crypt != ZIO_CRYPT_AES_256_GCM_ID) {
++		printf("ZFS: encrypted dataset uses encryption suite %ju, "
++		    "only aes-256-gcm is supported\n", (uintmax_t)crypt);
++		return (ENOTSUP);
++	}
++
++	aad_len = (version == 0) ? 8 : sizeof (aad);
++	zfs_put_le64(aad, guid);
++	if (version != 0) {
++		zfs_put_le64(aad + 8, crypt);
++		zfs_put_le64(aad + 16, version);
++	}
++
++	if (aes256_gcm_decrypt(wrapping_key, iv, aad, aad_len, wrapped,
++	    sizeof (plain), plain, mac) != 0) {
++		printf("ZFS: dataset key unwrap failed - wrong keyfile?\n");
++		return (EACCES);
++	}
++
++	memcpy(dataset_key.key, plain, DSL_KEY_MASTER_LEN);
++	memcpy(dataset_key.hmac, plain + DSL_KEY_MASTER_LEN, DSL_KEY_HMAC_LEN);
++	dataset_key.crypt = crypt;
++	dataset_key.version = version;
++	dataset_key.guid = guid;
++	dataset_key.loaded = B_TRUE;
++
++	printf("ZFS: dataset key loaded: aes-256-gcm, guid %llx\n",
++	    (unsigned long long)guid);
++	return (0);
++}
++
++static int
++zfs_load_dataset_key(const spa_t *spa, uint64_t dir_obj)
++{
++	dnode_phys_t dir, keydn;
++	uint64_t keyobj = 0, crypt = 0, version = 0, guid = 0;
++	uint8_t keydata[DSL_KEY_MASTER_LEN], hmacdata[DSL_KEY_HMAC_LEN];
++	uint8_t iv[12], mac[16];
++	uint8_t wrapped[DSL_KEY_WRAPPED_LEN];
++	int rc;
++
++	if (objset_get_dnode(spa, spa->spa_mos, dir_obj, &dir) != 0)
++		return (EIO);
++
++	if (zap_lookup(spa, &dir, "com.datto:crypto_key_obj", sizeof (keyobj),
++	    1, &keyobj) != 0)
++		return (0);	/* not an encrypted dataset */
++
++	if (keyobj == 0)
++		return (0);
++
++	if (!wrapping_key_set) {
++		printf("ZFS: encrypted dataset found, but no key was supplied\n");
++		return (EACCES);
++	}
++
++	if (objset_get_dnode(spa, spa->spa_mos, keyobj, &keydn) != 0) {
++		printf("ZFS: can't read the dataset key object\n");
++		return (EIO);
++	}
++
++	rc = zap_lookup(spa, &keydn, "DSL_CRYPTO_SUITE", sizeof (crypt), 1,
++	    &crypt);
++	if (rc == 0)
++		rc = zap_lookup(spa, &keydn, "DSL_CRYPTO_GUID", sizeof (guid), 1,
++		    &guid);
++	if (rc == 0)
++		rc = zap_lookup(spa, &keydn, "DSL_CRYPTO_MASTER_KEY_1", 1,
++		    sizeof (keydata), keydata);
++	if (rc == 0)
++		rc = zap_lookup(spa, &keydn, "DSL_CRYPTO_HMAC_KEY_1", 1,
++		    sizeof (hmacdata), hmacdata);
++	if (rc == 0)
++		rc = zap_lookup(spa, &keydn, "DSL_CRYPTO_IV", 1, sizeof (iv), iv);
++	if (rc == 0)
++		rc = zap_lookup(spa, &keydn, "DSL_CRYPTO_MAC", 1, sizeof (mac),
++		    mac);
++	/* version 0 predates the field, so a failed lookup means 0 */
++	(void) zap_lookup(spa, &keydn, "DSL_CRYPTO_VERSION", sizeof (version),
++	    1, &version);
++	if (rc != 0) {
++		printf("ZFS: can't read the dataset key object (%d)\n", rc);
++		return (rc);
++	}
++
++	memcpy(wrapped, keydata, sizeof (keydata));
++	memcpy(wrapped + sizeof (keydata), hmacdata, sizeof (hmacdata));
++
++	return (zfs_unwrap_dataset_key(wrapped, iv, mac, crypt, version, guid));
++}
++
+ /*
+  * Find the object set given the object number of its dataset object
+  * and return its details in *objset
+@@ -3624,6 +3780,9 @@ zfs_mount_dataset(const spa_t *spa, uint64_t objnum, objset_phys_t *objset,
+ 	}
+ 
+ 	ds = (dsl_dataset_phys_t *)&dataset.dn_bonus;
++
++	/* resolved before the dataset's objset is read */
++	(void) zfs_load_dataset_key(spa, ds->ds_dir_obj);
+ 	if (zio_read(spa, &ds->ds_bp, objset)) {
+ 		printf("ZFS: can't read object set for dataset %ju\n",
+ 		    (uintmax_t)objnum);
+diff --git a/src/zfsengine.c b/src/zfsengine.c
+index d3545f1..4477b4b 100644
+--- a/src/zfsengine.c
++++ b/src/zfsengine.c
+@@ -174,6 +174,22 @@ zfse_pool_init(struct zfse_pool* pool)
+     return pool->init_rc;
+ }
+ 
++/*
++ * Hand in the dataset's wrapping key (keyformat=raw: the 32 raw keyfile
++ * bytes).  Must be called before zfse_mount() so the reader can unwrap the
++ * dataset key while opening it.
++ */
++int
++zfse_set_wrapping_key(const uint8_t* key, size_t len)
++{
++    extern void zfs_set_wrapping_key(const uint8_t*);
++
++    if (len != 32)
++        return EINVAL;
++    zfs_set_wrapping_key(key);
++    return 0;
++}
++
+ uint64_t
+ zfse_pool_guid(struct zfse_pool* pool)
+ {
+diff --git a/src/zfsengine.h b/src/zfsengine.h
+index 73ae290..3d8db34 100644
+--- a/src/zfsengine.h
++++ b/src/zfsengine.h
+@@ -36,6 +36,8 @@ int zfse_pool_init(struct zfse_pool* pool); /* once all devices have been probed
+ uint64_t zfse_pool_guid(struct zfse_pool* pool);
+ const char* zfse_pool_name(struct zfse_pool* pool);
+ int zfse_mount(struct zfse_pool* pool, struct zfse_mount** mnt);
++/* keyformat=raw: the 32 bytes of the keyfile, before zfse_mount() */
++int zfse_set_wrapping_key(const uint8_t* key, size_t len);
+ void zfse_unmount(struct zfse_mount* mnt);
+ int zfse_open(struct zfse_mount* mnt, const char* path, struct zfse_file** f);
+ void zfse_close(struct zfse_file* f);

@@ -14,6 +14,7 @@
 #include <string.h>
 
 #include "aesgcm.h"
+#include "sha512.h"
 
 struct gcm_vec {
 	const char *name;
@@ -158,6 +159,44 @@ static void run_vec(const struct gcm_vec *v)
 	check(out[0] == 0xaa, v->name, "plaintext written before verification");
 }
 
+static int hex_eq(const uint8_t *got, const char *want_hex, size_t n)
+{
+	uint8_t want[64];
+	size_t len;
+
+	if (n > sizeof (want) || unhex(want_hex, want, sizeof (want), &len) != 0)
+		return (0);
+	return (len == n && memcmp(got, want, n) == 0);
+}
+
+static void run_sha512(void)
+{
+	uint8_t out[SHA512_DIGEST_LEN];
+	uint8_t key[32];
+	size_t i;
+
+	for (i = 0; i < sizeof (key); i++)
+		key[i] = (uint8_t)i;
+
+	sha512((const uint8_t *)"abc", 3, out);
+	check(hex_eq(out,
+	    "ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a"
+	    "2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e2a9ac94fa54ca49f",
+	    sizeof (out)), "sha512", "abc vector");
+
+	sha512(NULL, 0, out);
+	check(hex_eq(out,
+	    "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce"
+	    "47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+	    sizeof (out)), "sha512", "empty vector");
+
+	hmac_sha512(key, sizeof (key), (const uint8_t *)"abc", 3, out);
+	check(hex_eq(out,
+	    "69d4a21e226bf0d348cb9a847c01cf24e93e8ac30d7c951704b936f82f795a62"
+	    "4b470e23abd33ac8700e797f0f2a499b932bac7d283bbbb37d8fecf70d5e08a7",
+	    sizeof (out)), "hmac-sha512", "abc vector");
+}
+
 int main(void)
 {
 	size_t i;
@@ -166,6 +205,14 @@ int main(void)
 		run_vec(&vectors[i]);
 		if (failures == 0)
 			printf("PASS %s\n", vectors[i].name);
+	}
+
+	{
+		int before = failures;
+
+		run_sha512();
+		if (failures == before)
+			printf("PASS SHA-512 and HMAC-SHA512 vectors\n");
 	}
 
 	if (failures != 0) {

@@ -20,6 +20,12 @@ stdenv.mkDerivation {
 
     # glibc's sys/cdefs.h has to win, but skein_freebsd.h needs FreeBSD's
     # __min_size, so keep a shim in front of it.
+    # The reader's AES/SHA-512 sources, and the key-store test driver.
+    cp ${./crypto}/aesgcm.c ${./crypto}/aesgcm.h \
+       ${./crypto}/sha512.c ${./crypto}/sha512.h ${./crypto}/sha512_consts.h \
+       src/engine/
+    cp ${./enc-read-test.c} test/enc_read_test.c
+
     cat > hostcompat/sys/cdefs.h <<'EOF'
     #pragma once
     #include_next <sys/cdefs.h>
@@ -39,6 +45,16 @@ stdenv.mkDerivation {
       -Wno-error=implicit-int -Wno-error=int-conversion \
       -include hostcompat/prefix.h -I hostcompat -I src/engine -I src \
       -o native_read_test test/native_read_test.c \
+      src/engine/aesgcm.c src/engine/sha512.c \
+      src/engine/nvlist.c src/engine/skein.c src/engine/skein_block.c \
+      src/engine/list.c src/engine/blake3_stub.c src/engine/lz4.c
+
+    $CC -std=gnu11 -O2 -w -D_GNU_SOURCE \
+      -Wno-error=implicit-function-declaration \
+      -Wno-error=implicit-int -Wno-error=int-conversion \
+      -include hostcompat/prefix.h -I hostcompat -I src/engine -I src \
+      -o enc_read_test test/enc_read_test.c \
+      src/engine/aesgcm.c src/engine/sha512.c \
       src/engine/nvlist.c src/engine/skein.c src/engine/skein_block.c \
       src/engine/list.c src/engine/blake3_stub.c src/engine/lz4.c
 
@@ -49,6 +65,7 @@ stdenv.mkDerivation {
     runHook preInstall
 
     install -Dm755 native_read_test $out/bin/native_read_test
+    install -Dm755 enc_read_test $out/bin/enc_read_test
 
     runHook postInstall
   '';
