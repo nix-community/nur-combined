@@ -155,14 +155,46 @@ package appdir
 
 import (
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 )
+
+// Nix wrappers preserve argv[0]. Check it while it still names this build,
+// but keep the unresolved path so restarts follow the same profile after an upgrade.
+var invokedLauncher = func() string {
+	wrapper, err := os.Stat(os.Getenv("MAGPIE_EXECUTABLE"))
+	if err != nil {
+		return ""
+	}
+	path, err := exec.LookPath(os.Args[0])
+	if err != nil {
+		return ""
+	}
+	path, err = filepath.Abs(path)
+	if err != nil {
+		return ""
+	}
+	for _, store := range stores {
+		if strings.HasPrefix(path, store) {
+			return ""
+		}
+	}
+	if info, err := os.Stat(path); err == nil && os.SameFile(info, wrapper) {
+		return path
+	}
+	return ""
+}()
 
 // LaunchProgram selects a launcher for code that is about to name or start magpie.
 func LaunchProgram(executable func() (string, error)) (string, error) {
 	if a := os.Getenv("APPIMAGE"); a != "" {
 		return a, nil
+	}
+	if invokedLauncher != "" {
+		if _, err := exec.LookPath(invokedLauncher); err == nil {
+			return invokedLauncher, nil
+		}
 	}
 	if p := Launcher(); p != "" {
 		return p, nil
