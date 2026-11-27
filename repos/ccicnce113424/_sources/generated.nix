@@ -55,21 +55,21 @@
   };
   fast-nix-gc = {
     pname = "fast-nix-gc";
-    version = "b4471ec56911541f72f7a7b9b8fee7f42183f21b";
+    version = "7e0e446e3dcb1c9454685f8d346e13e456e7fa84";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "fast-nix-gc";
-      rev = "b4471ec56911541f72f7a7b9b8fee7f42183f21b";
+      rev = "7e0e446e3dcb1c9454685f8d346e13e456e7fa84";
       fetchSubmodules = false;
-      sha256 = "sha256-CNSHu5tKx//E9+ayDlfhk9C/3JVDFxiB0PKYQA37CC4=";
+      sha256 = "sha256-JX00SVX791kyU+WIUkRRZNHymQt8rrkWxAUCqzHRCys=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-CNSHu5tKx__E9+ayDlfhk9C_3JVDFxiB0PKYQA37CC4=/Cargo.lock";
+      lockFile = ./. + "/sha256-JX00SVX791kyU+WIUkRRZNHymQt8rrkWxAUCqzHRCys=/Cargo.lock";
       outputHashes = {
         "harmonia-file-core-3.1.0" = "sha256-YklzRujFo5lvFsdLoedE6OL6OvSwNk/nfwlGxulyTS4=";
       };
     };
-    date = "2026-10-08";
+    date = "2026-11-26";
   };
   flake-linter = {
     pname = "flake-linter";
