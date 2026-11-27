@@ -60,6 +60,11 @@ appimageTools.wrapAppImage {
   # The Open Wallpaper Engine scene renderer links against liblz4.so.1.
   extraPkgs = pkgs: [ pkgs.lz4.lib ];
 
+  # The bundled libva only checks its build-time conda and FHS driver paths.
+  profile = ''
+    export LIBVA_DRIVERS_PATH="''${LIBVA_DRIVERS_PATH:+$LIBVA_DRIVERS_PATH:}/run/opengl-driver/lib/dri:/run/opengl-driver-32/lib/dri"
+  '';
+
   extraInstallCommands = ''
     install -Dm444 "${contents}/usr/share/applications/${appId}.desktop" \
       "$out/share/applications/${appId}.desktop"
