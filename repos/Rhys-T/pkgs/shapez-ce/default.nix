@@ -146,6 +146,12 @@
             "aarch64-darwin"
         ];
     };
+    # Ugly hack: this exact electron build was cancelled on Hydra, so CI wants to rebuild it from scratch and times out.
+    # For now, just skip building this against that electron in CI.
+    passthru._Rhys-T.allowCI = !(
+        stdenv.hostPlatform.system == "aarch64-linux" &&
+        electron.drvPath == "/nix/store/g2zl2155l9lp59xdd28rali5v7ak6qmn-electron-45.3.4.drv"
+    );
     passthru.updateScript = let
         fixUpdater = u: u.override (old: builtins.intersectAttrs old rec {
             genericUpdater = old.genericUpdater.override { inherit common-updater-scripts; };
