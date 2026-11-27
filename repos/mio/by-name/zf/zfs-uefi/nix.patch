@@ -1,0 +1,21 @@
+diff --git a/mingw-amd64.cmake b/mingw-amd64.cmake
+index 414c27d..601c81d 100644
+--- a/mingw-amd64.cmake
++++ b/mingw-amd64.cmake
+@@ -5,7 +5,15 @@ SET(CMAKE_CXX_COMPILER x86_64-w64-mingw32-g++)
+ SET(CMAKE_RC_COMPILER x86_64-w64-mingw32-windres)
+ SET(CMAKE_SYSTEM_PROCESSOR "AMD64")
+ 
+-set(CMAKE_EXE_LINKER_FLAGS "-static")
++set(CMAKE_EXE_LINKER_FLAGS "-static -nostdlib -nodefaultlibs -Wl,--disable-runtime-pseudo-reloc")
++
++# The image is freestanding, so the compiler ABI probes cannot link.
++set(CMAKE_C_COMPILER_WORKS 1)
++set(CMAKE_CXX_COMPILER_WORKS 1)
++
++# libgcc is the only runtime library; the CRT and default libraries are out.
++set(CMAKE_C_STANDARD_LIBRARIES "-lgcc" CACHE STRING "" FORCE)
++set(CMAKE_CXX_STANDARD_LIBRARIES "-lgcc" CACHE STRING "" FORCE)
+ 
+ SET(CMAKE_FIND_ROOT_PATH /usr/x86_64-w64-mingw32)
+ 

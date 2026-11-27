@@ -23,11 +23,10 @@ let
     hash = "sha256-4xT7adK0v52coMvDPJ8nhXOyBWgMJ0o21R1QGRG4zZ4=";
   };
 
-  # The UEFI image is built freestanding, without mingw's CRT or default
-  # libraries.  FreeType needs a real setjmp/longjmp for its raster-overflow and
-  # validator recovery paths, and FreeType/HarfBuzz reference libc string and
-  # printf entry points; the va_list formatting backends stay upstream's stubs.
-  # They are linked in as an archive so upstream's source list is untouched.
+  # Upstream's own print.cpp already dummies the libc entry points FreeType and
+  # HarfBuzz reference, so the image is built against those dummies.  Only the
+  # three names that block does not cover need definitions, and they abort the
+  # same way; they go in an archive so upstream's sources stay untouched.
   runtime = mingw.stdenv.mkDerivation {
     pname = "quibble-runtime";
     inherit version;
@@ -35,9 +34,8 @@ let
 
     buildPhase = ''
       runHook preBuild
-      $CXX -c ${./compat.cpp} -o compat.o -ffreestanding -fno-stack-protector -fno-exceptions
-      $CC -c ${./setjmp.S} -o setjmp.o
-      $AR rcs libquibble-rt.a compat.o setjmp.o
+      $CXX -D_CRTIMP= -c ${./stubs.cpp} -o stubs.o -ffreestanding -fno-stack-protector -fno-exceptions
+      $AR rcs libquibble-rt.a stubs.o
       runHook postBuild
     '';
 

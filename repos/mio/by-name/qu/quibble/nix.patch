@@ -1,5 +1,5 @@
 diff --git a/mingw-amd64.cmake b/mingw-amd64.cmake
-index 414c27d..3b59bb5 100644
+index 414c27d..551dd47 100644
 --- a/mingw-amd64.cmake
 +++ b/mingw-amd64.cmake
 @@ -5,7 +5,19 @@ SET(CMAKE_CXX_COMPILER x86_64-w64-mingw32-g++)
@@ -13,8 +13,8 @@ index 414c27d..3b59bb5 100644
 +set(CMAKE_C_COMPILER_WORKS 1)
 +set(CMAKE_CXX_COMPILER_WORKS 1)
 +
-+# libgcc and the freestanding runtime archive (compat.cpp, setjmp.S) are
-+# appended after the project's own link libraries.  The path arrives as
++# libgcc and the three stubs upstream's own dummy block does not cover are
++# appended after the project's link libraries.  The path arrives as
 +# QUIBBLE_RT_ARCHIVE because cmakeFlags cannot carry the space in the list.
 +if(DEFINED QUIBBLE_RT_ARCHIVE)
 +    set(CMAKE_C_STANDARD_LIBRARIES "${QUIBBLE_RT_ARCHIVE} -lgcc" CACHE STRING "" FORCE)
@@ -23,60 +23,3 @@ index 414c27d..3b59bb5 100644
  
  SET(CMAKE_FIND_ROOT_PATH /usr/x86_64-w64-mingw32)
  
-diff --git a/src/print.cpp b/src/print.cpp
-index f105ca5..f0de5f7 100644
---- a/src/print.cpp
-+++ b/src/print.cpp
-@@ -616,52 +616,11 @@ void FT_Done_Memory(FT_Memory memory) {
-  * This is so we can bring in the upstream versions directly, rather than
-  * having to patch the offending bits out. */
- 
--#ifdef __x86_64__
--
--extern "C"
--void __imp_longjmp(jmp_buf, int) {
--    abort();
--}
--
--#elif defined(_X86_)
--
--extern "C"
--void _imp__longjmp(jmp_buf, int) {
--    abort();
--}
--
--#endif
--
--extern "C"
--int _setjmp(jmp_buf, void*) {
--    return 0;
--}
--
--extern "C"
--int _setjmp3(jmp_buf, void*) {
--    return 0;
--}
--
- extern "C"
- char* getenv(const char*) {
-     return nullptr;
- }
- 
--extern "C"
--char* strrchr(const char*, int) {
--    abort();
--}
--
--extern "C"
--char* strncpy(char*, const char*, size_t) {
--    abort();
--}
--
--extern "C"
--unsigned long strtoul(const char*, char**, int) {
--    abort();
--}
--
- extern "C"
- int __mingw_vsprintf(char*, const char*, va_list) {
-     abort();
