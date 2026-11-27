@@ -236,7 +236,24 @@ const OP_COLOR_INTERPOLATE: u32 = 7;
 
 /// Run a value operation: deserialize the operands, dispatch on `op`, and return
 /// the serialized result (or an `Err(message)` surfaced to the JS caller).
+///
+/// A host calls this outside any compile, so it guards its own stack: the
+/// operands are the host's bytes, nested as deep as it likes, and reading or
+/// writing them recurses once per level. Past the default limit the op fails
+/// with `Stack Overflow` instead of overflowing the stack. Called from inside
+/// a compile (a custom function that runs one), it shares that compile's
+/// guard, and whether it tripped stays its own business, as for a nested
+/// compile (see [`crate::stack::enter`]).
 pub fn host_value_op(op: u32, input: &[u8]) -> Result<Vec<u8>, String> {
+    let _guard = crate::stack::enter(crate::stack::DEFAULT_LIMIT);
+    let result = value_op(op, input);
+    if crate::stack::tripped() {
+        return Err(crate::stack::MESSAGE.into());
+    }
+    result
+}
+
+fn value_op(op: u32, input: &[u8]) -> Result<Vec<u8>, String> {
     let args = deserialize_args(input)?;
     let result = match op {
         OP_NUMBER_CONVERT => number_convert(&args)?,
@@ -1044,6 +1061,60 @@ mod tests {
         let o = Options::default().with_function("bad($x)", cb);
         let err = compile(".a { x: bad(1); }", &o).unwrap_err();
         assert!(err.message.contains("boom"), "got: {}", err.message);
+    }
+
+    /// `host_value_op` runs outside any compile (the wasm `sasso_value_op`
+    /// export, napi's `value_op`), so it guards its own stack: a host that
+    /// hands it a value nested deeper than the stack gets `Stack Overflow`
+    /// back, not an aborted process (#312's follow-up).
+    #[test]
+    fn value_op_rejects_a_value_nested_deeper_than_the_stack() {
+        let depth = 200_000;
+        let mut input = Vec::new();
+        super::put_u32(&mut input, 1);
+        for _ in 0..depth {
+            input.push(super::TAG_LIST);
+            input.push(1); // comma
+            input.push(0); // unbracketed
+            super::put_u32(&mut input, 1);
+        }
+        input.push(super::TAG_NULL);
+        input.extend(std::iter::repeat(0).take(depth)); // no keywords
+                                                        // Both calls run on the overflowing thread: the guard is thread-local,
+                                                        // so only there could a trip left behind show up.
+        let (deep, after) = std::thread::Builder::new()
+            .stack_size(1 << 20)
+            .spawn(move || {
+                let deep = super::host_value_op(super::OP_NUMBER_CONVERT, &input);
+                // The guard is gone again: an ordinary op still works.
+                let unit = Value::List(crate::value::List::new(
+                    vec![Value::Str(SassStr {
+                        text: "in".into(),
+                        quoted: false,
+                    })],
+                    ListSep::Space,
+                    false,
+                ));
+                let none = Value::List(crate::value::List::new(
+                    Vec::<Value>::new(),
+                    ListSep::Space,
+                    false,
+                ));
+                let args = vec![
+                    Value::Number(Number::with_unit(96.0, "px")),
+                    unit,
+                    none,
+                    Value::Bool(false),
+                ];
+                let after =
+                    super::host_value_op(super::OP_NUMBER_CONVERT, &super::serialize_args(&args).unwrap());
+                (deep, after)
+            })
+            .unwrap()
+            .join()
+            .unwrap();
+        assert_eq!(deep.unwrap_err(), crate::stack::MESSAGE);
+        assert!(after.is_ok(), "an op after the overflow failed: {after:?}");
     }
 
     #[test]

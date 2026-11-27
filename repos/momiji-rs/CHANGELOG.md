@@ -43,6 +43,14 @@ Conformance is tracked separately as a ratchet against the official
 
 ### Fixed
 
+- **A value op from a host checks its stack too** (#312 follow-up).
+  `host_value_op` (the wasm `sasso_value_op` export and napi's `value_op`,
+  behind `SassNumber.convert` and the `SassColor` methods) runs outside any
+  compile, so #312's guards never fired there: a host that handed it a
+  value nested a few hundred thousand levels deep aborted the process. It
+  now guards its own stack with the default limit and fails with
+  `Stack Overflow`.
+
 - **A value nested deep at run time no longer aborts the process** (#312).
   A loop builds a list, map or calculation as deep as it likes in a few
   bytes of source (`$l: ($l, 1)`, `$m: (k: $m)`, `$c: calc($c + 1%)`,
