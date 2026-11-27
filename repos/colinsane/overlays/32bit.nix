@@ -88,6 +88,22 @@ _self: super: {
   #   doCheck = self.stdenv.buildPlatform.is32bit;
   # });
 
+  rust_1_99 = super.rust_1_99 // {
+    packages = super.rust_1_99.packages // {
+      stable = super.rust_1_99.packages.stable.overrideScope (_: rustSuper: {
+        rustc-unwrapped = rustSuper.rustc-unwrapped.overrideAttrs (prevAttrs: {
+          # Rustdoc's I/O pool uses the CPU count, not the build job limit.
+          # On high-core hosts its worker stacks can exhaust 32-bit address space.
+          postPatch = (prevAttrs.postPatch or "") + ''
+            substituteInPlace src/librustdoc/docfs.rs \
+              --replace-fail 'max(nb.get(), MINIMUM_NB_THREADS)' \
+                             'max(nb.get().min(16), MINIMUM_NB_THREADS)'
+          '';
+        });
+      });
+    };
+  };
+
   tcl = super.tcl.overrideAttrs (prevAttrs: {
     # required for pkgsi686Linux.sqlite to pass checkPhase
     configureFlags = (prevAttrs.configureFlags or [ ]) ++ [

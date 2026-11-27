@@ -5,13 +5,15 @@ import socket
 import struct
 import subprocess
 
+from typing import Dict, Iterator, Optional, Sequence, Tuple
+
 logger = logging.getLogger(__name__)
 
 
 MCAST_GRP = "239.255.255.250"
 
 class SsdpResponse:
-    def __init__(self, headers: "Dict[str, str]"):
+    def __init__(self, headers: Dict[str, str]):
         self.headers = headers
 
     @staticmethod
@@ -26,21 +28,48 @@ class SsdpResponse:
             return SsdpResponse(headers)
 
     def is_rootdevice(self) -> bool:
-        return self.headers.get("NT", "").lower() == "upnp:rootdevice"
+        return (
+            self.headers.get("NT", "").lower() == "upnp:rootdevice"
+            or self.headers.get("ST", "").lower() == "upnp:rootdevice"
+        )
 
-    def location(self) -> str:
+    def location(self) -> Optional[str]:
         return self.headers.get("LOCATION")
+
+def get_default_gateways() -> list[str]:
+    """Return IPv4 default gateway addresses from /proc/net/route."""
+    gateways = []
+    try:
+        with open("/proc/net/route", "r") as f:
+            next(f)  # skip header
+            for line in f:
+                fields = line.strip().split()
+                if len(fields) < 4:
+                    continue
+                dest, gw, flags = fields[1], fields[2], int(fields[3], 16)
+                # RTF_UP (0x1) | RTF_GATEWAY (0x2), destination 0.0.0.0
+                if dest == "00000000" and (flags & 0x3) == 0x3:
+                    gw_ip = socket.inet_ntoa(struct.pack("<L", int(gw, 16)))
+                    if gw_ip not in gateways:
+                        gateways.append(gw_ip)
+    except OSError as e:
+        logger.debug(f"failed to read /proc/net/route: {e}")
+    return gateways
 
 def get_cached_root_devices() -> list[str]:
     try:
-        dev = open("/var/lib/dyn-dns/upnp.txt", "r").read()
+        dev = open("/var/lib/dyn-dns/upnp.txt", "r").read().strip()
     except IOError:
         return []
     else:
-        logger.debug("loaded cached UPNP root device", dev)
+        logger.debug(f"loaded cached UPNP root device {dev}")
         return [dev]
 
-def get_root_devices() -> list[str]:
+def get_root_devices(gateways: Sequence[str] = []) -> Iterator[str]:
+    """
+    - `gateways`, if supplied: used to improve discovery time by actively SEARCHing these devices
+      instead of passively waiting for NOTIFY (which can take 15 minutes).
+    """
     listener = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
     listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     listener.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 2)
@@ -50,6 +79,21 @@ def get_root_devices() -> list[str]:
 
     mreq = struct.pack("4sl", socket.inet_aton(MCAST_GRP), socket.INADDR_ANY)
     listener.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
+
+    for gw in gateways:
+        msg = "\r\n".join([
+            "M-SEARCH * HTTP/1.1",
+            f"HOST: {gw}:1900",
+            'MAN: "ssdp:discover"',
+            "ST: upnp:rootdevice",
+            "",
+            "",
+        ]).encode("utf-8")
+        logger.debug(f"sending unicast M-SEARCH to {gw}:1900")
+        try:
+            listener.sendto(msg, (gw, 1900))
+        except OSError as e:
+            logger.debug(f"failed to send M-SEARCH to {gw}: {e}")
 
     root_descs = set()
     while True:
@@ -70,7 +114,7 @@ def get_root_devices() -> list[str]:
                     logger.debug(f"root desc: {root_desc}")
                     yield root_desc
 
-def get_ips_from_location(location: str) -> tuple[str | None, str | None]:
+def get_ips_from_location(location: str) -> tuple[Optional[str], Optional[str]]:
     """
     location = URI from the Location header, e.g. http://10.78.79.1:2189/rootDesc.xml
     returns (lan, wan)
@@ -99,10 +143,15 @@ def get_ips_from_location(location: str) -> tuple[str | None, str | None]:
             logger.info(f"got LAN = {lan} from {location}")
     return lan, wan
 
-def get_any_wan(cached: bool = False) -> tuple[str, str, str] | None:
+def get_any_wan(cached: bool = False) -> Optional[Tuple[str, str, str]]:
     """ return (location, LAN IP, WAN IP) for the first device seen which has a WAN IP """
-    sources = ([ get_cached_root_devices() ] if cached else []) \
-        + [ get_root_devices() ]
+    gateways = get_default_gateways()
+
+    sources = []
+    if cached:
+        sources.append(get_cached_root_devices())
+    sources.append(get_root_devices(gateways))
+
     for source in sources:
         for location in source:
             lan, wan = get_ips_from_location(location)

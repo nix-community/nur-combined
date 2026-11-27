@@ -276,12 +276,61 @@ super.lib.composeManyExtensions [
       #   drv
       # ) prev.haskell.compiler;
       compiler = prev.haskell.compiler // {
-        # ghc9103 = prev.haskell.compiler.ghc9103.overrideAttrs {
-        #   # NIX_BUILD_CORES = "8";
-        #   NIX_BUILD_CORES = "128";
-        # };
-        # ghc910 = prev.haskell.compiler.ghc910.overrideAttrs {
-        #   # NIX_BUILD_CORES = "8";
+        ghc9103 = prev.haskell.compiler.ghc9103.overrideAttrs (prevAttrs: {
+          preConfigure = ''
+            if (( NIX_BUILD_CORES > 256 )); then
+              NIX_BUILD_CORES=256
+            fi
+          '' + (prevAttrs.preConfigure or "");
+        });
+        # XXX(2026-11-26): ghc 9.12 (unlike 9.10 and 9.14) lacks the RTS fix for <https://gitlab.haskell.org/ghc/ghc/-/issues/25560>,
+        # so any threaded program calling `setNumCapabilities n` w/ n > 256 segfaults in `assignNurseriesToCapabilities`.
+        # tasty does exactly that (`--num-threads` defaults to the core count), so e.g. `haskellPackages.hslua-core` checkPhase segfaults at 512 cores.
+        # backport the ghc-9.10 cherry-picks of the upstream fix (no nixpkgs PR exists).
+        ghc9125 = prev.haskell.compiler.ghc9125.overrideAttrs (prevAttrs: {
+          patches = (prevAttrs.patches or [ ]) ++ [
+            (final.fetchpatch {
+              name = "rts-setNumCapabilities-assert-n_caps-lt-MAX_N_CAPS";
+              url = "https://github.com/ghc/ghc/commit/653b86aee8856b2eab57d4761c8b627198b0cda5.patch";
+              hash = "sha256-kjXZf20VYxtLxcFeI2kckiZ+udRXESewCbGf42a2Kxk=";
+            })
+            (final.fetchpatch {
+              name = "rts-mention-maximum-capability-count-in-users-guide";
+              url = "https://github.com/ghc/ghc/commit/e3b3358fa8524d2727374724e04b07baa2cb82dc.patch";
+              hash = "sha256-pn0IvKMA4yRvb0CDsoEHjKmnZ0WcokQDL/hKzq7V4BI=";
+            })
+            (final.fetchpatch {
+              name = "rts-determine-max_n_capabilities-at-RTS-startup";
+              url = "https://github.com/ghc/ghc/commit/a1791350ab5702a356bbb0082a4da97a83bce40e.patch";
+              hash = "sha256-sjB2i98x6BtHhB1POtlcIvEa1LicDesDAEkqHtsVsss=";
+            })
+          ];
+        });
+        # ghc9125 = (prev.haskell.compiler.ghc9125.override {
+        #   # release: 36m
+        #   # perf+no_profiled_libs: 18m
+        #   # quickest: 10m
+        #   ghcFlavour = "quickest";
+        #   enableProfiledLibs = false;
+        #   enableShared = false;
+        #   enableDocs = false;
+        # }).overrideAttrs (prevAttrs: {
+        #   pname = "${prevAttrs.pname}-2";
+        #   hadrianFlags = map (flag: if flag == "--docs=no-sphinx" then "--docs=none" else flag) prevAttrs.hadrianFlags;
+        #   # Keep the declared doc output even when there are no docs to install.
+        #   postInstall = prevAttrs.postInstall + ''
+        #     mkdir -p "$doc"
+        #   '';
+        #   # At -j512, Hadrian's large RTS footprint makes fork() expensive:
+        #   # perf shows its kernel time going into copying page tables.
+        #   # Cap jobs before upstream preConfigure appends -j$NIX_BUILD_CORES.
+        #   preConfigure = ''
+        #     if (( NIX_BUILD_CORES > 32 )); then
+        #       NIX_BUILD_CORES=32
+        #     fi
+        #   '' + (prevAttrs.preConfigure or "");
+        # });
+        # ghc984 = prev.haskell.compiler.ghc984.overrideAttrs {
         #   NIX_BUILD_CORES = "128";
         # };
         # ghc984Binary = prev.haskell.compiler.ghc984Binary.overrideAttrs {

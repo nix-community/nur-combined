@@ -111,6 +111,7 @@ let
         name = "${rev}-${args'.name or path}";
       }
     );
+  # deadnix: skip
   fetchVoid =
     {
       path,
@@ -340,8 +341,16 @@ super.lib.composeManyExtensions [
       '';
     });
 
-    # 2026-11-14: still required
     # Rust's musl target links statically, so system zstd needs libzstd.a.
+    # 2026-11-26: musl rwlocks scale poorly: at 512 threads (ISC_TASK_WORKERS=$NIX_BUILD_CORES),
+    # isc_rwlock_benchmark exceeds the 300s unit-test watchdog. glibc builds pass.
+    # bind = prev.bind.overrideAttrs (prevAttrs: {
+    #   preCheck = (prevAttrs.preCheck or "") + ''
+    #     export ISC_TASK_WORKERS=$(( NIX_BUILD_CORES > 64 ? 64 : NIX_BUILD_CORES ))
+    #   '';
+    # });
+
+    # 2026-11-14: still required
     cargo-nextest = prev.cargo-nextest.override {
       zstd = final.zstd.override { enableStatic = true; };
     };
@@ -1660,6 +1669,14 @@ super.lib.composeManyExtensions [
           };
       }
     );
+
+    # 2026-11-26: output-control-chars test runs `locale -a`, which musl doesn't provide
+    # (and `unixtools.locale` is glibc-only). upstream adds it only for darwin/cross: <https://github.com/NixOS/nixpkgs/pull/590650>
+    rsync = prev.rsync.overrideAttrs (prevAttrs: {
+      preCheck = (prevAttrs.preCheck or "") + ''
+        export RSYNC_EXCLUDE="$RSYNC_EXCLUDE,output-control-chars"
+      '';
+    });
 
     # 2026-11-14: still required
     rpm = prev.rpm.overrideAttrs (upstream: {

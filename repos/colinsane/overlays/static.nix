@@ -124,6 +124,22 @@ in
         upstream.postInstall;
   });
 
+  rsync = prev.rsync.overrideAttrs (upstream: {
+    # configure probes `-lidn2` without pkg-config, so the static archive misses its libunistring dependency.
+    env = upstream.env // {
+      LIBS = "-lunistring";
+    };
+    configureFlags = upstream.configureFlags ++ [
+      # configure can't run its C99 vsnprintf probe when cross compiling, so it falls back to
+      # rsync_snprintf, which t_acl doesn't link. musl's vsnprintf is C99-conformant.
+      "rsync_cv_HAVE_C99_VSNPRINTF=yes"
+    ];
+    # this test needs a native `cc` to build an LD_PRELOAD hook, as do the cross-only exclusions upstream.
+    preCheck = upstream.preCheck + ''
+      export RSYNC_EXCLUDE="$RSYNC_EXCLUDE,hardlinks-emlink-recovery"
+    '';
+  });
+
   # build sudo w/o pam. not sure what libxcrypt is about here.
   # TODO: upstream this using the same pattern established by `doas`:
   # - `withPam ? lib.meta.availableOn stdenv.hostPlatform pam` callarg

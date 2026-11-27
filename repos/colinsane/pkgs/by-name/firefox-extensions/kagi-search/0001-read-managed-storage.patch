@@ -1,0 +1,24 @@
+--- a/shared/src/lib/utils.js
++++ b/shared/src/lib/utils.js
+@@ -113,6 +113,21 @@
+     image_search_context_menu_enabled: true,
+   });
+ 
++  // Managed storage (e.g. a `managed-storage` native manifest provisioned by the
++  // OS, or an enterprise policy) overrides local storage, so that settings like
++  // the session token can be configured declaratively instead of by logging in.
++  // Firefox rejects this call outright when no managed storage is configured.
++  try {
++    const managedObject = await browser.storage.managed.get();
++    for (const [key, value] of Object.entries(managedObject)) {
++      if (typeof value !== 'undefined') {
++        storageObject[key] = value;
++      }
++    }
++  } catch (ex) {
++    // no managed storage for this extension
++  }
++
+   return {
+     token: storageObject.session_token,
+     sync_existing: storageObject.sync_existing,

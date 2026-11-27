@@ -175,6 +175,9 @@ defaultPref("extensions.update.url", "");
 defaultPref("extensions.update.background.url", "");
 defaultPref("extensions.systemAddon.update.url", "");
 
+// fix Firefox to respect manifest.json's `host_permissions` for Manifest V3 extensions (like it does for MV2 extensions).
+defaultPref("extensions.originControls.grantByDefault", true);
+
 // also disable app-level auto-updates
 defaultPref("app.update.auto", false);
 

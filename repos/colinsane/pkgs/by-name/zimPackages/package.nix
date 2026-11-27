@@ -20,11 +20,16 @@ lib.recurseIntoAttrs (
       archlinux_en_all_maxi = callPackage ./archlinux_en_all_maxi.nix { };
       bitcoin_en_all_maxi = callPackage ./bitcoin_en_all_maxi.nix { };
       devdocs_en_nix = callPackage ./devdocs_en_nix.nix { };
+      electronics_stackexchange_en_all = callPackage ./electronics_stackexchange_en_all.nix { };
       gentoo_en_all_maxi = callPackage ./gentoo_en_all_maxi.nix { };
       khanacademy_en_all = callPackage ./khanacademy_en_all.nix { };
+      maps_en_united-states-of-america = callPackage ./maps_en_united-states-of-america.nix { };
       openstreetmap-wiki_en_all_maxi = callPackage ./openstreetmap-wiki_en_all_maxi.nix { };
       psychonautwiki_en_all_maxi = callPackage ./psychonautwiki_en_all_maxi.nix { };
       rationalwiki_en_all_maxi = callPackage ./rationalwiki_en_all_maxi.nix { };
+      serverfault_en_all = callPackage ./serverfault_en_all.nix { };
+      stackoverflow_en_all = callPackage ./stackoverflow_en_all.nix { };
+      superuser_en_all = callPackage ./superuser_en_all.nix { };
       wikipedia_en_100 = callPackage ./wikipedia_en_100.nix { };
       wikipedia_en_all_maxi = callPackage ./wikipedia_en_all_maxi.nix { };
       wikipedia_en_all_mini = callPackage ./wikipedia_en_all_mini.nix { };

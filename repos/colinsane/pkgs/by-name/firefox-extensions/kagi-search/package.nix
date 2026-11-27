@@ -15,6 +15,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-dt+D7EjlX083rMteBKuzjrXmB1LdYVgjHfmmOVWpSpQ=";
   };
 
+  # read `browser.storage.managed`, so that the session token can be provisioned
+  # declaratively (e.g. via ~/.mozilla/managed-storage/search@kagi.com.json) instead of
+  # by logging in interactively, which is impossible when cookies aren't persisted.
+  patches = [ ./0001-read-managed-storage.patch ];
+
   buildPhase = ''
     # inline what `build.js` does
     cp -R shared/* firefox

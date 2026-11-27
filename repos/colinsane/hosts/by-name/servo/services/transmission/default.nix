@@ -182,6 +182,7 @@ in
     ${config.systemd.services.transmission.environment.CURL_CA_BUNDLE} r,
 
     owner /var/lib/transmission/.config/transmission-daemon/** rw,
+    owner /var/lib/transmission/.config/transmission-daemon/lock rwk,
     ${download-dir}/** rw,
 
     profile dirs {

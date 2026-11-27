@@ -126,5 +126,8 @@ in
         }
       }
     '';
+
+    secrets.".mozilla/managed-storage/search@kagi.com.json" =
+      ../../../../secrets/common/firefox-kagi-search-storage.json.bin;
   };
 }

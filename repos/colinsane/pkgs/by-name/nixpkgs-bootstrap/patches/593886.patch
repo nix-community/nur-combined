@@ -1,0 +1,42 @@
+From b288c5da89d9c75589904de6e5ff3b9e9fd3ff8a Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Thu, 26 Nov 2026 22:24:05 +0000
+Subject: [PATCH] ibusMinimal: fix cross compilation
+
+fixes: `nix-build -A pkgsCross.aarch64-multiplatform.ibusMinimal`,
+previously failing as:
+
+```
+...
+ibus-aarch64-unknown-linux-gnu> make[2]: Entering directory '/build/source/engine'
+ibus-aarch64-unknown-linux-gnu>   GEN      simple.xml
+ibus-aarch64-unknown-linux-gnu>   GEN      .gitignore
+ibus-aarch64-unknown-linux-gnu>   VALAC    ibus_engine_simple_vala.stamp
+ibus-aarch64-unknown-linux-gnu> error: Package `ibus-1.0' not found in specified Vala API directories or GObject-Introspection GIR directories
+ibus-aarch64-unknown-linux-gnu> Compilation failed: 1 error(s), 0 warning(s)
+ibus-aarch64-unknown-linux-gnu> make[2]: *** [Makefile:926: ibus_engine_simple_vala.stamp] Error 1
+```
+---
+ pkgs/by-name/ib/ibus/package.nix | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pkgs/by-name/ib/ibus/package.nix b/pkgs/by-name/ib/ibus/package.nix
+index 0ecea6d713a3cafd6e88cfa46327964ea5218eef..5dee7a49b82c4db847c0aef16a75cbfabaa6511b 100644
+--- a/pkgs/by-name/ib/ibus/package.nix
++++ b/pkgs/by-name/ib/ibus/package.nix
+@@ -193,6 +193,7 @@ stdenv.mkDerivation (finalAttrs: {
+     isocodes
+     json-glib
+     libx11
++    vala # for share/vala/Makefile.vapigen (PKG_CONFIG_VAPIGEN_VAPIGEN)
+   ]
+   ++ lib.optionals withSystemd [
+     systemdLibs
+@@ -204,7 +205,6 @@ stdenv.mkDerivation (finalAttrs: {
+     libdbusmenu-gtk3
+     libnotify
+     python3.pkgs.pygobject3 # for pygobject overrides
+-    vala # for share/vala/Makefile.vapigen (PKG_CONFIG_VAPIGEN_VAPIGEN)
+   ]
+   ++ lib.optionals withWayland [
+     libxkbcommon

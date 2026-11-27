@@ -1,0 +1,22 @@
+From 95a87bd2f84ba91638b9872cb131c602ac5a0c29 Mon Sep 17 00:00:00 2001
+From: Stefan Frijters <sfrijters@gmail.com>
+Date: Thu, 26 Nov 2026 14:54:32 +0100
+Subject: [PATCH] mpv: fix nested lists of paths for symlinkJoin
+
+---
+ pkgs/by-name/mp/mpv/package.nix | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pkgs/by-name/mp/mpv/package.nix b/pkgs/by-name/mp/mpv/package.nix
+index c3983449ff9cbdcdb9d1eda57dd19e23cce3d1e2..e78418bec345d6194b74e985015b3baac54d78bb 100644
+--- a/pkgs/by-name/mp/mpv/package.nix
++++ b/pkgs/by-name/mp/mpv/package.nix
+@@ -131,7 +131,7 @@ symlinkJoin {
+   inherit (mpv-unwrapped) version;
+ 
+   # TODO: don't link all mpv outputs
+-  paths = [ mpv-unwrapped.all ];
++  paths = mpv-unwrapped.all;
+ 
+   nativeBuildInputs = [ makeBinaryWrapper ];
+ 

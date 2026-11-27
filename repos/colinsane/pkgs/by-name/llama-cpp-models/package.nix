@@ -82,6 +82,7 @@ let
       # spark-x2_6-4b-q4_k_m
       # step3_7-flash-iq4_xs
       # ternary-bonsai-2-27b-ptq1_0
+      ternary-bonsai-2_5-27b-q2_0
       ;
   };
   models' = lib.mapAttrs (
