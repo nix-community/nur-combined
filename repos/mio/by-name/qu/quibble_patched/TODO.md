@@ -255,3 +255,65 @@ against the release binary, and try `-Wl,--image-base,0` or an older binutils.
 ```
 
 <!-- pe-layout:end -->
+
+<!-- qemu-status:start -->
+### Status correction: the #UD dumps came from broken instrumentation builds
+
+Booting the *unmodified* build (entry `0x14210`) on a fresh GPT/ESP image built with
+`parted` + `mkfs.vfat -F 32 -s 1` + `mcopy` produces **no exception at all**: firmware
+logs `BdsDxe: loading Boot0002 "UEFI QEMU HARDDISK"` and then falls back to
+`BootManagerMenuApp`, i.e. the image is loaded/rejected without ever crashing.
+
+Control on the *same* disk layout, only `BOOTX64.EFI` swapped for upstream's release
+binary: boots the quibble UI (1280x800, 5.49% non-black). So the ESP layout, the
+512-byte clusters, and the shipped `freeldr.ini`/`font.ttf` are all fine.
+
+The two images that produced the `#UD` dumps have `AddressOfEntryPoint = 0` — confirmed
+both in the file and in the loaded copy in guest RAM, where the loader had already
+rewritten `ImageBase` to `0x7dd49000`. They came from my earlier ad-hoc instrumentation
+builds, so the "crash at image base + 0xC" is an artifact of those images, not evidence
+about quibble. Header comparison with the release binary shows nothing invalid either:
+
+```
+ours:     entry=0x14210 nsec=10 sizeimage=0x179000 sizeofheaders=0x400 FileAlign=0x200 SectAlign=0x1000
+upstream: entry=0x0f0c7 nsec=9  sizeimage=0x100000 sizeofheaders=0x400 FileAlign=0x200 SectAlign=0x1000
+```
+
+Next: rebuild the COM1-marker instrumentation through `overrideAttrs` (entry stays
+`0x14210`), boot it, and read the `qstat` markers to see how far `efi_main` gets.
+
+<!-- qemu-status:end -->
+
+<!-- markers:start -->
+### Root cause of the bogus #UD: a broken `extern "C"` in my instrumentation
+
+In `/tmp` scratch patches I inserted the `qport`/`qstat` helpers between a bare
+`extern "C"` line and `efi_main`. A linkage specification without a block applies only to
+the *next* declaration, so `efi_main` silently became C++-mangled, the linker could not
+find it, and it defaulted `AddressOfEntryPoint` to **0**. That is the entire "crash at
+image base + 0xC": the firmware was executing the DOS header.
+
+With `extern "C"` restored on `efi_main` (entry `0x142c0`) the same build runs, and the
+COM1 markers show `efi_main` succeeding all the way through the stack switch:
+
+```
+BdsDxe: loading Boot0002
+BdsDxe: starting Boot0002
+S=00000000   (entered efi_main)
+c=00000000   (ConIn->Reset)
+f=00000000   (load_font)
+g=00000000   (set_graphics_mode)
+i=00000000   (info_register)
+r=00000000   (reg_register)
+p=00000000   (pe_register)
+d=00000000   (load_efi_drivers)
+b=00000000   (look_for_block_devices)
+k=00000000   (change_stack)
+R=00000000   (continuation after the stack switch)
+```
+
+After that point quibble returns and firmware shows the boot menu; nothing is drawn and
+no exception is raised. So the remaining question is narrow: what runs after
+`change_stack` and why it bails out.
+
+<!-- markers:end -->
