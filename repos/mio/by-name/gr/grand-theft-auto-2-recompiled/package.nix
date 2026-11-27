@@ -271,10 +271,11 @@ stdenv.mkDerivation (finalAttrs: {
       Grand Theft Auto 2 Recompiled is a native port of Grand Theft Auto 2
       made by static recompilation.  This package builds the launcher,
       runtime and lifter from source; it contains no game data or game code.
-      On first start the launcher reads the 2004 Rockstar freeware release
-      (GTA2.exe) or an installed copy of that release, translates gta2.exe
-      and binkw32.dll to C, compiles them for this machine, and starts the
-      resulting game.
+      On first start the launcher reads the 2004 Rockstar freeware installer
+      (GTA2INSTALLER.exe) or an installed copy of that release, translates
+      gta2.exe and binkw32.dll to C, compiles them for this machine, and
+      starts the resulting game.  The installer is available at
+      https://archive.org/details/gta2_rockstar-classics.
     '';
     homepage = "https://github.com/almost-drowned-rat/Grand-Theft-Auto-2-Recompiled";
     license = [
