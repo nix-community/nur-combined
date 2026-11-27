@@ -22,6 +22,6 @@ rec {
   # Name-only on purpose: inspecting the value would force every package, so one
   # broken package would break access to all the others.
   nonPackageNames = [ "sources" ];
-  isExportName =
-    n: !(lib.hasPrefix "self-" n) && !(lib.hasPrefix "_" n) && !(lib.elem n nonPackageNames);
+  isOverlayName = n: !(lib.hasPrefix "_" n) && !(lib.elem n nonPackageNames);
+  isExportName = n: !(lib.hasPrefix "self-" n) && isOverlayName n;
 }

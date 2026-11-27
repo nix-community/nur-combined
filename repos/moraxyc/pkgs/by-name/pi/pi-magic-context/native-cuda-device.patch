@@ -1,25 +1,37 @@
 diff --git a/packages/plugin/src/features/magic-context/memory/embedding-local.ts b/packages/plugin/src/features/magic-context/memory/embedding-local.ts
-index 778aad4..e971c56 100644
+index 778aad4..1234567 100644
 --- a/packages/plugin/src/features/magic-context/memory/embedding-local.ts
 +++ b/packages/plugin/src/features/magic-context/memory/embedding-local.ts
 @@ -1,5 +1,6 @@
- import { readdirSync, statSync } from "node:fs";
+-import { readdirSync, statSync } from "node:fs";
++import { accessSync, constants as fsConstants, readdirSync, statSync } from "node:fs";
  import { stat, unlink } from "node:fs/promises";
 +import { createRequire } from "node:module";
  import { dirname, join } from "node:path";
  import { pathToFileURL } from "node:url";
  import { workerData } from "node:worker_threads";
-@@ -640,6 +641,17 @@ type EmbeddingPipeline = {
+@@ -640,6 +641,28 @@ type EmbeddingPipeline = {
      dispose?: () => Promise<void> | void;
  };
  
++function hasCudaDevice(): boolean {
++    if (process.platform !== "linux") return true;
++    try {
++        accessSync("/dev/nvidiactl", fsConstants.R_OK | fsConstants.W_OK);
++        return true;
++    } catch {
++        return false;
++    }
++}
++
 +/** A native binding built against a CUDA-enabled onnxruntime (Nix `cudaSupport`)
-+ *  lists `cuda`; other bindings keep transformers' default CPU device. */
++ *  lists `cuda`; select it only when a GPU device is reachable (e.g. not inside
++ *  a sandbox without /dev/nvidia*), otherwise keep transformers' default CPU device. */
 +function nativeDeviceOptions(): { device?: string } {
 +    const ort = createRequire(import.meta.url)("onnxruntime-node") as {
 +        listSupportedBackends(): { name: string }[];
 +    };
-+    return ort.listSupportedBackends().some((backend) => backend.name === "cuda")
++    return ort.listSupportedBackends().some((backend) => backend.name === "cuda") && hasCudaDevice()
 +        ? { device: "cuda" }
 +        : {};
 +}
@@ -27,12 +39,27 @@ index 778aad4..e971c56 100644
  type CreateEmbeddingPipeline = (
      task: "feature-extraction",
      model: string,
-@@ -994,7 +1006,7 @@ export class LocalEmbeddingProvider implements EmbeddingProvider {
+@@ -994,9 +1017,21 @@ export class LocalEmbeddingProvider implements EmbeddingProvider {
                              const pipeline = await withQuietConsole(() =>
                                  createPipeline("feature-extraction", this.model, {
                                      dtype: this.dtype,
 -                                    ...(usesWasm ? { device: "auto" } : {}),
 +                                    ...(usesWasm ? { device: "auto" } : nativeDeviceOptions()),
                                  }),
-                             );
+-                            );
++                            ).catch((error) => {
++                                if (usesWasm || nativeDeviceOptions().device !== "cuda") {
++                                    throw error;
++                                }
++                                log(
++                                    `[magic-context] CUDA embedding init failed, falling back to native CPU: ${error instanceof Error ? error.message : String(error)}`,
++                                );
++                                return withQuietConsole(() =>
++                                    createPipeline("feature-extraction", this.model, {
++                                        dtype: this.dtype,
++                                    }),
++                                );
++                            });
                              if (this.disposing) {
+                                 await pipeline.dispose?.();
+                                 this.pipeline = null;
