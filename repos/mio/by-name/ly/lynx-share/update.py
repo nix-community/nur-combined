@@ -6,6 +6,7 @@ from __future__ import annotations
 import json
 import re
 import subprocess
+import tempfile
 import urllib.request
 from pathlib import Path
 
@@ -48,9 +49,27 @@ def commit_date(rev: str) -> str:
         url,
         headers={"Accept": "application/vnd.github+json", "User-Agent": "nix-update-lynx-share"},
     )
-    with urllib.request.urlopen(request) as response:
-        payload = json.load(response)
-    return payload["commit"]["committer"]["date"][:10]
+    try:
+        with urllib.request.urlopen(request) as response:
+            payload = json.load(response)
+        return payload["commit"]["committer"]["date"][:10]
+    except urllib.request.HTTPError:
+        # The unauthenticated GitHub API is rate-limited frequently enough that
+        # update failures should not depend on it. Fetch just the target commit
+        # and read its authoritative committer date from git instead.
+        with tempfile.TemporaryDirectory() as tmp:
+            run("git", "init", "-q", tmp)
+            run(
+                "git",
+                "-C",
+                tmp,
+                "fetch",
+                "-q",
+                "--depth=1",
+                "https://github.com/Ka1-S/LYNX-SHARE.git",
+                rev,
+            )
+            return run("git", "-C", tmp, "show", "-s", "--format=%cs", "FETCH_HEAD")
 
 
 def main() -> None:

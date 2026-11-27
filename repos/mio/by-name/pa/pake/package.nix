@@ -149,7 +149,7 @@ stdenv.mkDerivation (finalAttrs: {
     # pnpm.fetchDeps hashes depend on whether the build dir and $out share a
     # partition (it hardlinks exec bits into the store, nixpkgs#422889), so this
     # value can differ between machines. Regenerate it locally if it mismatches.
-    hash = "sha256-QW6ZIbfTitgvIflBdCLV1D1HhixJTMBiMo6Ye3hkteI=";
+    hash = "sha256-iMftEClnN/Kgy1ZLjUL7MT55rYgsb2g8sp8s01wKMrg=";
   };
 
   env = {

@@ -361,6 +361,19 @@ buildEdenEmulator (
         "aarch64-darwin"
       ];
     };
+
+    passthru.updateScript = pkgs.writeShellApplication {
+      name = "update-eglantine";
+      runtimeInputs = [
+        pkgs.git
+        pkgs.nix
+        pkgs.python3
+      ];
+      text = ''
+        export SSL_CERT_FILE="${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+        exec python3 ${./update.py}
+      '';
+    };
   }
   // lib.optionalAttrs isDarwin {
 

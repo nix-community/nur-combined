@@ -267,45 +267,14 @@ index e6bf22c..80fd63f 100644
      }
      memo = ok ? 1 : 0;
      return ok;
-diff --git a/runtime/translator/src/bionic_shim.cpp b/runtime/translator/src/bionic_shim.cpp
-index 3962b6d..5b1aed5 100644
---- a/runtime/translator/src/bionic_shim.cpp
-+++ b/runtime/translator/src/bionic_shim.cpp
-@@ -46449,8 +46449,13 @@ extern "C" int __macapk_arm64_scandirat(int parent_fd, const char* path,
-     if (!macapk_path_shims_on()) {   // MACAPK_PATH_SHIMS=0: the pre-shim binding
-         // Darwin's scandirat is macOS 26.4+ (dirent.h:191); below that the import
-         // had nothing to bind to, and ENOSYS is the honest stand-in.
--        if (__builtin_available(macOS 26.4, *)) {
--            return ::scandirat(parent_fd, path, reinterpret_cast<struct dirent***>(namelist),
-+        using scandirat_fn = int (*)(int, const char*, struct dirent***,
-+                                     int (*)(const struct dirent*),
-+                                     int (*)(const struct dirent**, const struct dirent**));
-+        static const scandirat_fn fn =
-+            reinterpret_cast<scandirat_fn>(dlsym(RTLD_DEFAULT, "scandirat"));
-+        if (fn) {
-+            return fn(parent_fd, path, reinterpret_cast<struct dirent***>(namelist),
-                 reinterpret_cast<int (*)(const struct dirent*)>(filter),
-                 reinterpret_cast<int (*)(const struct dirent**, const struct dirent**)>(compar));
-         }
-@@ -55224,8 +55229,8 @@ int __macapk_arm64___android_log_print(int /*prio*/, const char* /*tag*/,
-         "ret\n"
-     );
- }
--__attribute__((naked))
--[[noreturn]] void __macapk_arm64___android_log_assert(const char* /*cond*/,
-+[[noreturn]] __attribute__((naked))
-+void __macapk_arm64___android_log_assert(const char* /*cond*/,
-                                                          const char* /*tag*/,
-                                                          const char* /*fmt*/,
-                                                          ...) {
 diff --git a/scripts/build_dist.sh b/scripts/build_dist.sh
 index d005454..bc14641 100755
 --- a/scripts/build_dist.sh
 +++ b/scripts/build_dist.sh
-@@ -377,7 +377,10 @@
+@@ -391,7 +391,10 @@
  # Inside-out order matters: these are all inside $APP, which is sealed below.
  [ -f "$RES/jre/lib/jspawnhelper" ]   && sign "$RES/jre/lib/jspawnhelper" --entitlements "$ENT"
- [ -f "$RES/appstub/MacApkAppStub" ]  && sign "$RES/appstub/MacApkAppStub" --identifier org.macapk.appstub
+ [ -f "$RES/appstub/MacApkAppStub" ]  && sign "$RES/appstub/MacApkAppStub" --entitlements "$ENT" --identifier org.macapk.appstub
 -[ -f "$BIN/macapk-elfexec" ]         && sign "$BIN/macapk-elfexec" --entitlements "$ENT"
 +if [ -f "$BIN/macapk-elfexec" ]; then
 +    vtool -set-build-version macos 12.0 12.0 -replace -output "$BIN/macapk-elfexec" "$BIN/macapk-elfexec"

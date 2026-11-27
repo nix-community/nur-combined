@@ -16,7 +16,8 @@
   nix,
   writeShellApplication,
   nix-update,
-  nix-update-script,
+  python3,
+  cacert,
   glib,
   gtk3,
   webkitgtk_4_1,
@@ -65,6 +66,7 @@ rustPlatform.buildRustPackage (
       pnpmConfigHook
       pnpm_10
       makeWrapper
+      wasm-bindgen-cli_0_2_129
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       wrapGAppsHook3
@@ -91,22 +93,25 @@ rustPlatform.buildRustPackage (
 
     doCheck = false;
 
-    passthru.updateScript = writeShellApplication {
-      name = "update-futo-notes";
-      runtimeInputs = [
-        git
-        nix
-        nix-update
-      ];
-      text = ''
-        export UPDATE_NIX_ATTR_PATH="futo-notes"
-        exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
-      '';
-    };
-
     postInstall = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
       ln -s futo-notes-tauri $out/bin/futo-notes
     '';
+
+    passthru.updateScript = writeShellApplication {
+      name = "update-futo-notes";
+      runtimeInputs = [
+        cacert
+        git
+        nix
+        nix-update
+        python3
+      ];
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="futo-notes"
+        export SSL_CERT_FILE="${cacert}/etc/ssl/certs/ca-bundle.crt"
+        exec python3 ${./update.py} "$@"
+      '';
+    };
 
     meta = {
       description = "Voice-first, private note taking application";

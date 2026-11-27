@@ -13,7 +13,7 @@
 }:
 
 let
-  version = "24.10";
+  version = "24.13";
   system = stdenvNoCC.hostPlatform.system;
   arch =
     {
@@ -23,8 +23,8 @@ let
     .${system} or (throw "Unsupported system: ${system}");
   hash =
     {
-      aarch64-darwin = "sha256-l1Dkx7k6NYpUOxLcudYP0O0/IOIGQLHDIFa6vKnarTU=";
-      x86_64-darwin = "sha256-ITVW3+MkjOFvZvVyYoEAMvKUectAhbtLdpNaz2xDM80=";
+      aarch64-darwin = "sha256-50rhIQx8G6jtFlAwvAdxVXP/8ZNQICXZCpq+cmOFGqk=";
+      x86_64-darwin = "sha256-Kq0zqinSIa2DqlM2+3lelhr1Js/DISyxjQ+llOjQXfY=";
     }
     .${system} or (throw "Unsupported system: ${system}");
 in

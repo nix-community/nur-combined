@@ -272,6 +272,17 @@
         "repo": "libsdl-org/SDL",
         "version": "release-3.4.8"
     },
+    "sdl3-hdrumble": {
+        "hash": "df5a323af7ac366661a3c0e887969c72584d232f3cc211419d59b0487b620b6b2859d4549c9e8df002ee489290062e466fcfddf7edc0872a37b1f2845e81c0f3",
+        "min_version": "3.2.10",
+        "package": "SDL3",
+        "repo": "libsdl-org/SDL",
+        "version": "release-3.4.8",
+        "patches": [
+            "0001-hdrumble.patch",
+            "0002-hdrumble-idle-write.patch"
+        ]
+    },
     "sdl3-ci": {
         "ci": true,
         "name": "SDL3",

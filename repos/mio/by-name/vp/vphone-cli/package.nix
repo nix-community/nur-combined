@@ -12,14 +12,14 @@
 }:
 
 let
-  version = "0-unstable-2026-11-25";
-  rev = "2a4ed5f8ee9b251420fd687bbce60e682645cb3c";
+  version = "0-unstable-2026-11-26";
+  rev = "5dfd335a3a39ad7e5d1a24da80fbaa1a6c251aaa";
 
   src = fetchFromGitHub {
     owner = "Lakr233";
     repo = "vphone-cli";
     inherit rev;
-    hash = "sha256-wy4iHgjakLCLOwWquIHTzOydsTOcBROO0xzKMwi5+Bo=";
+    hash = "sha256-apO35XBXvd4Wlo6NPjghfXfi2gmGzTLo+3oObNJLl68=";
   };
 
   # Upstream's workspace and the projects it invokes from build phases resolve
@@ -166,7 +166,7 @@ let
     '';
 
     outputHashMode = "recursive";
-    outputHash = "sha256-UX3wHyScapDCNX3ZJnozf4YhOSykD0VTF5u4gFTj0XY=";
+    outputHash = "sha256-jOVIBPQgY6H8tHFWkE2e8Y9S0qMEKYHO5i25O6VpoW4=";
 
     meta = {
       description = "SwiftPM dependency cache for vphone-cli";

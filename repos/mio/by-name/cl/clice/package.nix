@@ -36,7 +36,7 @@ stdenv.mkDerivation (
     # which are coerced to strings.
     depsHashes = {
       x86_64-linux = "sha256-S5jtgk6UOoAP2Xl9+HBdGhOPeMpurG+49mSvjbLOoN0=";
-      aarch64-darwin = "sha256-PG2nRb4Fi3ROFF7fYM8Kf0SAdfv8wO94Ge0shTAVjL0=";
+      aarch64-darwin = "sha256-n3Za2DrGZHNvlvFgTiRfXBL7ijDzIuLCz1gAFGpJ6rI=";
     };
 
     # Commit of the gh-pages branch of clice-io/bazel that `deps` is vendored

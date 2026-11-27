@@ -8,10 +8,11 @@ import json
 import re
 import subprocess
 import urllib.request
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 PKG = Path("by-name/xp/xpipe_patched/package.nix")
-RELEASE_API = "https://api.github.com/repos/xpipe-io/xpipe/releases/latest"
+RELEASE_FEED = "https://github.com/xpipe-io/xpipe/releases.atom"
 ASSET_URL = "https://github.com/xpipe-io/xpipe/releases/download/{version}/xpipe-portable-macos-{arch}.dmg"
 SYSTEMS = {
     "aarch64-darwin": "arm64",
@@ -34,16 +35,17 @@ def repo_root() -> Path:
 
 
 def latest_version() -> str:
-    request = urllib.request.Request(
-        RELEASE_API,
-        headers={
-            "Accept": "application/vnd.github+json",
-            "User-Agent": "nurpkgs-xpipe-updater",
-        },
-    )
+    request = urllib.request.Request(RELEASE_FEED, headers={"User-Agent": "nurpkgs-xpipe-updater"})
     with urllib.request.urlopen(request, timeout=60) as response:
-        release = json.load(response)
-    return release["tag_name"].removeprefix("v")
+        feed = ET.fromstring(response.read())
+    namespace = {"atom": "http://www.w3.org/2005/Atom"}
+    entry = feed.find("atom:entry", namespace)
+    if entry is None:
+        raise SystemExit("error: no releases found in the xpipe Atom feed")
+    title = entry.findtext("atom:title", namespaces=namespace)
+    if not title:
+        raise SystemExit("error: latest xpipe release has no title")
+    return title.removeprefix("v")
 
 
 def sri_hash(url: str, root: Path) -> str:

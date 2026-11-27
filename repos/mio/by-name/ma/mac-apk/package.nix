@@ -25,7 +25,7 @@
 }:
 
 let
-  version = "1.0.2379";
+  version = "1.0.2404";
 
   # Android 16 (API 36) AOSP frameworks/base/core/res source tree (Apache-2.0).
   # Google's gitiles +archive tarballs embed request-time timestamps in gzip/tar
@@ -57,7 +57,7 @@ clangStdenv.mkDerivation {
     owner = "kksimp";
     repo = "Mac.apk";
     tag = "v${version}";
-    hash = "sha256-3dj7MzVlK0MKdXeyacYFBkMpCqKKOfGu/eDyL7CtJw4=";
+    hash = "sha256-y/XO7UYJ/gX8uK3YIb3hWNYVf4PleiC5TX3leE26fUw=";
   };
 
   patches = [
