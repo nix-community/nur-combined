@@ -26,13 +26,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "throne";
-  version = "1.4.2";
+  version = "1.4.5";
 
   src = fetchFromGitHub {
     owner = "throneproj";
     repo = "Throne";
     tag = finalAttrs.version;
-    hash = "sha256-zB4j+w6GwHaQGPtqXlrc8rryj7fFYsI8U33/F+tJWls=";
+    hash = "sha256-IrRqwPgDcWIuK/uNo6ETdMuh8RNMr3uGKUtvon/wals=";
   };
 
   strictDeps = true;
@@ -111,7 +111,7 @@ stdenv.mkDerivation (finalAttrs: {
     ];
 
     proxyVendor = true;
-    vendorHash = "sha256-I+1eHnDWYgJ+8sLy1GOPRdJxXaq81RzW+QQaRp4+3tc=";
+    vendorHash = "sha256-SeQZRYEgFW6UtN7PcuNixHbNifJsV9SczXWGHVBCxLY=";
 
     nativeBuildInputs = [
       protobuf
