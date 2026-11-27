@@ -3,15 +3,15 @@
 { fetchurl, stdenv }:
 
 let
-  version = "0.6.2";
+  version = "0.6.3";
   sources = {
     "aarch64-linux" = {
-      url = "https://github.com/waywallen/waywallen/releases/download/v0.6.2/waywallen-0.6.2-aarch64.AppImage";
-      hash = "sha256-si3bIB2tsb19wdk7ZhjLjLW+Qejp/AGNNUD5hX1Y6oU=";
+      url = "https://github.com/waywallen/waywallen/releases/download/v0.6.3/waywallen-0.6.3-aarch64.AppImage";
+      hash = "sha256-Md8ijp/7iD3qEH0kaDmh12IbIurJxe++aYXXYZ2peEQ=";
     };
     "x86_64-linux" = {
-      url = "https://github.com/waywallen/waywallen/releases/download/v0.6.2/waywallen-0.6.2-x86_64.AppImage";
-      hash = "sha256-Ln2vGXFDkGP+OQlPnWj8A0GAkKsmX5XOjM5bHL+9Lpc=";
+      url = "https://github.com/waywallen/waywallen/releases/download/v0.6.3/waywallen-0.6.3-x86_64.AppImage";
+      hash = "sha256-FIz/rGp0Tnso59QhrJoGkoOicMpfVlI2WFUUmwDCojg=";
     };
   };
   source =
