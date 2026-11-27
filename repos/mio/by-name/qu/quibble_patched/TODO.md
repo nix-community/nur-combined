@@ -145,6 +145,37 @@ The harness works; our images do not start under it.
 - Blocked until tasks 1-2 land; the reader currently cannot read wrapped keys at
   all, so this is a feature implementation, not a build flag.
 
+#### Status 2026-11-28: refusal, not decryption
+
+- [x] `zfs-uefi` now recognises encrypted block pointers.  OpenZFS sets bit 61
+      of `blk_prop` (`BP_IS_ENCRYPTED`, `include/sys/spa.h`) on every block of
+      an encrypted object; the boot reader's `blkptr_t` has no such macro, so
+      `by-name/zf/zfs-uefi/encrypted-dataset.patch` adds it and returns
+      `ENOTSUP` from `zio_read_impl` with an explicit message.  Before this an
+      encrypted dataset read as ciphertext, failed the checksum and looked like
+      pool corruption.
+- Decryption is *not* implemented, and this patch does not attempt it.  The
+      remaining port is a real one: the key store (the dataset's DSL dir ZAP
+      keyed by name, holding the wrapped `dsl_crypt_key_t`), AES-256-GCM and
+      AES-256-CCM key unwrapping, PBKDF2-HMAC-SHA512 for `keyformat=passphrase`
+      (nothing in `src/engine/` has AES or SHA-512; only SHA-256 and Skein are
+      there), parameter decoding (salt/IV/MAC live in the block pointer's pad,
+      unused DVA slots and fill count), and threading the per-objset key through
+      `dnode_read`/`zio_read`, which currently take only `spa_t` and `blkptr_t`.
+      Treat it as a fork or an upstream patch, not a packaging flag.
+- This host cannot validate any of that: it has `/dev/zfs` and ZFS 2.4.4, but
+      runs as uid 1003, so `zpool create` on a scratch file fails with
+      `cannot create 'zenc': permission denied`.  Validation needs either root
+      on a machine with the module, or a `runNixOSTest` that creates the
+      encrypted pool inside the VM and runs `test/native_read_test.c` against
+      the pool's device (KVM is available here for the latter).  Do not land
+      decryption code that has only been compiled, not read a real pool.
+- The two cases that must both pass once decryption exists: an encrypted
+      dataset with `keylocation=prompt` (passphrase) and one with a keyfile, plus
+      an unencrypted dataset in a pool that merely *has* the
+      `com.datto:encryption` feature enabled (this already works: the feature is
+      in `features_for_read`).
+
 ### 4. QEMU boot checks for both variants
 
 - [x] GPT disk with one FAT32 ESP (parted + `mtools` at sector 2048),
@@ -234,6 +265,23 @@ The harness works; our images do not start under it.
       file byte-identical at the current pin.
 - Windows 11 itself still needs a real installation (task 5); this proves the
   loader builds and reaches its boot menu, nothing beyond that.
+
+### 8. Windows 11 on ZFS: `quibble_win11_patched`
+
+- [x] `by-name/qu/quibble_win11_patched/package.nix` composes the two variants
+      that were previously disjoint: `quibble_win11`'s loader (PR #144, which
+      zfs-efi's README requires for Windows 11) and everything
+      `quibble_patched` adds (real setjmp/longjmp runtime, `print-dummies.patch`,
+      and `zfs.efi` in `drivers/`).  It inherits `version`, `src` and
+      `installPhase` from the win11 package, so the shipped README/LICENCE/
+      font.ttf come from the branch tree, and keeps the patched runtime and
+      driver install from `quibble_patched`.
+- [x] `checks.x86_64-linux.quibble-win11-patched-vm-boot` boots it under OVMF
+      with the same positive/negative assertion as the other variants.
+- [x] `passthru.updateScript` chains `update-quibble_win11` and
+      `update-zfs-uefi`, because this variant has no pins of its own.
+- Windows 11 itself still needs the real installation of task 5; this proves
+      the combined loader builds, loads `zfs.efi` and reaches its menu.
 
 <!-- qemu-crash:start -->
 ### QEMU crash analysis (2026-11-27)

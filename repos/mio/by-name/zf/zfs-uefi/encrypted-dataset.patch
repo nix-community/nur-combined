@@ -1,0 +1,39 @@
+--- a/src/engine/zfsimpl.h	2026-11-28 09:45:48.660345467 +1100
++++ b/src/engine/zfsimpl.h	2026-11-28 09:45:48.724344963 +1100
+@@ -391,6 +391,15 @@
+ 
+ #define	BP_IS_EMBEDDED(bp)	BF64_GET((bp)->blk_prop, 39, 1)
+ 
++/*
++ * Set on every block of an encrypted object, and on the indirect blocks above
++ * it.  The encryption parameters (salt, IV and MAC) then live in block pointer
++ * words that are otherwise padding, unused DVA slots or the fill count (see
++ * OpenZFS's spa.h).  This reader has neither a key store nor AES, so it must
++ * refuse these blocks by this bit instead of reading ciphertext.
++ */
++#define	BP_IS_ENCRYPTED(bp)	BF64_GET((bp)->blk_prop, 61, 1)
++
+ #define	BP_GET_DEDUP(bp)	BF64_GET((bp)->blk_prop, 62, 1)
+ #define	BP_SET_DEDUP(bp, x)	BF64_SET((bp)->blk_prop, 62, 1, x)
+ 
+--- a/src/engine/zfsimpl.c	2026-11-28 09:45:48.660345467 +1100
++++ b/src/engine/zfsimpl.c	2026-11-28 09:45:48.725344956 +1100
+@@ -2444,6 +2444,18 @@
+ 		return (error);
+ 	}
+ 
++	/*
++	 * The reader does not implement the ZFS key store or AES, so an encrypted
++	 * block cannot be decrypted.  Say so, rather than returning ciphertext
++	 * that fails the checksum and looks like pool corruption.
++	 */
++	if (BP_IS_ENCRYPTED(bp)) {
++		if (print)
++			printf("ZFS: block is encrypted - encrypted datasets are "
++			    "not supported\n");
++		return (ENOTSUP);
++	}
++
+ 	error = EIO;
+ 
+ 	for (i = 0; i < SPA_DVAS_PER_BP; i++) {

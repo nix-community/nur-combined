@@ -143,7 +143,9 @@ quibble.overrideAttrs (old: {
       The openzfsonwindows `win11` branch of Quibble (PR #144): the loader
       changes Windows 11 needs on top of the revision `quibble` packages.
       `zfs-efi` requires them for Windows 11, which is why this variant exists
-      next to `quibble` and `quibble_patched`.
+      next to `quibble` and `quibble_patched`.  It ships no ZFS driver: Windows
+      11 booted from a ZFS pool needs `quibble_win11_patched`, which adds that
+      driver and `quibble_patched`'s real runtime to this branch.
 
       Install layout is the same as `quibble`: `quibble.efi`, `freeldr.ini` and
       `font.ttf` in the directory the image is loaded from, with `drivers/`

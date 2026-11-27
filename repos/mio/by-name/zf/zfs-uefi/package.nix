@@ -46,8 +46,14 @@ mingw.stdenv.mkDerivation {
   hardeningDisable = [ "all" ];
 
   # Upstream's mingw preset links the CRT, which gives the image imports that
-  # firmware will not load; the patch drops the CRT and keeps libgcc.
-  patches = [ ./nix.patch ];
+  # firmware will not load; the patch drops the CRT and keeps libgcc.  The
+  # second patch refuses encrypted blocks explicitly: the reader has no key
+  # store and no AES, and without the check ciphertext just looks like a
+  # corrupt block.
+  patches = [
+    ./nix.patch
+    ./encrypted-dataset.patch
+  ];
 
   cmakeFlags = [
     "-DCMAKE_TOOLCHAIN_FILE=../mingw-amd64.cmake"
@@ -79,6 +85,19 @@ mingw.stdenv.mkDerivation {
 
   meta = {
     description = "Read-only ZFS driver for UEFI, for use with Quibble";
+    longDescription = ''
+      A read-only ZFS driver, loaded from Quibble's `drivers/` directory, that
+      puts an EFI simple file system on a pool so Windows can be booted from a
+      dataset.
+
+      The pool must stay inside FreeBSD's read-only feature set (create it with
+      a `compatibility=` that keeps to it), and compression is limited to lz4,
+      lzjb, zle and none.  Encrypted datasets are not supported: the reader
+      has no key store and no AES, and this package's patch makes it report
+      that instead of failing the block's checksum.  `GetArcName` is not
+      implemented, so `freeldr.ini` keeps the ordinary `multi(...)partition(N)`
+      form, and `OpenZFS.sys` must be a boot-start driver in the guest.
+    '';
     homepage = "https://github.com/openzfsonwindows/zfs-efi";
     license = lib.licenses.lgpl3Plus;
     # hostPlatform is Windows when cross-compiling; omit platforms so nixpkgs

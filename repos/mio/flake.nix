@@ -126,6 +126,11 @@
               {
                 quibble = packages.quibble_win11;
               };
+          quibble-win11-patched-vm-boot =
+            nixpkgs.legacyPackages.x86_64-linux.callPackage ./by-name/qu/quibble/vm-test.nix
+              {
+                quibble = packages.quibble_win11_patched;
+              };
         };
       cached-cuda = forAllSystems (
         system:
