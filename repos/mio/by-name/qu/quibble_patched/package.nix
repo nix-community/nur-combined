@@ -2,6 +2,7 @@
   lib,
   quibble,
   pkgsCross,
+  zfs-uefi,
 }:
 
 # Quibble with a real freestanding runtime instead of upstream's dummies.
@@ -16,6 +17,14 @@
 # The toolchain patch in the base package is reused unchanged: the real runtime
 # is swapped in through the QUIBBLE_RT_ARCHIVE flag.  The patches need rebasing
 # when upstream next touches print.cpp; the update script only bumps the base.
+#
+# It also ships zfs.efi (from zfs-uefi) next to btrfs.efi and ntfs.efi, so
+# quibble can load Windows from a ZFS pool.  The pool's file system root is
+# bootfs, or the pool root when that is unset; SystemPath keeps the ordinary
+# multi(0)disk(0)rdisk(0)partition(N)\Windows form because the driver does not
+# implement GetArcName; the pool must stay within FreeBSD's features_for_read
+# (no encryption, no gzip/zstd); and OpenZFS.sys must be a boot-start driver in
+# the guest's SYSTEM hive.
 let
   mingw = pkgsCross.mingw-msvcrt-x86_64;
 
@@ -51,6 +60,11 @@ quibble.overrideAttrs (old: {
     else
       flag
   ) (old.cmakeFlags or [ ]);
+
+  postInstall = (old.postInstall or "") + ''
+    install -Dm644 ${zfs-uefi}/share/zfs-uefi/zfs.efi $out/share/quibble/drivers/zfs.efi
+    install -Dm644 ${zfs-uefi}/share/zfs-uefi/LICENCE $out/share/quibble/drivers/zfs-efi-LICENCE
+  '';
 
   meta = (old.meta or { }) // {
     description = "Open-source UEFI bootloader for Windows, with a real setjmp/longjmp runtime";

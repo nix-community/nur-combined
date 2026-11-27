@@ -43,6 +43,10 @@ the merged PR, not `master`.
   the toolchain file needs the quibble treatment (drop the CRT: `-nostdlib
   -nodefaultlibs`, `CMAKE_C_COMPILER_WORKS`, `-lgcc`) before it links in
   nixpkgs' mingw. Expect the same `atexit`/`_setjmp` class of failures.
+* GCC 16 in this nixpkgs makes upstream's implicit function declarations hard
+  errors, and `-w` cannot silence them; `zfs-uefi` relaxes
+  `implicit-function-declaration`/`implicit-int`/`int-conversion` instead of
+  patching the FreeBSD reader.
 
 ### Encryption
 
@@ -74,31 +78,32 @@ an upstream patch or a fork, not as a packaging flag.
 
 ### 1. Package `zfs-uefi` (upstream variant)
 
-- [ ] `by-name/zf/zfs-uefi/package.nix`: `fetchFromGitHub` at the pinned
+- [x] `by-name/zf/zfs-uefi/package.nix`: `fetchFromGitHub` at the pinned
       `rev`/`hash` above, `pkgsCross.mingw-msvcrt-x86_64`, `cmake`/`ninja`,
       gnu-efi include paths via `NIX_CFLAGS_COMPILE`, `hardeningDisable = [ "all" ]`.
-- [ ] Patch only its `mingw-amd64.cmake` (`nix.patch` beside `package.nix`):
+- [x] Patch only its `mingw-amd64.cmake` (`nix.patch` beside `package.nix`):
       `-static` -> `-static -nostdlib -nodefaultlibs
       -Wl,--disable-runtime-pseudo-reloc`, `CMAKE_C_COMPILER_WORKS`, `-lgcc`.
       Keep the source tree otherwise untouched; it has no dummy block to remove.
-- [ ] `install -Dm644 zfs.efi $out/share/zfs-uefi/zfs.efi` plus LICENCE/README.
-- [ ] `passthru.updateScript` (nix-update-script with `--version=branch`,
+- [x] `install -Dm644 zfs.efi $out/share/zfs-uefi/zfs.efi` plus LICENCE/README.
+- [x] `passthru.updateScript` (nix-update-script with `--version=branch`,
       `0-unstable-<date>` versioning), then `git add` and `nix build .#zfs-uefi`.
-- Done when the derivation builds, `file` says `PE32+ ... EFI`, and no
-  `__imp_*` symbols survive under `-nostdlib`.
+- **Done 2026-11-27.** `nix build .#zfs-uefi` passes; output is
+  `PE32+ ... EFI (boot service driver)`, zero `__imp_*` symbols.
 
 ### 2. Ship `zfs.efi` with `quibble_patched`
 
-- [ ] Add `zfs-uefi` as an argument of `quibble_patched/package.nix` and install
+- [x] Add `zfs-uefi` as an argument of `quibble_patched/package.nix` and install
       its binary as `$out/share/quibble/drivers/zfs.efi` (quibble loads every
       driver in `drivers/` at startup).
-- [ ] Keep `quibble` (upstream variant) without the ZFS driver, so the two
+- [x] Keep `quibble` (upstream variant) without the ZFS driver, so the two
       variants stay distinguishable.
-- [ ] Document the `freeldr.ini` side: `SystemPath=multi(0)disk(0)rdisk(0)partition(N)\Windows`
+- [x] Document the `freeldr.ini` side: `SystemPath=multi(0)disk(0)rdisk(0)partition(N)\Windows`
       (zfs-efi deliberately does not implement `GetArcName`), pool
       `compatibility=` limited to `features_for_read`, and `OpenZFS.sys` as a
       boot-start driver in the guest.
-- Done when both variants build and the patched one contains all three drivers.
+- **Done 2026-11-27.** Both variants build; `quibble_patched` ships
+  `drivers/zfs.efi` (plus its LICENCE) next to btrfs/ntfs, `quibble` does not.
 
 ### 3. ZFS encryption in the patched variant
 
