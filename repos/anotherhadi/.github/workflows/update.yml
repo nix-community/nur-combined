@@ -31,12 +31,10 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           failed=""
           for pkg in $(nix eval --raw .#packages.x86_64-linux --apply 'p: toString (builtins.attrNames p)'); do
-            # Recent Nix no longer copies the flake source to the store on
-            # its own, but nix-update reads it from there: copy it first
-            # (again for each package, as each commit changes the source).
-            nix flake archive .
-            # --build checks the new version builds before --commit keeps it
-            nix run nixpkgs#nix-update -- --flake "$pkg" --version stable --build --commit || {
+            # --build checks the new version builds before --commit keeps it.
+            # nix-update is pinned: 1.16.0 (nixos-unstable) fails on flakes
+            # with "opening file /nix/store/...-source: No such file".
+            nix run github:Mic92/nix-update/v1.17.0 -- --flake "$pkg" --version stable --build --commit || {
               failed="$failed $pkg"
               git checkout -- .
             }
