@@ -21,6 +21,9 @@ in
   };
   config = lib.optionalAttrs (vacuModuleType == "nixos") (
     lib.mkIf config.vacu.programs.thunderbird.enable {
+      # betterbird reads /etc/betterbird, not /etc/thunderbird
+      environment.etc."betterbird/policies/policies.json".source =
+        config.environment.etc."thunderbird/policies/policies.json".source;
       programs.thunderbird = {
         enable = true;
         package = pkgs.betterbird;

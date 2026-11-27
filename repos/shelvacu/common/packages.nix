@@ -174,6 +174,7 @@ in
         hdparm
         home-manager
         imagemagickBig
+        iw # in theory this should be included iff the host has wifi but whatever
         kanidm_vacuVersion
         libfido2
         libsmi
