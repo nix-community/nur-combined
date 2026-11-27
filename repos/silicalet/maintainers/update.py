@@ -451,9 +451,9 @@ def update_rea():
 def update_package(package, system):
     if package == "honk":
         raise UpdateError(
-            "honk is manually pinned. For a new official v* release, update the source tag/hash "
-            "in pkgs/tools/honk together with Crane git dependency hashes from the Cargo locks, "
-            "stable and eBPF nightly toolchains, bpf-linker and both Doona UI assets. "
+            "honk is manually pinned. Update the release tag/hash and Cargo git dependency hashes "
+            "in pkgs/tools/honk/default.nix. Doona follows the Honk tag; both Rust builds use "
+            "the nightly selected from the locked rust-overlay. "
             "Build with and without Doona before committing. Use honk-bin for binary updates."
         )
     if package == "honk-bin":

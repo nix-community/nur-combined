@@ -283,8 +283,15 @@ first start. Hot-reloadable config changes use `systemctl reload honk-core`;
 native API or interface changes require a restart.
 
 `honk-bin` full and native-api release hashes update together per architecture.
-The source package is updated manually so the Honk tag, Rust toolchains, Cargo
-Git dependencies, BPF linker and Doona assets can be checked together.
+For `honk`, update the release tag/hash and Cargo Git dependency hashes in
+`pkgs/tools/honk/default.nix`. `ebpf.nix` builds the kernel object with the
+linker from nixpkgs and checks its BTF before `honk-core` embeds it. Both Rust
+builds use the same latest nightly with `rust-src` available in the locked
+`rust-overlay`; advance it with `nix flake update rust-overlay`.
+
+`doona.nix` does not compile a frontend: it fetches the standard and lite UI
+archives using the version and checksums in the Honk tag's `.github/ci/pins.env`.
+There is no separate Doona version to update.
 
 ## Update packages
 
