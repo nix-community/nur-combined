@@ -9,11 +9,11 @@
 
 appimageTools.wrapType2 rec {
   pname = "ghost-downloader-3";
-  version = "4.5.11";
+  version = "4.6.1";
 
   src = fetchurl {
     url = "https://github.com/XiaoYouChR/Ghost-Downloader-3/releases/download/v${version}/Ghost-Downloader-v${version}-Linux-x86_64.AppImage";
-    hash = "sha256-ORd9LN5RYXGCvlvNg2oXIgEqywFH9Pk3kVh+/+J5SVY=";
+    hash = "sha256-aOZhX2bRDybBJ+lNbbaSYGSDFIj7b12T8Rie1NIVGes=";
   };
 
   extraPkgs = _: [

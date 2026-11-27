@@ -1,8 +1,8 @@
 {
   "artcraft-launcher": {
-    "hash": "sha256-qSrKhFZiShDxQ5ikMJ5NQk0amCA5k6Ki2UhBBNfW4t0=",
-    "url": "https://github.com/storytold/craft-launcher/releases/download/v0.19.2/artcraft-launcher-0.19.2-linux-aarch64.tar.gz",
-    "version": "0.19.2"
+    "hash": "sha256-Fjs8wTA92aRhO5y5edfnz29HImjfZ94XbA26zKBAW30=",
+    "url": "https://github.com/storytold/craft-launcher/releases/download/v0.20.3/artcraft-launcher-0.20.3-linux-aarch64.tar.gz",
+    "version": "0.20.3"
   },
   "cadcraft": {
     "hash": "sha256-sUnbS99h0TX8tAznNhgox1sY1vP3EOFlyhfzCBnSMhI=",
@@ -10,9 +10,9 @@
     "version": "0.20.1"
   },
   "deckcraft": {
-    "hash": "sha256-P70AXOOCyFOtBW3Ke5N4AvwO9rhWTspamaUrZwwVnpQ=",
-    "url": "https://github.com/storytold/deckcraft/releases/download/v0.18.1/deckcraft-0.18.1-linux-aarch64.tar.gz",
-    "version": "0.18.1"
+    "hash": "sha256-IOuNgoR+GonPwm61uATIQG5m4MZOK/xgEjb0rQRvayE=",
+    "url": "https://github.com/storytold/deckcraft/releases/download/v0.19.1/deckcraft-0.19.1-linux-aarch64.tar.gz",
+    "version": "0.19.1"
   },
   "designcraft": {
     "hash": "sha256-CszzA9olsOGtKwCk2BLekgekX+wjbBlCHZpATJ0pHdY=",
@@ -65,8 +65,8 @@
     "version": "0.24.1"
   },
   "wordcraft": {
-    "hash": "sha256-P0r8BZg1c3itivmy43osFx9t1HTJIGyc8M9W6mhiWe0=",
-    "url": "https://github.com/storytold/wordcraft/releases/download/v0.18.1/wordcraft-0.18.1-linux-aarch64.tar.gz",
-    "version": "0.18.1"
+    "hash": "sha256-Y9iy4CDSQQALVls4bNBbuiLQuXxIS18RwJzGMeUXSco=",
+    "url": "https://github.com/storytold/wordcraft/releases/download/v0.19.1/wordcraft-0.19.1-linux-aarch64.tar.gz",
+    "version": "0.19.1"
   }
 }
