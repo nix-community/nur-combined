@@ -12,17 +12,24 @@
   openssl,
   zstd,
   makeWrapper,
+  git,
+  nix,
+  writeShellApplication,
+  nix-update,
+  nix-update-script,
   glib,
   gtk3,
   webkitgtk_4_1,
   wrapGAppsHook3,
+  wasm-bindgen-cli_0_2_129,
+  lld,
 }:
 
 rustPlatform.buildRustPackage (
   finalAttrs:
   {
     pname = "futo-notes";
-    version = "1.9.4";
+    version = "2.0.1";
 
     strictDeps = true;
 
@@ -31,17 +38,21 @@ rustPlatform.buildRustPackage (
       owner = "futo-notes";
       repo = "futo-notes";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-U4tp4zrgdtJ8WHmry4KqxyE31RJxaufi3fmfeog80J8=";
+      hash = "sha256-K8zxKo6KM8xVr7caJg1uoyh3RU5TRco6BHQfWb19oUY=";
     };
+
+    # Nix's rustc already ships the wasm32 standard library; skip upstream's
+    # rustup check and use the exact wasm-bindgen CLI version from Cargo.lock.
+    patches = [ ./editor-wasm-no-rustup.patch ];
 
     pnpmDeps = fetchPnpmDeps {
       inherit (finalAttrs) pname version src;
       pnpm = pnpm_10;
       fetcherVersion = 4;
-      hash = "sha256-8iTy9/nhurKXXsz9y6QiL9yQINniJaBhzfaJBisfKl0=";
+      hash = "sha256-9rp1yjiEH9BOAChjT+5EnEvALRC+FPxkTFB1ysxP6vw=";
     };
 
-    cargoHash = "sha256-LO690k1AESP7DfGyxWebop9WTSmqhQvvCmyyquqIc3s=";
+    cargoHash = "sha256-XoeMa2naAEXbEb8ZOSisdlUBFYRQQbdSeEGH4kM/BlQ=";
 
     # The Cargo workspace root is in the repo root; we build the tauri app.
     buildAndTestSubdir = "apps/tauri/src-tauri";
@@ -49,6 +60,7 @@ rustPlatform.buildRustPackage (
     nativeBuildInputs = [
       pkg-config
       cargo-tauri.hook
+      lld
       nodejs_22
       pnpmConfigHook
       pnpm_10
@@ -72,11 +84,25 @@ rustPlatform.buildRustPackage (
 
     env = {
       CI = "true";
+      WASM_BINDGEN = lib.getExe wasm-bindgen-cli_0_2_129;
       # rustc is built for 14.0; tauri.conf.json otherwise forces 11.0.
       MACOSX_DEPLOYMENT_TARGET = "14.0";
     };
 
     doCheck = false;
+
+    passthru.updateScript = writeShellApplication {
+      name = "update-futo-notes";
+      runtimeInputs = [
+        git
+        nix
+        nix-update
+      ];
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="futo-notes"
+        exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+      '';
+    };
 
     postInstall = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
       ln -s futo-notes-tauri $out/bin/futo-notes

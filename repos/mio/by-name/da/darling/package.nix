@@ -135,14 +135,14 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "darling";
-  version = "0.1.20260608-unstable-2026-11-24";
+  version = "0.1.20260608-unstable-2026-11-26";
 
   src = fetchFromGitHub {
     owner = "darlinghq";
     repo = "darling";
-    rev = "d46268391bac87feef3b4f0605af3f3a117da4e1";
+    rev = "ce0f3340848aa763fe3b7e934e593888a2102cc6";
     fetchSubmodules = true;
-    hash = "sha256-mMRkNaQainIp0apG/n0WwC8A0hYSpknUBHjnz7HhZiU=";
+    hash = "sha256-rpPS9Ncmi3XM7dStb9pzBeReORcC5dRMdirM315FvtQ=";
     # Remove 500MB of dependency test files to get under Hydra output limit
     postFetch = ''
       rm -r $out/src/external/openjdk/test
@@ -221,7 +221,7 @@ stdenv.mkDerivation (finalAttrs: {
             echo "exit 0" > tools/shutdown-user.sh
 
             unzip -p ${icuData} icudt78l.dat \
-              | xz -9e -T0 -c > src/external/icu/icuSources/data/out/icudt78l.dat.xz
+              | xz -9e -T0 -c > src/external/icu/darling/data/icudt78l.dat.xz
   '';
 
   nativeBuildInputs = [

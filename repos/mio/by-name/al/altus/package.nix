@@ -21,13 +21,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "altus";
-  version = "5.8.3";
+  version = "5.8.4";
 
   src = fetchFromGitHub {
     owner = "amanharwara";
     repo = "altus";
     tag = finalAttrs.version;
-    hash = "sha256-aqIXoHZD6+2bwc3zQKM5pu0OMHVCdHIBB05BrR9Wbu0=";
+    hash = "sha256-7i+7lDQY3GkeBs8t05PH2FCuusBHowgjUmwe9L+Y2l0=";
   };
 
   missingHashes = ./missing-hashes.json;

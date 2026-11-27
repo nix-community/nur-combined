@@ -1,8 +1,6 @@
-diff --git a/src/external/darling-dmg/CMakeLists.txt b/src/external/darling-dmg/CMakeLists.txt
-index 64d22bd..1ec5e53 100644
 --- a/src/external/darling-dmg/CMakeLists.txt
 +++ b/src/external/darling-dmg/CMakeLists.txt
-@@ -108,7 +108,7 @@ SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+@@ -114,7 +114,7 @@
  SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE) 
  SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
  
@@ -11,7 +9,7 @@ index 64d22bd..1ec5e53 100644
  install(TARGETS darling-dmg RUNTIME DESTINATION bin)
  
  # This is used in Darling build.
-@@ -119,15 +119,16 @@ else (NOT DARLING)
+@@ -125,15 +125,16 @@
  
  	add_definitions(-D_FILE_OFFSET_BITS=64 -DCOMPILE_WITH_LZFSE=1)
  
@@ -23,15 +21,13 @@ index 64d22bd..1ec5e53 100644
 +		${FUSE_INCLUDEDIR}
  	)
  
- 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -nostdinc")
+ 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -nostdinc")
  
 -	wrap_elf(fuse libfuse.so)
 +	wrap_elf(fuse libfuse3.so)
  
- 	add_darling_executable(hdiutil
- 		${dmg_sources}
-diff --git a/src/external/darling-dmg/src/main-fuse.h b/src/external/darling-dmg/src/main-fuse.h
-index 6917106..80a71be 100644
+ 	include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+ 
 --- a/src/external/darling-dmg/src/main-fuse.h
 +++ b/src/external/darling-dmg/src/main-fuse.h
 @@ -1,18 +1,18 @@
@@ -56,11 +52,9 @@ index 6917106..80a71be 100644
  #if defined(__APPLE__) && !defined(DARLING)
    int hfs_getxattr(const char* path, const char* name, char* value, size_t vlen, uint32_t position);
  #else
-diff --git a/src/external/darling-dmg/src/main-fuse.cpp b/src/external/darling-dmg/src/main-fuse.cpp
-index 99cb304..1fe0a37 100644
 --- a/src/external/darling-dmg/src/main-fuse.cpp
 +++ b/src/external/darling-dmg/src/main-fuse.cpp
-@@ -182,7 +182,7 @@ int handle_exceptions(std::function<int()> func)
+@@ -172,7 +172,7 @@
  	}
  }
  
@@ -69,7 +63,7 @@ index 99cb304..1fe0a37 100644
  {
  	std::cerr << "hfs_getattr(" << path << ")\n";
  
-@@ -256,7 +256,7 @@ int hfs_release(const char* path, struct fuse_file_info* info)
+@@ -246,7 +246,7 @@
  	});
  }
  
@@ -78,7 +72,7 @@ index 99cb304..1fe0a37 100644
  {
  	std::cerr << "hfs_readdir(" << path << ")\n";
  
-@@ -267,7 +267,7 @@ int hfs_readdir(const char* path, void* buf, fuse_fill_dir_t filler, off_t offse
+@@ -257,7 +257,7 @@
  
  		for (auto it = contents.begin(); it != contents.end(); it++)
  		{
@@ -87,10 +81,10 @@ index 99cb304..1fe0a37 100644
  				return -ENOMEM;
  		}
  
-diff --git a/src/external/darling-dmg/src/main-mount.cpp b/src/external/darling-dmg/src/main-mount.cpp
 --- a/src/external/darling-dmg/src/main-mount.cpp
 +++ b/src/external/darling-dmg/src/main-mount.cpp
-@@ -17,6 +17,6 @@
+@@ -16,7 +16,7 @@
+ 
  #define main main_fuse
  #define BEFORE_MOUNT_EXTRA ops.init = mountReady
 -static void* mountReady(struct fuse_conn_info* conn);
@@ -98,10 +92,12 @@ diff --git a/src/external/darling-dmg/src/main-mount.cpp b/src/external/darling-
  #include "main-fuse.cpp"
  #undef main
  
-@@ -48,5 +48,5 @@
+@@ -46,7 +46,7 @@
+ 	g_readyFd = -1;
+ }
+ 
 -static void* mountReady(struct fuse_conn_info*)
 +static void* mountReady(struct fuse_conn_info*, struct fuse_config*)
  {
  	reportMount(0);
  	return nullptr;
- }

@@ -8,6 +8,14 @@
   makeDesktopItem,
   libarchive,
   stdenv,
+  writeShellApplication,
+  coreutils,
+  curl,
+  git,
+  gnused,
+  jq,
+  nix,
+  nixfmt,
 }:
 
 let
@@ -17,14 +25,14 @@ in
 mkWindowsAppNoCC rec {
   inherit wine;
   pname = "paint-net";
-  version = "5.1.12";
+  version = "5.2";
 
   src = stdenv.mkDerivation {
     pname = "${pname}-src";
     inherit version;
     src = fetchurl {
       url = "https://github.com/paintdotnet/release/releases/download/v${version}/paint.net.${version}.portable.x64.zip";
-      hash = "sha256-1a5wQ/L7nTZbSN/iQ6KsocdJJN6ZsEtkRZFslTVK76M=";
+      hash = "sha256-Jomk/lj5FgXSEMRIHxb7UDtvatTt1/OXJRyNnn3okos=";
     };
     nativeBuildInputs = [ libarchive ];
     unpackPhase = ''
@@ -87,6 +95,23 @@ mkWindowsAppNoCC rec {
       ];
     })
   ];
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-paint-net";
+    runtimeInputs = [
+      coreutils
+      curl
+      git
+      gnused
+      jq
+      nix
+      nixfmt
+    ];
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="paint-net"
+      exec bash ${./update.sh} "$@"
+    '';
+  };
 
   meta = with lib; {
     mainProgram = pname;

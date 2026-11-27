@@ -35,7 +35,7 @@ stdenv.mkDerivation (
     # its own tree and hash. This cannot live in the derivation attributes,
     # which are coerced to strings.
     depsHashes = {
-      x86_64-linux = "sha256-VXhhwGH4xfOBQ4Pb64yeg/7rGYv/BufekWvLmXlw1W0=";
+      x86_64-linux = "sha256-S5jtgk6UOoAP2Xl9+HBdGhOPeMpurG+49mSvjbLOoN0=";
       aarch64-darwin = "sha256-PG2nRb4Fi3ROFF7fYM8Kf0SAdfv8wO94Ge0shTAVjL0=";
     };
 
@@ -92,13 +92,13 @@ stdenv.mkDerivation (
   in
   {
     pname = "clice";
-    version = "1.1.2026112412";
+    version = "1.1.2026112610";
 
     src = fetchFromGitHub {
       owner = "clice-io";
       repo = "clice";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-fa3z+cF2flt+5TgBKCzHFJP0sMfDjjDdhhdUgjgkKnc=";
+      hash = "sha256-Br0zMA6fONtqi3DFPG5mm30a8TWOprT7QrGXkgskWjk=";
     };
 
     deps = stdenvNoCC.mkDerivation {

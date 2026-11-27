@@ -1,0 +1,15 @@
+--- a/scripts/lib/editor-wasm.mjs
++++ b/scripts/lib/editor-wasm.mjs
+@@ -30,10 +30,8 @@
+ export function editorWasmTools(root) {
+   const version = lockedWasmBindgenVersion(readFileSync(join(root, 'Cargo.lock'), 'utf8'));
+   const target = resolve(root, process.env.CARGO_TARGET_DIR ?? 'target');
+-  const installed = runIn(root, 'rustup', ['target', 'list', '--installed'], true);
+-  if (!installed.split(/\r?\n/).includes('wasm32-unknown-unknown')) {
+-    runIn(root, 'rustup', ['target', 'add', 'wasm32-unknown-unknown']);
+-  }
++  // Nix's rustc ships the wasm32-unknown-unknown standard library, so there
++  // is no rustup toolchain to query or extend here.
+   let cli = process.env.WASM_BINDGEN ?? 'wasm-bindgen';
+   const matches = (command) => {
+     const result = spawnSync(command, ['--version'], { encoding: 'utf8' });

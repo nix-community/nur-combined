@@ -33,7 +33,7 @@
 }:
 
 let
-  version = "0.1.31.2-unstable-2026-11-25";
+  version = "0.1.31.2-unstable-2026-11-26";
 
   # LYNX applies a large compatibility patch set to JUCE 8.0.4's sources.
   juceVersion = "8.0.4";
@@ -82,8 +82,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "Ka1-S";
     repo = "LYNX-SHARE";
-    rev = "6b552b632479971cca3682fb11e97f2a5f89f258";
-    hash = "sha256-rtB4J3iwQUVjn1bjvN1eI10L/6+u0QTRmdBRRKw/Dh4=";
+    rev = "211e6e78bc950fcc08509d18983d411e08ff91b0";
+    hash = "sha256-VS4zP/u8YMYmkTb+hC5UbtfmQLwcCjgQz27675ErYTY=";
   };
 
   nativeBuildInputs = [
@@ -171,6 +171,7 @@ stdenv.mkDerivation (finalAttrs: {
         "$out/share/applications/com.lynx_share.LYNX.desktop"
       install -Dm644 resources/linux/lynx-mime.xml \
         "$out/share/mime/packages/lynx-mime.xml"
+      mkdir -p "$out/share/metainfo"
       substitute resources/linux/com.lynx_share.LYNX.appdata.xml \
         "$out/share/metainfo/com.lynx_share.LYNX.appdata.xml" \
         --replace-fail '@VERSION@' '${version}' \

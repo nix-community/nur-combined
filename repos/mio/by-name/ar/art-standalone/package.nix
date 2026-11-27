@@ -25,13 +25,13 @@
 }:
 clangStdenv.mkDerivation {
   pname = "art-standalone";
-  version = "0-unstable-2026-11-04";
+  version = "0-unstable-2026-11-26";
 
   src = fetchFromGitLab {
     owner = "android_translation_layer";
     repo = "art_standalone";
-    rev = "7ead96be8423b3789457b920336149f3f35a61d0";
-    hash = "sha256-Zq/+pxIhbiEWDKVeploSxbKgyqahcXAEto4MEWKXetk=";
+    rev = "381138f574985b593eaaa64ad5660cfc4040d4b4";
+    hash = "sha256-cZZMYOj4rIQnH3cwffrCCycsnunxLXuV1vJng1XzLK8=";
   };
 
   patches = [

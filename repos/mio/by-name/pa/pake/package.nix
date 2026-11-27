@@ -102,13 +102,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "pake";
-  version = "3.20.0";
+  version = "3.21.0";
 
   src = fetchFromGitHub {
     owner = "tw93";
     repo = "Pake";
     rev = "V${finalAttrs.version}";
-    hash = "sha256-JBfbr60wtfPnN1rYEAfw0sRfK2pyXtDDs+ZeVLUd9Iw=";
+    hash = "sha256-C9JUUkuBbyvPALTEMPo33j8UXa0SJSY6dUf0MY0gOA0=";
   };
 
   patches = [
@@ -149,7 +149,7 @@ stdenv.mkDerivation (finalAttrs: {
     # pnpm.fetchDeps hashes depend on whether the build dir and $out share a
     # partition (it hardlinks exec bits into the store, nixpkgs#422889), so this
     # value can differ between machines. Regenerate it locally if it mismatches.
-    hash = "sha256-BSBdtE4oLzuo+F7Y+WTvMNfjse1hZQnEy0JXsootkwQ=";
+    hash = "sha256-QW6ZIbfTitgvIflBdCLV1D1HhixJTMBiMo6Ye3hkteI=";
   };
 
   env = {
@@ -256,7 +256,7 @@ stdenv.mkDerivation (finalAttrs: {
       pname = "pake";
       inherit (finalAttrs) version src;
       cargoRoot = "src-tauri";
-      hash = "sha256-nHRQNxOt6rmz46dO3apb3eV0jAkDKBzd0mIq/gzxlxA=";
+      hash = "sha256-T+JpVU/FiZrI++1R3CI1x1BY1zGgvgqtNa9+6s5GC/A=";
     };
     updateScript = writeShellApplication {
       name = "update-pake";
