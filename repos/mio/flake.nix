@@ -131,6 +131,9 @@
               {
                 quibble = packages.quibble_win11_patched;
               };
+          zfs-uefi-crypto =
+            nixpkgs.legacyPackages.x86_64-linux.callPackage ./by-name/zf/zfs-uefi/crypto-kat.nix
+              { };
           # zfs-uefi: create a real pool in a ZFS VM (plain and encrypted
           # datasets) and run the reader against it natively.  KVM makes this
           # quick; without it QEMU falls back to TCG and the check is slow but

@@ -173,13 +173,13 @@ The harness works; our images do not start under it.
       unused DVA slots and fill count), and threading the per-objset key through
       `dnode_read`/`zio_read`, which currently take only `spa_t` and `blkptr_t`.
       Treat it as a fork or an upstream patch, not a packaging flag.
-- This host cannot validate any of that: it has `/dev/zfs` and ZFS 2.4.4, but
+- This host cannot create a pool itself: it has `/dev/zfs` and ZFS 2.4.4, but
       runs as uid 1003, so `zpool create` on a scratch file fails with
-      `cannot create 'zenc': permission denied`.  Validation needs either root
-      on a machine with the module, or a `runNixOSTest` that creates the
-      encrypted pool inside the VM and runs `test/native_read_test.c` against
-      the pool's device (KVM is available here for the latter).  Do not land
-      decryption code that has only been compiled, not read a real pool.
+      `cannot create 'zenc': permission denied`.  `checks.x86_64-linux.zfs-uefi-reader`
+      is the replacement: it creates the pool (plain and encrypted) inside a
+      ZFS VM and runs the reader against the device, so decryption can now be
+      validated locally.  Do not land decryption code that has only been
+      compiled, not read a real pool.
 - Fixture notes, paid for in test runs: the pool must sit on a loop device
       (the reader rejects `file` vdevs), an encrypted dataset needs
       `keyformat=raw` with `keylocation=file` because the passphrase prompts of
@@ -187,6 +187,30 @@ The harness works; our images do not start under it.
       and `bootfs` is what selects the dataset the reader mounts.  The test
       reuses the loop device and reads it directly, so no image copy can go
       stale.
+#### Progress 2026-11-28: the crypto half exists and is tested
+
+- [x] Shape decided: keep this in `zfs-uefi` as patches plus plain source, not
+      a separate `zfs-uefi_patched` fork.  `encrypted-dataset.patch` is the
+      first such patch; the AES code lives in `by-name/zf/zfs-uefi/crypto/` so
+      it can become a normal zfs-efi feature instead of a silent fork.
+- [x] AES-256-GCM implemented without libc (`crypto/aesgcm.c`): the S-box is
+      derived from the field inverse at init instead of pasted as constants,
+      GHASH multiplies bitwise, and decryption authenticates before it writes
+      any plaintext.  There is no inverse cipher because GCM never needs one.
+      Verified by `checks.x86_64-linux.zfs-uefi-crypto` against
+      OpenSSL-generated vectors (empty plaintext/AAD, one block, 60 bytes with
+      odd-length AAD, and the 96-byte/24-byte-AAD wrapped-key shape), with
+      AES-256 itself also checked against FIPS-197 via `openssl enc`.
+- [ ] Wiring, in order: read `DD_FIELD_CRYPTO_KEY_OBJ` from the zapified DSL
+      dir, unwrap the 96-byte key blob with the 32-byte raw keyfile (version-1
+      AAD is LE guid, crypt, version = 24 bytes), decode salt/IV from
+      `blk_dva[2]` and IV2 from the fill field, build `blkptr_auth_buf_t` for
+      the AAD, and decrypt before decompression in `zio_read_impl`.  The key
+      has to follow the objset through the read path: `dnode_read`/`zio_read`
+      currently pass only `spa_t` and `blkptr_t`.
+- [ ] Not attempted yet: passphrase datasets (PBKDF2-HMAC-SHA512; SHA-512 is
+      absent from `src/engine/`), AES-256-CCM datasets, and `encryptionroot`
+      inheritance.
 - The two cases that must both pass once decryption exists: an encrypted
       dataset with `keylocation=prompt` (passphrase) and one with a keyfile, plus
       an unencrypted dataset in a pool that merely *has* the
