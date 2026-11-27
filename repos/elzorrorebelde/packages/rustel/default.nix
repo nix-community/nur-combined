@@ -22,7 +22,7 @@
 }:
 
 let
-  version = "0.1.8";
+  version = "0.1.9";
 in
 rustPlatform.buildRustPackage {
   pname = "rustel";
@@ -31,8 +31,8 @@ rustPlatform.buildRustPackage {
   src = fetchFromGitHub {
     owner = "tzfm";
     repo = "rustel";
-    rev = "b561fb5ef3d455d8f6eeee1637f9cf7af6fa447b";
-    hash = "sha256-jjg6rRic4gUyUh+iYMA+lG98apHCDL6PQ4Bj+cEInfw=";
+    rev = "028131602dfd865abf581333014c55bb3d958835";
+    hash = "sha256-imC1E7+nLJd7uOUEV7Ngl0fw7JMznTAuqzRY0bzcG1c=";
   };
 
   cargoLock = {
