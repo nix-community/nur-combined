@@ -11,6 +11,7 @@ let
     mkEnableOption
     mkIf
     mkOption
+    optionals
     types
     ;
   cfg = config.services.honk-proxy;
@@ -63,20 +64,27 @@ in
         pkgs.v2ray-domain-list-community
       ];
       defaultText = lib.literalExpression "with pkgs; [ v2ray-geoip v2ray-domain-list-community ]";
-      description = "Packages providing GeoIP and GeoSite databases under share/v2ray.";
+      description = "Packages providing GeoIP and GeoSite databases under share/v2ray. Their files are linked into /var/share/honk as a fallback.";
     };
     assetsPath = mkOption {
-      type = types.path;
-      default = "${geoAssets}/share/v2ray";
+      type = types.nullOr types.path;
+      default = if cfg.assets == [ ] then null else "${geoAssets}/share/v2ray";
       defaultText = "<v2ray-geoip + v2ray-domain-list-community>/share/v2ray";
-      description = "Directory containing geoip.dat and geosite.dat.";
+      description = ''
+        Directory containing geoip.dat and geosite.dat. Its files are linked
+        into /var/share/honk, which Honk searches after global.data_dir, so
+        files downloaded or provided there take precedence. Set to null to
+        disable the links.
+      '';
     };
-    loadNfqueueModules = mkEnableOption "attempting to load Honk NFQUEUE kernel modules before startup";
-    openFirewall.enable = mkEnableOption "opening the configured transparent proxy port for TCP and UDP";
-    openFirewall.port = mkOption {
-      type = types.port;
-      default = 12345;
-      description = "Match global.tproxy_port in the Honk configuration. Not the Doona API port.";
+    loadNfqueueModules = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        Load the NFQUEUE kernel modules before startup, matching the AUR
+        package. Without nfnetlink_queue Honk disables NFQUEUE until the next
+        restart.
+      '';
     };
   };
 
@@ -96,10 +104,11 @@ in
       }
     ];
     environment.systemPackages = [ selectedPackage ];
-    networking.firewall = mkIf cfg.openFirewall.enable {
-      allowedTCPPorts = [ cfg.openFirewall.port ];
-      allowedUDPPorts = [ cfg.openFirewall.port ];
-    };
+    systemd.tmpfiles.rules = optionals (cfg.assetsPath != null) [
+      "d /var/share/honk 0755 root root -"
+      "L+ /var/share/honk/geoip.dat - - - - ${cfg.assetsPath}/geoip.dat"
+      "L+ /var/share/honk/geosite.dat - - - - ${cfg.assetsPath}/geosite.dat"
+    ];
     systemd.services.honk-core = {
       description = "honk transparent proxy engine";
       documentation = [ "https://github.com/daeuniverse/honk" ];
@@ -108,8 +117,11 @@ in
       after = [
         "network-online.target"
         "systemd-sysctl.service"
+        "docker.service"
       ];
       conflicts = [ "dae.service" ];
+      startLimitIntervalSec = 300;
+      startLimitBurst = 5;
       serviceConfig = {
         Type = "notify";
         User = "root";
@@ -128,9 +140,9 @@ in
         LimitNPROC = 4096;
         LimitNOFILE = 1048576;
         LimitMEMLOCK = "infinity";
+        OOMScoreAdjust = -100;
         UMask = "0077";
       };
-      environment.DAE_LOCATION_ASSET = toString cfg.assetsPath;
     };
   };
 }

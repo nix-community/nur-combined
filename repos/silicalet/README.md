@@ -258,14 +258,23 @@ Use exactly one absolute runtime path string. `configFile` may be a symlink;
 Honk resolves `include { config.d/*.dae }` against the **resolved entry's parent**.
 The module does not read credentials at evaluation time or copy them into the
 store. The entry, include tree, symlinks and their parents must be controlled
-by the administrator: `honk-core.service` reads them as root.
+by the administrator: `honk-core.service` reads them as root. The service
+preloads the NFQUEUE kernel modules by default, matching the AUR package; set
+`loadNfqueueModules = false` to skip the `modprobe`. If
+`experimental.native_api.config_write` is enabled, point `configFile`/`configDir`
+at a writable runtime location: `environment.etc` entries are store symlinks and
+cannot be rewritten by the UI.
 
 `doona` selects the package variant, not a listener. To serve the UI, explicitly
 enable `experimental.native_api` in the Honk config with authentication, bind
-to loopback and choose `ui: 'embedded'` or `'embedded-lite'`. The module opens
-no firewall ports by default. It supplies nixpkgs' `v2ray-geoip` and
-`v2ray-domain-list-community` through `DAE_LOCATION_ASSET`; override `assets`
-or `assetsPath` for a different dataset.
+to loopback and choose `ui: 'embedded'` or `'embedded-lite'`. The module does
+not configure the firewall: the transparent listeners live in Honk's `daens`
+namespace, so opening `tproxy_port` on the host has no effect. It links nixpkgs'
+`v2ray-geoip` and `v2ray-domain-list-community` into `/var/share/honk`, the
+fallback role `/usr/share/honk` has in the AUR package. Files in
+`global.data_dir`, including Native API geodata updates, therefore take
+precedence. Override `assets` or `assetsPath`, or set `assetsPath = null`, to
+change or disable the links.
 
 For a CLI-only installation, import `homeModules.honk` in Home Manager and set
 `programs.honk.enable = true`. It does not start a user service. Real interception
