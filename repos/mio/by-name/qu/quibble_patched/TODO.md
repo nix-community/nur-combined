@@ -199,3 +199,56 @@ The harness works; our images do not start under it.
       `quibble_patched` about which upstream branch its patches came from.
 - [ ] Re-check that `nix build .#quibble` and `nix build .#quibble_patched`
       still pass after any `print.cpp`/toolchain churn upstream.
+
+<!-- qemu-crash:start -->
+### QEMU crash analysis (2026-11-27)
+
+The images *do* start, and OVMF's exception handler catches them. `-serial file:` is
+required to see firmware output at all (`-display none` alone sends `ConOut` to the
+invisible graphics console).
+
+```
+!!!! X64 Exception Type - 06(#UD - Invalid Opcode)  CPU Apic ID - 00000000 !!!!
+RIP  - 000000007DD4A00C   (second run: 000000007DD4900C)
+```
+
+Both RIPs are `load base + 0xC`, i.e. inside the DOS header, where mingw's stub has
+`ff ff` — an invalid opcode. The file's own `AddressOfEntryPoint` is `0x14210`
+(`SizeOfImage 0x179000`) and disassembly there is `efi_main`'s prologue, so the header
+in the file is right; EDK2 jumps to `0xC` anyway. Instrumenting `efi_main` with direct
+COM1 `outb` markers (bypassing the firmware console) produces **no marker at all**, so
+its body never executes.
+
+Control in the same harness: upstream's released `quibble.efi` boots to the quibble UI
+(1280x800, 5.5% non-black) with no exception.
+
+Ruled out as the cause (each variant still crashes the same way):
+
+- stripping — a `dontStrip = true` build crashes identically;
+- `-Wl,--disable-runtime-pseudo-reloc` — variant without the flag crashes;
+- the freestanding CRT — a `-static` (upstream's own flags) variant crashes;
+- `freeldr.ini` / `font.ttf` — upstream's own shipped files were used.
+
+Next: load the image from OVMF's internal shell (`load fs0:\EFI\BOOT\BOOTX64.EFI`) for
+the exact status, compare `SizeOfOptionalHeader`/`NumberOfRvaAndSizes`/data directories
+against the release binary, and try `-Wl,--image-base,0` or an older binutils.
+
+<!-- qemu-crash:end -->
+
+<!-- pe-layout:start -->
+### PE layout comparison (ours vs upstream release)
+
+```
+--- quibble.efi (/nix/store/fy1q6zif9yyvfmvl5c2cpfcxkmyjx1sg-quibble-x86_64-w64-mingw32-20230328-unstable-2024-06-23/share/quibble/quibble.efi)
+  entry=0x14210 sizeOfHeaders=0x400 sizeOfImage=0x179000 nrva=16
+  dirs: 0@0x169000+0xd957, 1@0x177000+0x18, 3@0x159000+0x6114, 5@0x178000+0xce4
+  sections: .text@0x1000+0x10ee00, .data@0x110000+0x30800, .rdata@0x141000+0x200, .rodata@0x142000+0x16200, .pdata@0x159000+0x6200, .xdata@0x160000+0x7400, .bss@0x168000+0x680, .edata@0x169000+0xda00, .idata@0x177000+0x200, .reloc@0x178000+0xe00
+  relocs: 1566, rva range 0x110000..0x140280, outside headers/image: 0 []
+--- quibble.efi (/tmp/qv/upstream/amd64/quibble.efi)
+  entry=0xf0c7 sizeOfHeaders=0x400 sizeOfImage=0x100000 nrva=16
+  dirs: 0@0xc3000+0x3ad0c, 1@0xfe000+0x18, 3@0xb2000+0x79f8, 5@0xff000+0x5e8
+  sections: .text@0x1000+0xa3e00, .data@0xa5000+0x200, .rdata@0xa6000+0xbc00, .pdata@0xb2000+0x7a00, .xdata@0xba000+0x7c00, .bss@0xc2000+0x420, .edata@0xc3000+0x3ae00, .idata@0xfe000+0x200, .reloc@0xff000+0x600
+  relocs: 724, rva range 0xa7160..0xb1500, outside headers/image: 0 []
+```
+
+<!-- pe-layout:end -->

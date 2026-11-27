@@ -43,7 +43,6 @@
       }
     },
     "kytyps5-nixpkgs": {
-      "flake": false,
       "locked": {
         "lastModified": 1795548719,
         "narHash": "sha256-hiJcmxuN8iH2GjYU2MFwJu5aZrwM05C49zil9UWxbOA=",

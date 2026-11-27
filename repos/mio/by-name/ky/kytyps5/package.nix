@@ -311,7 +311,7 @@ in
 if stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.system != "x86_64-darwin" then
   # A native aarch64-darwin build would be an emulator upstream does not
   # support, so offer the x86_64-darwin derivation instead.
-  (import inputs."kytyps5-nixpkgs" {
+  (import inputs."kytyps5-nixpkgs".outPath {
     system = "x86_64-darwin";
     config.allowUnfree = true;
     config.android_sdk.accept_license = true;

@@ -20,7 +20,6 @@
   };
   inputs.kytyps5-nixpkgs = {
     url = "https://nixos.org/channels/nixpkgs-26.05-darwin/nixexprs.tar.zst";
-    flake = false;
   };
   outputs =
     inputs@{

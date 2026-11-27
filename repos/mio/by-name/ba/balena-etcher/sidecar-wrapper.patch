@@ -1,0 +1,93 @@
+--- a/forge.sidecar.ts
++++ b/forge.sidecar.ts
+@@ -12,8 +12,6 @@
+ 
+ import debug from 'debug';
+ 
+-import { preparePkgNode } from './forge.pkg-node';
+-
+ const log = debug('sidecar');
+ 
+ function isStartScrpt(): boolean {
+@@ -64,6 +62,17 @@
+ 	const commands: Array<[string, string[], object?]> = [
+ 		['tsc', ['--project', 'tsconfig.sidecar.json', '--outDir', sourcesDir]],
+ 	];
++	const nodePath = process.env.ETCHER_NODE_PATH || 'node';
++	const writeNodeWrapper = (binPath: string) => {
++		const script = `#!/bin/sh
++set -eu
++script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
++export NODE_PATH="$script_dir/app.asar/node_modules\${NODE_PATH:+:\$NODE_PATH}"
++exec ${nodePath} "$script_dir/sidecar-src/util/api.js" "$@"
++`;
++		fs.writeFileSync(binPath, script);
++		fs.chmodSync(binPath, 0o755);
++	};
+ 
+ 	buildForArchs.split(',').forEach((arch) => {
+ 		const binPath = isStartScrpt()
+@@ -80,29 +89,21 @@
+ 		// It's coming from etcher-sdk, a fix has been upstreamed but to use
+ 		// the latest etcher-sdk we need to upgrade axios at the same time.
+ 		commands.push([
+-			'npm',
+-			['rebuild', 'drivelist', 'mountutils', `--arch=${arch}`],
+-		]);
+-
+-		commands.push([
+-			'pkg',
++			'env',
+ 			[
+-				path.join(sourcesDir, 'util', 'api.js'),
+-				'-c',
+-				'pkg-sidecar.json',
+-				// `--no-bytecode` so that we can cross-compile for arm64 on x64
+-				'--no-bytecode',
+-				'--public',
+-				'--public-packages',
+-				'"*"',
+-				// always build for host platform and node version
+-				// https://github.com/vercel/pkg-fetch/releases
+-				'--target',
+-				`node24-${arch}`,
+-				'--output',
+-				binPath,
++				`npm_config_nodedir=${process.env.ETCHER_NODEDIR}`,
++				'npm_config_build_from_source=true',
++				`npm_config_arch=${arch}`,
++				'npm',
++				'rebuild',
++				'drivelist',
++				'mountutils',
++				`--arch=${arch}`,
+ 			],
+ 		]);
++
++		fs.mkdirSync(path.dirname(binPath), { recursive: true });
++		writeNodeWrapper(binPath);
+ 	});
+ 
+ 	commands.forEach(([cmd, args, opt]) => {
+@@ -129,6 +130,11 @@
+ 	const dest = path.resolve(resourcesPath, path.basename(binPath));
+ 	log(`copying '${binPath}' to '${dest}'`);
+ 	fs.copyFileSync(binPath, dest);
++	fs.cpSync(
++		path.resolve(binDir, '..', 'src'),
++		path.resolve(resourcesPath, 'sidecar-src'),
++		{ recursive: true },
++	);
+ }
+ 
+ export class SidecarPlugin extends PluginBase<void> {
+@@ -154,9 +160,6 @@
+ 			},
+ 			generateAssets: async (_config, platform, arch) => {
+ 				log('generateAssets', { platform, arch });
+-				for (const buildArch of arch.split(',')) {
+-					await preparePkgNode(buildArch);
+-				}
+ 				build(SRC_DIR, arch, BIN_DIR, BIN_NAME);
+ 			},
+ 			packageAfterCopy: async (
