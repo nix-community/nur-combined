@@ -12,4 +12,4 @@ Build both MyGUI and stuntrally as C++17 and require that standard. This mirrors
 
 ## Darwin
 
-The package also builds on `aarch64-darwin`. The Darwin override removes the Linux-only X11 dependencies, builds the Cocoa window helper, bundles MyGUI's framework, and applies source fixes for Apple Clang/libc++.
+The package also builds on `aarch64-darwin`. The Darwin override removes the Linux-only X11 dependencies, builds the Cocoa window helper, bundles MyGUI's framework, installs Ogre's plugin config in its macOS resource path with the Metal renderer enabled, and applies source fixes for Apple Clang/libc++.

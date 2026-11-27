@@ -445,11 +445,11 @@ jobs:
         id: date
         run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
-      - name: Publish Nightly Release
+      - name: Publish Dated Release
         if: steps.check_artifacts.outputs.has_artifacts == 'true'
         uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
         with:
-          tag_name: nightly
-          name: "Daily Release (${{ steps.date.outputs.date }})"
-          prerelease: true
+          tag_name: "release-${{ steps.date.outputs.date }}"
+          name: "Release ${{ steps.date.outputs.date }}"
+          prerelease: false
           files: release-artifacts/*

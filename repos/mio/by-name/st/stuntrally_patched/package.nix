@@ -1,5 +1,6 @@
 {
   lib,
+  ogre-next,
   stdenv,
   stuntrally,
 }:
@@ -78,5 +79,12 @@ stuntrally.overrideAttrs (oldAttrs: {
     + lib.optionalString darwin ''
       mkdir -p "$out/Frameworks"
       cp -R ${mygui_patched}/lib/Release/MyGUIEngine.framework "$out/Frameworks/"
+
+      substituteInPlace "$out/share/stuntrally3/config/plugins.cfg" \
+        --replace-fail 'PluginFolder=${ogre-next}/lib/OGRE/' 'PluginFolder=${ogre-next}/lib/' \
+        --replace-fail 'PluginOptional=RenderSystem_GL3Plus' 'PluginOptional=RenderSystem_Metal' \
+        --replace-fail 'PluginOptional=RenderSystem_Vulkan' '# PluginOptional=RenderSystem_Vulkan'
+      mkdir -p "$out/bin/Contents/Resources"
+      cp "$out/share/stuntrally3/config/plugins.cfg" "$out/bin/Contents/Resources/plugins.cfg"
     '';
 })
