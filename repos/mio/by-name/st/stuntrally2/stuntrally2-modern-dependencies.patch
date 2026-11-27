@@ -172,3 +172,11 @@ diff --git a/source/ogre/common/MessageBox/MessageBox.cpp b/source/ogre/common/M
 @@ -34,1 +34,1 @@
 -		mButtonType = Button::getClassTypeName();
 +		mButtonType = std::string(Button::getClassTypeName());
+diff --git a/source/ogre/CGame.cpp b/source/ogre/CGame.cpp
+--- a/source/ogre/CGame.cpp
++++ b/source/ogre/CGame.cpp
+@@ -113,2 +113,4 @@ void App::destroyScene()
+ void App::destroyScene()
+ {
++	// Stop the simulation thread before deleting the car models it reads.
++	ShutDown();
