@@ -10,10 +10,13 @@
 +// document a fixed per-user location, though, and leaving those out makes a
 +// scan either miss the save or offer it as a bare "saves"/"user" folder.
 +//
-+// Linux is the only platform the nurpkgs OpenSave package targets. Globs cover
-+// per-profile and per-content IDs chosen at runtime. Entries that differ only
-+// by a sibling data tree (UDATA/TDATA, user/user-modded, save/save-pal-es)
-+// share a name so Group offers them as locations of one game.
++// The nurpkgs launchers use XDG_DATA_HOME on both Linux and Darwin, with
++// ~/.local/share as the fallback on either platform. OpenSave calls these
++// LinuxPath for historical reasons, but the scanner applies them to every
++// non-Windows Unix target. Globs cover per-profile and per-content IDs chosen
++// at runtime. Entries that differ only by a sibling data tree (UDATA/TDATA,
++// user/user-modded, save/save-pal-es) share a name so Group offers them as
++// locations of one game.
 +var recompPresetDefs = []preset{
 +	{
 +		ID:   "recomp-acnh",
@@ -107,7 +110,7 @@
 +}
 --- a/internal/presets/recomp_games_test.go
 +++ b/internal/presets/recomp_games_test.go
-@@ -0,0 +1,92 @@
+@@ -0,0 +1,100 @@
 +package presets
 +
 +import (
@@ -122,29 +125,33 @@
 +// Scan does, so a typo in a preset fails here rather than silently on a user's
 +// machine.
 +func TestRecompPresetsResolveTheirSaveFolders(t *testing.T) {
-+	t.Setenv("XDG_DATA_HOME", "")
-+	for _, p := range recompPresetDefs {
-+		t.Run(p.ID, func(t *testing.T) {
-+			if len(p.LinuxPath) == 0 {
-+				t.Fatalf("%s has no Linux save location", p.ID)
-+			}
-+			home := t.TempDir()
-+			sc := &Scanner{GOOS: "linux", HomeDir: home}
-+			resolved := resolveLinuxPath(p.LinuxPath[0], home)
-+			sample := strings.ReplaceAll(resolved, "*", "sample")
-+			if err := os.MkdirAll(sample, 0o755); err != nil {
-+				t.Fatal(err)
-+			}
-+			paths := p.resolvedPaths(sc)
-+			found := false
-+			for _, path := range paths {
-+				if path == sample {
-+					found = true
-+					break
-+				}
-+			}
-+			if !found {
-+				t.Fatalf("%s resolved to %v, want %q", p.ID, paths, sample)
++	for _, goos := range []string{"linux", "darwin"} {
++		t.Run(goos, func(t *testing.T) {
++			t.Setenv("XDG_DATA_HOME", "")
++			for _, p := range recompPresetDefs {
++				t.Run(p.ID, func(t *testing.T) {
++					if len(p.LinuxPath) == 0 {
++						t.Fatalf("%s has no Unix save location", p.ID)
++					}
++					home := t.TempDir()
++					sc := &Scanner{GOOS: goos, HomeDir: home}
++					resolved := resolveLinuxPath(p.LinuxPath[0], home)
++					sample := strings.ReplaceAll(resolved, "*", "sample")
++					if err := os.MkdirAll(sample, 0o755); err != nil {
++						t.Fatal(err)
++					}
++					paths := p.resolvedPaths(sc)
++					found := false
++					for _, path := range paths {
++						if path == sample {
++							found = true
++							break
++						}
++					}
++					if !found {
++						t.Fatalf("%s resolved to %v, want %q", p.ID, paths, sample)
++					}
++				})
 +			}
 +		})
 +	}
@@ -172,31 +179,35 @@
 +}
 +
 +func TestRecompSplitTreesResolveUnderOneName(t *testing.T) {
-+	t.Setenv("XDG_DATA_HOME", "")
-+	home := t.TempDir()
-+	for _, dir := range []string{
-+		filepath.Join(home, ".local/share/speedbreaker-carbon/save"),
-+		filepath.Join(home, ".local/share/speedbreaker-carbon/save-pal-es"),
-+	} {
-+		if err := os.MkdirAll(dir, 0o755); err != nil {
-+			t.Fatal(err)
-+		}
-+	}
-+	sc := &Scanner{GOOS: "linux", HomeDir: home}
-+	var found []DiscoveredSave
-+	for _, p := range recompPresetDefs {
-+		if p.ID != "recomp-speedbreaker" {
-+			continue
-+		}
-+		for _, path := range p.resolvedPaths(sc) {
-+			found = append(found, DiscoveredSave{ID: p.ID, Name: p.Name, Type: p.Type, SavePath: path})
-+		}
-+	}
-+	if len(found) != 2 {
-+		t.Fatalf("got %d SpeedBreaker save folders, want 2", len(found))
-+	}
-+	Group(found)
-+	if found[0].GroupID != found[1].GroupID {
-+		t.Fatalf("split SpeedBreaker saves grouped separately: %q and %q", found[0].GroupID, found[1].GroupID)
++	for _, goos := range []string{"linux", "darwin"} {
++		t.Run(goos, func(t *testing.T) {
++			t.Setenv("XDG_DATA_HOME", "")
++			home := t.TempDir()
++			for _, dir := range []string{
++				filepath.Join(home, ".local/share/speedbreaker-carbon/save"),
++				filepath.Join(home, ".local/share/speedbreaker-carbon/save-pal-es"),
++			} {
++				if err := os.MkdirAll(dir, 0o755); err != nil {
++					t.Fatal(err)
++				}
++			}
++			sc := &Scanner{GOOS: goos, HomeDir: home}
++			var found []DiscoveredSave
++			for _, p := range recompPresetDefs {
++				if p.ID != "recomp-speedbreaker" {
++					continue
++				}
++				for _, path := range p.resolvedPaths(sc) {
++					found = append(found, DiscoveredSave{ID: p.ID, Name: p.Name, Type: p.Type, SavePath: path})
++				}
++			}
++			if len(found) != 2 {
++				t.Fatalf("got %d SpeedBreaker save folders, want 2", len(found))
++			}
++			Group(found)
++			if found[0].GroupID != found[1].GroupID {
++				t.Fatalf("split SpeedBreaker saves grouped separately: %q and %q", found[0].GroupID, found[1].GroupID)
++			}
++		})
 +	}
 +}

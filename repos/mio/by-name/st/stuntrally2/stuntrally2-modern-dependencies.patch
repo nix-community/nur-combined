@@ -4,6 +4,12 @@ diff --git a/cmake/DependenciesConfig.cmake b/cmake/DependenciesConfig.cmake
 @@ -9,1 +9,1 @@
 -        FIND_PACKAGE_OPTIONS COMPONENTS system thread filesystem wave
 +        FIND_PACKAGE_OPTIONS COMPONENTS thread filesystem wave
+diff --git a/cmake/FindOGRE.cmake b/cmake/FindOGRE.cmake
+--- a/cmake/FindOGRE.cmake
++++ b/cmake/FindOGRE.cmake
+@@ -52,1 +52,1 @@
+-	set(OGRE_LIBRARY_NAMES "Ogre${OGRE_LIB_SUFFIX}")
++	set(OGRE_LIBRARY_NAMES "Ogre${OGRE_LIB_SUFFIX}" "OgreMain${OGRE_LIB_SUFFIX}")
 diff --git a/cmake/dependencies-helpers/Boost.cmake b/cmake/dependencies-helpers/Boost.cmake
 --- a/cmake/dependencies-helpers/Boost.cmake
 +++ b/cmake/dependencies-helpers/Boost.cmake
@@ -16,6 +22,52 @@ diff --git a/source/shiny/Main/ShaderSet.cpp b/source/shiny/Main/ShaderSet.cpp
 @@ -32,1 +32,1 @@
 -		p = p.branch_path();
 +		p = p.parent_path();
+diff --git a/source/sdl4ogre/sdlwindowhelper.cpp b/source/sdl4ogre/sdlwindowhelper.cpp
+--- a/source/sdl4ogre/sdlwindowhelper.cpp
++++ b/source/sdl4ogre/sdlwindowhelper.cpp
+@@ -42,1 +42,1 @@
+-		params.insert(std::make_pair("macAPICocoaUseNSView", "true"));
++		params.insert(std::make_pair("macAPICocoaUseNSView", "false"));
+@@ -44,1 +44,1 @@
+-		winHandle  = Ogre::StringConverter::toString(WindowContentViewHandle(wmInfo));
++		winHandle  = Ogre::StringConverter::toString((unsigned long)wmInfo.info.cocoa.window);
+diff --git a/source/sound/SoundBaseMgr.cpp b/source/sound/SoundBaseMgr.cpp
+--- a/source/sound/SoundBaseMgr.cpp
++++ b/source/sound/SoundBaseMgr.cpp
+@@ -71,3 +71,4 @@
+-	ALCboolean efx = alcIsExtensionPresent(device, ALC_EXT_EFX_NAME);
+-	if (efx == ALC_FALSE)		LogO("@  EFX extention not found !");
+-	else if (efx == ALC_TRUE)	LogO("@  EFX extension found.");
++	ALCboolean efx = alcIsExtensionPresent(device, ALC_EXT_EFX_NAME);
++	if (efx == ALC_FALSE)		LogO("@  EFX extention not found !");
++	if (efx == ALC_FALSE)		reverb = false;
++	else if (efx == ALC_TRUE)	LogO("@  EFX extension found.");
+diff --git a/source/editor/TerrainEdit.cpp b/source/editor/TerrainEdit.cpp
+--- a/source/editor/TerrainEdit.cpp
++++ b/source/editor/TerrainEdit.cpp
+@@ -362,1 +362,1 @@
+-bool App::getEditRect(Vector3& pos, Rect& rcBrush, Rect& rcMap, int size,  int& cx, int& cy)
++bool App::getEditRect(Vector3& pos, Ogre::Rect& rcBrush, Ogre::Rect& rcMap, int size,  int& cx, int& cy)
+@@ -373,2 +373,2 @@
+-	rcMap = Rect(mapX-hBr, mapY-hBr, mapX+hBr, mapY+hBr);
+-	rcBrush = Rect(0,0, brS,brS);
++	rcMap = Ogre::Rect(mapX-hBr, mapY-hBr, mapX+hBr, mapY+hBr);
++	rcBrush = Ogre::Rect(0,0, brS,brS);
+@@ -420,1 +420,1 @@
+-	Rect rcBrush, rcMap;  int cx,cy;
++	Ogre::Rect rcBrush, rcMap;  int cx,cy;
+@@ -452,1 +452,1 @@
+-	Rect rcBrush, rcMap;  int cx,cy;
++	Ogre::Rect rcBrush, rcMap;  int cx,cy;
+@@ -494,1 +494,1 @@
+-	Rect rcBrush, rcMap;  int cx,cy;
++	Ogre::Rect rcBrush, rcMap;  int cx,cy;
+@@ -517,1 +517,1 @@
+-	Rect rcBrush, rcMap;  int cx,cy;
++	Ogre::Rect rcBrush, rcMap;  int cx,cy;
+@@ -552,1 +552,1 @@
+-	Rect rcBrush, rcMap;  int cx,cy;
++	Ogre::Rect rcBrush, rcMap;  int cx,cy;
 diff --git a/source/ogre/common/Def_Str.h b/source/ogre/common/Def_Str.h
 --- a/source/ogre/common/Def_Str.h
 +++ b/source/ogre/common/Def_Str.h

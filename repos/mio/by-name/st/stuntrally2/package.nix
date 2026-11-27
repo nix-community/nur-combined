@@ -45,6 +45,9 @@ let
             (lib.cmakeFeature "CMAKE_CXX_STANDARD" "17")
             (lib.cmakeBool "CMAKE_CXX_STANDARD_REQUIRED" true)
           ];
+        meta = (oldAttrs.meta or { }) // {
+          badPlatforms = lib.subtractLists [ "aarch64-darwin" ] (oldAttrs.meta.badPlatforms or [ ]);
+        };
       });
 in
 stdenv.mkDerivation (finalAttrs: {
@@ -134,13 +137,13 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "Icon=sr-editor" "Icon=sr-editor2"
     mv "$icons/sr-editor.png" "$icons/sr-editor2.png"
 
-    mv "$out/bin/sr-translator" "$out/bin/sr-translator2"
-
-    for binary in stuntrally sr-editor sr-translator2
-    do
-      wrapProgram $out/bin/$binary \
-        --set SDL_VIDEODRIVER x11
-    done
+    ${lib.optionalString stdenv.hostPlatform.isLinux ''
+      for binary in StuntRally SR-Editor SR-Translator
+      do
+        wrapProgram $out/bin/$binary \
+          --set SDL_VIDEODRIVER x11
+      done
+    ''}
   '';
 
   passthru = {
@@ -164,9 +167,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Stunt Rally 2 game with Track Editor, based on VDrift and OGRE";
     homepage = "https://cryham.org/stuntrally/";
-    mainProgram = "stuntrally";
+    mainProgram = "StuntRally";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ pSub ];
-    platforms = lib.platforms.linux;
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 })
