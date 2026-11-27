@@ -1,6 +1,7 @@
 {
   callPackage,
   inputs,
+  stdenv,
   writeShellApplication,
   coreutils,
   git,
@@ -9,6 +10,7 @@
 }:
 
 let
+  upstreamPackages = inputs."claude-desktop-src".packages.${stdenv.hostPlatform.system} or { };
   updateScript = writeShellApplication {
     name = "update-claude-desktop";
     runtimeInputs = [
@@ -24,10 +26,10 @@ let
   };
 in
 (
-  if inputs.claudeDesktopUpstream != null then
-    inputs.claudeDesktopUpstream
+  if builtins.hasAttr "claude-desktop" upstreamPackages then
+    upstreamPackages.claude-desktop
   else
-    callPackage (inputs.claudeDesktopSrc + "/nix/claude-desktop.nix") { }
+    callPackage (inputs."claude-desktop-src" + "/nix/claude-desktop.nix") { }
 ).overrideAttrs
   (prevAttrs: {
     passthru = (prevAttrs.passthru or { }) // {

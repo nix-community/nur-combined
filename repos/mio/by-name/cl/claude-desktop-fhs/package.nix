@@ -2,13 +2,17 @@
   callPackage,
   inputs,
   claude-desktop,
+  stdenv,
 }:
 
+let
+  upstreamPackages = inputs."claude-desktop-src".packages.${stdenv.hostPlatform.system} or { };
+in
 (
-  if inputs.claudeDesktopFhsUpstream != null then
-    inputs.claudeDesktopFhsUpstream
+  if builtins.hasAttr "claude-desktop-fhs" upstreamPackages then
+    upstreamPackages.claude-desktop-fhs
   else
-    callPackage (inputs.claudeDesktopSrc + "/nix/fhs.nix") {
+    callPackage (inputs."claude-desktop-src" + "/nix/fhs.nix") {
       inherit claude-desktop;
     }
 ).overrideAttrs

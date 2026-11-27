@@ -20,7 +20,7 @@
     url = "github:NixOS/nixpkgs/94d362415787ffff528f73820996aeedd97ff0dd";
   };
   outputs =
-    {
+    inputs@{
       self,
       nixpkgs,
       nova-nix-src,
@@ -51,13 +51,7 @@
               "python-2.7.18"
             ];
           };
-          inputs = {
-            claudeDesktopUpstream = (claude-desktop-src.packages.${system} or { }).claude-desktop or null;
-            claudeDesktopFhsUpstream =
-              (claude-desktop-src.packages.${system} or { }).claude-desktop-fhs or null;
-            claudeDesktopSrc = claude-desktop-src.outPath;
-            kytyps5NixpkgsSrc = kytyps5-nixpkgs.outPath;
-          };
+          inherit inputs;
           no-ifd = false;
         }
       );
@@ -111,10 +105,7 @@
               config.cudaSupport = true;
               inherit system;
             };
-            inputs = {
-              claudeDesktopSrc = claude-desktop-src.outPath;
-              kytyps5NixpkgsSrc = kytyps5-nixpkgs.outPath;
-            };
+            inherit inputs;
           };
         in
         ppp.cached-set
