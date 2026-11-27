@@ -3,11 +3,11 @@
 { fetchzip }:
 
 let
-  version = "3.6.2";
-  rev = "v3.6.2";
+  version = "3.6.3";
+  rev = "v3.6.3";
   src = fetchzip {
-    url = "https://codeload.github.com/sinspired/subs-check-pro/tar.gz/v3.6.2";
-    hash = "sha256-FRTt63iTKnJRul3XN8A47fHjDa9cMj3EIZaYZKHLmdA=";
+    url = "https://codeload.github.com/sinspired/subs-check-pro/tar.gz/v3.6.3";
+    hash = "sha256-DRrpSI86jjVAasAfuW1AqgdAls/FR5L6b6aifQuKa1M=";
     extension = "tar.gz";
   };
 in
