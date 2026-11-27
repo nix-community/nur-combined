@@ -70,5 +70,8 @@
     - `gallery-dl`
     - `nix-stuff`
     - `padtype`
+
+    still sorta deciding what style; commit&push to your own branch as much as you want, don't push to master or make a pr unless i say say:
+    - `con-game-VPE2027`
   '';
 }
