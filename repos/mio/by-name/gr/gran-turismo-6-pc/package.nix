@@ -21,6 +21,17 @@
 let
   version = "1.1.3";
 
+  # Sony's current PS3 system software. The launcher normally downloads this
+  # from Sony, but the PUP is pulled at build time so first-run setup does not
+  # depend on the update server still hosting the image. Sony deletes old
+  # firmware URLs, so re-pin this URL and hash when the update list moves.
+  ps3FirmwareVersion = "4.93";
+  ps3Firmware = fetchurl {
+    name = "PS3UPDAT.PUP";
+    url = "http://dus01.ps3.update.playstation.net/update/ps3/image/us/2026_0318_a2b60b6ac1d2e49e230144345616927c/PS3UPDAT.PUP";
+    hash = "sha256-FYRx/YNPjqgDYTa2qrQ82Gx7pz15yjDgrzwP4AAc82U=";
+  };
+
   # Keep this revision pinned even though src uses a tag-like version: the
   # emulator patches are fetched from the same revision and must move with it.
   sourceRev = "a73022aef185764335e4e510919bcdbcbbc4f80d";
@@ -92,6 +103,8 @@ stdenv.mkDerivation {
   pname = "gran-turismo-6-pc";
   inherit version src;
 
+  patches = [ ./bundle-firmware.patch ];
+
   nativeBuildInputs = [
     copyDesktopItems
     makeWrapper
@@ -129,6 +142,8 @@ stdenv.mkDerivation {
     cp -a gt6launcher "$app/"
     install -Dm644 LICENSE "$app/LICENSE"
     install -Dm644 README.md "$app/README.md"
+    install -Dm644 ${ps3Firmware} \
+      "$app/gt6launcher/data/firmware/PS3UPDAT.PUP"
 
     install -Dm644 gt6launcher/data/img/icon.png \
       "$out/share/icons/hicolor/256x256/apps/gt6-launcher.png"
@@ -171,14 +186,21 @@ stdenv.mkDerivation {
     longDescription = ''
       A PySide6 launcher and a GT6-tuned RPCS3 built from source. It installs
       the official PS3 firmware, applies GT6's update chain, writes the
-      emulator configuration and patches, and starts the game. It includes no
-      game data, firmware, or keys: you need a disc image made from your own
-      Gran Turismo 6 copy (and firmware downloaded from Sony) before playing.
+      emulator configuration and patches, and starts the game. Sony PS3
+      firmware ${ps3FirmwareVersion} is bundled so first-run setup does not
+      need to download it. It includes no game data or keys: you need a disc
+      image made from your own Gran Turismo 6 copy before playing.
     '';
     homepage = "https://github.com/Mabec-games/Gran-Turismo-6-PC";
     changelog = "https://github.com/Mabec-games/Gran-Turismo-6-PC/releases/tag/v${version}";
-    license = lib.licenses.gpl3Plus;
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    license = with lib.licenses; [
+      gpl3Plus
+      unfreeRedistributableFirmware
+    ];
+    sourceProvenance = with lib.sourceTypes; [
+      fromSource
+      binaryFirmware
+    ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "gt6-launcher";
   };

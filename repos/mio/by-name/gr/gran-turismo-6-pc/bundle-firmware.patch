@@ -1,0 +1,16 @@
+--- a/gt6launcher/core.py
++++ b/gt6launcher/core.py
+@@ -178,7 +178,12 @@
+     def find_local_firmware(self) -> Optional[str]:
+         cands = []
+         here = os.environ.get("APPIMAGE") and os.path.dirname(os.environ["APPIMAGE"])
+-        for d in filter(None, [here, os.path.expanduser("~/Downloads"), paths.downloads_dir()]):
++        for d in filter(None, [
++            here,
++            os.path.expanduser("~/Downloads"),
++            paths.downloads_dir(),
++            paths.resource("firmware"),
++        ]):
+             cands += glob.glob(os.path.join(d, "**", "PS3UPDAT.PUP"), recursive=True)[:5]
+         cands = [c for c in cands if os.path.getsize(c) > 100 << 20]
+         return cands[0] if cands else None

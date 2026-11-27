@@ -3,10 +3,12 @@
 
 from __future__ import annotations
 
+import json
 import re
 import subprocess
 import sys
 import tempfile
+import urllib.request
 from pathlib import Path
 
 REPOSITORY = "Mabec-games/Gran-Turismo-6-PC"
@@ -15,6 +17,7 @@ RPCS3_SUBMODULES = (
     "fusion/fusion asmjit/asmjit yaml-cpp/yaml-cpp SoundTouch/soundtouch "
     "stblib/stb feralinteractive/feralinteractive wolfssl/wolfssl"
 )
+FIRMWARE_LIST_URL = "http://fus01.ps3.update.playstation.net/update/ps3/list/us/ps3-updatelist.txt"
 
 
 def run(argv: list[str], *, check: bool = True) -> subprocess.CompletedProcess[str]:
@@ -71,6 +74,21 @@ def rpcs3_commit_date(revision: str) -> str:
         return run(["git", "-C", tmp, "log", "-1", "--format=%as", "FETCH_HEAD"]).stdout.strip()
 
 
+def latest_firmware() -> tuple[str, str, str]:
+    text = urllib.request.urlopen(FIRMWARE_LIST_URL, timeout=30).read().decode("ascii", "replace")
+    match = re.search(
+        r"SystemSoftwareVersion=([0-9.]+);CDN=([^;]+PS3UPDAT\.PUP);",
+        text,
+    )
+    if match is None:
+        raise SystemExit("update.py: could not find PS3UPDAT.PUP in Sony's update list")
+    raw_version, url = match.groups()
+    version = raw_version[:-2] if raw_version.endswith("00") else raw_version
+    prefetch = run(["nix", "store", "prefetch-file", "--json", "--name", "PS3UPDAT.PUP", url])
+    firmware_hash = json.loads(prefetch.stdout)["hash"]
+    return version, url, firmware_hash
+
+
 def main() -> None:
     root = Path(run(["git", "rev-parse", "--show-toplevel"]).stdout.strip())
     package = root / "by-name/gr/gran-turismo-6-pc/package.nix"
@@ -104,6 +122,7 @@ def main() -> None:
     rpcs3_revision = rpcs3_match.group(1)
     rpcs3_date = rpcs3_commit_date(rpcs3_revision)
     rpcs3_hash = rpcs3_source_hash(rpcs3_revision)
+    firmware_version, firmware_url, firmware_hash = latest_firmware()
 
     text = package.read_text(encoding="utf-8")
     text = replace_once(package, text, r'(?m)^  version = "[^"]+";$', f'  version = "{version}";')
@@ -135,11 +154,24 @@ def main() -> None:
         + "\n".join(f'    (gt6Patch "{name}" "{patch_hash}")' for name, patch_hash in patches)
         + "\n  ];",
     )
+    text = replace_once(
+        package,
+        text,
+        r'(?m)^  ps3FirmwareVersion = "[^"]+";$',
+        f'  ps3FirmwareVersion = "{firmware_version}";',
+    )
+    text = replace_once(
+        package,
+        text,
+        r'(?ms)(  ps3Firmware = fetchurl \{\n    name = "PS3UPDAT\.PUP";\n    url = ")[^"]+(";\n    hash = ")[^"]+(";)',
+        rf'\g<1>{firmware_url}\g<2>{firmware_hash}\g<3>',
+    )
     package.write_text(text, encoding="utf-8")
     run(["nixfmt", str(package)])
 
     print(f"updated {REPOSITORY} to {target_tag} ({revision})")
     print(f"RPCS3 {rpcs3_revision} ({rpcs3_date}) with {len(patches)} patches")
+    print(f"PS3 firmware {firmware_version} ({firmware_url})")
 
 
 if __name__ == "__main__":
