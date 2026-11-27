@@ -302,6 +302,11 @@ fn fn_inspect(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result
 /// comma list keeps its trailing comma `(x,)`. Maps render `(k: v, …)` with
 /// nested keys/values inspected recursively.
 pub(crate) fn inspect_value(v: &Value) -> String {
+    // A list or map can nest deeper than the stack (#312): past the limit
+    // this gives up, and the compile ends in `Stack Overflow`.
+    if matches!(v, Value::List(_) | Value::Map(_)) && crate::stack::trip() {
+        return String::new();
+    }
     match v {
         Value::Null => "null".to_string(),
         Value::Str(s) => {

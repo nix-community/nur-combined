@@ -4917,8 +4917,8 @@ fn fold_calc(op: CalcOp, left: CalcNode, right: CalcNode, pos: Pos) -> Result<Ca
     }
     Ok(CalcNode::Op {
         op,
-        left: Box::new(left),
-        right: Box::new(right),
+        left: std::rc::Rc::new(left),
+        right: std::rc::Rc::new(right),
     })
 }
 
@@ -4949,6 +4949,10 @@ fn calc_complex_unit_operand(node: &CalcNode) -> Option<&CalcNode> {
 /// `var()`/interpolation is opaque (unknown unit) and reported as not carrying
 /// a unit, so it does not count toward a compound/inverse unit.
 fn calc_node_carries_unit(node: &CalcNode) -> bool {
+    // A tree built at run time can be deeper than the stack (#312).
+    if crate::stack::trip() {
+        return false;
+    }
     match node {
         CalcNode::Number(n) => !n.is_unitless(),
         CalcNode::Str(_) => false,
@@ -5764,6 +5768,10 @@ fn is_pure_calc_math_function(name: &str) -> bool {
 /// cannot reduce to a single number, so a math calculation containing it stays
 /// preserved (`sin(2px + var(--c))`).
 fn calc_node_has_opaque(node: &CalcNode) -> bool {
+    // A tree built at run time can be deeper than the stack (#312).
+    if crate::stack::trip() {
+        return true;
+    }
     match node {
         CalcNode::Number(_) => false,
         CalcNode::Str(_) => true,
@@ -5838,6 +5846,9 @@ fn is_supports_calc_function(name: &str) -> bool {
 pub(crate) fn find_not_css(v: &Value) -> Option<&Value> {
     match v {
         Value::Map(_) | Value::Function(_) | Value::Mixin(_) | Value::Module(_) => Some(v),
+        // A list can nest deeper than the stack (#312): past the limit this
+        // gives up, and the compile ends in `Stack Overflow`.
+        Value::List(_) if crate::stack::trip() => None,
         Value::List(l) => l.items.iter().find_map(find_not_css),
         _ => None,
     }

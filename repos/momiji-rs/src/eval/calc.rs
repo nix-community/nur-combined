@@ -113,7 +113,7 @@ impl<'a> Evaluator<'a> {
             let values: Vec<Value> = nodes
                 .into_iter()
                 .map(|n| match n {
-                    CalcNode::Number(num) => Value::Number(num),
+                    CalcNode::Number(ref num) => Value::Number(num.clone()),
                     // Unreachable: guarded by the `all` check above.
                     other => Value::Calc(other),
                 })
@@ -174,8 +174,8 @@ impl<'a> Evaluator<'a> {
                 if self.in_supports_declaration {
                     return Ok(CalcNode::Op {
                         op: calc_op,
-                        left: Box::new(l),
-                        right: Box::new(r),
+                        left: std::rc::Rc::new(l),
+                        right: std::rc::Rc::new(r),
                     });
                 }
                 fold_calc(calc_op, l, r, *pos)
@@ -186,8 +186,8 @@ impl<'a> Evaluator<'a> {
                 if self.in_supports_declaration {
                     return Ok(CalcNode::Op {
                         op: CalcOp::Div,
-                        left: Box::new(l),
-                        right: Box::new(r),
+                        left: std::rc::Rc::new(l),
+                        right: std::rc::Rc::new(r),
                     });
                 }
                 fold_calc(CalcOp::Div, l, r, *pos)
@@ -198,11 +198,11 @@ impl<'a> Evaluator<'a> {
             } => {
                 let node = self.eval_calc(operand)?;
                 match node {
-                    CalcNode::Number(n) => Ok(CalcNode::Number(n.copy_units(-n.value))),
+                    CalcNode::Number(ref n) => Ok(CalcNode::Number(n.copy_units(-n.value))),
                     other => Ok(CalcNode::Op {
                         op: CalcOp::Mul,
-                        left: Box::new(CalcNode::Number(Number::unitless(-1.0))),
-                        right: Box::new(other),
+                        left: std::rc::Rc::new(CalcNode::Number(Number::unitless(-1.0))),
+                        right: std::rc::Rc::new(other),
                     }),
                 }
             }
@@ -213,7 +213,7 @@ impl<'a> Evaluator<'a> {
             Expr::Paren(inner) => {
                 let node = self.eval_calc(inner)?;
                 match node {
-                    CalcNode::Str(s) => Ok(CalcNode::Str(format!("({s})"))),
+                    CalcNode::Str(ref s) => Ok(CalcNode::Str(format!("({s})"))),
                     other => Ok(other),
                 }
             }
@@ -233,7 +233,9 @@ impl<'a> Evaluator<'a> {
                 }
                 let node = self.eval_calc(inner)?;
                 match node {
-                    CalcNode::Str(s) if nested_calc_needs_parens(&s) => Ok(CalcNode::Str(format!("({s})"))),
+                    CalcNode::Str(ref s) if nested_calc_needs_parens(s) => {
+                        Ok(CalcNode::Str(format!("({s})")))
+                    }
                     other => Ok(other),
                 }
             }

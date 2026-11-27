@@ -433,23 +433,26 @@ impl<'a> Evaluator<'a> {
                 // to it; a non-finite result (infinity/NaN) stays a
                 // calculation so it serializes as `calc(infinity)` etc., and
                 // anything still containing an operation stays a calculation.
-                match node {
+                // `CalcNode` drops its tree iteratively, so its leaves are
+                // taken out in place rather than moved out by the match.
+                let mut node = node;
+                match &mut node {
                     // A calculation that reduces to a single number unwraps to
                     // it — including a non-finite result (dart-sass:
                     // `meta.type-of(calc(NaN)) == number`); the Number's own
                     // serialization restores the `calc(NaN)`/`calc(infinity *
                     // 1px)` spelling.
-                    CalcNode::Number(n) => Ok(Value::Number(n)),
+                    CalcNode::Number(n) => Ok(Value::Number(std::mem::replace(n, Number::unitless(0.0)))),
                     // `calc()` wrapping a single already-complete calculation
                     // (`calc(min(1%, 2px))`, `calc(clamp(…))`, etc.) is
                     // redundant: dart-sass drops the outer `calc()` and emits
                     // the inner calculation directly. (A non-calculation leaf
                     // such as `calc(var(--x))` keeps its wrapper.)
-                    CalcNode::Str(s) if is_complete_calculation(&s) => Ok(Value::Str(SassStr {
-                        text: s.into(),
+                    CalcNode::Str(s) if is_complete_calculation(s) => Ok(Value::Str(SassStr {
+                        text: std::mem::take(s).into(),
                         quoted: false,
                     })),
-                    other => Ok(Value::Calc(other)),
+                    _ => Ok(Value::Calc(node)),
                 }
             }
             // An interpolated-name call is a *plain CSS* function (dart-sass
@@ -707,7 +710,7 @@ impl<'a> Evaluator<'a> {
                             // (`meta.calc-name`/`calc-args` see it).
                             return Ok(Value::Calc(CalcNode::Func {
                                 name: "round".to_string(),
-                                args: nodes,
+                                args: nodes.into(),
                             }));
                         }
                         // Fall through to the normal builtin path below.
@@ -736,7 +739,7 @@ impl<'a> Evaluator<'a> {
                             // (`meta.calc-name`/`calc-args` see it).
                             return Ok(Value::Calc(CalcNode::Func {
                                 name: name.to_ascii_lowercase(),
-                                args: nodes,
+                                args: nodes.into(),
                             }));
                         }
                     }

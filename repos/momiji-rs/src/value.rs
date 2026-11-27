@@ -298,7 +298,7 @@ impl SassMixin {
 /// A node in a simplified `calc()` tree. Numeric subtrees are folded during
 /// evaluation; everything else (variables, interpolations, percentages with
 /// incompatible neighbours) is preserved for canonical serialization.
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone)]
 pub(crate) enum CalcNode {
     /// A resolved number operand.
     Number(Number),
@@ -306,15 +306,97 @@ pub(crate) enum CalcNode {
     /// unknown function — anything kept verbatim.
     Str(String),
     /// A binary operation `left <op> right`.
+    // Children are shared (`Rc`), not owned (`Box`): a calculation that
+    // folds an existing one (`$c: calc($c + 1%)` in a loop) reuses its tree
+    // instead of copying it, so building one stays linear and a clone never
+    // recurses (#312).
     Op {
         op: CalcOp,
-        left: Box<CalcNode>,
-        right: Box<CalcNode>,
+        left: Rc<CalcNode>,
+        right: Rc<CalcNode>,
     },
     /// A calculation function call that could not be reduced to a number
     /// (`min`/`max`/`clamp`/`hypot`/…). The `Value::Calc` holding this serializes
     /// as `name(arg, …)` (no `calc()` wrapper).
-    Func { name: String, args: Vec<CalcNode> },
+    Func { name: String, args: Rc<[CalcNode]> },
+}
+
+impl PartialEq for CalcNode {
+    /// Structural equality, guarded: a tree built at run time can be deeper
+    /// than the stack, so past the limit this answers `false` and the compile
+    /// ends in `Stack Overflow` (see [`crate::stack::trip`]).
+    fn eq(&self, other: &Self) -> bool {
+        match (self, other) {
+            (CalcNode::Number(a), CalcNode::Number(b)) => a == b,
+            (CalcNode::Str(a), CalcNode::Str(b)) => a == b,
+            (
+                CalcNode::Op { op, left, right },
+                CalcNode::Op {
+                    op: op2,
+                    left: left2,
+                    right: right2,
+                },
+            ) => !crate::stack::trip() && op == op2 && left == left2 && right == right2,
+            (
+                CalcNode::Func { name, args },
+                CalcNode::Func {
+                    name: name2,
+                    args: args2,
+                },
+            ) => !crate::stack::trip() && name == name2 && args == args2,
+            _ => false,
+        }
+    }
+}
+
+impl Drop for CalcNode {
+    /// Drop a deep tree without recursing once per level (#312): a tree
+    /// built at run time can be any depth. Children this node is the last
+    /// owner of move to a work list, so each node is dropped with its own
+    /// children already detached.
+    fn drop(&mut self) {
+        if !self.has_children() {
+            return;
+        }
+        let mut work = Vec::new();
+        self.detach_children(&mut work);
+        while let Some(mut child) = work.pop() {
+            child.detach_children(&mut work);
+        }
+    }
+}
+
+impl CalcNode {
+    /// Move the children only this node owns into `work`, leaving leaves
+    /// behind. A child someone else also holds stays: dropping this node
+    /// only decrements it.
+    fn detach_children(&mut self, work: &mut Vec<CalcNode>) {
+        let mut take = |node: &mut CalcNode| {
+            if node.has_children() {
+                work.push(std::mem::replace(node, CalcNode::Str(String::new())));
+            }
+        };
+        match self {
+            CalcNode::Op { left, right, .. } => {
+                if let Some(left) = Rc::get_mut(left) {
+                    take(left);
+                }
+                if let Some(right) = Rc::get_mut(right) {
+                    take(right);
+                }
+            }
+            CalcNode::Func { args, .. } => {
+                if let Some(args) = Rc::get_mut(args) {
+                    args.iter_mut().for_each(take);
+                }
+            }
+            CalcNode::Number(_) | CalcNode::Str(_) => {}
+        }
+    }
+
+    fn has_children(&self) -> bool {
+        matches!(self, CalcNode::Op { .. } | CalcNode::Func { .. })
+    }
 }
 
 /// A `calc()` binary operator.
@@ -357,6 +439,10 @@ impl CalcNode {
     /// without the intermediate strings. [`CalcNode::to_calc_css`] wraps it for
     /// callers that want a string.
     pub(crate) fn write_calc_css(&self, out: &mut String, compressed: bool) {
+        // A tree built at run time can be deeper than the stack (#312).
+        if self.has_children() && crate::stack::trip() {
+            return;
+        }
         match self {
             CalcNode::Number(n) => write_calc_number(out, n, compressed),
             CalcNode::Str(s) => out.push_str(s),
@@ -837,7 +923,7 @@ pub(crate) fn push_unquoted(out: &mut String, text: &str, compressed: bool) {
 /// values; every "mutating" list builtin (`append`, `join`, `set-nth`, …)
 /// builds a fresh `Vec<Value>` and re-wraps it in a new `Rc`, so the sharing is
 /// invisible.
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone)]
 pub(crate) struct List {
     pub items: Rc<[Value]>,
     pub sep: ListSep,
@@ -850,6 +936,108 @@ pub(crate) struct List {
     /// reads and a `$args...` splat forwards as named arguments. `None` for an
     /// ordinary list. The positional arguments are the list's `items`.
     pub keywords: Option<Vec<(Value, Value)>>,
+}
+
+/// Dropping a deeply nested list or map (`$l: ($l, 1)` in a loop) must not
+/// recurse once per level: the depth is in the data, which a loop builds in a
+/// few bytes of source, and a drop cannot fail with `Stack Overflow` (#312).
+/// So when a list or map holds nested lists or maps, they move to a work list
+/// and are dropped one at a time: one this was the last holder of detaches
+/// its own nested containers first, one still shared only loses a reference.
+/// A list or map with no nested containers never allocates.
+impl Drop for List {
+    fn drop(&mut self) {
+        let mut work = Vec::new();
+        if let Some(items) = Rc::get_mut(&mut self.items) {
+            detach_nested(items.iter_mut(), &mut work);
+        }
+        if let Some(keywords) = &mut self.keywords {
+            detach_nested(keywords.iter_mut().flat_map(|(k, v)| [k, v]), &mut work);
+        }
+        drop_work(work);
+    }
+}
+
+impl Drop for Map {
+    fn drop(&mut self) {
+        let mut work = Vec::new();
+        if let Some(entries) = Rc::get_mut(&mut self.entries) {
+            detach_nested(entries.iter_mut().flat_map(|(k, v)| [k, v]), &mut work);
+        }
+        drop_work(work);
+    }
+}
+
+/// Structural equality, guarded like every walk over a value (#312): past the
+/// stack limit it answers `false`, and the compile ends in `Stack Overflow`.
+impl PartialEq for List {
+    fn eq(&self, other: &Self) -> bool {
+        self.sep == other.sep
+            && self.bracketed == other.bracketed
+            && (Rc::ptr_eq(&self.items, &other.items) || (!crate::stack::trip() && self.items == other.items))
+            && self.keywords == other.keywords
+    }
+}
+
+impl PartialEq for Map {
+    fn eq(&self, other: &Self) -> bool {
+        Rc::ptr_eq(&self.entries, &other.entries) || (!crate::stack::trip() && self.entries == other.entries)
+    }
+}
+
+/// Whether `v` is a list or map that holds more of them, the slots the
+/// iterative drop takes over. Whether anything else still shares it is
+/// decided only when it comes off the work list: a child held twice by one
+/// parent (`$l: ($l, $l)`) is shared while the parent looks, and released by
+/// the parent's own last reference, which would recurse if it were left to
+/// ordinary field destruction. (A calculation drops its own tree
+/// iteratively, so it is not one.)
+fn holds_nested(v: &Value) -> bool {
+    let nested = |v: &Value| matches!(v, Value::List(_) | Value::Map(_));
+    match v {
+        Value::List(l) => {
+            l.items.iter().any(nested)
+                || l.keywords
+                    .as_ref()
+                    .is_some_and(|kw| kw.iter().any(|(k, v)| nested(k) || nested(v)))
+        }
+        Value::Map(m) => m.entries.iter().any(|(k, v)| nested(k) || nested(v)),
+        _ => false,
+    }
+}
+
+/// Move every slot that holds nested containers into `work`, leaving `null`.
+fn detach_nested<'a>(slots: impl Iterator<Item = &'a mut Value>, work: &mut Vec<Value>) {
+    work.extend(
+        slots
+            .filter(|v| holds_nested(v))
+            .map(|v| std::mem::replace(v, Value::Null)),
+    );
+}
+
+/// Drop detached containers one at a time, detaching theirs in turn, so the
+/// stack stays flat however deep the value went. One still shared elsewhere
+/// only loses a reference here; its last holder detaches it.
+fn drop_work(mut work: Vec<Value>) {
+    while let Some(mut v) = work.pop() {
+        match &mut v {
+            Value::List(l) => {
+                if let Some(items) = Rc::get_mut(&mut l.items) {
+                    detach_nested(items.iter_mut(), &mut work);
+                }
+                if let Some(keywords) = &mut l.keywords {
+                    detach_nested(keywords.iter_mut().flat_map(|(k, v)| [k, v]), &mut work);
+                }
+            }
+            Value::Map(m) => {
+                if let Some(entries) = Rc::get_mut(&mut m.entries) {
+                    detach_nested(entries.iter_mut().flat_map(|(k, v)| [k, v]), &mut work);
+                }
+            }
+            _ => {}
+        }
+        // `v` drops here with nothing nested left in it.
+    }
 }
 
 impl List {
@@ -874,7 +1062,7 @@ impl List {
 /// map builtins (`map.merge`, `map.set`, `map.remove`, …) use copy-on-write
 /// (`Rc::make_mut` on a uniquely-owned `Rc`, or build a fresh `Vec`), so the
 /// sharing never lets one binding observe another's mutation.
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone)]
 pub(crate) struct Map {
     pub entries: Rc<Vec<(Value, Value)>>,
 }
@@ -909,7 +1097,7 @@ impl Map {
     /// map rendered as `()`. Keys and values use their inspect form so nested
     /// quoted strings keep their quotes.
     fn to_map_css(&self, compressed: bool) -> String {
-        if self.entries.is_empty() {
+        if self.entries.is_empty() || crate::stack::trip() {
             return "()".to_string();
         }
         let sep = if compressed { "," } else { ", " };
@@ -1340,18 +1528,28 @@ impl Value {
             (Value::Color(a), Value::Color(b)) => color_sass_eq(a, b),
             (Value::Bool(a), Value::Bool(b)) => a == b,
             (Value::Null, Value::Null) => true,
+            // The same list or map is equal to itself without a walk, as in
+            // dart (`listEquals` and `MapEquality` check identity first): a
+            // value nested deeper than the stack still equals itself. Any
+            // other comparison is a walk, guarded like every walk over a value
+            // (#312): past the stack limit it answers `false`, and the compile
+            // ends in `Stack Overflow`.
             (Value::List(a), Value::List(b)) => {
                 a.sep == b.sep
                     && a.bracketed == b.bracketed
                     && a.items.len() == b.items.len()
-                    && a.items.iter().zip(b.items.iter()).all(|(x, y)| x.sass_eq(y))
+                    && (Rc::ptr_eq(&a.items, &b.items)
+                        || (!crate::stack::trip()
+                            && a.items.iter().zip(b.items.iter()).all(|(x, y)| x.sass_eq(y))))
             }
             // Maps compare by content regardless of entry order.
             (Value::Map(a), Value::Map(b)) => {
                 a.entries.len() == b.entries.len()
-                    && a.entries
-                        .iter()
-                        .all(|(k, v)| b.get(k).is_some_and(|bv| bv.sass_eq(v)))
+                    && (Rc::ptr_eq(&a.entries, &b.entries)
+                        || (!crate::stack::trip()
+                            && a.entries
+                                .iter()
+                                .all(|(k, v)| b.get(k).is_some_and(|bv| bv.sass_eq(v)))))
             }
             // An empty map and an empty list are equal in dart-sass.
             (Value::Map(m), Value::List(l)) | (Value::List(l), Value::Map(m)) => {
@@ -1857,7 +2055,19 @@ fn value_is_blank(v: &Value) -> bool {
         Value::Null => true,
         Value::Str(s) => !s.quoted && s.text.is_empty(),
         // A BRACKETED list is never blank (`[[]]` and `foo []` survive).
-        Value::List(l) => !l.bracketed && l.items.iter().all(value_is_blank),
+        // Elements that are not lists answer first: serializing a list asks
+        // this of every element, so recursing into a nested list before
+        // looking at its siblings made `(((a, b), b), b)` quadratic to
+        // serialize, and as deep as the data (#312).
+        Value::List(l) => {
+            !l.bracketed
+                && l.items
+                    .iter()
+                    .all(|v| matches!(v, Value::List(_)) || value_is_blank(v))
+                && l.items
+                    .iter()
+                    .all(|v| !matches!(v, Value::List(_)) || (!crate::stack::trip() && value_is_blank(v)))
+        }
         _ => false,
     }
 }
@@ -1868,6 +2078,10 @@ impl List {
     /// buffer and — bracketed — a fourth for the brackets; it now costs none of
     /// those, because every element writes where it belongs.
     fn write_css(&self, out: &mut String, compressed: bool) {
+        // A list can nest deeper than the stack (#312): see `stack::trip`.
+        if crate::stack::trip() {
+            return;
+        }
         let sep = match (self.sep, compressed) {
             // An undecided list has at most one element, so its separator
             // string is never actually used; serialize it like a space list.
@@ -1898,6 +2112,9 @@ impl List {
     }
 
     fn write_interp(&self, out: &mut String) {
+        if crate::stack::trip() {
+            return;
+        }
         let sep = match self.sep {
             ListSep::Space | ListSep::Undecided => " ",
             ListSep::Comma => ", ",
@@ -3600,11 +3817,11 @@ mod tests {
         // `1px + 2% * var(--c)`: `*` binds tighter, so no parens are needed.
         let node = CalcNode::Op {
             op: CalcOp::Add,
-            left: Box::new(num(1.0, "px")),
-            right: Box::new(CalcNode::Op {
+            left: Rc::new(num(1.0, "px")),
+            right: Rc::new(CalcNode::Op {
                 op: CalcOp::Mul,
-                left: Box::new(num(2.0, "%")),
-                right: Box::new(CalcNode::Str("var(--c)".into())),
+                left: Rc::new(num(2.0, "%")),
+                right: Rc::new(CalcNode::Str("var(--c)".into())),
             }),
         };
         assert_eq!(Value::Calc(node).to_css(false), "calc(1px + 2% * var(--c))");
@@ -3615,19 +3832,19 @@ mod tests {
         // `1px - (2% + var(--c))`: subtracting a sum needs parens.
         let node = CalcNode::Op {
             op: CalcOp::Sub,
-            left: Box::new(num(1.0, "px")),
-            right: Box::new(CalcNode::Op {
+            left: Rc::new(num(1.0, "px")),
+            right: Rc::new(CalcNode::Op {
                 op: CalcOp::Add,
-                left: Box::new(num(2.0, "%")),
-                right: Box::new(CalcNode::Str("var(--c)".into())),
+                left: Rc::new(num(2.0, "%")),
+                right: Rc::new(CalcNode::Str("var(--c)".into())),
             }),
         };
         assert_eq!(Value::Calc(node).to_css(false), "calc(1px - (2% + var(--c)))");
         // `1% + -1px` serializes as `1% - 1px`.
         let flip = CalcNode::Op {
             op: CalcOp::Add,
-            left: Box::new(num(1.0, "%")),
-            right: Box::new(num(-1.0, "px")),
+            left: Rc::new(num(1.0, "%")),
+            right: Rc::new(num(-1.0, "px")),
         };
         assert_eq!(Value::Calc(flip).to_css(false), "calc(1% - 1px)");
     }
@@ -3926,17 +4143,17 @@ mod tests {
     /// again written after existing text.
     #[test]
     fn writing_a_calculation_appends_dart_sass_spelling() {
-        fn num(v: f64, unit: &str) -> Box<CalcNode> {
-            Box::new(CalcNode::Number(if unit.is_empty() {
+        fn num(v: f64, unit: &str) -> Rc<CalcNode> {
+            Rc::new(CalcNode::Number(if unit.is_empty() {
                 Number::unitless(v)
             } else {
                 Number::with_unit(v, unit)
             }))
         }
-        fn op(op: CalcOp, left: Box<CalcNode>, right: Box<CalcNode>) -> CalcNode {
+        fn op(op: CalcOp, left: Rc<CalcNode>, right: Rc<CalcNode>) -> CalcNode {
             CalcNode::Op { op, left, right }
         }
-        let var_x = || Box::new(CalcNode::Str("var(--x)".to_string()));
+        let var_x = || Rc::new(CalcNode::Str("var(--x)".to_string()));
 
         // (node, expanded, compressed) — `None` where our compressed spelling
         // is a known pre-existing divergence (the `+ -n` flip is skipped when
@@ -3957,7 +4174,7 @@ mod tests {
             (
                 op(
                     CalcOp::Mul,
-                    Box::new(op(CalcOp::Add, var_x(), num(2.0, "px"))),
+                    Rc::new(op(CalcOp::Add, var_x(), num(2.0, "px"))),
                     num(3.0, ""),
                 ),
                 "calc((var(--x) + 2px) * 3)",
@@ -3968,7 +4185,7 @@ mod tests {
                 op(
                     CalcOp::Div,
                     num(1.0, "px"),
-                    Box::new(op(CalcOp::Mul, var_x(), num(3.0, ""))),
+                    Rc::new(op(CalcOp::Mul, var_x(), num(3.0, ""))),
                 ),
                 "calc(1px / (var(--x) * 3))",
                 Some("calc(1px/(var(--x)*3))"),
@@ -3978,7 +4195,7 @@ mod tests {
                 op(
                     CalcOp::Add,
                     num(1.0, "px"),
-                    Box::new(op(CalcOp::Mul, num(2.0, "px"), var_x())),
+                    Rc::new(op(CalcOp::Mul, num(2.0, "px"), var_x())),
                 ),
                 "calc(1px + 2px * var(--x))",
                 Some("calc(1px + 2px*var(--x))"),
@@ -3990,7 +4207,8 @@ mod tests {
                         CalcNode::Number(Number::with_unit(10.0, "px")),
                         op(CalcOp::Add, var_x(), num(1.0, "px")),
                         CalcNode::Number(Number::with_unit(2.0, "px")),
-                    ],
+                    ]
+                    .into(),
                 },
                 "min(10px, var(--x) + 1px, 2px)",
                 Some("min(10px,var(--x) + 1px,2px)"),
@@ -4011,7 +4229,11 @@ mod tests {
                 "calc(var(--x) / (-infinity * 1px))",
                 Some("calc(var(--x)/(-infinity*1px))"),
             ),
-            (*var_x(), "calc(var(--x))", Some("calc(var(--x))")),
+            (
+                CalcNode::Str("var(--x)".to_string()),
+                "calc(var(--x))",
+                Some("calc(var(--x))"),
+            ),
         ];
 
         for (node, expanded, compressed) in &cases {
@@ -4072,8 +4294,8 @@ mod tests {
             Value::Slash(Number::unitless(0.5), "1/2".to_string()),
             Value::Calc(CalcNode::Op {
                 op: CalcOp::Sub,
-                left: Box::new(CalcNode::Number(Number::with_unit(100.0, "%"))),
-                right: Box::new(CalcNode::Number(Number::with_unit(16.0, "px"))),
+                left: Rc::new(CalcNode::Number(Number::with_unit(100.0, "%"))),
+                right: Rc::new(CalcNode::Number(Number::with_unit(16.0, "px"))),
             }),
             Value::Function(SassFunction {
                 name: "f".to_string(),

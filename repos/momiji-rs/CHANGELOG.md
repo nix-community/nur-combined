@@ -43,6 +43,23 @@ Conformance is tracked separately as a ratchet against the official
 
 ### Fixed
 
+- **A value nested deep at run time no longer aborts the process** (#312).
+  A loop builds a list, map or calculation as deep as it likes in a few
+  bytes of source (`$l: ($l, 1)`, `$m: (k: $m)`, `$c: calc($c + 1%)`,
+  `$c: min($c, 1%)`), and no parse-time check sees that depth. Dropping
+  such a value recursed once per level and aborted the process, even when
+  the stylesheet only asked for its `length()`, and cloning a calculation
+  copied its whole tree on every iteration, which made building one
+  quadratic. Now dropping is iterative and a calculation shares its
+  operands, so building, reading and dropping a deep value works as it does
+  in dart-sass. Anything that walks one (serializing it, `inspect`,
+  interpolation, `@debug`, `==`, an error message that quotes it,
+  `map.deep-merge`, passing it to a custom function) fails with
+  `Stack Overflow`, again as in dart, instead of aborting. A list or map
+  compared with itself is equal without a walk, as dart checks identity
+  first. Serializing a nested list also stops being quadratic: every level
+  used to search its nested list for blank elements before its own.
+
 - **Trees built in a loop, and nested selectors, no longer get past the
   stack guard** (#314). The guard from #308 measured stack growth while
   parsing, but a left-deep chain (`(a: b) and (a: b) and …` in `@supports`,

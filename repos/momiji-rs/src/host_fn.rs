@@ -475,6 +475,11 @@ pub(crate) fn serialize_one(v: &Value) -> Result<Vec<u8>, String> {
 }
 
 fn serialize_value(out: &mut Vec<u8>, v: &Value) -> Result<(), String> {
+    // A value can nest deeper than the stack (#312): past the limit this
+    // gives up, and the compile ends in `Stack Overflow`.
+    if matches!(v, Value::List(_) | Value::Map(_)) && crate::stack::trip() {
+        return Err(crate::stack::MESSAGE.into());
+    }
     match v {
         Value::Null => out.push(TAG_NULL),
         Value::Bool(b) => {
@@ -532,7 +537,7 @@ fn serialize_value(out: &mut Vec<u8>, v: &Value) -> Result<(), String> {
         }
         Value::Calc(node) => {
             out.push(TAG_CALC);
-            write_calc_node(out, node);
+            write_calc_node(out, node)?;
         }
         Value::Slash(..) => {
             // A slash-division never reaches here (call args are slash-collapsed
@@ -579,7 +584,13 @@ fn calc_op_code(op: CalcOp) -> u8 {
 }
 
 /// Serialize a `CalcNode` tree: tag byte (0 Number, 1 Str, 2 Op, 3 Func) + payload.
-fn write_calc_node(out: &mut Vec<u8>, node: &CalcNode) {
+fn write_calc_node(out: &mut Vec<u8>, node: &CalcNode) -> Result<(), String> {
+    // A calculation can nest deeper than the stack (#312). Giving up must
+    // fail the whole serialization: a truncated payload would still reach
+    // the host's callback.
+    if crate::stack::trip() {
+        return Err(crate::stack::MESSAGE.into());
+    }
     match node {
         CalcNode::Number(n) => {
             out.push(0);
@@ -592,18 +603,19 @@ fn write_calc_node(out: &mut Vec<u8>, node: &CalcNode) {
         CalcNode::Op { op, left, right } => {
             out.push(2);
             out.push(calc_op_code(*op));
-            write_calc_node(out, left);
-            write_calc_node(out, right);
+            write_calc_node(out, left)?;
+            write_calc_node(out, right)?;
         }
         CalcNode::Func { name, args } => {
             out.push(3);
             put_str(out, name);
             put_u32(out, args.len());
-            for a in args {
-                write_calc_node(out, a);
+            for a in args.iter() {
+                write_calc_node(out, a)?;
             }
         }
     }
+    Ok(())
 }
 
 fn sep_code(sep: ListSep) -> u8 {
@@ -712,6 +724,11 @@ pub(crate) fn deserialize_args(buf: &[u8]) -> Result<Vec<Value>, String> {
 }
 
 fn read_value(r: &mut Reader<'_>) -> Result<Value, String> {
+    // A value can nest deeper than the stack (#312): past the limit this
+    // gives up, and the compile ends in `Stack Overflow`.
+    if crate::stack::trip() {
+        return Err(crate::stack::MESSAGE.into());
+    }
     let tag = r.u8()?;
     Ok(match tag {
         TAG_NULL => Value::Null,
@@ -826,13 +843,18 @@ fn calc_op_from(code: u8) -> Result<CalcOp, String> {
 
 /// Read a `CalcNode` tree written by [`write_calc_node`].
 fn read_calc_node(r: &mut Reader<'_>) -> Result<CalcNode, String> {
+    // A value can nest deeper than the stack (#312): past the limit this
+    // gives up, and the compile ends in `Stack Overflow`.
+    if crate::stack::trip() {
+        return Err(crate::stack::MESSAGE.into());
+    }
     Ok(match r.u8()? {
         0 => CalcNode::Number(read_number_body(r)?),
         1 => CalcNode::Str(r.str()?),
         2 => {
             let op = calc_op_from(r.u8()?)?;
-            let left = Box::new(read_calc_node(r)?);
-            let right = Box::new(read_calc_node(r)?);
+            let left = std::rc::Rc::new(read_calc_node(r)?);
+            let right = std::rc::Rc::new(read_calc_node(r)?);
             CalcNode::Op { op, left, right }
         }
         3 => {
@@ -842,7 +864,10 @@ fn read_calc_node(r: &mut Reader<'_>) -> Result<CalcNode, String> {
             for _ in 0..n {
                 args.push(read_calc_node(r)?);
             }
-            CalcNode::Func { name, args }
+            CalcNode::Func {
+                name,
+                args: args.into(),
+            }
         }
         other => {
             return Err(format!(

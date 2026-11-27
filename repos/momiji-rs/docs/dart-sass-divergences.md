@@ -434,6 +434,15 @@ needs the same table and is
   before that differs too: dart about 530 `@function` levels, sasso's CLI
   about 9500 (see `Options::with_stack_limit`).
 
+  For a value nested at run time (#312, measured 2026-11-26 against dart
+  1.104.1), both compilers build it and fail on the first walk that goes
+  past their stack: dart's stack is deeper, so a value dart can still
+  serialize may already be `Stack Overflow` here. A few walks dart makes
+  and sasso does not go the other way: a 200,000-deep map key or `$l / 2`
+  overflows in dart and compiles here. A deep calculation compared with
+  itself (`$c == $c`) is `true` in dart and `Stack Overflow` here: dart
+  compares calculations structurally too, but its stack reaches further.
+
 ## Version skew worth knowing
 
 Lichess's own build bundles **dart-sass 1.100.0**, not 1.104.1, and those two

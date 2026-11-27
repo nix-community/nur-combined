@@ -87,7 +87,7 @@ impl<'a> Evaluator<'a> {
     /// up front; maps and scalars build a small owned set.
     pub(super) fn eval_each_items(&mut self, e: &Expr) -> Result<EachItems, Error> {
         match self.eval_expr(e)? {
-            Value::List(l) => Ok(EachItems::Shared(l.items)),
+            Value::List(l) => Ok(EachItems::Shared(l.items.clone())),
             // `@each` over a map yields each `key value` pair as a two-element
             // space list, so `@each $k, $v in $map` destructures correctly.
             Value::Map(m) => Ok(EachItems::Owned(
@@ -245,7 +245,7 @@ impl<'a> Evaluator<'a> {
                             push_named(&mut keyword, &mut keyword_spans, key, val, sp)?;
                         }
                     }
-                    Value::List(l) => {
+                    Value::List(mut l) => {
                         if !matches!(l.sep, ListSep::Undecided) {
                             rest_sep = l.sep;
                         }
@@ -256,7 +256,7 @@ impl<'a> Evaluator<'a> {
                         splat_pos.extend(l.items.iter().cloned());
                         // An argument-list splat (`$args...`) also forwards its
                         // captured keyword arguments as named arguments.
-                        if let Some(kw) = l.keywords {
+                        if let Some(kw) = l.keywords.take() {
                             for (k, val) in kw {
                                 if let Value::Str(s) = k {
                                     push_named(

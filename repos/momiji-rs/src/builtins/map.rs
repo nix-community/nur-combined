@@ -231,6 +231,11 @@ fn entries_of(v: &Value) -> Option<Vec<(Value, Value)>> {
 /// empty list `()` counts as the empty map on either side.
 fn deep_merge(a: Vec<(Value, Value)>, b: Vec<(Value, Value)>) -> Map {
     let mut map = Map::new(a);
+    // Maps can nest deeper than the stack (#312): past the limit this gives
+    // up, and the compile ends in `Stack Overflow`.
+    if crate::stack::trip() {
+        return map;
+    }
     for (k, v) in b {
         let merged = match (map.get(&k).and_then(entries_of), entries_of(&v)) {
             (Some(existing), Some(incoming)) => Value::Map(deep_merge(existing, incoming)),
@@ -249,6 +254,12 @@ fn modify_map(
     keys: &[&Value],
     transform: &mut dyn FnMut(Option<Value>) -> Value,
 ) -> Vec<(Value, Value)> {
+    // One level per key, and a splat (`map.set($m, $keys...)`) can pass any
+    // number of them (#312): past the stack limit this gives up, and the
+    // compile ends in `Stack Overflow`.
+    if crate::stack::trip() {
+        return entries;
+    }
     match keys.split_first() {
         None => {
             // No keys: transform receives the whole map and replaces it.
@@ -398,6 +409,10 @@ fn fn_map_deep_remove(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -
 /// Navigate `entries` along `parents`; at the located submap, drop `last`. A
 /// missing intermediate map leaves the structure unchanged.
 fn deep_remove(entries: Vec<(Value, Value)>, parents: &[&Value], last: &Value) -> Vec<(Value, Value)> {
+    // One level per key, as in `modify_map` (#312).
+    if crate::stack::trip() {
+        return entries;
+    }
     match parents.split_first() {
         None => {
             let mut entries = entries;

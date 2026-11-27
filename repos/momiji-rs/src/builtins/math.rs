@@ -485,7 +485,7 @@ fn preserved_round_nums(strategy: RoundStrategy, number: &Number, step: &Number,
     args.push(CalcNode::Number(step.clone()));
     Value::Calc(CalcNode::Func {
         name: "round".to_string(),
-        args,
+        args: args.into(),
     })
 }
 
