@@ -1,0 +1,14 @@
+--- a/cmd/opensave-app/main.go
++++ b/cmd/opensave-app/main.go
+@@ -89,7 +89,10 @@
+ 			// group the running window with its launcher entry.
+ 			ProgramName:         "OpenSave",
+ 			WindowIsTranslucent: false,
+-			WebviewGpuPolicy:    linux.WebviewGpuPolicyOnDemand,
++			// ON_DEMAND is deprecated in current WebKitGTK and is documented
++			// there as equivalent to ALWAYS. Asking for it logs a warning on
++			// every launch, so request the non-deprecated policy instead.
++			WebviewGpuPolicy:    linux.WebviewGpuPolicyAlways,
+ 		},
+ 	})
+ 	if err != nil {

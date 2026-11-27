@@ -1,0 +1,202 @@
+--- a/internal/presets/recomp_games.go
++++ b/internal/presets/recomp_games.go
+@@ -0,0 +1,104 @@
++package presets
++
++// Presets for the static-recompilation games packaged by nurpkgs.
++//
++// These ports do not install through Steam, Proton or an emulator, so the
++// generic scan has no store manifest to name their saves from. Each port does
++// document a fixed per-user location, though, and leaving those out makes a
++// scan either miss the save or offer it as a bare "saves"/"user" folder.
++//
++// Linux is the only platform the nurpkgs OpenSave package targets. Globs cover
++// per-profile and per-content IDs chosen at runtime. Entries that differ only
++// by a sibling data tree (UDATA/TDATA, user/user-modded, save/save-pal-es)
++// share a name so Group offers them as locations of one game.
++var recompPresetDefs = []preset{
++	{
++		ID:   "recomp-acnh",
++		Name: "Animal Crossing: New Horizons (ACNHRecomp)",
++		Type: "game",
++		LinuxPath: []string{
++			"~/.local/share/ACNHRecomp/Game/user",
++		},
++	},
++	{
++		ID:   "recomp-doaxvb",
++		Name: "Dead or Alive Xtreme Beach Volleyball (DOAXVB Recomp)",
++		Type: "game",
++		LinuxPath: []string{
++			// DOAXVB keeps its save beside the extracted disc, inside the
++			// checkout the launcher is pointed at. Cover the usual checkout
++			// folders and both receipt layouts (disc/ and imported-disc/disc/).
++			"~/*/private/*/disc/.recomp-storage/partition1/UDATA",
++			"~/*/private/*/imported-disc/disc/.recomp-storage/partition1/UDATA",
++			"~/Documents/*/private/*/disc/.recomp-storage/partition1/UDATA",
++			"~/Documents/*/private/*/imported-disc/disc/.recomp-storage/partition1/UDATA",
++			"~/Downloads/*/private/*/disc/.recomp-storage/partition1/UDATA",
++			"~/Downloads/*/private/*/imported-disc/disc/.recomp-storage/partition1/UDATA",
++			"~/Games/*/private/*/disc/.recomp-storage/partition1/UDATA",
++			"~/Games/*/private/*/imported-disc/disc/.recomp-storage/partition1/UDATA",
++			"~/src/*/private/*/disc/.recomp-storage/partition1/UDATA",
++			"~/src/*/private/*/imported-disc/disc/.recomp-storage/partition1/UDATA",
++			"~/Projects/*/private/*/disc/.recomp-storage/partition1/UDATA",
++			"~/Projects/*/private/*/imported-disc/disc/.recomp-storage/partition1/UDATA",
++		},
++	},
++	{
++		ID:   "recomp-gta2",
++		Name: "Grand Theft Auto 2 (Recompiled)",
++		Type: "game",
++		LinuxPath: []string{
++			"~/.local/share/gta2-recompiled/saves",
++		},
++	},
++	{
++		ID:   "recomp-pinyon",
++		Name: "Forza Horizon (Pinyon Shift)",
++		Type: "game",
++		LinuxPath: []string{
++			"~/.local/share/PinyonShift/source/*/.local/preview/user/*/4D5309C9",
++			"~/.local/share/PinyonShift/source/*/.local/preview/user-modded/*/4D5309C9",
++		},
++	},
++	{
++		ID:   "recomp-recompia",
++		Name: "Pokopia (Recompia)",
++		Type: "game",
++		LinuxPath: []string{
++			"~/.local/share/recompia/save",
++			"~/.local/share/recompia/coop-saves/*",
++		},
++	},
++	{
++		ID:   "recomp-skate3",
++		Name: "Skate 3 (Skate3Recomp)",
++		Type: "game",
++		LinuxPath: []string{
++			// rexglue writes saved-game content as <xuid>/<title>/00000001/.
++			"~/.local/share/skate3/*/*/00000001",
++		},
++	},
++	{
++		ID:   "recomp-speedbreaker",
++		Name: "Need for Speed: Carbon (SpeedBreaker)",
++		Type: "game",
++		LinuxPath: []string{
++			"~/.local/share/speedbreaker-carbon/save",
++			"~/.local/share/speedbreaker-carbon/save-pal-es",
++		},
++	},
++	{
++		ID:   "recomp-takedawn",
++		Name: "Burnout 3: Takedown (Takedawn)",
++		Type: "game",
++		LinuxPath: []string{
++			"~/.local/share/takedawn/UDATA",
++			"~/.local/share/takedawn/TDATA",
++			"~/.local/share/takedawn pal/UDATA",
++			"~/.local/share/takedawn pal/TDATA",
++		},
++	},
++}
++
++func init() {
++	presetDefs = append(presetDefs, recompPresetDefs...)
++}
+--- a/internal/presets/recomp_games_test.go
++++ b/internal/presets/recomp_games_test.go
+@@ -0,0 +1,92 @@
++package presets
++
++import (
++	"os"
++	"path/filepath"
++	"strings"
++	"testing"
++)
++
++// Every recompiled title must produce a path that the scanner offers under its
++// real name. Instantiate the first glob candidate, then resolve it exactly as
++// Scan does, so a typo in a preset fails here rather than silently on a user's
++// machine.
++func TestRecompPresetsResolveTheirSaveFolders(t *testing.T) {
++	t.Setenv("XDG_DATA_HOME", "")
++	for _, p := range recompPresetDefs {
++		t.Run(p.ID, func(t *testing.T) {
++			if len(p.LinuxPath) == 0 {
++				t.Fatalf("%s has no Linux save location", p.ID)
++			}
++			home := t.TempDir()
++			sc := &Scanner{GOOS: "linux", HomeDir: home}
++			resolved := resolveLinuxPath(p.LinuxPath[0], home)
++			sample := strings.ReplaceAll(resolved, "*", "sample")
++			if err := os.MkdirAll(sample, 0o755); err != nil {
++				t.Fatal(err)
++			}
++			paths := p.resolvedPaths(sc)
++			found := false
++			for _, path := range paths {
++				if path == sample {
++					found = true
++					break
++				}
++			}
++			if !found {
++				t.Fatalf("%s resolved to %v, want %q", p.ID, paths, sample)
++			}
++		})
++	}
++}
++
++func TestRecompPresetIDs(t *testing.T) {
++	want := []string{
++		"recomp-acnh",
++		"recomp-doaxvb",
++		"recomp-gta2",
++		"recomp-pinyon",
++		"recomp-recompia",
++		"recomp-skate3",
++		"recomp-speedbreaker",
++		"recomp-takedawn",
++	}
++	if len(recompPresetDefs) != len(want) {
++		t.Fatalf("got %d recomp presets, want %d", len(recompPresetDefs), len(want))
++	}
++	for i, p := range recompPresetDefs {
++		if p.ID != want[i] {
++			t.Errorf("recomp preset %d = %q, want %q", i, p.ID, want[i])
++		}
++	}
++}
++
++func TestRecompSplitTreesResolveUnderOneName(t *testing.T) {
++	t.Setenv("XDG_DATA_HOME", "")
++	home := t.TempDir()
++	for _, dir := range []string{
++		filepath.Join(home, ".local/share/speedbreaker-carbon/save"),
++		filepath.Join(home, ".local/share/speedbreaker-carbon/save-pal-es"),
++	} {
++		if err := os.MkdirAll(dir, 0o755); err != nil {
++			t.Fatal(err)
++		}
++	}
++	sc := &Scanner{GOOS: "linux", HomeDir: home}
++	var found []DiscoveredSave
++	for _, p := range recompPresetDefs {
++		if p.ID != "recomp-speedbreaker" {
++			continue
++		}
++		for _, path := range p.resolvedPaths(sc) {
++			found = append(found, DiscoveredSave{ID: p.ID, Name: p.Name, Type: p.Type, SavePath: path})
++		}
++	}
++	if len(found) != 2 {
++		t.Fatalf("got %d SpeedBreaker save folders, want 2", len(found))
++	}
++	Group(found)
++	if found[0].GroupID != found[1].GroupID {
++		t.Fatalf("split SpeedBreaker saves grouped separately: %q and %q", found[0].GroupID, found[1].GroupID)
++	}
++}
