@@ -28,8 +28,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     domain = "codeberg.org";
     owner = "uzu";
     repo = "strudel";
-    rev = "a5079db6f76912c49d0b32160eabdbfb0a4c03c5";
-    hash = "sha256-AT5Topo/EQE1F2theEpMw4eTuQefpRY/8oJmICz5vE8=";
+    rev = "b8b59d911fb6369591b0d652ad733600c8bf7f60";
+    hash = "sha256-Xxj7VEhCV7ToCQKQhVl6xGLtRqE5+nZiv6zCT0ULnYY=";
   };
 
   pnpmDeps = fetchPnpmDeps {
