@@ -49,8 +49,12 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   makeFlags = [
-    "SKIP_NATIVE_AUDIO_FALLBACK8=true"
     "BUILD_AU=false"
+  ]
+  # Keep DPF's CoreAudio fallback on darwin so the standalone runs without a
+  # JACK server; Linux has no ALSA/PulseAudio/SDL2 inputs to fall back to.
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    "SKIP_NATIVE_AUDIO_FALLBACK=true"
   ];
 
   installFlags = [
