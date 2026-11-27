@@ -22,6 +22,51 @@ diff --git a/source/shiny/Main/ShaderSet.cpp b/source/shiny/Main/ShaderSet.cpp
 @@ -32,1 +32,1 @@
 -		p = p.branch_path();
 +		p = p.parent_path();
+diff --git a/data/gui/MyGUI_Ogre_VP.glsl b/data/gui/MyGUI_Ogre_VP.glsl
+--- a/data/gui/MyGUI_Ogre_VP.glsl
++++ b/data/gui/MyGUI_Ogre_VP.glsl
+@@ -1,12 +1,7 @@
+-#version 130
+-
+-precision highp int;
+-precision highp float;
+-
+-in vec4 position;
+-in vec4 uv0;
+-in vec4 colour;
++attribute vec4 position;
++attribute vec4 uv0;
++attribute vec4 colour;
+ uniform mat4 worldViewProj;
+ 
+-out vec4 outUV0;
+-out vec4 outColor;
++varying vec4 outUV0;
++varying vec4 outColor;
+diff --git a/data/gui/MyGUI_Ogre_FP.glsl b/data/gui/MyGUI_Ogre_FP.glsl
+--- a/data/gui/MyGUI_Ogre_FP.glsl
++++ b/data/gui/MyGUI_Ogre_FP.glsl
+@@ -1,17 +1,10 @@
+-#version 130
+-
+-precision highp int;
+-precision highp float;
+-
+ uniform sampler2D sampleTexture;
+ 
+-in vec4 outUV0;
+-in vec4 outColor;
+-
+-out vec4 fragColor;
++varying vec4 outUV0;
++varying vec4 outColor;
+ 
+ // Texturing fragment program for GLSL
+ void main()
+ {
+-	fragColor = outColor * texture(sampleTexture, outUV0.xy);
++	gl_FragColor = outColor * texture2D(sampleTexture, outUV0.xy);
+ }
 diff --git a/source/sdl4ogre/sdlwindowhelper.cpp b/source/sdl4ogre/sdlwindowhelper.cpp
 --- a/source/sdl4ogre/sdlwindowhelper.cpp
 +++ b/source/sdl4ogre/sdlwindowhelper.cpp
