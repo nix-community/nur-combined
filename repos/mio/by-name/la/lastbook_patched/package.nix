@@ -24,6 +24,15 @@
 lastbook.overrideAttrs (old: {
   pname = "lastbook_patched";
 
+  # 0001 is a rebase of PR #38's work, and it cannot be replaced by a fetched
+  # patch: GitHub's own diff for the PR (compare/51658f5...0785faf, 121 KB)
+  # touches six files this rebase leaves out (the map-coverage test,
+  # CONTRIBUTING.md, the PR template, province_specs.py, the build-map test and
+  # web/index.html), gives different content in web/map.js, web/setup.js,
+  # server.py and app/tests/test_setup.py, and does not apply cleanly under
+  # stdenv (a web/map.js hunk mismatches and leaves map.js.orig behind). What
+  # this variant applies is therefore our own rebase onto the release tag, which
+  # is exactly the case AGENTS.md keeps as a local file.
   patches = (old.patches or [ ]) ++ [
     ./0001-australian-capital-and-state-territory-maps.patch
     ./0002-review-download-hosts.patch
