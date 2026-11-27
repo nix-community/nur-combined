@@ -400,10 +400,7 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 
   (setq tramp-default-remote-shell "/bin/bash")
   (setq tramp-encoding-shell "/bin/bash")
-  ;  ;; Allow ssh connections to persist.
-  ;  ;;
-  ;  ;; This seems to maybe cause tramp to hang a lot.
-  ;  (customize-set-variable 'tramp-use-ssh-controlmaster-options nil)
+  (customize-set-variable 'tramp-use-connection-share nil) ; use ssh/config
   )
 
   ;(require 'tramp)

@@ -5,6 +5,7 @@
   inputs.emacs-overlay.url = "github:nix-community/emacs-overlay";
 
   inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.flake-utils.inputs.systems.follows = "systems";
   inputs.flake-parts.url = "github:hercules-ci/flake-parts";
   inputs.flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
 
@@ -13,6 +14,7 @@
   inputs.nix.url = "github:dguibert/nix/pu";
   inputs.nix.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nix.inputs.git-hooks-nix.follows = "git-hooks-nix";
+  inputs.nix.inputs.flake-compat.follows = "flake-compat";
 
   # for overlays/updated-from-flake.nix
   inputs.dwl-src.flake = false;
@@ -27,7 +29,11 @@
   inputs.st-src.url = "github:dguibert/st/pu";
 
   inputs.git-hooks-nix.url = "github:cachix/git-hooks.nix";
+  inputs.git-hooks-nix.inputs.flake-compat.follows = "flake-compat";
   inputs.git-hooks-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+  inputs.flake-compat.flake = false;
+  inputs.flake-compat.url = "github:NixOS/flake-compat/5edf11c44bc78a0d334f6334cdaf7d60d732daab";
 
   inputs.systems.url = "github:nix-systems/default";
 
