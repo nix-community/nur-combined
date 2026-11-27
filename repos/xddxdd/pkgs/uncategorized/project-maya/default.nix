@@ -25,7 +25,8 @@ let
     "maya"
   ]
   ++ lib.optional (cudaCapabilities == [ ] || !preSm70) "maya-ds4"
-  ++ lib.optional (cudaCapabilities == [ ] || sm70) "maya-mm3";
+  ++ lib.optional (cudaCapabilities == [ ] || sm70) "maya-mm3"
+  ++ lib.optional (cudaCapabilities == [ ] || !preSm70) "maya-hy4";
   llamaRev = "3cf03257f219afbe7334045ff7c6a06ac68c627d";
   llamaSrc = fetchFromGitHub {
     owner = "ggml-org";
@@ -135,6 +136,9 @@ let
       ''}
       ${lib.optionalString (builtins.elem "maya-mm3" targets) ''
         install -Dm755 build/maya-mm3 "$out/share/project-maya/build/maya-mm3"
+      ''}
+      ${lib.optionalString (builtins.elem "maya-hy4" targets) ''
+        install -Dm755 build/maya-hy4 "$out/share/project-maya/build/maya-hy4"
       ''}
       install -Dm755 build-vision/bin/maya-vision "$out/share/project-maya/build-vision/bin/maya-vision"
       install -Dm644 ${./hydrate.py} "$out/libexec/project-maya/hydrate.py"
