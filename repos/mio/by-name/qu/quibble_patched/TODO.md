@@ -74,6 +74,34 @@ an upstream patch or a fork, not as a packaging flag.
   output can be asserted on from the captured log; `-no-reboot` plus `timeout`
   keeps a run bounded.
 
+### QEMU boot harness findings 2026-11-27
+
+The harness works; our images do not start under it.
+
+* A 128 MiB GPT disk with one FAT32 ESP at sector 2048, populated with
+  `mtools` (`/EFI/BOOT/BOOTX64.EFI` plus `drivers/`), boots a *control*
+  loader: `systemd-bootx64.efi` placed as `BOOTX64.EFI` starts and prints to
+  the console. So the partition table, FAT layout and OVMF setup are sound.
+* Upstream's own release (`quibble-20230328.zip`, `amd64/quibble.efi`) boots in
+  the same harness: it switches the GOP mode to 1280x800 and the captured
+  framebuffer is ~5.5% non-black.
+* Both `quibble` and `quibble_patched` fail to start: OVMF falls through to the
+  "Please select boot device" menu at 2560x1600 with no quibble console output.
+  The failure is therefore in our build, not in the harness or in the patched
+  runtime.
+* PE comparison against upstream's release: same `Characteristics` (0x2226,
+  including `DLL`), same subsystem 10, both have `.edata`, `.idata` and
+  `.reloc`. Ours is 1.84 MB with `SizeOfImage` 0x17a000; upstream is 2.38 MB
+  with 0x100000. Zeroing the import data-directory entry and clearing the
+  `DLL` characteristic changed nothing, and stripping is not the cause (the
+  shipped image still has the export/import/reloc sections).
+* Not yet explained; the next step is the exact `LoadImage` status (UEFI Shell
+  `load` prints it) and a link-flag bisect:
+  `-Wl,--disable-runtime-pseudo-reloc` is the prime suspect, then
+  `-Wl,--dynamicbase`/`--nxcompat` defaults and `-lgcc` placement. Screendumps
+  are captured with a QMP `screendump` after ~30 s, which is how the above was
+  measured; no assertion can be written until the image starts.
+
 ## Tasks
 
 ### 1. Package `zfs-uefi` (upstream variant)
@@ -119,16 +147,16 @@ an upstream patch or a fork, not as a packaging flag.
 
 ### 4. QEMU boot checks for both variants
 
-- [ ] `by-name/qu/quibble/vm-test.nix` (parameterised by the package under
-      test): build a GPT disk with one FAT32 ESP (`sgdisk`/`parted` + `mtools`
-      at the right offset), populate `/EFI/BOOT/BOOTX64.EFI` plus `drivers/`,
-      copy `OVMF_VARS.fd` writable, run
+- [x] GPT disk with one FAT32 ESP (parted + `mtools` at sector 2048),
+      `/EFI/BOOT/BOOTX64.EFI` plus `drivers/`, `OVMF_VARS.fd` copied writable,
       `qemu-system-x86_64 -machine q35 -m 2048 -nographic -no-reboot` with
-      pflash CODE/VARS and the disk attached by IDE.
-- [ ] Assert on the serial log that quibble itself ran (its own output after
-      `BdsDxe:`), not merely that OVMF booted; fail on the boot-device menu
-      (`Please select boot device`) which is the current symptom of a missing
-      ESP.
+      pflash CODE/VARS and the disk on IDE. Verified with a systemd-boot
+      control and with upstream's release binary.
+- [ ] Assert that quibble itself ran. Serial is not enough: quibble draws via
+      GOP, so the signal is the mode switch (1280x800 with upstream's binary)
+      plus non-black framebuffer content from a QMP `screendump`; the failure
+      signature is the "Please select boot device" menu at 2560x1600. Blocked
+      on making our image start at all (see the findings above).
 - [ ] Wire both as checks. The flake auto-discovers `packages.<name>.tests.<n>`
       (`flake.nix` around the `packageTests` block), so add
       `tests.vm-boot` to `quibble` and `quibble_patched` (or explicit
