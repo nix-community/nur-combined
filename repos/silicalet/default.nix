@@ -52,14 +52,12 @@ in
   kuake-cli = pkgs.callPackage ./pkgs/tools/kuake-cli { };
   meatshell = pkgs.callPackage ./pkgs/apps/meatshell { };
   meatshell-bin = pkgs.callPackage ./pkgs/apps/meatshell/binary.nix { };
-  modeltrace = pkgs.callPackage ./pkgs/apps/modeltrace { };
   neomacs-bin = pkgs.callPackage ./pkgs/apps/neomacs/binary.nix { };
   neu-cli = pkgs.callPackage ./pkgs/tools/neu-cli { };
   nodecode-bin = pkgs.callPackage ./pkgs/tools/nodecode/binary.nix { };
   # nyaterm source builds are too heavy; use nyaterm-bin.
   # nyaterm = pkgs.callPackage ./pkgs/apps/nyaterm { };
   nyaterm-bin = pkgs.callPackage ./pkgs/apps/nyaterm/binary.nix { };
-  nyaterm-gpui-bin = pkgs.callPackage ./pkgs/apps/nyaterm-gpui/binary.nix { };
   oh-dsh-bin = pkgs.callPackage ./pkgs/apps/oh-dsh/binary.nix { };
   qrypt-bin = pkgs.callPackage ./pkgs/tools/qrypt/binary.nix { };
   quarkpan = pkgs.callPackage ./pkgs/tools/quarkpan { };

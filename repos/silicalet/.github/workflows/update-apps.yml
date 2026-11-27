@@ -16,7 +16,7 @@ jobs:
       category: apps
       packages: >-
         craft-suite-bin folia-major-bin ghost-downloader-3 meatshell-bin
-        modeltrace neomacs-bin nyaterm-bin nyaterm-gpui-bin oh-dsh-bin
+        neomacs-bin nyaterm-bin oh-dsh-bin
         seekey winpodx-bin
       arm-packages: >-
-        craft-suite-bin meatshell-bin neomacs-bin nyaterm-bin nyaterm-gpui-bin
+        craft-suite-bin meatshell-bin neomacs-bin nyaterm-bin

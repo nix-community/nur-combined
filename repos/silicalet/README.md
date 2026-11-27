@@ -193,21 +193,6 @@ Both architectures are included in CI and automatic updates. Update with
 `nix run .#update -- qrypt-bin` (or add `--arch aarch64-linux`). Manage installed
 versions through Nix rather than the upstream `upgrade`/`uninstall` commands.
 
-## ModelTrace
-
-Run the local model-attribution web application:
-
-```console
-nix run .#modeltrace
-```
-
-The application opens `http://127.0.0.1:7860/` and listens only on loopback.
-Writable fingerprint banks are stored in `$XDG_DATA_HOME/modeltrace`, falling
-back to `$HOME/.local/share/modeltrace`. Bundled data seeds missing files;
-existing banks and custom data are not overwritten on restart or upgrade.
-ModelTrace has no upstream release tags, so its updater follows the default
-branch and pins the resulting commit and source hash.
-
 ## ArtCraft creative suite
 
 `craft-suite-bin` installs all thirteen Craft applications and ArtCraft Launcher
@@ -336,8 +321,7 @@ The default update set uses `meatshell-bin` to avoid rebuilding its
 slower source package. `nyaterm` is binary-only and updates through `nyaterm-bin`.
 Both select the matching release asset for `x86_64-linux` or `aarch64-linux`;
 MeatShell uses its official ARM64 tarball because upstream does not publish an ARM64 AppImage.
-`nyaterm-gpui-bin` tracks the `v2.0.0-preview` GPUI pre-release instead of the stable Tauri release.
-Run it with `nix run .#nyaterm-gpui-bin`.
+`nyaterm-bin` tracks the stable release, which is now the GPUI build.
 
 `cangjie` is built from the upstream source repositories, while the previous
 vendor binary package remains available as `cangjie-bin`.
@@ -349,7 +333,7 @@ Package updates run in independent category workflows, daily at 03:17 UTC
 
 | Workflow | Category | ARM64 binary updates |
 | --- | --- | --- |
-| `update-apps.yml` | `pkgs/apps` | craft-suite, meatshell, neomacs, nyaterm, nyaterm-gpui |
+| `update-apps.yml` | `pkgs/apps` | craft-suite, meatshell, neomacs, nyaterm |
 | `update-tools.yml` | `pkgs/tools` | honk-bin, qrypt |
 | `update-ctf.yml` | `pkgs/ctf` (REA) | Frida bindings for both architectures are handled by the REA updater |
 

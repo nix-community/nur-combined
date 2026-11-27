@@ -80,12 +80,10 @@ jobs:
           - { package: ipgw, system: x86_64-linux, runner: ubuntu-latest }
           - { package: kuake-cli, system: x86_64-linux, runner: ubuntu-latest }
           - { package: meatshell-bin, system: x86_64-linux, runner: ubuntu-latest }
-          - { package: modeltrace, system: x86_64-linux, runner: ubuntu-latest }
           - { package: neomacs-bin, system: x86_64-linux, runner: ubuntu-latest }
           - { package: neu-cli, system: x86_64-linux, runner: ubuntu-latest }
           - { package: nodecode-bin, system: x86_64-linux, runner: ubuntu-latest }
           - { package: nyaterm-bin, system: x86_64-linux, runner: ubuntu-latest }
-          - { package: nyaterm-gpui-bin, system: x86_64-linux, runner: ubuntu-latest }
           - { package: oh-dsh-bin, system: x86_64-linux, runner: ubuntu-latest }
           - { package: qrypt-bin, system: x86_64-linux, runner: ubuntu-latest }
           - { package: quien, system: x86_64-linux, runner: ubuntu-latest }
@@ -99,7 +97,6 @@ jobs:
           - { package: meatshell-bin, system: aarch64-linux, runner: ubuntu-24.04-arm }
           - { package: neomacs-bin, system: aarch64-linux, runner: ubuntu-24.04-arm }
           - { package: nyaterm-bin, system: aarch64-linux, runner: ubuntu-24.04-arm }
-          - { package: nyaterm-gpui-bin, system: aarch64-linux, runner: ubuntu-24.04-arm }
 
     steps:
       - name: Fetch repository

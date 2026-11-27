@@ -24,7 +24,6 @@ from pathlib import Path
 
 SYSTEMS = ("x86_64-linux", "aarch64-linux")
 VERSION_RE = re.compile(r"^[0-9][0-9A-Za-z._+-]*$")
-GPUI_VERSION_RE = re.compile(r"^2\.0\.0-preview\.[0-9]+$")
 FRIDA_VERSION_RE = re.compile(r"^[0-9]+\.[0-9]+\.[0-9]+$")
 SHA256_DIGEST_RE = re.compile(r"^sha256:[0-9a-f]+$")
 NIX_STRING_RE = re.compile(r'^[0-9A-Za-z._+:/=-]+$')
@@ -35,7 +34,6 @@ REPO_ROOT = Path(os.environ.get("NUR_PACKAGES_ROOT") or Path.cwd()).resolve()
 
 NIX_UPDATE_ARGS = {
     "neu-cli": ["--version=branch"],
-    "modeltrace": ["--version=branch"],
     "quarkpan": ["--version=branch"],
     "rea": ["--format", "--use-github-releases", "--version-regex", "rea-agents-(.*)"],
 }
@@ -77,15 +75,6 @@ BINARY_PACKAGES = {
             f"NyaTerm_{version}_linux_{'arm64' if system == 'aarch64-linux' else 'x64'}.AppImage"
         ),
     },
-    "nyaterm-gpui-bin": {
-        "repo": "nyakang/nyaterm",
-        "source": "pkgs/apps/nyaterm-gpui/sources/{system}.nix",
-        "release": "preview",
-        "version_re": GPUI_VERSION_RE,
-        "asset": lambda version, system: (
-            f"NyaTerm_{version}_linux_{'arm64' if system == 'aarch64-linux' else 'x64'}.AppImage"
-        ),
-    },
     "qrypt-bin": {
         "repo": "yinzhenyu-su/qrypt",
         "source": "pkgs/tools/qrypt/sources/{system}.nix",
@@ -123,12 +112,10 @@ DEFAULT_PACKAGES = [
     "ipgw",
     "kuake-cli",
     "meatshell-bin",
-    "modeltrace",
     "neomacs-bin",
     "neu-cli",
     "nodecode-bin",
     "nyaterm-bin",
-    "nyaterm-gpui-bin",
     "oh-dsh-bin",
     "qrypt-bin",
     "quarkpan",
@@ -229,26 +216,12 @@ def latest_release(repo):
     return github_json(f"https://api.github.com/repos/{repo}/releases/latest")
 
 
-def release_version(release, version_re=VERSION_RE):
+def release_version(release):
     tag = release.get("tag_name", "")
     version = tag[1:] if tag.startswith("v") else tag
-    if version_re.fullmatch(version) is None:
+    if VERSION_RE.fullmatch(version) is None:
         raise UpdateError(f"invalid release version: {version}")
     return version
-
-
-def gpui_release(repo):
-    releases = github_json(f"https://api.github.com/repos/{repo}/releases?per_page=30")
-    matches = []
-    for release in releases:
-        tag = release.get("tag_name", "")
-        version = tag[1:] if tag.startswith("v") else tag
-        match = GPUI_VERSION_RE.fullmatch(version)
-        if match:
-            matches.append((int(version.rsplit(".", 1)[1]), release))
-    if not matches:
-        raise UpdateError(f"no GPUI preview release found in {repo}")
-    return max(matches)[1]
 
 
 def asset_record(release, name):
@@ -374,11 +347,8 @@ def update_binary_package(package, system):
     if system not in systems:
         raise UpdateError(f"unsupported architecture: {system}")
     print(f"==> Updating {package} for {system}", flush=True)
-    if spec.get("release") == "preview":
-        release = gpui_release(spec["repo"])
-    else:
-        release = latest_release(spec["repo"])
-    version = release_version(release, spec.get("version_re", VERSION_RE))
+    release = latest_release(spec["repo"])
+    version = release_version(release)
     if "asset_pattern" in spec:
         matches = [
             asset for asset in release.get("assets", [])
