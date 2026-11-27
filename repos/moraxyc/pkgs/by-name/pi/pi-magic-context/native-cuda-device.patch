@@ -1,0 +1,38 @@
+diff --git a/packages/plugin/src/features/magic-context/memory/embedding-local.ts b/packages/plugin/src/features/magic-context/memory/embedding-local.ts
+index 778aad4..e971c56 100644
+--- a/packages/plugin/src/features/magic-context/memory/embedding-local.ts
++++ b/packages/plugin/src/features/magic-context/memory/embedding-local.ts
+@@ -1,5 +1,6 @@
+ import { readdirSync, statSync } from "node:fs";
+ import { stat, unlink } from "node:fs/promises";
++import { createRequire } from "node:module";
+ import { dirname, join } from "node:path";
+ import { pathToFileURL } from "node:url";
+ import { workerData } from "node:worker_threads";
+@@ -640,6 +641,17 @@ type EmbeddingPipeline = {
+     dispose?: () => Promise<void> | void;
+ };
+ 
++/** A native binding built against a CUDA-enabled onnxruntime (Nix `cudaSupport`)
++ *  lists `cuda`; other bindings keep transformers' default CPU device. */
++function nativeDeviceOptions(): { device?: string } {
++    const ort = createRequire(import.meta.url)("onnxruntime-node") as {
++        listSupportedBackends(): { name: string }[];
++    };
++    return ort.listSupportedBackends().some((backend) => backend.name === "cuda")
++        ? { device: "cuda" }
++        : {};
++}
++
+ type CreateEmbeddingPipeline = (
+     task: "feature-extraction",
+     model: string,
+@@ -994,7 +1006,7 @@ export class LocalEmbeddingProvider implements EmbeddingProvider {
+                             const pipeline = await withQuietConsole(() =>
+                                 createPipeline("feature-extraction", this.model, {
+                                     dtype: this.dtype,
+-                                    ...(usesWasm ? { device: "auto" } : {}),
++                                    ...(usesWasm ? { device: "auto" } : nativeDeviceOptions()),
+                                 }),
+                             );
+                             if (this.disposing) {

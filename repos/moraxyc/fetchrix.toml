@@ -281,6 +281,22 @@ version = { source = "git", url = "https://github.com/Loyalsoldier/geoip.git", b
 transform = ["strip-v"]
 fetch = { type = "git", url = "https://github.com/Loyalsoldier/geoip.git", rev = "{version}" }
 
+[packages.magic-context]
+version = { source = "github-tag", repo = "cortexkit/magic-context", strip_prefix = "v", filter = "^v[0-9]+\\.[0-9]+\\.[0-9]+$" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "cortexkit/magic-context", rev = "v{version}" }
+
+[packages.magic-context.prepare]
+steps = [
+  { type = "hook", run = ["./pkgs/by-name/ma/magic-context/prepare.py"] },
+  { type = "npm-lock" },
+]
+artifacts."npm-workspace.patch" = { type = "patch", paths = ["package.json", "package-lock.json", "packages/cli/package.json", "packages/plugin/package.json", "packages/pi-plugin/package.json"] }
+
+[packages.magic-context.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"
+
 [packages.manpage-zh]
 version = { source = "github-tag", repo = "man-pages-zh/manpages-zh", strip_prefix = "v" }
 transform = ["strip-v"]
@@ -374,6 +390,10 @@ fetch = { type = "url", url = "https://github.com/AimesSoft/NipaPlay-Reload/rele
 version = { source = "github-release", repo = "AimesSoft/NipaPlay-Reload", strip_prefix = "v" }
 transform = ["strip-v"]
 fetch = { type = "url", url = "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v{version}/NipaPlay-{version}-Linux-amd64.tar.gz" }
+
+[packages.node-addon-api]
+version = { source = "npm", name = "node-addon-api" }
+fetch = { type = "url", url = "https://registry.npmjs.org/node-addon-api/-/node-addon-api-{version}.tgz" }
 
 [packages.nyanpasu-service]
 version = { source = "github-release", repo = "libnyanpasu/nyanpasu-service" }

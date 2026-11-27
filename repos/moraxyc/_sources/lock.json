@@ -540,6 +540,27 @@
       },
       "fingerprint": "sha256-hx96JJO1209o6FzcJOvJLwehW78iolaRc0KDGJFxbgo="
     },
+    "magic-context": {
+      "version": "0.49.85",
+      "rawVersion": "0.49.85",
+      "date": "2026-11-27",
+      "src": {
+        "fetcher": "github",
+        "owner": "cortexkit",
+        "repo": "magic-context",
+        "rev": "v0.49.85",
+        "hash": "sha256-JSLjljT9/Hhy0EDMF8fobYrEw30Z2XImZM3Ek0/srJA="
+      },
+      "derived": {
+        "npmDeps": {
+          "lockfile": "magic-context/src/package-lock.json"
+        }
+      },
+      "artifacts": {
+        "npm-workspace.patch": "magic-context/npm-workspace.patch"
+      },
+      "fingerprint": "sha256-CMVpSxzHW0aDVtYETGILvOet4gnDfePuTI4XnxUEiLo="
+    },
     "manpage-zh": {
       "version": "1.6.4.5",
       "rawVersion": "1.6.4.5",
@@ -735,6 +756,16 @@
         "hash": "sha256-C69Y+YnFtEcR4CE8TCCUX3ct+MTGFL7av+9iudGNBdw="
       },
       "fingerprint": "sha256-9uEqj0SD5VQ2MS+9WTPJ6Ak8K1ljl4wOHXvMEHZhhv8="
+    },
+    "node-addon-api": {
+      "version": "8.9.2",
+      "rawVersion": "8.9.2",
+      "src": {
+        "fetcher": "url",
+        "url": "https://registry.npmjs.org/node-addon-api/-/node-addon-api-8.9.2.tgz",
+        "hash": "sha256-TNZWmFQbGaM/eY8dwlwCxu0cnXdJuIJLGhzOzdGXyOo="
+      },
+      "fingerprint": "sha256-LsWfb8z+5z1SAqXqQMnBx1geI/uFqBeNcU1pRnqrEa8="
     },
     "nyanpasu-service": {
       "version": "2.0.4",

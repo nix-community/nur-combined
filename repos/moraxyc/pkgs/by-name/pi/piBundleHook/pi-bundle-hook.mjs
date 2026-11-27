@@ -11,6 +11,8 @@ const format = process.argv[i++];
 const minify = process.argv[i++] === "1";
 const keepSources = process.argv[i++] === "1";
 const keepNodeModules = process.argv[i++] === "1";
+const splitting = process.argv[i++] === "1";
+const inlineTypebox = process.argv[i++] === "1";
 
 function takeList() {
   const n = Number(process.argv[i++]);
@@ -30,32 +32,6 @@ if (!Array.isArray(entries) || entries.length === 0) {
   throw new Error(`piBundleHook: no pi.extensions entries found in ${pkgJsonPath}`);
 }
 
-const ext = format === "cjs" ? ".cjs" : ".mjs";
-const outNames = [];
-const seen = new Set();
-
-for (const entry of entries) {
-  let outName;
-  if (entries.length === 1) {
-    outName = `index${ext}`;
-  } else {
-    const clean = entry.replace(/^\.\//, "");
-    const parts = clean.split("/");
-    const file = parts[parts.length - 1];
-    const stem = file.replace(/\.[cm]?[jt]sx?$/, "");
-    if (stem === "index" && parts.length > 2) {
-      outName = `${parts[parts.length - 2]}${ext}`;
-    } else {
-      outName = `${stem}${ext}`;
-    }
-  }
-  if (seen.has(outName)) {
-    throw new Error(`piBundleHook: duplicate output name ${outDirRel}/${outName} for ${entry}`);
-  }
-  seen.add(outName);
-  outNames.push(outName);
-}
-
 const distDir = path.join(pkgDir, outDirRel);
 fs.mkdirSync(distDir, { recursive: true });
 
@@ -67,27 +43,69 @@ const baseFlags = [
   `--format=${format}`,
   "--external:@earendil-works/*",
   "--external:@mariozechner/*",
-  "--external:typebox",
-  "--external:typebox/*",
-  "--external:@sinclair/typebox",
-  "--external:@sinclair/typebox/*",
+  ...(inlineTypebox
+    ? []
+    : [
+        "--external:typebox",
+        "--external:typebox/*",
+        "--external:@sinclair/typebox",
+        "--external:@sinclair/typebox/*",
+      ]),
   ...extraEsbuildFlags,
 ];
 
-const newExtensions = [];
-for (let j = 0; j < entries.length; j++) {
-  const entry = entries[j];
-  const entryPath = path.resolve(srcDir, entry);
-  const outRel = `${outDirRel}/${outNames[j]}`;
-  const outPath = path.join(pkgDir, outRel);
-  execFileSync("esbuild", [entryPath, ...baseFlags, `--outfile=${outPath}`], {
-    stdio: "inherit",
-  });
-  newExtensions.push(`./${outRel}`);
-}
+if (splitting) {
+  // One run so entries share chunks. Outputs keep the entry stem and `.js`, so the
+  // package's own pi.extensions and the paths it spawns workers from stay valid.
+  if (format !== "esm") {
+    throw new Error('piBundleHook: piBundleSplitting requires piBundleFormat = "esm"');
+  }
+  execFileSync(
+    "esbuild",
+    [
+      ...entries.map((entry) => path.resolve(srcDir, entry)),
+      ...baseFlags,
+      "--splitting",
+      `--outdir=${distDir}`,
+      "--entry-names=[name]",
+    ],
+    { stdio: "inherit" },
+  );
+} else {
+  const ext = format === "cjs" ? ".cjs" : ".mjs";
+  const seen = new Set();
+  const newExtensions = [];
+  for (const entry of entries) {
+    let outName;
+    if (entries.length === 1) {
+      outName = `index${ext}`;
+    } else {
+      const clean = entry.replace(/^\.\//, "");
+      const parts = clean.split("/");
+      const file = parts[parts.length - 1];
+      const stem = file.replace(/\.[cm]?[jt]sx?$/, "");
+      if (stem === "index" && parts.length > 2) {
+        outName = `${parts[parts.length - 2]}${ext}`;
+      } else {
+        outName = `${stem}${ext}`;
+      }
+    }
+    if (seen.has(outName)) {
+      throw new Error(`piBundleHook: duplicate output name ${outDirRel}/${outName} for ${entry}`);
+    }
+    seen.add(outName);
 
-pkg.pi ??= {};
-pkg.pi.extensions = newExtensions;
+    const outRel = `${outDirRel}/${outName}`;
+    execFileSync(
+      "esbuild",
+      [path.resolve(srcDir, entry), ...baseFlags, `--outfile=${path.join(pkgDir, outRel)}`],
+      { stdio: "inherit" },
+    );
+    newExtensions.push(`./${outRel}`);
+  }
+  pkg.pi ??= {};
+  pkg.pi.extensions = newExtensions;
+}
 fs.writeFileSync(pkgJsonPath, `${JSON.stringify(pkg, null, 2)}\n`);
 
 const rm = (rel) => fs.rmSync(path.join(pkgDir, rel), { recursive: true, force: true });

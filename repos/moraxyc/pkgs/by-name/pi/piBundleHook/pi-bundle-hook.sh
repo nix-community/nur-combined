@@ -28,6 +28,8 @@ piBundleHook() {
     local minify="${piBundleMinify:-1}"
     local keepSources="${piBundleKeepSources:-0}"
     local keepNodeModules="${piBundleKeepNodeModules:-0}"
+    local splitting="${piBundleSplitting:-0}"
+    local inlineTypebox="${piBundleInlineTypebox:-0}"
 
     local -a entries=()
     local -a esbuildFlags=()
@@ -38,6 +40,7 @@ piBundleHook() {
 
     node @bundleScript@ "@nodeMajor@" \
         "$pkg" "$srcDir" "$outDir" "$format" "$minify" "$keepSources" "$keepNodeModules" \
+        "$splitting" "$inlineTypebox" \
         "${#entries[@]}" "${entries[@]}" \
         "${#esbuildFlags[@]}" "${esbuildFlags[@]}" \
         "${#cleanPaths[@]}" "${cleanPaths[@]}"
