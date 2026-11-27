@@ -4,7 +4,7 @@ version = 4
 
 [[package]]
 name = "augenblick"
-version = "0.6.2"
+version = "0.6.3"
 dependencies = [
  "serde",
  "smithay-client-toolkit",
