@@ -29,6 +29,7 @@
   liburing,
   vulkan-loader,
   moltenvk,
+  spirv-cross,
   makeWrapper,
   wrapGAppsHook3,
   # The source contains no game code. Code generation recompiles the guest's
@@ -89,6 +90,32 @@ let
       ;
   };
 
+  # MoltenVK 1.4.2 serializes its pipeline cache using the exact SPIRV-Cross
+  # interfaces from its ExternalRevisions pin. Nixpkgs' newer SPIRV-Cross has
+  # grown CompilerMSL::Options by four bytes, which MoltenVK reports as an
+  # incomplete Cereal archive and can invalidate cached shader state.
+  spirvCross = spirv-cross.overrideAttrs (_: {
+    version = "0-unstable-2026-07-06";
+    src = fetchFromGitHub {
+      owner = "KhronosGroup";
+      repo = "SPIRV-Cross";
+      rev = "6c09849fe88c48eaed08413aa022aaa136a3a057";
+      hash = "sha256-HjAVP+yMeybM8VQQO3aKmuxpvjA03EGjKUPWVQKoRuc=";
+    };
+  });
+  moltenvkPinned =
+    assert lib.assertMsg (
+      moltenvk.version == "1.4.2"
+    ) "skate3recomp pins SPIRV-Cross to MoltenVK 1.4.2's ExternalRevisions; update both pins together";
+    moltenvk.override { spirv-cross = spirvCross; };
+
+  threadSuspendRaceRev = "07d87dda55080ad983bf04a18958712bac1e3cc7";
+  threadSuspendRacePatch = fetchurl {
+    name = "rexglue-posix-thread-suspend-race.patch";
+    url = "https://github.com/mchughalex/rexglue-skate3/commit/${threadSuspendRaceRev}.patch";
+    hash = "sha256-dSa/PwO47oblw+wYxLKzCdK7oRt7RvJXWq4dJ4lG2Sc=";
+  };
+
   # The SDK pulls freetype in with FetchContent at configure time. The sandbox
   # has no network, so it gets the same tag as a pinned source directory.
   freetypeSrc = fetchFromGitHub {
@@ -133,7 +160,7 @@ clangStdenv.mkDerivation {
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       # The runtime reaches Vulkan through volk, which dlopens the loader by
       # name. The loader picks the driver from the ICD manifest.
-      moltenvk
+      moltenvkPinned
       vulkan-loader
     ];
 
@@ -156,6 +183,10 @@ clangStdenv.mkDerivation {
     # used in its place has no RasterizerGamma field, so drop the assignments
     # that reference it.
     patch -p1 -d third_party/rexglue-sdk --input ${./rexglue-imgui-rasterizer-gamma.patch}
+    # A Resume can race between publishing the suspended state and setting its
+    # suspend count, leaving the host's GPU command thread parked forever.
+    # Backport the exact upstream fix until the SDK pin includes it.
+    patch -p1 -d third_party/rexglue-sdk --input ${threadSuspendRacePatch}
     # GTK widget invalidation must happen on the UI thread; the presenter can
     # request paints from the GPU command thread.
     patch -p1 -d third_party/rexglue-sdk --input ${./rexglue-gtk-paint-thread.patch}
@@ -293,10 +324,10 @@ clangStdenv.mkDerivation {
         --prefix DYLD_FALLBACK_LIBRARY_PATH : ${
           lib.makeLibraryPath [
             vulkan-loader
-            moltenvk
+            moltenvkPinned
           ]
         } \
-        --set VK_ICD_FILENAMES ${moltenvk}/share/vulkan/icd.d/MoltenVK_icd.json \
+        --set VK_ICD_FILENAMES ${moltenvkPinned}/share/vulkan/icd.d/MoltenVK_icd.json \
         ${
           lib.optionalString (discImage != null) ''
             --set SKATE3_INSTALL_ISO "$out/share/skate3recomp/Skate_3.iso" \
