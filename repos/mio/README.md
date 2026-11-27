@@ -6,6 +6,16 @@ every `<name>_patched` package is also exposed under the `patched` attribute set
 
 see all packages: <https://nur.nix-community.org/repos/mio/> How to use (NUR guide) <https://nur.nix-community.org/documentation/> You will want to use `nur.repos.mio.*`
 
+`fetchurlAria2` is a `fetchurl`-compatible fixed-output fetcher for large files. It uses this repo's accelerated `aria2-wrapped`, accepts the same `url`, `urls`, `hash`, `postFetch`, and related arguments, and adds an optional `aria2Opts` list. `curlOpts` is not translated; use `aria2Opts` instead:
+
+```nix
+src = inputs.mio.legacyPackages.${system}.fetchurlAria2 {
+  url = "https://example.com/large-file.bin";
+  hash = "sha256-...";
+  aria2Opts = [ "--split=16" "--max-connection-per-server=16" ];
+};
+```
+
 See cachix pins for betterbird linux builds by shelvacu https://app.cachix.org/cache/mio#pins
 
 Too tired to write the build scripts. Free (free as in free beer) LLMs are used and build scripts are generally sloppy here, except for: betterbird

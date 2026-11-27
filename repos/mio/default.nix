@@ -52,6 +52,9 @@ let
         outputsToInstall = [ "out" ];
       };
     });
+    fetchurlAria2 = pkgs.callPackage ./lib/fetchurl-aria2.nix {
+      aria2 = aria2-wrapped;
+    };
     caddy =
       let
         # Table mapping NixOS version + Caddy version + Go version to plugins hash
@@ -215,4 +218,8 @@ let
       }) names-patched
     );
 in
-base // { inherit patched; }
+base
+// {
+  inherit patched;
+  lib = base.lib // { inherit (base) fetchurlAria2; };
+}
