@@ -86,6 +86,8 @@ qrx -pn file.png           # decode image file, print only
 |------|------|-------------|
 | `-p` | `--print` | Print the decoded text to stdout |
 | `-n` | `--no-clipboard` | Do not copy to clipboard |
+| `-v` | `--version` | Print the version |
+| `-h` | `--help` | Print usage, flags and dependencies |
 
 Flags can be combined separately (`-p -n`) or together (`-pn` / `-np`).
 

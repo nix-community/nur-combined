@@ -2,13 +2,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "qrx";
-  version = "0.4.6"; # without "v"
+  version = "0.5.0"; # without "v"
 
   src = fetchFromGitHub {
     owner = "x71c9";
     repo = "qrx";
     rev = "v${version}";
-    hash = "sha256-GY4pXPFcBmcl107FK2nOMMTC/G6NzNAq0i2QEcgHE2s=";
+    hash = "sha256-QIdBr/AnDHDjrsYc0OOZn5A2HiGyMGBIndMh0AHEyk4=";
   };
 
   cargoLock.lockFile = ./Cargo.lock;
