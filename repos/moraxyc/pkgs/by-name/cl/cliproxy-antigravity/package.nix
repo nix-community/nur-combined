@@ -21,6 +21,8 @@ buildGoModule {
   postPatch = ''
     substituteInPlace login.go login_test.go scripts/abi_smoke.py \
       --replace-fail '#!/bin/sh' '#!${runtimeShell}'
+    substituteInPlace testmain_test.go \
+      --replace-fail 'os.Setenv("PATH", home+":/usr/bin:/bin")' 'os.Setenv("PATH", home+":"+os.Getenv("PATH"))'
   '';
 
   buildPhase = ''
