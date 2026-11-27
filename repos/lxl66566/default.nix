@@ -32,6 +32,7 @@ in
   reader-server-rs = callPackage ./pkgs/reader-server-rs { };
   selector4nix = callPackage ./pkgs/selector4nix { };
   system76-scheduler-niri = callPackage ./pkgs/system76-scheduler-niri { };
+  todograph = callPackage ./pkgs/todograph { };
   urldecoder = callPackage ./pkgs/urldecoder { };
   user-startup-rs = callPackage ./pkgs/user-startup-rs { };
   xp3-pack-unpack = callPackage ./pkgs/xp3-pack-unpack { };

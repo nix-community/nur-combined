@@ -72,6 +72,7 @@ Only tested on x86_64-linux. Packages may work on aarch64 systems, but I'm not s
 | [reader-server-rs](https://github.com/lxl66566/reader-server-rs) | null, musl | A self-hosted reading server for txt/epub books with multi-user progress sync |
 | [selector4nix](https://github.com/StarryReverie/selector4nix) | null, musl | Nix substituter proxy with parallel cache queries and latency-aware selection |
 | [system76-scheduler-niri](https://github.com/lxl66566/system76-scheduler-niri) | null, musl | Niri integration for system76-scheduler |
+| [todograph](https://github.com/lxl66566/todograph) | null, musl | Mini local-first todo dependency graph (DAG) manager for AI agents |
 | [urldecoder](https://github.com/lxl66566/urldecoder) | null, musl | Batch find and decode URLs in your text/files. very fast. |
 | [user-startup-rs](https://github.com/lxl66566/user-startup-rs) | null, musl | Simple cross-platform tool to make your command auto run on startup |
 | [xp3-pack-unpack](https://github.com/lxl66566/xp3-pack-unpack) | null | kirikiri xp3 format cli packer & unpacker |
