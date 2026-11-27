@@ -9,16 +9,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "flake-show-ng";
-  version = "0.1.1";
+  version = "0.1.2";
 
   src = fetchFromGitHub {
     owner = "nix-config";
     repo = "flake-show-ng";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-e1FPmd9VJsRwePlS/9YAtIhxxpYRo7qybKgIRIMoNl8=";
+    hash = "sha256-+6FZJrhbwNWkp1fV+7VBNe9gwaYtJhBQyxb75wcqwr4=";
   };
 
-  cargoHash = "sha256-CjI5FxNDW9TWjTigQxtNpuoBHjdWhVB5Dm5YhHF/PFQ=";
+  cargoHash = "sha256-1unXKkwQjFdZkMs62jxLyzVplbS1DB2RZurEe+iXH84=";
 
   doCheck = true;
 
