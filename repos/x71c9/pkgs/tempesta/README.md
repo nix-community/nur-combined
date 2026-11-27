@@ -35,7 +35,13 @@ How to use it:
 - [Open the URL in the browser](#open-the-url-in-the-browser)
 - [Remove a bookmark](#remove-a-bookmark)
 - [Update a bookmark](#update-a-bookmark)
+
+Browser extension
+
 - [Browser extension](#browser-extension-native-messaging-host)
+
+Shortcut
+
 - [Shortcut](#shortcut)
 
 Install
@@ -186,7 +192,7 @@ tempesta update <local-path> <url>
 tempesta update search-engines/google "https://google.com"
 ```
 
-#### Browser extension (native messaging host)
+## Browser extension (native messaging host)
 
 The [tempesta-browser-extension](https://github.com/x71c9/tempesta-browser-extension)
 for Firefox and Chromium-based browsers reads and writes the bookmark store
