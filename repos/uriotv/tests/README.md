@@ -53,6 +53,9 @@ strict-Bash updater, then runs:
   Steam's `LD_PRELOAD` overlay out of the script's own environment and keeps it
   for the game command.
 
+- `engram-update.py`: stable Engram release selection (ignores upstream's
+  `pi-v*` tags and prereleases) and the source-built package shape.
+
 - `meitou-update.py`: stable launcher release selection, game and nightly
   exclusion, downgrade prevention, authenticated GitHub API calls, and the
   AppImage wrapping (no .NET build, never run as a mounted AppImage).

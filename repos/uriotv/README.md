@@ -38,6 +38,7 @@ redistribution.
 | `filmcraft` | `0.20.1` | Video editor (official binary release) | No: redistribution review pending |
 | `soundcraft` | `0.20.1` | Digital audio workstation (official binary release) | No: redistribution review pending |
 | `meitou-launcher` | `1.22.0` | Upstream launcher AppImage that downloads Meitou versions (requires Kenshi) | Yes |
+| `engram` | `3.7.2` | Persistent memory for AI coding agents (built from source) | Yes |
 | `cybergrub2077` | `2.0.1-unstable-2026-02-28` | Cyberpunk 2077 inspired GRUB theme | Yes |
 | `nmssaveeditor` | `1.21.0` | Save editor for No Man's Sky | No: unfree |
 | `pig` | `0.8.0` | Pi coding agent rebuilt in Go as a native binary | Yes |

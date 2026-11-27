@@ -179,6 +179,7 @@ main() {
     python3 -B "$SCRIPT_DIR/publication-cache.py"
     python3 -B "$SCRIPT_DIR/readme-versions.py"
     python3 -B "$SCRIPT_DIR/scopebuddy-package.py"
+    python3 -B "$SCRIPT_DIR/engram-update.py"
 
     echo "======================================"
     echo "Test Summary"
