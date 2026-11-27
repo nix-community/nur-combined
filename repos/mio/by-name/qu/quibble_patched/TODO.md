@@ -216,6 +216,25 @@ The harness works; our images do not start under it.
       the tree untouched; `update-quibble_patched` chained both the same way.
       `nix build` for all three packages and both VM checks still passes.
 
+### 7. `quibble_win11` variant (openzfsonwindows `win11` branch)
+
+- [x] `by-name/qu/quibble_win11/package.nix` pins the branch head
+      (`c830ce7c5cea88c174f95a9d9758d68cbd570873`, 2026-11-04) with `fetchgit` +
+      submodules. Our toolchain patch applies unchanged (the branch's
+      `mingw-amd64.cmake` is identical to the pinned master's); the branch only
+      adds `funcoverride.cpp/h` and changes `boot/mem/peload/quibble.h/win.h`.
+- [x] The variant inherits `quibble`'s build but repeats `installPhase`: the
+      inherited one interpolates the base package's source path for
+      README/LICENCE/font.ttf, which would ship master's files with win11 code.
+- [x] `checks.x86_64-linux.quibble-win11-vm-boot` boots it under OVMF and passes,
+      so PR #144's loader changes work with this toolchain.
+- [x] `passthru.updateScript` reads `refs/heads/win11` itself (nix-update has no
+      `--rev`), then rewrites rev, the tree hash of that rev and the
+      commit-date version from the GitHub API; two consecutive runs leave the
+      file byte-identical at the current pin.
+- Windows 11 itself still needs a real installation (task 5); this proves the
+  loader builds and reaches its boot menu, nothing beyond that.
+
 <!-- qemu-crash:start -->
 ### QEMU crash analysis (2026-11-27)
 
