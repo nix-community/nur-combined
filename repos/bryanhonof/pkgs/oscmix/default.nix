@@ -19,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "michaelforney";
     repo = "oscmix";
     rev = finalAttrs.version;
-    hash = "sha256-b/FzAyTnQJ2t9TdcfEuOhsMixSa1TeYjKXCtyfkG7zs=";
+    hash = "sha256-sfm5oFIGjYZBqtYX8qpc0jT5BDnjGNNKuYVp9U15WWE=";
   };
 
   makeFlags = [

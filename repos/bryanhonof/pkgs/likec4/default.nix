@@ -10,13 +10,13 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "likec4";
-  version = "1.59.3";
+  version = "1.61.1";
 
   # The npm tarball ships the built CLI and web app; the git tree would need the
   # whole pnpm/turbo monorepo.
   src = fetchurl {
     url = "https://registry.npmjs.org/likec4/-/likec4-${finalAttrs.version}.tgz";
-    hash = "sha256-/5E84ocmejQ1dY68MuWuoQV4dGJA/MHTT6NnhpwXWi4=";
+    hash = "sha256-XXeMet+UyB3u98WGxVhb/qm/enVHhUfMgN+uWqWPFso=";
   };
 
   # devDependencies point at unpublished workspace packages; playwright is taken
@@ -35,7 +35,7 @@ buildNpmPackage (finalAttrs: {
     grep -q 'cacheDir:e.workspace' dist/cli/index.mjs
   '';
 
-  npmDepsHash = "sha256-JPI5KPNvOowwTxsQXQNq2K0iN+ZG4MWobxMuoThj9Ws=";
+  npmDepsHash = "sha256-c34e7HUNJNG293h9itoB8/eRFyc1YRHf1o2vGzqSAkk=";
 
   dontNpmBuild = true;
 
@@ -65,7 +65,7 @@ buildNpmPackage (finalAttrs: {
     changelog = "https://github.com/likec4/likec4/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ bryanhonof ];
-    platforms = lib.platforms.linux;
+    platforms = lib.platforms.unix;
     mainProgram = "likec4";
   };
 })
