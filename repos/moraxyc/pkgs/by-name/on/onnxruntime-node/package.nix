@@ -66,9 +66,9 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r dist/node $pkg/dist
     cp -r dist/common $common/dist
     install -Dm755 -t $pkg/${bindingDir} ../js/node/${bindingDir}/onnxruntime_binding.node
-    # The binding finds the runtime next to itself ($ORIGIN / @loader_path).
-    for lib in ../js/node/${bindingDir}/libonnxruntime*; do
-      ln -s ${lib.getLib onnxruntime}/lib/$(basename $lib) $pkg/${bindingDir}/
+    # The binding finds the runtime and provider plugins next to itself ($ORIGIN / @loader_path).
+    for lib in ${lib.getLib onnxruntime}/lib/libonnxruntime*${stdenv.hostPlatform.extensions.sharedLibrary}*; do
+      ln -s "$lib" $pkg/${bindingDir}/
     done
     echo '{"name": "onnxruntime-node", "version": "${finalAttrs.version}", "main": "dist/index.js"}' > $pkg/package.json
     echo '{"name": "onnxruntime-common", "version": "${finalAttrs.version}", "main": "dist/index.js"}' > $common/package.json
