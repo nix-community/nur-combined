@@ -26,6 +26,13 @@
 
 let
   stuntrally-ogre = ogre_13.overrideAttrs (oldAttrs: {
+    version = "13.4.4";
+    src = fetchFromGitHub {
+      owner = "OGRECave";
+      repo = "ogre";
+      rev = "v13.4.4";
+      hash = "sha256-P+4949VhFLyXu3rXghsJa4MqAtBHV8gsvveQnM3wOMY=";
+    };
     cmakeFlags = (oldAttrs.cmakeFlags or [ ]) ++ [
       "-DOGRE_NODELESS_POSITIONING=ON"
       "-DOGRE_RESOURCEMANAGER_STRICT=0"
@@ -38,10 +45,28 @@ let
       ogre = stuntrally-ogre;
     }).overrideAttrs
       (oldAttrs: {
+        version = "3.4.1";
+        src = fetchFromGitHub {
+          owner = "MyGUI";
+          repo = "mygui";
+          tag = "MyGUI3.4.1";
+          hash = "sha256-5u9whibYKPj8tCuhdLOhL4nDisbFAB0NxxdjU/8izb8=";
+        };
+        patches = [ ];
+        postPatch = ''
+          substituteInPlace CMakeLists.txt \
+            --replace-fail 'cmake_policy(SET CMP0048 OLD)' 'cmake_policy(SET CMP0048 NEW)'
+          substituteInPlace CMake/Utils/MyGUIConfigTargets.cmake \
+            --replace-fail 'FRAMEWORK TRUE' 'FRAMEWORK FALSE' \
+            --replace-fail \
+              'INSTALL_NAME_DIR "@executable_path/../Frameworks"' \
+              'INSTALL_NAME_DIR "@executable_path/../lib"'
+        '';
         cmakeFlags =
           builtins.filter (flag: !(lib.hasInfix "MYGUI_DONT_USE_OBSOLETE" flag)) (oldAttrs.cmakeFlags or [ ])
           ++ [
             (lib.cmakeBool "MYGUI_DONT_USE_OBSOLETE" false)
+            (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.5")
             (lib.cmakeFeature "CMAKE_CXX_STANDARD" "17")
             (lib.cmakeBool "CMAKE_CXX_STANDARD_REQUIRED" true)
           ];

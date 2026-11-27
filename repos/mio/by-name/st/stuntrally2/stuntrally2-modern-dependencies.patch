@@ -180,12 +180,3 @@ diff --git a/source/ogre/CGame.cpp b/source/ogre/CGame.cpp
  {
 +	// Stop the simulation thread before deleting the car models it reads.
 +	ShutDown();
-diff --git a/source/shiny/Main/MaterialInstance.cpp b/source/shiny/Main/MaterialInstance.cpp
---- a/source/shiny/Main/MaterialInstance.cpp
-+++ b/source/shiny/Main/MaterialInstance.cpp
-@@ -170,1 +170,4 @@
--							pass->setTextureUnitIndex (foundVertex ? GPT_Vertex : GPT_Fragment, texIt->getName(), i);
-+							if (hasVertex && foundVertex)
-+								pass->setTextureUnitIndex (GPT_Vertex, texIt->getName(), i);
-+							if (hasFragment && foundFragment)
-+								pass->setTextureUnitIndex (GPT_Fragment, texIt->getName(), i);
