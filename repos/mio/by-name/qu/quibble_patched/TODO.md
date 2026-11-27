@@ -209,6 +209,18 @@ The harness works; our images do not start under it.
       SHA-512's length field is 128 bits, so padding must zero through offset
       120 before writing the low 64 bits - filling only to 112 left bytes
       112..119 uninitialised and the digest depended on the stack.
+- [x] Typed key at boot.  The engine takes a key provider
+      (`zfse_set_key_provider`); `zfs.c` registers an EFI console prompt that
+      reads a masked ASCII passphrase from `ConIn` (firmware console is the
+      only keyboard the driver has), and the engine derives the wrapping key
+      according to the key object's `keyformat`: raw (32 bytes), hex (64
+      digits), or passphrase via PBKDF2-HMAC-SHA1 with `LE64(pbkdf2salt)` and
+      `pbkdf2iters` - the same derivation as libzfs's `derive_key`.  A wrong
+      entry is re-prompted up to three times.  Verified in the ZFS VM with a
+      `keyformat=passphrase` dataset: the right phrase prints `dataset key
+      loaded`, a wrong one is rejected, and `FIRST_WRONG` then right re-prompts
+      and succeeds.  PBKDF2/SHA-1 are checked against Python's hashlib vectors
+      in `zfs-uefi-crypto`.
 - [x] Key store implemented and verified against a real encrypted pool
       (`key-store.patch`, plus `zfse_set_wrapping_key()` and the
       `test/enc_read_test.c` driver in this package).  The DSL dir's

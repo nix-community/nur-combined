@@ -14,7 +14,9 @@
 #include <string.h>
 
 #include "aesgcm.h"
+#include "sha1.h"
 #include "sha512.h"
+#include "sha1_kat_vectors.h"
 
 struct gcm_vec {
 	const char *name;
@@ -197,6 +199,31 @@ static void run_sha512(void)
 	    sizeof (out)), "hmac-sha512", "abc vector");
 }
 
+static void run_sha1(void)
+{
+	uint8_t out[SHA1_DIGEST_LEN];
+	uint8_t dk[32];
+	const uint8_t pass[] = "password";
+	const uint8_t salt[] = "salt";
+
+	sha1((const uint8_t *)"abc", 3, out);
+	check(hex_eq(out, SHA1_KAT_ABC, sizeof (out)), "sha1", "abc vector");
+
+	sha1(NULL, 0, out);
+	check(hex_eq(out, SHA1_KAT_EMPTY, sizeof (out)), "sha1",
+	    "empty vector");
+
+	pbkdf2_sha1(pass, sizeof (pass) - 1, salt, sizeof (salt) - 1, 1,
+	    dk, sizeof (dk));
+	check(hex_eq(dk, PBKDF2_SHA1_ITERS1, sizeof (dk)), "pbkdf2-sha1",
+	    "1 iteration");
+
+	pbkdf2_sha1(pass, sizeof (pass) - 1, salt, sizeof (salt) - 1, 4096,
+	    dk, sizeof (dk));
+	check(hex_eq(dk, PBKDF2_SHA1_ITERS4096, sizeof (dk)), "pbkdf2-sha1",
+	    "4096 iterations");
+}
+
 int main(void)
 {
 	size_t i;
@@ -213,6 +240,11 @@ int main(void)
 		run_sha512();
 		if (failures == before)
 			printf("PASS SHA-512 and HMAC-SHA512 vectors\n");
+
+		before = failures;
+		run_sha1();
+		if (failures == before)
+			printf("PASS SHA-1 and PBKDF2-HMAC-SHA1 vectors\n");
 	}
 
 	if (failures != 0) {

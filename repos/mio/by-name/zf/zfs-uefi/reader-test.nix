@@ -120,6 +120,51 @@ runNixOSTest {
     assert "dataset key unwrap failed" in out, out
     assert "dataset key loaded" not in out, out
 
+    # Passphrase dataset: the key object carries keyformat/pbkdf2salt/
+    # pbkdf2iters, so the reader derives the wrapping key from what is typed
+    # instead of being handed one.  This is the boot-time prompt path.
+    machine.succeed("zpool import -d /dev tank")
+    machine.succeed(
+        "printf 'correct horse battery staple\\n' > /root/pass.txt"
+    )
+    machine.succeed(
+        "zfs create -o encryption=on -o keyformat=passphrase "
+        "-o keylocation=file:///root/pass.txt tank/phrase"
+    )
+    machine.succeed("echo passphrase > /tank/phrase/hello.txt")
+    print(machine.succeed(
+        "zfs get -H -o property,value keyformat,encryption tank/phrase"
+    ))
+    machine.succeed("sync")
+    machine.succeed("zpool set bootfs=tank/phrase tank")
+
+    machine.succeed("zpool export tank")
+    status, out = machine.execute(
+        "ZFS_PASSPHRASE='correct horse battery staple' "
+        "enc_read_test /dev/loop0 0 1073741824"
+    )
+    print(out)
+    assert "dataset key loaded: aes-256-gcm" in out, out
+
+    # A wrong passphrase must be rejected, and the first wrong entry followed
+    # by the right one must re-prompt and then succeed.
+    status, out = machine.execute(
+        "ZFS_PASSPHRASE='wrong passphrase' "
+        "enc_read_test /dev/loop0 0 1073741824"
+    )
+    print(out)
+    assert "dataset key unwrap failed" in out, out
+    assert "dataset key loaded" not in out, out
+
+    status, out = machine.execute(
+        "ZFS_PASSPHRASE_FIRST_WRONG=1 "
+        "ZFS_PASSPHRASE='correct horse battery staple' "
+        "enc_read_test /dev/loop0 0 1073741824"
+    )
+    print(out)
+    assert "wrong passphrase/key, try again" in out, out
+    assert "dataset key loaded: aes-256-gcm" in out, out
+
     # And the plain-text reader must still refuse encrypted blocks explicitly
     # when it has no key at all.
     status, out = machine.execute(

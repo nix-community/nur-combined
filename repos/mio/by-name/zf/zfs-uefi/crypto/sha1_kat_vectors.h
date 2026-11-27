@@ -1,0 +1,12 @@
+/*
+ * SHA-1/PBKDF2 vectors from Python's hashlib/hmac.  Generated; do not edit.
+ */
+#ifndef ZFS_EFI_SHA1_KAT_VECTORS_H
+#define ZFS_EFI_SHA1_KAT_VECTORS_H
+
+#define SHA1_KAT_ABC "a9993e364706816aba3e25717850c26c9cd0d89d"
+#define SHA1_KAT_EMPTY "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+#define PBKDF2_SHA1_ITERS1 "0c60c80f961f0e71f3a9b524af6012062fe037a6e0f0eb94fe8fc46bdc637164"
+#define PBKDF2_SHA1_ITERS4096 "4b007901b765489abead49d926f721d065a429c12e463f6c4cd79401085b03db"
+
+#endif

@@ -17,7 +17,7 @@ stdenv.mkDerivation {
   buildPhase = ''
     runHook preBuild
     $CC -O2 -std=c11 -Wall -Wextra -Werror -ffreestanding -fno-builtin \
-      -o kat aesgcm.c sha512.c kat.c
+      -o kat aesgcm.c sha512.c sha1.c kat.c
     ./kat
     runHook postBuild
   '';

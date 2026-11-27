@@ -1,15 +1,16 @@
 diff --git a/src/engine/zfsimpl.c b/src/engine/zfsimpl.c
-index b0b446b..1690590 100644
+index b0b446b..cb8dfd4 100644
 --- a/src/engine/zfsimpl.c
 +++ b/src/engine/zfsimpl.c
-@@ -1,3 +1,6 @@
+@@ -1,3 +1,7 @@
 +#include "aesgcm.h"
 +#include "sha512.h"
++#include "sha1.h"
 +
  /*-
   * Copyright (c) 2007 Doug Rabson
   * All rights reserved.
-@@ -3607,6 +3610,159 @@ done:
+@@ -3607,6 +3611,290 @@ done:
  }
  #endif
  
@@ -62,6 +63,97 @@ index b0b446b..1690590 100644
 +		p[i] = (uint8_t)(v >> (8 * i));
 +}
 +
++
++typedef int (*zfs_key_provider_fn)(char *buf, size_t buflen, void *priv);
++
++static zfs_key_provider_fn key_provider;
++static void *key_provider_priv;
++
++void
++zfs_set_key_provider(zfs_key_provider_fn fn, void *priv)
++{
++	key_provider = fn;
++	key_provider_priv = priv;
++}
++
++/*
++ * Turn whatever was typed (or handed in) into the 32-byte wrapping key.
++ * keyformat=raw is 32 bytes verbatim, keyformat=hex is 64 hex digits, and
++ * keyformat=passphrase is PBKDF2-HMAC-SHA1 with the on-disk salt (stored as a
++ * little-endian uint64) and pbkdf2iters - exactly libzfs_crypto.c:derive_key.
++ */
++#define	ZFS_KEYFORMAT_RAW_ID		1
++#define	ZFS_KEYFORMAT_HEX_ID		2
++#define	ZFS_KEYFORMAT_PASSPHRASE_ID	3
++#define	ZFS_MIN_PBKDF2_ITERATIONS	100000ULL
++
++static int
++zfs_hexval(char c)
++{
++	if (c >= '0' && c <= '9')
++		return (c - '0');
++	if (c >= 'a' && c <= 'f')
++		return (c - 'a' + 10);
++	if (c >= 'A' && c <= 'F')
++		return (c - 'A' + 10);
++	return (-1);
++}
++
++static int
++zfs_derive_wrapping_key(uint64_t keyformat, uint64_t salt, uint64_t iters,
++    const char *secret, size_t len)
++{
++	uint8_t saltbuf[8];
++	size_t i;
++
++	switch (keyformat) {
++	case ZFS_KEYFORMAT_RAW_ID:
++		if (len != 32) {
++			printf("ZFS: raw key must be 32 bytes\n");
++			return (EINVAL);
++		}
++		memcpy(wrapping_key, secret, 32);
++		break;
++
++	case ZFS_KEYFORMAT_HEX_ID:
++		if (len != 64) {
++			printf("ZFS: hex key must be 64 hex digits\n");
++			return (EINVAL);
++		}
++		for (i = 0; i < 32; i++) {
++			int hi = zfs_hexval(secret[2 * i]);
++			int lo = zfs_hexval(secret[2 * i + 1]);
++
++			if (hi < 0 || lo < 0) {
++				printf("ZFS: invalid hex key\n");
++				return (EINVAL);
++			}
++			wrapping_key[i] = (uint8_t)((hi << 4) | lo);
++		}
++		break;
++
++	case ZFS_KEYFORMAT_PASSPHRASE_ID:
++		if (iters < ZFS_MIN_PBKDF2_ITERATIONS) {
++			printf("ZFS: passphrase dataset has %ju pbkdf2 iterations, "
++			    "need at least %ju\n", (uintmax_t)iters,
++			    (uintmax_t)ZFS_MIN_PBKDF2_ITERATIONS);
++			return (ENOTSUP);
++		}
++		for (i = 0; i < sizeof (saltbuf); i++)
++			saltbuf[i] = (uint8_t)(salt >> (8 * i));
++		pbkdf2_sha1((const uint8_t *)secret, len, saltbuf,
++		    sizeof (saltbuf), (uint32_t)iters, wrapping_key, 32);
++		break;
++
++	default:
++		printf("ZFS: unsupported keyformat %ju\n", (uintmax_t)keyformat);
++		return (ENOTSUP);
++	}
++
++	wrapping_key_set = B_TRUE;
++	return (0);
++}
++
 +/*
 + * Unwrap the dataset key.  version 1 authenticates guid, crypto suite and
 + * version (24 bytes of AAD); the original version 0 only authenticated the
@@ -90,7 +182,7 @@ index b0b446b..1690590 100644
 +
 +	if (aes256_gcm_decrypt(wrapping_key, iv, aad, aad_len, wrapped,
 +	    sizeof (plain), plain, mac) != 0) {
-+		printf("ZFS: dataset key unwrap failed - wrong keyfile?\n");
++		printf("ZFS: dataset key unwrap failed - wrong key or passphrase?\n");
 +		return (EACCES);
 +	}
 +
@@ -106,15 +198,18 @@ index b0b446b..1690590 100644
 +	return (0);
 +}
 +
++
 +static int
 +zfs_load_dataset_key(const spa_t *spa, uint64_t dir_obj)
 +{
 +	dnode_phys_t dir, keydn;
 +	uint64_t keyobj = 0, crypt = 0, version = 0, guid = 0;
++	uint64_t keyformat = 0, salt = 0, iters = 0;
 +	uint8_t keydata[DSL_KEY_MASTER_LEN], hmacdata[DSL_KEY_HMAC_LEN];
 +	uint8_t iv[12], mac[16];
 +	uint8_t wrapped[DSL_KEY_WRAPPED_LEN];
-+	int rc;
++	char secret[256];
++	int rc, attempt;
 +
 +	if (objset_get_dnode(spa, spa->spa_mos, dir_obj, &dir) != 0)
 +		return (EIO);
@@ -125,11 +220,6 @@ index b0b446b..1690590 100644
 +
 +	if (keyobj == 0)
 +		return (0);
-+
-+	if (!wrapping_key_set) {
-+		printf("ZFS: encrypted dataset found, but no key was supplied\n");
-+		return (EACCES);
-+	}
 +
 +	if (objset_get_dnode(spa, spa->spa_mos, keyobj, &keydn) != 0) {
 +		printf("ZFS: can't read the dataset key object\n");
@@ -152,24 +242,66 @@ index b0b446b..1690590 100644
 +	if (rc == 0)
 +		rc = zap_lookup(spa, &keydn, "DSL_CRYPTO_MAC", 1, sizeof (mac),
 +		    mac);
-+	/* version 0 predates the field, so a failed lookup means 0 */
-+	(void) zap_lookup(spa, &keydn, "DSL_CRYPTO_VERSION", sizeof (version),
-+	    1, &version);
 +	if (rc != 0) {
 +		printf("ZFS: can't read the dataset key object (%d)\n", rc);
 +		return (rc);
 +	}
 +
++	/* version 0 predates the field, so a failed lookup means 0 */
++	(void) zap_lookup(spa, &keydn, "DSL_CRYPTO_VERSION", sizeof (version),
++	    1, &version);
++
++	/* passphrases additionally carry the keyformat and PBKDF2 parameters */
++	(void) zap_lookup(spa, &keydn, "keyformat", sizeof (keyformat), 1,
++	    &keyformat);
++	(void) zap_lookup(spa, &keydn, "pbkdf2salt", sizeof (salt), 1, &salt);
++	(void) zap_lookup(spa, &keydn, "pbkdf2iters", sizeof (iters), 1,
++	    &iters);
++
 +	memcpy(wrapped, keydata, sizeof (keydata));
 +	memcpy(wrapped + sizeof (keydata), hmacdata, sizeof (hmacdata));
 +
-+	return (zfs_unwrap_dataset_key(wrapped, iv, mac, crypt, version, guid));
++	for (attempt = 0; attempt < 3; attempt++) {
++		if (!wrapping_key_set) {
++			int got;
++
++			if (key_provider == NULL) {
++				printf("ZFS: encrypted dataset found, but no "
++				    "key was supplied\n");
++				return (EACCES);
++			}
++
++			got = key_provider(secret, sizeof (secret),
++			    key_provider_priv);
++			if (got != 0) {
++				printf("ZFS: no key entered\n");
++				return (EACCES);
++			}
++
++			rc = zfs_derive_wrapping_key(keyformat, salt, iters,
++			    secret, strlen(secret));
++			if (rc != 0)
++				return (rc);
++		}
++
++		rc = zfs_unwrap_dataset_key(wrapped, iv, mac, crypt, version,
++		    guid);
++		if (rc != EACCES || key_provider == NULL)
++			return (rc);
++
++		/* wrong key: let the provider ask again */
++		wrapping_key_set = B_FALSE;
++		printf("ZFS: wrong passphrase/key, try again\n");
++	}
++
++	return (EACCES);
 +}
++
 +
  /*
   * Find the object set given the object number of its dataset object
   * and return its details in *objset
-@@ -3624,6 +3780,9 @@ zfs_mount_dataset(const spa_t *spa, uint64_t objnum, objset_phys_t *objset,
+@@ -3624,6 +3912,9 @@ zfs_mount_dataset(const spa_t *spa, uint64_t objnum, objset_phys_t *objset,
  	}
  
  	ds = (dsl_dataset_phys_t *)&dataset.dn_bonus;
@@ -179,11 +311,96 @@ index b0b446b..1690590 100644
  	if (zio_read(spa, &ds->ds_bp, objset)) {
  		printf("ZFS: can't read object set for dataset %ju\n",
  		    (uintmax_t)objnum);
+diff --git a/src/zfs.c b/src/zfs.c
+index 1888a4a..e87e8f2 100644
+--- a/src/zfs.c
++++ b/src/zfs.c
+@@ -72,6 +72,70 @@ typedef struct {
+ 
+ static volume* volumes = NULL;
+ 
++/*
++ * Typed key at boot.  Firmware console input is the only keyboard the driver
++ * has (Quibble's graphical console has no input protocol), so the prompt goes
++ * to ConOut and the person at the machine types the passphrase there.  The
++ * engine calls this only when the pool's dataset is encrypted and no key was
++ * handed in, and calls it again if the key does not verify.
++ */
++static int
++efi_get_key(char* buf, size_t buflen, void* priv) {
++    static const char prompt[] = "ZFS: dataset is encrypted - enter key/passphrase: ";
++    EFI_INPUT_KEY key;
++    EFI_STATUS status;
++    CHAR16 wbuf[128];
++    size_t n = 0, i;
++
++    (void)priv;
++
++    for (i = 0; prompt[i] && i < 127; i++)
++        wbuf[i] = (CHAR16)(unsigned char)prompt[i];
++    wbuf[i] = 0;
++    systable->ConOut->OutputString(systable->ConOut, wbuf);
++
++    if (systable->ConIn->Reset)
++        systable->ConIn->Reset(systable->ConIn, FALSE);
++
++    for (;;) {
++        do {
++            status = systable->ConIn->ReadKeyStroke(systable->ConIn, &key);
++            if (status == EFI_NOT_READY)
++                bs->Stall(10000);
++        } while (status == EFI_NOT_READY);
++
++        if (status != EFI_SUCCESS)
++            return -1;
++
++        if (key.UnicodeChar == L'\r' || key.UnicodeChar == L'\n')
++            break;
++
++        if (key.UnicodeChar == 8) {
++            if (n > 0) {
++                n--;
++                systable->ConOut->OutputString(systable->ConOut, L"\b \b");
++            }
++            continue;
++        }
++
++        if (key.UnicodeChar < 0x20 || key.UnicodeChar > 0x7e)
++            continue;
++        if (n + 1 >= buflen)
++            continue;
++
++        buf[n++] = (char)key.UnicodeChar;
++        wbuf[0] = L'*';
++        wbuf[1] = 0;
++        systable->ConOut->OutputString(systable->ConOut, wbuf);
++    }
++
++    systable->ConOut->OutputString(systable->ConOut, L"\r\n");
++    buf[n] = 0;
++
++    return n != 0 ? 0 : -1;
++}
++
++
+ #define CONTAINER(ptr, type, field) ((type*)((uint8_t*)(ptr) - offsetof(type, field)))
+ 
+ #ifdef ZFS_TRACE
+@@ -896,6 +960,9 @@ EFI_STATUS EFIAPI efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE* SystemTable
+     get_info_protocol(ImageHandle);
+ 
+     rc = zfse_init();
++
++    /* ask at the console when an encrypted dataset needs a key */
++    (void) zfse_set_key_provider(efi_get_key, NULL);
+     tracep("zfs: init rc %d\n",rc);
+     if (rc != 0) {
+         zfs_print("Could not initialize the ZFS reader.\n");
 diff --git a/src/zfsengine.c b/src/zfsengine.c
-index d3545f1..4477b4b 100644
+index d3545f1..d35f939 100644
 --- a/src/zfsengine.c
 +++ b/src/zfsengine.c
-@@ -174,6 +174,22 @@ zfse_pool_init(struct zfse_pool* pool)
+@@ -174,6 +174,31 @@ zfse_pool_init(struct zfse_pool* pool)
      return pool->init_rc;
  }
  
@@ -192,6 +409,15 @@ index d3545f1..4477b4b 100644
 + * bytes).  Must be called before zfse_mount() so the reader can unwrap the
 + * dataset key while opening it.
 + */
++int
++zfse_set_key_provider(zfse_key_provider_fn fn, void* priv)
++{
++    extern void zfs_set_key_provider(zfse_key_provider_fn, void*);
++
++    zfs_set_key_provider(fn, priv);
++    return 0;
++}
++
 +int
 +zfse_set_wrapping_key(const uint8_t* key, size_t len)
 +{
@@ -207,15 +433,25 @@ index d3545f1..4477b4b 100644
  zfse_pool_guid(struct zfse_pool* pool)
  {
 diff --git a/src/zfsengine.h b/src/zfsengine.h
-index 73ae290..3d8db34 100644
+index 73ae290..97e6ea5 100644
 --- a/src/zfsengine.h
 +++ b/src/zfsengine.h
-@@ -36,6 +36,8 @@ int zfse_pool_init(struct zfse_pool* pool); /* once all devices have been probed
+@@ -36,6 +36,18 @@ int zfse_pool_init(struct zfse_pool* pool); /* once all devices have been probed
  uint64_t zfse_pool_guid(struct zfse_pool* pool);
  const char* zfse_pool_name(struct zfse_pool* pool);
  int zfse_mount(struct zfse_pool* pool, struct zfse_mount** mnt);
 +/* keyformat=raw: the 32 bytes of the keyfile, before zfse_mount() */
 +int zfse_set_wrapping_key(const uint8_t* key, size_t len);
++
++/*
++ * Ask for a key instead of being handed one: fn writes the typed key material
++ * (passphrase, hex key or 32 raw bytes) into buf and returns 0.  The reader
++ * calls it before mounting an encrypted dataset and re-prompts when the key is
++ * wrong.  The EFI driver registers a console prompt here; host builds can
++ * register something scripted.
++ */
++typedef int (*zfse_key_provider_fn)(char* buf, size_t buflen, void* priv);
++int zfse_set_key_provider(zfse_key_provider_fn fn, void* priv);
  void zfse_unmount(struct zfse_mount* mnt);
  int zfse_open(struct zfse_mount* mnt, const char* path, struct zfse_file** f);
  void zfse_close(struct zfse_file* f);
