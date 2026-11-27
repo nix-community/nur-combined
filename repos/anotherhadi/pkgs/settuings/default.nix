@@ -2,38 +2,28 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-  installShellFiles,
   versionCheckHook,
 }:
 buildGoModule (finalAttrs: {
   pname = "settuings";
-  version = "0.1.0";
+  version = "0.2.1";
 
   src = fetchFromGitHub {
     owner = "anotherhadi";
     repo = "settuings";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-j5lY0pdQmKQmZ+PYioa9rYxPS8SUENar5rSWdbBLY9c=";
+    hash = "sha256-Vpkzs84NSerl/7QDIWGNUDuKCXc7A/dkCglaTV2idGM=";
   };
 
-  vendorHash = "sha256-EPbAZPJ0ZdfKqS7JNvjfRkdhRKD5F+epqBpOrPoT3S4=";
+  vendorHash = "sha256-BndE5rJ33aARDmoJPu/POxSsnezXg2D1GC23VGz0IWQ=";
 
   subPackages = ["cmd/settuings"];
 
   ldflags = [
     "-s"
     "-w"
-    "-X main.version=${finalAttrs.version}"
+    "-X github.com/anotherhadi/settuings/internal/config.Version=${finalAttrs.version}"
   ];
-
-  nativeBuildInputs = [installShellFiles];
-
-  postInstall = ''
-    installShellCompletion --cmd settuings \
-      --bash <($out/bin/settuings completion bash) \
-      --zsh <($out/bin/settuings completion zsh) \
-      --fish <($out/bin/settuings completion fish)
-  '';
 
   nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
