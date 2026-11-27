@@ -6,13 +6,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "spilltea";
-  version = "0.1.0";
+  version = "0.1.2";
 
   src = fetchFromGitHub {
     owner = "anotherhadi";
     repo = "spilltea";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-9r4EN2+CQ0WCv+Ih0l7nwh58wUaDPOn9z9q0bw/70Xg=";
+    hash = "sha256-uvNR5kwCIJPRolGFgFwvcGk/+FDE+6s5LFmjLYf9Kpc=";
   };
 
   vendorHash = "sha256-sU2Z6U2v/Qz6YLPEN5dPPmlXwLXRnpE6aSMnh+GTMSI=";

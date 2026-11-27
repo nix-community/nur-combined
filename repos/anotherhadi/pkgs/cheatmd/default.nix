@@ -7,16 +7,16 @@
 }:
 buildGoModule rec {
   pname = "cheatmd";
-  version = "1.0.0";
+  version = "1.0.1";
 
   src = fetchFromGitHub {
     owner = "cheatmd-dev";
     repo = "cheatmd";
     rev = "v${version}";
-    hash = "sha256-939bFkzQcaUH7J8l+C0CkooCvV15MRmYmpOnRgei4LQ=";
+    hash = "sha256-fZU70s6luiraNruW9EDFXQISPuoyCaZQ+kgmHUp8u5k=";
   };
 
-  vendorHash = "sha256-C3E64LYi5ReqQT9WcN8KFhi3oUkenfXf/1Y/s/sb4Mg=";
+  vendorHash = "sha256-ta5KLc8jILY92e8/JzTnW4V/F8eeZSGrobqw6pqMv90=";
 
   subPackages = ["cmd/cheatmd"];
 
