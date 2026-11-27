@@ -1,0 +1,55 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -32,3 +32,4 @@ set(SRC_FILES src/apiset.cpp
+     src/misc.cpp
+     src/compat.cpp
++    src/setjmp.S
+     src/peload.cpp
+diff --git a/src/print.cpp b/src/print.cpp
+--- a/src/print.cpp
++++ b/src/print.cpp
+@@ -619,26 +619,0 @@ void FT_Done_Memory(FT_Memory memory) {
+-#ifdef __x86_64__
+-
+-extern "C"
+-void __imp_longjmp(jmp_buf, int) {
+-    abort();
+-}
+-
+-#elif defined(_X86_)
+-
+-extern "C"
+-void _imp__longjmp(jmp_buf, int) {
+-    abort();
+-}
+-
+-#endif
+-
+-extern "C"
+-int _setjmp(jmp_buf, void*) {
+-    return 0;
+-}
+-
+-extern "C"
+-int _setjmp3(jmp_buf, void*) {
+-    return 0;
+-}
+-
+@@ -649,15 +623,0 @@ extern "C"
+-
+-extern "C"
+-char* strrchr(const char*, int) {
+-    abort();
+-}
+-
+-extern "C"
+-char* strncpy(char*, const char*, size_t) {
+-    abort();
+-}
+-
+-extern "C"
+-unsigned long strtoul(const char*, char**, int) {
+-    abort();
+-}
+-

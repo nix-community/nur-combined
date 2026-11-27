@@ -36,22 +36,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   buildPhase = ''
     runHook preBuild
 
-    export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
-    export CFFIXED_USER_HOME=$HOME
-    # Host clang/swift must not inherit Nix's purity flags.
-    unset NIX_ENFORCE_PURITY NIX_CFLAGS_COMPILE NIX_LDFLAGS NIX_CC NIX_CXX LD CC CXX OBJC OBJCXX
-
-    export PATH="$DEVELOPER_DIR/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin''${PATH:+:$PATH}"
+    ${xcodeSandbox.envWithPath}
 
     # Xcode attaches the system Metal toolchain disk image inside $HOME to
     # compile the Icon Composer app icon. Left attached, it keeps Nix from
     # deleting the build directory, so detach it on exit (also on failure).
-    detach_metal_toolchain() {
-      for mountpoint in "$HOME"/Library/Developer/DVTDownloads/MetalToolchain/mounts/*; do
-        [ -d "$mountpoint" ] || continue
-        /usr/bin/hdiutil detach -quiet "$mountpoint" || true
-      done
-    }
+    ${xcodeSandbox.detachMetalToolchain}
     trap detach_metal_toolchain EXIT
 
     # Xcode's "Run Script (Updater)" phase only copies an existing binary and

@@ -239,5 +239,7 @@ libreoffice.unwrapped.overrideAttrs (old: {
     platforms = lib.platforms.darwin;
     sourceProvenance = [ lib.sourceTypes.fromSource ];
     mainProgram = "soffice";
+    # Building needs the host Xcode, which no Nix builder provides.
+    hydraPlatforms = [ ];
   };
 })

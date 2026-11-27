@@ -153,12 +153,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   buildPhase = ''
     runHook preBuild
 
-    export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
-    # Foundation resolves the home directory from the account database, which
-    # points at /var/empty inside a Nix build; CFFIXED_USER_HOME overrides it.
-    export CFFIXED_USER_HOME=$HOME
-    unset NIX_ENFORCE_PURITY NIX_CFLAGS_COMPILE NIX_LDFLAGS NIX_CC NIX_CXX LD CC CXX OBJC OBJCXX
-    export PATH="$DEVELOPER_DIR/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin''${PATH:+:$PATH}"
+    ${xcodeSandbox.envWithPath}
 
     # Xcode 26's metal driver cannot find the downloaded Metal Toolchain when
     # xcodebuild runs it (Apple bug); the compiler in the mounted toolchain
@@ -220,14 +215,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     # The Metal toolchain is attached as a disk image and would otherwise keep
     # the build directory from being deleted.
-    detach_metal_toolchain() {
-      [ -d "$metal_mount" ] && /usr/bin/hdiutil detach -quiet "$metal_mount" || true
-      for mountpoint in "$HOME"/Library/Developer/DVTDownloads/MetalToolchain/mounts/*; do
-        [ -d "$mountpoint" ] || continue
-        /usr/bin/hdiutil detach -quiet "$mountpoint" || true
-      done
-    }
-    trap detach_metal_toolchain EXIT
+    ${xcodeSandbox.detachMetalToolchain}
+    trap 'detach_metal_toolchain "$metal_mount"' EXIT
 
     ./Scripts/build_utm.sh -k macosx -s macOS -a "${arch}" -o "$PWD/UTM-out"
 

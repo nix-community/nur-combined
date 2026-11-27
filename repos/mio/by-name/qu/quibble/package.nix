@@ -14,7 +14,7 @@
 let
   version = "20230328-unstable-2024-06-23";
   rev = "7402412537678e46f40613a7a4a73644a2d0f68c";
-  mingw = pkgsCross.mingwW64;
+  mingw = pkgsCross.mingw-msvcrt-x86_64;
   src = fetchFromGitHub {
     owner = "maharmstone";
     repo = "quibble";
@@ -39,14 +39,20 @@ mingw.stdenv.mkDerivation {
 
   hardeningDisable = [ "all" ];
 
-  patches = [ ./mingw-amd64-nix.patch ];
+  patches = [
+    ./mingw-amd64-nix.patch
+    ./setjmp-amd64-nix.patch
+  ];
 
   # The UEFI image is built freestanding, without mingw's CRT or default
-  # libraries. FreeType and HarfBuzz then import the non-va_list printf entry
-  # points, and FreeType references longjmp; upstream's print.cpp only supplies
-  # the va_list forms and __imp_ aliases, so this shim covers the rest.
+  # libraries.  FreeType needs a real setjmp/longjmp for its raster-overflow and
+  # validator recovery paths; setjmp.S saves the full Windows x64 jmp_buf
+  # state.  compat.cpp supplies the libc string entry points and the non-va_list
+  # printf aliases referenced by FreeType/HarfBuzz (the va_list formatting
+  # backends remain upstream's deliberate stubs).
   postPatch = ''
     cp ${./compat.cpp} src/compat.cpp
+    cp ${./setjmp.S} src/setjmp.S
   '';
 
   cmakeFlags = [

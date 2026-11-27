@@ -165,13 +165,13 @@ stdenv.mkDerivation {
     # is Xcode's clang, as in upstream's Darwin build. System tools such as
     # xcrun, codesign and ditto live in /usr/bin.
     export PATH="$PATH:/usr/bin:/bin:/usr/sbin:/sbin"
-    export CC="$DEVELOPER_DIR/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang"
-    export CXX="$DEVELOPER_DIR/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++"
     export HOME=$TMPDIR
     # Upstream's Darwin build hides pkg-config so LibreOffice uses its bundled
     # libraries instead of whatever happens to be installed.
     export PKG_CONFIG_LIBDIR=/var/empty
     export PKG_CONFIG_PATH=
+    # Dropping stdenv's CC/CXX lets autogen pick Xcode's clang, as upstream's
+    # Darwin build does; OBJC/OBJCXX and LD go with them.
     unset NIX_ENFORCE_PURITY NIX_CFLAGS_COMPILE NIX_LDFLAGS NIX_CC NIX_CXX \
       CC CXX OBJC OBJCXX LD
 
@@ -263,5 +263,7 @@ stdenv.mkDerivation {
     license = lib.licenses.mpl20;
     platforms = [ "aarch64-darwin" ];
     sourceProvenance = [ lib.sourceTypes.fromSource ];
+    # Building needs the host Xcode, which no Nix builder provides.
+    hydraPlatforms = [ ];
   };
 }

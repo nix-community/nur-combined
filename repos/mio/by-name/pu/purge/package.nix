@@ -107,10 +107,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   buildPhase = ''
     runHook preBuild
 
-    export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
-    export CFFIXED_USER_HOME=$HOME
-    # Host clang/swift must not inherit Nix's purity flags.
-    unset NIX_ENFORCE_PURITY NIX_CFLAGS_COMPILE NIX_LDFLAGS NIX_CC NIX_CXX LD CC CXX OBJC OBJCXX
+    ${xcodeSandbox.env}
 
     mkdir -p build/swiftpm
     cp -a ${finalAttrs.passthru.spmDeps}/. build/swiftpm/

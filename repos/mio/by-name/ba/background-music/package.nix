@@ -47,13 +47,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   buildPhase = ''
     runHook preBuild
 
-    export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
-    export CFFIXED_USER_HOME=$HOME
+    ${xcodeSandbox.envWithPath}
     export TERM=xterm-256color
 
-    # Host Xcode must not inherit the Nix toolchain or SDK wrappers.
-    unset SDKROOT NIX_ENFORCE_PURITY NIX_CFLAGS_COMPILE NIX_LDFLAGS NIX_CC NIX_CXX LD CC CXX OBJC OBJCXX
-    export PATH="$DEVELOPER_DIR/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin''${PATH:+:$PATH}"
+    # stdenv points SDKROOT at nixpkgs' SDK; upstream's script wants Xcode's.
+    unset SDKROOT
 
     /bin/bash ./build_and_install.sh \
       -b \
@@ -143,5 +141,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mainProgram = "background-music";
     platforms = lib.platforms.darwin;
     sourceProvenance = [ lib.sourceTypes.fromSource ];
+    # Building needs the host Xcode, which no Nix builder provides.
+    hydraPlatforms = [ ];
   };
 })
