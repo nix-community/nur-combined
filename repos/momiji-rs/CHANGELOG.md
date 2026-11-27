@@ -11,6 +11,19 @@ Conformance is tracked separately as a ratchet against the official
 
 ## [Unreleased]
 
+## [0.22.0] - 2026-11-27
+
+_Sass at Rust compile time, and no more process aborts on deep stylesheets.
+`sasso::include!("style.scss")`, behind the new `macro` feature, expands to
+the compiled CSS with no `build.rs`; for it the compiler moved into a new
+`sasso-core` crate, which `sasso` re-exports unchanged (#305). Runaway
+recursion, deeply nested values and trees built in a loop now fail with
+`Stack Overflow` instead of aborting the process (#308, #312, #314). Module
+values arrive with `meta.get-module()` (#281), and `@extend` across media
+queries draws dart 1.105.1's errors (#282). Several hot paths stop copying
+or rescanning: `map.get`, list builtins, `@use … as *` lookups, `@extend`
+inside `@media`._
+
 ### Added
 
 - **`sasso::include!`: compile Sass at Rust compile time** (#305), behind the
@@ -4418,7 +4431,8 @@ real-world SCSS byte-identically to dart-sass.
 - Distribution: CLI binary (prebuilt via cargo-dist), library crate, and a
   zero-dependency WebAssembly build published to npm as `@momiji-rs/sasso`.
 
-[Unreleased]: https://github.com/momiji-rs/sasso/compare/v0.21.0...HEAD
+[Unreleased]: https://github.com/momiji-rs/sasso/compare/v0.22.0...HEAD
+[0.22.0]: https://github.com/momiji-rs/sasso/compare/v0.21.0...v0.22.0
 [0.21.0]: https://github.com/momiji-rs/sasso/compare/v0.20.0...v0.21.0
 [0.20.0]: https://github.com/momiji-rs/sasso/compare/v0.19.3...v0.20.0
 [0.19.3]: https://github.com/momiji-rs/sasso/compare/v0.19.2...v0.19.3

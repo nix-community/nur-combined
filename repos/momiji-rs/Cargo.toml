@@ -182,7 +182,7 @@ exclude = ["wasm", "ffi", "napi"]
 # binary reaches into `sasso-core`'s unexported path rules, so they are only
 # ever released together. Bump `version` and every `=` pin below as one.
 [workspace.package]
-version = "0.21.0"
+version = "0.22.0"
 edition = "2021"
 rust-version = "1.74"
 license = "MIT OR Apache-2.0"
@@ -190,8 +190,8 @@ homepage = "https://github.com/momiji-rs/sasso"
 repository = "https://github.com/momiji-rs/sasso"
 
 [workspace.dependencies]
-sasso-core = { path = "core", version = "=0.21.0" }
-sasso-macros = { path = "macros", version = "=0.21.0" }
+sasso-core = { path = "core", version = "=0.22.0" }
+sasso-macros = { path = "macros", version = "=0.22.0" }
 
 [workspace.lints.rust]
 unsafe_code = "deny"

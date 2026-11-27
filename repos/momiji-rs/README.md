@@ -283,7 +283,7 @@ the compiler stays out of your binary:
 
 ```toml
 [dependencies]
-sasso = { version = "0.21", default-features = false, features = ["macro"] }
+sasso = { version = "0.22", default-features = false, features = ["macro"] }
 ```
 
 ```rust

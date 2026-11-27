@@ -4,7 +4,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! sasso = { version = "0.21", features = ["macro"] }
+//! sasso = { version = "0.22", features = ["macro"] }
 //! ```
 //!
 //! ```ignore

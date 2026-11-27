@@ -5,9 +5,9 @@ name: Publish crate
 # (OIDC) — no CARGO_REGISTRY_TOKEN secret is stored.
 #
 # Three crates since #305: `sasso-core` (the compiler), `sasso-macros`
-# (`include!`) and `sasso`, which re-exports both. The workspace's
-# `default-members` lists all three, so the bare `cargo publish` below
-# publishes them together, in dependency order. Trusted Publishing is set up
+# (`include!`) and `sasso`, which re-exports both, all on one version. The
+# publish step below uploads them in that order and skips any version
+# crates.io already has (see the step for why). Trusted Publishing is set up
 # per crate: `sasso-core` and `sasso-macros` each need the same publisher
 # entry as `sasso`, which crates.io only offers once a crate exists — so their
 # first version goes up by hand with a token, as `sasso` 0.1.0 did.
@@ -49,7 +49,30 @@ jobs:
       - name: mint crates.io token (OIDC)
         uses: rust-lang/crates-io-auth-action@v1
         id: auth
+      # One crate at a time, in dependency order, skipping a version crates.io
+      # already has. A bare `cargo publish` of the workspace checks every
+      # crate before uploading any and stops at the first that exists, so
+      # neither a crate published by hand (the first `sasso-core` and
+      # `sasso-macros`) nor a run that died after uploading `sasso-core` could
+      # ever be finished by re-running. `cargo publish -p` waits until the
+      # index serves the crate before returning, so the next one resolves it.
       - name: cargo publish
-        run: cargo publish
+        run: |
+          set -euo pipefail
+          version=$(cargo metadata --no-deps --format-version 1 \
+            | jq -r '.packages[] | select(.name == "sasso") | .version')
+          for crate in sasso-core sasso-macros sasso; do
+            status=$(curl -sS -o /dev/null -w '%{http_code}' \
+              -A 'momiji-rs/sasso release-crate.yml' \
+              "https://crates.io/api/v1/crates/$crate/$version")
+            case "$status" in
+              200) echo "$crate $version is already on crates.io; skipping" ;;
+              404) cargo publish -p "$crate" ;;
+              *)
+                echo "::error::crates.io answered HTTP $status for $crate $version"
+                exit 1
+                ;;
+            esac
+          done
         env:
           CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token }}
