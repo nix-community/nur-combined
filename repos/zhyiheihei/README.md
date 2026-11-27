@@ -55,7 +55,7 @@ Build artifacts are cached in the Attic binary cache:
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-| - [ ] |  | `ai-usagebar` | [ai-usagebar](https://github.com/akitaonrails/ai-usagebar) | 1.55.0 | Multi-provider AI plan usage widget, CLI and TUI |
+| - [ ] |  | `ai-usagebar` | [ai-usagebar](https://github.com/akitaonrails/ai-usagebar) | 1.55.1 | Multi-provider AI plan usage widget, CLI and TUI |
 | - [x] |  | `aioshutil` | [aioshutil](https://github.com/kumaraditya303/aioshutil) | 1.7a1 | Asynchronous shutil module |
 | - [x] |  | `cn2an` | [cn2an](https://github.com/Ailln/cn2an) | 0.5.24 | Convert Chinese numerals and Arabic numerals |
 | - [x] |  | `docker-proxy` | [docker-proxy](https://github.com/dqzboy/Docker-Proxy) | 5.1.9 | Self-hosted Docker registry proxy with host-based upstream routing |
@@ -76,7 +76,7 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] | `x86_64-linux` | `qingjian` | [qingjian](https://qingjian.app) | 0.3.4 | Pinyin input method with translation hints for language learners |
 | - [ ] |  | `rtkbt` | [rtkbt](https://github.com/radxa/rtkbt) | 2022-06-07 | Realtek Bluetooth UART attach tool and RTL8852BS firmware |
 | - [x] |  | `sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.3.1 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
-| - [x] |  | `sun-panel` | [sun-panel](https://github.com/hslr-s/sun-panel) | 1.8.1 | Server and NAS navigation panel, homepage, browser homepage |
+| - [x] |  | `sun-panel` | [sun-panel](https://github.com/hslr-s/sun-panel) | 2.0.2 | Server and NAS navigation panel, homepage, browser homepage |
 | - [x] |  | `tachidesk-server` | [tachidesk-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.4.2373 | Self-hosted manga reader and aggregator server |
 | - [x] |  | `telegramify-markdown` | [telegramify-markdown](https://github.com/sudoskys/telegramify-markdown) | 1.4.1 | Convert Markdown to Telegram plain text and entities |
 | - [ ] |  | `torrentool` | [torrentool](https://github.com/idlesign/torrentool) | 1.3.0 | Tool to work with torrent files |
@@ -112,7 +112,7 @@ Build artifacts are cached in the Attic binary cache:
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-| - [ ] |  | `uncategorized.ai-usagebar` | [ai-usagebar](https://github.com/akitaonrails/ai-usagebar) | 1.55.0 | Multi-provider AI plan usage widget, CLI and TUI |
+| - [ ] |  | `uncategorized.ai-usagebar` | [ai-usagebar](https://github.com/akitaonrails/ai-usagebar) | 1.55.1 | Multi-provider AI plan usage widget, CLI and TUI |
 | - [ ] |  | `uncategorized.docker-proxy` | [docker-proxy](https://github.com/dqzboy/Docker-Proxy) | 5.1.9 | Self-hosted Docker registry proxy with host-based upstream routing |
 | - [ ] |  | `uncategorized.docker-proxy-hubcmdui` | [docker-proxy-hubcmdui](https://github.com/dqzboy/Docker-Proxy) | 5.1.9 | Web management panel for the Docker-Proxy registry proxy |
 | - [ ] |  | `uncategorized.epd-food-server` | [epd-food-server](https://github.com/zhyiheihei/EPD-Dashboard) | 0.1.0 | 家庭食品存储看板服务端（REST API + PostgreSQL + BLE 推送） |
@@ -126,7 +126,7 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] | `x86_64-linux` | `uncategorized.qingjian` | [qingjian](https://qingjian.app) | 0.3.4 | Pinyin input method with translation hints for language learners |
 | - [ ] |  | `uncategorized.rtkbt` | [rtkbt](https://github.com/radxa/rtkbt) | 2022-06-07 | Realtek Bluetooth UART attach tool and RTL8852BS firmware |
 | - [ ] |  | `uncategorized.sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.3.1 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
-| - [ ] |  | `uncategorized.sun-panel` | [sun-panel](https://github.com/hslr-s/sun-panel) | 1.8.1 | Server and NAS navigation panel, homepage, browser homepage |
+| - [ ] |  | `uncategorized.sun-panel` | [sun-panel](https://github.com/hslr-s/sun-panel) | 2.0.2 | Server and NAS navigation panel, homepage, browser homepage |
 | - [ ] |  | `uncategorized.tachidesk-server` | [tachidesk-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.4.2373 | Self-hosted manga reader and aggregator server |
 | - [ ] |  | `uncategorized.vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 5.0.16 | Lightweight S3-compatible object storage with built-in web dashboard |
 | - [ ] |  | `uncategorized.vertex` | [vertex](https://github.com/vertex-center/vertex) | 0.17.0 | Self-hosted lab manager for one-click container service installation |

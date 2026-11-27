@@ -13,12 +13,12 @@
             "name": null,
             "owner": "akitaonrails",
             "repo": "ai-usagebar",
-            "rev": "v1.55.0",
-            "sha256": "sha256-d+A1ooFvZs6YXJCRi8fV6kSC9nOUUDzGCFWfQ2Cx7z4=",
+            "rev": "v1.55.1",
+            "sha256": "sha256-LNS154zSHYhZF59eH4L1ohE+m77GGpD3rlCSJNjlvHk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.55.0"
+        "version": "v1.55.1"
     },
     "aioshutil": {
         "cargoLock": null,
@@ -404,12 +404,12 @@
             "name": null,
             "owner": "hslr-s",
             "repo": "sun-panel",
-            "rev": "v1.8.1",
-            "sha256": "sha256-tdjNcCKZadKQQ/sZuEY43rhKea5Z1zZHesq87ACSC44=",
+            "rev": "v2.0.2",
+            "sha256": "sha256-hJidQ56Jbdj702yMCsIIMYxb4Z7DFazxxMoaGWOOYUI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.8.1"
+        "version": "v2.0.2"
     },
     "tachidesk-server": {
         "cargoLock": null,

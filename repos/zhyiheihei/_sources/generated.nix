@@ -8,12 +8,12 @@
 {
   ai-usagebar = {
     pname = "ai-usagebar";
-    version = "v1.55.0";
+    version = "v1.55.1";
     src = fetchFromGitHub {
       owner = "akitaonrails";
       repo = "ai-usagebar";
-      tag = "v1.55.0";
-      hash = "sha256-d+A1ooFvZs6YXJCRi8fV6kSC9nOUUDzGCFWfQ2Cx7z4=";
+      tag = "v1.55.1";
+      hash = "sha256-LNS154zSHYhZF59eH4L1ohE+m77GGpD3rlCSJNjlvHk=";
     };
   };
   aioshutil = {
@@ -204,12 +204,12 @@
   };
   sun-panel = {
     pname = "sun-panel";
-    version = "v1.8.1";
+    version = "v2.0.2";
     src = fetchFromGitHub {
       owner = "hslr-s";
       repo = "sun-panel";
-      tag = "v1.8.1";
-      hash = "sha256-tdjNcCKZadKQQ/sZuEY43rhKea5Z1zZHesq87ACSC44=";
+      tag = "v2.0.2";
+      hash = "sha256-hJidQ56Jbdj702yMCsIIMYxb4Z7DFazxxMoaGWOOYUI=";
     };
   };
   tachidesk-server = {

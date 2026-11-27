@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage {
   pname = "ai-usagebar";
   inherit src version;
 
-  cargoHash = "sha256-oyMSYS6ickUekoFSa/z8hMsYpni6SUq9yiKXpwzK5jg=";
+  cargoHash = "sha256-CjE4HCGq2xbXm8FBThNf5Xv3TEKesPaofcRAe9aGosw=";
 
   # Upstream's suite shells out to a system `tar` and snapshot files that the
   # sandbox does not provide; package builds only need the two binaries.
