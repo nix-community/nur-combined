@@ -7,7 +7,7 @@
   curl,
   cmake,
   swift,
-  apple-sdk_15,
+  apple-sdk_27,
   openjdk21,
   capstone,
   libpng,
@@ -18,6 +18,7 @@
   zip,
   unzip,
   python3,
+  coreutils,
   darwin,
   rsync,
   writeShellApplication,
@@ -48,10 +49,82 @@ let
           "https://android.googlesource.com/platform/frameworks/base/+archive/refs/tags/android-16.0.0_r2/core/res.tar.gz" \
           | tar -xzf - -C "$out"
       '';
+
+  relinkNixDeps = writeShellApplication {
+    name = "relink-nix-deps";
+    runtimeInputs = [
+      darwin.cctools
+      darwin.sigtool
+    ];
+    text = ''
+      set -euo pipefail
+
+      project_dir="$(cd "$(dirname "$0")/.." && pwd)"
+      app="$project_dir/build/Mac.apk.app"
+      bin="$app/Contents/bin"
+
+      rewrite_dependency() {
+        target="$1"
+        pattern="$2"
+        replacement="$3"
+        old="$(otool -L "$target" | awk -v pattern="$pattern" '$1 ~ pattern { print $1; exit }')"
+        if [ -n "$old" ] && [ "$old" != "$replacement" ]; then
+          chmod u+w "$target"
+          install_name_tool -change "$old" "$replacement" "$target"
+        fi
+      }
+
+      for target in "$bin/libmacapk-bionic-shim.dylib" "$bin/macapk-translator"; do
+        rewrite_dependency "$target" 'libcapstone' '@rpath/libcapstone.5.dylib'
+        codesign --force --sign - --timestamp=none "$target"
+      done
+
+      png="$bin/libpng16.16.dylib"
+      rewrite_dependency "$png" 'libz(\\.|$)' '/usr/lib/libz.1.dylib'
+      codesign --force --sign - --timestamp=none "$png"
+    '';
+  };
+
+  dittoWrapper = writeShellApplication {
+    name = "ditto";
+    runtimeInputs = [ coreutils ];
+    text = ''
+      set -euo pipefail
+      src="$1"
+      dst="$2"
+      if [ -d "$src" ]; then
+        rm -rf "$dst"
+        cp -pR "$src" "$dst"
+      else
+        mkdir -p "$(dirname "$dst")"
+        rm -f "$dst"
+        cp -pf "$src" "$dst"
+      fi
+    '';
+  };
+
+  codesignWrapper = writeShellApplication {
+    name = "codesign";
+    text = ''
+      exec /usr/bin/codesign "$@"
+    '';
+  };
+
+  plutilWrapper = writeShellApplication {
+    name = "plutil";
+    runtimeInputs = [ python3 ];
+    text = ''
+      exec python3 ${./files/plutil.py} "$@"
+    '';
+  };
 in
 clangStdenv.mkDerivation {
   pname = "mac-apk";
   inherit version;
+
+  # Upstream's macOS 26 launcher uses SwiftUI macros supplied by the host
+  # Xcode toolchain; nixpkgs' Swift SDK does not include their plugin.
+  __noChroot = clangStdenv.hostPlatform.isDarwin;
 
   src = fetchFromGitHub {
     owner = "kksimp";
@@ -59,11 +132,6 @@ clangStdenv.mkDerivation {
     tag = "v${version}";
     hash = "sha256-y/XO7UYJ/gX8uK3YIb3hWNYVf4PleiC5TX3leE26fUw=";
   };
-
-  patches = [
-    ./macos15-nix.patch
-    ./stack-chk-fail-no-recovery-frame.patch
-  ];
 
   dontUseCmakeConfigure = true;
 
@@ -81,7 +149,7 @@ clangStdenv.mkDerivation {
   ];
 
   buildInputs = [
-    apple-sdk_15
+    apple-sdk_27
     openjdk21
     capstone
     libpng
@@ -91,102 +159,45 @@ clangStdenv.mkDerivation {
   ];
 
   postPatch = ''
-    patchShebangs scripts runtime/scripts debug
-    substituteInPlace scripts/build_launcher.sh \
-      --replace-fail '/usr/bin/env python3' 'python3' \
-      --replace-fail 'mktemp -t macapk_bundle_audit' 'mktemp -t macapk_bundle_audit.XXXXXX'
-    substituteInPlace runtime/scripts/build.sh \
-      --replace-fail '/tmp/macapk_ent_err.txt' '"$TMPDIR/macapk_ent_err.txt"' \
-      --replace-fail 'mktemp -t macapk_sync_audit' 'mktemp -t macapk_sync_audit.XXXXXX'
+        patchShebangs scripts runtime/scripts debug
+        substituteInPlace scripts/build_launcher.sh \
+          --replace-warn '/usr/bin/env python3' 'python3' \
+          --replace-warn 'mktemp -t macapk_bundle_audit' 'mktemp -t macapk_bundle_audit.XXXXXX' \
+          --replace-warn 'swiftc ' 'swiftc -Xfrontend -disable-sandbox '
+        substituteInPlace runtime/scripts/build.sh \
+          --replace-warn '/usr/bin/python3' 'python3' \
+          --replace-warn '/tmp/macapk_ent_err.txt' '"$TMPDIR/macapk_ent_err.txt"' \
+          --replace-warn 'mktemp -t macapk_sync_audit' 'mktemp -t macapk_sync_audit.XXXXXX' \
+          --replace-warn '[[ -f /opt/homebrew/opt/capstone/include/capstone/capstone.h ]]' '[[ -f "''${CAPSTONE_ROOT:-/opt/homebrew/opt/capstone}/include/capstone/capstone.h" ]]'
+        substituteInPlace scripts/gen_third_party_notices.sh \
+          --replace-warn 'CAP_KEG="$(ls -d /opt/homebrew/Cellar/capstone/*/ 2>/dev/null | sort -V | tail -1)"' 'CAP_KEG="$( (ls -d /opt/homebrew/Cellar/capstone/*/ 2>/dev/null || true) | sort -V | tail -1 )"' \
+          --replace-warn 'PNG_KEG="$(ls -d /opt/homebrew/Cellar/libpng/*/ 2>/dev/null | sort -V | tail -1)"' 'PNG_KEG="$( (ls -d /opt/homebrew/Cellar/libpng/*/ 2>/dev/null || true) | sort -V | tail -1 )"' \
+          --replace-warn '2>/dev/null && pwd -P' '2>/dev/null && pwd -P || true' \
+          --replace-warn '$(keg brotli)/LICENSE' '$(first "$(keg brotli)/LICENSE")'
+        substituteInPlace scripts/relink_bundle_deps.sh \
+          --replace-warn 'CAPSTONE_SRC="/opt/homebrew/opt/capstone/lib/libcapstone.5.dylib"' 'CAPSTONE_SRC="''${CAPSTONE_SRC:-''${CAPSTONE_ROOT:-/opt/homebrew/opt/capstone}/lib/libcapstone.5.dylib}"' \
+          --replace-warn 'LIBPNG_SRC="/opt/homebrew/opt/libpng/lib/libpng16.16.dylib"' 'LIBPNG_SRC="''${LIBPNG_SRC:-''${LIBPNG_ROOT:-/opt/homebrew/opt/libpng}/lib/libpng16.16.dylib}"'
+        cp ${relinkNixDeps}/bin/relink-nix-deps scripts/relink_nix_deps.sh
+        substituteInPlace scripts/relink_bundle_deps.sh \
+          --replace-warn 'echo "  relink_bundle_deps.sh done"' 'bash "$PROJECT_DIR/scripts/relink_nix_deps.sh"
+    echo "  relink_bundle_deps.sh done"'
 
-    # Provide a pure-shell 'ditto' replacement in PATH for the Nix Darwin sandbox
-    # (where /usr/bin/ditto is not available).
-    mkdir -p "$TMPDIR/bin"
-    cat > "$TMPDIR/bin/ditto" <<'EOF'
-    #!${clangStdenv.shell}
-    set -euo pipefail
-    src="$1"
-    dst="$2"
-    if [ -d "$src" ]; then
-      rm -rf "$dst"
-      cp -pR "$src" "$dst"
-    else
-      mkdir -p "$(dirname "$dst")"
-      rm -f "$dst"
-      cp -pf "$src" "$dst"
-    fi
-    EOF
-    chmod +x "$TMPDIR/bin/ditto"
+        # Keep the upstream source behavior while pointing optional native libraries
+        # at the declared Nix inputs instead of Homebrew paths.
+        substituteInPlace runtime/CMakeLists.txt \
+          --replace-fail 'set(LIBVPX_ROOT "/opt/homebrew/opt/libvpx")' 'set(LIBVPX_ROOT "$ENV{LIBVPX_ROOT}")' \
+          --replace-warn 'EXISTS "''${LIBVPX_ROOT}/include/vpx/vpx_decoder.h"' 'EXISTS "$ENV{LIBVPX_INCLUDE_DIR}/vpx/vpx_decoder.h"' \
+          --replace-warn 'target_include_directories(macapk-runtime PRIVATE "''${LIBVPX_ROOT}/include")' 'target_include_directories(macapk-runtime PRIVATE "$ENV{LIBVPX_INCLUDE_DIR}")'
+        substituteInPlace runtime/translator/CMakeLists.txt \
+          --replace-warn 'set(CAPSTONE_ROOT "/opt/homebrew/opt/capstone")' 'set(CAPSTONE_ROOT "$ENV{CAPSTONE_ROOT}")' \
+          --replace-warn 'set(LIBPNG_ROOT "/opt/homebrew/opt/libpng")' 'set(LIBPNG_ROOT "$ENV{LIBPNG_ROOT}")' \
+          --replace-warn 'EXISTS "''${LIBPNG_ROOT}/include/png.h"' 'EXISTS "$ENV{LIBPNG_INCLUDE_DIR}/png.h"'
 
-    # Wrap sigtool's codesign so flags only supported by Apple's /usr/bin/codesign
-    # (--options runtime, --timestamp=none, --verify, and .app bundle directories)
-    # work seamlessly inside the Nix Darwin sandbox.
-    cat > "$TMPDIR/bin/codesign" <<'EOF'
-    #!${clangStdenv.shell}
-    set -euo pipefail
-    mode="sign"
-    args=()
-    files=()
-    while [ $# -gt 0 ]; do
-      case "$1" in
-        --verify|-v|-vv)
-          mode="verify"
-          shift
-          ;;
-        --strict|--deep|--timestamp|--timestamp=*)
-          shift
-          ;;
-        --options)
-          shift 2
-          ;;
-        --options=*)
-          shift
-          ;;
-        -s|--sign|-i|--identifier|--entitlements)
-          args+=("$1" "$2")
-          shift 2
-          ;;
-        -f|--force)
-          args+=("-f")
-          shift
-          ;;
-        -*)
-          shift
-          ;;
-        *)
-          files+=("$1")
-          shift
-          ;;
-      esac
-    done
-    if [ "$mode" = "verify" ]; then
-      exit 0
-    fi
-    real_files=()
-    for f in "''${files[@]}"; do
-      if [ -d "$f" ] && [ -d "$f/Contents/MacOS" ]; then
-        for bin in "$f/Contents/MacOS"/*; do
-          [ -f "$bin" ] && real_files+=("$bin")
-        done
-      elif [ -f "$f" ]; then
-        real_files+=("$f")
-      fi
-    done
-    if [ "''${#real_files[@]}" -eq 0 ]; then
-      exit 0
-    fi
-    exec "${darwin.sigtool}/bin/codesign" "''${args[@]}" "''${real_files[@]}"
-    EOF
-    chmod +x "$TMPDIR/bin/codesign"
-
-    # /usr/bin/plutil lives outside the build sandbox; scripts/build_launcher.sh
-    # validates its generated launch agent with `plutil -lint`.
-    cat > "$TMPDIR/bin/plutil" <<'EOF'
-    #!${clangStdenv.shell}
-    exec python3 ${./files/plutil.py} "$@"
-    EOF
-    chmod +x "$TMPDIR/bin/plutil"
-    export PATH="$TMPDIR/bin:$PATH"
+        mkdir -p "$TMPDIR/macapk-nix-bin"
+        cp ${dittoWrapper}/bin/ditto "$TMPDIR/macapk-nix-bin/ditto"
+        cp ${codesignWrapper}/bin/codesign "$TMPDIR/macapk-nix-bin/codesign"
+        cp ${plutilWrapper}/bin/plutil "$TMPDIR/macapk-nix-bin/plutil"
+        export PATH="$TMPDIR/macapk-nix-bin:$PATH"
   '';
 
   buildPhase = ''
@@ -194,20 +205,31 @@ clangStdenv.mkDerivation {
 
     export HOME="$TMPDIR/home"
     mkdir -p "$HOME"
+    export PATH="$TMPDIR/macapk-nix-bin:$PATH"
 
-    # swift 6.4 propagates apple-sdk_27, whose SwiftUI declares @State as a
-    # macro backed by an Xcode-only plugin (libSwiftUIMacros.dylib) that is not
-    # shipped in the Nix store. Compile against apple-sdk_15 instead: it is what
-    # the deployment target below was verified against, and its SwiftUI still
-    # exposes the property wrappers.
-    export SDKROOT="${apple-sdk_15}/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
-    export NIX_APPLE_SDK_VERSION=150500
+    if [ -z "''${MACAPK_USE_NIX_SDK:-}" ] && [ -d /Applications/Xcode.app ]; then
+      export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
+      export PATH="$DEVELOPER_DIR/Toolchains/XcodeDefault.xctoolchain/usr/bin:$PATH"
+      export SDKROOT="$(xcrun --sdk macosx --show-sdk-path)"
+    fi
 
     export JAVA_HOME="${openjdk21}"
     export MACAPK_JDK_HOME="${openjdk21}"
-    export CAPSTONE_ROOT="${capstone}"
-    export LIBPNG_ROOT="${libpng.out}"
-    export LIBPNG_INCLUDE_DIR="${libpng.dev}/include"
+    mkdir -p "$TMPDIR/capstone/lib"
+    capstoneDylib="$(find "${capstone}/lib" -maxdepth 1 -name 'libcapstone.*.dylib' -print -quit)"
+    test -n "$capstoneDylib"
+    ln -s "$capstoneDylib" "$TMPDIR/capstone/lib/libcapstone.5.dylib"
+    ln -s "$capstoneDylib" "$TMPDIR/capstone/lib/libcapstone.dylib"
+    ln -s "${capstone}/include" "$TMPDIR/capstone/include"
+    export CAPSTONE_ROOT="$TMPDIR/capstone"
+    export CAPSTONE_SRC="$capstoneDylib"
+    export LIBPNG_SRC="${libpng.out}/lib/libpng16.16.dylib"
+    mkdir -p "$TMPDIR/libpng/include" "$TMPDIR/libpng/lib"
+    cp -R "${libpng.dev}/include/." "$TMPDIR/libpng/include/"
+    cp -R "${libpng.out}/lib/." "$TMPDIR/libpng/lib/"
+    export LIBPNG_ROOT="$TMPDIR/libpng"
+    export LIBPNG_INCLUDE_DIR="$TMPDIR/libpng/include"
+    export CXXFLAGS="-I$TMPDIR/libpng/include ''${CXXFLAGS:-}"
     export LIBVPX_ROOT="${libvpx.out}"
     export LIBVPX_INCLUDE_DIR="${libvpx.dev}/include"
     export AAPT2="${aapt}/bin/aapt2"

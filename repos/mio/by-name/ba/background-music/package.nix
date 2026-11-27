@@ -25,6 +25,17 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   sandboxProfile = xcodeSandbox.base;
 
   postPatch = ''
+    substituteInPlace build_and_install.sh \
+      --replace-fail \
+        'local PREV_COMMAND_STRING=$(ps -o command= ''${CHILD_PID})' \
+        'local PREV_COMMAND_STRING=$(ps -o command= ''${CHILD_PID} 2>/dev/null || echo "build command")'
+
+    for project in BGMApp/BGMApp.xcodeproj/project.pbxproj BGMDriver/BGMDriver.xcodeproj/project.pbxproj; do
+      substituteInPlace "$project" \
+        --replace-fail 'MACOSX_DEPLOYMENT_TARGET = 10.13;' \
+          'MACOSX_DEPLOYMENT_TARGET = 12.0;'
+    done
+
     # The GitHub source archive has no Git metadata. Treat it as the release tag
     # so upstream's snapshot-version phase leaves the checked-in version alone.
     substituteInPlace SharedSource/Scripts/set-version.sh \

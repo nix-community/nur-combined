@@ -1,0 +1,12 @@
+diff --git a/src/OgreCommon/GraphicsSystem.cpp b/src/OgreCommon/GraphicsSystem.cpp
+--- a/src/OgreCommon/GraphicsSystem.cpp
++++ b/src/OgreCommon/GraphicsSystem.cpp
+@@ -337 +337 @@
+-		winHandle  = StringConverter::toString(WindowContentViewHandle(wmInfo));
++		winHandle  = StringConverter::toString(Demo::WindowContentViewHandle(wmInfo));
+diff --git a/src/game/Hud_UpdatesAll.cpp b/src/game/Hud_UpdatesAll.cpp
+--- a/src/game/Hud_UpdatesAll.cpp
++++ b/src/game/Hud_UpdatesAll.cpp
+@@ -357 +357 @@
+-	bool operator<(const LiCol& other)
++	bool operator<(const LiCol& other) const
