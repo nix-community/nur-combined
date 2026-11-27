@@ -147,13 +147,23 @@ The harness works; our images do not start under it.
 
 #### Status 2026-11-28: refusal, not decryption
 
-- [x] `zfs-uefi` now recognises encrypted block pointers.  OpenZFS sets bit 61
-      of `blk_prop` (`BP_IS_ENCRYPTED`, `include/sys/spa.h`) on every block of
-      an encrypted object; the boot reader's `blkptr_t` has no such macro, so
-      `by-name/zf/zfs-uefi/encrypted-dataset.patch` adds it and returns
-      `ENOTSUP` from `zio_read_impl` with an explicit message.  Before this an
-      encrypted dataset read as ciphertext, failed the checksum and looked like
-      pool corruption.
+- [x] `zfs-uefi` now refuses blocks that carry encryption parameters.
+      OpenZFS's `BP_USES_CRYPT` is bit 61 of `blk_prop`, and it covers encrypted
+      and authenticated level-0 blocks and indirect blocks whose checksum is a
+      checksum of MACs (`include/sys/spa.h`); the boot reader's `blkptr_t` has
+      no such macro, so `by-name/zf/zfs-uefi/encrypted-dataset.patch` adds it
+      and returns `ENOTSUP` from `zio_read_impl` with an explicit message.
+      Before this an encrypted dataset read as ciphertext, failed the checksum
+      and looked like pool corruption.
+- [x] Verified against a real pool, not just compiled.  The native test has to
+      be built from the *patched* source or it does not exercise the change;
+      `zfs-uefi/native-reader.nix` therefore takes the package's `patches`, and
+      `checks.x86_64-linux.zfs-uefi-reader` boots a ZFS NixOS VM and runs the
+      reader there.  Measured: the unencrypted `tank/win` leg passes every
+      lookup and the 402-entry directory; the encrypted `tank/enc` leg prints
+      `ZFS: block uses encryption parameters - encrypted datasets are not
+      supported` and fails the mount with `ENOTSUP`, instead of the old raw
+      `EIO` from reading ciphertext.
 - Decryption is *not* implemented, and this patch does not attempt it.  The
       remaining port is a real one: the key store (the dataset's DSL dir ZAP
       keyed by name, holding the wrapped `dsl_crypt_key_t`), AES-256-GCM and
@@ -170,6 +180,13 @@ The harness works; our images do not start under it.
       encrypted pool inside the VM and runs `test/native_read_test.c` against
       the pool's device (KVM is available here for the latter).  Do not land
       decryption code that has only been compiled, not read a real pool.
+- Fixture notes, paid for in test runs: the pool must sit on a loop device
+      (the reader rejects `file` vdevs), an encrypted dataset needs
+      `keyformat=raw` with `keylocation=file` because the passphrase prompts of
+      `zfs create`/`zfs load-key` read `/dev/tty` and hang a non-interactive VM,
+      and `bootfs` is what selects the dataset the reader mounts.  The test
+      reuses the loop device and reads it directly, so no image copy can go
+      stale.
 - The two cases that must both pass once decryption exists: an encrypted
       dataset with `keylocation=prompt` (passphrase) and one with a keyfile, plus
       an unencrypted dataset in a pool that merely *has* the

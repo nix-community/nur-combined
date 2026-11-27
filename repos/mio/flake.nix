@@ -131,6 +131,20 @@
               {
                 quibble = packages.quibble_win11_patched;
               };
+          # zfs-uefi: create a real pool in a ZFS VM (plain and encrypted
+          # datasets) and run the reader against it natively.  KVM makes this
+          # quick; without it QEMU falls back to TCG and the check is slow but
+          # still passes.
+          zfs-uefi-reader =
+            let
+              p = nixpkgs.legacyPackages.x86_64-linux;
+            in
+            p.callPackage ./by-name/zf/zfs-uefi/reader-test.nix {
+              runNixOSTest = p.testers.runNixOSTest;
+              nativeReader = p.callPackage ./by-name/zf/zfs-uefi/native-reader.nix {
+                zfs-uefi = packages.zfs-uefi;
+              };
+            };
         };
       cached-cuda = forAllSystems (
         system:
