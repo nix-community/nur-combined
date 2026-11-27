@@ -1,0 +1,58 @@
+name: "Bump magpie"
+
+on:
+  schedule:
+    # 06:00 Asia/Shanghai (UTC+8) is 22:00 UTC on the previous day.
+    - cron: '0 22 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bump-magpie
+  cancel-in-progress: false
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          # Commits pushed with $GITHUB_TOKEN do not trigger other workflows.
+          # Set a BUMP_TOKEN secret (a PAT with repo scope) if the bump commit
+          # should start the "Build and populate cache" workflow right away;
+          # otherwise the nightly build picks it up.
+          token: ${{ secrets.BUMP_TOKEN || github.token }}
+
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ github.token }}
+
+      - name: Bump magpie to the latest release
+        id: bump
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: ./.github/bump-magpie.sh
+
+      - name: Commit and push
+        if: steps.bump.outputs.updated == 'true'
+        env:
+          PREVIOUS: ${{ steps.bump.outputs.previous }}
+          VERSION: ${{ steps.bump.outputs.version }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add pkgs/magpie/default.nix
+          git commit -m "magpie: ${PREVIOUS} -> ${VERSION}"
+          git push || {
+            echo "push failed, rebasing on the latest ${GITHUB_REF_NAME}"
+            git pull --rebase --autostash
+            git push
+          }

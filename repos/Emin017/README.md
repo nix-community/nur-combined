@@ -17,6 +17,22 @@ Uncomment this if you use travis:
 * [gtkwave4](https://github.com/Emin017/nur-packages/blob/master/pkgs/gtkwave4/default.nix)
 * [xfel](https://github.com/Emin017/nur-packages/blob/master/pkgs/xfel/default.nix)
 
+## Automation
+
+`.github/workflows/bump-magpie.yml` checks nightly at 06:00 Asia/Shanghai for a
+new [magpie](https://github.com/yetone/magpie-releases) release, updates
+`pkgs/magpie/default.nix` (version, source hash and desktop icon hash), builds
+the package to make sure the new binary still starts, and pushes the bump to
+`master`. Pushing with the default `GITHUB_TOKEN` does not trigger other
+workflows; add a `BUMP_TOKEN` secret (a PAT) if the bump commit should start
+"Build and populate cache" immediately.
+
+The same logic works locally:
+
+```sh
+.github/bump-magpie.sh
+```
+
 ## Home Manager modules
 
 ### `clash-verge-tailscale`
