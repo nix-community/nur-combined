@@ -77,7 +77,7 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "linux-wallpaperengine";
-  version = "0-unstable-2026-11-26";
+  version = "0-unstable-2026-11-27";
 
   src = fetchFromGitHub {
     owner = "Almamu";
