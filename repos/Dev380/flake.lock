@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "dfmic": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1795754174,
+        "narHash": "sha256-aez84HGAvLYOgf49Q3vOoQ32hl9Q7s8iw6fJ6kXbCio=",
+        "owner": "Dev380",
+        "repo": "dfmic",
+        "rev": "1bf536b576a88520f656f9528092c766283ec71a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Dev380",
+        "repo": "dfmic",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1795234589,
@@ -18,6 +34,7 @@
     },
     "root": {
       "inputs": {
+        "dfmic": "dfmic",
         "nixpkgs": "nixpkgs"
       }
     }

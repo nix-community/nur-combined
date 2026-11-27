@@ -2,11 +2,20 @@
   description = "My personal NUR repository";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # The dfmic checkout the package builds. Pinning it here rather than fetching
+    # a tarball inside the package means `nix flake update dfmic` is the whole
+    # upgrade, and `--override-input dfmic path:/home/me/dfmic` builds a local
+    # checkout without editing anything.
+    dfmic = {
+      url = "github:Dev380/dfmic";
+      flake = false;
+    };
   };
 
   outputs = {
     self,
     nixpkgs,
+    dfmic,
   }: let
     systems = [
       "x86_64-linux"
@@ -17,6 +26,9 @@
       "armv7l-linux"
     ];
     forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
+    # Flake inputs are store paths. `dfmicSrc` rather than `src` because
+    # `callPackage` fills `src` from nixpkgs' top-level alias.
+    dfmicSrc = dfmic;
   in rec {
     legacyPackages = (
       forAllSystems (
@@ -30,11 +42,18 @@
               overlays = [];
             };
           };
-            import ./default.nix {inherit pkgs;}
+            import ./default.nix {inherit pkgs dfmicSrc;}
         )
       )
     );
     packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
+
+    # Both a set of modules (NUR's convention) and a single module. This is a
+    # NixOS module, not a home-manager one: the service needs systemd, PipeWire
+    # and a system-wide capability wrapper.
+    modules.dfmic = import ./modules/dfmic.nix;
+    nixosModules.dfmic = self.modules.dfmic;
+    nixosModules.default = self.nixosModules.dfmic;
     ciJobs = let
       lib = nixpkgs.lib;
       isBuildable = platform: p: ((!p.meta.broken) && (lib.meta.availableOn {system = platform;} p));
@@ -48,6 +67,7 @@
       // {
         aarch64-linux = filterNurAttrs "aarch64-linux" (
           import ./default.nix {
+            inherit dfmicSrc;
             pkgs = import nixpkgs {
               system = "x86_64-linux";
               crossSystem.config = "aarch64-unknown-linux-gnu";
