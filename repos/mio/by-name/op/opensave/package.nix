@@ -10,6 +10,7 @@
   nodejs_22,
   nix-update-script,
   pkg-config,
+  wrapGAppsHook3,
   writeShellApplication,
   wails,
   gtk3,
@@ -55,6 +56,7 @@ buildGoModule (
       pkg-config
       wails
     ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [ wrapGAppsHook3 ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       darwin.system_cmds
       makeBinaryWrapper
