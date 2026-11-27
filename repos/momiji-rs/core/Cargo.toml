@@ -1,0 +1,33 @@
+[package]
+name = "sasso-core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+homepage.workspace = true
+repository.workspace = true
+description = "The compiler behind sasso, a pure-Rust SCSS to CSS compiler. Depend on `sasso`, which re-exports all of it."
+documentation = "https://docs.rs/sasso"
+readme = "README.md"
+keywords = ["sass", "scss", "css", "compiler", "wasm"]
+categories = ["compilers", "web-programming"]
+
+# Why this crate exists: `sasso::include!` is a procedural macro that runs
+# the compiler, so the macro crate depends on the compiler — and `sasso`
+# re-exporting the macro would make `sasso` depend on a crate that depends on
+# `sasso`, a cycle Cargo rejects even for an optional dependency. With the
+# compiler here, `sasso` and `sasso-macros` both depend on it and nothing
+# loops. `sasso` re-exports this crate's whole API unchanged.
+
+[lib]
+name = "sasso_core"
+path = "src/lib.rs"
+
+# Intentionally zero runtime dependencies: pure std, so the crate is
+# trivially wasm32-wasip1 / wasm32-unknown-unknown friendly and embeds
+# into a sandbox (rubyrs Tier-1) without pulling a single native -sys
+# crate. The whole pipeline (scan -> parse -> eval -> emit) is std-only.
+[dependencies]
+
+[lints]
+workspace = true

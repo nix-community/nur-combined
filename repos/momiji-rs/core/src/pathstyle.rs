@@ -15,7 +15,7 @@
 
 /// Which platform's rules a path is read and written by.
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
-pub(crate) enum Style {
+pub enum Style {
     /// `/` separates, and two names differing in case are two files.
     Posix,
     /// `\` separates for output and `/` is read as one too; two names differing
@@ -25,7 +25,7 @@ pub(crate) enum Style {
 }
 
 /// The rules of the platform this build runs on.
-pub(crate) const HOST: Style = if cfg!(windows) {
+pub const HOST: Style = if cfg!(windows) {
     Style::Windows
 } else {
     Style::Posix
@@ -35,7 +35,7 @@ impl Style {
     /// The separator to spell a path WITH. Windows reads `/` as a separator too
     /// (see [`Style::is_sep`]), but dart writes `\` there, so a diagnostic path
     /// does.
-    pub(crate) fn sep(self) -> &'static str {
+    pub fn sep(self) -> &'static str {
         match self {
             Style::Posix => "/",
             Style::Windows => "\\",
@@ -96,7 +96,7 @@ impl Style {
 
     /// `p`'s non-empty segments, with its root and any repeated separators
     /// dropped.
-    pub(crate) fn segments<'a>(self, p: &'a str) -> impl Iterator<Item = &'a str> + 'a {
+    pub fn segments<'a>(self, p: &'a str) -> impl Iterator<Item = &'a str> + 'a {
         p[self.root_len(p)..]
             .split(move |c| self.is_sep(c))
             .filter(|s| !s.is_empty())
@@ -173,7 +173,7 @@ impl Style {
 /// Callers join with whatever separator their OUTPUT wants — `/` for a
 /// source-map URL on every platform, [`Style::sep`] for a diagnostic path —
 /// which is why this hands back the pieces rather than a string.
-pub(crate) fn relative_parts<'a>(style: Style, base: &str, target: &'a str) -> Option<Vec<&'a str>> {
+pub fn relative_parts<'a>(style: Style, base: &str, target: &'a str) -> Option<Vec<&'a str>> {
     if !style.roots_eq(style.root(base)?, style.root(target)?) {
         return None;
     }
@@ -198,7 +198,7 @@ pub(crate) fn relative_parts<'a>(style: Style, base: &str, target: &'a str) -> O
 /// decides a SPELLING, it does not resolve `.` or `..`. dart renders every
 /// stack frame through it, the entry stylesheet's included (#151), which is
 /// why it lives here rather than beside one caller.
-pub(crate) fn pretty(style: Style, abs: &str, cwd: &str) -> String {
+pub fn pretty(style: Style, abs: &str, cwd: &str) -> String {
     let Some(parts) = relative_parts(style, cwd, abs) else {
         // No relative spelling exists — a different drive or share, or a
         // current directory that is not absolute. dart's `p.relative` hands
@@ -230,7 +230,7 @@ pub(crate) fn pretty(style: Style, abs: &str, cwd: &str) -> String {
 /// under [`Style::Posix`], which has no spelling for it. Percent escapes are
 /// decoded, because a directory called `my docs` arrives as `my%20docs` and a
 /// frame that said so would name a file nobody has.
-pub(crate) fn file_url_path(style: Style, url: &str) -> Option<String> {
+pub fn file_url_path(style: Style, url: &str) -> Option<String> {
     // LOSSY, because this one produces a path to SHOW: a frame naming a
     // file with an undecodable byte in it is still better than no frame.
     // Whoever is about to OPEN the path wants the strict half instead —
@@ -253,7 +253,7 @@ pub(crate) fn file_url_path(style: Style, url: &str) -> Option<String> {
 /// the empty and `localhost` authorities, a drive letter arriving as
 /// `/C:/`, a UNC authority, which separator comes out) and the UTF-8
 /// policy is stated at each edge instead of copied with the rest.
-pub(crate) fn file_url_bytes(style: Style, url: &str) -> Option<Vec<u8>> {
+pub fn file_url_bytes(style: Style, url: &str) -> Option<Vec<u8>> {
     let rest = url.strip_prefix("file://")?;
     // The `localhost` authority means the local machine, exactly as the empty
     // one does. Keep the slash that introduces the path.
@@ -378,7 +378,7 @@ fn percent_decode_bytes(s: &str) -> Vec<u8> {
 /// whatever rule the caller has for them. A relative key in particular must
 /// not be mistaken for a path: a custom importer's `virtual/foo.scss` shows
 /// as `foo.scss`, and handing it back whole would be a different frame.
-pub(crate) fn pretty_name(style: Style, name: &str, cwd: Option<&str>) -> Option<String> {
+pub fn pretty_name(style: Style, name: &str, cwd: Option<&str>) -> Option<String> {
     let abs = match file_url_path(style, name) {
         Some(p) => p,
         None if has_scheme(name) => return None, // an importer's URL, not a file
@@ -405,7 +405,7 @@ pub(crate) fn pretty_name(style: Style, name: &str, cwd: Option<&str>) -> Option
 /// So the spelling decides, and `HOST` is the answer only when nothing in the
 /// data says otherwise. A POSIX working directory never begins with a drive
 /// letter or a UNC root, so this cannot change what a native build does.
-pub(crate) fn style_for(cwd: Option<&str>, name: &str) -> Style {
+pub fn style_for(cwd: Option<&str>, name: &str) -> Style {
     let windows_shaped = |s: &str| {
         // An authority that is not the local machine is a UNC share, and only
         // Windows has a spelling for one — so such a URL says which platform

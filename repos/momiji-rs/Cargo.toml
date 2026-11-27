@@ -1,12 +1,12 @@
 [package]
 name = "sasso"
-version = "0.21.0"
-edition = "2021"
-rust-version = "1.74"
-license = "MIT OR Apache-2.0"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
 description = "A pure-Rust SCSS to CSS compiler (a dart-sass alternative). Zero dependencies, wasm-friendly, embeddable as a library and usable as a CLI."
-homepage = "https://github.com/momiji-rs/sasso"
-repository = "https://github.com/momiji-rs/sasso"
+homepage.workspace = true
+repository.workspace = true
 documentation = "https://docs.rs/sasso"
 readme = "README.md"
 keywords = ["sass", "scss", "css", "compiler", "wasm"]
@@ -34,7 +34,7 @@ categories = ["compilers", "web-programming"]
 # path (`format!("{file}::{module_path}{bench_name}")`, codspeed-divan-compat
 # `src/compat/uri.rs`), so relocating it would retire every URI and reset the
 # gate's regression history.
-exclude = ["/bench", "/benches", "/spec", "/docs", "/.github", "/wasm", "/ffi", "/nix", "flake.nix", "flake.lock"]
+exclude = ["/bench", "/benches", "/core", "/macros", "/spec", "/docs", "/.github", "/wasm", "/ffi", "/nix", "flake.nix", "flake.lock"]
 
 [lib]
 name = "sasso"
@@ -45,12 +45,18 @@ path = "src/lib.rs"
 name = "sasso"
 path = "src/main.rs"
 
-# Intentionally zero runtime dependencies: pure std, so the crate is
-# trivially wasm32-wasip1 / wasm32-unknown-unknown friendly and embeds
-# into a sandbox (rubyrs Tier-1) without pulling a single native -sys
+# Intentionally zero third-party runtime dependencies: pure std, so the
+# crate is trivially wasm32-wasip1 / wasm32-unknown-unknown friendly and
+# embeds into a sandbox (rubyrs Tier-1) without pulling a single native -sys
 # crate. The whole pipeline (scan -> parse -> eval -> emit) and the CLI
 # (a hand-rolled arg parser) are std-only.
+#
+# The compiler itself lives in `sasso-core` (`/core`), which this crate
+# re-exports whole; see that manifest for why the split exists. Both are this
+# repository's own crates, released in lockstep (`[workspace.dependencies]`).
 [dependencies]
+sasso-core.workspace = true
+sasso-macros = { workspace = true, optional = true }
 
 # The one exception, and only on Windows: the local UTC offset for the
 # `--update`/`--watch` timestamp. dart prints one on every platform (measured
@@ -118,6 +124,15 @@ default = ["cli-clock"]
 # with no `[…]` prefix, which is what it did before #189.
 cli-clock = ["dep:chrono"]
 
+# `sasso::include!("style.scss")`: compile a stylesheet at Rust compile time
+# into a `&'static str`. Off by default — it builds a proc-macro crate, which
+# a plain library user should not pay for.
+macro = ["dep:sasso-macros"]
+
+# Document `include!` on docs.rs, which builds with default features only.
+[package.metadata.docs.rs]
+features = ["macro"]
+
 [profile.release]
 # `panic = "abort"` is set EXPLICITLY, the way `ffi/` sets `unwind` and `wasm/`
 # sets `abort`: of the four manifests in this repo the core was the one that had
@@ -149,19 +164,42 @@ lto = "thin"
 # (not `forbid`) so the single audited `arena` module — the scoped bump
 # allocator (perf #5), verified by unit tests + Miri — can `#[allow]` it; every
 # other module stays unsafe-free.
-[lints.rust]
-unsafe_code = "deny"
-missing_docs = "warn"
-rust_2018_idioms = { level = "warn", priority = -1 }
-
-[lints.clippy]
-all = { level = "warn", priority = -1 }
+[lints]
+workspace = true
 
 # The `sasso` package is its own workspace root. The wasm-export wrapper
 # (`/wasm`, a cdylib that needs `unsafe` for its FFI exports) is kept OUT of
 # this workspace so the core crate keeps `unsafe_code = "forbid"`.
 [workspace]
+members = ["core", "macros"]
+# Every member, not only the root package, is what a bare `cargo test`,
+# `cargo clippy` or `cargo publish` at the root acts on — so CI, which runs
+# those without `-p`, also covers the compiler's unit tests in `/core`.
+default-members = [".", "core", "macros"]
 exclude = ["wasm", "ffi", "napi"]
+
+# One version for every crate here: `sasso` re-exports the others and its
+# binary reaches into `sasso-core`'s unexported path rules, so they are only
+# ever released together. Bump `version` and every `=` pin below as one.
+[workspace.package]
+version = "0.21.0"
+edition = "2021"
+rust-version = "1.74"
+license = "MIT OR Apache-2.0"
+homepage = "https://github.com/momiji-rs/sasso"
+repository = "https://github.com/momiji-rs/sasso"
+
+[workspace.dependencies]
+sasso-core = { path = "core", version = "=0.21.0" }
+sasso-macros = { path = "macros", version = "=0.21.0" }
+
+[workspace.lints.rust]
+unsafe_code = "deny"
+missing_docs = "warn"
+rust_2018_idioms = { level = "warn", priority = -1 }
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -1 }
 
 # Config for 'dist'
 [workspace.metadata.dist]

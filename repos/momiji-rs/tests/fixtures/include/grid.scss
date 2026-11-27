@@ -1,0 +1,7 @@
+@use "sass:math";
+
+$gap: 6px;
+
+.grid {
+  gap: math.div($gap, 2);
+}

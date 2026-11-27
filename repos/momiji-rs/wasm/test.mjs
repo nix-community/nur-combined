@@ -932,9 +932,10 @@ console.log("ok: cli — version/help/stdin/style/file @use/load-path/errors + e
 // dart and missed seven ids — `if-function` among them, which sasso emits —
 // so what matters here is only that they cannot now drift apart.
 {
-  const mainRs = readFileSync(new URL("../src/main.rs", import.meta.url), "utf8");
-  const decl = /const DEPRECATION_IDS: \[&str; (\d+)\] = \[([^\]]*)\]/.exec(mainRs);
-  assert.ok(decl, "drift: found DEPRECATION_IDS in src/main.rs");
+  // The CLI's list lives beside the constructors that emit the ids.
+  const deprecationRs = readFileSync(new URL("../core/src/deprecation.rs", import.meta.url), "utf8");
+  const decl = /const DEPRECATION_IDS: \[&str; (\d+)\] = \[([^\]]*)\]/.exec(deprecationRs);
+  assert.ok(decl, "drift: found DEPRECATION_IDS in core/src/deprecation.rs");
   const native = [...decl[2].matchAll(/"([a-z0-9-]+)"/g)].map((m) => m[1]);
   assert.equal(native.length, Number(decl[1]), "drift: the Rust list's length matches its own count");
   assert.ok(native.length >= 31, `drift: extracted a plausible id set (got ${native.length})`);

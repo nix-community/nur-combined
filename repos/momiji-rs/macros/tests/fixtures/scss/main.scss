@@ -1,0 +1,7 @@
+@use "colors";
+@use "theme" as t;
+
+.button {
+  color: colors.$primary;
+  padding: t.$pad * 2;
+}

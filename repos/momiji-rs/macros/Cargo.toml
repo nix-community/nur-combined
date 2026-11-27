@@ -1,0 +1,27 @@
+[package]
+name = "sasso-macros"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+homepage.workspace = true
+repository.workspace = true
+description = "The `sasso::include!` macro: compile Sass to CSS at Rust compile time. Use it through `sasso` with the `macro` feature."
+documentation = "https://docs.rs/sasso"
+keywords = ["sass", "scss", "css", "macro"]
+categories = ["compilers", "web-programming"]
+
+[lib]
+proc-macro = true
+
+# Like sasso itself: no dependencies beyond the compiler. No `syn`, no
+# `quote` — the macro's input is a string literal and a few `key = value`
+# options, which `proc_macro`'s own token API parses directly.
+#
+# It depends on `sasso-core`, not `sasso`, so that `sasso` can re-export it:
+# see `core/Cargo.toml` for the cycle that rules out the other way round.
+[dependencies]
+sasso-core.workspace = true
+
+[lints]
+workspace = true

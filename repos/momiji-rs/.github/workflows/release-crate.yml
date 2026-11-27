@@ -4,6 +4,14 @@ name: Publish crate
 # cargo-dist binary release (release.yml). Uses crates.io Trusted Publishing
 # (OIDC) — no CARGO_REGISTRY_TOKEN secret is stored.
 #
+# Three crates since #305: `sasso-core` (the compiler), `sasso-macros`
+# (`include!`) and `sasso`, which re-exports both. The workspace's
+# `default-members` lists all three, so the bare `cargo publish` below
+# publishes them together, in dependency order. Trusted Publishing is set up
+# per crate: `sasso-core` and `sasso-macros` each need the same publisher
+# entry as `sasso`, which crates.io only offers once a crate exists — so their
+# first version goes up by hand with a token, as `sasso` 0.1.0 did.
+#
 # One-time setup on crates.io (Settings -> Trusted Publishing for the `sasso`
 # crate): add a GitHub publisher with repository `momiji-rs/sasso`, workflow
 # `release-crate.yml`, and (recommended) environment `release`. The very first

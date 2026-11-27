@@ -275,6 +275,34 @@ let css = compile("@import \"base\";", &Options::default().with_importer(&MyFs))
 
 A ready-made [`FsImporter`] is provided for standalone/CLI use.
 
+### Compile at build time
+
+With the `macro` feature, `sasso::include!` compiles a stylesheet while your
+crate builds and expands to the CSS as a `&'static str` — no `build.rs`, and
+the compiler stays out of your binary:
+
+```toml
+[dependencies]
+sasso = { version = "0.21", default-features = false, features = ["macro"] }
+```
+
+```rust
+static CSS: &str = sasso::include!("static/main.scss");
+
+// Options follow the path:
+static MIN: &str = sasso::include!(
+    "static/main.scss",
+    style = "compressed",
+    load_paths = ["node_modules"],
+);
+```
+
+Paths are relative to your crate's root (`CARGO_MANIFEST_DIR`), and the syntax
+follows the file's extension. A Sass error fails the build with the same
+diagnostic the CLI prints, and every file the stylesheet loads is tracked, so
+editing a partial rebuilds the crate. Like the rest of sasso, the macro has no
+dependencies of its own — no `syn`, no `quote`.
+
 ## CLI usage
 
 The CLI takes the same arguments as `sass`, so a build script written for

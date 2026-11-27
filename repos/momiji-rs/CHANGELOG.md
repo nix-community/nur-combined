@@ -13,6 +13,24 @@ Conformance is tracked separately as a ratchet against the official
 
 ### Added
 
+- **`sasso::include!`: compile Sass at Rust compile time** (#305), behind the
+  new `macro` feature. `static CSS: &str = sasso::include!("style.scss");`
+  expands to the compiled CSS, as `grass::include!` does. A Sass error fails
+  the build with the CLI's diagnostic, pointed at the macro's path argument;
+  every file the compile loads is tracked through `include_bytes!`, so
+  editing a partial reruns it on stable Rust. Options: `style = "compressed"`
+  and `load_paths = [...]`, both relative to the including crate's root. The
+  macro is parsed with `proc_macro` alone — no `syn`, no `quote` — so sasso
+  stays free of third-party dependencies.
+
+  To make that possible the compiler moved into a new crate, **`sasso-core`**,
+  which `sasso` re-exports whole (`pub use sasso_core::*`): `sasso`'s API is
+  unchanged, and nothing that depends on `sasso` needs to change. The macro
+  lives in **`sasso-macros`**. `sasso` re-exporting a macro crate that
+  depended on `sasso` would be a package cycle, which Cargo rejects even for
+  an optional dependency, so both now depend on `sasso-core` instead. The
+  three crates share one version and are released together.
+
 - **First-class modules, part 1: `meta.get-module()` and module values**
   (#281, dart-sass 1.105). `meta.get-module($module)` returns a reference to
   a module this stylesheet `@use`d, by namespace. Every `sass:meta` function

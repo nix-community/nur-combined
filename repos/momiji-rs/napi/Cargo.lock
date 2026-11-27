@@ -319,7 +319,12 @@ name = "sasso"
 version = "0.21.0"
 dependencies = [
  "chrono",
+ "sasso-core",
 ]
+
+[[package]]
+name = "sasso-core"
+version = "0.21.0"
 
 [[package]]
 name = "sasso-napi"

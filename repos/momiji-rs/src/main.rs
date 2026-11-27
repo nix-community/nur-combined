@@ -33,14 +33,12 @@ use sasso::{
     WarnHandler,
 };
 
-// The library's path rules, compiled into the binary rather than exported:
-// `sasso`'s public API is a documented surface and this is not part of it. Both
-// relativisations — a diagnostic path in the library, a source-map URL here —
-// have to agree about when two spellings name one file, which is #146. The
-// binary needs only a subset, hence the `dead_code` allow.
-#[path = "pathstyle.rs"]
-#[allow(dead_code)]
-mod pathstyle;
+// The library's path rules, shared through `sasso_core`'s hidden `__private`
+// rather than exported: `sasso`'s public API is a documented surface and this
+// is not part of it. Both relativisations — a diagnostic path in the library, a
+// source-map URL here — have to agree about when two spellings name one file,
+// which is #146.
+use sasso_core::__private::pathstyle;
 
 // Install the scoped bump-arena allocator (perf #5). Inside each `compile`
 // scope every allocation is a pointer bump from a per-thread arena that is
@@ -532,54 +530,10 @@ enum Action {
     Version,
 }
 
-/// Deprecation ids `--silence-deprecation` accepts.
-///
-/// The full `Deprecation` enum of dart-sass 1.104.1, in its own declaration
-/// order. Taken from the enum itself, not from a guess: an earlier version of
-/// this list was assembled by probing candidate names one at a time, which
-/// silently missed seven ids — everything dart added from 1.88.0 on, including
-/// `if-function`, which sasso emits. The list ships in the npm package as
-/// `sass/types/deprecations.d.ts`; that file omits the future-only ids, so the
-/// enum in `sass.dart.js` is the authority the CLI actually uses.
-///
-/// Most name deprecations sasso does not emit; accepting them anyway is the
-/// point, because a build script written for `sass` must not fail here just
-/// because we have nothing to silence. `deprecation.rs` says which ones
-/// actually reach a warning today, and a test there holds this list a superset
-/// of those.
-const DEPRECATION_IDS: [&str; 31] = [
-    "call-string",
-    "elseif",
-    "moz-document",
-    "relative-canonical",
-    "new-global",
-    "color-module-compat",
-    "slash-div",
-    "bogus-combinators",
-    "strict-unary",
-    "function-units",
-    "duplicate-var-flags",
-    "null-alpha",
-    "abs-percent",
-    "fs-importer-cwd",
-    "css-function-mixin",
-    "mixed-decls",
-    "feature-exists",
-    "color-4-api",
-    "color-functions",
-    "legacy-js-api",
-    "import",
-    "global-builtin",
-    "type-function",
-    "compile-string-relative-url",
-    "misplaced-rest",
-    "with-private",
-    "if-function",
-    "function-name",
-    "adjacent-compounds",
-    "user-authored",
-    "calc-interp",
-];
+/// Deprecation ids `--silence-deprecation` accepts: dart-sass's whole
+/// `Deprecation` enum. It lives beside the constructors that emit them, in
+/// `core/src/deprecation.rs`, where a test holds it a superset of those.
+use sasso_core::__private::DEPRECATION_IDS;
 
 /// Split and validate one `--silence-deprecation` value. dart takes a
 /// comma-separated list, accepts the flag more than once, and rejects an
@@ -3992,64 +3946,17 @@ fn hex_upper(nibble: u8) -> char {
 mod silenced_tests {
     use super::{parse_silenced, DEPRECATION_IDS};
 
-    /// Every id the evaluator can emit must be silenceable.
-    ///
-    /// This is the bug the test exists for: `DEPRECATION_IDS` was first
-    /// assembled by probing candidate names against dart, and `if-function` —
-    /// one we emit — was not among the names guessed, so
-    /// `--silence-deprecation=if-function` failed on a warning sasso itself had
-    /// just printed. Reading the emitter source keeps the two from drifting
-    /// apart again: a new `Deprecation` constructor cannot be added without
-    /// this noticing.
+    // That every id the evaluator emits is on the list, and that the list is
+    // dart's whole enum, is checked beside the list in `core/src/deprecation.rs`.
     #[test]
-    fn every_id_we_emit_is_accepted() {
-        let src = include_str!("deprecation.rs");
-        let emitted: Vec<&str> = src
-            .match_indices("id: \"")
-            .map(|(at, pat)| {
-                let rest = &src[at + pat.len()..];
-                &rest[..rest.find('"').expect("unterminated id literal")]
-            })
-            .collect();
-
-        // Without this the parse silently matching nothing would pass.
-        assert!(
-            emitted.len() >= 6,
-            "found only {} ids in deprecation.rs — has the shape changed?",
-            emitted.len()
-        );
-
-        for id in emitted {
-            assert!(
-                DEPRECATION_IDS.contains(&id),
-                "deprecation.rs emits {id:?} but --silence-deprecation rejects it"
-            );
+    fn every_listed_id_is_accepted() {
+        for id in DEPRECATION_IDS {
             let mut into = Vec::new();
             assert!(
                 parse_silenced(id, &mut into).is_ok(),
                 "parse_silenced rejected {id:?}"
             );
         }
-    }
-
-    #[test]
-    fn the_list_is_dart_1_104_1s_enum() {
-        // Guards a careless edit: the count is the whole enum, including the
-        // three obsolete ids and the two future ones dart still accepts.
-        assert_eq!(DEPRECATION_IDS.len(), 31);
-        for id in [
-            "if-function",
-            "calc-interp",
-            "user-authored",
-            "adjacent-compounds",
-        ] {
-            assert!(DEPRECATION_IDS.contains(&id), "missing {id:?}");
-        }
-        let mut sorted = DEPRECATION_IDS;
-        sorted.sort_unstable();
-        let mut deduped = sorted.to_vec();
-        deduped.dedup();
-        assert_eq!(deduped.len(), DEPRECATION_IDS.len(), "duplicate id in the list");
     }
 
     #[test]

@@ -26,8 +26,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   # One source of truth for the version: the crate manifest. `release-wasm.yml`
   # already refuses an `npm-v*` tag that disagrees with it, so this keeps the
-  # third packaging line honest by construction too.
-  version = (lib.importTOML ../Cargo.toml).package.version;
+  # third packaging line honest by construction too. The number sits in
+  # `[workspace.package]`, which all three crates (sasso, sasso-core,
+  # sasso-macros) inherit; `[package].version` there is `{ workspace = true; }`.
+  version = (lib.importTOML ../Cargo.toml).workspace.package.version;
 
   src = lib.cleanSource ../.;
 
