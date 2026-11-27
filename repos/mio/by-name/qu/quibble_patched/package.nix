@@ -3,6 +3,7 @@
   quibble,
   pkgsCross,
   zfs-uefi,
+  writeShellApplication,
 }:
 
 # Quibble with a real freestanding runtime instead of upstream's dummies.
@@ -69,6 +70,23 @@ quibble.overrideAttrs (old: {
     install -Dm644 ${zfs-uefi}/share/zfs-uefi/zfs.efi $out/share/quibble/drivers/zfs.efi
     install -Dm644 ${zfs-uefi}/share/zfs-uefi/LICENCE $out/share/quibble/drivers/zfs-efi-LICENCE
   '';
+
+  # The patched variant has no pins of its own: its revision follows `quibble`
+  # and its extra driver follows `zfs-uefi`.  Bumping both together keeps the
+  # shipped zfs.efi from drifting behind the loader it was tested with.
+  passthru = (old.passthru or { }) // {
+    updateScript = writeShellApplication {
+      name = "update-quibble_patched";
+      runtimeInputs = [
+        quibble.passthru.updateScript
+        zfs-uefi.passthru.updateScript
+      ];
+      text = ''
+        update-quibble "$@"
+        update-zfs-uefi "$@"
+      '';
+    };
+  };
 
   meta = (old.meta or { }) // {
     description = "Open-source UEFI bootloader for Windows, with a real setjmp/longjmp runtime";
