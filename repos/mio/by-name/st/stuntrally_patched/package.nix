@@ -59,6 +59,10 @@ stuntrally.overrideAttrs (oldAttrs: {
         --replace-fail 'Rect rcBrush, rcMap;' 'Ogre::Rect rcBrush, rcMap;'
       substituteInPlace src/editor/AlignTerToRoad.cpp \
         --replace-fail 'dirtyRect(Rect(0,0,1,1))' 'dirtyRect(Ogre::Rect(0,0,1,1))'
+      substituteInPlace src/OgreCommon/GraphicsSystem.cpp \
+        --replace-fail \
+          'String( macBundlePath() + "/" + archName ), typeName, secName );' \
+          '(archName[0] == 47 ? archName : String( macBundlePath() + "/" + archName )), typeName, secName );'
     '';
   passthru = (oldAttrs.passthru or { }) // {
     mygui = mygui_patched;
@@ -86,5 +90,6 @@ stuntrally.overrideAttrs (oldAttrs: {
         --replace-fail 'PluginOptional=RenderSystem_Vulkan' '# PluginOptional=RenderSystem_Vulkan'
       mkdir -p "$out/bin/Contents/Resources"
       cp "$out/share/stuntrally3/config/plugins.cfg" "$out/bin/Contents/Resources/plugins.cfg"
+      cp "$out/share/stuntrally3/config/resources3.cfg" "$out/bin/Contents/Resources/resources3.cfg"
     '';
 })
