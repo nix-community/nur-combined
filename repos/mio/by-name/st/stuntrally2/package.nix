@@ -171,6 +171,15 @@ stdenv.mkDerivation (finalAttrs: {
     ''}
   '';
 
+  postFixup = lib.optionalString stdenv.hostPlatform.isDarwin ''
+    oldMyguiPath='@executable_path/../lib/libMyGUIEngine.3.4.1.dylib'
+    newMyguiPath='${stuntrally-mygui}/lib/libMyGUIEngine.3.4.1.dylib'
+    for binary in $out/bin/StuntRally $out/bin/SR-Editor $out/bin/SR-Translator
+    do
+      install_name_tool -change "$oldMyguiPath" "$newMyguiPath" "$binary"
+    done
+  '';
+
   passthru = {
     inherit (finalAttrs) tracks;
     mygui = stuntrally-mygui;
