@@ -105,8 +105,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mainProgram = "gephgui-wry";
     platforms = lib.platforms.linux;
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [
-      MCSeekeri
-    ];
+    maintainers = with lib.maintainers; [ MCSeekeri ];
   };
 })

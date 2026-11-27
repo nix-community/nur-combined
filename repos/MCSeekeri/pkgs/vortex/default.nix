@@ -27,21 +27,21 @@
 
 let
   pname = "vortex";
-  version = "2.10.1";
-  vortexLinuxVersion = "2.10.1-2";
+  version = "2.11.0";
+  vortexLinuxVersion = "2.11.0-1";
 
   src = fetchFromGitHub {
     owner = "Nexus-Mods";
     repo = "Vortex";
     tag = "v${version}";
-    hash = "sha256-U/OBN6kpc3gu22sWC/ZeUfX347aelqd26SWq+feHVCs=";
+    hash = "sha256-5voRkJEIJr8WguThCmpO3rPHcMkr7Biq3nl7KBodrAM=";
   };
 
   vortexLinux = fetchFromGitHub {
     owner = "Arkazzae";
     repo = "VortexLinux";
     tag = "v${vortexLinuxVersion}";
-    hash = "sha256-sU8PT6I9fh7oBLbnI0jqizoCksNN4VFiRL1TqN0Azxw=";
+    hash = "sha256-JnWz7ABJNU7Ocgi+kcBHT5SrbV0oiBx6+WOny6MSkY8=";
   };
 
   patchWorkspace = ''
@@ -60,7 +60,7 @@ let
       pnpm fetch --frozen-lockfile --ignore-scripts || true
     '';
     nativeBuildInputs = [ yq-go ];
-    hash = "sha256-nMr9rZh9MgPCv8krahooeTY0+bSwDdCWuo0NmSevyuE=";
+    hash = "sha256-X1Yq2KmYJqy0ky280Sj3zPMqrI2FfVFFK3b++Lom8/E=";
   };
 
   duckdbVersion = "1.5.1";

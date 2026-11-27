@@ -66,7 +66,7 @@
 }:
 
 let
-  version = "1.4.262";
+  version = "1.4.280";
 
   dlopenLibraries = [
     libGL
@@ -101,9 +101,9 @@ stdenv.mkDerivation {
     }.deb";
     hash =
       if stdenv.hostPlatform.isAarch64 then
-        "sha256-D8bFf65//QKvykaZ7w14u1na4YGu2Nigm6+C3Uen0rU="
+        "sha256-OEnT3tzSg1cJSC6K0QJeb0T6whnlHiatZ8TwB4ADujw="
       else
-        "sha256-9v7DXTE4tkshUen2z6W28XxyUgYNEENQ1C3ZRb0DO0M=";
+        "sha256-HetvUMtZpAuzKODHUC/H82yTa+auo5NMl2urF11Wxuo=";
   };
 
   nativeBuildInputs = [

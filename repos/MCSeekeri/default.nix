@@ -44,7 +44,7 @@ in
   mindmaster = pkgs.callPackage ./pkgs/mindmaster { };
   yozo-office = pkgs.callPackage ./pkgs/yozo-office { };
   workbuddy = pkgs.callPackage ./pkgs/workbuddy { };
-  workbuddy-linux = pkgs.callPackage ./pkgs/workbuddy-linux { };
+  workbuddy-macos = pkgs.callPackage ./pkgs/workbuddy-macos { };
   orca = pkgs.callPackage ./pkgs/orca { };
   alma = pkgs.callPackage ./pkgs/alma { wrapBuddy = pkgs.callPackage ./pkgs/wrap-buddy { }; };
   rime-frost = pkgs.callPackage ./pkgs/rime-frost { };

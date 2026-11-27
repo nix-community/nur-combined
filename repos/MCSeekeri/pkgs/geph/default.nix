@@ -82,8 +82,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mainProgram = "geph5-client";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [
-      MCSeekeri
-    ];
+    maintainers = with lib.maintainers; [ MCSeekeri ];
   };
 })
