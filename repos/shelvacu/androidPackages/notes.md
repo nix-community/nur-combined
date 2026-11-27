@@ -10,6 +10,5 @@ when gradle wants to grab from github maven repos
 - in source clone:
   `printf 'gitHubToken=%s' "$(nix run ~/dev/nix-stuff#sops -- decrypt --extract '["token"]' ~/dev/nix-stuff/secrets/misc/github-pat-for-repos.yaml)" > user.properties`
 - run gradle2nix
-- `grep -F maven.pkg.github.com gradle.lock`, for each one
-  - take the filename, do `find ~/.gradle/cache -name '<filename>'`
-  - `nix store add --mode flat <.gradle/cache path>`
+- when building, pass the token to the daemon:
+  `nix build --option impure-env "GITHUB_TOKEN=$GITHUB_TOKEN" ...`

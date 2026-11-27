@@ -6,6 +6,7 @@
   writeScriptBin,
   gradle,
   makeVacuPythonScript,
+  fetchurl,
   bashNonInteractive,
   vacuRoot,
   vacuWrappedSops,
@@ -98,6 +99,25 @@ let
     ANDROID_HOME = "${androidPkgs.androidsdk}/libexec/android-sdk";
     ANDROID_SDK_ROOT = ANDROID_HOME;
   };
+  # build with `--option impure-env "GITHUB_TOKEN=$GITHUB_TOKEN"`; the daemon doesn't see the client's env
+  fetchHttps =
+    { url, ... }@fetchArgs:
+    if lib.hasPrefix "https://maven.pkg.github.com/" url then
+      fetchurl (
+        fetchArgs
+        // {
+          netrcImpureEnvVars = [ "GITHUB_TOKEN" ];
+          netrcPhase = ''
+            if [[ -z "''${GITHUB_TOKEN:-}" ]]; then
+              echo "error: maven.pkg.github.com requires GITHUB_TOKEN; pass it with --option impure-env GITHUB_TOKEN=..." >&2
+              exit 1
+            fi
+            printf 'machine maven.pkg.github.com login token password %s\n' "$GITHUB_TOKEN" > netrc
+          '';
+        }
+      )
+    else
+      fetchurl fetchArgs;
 in
 gradle2nix.buildGradlePackage (
   otherArgs
@@ -109,6 +129,11 @@ gradle2nix.buildGradlePackage (
       jdk
     ]
     ++ (args.nativeBuildInputs or [ ]);
+
+    fetchers = {
+      https = fetchHttps;
+    }
+    // (args.fetchers or { });
 
     lockFile = if lockFile != null && extraLockData != null then withExtraLockFile else lockFile;
 
