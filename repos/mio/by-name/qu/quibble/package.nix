@@ -125,6 +125,18 @@ mingw.stdenv.mkDerivation {
 
   meta = {
     description = "Open-source UEFI bootloader for Windows XP through Windows 10";
+    longDescription = ''
+      Quibble boots Windows XP through Windows 10 from UEFI.
+
+      Installing it: the loader reads `freeldr.ini` and `font.ttf` from the
+      directory the EFI image itself was loaded from, so `quibble.efi`,
+      `freeldr.ini` and `font.ttf` have to sit together (for example
+      `\EFI\BOOT\` with `quibble.efi` renamed to `BOOTX64.EFI`), with the
+      `drivers/` directory next to them. Upstream's source tree ships no
+      `freeldr.ini`; write one with a `[FREELOADER]` section and one
+      `SystemPath=multi(0)disk(0)rdisk(0)partition(N)\Windows` entry per
+      operating system.
+    '';
     homepage = "https://github.com/maharmstone/quibble";
     license = lib.licenses.lgpl3Only;
     # hostPlatform is Windows when cross-compiling; omit platforms so nixpkgs

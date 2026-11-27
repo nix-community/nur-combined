@@ -152,19 +152,23 @@ The harness works; our images do not start under it.
       `qemu-system-x86_64 -machine q35 -m 2048 -nographic -no-reboot` with
       pflash CODE/VARS and the disk on IDE. Verified with a systemd-boot
       control and with upstream's release binary.
-- [ ] Assert that quibble itself ran. Serial is not enough: quibble draws via
-      GOP, so the signal is the mode switch (1280x800 with upstream's binary)
-      plus non-black framebuffer content from a QMP `screendump`; the failure
-      signature is the "Please select boot device" menu at 2560x1600. Blocked
-      on making our image start at all (see the findings above).
-- [ ] Wire both as checks. The flake auto-discovers `packages.<name>.tests.<n>`
-      (`flake.nix` around the `packageTests` block), so add
-      `tests.vm-boot` to `quibble` and `quibble_patched` (or explicit
-      `checks.<system>` entries alongside `lastbook-patched-setup`).
-- [ ] Keep the check offline: everything it needs comes from the store.
-- Done when `nix build .#checks.x86_64-linux.quibble-vm-boot` and the
-  `quibble_patched` equivalent pass, and both fail on a deliberately wrong ESP
-  layout (verify the assertion actually bites).
+- [x] Assert that quibble itself ran, without trusting the graphics mode:
+      `by-name/qu/quibble/vm-test.nix` requires `BdsDxe: starting Boot` in the
+      serial log, no "Please select boot device" fallback, and a non-black QMP
+      `screendump`; it then repeats the boot *without* `freeldr.ini` and
+      requires the firmware fallback to appear, so the assertion is known to
+      bite instead of passing on any firmware menu.
+- [x] Wire both variants as explicit `checks.x86_64-linux` entries
+      (`quibble-vm-boot`, `quibble-patched-vm-boot`), following the
+      `lastbook-patched-setup` pattern.
+- [x] Keep the check offline: QEMU (TCG, no KVM needed), OVMF, mtools,
+      dosfstools, gptfdisk and python3 all come from the store.
+- **Done 2026-11-27.** Both checks build and pass:
+      `nix build .#checks.x86_64-linux.quibble-vm-boot` and
+      `...#quibble-patched-vm-boot`. Measured on this machine: the good run
+      keeps quibble's menu (1.70% non-black at 2560x1600) with
+      `BdsDxe: starting Boot0002` and no fallback line; the no-`ini` control
+      run shows `Please select boot device` (1.38%, the firmware menu).
 
 ### 5. Real Windows installation test
 
@@ -195,8 +199,10 @@ The harness works; our images do not start under it.
 - [ ] Update scripts for `zfs-uefi` (and the pin of `zfs-efi` inside
       `quibble_patched`) so a bump moves revision, hash and README reference
       together; `./check_updates.py` must see them.
-- [ ] README/description updates for both variants, and a note in
-      `quibble_patched` about which upstream branch its patches came from.
+- [x] Documentation for both variants: `meta.longDescription` now states the
+      install layout (`freeldr.ini` and `font.ttf` beside the loader,
+      `drivers/` next to them) and, for `quibble_patched`, that it tracks the
+      same upstream revision as `quibble` with only local runtime/ZFS patches.
 - [ ] Re-check that `nix build .#quibble` and `nix build .#quibble_patched`
       still pass after any `print.cpp`/toolchain churn upstream.
 

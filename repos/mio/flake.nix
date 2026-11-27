@@ -111,6 +111,16 @@
               {
                 lastbook = packages.lastbook_patched;
               };
+          # quibble: boot each variant under OVMF and check the loader keeps the
+          # console and draws its menu (see by-name/qu/quibble/vm-test.nix).
+          quibble-vm-boot = nixpkgs.legacyPackages.x86_64-linux.callPackage ./by-name/qu/quibble/vm-test.nix {
+            quibble = packages.quibble;
+          };
+          quibble-patched-vm-boot =
+            nixpkgs.legacyPackages.x86_64-linux.callPackage ./by-name/qu/quibble/vm-test.nix
+              {
+                quibble = packages.quibble_patched;
+              };
         };
       cached-cuda = forAllSystems (
         system:

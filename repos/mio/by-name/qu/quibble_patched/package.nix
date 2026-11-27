@@ -7,6 +7,10 @@
 
 # Quibble with a real freestanding runtime instead of upstream's dummies.
 #
+# It tracks the same upstream revision as `quibble` (maharmstone/quibble master,
+# pinned in ../quibble/package.nix).  Every change this variant makes is local
+# and lives beside this file: print-dummies.patch, setjmp.S and compat.cpp.
+#
 # Upstream's print.cpp defines _setjmp as a stub that returns 0 and aborts from
 # longjmp, strrchr, strncpy, strtoul and the printf backends, so FreeType's
 # raster-overflow and validator recovery paths are disabled.  This variant
@@ -68,5 +72,17 @@ quibble.overrideAttrs (old: {
 
   meta = (old.meta or { }) // {
     description = "Open-source UEFI bootloader for Windows, with a real setjmp/longjmp runtime";
+    longDescription = ''
+      Same loader and upstream revision as `quibble`, with two local changes:
+      upstream's dummy libc block in print.cpp is replaced by a real
+      setjmp/longjmp and string/printf runtime, and the `zfs-efi` driver ships
+      in `drivers/` so Windows can be booted from a ZFS pool.
+
+      The install layout is unchanged: `quibble.efi`, `freeldr.ini` and
+      `font.ttf` belong in the directory the loader is loaded from, with
+      `drivers/` next to them. Booting from ZFS additionally requires the pool
+      to stay inside FreeBSD's read-only feature set (no encryption, no
+      gzip/zstd) and `OpenZFS.sys` to be a boot-start driver in the guest.
+    '';
   };
 })
