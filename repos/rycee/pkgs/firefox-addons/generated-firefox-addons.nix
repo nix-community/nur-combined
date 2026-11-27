@@ -53,10 +53,10 @@
     };
     "7tv-new" = buildMozillaXpiAddon {
       pname = "7tv-new";
-      version = "1.10.9";
+      version = "1.10.10";
       addonId = "seventv-next@7tv.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5271710/7tv_new-1.10.9.xpi";
-      sha256 = "5984c8895efc73354904cb729a2362e6225fdf783b3866e7b05e766f33f9a512";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5311286/7tv_new-1.10.10.xpi";
+      sha256 = "5dc648cb74c4dade1afcfeccf248ef4a7cbf91b1b0b8b26eb84d2fef67475f69";
       meta = with lib;
       {
         description = "Improve your viewing experience with 7TV on Twitch and YouTube with new features, emotes, vanity and performance.";
@@ -1446,10 +1446,10 @@
     };
     "blueprint-mcp-for-firefox" = buildMozillaXpiAddon {
       pname = "blueprint-mcp-for-firefox";
-      version = "1.9.22";
+      version = "1.9.23";
       addonId = "blueprint-mcp@railsblueprint.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4949928/blueprint_mcp_for_firefox-1.9.22.xpi";
-      sha256 = "3ce232fa66505b440e1c82548c7cc2931488cff8c0df004a2cfb5a88eb0fed89";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5310957/blueprint_mcp_for_firefox-1.9.23.xpi";
+      sha256 = "3c2a22c671cfd423b634e1a237a3d8519cfcbe1ae4ee024aca5fd6e34c29caae";
       meta = with lib;
       {
         description = "Give Claude Code and other AI assistants direct control of your real Firefox browser through the Model Context Protocol. Stay logged in, bypass bot detection, automate authenticated workflows.";
@@ -2572,10 +2572,10 @@
     };
     "control-panel-for-twitter" = buildMozillaXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.99.4";
+      version = "4.99.5";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5297310/control_panel_for_twitter-4.99.4.xpi";
-      sha256 = "da1a5b6ba9715dc104b156d03f58b8b0e2534a1183cb15c98fc9183575e2d89c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5309171/control_panel_for_twitter-4.99.5.xpi";
+      sha256 = "1ffca9d9a33caca75b5ccc2ac83cb0d620ff41c95abebd12633c1a508be322c6";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-twitter";
@@ -2908,10 +2908,10 @@
     };
     "csgo-trader-steam-trading" = buildMozillaXpiAddon {
       pname = "csgo-trader-steam-trading";
-      version = "3.8";
+      version = "3.8.1";
       addonId = "{988dd4f5-e8d5-49bf-a766-ff75b0e19fe2}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5291793/csgo_trader_steam_trading-3.8.xpi";
-      sha256 = "81f8eaa9edebeebd6baab118e5c8bd04775484f78493fc52cec963c119e2d614";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5313632/csgo_trader_steam_trading-3.8.1.xpi";
+      sha256 = "bf25a28ca12fb55338b4a0155629f42caca7b842afa592f4301c213115150ed3";
       meta = with lib;
       {
         homepage = "https://csgotrader.app/";
@@ -2922,6 +2922,7 @@
           "notifications"
           "alarms"
           "unlimitedStorage"
+          "cookies"
           "*://steamcommunity.com/*/inventory"
           "*://steamcommunity.com/*/inventory/*"
           "*://steamcommunity.com/tradeoffer/*"
@@ -2957,10 +2958,10 @@
     };
     "csgofloat" = buildMozillaXpiAddon {
       pname = "csgofloat";
-      version = "5.19.2";
+      version = "5.19.3";
       addonId = "{194d0dc6-7ada-41c6-88b8-95d7636fe43c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5303372/csgofloat-5.19.2.xpi";
-      sha256 = "d025d5d396e109468b1156b377e8d33d69757f2edffa6df45d821da1053986b8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5308930/csgofloat-5.19.3.xpi";
+      sha256 = "949467fc59526cec1dc9717bfdd651ce8bed0253915b3ec8680ec2067750fc48";
       meta = with lib;
       {
         homepage = "https://csgofloat.com";
@@ -4038,10 +4039,10 @@
     };
     "enhancer-for-nebula" = buildMozillaXpiAddon {
       pname = "enhancer-for-nebula";
-      version = "1.7.10";
+      version = "1.8.0";
       addonId = "nebula-enhancer@piber.at";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5076187/enhancer_for_nebula-1.7.10.xpi";
-      sha256 = "2241362e54216b4042ed1c65434e9275377131a167fef1801cb8623f39a6dd7e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5312864/enhancer_for_nebula-1.8.0.xpi";
+      sha256 = "73eaf2de498f4db72734fad2297812bec3b962c94c0a06e0cf55b7cbe7836dc1";
       meta = with lib;
       {
         homepage = "https://github.com/cpiber/NebulaEnhance#readme";
@@ -4963,10 +4964,10 @@
     };
     "ghostery" = buildMozillaXpiAddon {
       pname = "ghostery";
-      version = "10.6.13";
+      version = "10.6.14";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5273401/ghostery-10.6.13.xpi";
-      sha256 = "f015b345e5f6726443f2b6a490bdb3dec59a70c98c82f68900c6fbac90f52b3f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5309623/ghostery-10.6.14.xpi";
+      sha256 = "5b1d567df1d2aa989e2d99423187de11b86c2873464afa109f03961d0f02ccf6";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -8874,10 +8875,10 @@
     };
     "mergify" = buildMozillaXpiAddon {
       pname = "mergify";
-      version = "1.11.0";
+      version = "1.11.2";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5305231/mergify-1.11.0.xpi";
-      sha256 = "26826d2b124a31914984d8d85dfad65a77bf8f06667a09c00f80b9e68556752d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5311784/mergify-1.11.2.xpi";
+      sha256 = "db16638d98208cc5603023aceaf14b76fbc25b26e53a471ac2c05c7cc3711cf5";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -12803,10 +12804,10 @@
     };
     "remove-youtube-s-suggestions" = buildMozillaXpiAddon {
       pname = "remove-youtube-s-suggestions";
-      version = "4.7.0";
+      version = "4.7.1";
       addonId = "{21f1ba12-47e1-4a9b-ad4e-3a0260bbeb26}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5289119/remove_youtube_s_suggestions-4.7.0.xpi";
-      sha256 = "6526b16004b0a3521f5c48196f0ea1fd7b1f38a8248d3d6f461c5814ed8e4181";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5314032/remove_youtube_s_suggestions-4.7.1.xpi";
+      sha256 = "44e527adbd72e2a931975c19c8508b47f3dce0d130398009abbcc8ac2aa16bdb";
       meta = with lib;
       {
         homepage = "https://lawrencehook.com/rys/";
@@ -13608,10 +13609,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.40.0";
+      version = "1.41.1";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5284257/single_file-1.40.0.xpi";
-      sha256 = "15bf2a1ea115b89cf94415d5d8a7d6ef2979f5b3d3410aa9de7fbf70a80bc269";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5311936/single_file-1.41.1.xpi";
+      sha256 = "e1eee6ce4126dcbe1f255e6d76fa634f58efd6817f89ef2e01ce35d673e63dc5";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -15908,10 +15909,10 @@
     };
     "v2ex-polish" = buildMozillaXpiAddon {
       pname = "v2ex-polish";
-      version = "2.5.17";
+      version = "2.5.18";
       addonId = "leokudev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5302778/v2ex_polish-2.5.17.xpi";
-      sha256 = "132c5d5f1316ab9ab1ea63a5e2917c11cf7e7050f80d6c182845be6544647858";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5309374/v2ex_polish-2.5.18.xpi";
+      sha256 = "6e6bdff6d0c0b35a0f20fc5435f483c4056375fcd8bb99e7f7fa14d7befa0366";
       meta = with lib;
       {
         description = "专为 V2EX 用户设计，提供了丰富的扩展功能。";
@@ -16621,10 +16622,10 @@
     };
     "wappalyzer" = buildMozillaXpiAddon {
       pname = "wappalyzer";
-      version = "6.12.8";
+      version = "6.12.9";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5166528/wappalyzer-6.12.8.xpi";
-      sha256 = "20bb60052190e00204970fc9d430e5c7756eab90a8e29f3006e79f2ed9f8efb8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5312683/wappalyzer-6.12.9.xpi";
+      sha256 = "7b387d56c3ba60e9047890f323a1425ec8c4459c20f23e68b85fd7c492369654";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";

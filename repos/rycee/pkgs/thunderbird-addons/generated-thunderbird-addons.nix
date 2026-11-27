@@ -389,16 +389,25 @@
     };
     "tbsync" = buildMozillaXpiAddon {
       pname = "tbsync";
-      version = "4.16";
+      version = "5.3.9";
       addonId = "tbsync@jobisoft.de";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1040395/tbsync-4.16-tb.xpi?src=";
-      sha256 = "60aba312770e5a49dcedfb8db67cb57a9f8daf12ffd49dca2d7ed1af825bbcbb";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1055915/tbsync_manager-5.3.9-tb.xpi?src=";
+      sha256 = "4d4f6399815a55c0c8ba1f4b3c1d2e7df436a2f75590611c7d5c0c5a7357d166";
       meta = with lib;
       {
         homepage = "https://github.com/jobisoft/TbSync";
         description = "TbSync is a central user interface to manage cloud accounts and synchronize their contact, task and calendar information with Thunderbird.";
         license = licenses.mpl20;
-        mozPermissions = [];
+        mozPermissions = [
+          "storage"
+          "alarms"
+          "management"
+          "addressBooks"
+          "menus"
+          "menus.overrideContext"
+          "compose"
+          "downloads"
+        ];
         platforms = platforms.all;
       };
     };
