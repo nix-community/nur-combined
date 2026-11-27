@@ -127,10 +127,6 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace src/main/src/cli.ts \
       --replace-fail '.opts() as IParameters;' '.opts() as IParameters; const positionalNxm = argv.find((arg) => arg.startsWith("nxm://")); if (commandLine.download === undefined && commandLine.install === undefined && positionalNxm !== undefined) { commandLine.download = positionalNxm; }'
 
-    substituteInPlace src/renderer/src/extensions/profile_management/index.ts \
-      --replace-fail 'if (store === undefined || getGame(gameId) === undefined) {' \
-      'if (store === undefined || getGame(gameId) === undefined || getGameStubDownloadInfo(gameId) !== undefined) {'
-
     substituteInPlace src/renderer/src/util/storeLookup.ts \
       --replace-fail 'appId: string | string[],' 'appId: string | string[] | number,' \
       --replace-fail 'if (!validInput(appId)) {' 'if (!validInput(typeof appId === "number" ? String(appId) : appId)) {' \

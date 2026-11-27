@@ -54,8 +54,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   buildInputs = [ zstd ];
 
   postPatch = ''
+    sed -i 's/^PG_VERSION=.*/PG_VERSION=${postgresql.version}/' versions.env
     substituteInPlace versions.env \
-      --replace-fail 'PG_VERSION=18.1.0' 'PG_VERSION=${postgresql.version}' \
       --replace-fail 'PGVECTOR_VERSION=0.8.5' 'PGVECTOR_VERSION=${postgresql.pkgs.pgvector.version}'
 
     substituteInPlace src/main.rs \
@@ -84,13 +84,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     if let Ok(path) = env::var("PG0_PGVECTOR_BUNDLE") {
         println!("cargo:rustc-env=PGVECTOR_BUNDLE_PATH={}", path);
         return;
-    }' \
-      --replace-fail \
-        'fn bundle_runtime_libs(versions: &HashMap<String, String>, out_dir: &PathBuf) {' \
-        'fn bundle_runtime_libs(versions: &HashMap<String, String>, out_dir: &PathBuf) {
-    if let Ok(path) = env::var("PG0_RUNTIME_LIBS_BUNDLE") {
-        println!("cargo:rustc-env=RUNTIME_LIBS_BUNDLE_PATH={}", path);
-        return;
     }'
   '';
 
@@ -100,7 +93,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
     export PG0_POSTGRESQL_BUNDLE=$PWD/assets/empty.tar.gz
     export PG0_PGVECTOR_BUNDLE=$PWD/assets/empty.tar.gz
-    export PG0_RUNTIME_LIBS_BUNDLE=$PWD/assets/empty.tar.gz
   '';
 
   postInstall = ''
