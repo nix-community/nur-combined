@@ -1005,15 +1005,15 @@
       "fingerprint": "sha256-bDHuPi4pDA+KHdBq0EWN+AFaEHyxWkqkaNUpvXDWM7M="
     },
     "pi-nix-build": {
-      "version": "0.1.3",
-      "rawVersion": "v0.1.3",
-      "date": "2026-11-26",
+      "version": "0.1.5",
+      "rawVersion": "v0.1.5",
+      "date": "2026-11-27",
       "src": {
         "fetcher": "github",
         "owner": "Moraxyc",
         "repo": "pi-nix-build",
-        "rev": "v0.1.3",
-        "hash": "sha256-m0q5/whqHx+X2d/hOVUp9KNTg8cvt3S5ymbqXTZRUos="
+        "rev": "v0.1.5",
+        "hash": "sha256-ZWIOn0SX2lLJ8YBHITneYFAhe5qp25DlJtHD45zdhlw="
       },
       "fingerprint": "sha256-g7Y6fpT0ZLhV6iBUbu7lcAVwnYvEG1MkwqfiVxE3/Bw="
     },
