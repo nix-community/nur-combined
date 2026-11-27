@@ -55,11 +55,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-WjaoZKuILopBRlMQhcTDvafHLY4dYf2dVz1wysTSvms=",
+            "sha256": "sha256-Ke7ZD8K0pGzFnP2fppImLZyNjhptndEDavplnjBp9Mw=",
             "type": "url",
-            "url": "https://github.com/ryota2357/PleckJP/releases/download/v2.2.0/PleckJP_v2.2.0.zip"
+            "url": "https://github.com/ryota2357/PleckJP/releases/download/v2.3.0/PleckJP_v2.3.0.zip"
         },
-        "version": "v2.2.0"
+        "version": "v2.3.0"
     },
     "vm_stat2": {
         "cargoLock": null,
