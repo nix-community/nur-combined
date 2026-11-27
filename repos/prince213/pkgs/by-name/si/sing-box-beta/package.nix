@@ -8,11 +8,11 @@
 
 (sing-box.override { cronet-go = cronet-go-beta; }).overrideAttrs (previousAttrs: {
   pname = previousAttrs.pname + "-beta";
-  version = "1.15.0-alpha.13";
+  version = "1.15.0-alpha.14";
   __structuredAttrs = true;
 
   src = previousAttrs.src.override {
-    hash = "sha256-N0Ov1YVNpsCdt2G9cS6jHs52gCvbZ4+CL3kFRuKfYts=";
+    hash = "sha256-sPeg7S7OUFwQxY6cU74TjpwQTBhkQ2itteXi7WfmfAs=";
   };
 
   postPatch = ''
@@ -24,12 +24,7 @@
       common/certificate/{mozilla,chrome}.go
   '';
 
-  vendorHash = "sha256-3SyWbFw727nZRCaECDl+Bu1w1yhYB+fzUxvCKw2om6w=";
-
-  # https://github.com/NixOS/nixpkgs/pull/592763
-  env = (previousAttrs.env or { }) // {
-    CGO_LDFLAGS_ALLOW = "-l:libcronet\\.a";
-  };
+  vendorHash = "sha256-q9We+hnPZ/GqAYNXsJJrOlous0XIMCyCIfqQMVnluLo=";
 
   postInstall =
     lib.replaceString
