@@ -29,8 +29,26 @@
     }:
     let
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
+      pkgsFor =
+        system:
+        import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          config.android_sdk.accept_license = true;
+          config.permittedInsecurePackages = [
+            "python-2.7.18"
+          ];
+        };
       packagesFor =
-        system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system};
+        system:
+        let
+          packages = import ./default.nix {
+            pkgs = pkgsFor system;
+            inherit inputs;
+            no-ifd = true;
+          };
+        in
+        nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) packages;
     in
     {
       # Built by nova-nix on Windows from the repository root:
@@ -43,14 +61,7 @@
       legacyPackages = forAllSystems (
         system:
         import ./default.nix {
-          pkgs = import nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
-            config.android_sdk.accept_license = true;
-            config.permittedInsecurePackages = [
-              "python-2.7.18"
-            ];
-          };
+          pkgs = pkgsFor system;
           inherit inputs;
           no-ifd = false;
         }

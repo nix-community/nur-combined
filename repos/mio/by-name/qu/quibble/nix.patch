@@ -1,0 +1,97 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d9a4788..186c9c1 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -5,6 +5,10 @@ project(quibble VERSION 20230328)
+ set(CMAKE_CXX_STANDARD 20)
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)
+ 
++set(CMAKE_C_STANDARD_LIBRARIES "")
++set(CMAKE_CXX_STANDARD_LIBRARIES "")
++link_libraries(gcc)
++
+ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/config.h)
+ 
+ if(MSVC)
+@@ -30,6 +34,8 @@ set(SRC_FILES src/apiset.cpp
+     src/mem.cpp
+     src/menu.cpp
+     src/misc.cpp
++    src/compat.cpp
++    src/setjmp.S
+     src/peload.cpp
+     src/reg.cpp
+     src/tinymt32.cpp
+diff --git a/mingw-amd64.cmake b/mingw-amd64.cmake
+index 414c27d..5029e63 100644
+--- a/mingw-amd64.cmake
++++ b/mingw-amd64.cmake
+@@ -5,7 +5,10 @@ SET(CMAKE_CXX_COMPILER x86_64-w64-mingw32-g++)
+ SET(CMAKE_RC_COMPILER x86_64-w64-mingw32-windres)
+ SET(CMAKE_SYSTEM_PROCESSOR "AMD64")
+ 
+-set(CMAKE_EXE_LINKER_FLAGS "-static")
++set(CMAKE_EXE_LINKER_FLAGS "-static -nostdlib -nodefaultlibs -Wl,--disable-runtime-pseudo-reloc")
++
++set(CMAKE_C_COMPILER_WORKS 1)
++set(CMAKE_CXX_COMPILER_WORKS 1)
+ 
+ SET(CMAKE_FIND_ROOT_PATH /usr/x86_64-w64-mingw32)
+ 
+diff --git a/src/print.cpp b/src/print.cpp
+index f105ca5..f0de5f7 100644
+--- a/src/print.cpp
++++ b/src/print.cpp
+@@ -616,52 +616,11 @@ void FT_Done_Memory(FT_Memory memory) {
+  * This is so we can bring in the upstream versions directly, rather than
+  * having to patch the offending bits out. */
+ 
+-#ifdef __x86_64__
+-
+-extern "C"
+-void __imp_longjmp(jmp_buf, int) {
+-    abort();
+-}
+-
+-#elif defined(_X86_)
+-
+-extern "C"
+-void _imp__longjmp(jmp_buf, int) {
+-    abort();
+-}
+-
+-#endif
+-
+-extern "C"
+-int _setjmp(jmp_buf, void*) {
+-    return 0;
+-}
+-
+-extern "C"
+-int _setjmp3(jmp_buf, void*) {
+-    return 0;
+-}
+-
+ extern "C"
+ char* getenv(const char*) {
+     return nullptr;
+ }
+ 
+-extern "C"
+-char* strrchr(const char*, int) {
+-    abort();
+-}
+-
+-extern "C"
+-char* strncpy(char*, const char*, size_t) {
+-    abort();
+-}
+-
+-extern "C"
+-unsigned long strtoul(const char*, char**, int) {
+-    abort();
+-}
+-
+ extern "C"
+ int __mingw_vsprintf(char*, const char*, va_list) {
+     abort();

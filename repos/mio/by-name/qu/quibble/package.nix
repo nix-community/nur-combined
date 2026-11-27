@@ -39,10 +39,7 @@ mingw.stdenv.mkDerivation {
 
   hardeningDisable = [ "all" ];
 
-  patches = [
-    ./mingw-amd64-nix.patch
-    ./setjmp-amd64-nix.patch
-  ];
+  patches = [ ./nix.patch ];
 
   # The UEFI image is built freestanding, without mingw's CRT or default
   # libraries.  FreeType needs a real setjmp/longjmp for its raster-overflow and
