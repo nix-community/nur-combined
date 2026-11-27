@@ -186,12 +186,14 @@ impl Parser {
     // keywords are bare identifiers recognized only in operator position.
 
     pub(super) fn or_expr(&mut self) -> Result<Expr, Error> {
+        let mut chain = crate::stack::Chain::new();
         let mut lhs = self.and_expr()?;
         // In plain CSS `or`/`and`/`not` are ordinary identifiers, not operators.
         while !self.plain_css && self.try_keyword("or") {
             self.skip_ws_inline();
             let pos = self.sc.position();
             let rhs = self.and_expr()?;
+            chain.level(self.sc.position())?;
             lhs = Expr::Binary {
                 op: BinOp::Or,
                 lhs: Box::new(lhs),
@@ -203,11 +205,13 @@ impl Parser {
     }
 
     fn and_expr(&mut self) -> Result<Expr, Error> {
+        let mut chain = crate::stack::Chain::new();
         let mut lhs = self.equality()?;
         while !self.plain_css && self.try_keyword("and") {
             self.skip_ws_inline();
             let pos = self.sc.position();
             let rhs = self.equality()?;
+            chain.level(self.sc.position())?;
             lhs = Expr::Binary {
                 op: BinOp::And,
                 lhs: Box::new(lhs),
@@ -219,6 +223,7 @@ impl Parser {
     }
 
     fn equality(&mut self) -> Result<Expr, Error> {
+        let mut chain = crate::stack::Chain::new();
         let mut lhs = self.relational()?;
         loop {
             let mark = self.sc.mark();
@@ -244,6 +249,7 @@ impl Parser {
             let pos = self.sc.position();
             self.skip_ws_inline();
             let rhs = self.relational()?;
+            chain.level(self.sc.position())?;
             lhs = Expr::Binary {
                 op,
                 lhs: Box::new(lhs),
@@ -255,6 +261,7 @@ impl Parser {
     }
 
     fn relational(&mut self) -> Result<Expr, Error> {
+        let mut chain = crate::stack::Chain::new();
         let mut lhs = self.additive()?;
         loop {
             let mark = self.sc.mark();
@@ -292,6 +299,7 @@ impl Parser {
             let pos = self.sc.position();
             self.skip_ws_inline();
             let rhs = self.additive()?;
+            chain.level(self.sc.position())?;
             lhs = Expr::Binary {
                 op,
                 lhs: Box::new(lhs),
@@ -327,6 +335,7 @@ impl Parser {
     }
 
     pub(super) fn additive(&mut self) -> Result<Expr, Error> {
+        let mut chain = crate::stack::Chain::new();
         let mut lhs = self.multiplicative()?;
         loop {
             // A `?`-wildcard unicode-range token is terminal: a directly
@@ -405,6 +414,7 @@ impl Parser {
                         self.sc.bump();
                         self.skip_ws_inline();
                         let rhs = self.multiplicative()?;
+                        chain.level(self.sc.position())?;
                         lhs = Expr::Binary {
                             op,
                             lhs: Box::new(lhs),
@@ -445,6 +455,7 @@ impl Parser {
     }
 
     fn multiplicative(&mut self) -> Result<Expr, Error> {
+        let mut chain = crate::stack::Chain::new();
         let mut lhs = self.unary()?;
         loop {
             let mark = self.sc.mark();
@@ -473,6 +484,7 @@ impl Parser {
                 // Inside calc() `/` is always real division; elsewhere it
                 // keeps the slash spelling between number literals.
                 let slash = self.calc_depth == 0 && is_slash_operand(&lhs) && is_slash_operand(&rhs);
+                chain.level(self.sc.position())?;
                 lhs = Expr::Div {
                     lhs: Box::new(lhs),
                     rhs: Box::new(rhs),
@@ -494,6 +506,7 @@ impl Parser {
                     self.sc.bump();
                     self.skip_ws_inline();
                     let rhs = self.unary()?;
+                    chain.level(self.sc.position())?;
                     lhs = Expr::Binary {
                         op,
                         lhs: Box::new(lhs),
@@ -2023,6 +2036,9 @@ impl Parser {
     /// applies to a single non-multi-token operand and cannot be chained.
     /// Keywords (`not`/`and`/`or`) are matched case-insensitively.
     fn parse_if_cond(&mut self, probe: bool) -> Result<Option<IfCond>, Error> {
+        // Recurses with `parse_if_operand` for each parenthesized condition,
+        // without passing through `comma_list` (#314).
+        crate::stack::check_at(self.sc.position(), 0)?;
         self.skip_ws_inline();
         // Leading `not`: a single operand, no following `and`/`or`.
         if self.eat_if_keyword("not") {
@@ -2428,6 +2444,7 @@ impl Parser {
     /// `==` is the equality operator and is handled at its own precedence, so
     /// only a `=` not followed by `=` is consumed.
     fn arg_value(&mut self) -> Result<Expr, Error> {
+        let mut chain = crate::stack::Chain::new();
         let mut lhs = self.space_list()?;
         loop {
             let mark = self.sc.mark();
@@ -2437,6 +2454,7 @@ impl Parser {
                 self.sc.bump();
                 self.skip_ws_inline();
                 let rhs = self.space_list()?;
+                chain.level(self.sc.position())?;
                 lhs = Expr::Binary {
                     op: BinOp::SingleEq,
                     lhs: Box::new(lhs),

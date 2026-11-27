@@ -479,15 +479,18 @@ impl<'a> Options<'a> {
     /// does, instead of overflowing the stack, which aborts the process.
     ///
     /// Set it a margin below the stack the compile runs on, leaving room for
-    /// the frames above the call. Without it, sasso assumes 6 MiB on the
-    /// process's main thread (Rust names it `main`) and 768 KiB on any other,
-    /// which is safe on a 1 MiB thread such as a Ruby worker's. A compile run
-    /// on a thread you spawned with a bigger stack can be given more: with
-    /// `stack_size(64 << 20)`, a limit of `60 << 20` is reasonable.
+    /// the frames above the call. Without it the limit is 768 KiB on every
+    /// thread, which is safe on a 1 MiB thread such as a Ruby worker's: sasso
+    /// cannot learn a thread's real stack size, so it does not guess. A host
+    /// that knows its stack is bigger should say so. On a typical 8 MiB main
+    /// thread, `6 << 20` is reasonable. On a thread you spawned with
+    /// `stack_size(64 << 20)`, `60 << 20` is.
     ///
     /// The limit counts bytes, not levels, because one level costs very
     /// different amounts depending on what recurses and on the build. In a
-    /// release build, a recursive `@function` costs about 6 KiB a level.
+    /// release build, a recursive `@function` costs about 6 KiB a level, and
+    /// each operator in a long chain such as `1 + 1 + …` or
+    /// `(a: b) and (a: b) and …` is charged 2.5 KiB.
     #[must_use]
     pub fn with_stack_limit(mut self, bytes: usize) -> Self {
         self.stack_limit = Some(bytes);
@@ -496,7 +499,7 @@ impl<'a> Options<'a> {
 
     /// The stack limit this compile runs with.
     fn effective_stack_limit(&self) -> usize {
-        self.stack_limit.unwrap_or_else(stack::default_limit)
+        self.stack_limit.unwrap_or(stack::DEFAULT_LIMIT)
     }
 }
 
@@ -526,7 +529,7 @@ pub fn compile(source: &str, options: &Options<'_>) -> Result<String, Error> {
     // All allocations here bump from the arena (when ScopedAlloc is installed).
     let result = {
         let _stack = stack::enter(options.effective_stack_limit());
-        compile_inner(source, options)
+        stack::untrip(compile_inner(source, options))
     };
     // Leave the scope WITHOUT resetting yet: depth drops to 0, so the arena is
     // now inactive and subsequent allocations route to the system allocator —
@@ -581,7 +584,7 @@ pub fn compile_with_source_map(source: &str, options: &Options<'_>) -> Result<Co
     let guard = arena::Scope::enter();
     let result = {
         let _stack = stack::enter(options.effective_stack_limit());
-        compile_inner_sm(source, options)
+        stack::untrip(compile_inner_sm(source, options))
     };
     let outermost = arena::leave_no_reset();
     let owned = result.clone();

@@ -8138,6 +8138,11 @@ const SELECTOR_PSEUDO_CLASSES: [&str; 9] = [
 /// [`find_stray_selector_char`] over `cs`, a selector list that starts at
 /// char index `base`; `in_arg` when it is a pseudo's argument.
 fn stray_in_selector(cs: &[char], base: usize, in_arg: bool) -> Option<(usize, String)> {
+    // Recurses into `::slotted()` and the other selector-pseudo arguments: see
+    // `complex_selector_is_bogus` (#314).
+    if crate::stack::trip() {
+        return None;
+    }
     // Whether the current complex selector has nothing in it yet.
     let mut empty = true;
     let mut i = 0;
@@ -9356,6 +9361,13 @@ pub(crate) fn split_compounds(s: &str) -> Vec<&str> {
 /// here (it is kept, or handled separately by the nesting rules). The check
 /// recurses into selector pseudo arguments (`:is()`, `:not()`, …).
 fn complex_selector_is_bogus(s: &str, in_pseudo: bool, allow_leading: bool) -> bool {
+    // Recurses once per selector-pseudo argument (with `compound_has_bogus_pseudo`)
+    // in text that may have been assembled at run time, and `::slotted()` never
+    // reaches the charged `parse_list` (#314). Past the limit the guard trips,
+    // the compile ends in `Stack Overflow`, and this answer is never used.
+    if crate::stack::trip() {
+        return false;
+    }
     // Bogus-ness needs a combinator (`>`/`+`/`~`) or a selector-pseudo
     // argument (which needs a `(`); a selector containing none of those
     // bytes cannot be bogus, so skip the tokenization entirely.

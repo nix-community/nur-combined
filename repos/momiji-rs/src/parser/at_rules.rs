@@ -841,6 +841,7 @@ impl Parser {
     /// dart-sass `_supportsCondition`: an optional leading `not`, otherwise a
     /// condition-in-parens followed by a uniform `and`/`or` chain.
     fn parse_supports_condition(&mut self) -> Result<SupportsCondition, Error> {
+        let mut chain = crate::stack::Chain::new();
         if self.scan_keyword_ci("not") {
             self.skip_ws_inline();
             let inner = self.parse_supports_condition_in_parens()?;
@@ -864,6 +865,7 @@ impl Parser {
             }
             self.skip_ws_inline();
             let right = self.parse_supports_condition_in_parens()?;
+            chain.level(self.sc.position())?;
             condition = SupportsCondition::Operation {
                 left: Box::new(condition),
                 right: Box::new(right),
@@ -1050,6 +1052,7 @@ impl Parser {
         &mut self,
         mut identifier: Vec<TplPiece>,
     ) -> Result<Result<SupportsCondition, Vec<TplPiece>>, Error> {
+        let mut chain = crate::stack::Chain::new();
         // Only a single-interpolation identifier can form an operation. Pull
         // the lone interpolation expression out; if it isn't one, give back the
         // identifier untouched.
@@ -1096,6 +1099,7 @@ impl Parser {
                 Some(op) => op,
                 None => SupportsCondition::Interpolation(left_expr.take().unwrap_or(Expr::Null)),
             };
+            chain.level(self.sc.position())?;
             operation = Some(SupportsCondition::Operation {
                 left: Box::new(left),
                 right: Box::new(right),
@@ -2075,6 +2079,7 @@ impl Parser {
     /// Parse a media-feature expression (a SassScript expression that stops
     /// before a top-level comparison operator: the additive level).
     fn media_expression(&mut self) -> Result<Expr, Error> {
+        let mut chain = crate::stack::Chain::new();
         self.skip_media_ws();
         // `=` directly here (e.g. after `<` with a space) is invalid.
         if matches!(self.sc.peek(), Some('=')) {
@@ -2094,6 +2099,7 @@ impl Parser {
                 self.skip_ws_inline();
                 let pos = self.sc.position();
                 let rhs = self.media_and_chain()?;
+                chain.level(self.sc.position())?;
                 lhs = Expr::Binary {
                     op: BinOp::Or,
                     lhs: Box::new(lhs),
@@ -2110,6 +2116,7 @@ impl Parser {
 
     /// The `and` level of [`Self::media_expression`], over additive operands.
     fn media_and_chain(&mut self) -> Result<Expr, Error> {
+        let mut chain = crate::stack::Chain::new();
         let mut lhs = self.additive()?;
         loop {
             let mark = self.sc.mark();
@@ -2118,6 +2125,7 @@ impl Parser {
                 self.skip_ws_inline();
                 let pos = self.sc.position();
                 let rhs = self.additive()?;
+                chain.level(self.sc.position())?;
                 lhs = Expr::Binary {
                     op: BinOp::And,
                     lhs: Box::new(lhs),

@@ -327,6 +327,11 @@ pub(crate) fn validate_pseudo_args(sel: &str) -> Result<(), &'static str> {
 }
 
 fn validate_pseudo_args_inner(chars: &[char]) -> Result<(), &'static str> {
+    // Recurses once per nested pseudo-class argument, in text that may have
+    // been assembled at run time (#314).
+    if crate::stack::trip() {
+        return Err(crate::stack::MESSAGE);
+    }
     let mut i = 0usize;
     while i < chars.len() {
         match chars[i] {

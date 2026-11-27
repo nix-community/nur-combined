@@ -264,3 +264,218 @@ fn the_cli_reports_a_stack_overflow_and_exits_65() {
     );
     assert!(String::from_utf8_lossy(&out.stderr).starts_with("Error: Stack Overflow"));
 }
+
+// ---- #314: depth that building the tree does not show ----------------------
+
+/// A chain built in a loop (`a and b and …`, `1 + 1 + …`) does not grow the
+/// parser's stack, but every later walk of it recurses once per operator.
+#[test]
+fn a_long_supports_chain_fails_instead_of_aborting() {
+    let chain = vec!["(a: b)"; 500_000].join(" and ");
+    assert_overflows(format!("@supports {chain} {{ a {{ b: c; }} }}"), Syntax::Scss);
+}
+
+#[test]
+fn a_long_sum_fails_even_when_it_is_never_evaluated() {
+    // Never called, so nothing evaluates it, but diagnostics walk it and
+    // dropping the stylesheet does.
+    let sum = vec!["1"; 500_000].join(" + ");
+    let src = format!("@function f() {{ @return {sum}; }}\na {{ b: c; }}\n");
+    let err = on_stack(8 << 20, move || {
+        compile(
+            &src,
+            &Options::new().with_url("input.scss").with_stack_limit(6 << 20),
+        )
+    })
+    .expect_err("must fail");
+    assert_eq!(err.message, "Stack Overflow");
+}
+
+#[test]
+fn long_operator_chains_fail_instead_of_aborting() {
+    for op in ["-", "*", "/", "%", "==", "<", "and", "or"] {
+        let chain = vec!["1"; 500_000].join(&format!(" {op} "));
+        assert_overflows(format!("a {{ b: {chain}; }}"), Syntax::Scss);
+    }
+}
+
+#[test]
+fn a_long_filter_argument_chain_fails_instead_of_aborting() {
+    let chain = vec!["a"; 500_000].join("=");
+    assert_overflows(format!("a {{ b: alpha({chain}); }}"), Syntax::Scss);
+}
+
+#[test]
+fn a_parenthesized_if_condition_fails_instead_of_aborting() {
+    let n = 200_000;
+    assert_overflows(
+        format!(
+            "a {{ b: if({}sass(true){}: 1; else: 0); }}",
+            "(".repeat(n),
+            ")".repeat(n)
+        ),
+        Syntax::Scss,
+    );
+}
+
+/// Selector text is parsed by recursive functions that answer `Option`, so
+/// reaching the limit there trips the guard and the compile still ends in
+/// `Stack Overflow`, never in a selector quietly treated as unparsable.
+#[test]
+fn deeply_nested_pseudo_selectors_fail_instead_of_aborting() {
+    let n = 20_000;
+    assert_overflows(
+        format!("{}a{} {{ b: c; }}", ":is(".repeat(n), ")".repeat(n)),
+        Syntax::Scss,
+    );
+}
+
+#[test]
+fn a_nested_selector_built_at_run_time_fails_instead_of_aborting() {
+    // No parser check sees this nesting: the text is assembled by the loop.
+    assert_overflows(
+        "$s: a;\n@for $i from 1 through 20000 { $s: \":is(\" + $s + \")\"; }\n#{$s} { b: c; }\n".into(),
+        Syntax::Scss,
+    );
+}
+
+/// Ordinary depth is untouched: a 100-term chain, and selectors nested a
+/// realistic few levels.
+#[test]
+fn ordinary_chains_and_selectors_still_compile() {
+    let sum = vec!["1"; 100].join(" + ");
+    let css = compile_deep(format!("a {{ b: {sum}; }}\n"), Syntax::Scss).expect("100 terms");
+    assert!(css.contains("b: 100;"), "{css}");
+    let css =
+        compile_deep(":is(:not(:where(.a, .b))) .c { d: e; }\n".into(), Syntax::Scss).expect("3 levels");
+    assert!(css.contains(":is(:not(:where(.a, .b))) .c"), "{css}");
+}
+
+/// The default no longer trusts a thread's name: a 1 MiB thread named `main`
+/// gets the same 768 KiB as any other, and fails cleanly.
+#[test]
+fn the_default_limit_ignores_the_thread_name() {
+    let err = std::thread::Builder::new()
+        .name("main".into())
+        .stack_size(1 << 20)
+        .spawn(|| {
+            compile(
+                "@function f($n) { @return f($n + 1); }\na { b: f(0); }\n",
+                &Options::new(),
+            )
+        })
+        .expect("spawn")
+        .join()
+        .expect("join")
+        .expect_err("must fail");
+    assert_eq!(err.message, "Stack Overflow");
+}
+
+/// `::slotted()` is scanned by its own recursive checks, which never reach the
+/// charged selector parser.
+#[test]
+fn nested_slotted_selectors_fail_cleanly_on_a_one_mib_thread_by_default() {
+    for pseudo in ["::slotted(", ":slotted("] {
+        let src = format!("{}a{} {{ b: c; }}", pseudo.repeat(3000), ")".repeat(3000));
+        let err = on_stack(1 << 20, move || compile(&src, &Options::new())).expect_err("must fail");
+        assert_eq!(err.message, "Stack Overflow");
+    }
+    let built = "$s: a;\n@for $i from 1 through 3000 { $s: \"::slotted(#{$s})\"; }\n#{$s} { b: c; }\n";
+    let err = on_stack(1 << 20, move || compile(built, &Options::new())).expect_err("must fail");
+    assert_eq!(err.message, "Stack Overflow");
+}
+
+/// The selector case on a 1 MiB thread with the default limit: before #314
+/// this aborted at about 1000 levels.
+#[test]
+fn nested_selectors_fail_cleanly_on_a_one_mib_thread_by_default() {
+    let src = format!("{}a{} {{ b: c; }}", ":is(".repeat(3000), ")".repeat(3000));
+    let err = on_stack(1 << 20, move || compile(&src, &Options::new())).expect_err("must fail");
+    assert_eq!(err.message, "Stack Overflow");
+}
+
+/// A warn handler that runs a nested compile and handles its overflow leaves
+/// the outer compile untouched: the outer one never reached its limit.
+#[test]
+fn a_handled_nested_overflow_does_not_fail_the_outer_compile() {
+    let css = on_stack(8 << 20, || {
+        let handler = std::rc::Rc::new(|_: &sasso::WarnEvent<'_>| {
+            let inner = compile(
+                "@function f($n) { @return f($n + 1); }\na { b: f(0); }\n",
+                &Options::new(),
+            );
+            assert_eq!(
+                inner.expect_err("the inner compile overflows").message,
+                "Stack Overflow"
+            );
+        });
+        compile(
+            "@warn \"w\";\na { b: c; }\n",
+            &Options::new()
+                .with_stack_limit(6 << 20)
+                .with_warn_handler(handler),
+        )
+    })
+    .expect("the outer compile is fine");
+    assert!(css.contains("b: c;"), "{css}");
+}
+
+/// `((g) and g) and g …`: each group `g` is a chain short enough to pass on
+/// its own, but the tree nests them, so it is as deep as all of them
+/// together. Before the chains carried their depth out, this aborted a
+/// 1 MiB thread at the default limit in a release build.
+fn composed(unit: &str, op: &str) -> String {
+    let group = vec![unit; 1000].join(op);
+    let nesting = 200;
+    let mut out = "(".repeat(nesting);
+    out.push_str(&group);
+    for _ in 0..nesting {
+        out.push(')');
+        out.push_str(op);
+        out.push_str(&group);
+    }
+    out
+}
+
+#[test]
+fn chains_composed_through_parentheses_fail_instead_of_aborting() {
+    let supports = format!("@supports {} {{ a {{ b: c; }} }}\n", composed("(a: b)", " and "));
+    // Never called, so no evaluation fails first.
+    let sum = format!(
+        "@function f() {{ @return {}; }}\na {{ b: c; }}\n",
+        composed("1", " + ")
+    );
+    for src in [supports, sum] {
+        let err = on_stack(64 << 20, move || {
+            compile(&src, &Options::new().with_stack_limit(60 << 20))
+        })
+        .expect_err("must fail");
+        assert_eq!(err.message, "Stack Overflow");
+    }
+}
+
+/// Sibling chains are not added up: an expression as wide as it likes is
+/// only as deep as its deepest part.
+#[test]
+fn many_sibling_chains_still_compile() {
+    let group = format!("({})", vec!["1"; 100].join(" + "));
+    let list = vec![group.as_str(); 1000].join(" ");
+    let css = compile_deep(format!("a {{ b: {list}; }}\n"), Syntax::Scss).expect("1000 groups");
+    assert!(css.contains("b: 100 100"), "{css}");
+}
+
+/// Deep sibling groups joined by an operator, `(g) + (g) + (g)`: the tree is
+/// no deeper than one group, so adding groups never makes it fail.
+#[test]
+fn deep_sibling_groups_joined_by_an_operator_still_compile() {
+    // About 60% of the 6 MiB limit each (32 KiB a level in debug, 2.5 KiB
+    // in release).
+    let terms = if cfg!(debug_assertions) { 120 } else { 1500 };
+    let group = format!("({})", vec!["1"; terms].join(" + "));
+    let product = vec!["1"; terms].join(" * ");
+    for (operand, want) in [(group, terms * 4), (product, 4)] {
+        let sum = [operand.as_str(); 4].join(" + ");
+        let css = compile_deep(format!("a {{ b: {sum}; }}\n"), Syntax::Scss).expect("4 groups");
+        assert!(css.contains(&format!("b: {want};")), "{css}");
+    }
+}
