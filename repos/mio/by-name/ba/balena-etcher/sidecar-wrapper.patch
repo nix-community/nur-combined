@@ -18,7 +18,7 @@
 +		const script = `#!/bin/sh
 +set -eu
 +script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-+export NODE_PATH="$script_dir/app.asar/node_modules\${NODE_PATH:+:\$NODE_PATH}"
++export NODE_PATH="$script_dir/sidecar-app/node_modules\${NODE_PATH:+:\$NODE_PATH}"
 +exec ${nodePath} "$script_dir/sidecar-src/util/api.js" "$@"
 +`;
 +		fs.writeFileSync(binPath, script);

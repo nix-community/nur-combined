@@ -1,6 +1,7 @@
 {
   lib,
   stdenv,
+  asar,
   buildNpmPackage,
   copyDesktopItems,
   electron_44,
@@ -29,6 +30,7 @@ buildNpmPackage (finalAttrs: {
   npmRebuildFlags = [ "--ignore-scripts" ];
 
   nativeBuildInputs = [
+    asar
     copyDesktopItems
     makeWrapper
     nodejs_24
@@ -88,13 +90,19 @@ buildNpmPackage (finalAttrs: {
     if [[ "${lib.boolToString stdenv.hostPlatform.isDarwin}" == true ]]; then
       mkdir -p $out/Applications
       cp -R "$appDir/balenaEtcher.app" $out/Applications/
+      resourcesDir=$out/Applications/balenaEtcher.app/Contents/Resources
       makeWrapper $out/Applications/balenaEtcher.app/Contents/MacOS/balenaEtcher \
         $out/bin/balena-etcher
     else
       mkdir -p $out/lib/balena-etcher
       cp -R "$appDir"/. $out/lib/balena-etcher/
+      resourcesDir=$out/lib/balena-etcher/resources
       makeWrapper $out/lib/balena-etcher/balena-etcher $out/bin/balena-etcher
     fi
+
+    # The sidecar runs under plain Node, which cannot resolve modules from an
+    # Electron asar archive as a normal filesystem tree.
+    asar extract "$resourcesDir/app.asar" "$resourcesDir/sidecar-app"
 
     runHook postInstall
   '';

@@ -214,8 +214,11 @@ RIP  - 000000007DD4A00C   (second run: 000000007DD4900C)
 
 Both RIPs are `load base + 0xC`, i.e. inside the DOS header, where mingw's stub has
 `ff ff` — an invalid opcode. The file's own `AddressOfEntryPoint` is `0x14210`
-(`SizeOfImage 0x179000`) and disassembly there is `efi_main`'s prologue, so the header
-in the file is right; EDK2 jumps to `0xC` anyway. Instrumenting `efi_main` with direct
+(`SizeOfImage 0x179000`) and disassembly there is `efi_main`'s prologue, so the file
+itself looks right. Either firmware really starts the image at `0xC`, or the RIP sits
+elsewhere in a page-aligned allocation. QEMU's `-d in_asm` log contains no translated
+block at either `0x7dd4*` / `0x7dd5*` page, but that log is cut off by the SIGTERM to
+QEMU, so treat "entry = 0xC" as an inference, not a measurement. Instrumenting `efi_main` with direct
 COM1 `outb` markers (bypassing the firmware console) produces **no marker at all**, so
 its body never executes.
 
