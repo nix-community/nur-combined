@@ -9,10 +9,11 @@
   # Build deps
   bison,
   cmake,
+  writableTmpDirAsHomeHook,
   ctestCheckHook,
   ninja,
   pkg-config,
-  texliveBasic,
+  texliveSmall,
   copyDesktopItems,
 
   # Libraries
@@ -48,15 +49,18 @@
   _4ti2,
   cohomcalg,
   csdp,
-  gfan_0_8beta,
+  gfan,
   lrs,
+  palp,
   rWrapper,
   R,
   topcom,
 }:
 
 let
-  gfan = gfan_0_8beta;
+  palp' = palp.override {
+    allDimensions = true;
+  };
 
   m2ProgramPath = lib.makeBinPath [
     _4ti2
@@ -67,6 +71,7 @@ let
     msolve
     nauty
     normaliz
+    palp'
     R
     topcom
   ];
@@ -93,13 +98,13 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "macaulay2";
-  version = "1.26.06";
+  version = "1.26.11";
 
   src = fetchFromGitHub {
     owner = "Macaulay2";
     repo = "M2";
     rev = "release-${finalAttrs.version}";
-    hash = "sha256-2e39qzBO63Ft+yw+tJChLsupeinalTkDwXp3WBF2wms=";
+    hash = "sha256-Bn3WF83H3grwjTGJQ/0RN6BU/E2JTZLFvw6lhTb/zTM=";
     fetchSubmodules = true;
   };
 
@@ -123,10 +128,20 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     cmake
     ctestCheckHook
+    writableTmpDirAsHomeHook
     ninja
     pkg-config
     bison
-    texliveBasic
+    (texliveSmall.withPackages (
+      ps: with ps; [
+        listingsutf8
+        multirow
+        pdfcol
+        standalone
+        tcolorbox
+        tikzfill
+      ]
+    ))
     copyDesktopItems
   ];
 

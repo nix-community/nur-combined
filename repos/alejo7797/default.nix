@@ -16,8 +16,6 @@
 
   frobby = self.callPackage ./pkgs/math/frobby { };
 
-  gfan_0_8beta = self.callPackage ./pkgs/math/gfan/0_8beta.nix { };
-
   knotjob = self.callPackage ./pkgs/math/knotjob { };
 
   knottheory = self.callPackage ./pkgs/math/knottheory { };
