@@ -1,17 +1,19 @@
 {
   callPackage,
-  fetchFromGitHub,
+  inputs,
   claude-desktop,
 }:
 
-let
-  upstream = import ../claude-desktop/upstream.nix { inherit fetchFromGitHub; };
-  fhs = callPackage (upstream + "/nix/fhs.nix") {
-    inherit claude-desktop;
-  };
-in
-fhs.overrideAttrs (prevAttrs: {
-  passthru = (prevAttrs.passthru or { }) // {
-    inherit (claude-desktop.passthru) updateScript;
-  };
-})
+(
+  if inputs.claudeDesktopFhsUpstream != null then
+    inputs.claudeDesktopFhsUpstream
+  else
+    callPackage (inputs.claudeDesktopSrc + "/nix/fhs.nix") {
+      inherit claude-desktop;
+    }
+).overrideAttrs
+  (prevAttrs: {
+    passthru = (prevAttrs.passthru or { }) // {
+      inherit (claude-desktop.passthru) updateScript;
+    };
+  })

@@ -13,11 +13,19 @@
     url = "github:Novavero-AI/nova-nix";
     flake = false;
   };
+  inputs.claude-desktop-src = {
+    url = "github:aaddrick/claude-desktop-debian/v3.3.20+claude6.28899.6";
+  };
+  inputs.kytyps5-nixpkgs = {
+    url = "github:NixOS/nixpkgs/94d362415787ffff528f73820996aeedd97ff0dd";
+  };
   outputs =
     {
       self,
       nixpkgs,
       nova-nix-src,
+      claude-desktop-src,
+      kytyps5-nixpkgs,
     }:
     let
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
@@ -42,6 +50,13 @@
             config.permittedInsecurePackages = [
               "python-2.7.18"
             ];
+          };
+          inputs = {
+            claudeDesktopUpstream = (claude-desktop-src.packages.${system} or { }).claude-desktop or null;
+            claudeDesktopFhsUpstream =
+              (claude-desktop-src.packages.${system} or { }).claude-desktop-fhs or null;
+            claudeDesktopSrc = claude-desktop-src.outPath;
+            kytyps5NixpkgsSrc = kytyps5-nixpkgs.outPath;
           };
           no-ifd = false;
         }
@@ -95,6 +110,10 @@
               config.android_sdk.accept_license = true;
               config.cudaSupport = true;
               inherit system;
+            };
+            inputs = {
+              claudeDesktopSrc = claude-desktop-src.outPath;
+              kytyps5NixpkgsSrc = kytyps5-nixpkgs.outPath;
             };
           };
         in

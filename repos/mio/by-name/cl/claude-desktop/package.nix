@@ -1,6 +1,6 @@
 {
   callPackage,
-  fetchFromGitHub,
+  inputs,
   writeShellApplication,
   coreutils,
   git,
@@ -9,7 +9,6 @@
 }:
 
 let
-  upstream = import ./upstream.nix { inherit fetchFromGitHub; };
   updateScript = writeShellApplication {
     name = "update-claude-desktop";
     runtimeInputs = [
@@ -23,10 +22,15 @@ let
       exec ${./update.sh} "$@"
     '';
   };
-  pkg = callPackage (upstream + "/nix/claude-desktop.nix") { };
 in
-pkg.overrideAttrs (prevAttrs: {
-  passthru = (prevAttrs.passthru or { }) // {
-    inherit updateScript;
-  };
-})
+(
+  if inputs.claudeDesktopUpstream != null then
+    inputs.claudeDesktopUpstream
+  else
+    callPackage (inputs.claudeDesktopSrc + "/nix/claude-desktop.nix") { }
+).overrideAttrs
+  (prevAttrs: {
+    passthru = (prevAttrs.passthru or { }) // {
+      inherit updateScript;
+    };
+  })

@@ -6,6 +6,7 @@
     config.android_sdk.accept_license = true;
   },
   no-ifd ? true,
+  inputs ? { },
 }:
 with (import ./private.nix { inherit pkgs; });
 let
@@ -26,10 +27,21 @@ let
             in
             builtins.listToAttrs (
               map
-                (name: {
-                  inherit name;
-                  value = self.callPackage (subdir + "/${name}/package.nix") { };
-                })
+                (
+                  name:
+                  let
+                    packagePath = subdir + "/${name}/package.nix";
+                    packageArgs =
+                      if builtins.hasAttr "inputs" (builtins.functionArgs (import packagePath)) then
+                        { inherit inputs; }
+                      else
+                        { };
+                  in
+                  {
+                    inherit name;
+                    value = self.callPackage packagePath packageArgs;
+                  }
+                )
                 (
                   builtins.filter (name: (builtins.readDir subdir).${name} == "directory") (
                     builtins.attrNames (builtins.readDir subdir)

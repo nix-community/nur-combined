@@ -4,19 +4,18 @@ set -euo pipefail
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 if repo_root="$(git rev-parse --show-toplevel 2>/dev/null)"; then
-  upstream_nix="$repo_root/by-name/cl/claude-desktop/upstream.nix"
-elif [[ -f "$script_dir/upstream.nix" ]]; then
-  upstream_nix="$script_dir/upstream.nix"
-elif [[ -f "$script_dir/../claude-desktop/upstream.nix" ]]; then
-  upstream_nix="$script_dir/../claude-desktop/upstream.nix"
+flake_file="$repo_root/flake.nix"
+elif [[ -f "$script_dir/../../../flake.nix" ]]; then
+  repo_root="$(cd "$script_dir/../../.." && pwd)"
+  flake_file="$repo_root/flake.nix"
 else
-  echo "Error: Could not locate upstream.nix" >&2
+  echo "Error: Could not locate flake.nix" >&2
   exit 1
 fi
 
-current_tag="$(sed -nE 's/^[[:space:]]*(tag|rev)[[:space:]]*=[[:space:]]*"([^"]+)";/\2/p' "$upstream_nix")"
+current_tag="$(sed -nE 's#^[[:space:]]*url = "github:aaddrick/claude-desktop-debian/([^"]+)";#\1#p' "$flake_file")"
 if [[ -z "$current_tag" ]]; then
-  echo "Error: Could not determine current tag from $upstream_nix" >&2
+  echo "Error: Could not determine current tag from $flake_file" >&2
   exit 1
 fi
 
@@ -50,19 +49,10 @@ fi
 
 echo "Updating claude-desktop from $current_tag to $target_tag..."
 
-archive_url="https://github.com/aaddrick/claude-desktop-debian/archive/refs/tags/${target_tag}.tar.gz"
-raw_hash="$(nix-prefetch-url --unpack "$archive_url")"
-new_hash="$(nix hash convert --hash-algo sha256 --to sri "$raw_hash")"
+sed -i -E \
+  "s#(url = \"github:aaddrick/claude-desktop-debian/)[^\"]+(\";)#\\1${target_tag}\\2#" \
+  "$flake_file"
 
-cat <<EOF > "$upstream_nix"
-{ fetchFromGitHub }:
+(cd "$repo_root" && nix flake lock --update-input claude-desktop-src)
 
-fetchFromGitHub {
-  owner = "aaddrick";
-  repo = "claude-desktop-debian";
-  tag = "${target_tag}";
-  hash = "${new_hash}";
-}
-EOF
-
-echo "Successfully updated claude-desktop to ${target_tag} (${new_hash})"
+echo "Successfully updated claude-desktop to ${target_tag}"

@@ -4,6 +4,7 @@
   fetchFromGitHub,
   fetchurl,
   fetchzip,
+  inputs,
   applyPatches,
   runCommand,
   cmake,
@@ -90,12 +91,8 @@ let
   # only (the guest and the JIT are x86-64; Apple Silicon runs the result under
   # Rosetta), so it is packaged from the last branch that still has that package
   # set.  The pin lives here, not as a flake input, so the flake needs nothing
-  # beyond nixpkgs.  It is the revision of nixpkgs-26.05-darwin.
-  nixpkgsDarwin = fetchzip {
-    url = "https://github.com/NixOS/nixpkgs/archive/94d362415787ffff528f73820996aeedd97ff0dd.tar.gz";
-    hash = "sha256-lsIUChCLfoCyf0VO6CzedtMZBV62+1W86nT3XGCIgiw=";
-  };
-
+  # beyond the flake's pinned nixpkgs inputs. It is the revision of
+  # nixpkgs-26.05-darwin.
   # Submodules of 3rdparty/, pinned by the superproject.
   libAtrac9 = fetchFromGitHub {
     owner = "shadps4-emu";
@@ -314,13 +311,13 @@ in
 if stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.system != "x86_64-darwin" then
   # A native aarch64-darwin build would be an emulator upstream does not
   # support, so offer the x86_64-darwin derivation instead.
-  (import nixpkgsDarwin {
+  (import inputs.kytyps5NixpkgsSrc {
     system = "x86_64-darwin";
     config.allowUnfree = true;
     config.android_sdk.accept_license = true;
   }).callPackage
     ./package.nix
-    { }
+    { inherit inputs; }
 else
   stdenv.mkDerivation {
     pname = "kytyps5";
