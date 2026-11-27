@@ -25,18 +25,26 @@ jobs:
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Update every package to its latest release
+        id: update
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           failed=""
           for pkg in $(nix eval --raw .#packages.x86_64-linux --apply 'p: toString (builtins.attrNames p)'); do
+            # Recent Nix no longer copies the flake source to the store on
+            # its own, but nix-update reads it from there: copy it first
+            # (again for each package, as each commit changes the source).
+            nix flake archive .
             # --build checks the new version builds before --commit keeps it
             nix run nixpkgs#nix-update -- --flake "$pkg" --version stable --build --commit || {
               failed="$failed $pkg"
               git checkout -- .
             }
           done
-          if [ -n "$failed" ]; then echo "::warning::could not update:$failed"; fi
+          if [ -n "$failed" ]; then
+            echo "::error::could not update:$failed"
+            echo "failed=$failed" >> "$GITHUB_OUTPUT"
+          fi
       - name: Refresh the README
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -56,3 +64,9 @@ jobs:
       - name: Trigger NUR update
         if: steps.push.outputs.pushed == 'true'
         run: curl -XPOST "https://nur-update.nix-community.org/update?repo=anotherhadi"
+      # Fail the run last, so the packages that did update are still pushed.
+      - name: Report failed updates
+        if: steps.update.outputs.failed != ''
+        run: |
+          echo "could not update:${{ steps.update.outputs.failed }}"
+          exit 1
