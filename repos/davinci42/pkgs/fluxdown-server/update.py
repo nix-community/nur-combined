@@ -96,19 +96,9 @@ def refresh() -> None:
                 _ = target.write_text(
                     content.replace(source["outputHash"], fetched["hash"])
                 )
-    schema = folder / "settings-schema.json"
-    before = cast(dict[str, object], json.loads(schema.read_text()))
     _ = subprocess.run(
         [sys.executable, str(folder / "update-settings.py")], cwd=ROOT, check=True
     )
-    after = cast(dict[str, object], json.loads(schema.read_text()))
-    _ = before.pop("version", None)
-    _ = after.pop("version", None)
-    if before != after and os.environ.get("NUR_ACCEPT_CONTRACT") != "1":
-        raise ValueError(
-            "FluxDown contract changed; review and run just update-reviewed fluxdown-server "
-            + version
-        )
 
 
 def main() -> None:

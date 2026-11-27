@@ -13,18 +13,18 @@ let
   sources = {
     x86_64-linux = {
       arch = "x64";
-      hash = "sha256-bTn20E3t+f4Rqn2fMr1ihAIIH/EJ2FxqlCx8p/KHEg4=";
+      hash = "sha256-a6b3MTgVfrLpc9YgLmRyg0jgFKzkqZ9xDiyE72zZ8Kc=";
     };
     aarch64-linux = {
       arch = "arm64";
-      hash = "sha256-V4o6PRZz2KXYueDZd8B0fIx4jn/rRp/ca/m7GWeS0Vc=";
+      hash = "sha256-z1e5K6ZNKI7BAbwXJZmSB9PA5hfuN98KHZ8I7mJ3d1M=";
     };
   };
   source = sources.${stdenvNoCC.hostPlatform.system};
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "fluxdown-server";
-  version = "0.6.8";
+  version = "0.6.9";
 
   src = fetchurl {
     url = "https://github.com/zerx-lab/FluxDown/releases/download/v${finalAttrs.version}/FluxDown-Server-${finalAttrs.version}-linux-${source.arch}.tar.gz";
@@ -38,6 +38,40 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook preInstall
     install -Dm755 fluxdown-agent fluxdownd -t "$out/bin"
     runHook postInstall
+  '';
+
+  doInstallCheck = true;
+  nativeInstallCheckInputs = [
+    (python3.withPackages (packages: [ packages.websocket-client ]))
+  ];
+  installCheckPhase = ''
+    runHook preInstallCheck
+    python3 - "$out/bin/fluxdown-agent" ${../../modules/fluxdown-configure.py} ${./settings-schema.json} << 'EOF'
+    import os, socket, subprocess, sys, tempfile
+
+    agent, configure, schema = sys.argv[1:4]
+    with socket.socket() as sock:
+        sock.bind(("127.0.0.1", 0))
+        port = sock.getsockname()[1]
+    with tempfile.TemporaryDirectory(prefix="fluxdown-check-") as tmp:
+        settings = f"{tmp}/settings.json"
+        open(settings, "w").write('{"max_concurrent_tasks": 3}')
+        env = os.environ | {
+            "HOME": tmp,
+            "FLUXDOWN_BIND": f"127.0.0.1:{port}",
+            "FLUXDOWN_DATA_DIR": f"{tmp}/state",
+            "FLUXDOWN_SAVE_DIR": f"{tmp}/state/downloads",
+            "FLUXDOWN_ANALYTICS": "false",
+            "FLUXDOWN_MDNS": "false",
+        }
+        proc = subprocess.Popen([agent, "--server"], env=env, stdout=subprocess.DEVNULL)
+        try:
+            subprocess.run([sys.executable, configure, settings, schema], env=env, check=True)
+        finally:
+            proc.terminate()
+            proc.wait(timeout=10)
+    EOF
+    runHook postInstallCheck
   '';
 
   passthru = {

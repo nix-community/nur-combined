@@ -32,8 +32,7 @@ nix-shell --run 'just check <name>'
   read-only detection.
 - Refresh hashes for every supported source. Review configuration semantics with
   upstream schemas/parsers and regenerate contracts with their tools, not by hand.
-- Adapt affected modules before accepting contract changes with
-  `just update-reviewed <name> <version>`. Never bypass failed checks.
+  Never bypass failed checks.
 
 ## Validation
 

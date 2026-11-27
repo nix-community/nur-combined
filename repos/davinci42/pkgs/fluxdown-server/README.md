@@ -24,7 +24,8 @@ Defaults: `127.0.0.1:17800`, user `fluxdown`, state `/var/lib/fluxdown`, downloa
 in its `downloads` subdirectory. Analytics and mDNS are disabled.
 
 Put `FLUXDOWN_TOKEN=<access-key>` in the environment file (mode `0600`, outside
-the Nix store), or complete first-run setup in the Web UI. Configure authentication
+the Nix store), or complete first-run setup in the Web UI using the one-time
+code in `/var/lib/fluxdown/agent/setup-bootstrap`. Configure authentication
 before opening access; use a TLS reverse proxy for remote access.
 
 ## Settings
@@ -42,9 +43,14 @@ Removing a setting does not reset its saved value. `auto_resume_on_start = true`
 resumes all paused tasks. Put secret settings in `settingsFile`, a runtime JSON
 file readable by `fluxdown`, outside the Nix store.
 
-`completed_record_retention_days` accepts 0 (never clean) through 3650 days.
-Enabling it immediately removes expired completed task records, not downloaded
-files; seeding and queued-to-seed tasks are preserved.
+`completed_record_retention_days` accepts -1 (clean after completion), 0 (never
+clean), or 1 through 3650 days. Non-zero values remove eligible completed task
+records, not downloaded files; seeding, queued-to-seed, and newly completed
+tasks within the 10-second notification grace window are preserved.
+
+`proxy_protocol_{http,ftp,hls,dash,bt,ed2k}` accept `""` (default fallback),
+`direct://`, or a proxy URL with an explicit port (`bt` rejects `https://`;
+`ed2k` requires `socks5://`). Put URLs containing credentials in `settingsFile`.
 
 `default_segments` accepts 0 (automatic) through 512. Values above 64 can trigger
 remote server rate limits; values above 256 carry greater risk. Set
@@ -70,5 +76,5 @@ just check fluxdown-server
 ```
 
 Configuration comes from upstream `native/protocol/src/daemon_config.rs`; regenerate
-`settings-schema.json` through the updater, not by hand. Review contract changes
-before running `just update-reviewed fluxdown-server <version>`.
+`settings-schema.json` through the updater, not by hand. `installCheckPhase`
+verifies live RPC configuration against the built server binary.

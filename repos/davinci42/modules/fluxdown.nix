@@ -91,7 +91,8 @@ in
         or FLUXDOWN_DATABASE_URL. Keep this file outside the Nix store.
         The access key requires 8 to 128 visible ASCII characters, including
         letters and digits. FLUXDOWN_TOKEN only seeds an unset key unless
-        FLUXDOWN_TOKEN_FORCE=1 is also set.
+        FLUXDOWN_TOKEN_FORCE=1 is also set. Without FLUXDOWN_TOKEN, first-run
+        setup requires /var/lib/fluxdown/agent/setup-bootstrap.
       '';
     };
   };

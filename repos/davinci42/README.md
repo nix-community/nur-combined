@@ -33,8 +33,7 @@ just lint
 ```
 
 - `just update <package> [version]` refreshes hashes and validates in a temporary
-  copy before writing back. Review FluxDown contract changes before accepting
-  them with `just update-reviewed fluxdown-server <version>`.
+  copy before writing back.
 - `just check <package>` builds the package and lints. `just check-all` builds all
   packages and lints. Builds cover the current platform only.
 - `just check-updates` detects releases in temporary copies without source or

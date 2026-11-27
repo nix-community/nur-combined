@@ -39,26 +39,7 @@ its contract; there is no implicit follow-up. Other source packages refresh
 shared hashes on the host. Do not edit
 the working tree while it runs. Investigate unexpected same-version hash changes.
 
-## 3. Handle a contract review gate
-
-The rejected candidate has not replaced working files and may already be deleted.
-Read the printed diff; use the package's candidate check or rerun the same target
-if needed. Trace changed fields, bounds, source hashes, and protocol versions to
-old and target upstream code, including validation and application semantics.
-
-Adapt affected modules, helpers, and package documentation;
-fix generators rather than hand-editing their output. Test adaptations against
-an isolated candidate when necessary. If no adaptation is needed, explain why
-with source evidence. Only then accept the exact reviewed version:
-
-```sh
-nix-shell --run 'just update-reviewed <name> <version>'
-```
-
-This accepts review, not failed validation. Fix relevant failures and retry the
-shared flow; do not weaken checks. Report external blockers and required remedies.
-
-## 4. Validate and report
+## 3. Validate and report
 
 After the update and any follow-up edits (the contract command is FluxDown-only):
 

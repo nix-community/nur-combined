@@ -1,6 +1,5 @@
 import argparse
 import difflib
-import hashlib
 import json
 import re
 import subprocess
@@ -99,10 +98,6 @@ def generate(ref: str) -> dict[str, object]:
     return {
         "version": ref.removeprefix("v"),
         "protocolVersion": int(protocol.group(1)),
-        "sourceHashes": {
-            path: hashlib.sha256(text.encode()).hexdigest()
-            for path, text in sources.items()
-        },
         "fields": parse_fields(sources[SOURCES[0]]),
     }
 

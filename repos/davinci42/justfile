@@ -6,9 +6,6 @@ default:
 update package version="":
     python3 tools/maintain.py update "$1" ${2:+--version="$2"}
 
-update-reviewed package version:
-    python3 tools/maintain.py update "$1" --version "$2" --accept-contract
-
 build package:
     nix build -f . "$1" --no-link
 

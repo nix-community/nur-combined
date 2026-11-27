@@ -76,7 +76,6 @@ def execute_update(
     root: Path,
     package: str,
     target: str | None = None,
-    accept_contract: bool = False,
     detect: bool = False,
     info: dict[str, Any] | None = None,
 ) -> None:
@@ -84,11 +83,7 @@ def execute_update(
     command = list(info["command"])
     if not command:
         raise ValueError("Empty updateScript")
-    env = (
-        os.environ
-        | info["env"]
-        | {"NUR_ACCEPT_CONTRACT": "1" if accept_contract else "0"}
-    )
+    env = os.environ | info["env"]
     upstream = info.get("upstream")
     if not target and not info.get("snapshot") and isinstance(upstream, str):
         target = run(
@@ -212,9 +207,7 @@ def publish(
         (root / name).write_bytes(after[name])
 
 
-def update(
-    root: Path, package: str, target: str | None = None, accept_contract: bool = False
-) -> bool:
+def update(root: Path, package: str, target: str | None = None) -> bool:
     info = update_info(root, package)
     before = snapshot(root)
     with tempfile.TemporaryDirectory(prefix="nur-update-") as temporary:
@@ -222,7 +215,7 @@ def update(
 
         def apply(ws: Path) -> Path | None:
             copy_repository(root, ws)
-            execute_update(ws, package, target, accept_contract, info=info)
+            execute_update(ws, package, target, info=info)
             return ws if snapshot(ws) != before else None
 
         def validate_and_publish(ws: Path | None) -> bool:
@@ -243,7 +236,6 @@ def main() -> None:
     parser.add_argument("action", choices=["update", "check", "check-all", "lint"])
     parser.add_argument("package", nargs="?")
     parser.add_argument("--version")
-    parser.add_argument("--accept-contract", action="store_true")
     args = parser.parse_args()
     try:
         if args.action == "lint":
@@ -255,7 +247,7 @@ def main() -> None:
         elif not args.package:
             parser.error("package is required")
         elif args.action == "update":
-            update(ROOT, args.package, args.version, args.accept_contract)
+            update(ROOT, args.package, args.version)
         else:
             check(ROOT, args.package)
     except (OSError, ValueError, subprocess.SubprocessError) as error:

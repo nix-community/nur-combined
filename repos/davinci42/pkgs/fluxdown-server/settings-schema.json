@@ -384,7 +384,7 @@
       "default": "0",
       "kind": "Integer",
       "max": 3650,
-      "min": 0
+      "min": -1
     },
     "component.ffmpeg.path": {
       "default": "",
@@ -554,6 +554,30 @@
       "default": "",
       "kind": "Text"
     },
+    "proxy_protocol_bt": {
+      "default": "",
+      "kind": "Text"
+    },
+    "proxy_protocol_dash": {
+      "default": "",
+      "kind": "Text"
+    },
+    "proxy_protocol_ed2k": {
+      "default": "",
+      "kind": "Text"
+    },
+    "proxy_protocol_ftp": {
+      "default": "",
+      "kind": "Text"
+    },
+    "proxy_protocol_hls": {
+      "default": "",
+      "kind": "Text"
+    },
+    "proxy_protocol_http": {
+      "default": "",
+      "kind": "Text"
+    },
     "proxy_rules": {
       "default": "",
       "kind": "Text"
@@ -593,10 +617,6 @@
       "kind": "Text"
     }
   },
-  "protocolVersion": 28,
-  "sourceHashes": {
-    "native/protocol/src/daemon_config.rs": "c3c63bceea66b8be012aed0b50e61669ccd3009557db5241a1c9c41555e2ccf9",
-    "native/protocol/src/rpc.rs": "62811f994edea4b667785b5f64c10f94a4925c871c872734f8cd0c38f72bf1b6"
-  },
-  "version": "0.6.8"
+  "protocolVersion": 29,
+  "version": "0.6.9"
 }
