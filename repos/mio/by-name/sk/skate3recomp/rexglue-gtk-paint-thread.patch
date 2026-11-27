@@ -1,0 +1,25 @@
+Queue GTK redraws on the UI thread instead of touching widget state from the GPU thread.
+Presenter::RefreshGuestOutput runs on the GPU command thread and calls
+Window::RequestPaint when painting is delegated to the UI thread. GTK's widget
+invalidation lists are not thread-safe, so calling gtk_widget_queue_draw there
+races with the GTK main loop and eventually segfaults inside g_slist_find.
+
+--- a/src/ui/window_gtk.cpp
++++ b/src/ui/window_gtk.cpp
+@@ -684,7 +684,15 @@ std::unique_ptr<Surface> GTKWindow::CreateSurfaceImpl(Surface::TypeFlags allowed_
+ }
+ 
+ void GTKWindow::RequestPaintImpl() {
+-  gtk_widget_queue_draw(drawing_area_);
++  // Presenter::RefreshGuestOutput may call this from the GPU command thread,
++  // but GTK widget and GdkWindow state is owned by the GTK main thread.
++  if (!app_context().IsInUIThread()) {
++    app_context().CallInUIThreadDeferred([this] {
++      if (drawing_area_) gtk_widget_queue_draw(drawing_area_);
++    });
++    return;
++  }
++  gtk_widget_queue_draw(drawing_area_);
+ }
+ 
+ void GTKWindow::HandleSizeUpdate(WindowDestructionReceiver& destruction_receiver) {

@@ -156,6 +156,9 @@ clangStdenv.mkDerivation {
     # used in its place has no RasterizerGamma field, so drop the assignments
     # that reference it.
     patch -p1 -d third_party/rexglue-sdk --input ${./rexglue-imgui-rasterizer-gamma.patch}
+    # GTK widget invalidation must happen on the UI thread; the presenter can
+    # request paints from the GPU command thread.
+    patch -p1 -d third_party/rexglue-sdk --input ${./rexglue-gtk-paint-thread.patch}
     # The executable lives in the read-only store, so the SDK's default log
     # directory next to it cannot be created at startup.
     patch -p1 -d third_party/rexglue-sdk --input ${./rexglue-log-dir-fallback.patch}
@@ -254,12 +257,19 @@ clangStdenv.mkDerivation {
     runHook postInstall
   '';
 
-  # volk reaches the Vulkan loader through dlopen rather than a DT_NEEDED
-  # entry. Upstream's macOS package also copies MoltenVK and its ICD manifest
-  # next to the executable; the store paths are used instead.
+  # volk and the audio backends reach their libraries through dlopen rather
+  # than DT_NEEDED entries. The audio backends are loaded by soname only, so
+  # exporting their store paths is required for sound in the wrapper.
   preFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     gappsWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ vulkan-loader ]}
+      --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          vulkan-loader
+          alsa-lib
+          libpulseaudio
+          pipewire
+        ]
+      }
     )
   '';
 
