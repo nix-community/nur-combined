@@ -547,7 +547,7 @@ backup: {
 	if #should_have_skills {
 		lewtec: {
 			from: "github:lewtec/skills"
-			version: "402db62ea0fdf441a2e6b614378de9cdd8bb1ca3"
+			version: "c6414cf76c9bf058b4263b5873e68ba5e473c9ac"
 		}
 	}
 	modot: {

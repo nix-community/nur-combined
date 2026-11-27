@@ -5,6 +5,8 @@
 """Pin lewtec/skills to latest commit in modot.lock.json and modot.cue."""
 
 import json
+import os
+import ssl
 import subprocess
 import urllib.request
 from pathlib import Path
@@ -14,6 +16,28 @@ LOCK = ROOT / "modot.lock.json"
 CUE = ROOT / "modot.cue"
 REPO = "lewtec/skills"
 
+# Python builds that are not patched for the host (for example uv's standalone
+# CPython on NixOS) may ship an empty default trust store. Fall back to the
+# usual system bundle paths so the HTTPS fallback works without extra setup.
+CA_BUNDLE_CANDIDATES = (
+    "/etc/ssl/certs/ca-certificates.crt",  # Debian, NixOS
+    "/etc/pki/tls/certs/ca-bundle.crt",  # Fedora, RHEL
+    "/etc/ssl/cert.pem",  # macOS, Alpine
+    "/etc/ssl/ca-bundle.pem",  # openSUSE
+)
+
+
+def ssl_context() -> ssl.SSLContext:
+    context = ssl.create_default_context()
+    if context.get_ca_certs():
+        return context
+    for candidate in CA_BUNDLE_CANDIDATES:
+        if not os.path.isfile(candidate):
+            continue
+        context.load_verify_locations(cafile=candidate)
+        break
+    return context
+
 
 def latest_sha() -> str:
     try:
@@ -21,12 +45,12 @@ def latest_sha() -> str:
             ["gh", "api", f"repos/{REPO}/commits/HEAD", "--jq", ".sha"],
             text=True,
         ).strip()
-    except Exception:
+    except (subprocess.SubprocessError, FileNotFoundError):
         req = urllib.request.Request(
             f"https://api.github.com/repos/{REPO}/commits/HEAD",
             headers={"Accept": "application/vnd.github+json", "User-Agent": "update_skills"},
         )
-        with urllib.request.urlopen(req) as r:
+        with urllib.request.urlopen(req, context=ssl_context()) as r:
             return json.load(r)["sha"]
 
 

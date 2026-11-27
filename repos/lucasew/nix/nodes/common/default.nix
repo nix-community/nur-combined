@@ -22,6 +22,7 @@ in
     ./lvm.nix
     ./nix-ld.nix
     ./nix-index-database.nix
+    ./nut-exporter.nix
     ./sops.nix
     ./tuning.nix
     ./unstore.nix

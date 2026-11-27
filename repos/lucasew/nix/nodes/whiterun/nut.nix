@@ -1,6 +1,5 @@
 { config, lib, pkgs, global, ... }:
 let
-  upsmonPasswordFile = "/run/nut/upsmon.password";
   notifyTypes = [
     "ONLINE"
     "ONBATT"
@@ -28,64 +27,30 @@ let
   '';
 in
 {
+  # The UPS cable moved to riverwood; this host only monitors it over the
+  # network and still shuts itself down when the battery goes critical.
+  sops.secrets.nut-whiterun-password = {
+    sopsFile = ../../../secrets/nut.yaml;
+    key = "whiterun_secondary_password";
+  };
+
   power.ups = {
     enable = true;
-    ups.itaipu2 = {
-      driver = "sms_ser";
-      port = "/dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller_DKCRb11CN11-if00-port0";
-    };
-    users.upsmon = {
-      passwordFile = upsmonPasswordFile;
-      upsmon = "primary";
-    };
+    mode = "netclient";
+
     upsmon.monitor.itaipu2 = {
-      user = "upsmon";
-      type = "primary";
+      system = "itaipu2@riverwood";
+      user = "whiterun";
+      passwordFile = config.sops.secrets.nut-whiterun-password.path;
+      type = "secondary";
     };
+
     upsmon.settings = {
       NOTIFYCMD = "${notifySendmail}";
       NOTIFYFLAG = map (t: [
         t
         "SYSLOG+EXEC"
       ]) notifyTypes;
-    };
-  };
-
-  # nixpkgs starts upsd before the driver and does not restart it when
-  # ups.conf changes, so it keeps the old socket path.
-  systemd.services.upsdrv = {
-    after = lib.mkForce [ "local-fs.target" ];
-    before = [ "upsd.service" ];
-  };
-  systemd.services.upsd = {
-    after = [
-      "upsdrv.service"
-      "nut-upsmon-password.service"
-    ];
-    requires = [ "nut-upsmon-password.service" ];
-    restartTriggers = [ config.environment.etc."nut/ups.conf".source ];
-  };
-  systemd.services.upsmon = {
-    after = [ "nut-upsmon-password.service" ];
-    requires = [ "nut-upsmon-password.service" ];
-  };
-
-  systemd.services.nut-upsmon-password = {
-    description = "Generate NUT upsmon protocol password";
-    before = [
-      "upsd.service"
-      "upsmon.service"
-    ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      RuntimeDirectory = "nut";
-      RuntimeDirectoryPreserve = "yes";
-      ExecStart = pkgs.writeShellScript "nut-upsmon-password" ''
-        set -eu
-        umask 077
-        ${lib.getExe' pkgs.openssl "openssl"} rand -hex 16 > ${lib.escapeShellArg upsmonPasswordFile}
-      '';
     };
   };
 }

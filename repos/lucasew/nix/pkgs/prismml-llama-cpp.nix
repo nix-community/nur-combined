@@ -24,9 +24,12 @@
       ./prismml-llama-cpp-kv-mean-center.patch
     ];
 
-    # test-save-load-state requires the download fixture, so excluding
-    # test-download-model alone still runs that fixture. No network here.
-    disabledTests = prev.disabledTests ++ [ "test-save-load-state" ];
+    # Both tests require the download fixture, so excluding test-download-model
+    # alone still runs that fixture. No network here.
+    disabledTests = prev.disabledTests ++ [
+      "test-save-load-state"
+      "test-state-restore-fragmented"
+    ];
 
     # tools/ui lockfile matches ggml-org v0.3.0.
     npmDepsHash = "sha256-2Q7XhaLAArmviOLdQsNbYTfdyDE5pW9lR26cRHEVl9k=";

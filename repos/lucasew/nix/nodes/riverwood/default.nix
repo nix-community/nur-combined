@@ -23,6 +23,7 @@ in
     ./tuning.nix
     ./earlyoom.nix
     ./plymouth.nix
+    ./nut.nix
   ];
 
 

@@ -30,9 +30,12 @@ let
     url = "https://download.nvidia.com/XFree86/NVIDIA-kernel-module-source/NVIDIA-kernel-module-source-610.43.03.tar.xz";
     hash = "sha256-fhGJI8eiPtw2EU1jJzpG4+BOmvmGlaQiA+esLf6fwdw=";
   };
+  # CachyOS pruned its 610.43.03 build from the archive. Arch's official
+  # archive keeps the same package version, and its GA10x GSP blob and NVIDIA
+  # license match the hashes pinned in the manifest byte for byte.
   nvUtils = fetchurl {
-    url = "https://archive.cachyos.org/archive/cachyos-v3/nvidia-utils-610.43.03-1-x86_64_v3.pkg.tar.zst";
-    hash = "sha256-4X58ku7/oXiw/h9A6xekcJX4/Dzkp3vxFc9b1aTfhuk=";
+    url = "https://archive.archlinux.org/packages/n/nvidia-utils/nvidia-utils-610.43.03-1-x86_64.pkg.tar.zst";
+    hash = "sha256-wzZ/9oYyrH2vbKUO98vdHLXQn3/gsmElsxLHPlKjTPQ=";
   };
 
   firmware = stdenvNoCC.mkDerivation {
@@ -49,6 +52,15 @@ let
     # gsp_ga10x.bin is an 80 MiB firmware blob. strip and patchelf must not touch it.
     dontStrip = true;
     dontPatchELF = true;
+
+    # The generator pins the digest of the CachyOS package it was written
+    # against. That artifact is gone, so verify the Arch package instead; the
+    # GSP and license digests below still come from the upstream manifest.
+    postPatch = ''
+      substituteInPlace firmware/generate_v67.py \
+        --replace-fail 'e17e7c92eeffa178b0fe1f40eb17a47095f8fc3ce4a77bf115cf5bd5a4df86e9' \
+                       'c3367ff68632ac7daf6ca50ef7cbdd1cb5d09f7fe0b26125b312c73e52a34cf4'
+    '';
 
     buildPhase = ''
       runHook preBuild
