@@ -11,6 +11,7 @@ import tempfile
 import unittest
 from unittest import mock
 import urllib.error
+import zipfile
 from email.message import Message
 
 
@@ -36,23 +37,30 @@ class Response(io.BytesIO):
         return self.status
 
 
+def zip_bytes(content):
+    result = io.BytesIO()
+    with zipfile.ZipFile(result, "w") as archive:
+        archive.writestr("app", content)
+    return result.getvalue()
+
+
 class UpdateSourceTests(unittest.TestCase):
     NOW = 2_000_000_000.0
     WEEK = 7 * 24 * 60 * 60
     URL = "https://example.invalid/app.zip"
-    BODY = b"PK\x03\x04archive data"
+    BODY = zip_bytes(b"archive data")
 
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
         self.root = Path(self.tmp.name)
         self.package = self.root / "default.nix"
-        self.package.write_text('{\n  version = "1.0";\n  hash = "sha256-old";\n}\n')
+        self.package.write_text('{\n  version = "1.0";\n  hash = "' + sri(self.BODY) + '";\n}\n')
         self.cache = self.root / "cache"
         self.entry = self.cache / (hashlib.sha256(self.URL.encode()).hexdigest() + ".json")
 
     def seed(self, **changes):
-        data = dict(url=self.URL, hash=sri(self.BODY), etag='"release-1"',
+        data = dict(schema=2, url=self.URL, hash=sri(self.BODY), etag='"release-1"',
                     last_modified="", verified_at=self.NOW - 60)
         data.update(changes)
         self.cache.mkdir(exist_ok=True)
@@ -80,18 +88,20 @@ class UpdateSourceTests(unittest.TestCase):
         self.assertEqual(data["etag"], '"new"')
         self.assertEqual(data["verified_at"], self.NOW)
 
-    def test_304_reapplies_cached_hash_without_extending_deadline(self):
+    def test_304_preserves_hash_without_extending_deadline(self):
         cached = self.seed()
         headers = self.update(self.not_modified())
         self.assertEqual(headers.get("if-none-match"), cached["etag"])
         self.assert_hash(self.BODY)
         self.assertEqual(json.loads(self.entry.read_text())["verified_at"], cached["verified_at"])
 
-    def test_changed_body_for_same_version_replaces_hash(self):
+    def test_changed_body_for_same_version_requires_review(self):
         self.seed()
-        changed = b"PK\x03\x04new release bytes"
-        self.update(Response(changed, ETag='"release-2"'))
-        self.assert_hash(changed)
+        changed = zip_bytes(b"new release bytes")
+        before = self.package.read_bytes(), self.entry.read_bytes()
+        with self.assertRaisesRegex(ValueError, "Same-version source hash changed"):
+            self.update(Response(changed, ETag='"release-2"'))
+        self.assertEqual(before, (self.package.read_bytes(), self.entry.read_bytes()))
 
     def test_seven_day_download_deadline_survives_intervening_304(self):
         verified = self.NOW - self.WEEK + 30
@@ -162,14 +172,33 @@ class UpdateSourceTests(unittest.TestCase):
         self.URL = "https://example.invalid/app.deb"
         self.entry = self.cache / (hashlib.sha256(self.URL.encode()).hexdigest() + ".json")
         deb = b"!<arch>\npackage contents"
-        self.update(Response(deb))
+        self.update(Response(deb), version="1.1")
         self.assert_hash(deb)
         before_package = self.package.read_bytes()
         before_cache = self.entry.read_bytes()
         with self.assertRaises(Exception):
-            self.update(Response(self.BODY), force=True)
+            self.update(Response(self.BODY), version="1.1", force=True)
         self.assertEqual(self.package.read_bytes(), before_package)
         self.assertEqual(self.entry.read_bytes(), before_cache)
+
+    def test_conflicting_cache_requires_download_and_never_reapplies_304(self):
+        self.seed(hash=sri(zip_bytes(b"different")))
+        headers = self.update(Response(self.BODY))
+        self.assertNotIn("if-none-match", headers)
+        self.assert_hash(self.BODY)
+
+    def test_upstream_digest_and_zip_integrity(self):
+        for response in (
+            Response(self.BODY, x_obs_content_sha256="0" * 64),
+            Response(b"PK\x03\x04broken"),
+        ):
+            with self.subTest(response=response):
+                before = self.package.read_bytes()
+                with self.assertRaises(Exception):
+                    self.update(response, version="1.1")
+                self.assertEqual(self.package.read_bytes(), before)
+                self.assertFalse(self.entry.exists())
+        self.update(Response(self.BODY, x_obs_content_sha256=hashlib.sha256(self.BODY).hexdigest()))
 
     def test_wrappers_update_working_checkout_from_separate_source(self):
         commands = self.root / "bin"

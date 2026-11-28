@@ -32,9 +32,9 @@ jobs:
         uses: actions/cache/restore@v5
         with:
           path: .cache/source-updates
-          key: source-updates-v1-${{ runner.os }}-${{ github.run_id }}-${{ github.run_attempt }}
+          key: source-updates-v2-${{ runner.os }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
-            source-updates-v1-${{ runner.os }}-
+            source-updates-v2-${{ runner.os }}-
 
       - uses: cachix/install-nix-action@v31
         with:
@@ -85,8 +85,8 @@ jobs:
           body: |
             Automatically update upstream versions and source SHA256 hashes.
 
-            Detect same-version source replacements using conditional HTTP requests,
-            with a full download at least every seven days or when manually forced.
+            Same-version source hash changes require manual review. Full downloads
+            happen at least every seven days or when manually forced.
 
             Full Nix build validation is not performed by this workflow.
           add-paths: |

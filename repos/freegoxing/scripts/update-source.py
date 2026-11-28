@@ -12,6 +12,7 @@ import tempfile
 import time
 import urllib.error
 import urllib.request
+import zipfile
 
 
 FULL_CHECK_INTERVAL = 7 * 24 * 60 * 60
@@ -24,7 +25,8 @@ def read_cache(path, url, now):
         cache = json.loads(path.read_text())
         digest = base64.b64decode(cache["hash"].removeprefix("sha256-"), validate=True)
         if (
-            cache["url"] != url
+            cache.get("schema") != 2
+            or cache["url"] != url
             or not cache["hash"].startswith("sha256-")
             or len(digest) != 32
             or not 0 <= now - cache["verified_at"] < FULL_CHECK_INTERVAL
@@ -70,9 +72,9 @@ def update_source(package_file, version, url, cache_dir, *, force=False, now=Non
 
     cache_file = cache_dir / (hashlib.sha256(url.encode()).hexdigest() + ".json")
     cache = read_cache(cache_file, url, now)
-    # Always revalidate with the server, including its CDN; do not trust a fresh HTTP cache.
+    # Ask intermediaries to revalidate; this does not guarantee an origin fetch.
     headers = {"Accept-Encoding": "identity", "Cache-Control": "no-cache"}
-    if cache and not force and version == old_version:
+    if cache and not force and version == old_version and cache["hash"] == old_hash:
         etag = cache.get("etag", "")
         if etag.startswith('"') and etag.endswith('"'):
             headers["If-None-Match"] = etag
@@ -88,17 +90,31 @@ def update_source(package_file, version, url, cache_dir, *, force=False, now=Non
             digest = hashlib.sha256()
             size = 0
             prefix = b""
-            while chunk := response.read(1024 * 1024):
-                if not prefix:
-                    prefix = chunk[:len(magic)]
-                digest.update(chunk)
-                size += len(chunk)
+            with tempfile.TemporaryFile() as archive:
+                while chunk := response.read(1024 * 1024):
+                    if len(prefix) < len(magic):
+                        prefix = (prefix + chunk)[:len(magic)]
+                    digest.update(chunk)
+                    size += len(chunk)
+                    archive.write(chunk)
+                if url.endswith(".zip"):
+                    archive.seek(0)
+                    with zipfile.ZipFile(archive) as zipped:
+                        bad_file = zipped.testzip()
+                        if bad_file is not None:
+                            raise ValueError(f"ZIP CRC check failed: {bad_file}")
             if not prefix.startswith(magic):
                 raise ValueError(f"Response is not the expected archive: {url}")
             length = response.headers.get("Content-Length")
             if length is not None and size != int(length):
                 raise ValueError(f"Incomplete download: expected {length} bytes, got {size}")
+            server_hash = response.headers.get("x-obs-content-sha256")
+            if server_hash is not None:
+                server_hash = server_hash.strip().lower()
+                if not re.fullmatch(r"[0-9a-f]{64}", server_hash) or server_hash != digest.hexdigest():
+                    raise ValueError("Upstream SHA256 header is invalid or does not match the download")
             cache = {
+                "schema": 2,
                 "url": url,
                 "hash": "sha256-" + base64.b64encode(digest.digest()).decode(),
                 "etag": response.headers.get("ETag", ""),
@@ -106,6 +122,9 @@ def update_source(package_file, version, url, cache_dir, *, force=False, now=Non
                 "verified_at": now,
             }
             print(f"Downloaded {size} bytes; calculated {cache['hash']}")
+            for header in ("ETag", "Last-Modified", "Content-Length", "Age", "Via", "X-Cache", "x-obs-version-id", "x-obs-content-sha256"):
+                if response.headers.get(header):
+                    print(f"{header}: {response.headers[header]}")
     except urllib.error.HTTPError as error:
         if error.code != 304 or not conditional:
             raise
@@ -114,6 +133,11 @@ def update_source(package_file, version, url, cache_dir, *, force=False, now=Non
         print("HTTP 304: source unchanged; reused cached SHA256 (no archive download)")
 
     new_hash = cache["hash"]
+    if version == old_version and new_hash != old_hash:
+        raise ValueError(
+            f"Same-version source hash changed for {version}: {old_hash} -> {new_hash}; "
+            "package and cache left unchanged for manual review"
+        )
     updated = VERSION.sub(lambda match: match[1] + version + match[3], text)
     updated = HASH.sub(lambda match: match[1] + new_hash + match[3], updated)
     if updated != text:
