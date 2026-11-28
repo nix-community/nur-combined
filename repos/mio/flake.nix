@@ -13,6 +13,10 @@
     url = "github:Novavero-AI/nova-nix";
     flake = false;
   };
+  inputs.zen-browser-flake = {
+    url = "github:0xc000022070/zen-browser-flake";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
   inputs.claude-desktop-src = {
     url = "github:aaddrick/claude-desktop-debian/v3.3.20+claude6.28899.6";
     inputs.nixpkgs.follows = "nixpkgs";
@@ -26,6 +30,7 @@
       self,
       nixpkgs,
       nova-nix-src,
+      zen-browser-flake,
       claude-desktop-src,
       kytyps5-nixpkgs,
     }:

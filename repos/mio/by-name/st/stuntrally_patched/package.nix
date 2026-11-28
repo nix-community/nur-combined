@@ -66,8 +66,14 @@ stuntrally.overrideAttrs (oldAttrs: {
       substituteInPlace src/common/AppGui_Compositor.cpp \
         --replace-fail 'lens = edView ? 1 : pSet->g.lens_flare,' 'lens = false,' \
         --replace-fail 'sunbeams = edView ? 1 : pSet->g.sunbeams,' 'sunbeams = false,'
+      substituteInPlace src/common/CScene_Sky.cpp \
+        --replace-fail 'setForwardClustered(true' 'setForwardClustered(false'
       substituteInPlace data/Hlms/Pbs/Any/Main/200.Atmo_piece_all.any \
         --replace-fail 'constant AtmoSettings &atmo' 'constant SR3_AtmoSettings &atmo'
+      substituteInPlace data/Hlms/Pbs/Any/Main/500.Structs_piece_vs_piece_ps.any \
+        --replace-fail \
+          '@property( envprobe_map && envprobe_map != target_envprobe_map && use_parallax_correct_cubemaps && !hlms_enable_cubemaps_auto )' \
+          '@property( envprobe_map && envprobe_map != target_envprobe_map && use_parallax_correct_cubemaps && !hlms_enable_cubemaps_auto && syntax != metal )'
       substituteInPlace src/common/Atmosphere.cpp \
         --replace-fail 'int32( constBufferSlot )' 'int32( constBufferSlot + 6u )' \
         --replace-fail 'VertexShader, uint16( slotIdx )' 'VertexShader, uint16( slotIdx + 6u )' \

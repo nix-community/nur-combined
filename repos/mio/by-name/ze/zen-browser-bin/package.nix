@@ -1,25 +1,16 @@
 {
   lib,
-  fetchFromGitHub,
+  inputs,
   writeShellApplication,
-  coreutils,
-  git,
-  gnused,
   nix,
   nixpkgs_pkgs,
 }:
 
 let
-  upstream = import ./upstream.nix { inherit fetchFromGitHub; };
-  zenFlake = import (upstream + "/default.nix") { pkgs = nixpkgs_pkgs; };
+  zenFlake = inputs.zen-browser-flake.packages.${nixpkgs_pkgs.stdenv.hostPlatform.system};
   updateScript = writeShellApplication {
     name = "update-zen-browser-bin";
-    runtimeInputs = [
-      coreutils
-      git
-      gnused
-      nix
-    ];
+    runtimeInputs = [ nix ];
     text = ''
       export UPDATE_NIX_ATTR_PATH="zen-browser-bin"
       exec ${./update.sh} "$@"
