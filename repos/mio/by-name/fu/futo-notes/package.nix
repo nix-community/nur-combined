@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage (
   finalAttrs:
   {
     pname = "futo-notes";
-    version = "2.0.1";
+    version = "2.0.2";
 
     strictDeps = true;
 
@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage (
       owner = "futo-notes";
       repo = "futo-notes";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-K8zxKo6KM8xVr7caJg1uoyh3RU5TRco6BHQfWb19oUY=";
+      hash = "sha256-AwY9RwjIK4KEa7E2USNk7TCWwWza49HiE1fcKT616e8=";
     };
 
     # Nix's rustc already ships the wasm32 standard library; skip upstream's

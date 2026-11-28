@@ -21,18 +21,18 @@ let
 in
 buildNpmPackage (finalAttrs: {
   pname = "electerm";
-  version = "5.15.0";
+  version = "5.20.0";
 
   src = fetchFromGitHub {
     owner = "electerm";
     repo = "electerm";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-TrvYcq3hlTzIqKIa+vN+mIRCGKQBhiCVm5ZYvjn9AjU=";
+    hash = "sha256-e5N6fwZ26WN5kPIg4pdyecg5/tSSQbLOM5SbVlEgf6k=";
   };
 
   npmDepsFetcherVersion = 2;
 
-  npmDepsHash = "sha256-x+xL1DRzFS/dmIw88grT1Gd8G3DXrop93rUcilbCHdw=";
+  npmDepsHash = "sha256-C4x2q9FdTI71CdcLd4G2nJg1Q1yNh+2MKCq0qp4Vae8=";
 
   inherit nodejs;
 

@@ -36,14 +36,14 @@ stdenv.mkDerivation (
     # which are coerced to strings.
     depsHashes = {
       x86_64-linux = "sha256-S5jtgk6UOoAP2Xl9+HBdGhOPeMpurG+49mSvjbLOoN0=";
-      aarch64-darwin = "sha256-n3Za2DrGZHNvlvFgTiRfXBL7ijDzIuLCz1gAFGpJ6rI=";
+      aarch64-darwin = "sha256-Ub6jKXOyvlE30c9uaG6x+FZcnnPAbH7uA39HPyOrxlk=";
     };
 
     # Commit of the gh-pages branch of clice-io/bazel that `deps` is vendored
     # from. The branch is rewritten on every clice release, so a branch URL
     # would make the fixed-output hash stale within a day; the commit keeps the
     # build reproducible. Bump it together with the source revision.
-    registryRev = "3c9bfb272430225c6d465aff1d4e2034630610a0";
+    registryRev = "c7471e56afba60a3bf6d37152728cf0da378eee5";
 
     # The darwin build cannot listen in the sandbox (--batch), and its link
     # actions cache ThinLTO output in $TMPDIR. The link action does not inherit
@@ -92,13 +92,13 @@ stdenv.mkDerivation (
   in
   {
     pname = "clice";
-    version = "1.1.2026112610";
+    version = "1.1.2026112710";
 
     src = fetchFromGitHub {
       owner = "clice-io";
       repo = "clice";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-Br0zMA6fONtqi3DFPG5mm30a8TWOprT7QrGXkgskWjk=";
+      hash = "sha256-xPj+EaAlpnUE633BdsQm7SvcaUoHscMVNmBex1gRynU=";
     };
 
     deps = stdenvNoCC.mkDerivation {
