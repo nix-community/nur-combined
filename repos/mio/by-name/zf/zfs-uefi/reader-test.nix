@@ -12,8 +12,8 @@
 #   * tank/win, an ordinary dataset with the Windows-like tree the upstream
 #     test looks up, in a pool that also carries the com.datto:encryption
 #     feature;
-#   * tank/enc, an encrypted dataset, which the reader must mount and read as
-#     plaintext once its key is loaded (the test reads /hello.txt, written as
+#   * tank/enc, an encrypted dataset (and a child that inherits its key),
+#     which the reader must mount and read as plaintext once its key is loaded (the test reads /hello.txt, written as
 #     "secret"), and refuse with its explicit message when no key is given.
 #
 # The encrypted legs are the real check of the decryption path: the key store
@@ -111,6 +111,23 @@ runNixOSTest {
     assert "unwrap failed" not in out, out
     assert "mount rc 0" in out, out
     assert "hello.txt: 'secret'" in out, out
+
+    # A child dataset inherits its parent's encryption: the key object lives on
+    # the encryption root's DSL dir, so the reader must walk up to find it.
+    machine.succeed("zpool import -d /dev tank")
+    machine.succeed("zfs load-key tank/enc")
+    machine.succeed("zfs create tank/enc/inherit")
+    machine.succeed("echo inherited > /tank/enc/inherit/hello.txt")
+    machine.succeed("sync")
+    machine.succeed("zpool set bootfs=tank/enc/inherit tank")
+    machine.succeed("zpool export tank")
+    status, out = machine.execute(
+        "ZFS_KEY_FILE=/root/zfs.key enc_read_test /dev/loop0 0 1073741824"
+    )
+    print(out)
+    assert status == 0, out
+    assert "mount rc 0" in out, out
+    assert "hello.txt: 'inherited'" in out, out
 
     # Any other 32 bytes must fail the tag check rather than be accepted.
     machine.succeed("head -c 32 /dev/urandom > /root/bad.key")

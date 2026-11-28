@@ -3,7 +3,6 @@
   pkgs,
   clangStdenv,
   fetchFromGitHub,
-  fetchsvn,
   cmake,
   pkg-config,
   makeBinaryWrapper,
@@ -25,6 +24,10 @@
   sqlite,
   libsamplerate,
   shaderc,
+  nix-update-script,
+  coreutils,
+  gnused,
+  writeShellApplication,
 }:
 let
   # clang + x86-64-v3 flags on x86_64 (what `v3override` applied before the by-name move).
@@ -54,24 +57,24 @@ in
 stdenv.mkDerivation {
 
   pname = "supertuxkart-evolution";
-  version = "1.5-evolution-2026-06-22";
+  version = "1.5-unstable-2026-09-23";
 
   src = fetchFromGitHub {
     owner = "supertuxkart";
     repo = "stk-code";
     # BalanceSTK2 branch commit
-    rev = "bb0439d";
+    rev = "bb0439d62e0cec65c133090171a06fa2d32d9aa9";
     hash = "sha256-tKbp7ezNKCEwA3Yr3tKT+n1bOVuPLbvvHU8PB21/z68=";
   };
 
   postPatch = ''
     # Deletes all bundled libs in stk-code/lib except those
     # That couldn't be replaced with system packages
-    find lib -maxdepth 1 -type d | egrep -v "^lib$|${(lib.concatStringsSep "|" bundledLibraries)}" | xargs -n1 -L1 -r -I{} rm -rf {}
+    find lib -maxdepth 1 -type d | grep -Ev "^lib$|${(lib.concatStringsSep "|" bundledLibraries)}" | xargs -n1 -L1 -r -I{} rm -rf {}
 
     # Allow building with system-installed wiiuse on Darwin
     substituteInPlace CMakeLists.txt \
-      --replace 'NOT (APPLE OR HAIKU)) AND USE_SYSTEM_WIIUSE' 'NOT (HAIKU)) AND USE_SYSTEM_WIIUSE'
+      --replace-fail 'NOT (APPLE OR HAIKU)) AND USE_SYSTEM_WIIUSE' 'NOT (HAIKU)) AND USE_SYSTEM_WIIUSE'
   '';
 
   nativeBuildInputs = [
@@ -150,8 +153,33 @@ stdenv.mkDerivation {
   preFixup = ''
     wrapProgram $out/bin/supertuxkart-evolution \
       --set-default SUPERTUXKART_ASSETS_DIR "${assets}" \
-      --set-default SUPERTUXKART_DATADIR "$out/share/supertuxkart" \
+      --set-default SUPERTUXKART_DATADIR "$out/share/supertuxkart"
   '';
+
+  # The attribute is null in the default (no-ifd) evaluation of default.nix,
+  # and nix-update's --flake mode cannot open lazy-tree flake sources, so
+  # point it at a throwaway file that imports the repo with no-ifd = false.
+  passthru.updateScript = writeShellApplication {
+    name = "update-supertuxkart-evolution";
+    runtimeInputs = [
+      coreutils
+      gnused
+    ];
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="supertuxkart-evolution"
+      wrapper=$(mktemp --suffix=.nix)
+      trap 'rm -f "$wrapper"' EXIT
+      echo "args: import $PWD/default.nix (args // { no-ifd = false; })" > "$wrapper"
+      ${
+        lib.escapeShellArgs (nix-update-script {
+          extraArgs = [ "--version=branch=BalanceSTK2" ];
+        })
+      } --file "$wrapper" "$@"
+      # nix-update takes the base from upstream's newest release tag (`preview`);
+      # keep the game's own base version instead.
+      sed -i -E 's/^(  version = ")[^"]*-unstable-/\11.5-unstable-/' by-name/su/supertuxkart-evolution/package.nix
+    '';
+  };
 
   meta = {
     description = "3D open-source arcade racer (Evolution branch)";

@@ -66,6 +66,31 @@ stuntrally.overrideAttrs (oldAttrs: {
       substituteInPlace src/common/AppGui_Compositor.cpp \
         --replace-fail 'lens = edView ? 1 : pSet->g.lens_flare,' 'lens = false,' \
         --replace-fail 'sunbeams = edView ? 1 : pSet->g.sunbeams,' 'sunbeams = false,'
+      substituteInPlace src/game/BaseApp.cpp \
+        --replace-fail 'using namespace Ogre;' 'using namespace Ogre;
+
+      namespace {
+      void scaleMousePositionToGui(GraphicsSystem* graphics, int x, int y, int& guiX, int& guiY)
+      {
+          int windowWidth = 0, windowHeight = 0;
+          SDL_GetWindowSize(graphics->mSdlWindow, &windowWidth, &windowHeight);
+          const MyGUI::IntSize& viewSize = MyGUI::RenderManager::getInstance().getViewSize();
+
+          guiX = windowWidth > 0 ? x * viewSize.width / windowWidth : x;
+          guiY = windowHeight > 0 ? y * viewSize.height / windowHeight : y;
+      }
+      }' \
+        --replace-fail 'MyGUI::InputManager::getInstance().injectMouseMove( xAbs, yAbs, whAbs );' 'int guiX = 0, guiY = 0;
+      scaleMousePositionToGui(mGraphicsSystem, xAbs, yAbs, guiX, guiY);
+      MyGUI::InputManager::getInstance().injectMouseMove( guiX, guiY, whAbs );' \
+        --replace-fail 'arg.x, arg.y, sdlButtonToMyGUI(id));' 'guiX, guiY, sdlButtonToMyGUI(id));'
+      substituteInPlace src/game/BaseApp.cpp \
+        --replace-fail 'MyGUI::InputManager::getInstance().injectMousePress(' 'int guiX = 0, guiY = 0;
+      scaleMousePositionToGui(mGraphicsSystem, arg.x, arg.y, guiX, guiY);
+      MyGUI::InputManager::getInstance().injectMousePress(' \
+        --replace-fail 'MyGUI::InputManager::getInstance().injectMouseRelease(' 'int guiX = 0, guiY = 0;
+      scaleMousePositionToGui(mGraphicsSystem, arg.x, arg.y, guiX, guiY);
+      MyGUI::InputManager::getInstance().injectMouseRelease('
     '';
   passthru = (oldAttrs.passthru or { }) // {
     mygui = mygui_patched;
