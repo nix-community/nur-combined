@@ -1,6 +1,6 @@
 diff --git a/package-lock.json b/package-lock.json
 new file mode 100644
-index 0000000..ec63d16
+index 0000000..1cfb6b6
 --- /dev/null
 +++ b/package-lock.json
 @@ -0,0 +1,1769 @@
@@ -1676,7 +1676,7 @@ index 0000000..ec63d16
 +    },
 +    "packages/cli": {
 +      "name": "@cortexkit/magic-context",
-+      "version": "0.49.85",
++      "version": "0.49.90",
 +      "license": "MIT",
 +      "dependencies": {
 +        "@clack/prompts": "^1.6.0",
@@ -1694,7 +1694,7 @@ index 0000000..ec63d16
 +    },
 +    "packages/pi-plugin": {
 +      "name": "@cortexkit/pi-magic-context",
-+      "version": "0.49.85",
++      "version": "0.49.90",
 +      "license": "MIT",
 +      "dependencies": {
 +        "@cortexkit/subc-client": "0.11.1",
@@ -1732,7 +1732,7 @@ index 0000000..ec63d16
 +    },
 +    "packages/plugin": {
 +      "name": "@cortexkit/opencode-magic-context",
-+      "version": "0.49.85",
++      "version": "0.49.90",
 +      "license": "MIT",
 +      "dependencies": {
 +        "@cortexkit/subc-client": "0.11.1",
@@ -1789,13 +1789,13 @@ index 206b28f..91fc5b3 100644
    "scripts": {
      "build": "bun scripts/check-bun.mjs && bun run --cwd packages/plugin build && bun run --cwd packages/pi-plugin build && bun run --cwd packages/cli build",
 diff --git a/packages/cli/package.json b/packages/cli/package.json
-index ee2b114..638c9d8 100644
+index 9c47d31..d0b9900 100644
 --- a/packages/cli/package.json
 +++ b/packages/cli/package.json
 @@ -1,59 +1,54 @@
  {
 -    "name": "@cortexkit/magic-context",
--    "version": "0.49.85",
+-    "version": "0.49.90",
 -    "description": "Unified CLI for Magic Context — setup, doctor, and migration across OpenCode, Pi, and OMP",
 -    "keywords": [
 -        "opencode",
@@ -1852,7 +1852,7 @@ index ee2b114..638c9d8 100644
 -        "node": "^22.16.0 || >=24.0.0"
 -    }
 +  "name": "@cortexkit/magic-context",
-+  "version": "0.49.85",
++  "version": "0.49.90",
 +  "description": "Unified CLI for Magic Context \u2014 setup, doctor, and migration across OpenCode, Pi, and OMP",
 +  "keywords": [
 +    "opencode",
@@ -1905,13 +1905,13 @@ index ee2b114..638c9d8 100644
 +  }
  }
 diff --git a/packages/pi-plugin/package.json b/packages/pi-plugin/package.json
-index d3252e6..e36acbb 100644
+index f9d57bb..0891c60 100644
 --- a/packages/pi-plugin/package.json
 +++ b/packages/pi-plugin/package.json
 @@ -1,127 +1,93 @@
  {
 -	"name": "@cortexkit/pi-magic-context",
--	"version": "0.49.85",
+-	"version": "0.49.90",
 -	"type": "module",
 -	"description": "Pi and OMP coding agent extension for Magic Context — cross-session memory and context management",
 -	"main": "dist/index.js",
@@ -2036,7 +2036,7 @@ index d3252e6..e36acbb 100644
 -		]
 -	}
 +  "name": "@cortexkit/pi-magic-context",
-+  "version": "0.49.85",
++  "version": "0.49.90",
 +  "type": "module",
 +  "description": "Pi and OMP coding agent extension for Magic Context \u2014 cross-session memory and context management",
 +  "main": "dist/index.js",
@@ -2128,12 +2128,12 @@ index d3252e6..e36acbb 100644
 +  }
  }
 diff --git a/packages/plugin/package.json b/packages/plugin/package.json
-index 6979f8e..8863be0 100644
+index 7f50bba..ccd4ed7 100644
 --- a/packages/plugin/package.json
 +++ b/packages/plugin/package.json
 @@ -2,7 +2,7 @@
    "name": "@cortexkit/opencode-magic-context",
-   "version": "0.49.85",
+   "version": "0.49.90",
    "type": "module",
 -  "description": "OpenCode plugin for Magic Context — cross-session memory and context management",
 +  "description": "OpenCode plugin for Magic Context \u2014 cross-session memory and context management",

@@ -541,6 +541,7 @@ name = "cargo-sunrise-mod"
 version = "0.1.0"
 dependencies = [
  "base64 0.22.1",
+ "cap-std",
  "dunce",
  "getrandom 0.4.3",
  "libc",
@@ -4651,7 +4652,6 @@ dependencies = [
  "sunrise-java-properties",
  "sunrise-level",
  "sunrise-mod-api",
- "sunrise-mod-api-gen",
  "sunrise-mod-api-macros",
  "sunrise-mod-package",
  "sunrise-mod-runtime",
@@ -4832,7 +4832,6 @@ dependencies = [
  "rustix 1.1.5",
  "serde",
  "serde_json",
- "sha1",
  "sha2 0.10.9",
  "smallvec",
  "sunrise-assets",
@@ -5865,6 +5864,7 @@ dependencies = [
  "sunrise-mod-vocab",
  "sunrise-threads",
  "tar",
+ "tempfile",
  "ureq",
  "xxhash-rust",
 ]

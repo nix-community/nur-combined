@@ -34,19 +34,19 @@
       "fingerprint": "sha256-cVQ7h55JChvA30nwu2Nmkypiz9ytWuPQd2UqxAacviU="
     },
     "aliasmode": {
-      "version": "0.1.0-beta.75",
-      "rawVersion": "0.1.0-beta.75",
-      "date": "2026-11-16",
+      "version": "0.1.0-beta.76",
+      "rawVersion": "0.1.0-beta.76",
+      "date": "2026-11-27",
       "src": {
         "fetcher": "github",
         "owner": "aliasmode",
         "repo": "aliasmode",
-        "rev": "v0.1.0-beta.75",
-        "hash": "sha256-x8FYxZ2y+hHon5N+RQNpoGmKQnEDBmedlKVpN5CxoTg="
+        "rev": "v0.1.0-beta.76",
+        "hash": "sha256-DxSJg4Nd/Lo423Ip44Y9ZwgSIK+DsAbsa4/XEXJ3EHc="
       },
       "derived": {
         "cargoHash": {
-          "hash": "sha256-V9oKvtuQu5kaDdhJfTP9Ztngc4/wBodg2S/Hdbr6MyI="
+          "hash": "sha256-q1EYG3Ga8CevKPuCQXWzB4p+C0DQufeC17vvDtUWBlo="
         },
         "nodeModulesHash": {
           "hash": "sha256-jHQQkz9HM8lGhDPPEY9Geps9nhs8G65In575zKciyQk="
@@ -76,15 +76,15 @@
       "fingerprint": "sha256-FbUkrewKZ0lckP8/i/BGu9EE6IXwByVR2mX/BVLIAn4="
     },
     "antigravity-claude-proxy": {
-      "version": "3.1.3",
-      "rawVersion": "3.1.3",
-      "date": "2026-11-26",
+      "version": "3.2.0",
+      "rawVersion": "3.2.0",
+      "date": "2026-11-27",
       "src": {
         "fetcher": "github",
         "owner": "badrisnarayanan",
         "repo": "antigravity-claude-proxy",
-        "rev": "v3.1.3",
-        "hash": "sha256-Xk5fCYrWeI+Y2uCyQ/kHSp6WfbtHPHSLXsscxjU9drM="
+        "rev": "v3.2.0",
+        "hash": "sha256-dvfhiJIbszOlrwOhlZo3OXm+YNMArt4QEMkcR7Bguts="
       },
       "derived": {
         "npmDeps": {
@@ -185,15 +185,15 @@
       "fingerprint": "sha256-K/ydfckMqAkWgBYRA3GmlYgjn9xFu5HwlWPJImUnu9Q="
     },
     "cliproxyapi": {
-      "version": "8.1.7",
-      "rawVersion": "v8.1.7",
-      "date": "2026-11-26",
+      "version": "8.1.8",
+      "rawVersion": "v8.1.8",
+      "date": "2026-11-27",
       "src": {
         "fetcher": "github",
         "owner": "router-for-me",
         "repo": "cliproxyapi",
-        "rev": "v8.1.7",
-        "hash": "sha256-oqFb2NeEkR0SR2vK3PSemajpOLMaU+LpgovK7Ym3e2s="
+        "rev": "v8.1.8",
+        "hash": "sha256-jkx9qG5M7i3lIfde+vnTmC89IHq4bE28pK5xJohdE2Q="
       },
       "derived": {
         "vendorHash": {
@@ -344,14 +344,14 @@
       "fingerprint": "sha256-30OsBkMRA0jMQKYo3jIET9P4D5xWLMEblIxAU7j2p2k="
     },
     "gaze": {
-      "version": "0.5.3-unstable-2026-11-26",
-      "rawVersion": "2ae26a05fb6248a54105fe31fc7c90a58a1d85ef",
-      "date": "2026-11-26",
+      "version": "0.5.3-unstable-2026-11-27",
+      "rawVersion": "5ba7da5104e4b848dd3fb8ac57c09334833cba96",
+      "date": "2026-11-27",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/GunduLabs/gaze.git",
-        "rev": "2ae26a05fb6248a54105fe31fc7c90a58a1d85ef",
-        "hash": "sha256-PFDCXgUWusgWRnR3p2bkIC7Cdhv2Cmkgbk3aY2zofs8="
+        "rev": "5ba7da5104e4b848dd3fb8ac57c09334833cba96",
+        "hash": "sha256-5jAugIjkz4enB3afjSXB1Qz9GAT+QHGg9HJgQHWH+9k="
       },
       "derived": {
         "cargoLock": {
@@ -441,35 +441,35 @@
       "fingerprint": "sha256-VDgHTON3muqQMwensyByNopQtkpYIRQQcKdCjIQhwJI="
     },
     "hmcl-dev-bin": {
-      "version": "3.18.0.368",
-      "rawVersion": "3.18.0.368",
+      "version": "3.18.0.369",
+      "rawVersion": "3.18.0.369",
       "src": {
         "fetcher": "url",
-        "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.18.0.368/HMCL-3.18.0.368.jar",
-        "hash": "sha256-CHh8NMBDHnFyOfQ/5X1ueItX/JyfMCwBxJ3X+Bk6QKQ="
+        "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.18.0.369/HMCL-3.18.0.369.jar",
+        "hash": "sha256-B5fyBHhz+qjyxORiqTtPWa2hTdRhUBOTWbkHGvYYXbQ="
       },
       "fingerprint": "sha256-FCpeK4prWYIRrizU4R/xf25Lx71ILojidsolvF5tgIU="
     },
     "hmcl-dev-exe": {
-      "version": "3.18.0.368",
-      "rawVersion": "3.18.0.368",
+      "version": "3.18.0.369",
+      "rawVersion": "3.18.0.369",
       "src": {
         "fetcher": "url",
-        "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.18.0.368/HMCL-3.18.0.368.exe",
-        "hash": "sha256-kOdKm+0vF0O08BS/KyY1TNKeah2O5gqQtXLwipyhJOM="
+        "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.18.0.369/HMCL-3.18.0.369.exe",
+        "hash": "sha256-8TnwgKjJztLoccpQE1uciDXuuLWXUB7fAPdrAqlvsCY="
       },
       "fingerprint": "sha256-7dSsriLulyHBfpIDnwakGLyV7hcHnbygShSMURMjIz0="
     },
     "hmcl-dev-src": {
-      "version": "3.18.0.368",
-      "rawVersion": "3.18.0.368",
-      "date": "2026-11-26",
+      "version": "3.18.0.369",
+      "rawVersion": "3.18.0.369",
+      "date": "2026-11-27",
       "src": {
         "fetcher": "github",
         "owner": "HMCL-dev",
         "repo": "HMCL",
-        "rev": "v3.18.0.368",
-        "hash": "sha256-IdEy7ciuwQCJAdEkKQ2w3+hjd/CjdWl7//glLyxFMMA="
+        "rev": "v3.18.0.369",
+        "hash": "sha256-4pFDxK8ccip60VL6Wvbyit2rZztnwWDqV7XwY5SepVA="
       },
       "fingerprint": "sha256-4jCQslnqwTJoijYP2CKfwBZjAzj2BCR/xHV7lz2D//4="
     },
@@ -541,15 +541,15 @@
       "fingerprint": "sha256-hx96JJO1209o6FzcJOvJLwehW78iolaRc0KDGJFxbgo="
     },
     "magic-context": {
-      "version": "0.49.85",
-      "rawVersion": "0.49.85",
-      "date": "2026-11-27",
+      "version": "0.49.90",
+      "rawVersion": "0.49.90",
+      "date": "2026-11-28",
       "src": {
         "fetcher": "github",
         "owner": "cortexkit",
         "repo": "magic-context",
-        "rev": "v0.49.85",
-        "hash": "sha256-JSLjljT9/Hhy0EDMF8fobYrEw30Z2XImZM3Ek0/srJA="
+        "rev": "v0.49.90",
+        "hash": "sha256-B1dHL/bG2ZBry8m+xXTGdddrnlhNmWMkwjyczowHyNg="
       },
       "derived": {
         "npmDeps": {
@@ -611,14 +611,14 @@
       "fingerprint": "sha256-vR7sJIoluiLgop9ZZHZKD6Or/5XOXg5rf4u3QaTDtco="
     },
     "meta-rules-dat": {
-      "version": "0-unstable-2026-11-27",
-      "rawVersion": "9152725ac409fbd208d04e03a7a11f1503c4555f",
-      "date": "2026-11-27",
+      "version": "0-unstable-2026-11-28",
+      "rawVersion": "f27ef01ad87699ef614d78fef46bd07bdba30755",
+      "date": "2026-11-28",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/MetaCubeX/meta-rules-dat.git",
-        "rev": "9152725ac409fbd208d04e03a7a11f1503c4555f",
-        "hash": "sha256-QwN8NE4XDN3Qd85+vqVZw1KZQHCllT52LAm0v8hAe9g="
+        "rev": "f27ef01ad87699ef614d78fef46bd07bdba30755",
+        "hash": "sha256-nxe4RvWzLX3uoQA6yRhhka79Ltxf3yM1ffWKKvAaxgg="
       },
       "fingerprint": "sha256-wX3xYgeMbiaHcGTwYkJLKkmGHaWP1yW5YbKKukaREX0="
     },
@@ -674,39 +674,41 @@
       "fingerprint": "sha256-RF7dTjRA08i3eBdVEzcyBdNUd5jMpUf82/JeB3dMxIs="
     },
     "nezha": {
-      "version": "2.7.0",
-      "rawVersion": "v2.7.0",
-      "date": "2026-11-20",
+      "version": "2.8.0",
+      "rawVersion": "v2.8.0",
+      "date": "2026-11-27",
       "src": {
         "fetcher": "github",
         "owner": "nezhahq",
         "repo": "nezha",
-        "rev": "v2.7.0",
-        "hash": "sha256-8rN4wf8bvDCQ6GsEW2QSPw1OKcDbvfp4E3BYjJCJjjI="
+        "rev": "v2.8.0",
+        "hash": "sha256-o7npqDVr3mj5MLS1hnGw9Ogv+ETiehbMHYH9OplOvIA="
       },
       "fingerprint": "sha256-XGgYC0V+zgCBDK3pro5CgnEWs5e+XEhjsm9ntwty0pw="
     },
     "nezha-agent": {
-      "version": "2.4.0",
-      "rawVersion": "v2.4.0",
+      "version": "2.5.0",
+      "rawVersion": "v2.5.0",
+      "date": "2026-11-27",
       "src": {
         "fetcher": "github",
         "owner": "nezhahq",
         "repo": "agent",
-        "rev": "v2.4.0",
-        "hash": "sha256-HiR2D+EiYB4N3HbzGz7W2v5RVq19ph22dyyBr4eCltI="
+        "rev": "v2.5.0",
+        "hash": "sha256-DW82DWoUTPfT/yGiim++uAwBpOdIZpgs1bo9DKKtjzY="
       },
       "fingerprint": "sha256-auNeaN3UlxE3aWGKBkvVNrZkb14T2DxZMUO1zpasejY="
     },
     "nezha-theme-admin": {
-      "version": "2.6.1",
-      "rawVersion": "v2.6.1",
+      "version": "2.7.0",
+      "rawVersion": "v2.7.0",
+      "date": "2026-11-27",
       "src": {
         "fetcher": "github",
         "owner": "nezhahq",
         "repo": "admin-frontend",
-        "rev": "v2.6.1",
-        "hash": "sha256-rLavWiGNyBjpbaFAsetmWAJvYXdzHLYawlHOUzhQ4/U="
+        "rev": "v2.7.0",
+        "hash": "sha256-QbEGbnMSSrYUxlA4z9rI9+gCSnyb2TvyTiKZ2KeClwo="
       },
       "derived": {
         "npmDeps": {
@@ -807,15 +809,15 @@
       "fingerprint": "sha256-WGmfJFbGw9W5lvzrKu4NQ6W6PZD4mJsd7TFKiLbc9/Q="
     },
     "opencode-telegram-bot": {
-      "version": "0.29.0",
-      "rawVersion": "v0.29.0",
-      "date": "2026-11-25",
+      "version": "0.30.0",
+      "rawVersion": "v0.30.0",
+      "date": "2026-11-28",
       "src": {
         "fetcher": "github",
         "owner": "grinev",
         "repo": "opencode-telegram-bot",
-        "rev": "v0.29.0",
-        "hash": "sha256-aAAvzZsOwt2Rr0lOgfqflaOj4D5VGjQy8MipHOgWyrA="
+        "rev": "v0.30.0",
+        "hash": "sha256-eyg02v+9VA3T3IGSa6TlAIANWZeF/nJS3WfW7YRBGVQ="
       },
       "derived": {
         "npmDeps": {
@@ -956,14 +958,15 @@
       "fingerprint": "sha256-gKE60Ly3p8qZ1STgoh9b3quLDtOSWZLd5aweegAjdzc="
     },
     "pi-context-view": {
-      "version": "0.8.4",
-      "rawVersion": "v0.8.4",
+      "version": "0.9.0",
+      "rawVersion": "v0.9.0",
+      "date": "2026-11-27",
       "src": {
         "fetcher": "github",
         "owner": "dimk90",
         "repo": "pi-context-view",
-        "rev": "v0.8.4",
-        "hash": "sha256-yHPAK9eWrOGQn55r47RqE67Ef6bYJ8ZBCb6eQj1gR0Q="
+        "rev": "v0.9.0",
+        "hash": "sha256-Wu9iTP+JRMZKQXqLb4ToEcb3kd9JegJE6BkP6Ss7dwU="
       },
       "fingerprint": "sha256-2iQIwkuhuI6JIwGrLvC4r49EzdZp07VUvbXFvxjHU3o="
     },
@@ -1036,15 +1039,15 @@
       "fingerprint": "sha256-bDHuPi4pDA+KHdBq0EWN+AFaEHyxWkqkaNUpvXDWM7M="
     },
     "pi-nix-build": {
-      "version": "0.1.5",
-      "rawVersion": "v0.1.5",
-      "date": "2026-11-27",
+      "version": "0.2.0",
+      "rawVersion": "v0.2.0",
+      "date": "2026-11-28",
       "src": {
         "fetcher": "github",
         "owner": "Moraxyc",
         "repo": "pi-nix-build",
-        "rev": "v0.1.5",
-        "hash": "sha256-ZWIOn0SX2lLJ8YBHITneYFAhe5qp25DlJtHD45zdhlw="
+        "rev": "v0.2.0",
+        "hash": "sha256-hyHmjbY0VUgFsjLWGgyeOtpok7m+WYHkNKwRMWcj2rc="
       },
       "fingerprint": "sha256-g7Y6fpT0ZLhV6iBUbu7lcAVwnYvEG1MkwqfiVxE3/Bw="
     },
@@ -1247,52 +1250,52 @@
       "fingerprint": "sha256-0jBQDZwHN42A/9uLQDOE0djRGrQUuI3xdQ5+9NlzAn0="
     },
     "sable-next": {
-      "version": "26.11.4",
-      "rawVersion": "26.11.4",
-      "date": "2026-11-19",
+      "version": "26.11.5",
+      "rawVersion": "26.11.5",
+      "date": "2026-11-27",
       "src": {
         "fetcher": "git",
         "url": "https://git.sable.moe/SableClient/sable-next.git",
-        "tag": "v26.11.4",
-        "hash": "sha256-dapUFACRlFqp4/QysOPgrvCy1jCd6SRm/hIiSxzIwe4="
+        "tag": "v26.11.5",
+        "hash": "sha256-e6V3BXjIxynQwloagAL+HRZttEq9NcLU+M9z0ogBmYs="
       },
       "derived": {
         "cargoLock": {
           "lockfile": "sable-next/src/Cargo.lock",
           "outputHashes": {
-            "matrix-sdk-0.19.1": "sha256-dQt7JkDNnAmM0SgUDtdFnw1rehbRUjdQcOkqdUYfJ40=",
-            "matrix-sdk-base-0.19.1": "sha256-dQt7JkDNnAmM0SgUDtdFnw1rehbRUjdQcOkqdUYfJ40=",
-            "matrix-sdk-common-0.19.1": "sha256-dQt7JkDNnAmM0SgUDtdFnw1rehbRUjdQcOkqdUYfJ40=",
-            "matrix-sdk-crypto-0.19.1": "sha256-dQt7JkDNnAmM0SgUDtdFnw1rehbRUjdQcOkqdUYfJ40=",
-            "matrix-sdk-indexeddb-0.19.1": "sha256-dQt7JkDNnAmM0SgUDtdFnw1rehbRUjdQcOkqdUYfJ40=",
-            "matrix-sdk-qrcode-0.19.1": "sha256-dQt7JkDNnAmM0SgUDtdFnw1rehbRUjdQcOkqdUYfJ40=",
-            "matrix-sdk-sqlite-0.19.1": "sha256-dQt7JkDNnAmM0SgUDtdFnw1rehbRUjdQcOkqdUYfJ40=",
-            "matrix-sdk-store-encryption-0.19.1": "sha256-dQt7JkDNnAmM0SgUDtdFnw1rehbRUjdQcOkqdUYfJ40=",
-            "matrix-sdk-test-0.19.1": "sha256-dQt7JkDNnAmM0SgUDtdFnw1rehbRUjdQcOkqdUYfJ40=",
-            "matrix-sdk-test-macros-0.19.1": "sha256-dQt7JkDNnAmM0SgUDtdFnw1rehbRUjdQcOkqdUYfJ40=",
-            "matrix-sdk-test-utils-0.19.1": "sha256-dQt7JkDNnAmM0SgUDtdFnw1rehbRUjdQcOkqdUYfJ40=",
-            "matrix-sdk-ui-0.19.1": "sha256-dQt7JkDNnAmM0SgUDtdFnw1rehbRUjdQcOkqdUYfJ40=",
-            "ruma-0.17.2": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
-            "ruma-appservice-api-0.17.1": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
-            "ruma-client-api-0.25.2": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
-            "ruma-common-0.20.2": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
-            "ruma-events-0.35.2": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
-            "ruma-federation-api-0.16.1": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
-            "ruma-html-0.9.0": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
-            "ruma-identifiers-validation-0.14.0": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
-            "ruma-macros-0.20.2": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
-            "ruma-signatures-0.22.1": "sha256-UYt5NBV6elBcObGI4ywX3CfFlbH5iuHLPAmE8TJzY1M=",
-            "sable-link-preview-0.1.0": "sha256-fCaSl4BU6Y/zElutdXuaD4G5mnpZ1v34pIdXZ5Q8mpM=",
+            "matrix-sdk-0.20.0": "sha256-zWfiG88BfzpoyInqtuqE8rx63VU0FsfjEA+HCdX1j9k=",
+            "matrix-sdk-base-0.20.0": "sha256-zWfiG88BfzpoyInqtuqE8rx63VU0FsfjEA+HCdX1j9k=",
+            "matrix-sdk-common-0.20.0": "sha256-zWfiG88BfzpoyInqtuqE8rx63VU0FsfjEA+HCdX1j9k=",
+            "matrix-sdk-crypto-0.20.0": "sha256-zWfiG88BfzpoyInqtuqE8rx63VU0FsfjEA+HCdX1j9k=",
+            "matrix-sdk-indexeddb-0.20.0": "sha256-zWfiG88BfzpoyInqtuqE8rx63VU0FsfjEA+HCdX1j9k=",
+            "matrix-sdk-qrcode-0.20.0": "sha256-zWfiG88BfzpoyInqtuqE8rx63VU0FsfjEA+HCdX1j9k=",
+            "matrix-sdk-sqlite-0.20.0": "sha256-zWfiG88BfzpoyInqtuqE8rx63VU0FsfjEA+HCdX1j9k=",
+            "matrix-sdk-store-encryption-0.20.0": "sha256-zWfiG88BfzpoyInqtuqE8rx63VU0FsfjEA+HCdX1j9k=",
+            "matrix-sdk-test-0.20.0": "sha256-zWfiG88BfzpoyInqtuqE8rx63VU0FsfjEA+HCdX1j9k=",
+            "matrix-sdk-test-macros-0.20.0": "sha256-zWfiG88BfzpoyInqtuqE8rx63VU0FsfjEA+HCdX1j9k=",
+            "matrix-sdk-test-utils-0.20.0": "sha256-zWfiG88BfzpoyInqtuqE8rx63VU0FsfjEA+HCdX1j9k=",
+            "matrix-sdk-ui-0.20.0": "sha256-zWfiG88BfzpoyInqtuqE8rx63VU0FsfjEA+HCdX1j9k=",
+            "ruma-0.18.0": "sha256-2kx8P/27iz8gF2tGfkeBJAJdqYdCwW69v+tt30nNXHo=",
+            "ruma-appservice-api-0.18.0": "sha256-2kx8P/27iz8gF2tGfkeBJAJdqYdCwW69v+tt30nNXHo=",
+            "ruma-client-api-0.26.0": "sha256-2kx8P/27iz8gF2tGfkeBJAJdqYdCwW69v+tt30nNXHo=",
+            "ruma-common-0.21.0": "sha256-2kx8P/27iz8gF2tGfkeBJAJdqYdCwW69v+tt30nNXHo=",
+            "ruma-events-0.36.0": "sha256-2kx8P/27iz8gF2tGfkeBJAJdqYdCwW69v+tt30nNXHo=",
+            "ruma-federation-api-0.17.0": "sha256-2kx8P/27iz8gF2tGfkeBJAJdqYdCwW69v+tt30nNXHo=",
+            "ruma-html-0.10.0": "sha256-2kx8P/27iz8gF2tGfkeBJAJdqYdCwW69v+tt30nNXHo=",
+            "ruma-identifiers-validation-0.14.1": "sha256-2kx8P/27iz8gF2tGfkeBJAJdqYdCwW69v+tt30nNXHo=",
+            "ruma-macros-0.20.3": "sha256-2kx8P/27iz8gF2tGfkeBJAJdqYdCwW69v+tt30nNXHo=",
+            "ruma-signatures-0.23.0": "sha256-2kx8P/27iz8gF2tGfkeBJAJdqYdCwW69v+tt30nNXHo=",
+            "sable-link-preview-0.1.0": "sha256-9hYplMo3osP1oIzL+0rhQ0baGwOv9HrUDwGDAiDE2EU=",
             "tauri-plugin-app-icon-0.1.0": "sha256-LFVRZmNry4PN4B058pTG6UYTQcg1j2Otv9EkEU+rAEc=",
             "tauri-plugin-auth-session-0.2.2": "sha256-hXJkjX0hDSFw6M4iQXRvGD9fnMR0aN7rU5IBNh0kChQ=",
             "tauri-plugin-edge-to-edge-0.3.3": "sha256-ttcVPLCkcChkSnNE5jkpS0zz7sflzPD9rhOVOqosTeA=",
-            "tauri-plugin-livekit-mobile-0.2.0": "sha256-TGDcz9S4dmW/bxOkT04Zsl2Tx8OVFborSVUjgrujcH4=",
+            "tauri-plugin-livekit-mobile-0.2.0": "sha256-67FnP+H17IE/xzwsesaWY0BkxcCh3WzHiF4xW0gPbI8=",
             "tauri-plugin-native-audio-1.0.5": "sha256-yUwseWTYx+5l1WqIwBUokw0faPH/smbN5sn+EnNF4qs=",
             "tauri-plugin-notifications-0.5.0": "sha256-xB+9Zvqbp5RMoF6mC+3YvTnpG+uG0/PgYzyaRKSR9h0="
           }
         },
         "pnpmDepsHash": {
-          "hash": "sha256-CbhaU2lojoCR1AG5AEZBSHz/amFO3ewvZ1bml+gLG+0="
+          "hash": "sha256-q73doVqWfcm257njz2fwhO8vo1B6VC+D3nf7qflrxNQ="
         }
       },
       "fingerprint": "sha256-2YVZK9SaKstbB8g+Fzhd3oIQeuoEzz5l9AUGzESdLWE="
@@ -1351,15 +1354,15 @@
       "fingerprint": "sha256-LlZDgy3aTRdVrgeChch2g//DkgiJ9CkMgdG8JMG+RN0="
     },
     "sunrise": {
-      "version": "0-unstable-2026-11-27",
-      "rawVersion": "d48a875844b02aecdb8fd47e2a7c698ba589d4c7",
-      "date": "2026-11-27",
+      "version": "0-unstable-2026-11-28",
+      "rawVersion": "293a27f4b4415961dfb3f7e8520b3a17b1122dbf",
+      "date": "2026-11-28",
       "src": {
         "fetcher": "github",
         "owner": "sunrise-org",
         "repo": "sunrise",
-        "rev": "d48a875844b02aecdb8fd47e2a7c698ba589d4c7",
-        "hash": "sha256-1zDU9hlkicWbuDL5Npv5yDkJuL+3wAd1jpvnsoexiBE="
+        "rev": "293a27f4b4415961dfb3f7e8520b3a17b1122dbf",
+        "hash": "sha256-22ghq4Y+rDSpq+x6I+GzwoO+0Qpxqg1LNzjAlAGedB8="
       },
       "derived": {
         "cargoLock": {
@@ -1381,22 +1384,22 @@
       "fingerprint": "sha256-lrVp1rLZrlyGtadATaXbJpjppZ1kTzZ/p1q1OCoP6Qk="
     },
     "tokenrouter": {
-      "version": "0.7.6",
-      "rawVersion": "0.7.6",
-      "date": "2026-11-20",
+      "version": "0.8.0",
+      "rawVersion": "0.8.0",
+      "date": "2026-11-27",
       "src": {
         "fetcher": "github",
         "owner": "TokenFlux",
         "repo": "TokenRouter",
-        "rev": "v0.7.6",
-        "hash": "sha256-PUDJulWSWvYIHGHroPx0qIDZzJrXtKi4n5qBQbRsRiI="
+        "rev": "v0.8.0",
+        "hash": "sha256-tW2To+UYRV2FR1DeIgbOl6Z3d/mzhaf+TW9alI1ZlTk="
       },
       "derived": {
         "pnpmDepsHash": {
           "hash": "sha256-89j7nAzKzljv6ZpCEEaUa3NR+k9C2ubsZqmWBdEMi14="
         },
         "vendorHash": {
-          "hash": "sha256-IzpZpexCWcMEt8iBEzvPOjJcbAOv5u3+x7mKwwilO0E="
+          "hash": "sha256-AzDBCtcyeTTTmE1NjNgbasZ3rQImKtccj8nm1p2W+0U="
         }
       },
       "fingerprint": "sha256-VCbxhAh7sPsYUf2S/3+kns/530gSkMQCmEjkF2yHnLE="
@@ -1414,14 +1417,14 @@
       "fingerprint": "sha256-imgtibGyweQKSt73wcN8RnflrzCvxGnXE2OOGS5lLSs="
     },
     "v2ray-rules-dat": {
-      "version": "0-unstable-2026-11-26",
-      "rawVersion": "6c5992d7c0b128d83ddcad6194905c2c63913868",
-      "date": "2026-11-26",
+      "version": "0-unstable-2026-11-27",
+      "rawVersion": "a7b3aa30aa88aa4c33bead15a1d06343c8fbfba5",
+      "date": "2026-11-27",
       "src": {
         "fetcher": "git",
         "url": "https://github.com/Loyalsoldier/v2ray-rules-dat.git",
-        "rev": "6c5992d7c0b128d83ddcad6194905c2c63913868",
-        "hash": "sha256-RYl45hz9CtA399VuUnw1SAvcINApr9x/c45pfYzgF20="
+        "rev": "a7b3aa30aa88aa4c33bead15a1d06343c8fbfba5",
+        "hash": "sha256-DR7qj6r29+qUk2YWkZsAWMAxGCSKVJiQqSGReuMsW+A="
       },
       "fingerprint": "sha256-VCqt6bExRQnJkTY51zmxmoGSt/p7RbF3g/HsGQUjUqs="
     },
