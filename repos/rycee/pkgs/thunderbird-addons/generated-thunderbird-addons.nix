@@ -61,16 +61,23 @@
     };
     "eas-4-tbsync" = buildMozillaXpiAddon {
       pname = "eas-4-tbsync";
-      version = "4.18";
+      version = "5.3.13";
       addonId = "eas4tbsync@jobisoft.de";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1046520/provider_fur_exchange_activesync-4.18-tb.xpi?src=";
-      sha256 = "2923e13adbcc2fadfe6fe4fa65f01c43b1782765ff2ed3cf125515e2df47584d";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1055917/provider_fur_exchange_activesync-5.3.13-tb.xpi?src=";
+      sha256 = "4d3d7471675034d119c6a69dee3fd5d80034c3d1d0f65a188dae717a42e4ae9b";
       meta = with lib;
       {
         homepage = "https://github.com/jobisoft/EAS-4-TbSync";
         description = "Add sync support for Exchange ActiveSync (EAS v2.5 &amp; v14.0) accounts to TbSync";
         license = licenses.mpl20;
-        mozPermissions = [ "notifications" ];
+        mozPermissions = [
+          "storage"
+          "addressBooks"
+          "tabs"
+          "webRequest"
+          "webRequestBlocking"
+          "<all_urls>"
+        ];
         platforms = platforms.all;
       };
     };
