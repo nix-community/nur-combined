@@ -71,6 +71,10 @@ stuntrally.overrideAttrs (oldAttrs: {
       substituteInPlace data/materials/Common/Metal/MipmapsGaussianBlur_cs.metal \
         --replace-fail 'i2Inc ),' 'i2Inc )' \
         --replace-fail 'p.dstLodIdx );' ');'
+      substituteInPlace data/Hlms/Pbs/Any/Main/800.PixelShader_piece_ps.any \
+        --replace-fail \
+          '@property( !hlms_shadowcaster && !paint && !grass && !sky && refract )' \
+          '@property( !hlms_shadowcaster && !paint && !grass && !sky && refract && syntax != metal )'
       substituteInPlace src/game/BaseApp.cpp \
         --replace-fail 'using namespace Ogre;' 'using namespace Ogre;
 
