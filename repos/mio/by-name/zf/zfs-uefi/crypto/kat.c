@@ -15,6 +15,8 @@
 
 #include "aesgcm.h"
 #include "sha1.h"
+#include "hkdf.h"
+#include "hkdf_kat_vectors.h"
 #include "sha512.h"
 #include "sha1_kat_vectors.h"
 
@@ -224,6 +226,35 @@ static void run_sha1(void)
 	    "4096 iterations");
 }
 
+static void
+run_hkdf(void)
+{
+	uint8_t ikm[32];
+	uint8_t info[8];
+	uint8_t out[48];
+	size_t i;
+	int before = failures;
+
+	for (i = 0; i < sizeof (ikm); i++)
+		ikm[i] = (uint8_t)(i & 0xff);
+	for (i = 0; i < sizeof (info); i++)
+		info[i] = (uint8_t)i;
+
+	check(zfse_hkdf_sha512(ikm, sizeof (ikm), NULL, 0, info, sizeof (info),
+	    out, 32) == 0, "hkdf-sha512", "empty-salt derivation failed");
+	check(hex_eq(out, HKDF_KAT_OUT_1, 32), "hkdf-sha512",
+	    "empty-salt/8-byte-info vector");
+
+	check(zfse_hkdf_sha512((const uint8_t *)"hkdf-test", 9,
+	    (const uint8_t *)"salt", 4, (const uint8_t *)"info", 4, out, 42)
+	    == 0, "hkdf-sha512", "salted derivation failed");
+	check(hex_eq(out, HKDF_KAT_OUT_2, 42), "hkdf-sha512",
+	    "salted/42-byte vector");
+
+	if (failures == before)
+		printf("PASS HKDF-SHA512 vectors\n");
+}
+
 int main(void)
 {
 	size_t i;
@@ -240,6 +271,9 @@ int main(void)
 		run_sha512();
 		if (failures == before)
 			printf("PASS SHA-512 and HMAC-SHA512 vectors\n");
+
+		before = failures;
+		run_hkdf();
 
 		before = failures;
 		run_sha1();

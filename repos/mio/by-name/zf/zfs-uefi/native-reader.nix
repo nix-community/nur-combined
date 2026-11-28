@@ -24,6 +24,7 @@ stdenv.mkDerivation {
     cp ${./crypto}/aesgcm.c ${./crypto}/aesgcm.h \
        ${./crypto}/sha512.c ${./crypto}/sha512.h ${./crypto}/sha512_consts.h \
        ${./crypto}/sha1.c ${./crypto}/sha1.h \
+       ${./crypto}/hkdf.c ${./crypto}/hkdf.h \
        src/engine/
     cp ${./enc-read-test.c} test/enc_read_test.c
 
@@ -47,6 +48,7 @@ stdenv.mkDerivation {
       -include hostcompat/prefix.h -I hostcompat -I src/engine -I src \
       -o native_read_test test/native_read_test.c \
       src/engine/aesgcm.c src/engine/sha512.c src/engine/sha1.c \
+      src/engine/hkdf.c \
       src/engine/nvlist.c src/engine/skein.c src/engine/skein_block.c \
       src/engine/list.c src/engine/blake3_stub.c src/engine/lz4.c
 

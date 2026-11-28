@@ -233,6 +233,24 @@ The harness works; our images do not start under it.
       `dataset key unwrap failed - wrong keyfile?`; with no key it still refuses
       each block explicitly.  So the wrapped key's GCM tag is checked before the
       key is accepted, not merely decoded.
+- [x] HKDF-SHA512 (`crypto/hkdf.c`), checked in `zfs-uefi-crypto` against
+      Python-generated RFC 5869 vectors (the empty-salt/8-byte-info shape ZFS
+      uses, plus a salted multi-block case).  This is the primitive that turns
+      the master key and a block pointer's salt into a block key; it is landed
+      but not yet wired into a read.
+- [ ] Full block decryption was attempted on 2026-11-28 and **not landed**:
+      the key store, prompt and HKDF all work, and a VM run reaches the point
+      where the objset block must be authenticated, but the objset's portable
+      MAC could not be reproduced from the metadnode fields, and the metadnode's
+      indirect MAC-of-MACs did not verify either.  The dumped "indirect" payload
+      decoded as a single nonzero slot with an implausible psize, which points
+      at the reader's block content/decompression for that level as much as at
+      byte-order handling (ZFS stores encrypted bps with `byteorder = 0`, so
+      whole-bp byteswaps are involved).  Next step is to instrument that read
+      (compare the buffer before and after decompression, and against `zdb -R`
+      output from the VM) and get the portable MAC reproducible before wiring
+      GCM, rather than guessing the MAC input.  Nothing from that attempt is in
+      the tree.
 - [ ] Wiring the key into reads, in order: HKDF-SHA512(master, salt=the 8 bytes
       from `blk_dva[2]`, info=NULL, 32 bytes) derives the per-block key; for a
       leaf the AAD is empty, the GCM tag is `blk_cksum.zc_word[2..3]`, and the

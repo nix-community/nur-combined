@@ -56,15 +56,17 @@ mingw.stdenv.mkDerivation {
     ./key-store.patch
   ];
 
-  # The AES-256-GCM and SHA-512 code lives next to this package, in crypto/,
+  # The AES-256-GCM, SHA-512, SHA-1 and HKDF code lives next to this package,
+  # in crypto/,
   # and is compiled into the reader like its other engine sources.  It is plain
   # freestanding C with no libc, which is what the EFI image needs.
   postPatch = ''
     cp ${./crypto}/aesgcm.c ${./crypto}/aesgcm.h \
       ${./crypto}/sha512.c ${./crypto}/sha512.h ${./crypto}/sha512_consts.h \
       ${./crypto}/sha1.c ${./crypto}/sha1.h \
+      ${./crypto}/hkdf.c ${./crypto}/hkdf.h \
       src/engine/
-    sed -i 's#    src/engine/nvlist.c#    src/engine/aesgcm.c src/engine/sha512.c src/engine/sha1.c src/engine/nvlist.c#' \
+    sed -i 's#    src/engine/nvlist.c#    src/engine/aesgcm.c src/engine/sha512.c src/engine/sha1.c src/engine/hkdf.c src/engine/nvlist.c#' \
       CMakeLists.txt
   '';
 
