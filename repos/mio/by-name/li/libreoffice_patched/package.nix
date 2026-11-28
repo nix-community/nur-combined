@@ -188,7 +188,16 @@ libreoffice.unwrapped.overrideAttrs (old: {
     mkdir -p "$out/Applications" "$out/bin"
     cp -a "$app" "$out/Applications/LibreOffice.app"
     chmod -R u+w "$out/Applications/LibreOffice.app"
+    find "$out/Applications/LibreOffice.app" -type f -exec /bin/sh -c '
+      for candidate do
+        if /usr/bin/file -b "$candidate" | /usr/bin/grep -q Mach-O; then
+          /usr/bin/codesign --force --timestamp=none --sign - "$candidate"
+        fi
+      done
+    ' sh {} +
     /usr/bin/codesign --force --deep --timestamp=none --sign - \
+      "$out/Applications/LibreOffice.app"
+    /usr/bin/codesign --verify --deep --strict \
       "$out/Applications/LibreOffice.app"
 
     # LaunchServices rejects app bundles executed directly from the Nix store,
