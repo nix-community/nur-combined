@@ -52,7 +52,7 @@ def atomic_write(path, text):
             temporary.unlink(missing_ok=True)
 
 
-def update_source(package_file, version, url, cache_dir, *, force=False, now=None):
+def update_source(package_file, version, url, cache_dir, *, force=False, now=None, skip_same_version=False):
     now = time.time() if now is None else now
     text = package_file.read_text()
     versions, hashes = list(VERSION.finditer(text)), list(HASH.finditer(text))
@@ -63,6 +63,9 @@ def update_source(package_file, version, url, cache_dir, *, force=False, now=Non
         raise ValueError(f"Invalid upstream version: {version}")
     if tuple(map(int, version.split("."))) < tuple(map(int, old_version.split("."))):
         raise ValueError(f"Refusing to downgrade from {old_version} to {version}")
+    if skip_same_version and version == old_version and not force:
+        print(f"{package_file.parent.name}: version unchanged; skipping source download")
+        return
     if url.endswith(".zip"):
         magic = b"PK\x03\x04"
     elif url.endswith(".deb"):
@@ -153,6 +156,7 @@ def main():
     parser.add_argument("package_file", type=Path)
     parser.add_argument("version")
     parser.add_argument("url")
+    parser.add_argument("--skip-same-version", action="store_true")
     args = parser.parse_args()
     cache_root = Path(os.environ.get("XDG_CACHE_HOME", Path.home() / ".cache"))
     cache_dir = Path(os.environ.get("UPDATE_CACHE_DIR", cache_root / "nur-package-updates"))
@@ -162,6 +166,7 @@ def main():
         args.url,
         cache_dir,
         force=os.environ.get("UPDATE_FORCE_HASH") == "1",
+        skip_same_version=args.skip_same_version,
     )
 
 

@@ -43,6 +43,7 @@ jobs:
             experimental-features = nix-command flakes
 
       - name: Update packages
+        id: update
         timeout-minutes: 15
         env:
           PYTHONUNBUFFERED: '1'
@@ -52,9 +53,13 @@ jobs:
           set -euo pipefail
           nix shell nixpkgs#python3 nixpkgs#curl nixpkgs#jq -c bash -euc '
             python3 -m unittest discover -s tests -v
+            failed=0
             for package in baidunetdisk lceda-pro; do
               echo "::group::Update $package"
-              timeout --kill-after=30s 7m bash "pkgs/$package/update.sh"
+              if ! timeout --kill-after=30s 7m bash "pkgs/$package/update.sh"; then
+                echo "::error::$package update failed"
+                failed=1
+              fi
               echo "::endgroup::"
               if git diff --quiet -- "pkgs/$package"; then
                 printf "%-12s %s\n" "$package" "No changes (see group for details)"
@@ -62,6 +67,7 @@ jobs:
                 printf "%-12s %s\n" "$package" "Update available"
               fi
             done
+            echo "failed=$failed" >> "$GITHUB_OUTPUT"
           '
 
       - name: Save source metadata
@@ -85,10 +91,14 @@ jobs:
           body: |
             Automatically update upstream versions and source SHA256 hashes.
 
-            Same-version source hash changes require manual review. Full downloads
-            happen at least every seven days or when manually forced.
+            Same-version source hash changes require manual review. LCEDA sources
+            are fully downloaded at least every seven days or when manually forced.
 
             Full Nix build validation is not performed by this workflow.
           add-paths: |
             pkgs/baidunetdisk/default.nix
             pkgs/lceda-pro/default.nix
+
+      - name: Report failed updates
+        if: steps.update.outputs.failed == '1'
+        run: exit 1

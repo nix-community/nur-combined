@@ -168,6 +168,11 @@ class UpdateSourceTests(unittest.TestCase):
                 updater.update_source(self.package, "0.9", self.URL, self.cache, now=self.NOW)
             opened.assert_not_called()
 
+    def test_skip_unchanged_version_without_network(self):
+        with mock.patch.object(updater.urllib.request, "urlopen") as opened:
+            updater.update_source(self.package, "1.0", self.URL, self.cache, skip_same_version=True)
+            opened.assert_not_called()
+
     def test_deb_magic_is_checked_for_debian_downloads(self):
         self.URL = "https://example.invalid/app.deb"
         self.entry = self.cache / (hashlib.sha256(self.URL.encode()).hexdigest() + ".json")
@@ -238,9 +243,11 @@ class UpdateSourceTests(unittest.TestCase):
                 )
                 self.assertEqual(completed.returncode, 0, completed.stderr)
                 args = record.read_text().splitlines()
-                self.assertEqual(len(args), 4)
+                self.assertEqual(len(args), 5 if package == "baidunetdisk" else 4)
                 self.assertEqual((checkout / args[1]).resolve(), package_file.resolve())
-                self.assertEqual(args[2:], ["1.0", url])
+                self.assertEqual(args[2:4], ["1.0", url])
+                if package == "baidunetdisk":
+                    self.assertEqual(args[4], "--skip-same-version")
 
 
 if __name__ == "__main__":

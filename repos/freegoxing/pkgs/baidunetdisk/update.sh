@@ -16,4 +16,5 @@ fi
 script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 exec python3 "$script_dir/../../scripts/update-source.py" \
 	pkgs/baidunetdisk/default.nix "$NEW_VERSION" \
-	"http://wppkg.baidupcs.com/issue/netdisk/Linuxguanjia/$NEW_VERSION/baidunetdisk_${NEW_VERSION}_amd64.deb"
+	"http://wppkg.baidupcs.com/issue/netdisk/Linuxguanjia/$NEW_VERSION/baidunetdisk_${NEW_VERSION}_amd64.deb" \
+	--skip-same-version
