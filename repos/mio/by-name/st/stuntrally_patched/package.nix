@@ -63,6 +63,9 @@ stuntrally.overrideAttrs (oldAttrs: {
         --replace-fail \
           'String( macBundlePath() + "/" + archName ), typeName, secName );' \
           '(archName[0] == 47 ? archName : String( macBundlePath() + "/" + archName )), typeName, secName );'
+      substituteInPlace src/common/AppGui_Compositor.cpp \
+        --replace-fail 'lens = edView ? 1 : pSet->g.lens_flare,' 'lens = false,' \
+        --replace-fail 'sunbeams = edView ? 1 : pSet->g.sunbeams,' 'sunbeams = false,'
     '';
   passthru = (oldAttrs.passthru or { }) // {
     mygui = mygui_patched;
@@ -88,6 +91,9 @@ stuntrally.overrideAttrs (oldAttrs: {
         --replace-fail 'PluginFolder=${ogre-next}/lib/OGRE/' 'PluginFolder=${ogre-next}/lib/' \
         --replace-fail 'PluginOptional=RenderSystem_GL3Plus' 'PluginOptional=RenderSystem_Metal' \
         --replace-fail 'PluginOptional=RenderSystem_Vulkan' '# PluginOptional=RenderSystem_Vulkan'
+      substituteInPlace "$out/share/stuntrally3/config/resources3.cfg" \
+        --replace-fail 'FileSystem=materials/Common/HLSL' 'FileSystem=materials/Common/HLSL
+      FileSystem=materials/Common/Metal'
       mkdir -p "$out/bin/Contents/Resources"
       cp "$out/share/stuntrally3/config/plugins.cfg" "$out/bin/Contents/Resources/plugins.cfg"
       cp "$out/share/stuntrally3/config/resources3.cfg" "$out/bin/Contents/Resources/resources3.cfg"
