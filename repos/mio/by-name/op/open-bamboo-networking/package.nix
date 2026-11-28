@@ -23,7 +23,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "open-bamboo-networking";
-  version = "2.3.0";
+  version = "2.4.0";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -32,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "ClusterM";
     repo = "open-bamboo-networking";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-0yrbsZvpeZozAq0baDbInxnmXoOI/8rL8G106PwbfFg=";
+    hash = "sha256-buvDKysX6sb/cxnQ2V4G1W+iEbyZNEXGO7tFRSSz+fs=";
   };
 
   nativeBuildInputs = [
@@ -45,6 +45,9 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
     curl
     uthash
+    # mosquitto's CMake build now finds cJSON through find_package(Config)
+    # instead of the FETCHCONTENT source override.
+    cjson
   ];
 
   cmakeFlags = [

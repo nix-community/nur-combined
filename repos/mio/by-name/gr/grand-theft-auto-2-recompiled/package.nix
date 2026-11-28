@@ -43,7 +43,7 @@
 }:
 
 let
-  version = "0.7.2";
+  version = "0.9.0";
 
   # The recompiler and runtime live in a checkout beside the port
   # (WINRECOMP_DIR); winrecomp has no release tags, so this follows the
@@ -73,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "almost-drowned-rat";
     repo = "Grand-Theft-Auto-2-Recompiled";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-VkBx3tICZTCpCLEf2Z4f6EaD7/BllX1HpJFJ+PXq8ho=";
+    hash = "sha256-HyDlI/jj5HXf7vK96hPtnGBd9Y/6RO4ujEu+F3XKlsI=";
   };
 
   nativeBuildInputs = [

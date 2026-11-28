@@ -101,7 +101,7 @@ let
 in
 buildDunePackage rec {
   pname = "opengrep";
-  version = "2.0.0";
+  version = "2.1.0";
 
   # The language grammars (languages/*/tree-sitter/*) and
   # libs/ocaml-tree-sitter-core are git submodules; dune compiles all of them.
@@ -110,12 +110,18 @@ buildDunePackage rec {
     repo = "opengrep";
     tag = "v${version}";
     fetchSubmodules = true;
-    hash = "sha256-R45BfN8HLowMnxmy8I0GAlC6HHPkjj1x+0WMFJyH3Qs=";
+    hash = "sha256-oLZ62bBOui/mZLo7DBSXxkwFkwOffxvqjs4T8gOjz9E=";
   };
 
   # flags.sh tries to statically link against Homebrew paths on macOS; this is
   # the documented switch that makes it emit plain autolinked flags instead.
   env.SEMGREP_NIX_BUILD = "1";
+
+  # dune executes this helper by its relative path; its /usr/bin/env shebang
+  # does not resolve in the sandbox.
+  postPatch = ''
+    patchShebangs src/main/flags.sh src/main/list-tree-sitter-langs.sh
+  '';
 
   nativeBuildInputs = with ocamlPackages; [
     atdgen
@@ -155,6 +161,8 @@ buildDunePackage rec {
     lwt_ppx
     memprof-limits
     memtrace
+    # 2.1.0 uses the mtime.clock sublibrary
+    mtime
     ocolor
     ocamlgraph
     otoml

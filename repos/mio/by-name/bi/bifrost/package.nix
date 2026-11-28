@@ -220,7 +220,10 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   passthru = {
-    updateScript = lib.getExe (writeShellApplication {
+    # Keep the derivation itself so update runners that evaluate
+    # passthru.updateScript can build it (lib.getExe yields an un-built store
+    # path string).
+    updateScript = writeShellApplication {
       name = "update-bifrost";
       runtimeInputs = [
         coreutils
@@ -235,7 +238,7 @@ stdenv.mkDerivation (finalAttrs: {
         updatePath="$(nix-build -A bifrost.mitmCache.updateScript --no-out-link)"
         "$updatePath"
       '';
-    });
+    };
   };
 
   meta = {

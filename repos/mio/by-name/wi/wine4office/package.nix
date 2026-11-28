@@ -37,7 +37,17 @@ wineWow64Packages.unstableFull.overrideAttrs (old: {
   '';
 
   passthru = (old.passthru or { }) // {
-    updateScript = nix-update-script { };
+    # The fork publishes both unprefixed release tags (0.2.2-beta.2) and older
+    # "wine4office-v" tags. The latter sort lower in nix-update's comparison, so
+    # without a filter it silently downgrades the package; keep the beta line
+    # that this expression has always tracked.
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--version=unstable"
+        "--version-regex"
+        "^(\\d+\\.\\d+.*)$"
+      ];
+    };
   };
 
   meta = (old.meta or { }) // {

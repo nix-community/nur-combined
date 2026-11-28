@@ -8,9 +8,9 @@
 {
   cutefish-toolkit = {
     repo = "cutefish-toolkit";
-    rev = "111537ff7c6a92f41dcd96ca60f53cacc83b770c";
-    hash = "sha256-AfZcyYI6DMucMn5ed0n87F/Lmz/5sX8fM2AI7oOWlF8=";
-    date = "2026-11-24";
+    rev = "99bbba3763f9ea76dceecdacebfa909d8fdab2d2";
+    hash = "sha256-TNWaUWkYojwU+Qa8G/rRSBgzKhaHQ/68LpyZUU432T4=";
+    date = "2026-11-27";
   };
   cutefish-framework = {
     repo = "cutefish-framework";
@@ -26,15 +26,15 @@
   };
   cutefish-compositor = {
     repo = "cutefish-compositor";
-    rev = "ee710a6b869997a06b7cb25917285fdf551bb187";
-    hash = "sha256-gTM4nPoj1hIWCpHy3ZHQ222l6dTTZ5PmkfZxHNx8q54=";
-    date = "2026-11-23";
+    rev = "6c463b3e5fe7c71c127f887380864956ec8465e9";
+    hash = "sha256-jzZkilUK29abXFSaHZHjhO1b7AqC8g2M0pK1FyDO3C8=";
+    date = "2026-11-28";
   };
   cutefish-settings = {
     repo = "settings";
-    rev = "ea2b36b596c75c3b9eebbdab1d6f2a166b8d5dbb";
-    hash = "sha256-SMgYcTWXaAteCqpdiFoj0YZRPTNKFNYhyQl2P4CKIoA=";
-    date = "2026-11-24";
+    rev = "8cac192145b2e10c7b532707ecb85d85f66e4e2c";
+    hash = "sha256-/A+XtS+Mgy0oXmrOAXe9Yv36NmVrRt/8aECXocjYVkw=";
+    date = "2026-11-27";
   };
   cutefish-filemanager = {
     repo = "filemanager";

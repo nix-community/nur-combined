@@ -48,13 +48,13 @@
 }:
 
 let
-  version = "0.1.17";
+  version = "0.1.18";
 
   src = fetchFromGitHub {
     owner = "ELY-Open-Source";
     repo = "ElyOffice";
     tag = "v${version}";
-    hash = "sha256-JS/4QqBx+G9QRtS1K7yahoG17WrI3CzBZ1jTKF5boPw=";
+    hash = "sha256-JkDctLIMBxMzTeH9QmNTeWXEyVbsoiZjKgp4x55kVXg=";
   };
 
   # ely-pdf-worker's build script links a static libcrypto beside MuPDF's own
@@ -140,7 +140,7 @@ let
 
         src = fetchurl {
           url = "https://github.com/ELY-Open-Source/ElyOffice/releases/download/v${version}/ElyOffice-${version}-arm64.pkg";
-          hash = "sha256-wkcf365qDPMy7eOybZSFwr3C3oHFM7e5LGRDkiWDUPg=";
+          hash = "sha256-kWtiwux/L+Onh038FBfNLZUCP9KxYMrXxTKng16VLWU=";
         };
 
         nativeBuildInputs = [
@@ -184,7 +184,7 @@ let
 
         src = fetchurl {
           url = "https://github.com/ELY-Open-Source/ElyOffice/releases/download/v${version}/ely-office-${version}-1-x86_64.pkg.tar.zst";
-          hash = "sha256-i3rSqiXeswUIZSn/olpgp6jcDYcLA6qek9f6oMwYb+I=";
+          hash = "sha256-V/ozv1AuQWhfxRdoy6wh9v83B/tG9OfL1PfHvJF0ino=";
         };
 
         nativeBuildInputs = [ zstd ];
@@ -343,7 +343,7 @@ rustPlatform.buildRustPackage {
       "ely-settings-0.2.0"
       "ely-terminal-0.2.0"
       "ely-tooling-0.2.0"
-    ] (_: "sha256-2Atq3d6NfObbISw6sxrV+EDpmt9tdPL1P95NpLbO9v8=");
+    ] (_: "sha256-Mois7wv3YWDsMHElHvoCXiiMBwPkl6oUavOfRaT0FX4=");
   };
 
   # The worker's build script includes engines/mupdf-src/include, which

@@ -31,13 +31,13 @@
 # platform: GTK 3 + WebKitGTK 4.1 through PyGObject on Linux, AppKit/WKWebView
 # through PyObjC on macOS. There is no Node/Electron build step.
 let
-  version = "1.1.18";
+  version = "1.1.19";
 
   src = fetchFromGitHub {
     owner = "Immortal-Protocols";
     repo = "lastbook";
     rev = "v${version}";
-    hash = "sha256-cg7g8ktWO6sGnn/05b/C6CE2uzTIX/CxbgrLQNWU7dQ=";
+    hash = "sha256-fPzdWDhIOVcO60IRTIOONZ0AiPDVHKgO+gv8eRBFkPM=";
   };
 
   isLinux = stdenv.hostPlatform.isLinux;

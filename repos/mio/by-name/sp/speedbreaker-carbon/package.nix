@@ -272,7 +272,7 @@ stdenvNoCC.mkDerivation {
     comment = "Native recompilation of Need for Speed: Carbon";
     categories = [
       "Game"
-      "Racing"
+      "Simulation"
     ];
   });
 

@@ -11,7 +11,10 @@ from pathlib import Path
 
 REMOTE = "https://github.com/stuntrally/stuntrally.git"
 PKG_REL = Path("by-name/st/stuntrally2/package.nix")
-VERSION_RE = re.compile(r'(?m)^(\s*version = )"([^"]+)";')
+# Only the main package version, which sits at the top level of the
+# derivation. Nested helper overrides (stuntrally-ogre, stuntrally-mygui) are
+# indented further and are pinned independently.
+VERSION_RE = re.compile(r'(?m)^(  version = )"([^"]+)";')
 
 
 def run(cmd: list[str], cwd: Path) -> str:

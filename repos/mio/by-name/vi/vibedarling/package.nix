@@ -2,6 +2,8 @@
   darling,
   clangStdenv,
   fetchgit,
+  git,
+  gnused,
   lib,
   nix-update-script,
   writeShellApplication,
@@ -86,8 +88,19 @@ darling.overrideAttrs (old: {
     # otherwise leave a stale hash with no version change to trigger a retry.
     updateScript = writeShellApplication {
       name = "update-vibedarling";
+      runtimeInputs = [
+        git
+        gnused
+      ];
       text = ''
         export UPDATE_NIX_ATTR_PATH="vibedarling"
+
+        root="$(git rev-parse --show-toplevel)"
+        package="$root/by-name/vi/vibedarling/package.nix"
+        # The fork's own release base is not derivable from the branch name, so
+        # read it from the committed package; that also stops a mangled working
+        # copy from propagating into the next update.
+        base="$(git -C "$root" show HEAD:by-name/vi/vibedarling/package.nix | sed -nE 's/^  version = "([^-]+)-unstable-.*/\1/p')"
 
         nix-update() {
           ${
@@ -126,6 +139,11 @@ darling.overrideAttrs (old: {
         fi
 
         update_hash_retry "$@"
+
+        # `nix-update --version=branch` derives the version base from pname,
+        # losing the fork's release base. Keep <base>-unstable-<date>.
+        version="$(sed -nE 's/^  version = "([^"]+)";/\1/p' "$package")"
+        sed -i -E "s|^  version = \"[^\"]+\";|  version = \"$base-unstable-''${version##*unstable-}\";|" "$package"
       '';
     };
   };

@@ -40,8 +40,8 @@ let
   ravenSrc = fetchFromGitHub {
     owner = "mirkobrombin";
     repo = "raven";
-    rev = "2df12767a431bb37a4e3ba3e3d62ad8c2a480dce";
-    hash = "sha256-wtQo0wnxtni6z4G05DxQIwsqKKpyYvk4WDQLuvgyMd8=";
+    rev = "82b2c9f9afcbd9b50591b57215f4c1d0d785a730";
+    hash = "sha256-Kb2s3z64q1MZSLEag7k06hxRkzJFUP7IT64ZGjMDVLE=";
   };
 
   # native/waits depends on `loom` (only under cfg(loom), which the build never
@@ -71,8 +71,8 @@ let
 
   # Pinned guest/installer inputs from Raven's provision scripts / backends.json.
   dxvk = fetchurl {
-    url = "https://github.com/doitsujin/dxvk/releases/download/v3.1.1/dxvk-3.1.1.tar.gz";
-    hash = "sha256-QFZbSnJKrcRDP6TgELSyORbZsfG67uZOFxhtuU9U5gg=";
+    url = "https://github.com/doitsujin/dxvk/releases/download/v3.2/dxvk-3.2.tar.gz";
+    hash = "sha256-F0Se0hYCN3lxKJ6ymEdQaZglrBusO7+iQmsrug81VpI=";
   };
 
   vkd3dProton = fetchurl {
@@ -83,8 +83,8 @@ let
   # Source archives the provisioning scripts record alongside the binaries.
   # backends.json pins their checksums, so the build cannot fetch them itself.
   dxvkSource = fetchurl {
-    url = "https://github.com/doitsujin/dxvk/archive/refs/tags/v3.1.1.tar.gz";
-    hash = "sha256-70lEE09sOdCTfyZTkdstCLyjPNOi8O6RM+HrVfHMZXw=";
+    url = "https://github.com/doitsujin/dxvk/archive/refs/tags/v3.2.tar.gz";
+    hash = "sha256-AQFaIo7HPsTyfNxhSoQGVqotCeWfzsHNsrYkvOnkFWU=";
   };
 
   vkd3dProtonSource = fetchFromGitHub {
@@ -153,7 +153,7 @@ let
 in
 stdenv.mkDerivation {
   pname = "raven";
-  version = "0-unstable-2026-11-18";
+  version = "0-unstable-2026-11-28";
 
   src = ravenSrc;
 
@@ -230,9 +230,9 @@ stdenv.mkDerivation {
 
     # DXVK / vkd3d-proton Windows DLLs, plus the source archives backends.json
     # pins for their provenance records.
-    cp -v ${dxvk} "$components/graphics/dxvk-3.1.1.tar.gz"
+    cp -v ${dxvk} "$components/graphics/dxvk-3.2.tar.gz"
     cp -v ${vkd3dProton} "$components/graphics/vkd3d-proton-3.1.tar.zst"
-    cp -v ${dxvkSource} "$components/graphics/dxvk-3.1.1-source.tar.gz"
+    cp -v ${dxvkSource} "$components/graphics/dxvk-3.2-source.tar.gz"
     mkdir -p "$TMPDIR/vkd3d-proton-source/vkd3d-proton-3.1"
     cp -r ${vkd3dProtonSource}/. "$TMPDIR/vkd3d-proton-source/vkd3d-proton-3.1/"
     chmod -R u+w "$TMPDIR/vkd3d-proton-source"

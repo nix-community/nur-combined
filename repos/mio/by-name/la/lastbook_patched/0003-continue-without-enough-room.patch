@@ -25,12 +25,12 @@ diff --git a/engine/setup/api.py b/engine/setup/api.py
 index 55b5875..a51036e 100644
 --- a/engine/setup/api.py
 +++ b/engine/setup/api.py
-@@ -632,11 +632,11 @@ class Setup:
+@@ -646,11 +646,11 @@ class Setup:
              return p.parent if p.name == DATA_NAME else p
          return self.current.parent if self.current else self.default_parent
  
--    def start(self, pack_id=None, ai=False, folder=None, sources=None, explicit=False, repair=False, map_id=None, address_id=None, copy_to=None, check=False):
-+    def start(self, pack_id=None, ai=False, folder=None, sources=None, explicit=False, repair=False, map_id=None, address_id=None, copy_to=None, check=False, force=False):
+-    def start(self, pack_id=None, ai=False, folder=None, sources=None, explicit=False, repair=False, map_id=None, address_id=None, copy_to=None, check=False, as_is=False):
++    def start(self, pack_id=None, ai=False, folder=None, sources=None, explicit=False, repair=False, map_id=None, address_id=None, copy_to=None, check=False, as_is=False, force=False):
          if copy_to:
              return self._start_copy(copy_to)
          if repair or check:

@@ -92,11 +92,11 @@
     "nova-nix-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1795494352,
-        "narHash": "sha256-RruAIPKGgVGoWSnxUm6iiltrUaKp+WTyQs7it7JPSG0=",
+        "lastModified": 1795835510,
+        "narHash": "sha256-MitGSBbIdoUCIdNIfEe4x2ZHBnwpdqOais3rHy154HY=",
         "owner": "Novavero-AI",
         "repo": "nova-nix",
-        "rev": "9adaa926182661184ced129fd02c2f42778eabe8",
+        "rev": "10b9b5cdaacaa71c5ca3211e94af54e66c9e1a30",
         "type": "github"
       },
       "original": {

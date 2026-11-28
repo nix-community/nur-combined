@@ -110,13 +110,13 @@ let
 in
 rustPlatform.buildRustPackage {
   pname = "serein";
-  version = "1.0.0-unstable-2026-11-24";
+  version = "1.0.0-unstable-2026-11-27";
 
   src = fetchFromGitHub {
     owner = "ViceVerse-cz";
     repo = "Serein";
-    rev = "fd92226e971051d8f43dc2b48b1fc641e90075ba";
-    hash = "sha256-oN9IaCzkMcyZqfu7hpSrZmplZ15lcvucPXQ6bMIAayQ=";
+    rev = "6d1fa13f776545492a0250ca3973c54890d8a286";
+    hash = "sha256-fmfCr6ku4klQnFQyjF9sewWztZmrmMgDLZHxTVh5in0=";
   };
 
   # Keep bundled symbols local so each copy stays consistent.

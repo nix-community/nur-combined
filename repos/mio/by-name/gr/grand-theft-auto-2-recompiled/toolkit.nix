@@ -3,6 +3,6 @@
 fetchFromGitHub {
   owner = "almost-drowned-rat";
   repo = "winrecomp";
-  rev = "9eb5e357cbc3ac7f934206f87726399d66c715e3";
-  hash = "sha256-RQqyfXKFPnjtnueG6qV8unLMZiPTDs9l2AtofDfn6HM=";
+  rev = "0adb0a073f3dae3f1cfcbe0440574490b895e819";
+  hash = "sha256-Vz3g3I6AbbQPDeohgz2WEuzpu5u/0gr5KG+tZGAaXW4=";
 }

@@ -12,7 +12,7 @@
 }:
 
 let
-  version = "0.9.0";
+  version = "0.9.1";
 
   # cmake/Dependencies.cmake fetches libchdr from git at configure time; the
   # sandbox has no network, so it gets this pinned source tree instead.
@@ -31,7 +31,7 @@ stdenv.mkDerivation {
     owner = "matt-pulsipher";
     repo = "GT3-revisited";
     tag = "v${version}";
-    hash = "sha256-cweewYAHxMvc/mEhiOv4QhMj6rioeN2FZdCyIN6tcM0=";
+    hash = "sha256-0nbw4XMwwaWKCCb2IlRZHVPZfhhEeGzJ3ryALlZBPBk=";
   };
 
   patches = [

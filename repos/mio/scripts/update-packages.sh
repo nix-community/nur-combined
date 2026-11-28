@@ -75,7 +75,16 @@ for package in "${packages[@]}"; do
         fi
       elif echo "$script_json" | jq -e 'type == "string"' > /dev/null; then
         script_path=$(echo "$script_json" | jq -r '.')
-        if env UPDATE_NIX_ATTR_PATH="${package}" "$script_path"; then
+        # A path-valued updateScript can point into the flake's store copy,
+        # which may be collected while the run proceeds. Re-evaluate it right
+        # before use so the path (and its source) exist.
+        if [[ ! -e "$script_path" ]]; then
+          script_path=$(nix eval --impure --raw ".#packages.${system}.${package}.passthru.updateScript" 2>/dev/null || true)
+        fi
+        if [[ -z "$script_path" || ! -e "$script_path" ]]; then
+          echo "Update script path for ${package} does not exist." >&2
+          failed+=("${package}")
+        elif env UPDATE_NIX_ATTR_PATH="${package}" "$script_path"; then
           echo "Updated ${package}."
         else
           echo "Update failed for ${package}." >&2

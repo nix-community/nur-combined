@@ -69,7 +69,22 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   gradleBuildTask = ":desktopApp:packageUberJarForCurrentOS";
-  gradleUpdateTask = finalAttrs.gradleBuildTask;
+
+  # compose.desktop.currentOs only pulls the desktop-jvm artifacts of the host
+  # OS, so a lock generated on one OS fails to build on the other. Run the real
+  # build task once per supported OS to record all of them. (nixDownloadDeps
+  # resolves a narrower configuration set and drops compile-classpath entries.)
+  gradleUpdateScript = ''
+    runHook preBuild
+    runHook preGradleUpdate
+
+    gradle :desktopApp:packageUberJarForCurrentOS -Dos.name=Linux -Dos.arch=amd64
+    gradle :desktopApp:packageUberJarForCurrentOS -Dos.name=Linux -Dos.arch=aarch64
+    gradle :desktopApp:packageUberJarForCurrentOS -Dos.name='Mac OS X' -Dos.arch=amd64
+    gradle :desktopApp:packageUberJarForCurrentOS -Dos.name='Mac OS X' -Dos.arch=aarch64
+
+    runHook postGradleUpdate
+  '';
 
   # Empty init script: avoids potential issues with the Gradle MITM proxy.
   gradleInitScript = writeText "empty-init-script.gradle" "";
