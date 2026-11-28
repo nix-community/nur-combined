@@ -28,7 +28,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "opentmux";
-  version = "0.1";
+  version = "0.2";
 
   outputs = [
     "out"
@@ -40,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "opentmux";
     repo = "opentmux";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-zGa/MTRzs2lxDKLvzdLWf0hWcDxikIdE3IBrz9TwDy0=";
+    hash = "sha256-yvkS3cmt9W4Ym16WxEdMBRHcfeGgVznkIN8a3SyWiSs=";
   };
 
   nativeBuildInputs = [

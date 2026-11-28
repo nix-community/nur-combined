@@ -98,30 +98,30 @@ rec {
   kwin-move-window = callPackage ./pkgs/kwin-move-window/package.nix { };
 
   mediawiki_1_43 = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.43.11";
-    hash = "sha256-hqW44vt8oQIo1myLJlmgppKVjlxSD9Ajx4vXE6aBQvA=";
+    version = "1.43.12";
+    hash = "sha256-/ytDYUJaBjToviHG+mUxuWu5a3tMKRl5kI2YsdpZ3ZA=";
   };
   mediawiki_1_43_core = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.43.11";
-    hash = "sha256-KTQVW5lDJ1IGoa15nTjAlKFrlY6IsgzhKfhWQoYRV7g=";
+    version = "1.43.12";
+    hash = "sha256-BLWaOjNQX1wk6nIsezQwZdIMBe2E3xXf+nUshnwy+Yg=";
     core = true;
   };
   mediawiki_1_45 = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.45.6";
-    hash = "sha256-1xIGNMsD3mkQxW9H8GSuYFdVma7VKXlNtUOjj2AQip4=";
+    version = "1.45.7";
+    hash = "sha256-YiRCbF50nrpBKOcM+MnC0lRhO08OJcC7Yws6MaA+bZM=";
   };
   mediawiki_1_45_core = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.45.6";
-    hash = "sha256-v5XZYi7+3l2S9DiDOTZJSF45EEweaJPubyGKXf/3jpY=";
+    version = "1.45.7";
+    hash = "sha256-Z0MNOXQ6uQA4sAD4bCZJii/Ce0/mkiQIcZz/bBhEir0=";
     core = true;
   };
   mediawiki_1_46 = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.46.2";
-    hash = "sha256-j3+Tf4u8Gs1M7xxTYqlfJI3NJCAg8liHmOsvc6wuabo=";
+    version = "1.46.3";
+    hash = "sha256-x0mHzC2nyIw2RMEGomTMVYwwJvL5rWMqNGWSWvs6E5U=";
   };
   mediawiki_1_46_core = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.46.2";
-    hash = "sha256-IyvGDY3lLmMxFDFtS8QQpjDJrsOL5/jhwrwCV+xr9EE=";
+    version = "1.46.3";
+    hash = "sha256-p0W+33f65mPCbhiWEkLEfHVMjYpb3kdSWkrQ5NwwDwI=";
     core = true;
   };
 

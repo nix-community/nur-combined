@@ -5,13 +5,13 @@
 
 yt-dlp.overrideAttrs (
   final: prev: {
-    version = "2026.10.26-unstable-2026-11-04";
+    version = "2026.11.23-unstable-2026-11-24";
 
     src = fetchFromGitHub {
       owner = "yt-dlp";
       repo = "yt-dlp";
-      rev = "412e7f0a4b0588fe884a02b344ac66a06538475b";
-      hash = "sha256-a85Sd3nC0pRo6NKTWN1rMDya52NBLePGAs25DNA8P1c=";
+      rev = "da452a569fb3d04091468d920f9b9e68512e0373";
+      hash = "sha256-nQdQm48lsICquIz+L1wkmWFn8fPLhW08coJIozQvgxM=";
     };
 
     meta = prev.meta // {

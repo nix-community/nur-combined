@@ -26,9 +26,9 @@ update:
 	nix-update vacuumtube
 	nix-update retro-aim-server
 	nix-update wheelwizard
-	nix-update thextech
-	nix-update --version=skip thextech-smbx
-	nix-update --version=skip thextech-aod
+	#nix-update thextech
+	#nix-update --version=skip thextech-smbx
+	#nix-update --version=skip thextech-aod
 	python3 update-mediawiki.py
 
 	nix-shell build-readme.nix
