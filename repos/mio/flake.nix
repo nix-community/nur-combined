@@ -52,7 +52,7 @@
           packages = import ./default.nix {
             pkgs = pkgsFor system;
             inherit inputs;
-            no-ifd = true;
+            on-nur-search = false;
           };
         in
         nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) packages;
@@ -70,7 +70,7 @@
         import ./default.nix {
           pkgs = pkgsFor system;
           inherit inputs;
-          no-ifd = false;
+          on-nur-search = false;
         }
       );
       packages = forAllSystems packagesFor;

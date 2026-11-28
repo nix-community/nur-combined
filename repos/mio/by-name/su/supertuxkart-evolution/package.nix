@@ -159,9 +159,9 @@ stdenv.mkDerivation {
       --set-default SUPERTUXKART_DATADIR "$out/share/supertuxkart"
   '';
 
-  # The attribute is null in the default (no-ifd) evaluation of default.nix,
+  # The attribute is null in the default (on-nur-search) evaluation of default.nix,
   # and nix-update's --flake mode cannot open lazy-tree flake sources, so
-  # point it at a throwaway file that imports the repo with no-ifd = false.
+  # point it at a throwaway file that imports the repo with on-nur-search = false.
   passthru.updateScript = writeShellApplication {
     name = "update-supertuxkart-evolution";
     runtimeInputs = [
@@ -177,7 +177,7 @@ stdenv.mkDerivation {
       file=by-name/su/supertuxkart-evolution/package.nix
       wrapper=$(mktemp --suffix=.nix)
       trap 'rm -f "$wrapper"' EXIT
-      echo "args: import $PWD/default.nix (args // { no-ifd = false; })" > "$wrapper"
+      echo "args: import $PWD/default.nix (args // { on-nur-search = false; })" > "$wrapper"
       ${
         lib.escapeShellArgs (nix-update-script {
           extraArgs = [ "--version=branch=BalanceSTK2" ];

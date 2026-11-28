@@ -5,12 +5,12 @@
     config.allowUnfree = true;
     config.android_sdk.accept_license = true;
   },
-  no-ifd ? true,
+  on-nur-search ? true,
   inputs ? { },
 }:
 with (import ./private.nix { inherit pkgs; });
 let
-  nonurbot = x: if no-ifd then null else x;
+  nonurbot = x: if on-nur-search then null else x;
   lib = pkgs.lib // import ./lib { inherit pkgs; };
   newScope = scope: pkgs.newScope ({ inherit inputs; } // scope);
   byName = lib.makeScope newScope (
@@ -240,7 +240,6 @@ exportedByName
       ];
     });
 
-  # Wine app variants (bases live in by-name; mkWindowsAppNoCC is no-IFD).
   # https://github.com/NixOS/nixpkgs/issues/10165
   # https://discourse.nixos.org/t/what-is-your-approach-to-packaging-wine-applications-with-nix-derivations/12799/1
   # Acrobat defaults to virtualDesktop=true (AUR: tab bar needs it).
@@ -340,7 +339,7 @@ exportedByName
     enableVulkan = true;
   };
 })
-// (lib.optionalAttrs (!no-ifd) (
+// (lib.optionalAttrs (!on-nur-search) (
   with byName;
   rec {
 

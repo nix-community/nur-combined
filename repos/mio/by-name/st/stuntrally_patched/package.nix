@@ -69,13 +69,15 @@ stuntrally.overrideAttrs (oldAttrs: {
       substituteInPlace src/common/CScene_Sky.cpp \
         --replace-fail 'setForwardClustered(true' 'setForwardClustered(false'
       substituteInPlace data/Hlms/Pbs/Any/Main/200.Atmo_piece_all.any \
-        --replace-fail 'constant AtmoSettings &atmo' 'constant SR3_AtmoSettings &atmo'
+        --replace-fail 'constant AtmoSettings &atmo' 'constant SR3_AtmoSettings &atmo' \
+        --replace-fail \
+          '[[buffer(CONST_SLOT_START+@value(atmosky_npr))]]' \
+          '[[buffer(CONST_SLOT_START+@value(atmosky_npr)+6)]]'
       substituteInPlace data/Hlms/Pbs/Any/Main/500.Structs_piece_vs_piece_ps.any \
         --replace-fail \
           '@property( envprobe_map && envprobe_map != target_envprobe_map && use_parallax_correct_cubemaps && !hlms_enable_cubemaps_auto )' \
           '@property( envprobe_map && envprobe_map != target_envprobe_map && use_parallax_correct_cubemaps && !hlms_enable_cubemaps_auto && syntax != metal )'
       substituteInPlace src/common/Atmosphere.cpp \
-        --replace-fail 'int32( constBufferSlot )' 'int32( constBufferSlot + 6u )' \
         --replace-fail 'VertexShader, uint16( slotIdx )' 'VertexShader, uint16( slotIdx + 6u )' \
         --replace-fail 'PixelShader, uint16( slotIdx )' 'PixelShader, uint16( slotIdx + 6u )'
       substituteInPlace data/materials/Common/Metal/MipmapsGaussianBlur_cs.metal \

@@ -1,5 +1,5 @@
 # Returns a bash snippet (string). Do not wrap in writeScript + builtins.readFile:
-# that would be IFD and breaks NUR no-ifd evaluation.
+# that would be IFD and breaks NUR on-nur-search evaluation.
 { rsync }:
 ''
   map_file () {

@@ -19,7 +19,7 @@ else
       config.allowUnfree = true;
       config.android_sdk.accept_license = true;
     },
-    no-ifd ? true,
+    on-nur-search ? true,
     inputs ? { },
   }:
   with (import ./private.nix { inherit pkgs; });
@@ -32,7 +32,7 @@ let
     homeModules = import ./home-modules; # Home Manager modules
     overlays = import ./overlays; # nixpkgs overlays
   }
-  // import ./packages.nix { inherit pkgs no-ifd inputs; }
+  // import ./packages.nix { inherit pkgs on-nur-search inputs; }
   // rec {
     aria2 = v3override (
       pkgs.aria2.overrideAttrs (old: {
@@ -128,10 +128,10 @@ let
         self = import ./default.nix {
           inherit pkgs;
           inherit inputs;
-          no-ifd = false;
+          on-nur-search = false;
         };
       in
-      if no-ifd then
+      if on-nur-search then
         { }
       else
         {
@@ -193,7 +193,7 @@ let
           );
         };
   }
-  // lib.optionalAttrs no-ifd {
+  // lib.optionalAttrs on-nur-search {
     brave-origin = null;
     cargo-kani = null;
     claude-desktop = null;
