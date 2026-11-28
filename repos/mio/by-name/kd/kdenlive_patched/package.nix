@@ -165,6 +165,26 @@ base.overrideAttrs (old: {
         ln -sfn "kdenlive.app/Contents/MacOS/kdenlive" "$out/bin/kdenlive"
         mkdir -p "$out/Applications"
         ln -sfn "../bin/kdenlive.app" "$out/Applications/kdenlive.app"
+
+        # install_name_tool and wrapQtAppsHook rewrite the Mach-O files after
+        # upstream's linker signing, and the symlinks above are added after it
+        # too, so the bundle leaves fixup with an invalid signature (verify
+        # fails with "code has no resources but signature indicates they must
+        # be present"). A copied bundle then dies at startup with
+        # "SIGKILL (Code Signature Invalid)" inside the first dylib whose pages
+        # no longer match. Re-sign every real Mach-O here and seal the bundle
+        # last, using an ad-hoc identity, which is enough to make the copy run.
+        # The symlinks pointing out of the bundle (Contents/Resources and the
+        # OTIO dylib aliases) make --strict verification fail, so verify deeply
+        # but not strictly.
+        codesign=/usr/bin/codesign
+        # .kdenlive-wrapped is dot-prefixed, so it needs naming explicitly.
+        for f in "$exe" "$bundle/Contents/MacOS/.kdenlive-wrapped" "$bundle"/Contents/Frameworks/*.dylib; do
+          [ -f "$f" ] && [ ! -L "$f" ] || continue
+          "$codesign" --force --sign - "$f"
+        done
+        "$codesign" --force --sign - "$bundle"
+        "$codesign" --verify --deep "$bundle"
       fi
     '';
 })
