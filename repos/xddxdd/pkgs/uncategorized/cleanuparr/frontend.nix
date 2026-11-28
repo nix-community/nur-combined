@@ -1,27 +1,30 @@
 {
   buildNpmPackage,
-  fetchFromGitHub,
+  dart-sass,
   lib,
   nodejs_26,
+  src,
+  version,
+  npmDepsHash,
 }:
 buildNpmPackage (finalAttrs: {
   pname = "cleanuparr-frontend";
-  version = "2.10.5";
-
-  src = fetchFromGitHub {
-    owner = "Cleanuparr";
-    repo = "Cleanuparr";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-jaBAT3DWbsE5upQD4rERUVW/sb5Hu8pyuY7RdvhVDMs=";
-  };
+  inherit version src;
   __structuredAttrs = true;
   strictDeps = true;
   sourceRoot = "source/code/frontend";
 
   nodejs = nodejs_26;
-  npmDepsHash = "sha256-HVA869ahw3PS9/a9JLhHS8KieioHAdRYjp2U47WcmVU=";
+  inherit npmDepsHash;
 
   npmBuildScript = "build";
+
+  preBuild = ''
+    substituteInPlace node_modules/sass-embedded/dist/lib/src/compiler-path.js \
+      --replace-fail \
+        'compilerCommand = (() => {' \
+        'compilerCommand = (() => { return ["${lib.getExe dart-sass}"];'
+  '';
 
   installPhase = ''
     runHook preInstall

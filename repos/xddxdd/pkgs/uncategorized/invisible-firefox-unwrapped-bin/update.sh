@@ -5,29 +5,33 @@ set -euo pipefail
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 cd "$SCRIPT_DIR"
 
-NEW_REV=$(git ls-remote --tags https://github.com/feder-cr/firefox_antidetect_patch | sed -n 's#.*refs/tags/firefox-\([0-9]\+\)$#\1#p' | sort -n | tail -1)
+NEW_REV=$(git ls-remote --tags https://github.com/feder-cr/firefox_antidetect_patch) || {
+    echo "WARN: upstream repository is gone; keeping the current release" >&2
+    exit 0
+}
+NEW_REV=$(sed -n 's#.*refs/tags/firefox-\([0-9]\+\)$#\1#p' <<<"$NEW_REV" | sort -n | tail -1)
 [ -n "$NEW_REV" ] || {
-  echo "no firefox-N tags found upstream" >&2
-  exit 1
+    echo "no firefox-N tags found upstream" >&2
+    exit 1
 }
 OLD_REV=$(sed -n 's/^  tag = "firefox-\([0-9]\+\)";$/\1/p' default.nix)
 if [ "$NEW_REV" = "$OLD_REV" ]; then
-  exit 0
+    exit 0
 fi
 NEW_TAG="firefox-$NEW_REV"
 
-ASSETS=$(curl -fsSL "https://github.com/feder-cr/firefox_antidetect_patch/releases/expanded_assets/$NEW_TAG")
+ASSETS=$(curl -fsSL --retry 3 --retry-delay 10 "https://github.com/feder-cr/firefox_antidetect_patch/releases/expanded_assets/$NEW_TAG")
 NEW_VERSION=$(sed -n 's#.*firefox-\([0-9.]*\)-stealth-linux-\(x86_64\|arm64\)\.tar\.gz.*#\1#p' <<<"$ASSETS" | head -1)
 [ -n "$NEW_VERSION" ] || {
-  echo "WARN: $NEW_TAG lacks supported Linux binaries; keeping the current release" >&2
-  exit 0
+    echo "WARN: $NEW_TAG lacks supported Linux binaries; keeping the current release" >&2
+    exit 0
 }
 
 for ARCH in linux-x86_64 linux-arm64; do
-  if ! grep -Fq "href=\"/feder-cr/firefox_antidetect_patch/releases/download/$NEW_TAG/firefox-$NEW_VERSION-stealth-$ARCH.tar.gz\"" <<<"$ASSETS"; then
-    echo "WARN: $NEW_TAG lacks $ARCH; keeping the current release" >&2
-    exit 0
-  fi
+    if ! grep -Fq "href=\"/feder-cr/firefox_antidetect_patch/releases/download/$NEW_TAG/firefox-$NEW_VERSION-stealth-$ARCH.tar.gz\"" <<<"$ASSETS"; then
+        echo "WARN: $NEW_TAG lacks $ARCH; keeping the current release" >&2
+        exit 0
+    fi
 done
 
 H_X86=$(nix store prefetch-file --json "https://github.com/feder-cr/firefox_antidetect_patch/releases/download/$NEW_TAG/firefox-$NEW_VERSION-stealth-linux-x86_64.tar.gz" | jq -er .hash)
