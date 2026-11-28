@@ -83,6 +83,7 @@ stuntrally.overrideAttrs (oldAttrs: {
       substituteInPlace data/materials/Common/Metal/MipmapsGaussianBlur_cs.metal \
         --replace-fail 'i2Inc ),' 'i2Inc )' \
         --replace-fail 'p.dstLodIdx );' ');'
+      cp ${./GpuBlendMapper_ps.metal} data/materials/Terrain/Metal/GpuBlendMapper_ps.metal
       substituteInPlace data/Hlms/Pbs/Any/Main/800.PixelShader_piece_ps.any \
         --replace-fail \
           '@property( !hlms_shadowcaster && !paint && !grass && !sky && refract )' \
