@@ -348,10 +348,6 @@ exportedByName
     intellij-idea-oss = jetbrains_idea-oss;
     idea-oss = jetbrains_idea-oss;
 
-    supertuxkart-evolution = v3override (
-      pkgs.callPackage ./pkgs/supertuxkart-evolution/default.nix { }
-    );
-
     forku-chatgpt = v3overrideAttrs (pkgs.callPackage ./pkgs/forku-chatgpt/package.nix { });
   }
 ))

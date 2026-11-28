@@ -172,6 +172,7 @@ let
       # Do not fake a ticking position while the service is still switching items.
       patch -p1 < ${./player-loading-position.patch}
       patch -p1 < ${./app-source.patch}
+      patch -p1 < ${./static-analysis-fixes.patch}
       patch -p1 < ${./history-refresh.patch}
       # Drop the Android-only subsystems (see narrow.py), then shim the rest.
       python3 ${./narrow.py}

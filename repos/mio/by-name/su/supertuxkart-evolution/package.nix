@@ -1,6 +1,7 @@
 {
   lib,
-  stdenv,
+  pkgs,
+  clangStdenv,
   fetchFromGitHub,
   fetchsvn,
   cmake,
@@ -26,6 +27,9 @@
   shaderc,
 }:
 let
+  # clang + x86-64-v3 flags on x86_64 (what `v3override` applied before the by-name move).
+  stdenv = (import ../../../private.nix { inherit pkgs; }).v3Optimizations clangStdenv;
+
   assets = fetchFromGitHub {
     owner = "Pttn";
     repo = "stk-assets";

@@ -145,7 +145,7 @@ The harness works; our images do not start under it.
 - Blocked until tasks 1-2 land; the reader currently cannot read wrapped keys at
   all, so this is a feature implementation, not a build flag.
 
-#### Status 2026-11-28: refusal, not decryption
+#### Status 2026-11-28 (superseded below): refusal, not decryption
 
 - [x] `zfs-uefi` now refuses blocks that carry encryption parameters.
       OpenZFS's `BP_USES_CRYPT` is bit 61 of `blk_prop`, and it covers encrypted
@@ -187,7 +187,7 @@ The harness works; our images do not start under it.
       and `bootfs` is what selects the dataset the reader mounts.  The test
       reuses the loop device and reads it directly, so no image copy can go
       stale.
-#### Progress 2026-11-28: the crypto half exists and is tested
+#### Progress 2026-11-28: decryption works end to end
 
 - [x] Shape decided: keep this in `zfs-uefi` as patches plus plain source, not
       a separate `zfs-uefi_patched` fork.  `encrypted-dataset.patch` is the
@@ -236,39 +236,56 @@ The harness works; our images do not start under it.
 - [x] HKDF-SHA512 (`crypto/hkdf.c`), checked in `zfs-uefi-crypto` against
       Python-generated RFC 5869 vectors (the empty-salt/8-byte-info shape ZFS
       uses, plus a salted multi-block case).  This is the primitive that turns
-      the master key and a block pointer's salt into a block key; it is landed
-      but not yet wired into a read.
-- [ ] Full block decryption was attempted on 2026-11-28 and **not landed**:
-      the key store, prompt and HKDF all work, and a VM run reaches the point
-      where the objset block must be authenticated, but the objset's portable
-      MAC could not be reproduced from the metadnode fields, and the metadnode's
-      indirect MAC-of-MACs did not verify either.  The dumped "indirect" payload
-      decoded as a single nonzero slot with an implausible psize, which points
-      at the reader's block content/decompression for that level as much as at
-      byte-order handling (ZFS stores encrypted bps with `byteorder = 0`, so
-      whole-bp byteswaps are involved).  Next step is to instrument that read
-      (compare the buffer before and after decompression, and against `zdb -R`
-      output from the VM) and get the portable MAC reproducible before wiring
-      GCM, rather than guessing the MAC input.  Nothing from that attempt is in
-      the tree.
-- [ ] Wiring the key into reads, in order: HKDF-SHA512(master, salt=the 8 bytes
-      from `blk_dva[2]`, info=NULL, 32 bytes) derives the per-block key; for a
+      the master key and a block pointer's salt into a block key; it is now
+      wired into the read path.
+- [x] Full block decryption landed on 2026-11-28 as
+      `by-name/zf/zfs-uefi/block-decryption.patch` (plus the crypto sources in
+      `by-name/zf/zfs-uefi/crypto/`).  It derives each block's key with
+      HKDF-SHA512 from the master key and the block pointer's salt, decrypts
+      AES-256-GCM leaves and dnode bonus buffers before decompression,
+      authenticates non-encrypted metadata with SHA512-HMAC, verifies the
+      objset's portable MAC, and verifies indirect blocks with the SHA-512 of
+      their children's portable fields and MACs.
+- [x] The bug that blocked the previous attempt is worth recording: `psize` is
+      a **16-bit** field at bit 16 of `blk_prop`, and value 0 means
+      `SPA_MINBLOCKSIZE` (512 bytes); the MAC input code wrote 1 there, which
+      decodes as 1024, so *every* objset, dnode and indirect MAC input was
+      wrong.  Two other details matter: the dnode core is authenticated in
+      little endian with only `DNODE_CRYPT_PORTABLE_FLAGS_MASK` (the spill bit)
+      kept, and `OBJSET_CRYPT_PORTABLE_FLAGS_MASK` is 0 (eight zero bytes).
+- [x] Verified end to end in the ZFS VM, not just compiled:
+      `checks.x86_64-linux.zfs-uefi-reader` boots the pool, loads the raw
+      keyfile, mounts `tank/enc` (`mount rc 0`, portable MAC verified) and reads
+      `/hello.txt` back as `secret`; it does the same for the passphrase
+      dataset (`correct horse battery staple`), including a first wrong entry
+      that is rejected, re-prompted and then accepted.  A wrong key or
+      passphrase fails unwrap, and with no key at all the reader refuses each
+      block with `encrypted block read before the dataset key was loaded`.
+- [x] The read path follows the key: the key is held in a single loaded
+      `dataset_key` while `dnode_read`/`zio_read` keep their signatures.  For a
       leaf the AAD is empty, the GCM tag is `blk_cksum.zc_word[2..3]`, and the
       IV is `blk_dva[2].dva_word[1]` plus `BP_GET_IV2` (bits 32..63 of
-      `blk_fill`); decrypt before decompression.  Authenticated (non-encrypted)
-      metadata needs SHA512-HMAC-256 over the `blkptr_auth_buf_t` AAD plus the
-      dnode's authenticated prefix (+ unencrypted bonus buffers), and indirect
-      blocks are a plain SHA-512 over the portable fields of their children.
-      The per-objset key must follow the read path: `dnode_read`/`zio_read`
-      currently pass only `spa_t` and `blkptr_t`.
-- [ ] Not attempted yet: passphrase datasets (PBKDF2-HMAC-SHA512; SHA-512 is
-      absent from `src/engine/`), AES-256-CCM datasets, and `encryptionroot`
-      inheritance.
-- The two cases that must both pass once decryption exists: an encrypted
-      dataset with `keylocation=prompt` (passphrase) and one with a keyfile, plus
-      an unencrypted dataset in a pool that merely *has* the
-      `com.datto:encryption` feature enabled (this already works: the feature is
-      in `features_for_read`).
+      `blk_fill`); decryption happens before decompression, including for
+      compressed indirect blocks.  HKDF is called as
+      `HKDF-SHA512(master, salt=NULL, info=the 8 salt bytes from blk_dva[2])`,
+      which is the order OpenZFS uses (the earlier note had salt and info
+      swapped).
+- [x] Passphrase datasets work: `keyformat=passphrase` is unwrapped with
+      PBKDF2-HMAC-SHA1 (that is what OpenZFS's key object uses, not SHA-512),
+      the iteration count and salt come from the key object, and the reader
+      prompts through a provider so the EFI console and the host test share the
+      path.  AES-256-CCM datasets and `encryptionroot` inheritance are still
+      unhandled; only key format version 1 is accepted.
+- [x] The two cases that had to pass: an encrypted dataset with a passphrase
+      and one with a keyfile both mount and read their file; an unencrypted
+      dataset in a pool that merely has `com.datto:encryption` enabled still
+      passes every lookup (this was already true: the feature is in
+      `features_for_read`).
+- [ ] Remaining gaps: encrypted ZIL (`DMU_OT_INTENT_LOG`) blocks are refused
+      explicitly, the objset's *local* MAC (user/group/project accounting
+      dnodes) is not checked, and AES-256-CCM key wrapping is unsupported.
+      None of these affect reading file contents from a normally exported
+      dataset.
 
 ### 4. QEMU boot checks for both variants
 

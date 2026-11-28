@@ -46,14 +46,18 @@ mingw.stdenv.mkDerivation {
   hardeningDisable = [ "all" ];
 
   # Upstream's mingw preset links the CRT, which gives the image imports that
-  # firmware will not load; the patch drops the CRT and keeps libgcc.  The
-  # second patch refuses encrypted blocks explicitly: the reader has no key
-  # store and no AES, and without the check ciphertext just looks like a
-  # corrupt block.
+  # firmware will not load; the patch drops the CRT and keeps libgcc.
+  # encrypted-dataset.patch makes a block that carries encryption parameters
+  # fail with an explicit message when no key is loaded, instead of looking
+  # like corruption; key-store.patch adds the dataset key store and the
+  # boot-time prompt; block-decryption.patch reads the data (HKDF-SHA512 per
+  # block, AES-256-GCM for leaves and dnode bonus buffers, SHA-512/HMAC
+  # authentication of objset, dnode and indirect blocks).
   patches = [
     ./nix.patch
     ./encrypted-dataset.patch
     ./key-store.patch
+    ./block-decryption.patch
   ];
 
   # The AES-256-GCM, SHA-512, SHA-1 and HKDF code lives next to this package,

@@ -12,13 +12,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -103,8 +103,8 @@ fun main() {
 
     application {
         val playerConnection = getGlobalPlayerConnection()
-        val mediaMetadata by playerConnection?.mediaMetadata?.collectAsState() ?: remember { mutableStateOf(null) }
-        val isPlayerActive = playerConnection != null && mediaMetadata != null
+        val mediaMetadata by playerConnection.mediaMetadata.collectAsState()
+        val isPlayerActive = mediaMetadata != null
 
         val windowTitle = remember(mediaMetadata) {
             val meta = mediaMetadata
@@ -181,7 +181,7 @@ fun main() {
                 { Icon(Icons.Filled.Home, contentDescription = "Home") },
                 { Icon(Icons.Filled.Search, contentDescription = "Search") },
                 { Icon(Icons.Filled.Star, contentDescription = "Explore") },
-                { Icon(Icons.Filled.List, contentDescription = "Library") },
+                { Icon(Icons.AutoMirrored.Filled.List, contentDescription = "Library") },
                 { Icon(painterResource(R.drawable.history), contentDescription = "History") },
                 { Icon(Icons.Filled.Settings, contentDescription = "Settings") },
             )
@@ -305,44 +305,44 @@ fun main() {
                                             }
                                         }
                                         Key.MediaPlayPause -> {
-                                            playerConnection?.player?.togglePlayPause()
+                                            playerConnection.player.togglePlayPause()
                                             true
                                         }
                                         Key.MediaPlay -> {
-                                            playerConnection?.player?.play()
+                                            playerConnection.player.play()
                                             true
                                         }
                                         Key.MediaPause -> {
-                                            playerConnection?.player?.pause()
+                                            playerConnection.player.pause()
                                             true
                                         }
                                         Key.MediaNext, Key.MediaSkipForward -> {
-                                            playerConnection?.player?.seekToNext()
+                                            playerConnection.player.seekToNext()
                                             true
                                         }
                                         Key.MediaPrevious, Key.MediaSkipBackward -> {
-                                            playerConnection?.player?.seekToPrevious()
+                                            playerConnection.player.seekToPrevious()
                                             true
                                         }
                                         Key.MediaStop -> {
-                                            playerConnection?.player?.stop()
+                                            playerConnection.player.stop()
                                             true
                                         }
                                         Key.Spacebar -> {
-                                            if (!isSearchActive && playerConnection != null) {
+                                            if (!isSearchActive) {
                                                 playerConnection.player.togglePlayPause()
                                                 true
                                             } else false
                                         }
                                         Key.DirectionLeft -> {
-                                            if (!isSearchActive && playerConnection != null) {
+                                            if (!isSearchActive) {
                                                 val pos = (playerConnection.player.currentPosition - 5000L).coerceAtLeast(0L)
                                                 playerConnection.player.seekTo(pos)
                                                 true
                                             } else false
                                         }
                                         Key.DirectionRight -> {
-                                            if (!isSearchActive && playerConnection != null) {
+                                            if (!isSearchActive) {
                                                 val dur = playerConnection.player.duration.takeIf { it > 0 } ?: Long.MAX_VALUE
                                                 val pos = (playerConnection.player.currentPosition + 5000L).coerceAtMost(dur)
                                                 playerConnection.player.seekTo(pos)
@@ -350,21 +350,21 @@ fun main() {
                                             } else false
                                         }
                                         Key.DirectionUp -> {
-                                            if (!isSearchActive && playerConnection != null) {
+                                            if (!isSearchActive) {
                                                 val newVol = (playerConnection.player.volume + 0.05f).coerceIn(0f, 1f)
                                                 playerConnection.player.volume = newVol
                                                 true
                                             } else false
                                         }
                                         Key.DirectionDown -> {
-                                            if (!isSearchActive && playerConnection != null) {
+                                            if (!isSearchActive) {
                                                 val newVol = (playerConnection.player.volume - 0.05f).coerceIn(0f, 1f)
                                                 playerConnection.player.volume = newVol
                                                 true
                                             } else false
                                         }
                                         Key.M -> {
-                                            if (!isSearchActive && playerConnection != null) {
+                                            if (!isSearchActive) {
                                                 if (playerConnection.player.volume > 0.01f) {
                                                     lastVolume = playerConnection.player.volume
                                                     playerConnection.player.volume = 0f
@@ -375,20 +375,20 @@ fun main() {
                                             } else false
                                         }
                                         Key.J -> {
-                                            if (!isSearchActive && playerConnection != null) {
+                                            if (!isSearchActive) {
                                                 val pos = (playerConnection.player.currentPosition - 10000L).coerceAtLeast(0L)
                                                 playerConnection.player.seekTo(pos)
                                                 true
                                             } else false
                                         }
                                         Key.K -> {
-                                            if (!isSearchActive && playerConnection != null) {
+                                            if (!isSearchActive) {
                                                 playerConnection.player.togglePlayPause()
                                                 true
                                             } else false
                                         }
                                         Key.L -> {
-                                            if (!isSearchActive && playerConnection != null) {
+                                            if (!isSearchActive) {
                                                 val dur = playerConnection.player.duration.takeIf { it > 0 } ?: Long.MAX_VALUE
                                                 val pos = (playerConnection.player.currentPosition + 10000L).coerceAtMost(dur)
                                                 playerConnection.player.seekTo(pos)
@@ -419,34 +419,32 @@ fun main() {
                             }
                         }
 
-                        if (playerConnection != null) {
-                            BottomSheetPlayer(
-                                state = playerBottomSheetState,
-                                navController = navController,
-                                hazeState = remember { dev.chrisbanes.haze.HazeState() },
-                                pureBlack = pureBlack,
-                            )
+                        BottomSheetPlayer(
+                            state = playerBottomSheetState,
+                            navController = navController,
+                            hazeState = remember { dev.chrisbanes.haze.HazeState() },
+                            pureBlack = pureBlack,
+                        )
 
-                            if (playerBottomSheetState.progress > 0.05f && !isSearchActive) {
-                                val returnAlpha = ((playerBottomSheetState.progress - 0.05f) / 0.95f).coerceIn(0f, 1f)
-                                FilledTonalIconButton(
-                                    onClick = { playerBottomSheetState.collapseSoft() },
-                                    enabled = playerBottomSheetState.progress >= 0.5f,
-                                    modifier = Modifier
-                                        .align(Alignment.TopStart)
-                                        .padding(top = 16.dp, start = 16.dp)
-                                        .graphicsLayer { alpha = returnAlpha }
-                                        .zIndex(20f),
-                                    colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                        containerColor = (if (pureBlack) Color(0xFF1E1E1E) else MaterialTheme.colorScheme.surfaceContainerHigh).copy(alpha = 0.85f),
-                                        contentColor = MaterialTheme.colorScheme.onSurface,
-                                    ),
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Filled.ArrowBack,
-                                        contentDescription = "Return to main screen",
-                                    )
-                                }
+                        if (playerBottomSheetState.progress > 0.05f && !isSearchActive) {
+                            val returnAlpha = ((playerBottomSheetState.progress - 0.05f) / 0.95f).coerceIn(0f, 1f)
+                            FilledTonalIconButton(
+                                onClick = { playerBottomSheetState.collapseSoft() },
+                                enabled = playerBottomSheetState.progress >= 0.5f,
+                                modifier = Modifier
+                                    .align(Alignment.TopStart)
+                                    .padding(top = 16.dp, start = 16.dp)
+                                    .graphicsLayer { alpha = returnAlpha }
+                                    .zIndex(20f),
+                                colors = IconButtonDefaults.filledTonalIconButtonColors(
+                                    containerColor = (if (pureBlack) Color(0xFF1E1E1E) else MaterialTheme.colorScheme.surfaceContainerHigh).copy(alpha = 0.85f),
+                                    contentColor = MaterialTheme.colorScheme.onSurface,
+                                ),
+                            ) {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                    contentDescription = "Return to main screen",
+                                )
                             }
                         }
 
@@ -492,7 +490,7 @@ fun main() {
                                         verticalAlignment = Alignment.CenterVertically,
                                     ) {
                                         IconButton(onClick = { isSearchActive = false }) {
-                                            Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
+                                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                                         }
                                         OutlinedTextField(
                                             value = searchQuery,

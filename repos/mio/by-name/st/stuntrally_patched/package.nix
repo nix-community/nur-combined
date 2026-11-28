@@ -93,7 +93,14 @@ stuntrally.overrideAttrs (oldAttrs: {
         --replace-fail 'PluginOptional=RenderSystem_Vulkan' '# PluginOptional=RenderSystem_Vulkan'
       substituteInPlace "$out/share/stuntrally3/config/resources3.cfg" \
         --replace-fail 'FileSystem=materials/Common/HLSL' 'FileSystem=materials/Common/HLSL
-      FileSystem=materials/Common/Metal'
+      FileSystem=materials/Common/Metal' \
+        --replace-fail 'FileSystem=Hlms/Common/HLSL' 'FileSystem=Hlms/Common/HLSL
+      FileSystem=Hlms/Common/Metal' \
+        --replace-fail 'FileSystem=Hlms/Pbs/Any' 'FileSystem=Hlms/Pbs/Any
+      FileSystem=Hlms/Pbs/Metal' \
+        --replace-fail 'FileSystem=Hlms/Compute/Tools/Metal' 'FileSystem=Hlms/Compute/Tools/Metal
+      FileSystem=Hlms/Unlit/Metal
+      FileSystem=Hlms/Terra/Metal'
       mkdir -p "$out/bin/Contents/Resources"
       cp "$out/share/stuntrally3/config/plugins.cfg" "$out/bin/Contents/Resources/plugins.cfg"
       cp "$out/share/stuntrally3/config/resources3.cfg" "$out/bin/Contents/Resources/resources3.cfg"

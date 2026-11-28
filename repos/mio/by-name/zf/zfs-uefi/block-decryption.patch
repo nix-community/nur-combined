@@ -1,0 +1,543 @@
+diff --git a/src/engine/zfsimpl.c b/src/engine/zfsimpl.c
+index cdc43e3..7103949 100644
+--- a/src/engine/zfsimpl.c
++++ b/src/engine/zfsimpl.c
+@@ -1,6 +1,7 @@
+ #include "aesgcm.h"
+ #include "sha512.h"
+ #include "sha1.h"
++#include "hkdf.h"
+ 
+ /*-
+  * Copyright (c) 2007 Doug Rabson
+@@ -188,6 +189,8 @@ static int zio_read(const spa_t *spa, const blkptr_t *bp, void *buf);
+ static int zio_read_impl(const spa_t *spa, const blkptr_t *bp, void *buf,
+     bool print);
+ static int zfs_get_root(const spa_t *spa, uint64_t *objid);
++static int zfs_decrypt_block(const spa_t *, const blkptr_t *, void *,
++    size_t);
+ static int zfs_rlookup(const spa_t *spa, uint64_t objnum, char *result);
+ static int zap_lookup(const spa_t *spa, const dnode_phys_t *dnode,
+     const char *name, uint64_t integer_size, uint64_t num_integers,
+@@ -2447,20 +2450,6 @@ zio_read_impl(const spa_t *spa, const blkptr_t *bp, void *buf, bool print)
+ 			    "block pointer data, error %d\n", error);
+ 		return (error);
+ 	}
+-
+-	/*
+-	 * The reader does not implement the ZFS key store or AES, so a block with
+-	 * encryption parameters cannot be used: it is ciphertext, or its MAC cannot
+-	 * be verified.  Say so, rather than returning data that fails its checksum
+-	 * and looks like pool corruption.
+-	 */
+-	if (BP_USES_CRYPT(bp)) {
+-		if (print)
+-			printf("ZFS: block uses encryption parameters - "
+-			    "encrypted datasets are not supported\n");
+-		return (ENOTSUP);
+-	}
+-
+ 	error = EIO;
+ 
+ 	for (i = 0; i < SPA_DVAS_PER_BP; i++) {
+@@ -2503,6 +2492,19 @@ zio_read_impl(const spa_t *spa, const blkptr_t *bp, void *buf, bool print)
+ 			error = zio_read_gang(spa, bp, pbuf);
+ 		else
+ 			error = vdev->v_read(vdev, bp, pbuf, offset, size);
++		if (error == 0) {
++			/*
++			 * Decrypt or authenticate before decompressing: ZFS encrypts
++			 * the compressed block, and the tag is over the on-disk bytes,
++			 * not over the logical block.
++			 */
++			if (BP_USES_CRYPT(bp) && BP_GET_LEVEL(bp) == 0)
++				error = zfs_decrypt_block(spa, bp, pbuf,
++				    BP_GET_PSIZE(bp));
++			if (error != 0 && print)
++				printf("ZFS: i/o error - cannot decrypt "
++				    "or authenticate the block\n");
++		}
+ 		if (error == 0) {
+ 			if (cpfunc != ZIO_COMPRESS_OFF) {
+ 				error = zio_decompress_data(cpfunc, pbuf,
+@@ -2517,6 +2519,10 @@ zio_read_impl(const spa_t *spa, const blkptr_t *bp, void *buf, bool print)
+ #endif
+ 			} else if (size != BP_GET_PSIZE(bp))
+ 				bcopy(pbuf, buf, BP_GET_PSIZE(bp));
++			if (error == 0 && BP_USES_CRYPT(bp) &&
++			    BP_GET_LEVEL(bp) > 0)
++				error = zfs_decrypt_block(spa, bp, buf,
++				    BP_GET_LSIZE(bp));
+ 		} else if (print) {
+ 			printf("zio_read error: %d\n", error);
+ 		}
+@@ -3673,6 +3679,417 @@ zfs_put_le64(uint8_t *p, uint64_t v)
+ 		p[i] = (uint8_t)(v >> (8 * i));
+ }
+ 
++/*
++ * Reading an encrypted dataset (OpenZFS's module/zfs/zio_crypt.c format).
++ * Only read paths and key format version 1 are implemented:
++ *
++ *   * a level 0 block of an encrypted object type is AES-GCM ciphertext.  Its
++ *     key is HKDF-SHA512(master key, info = DVA[2].word[0]), its IV is
++ *     DVA[2].word[1] plus BP_GET_IV2(), and its tag is the last 128 bits of
++ *     blk_cksum.  Ordinary blocks have no AAD; in a dnode block only the bonus
++ *     buffers are encrypted, with the authenticated fields as AAD.
++ *   * a level 0 block of an unencrypted object type is authenticated with
++ *     SHA512-HMAC-256 over the stored block.  Objset blocks carry a portable
++ *     MAC over the metadnode instead.
++ *   * blocks above level 0 carry a plain SHA-512 over their children's MACs and
++ *     portable fields.
++ */
++
++static int
++zfs_ot_is_encrypted(uint64_t ot)
++{
++	switch (ot) {
++	case DMU_OT_INTENT_LOG:
++	case DMU_OT_DNODE:
++	case DMU_OT_OLDACL:
++	case DMU_OT_PLAIN_FILE_CONTENTS:
++	case DMU_OT_DIRECTORY_CONTENTS:
++	case DMU_OT_UNLINKED_SET:
++	case DMU_OT_ZVOL:
++	case DMU_OT_PLAIN_OTHER:
++	case DMU_OT_UINT64_OTHER:
++	case DMU_OT_ACL:
++	case DMU_OT_SYSACL:
++	case DMU_OT_FUID:
++	case DMU_OT_USERGROUP_USED:
++	case DMU_OT_USERGROUP_QUOTA:
++	case DMU_OT_SA:
++	case DMU_OT_SA_MASTER_NODE:
++	case DMU_OT_SA_ATTR_REGISTRATION:
++	case DMU_OT_SA_ATTR_LAYOUTS:
++	case DMU_OT_DEDUP:
++		return (1);
++	default:
++		return (0);
++	}
++}
++
++/* blkptr_auth_buf_t: portable blk_prop (LE), 128-bit MAC, zero pad. */
++static uint64_t
++zfs_bswap64(uint64_t v)
++{
++	return ((v & 0xffULL) << 56) | ((v & 0xff00ULL) << 40) |
++	    ((v & 0xff0000ULL) << 24) | ((v & 0xff000000ULL) << 8) |
++	    ((v >> 8) & 0xff000000ULL) | ((v >> 24) & 0xff0000ULL) |
++	    ((v >> 40) & 0xff00ULL) | (v >> 56);
++}
++
++static uint64_t
++zfs_portable_prop(const blkptr_t *bp, uint64_t version, int byteswap)
++{
++	uint64_t prop = byteswap ? zfs_bswap64(bp->blk_prop) : bp->blk_prop;
++
++	if (version == 0) {
++		prop &= ~(1ULL << 62);			/* dedup */
++		prop &= ~(0xffULL << 40);		/* checksum */
++		prop &= ~(0xffffULL << 16);
++		return (prop);
++	}
++	if (BP_IS_HOLE(bp))
++		return (0);
++	prop &= ~(1ULL << 62);
++	prop &= ~(0xffULL << 40);
++	if (BP_GET_LEVEL(bp) != 0) {
++		prop &= ~(1ULL << 63);			/* byteorder */
++		prop &= ~(0x7fULL << 32);		/* compression */
++		prop &= ~(0xffffULL << 16);		/* psize = 512 */
++	}
++	return (prop);
++}
++
++/*
++ * The 128-bit MAC from blk_cksum.  A block whose blk_prop says it is stored in
++ * the other byteorder is byteswapped whole for authentication, so each of the
++ * two 64-bit words is reversed as well.
++ */
++static size_t
++zfs_auth_buf(const blkptr_t *bp, uint8_t *out, uint64_t version, int byteswap)
++{
++	uint64_t w0, w1;
++
++	zfs_put_le64(out, zfs_portable_prop(bp, version, byteswap));
++	w0 = bp->blk_cksum.zc_word[2];
++	w1 = bp->blk_cksum.zc_word[3];
++	if (byteswap) {
++		w0 = zfs_bswap64(w0);
++		w1 = zfs_bswap64(w1);
++	}
++	zfs_put_le64(out + 8, w0);
++	zfs_put_le64(out + 16, w1);
++	if (version == 0)
++		return (24);
++	memset(out + 24, 0, 8);
++	return (32);
++}
++
++#define	ZFS_DN_MAX_BONUS_LEN(dnp)					\
++	(((dnp)->dn_flags & DNODE_FLAG_SPILL_BLKPTR) ?			\
++	(uint8_t *)DN_SPILL_BLKPTR(dnp) - (uint8_t *)DN_BONUS(dnp) :	\
++	(uint8_t *)((dnp) + ((dnp)->dn_extra_slots + 1)) -		\
++	(uint8_t *)DN_BONUS(dnp))
++
++/* A dnode's authenticated fields: core (portable bits only) and blkptrs. */
++static size_t
++zfs_dnode_auth_core(const dnode_phys_t *dnp, uint8_t *out, int byteswap)
++{
++	dnode_phys_t *tmp = (dnode_phys_t *)out;
++
++	memcpy(out, dnp, DNODE_CORE_SIZE);
++	if (byteswap == (int)ZFS_HOST_BYTEORDER) {
++		tmp->dn_datablkszsec = (uint16_t)((tmp->dn_datablkszsec << 8) |
++		    (tmp->dn_datablkszsec >> 8));
++		tmp->dn_bonuslen = (uint16_t)((tmp->dn_bonuslen << 8) |
++		    (tmp->dn_bonuslen >> 8));
++		tmp->dn_maxblkid = zfs_bswap64(tmp->dn_maxblkid);
++		tmp->dn_used = zfs_bswap64(tmp->dn_used);
++	}
++	tmp->dn_flags &= DNODE_FLAG_SPILL_BLKPTR;
++	tmp->dn_used = 0;
++	return (DNODE_CORE_SIZE);
++}
++
++static size_t
++zfs_dnode_auth_buf(const dnode_phys_t *dnp, uint8_t *out, size_t max,
++    uint64_t version, int byteswap)
++{
++	size_t n;
++	int i;
++
++	if (max < DNODE_CORE_SIZE)
++		return (0);
++	n = zfs_dnode_auth_core(dnp, out, byteswap);
++	for (i = 0; i < dnp->dn_nblkptr && n + 32 <= max; i++)
++		n += zfs_auth_buf(&dnp->dn_blkptr[i], out + n, version,
++		    byteswap);
++	if ((dnp->dn_flags & DNODE_FLAG_SPILL_BLKPTR) && n + 32 <= max)
++		n += zfs_auth_buf(DN_SPILL_BLKPTR(dnp), out + n, version,
++		    byteswap);
++	return (n);
++}
++
++/* The objset's portable MAC: os_type, portable flags (none) and metadnode. */
++static int
++zfs_objset_authenticate(const void *data, const struct zfs_dataset_key *key,
++    int byteswap)
++{
++	const objset_phys_t *os = data;
++	uint8_t buf[512], digest[SHA512_DIGEST_LEN];
++	size_t n;
++	uint64_t intval;
++	int le_bswap = (byteswap == (int)ZFS_HOST_BYTEORDER);
++
++	/* os_type is authenticated in little endian. */
++	intval = le_bswap ? os->os_type : zfs_bswap64(os->os_type);
++	zfs_put_le64(buf, intval);
++
++	/* OBJSET_CRYPT_PORTABLE_FLAGS_MASK is 0, so these eight bytes are 0. */
++	memset(buf + 8, 0, 8);
++
++	n = 16 + zfs_dnode_auth_buf(&os->os_meta_dnode, buf + 16,
++	    sizeof (buf) - 16, key->version, byteswap);
++	hmac_sha512(key->hmac, sizeof (key->hmac), buf, n, digest);
++
++	if (memcmp(digest, os->os_portable_mac, ZIO_OBJSET_MAC_LEN) != 0) {
++		printf("ZFS: object set MAC mismatch - wrong key or damaged "
++		    "pool\n");
++		return (EIO);
++	}
++	return (0);
++}
++
++/* SHA-512 over an indirect block's children's portable fields and MACs. */
++static int
++zfs_indirect_mac(const blkptr_t *bp, const void *data, size_t size,
++    const struct zfs_dataset_key *key)
++{
++	const blkptr_t *cbp = data;
++	uint8_t digest[SHA512_DIGEST_LEN], want[16];
++	uint8_t *buf;
++	size_t epb = size / sizeof (blkptr_t);
++	size_t i, n;
++	uint64_t version = key->version;
++	int byteswap = BP_SHOULD_BYTESWAP(bp);
++
++	buf = malloc(epb * 32 + 1);
++	if (buf == NULL)
++		return (ENOMEM);
++
++	/* The stored MAC is decoded with the same byte order as the block. */
++	if (byteswap) {
++		zfs_put_le64(want, zfs_bswap64(bp->blk_cksum.zc_word[2]));
++		zfs_put_le64(want + 8, zfs_bswap64(bp->blk_cksum.zc_word[3]));
++	} else {
++		zfs_put_le64(want, bp->blk_cksum.zc_word[2]);
++		zfs_put_le64(want + 8, bp->blk_cksum.zc_word[3]);
++	}
++
++	n = 0;
++	for (i = 0; i < epb; i++)
++		n += zfs_auth_buf(&cbp[i], buf + n, version, byteswap);
++	sha512(buf, n, digest);
++	free(buf);
++
++	if (memcmp(digest, want, sizeof (want)) != 0) {
++		printf("ZFS: indirect block MAC mismatch - wrong key or "
++		    "damaged pool\n");
++		return (EIO);
++	}
++	return (0);
++}
++
++static void
++zfs_block_params(const blkptr_t *bp, uint8_t iv[12])
++{
++	uint32_t iv2 = (uint32_t)BP_GET_IV2(bp);
++
++	memcpy(iv, &bp->blk_dva[2].dva_word[1], 8);
++	memcpy(iv + 8, &iv2, sizeof (iv2));
++}
++
++static int
++zfs_block_key(const blkptr_t *bp, const struct zfs_dataset_key *key,
++    uint8_t out[32])
++{
++	uint8_t salt[8];
++
++	memcpy(salt, &bp->blk_dva[2].dva_word[0], 8);
++
++	/* OpenZFS passes the block's salt as HKDF info, with no salt. */
++	if (zfse_hkdf_sha512(key->key, sizeof (key->key), NULL, 0, salt,
++	    sizeof (salt), out, 32) != 0)
++		return (EIO);
++	return (0);
++}
++
++/* Ordinary encrypted level 0 block: the whole block is GCM ciphertext. */
++static int
++zfs_decrypt_leaf(const blkptr_t *bp, void *data, size_t size,
++    const struct zfs_dataset_key *key)
++{
++	uint8_t dkey[32], iv[12], tag[16];
++
++	zfs_block_params(bp, iv);
++	memcpy(tag, &bp->blk_cksum.zc_word[2], sizeof (tag));
++	if (zfs_block_key(bp, key, dkey) != 0)
++		return (EIO);
++	if (aes256_gcm_decrypt(dkey, iv, NULL, 0, data, size, data, tag) != 0) {
++		printf("ZFS: block MAC mismatch - wrong key or damaged pool\n");
++		return (EIO);
++	}
++	return (0);
++}
++
++/*
++ * A dnode block: cores are plaintext, the bonus buffers of encrypted object
++ * types are GCM ciphertext concatenated in dnode order, and the AAD is every
++ * authenticated field plus each plaintext bonus buffer, in that same order.
++ */
++static int
++zfs_decrypt_dnode(const blkptr_t *bp, uint8_t *data, size_t size,
++    const struct zfs_dataset_key *key)
++{
++	uint8_t dkey[32], iv[12], tag[16];
++	uint8_t *aad, *ct, *pt;
++	size_t aadlen = 0, ctlen = 0, coff = 0, poff = 0, i, bonus_len;
++	dnode_phys_t *dnp;
++	int rc = EIO, j, bp_swap = (BP_GET_BYTEORDER(bp) != 1);
++
++	aad = malloc(size * 2 + 512);
++	if (aad == NULL)
++		return (ENOMEM);
++
++	for (i = 0; i + DNODE_CORE_SIZE <= size; ) {
++		dnp = (dnode_phys_t *)(data + i);
++		i += ((size_t)(dnp->dn_extra_slots + 1)) << DNODE_SHIFT;
++		if (dnp->dn_type != DMU_OT_NONE &&
++		    zfs_ot_is_encrypted(dnp->dn_bonustype) &&
++		    dnp->dn_bonuslen != 0)
++			ctlen += ZFS_DN_MAX_BONUS_LEN(dnp);
++	}
++
++	ct = malloc(ctlen == 0 ? 1 : ctlen);
++	pt = malloc(ctlen == 0 ? 1 : ctlen);
++	if (ct == NULL || pt == NULL) {
++		free(aad);
++		free(ct);
++		free(pt);
++		return (ENOMEM);
++	}
++
++	for (i = 0; i + DNODE_CORE_SIZE <= size; ) {
++		dnp = (dnode_phys_t *)(data + i);
++		i += ((size_t)(dnp->dn_extra_slots + 1)) << DNODE_SHIFT;
++
++		aadlen += zfs_dnode_auth_core(dnp, aad + aadlen, bp_swap);
++		for (j = 0; j < dnp->dn_nblkptr; j++)
++			aadlen += zfs_auth_buf(&dnp->dn_blkptr[j],
++			    aad + aadlen, key->version, bp_swap);
++		if (dnp->dn_flags & DNODE_FLAG_SPILL_BLKPTR)
++			aadlen += zfs_auth_buf(DN_SPILL_BLKPTR(dnp),
++			    aad + aadlen, key->version, bp_swap);
++
++		bonus_len = ZFS_DN_MAX_BONUS_LEN(dnp);
++		if (dnp->dn_type != DMU_OT_NONE &&
++		    zfs_ot_is_encrypted(dnp->dn_bonustype) &&
++		    dnp->dn_bonuslen != 0) {
++			memcpy(ct + coff, DN_BONUS(dnp), bonus_len);
++			coff += bonus_len;
++		} else {
++			memcpy(aad + aadlen, DN_BONUS(dnp), bonus_len);
++			aadlen += bonus_len;
++		}
++	}
++
++	zfs_block_params(bp, iv);
++	memcpy(tag, &bp->blk_cksum.zc_word[2], sizeof (tag));
++	if (zfs_block_key(bp, key, dkey) != 0)
++		goto out;
++
++	if (aes256_gcm_decrypt(dkey, iv, aad, aadlen, ct, ctlen, pt, tag) != 0) {
++		printf("ZFS: dnode block MAC mismatch - wrong key or "
++		    "damaged pool\n");
++		goto out;
++	}
++
++	for (i = 0; i + DNODE_CORE_SIZE <= size; ) {
++		dnp = (dnode_phys_t *)(data + i);
++		i += ((size_t)(dnp->dn_extra_slots + 1)) << DNODE_SHIFT;
++		if (dnp->dn_type != DMU_OT_NONE &&
++		    zfs_ot_is_encrypted(dnp->dn_bonustype) &&
++		    dnp->dn_bonuslen != 0) {
++			bonus_len = ZFS_DN_MAX_BONUS_LEN(dnp);
++			memcpy(DN_BONUS(dnp), pt + poff, bonus_len);
++			poff += bonus_len;
++		}
++	}
++
++	rc = 0;
++out:
++	free(aad);
++	free(ct);
++	free(pt);
++	return (rc);
++}
++
++static int
++zfs_authenticate_block(const blkptr_t *bp, const void *data, size_t size,
++    const struct zfs_dataset_key *key)
++{
++	uint8_t digest[SHA512_DIGEST_LEN], want[16];
++
++	hmac_sha512(key->hmac, sizeof (key->hmac), data, size, digest);
++	memcpy(want, &bp->blk_cksum.zc_word[2], sizeof (want));
++	if (memcmp(digest, want, sizeof (want)) != 0) {
++		printf("ZFS: block HMAC mismatch - wrong key or damaged "
++		    "pool\n");
++		return (EIO);
++	}
++	return (0);
++}
++
++static int
++zfs_decrypt_block(const spa_t *spa, const blkptr_t *bp, void *buf, size_t size)
++{
++	const struct zfs_dataset_key *key = &dataset_key;
++
++	(void) spa;
++
++	if (!key->loaded) {
++		printf("ZFS: encrypted block read before the dataset key "
++		    "was loaded\n");
++		return (EACCES);
++	}
++	if (key->version != 1) {
++		printf("ZFS: encrypted pool key version %ju is not supported\n",
++		    (uintmax_t)key->version);
++		return (ENOTSUP);
++	}
++
++	if (BP_HAS_INDIRECT_MAC_CKSUM(bp))
++		return (zfs_indirect_mac(bp, buf, size, key));
++
++	if (BP_IS_AUTHENTICATED(bp)) {
++		if (BP_GET_TYPE(bp) == DMU_OT_OBJSET)
++			return (zfs_objset_authenticate(buf, key,
++		    BP_GET_BYTEORDER(bp) != 1));
++		return (zfs_authenticate_block(bp, buf, size, key));
++	}
++
++	if (BP_IS_ENCRYPTED(bp)) {
++		if (BP_GET_TYPE(bp) == DMU_OT_DNODE)
++			return (zfs_decrypt_dnode(bp, buf, size, key));
++		if (BP_GET_TYPE(bp) == DMU_OT_INTENT_LOG) {
++			printf("ZFS: encrypted intent log blocks are not "
++			    "supported\n");
++			return (ENOTSUP);
++		}
++		return (zfs_decrypt_leaf(bp, buf, size, key));
++	}
++
++	printf("ZFS: block with unsupported encryption shape\n");
++	return (ENOTSUP);
++}
++
+ 
+ typedef int (*zfs_key_provider_fn)(char *buf, size_t buflen, void *priv);
+ 
+diff --git a/src/engine/zfsimpl.h b/src/engine/zfsimpl.h
+index 5588bd4..c3ee2ef 100644
+--- a/src/engine/zfsimpl.h
++++ b/src/engine/zfsimpl.h
+@@ -401,6 +401,26 @@ _NOTE(CONSTCOND) } while (0)
+  */
+ #define	BP_USES_CRYPT(bp)	BF64_GET((bp)->blk_prop, 61, 1)
+ 
++/*
++ * How OpenZFS classifies a block (spa.h): a level 0 block uses the dataset key
++ * for AES-GCM if its object type is encrypted, and is only authenticated with
++ * SHA512-HMAC otherwise; blocks above level 0 hold a SHA-512 of their
++ * children's MACs.  The third DVA word and blk_fill carry the salt/IV.
++ */
++#define	BP_IS_ENCRYPTED(bp)					\
++	(BP_USES_CRYPT(bp) && BP_GET_LEVEL(bp) == 0 &&		\
++	zfs_ot_is_encrypted(BP_GET_TYPE(bp)))
++#define	BP_IS_AUTHENTICATED(bp)				\
++	(BP_USES_CRYPT(bp) && BP_GET_LEVEL(bp) == 0 &&		\
++	!zfs_ot_is_encrypted(BP_GET_TYPE(bp)))
++#define	BP_HAS_INDIRECT_MAC_CKSUM(bp)				\
++	(BP_USES_CRYPT(bp) && BP_GET_LEVEL(bp) > 0)
++#define	BP_IS_PROTECTED(bp)					\
++	(BP_IS_ENCRYPTED(bp) || BP_IS_AUTHENTICATED(bp))
++#define	BP_GET_IV2(bp)	BF64_GET((bp)->blk_fill, 32, 32)
++
++static int zfs_ot_is_encrypted(uint64_t);
++
+ #define	BP_GET_DEDUP(bp)	BF64_GET((bp)->blk_prop, 62, 1)
+ #define	BP_SET_DEDUP(bp, x)	BF64_SET((bp)->blk_prop, 62, 1, x)
+ 
+diff --git a/src/engine/zfssubr.c b/src/engine/zfssubr.c
+index 8de463e..244d742 100644
+--- a/src/engine/zfssubr.c
++++ b/src/engine/zfssubr.c
+@@ -279,6 +279,16 @@ zio_checksum_verify(const spa_t *spa, const blkptr_t *bp, void *data)
+ {
+ 	uint64_t size;
+ 	unsigned int checksum;
++
++	/*
++	 * An encrypted (or authenticated) block does not carry a regular
++	 * checksum of its plaintext: the last 128 bits of blk_cksum hold a GCM
++	 * tag or HMAC, and indirect blocks hold a SHA-512 of their children's
++	 * MACs.  Those are verified by the crypto path; a normal checksum here
++	 * would fail on every encrypted block.
++	 */
++	if (BF64_GET(bp->blk_prop, 61, 1))
++		return (0);
+ 	zio_checksum_info_t *ci;
+ 	void *ctx = NULL;
+ 	zio_cksum_t actual_cksum, expected_cksum, verifier;

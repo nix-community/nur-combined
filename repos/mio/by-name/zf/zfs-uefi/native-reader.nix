@@ -58,6 +58,7 @@ stdenv.mkDerivation {
       -include hostcompat/prefix.h -I hostcompat -I src/engine -I src \
       -o enc_read_test test/enc_read_test.c \
       src/engine/aesgcm.c src/engine/sha512.c src/engine/sha1.c \
+      src/engine/hkdf.c \
       src/engine/nvlist.c src/engine/skein.c src/engine/skein_block.c \
       src/engine/list.c src/engine/blake3_stub.c src/engine/lz4.c
 

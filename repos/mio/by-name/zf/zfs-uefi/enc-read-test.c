@@ -122,8 +122,26 @@ main(int argc, char **argv)
 
     rc = zfse_mount(pool, &m);
     printf("mount rc %d\n", rc);
+    if (rc != 0)
+        return 3;
 
-    /* Reading the dataset is still refused until block decryption lands; this
-     * test is about the key path and its messages. */
+    /* The dataset's file must come back as plaintext, not as ciphertext. */
+    {
+        struct zfse_file *f;
+        char text[64];
+        size_t got = 0, n;
+
+        if (zfse_open(m, "/hello.txt", &f) != 0) {
+            printf("open hello.txt failed\n");
+            return 4;
+        }
+        if (zfse_read(f, 0, text, sizeof(text) - 1, &got) != 0 || got == 0)
+            return 5;
+        zfse_close(f);
+        text[got] = 0;
+        for (n = got; n > 0 && (text[n - 1] == '\n' || text[n - 1] == '\r'); n--)
+            text[n - 1] = 0;
+        printf("hello.txt: '%s'\n", text);
+    }
     return 0;
 }

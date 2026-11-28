@@ -1,0 +1,14 @@
+diff --git a/app/src/main/kotlin/moe/rukamori/archivetune/canvas/CanvasNetworkAccess.kt b/app/src/main/kotlin/moe/rukamori/archivetune/canvas/CanvasNetworkAccess.kt
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/canvas/CanvasNetworkAccess.kt
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/canvas/CanvasNetworkAccess.kt
+@@ -60,4 +60,0 @@
+-            if (body == null) {
+-                remove(call)
+-                return response
+-            }
+diff --git a/app/src/main/kotlin/moe/rukamori/archivetune/ui/player/ThumbnailSwapState.kt b/app/src/main/kotlin/moe/rukamori/archivetune/ui/player/ThumbnailSwapState.kt
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/ui/player/ThumbnailSwapState.kt
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/player/ThumbnailSwapState.kt
+@@ -56,1 +56,1 @@
+-        if (!shouldAttemptYT || videoId == null) return@LaunchedEffect
++        if (!shouldAttemptYT) return@LaunchedEffect

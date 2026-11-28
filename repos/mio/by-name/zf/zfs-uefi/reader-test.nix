@@ -12,12 +12,12 @@
 #   * tank/win, an ordinary dataset with the Windows-like tree the upstream
 #     test looks up, in a pool that also carries the com.datto:encryption
 #     feature;
-#   * tank/enc, an encrypted dataset, which the reader must refuse with its
-#     explicit message rather than read as ciphertext.  That message is what
-#     by-name/zf/zfs-uefi/encrypted-dataset.patch adds.
+#   * tank/enc, an encrypted dataset, which the reader must mount and read as
+#     plaintext once its key is loaded (the test reads /hello.txt, written as
+#     "secret"), and refuse with its explicit message when no key is given.
 #
-# If the future decryption work lands, the encrypted leg turns into the same
-# "ALL PASSED" assertion as the plain one.
+# The encrypted legs are the real check of the decryption path: the key store
+# unwraps the dataset key, then block decryption has to return the file's text.
 runNixOSTest {
   name = "zfs-uefi-reader";
 
@@ -99,17 +99,18 @@ runNixOSTest {
     machine.succeed("zpool set bootfs=tank/enc tank")
     machine.succeed("zpool export tank")
 
-    # The key store: with the right raw keyfile the reader must find the
-    # dataset's crypto_key_obj and unwrap it (the GCM tag over the wrapped key
-    # is the check).  Block decryption does not exist yet, so the mount is
-    # still refused after the key is loaded - the assertion is about the
-    # messages, not about a working mount.
+    # The key store and the read path: with the right raw keyfile the reader
+    # must unwrap the dataset key, mount the dataset and return the file's
+    # text, which was written as plaintext and is ciphertext on disk.
     status, out = machine.execute(
         "ZFS_KEY_FILE=/root/zfs.key enc_read_test /dev/loop0 0 1073741824"
     )
     print(out)
+    assert status == 0, out
     assert "dataset key loaded: aes-256-gcm" in out, out
     assert "unwrap failed" not in out, out
+    assert "mount rc 0" in out, out
+    assert "hello.txt: 'secret'" in out, out
 
     # Any other 32 bytes must fail the tag check rather than be accepted.
     machine.succeed("head -c 32 /dev/urandom > /root/bad.key")
@@ -119,6 +120,7 @@ runNixOSTest {
     print(out)
     assert "dataset key unwrap failed" in out, out
     assert "dataset key loaded" not in out, out
+    assert "mount rc 0" not in out, out
 
     # Passphrase dataset: the key object carries keyformat/pbkdf2salt/
     # pbkdf2iters, so the reader derives the wrapping key from what is typed
@@ -144,7 +146,10 @@ runNixOSTest {
         "enc_read_test /dev/loop0 0 1073741824"
     )
     print(out)
+    assert status == 0, out
     assert "dataset key loaded: aes-256-gcm" in out, out
+    assert "mount rc 0" in out, out
+    assert "hello.txt: 'passphrase'" in out, out
 
     # A wrong passphrase must be rejected, and the first wrong entry followed
     # by the right one must re-prompt and then succeed.
@@ -164,6 +169,7 @@ runNixOSTest {
     print(out)
     assert "wrong passphrase/key, try again" in out, out
     assert "dataset key loaded: aes-256-gcm" in out, out
+    assert "hello.txt: 'passphrase'" in out, out
 
     # And the plain-text reader must still refuse encrypted blocks explicitly
     # when it has no key at all.
@@ -171,7 +177,8 @@ runNixOSTest {
         "native_read_test /dev/loop0 0 1073741824"
     )
     print(out)
-    assert "encrypted datasets are not supported" in out, out
+    assert "encrypted block read before the dataset key was loaded" in out, out
+    assert "mount rc 0" not in out, out
     assert "ALL PASSED" not in out, out
   '';
 }
