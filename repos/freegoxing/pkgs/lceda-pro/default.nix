@@ -50,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url = "https://image.lceda.cn/files/lceda-pro-linux-x64-${finalAttrs.version}.zip";
-    hash = "sha256-6/0sRaMWpOVa/GySyE0cDQ3f6PTpjAfWu4OA4W+UbsM=";
+    hash = "sha256-6Vo6Hw254S4YkiWWa5cbc8vn5l3DLRSmKHhU/5TatLA=";
   };
 
   nativeBuildInputs = [
