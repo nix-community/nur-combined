@@ -4,6 +4,9 @@
   replaceVars,
   stdenvNoCC,
 
+  # propagatedBuildInputs
+  apple-sdk_26,
+
   # buildInputs
   darwin,
 }:
@@ -25,4 +28,8 @@ cronet-go.overrideAttrs (previousAttrs: {
       libresolv = lib.getInclude darwin.libresolv;
     }
   );
+
+  # https://github.com/NixOS/nixpkgs/pull/594074
+  buildInputs = [ ];
+  propagatedBuildInputs = lib.optional stdenvNoCC.hostPlatform.isDarwin apple-sdk_26;
 })

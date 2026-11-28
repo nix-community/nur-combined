@@ -8,11 +8,11 @@
 
 (sing-box.override { cronet-go = cronet-go-beta; }).overrideAttrs (previousAttrs: {
   pname = previousAttrs.pname + "-beta";
-  version = "1.15.0-alpha.14";
+  version = "1.15.0-alpha.15";
   __structuredAttrs = true;
 
   src = previousAttrs.src.override {
-    hash = "sha256-sPeg7S7OUFwQxY6cU74TjpwQTBhkQ2itteXi7WfmfAs=";
+    hash = "sha256-NIFdRi2ft7GhgGqxb0+VmKT8eDYadf6Vr3UZCgSe2d0=";
   };
 
   postPatch = ''
@@ -24,7 +24,7 @@
       common/certificate/{mozilla,chrome}.go
   '';
 
-  vendorHash = "sha256-q9We+hnPZ/GqAYNXsJJrOlous0XIMCyCIfqQMVnluLo=";
+  vendorHash = "sha256-+P3JDy8KrFnPnwhhdNaP9m3LWMJT/EPknrzwpDsGeZQ=";
 
   postInstall =
     lib.replaceString

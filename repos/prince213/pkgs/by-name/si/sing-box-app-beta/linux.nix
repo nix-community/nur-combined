@@ -51,8 +51,8 @@ buildNpmPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "SagerNet";
     repo = "sing-box-for-desktop";
-    rev = "884a93c1c6ed1a316e2ada9aa4ea78918c29ac01";
-    hash = "sha256-ZblRacbZZX5K5uCTQUTBK0LY2xQfYyhOBprYQ9k29hA=";
+    rev = "ccd5edc1d7320eb123a02918f2c5e2d59a2501ff";
+    hash = "sha256-ejPkU/hqsZOdQDWLXHRwPDYVERydwfbw8LOnhI+vwoE=";
   };
 
   postPatch = ''

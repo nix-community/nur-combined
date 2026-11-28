@@ -17,7 +17,7 @@ let
 in
 buildGo127Module (finalAttrs: {
   pname = "tokenrouter";
-  version = "0.7.6";
+  version = "0.8.0";
 
   __structuredAttrs = true;
 
@@ -25,7 +25,7 @@ buildGo127Module (finalAttrs: {
     owner = "TokenFlux";
     repo = "TokenRouter";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-PUDJulWSWvYIHGHroPx0qIDZzJrXtKi4n5qBQbRsRiI=";
+    hash = "sha256-tW2To+UYRV2FR1DeIgbOl6Z3d/mzhaf+TW9alI1ZlTk=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/backend";
@@ -47,7 +47,7 @@ buildGo127Module (finalAttrs: {
     preBuild = null;
   };
 
-  vendorHash = "sha256-IzpZpexCWcMEt8iBEzvPOjJcbAOv5u3+x7mKwwilO0E=";
+  vendorHash = "sha256-AzDBCtcyeTTTmE1NjNgbasZ3rQImKtccj8nm1p2W+0U=";
 
   env.CGO_ENABLED = 0;
 
