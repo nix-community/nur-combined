@@ -180,6 +180,7 @@ main() {
     python3 -B "$SCRIPT_DIR/readme-versions.py"
     python3 -B "$SCRIPT_DIR/scopebuddy-package.py"
     python3 -B "$SCRIPT_DIR/engram-update.py"
+    python3 -B "$SCRIPT_DIR/vantage-package.py"
 
     echo "======================================"
     echo "Test Summary"

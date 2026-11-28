@@ -56,6 +56,10 @@ strict-Bash updater, then runs:
 - `engram-update.py`: stable Engram release selection (ignores upstream's
   `pi-v*` tags and prereleases) and the source-built package shape.
 
+- `vantage-package.py`: the Vantage install layout KWin/Plasma scan (effect,
+  script, both plasmoids), the shared `share/vantage` tree that the scripts and
+  Tweaks use for relative paths, the `qdbus6` shim, and the branch updater.
+
 - `meitou-update.py`: stable launcher release selection, game and nightly
   exclusion, downgrade prevention, authenticated GitHub API calls, and the
   AppImage wrapping (no .NET build, never run as a mounted AppImage).
