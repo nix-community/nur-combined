@@ -17,6 +17,10 @@ This is a personal NUR-style Nix package repository. The root `flake.nix` expose
 
 Use `nixfmt` for `*.nix` files and `taplo format` for TOML; both are run by `treefmt`. Keep Nix expressions small: prefer `callPackage`, explicit inputs, and package-local patches. Package directories and attributes should match existing lowercase or hyphenated names. Maintain source versions, URLs, and hashes in each package expression.
 
+### Package Sources and Snapshot Versions
+
+Prefer `fetchFromGitHub` for package sources hosted on GitHub, including forks. For unreleased snapshots, pin `rev` to the full commit SHA and set `version` to `<base-release>-unstable-YYYY-MM-DD` (for example, `26.04-unstable-2026-11-28`). Use the pinned commit's committer date (`git show -s --format=%cs <rev>`), not the packaging date. Update the date and verify the source hash whenever advancing the pin. Tagged releases keep their release version.
+
 ### Patch Sources
 
 When adding a patch hosted on GitHub, prefer `fetchpatch` with a GitHub Compare Diff URL ending in `.diff`. For patches covering multiple commits from a tag on a linear branch, use `https://github.com/<owner>/<repo>/compare/<tag>~<count>..<tag>.diff`; `~<count>` walks back that many first-parent commits (for example, `<tag>~3..<tag>`). Use a tag-to-tag range such as `<base-tag>..<target-tag>` when both endpoints are known. Reserve `^<parent-number>` for selecting a specific parent of a merge commit: unlike `~<count>`, it does not mean “the Nth previous commit.” Prefer `.diff` over `.patch` because a compare range can combine multiple commits, reducing the chance of conflicts when the patch is applied. If the repository is maintained in a personal fork, prefer this tag-based diff form over a manually copied patch or a commit-only URL, because the range is stable and remains easy to audit. Record the resulting fixed-output `hash` alongside the URL.
