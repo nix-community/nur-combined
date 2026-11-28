@@ -47,11 +47,11 @@ let
     };
 
   submodules = {
-    # https://github.com/darlinghq/darling/pull/1793
+    # LLVM 19.1.7, matching Darling's pinned libc++abi; includes PR 1793.
     "src/external/libcxx" = submodule {
       repo = "darling-libcxx";
-      rev = "7d5d86d3546aea24b50c38ad25a0d141ee5271d8";
-      hash = "sha256-n2zVSU03GIQNqRR1zIJWoKzIJIf2ZPq4VfvXuqUWhgI=";
+      rev = "43a964e4aaac6a050d20cb07f6a6b537674c867f";
+      hash = "sha256-geX/lMaJ0OkKsaM0ErXXSD9/4JTiKmNDx9s/jnOgpqc=";
     };
   };
 in
