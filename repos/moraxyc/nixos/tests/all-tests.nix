@@ -9,7 +9,6 @@
   antigravity-claude-proxy = callPackage ./antigravity-claude-proxy.nix { };
   artex = callPackage ./artex.nix { };
   dell-idrac-fan-controller = callPackage ./dell-idrac-fan-controller.nix { };
-  ghostfolio = callPackage ./ghostfolio.nix { };
   peerbanhelper = callPackage ./peerbanhelper.nix { };
   remote-pi-relay = callPackage ./remote-pi-relay.nix { };
   tokenrouter = callPackage ./tokenrouter.nix { };

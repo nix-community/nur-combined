@@ -18,7 +18,7 @@
   ./services/web-apps/artex.nix
   ./services/web-apps/exloli-next.nix
   ./services/web-apps/flapalerted.nix
-  ./services/web-apps/ghostfolio.nix
+  # ./services/web-apps/ghostfolio.nix # upstreamed
   ./services/web-apps/gzctf.nix
   ./services/web-apps/mcsmanager.nix
   # ./services/web-apps/nezha.nix # upstreamed
