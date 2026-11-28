@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     # pkg-config
-    python3  # to set the correct "_PYTHON_HOST_PLATFORM" env, as required by cython
+    python3 # to set the correct "_PYTHON_HOST_PLATFORM" env, as required by cython
     python3.pkgs.cython
     python3.pkgs.pypaBuildHook
     python3.pkgs.pypaInstallHook

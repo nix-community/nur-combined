@@ -104,7 +104,7 @@ for p in "${upstreamed[@]}"; do
 done
 echo
 
-if ! (( ${#upstreamed[@]} )); then
+if ! ((${#upstreamed[@]})); then
   echo "nothing to do"
 elif [[ -n "$dryRun" ]]; then
   echo "to remove them, run:"

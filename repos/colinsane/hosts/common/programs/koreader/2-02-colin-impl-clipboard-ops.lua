@@ -4,7 +4,7 @@ logger.info("applying colin patch colin-impl-clipboard")
 -- source: <https://github.com/ncopa/lua-shell/blob/master/shell.lua>
 local function shescape(arg)
   if arg:match("[^A-Za-z0-9_/:=-]") then
-    arg = "'"..arg:gsub("'", "'\\''").."'"
+    arg = "'" .. arg:gsub("'", "'\\''") .. "'"
   end
   return arg
 end
@@ -24,17 +24,16 @@ end
 local ReaderLink = require("apps/reader/modules/readerlink")
 local UIManager = require("ui/uimanager")
 local _ = require("gettext")
-local orig_ReaderLink_init = ReaderLink.init;
+local orig_ReaderLink_init = ReaderLink.init
 ReaderLink.init = function(self)
   orig_ReaderLink_init(self)
   self._external_link_buttons["10_copy"] = function(this, link_url)
     return {
       text = _("Copy"),
       callback = function()
-          UIManager:close(this.external_link_dialog)
-          input.setClipboardText(link_url)
+        UIManager:close(this.external_link_dialog)
+        input.setClipboardText(link_url)
       end,
     }
   end
 end
-

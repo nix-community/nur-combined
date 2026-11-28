@@ -85,7 +85,7 @@ in
       noUserCacheConf
     ];
 
-    #vvv enables dejavu_fonts, freefont_ttf, gyre-fonts, liberation_ttf, unifont, noto-fonts-emoji
+    # vvv enables dejavu_fonts, freefont_ttf, gyre-fonts, liberation_ttf, unifont, noto-fonts-emoji
     enableDefaultPackages = false;
     packages =
       with pkgs;

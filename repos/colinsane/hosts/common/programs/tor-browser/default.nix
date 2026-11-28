@@ -36,7 +36,7 @@
     # sandbox.mesaCacheDir = ".cache/tor-browser/mesa";  # don't persist mesa dir (privacy)
     persist.byStore.ephemeral = [
       ".local/share/tor-browser" # persisted because of downloads, i think??
-      #v to persist $profile/prefs.js, required for js toggle. TODO: persist this more narrowly
+      # vvv to persist $profile/prefs.js, required for js toggle. TODO: persist this more narrowly
       ".tor project/firefox"
     ];
     mime.urlAssociations."^https?://.+\\.onion$" = "tor-browser.desktop";

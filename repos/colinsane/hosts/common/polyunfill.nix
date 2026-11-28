@@ -1,6 +1,11 @@
 # strictly *decrease* the scope of the default nixos installation/config
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   # openpam = pkgs.openpam.overrideAttrs (upstream: {
   #   configureFlags = (upstream.configureFlags or []) ++ [
@@ -22,20 +27,23 @@ let
   # });
 
   suidlessPam = pkgs.pam.overrideAttrs (upstream: {
-    postPatch = let
-      # nixpkgs' pam hardcodes unix_chkpwd path to the /run/wrappers one,
-      # but i don't want the wrapper, so undo that.
-      # ideally i would patch this via an overlay, but pam is in the bootstrap so that forces a full rebuild.
-      # see: <repo:nixos/nixpkgs:pkgs/by-name/li/linux-pam/package.nix>
-      chkpwd = "$out/bin/unix_chkpwd";
-      #
-      # or, use tcb-style password checking: i.e. passwords for each user are in /etc/tcb/$user/shadow.
-      # but this seems to not actually work.
-      # chkpwd = "${pkgs.tcb}/libexec/chkpwd/tcb_chkpwd";
-    in (upstream.postPatch or "") + ''
-      substituteInPlace modules/module-meson.build --replace-fail \
-        "/run/wrappers/bin/unix_chkpwd" "${chkpwd}"
-    '';
+    postPatch =
+      let
+        # nixpkgs' pam hardcodes unix_chkpwd path to the /run/wrappers one,
+        # but i don't want the wrapper, so undo that.
+        # ideally i would patch this via an overlay, but pam is in the bootstrap so that forces a full rebuild.
+        # see: <repo:nixos/nixpkgs:pkgs/by-name/li/linux-pam/package.nix>
+        chkpwd = "$out/bin/unix_chkpwd";
+        #
+        # or, use tcb-style password checking: i.e. passwords for each user are in /etc/tcb/$user/shadow.
+        # but this seems to not actually work.
+        # chkpwd = "${pkgs.tcb}/libexec/chkpwd/tcb_chkpwd";
+      in
+      (upstream.postPatch or "")
+      + ''
+        substituteInPlace modules/module-meson.build --replace-fail \
+          "/run/wrappers/bin/unix_chkpwd" "${chkpwd}"
+      '';
 
     # linux-pam is a mess; honestly `openpam` would be better to use system-wide.
     # but applications are linked against `linux-pam`, so we can't.
@@ -74,11 +82,26 @@ in
     "system/boot/systemd.nix"
   ];
   imports = [
-    ({ config, lib, pkgs, utils, ... }@moduleArgs:
+    (
+      {
+        config,
+        lib,
+        pkgs,
+        utils,
+        ...
+      }:
       let
         # base = lib.modules.importApply "${pkgs.path}/nixos/modules/system/boot/systemd.nix" moduleArgs;
-        base = import "${pkgs.path}/nixos/modules/system/boot/systemd.nix" moduleArgs;
-      in {
+        base = import "${pkgs.path}/nixos/modules/system/boot/systemd.nix" {
+          inherit
+            config
+            lib
+            pkgs
+            utils
+            ;
+        };
+      in
+      {
         options.systemd = base.options.systemd;
         config = {
           # TODO: port to `mkTypedMerge`
@@ -93,11 +116,12 @@ in
             systemd
             users
             warnings
-          ;
-        } // {
+            ;
+        }
+        // {
           system = base.config.system // {
-            nssDatabases = {};
-            nssModules = [];
+            nssDatabases = { };
+            nssModules = [ ];
           };
         };
       }
@@ -106,52 +130,58 @@ in
 
   # remove a few items from /run/wrappers we don't need.
   options.security.wrappers = lib.mkOption {
-    apply = lib.filterAttrs (name: _: !(builtins.elem name [
-      # from <repo:nixos/nixpkgs:nixos/modules/security/polkit.nix>
-      "pkexec"
-      "polkit-agent-helper-1"  # used by systemd; without this you'll have to `sudo systemctl daemon-reload` instead of unauth'd `systemctl daemon-reload`
-      # from <repo:nixos/nixpkgs:nixos/modules/services/system/dbus.nix>
-      "dbus-daemon-launch-helper"
-      # from <repo:nixos/nixpkgs:nixos/modules/security/wrappers/default.nix>
-      "fusermount"  # only needed if you want to mount entries declared in /etc/fstab or mtab as unprivileged user
-      "fusermount3"
-      "mount"  # only needed if you want to mount entries declared in /etc/fstab or mtab as unprivileged user
-      "umount"
-      # from <repo:nixos/nixpkgs:nixos/modules/programs/shadow.nix>
-      "newgidmap"
-      "newgrp"
-      "newuidmap"
-      "sg"
-      "su"
-      # from: <repo:nixos/nixpkgs:nixos/modules/security/pam.nix>
-      # requires associated `pam` patch to not hardcode unix_chkpwd path
-      "unix_chkpwd"
-    ]));
+    apply = lib.filterAttrs (
+      name: _:
+      !(builtins.elem name [
+        # from <repo:nixos/nixpkgs:nixos/modules/security/polkit.nix>
+        "pkexec"
+        "polkit-agent-helper-1" # used by systemd; without this you'll have to `sudo systemctl daemon-reload` instead of unauth'd `systemctl daemon-reload`
+        # from <repo:nixos/nixpkgs:nixos/modules/services/system/dbus.nix>
+        "dbus-daemon-launch-helper"
+        # from <repo:nixos/nixpkgs:nixos/modules/security/wrappers/default.nix>
+        "fusermount" # only needed if you want to mount entries declared in /etc/fstab or mtab as unprivileged user
+        "fusermount3"
+        "mount" # only needed if you want to mount entries declared in /etc/fstab or mtab as unprivileged user
+        "umount"
+        # from <repo:nixos/nixpkgs:nixos/modules/programs/shadow.nix>
+        "newgidmap"
+        "newgrp"
+        "newuidmap"
+        "sg"
+        "su"
+        # from: <repo:nixos/nixpkgs:nixos/modules/security/pam.nix>
+        # requires associated `pam` patch to not hardcode unix_chkpwd path
+        "unix_chkpwd"
+      ])
+    );
   };
   options.security.pam.services = lib.mkOption {
-    apply = lib.filterAttrs (name: _: !(builtins.elem name [
-      # from <repo:nixos/nixpkgs:nixos/modules/security/pam.nix>
-      "i3lock"
-      "i3lock-color"
-      "vlock"
-      "xlock"
-      "xscreensaver"
-      "runuser"
-      "runuser-l"
-      # from ??
-      "chfn"
-      "chpasswd"
-      "chsh"
-      "groupadd"
-      "groupdel"
-      "groupmems"
-      "groupmod"
-      "useradd"
-      "userdel"
-      "usermod"
-      # from <repo:nixos/nixpkgs:nixos/modules/system/boot/systemd/user.nix>
-      # "systemd-user"  # N.B.: this causes the `systemd --user` service manager to fail 224/PAM!
-    ]));
+    apply = lib.filterAttrs (
+      name: _:
+      !(builtins.elem name [
+        # from <repo:nixos/nixpkgs:nixos/modules/security/pam.nix>
+        "i3lock"
+        "i3lock-color"
+        "vlock"
+        "xlock"
+        "xscreensaver"
+        "runuser"
+        "runuser-l"
+        # from ??
+        "chfn"
+        "chpasswd"
+        "chsh"
+        "groupadd"
+        "groupdel"
+        "groupmems"
+        "groupmod"
+        "useradd"
+        "userdel"
+        "usermod"
+        # from <repo:nixos/nixpkgs:nixos/modules/system/boot/systemd/user.nix>
+        # "systemd-user"  # N.B.: this causes the `systemd --user` service manager to fail 224/PAM!
+      ])
+    );
   };
 
   options.environment.corePackages = lib.mkOption {
@@ -160,55 +190,60 @@ in
     # - most of these can be safely removed without breaking the *boot*,
     # - but some core system services DO implicitly depend on them.
     # TODO: see which more of these i can remove (or shadow/sandbox)
-    apply = let
-      pkgsToRemove = [
-        pkgs.wirelesstools  # assigned: <repo:nixos/nixpkgs:nixos/modules/tasks/network-interfaces.nix>
-        # pkgs.stdenv.cc.libc # assigned: <repo:nixos/nixpkgs:nixos/modules/config/system-path.nix>
-        # config.programs.ssh.package  # assigned: <repo:nixos/nixpkgs:nixos/modules/programs/ssh.nix>
-      ];
-      lowPrioPkgsToRemove = map (pkg: lib.setPrio ((pkg.meta.priority or lib.meta.defaultPriority) + 3) pkg) [
-        # pkgs.acl
-        # pkgs.attr
-        # pkgs.bashInteractive
-        # pkgs.bzip2
-        # pkgs.coreutils-full
-        # pkgs.cpio
-        # pkgs.curl
-        # pkgs.diffutils
-        # pkgs.findutils
-        # pkgs.gawk
-        # pkgs.getent
-        # pkgs.getconf
-        # pkgs.gnugrep
-        # pkgs.gnupatch
-        # pkgs.gnused
-        # pkgs.gnutar
-        # pkgs.gzip
-        # pkgs.xz
-        pkgs.less
-        # pkgs.libcap  # implicitly required by NetworkManager/wpa_supplicant!
-        # pkgs.ncurses
-        pkgs.netcat
-        # pkgs.mkpasswd
-        pkgs.procps
-        # pkgs.su
-        # pkgs.time
-        # pkgs.util-linux
-        # pkgs.which
-        # pkgs.zstd
-      ];
-    in
+    apply =
+      let
+        pkgsToRemove = [
+          pkgs.wirelesstools # assigned: <repo:nixos/nixpkgs:nixos/modules/tasks/network-interfaces.nix>
+          # pkgs.stdenv.cc.libc # assigned: <repo:nixos/nixpkgs:nixos/modules/config/system-path.nix>
+          # config.programs.ssh.package  # assigned: <repo:nixos/nixpkgs:nixos/modules/programs/ssh.nix>
+        ];
+        lowPrioPkgsToRemove =
+          map (pkg: lib.setPrio ((pkg.meta.priority or lib.meta.defaultPriority) + 3) pkg)
+            [
+              # pkgs.acl
+              # pkgs.attr
+              # pkgs.bashInteractive
+              # pkgs.bzip2
+              # pkgs.coreutils-full
+              # pkgs.cpio
+              # pkgs.curl
+              # pkgs.diffutils
+              # pkgs.findutils
+              # pkgs.gawk
+              # pkgs.getent
+              # pkgs.getconf
+              # pkgs.gnugrep
+              # pkgs.gnupatch
+              # pkgs.gnused
+              # pkgs.gnutar
+              # pkgs.gzip
+              # pkgs.xz
+              pkgs.less
+              # pkgs.libcap  # implicitly required by NetworkManager/wpa_supplicant!
+              # pkgs.ncurses
+              pkgs.netcat
+              # pkgs.mkpasswd
+              pkgs.procps
+              # pkgs.su
+              # pkgs.time
+              # pkgs.util-linux
+              # pkgs.which
+              # pkgs.zstd
+            ];
+      in
       lib.filter (p: !(lib.elem p (pkgsToRemove ++ lowPrioPkgsToRemove)));
   };
 
   options.environment.systemPackages = lib.mkOption {
-    apply = let
-      conveniencePackagesToRemove = [
-        config.boot.kernelPackages.cpupower  # <repo:nixos/nixpkgs:nixos/modules/tasks/cpu-freq.nix> places it on PATH for convenience if powerManagement.cpuFreqGovernor is set
-        pkgs.kbd  # <repo:nixos/nixpkgs:nixos/modules/config/console.nix>  places it on PATH as part of console/virtual TTYs, but probably not needed unless you want to set console fonts
-        pkgs.nixos-firewall-tool  # <repo:nixos/nixpkgs:nixos/modules/services/networking/firewall.nix>  for end-user management of the firewall? cool but doesn't cross-compile
-      ];
-    in lib.filter (p: ! lib.elem p (conveniencePackagesToRemove));
+    apply =
+      let
+        conveniencePackagesToRemove = [
+          config.boot.kernelPackages.cpupower # <repo:nixos/nixpkgs:nixos/modules/tasks/cpu-freq.nix> places it on PATH for convenience if powerManagement.cpuFreqGovernor is set
+          pkgs.kbd # <repo:nixos/nixpkgs:nixos/modules/config/console.nix>  places it on PATH as part of console/virtual TTYs, but probably not needed unless you want to set console fonts
+          pkgs.nixos-firewall-tool # <repo:nixos/nixpkgs:nixos/modules/services/networking/firewall.nix>  for end-user management of the firewall? cool but doesn't cross-compile
+        ];
+      in
+      lib.filter (p: !lib.elem p conveniencePackagesToRemove);
   };
 
   options.system.fsPackages = lib.mkOption {
@@ -220,7 +255,7 @@ in
 
   config = {
     # disable non-required packages like nano, perl, rsync, strace
-    environment.defaultPackages = [];
+    environment.defaultPackages = [ ];
 
     # remove all the non-existent default directories from XDG_DATA_DIRS, XDG_CONFIG_DIRS to simplify debugging.
     # this is defaulted in <repo:nixos/nixpkgs:nixos/modules/programs/environment.nix>,
@@ -240,7 +275,7 @@ in
     # environment.sessionVariables.XDG_CONFIG_DIRS = lib.mkForce [];
     # XCURSOR_PATH: defaults to `[ "$HOME/.icons" "$HOME/.local/share/icons" ]`, neither of which i use, just adding noise.
     # see: <repo:nixos/nixpkgs:nixos/modules/config/xdg/icons.nix>
-    environment.sessionVariables.XCURSOR_PATH = lib.mkForce [];
+    environment.sessionVariables.XCURSOR_PATH = lib.mkForce [ ];
 
     environment.shellAliases = {
       # unset default aliases; see <repo:nixos/nixpkgs:nixos/modules/config/shells-environment.nix>
@@ -252,7 +287,7 @@ in
     # disable nixos' portal module, otherwise /share/applications gets linked into the system and complicates things (sandboxing).
     # instead, i manage portals myself via the sane.programs API (e.g. sane.programs.xdg-desktop-portal).
     xdg.portal.enable = false;
-    xdg.menus.enable = false;  # links /share/applications, and a bunch of other empty (i.e. unused) dirs
+    xdg.menus.enable = false; # links /share/applications, and a bunch of other empty (i.e. unused) dirs
 
     # xdg.autostart.enable defaults to true, and links /etc/xdg/autostart into the environment, populated with .desktop files.
     # see: <repo:nixos/nixpkgs:nixos/modules/config/xdg/autostart.nix>
@@ -271,7 +306,7 @@ in
     # `less.enable` sets LESSKEYIN_SYSTEM, LESSOPEN, LESSCLOSE env vars, which does confusing "lesspipe" things, so disable that.
     # it's enabled by default from `<nixos/modules/programs/environment.nix>`, who also sets `PAGER="less"` and `EDITOR="nano"` (keep).
     programs.less.enable = lib.mkForce false;
-    environment.variables.PAGER = lib.mkOverride 900 "";  # mkDefault sets 1000. non-override is 100. 900 will beat the nixpkgs `mkDefault` but not anyone else.
+    environment.variables.PAGER = lib.mkOverride 900 ""; # mkDefault sets 1000. non-override is 100. 900 will beat the nixpkgs `mkDefault` but not anyone else.
     environment.variables.EDITOR = lib.mkOverride 900 "";
 
     # several packages (dconf, modemmanager, networkmanager, gvfs, polkit, udisks, bluez/blueman, feedbackd, etc)
@@ -324,7 +359,7 @@ in
     # lvm places `pkgs.lvm2` onto PATH, which has like 100 binaries.
     # it is, actually, needed for some userspace tools (cryptsetup). probably just the udev rules. try to reduce this set?
     services.lvm.enable = lib.mkDefault false;
-    services.udev.packages = [ pkgs.lvm2.out ];  # N.B. `lvm2.out` != `lvm2`
+    services.udev.packages = [ pkgs.lvm2.out ]; # N.B. `lvm2.out` != `lvm2`
     # systemd.packages = [ pkgs.lvm2 ];
     # systemd.tmpfiles.packages = [ pkgs.lvm2.out ];
     # environment.systemPackages = [ pkgs.lvm2 ];

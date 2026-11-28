@@ -37,7 +37,7 @@ in
     persist.byStore.ephemeral = [
       ".cache/news_flash" # WebKit cache
     ];
-    #v for *manual* use:
+    # vvv for *manual* use:
     # text/image: newsflash renders these natively
     # podcast/video: newsflash dispatches these to xdg-open
     fs.".config/newsflashFeeds.opml".symlink.target = pkgs.feedsToOpml {

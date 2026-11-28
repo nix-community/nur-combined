@@ -431,7 +431,7 @@ lib.mkIf false
         mod_vcard_xupdate = {};  # needed for avatars
         # docs: <https://docs.ejabberd.im/admin/configuration/modules/#mod-pubsub>
         mod_pubsub = {
-          #^ needed for avatars
+          # ^^^ needed for avatars
           access_createnode = "pubsub_createnode_access";
           host = "pubsub.xmpp.uninsane.org";
           hosts = [ "pubsub.xmpp.uninsane.org" ];

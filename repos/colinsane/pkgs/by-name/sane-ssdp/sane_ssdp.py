@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 
 MCAST_GRP = "239.255.255.250"
 
+
 class SsdpResponse:
     def __init__(self, headers: Dict[str, str]):
         self.headers = headers
@@ -20,9 +21,10 @@ class SsdpResponse:
     def parse(msg: str) -> "Self":
         headers = {}
         for line in [m.strip() for m in msg.split("\r\n") if m.strip()]:
-            if ":" not in line: continue
+            if ":" not in line:
+                continue
             sep_idx = line.find(":")
-            header, content = line[:sep_idx].strip(), line[sep_idx+1:].strip()
+            header, content = line[:sep_idx].strip(), line[sep_idx + 1 :].strip()
             headers[header.upper()] = content
         if headers:
             return SsdpResponse(headers)
@@ -35,6 +37,7 @@ class SsdpResponse:
 
     def location(self) -> Optional[str]:
         return self.headers.get("LOCATION")
+
 
 def get_default_gateways() -> list[str]:
     """Return IPv4 default gateway addresses from /proc/net/route."""
@@ -56,6 +59,7 @@ def get_default_gateways() -> list[str]:
         logger.debug(f"failed to read /proc/net/route: {e}")
     return gateways
 
+
 def get_cached_root_devices() -> list[str]:
     try:
         dev = open("/var/lib/dyn-dns/upnp.txt", "r").read().strip()
@@ -64,6 +68,7 @@ def get_cached_root_devices() -> list[str]:
     else:
         logger.debug(f"loaded cached UPNP root device {dev}")
         return [dev]
+
 
 def get_root_devices(gateways: Sequence[str] = []) -> Iterator[str]:
     """
@@ -81,14 +86,16 @@ def get_root_devices(gateways: Sequence[str] = []) -> Iterator[str]:
     listener.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
 
     for gw in gateways:
-        msg = "\r\n".join([
-            "M-SEARCH * HTTP/1.1",
-            f"HOST: {gw}:1900",
-            'MAN: "ssdp:discover"',
-            "ST: upnp:rootdevice",
-            "",
-            "",
-        ]).encode("utf-8")
+        msg = "\r\n".join(
+            [
+                "M-SEARCH * HTTP/1.1",
+                f"HOST: {gw}:1900",
+                'MAN: "ssdp:discover"',
+                "ST: upnp:rootdevice",
+                "",
+                "",
+            ]
+        ).encode("utf-8")
         logger.debug(f"sending unicast M-SEARCH to {gw}:1900")
         try:
             listener.sendto(msg, (gw, 1900))
@@ -114,6 +121,7 @@ def get_root_devices(gateways: Sequence[str] = []) -> Iterator[str]:
                     logger.debug(f"root desc: {root_desc}")
                     yield root_desc
 
+
 def get_ips_from_location(location: str) -> tuple[Optional[str], Optional[str]]:
     """
     location = URI from the Location header, e.g. http://10.78.79.1:2189/rootDesc.xml
@@ -136,15 +144,16 @@ def get_ips_from_location(location: str) -> tuple[Optional[str], Optional[str]]:
         wan_sentinel = "ExternalIPAddress ="
         lan_sentinel = "Local LAN ip address :"
         if line.startswith(wan_sentinel):
-            wan = line[len(wan_sentinel):].strip()
+            wan = line[len(wan_sentinel) :].strip()
             logger.info(f"got WAN = {wan} from {location}")
         if line.startswith(lan_sentinel):
-            lan = line[len(lan_sentinel):].strip()
+            lan = line[len(lan_sentinel) :].strip()
             logger.info(f"got LAN = {lan} from {location}")
     return lan, wan
 
+
 def get_any_wan(cached: bool = False) -> Optional[Tuple[str, str, str]]:
-    """ return (location, LAN IP, WAN IP) for the first device seen which has a WAN IP """
+    """return (location, LAN IP, WAN IP) for the first device seen which has a WAN IP"""
     gateways = get_default_gateways()
 
     sources = []
@@ -158,7 +167,17 @@ def get_any_wan(cached: bool = False) -> Optional[Tuple[str, str, str]]:
             if lan and wan:
                 return location, lan, wan
 
-def forward_port(root_device: str, proto: str, port: int, external_port: int, lan_ip: str, reason: str = "", duration: int = 86400) -> None:
+
+def forward_port(
+    root_device: str,
+    proto: str,
+    port: int,
+    external_port: int,
+    lan_ip: str,
+    reason: str = "",
+    duration: int = 86400,
+) -> None:
+    # fmt: off
     args = [
         "upnpc",
         "-u", root_device,
@@ -170,6 +189,7 @@ def forward_port(root_device: str, proto: str, port: int, external_port: int, la
         proto,
         str(duration),
     ]
+    # fmt: on
 
     logger.debug(f"running: {args!r}")
     stdout = subprocess.check_output(args).decode("utf-8")

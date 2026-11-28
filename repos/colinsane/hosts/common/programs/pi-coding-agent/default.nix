@@ -257,51 +257,53 @@ in
 
     buildCost = 1;
 
-    packageUnwrapped = let
-      basePackage = pkgs.pi-coding-agent;
-      # basePackage = pkgs.pi-coding-agent-latest;
-      # basePackage = pkgs.pi-coding-agent.overrideAttrs (prevAttrs: {
-      #   modelData = lib.warnIf (lib.versionOlder "1.5.2" prevAttrs.version)
-      #     "nixpkgs pi-coding-agent is updated: remove overridden modelData?"
-      #     pkgs.pi-coding-agent-latest.modelData;
-      # });
-    in basePackage.overrideAttrs (prevAttrs: {
-      nativeBuildInputs = prevAttrs.nativeBuildInputs or [ ] ++ [
-        pkgs.makeWrapper
-      ];
-      # upstream package wraps the program to add rg to PATH;
-      # hijack that to also add the api key.
-      #
-      # env vars:
-      # - LLAMA_BASE_URL: populating this is not required to use llama-cpp (i think);
-      #                   only required to access its control plane, i.e. to manually load/unload models.
-      # - PI_CODING_AGENT_DIR: Override config directory (default: ~/.pi/agent)
-      # - PI_CODING_AGENT_SESSION_DIR: Override session storage directory (overridden by --session-dir)
-      # - PI_PACKAGE_DIR: Override package directory
-      # - PI_OFFLINE: Disable startup network operations (update checks, package update checks, telemetry)
-      # - PI_SKIP_VERSION_CHECK: Skip the Pi version update check at startup
-      # - PI_TELEMETRY: Override install/update telemetry (1/true/yes to enable, 0/false/no to disable)
-      # - PI_CACHE_RETENTION: Set to long for extended prompt cache (Anthropic: 1h, OpenAI: 24h)
-      #
-      # placed in preInstall to support both nixpkgs' `pi-coding-agent` (which uses postFixup)
-      # and earendil's package (uses installPhase)
-      preInstall = ''
-        extraMakeWrapperArgs=(
-          --set-default PI_OFFLINE 1
-          --set-default PI_SKIP_VERSION_CHECK 1
-          --run 'export PI_CODING_AGENT_DIR=''${PI_CODING_AGENT_DIR:-$XDG_CONFIG_HOME/pi}'
-          --run 'export LLAMA_BASE_URL=''${LLAMA_BASE_URL:-http://${deskoHostname}:11435}'
-          --run 'export NANOGPT_API_KEY=''${NANOGPT_API_KEY:-$(cat "$XDG_CONFIG_HOME/nanogpt/nanogpt_api_key")}'
-        )
-        makeWrapper() {
-          makeShellWrapper "$@" "''${extraMakeWrapperArgs[@]}"
-        }
-        wrapProgram() {
-          wrapProgramShell "$@" "''${extraMakeWrapperArgs[@]}"
-        }
-        ${prevAttrs.preInstall or ""}
-      '';
-    });
+    packageUnwrapped =
+      let
+        basePackage = pkgs.pi-coding-agent;
+        # basePackage = pkgs.pi-coding-agent-latest;
+        # basePackage = pkgs.pi-coding-agent.overrideAttrs (prevAttrs: {
+        #   modelData = lib.warnIf (lib.versionOlder "1.5.2" prevAttrs.version)
+        #     "nixpkgs pi-coding-agent is updated: remove overridden modelData?"
+        #     pkgs.pi-coding-agent-latest.modelData;
+        # });
+      in
+      basePackage.overrideAttrs (prevAttrs: {
+        nativeBuildInputs = prevAttrs.nativeBuildInputs or [ ] ++ [
+          pkgs.makeWrapper
+        ];
+        # upstream package wraps the program to add rg to PATH;
+        # hijack that to also add the api key.
+        #
+        # env vars:
+        # - LLAMA_BASE_URL: populating this is not required to use llama-cpp (i think);
+        #                   only required to access its control plane, i.e. to manually load/unload models.
+        # - PI_CODING_AGENT_DIR: Override config directory (default: ~/.pi/agent)
+        # - PI_CODING_AGENT_SESSION_DIR: Override session storage directory (overridden by --session-dir)
+        # - PI_PACKAGE_DIR: Override package directory
+        # - PI_OFFLINE: Disable startup network operations (update checks, package update checks, telemetry)
+        # - PI_SKIP_VERSION_CHECK: Skip the Pi version update check at startup
+        # - PI_TELEMETRY: Override install/update telemetry (1/true/yes to enable, 0/false/no to disable)
+        # - PI_CACHE_RETENTION: Set to long for extended prompt cache (Anthropic: 1h, OpenAI: 24h)
+        #
+        # placed in preInstall to support both nixpkgs' `pi-coding-agent` (which uses postFixup)
+        # and earendil's package (uses installPhase)
+        preInstall = ''
+          extraMakeWrapperArgs=(
+            --set-default PI_OFFLINE 1
+            --set-default PI_SKIP_VERSION_CHECK 1
+            --run 'export PI_CODING_AGENT_DIR=''${PI_CODING_AGENT_DIR:-$XDG_CONFIG_HOME/pi}'
+            --run 'export LLAMA_BASE_URL=''${LLAMA_BASE_URL:-http://${deskoHostname}:11435}'
+            --run 'export NANOGPT_API_KEY=''${NANOGPT_API_KEY:-$(cat "$XDG_CONFIG_HOME/nanogpt/nanogpt_api_key")}'
+          )
+          makeWrapper() {
+            makeShellWrapper "$@" "''${extraMakeWrapperArgs[@]}"
+          }
+          wrapProgram() {
+            wrapProgramShell "$@" "''${extraMakeWrapperArgs[@]}"
+          }
+          ${prevAttrs.preInstall or ""}
+        '';
+      });
 
     suggestedPrograms = [
       # "agent-lsp"
@@ -383,16 +385,17 @@ in
     };
 
     fs.".config/pi/extensions/subagent/config.json".symlink.target =
-      (pkgs.formats.json { }).generate "pi-subagents-config.json" {
-        # pi-subagents: don't declare the subagent tools until actually wanted.
-        # they consume ~1.2k of context, which 95% of sessions don't use.
-        # `toolActivation = "dynamic"` means to instead declare just one `subagents_enable` tool:
-        # once called, the tools are enabled by prepending them into the system prompt (in effect).
-        # for llama-cpp, this forces a full cache invalidation; for openai/anthropic, it somehow does not.
-        # see: <https://github.com/nicobailon/pi-subagents/issues/2589>
-        toolActivation = "dynamic";
-        pinToolDeclarations = false;
-      };
+      (pkgs.formats.json { }).generate "pi-subagents-config.json"
+        {
+          # pi-subagents: don't declare the subagent tools until actually wanted.
+          # they consume ~1.2k of context, which 95% of sessions don't use.
+          # `toolActivation = "dynamic"` means to instead declare just one `subagents_enable` tool:
+          # once called, the tools are enabled by prepending them into the system prompt (in effect).
+          # for llama-cpp, this forces a full cache invalidation; for openai/anthropic, it somehow does not.
+          # see: <https://github.com/nicobailon/pi-subagents/issues/2589>
+          toolActivation = "dynamic";
+          pinToolDeclarations = false;
+        };
 
     fs.".pi/agent/claude-bridge.json".symlink.target = "../../.config/pi/claude-bridge.json";
     fs.".config/pi/claude-bridge.json".symlink.target =
@@ -441,7 +444,7 @@ in
           models = [
             "${pkgs.nanogpt-data}/share/pi/models-nanogpt.json"
             "${llamaCppModelsJson}"
-            ((pkgs.formats.json { }).generate "disabled.json" {}) # "${pollinationsModelsJson}"
+            ((pkgs.formats.json { }).generate "disabled.json" { }) # "${pollinationsModelsJson}"
           ];
         }
         ''
@@ -529,8 +532,8 @@ in
           "openai/gpt-6.2-sol" # $10/1M output <https://nano-gpt.com/models/text/openai/gpt-6.2-sol>
           # "anthropic/claude-sonnet-5.5" # $10/1M output <https://nano-gpt.com/models/text/anthropic/claude-sonnet-5.5>
           "anthropic/claude-opus-5.5" # $20/1M output <https://nano-gpt.com/models/text/anthropic/claude-opus-5.5>
-          "deepseek/deepseek-v4-flash-latest"  # $0.60/1M output <https://nano-gpt.com/models/text/deepseek/deepseek-v4-flash-latest>
-          "qwen/qwen3.8-flash"  # $0.47/1M output <https://nano-gpt.com/models/text/qwen/qwen3.8-flash>
+          "deepseek/deepseek-v4-flash-latest" # $0.60/1M output <https://nano-gpt.com/models/text/deepseek/deepseek-v4-flash-latest>
+          "qwen/qwen3.8-flash" # $0.47/1M output <https://nano-gpt.com/models/text/qwen/qwen3.8-flash>
           "z-ai/glm-5.3-flash" # $0.30/1M output <https://nano-gpt.com/models/text/z-ai/glm-5.3-flash>
           # "deepseek/deepseek-latest"
           # "zai-org/glm-latest"

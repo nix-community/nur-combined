@@ -573,7 +573,7 @@ let
           # optionally hard-code the sandboxer. this forces rebuilds, but allows deep iteration w/o deploys.
           lib.getExe bunpen
         else
-          #v prefer to load by bin name to reduce rebuilds
+          # vvv prefer to load by bin name to reduce rebuilds
           bunpen.meta.mainProgram;
 
       # two ways i could wrap a package in a sandbox:

@@ -59,15 +59,15 @@
   services.snapper.configs.root = {
     SUBVOLUME = "/nix/persist";
     ALLOW_USERS = [ "colin" ];
-    TIMELINE_CLEANUP = true;  # remove old snapshots every 24h
-    TIMELINE_CREATE = true;  # take a snapshot every hour
+    TIMELINE_CLEANUP = true; # remove old snapshots every 24h
+    TIMELINE_CREATE = true; # take a snapshot every hour
 
     TIMELINE_LIMIT_HOURLY = 6;
-    TIMELINE_LIMIT_DAILY = 4;  # keep snapshots for 1d ago, 2d ago, ... 7day ago
-    TIMELINE_LIMIT_WEEKLY = 2;  # keep snapshots for 7d ago, 14d ago, 21d ago, 28d ago
+    TIMELINE_LIMIT_DAILY = 4; # keep snapshots for 1d ago, 2d ago, ... 7day ago
+    TIMELINE_LIMIT_WEEKLY = 2; # keep snapshots for 7d ago, 14d ago, 21d ago, 28d ago
     TIMELINE_LIMIT_MONTHLY = 0;
     TIMELINE_LIMIT_YEARLY = 0;
   };
 
-  services.snapper.cleanupInterval = "2h";  # how frequently to gc snapshots no longer covered by the above policy (default: daily)
+  services.snapper.cleanupInterval = "2h"; # how frequently to gc snapshots no longer covered by the above policy (default: daily)
 }

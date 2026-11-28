@@ -10,5 +10,5 @@ dumputils = require("./dump-common")
 dumputils:dump_om(ObjectManager {
   Interest {
     type = "port",
-  }
+  },
 })

@@ -5,14 +5,14 @@
   sane-kernel-tools,
   writeTextFile,
   randstructSeed ? "",
-  #VVV nixpkgs calls `.override` on the kernel to configure additional things, but we don't care about those things
+  # vvv nixpkgs calls `.override` on the kernel to configure additional things, but we don't care about those things
   ...
   # features ? null,
   # kernelPatches ? null,
 }:
 
 let
-  # VVV sources
+  # vvv sources
   # - pmaports.rev: update this first.
   # - src.rev, version: grab from pmaports device/community/linux-pine64-pinephonepro/APKBUILD
   pmaports = fetchFromGitLab {

@@ -25,7 +25,10 @@ timeout -v 15 /bin/sh -c \
   -I nixpkgs=$nixpkgs \
   -I ../../ \
   | tee  \
-  " || (echo "failed to eval in under 15 seconds, as required by upstream"; exit 1)
+  " || (
+  echo "failed to eval in under 15 seconds, as required by upstream"
+  exit 1
+)
 
 # yup, upstream fails the update after 15s
 # see: <repo:nix-community/NUR:ci/nur/eval.py:eval_repo>, or grep for

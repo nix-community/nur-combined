@@ -8,7 +8,7 @@
 static-nix-shell.mkPython3 {
   pname = "rtl8723cs-wowlan";
   srcRoot = ./.;
-  pkgs = {
+  packages = {
     inherit hostname-debian iw wirelesstools;
   };
 }

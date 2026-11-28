@@ -20,10 +20,10 @@ for host in desko lappy moby servo; do
   now=$(date +'%s')
   last_attempted=$(ssh -i "$RN_ID" "$RN_USER@$RN_USER.rsync.net" -- cat "$host/$dir/zzz-rsync-net/last-attempted")
   last_completed=$(ssh -i "$RN_ID" "$RN_USER@$RN_USER.rsync.net" -- cat "$host/$dir/zzz-rsync-net/last-completed")
-  age_attempted_s=$(( "$now" - "${last_attempted:-0}" ))
-  age_completed_s=$(( "$now" - "${last_completed:-0}" ))
-  age_attempted_hr=$(( "$age_attempted_s" / 3600 ))
-  age_completed_hr=$(( "$age_completed_s" / 3600 ))
+  age_attempted_s=$(("$now" - "${last_attempted:-0}"))
+  age_completed_s=$(("$now" - "${last_completed:-0}"))
+  age_attempted_hr=$(("$age_attempted_s" / 3600))
+  age_completed_hr=$(("$age_completed_s" / 3600))
   if ! [[ "$age_completed_hr" -lt 120 ]]; then
     fail "$host wasn't backed up within the last 5 days\n  completed: $age_completed_hr hours ago\n  tried: $age_attempted_hr hours ago"
   elif ! [[ "$age_completed_hr" -gt -2 ]]; then

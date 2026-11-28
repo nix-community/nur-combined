@@ -23,7 +23,7 @@ function ltrim(s)
 end
 
 function subprocess(args)
-  mp.command_native({
+  mp.command_native {
     name = "subprocess",
     args = args,
     -- these arguments below probably don't matter: copied from sane_cast
@@ -32,7 +32,7 @@ function subprocess(args)
     capture_stderr = false,
     passthrough_stdin = false,
     playback_only = false,
-  })
+  }
 end
 
 function sysvol_new()
@@ -50,7 +50,7 @@ function sysvol_new()
 
       local old_mpv_vol = nil
       if self.sysvol ~= nil then
-        old_mpv_vol = 100 * self.sysvol^(1/3)
+        old_mpv_vol = 100 * self.sysvol ^ (1 / 3)
       end
       if old_mpv_vol ~= nil and math.abs(mpv_vol - old_mpv_vol) < 1.0 then
         -- avoid near-infinite loop where we react to our own volume change.
@@ -61,13 +61,13 @@ function sysvol_new()
       end
 
       msg.debug("setting system-wide volume:", old_mpv_vol, volstr)
-      self.sysvol = (0.01*mpv_vol)^3
-      subprocess({
+      self.sysvol = (0.01 * mpv_vol) ^ 3
+      subprocess {
         "wpctl",
         "set-volume",
         "@DEFAULT_AUDIO_SINK@",
-        volstr
-      })
+        volstr,
+      }
     end,
     on_sysvol_change = function(self, sysvol)
       -- called when the pipewire system volume is changed (either by us, or an external application)
@@ -75,15 +75,19 @@ function sysvol_new()
         return
       end
 
-      local new_mpv_vol = 100 * sysvol^(1/3)
+      local new_mpv_vol = 100 * sysvol ^ (1 / 3)
       local old_mpv_vol = nil
       if self.sysvol ~= nil then
-        old_mpv_vol = 100 * self.sysvol^(1/3)
+        old_mpv_vol = 100 * self.sysvol ^ (1 / 3)
       end
 
       if old_mpv_vol ~= nil and math.abs(new_mpv_vol - old_mpv_vol) < 1.0 then
         -- avoid an infinite loop where we react to our own volume change
-        msg.debug("NOT announcing volume change to mpv (because it was what triggered the change):", old_mpv_vol, new_mpv_vol)
+        msg.debug(
+          "NOT announcing volume change to mpv (because it was what triggered the change):",
+          old_mpv_vol,
+          new_mpv_vol
+        )
         return
       end
 
@@ -108,12 +112,12 @@ function sysvol_new()
       end
       msg.debug("setting system-wide mute:", mutestr)
       self.sysmute = mute
-      subprocess({
+      subprocess {
         "wpctl",
         "set-mute",
         "@DEFAULT_AUDIO_SINK@",
-        mutestr
-      })
+        mutestr,
+      }
     end,
     on_sysmute_change = function(self, mute)
       if mute == nil then
@@ -123,7 +127,7 @@ function sysvol_new()
       msg.debug("announcing mute to mpv:", mute)
       self.sysmute = mute
       mp.set_property_bool("user-data/sane_sysvol/mute", mute)
-    end
+    end,
   }
 end
 
@@ -276,6 +280,8 @@ mp.observe_property("user-data/sane_sysvol/pw-mon-mute", "native", function(_, v
 end)
 
 local pwmon = pwmon_new()
-mp.register_event("tick", function() pwmon:service() end)
+mp.register_event("tick", function()
+  pwmon:service()
+end)
 
 msg.trace("load: complete")

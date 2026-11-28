@@ -13,5 +13,5 @@ dumputils:dump_om(ObjectManager {
     Constraint { "media.class", "matches", "Audio/Source", type = "pw-global" },
     -- do not consider virtual items created by WirePlumber
     Constraint { "wireplumber.is-virtual", "!", true, type = "pw" },
-  }
+  },
 })

@@ -1,5 +1,7 @@
 ## migrating a host to a new drive
+
 ### 1. copy persistent data off of the host:
+
 ```sh
 $ mkdir -p mnt old/persist
 $ mount /dev/$old mnt
@@ -7,12 +9,14 @@ $ rsync -arv mnt/persist/ old/persist/
 ```
 
 ### 2. flash the new drive
+
 ```
 $ nix-build -A hosts.moby.img
 $ dd if=$(readlink ./result) of=/dev/$new bs=4M oflag=direct conv=sync status=progress
 ```
 
 ### 3.1. expand the partition
+
 ```sh
 $ cfdisk /dev/$new
 # scroll to the last partition
@@ -22,7 +26,9 @@ $ cfdisk /dev/$new
   type "yes"
 > Quit
 ```
+
 ### 3.2. expand the filesystem
+
 ```
 $ mkdir -p /mnt/$new
 $ mount /dev/$new /mnt/$new
@@ -30,6 +36,7 @@ $ btrfs filesystem resize max /mnt/$new
 ```
 
 ### 4. copy data onto the new host
+
 ```
 $ mkdir /mnt/$new
 $ mount /dev/$new /mnt/$new
@@ -40,6 +47,7 @@ $ rsync -arv old/persist/ /mnt/$new/persist/
 ```
 
 ### 5. ensure/fix ownership
+
 ```
 $ chmod -R a+rX /mnt/$new/nix
 # or, let the nix daemon do it:

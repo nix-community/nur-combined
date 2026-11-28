@@ -8,7 +8,7 @@
   randstructSeed ? "",
   withModemPower ? false,
   withPmosPatches ? true,
-  #VVV nixpkgs calls `.override` on the kernel to configure additional things, but we don't care about those things
+  # vvv nixpkgs calls `.override` on the kernel to configure additional things, but we don't care about those things
   ...
   # features ? null,
   # kernelPatches ? null,
@@ -20,7 +20,7 @@
 # - `wget https://gitlab.com/postmarketOS/pmaports/-/raw/$pmaportsRef/device/main/linux-postmarketos-allwinner/config-postmarketos-allwinner.aarch64`
 # - update src/version/modDirVersion further down (take from pmaports APKBUILD)
 let
-  # VVV sources
+  # vvv sources
   # - pmaports.rev: update this first.
   # - src.rev, version: grab from pmaports device/main/linux-postmarketos-allwinner/APKBUILD
   pmaports = fetchFromGitLab {

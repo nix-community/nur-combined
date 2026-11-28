@@ -17,7 +17,8 @@
 # 2023-04-01	7d	the other pie day :o
 
 # configurables:
-var deadlines = "$[ENV.HOME]/knowledge/planner/deadlines.tsv"
+var home = get(ENV, "HOME", "/etc")
+var deadlines = "$home/knowledge/planner/deadlines.tsv"
 
 proc usage {
   echo "sane-deadlines:"

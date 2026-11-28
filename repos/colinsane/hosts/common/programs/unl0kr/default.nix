@@ -38,7 +38,7 @@ in
       "/run/udev"
       "/sys/class/input"
       "/sys/devices"
-      #v without /dev/tty0, it fails to fully take over the tty (even though it's ostensibly running on ${cfg.config.vt})
+      # vvv without /dev/tty0, it fails to fully take over the tty (even though it's ostensibly running on ${cfg.config.vt})
       # and your password is dumped to the framebuffer.
       # it still *works*, but wow, kinda weird and concerning
       "/dev/tty0"

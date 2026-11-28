@@ -7,7 +7,7 @@
 
 dumputils = require("./dump-common")
 
-SimpleEventHook {
+SimpleEventHook({
   name = "monitor-events",
   -- after = ...
   -- before = ...
@@ -16,8 +16,8 @@ SimpleEventHook {
       -- Constraint { "event.type", "=", "select-target" },
     },
   },
-  execute = function (event)
+  execute = function(event)
     print(dumputils:dump_event(event))
-  end
-}:register()
+  end,
+}):register()
 print("monitoring... do something like play/pause media, change volume, etc")

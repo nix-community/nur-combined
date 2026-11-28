@@ -54,8 +54,8 @@ popen_meta = {
         self:close()
         return nil, "closed"
       end
-    end
-  }
+    end,
+  },
   -- __gc = function(self) self:close() end
   -- __close = function(self) p:close() end
 }
@@ -63,7 +63,7 @@ popen_meta = {
 local function non_blocking_popen(cmd, read_buffer_size)
   -- the buffer for reading from the process
   local read_buffer_size = tonumber(read_buffer_size) or 2048
-  local read_buffer = ffi.new('uint8_t[?]',read_buffer_size)
+  local read_buffer = ffi.new("uint8_t[?]", read_buffer_size)
 
   -- get a FILE* for our command
   local file = assert(ffi.C.popen(cmd, "r"))
@@ -72,7 +72,7 @@ local function non_blocking_popen(cmd, read_buffer_size)
   local fd = ffi.C.fileno(file)
 
   -- set non-blocking mode for read
-  assert(ffi.C.fcntl(fd, F_SETFL, O_NONBLOCK)==0, "fcntl failed")
+  assert(ffi.C.fcntl(fd, F_SETFL, O_NONBLOCK) == 0, "fcntl failed")
 
   local p = {
     _fd = fd,
@@ -87,5 +87,5 @@ local function non_blocking_popen(cmd, read_buffer_size)
 end
 
 return {
-  non_blocking_popen = non_blocking_popen
+  non_blocking_popen = non_blocking_popen,
 }

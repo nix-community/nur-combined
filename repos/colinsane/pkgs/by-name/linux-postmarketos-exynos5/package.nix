@@ -8,7 +8,7 @@
   revertPanelSimplePatch ? false, # revert the commit which removed B116XW03 panel from panel-edp driver (fixes display output)
   sane-kernel-tools,
   writeTextFile,
-  #v nixpkgs calls `.override` on the kernel to configure additional things
+  # vvv nixpkgs calls `.override` on the kernel to configure additional things
   features ? [ ],
   randstructSeed ? "",
   ...

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   networking.networkmanager.enable = lib.mkDefault true;
   # systemd-networkd-wait-online.service reliably fails on lappy. docs don't match behavior. shit software.
@@ -29,12 +34,12 @@
 
   # fixup the services to run as `networkmanager` and with less permissions
   systemd.services.NetworkManager = {
-    serviceConfig.RuntimeDirectory = "NetworkManager";  # tells systemd to create /run/NetworkManager
+    serviceConfig.RuntimeDirectory = "NetworkManager"; # tells systemd to create /run/NetworkManager
     # serviceConfig.StateDirectory = "NetworkManager";  # tells systemd to create /var/lib/NetworkManager
     serviceConfig.User = "networkmanager";
     serviceConfig.Group = "networkmanager";
     serviceConfig.AmbientCapabilities = [
-      "CAP_KILL"  # required, else `nmcli d disconnect blah` says "Unable to determine UID of the request"
+      "CAP_KILL" # required, else `nmcli d disconnect blah` says "Unable to determine UID of the request"
       "CAP_NET_ADMIN"
       "CAP_NET_RAW"
       "CAP_NET_BIND_SERVICE"
@@ -45,10 +50,10 @@
       # "CAP_KILL"
     ];
     serviceConfig.CapabilityBoundingSet = [
-      "CAP_KILL"  # required, else `nmcli d disconnect blah` says "Unable to determine UID of the request"
+      "CAP_KILL" # required, else `nmcli d disconnect blah` says "Unable to determine UID of the request"
       "CAP_NET_ADMIN"
-      "CAP_NET_RAW"  # required, else `libndp: ndp_sock_open: Failed to create ICMP6 socket.`
-      "CAP_NET_BIND_SERVICE"  # this *does* seem to be necessary, though i don't understand why. DHCP?
+      "CAP_NET_RAW" # required, else `libndp: ndp_sock_open: Failed to create ICMP6 socket.`
+      "CAP_NET_BIND_SERVICE" # this *does* seem to be necessary, though i don't understand why. DHCP?
 
       # "CAP_DAC_OVERRIDE"
       # "CAP_SYS_MODULE"
@@ -58,26 +63,26 @@
     serviceConfig.LockPersonality = true;
     serviceConfig.NoNewPrivileges = true;
     serviceConfig.MemoryDenyWriteExecute = true;
-    serviceConfig.PrivateDevices = true;  # remount /dev with just the basics, syscall filter to block @raw-io
+    serviceConfig.PrivateDevices = true; # remount /dev with just the basics, syscall filter to block @raw-io
     serviceConfig.PrivateIPC = true;
     serviceConfig.PrivateTmp = true;
     # serviceConfig.PrivateUsers = true;  # BREAKS NetworkManager (presumably, it causes a new user namespace, breaking CAP_NET_ADMIN & others).  "platform-linux: do-change-link[3]: failure 1 (Operation not permitted)"
-    serviceConfig.ProtectClock = true;  # syscall filter to prevent changing the RTC
+    serviceConfig.ProtectClock = true; # syscall filter to prevent changing the RTC
     serviceConfig.ProtectControlGroups = true;
-    serviceConfig.ProtectHome = true;  # makes empty: /home, /root, /run/user
-    serviceConfig.ProtectHostname = true;  # probably not upstreamable: prevents changing hostname
-    serviceConfig.ProtectKernelLogs = true;  # disable /proc/kmsg, /dev/kmsg
-    serviceConfig.ProtectKernelModules = true;  # syscall filter to prevent module calls (probably not upstreamable: NM will want to load modules like `ppp`)
+    serviceConfig.ProtectHome = true; # makes empty: /home, /root, /run/user
+    serviceConfig.ProtectHostname = true; # probably not upstreamable: prevents changing hostname
+    serviceConfig.ProtectKernelLogs = true; # disable /proc/kmsg, /dev/kmsg
+    serviceConfig.ProtectKernelModules = true; # syscall filter to prevent module calls (probably not upstreamable: NM will want to load modules like `ppp`)
     # serviceConfig.ProtectKernelTunables = true;  # causes errors/warnings when opening files in /proc/sys/net/...; also breaks IPv6 SLAAC / link-local address creation!
     serviceConfig.ProtectProc = "invisible";
     serviceConfig.ProcSubset = "all";
-    serviceConfig.ProtectSystem = "strict";  # makes read-only: all but /dev, /proc, /sys.
+    serviceConfig.ProtectSystem = "strict"; # makes read-only: all but /dev, /proc, /sys.
     serviceConfig.RemoveIPC = true;
     serviceConfig.RestrictAddressFamilies = [
       "AF_INET"
       "AF_INET6"
-      "AF_NETLINK"  # breaks near DHCP without this
-      "AF_PACKET"  # for DHCP
+      "AF_NETLINK" # breaks near DHCP without this
+      "AF_PACKET" # for DHCP
       "AF_UNIX"
       # AF_ALG ?
       # AF_BLUETOOTH ?
@@ -85,7 +90,7 @@
     ];
     serviceConfig.RestrictNamespaces = true;
     serviceConfig.RestrictSUIDSGID = true;
-    serviceConfig.SystemCallArchitectures = "native";  # prevents e.g. aarch64 syscalls in the event that the kernel is multi-architecture.
+    serviceConfig.SystemCallArchitectures = "native"; # prevents e.g. aarch64 syscalls in the event that the kernel is multi-architecture.
     serviceConfig.SystemCallFilter = [
       "@system-service"
       "@privileged"
@@ -114,7 +119,7 @@
   # fix NetworkManager-dispatcher to actually run as a daemon,
   # and sandbox it a bit
   systemd.services.NetworkManager-dispatcher = {
-    #VVV so that /var/lib/hickory-dns will exist (the hook needs to write here).
+    # vvv so that /var/lib/hickory-dns will exist (the hook needs to write here).
     # but this creates a cycle: hickory-dns-localhost > network.target > NetworkManager-dispatcher > hickory-dns-localhost.
     # (seemingly) impossible to remove the network.target dep on NetworkManager-dispatcher.
     # before would be to have the dispatcher not write hickory-dns files
@@ -128,27 +133,27 @@
     # serviceConfig.RestartSec = "1s";
 
     # serviceConfig.DynamicUser = true;  # not possible, else we lose group perms (so can't write to `hickory-dns`'s files in the nm hook)
-    serviceConfig.User = "networkmanager";  # TODO: should arguably use `DynamicUser`
+    serviceConfig.User = "networkmanager"; # TODO: should arguably use `DynamicUser`
     serviceConfig.Group = "networkmanager";
     serviceConfig.LockPersonality = true;
     serviceConfig.NoNewPrivileges = true;
-    serviceConfig.PrivateDevices = true;  # remount /dev with just the basics, syscall filter to block @raw-io
+    serviceConfig.PrivateDevices = true; # remount /dev with just the basics, syscall filter to block @raw-io
     serviceConfig.PrivateIPC = true;
     serviceConfig.PrivateTmp = true;
     serviceConfig.PrivateUsers = true;
-    serviceConfig.ProtectClock = true;  # syscall filter to prevent changing the RTC
+    serviceConfig.ProtectClock = true; # syscall filter to prevent changing the RTC
     serviceConfig.ProtectControlGroups = true;
-    serviceConfig.ProtectHome = true;  # makes empty: /home, /root, /run/user
-    serviceConfig.ProtectHostname = true;  # probably not upstreamable: prevents changing hostname
-    serviceConfig.ProtectKernelLogs = true;  # disable /proc/kmsg, /dev/kmsg
-    serviceConfig.ProtectKernelModules = true;  # syscall filter to prevent module calls
+    serviceConfig.ProtectHome = true; # makes empty: /home, /root, /run/user
+    serviceConfig.ProtectHostname = true; # probably not upstreamable: prevents changing hostname
+    serviceConfig.ProtectKernelLogs = true; # disable /proc/kmsg, /dev/kmsg
+    serviceConfig.ProtectKernelModules = true; # syscall filter to prevent module calls
     serviceConfig.ProtectKernelTunables = true;
-    serviceConfig.ProtectSystem = "full";  # makes read-only: /boot, /etc/, /usr. `strict` isn't possible due to hickory-dns hook
+    serviceConfig.ProtectSystem = "full"; # makes read-only: /boot, /etc/, /usr. `strict` isn't possible due to hickory-dns hook
     serviceConfig.RestrictAddressFamilies = [
-      "AF_UNIX"  # required, probably for dbus or systemd connectivity
+      "AF_UNIX" # required, probably for dbus or systemd connectivity
     ];
     serviceConfig.RestrictSUIDSGID = true;
-    serviceConfig.SystemCallArchitectures = "native";  # prevents e.g. aarch64 syscalls in the event that the kernel is multi-architecture.
+    serviceConfig.SystemCallArchitectures = "native"; # prevents e.g. aarch64 syscalls in the event that the kernel is multi-architecture.
   };
 
   # harden wpa_supplicant (used by NetworkManager)
@@ -213,26 +218,29 @@
     #   -> if /etc/resolv.conf is a symlink to systemd-resolved, then behaves as "systemd-resolved".
     #   -> else, behaves as "default".
     # note that NM's resolv.conf isn't (necessarily) /etc/resolv.conf -- that is managed by nixos (via symlinking)
-    main.dns = let
-      dns = if config.services.resolved.enable then
-        "systemd-resolved"
-      else if
-        (config.sane.services.hickory-dns.enable && config.sane.services.hickory-dns.asSystemResolver)
-        || (config.services.unbound.enable && config.services.unbound.resolveLocalQueries)
-        || config.services.bind.enable  # bind config isn't easily inspectable; assume that it's acting as local resolver
-        || config.services.knot-resolver.enable # assume it's local DNS resolver
-      then
-        "none"
-      else
-        # omitting the option instructs NM to do a "best guess".
-        # this is nearly equivalent to "default", however NM will do checks like "is /etc/resolv.conf a symlink to systemd-resolved", etc,
-        # to actually try to understand the environment.
-        null
-      ;
-    in lib.mkIf (dns != null) dns;
+    main.dns =
+      let
+        dns =
+          if config.services.resolved.enable then
+            "systemd-resolved"
+          else if
+            (config.sane.services.hickory-dns.enable && config.sane.services.hickory-dns.asSystemResolver)
+            || (config.services.unbound.enable && config.services.unbound.resolveLocalQueries)
+            || config.services.bind.enable # bind config isn't easily inspectable; assume that it's acting as local resolver
+            || config.services.knot-resolver.enable # assume it's local DNS resolver
+          then
+            "none"
+          else
+            # omitting the option instructs NM to do a "best guess".
+            # this is nearly equivalent to "default", however NM will do checks like "is /etc/resolv.conf a symlink to systemd-resolved", etc,
+            # to actually try to understand the environment.
+            null;
+      in
+      lib.mkIf (dns != null) dns;
     main.systemd-resolved = false;
   };
-  environment.etc."NetworkManager/system-connections".source = "/var/lib/NetworkManager/system-connections";
+  environment.etc."NetworkManager/system-connections".source =
+    "/var/lib/NetworkManager/system-connections";
 
   # the default backend is "wpa_supplicant".
   # wpa_supplicant reliably picks weak APs to connect to.
@@ -267,7 +275,10 @@
   users.users.networkmanager = {
     isSystemUser = true;
     group = "networkmanager";
-    extraGroups = [ "hickory-dns" "wpa_supplicant" ];
+    extraGroups = [
+      "hickory-dns"
+      "wpa_supplicant"
+    ];
   };
 
   # there is, unfortunately, no proper interface by which to plumb wpa_supplicant into the NixOS service, except by overlay.

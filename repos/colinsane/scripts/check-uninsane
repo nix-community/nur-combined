@@ -22,8 +22,8 @@ parseArgs() {
     local arg=$1
     shift
     case $arg in
-      (-v|--verbose)
-        verbose=$(( $verbose + 1 ))
+      (-v | --verbose)
+        verbose=$(($verbose + 1))
         ;;
       (*)
         usage
@@ -48,7 +48,7 @@ check() {
   if [ "$verbose" -ge 2 ]; then
     "${runner[@]}" "$@"
   else
-    "${runner[@]}" "$@" > /dev/null
+    "${runner[@]}" "$@" >/dev/null
   fi
   local rc=$?
   if [ $rc -ne 0 ]; then
@@ -77,7 +77,7 @@ runOnHost() {
   fi
 }
 
-check "self-test" false 2> /dev/null
+check "self-test" false 2>/dev/null
 if [ $last_error -eq 0 ]; then
   echo "SELF-TEST FAILED" >&2
   echo "SELF-TEST FAILED"
@@ -94,7 +94,6 @@ check "[DOOF] uninsane.org. DNS" nslookup uninsane.org. "$DOOF_IPV4"
 # OVPNS DNS is no longer used
 # check "[OVPNS] uninsane.org. DNS" nslookup uninsane.org. "$OVPNS_IPV4"
 check "[FROM-OVPN] uninsane.org. DNS" sane-vpn do ovpnd-us -- nslookup uninsane.org.
-
 
 # N.B.: intermediary DNS servers might not understand tcp -> dig directly at uninsane.org's NS
 check "uninsane.org. DNS [tcp]" dig +tcp "@$DOOF_IPV4" uninsane.org.
@@ -166,8 +165,8 @@ _bitcoindSynchronized() {
   local btcBlocks=$(echo "$info" | jq .blocks)
   local btcHeaders=$(echo "$info" | jq .headers)
   local now=$(date '+%s')
-  [ $(( $now - $btcTime )) -lt $(( 2*60*60 )) ] && \
-    [ $(( $btcHeaders - $btcBlocks )) -lt 12 ]
+  [ $(($now - $btcTime)) -lt $((2 * 60 * 60)) ] &&
+    [ $(($btcHeaders - $btcBlocks)) -lt 12 ]
 }
 check "Bitcoind synchronized" _bitcoindSynchronized
 check "Bitcoin Lightning" runOnHost servo clightning-sane status

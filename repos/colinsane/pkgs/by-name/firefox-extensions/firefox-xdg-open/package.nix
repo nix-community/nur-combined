@@ -50,7 +50,7 @@ stdenvNoCC.mkDerivation {
         desktopName = "xdg-open";
         comment = "Decodes xdg-open URIs used to force applications to open links via the system handler";
         noDisplay = true;
-        #v not sure which of these are necessary; borrowed from Zoom.desktop, as that seems to better integrate w/ Firefox.
+        # vvv not sure which of these are necessary; borrowed from Zoom.desktop, as that seems to better integrate w/ Firefox.
         terminal = false;
         mimeTypes = [
           "x-scheme-handler/xdg-open"

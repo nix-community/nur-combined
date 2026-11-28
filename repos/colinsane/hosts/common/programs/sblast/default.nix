@@ -31,8 +31,8 @@ in
   sane.programs.blast-to-default = {
     sandbox.whitelistAudio = true;
     sandbox.net = "clearnet";
-    #v  else it fails to reap its children (or, maybe, it fails to hook its parent's death signal?)
-    #v  might be possible to remove this, but kinda hard to see a clean way.
+    # vvv  else it fails to reap its children (or, maybe, it fails to hook its parent's death signal?)
+    # vvv  might be possible to remove this, but kinda hard to see a clean way.
     sandbox.keepPidsAndProc = true;
     suggestedPrograms = [ "sblast" ];
   };

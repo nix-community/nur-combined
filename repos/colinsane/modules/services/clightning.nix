@@ -175,7 +175,7 @@ in
       serviceConfig.RestrictSUIDSGID = true;
       serviceConfig.SystemCallArchitectures = "native";
 
-      #VVV relaxed because my sandbox wrapper uses namespaces
+      # vvv relaxed because my sandbox wrapper uses namespaces
       serviceConfig.RestrictNamespaces = false;
       serviceConfig.ProcSubset = "all";
       serviceConfig.ProtectHostname = false;

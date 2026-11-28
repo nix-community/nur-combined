@@ -122,8 +122,8 @@ in
     #     SUN8I_DE2_CCU = lib.mkForce no;  # nixpkgs' option parser gets confused on this one, somehow
     #     NET_VENDOR_MICREL = no;  # to overcome broken KS8851_MLL (broken by nixpkgs' `extraConfig`)
     #     # KS8851_MLL = lib.mkForce module;  # nixpkgs' option parser gets confused on this one, somehow
-    #     #v XXX: required for e.g. SECURITY_LANDLOCK (specified by upstream nixpkgs) to take effect if `autoModules = false`
-    #     #v seems that upstream linux (the defconfigs?), it defaults to Yes for:
+    #     # vvv XXX: required for e.g. SECURITY_LANDLOCK (specified by upstream nixpkgs) to take effect if `autoModules = false`
+    #     # vvv seems that upstream linux (the defconfigs?), it defaults to Yes for:
     #     # - arch/x86/configs/x86_64_defconfig
     #     # - arch/arm64/configs/defconfig
     #     # but that it's left unset for e.g. arch/arm64/configs/pinephone_defconfig

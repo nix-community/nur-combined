@@ -1,5 +1,7 @@
 ## machine learning models
+
 source from:
+
 - <https://huggingface.co/ggml-org>
 - <https://huggingface.co/unsloth/models>
 - <https://huggingface.co/bartowski/models>
@@ -7,11 +9,13 @@ source from:
 - <https://unsloth.ai/docs>
 
 ## social/ecosystem
+
 - <https://www.reddit.com/r/LocalLLaMA/>
 - <https://www.servethehome.com/category/ai-deep-learning/>
 - <https://forum.level1techs.com/>
 
 ### leaderboards
+
 - <https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard>
   - specifically for locally-hosted models
 - <https://lmarena.ai/leaderboard>
@@ -28,13 +32,14 @@ source from:
   - for uncensored models
 
 ### for sensitive/illicit things ("Uncensored General Intelligence"):
+
 - <https://www.reddit.com/r/LocalLLaMA/comments/1hk0ldo/december_2024_uncensored_llm_test_results/>
 - search "abliterated" or "abliterate"
 - search "uncensored"
 - search "Eric Hartford" <https://erichartford.com/uncensored-models>
 
-
 ## tooling
+
 - `hf` CLI tool
   - download whole model directories like `hf download xai-org/grok-2 --local-dir /local/grok-2`
 - `fetchgit { fetchLFS = true; rootDir = ...; }`
@@ -42,27 +47,29 @@ source from:
   - it's likely that split gguf files "just work"?
 
 ### huggingface API
+
 - <https://huggingface.co/.well-known/openapi.json>
 
-
 ## formats
+
 - llama-cpp is known to be compatible with:
   - [x] gguf
   - [x] llamafile (obsolete)
 
-
 ## quantization
+
 - `Q4`: 4 bits per weight
 - `Q4_K`: 4 bits per weight, but with k-means clustering.
   - weights are grouped into superblocks of 8 or 16.
   - each superblock has a single scale (usually 6 bit quantized?), and each weight within it is multiplied by it during expansion.
 - `Q4_K_{S,M,L}`: variants on `Q4_K` optimized for Small, Medium, or Large models.
-...
+  ...
 - K-type quantizations introduced here: <https://github.com/ggml-org/llama.cpp/pull/1684>
   - "`GGML_TYPE_Q4_K`: type-1: 4-bit quantization in super-blocks containing 8 blocks, each block having 32 weights. Scales and mins are quantized with 6 bits. This ends up using 4.5 bpw."
   - "`LLAMA_FTYPE_MOSTLY_Q4_K_M` - uses `GGML_TYPE_Q6_K` for half of the attention.wv and `feed_forward.w2` tensors, else `GGML_TYPE_Q4_K`"
 
 ## brands
+
 - Kimi
 - MiniMax
 - NVIDIA - Nemotron

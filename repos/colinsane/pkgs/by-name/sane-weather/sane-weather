@@ -19,21 +19,23 @@ import gi
 import logging
 import time
 
-gi.require_version('GWeather', '4.0')
+gi.require_version("GWeather", "4.0")
 
 from gi.repository import GLib
 from gi.repository import GWeather
 
 logger = logging.getLogger(__name__)
 
+
 class WeatherSource:
-    '''
+    """
     this class abstracts operations which would query a remote weather server
-    '''
+    """
+
     def __init__(self):
         self.info = GWeather.Info()
-        self.info.set_application_id('org.uninsane.sane-weather')
-        self.info.set_contact_info('contact@uninsane.org')
+        self.info.set_application_id("org.uninsane.sane-weather")
+        self.info.set_contact_info("contact@uninsane.org")
 
         self.info.set_enabled_providers(
             # defaults to METAR | IWIN.
@@ -58,10 +60,10 @@ class WeatherSource:
         self.world = GWeather.Location.get_world()
 
     def query_loc(self, loc: GWeather.Location) -> None:
-        '''
+        """
         query the weather for some location, asynchronously.
         after calling, poll the `try_...` methods to check for results.
-        '''
+        """
         logger.debug(f"querying: {loc.get_coords()}")
         self.info.set_location(loc)
         self.info.update()
@@ -69,7 +71,8 @@ class WeatherSource:
     def try_get_celcius(self) -> float | None:
         valid, temp = self.info.get_value_temp(GWeather.TemperatureUnit.CENTIGRADE)
         logger.debug(f"try_get_celcius: valid={valid}, temp={temp}")
-        if not valid: temp = None
+        if not valid:
+            temp = None
 
         return temp
 
@@ -94,6 +97,7 @@ class TopLevel:
     glib calls `poll` in a loop, and each time we try to work through another item in the work_queue.
     when the work_queue is empty, exit glib's main loop & return to the caller (from `run`).
     """
+
     def __init__(self):
         self._loop = GLib.MainLoop()
         self.source = WeatherSource()
@@ -139,6 +143,7 @@ class TopLevel:
         # re-queue this idle fn
         return True
 
+
 # operations:
 # think of these as public methods on the `TopLevel` class,
 # except abstracted as values for the sake of glib's event loop.
@@ -146,14 +151,18 @@ class QueryOp:
     def __init__(self, loc: GWeather.Location):
         self.loc = loc
 
+
 class PrintTempOp:
     pass
+
 
 class DiagnosticsOp:
     pass
 
+
 class IdleOp:
     pass
+
 
 class ExitOp:
     pass
@@ -162,16 +171,26 @@ class ExitOp:
 def main():
     logging.basicConfig()
 
-    parser = argparse.ArgumentParser(description="acquire weather information for user display")
-    parser.add_argument(
-        '--station-code',
-        default='KSEA',
-        help='4-letter METAR weather station code for where we want to know weather\n '
-             'to find your station see here: <https://aviationweather.gov/metar>'
+    parser = argparse.ArgumentParser(
+        description="acquire weather information for user display"
     )
-    parser.add_argument('--break-before', action='store_true', help='drop into a REPL before do anything (for debugging)')
-    parser.add_argument('--break-after', action='store_true', help='drop into a REPL after completing the work (for debugging)')
-    parser.add_argument('--verbose', action='store_true', help='enable verbose logging')
+    parser.add_argument(
+        "--station-code",
+        default="KSEA",
+        help="4-letter METAR weather station code for where we want to know weather\n "
+        "to find your station see here: <https://aviationweather.gov/metar>",
+    )
+    parser.add_argument(
+        "--break-before",
+        action="store_true",
+        help="drop into a REPL before do anything (for debugging)",
+    )
+    parser.add_argument(
+        "--break-after",
+        action="store_true",
+        help="drop into a REPL after completing the work (for debugging)",
+    )
+    parser.add_argument("--verbose", action="store_true", help="enable verbose logging")
 
     args = parser.parse_args()
 
@@ -180,7 +199,9 @@ def main():
         GLib.log_set_debug_enabled(True)
 
     toplevel = TopLevel()
-    here = GWeather.Location.find_by_station_code(toplevel.source.world, args.station_code)
+    here = GWeather.Location.find_by_station_code(
+        toplevel.source.world, args.station_code
+    )
 
     if args.break_before:
         code.interact(local=dict(**globals(), **locals()))
@@ -198,5 +219,5 @@ def main():
         code.interact(local=dict(**globals(), **locals()))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

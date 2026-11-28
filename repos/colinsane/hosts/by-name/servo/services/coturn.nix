@@ -117,7 +117,7 @@ in
   sops.secrets."coturn_shared_secret".group = "turnserver";
   sops.secrets."coturn_shared_secret".mode = "0440";
 
-  #v disable to allow unauthenticated access (or set `services.coturn.no-auth = true`)
+  # vvv disable to allow unauthenticated access (or set `services.coturn.no-auth = true`)
   services.coturn.use-auth-secret = true;
   services.coturn.static-auth-secret-file = "/run/secrets/coturn_shared_secret";
   services.coturn.lt-cred-mech = true; # XXX: use-auth-secret overrides lt-cred-mech

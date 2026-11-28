@@ -60,7 +60,7 @@
   linuxManualConfig,
   sane-kernel-tools,
   writeTextFile,
-  #VVV nixpkgs calls `.override` on the kernel to configure additional things
+  # vvv nixpkgs calls `.override` on the kernel to configure additional things
   ...
 }@args:
 
@@ -72,7 +72,7 @@ let
     "sane-kernel-tools"
     "writeTextFile"
   ];
-  # VVV sources
+  # vvv sources
   # - pmaports.rev: update this first.
   # - src.rev, version: grab from pmaports device/community/linux-postmarketos-qcom-sdm845/APKBUILD
   pmaports = fetchFromGitLab {

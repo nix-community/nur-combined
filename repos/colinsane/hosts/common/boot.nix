@@ -1,6 +1,17 @@
-{ config, lib, pkgs, ... }:
 {
-  boot.initrd.supportedFilesystems = [ "ext4" "btrfs" "ext2" "ext3" "vfat" ];
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  boot.initrd.supportedFilesystems = [
+    "ext4"
+    "btrfs"
+    "ext2"
+    "ext3"
+    "vfat"
+  ];
 
   boot.initrd.systemd.emergencyAccess = true;
   boot.initrd.systemd.extraBin = {
@@ -19,12 +30,12 @@
 
   boot.initrd.availableKernelModules = [
     # "dm_mod"
-    "mmc_block"  # required to load stage2 from SD card (PPP)
+    "mmc_block" # required to load stage2 from SD card (PPP)
     # "mmc_core"
     # "sdhci"
     # "sdhci_pci"
     # "uas"
-    "usb_storage"  # required to load stage2 from SD card (MeLE quieter 4C, rpi400)
+    "usb_storage" # required to load stage2 from SD card (MeLE quieter 4C, rpi400)
   ];
 
   # ships initrd kernel modules relevant to boot/display for common SBCs
@@ -32,7 +43,7 @@
 
   boot.kernelParams = [
     "boot.shell_on_fail"
-    #v experimental full pre-emption for hopefully better call/audio latency on moby.
+    # vvv experimental full pre-emption for hopefully better call/audio latency on moby.
     # also toggleable at runtime via /sys/kernel/debug/sched/preempt
     # defaults to preempt=voluntary
     # "preempt=full"
@@ -51,37 +62,42 @@
   # - as of 2024/08/xx, my boot fails on 6.6, but works on 6.9 and (probably; recently) 6.8.
   # simpler to keep near the latest kernel on all devices,
   # and also makes certain that any weird system-level bugs i see aren't likely to be stale kernel bugs.
-  boot.kernelPackages = let
-    base = pkgs.linux_latest;
-    # base = pkgs.linux_testing;
-    kernel =
-      # `linux.override { ... }` accepts any argument names and silently ignores unrecognized options:
-      # assert that we're naming options that are actually processed by `buildLinux`.
-      assert base.override { autoModules = true; } != base.override { autoModules = false; };
-      assert base.override { preferBuiltin = true; } != base.override { preferBuiltin = false; };
-      base.override {
-        autoModules = true;
-        preferBuiltin = false;
-      };
-  in
+  boot.kernelPackages =
+    let
+      base = pkgs.linux_latest;
+      # base = pkgs.linux_testing;
+      kernel =
+        # `linux.override { ... }` accepts any argument names and silently ignores unrecognized options:
+        # assert that we're naming options that are actually processed by `buildLinux`.
+        assert base.override { autoModules = true; } != base.override { autoModules = false; };
+        assert base.override { preferBuiltin = true; } != base.override { preferBuiltin = false; };
+        base.override {
+          autoModules = true;
+          preferBuiltin = false;
+        };
+    in
     lib.mkDefault (pkgs.linuxPackagesFor kernel);
 
   # default nixos behavior is to error if a kernel module is provided by more than one package.
   # in fact, some of my hosts (moby) *intentionally* overwrite the in-tree modules, so inline this buildEnv logic
   # from <repo:nixos/nixpkgs:nixos/modules/system/boot/kernel.nix> AKA pkgs.aggregateModules
   # but configured to **ignore collisions**
-  system.modulesTree = lib.mkForce [(
-    (pkgs.aggregateModules (
-      config.boot.extraModulePackages ++ [
-        (lib.getOutput "modules" config.boot.kernelPackages.kernel)
-      ]
-    )).overrideAttrs {
-      name = "kernel-modules-merged-sane";
-      # earlier items override the contents of later items
-      ignoreCollisions = true;
-      # checkCollisionContents = false;
-    }
-  )];
+  system.modulesTree = lib.mkForce [
+    (
+      (pkgs.aggregateModules (
+        config.boot.extraModulePackages
+        ++ [
+          (lib.getOutput "modules" config.boot.kernelPackages.kernel)
+        ]
+      )).overrideAttrs
+        {
+          name = "kernel-modules-merged-sane";
+          # earlier items override the contents of later items
+          ignoreCollisions = true;
+          # checkCollisionContents = false;
+        }
+    )
+  ];
 
   # nixpkgs.hostPlatform.linux-kernel = (lib.systems.elaborate config.nixpkgs.hostPlatform.system).linux-kernel // {
   #   # explicitly ignore nixpkgs' extraConfig and preferBuiltin options
@@ -115,15 +131,25 @@
   boot.loader.systemd-boot.enable = lib.mkDefault true;
   boot.loader.systemd-boot.configurationLimit = lib.mkDefault 20;
   boot.loader.systemd-boot.edk2-uefi-shell.enable = lib.mkDefault true;
-  boot.loader.systemd-boot.memtest86.enable = lib.mkDefault
-    (lib.meta.availableOn pkgs.stdenv.hostPlatform pkgs.memtest86plus);
+  boot.loader.systemd-boot.memtest86.enable = lib.mkDefault (
+    lib.meta.availableOn pkgs.stdenv.hostPlatform pkgs.memtest86plus
+  );
 
-  warnings = lib.optionals (config.boot.loader.systemd-boot.enable && config.hardware.deviceTree.package != null && config.hardware.deviceTree.name == null) [
-    ("systemd-boot enabled on a device-tree-enabled system but without configuring hardware.deviceTree.name: " +
-    "system will boot against the platform firmware's .dtb instead of the kernel's more up-to-date dtb")
-  ];
+  warnings =
+    lib.optionals
+      (
+        config.boot.loader.systemd-boot.enable
+        && config.hardware.deviceTree.package != null
+        && config.hardware.deviceTree.name == null
+      )
+      [
+        (
+          "systemd-boot enabled on a device-tree-enabled system but without configuring hardware.deviceTree.name: "
+          + "system will boot against the platform firmware's .dtb instead of the kernel's more up-to-date dtb"
+        )
+      ];
 
-  hardware.enableAllFirmware = lib.mkDefault true;  # firmware with licenses that don't allow for redistribution. fuck lawyers, fuck IP, give me the goddamn firmware.
+  hardware.enableAllFirmware = lib.mkDefault true; # firmware with licenses that don't allow for redistribution. fuck lawyers, fuck IP, give me the goddamn firmware.
   # hardware.enableRedistributableFirmware = true;  # proprietary but free-to-distribute firmware (extraneous to `enableAllFirmware` option)
 
   # default is 252274, which is too low particularly for servo.

@@ -106,8 +106,8 @@ in
         ollama = null;
         python3Packages = pkgs.python3Packages.overrideScope (
           _self: super: {
-            #v XXX(2025-12-07): does not cross compile (markitdown -> speechrecognition -> onnxruntime)
-            #v XXX(2026-10-06): alpaca references `markitdown.optional-dependencies.<...>` though, so plumb the attrnames.
+            # vvv XXX(2025-12-07): does not cross compile (markitdown -> speechrecognition -> onnxruntime)
+            # vvv XXX(2026-10-06): alpaca references `markitdown.optional-dependencies.<...>` though, so plumb the attrnames.
             markitdown = pkgs.emptyDirectory // {
               optional-dependencies = lib.mapAttrs (_: _: [ ]) super.markitdown.optional-dependencies;
             };

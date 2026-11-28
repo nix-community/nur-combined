@@ -14,7 +14,7 @@
 
   systemd.network.enable = true;
   networking.useNetworkd = true;
-  networking.usePredictableInterfaceNames = false;  # set false to get `eth0`, `wlan0`, etc instead of `enp3s0`/etc
+  networking.usePredictableInterfaceNames = false; # set false to get `eth0`, `wlan0`, etc instead of `enp3s0`/etc
 
   # view refused/dropped packets with: `sudo journalctl -k`
   # networking.firewall.logRefusedPackets = true;

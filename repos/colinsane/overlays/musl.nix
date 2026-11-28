@@ -259,7 +259,7 @@ super.lib.composeManyExtensions [
     #   # to detect that, but i can't find a way to do that w/o infinite rec.
     #   stdenv = final._pkgsSystemd.stdenv;
     # };
-    #vvv doesn't actually reduce rebuilds, hm.
+    # vvv doesn't actually reduce rebuilds, hm.
     # systemdLibs = prev.systemdLibs;
     # systemdMinimal = prev.systemdMinimal;
 
@@ -341,13 +341,17 @@ super.lib.composeManyExtensions [
       '';
     });
 
-    # Rust's musl target links statically, so system zstd needs libzstd.a.
-    # 2026-11-26: musl rwlocks scale poorly: at 512 threads (ISC_TASK_WORKERS=$NIX_BUILD_CORES),
-    # isc_rwlock_benchmark exceeds the 300s unit-test watchdog. glibc builds pass.
+    # 2026-11-26: qpdb_test FAILs at high core count:
+    # > bind> [ RUN      ] overmempurge_bigrdata
+    # > bind> netmgr/netmgr.c:314: REQUIRE(({ uint_fast32_t __v; __v = __atomic_fetch_sub (((&mgr->references)), ((1)), (memory_order_acq_rel)); ((void)((__v > 0) || ((isc_assertion_failed)("netmgr/netmgr.c", 314, isc_assertiontype_insist, "__v > 0"), 0))); __v; }) == 1) failed.
+    # this is in addition to the rwlock_test which fails on x86.
     # bind = prev.bind.overrideAttrs (prevAttrs: {
-    #   preCheck = (prevAttrs.preCheck or "") + ''
-    #     export ISC_TASK_WORKERS=$(( NIX_BUILD_CORES > 64 ? 64 : NIX_BUILD_CORES ))
-    #   '';
+    #   preCheck = ''
+    #     if (( NIX_BUILD_CORES == 0 || NIX_BUILD_CORES > 128 )); then
+    #       export NIX_BUILD_CORES=128
+    #     fi
+    #   ''
+    #   + (prevAttrs.preCheck or "");
     # });
 
     # 2026-11-14: still required
@@ -382,15 +386,18 @@ super.lib.composeManyExtensions [
     # this override fixes the curl used by `fetchurl` callers -- FOD derivations which do not invalidate when their inputs change.
     # as such, you can drop this override after a successful system build, and observe no rebuilds, despite the bug persisting!
     # ^^^^ run that command before dropping ^^^^
-    coreutils = prev.coreutils.overrideAttrs (upstream: lib.optionalAttrs (
-      upstream.buildInputs == [ ] && (final.musl.allocatorModel or "malloc-ng") == "mimalloc"
-    ) {
-      # this coreutils parameterization fails its `write-errors` unit test.
-      # that unit test budgets 12 MiB for the environment, but mimalloc pads to 32 MiB.
-      checkFlags = (upstream.checkFlags or [ ]) ++ [
-        "TESTS=$(filter-out tests/misc/write-errors.sh,$(all_tests) $(factor_tests))"
-      ];
-    });
+    coreutils = prev.coreutils.overrideAttrs (
+      upstream:
+      lib.optionalAttrs
+        (upstream.buildInputs == [ ] && (final.musl.allocatorModel or "malloc-ng") == "mimalloc")
+        {
+          # this coreutils parameterization fails its `write-errors` unit test.
+          # that unit test budgets 12 MiB for the environment, but mimalloc pads to 32 MiB.
+          checkFlags = (upstream.checkFlags or [ ]) ++ [
+            "TESTS=$(filter-out tests/misc/write-errors.sh,$(all_tests) $(factor_tests))"
+          ];
+        }
+    );
 
     # 2026-01-29: tried, but could not fix build
     # dante = prev.dante.overrideAttrs (upstream: {

@@ -114,7 +114,7 @@
       ];
       menu.name = "Exit";
       output-switcher = true; # allow changing the default audio sink
-      #v `show-<x>` means "show the NUMERICAL VALUE corresponding to <x>"
+      # vvv `show-<x>` means "show the NUMERICAL VALUE corresponding to <x>"
       #  e.g. show-battery means "show the battery _percentage_ next to its icon".
       show-battery = true;
       show-brightness = false;

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   cfg = config.sane.guest;
@@ -13,18 +18,27 @@ in
       isNormalUser = true;
       home = "/home/guest";
       subUidRanges = [
-        { startUid=200000; count=1; }
+        {
+          startUid = 200000;
+          count = 1;
+        }
       ];
       group = "users";
       # initialPassword = lib.mkDefault "";
       shell = pkgs.zsh;
     };
 
-    sane.users.guest.fs.".ssh/authorized_keys".symlink.target = config.sops.secrets."guest/authorized_keys".path or "/dev/null";
+    sane.users.guest.fs.".ssh/authorized_keys".symlink.target =
+      config.sops.secrets."guest/authorized_keys".path or "/dev/null";
 
     sane.persist.sys.byStore.plaintext = lib.mkIf cfg.enable [
       # intentionally allow other users to write to the guest folder
-      { path = "/home/guest"; user = "guest"; group = "users"; mode = "0775"; }
+      {
+        path = "/home/guest";
+        user = "guest";
+        group = "users";
+        mode = "0775";
+      }
     ];
   };
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i bash ../. -A static-nix-shell.mkBash --arg packages 'ps: [ ps.bash ps.deadnix ps.nixfmt ps.statix ps.treefmt ps.treefmt-nix-shell ]'
+#!nix-shell -i bash ../. -A static-nix-shell.mkBash --arg packages 'ps: [ ps.bash ps.deadnix ps.mdformat ps.nixfmt ps.ruff ps.shfmt-sane ps.statix ps.stylua ps.treefmt ps.treefmt-nix-shell ]'
 
 # docs:
 # statix: <https://github.com/molybdenumsoftware/statix>
@@ -8,6 +8,24 @@
 # - [ ] investigate .editorconfig
 # - [ ] enable on full tree
 # - [ ] apply treefmt to ALL tracked files, not just nix files
+#   - [ ] c, h
+#   - [ ] dtso
+#   - [ ] js
+#   - [ ] json
+#   - [ ] ha (hare)
+#   - [x] lua
+#   - [ ] Makefile
+#   - [x] md
+#   - [x] nix
+#   - [x] py
+#   - [ ] rs
+#   - [x] sh
+#   - [ ] toml
+# - [ ] ensure i have no shebang-based scripts which aren't linted
+#   - [ ] #!/bin/sh
+#   - [ ] #!/usr/bin/env bash
+#   - [ ] #!/usr/bin/env python
+#   - [ ] #!/usr/bin/env sh
 
 usage() {
   echo "lint: flag style errors across the repo"
@@ -25,9 +43,16 @@ usage() {
 
 # TODO: enable more in time...
 DEFAULT_PATHS=(
-  hosts/common/programs
+  doc
+  # hosts/by-name
+  hosts/common
+  # hosts/modules
+  integrations
+  # modules
   overlays
   pkgs
+  scripts
+  templates
 )
 
 doFix=
@@ -38,7 +63,7 @@ parseArgs() {
     local arg=$1
     shift
     case "$arg" in
-      (-h|--help)
+      (-h | --help)
         usage
         ;;
       (--fix)
@@ -53,7 +78,7 @@ parseArgs() {
     esac
   done
 
-  if ! (( ${#paths[@]} )); then
+  if ! ((${#paths[@]})); then
     paths=("${DEFAULT_PATHS[@]}")
   fi
 }
@@ -77,9 +102,10 @@ lint_statix() {
 }
 
 maybe_format() {
-  if [[ -n "$doFormat" ]]; then
+  if [[ -n "$doFormat" || -n "$doFix" ]]; then
     treefmt "$@"
   fi
+  # treefmt has no "dry run" option, else we would show a proposed diff, or just "files not adhering to treefmt" here.
 }
 
 for path in "${paths[@]}"; do

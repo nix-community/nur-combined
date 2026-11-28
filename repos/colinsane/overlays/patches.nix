@@ -186,13 +186,27 @@ super.lib.composeManyExtensions [
     # });
 
     # upstreaming: <https://github.com/NixOS/nixpkgs/pull/582586>
-    # bind = prev.bind.overrideAttrs {
-    #   # XXX(2026-10-11): isc_rwlock_benchmark fails for extremely high core count (512).
-    #   # `nix-build -A bind --cores 32` still causes it to use 512 cores.
-    #   #   (fixed by https://github.com/NixOS/nixpkgs/pull/582586)
-    #   # doCheck = false;
-    #   NIX_BUILD_CORES = "128";
-    # };
+    bind = prev.bind.overrideAttrs (prevAttrs: {
+      # XXX(2026-11-26): qpdb_test FAILs at high core count too though:
+      # > bind> [ RUN      ] overmempurge_bigrdata
+      # > bind> netmgr/netmgr.c:314: REQUIRE(({ uint_fast32_t __v; __v = __atomic_fetch_sub (((&mgr->references)), ((1)), (memory_order_acq_rel)); ((void)((__v > 0) || ((isc_assertion_failed)("netmgr/netmgr.c", 314, isc_assertiontype_insist, "__v > 0"), 0))); __v; }) == 1) failed.
+      # so there's no trivially upstreamable fix -- just drop the core count
+      preCheck = ''
+        if (( NIX_BUILD_CORES == 0 || NIX_BUILD_CORES > 128 )); then
+          export NIX_BUILD_CORES=128
+        fi
+      ''
+      + (prevAttrs.preCheck or "");
+
+      # XXX(2026-10-11): the lock benchmarks exceed the 300s test watchdog for high core counts.
+      # nixpkgs disables them on riscv only, so disable them on all architectures here.
+      # preCheck = (prevAttrs.preCheck or "") + ''
+      #   # lock benchmarks exceed the 300s test watchdog on high-core-count builders
+      #   sed -i '/^ISC_TEST_ENTRY(isc_mutex_benchmark/d' tests/isc/mutex_test.c
+      #   sed -i '/^ISC_TEST_ENTRY_CUSTOM(isc_rwlock_benchmark/d' tests/isc/rwlock_test.c
+      #   sed -i '/^ISC_TEST_ENTRY(isc_spinlock_benchmark/d' tests/isc/spinlock_test.c
+      # '';
+    });
 
     # XXX(2026-10-02): gcc15 -> gcc16 upgrade detects more warnings than before; default -Werror flag breaks the build.
     # clightning = prev.clightning.overrideAttrs (prevAttrs: {
@@ -281,7 +295,8 @@ super.lib.composeManyExtensions [
             if (( NIX_BUILD_CORES > 256 )); then
               NIX_BUILD_CORES=256
             fi
-          '' + (prevAttrs.preConfigure or "");
+          ''
+          + (prevAttrs.preConfigure or "");
         });
         # XXX(2026-11-26): ghc 9.12 (unlike 9.10 and 9.14) lacks the RTS fix for <https://gitlab.haskell.org/ghc/ghc/-/issues/25560>,
         # so any threaded program calling `setNumCapabilities n` w/ n > 256 segfaults in `assignNurseriesToCapabilities`.

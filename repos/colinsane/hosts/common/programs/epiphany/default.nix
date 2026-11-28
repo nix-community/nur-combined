@@ -38,7 +38,7 @@
     sandbox.extraHomePaths = [
       ".config/epiphany" # else it gets angry at launch
       "tmp"
-      #v these are only used for epiphany "webapps" (e.g. kagi-epiphany)
+      # vvv these are only used for epiphany "webapps" (e.g. kagi-epiphany)
       ".local/share/applications"
       ".config/mimeo/associations.txt"
     ];

@@ -7,7 +7,6 @@
   # some services which use private directories error if the parent (/var/lib/private) isn't 700.
   sane.fs."/var/lib/private".dir.acl.mode = "0700";
 
-
   # allocate a proper /tmp fs, else its capacity will be limited as per impermanence defaults (i.e. 1 GB).
   fileSystems."/tmp" = {
     device = "none";
@@ -57,6 +56,5 @@
   # but it decreases working memory under the heaviest of loads by however much space the compressed memory occupies (e.g. 50% if 2:1; 25% if 4:1)
   zramSwap.memoryPercent = 100;
 
-  programs.fuse.userAllowOther = true;  # necessary for `allow_other` or `allow_root` options.
+  programs.fuse.userAllowOther = true; # necessary for `allow_other` or `allow_root` options.
 }
-

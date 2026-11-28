@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ../modules
@@ -26,9 +31,9 @@
   ];
 
   # nixpkgs.config.allowAliases = false;
-  nixpkgs.config.allowUnfree = true;  # NIXPKGS_ALLOW_UNFREE=1
-  nixpkgs.config.allowBroken = true;  # NIXPKGS_ALLOW_BROKEN=1
-  nixpkgs.config.allowUnsupportedSystem = true;  # NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
+  nixpkgs.config.allowUnfree = true; # NIXPKGS_ALLOW_UNFREE=1
+  nixpkgs.config.allowBroken = true; # NIXPKGS_ALLOW_BROKEN=1
+  nixpkgs.config.allowUnsupportedSystem = true; # NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
   # fetchedSourceNameDefault = "versioned" (mass rebuild): place src paths at /nix/store/$hash-$name-$version instead of $hash-source
   # nixpkgs.config.fetchedSourceNameDefault = "versioned";
 
@@ -49,7 +54,7 @@
   services.irqbalance.enable = true;
 
   # time.timeZone = "America/Los_Angeles";
-  time.timeZone = "Etc/UTC";  # DST is too confusing for me => use a stable timezone
+  time.timeZone = "Etc/UTC"; # DST is too confusing for me => use a stable timezone
 
   system.activationScripts.nixClosureDiff = {
     supportsDryActivation = true;
@@ -73,7 +78,7 @@
   # document my own, custom (non-nixpkgs) options in `man configuration.nix`:
   documentation.nixos = lib.mkIf (config.sane.maxBuildCost >= 3) {
     includeAllModules = true;
-    options.warningsAreErrors = false;  # TODO: fix all my options to have `description`, then enable.
+    options.warningsAreErrors = false; # TODO: fix all my options to have `description`, then enable.
   };
   # disable nixos-manual-html because it takes WAY TOO LONG to build (also disables `nixos-help`)
   documentation.doc.enable = false;

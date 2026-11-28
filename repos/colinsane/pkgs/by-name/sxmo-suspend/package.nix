@@ -4,10 +4,9 @@
   util-linux,
 }:
 static-nix-shell.mkPython3 {
-  # name is `sxmo_suspend.sh` because that's the binary this intends to replace
-  pname = "sxmo_suspend.sh";
+  pname = "sxmo-suspend";
   srcRoot = ./.;
-  pkgs = {
+  packages = {
     inherit
       rtl8723cs-wowlan
       util-linux
@@ -17,4 +16,8 @@ static-nix-shell.mkPython3 {
     "--add-flag"
     "--verbose"
   ];
+
+  # `sxmo_suspend.sh` because that's the binary this intends to replace.
+  # static-nix-shell will do the rename for us
+  meta.mainProgram = "sxmo_suspend.sh";
 }

@@ -1,28 +1,35 @@
-{ config, lib, utils, ... }:
+{
+  config,
+  lib,
+  utils,
+  ...
+}:
 let
   fsOpts = import ./fs-opts.nix { inherit lib; };
   mountpoint = "/mnt/.servo_ftp";
   systemdName = utils.escapeSystemdPath mountpoint;
 
   curlftpfs = {
-    enable = false;  # XXX(2025-11-16): curlftpfs no longer even mounts successfully, against latest sftpgo.
+    enable = false; # XXX(2025-11-16): curlftpfs no longer even mounts successfully, against latest sftpgo.
     device = "curlftpfs#ftp://servo-hn:/";
     fsType = "fuse3";
-    options = fsOpts.curlftpfs ++ fsOpts.noauto ++ [
-      # systemd (or maybe fuse?) swallows stderr of mount units with no obvious fix.
-      # instead, use this flag to log the mount output to disk
-      "stderr_path=/var/log/curlftpfs/servo-hn.stderr"
-    ];
+    options =
+      fsOpts.curlftpfs
+      ++ fsOpts.noauto
+      ++ [
+        # systemd (or maybe fuse?) swallows stderr of mount units with no obvious fix.
+        # instead, use this flag to log the mount output to disk
+        "stderr_path=/var/log/curlftpfs/servo-hn.stderr"
+      ];
   };
   fuseftp = {
     enable = false;
     # device = "servo-hn";  # TODO: mount the /var/export/ subdirectory of servo-hn
     # fsType = "fuse.ftp-daemon";  # `systemctl start mnt-.servo_ftp.mount` hangs unless the mount is daemonized
-    fsType = "fuse3.sane";  # not sure why this works with `fuse3.sane` but not plain `fuse3`. related to `fusermount3` and PATH?
+    fsType = "fuse3.sane"; # not sure why this works with `fuse3.sane` but not plain `fuse3`. related to `fusermount3` and PATH?
     device = "mount.fuse.ftp-daemon#servo-hn";
-    options = fsOpts.fuseftp ++ fsOpts.noauto ++ [
-      # "verbose"  # N.B.: incompatible with `-daemon` wrapper, unless i pipe the output somewhere (maybe `setsid --ctty` fixes that?)
-    ];
+    options = fsOpts.fuseftp ++ fsOpts.noauto;
+    # ++ [ "verbose" ]  # N.B.: incompatible with `-daemon` wrapper, unless i pipe the output somewhere (maybe `setsid --ctty` fixes that?)
   };
   sshfs = {
     enable = true;
@@ -33,20 +40,22 @@ let
 
   remoteServo = subdir: {
     # sane.fs."/mnt/servo/${subdir}".mount.bind = "/mnt/.servo_ftp/${subdir}";
-    systemd.mounts = [{
-      where = "/mnt/servo/${subdir}";
-      what = "/mnt/.servo_ftp/${subdir}";
-      options = "bind,nofail";
-      type = "auto";
+    systemd.mounts = [
+      {
+        where = "/mnt/servo/${subdir}";
+        what = "/mnt/.servo_ftp/${subdir}";
+        options = "bind,nofail";
+        type = "auto";
 
-      after = [ "${systemdName}.mount" ];
-      upheldBy = [ "${systemdName}.mount" ];  # start this mount whenever the underlying becomes available
-      bindsTo = [ "${systemdName}.mount" ];  # stop this mount whenever the underlying disappears
+        after = [ "${systemdName}.mount" ];
+        upheldBy = [ "${systemdName}.mount" ]; # start this mount whenever the underlying becomes available
+        bindsTo = [ "${systemdName}.mount" ]; # stop this mount whenever the underlying disappears
 
-      # XXX(2025-10-07): lazy is required for when the underlying /mnt/.servo_ftp has hung,
-      # else `systemctl stop mnt-servo-...mount` fails "umount: target is busy."
-      mountConfig.LazyUnmount = true;
-    }];
+        # XXX(2025-10-07): lazy is required for when the underlying /mnt/.servo_ftp has hung,
+        # else `systemctl stop mnt-servo-...mount` fails "umount: target is busy."
+        mountConfig.LazyUnmount = true;
+      }
+    ];
   };
 in
 lib.mkMerge [
@@ -63,58 +72,60 @@ lib.mkMerge [
       noCheck = true;
     };
 
-    systemd.mounts = [{
-      where = mountpoint;
-      what = curlftpfs.device;
-      type = curlftpfs.fsType;
-      options = lib.concatStringsSep "," curlftpfs.options;
-      # wantedBy = [ "default.target" ];  # TODO(2025-10-25): re-enable once failed mounts are made to not hang the whole system
-      after = [ "network-online.target" ];
-      requires = [ "network-online.target" ];
+    systemd.mounts = [
+      {
+        where = mountpoint;
+        what = curlftpfs.device;
+        type = curlftpfs.fsType;
+        options = lib.concatStringsSep "," curlftpfs.options;
+        # wantedBy = [ "default.target" ];  # TODO(2025-10-25): re-enable once failed mounts are made to not hang the whole system
+        after = [ "network-online.target" ];
+        requires = [ "network-online.target" ];
 
-      # XXX(2025-10-07): lazy is required even here, else `systemctl stop mnt-.servo_ftp.mount` fails "umount: target is busy.".
-      # TODO: suspect a bug in the timeout logic for curlftpfs or curl itself :(
-      mountConfig.LazyUnmount = true;
+        # XXX(2025-10-07): lazy is required even here, else `systemctl stop mnt-.servo_ftp.mount` fails "umount: target is busy.".
+        # TODO: suspect a bug in the timeout logic for curlftpfs or curl itself :(
+        mountConfig.LazyUnmount = true;
 
-      #VVV patch so that when the mount fails, we start a timer to remount it.
-      #    and for a disconnection after a good mount (onSuccess), restart the timer to be more aggressive
-      unitConfig.OnFailure = [ "${systemdName}.timer" ];
-      unitConfig.OnSuccess = [ "${systemdName}-restart-timer.target" ];
+        # vvv patch so that when the mount fails, we start a timer to remount it.
+        #    and for a disconnection after a good mount (onSuccess), restart the timer to be more aggressive
+        unitConfig.OnFailure = [ "${systemdName}.timer" ];
+        unitConfig.OnSuccess = [ "${systemdName}-restart-timer.target" ];
 
-      mountConfig.TimeoutSec = "10s";
-      mountConfig.ExecSearchPath = [ "/run/current-system/sw/bin" ];
-      mountConfig.User = "colin";
-      mountConfig.AmbientCapabilities = "CAP_SETPCAP CAP_SYS_ADMIN";
-      # hardening (systemd-analyze security mnt-servo-playground.mount)
-      mountConfig.CapabilityBoundingSet = "CAP_SETPCAP CAP_SYS_ADMIN";
-      mountConfig.LockPersonality = true;
-      mountConfig.MemoryDenyWriteExecute = true;
-      mountConfig.NoNewPrivileges = true;
-      mountConfig.ProtectClock = true;
-      mountConfig.ProtectHostname = true;
-      mountConfig.RemoveIPC = true;
-      mountConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
-      #VVV this includes anything it reads from, e.g. /bin/sh; /nix/store/...
-      # see `systemd-analyze filesystems` for a full list
-      mountConfig.RestrictFileSystems = "@common-block @basic-api fuse";
-      mountConfig.RestrictRealtime = true;
-      mountConfig.RestrictSUIDSGID = true;
-      mountConfig.SystemCallArchitectures = "native";
-      mountConfig.SystemCallFilter = [
-        "@system-service"
-        "@mount"
-        "~@chown"
-        "~@cpu-emulation"
-        "~@keyring"
-        # could remove almost all io calls, however one has to keep `open`, and `write`, to communicate with the fuse device.
-        # so that's pretty useless as a way to prevent write access
-      ];
-      mountConfig.IPAddressDeny = "any";
-      mountConfig.IPAddressAllow = "10.0.10.5";
-      mountConfig.DevicePolicy = "closed";  # only allow /dev/{null,zero,full,random,urandom}
-      mountConfig.DeviceAllow = "/dev/fuse";
-      # mountConfig.RestrictNamespaces = true;
-    }];
+        mountConfig.TimeoutSec = "10s";
+        mountConfig.ExecSearchPath = [ "/run/current-system/sw/bin" ];
+        mountConfig.User = "colin";
+        mountConfig.AmbientCapabilities = "CAP_SETPCAP CAP_SYS_ADMIN";
+        # hardening (systemd-analyze security mnt-servo-playground.mount)
+        mountConfig.CapabilityBoundingSet = "CAP_SETPCAP CAP_SYS_ADMIN";
+        mountConfig.LockPersonality = true;
+        mountConfig.MemoryDenyWriteExecute = true;
+        mountConfig.NoNewPrivileges = true;
+        mountConfig.ProtectClock = true;
+        mountConfig.ProtectHostname = true;
+        mountConfig.RemoveIPC = true;
+        mountConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
+        # vvv this includes anything it reads from, e.g. /bin/sh; /nix/store/...
+        # see `systemd-analyze filesystems` for a full list
+        mountConfig.RestrictFileSystems = "@common-block @basic-api fuse";
+        mountConfig.RestrictRealtime = true;
+        mountConfig.RestrictSUIDSGID = true;
+        mountConfig.SystemCallArchitectures = "native";
+        mountConfig.SystemCallFilter = [
+          "@system-service"
+          "@mount"
+          "~@chown"
+          "~@cpu-emulation"
+          "~@keyring"
+          # could remove almost all io calls, however one has to keep `open`, and `write`, to communicate with the fuse device.
+          # so that's pretty useless as a way to prevent write access
+        ];
+        mountConfig.IPAddressDeny = "any";
+        mountConfig.IPAddressAllow = "10.0.10.5";
+        mountConfig.DevicePolicy = "closed"; # only allow /dev/{null,zero,full,random,urandom}
+        mountConfig.DeviceAllow = "/dev/fuse";
+        # mountConfig.RestrictNamespaces = true;
+      }
+    ];
   })
 
   (lib.mkIf fuseftp.enable {
@@ -127,25 +138,27 @@ lib.mkMerge [
       inherit (fuseftp) device fsType options;
     };
 
-    systemd.mounts = [{
-      where = mountpoint;
-      what = fuseftp.device;
-      type = fuseftp.fsType;
-      options = lib.concatStringsSep "," fuseftp.options;
-      # wantedBy = [ "default.target" ];  # TODO(2026-02-13): enable if failed mounts don't hang the whole system
-      after = [ "network-online.target" ];
-      requires = [ "network-online.target" ];
+    systemd.mounts = [
+      {
+        where = mountpoint;
+        what = fuseftp.device;
+        type = fuseftp.fsType;
+        options = lib.concatStringsSep "," fuseftp.options;
+        # wantedBy = [ "default.target" ];  # TODO(2026-02-13): enable if failed mounts don't hang the whole system
+        after = [ "network-online.target" ];
+        requires = [ "network-online.target" ];
 
-      # mountConfig.LazyUnmount = true;
-      unitConfig.OnFailure = [ "${systemdName}.timer" ];
-      unitConfig.OnSuccess = [ "${systemdName}-restart-timer.target" ];
+        # mountConfig.LazyUnmount = true;
+        unitConfig.OnFailure = [ "${systemdName}.timer" ];
+        unitConfig.OnSuccess = [ "${systemdName}-restart-timer.target" ];
 
-      mountConfig.TimeoutSec = "10s";
-      mountConfig.ExecSearchPath = [ "/run/current-system/sw/bin" ];
-      # mountConfig.User = "colin";  # TODO
-      mountConfig.AmbientCapabilities = "CAP_SETPCAP CAP_SYS_ADMIN";
-      # TODO: systemd hardening
-    }];
+        mountConfig.TimeoutSec = "10s";
+        mountConfig.ExecSearchPath = [ "/run/current-system/sw/bin" ];
+        # mountConfig.User = "colin";  # TODO
+        mountConfig.AmbientCapabilities = "CAP_SETPCAP CAP_SYS_ADMIN";
+        # TODO: systemd hardening
+      }
+    ];
   })
 
   (lib.mkIf sshfs.enable {
@@ -159,54 +172,56 @@ lib.mkMerge [
       noCheck = true;
     };
 
-    systemd.mounts = [{
-      where = mountpoint;
-      what = sshfs.device;
-      type = sshfs.fsType;
-      options = lib.concatStringsSep "," sshfs.options;
-      # wantedBy = [ "default.target" ];  # TODO(2025-10-25): re-enable once failed mounts are made to not hang the whole system (?)
-      after = [ "network-online.target" ];
-      requires = [ "network-online.target" ];
+    systemd.mounts = [
+      {
+        where = mountpoint;
+        what = sshfs.device;
+        type = sshfs.fsType;
+        options = lib.concatStringsSep "," sshfs.options;
+        # wantedBy = [ "default.target" ];  # TODO(2025-10-25): re-enable once failed mounts are made to not hang the whole system (?)
+        after = [ "network-online.target" ];
+        requires = [ "network-online.target" ];
 
-      #VVV patch so that when the mount fails, we start a timer to remount it.
-      #    and for a disconnection after a good mount (onSuccess), restart the timer to be more aggressive
-      unitConfig.OnFailure = [ "${systemdName}.timer" ];
-      unitConfig.OnSuccess = [ "${systemdName}-restart-timer.target" ];
+        # vvv patch so that when the mount fails, we start a timer to remount it.
+        #    and for a disconnection after a good mount (onSuccess), restart the timer to be more aggressive
+        unitConfig.OnFailure = [ "${systemdName}.timer" ];
+        unitConfig.OnSuccess = [ "${systemdName}-restart-timer.target" ];
 
-      mountConfig.TimeoutSec = "10s";
-      mountConfig.ExecSearchPath = [ "/run/current-system/sw/bin" ];
-      mountConfig.User = "colin";
-      mountConfig.AmbientCapabilities = "CAP_SETPCAP CAP_SYS_ADMIN";
-      # hardening (systemd-analyze security mnt-servo-playground.mount)
-      mountConfig.CapabilityBoundingSet = "CAP_SETPCAP CAP_SYS_ADMIN";
-      mountConfig.LockPersonality = true;
-      mountConfig.MemoryDenyWriteExecute = true;
-      mountConfig.NoNewPrivileges = true;
-      mountConfig.ProtectClock = true;
-      mountConfig.ProtectHostname = true;
-      mountConfig.RemoveIPC = true;
-      mountConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
-      #VVV this includes anything it reads from, e.g. /bin/sh; /nix/store/...
-      # see `systemd-analyze filesystems` for a full list
-      mountConfig.RestrictFileSystems = "@common-block @basic-api fuse";
-      mountConfig.RestrictRealtime = true;
-      mountConfig.RestrictSUIDSGID = true;
-      mountConfig.SystemCallArchitectures = "native";
-      mountConfig.SystemCallFilter = [
-        "@system-service"
-        "@mount"
-        "~@chown"
-        "~@cpu-emulation"
-        "~@keyring"
-        # could remove almost all io calls, however one has to keep `open`, and `write`, to communicate with the fuse device.
-        # so that's pretty useless as a way to prevent write access
-      ];
-      mountConfig.IPAddressDeny = "any";
-      mountConfig.IPAddressAllow = "10.0.10.5";
-      mountConfig.DevicePolicy = "closed";  # only allow /dev/{null,zero,full,random,urandom}
-      mountConfig.DeviceAllow = "/dev/fuse";
-      # mountConfig.RestrictNamespaces = true;
-    }];
+        mountConfig.TimeoutSec = "10s";
+        mountConfig.ExecSearchPath = [ "/run/current-system/sw/bin" ];
+        mountConfig.User = "colin";
+        mountConfig.AmbientCapabilities = "CAP_SETPCAP CAP_SYS_ADMIN";
+        # hardening (systemd-analyze security mnt-servo-playground.mount)
+        mountConfig.CapabilityBoundingSet = "CAP_SETPCAP CAP_SYS_ADMIN";
+        mountConfig.LockPersonality = true;
+        mountConfig.MemoryDenyWriteExecute = true;
+        mountConfig.NoNewPrivileges = true;
+        mountConfig.ProtectClock = true;
+        mountConfig.ProtectHostname = true;
+        mountConfig.RemoveIPC = true;
+        mountConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
+        # vvv this includes anything it reads from, e.g. /bin/sh; /nix/store/...
+        # see `systemd-analyze filesystems` for a full list
+        mountConfig.RestrictFileSystems = "@common-block @basic-api fuse";
+        mountConfig.RestrictRealtime = true;
+        mountConfig.RestrictSUIDSGID = true;
+        mountConfig.SystemCallArchitectures = "native";
+        mountConfig.SystemCallFilter = [
+          "@system-service"
+          "@mount"
+          "~@chown"
+          "~@cpu-emulation"
+          "~@keyring"
+          # could remove almost all io calls, however one has to keep `open`, and `write`, to communicate with the fuse device.
+          # so that's pretty useless as a way to prevent write access
+        ];
+        mountConfig.IPAddressDeny = "any";
+        mountConfig.IPAddressAllow = "10.0.10.5";
+        mountConfig.DevicePolicy = "closed"; # only allow /dev/{null,zero,full,random,urandom}
+        mountConfig.DeviceAllow = "/dev/fuse";
+        # mountConfig.RestrictNamespaces = true;
+      }
+    ];
   })
 
   {

@@ -1,25 +1,33 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  nix.checkConfig = false;  # don't error the build if we specify unknown settings; nix/lix handles those gracefully at runtime.
+  nix.checkConfig = false; # don't error the build if we specify unknown settings; nix/lix handles those gracefully at runtime.
   nix.settings = {
     # see: `man nix.conf`
 
     # useful when a remote builder has a faster internet connection than me.
     # note that this also applies to `nix copy --to`, though.
     # i think any time a remote machine wants a path, this means we ask them to try getting it themselves before we supply it.
-    builders-use-substitutes = true;  # default: false
+    builders-use-substitutes = true; # default: false
 
     # maximum seconds to wait when connecting to binary substituter
-    connect-timeout = 3;  # default: 0
+    connect-timeout = 3; # default: 0
 
-    download-attempts = 2;  # default: 5
+    download-attempts = 2; # default: 5
 
     # allow `nix flake ...` command
-    experimental-features = [ "nix-command" "flakes "];
+    experimental-features = [
+      "nix-command"
+      "flakes "
+    ];
 
     # whether to build from source when binary substitution fails
-    fallback = true;  # default: false
+    fallback = true; # default: false
 
     # give me `nix-build` style output in the repl, please (lix 2.95+)
     # log-format: `raw-with-logs` = nix-build default style.
@@ -28,19 +36,19 @@
     log-format = "bar-with-logs";
 
     # whether to keep building dependencies if any other one fails
-    keep-going = true;  # default: false
+    keep-going = true; # default: false
 
     # whether to keep build-only dependencies of GC roots (e.g. C compiler) when doing GC
-    keep-outputs = true;  # default: false
+    keep-outputs = true; # default: false
 
     # how many lines to show from failed build
-    log-lines = 30;  # default: 10
+    log-lines = 30; # default: 10
 
     # max-connect-timeout = 20;  # default 300; in seconds.
 
     # how many substitution downloads to perform in parallel.
     # i wonder if parallelism is causing moby's substitutions to fail?
-    max-substitution-jobs = 6;  # default: 16
+    max-substitution-jobs = 6; # default: 16
 
     trusted-users = [
       # fix "user is not a trusted user" when using `--substituters`
@@ -49,10 +57,10 @@
 
     # narinfo-cache-negative-ttl = 3600  # default: 3600
     # whether to use ~/.local/state/nix/profile instead of ~/.nix-profile, etc
-    use-xdg-base-directories = true;  # default: false
+    use-xdg-base-directories = true; # default: false
 
     # whether to warn if repository has uncommited changes
-    warn-dirty = false;  # default: true
+    warn-dirty = false; # default: true
 
     # hardlinks identical files in the nix store to save 25-35% disk space.
     # - in practice, that's 700GB saved (allegedly) on a 2150GB (allegedly) nix store (living on a 8TB SSD)

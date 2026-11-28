@@ -48,7 +48,7 @@ in
 
   services.transmission.enable = true;
   services.transmission.package = package;
-  #v setting `group` this way doesn't tell transmission to `chown` the files it creates
+  # vvv setting `group` this way doesn't tell transmission to `chown` the files it creates
   #  it's a nixpkgs setting which just runs the transmission daemon as this group
   services.transmission.group = "media";
 

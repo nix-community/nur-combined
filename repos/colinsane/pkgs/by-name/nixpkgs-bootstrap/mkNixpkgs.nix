@@ -36,13 +36,13 @@
 # - staging-next: if testing stuff that's been PR'd into staging, i.e. base library updates.
 # - staging: maybe if no staging-next -> master PR has been cut yet?
 {
-  #VVV these may or may not be available when called. VVV
+  # vvv these may or may not be available when called. VVV
   applyPatches ? null,
   fetchzip ? null,
   nixpkgs-bootstrap-updater ? null,
   stdenv ? null,
   vendorPatch ? null,
-  #VVV config
+  # vvv config
   localSystem ? {
     system = if stdenv != null then stdenv.buildPlatform.system else builtins.currentSystem; # not available in pure mode
   },

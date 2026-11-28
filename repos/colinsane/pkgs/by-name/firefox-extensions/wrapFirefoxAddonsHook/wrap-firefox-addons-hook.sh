@@ -3,7 +3,7 @@ patchManifest() {
 
   echo "patching manifest at $m to use extid $extid"
   local newManifest=$(@jq@ '. + {"applications": { "gecko": { "id": "'"$extid"'" }}, "browser_specific_settings":{"gecko":{"id": "'"$extid"'"}}}' "$m")
-  echo "$newManifest" > "$m"
+  echo "$newManifest" >"$m"
 
   echo "updating permissions for $m"
   echo "  old perms: $(@jq@ '.permissions' "$m")"
@@ -20,7 +20,7 @@ patchManifest() {
   local newPerms=$(@jq@ -n "$permsFromRegex + $permsFromLit | unique")
 
   local newManifest=$(@jq@ '.permissions = '"$newPerms" "$m")
-  echo "$newManifest" > "$m"
+  echo "$newManifest" >"$m"
   echo "  new perms: $(@jq@ '.permissions' "$m")"
 }
 
@@ -45,7 +45,10 @@ fixupFirefoxAddon() {
   # repack the addon
   echo "repacking $unpacked into $xpiPath XPI"
   # change dir so as to pack into the toplevel
-  (cd "$unpacked"; @zip@ -r -q -FS "$xpiPath" .)
+  (
+    cd "$unpacked"
+    @zip@ -r -q -FS "$xpiPath" .
+  )
   @strip_nondeterminism@ "$xpiPath"
 }
 

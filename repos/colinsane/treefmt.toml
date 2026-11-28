@@ -1,3 +1,8 @@
+[formatter.mdformat]
+command = "mdformat"
+options = ["--wrap", "keep"]
+includes = ["*.md"]
+
 [formatter.nixfmt]
 command = "nixfmt"
 includes = ["*.nix"]
@@ -5,4 +10,19 @@ includes = ["*.nix"]
 [formatter.nix-shell-python]
 command = "treefmt-nix-shell"
 includes = ["*"]
-excludes = ["*.nix"]
+excludes = ["*.nix", "*.py", "*.sh"]
+
+[formatter.ruff]
+command = "ruff"
+options = ["format"]
+includes = ["*.py"]
+
+[formatter.shfmt]
+command = "shfmt"
+options = ["-w", "-i", "2", "-ci"]
+includes = ["*.sh"]
+
+[formatter.stylua]
+# stylua takes its config from stylua.toml, .editorconfig, or CLI (`options`)
+command = "stylua"
+includes = ["*.lua"]

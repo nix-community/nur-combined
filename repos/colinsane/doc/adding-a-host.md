@@ -1,4 +1,5 @@
 to add a host:
+
 - create the new nix targets
   - hosts/by-name/HOST
   - let the toplevel (impure.nix) know about HOST

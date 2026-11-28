@@ -84,7 +84,7 @@
       # - `secret-tool clear 'xdg:schema' 'de.schmidhuberj.Flare'`
     ];
     gsettingsPersist = [ "/de/schmidhuberj/Flare/" ];
-    #VVV flare complains if its data directory is a symlink, so put it in a subdirectory behind my persistence symlink.
+    # vvv flare complains if its data directory is a symlink, so put it in a subdirectory behind my persistence symlink.
     env.FLARE_DATA_PATH = "$HOME/.local/share/flare/data";
     # sandbox.net = "clearnet";
     # sandbox.whitelistWayland = true;

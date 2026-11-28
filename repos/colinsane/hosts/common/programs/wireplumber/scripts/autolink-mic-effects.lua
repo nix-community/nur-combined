@@ -21,7 +21,7 @@ mic_om = ObjectManager {
     Constraint { "media.class", "=", "Audio/Source", type = "pw-global" },
     -- do not consider virtual items created by WirePlumber
     Constraint { "wireplumber.is-virtual", "!", true, type = "pw" },
-  }
+  },
 }
 mic_om:activate()
 
@@ -30,7 +30,7 @@ mic_effects_sink_om = ObjectManager {
   Interest {
     type = "node",
     Constraint { "node.name", "=", "mic_effects.sink", type = "pw-global" },
-  }
+  },
 }
 mic_effects_sink_om:activate()
 
@@ -39,7 +39,7 @@ mic_effects_source_om = ObjectManager {
   Interest {
     type = "node",
     Constraint { "node.name", "=", "mic_effects.source", type = "pw-global" },
-  }
+  },
 }
 mic_effects_source_om:activate()
 
@@ -47,21 +47,21 @@ mic_effects_source_ports_om = ObjectManager {
   Interest {
     type = "port",
     Constraint { "port.alias", "=", "Mic Effects:output_MONO", type = "pw-global" },
-  }
+  },
 }
 mic_effects_source_ports_om:activate()
 
 get_mic_effects_sink = function()
-  return mic_effects_sink_om:lookup { }
+  return mic_effects_sink_om:lookup {}
 end
 
 get_mic_effects_source = function()
-  return mic_effects_source_om:lookup { }
+  return mic_effects_source_om:lookup {}
 end
 
 get_mic_effects_source_port = function()
   -- assume Mic Effects exposes only one output port
-  return mic_effects_source_ports_om:lookup { }
+  return mic_effects_source_ports_om:lookup {}
 end
 
 is_mic = function(node_id)
@@ -72,7 +72,7 @@ is_mic = function(node_id)
 end
 
 -- Hook to force a specific set of applications to send their output *to* mic_effects
-SimpleEventHook {
+SimpleEventHook({
   name = "redirect-output-to-mic-effects",
   before = "linking/find-defined-target",
   interests = {
@@ -82,32 +82,32 @@ SimpleEventHook {
       Constraint { "node.name", "c", "DTMFtool", type = "pw-global" },
     },
   },
-  execute = function (event)
+  execute = function(event)
     print("redirecting output into mic_effects", dumputils:dump_event(event))
     local node = event:get_subject()
     local source = event:get_source()
     local metadata_om = source:call("get-object-manager", "metadata")
 
     local metadata = metadata_om:lookup {
-      Constraint { "metadata.name", "=", "default" }
+      Constraint { "metadata.name", "=", "default" },
     }
     local target = get_mic_effects_sink()
     if metadata and target then
       metadata:set(node["bound-id"], "target.object", "Spa:Id", target.properties["object.serial"])
       print("redirected output to: ", target.properties["object.serial"])
     end
-  end
-}:register()
+  end,
+}):register()
 
 -- Hook to monitor everything which links to a real microphone, and supplement its input with mic_effects.source
-SimpleEventHook {
+SimpleEventHook({
   name = "duplicate-input-with-mic-effects",
   interests = {
     EventInterest {
       Constraint { "event.type", "c", "link-added", "link-removed" },
     },
   },
-  execute = function (event)
+  execute = function(event)
     print(dumputils:dump_event(event))
     local link = event:get_subject()
     print("link:", dumputils:dump_gobject(link))
@@ -148,8 +148,6 @@ SimpleEventHook {
     -- dump_mic_if_linked(event)
     -- dump_event_nodes(event)
 
-
-
     -- local link = event:get_subject ()
     -- local eprops = event:get_properties ()
     -- local source = event:get_source ()
@@ -160,8 +158,8 @@ SimpleEventHook {
     -- print("node: ", dumputils:dump_table(node))
     -- print("source: ", type(source))
     -- print("source: ", dumputils:dump_table(getmetatable(source)))
-  end
-}:register()
+  end,
+}):register()
 
 -- dump_mic_if_linked = function(event)
 --   -- local source = event:get_source()
@@ -180,18 +178,18 @@ SimpleEventHook {
 --     print("(no mic node)")
 --   end
 -- end
--- 
+--
 -- dump_event_nodes = function(event)
 --   local source = event:get_source()
 --   local node_om = source:call("get-object-manager", "node")
 --   local link = event:get_subject ()
--- 
+--
 --   local in_stream_id = link.properties["link.input.node"]
 --   local in_node = node_om:lookup {
 --     Constraint { "object.id", "=", in_stream_id }
 --   }
 --   print("input node: ", dumputils:dump_gobject(in_node))
--- 
+--
 --   local out_stream_id = link.properties["link.output.node"]
 --   local out_node = node_om:lookup {
 --     Constraint { "object.id", "=", out_stream_id }

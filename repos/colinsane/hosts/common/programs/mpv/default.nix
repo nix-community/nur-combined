@@ -340,7 +340,7 @@ in
     mime.associations."video/webm" = "mpv.desktop";
     mime.associations."video/x-flv" = "mpv.desktop";
     mime.associations."video/x-matroska" = "mpv.desktop";
-    #v be the opener for YouTube videos
+    # vvv be the opener for YouTube videos
     mime.urlAssociations."^https?://(m\\.)?(www\\.)?(music\\.)?youtu.be/.+$" = "mpv.desktop";
     mime.urlAssociations."^https?://(m\\.)?(www\\.)?(music\\.)?youtube.com/embed/.+$" = "mpv.desktop";
     mime.urlAssociations."^https?://(m\\.)?(www\\.)?(music\\.)?youtube.com/playlist\\?.*list=.+$" =
@@ -350,12 +350,12 @@ in
     mime.urlAssociations."^https?://(m\\.)?(www\\.)?(music\\.)?youtube.com/watch\\?.*v=.+$" =
       "mpv.desktop";
     mime.urlAssociations."^https?://(m\\.)?(www\\.)?facebook.com/reel/.+$" = "mpv.desktop";
-    #v be the opener for Tiktok
+    # vvv be the opener for Tiktok
     mime.urlAssociations."^https?://(www\\.)?tiktok.com/@.*/video/.+$" = "mpv.desktop";
-    #v be the opener for A/V, generally. useful for e.g. feed readers like News Flash which open content through the portal
+    # vvv be the opener for A/V, generally. useful for e.g. feed readers like News Flash which open content through the portal
     #  also allows right-click -> xdg-open to open embedded videos
     mime.urlAssociations."^https?://.*\\.(mp3|mp4|ogg|ogv|opus|webm)(\\?.*)?$" = "mpv.desktop";
-    #v Loupe image viewer can't open URIs, so use mpv instead
+    # vvv Loupe image viewer can't open URIs, so use mpv instead
     mime.urlAssociations."^https?://i\\.imgur.com/.+$" = "mpv.desktop";
     mime.urlAssociations."^https?://.*\\.(gif|heif|jpeg|jpg|png|svg|webp)(\\?.*)?$" = "mpv.desktop";
   };

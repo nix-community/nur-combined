@@ -175,7 +175,7 @@ in
 
         # serviceConfig.RemoveIPC = true;  # does not apply to root
         serviceConfig.RestrictAddressFamilies = "AF_INET AF_INET6 AF_NETLINK AF_UNIX";
-        # #VVV this includes anything it reads from, e.g. /bin/sh; /nix/store/...
+        # # vvv this includes anything it reads from, e.g. /bin/sh; /nix/store/...
         # # see `systemd-analyze filesystems` for a full list
         serviceConfig.RestrictFileSystems = "@application @basic-api @common-block";
         serviceConfig.RestrictRealtime = true;

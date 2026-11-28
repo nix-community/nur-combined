@@ -1,13 +1,15 @@
 local mod = {}
 
 function mod:dump_table(t)
-  local s = '{\n'
-  for const_k,v in pairs(t) do
-     local k = const_k
-     if type(k) ~= 'number' then k = '"'..k..'"' end
-     s = s .. '  ['..k..'] = ' .. self:dump_one(v) .. ',\n'
+  local s = "{\n"
+  for const_k, v in pairs(t) do
+    local k = const_k
+    if type(k) ~= "number" then
+      k = '"' .. k .. '"'
+    end
+    s = s .. "  [" .. k .. "] = " .. self:dump_one(v) .. ",\n"
   end
-  return s .. '}'
+  return s .. "}"
 end
 
 function mod:dump_event(event)
@@ -33,9 +35,9 @@ function mod:dump_userdata(obj)
 end
 
 function mod:dump_one(o)
-  if type(o) == 'table' then
+  if type(o) == "table" then
     return self:dump_table(o)
-  elseif type(o) == 'userdata' then
+  elseif type(o) == "userdata" then
     return self:dump_userdata(o)
   else
     return tostring(o)
@@ -43,8 +45,8 @@ function mod:dump_one(o)
 end
 
 function mod:dump_om(om)
-  om:connect("object-added", function (om, obj)
-    print(self:dump_gobject(obj) .. '\n\n')
+  om:connect("object-added", function(om, obj)
+    print(self:dump_gobject(obj) .. "\n\n")
   end)
 
   om:activate()

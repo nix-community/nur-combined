@@ -25,39 +25,54 @@
 # to read a secret:
 #   $ cat /run/secrets/example_key
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (pkgs) sane-lib;
-  secretsForHost = host: let
-    extraAttrsForPath = path: let
-      comps = sane-lib.path.split path;
-    in lib.optionalAttrs (lib.elem "guest" comps && config.users.users ? "guest") {
-      owner = "guest";
-    } // lib.optionalAttrs (lib.elem "colin" comps && config.users.users ? "colin") {
-      owner = "colin";
-    };
-    secretsInSrc = (
-      if builtins.pathExists ../../secrets/${host} then
-        sane-lib.enumerateFilePaths ../../secrets/${host}
-      else
-        []
+  secretsForHost =
+    host:
+    let
+      extraAttrsForPath =
+        path:
+        let
+          comps = sane-lib.path.split path;
+        in
+        lib.optionalAttrs (lib.elem "guest" comps && config.users.users ? "guest") {
+          owner = "guest";
+        }
+        // lib.optionalAttrs (lib.elem "colin" comps && config.users.users ? "colin") {
+          owner = "colin";
+        };
+      secretsInSrc =
+        if builtins.pathExists ../../secrets/${host} then
+          sane-lib.enumerateFilePaths ../../secrets/${host}
+        else
+          [ ];
+    in
+    sane-lib.joinAttrsets (
+      map (
+        path:
+        lib.optionalAttrs (lib.hasSuffix ".bin" path) (
+          sane-lib.nameValueToAttrs {
+            name = lib.removeSuffix ".bin" path;
+            value = {
+              sopsFile = ../../secrets/${host}/${path};
+              format = "binary";
+            }
+            // (extraAttrsForPath path);
+          }
+        )
+      ) secretsInSrc
     );
-  in sane-lib.joinAttrsets (
-    map
-      (path: lib.optionalAttrs (lib.hasSuffix ".bin" path) (sane-lib.nameValueToAttrs {
-        name = lib.removeSuffix ".bin" path;
-        value = {
-          sopsFile = ../../secrets/${host}/${path};
-          format = "binary";
-        } // (extraAttrsForPath path);
-      }))
-      secretsInSrc
-  );
 in
 {
   # sops.age.sshKeyPaths = [ "/home/colin/.ssh/id_ed25519_dec" ];
-  sops.gnupg.sshKeyPaths = [];  # disable RSA key import
+  sops.gnupg.sshKeyPaths = [ ]; # disable RSA key import
   # This is using an age key that is expected to already be in the filesystem
   # sops.age.keyFile = "/home/colin/.ssh/age.pub";
   # sops.age.keyFile = "/var/lib/sops-nix/key.txt";
@@ -80,5 +95,3 @@ in
     }
   ];
 }
-
-

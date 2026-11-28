@@ -2,7 +2,7 @@
   lib,
   linux_latest,
   # linux-postmarketos-pinephonepro,
-  #VVV nixpkgs calls `.override` on the kernel to configure additional things, but we don't care about those things
+  # vvv nixpkgs calls `.override` on the kernel to configure additional things, but we don't care about those things
   ...
 }:
 

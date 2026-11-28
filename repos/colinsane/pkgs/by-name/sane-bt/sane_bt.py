@@ -11,7 +11,8 @@ import subprocess
 logger = logging.getLogger(__name__)
 
 # where to store the torrents as downloaded
-TORRENT_DIR="/var/media/torrents"
+TORRENT_DIR = "/var/media/torrents"
+
 
 class MediaType(Enum):
     Audiobook = "audiobook"
@@ -20,6 +21,7 @@ class MediaType(Enum):
     Other = "other"
     Show = "show"
     VisualNovel = "vn"  # manga/comics
+
 
 @dataclass
 class MediaMeta:
@@ -41,12 +43,23 @@ class MediaMeta:
 
         parser.add_argument("--author", help="Firstname.Lastname")
 
-        parser.add_argument("--archive", action="store_true", help="not interested in the data, except for archival")
-        parser.add_argument("--freeleech", action="store_true", help="not interested in the data, only in seeding")
-        parser.add_argument("--prefix", help="additional path component before anything implied by the other options (but after the base media dir)")
+        parser.add_argument(
+            "--archive",
+            action="store_true",
+            help="not interested in the data, except for archival",
+        )
+        parser.add_argument(
+            "--freeleech",
+            action="store_true",
+            help="not interested in the data, only in seeding",
+        )
+        parser.add_argument(
+            "--prefix",
+            help="additional path component before anything implied by the other options (but after the base media dir)",
+        )
 
     @staticmethod
-    def from_arguments(args: Namespace) -> 'MediaMeta':
+    def from_arguments(args: Namespace) -> "MediaMeta":
         title = None
         type_ = None
         if args.audiobook != None:
@@ -68,7 +81,9 @@ class MediaMeta:
             type_ = MediaType.VisualNovel
             title = args.vn
         assert type_ is not None, "no torrent type specified!"
-        assert not (args.freeleech and args.archive), "--freeleech and --archive are mutually exclusive"
+        assert not (args.freeleech and args.archive), (
+            "--freeleech and --archive are mutually exclusive"
+        )
         return MediaMeta(
             title=title,
             prefix=args.prefix,
@@ -81,15 +96,15 @@ class MediaMeta:
     @property
     def type_path(self) -> str:
         return {
-            MediaType.Audiobook:   "Books/Audiobooks/",
-            MediaType.Book:        "Books/Books/",
-            MediaType.Film:        "Videos/Film/",
-            MediaType.Other:       "Other/",
-            MediaType.Show:        "Videos/Shows/",
+            MediaType.Audiobook: "Books/Audiobooks/",
+            MediaType.Book: "Books/Books/",
+            MediaType.Film: "Videos/Film/",
+            MediaType.Other: "Other/",
+            MediaType.Show: "Videos/Shows/",
             MediaType.VisualNovel: "Books/Visual/",
         }[self.type_]
 
-    def fs_path(self, base: str=TORRENT_DIR) -> str:
+    def fs_path(self, base: str = TORRENT_DIR) -> str:
         return os.path.join(
             base,
             self.prefix or "",
@@ -102,45 +117,56 @@ class MediaMeta:
 
 
 def dry_check_output(args: list[str]) -> bytes:
-    print("not invoking because dry run: " + ' '.join(args))
+    print("not invoking because dry run: " + " ".join(args))
     return b""
 
-class TransmissionApi:
-    ENDPOINT="https://bt.uninsane.org/transmission/rpc"
-    PASSFILE="/run/secrets/transmission_passwd"
 
-    def __init__(self, check_output = subprocess.check_output):
+class TransmissionApi:
+    ENDPOINT = "https://bt.uninsane.org/transmission/rpc"
+    PASSFILE = "/run/secrets/transmission_passwd"
+
+    def __init__(self, check_output=subprocess.check_output):
         self.check_output = check_output
 
     @staticmethod
     def add_arguments(parser: ArgumentParser) -> None:
-        parser.add_argument("--dry-run", action="store_true", help="only show what would be done; don't invoke transmission")
+        parser.add_argument(
+            "--dry-run",
+            action="store_true",
+            help="only show what would be done; don't invoke transmission",
+        )
 
     @staticmethod
-    def from_arguments(args: Namespace) -> 'TransmissionApi':
-        return TransmissionApi(check_output = dry_check_output if args.dry_run else subprocess.check_output)
+    def from_arguments(args: Namespace) -> "TransmissionApi":
+        return TransmissionApi(
+            check_output=dry_check_output if args.dry_run else subprocess.check_output
+        )
 
     @property
     def auth(self) -> str:
         return open(self.PASSFILE, "r").read().strip()
 
     def add_torrent(self, meta: MediaMeta, torrent: str) -> None:
+        # fmt: off
         self.call_transmission(
             description=f"saving to {meta.fs_path()}",
             args=[
                 "--download-dir", meta.fs_path(),
                 "--add", torrent,
-            ]
+            ],
         )
+        # fmt: on
 
     def move_torrent(self, meta: MediaMeta, torrent: str) -> None:
+        # fmt: off
         self.call_transmission(
             description=f"moving {torrent} to {meta.fs_path()}",
             args=[
                 "--torrent", torrent,
-                "--move", meta.fs_path()
-            ]
+                "--move", meta.fs_path(),
+            ],
         )
+        # fmt: on
 
     def add_or_move_torrent(self, meta: MediaMeta, torrent: str) -> None:
         """
@@ -153,31 +179,41 @@ class TransmissionApi:
             self.add_torrent(meta, torrent)
 
     def rm_torrent(self, torrent: str) -> None:
+        # fmt: off
         self.call_transmission(
             description=f"deleting {torrent}",
             args=[
                 "--torrent", torrent,
-                "--remove-and-delete"
-            ]
+                "--remove-and-delete",
+            ],
         )
+        # fmt: on
 
     def list_(self) -> str:
+        # fmt: off
         return self.call_transmission([
-            "--list"
+            "--list",
         ])
+        # fmt: on
 
     def info(self, torrent: str) -> str:
+        # fmt: off
         return self.call_transmission([
             "--torrent", torrent,
             "--info"
         ])
+        # fmt: on
 
     def call_transmission(self, args: list[str], description: str | None = None) -> str:
         if description is not None:
             logger.info(description)
 
-        return self.check_output([
-            "transmission-remote",
-            self.ENDPOINT,
-            "--auth", f"colin:{self.auth}",
-        ] + args).decode("utf-8")
+        # fmt: off
+        return self.check_output(
+            [
+                "transmission-remote",
+                self.ENDPOINT,
+                "--auth", f"colin:{self.auth}",
+            ] + args
+        ).decode("utf-8")
+        # fmt: on

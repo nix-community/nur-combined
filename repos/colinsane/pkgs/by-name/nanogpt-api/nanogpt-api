@@ -78,7 +78,7 @@ class Ticker(Enum):
     TON = "TON"  # Toncoin  Nanswap
     NEAR = "NEAR"  # NEAR Protocol  Nanswap
     EGLD = "EGLD"  # MultiversX  Nanswap
-    VVV = "VVV"  # VVV  Nanswap
+    VVV = "VVV"  # vvv  Nanswap
     ZANO = "ZANO"  # Zano  Zano proxy
     FUSD = "FUSD"  # Freedom Dollar  Zano proxy
 
@@ -101,15 +101,19 @@ class ApiClient:
     def __init__(self) -> None:
         self.api_key = None
         if api_key := os.environ.get("NANOGPT_API_KEY"):
+            logger.debug("using api key from environment ($NANOGPT_API_KEY)")
             self.api_key = api_key
         else:
+            api_key_path = os.path.join(
+                GLib.get_user_config_dir(), "nanogpt/nanogpt_api_key"
+            )
             try:
-                f = open(
-                    os.path.join(GLib.get_user_config_dir(), "nanogpt/nanogpt_api_key")
-                )
+                f = open(api_key_path, "r")
             except FileNotFoundError:
+                logger.debug(f"failed to load api key from disk: {api_key_path})")
                 pass
             else:
+                logger.debug(f"using api key from disk ({api_key_path})")
                 with f:
                     self.api_key = f.read().strip()
 

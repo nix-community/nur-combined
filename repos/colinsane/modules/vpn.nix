@@ -236,7 +236,7 @@ let
     #   serviceConfig.ProtectHostname = true;
     #   serviceConfig.RemoveIPC = true;
     #   serviceConfig.RestrictAddressFamilies = "AF_INET AF_INET6 AF_NETLINK";
-    #   #VVV this includes anything it reads from, e.g. /bin/sh; /nix/store/...
+    #   # vvv this includes anything it reads from, e.g. /bin/sh; /nix/store/...
     #   # see `systemd-analyze filesystems` for a full list
     #   serviceConfig.RestrictFileSystems = "@common-block @basic-api";
     #   serviceConfig.RestrictRealtime = true;

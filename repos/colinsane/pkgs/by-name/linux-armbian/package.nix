@@ -14,7 +14,7 @@
   withArmbianPatches ? false,
   withMegousPatches ? true,
   withMobianPatches ? false,
-  #VVV nixpkgs calls `.override` on the kernel to configure additional things, but we don't care about those things
+  # vvv nixpkgs calls `.override` on the kernel to configure additional things, but we don't care about those things
   ...
 }:
 let
@@ -707,7 +707,7 @@ in
         # XXX(2024-09-18): megapixels(-next) fails to open the camera without this option:
         ARM64_VA_BITS_48 = yes; # 48 (not 52) bits for virtual addresses. the other bit widths (ARM64_VA*, ARM64_PA_*, PGTABLE_LEVELS) are then derived/implied same as pmos config
 
-        # #vvv aside from SUN50I_IOMMU, this is just upgrading modules to `y`
+        # # vvv aside from SUN50I_IOMMU, this is just upgrading modules to `y`
         # DMA_SUN6I = yes;
         # SUN50I_IOMMU = yes;
         # VIDEOBUF2_CORE = yes;

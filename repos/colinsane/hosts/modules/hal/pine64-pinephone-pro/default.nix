@@ -95,13 +95,13 @@ in
 
     boot.extraModulePackages = [
       config.boot.kernelPackages.rk818-charger  # rk818 battery/charger isn't mainline as of 2024-10-01
-      #v XXX(???? - 2025-07-18): mainline imx258 camera driver has some power-on issues on PPP  (imx258 1-001a: Error reading reg 0x0016: -6)
-      #v XXX(2025-07-18): megi's imx258 breaks mainline audio, though
+      # vvv XXX(???? - 2025-07-18): mainline imx258 camera driver has some power-on issues on PPP  (imx258 1-001a: Error reading reg 0x0016: -6)
+      # vvv XXX(2025-07-18): megi's imx258 breaks mainline audio, though
       # config.boot.kernelPackages.megi-imx258
-      #v optionally use megi's rt5640 sound driver;
-      #v XXX(2025-07-18): when using megi's imx258, the mainline rt5640 driver errors: `rt5640: 1-001c: ASoC error (-22): at snd_soc_dai_set_sysclk() on rt5640-aif1`
-      #v                  prior to this mainline driver was working fine, alongside camera/imx258, for half a year.
-      #v                  although this fixes the dmesg errors, it causes pipewire/wireplumber to crash-loop.
+      # vvv optionally use megi's rt5640 sound driver;
+      # vvv XXX(2025-07-18): when using megi's imx258, the mainline rt5640 driver errors: `rt5640: 1-001c: ASoC error (-22): at snd_soc_dai_set_sysclk() on rt5640-aif1`
+      # vvv                  prior to this mainline driver was working fine, alongside camera/imx258, for half a year.
+      # vvv                  although this fixes the dmesg errors, it causes pipewire/wireplumber to crash-loop.
       # config.boot.kernelPackages.megi-rt5640
     ];
 
@@ -163,9 +163,9 @@ in
       # }
     ];
 
-    #v N.B.: deviceTree.name is plumbed through /boot/loader/entries/.
-    #v if removed, systemd-boot will still (likely) boot, but DTB items known to the kernel
-    #v and not to the platform firmware (u-boot) will be missing (e.g. rk818/battery monitoring).
+    # vvv N.B.: deviceTree.name is plumbed through /boot/loader/entries/.
+    # vvv if removed, systemd-boot will still (likely) boot, but DTB items known to the kernel
+    # vvv and not to the platform firmware (u-boot) will be missing (e.g. rk818/battery monitoring).
     hardware.deviceTree.name = "rockchip/rk3399-pinephone-pro.dtb";
     hardware.deviceTree.overlays = [
       {

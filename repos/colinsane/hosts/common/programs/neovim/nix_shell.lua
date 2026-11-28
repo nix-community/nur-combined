@@ -4,14 +4,14 @@
 -- see <https://neovim.io/doc/user/lua.html#vim.filetype.add()>
 vim.filetype.add {
   pattern = {
-    ['.*'] = {
+    [".*"] = {
       function(path, bufnr)
         -- returns true if the input is a shebang likely to evaluate to `nix-shell`, e.g.
         -- - "#!/usr/bin/env nix-shell"  => true
         -- - "#!nix-shell -i bash -p coreutils"  => true
         -- - "#!/usr/bin/env python"  => false
         function test_for_nix_shell_shebang(maybe_hashbang)
-          local bang_payload = string.match(maybe_hashbang, '^#!(.*)$')
+          local bang_payload = string.match(maybe_hashbang, "^#!(.*)$")
           if not bang_payload then
             return false -- not a shebang
           end
@@ -84,7 +84,7 @@ vim.filetype.add {
         -- nvim_buf_get_lines({buffer}, {start}, {end}, {strict_indexing})
         -- `start` and `end` are inclusive
         local first_few_lines = vim.api.nvim_buf_get_lines(bufnr, 0, 5, false)
-        local maybe_hashbang = first_few_lines[1] or ''
+        local maybe_hashbang = first_few_lines[1] or ""
 
         if not test_for_nix_shell_shebang(maybe_hashbang) then
           return

@@ -26,7 +26,7 @@
     "Pictures/albums"
     "Pictures/cat"
     "Pictures/from"
-    "Pictures/Screenshots"  # XXX: something is case-sensitive about this?
+    "Pictures/Screenshots" # XXX: something is case-sensitive about this?
     "Pictures/Photos"
     "records"
     "tmp"
@@ -36,23 +36,25 @@
   ];
 
   # convenience
-  sane.user.fs = let
-    persistEnabled = config.sane.persist.enable;
-  in {
-    ".persist/private" = lib.mkIf persistEnabled {
-       symlink.target = "${config.sane.persist.stores.private.origin}/home/${config.sane.defaultUser}";
-    };
-    ".persist/plaintext" = lib.mkIf persistEnabled {
-       symlink.target = "${config.sane.persist.stores.plaintext.origin}/home/${config.sane.defaultUser}";
-    };
-    ".persist/ephemeral" = lib.mkIf persistEnabled {
-       symlink.target = "${config.sane.persist.stores.ephemeral.origin}/home/${config.sane.defaultUser}";
-    };
+  sane.user.fs =
+    let
+      persistEnabled = config.sane.persist.enable;
+    in
+    {
+      ".persist/private" = lib.mkIf persistEnabled {
+        symlink.target = "${config.sane.persist.stores.private.origin}/home/${config.sane.defaultUser}";
+      };
+      ".persist/plaintext" = lib.mkIf persistEnabled {
+        symlink.target = "${config.sane.persist.stores.plaintext.origin}/home/${config.sane.defaultUser}";
+      };
+      ".persist/ephemeral" = lib.mkIf persistEnabled {
+        symlink.target = "${config.sane.persist.stores.ephemeral.origin}/home/${config.sane.defaultUser}";
+      };
 
-    "nixos".symlink.target = "ref/repos/colin/nix-files";
+      "nixos".symlink.target = "ref/repos/colin/nix-files";
 
-    "Books/servo".symlink.target = "/mnt/servo/media/Books";
-    "Videos/servo".symlink.target = "/mnt/servo/media/Videos";
-    "Pictures/servo-macros".symlink.target = "/mnt/servo/media/Pictures/macros";
-  };
+      "Books/servo".symlink.target = "/mnt/servo/media/Books";
+      "Videos/servo".symlink.target = "/mnt/servo/media/Videos";
+      "Pictures/servo-macros".symlink.target = "/mnt/servo/media/Pictures/macros";
+    };
 }

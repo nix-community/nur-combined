@@ -23,7 +23,7 @@ in
       # "::1"
     ];
 
-    networking.resolvconf.useLocalResolver = false;  # we manage resolvconf explicitly, above
+    networking.resolvconf.useLocalResolver = false; # we manage resolvconf explicitly, above
     networking.resolvconf.extraConfig = ''
       # DNS serviced by `knot-resolver` recursive resolver
       name_servers='127.0.0.1'
@@ -48,7 +48,8 @@ in
           # freebind = true => allow binding to a non-yet-available address
           freebind = false;
         }
-      ] ++ lib.optionals (hostCfg != null && hostCfg.wg-home.ip != null) [
+      ]
+      ++ lib.optionals (hostCfg != null && hostCfg.wg-home.ip != null) [
         {
           # allow wireguard clients to use us as a recursive resolver (only needed for servo)
           interface = hostCfg.wg-home.ip;
@@ -66,7 +67,7 @@ in
         # "pool.ntp.org."
         # TODO: excluding `ntpns.org.` might not be required.
         # it might be we just exclude the specific ntp server (i.e. `*.nixos.pool.ntp.org`)
-        "ntpns.org."  # `NS pool.ntp.org. {a,b,c...}.ntpns.org.`
+        "ntpns.org." # `NS pool.ntp.org. {a,b,c...}.ntpns.org.`
       ];
     };
 

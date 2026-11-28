@@ -29,39 +29,40 @@ buildFHSEnv (finalAttrs: {
     pkgs.bash
     pkgs.coreutils
   ];
-  multiPkgs = pkgs: with pkgs; [
-    alsa-lib
-    at-spi2-atk
-    at-spi2-core
-    cairo
-    cups
-    dbus
-    expat
-    fontconfig
-    gdk-pixbuf
-    glib
-    gtk3
-    libdrm
-    libgbm
-    libusb1
-    libx11
-    libxcb
-    libxcomposite
-    libxcursor
-    libxdamage
-    libxext
-    libxfixes
-    libxi
-    libxkbcommon
-    libxrandr
-    libxrender
-    libxscrnsaver
-    libxtst
-    nspr
-    nss
-    pango
-    udev
-  ];
+  multiPkgs =
+    pkgs: with pkgs; [
+      alsa-lib
+      at-spi2-atk
+      at-spi2-core
+      cairo
+      cups
+      dbus
+      expat
+      fontconfig
+      gdk-pixbuf
+      glib
+      gtk3
+      libdrm
+      libgbm
+      libusb1
+      libx11
+      libxcb
+      libxcomposite
+      libxcursor
+      libxdamage
+      libxext
+      libxfixes
+      libxi
+      libxkbcommon
+      libxrandr
+      libxrender
+      libxscrnsaver
+      libxtst
+      nspr
+      nss
+      pango
+      udev
+    ];
 
   extraInstallCommands = ''
     install -Dm444 ${finalAttrs.contents}/mira.desktop $out/share/applications/boox-mira.desktop

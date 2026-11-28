@@ -70,7 +70,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
           type = "storage";
           data = {
             adminSettings = {
-              #^ adminSettings dictionary uses the same schema as the "backup to file" option in settings.
+              # ^^^ adminSettings dictionary uses the same schema as the "backup to file" option in settings.
               userSettings = {
                 # default settings are found: <repo:gorhill/uBlock:src/js/background.js>  (userSettingsDefault)
                 advancedUserEnabled = true;

@@ -16,7 +16,12 @@
 # but i have yet to see that in practice (i expect `apparmorRulesFromClosure` is good enough for 80% of cases;
 #   Grimmauld just overrides `<abstractions/base>` to give everything ro access to /nix/store/**/*)
 # Grimmauld's tool for automating alias creation: <https://github.com/LordGrimmauld/aa-alias-manager/blob/main/README.md#installingmaking-use-of-aa-alias-manager>
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   security.apparmor.enable = lib.mkDefault true;
   # security.apparmor.killUnconfinedConfinables = true;
@@ -51,38 +56,37 @@
   #      see with e.g. `ping $(hostname).`
   #      trailing . ensures it's not resolved by /etc/hosts; make sure to disable avahi-daemon else it'll be fielded by $(hostname).local.
   security.apparmor.includes."abstractions/nss-systemd" = ''
-    include "${
-      pkgs.apparmorRulesFromClosure { name = "systemd"; } [ pkgs.systemd ]
-    }"
+    include "${pkgs.apparmorRulesFromClosure { name = "systemd"; } [ pkgs.systemd ]}"
   '';
 
   # TODO: add this to nixpkgs:nixos/modules/security/apparmor/includes.nix
   #       upstream this by just including _all_ of `config.system.nssModules.list` in the apparmor closure?
-  security.apparmor.includes."abstractions/nameservice-strict" = let
-    etcRule = path:
-      lib.optionalString
-      (builtins.hasAttr path config.environment.etc)
-      "${config.environment.etc.${path}.source} r,"
-      ;
-  in ''
-    include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/nameservice-strict"
-  '' + lib.optionalString (lib.elem pkgs.nssmdns config.system.nssModules.list) ''
-    include "${
-      pkgs.apparmorRulesFromClosure { name = "nssmdns"; } [ pkgs.nssmdns ]
-    }"
-  '' + lib.optionalString (lib.elem pkgs.tcb config.system.nssModules.list) ''
-    include "${
-      pkgs.apparmorRulesFromClosure { name = "tcb"; } [ pkgs.tcb ]
-    }"
-  '' + lib.concatMapStringsSep "\n" etcRule [
-    "group"
-    "host.conf"
-    "hosts"
-    "nsswitch.conf"
-    "gai.conf"
-    "passwd"
-    "protocols"
-    "resolv.conf"
-    "services"
-  ];
+  security.apparmor.includes."abstractions/nameservice-strict" =
+    let
+      etcRule =
+        path:
+        lib.optionalString (builtins.hasAttr path config.environment.etc) "${
+          config.environment.etc.${path}.source
+        } r,";
+    in
+    ''
+      include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/nameservice-strict"
+    ''
+    + lib.optionalString (lib.elem pkgs.nssmdns config.system.nssModules.list) ''
+      include "${pkgs.apparmorRulesFromClosure { name = "nssmdns"; } [ pkgs.nssmdns ]}"
+    ''
+    + lib.optionalString (lib.elem pkgs.tcb config.system.nssModules.list) ''
+      include "${pkgs.apparmorRulesFromClosure { name = "tcb"; } [ pkgs.tcb ]}"
+    ''
+    + lib.concatMapStringsSep "\n" etcRule [
+      "group"
+      "host.conf"
+      "hosts"
+      "nsswitch.conf"
+      "gai.conf"
+      "passwd"
+      "protocols"
+      "resolv.conf"
+      "services"
+    ];
 }

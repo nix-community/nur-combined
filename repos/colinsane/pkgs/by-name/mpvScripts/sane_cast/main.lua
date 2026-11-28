@@ -6,7 +6,7 @@ function subprocess(in_terminal, args)
     args = { "xdg-terminal-exec", table.unpack(args) }
   end
   msg.info(table.concat(args, " "))
-  mp.command_native({
+  mp.command_native {
     name = "subprocess",
     args = args,
     detach = false,
@@ -15,7 +15,7 @@ function subprocess(in_terminal, args)
     -- capture_size=0,
     passthrough_stdin = false,
     playback_only = false,
-  })
+  }
 end
 
 function invoke_paused(in_terminal, args)
@@ -28,8 +28,11 @@ function invoke_paused(in_terminal, args)
   subprocess(in_terminal, args)
 end
 
-
-mp.add_key_binding(nil, "audio-cast", function() subprocess(true, { "sane-cast", "--verbose" }) end)
-mp.add_key_binding(nil, "sane-cast", function() invoke_paused(true, { "sane-cast", "--verbose", "@FILE@" }) end)
+mp.add_key_binding(nil, "audio-cast", function()
+  subprocess(true, { "sane-cast", "--verbose" })
+end)
+mp.add_key_binding(nil, "sane-cast", function()
+  invoke_paused(true, { "sane-cast", "--verbose", "@FILE@" })
+end)
 
 msg.trace("load: complete")

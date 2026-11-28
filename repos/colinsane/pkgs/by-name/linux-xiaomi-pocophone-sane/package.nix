@@ -3,7 +3,7 @@
   linux-postmarketos-qcom-sdm845,
   linux_latest,
   # linux_7_1,
-  #VVV nixpkgs calls `.override` on the kernel to configure additional things, especially
+  # vvv nixpkgs calls `.override` on the kernel to configure additional things, especially
   # features,
   # kernelPatches,
   # randstructSeed,
@@ -219,9 +219,9 @@ in
         # p."0186-arm64-dts-qcom-sdm845-lg-common-Change-ipa-gsi-loade"  # FAILS APPLY (7.2)
         # p."0187-arm64-dts-qcom-sdm845-lg-judyln-judyp-Reference-memo"  # FAILS APPLY (7.2)
         # p."0188-arm64-dts-qcom-sdm845-lg-Enable-qcom-snoc-host-cap-s"  # FAILS APPLY (7.2)
-        # p."0189-drm-panel-Add-LG-LH609QH1-Panel-with-SW49410-control"  #vv
+        # p."0189-drm-panel-Add-LG-LH609QH1-Panel-with-SW49410-control"  # vvv
         # p."0190-input-touchscreen-sw49410-ts-spi-Add-driver-for-SW49"  #  these apply but FAILS BUILD (7.2)
-        # p."0191-arm64-dts-qcom-sdm845-lg-judyln-add-fuel-gauge"        #^^
+        # p."0191-arm64-dts-qcom-sdm845-lg-judyln-add-fuel-gauge"        # ^^^
         p."0192-arm64-dts-qcom-sdm845-lg-common-Enable-NFC"
         p."0193-sdm845.config-Drivers-for-LG-G7-ThinQ"
         p."0194-sdm845.config-further-cleanup-and-some-moved-into-mi"

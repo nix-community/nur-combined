@@ -1,4 +1,5 @@
 ## deploying to SD card
+
 - build a toplevel config: `nix build '.#hosts.moby.img'`
 - mount a system:
   - `mkdir -p root/{nix,boot}`

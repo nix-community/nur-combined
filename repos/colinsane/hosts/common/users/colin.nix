@@ -9,28 +9,31 @@
     # i don't get exactly what this is, but nixos defaults to this non-deterministically
     # in /var/lib/nixos/auto-subuid-map and i don't want that.
     subUidRanges = [
-      { startUid=100000; count=1; }
+      {
+        startUid = 100000;
+        count = 1;
+      }
     ];
     group = "users";
     extraGroups = [
-      "audio"  # for wireplumber, so i can access devices without logind
-      "clightning"  # servo, for clightning-cli
-      "dialout"  # required for modem access (moby)
-      "export"  # to read filesystem exports (servo)
-      "feedbackd"  # moby, so `fbcli` can control vibrator and LEDs
-      "input"  # for /dev/input/<xyz>... TODO:is this still necessary?
-      "kvm"  # for qemu; /dev/kvm
-      "media"  # servo
-      "named"  # for `sane-vpn {up,down}`
+      "audio" # for wireplumber, so i can access devices without logind
+      "clightning" # servo, for clightning-cli
+      "dialout" # required for modem access (moby)
+      "export" # to read filesystem exports (servo)
+      "feedbackd" # moby, so `fbcli` can control vibrator and LEDs
+      "input" # for /dev/input/<xyz>... TODO:is this still necessary?
+      "kvm" # for qemu; /dev/kvm
+      "media" # servo
+      "named" # for `sane-vpn {up,down}`
       "networkmanager"
       "nixbuild"
-      "plugdev"  # desko, for ZSA/QMK/udev
-      "render"  # for crappy, /dev/dri/render*
-      "seat"  # for sway, if using seatd
-      "systemd-journal"  # allows to view other user's journals (esp system users)
-      "transmission"  # servo
-      "unbound"  # for `unbound-control` to work
-      "video"  # mobile; for LEDs & maybe for camera?
+      "plugdev" # desko, for ZSA/QMK/udev
+      "render" # for crappy, /dev/dri/render*
+      "seat" # for sway, if using seatd
+      "systemd-journal" # allows to view other user's journals (esp system users)
+      "transmission" # servo
+      "unbound" # for `unbound-control` to work
+      "video" # mobile; for LEDs & maybe for camera?
       "wheel"
       "wireshark"
     ];
@@ -44,10 +47,7 @@
     # initialPassword = lib.mkDefault "";
     # hashedPasswordFile = lib.mkIf (config.sops.secrets ? "colin-passwd") config.sops.secrets.colin-passwd.path;
 
-    shell = lib.mkIf
-      config.sane.programs.zsh.enableFor.user.colin
-      config.sane.programs.zsh.package
-      ;
+    shell = lib.mkIf config.sane.programs.zsh.enableFor.user.colin config.sane.programs.zsh.package;
 
     # mount encrypted stuff at login
     # some other nix pam users:

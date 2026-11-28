@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   # N.B.: systemd doesn't like to honor its timeout settings.
   # a timeout of 20s is actually closer to 70s,
@@ -90,7 +95,7 @@ in
   # no way to _remove_ an upstream `Before` attribute.
   # instead, neuter the service and re-implement the key bits.
   systemd.services.systemd-journal-flush.serviceConfig.ExecStart = [
-    ""  # clear original `ExecStart`
+    "" # clear original `ExecStart`
   ];
 
   systemd.services.systemd-journal-flush-sane = {
@@ -167,6 +172,10 @@ in
     RestrictRealtime = true;
     RestrictSUIDSGID = true;
     SystemCallArchitectures = "native";
-    SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
+    SystemCallFilter = [
+      "@system-service"
+      "~@privileged"
+      "~@resources"
+    ];
   };
 }

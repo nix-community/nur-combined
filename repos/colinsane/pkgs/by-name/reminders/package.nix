@@ -69,7 +69,7 @@ stdenv.mkDerivation {
   ];
 
   doCheck = true;
-  #vvv optional: avoid double-wrapping
+  # vvv optional: avoid double-wrapping
   # dontWrapGApps = true;
   # makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" ];
 

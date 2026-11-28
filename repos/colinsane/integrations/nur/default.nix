@@ -36,7 +36,9 @@
 # - from this repo, import the NUR with `repoOverrides.colinsane` pointed back here
 #   - see: <https://nur.nix-community.org/documentation/#overriding-repositories>
 
-{ pkgs ? import <nixpkgs> {} }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 let
   sane = import ../../pkgs/packages.nix pkgs;
   sane' = removeAttrs sane [
@@ -51,11 +53,11 @@ let
     "linux-xiaomi-pocophone-sane-min"
     # TODO(2026-05-18): mpvScripts.sane_cast takes sane-cast as callarg; that doesn't exist when packages are placed in a `sane` scope!
     "mpvScripts"
-    "pkgsBroken"  # error: path ... did not exist in the store during evaluation
-    "pkgsSpliced"  # error: path ... did not exist in the store during evaluation
-    "pkgsStaging"  # error: path ... did not exist in the store during evaluation
-    "pkgsStagingNext"  # error: path ... did not exist in the store during evaluation
-    "pkgsStagingNixos"  # error: path ... did not exist in the store during evaluation
+    "pkgsBroken" # error: path ... did not exist in the store during evaluation
+    "pkgsSpliced" # error: path ... did not exist in the store during evaluation
+    "pkgsStaging" # error: path ... did not exist in the store during evaluation
+    "pkgsStagingNext" # error: path ... did not exist in the store during evaluation
+    "pkgsStagingNixos" # error: path ... did not exist in the store during evaluation
     "sane-nix-files"
     # these use IFD by design
     "nixpkgs-bootstrap"
@@ -65,16 +67,17 @@ let
     "uninsane-dot-org"
   ];
 in
-  # NUR expects the following schema, as per <https://nur.nix-community.org/documentation/#nixos-modules-overlays-and-library-function-support>:
-  # - toplevel is a package set
-  # - optionally: `lib` is an arbitrary collection of nix expressions (similar to nixpkgs' lib)
-  # - optionally: `modules` is an attrset from String -> Path
-  # - optionally: `overlays` is an attrset from String -> (Attrs -> Attrs)
-  sane' // {
-    # too lazy to expose overlays/modules individually right now; let me know if you want that.
-    overlays = {
-      all = import ../../overlays/all.nix;
-      pkgs = import ../../overlays/pkgs.nix;
-    };
-    modules.all = ../../modules;
-  }
+# NUR expects the following schema, as per <https://nur.nix-community.org/documentation/#nixos-modules-overlays-and-library-function-support>:
+# - toplevel is a package set
+# - optionally: `lib` is an arbitrary collection of nix expressions (similar to nixpkgs' lib)
+# - optionally: `modules` is an attrset from String -> Path
+# - optionally: `overlays` is an attrset from String -> (Attrs -> Attrs)
+sane'
+// {
+  # too lazy to expose overlays/modules individually right now; let me know if you want that.
+  overlays = {
+    all = import ../../overlays/all.nix;
+    pkgs = import ../../overlays/pkgs.nix;
+  };
+  modules.all = ../../modules;
+}

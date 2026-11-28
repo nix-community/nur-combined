@@ -92,7 +92,7 @@ lib.mkIf config.sane.persist.enable
     mountConfig.ProtectHostname = true;
     mountConfig.RemoveIPC = true;
     mountConfig.RestrictAddressFamilies = "AF_UNIX";  # "none" works, but then it can't connect to the logger
-    #VVV this includes anything it reads from, e.g. /bin/sh; /nix/store/...
+    # vvv this includes anything it reads from, e.g. /bin/sh; /nix/store/...
     # see `systemd-analyze filesystems` for a full list
     mountConfig.RestrictFileSystems = "@common-block @basic-api fuse pipefs";
     # mountConfig.RestrictNamespaces = true;

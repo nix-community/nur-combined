@@ -7,7 +7,7 @@
 let
   uiPort = 1234;  # default ui port is 1234
   backendPort = 8536; # default backend port is 8536
-  #^ i guess the "backend" port is used for federation?
+  # ^^^ i guess the "backend" port is used for federation?
   pict-rs = pkgs.pict-rs;
   # pict-rs configuration is applied in this order:
   # - via toml
@@ -148,7 +148,7 @@ in {
       serviceConfig.SystemCallFilter = [ "@system-service" "@pkey" "@sandbox" ];
     };
 
-    #v DO NOT REMOVE: defaults to 0.3, instead of latest, so always need to explicitly set this.
+    # vvv DO NOT REMOVE: defaults to 0.3, instead of latest, so always need to explicitly set this.
     services.pict-rs.package = pict-rs;
 
     systemd.services.pict-rs = {

@@ -11,26 +11,40 @@ let
   # the IP it issues can be used to connect to any of their VPNs.
   # effectively the IP and key map 1-to-1.
   # it seems to still be possible to keep two active tunnels on one device, using the same key/IP address, though.
-  def-ovpn = name: { endpoint, publicKey, id }: let
-    inherit (config.sane.ovpn) addrV4;
-  in {
-    sane.vpn."ovpnd-${name}" = lib.mkIf (addrV4 != null) {
-      inherit addrV4 endpoint publicKey id;
-      privateKeyFile = config.sops.secrets."ovpn_privkey".path;
-      dns = [
-        "46.227.67.134"
-        "192.165.9.158"
-        # "2a07:a880:4601:10f0:cd45::1"
-        # "2001:67c:750:1:cafe:cd45::1"
-      ];
-    };
+  def-ovpn =
+    name:
+    {
+      endpoint,
+      publicKey,
+      id,
+    }:
+    let
+      inherit (config.sane.ovpn) addrV4;
+    in
+    {
+      sane.vpn."ovpnd-${name}" = lib.mkIf (addrV4 != null) {
+        inherit
+          addrV4
+          endpoint
+          publicKey
+          id
+          ;
+        privateKeyFile = config.sops.secrets."ovpn_privkey".path;
+        dns = [
+          "46.227.67.134"
+          "192.165.9.158"
+          # "2a07:a880:4601:10f0:cd45::1"
+          # "2001:67c:750:1:cafe:cd45::1"
+        ];
+      };
 
-    sops.secrets."ovpn_privkey" = lib.mkIf (addrV4 != null) {
-      # needs to be readable by systemd-network or else it says "Ignoring network device" and doesn't expose it to networkctl.
-      owner = "systemd-network";
+      sops.secrets."ovpn_privkey" = lib.mkIf (addrV4 != null) {
+        # needs to be readable by systemd-network or else it says "Ignoring network device" and doesn't expose it to networkctl.
+        owner = "systemd-network";
+      };
     };
-  };
-in {
+in
+{
   options = with lib; {
     sane.ovpn.addrV4 = mkOption {
       type = types.nullOr types.str;

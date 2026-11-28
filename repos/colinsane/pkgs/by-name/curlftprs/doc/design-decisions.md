@@ -1,4 +1,5 @@
 ## FTP provider
+
 - async-curl
   - <https://github.com/LorenzoLeonardo/async-curl>
   - wrapper around `curl-rust` to make it `async` (specially for tokio)
@@ -24,7 +25,7 @@
     - supports timeouts:
       - [x] `ImplFtpStream::connect_timeout` / `TcpStream::connect_timeout`
       - [ ] `ImplFtpStream::login` (no timeout)
-      ...
+        ...
     - general timeouts could be implemented via `std::net::TcpStream::set_read_timeout`
       - provide your own `TcpStream`: `ImplFtpStream::new_with_stream(s: TcpStream)`
       - in this case the timeout is applied per-read, so if bytes are coming in at a trickle it could still be unbounded in duration
@@ -34,8 +35,8 @@
     - async_std backend (deprecated)
     - tokio backend
 
-
 ## FUSE provider
+
 - fuser
   - <https://github.com/cberner/fuser>
   - rust-native port of the C `libfuse`

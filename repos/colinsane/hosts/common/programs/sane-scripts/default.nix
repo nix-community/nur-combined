@@ -78,6 +78,14 @@ in
 
     # the idea of this script is to `cd` into a fresh clone...
     # but that's an ephemeral operation that would be lost when the sandbox closes.
+
+    "sane-scripts.clone".packageUnwrapped =
+      (pkgs.sane-scripts.override {
+        nix = config.sane.programs.nix.packageUnwrapped;
+      }).clone.overrideAttrs
+        {
+          dontCheckPackageConsistency = true;
+        };
     "sane-scripts.clone".sandbox.method = null; # TODO: sandbox
 
     "sane-scripts.date-set".sandbox = {
@@ -169,7 +177,10 @@ in
     "sane-scripts.reclaim-disk-space".packageUnwrapped =
       (pkgs.sane-scripts.override {
         nix = config.sane.programs.nix.packageUnwrapped;
-      }).reclaim-disk-space;
+      }).reclaim-disk-space.overrideAttrs
+        {
+          dontCheckPackageConsistency = true;
+        };
     "sane-scripts.reclaim-disk-space".sandbox = {
       method = "bunpen";
       extraPaths = [ "/nix/var/nix" ];

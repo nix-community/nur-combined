@@ -5,16 +5,16 @@
 
 {
   # partially supported in nixpkgs  <repo:nixos/nixpkgs:nixos/modules/misc/ids.nix>
-  sane.ids.networkmanager.uid = 57;  # nixpkgs unofficially reserves this, to match networkmanager's gid
-  sane.ids.mediatomb.uid = 187;  # <repo:nixos/nixpkgs:nixos/modules/misc/ids.nix>
+  sane.ids.networkmanager.uid = 57; # nixpkgs unofficially reserves this, to match networkmanager's gid
+  sane.ids.mediatomb.uid = 187; # <repo:nixos/nixpkgs:nixos/modules/misc/ids.nix>
 
   # these ids are "required" to be "system users" (400..999).
   # this seems to be a `shadow` (package) concept; SYS_UID_MIN and SYS_UID_MAX
   sane.ids.pcscd.uid = 897;
   sane.ids.pcscd.gid = 897;
-  sane.ids.usbmux.uid = 898;  # found on desko; services.usbmuxd.
+  sane.ids.usbmux.uid = 898; # found on desko; services.usbmuxd.
   sane.ids.usbmux.gid = 898;
-  sane.ids.plugdev.gid = 899;  # else "Group 'plugdev' is not a system group, ignoring."
+  sane.ids.plugdev.gid = 899; # else "Group 'plugdev' is not a system group, ignoring."
 
   # legacy servo users, some are inconvenient to migrate
   sane.ids.dhcpcd.gid = 991;
@@ -54,8 +54,8 @@
   sane.ids.pict-rs.gid = 2409;
   sane.ids.sftpgo.uid = 2410;
   sane.ids.sftpgo.gid = 2410;
-  sane.ids.hickory-dns.uid = 2411;  # previously "trust-dns"
-  sane.ids.hickory-dns.gid = 2411;  # previously "trust-dns"
+  sane.ids.hickory-dns.uid = 2411; # previously "trust-dns"
+  sane.ids.hickory-dns.gid = 2411; # previously "trust-dns"
   sane.ids.export.gid = 2412;
   sane.ids.nfsuser.uid = 2413;
   sane.ids.media.gid = 2414;
@@ -89,10 +89,10 @@
   sane.ids.guest.uid = 1100;
 
   # found on all hosts
-  sane.ids.sshd.uid = 2001;  # 997
-  sane.ids.sshd.gid = 2001;  # 997
-  sane.ids.polkituser.gid = 2002;  # 998
-  sane.ids.systemd-coredump.gid = 2003;  # 996  # 2023/02/12-2023/02/28: upstream temporarily specified this as 151
+  sane.ids.sshd.uid = 2001; # 997
+  sane.ids.sshd.gid = 2001; # 997
+  sane.ids.polkituser.gid = 2002; # 998
+  sane.ids.systemd-coredump.gid = 2003; # 996  # 2023/02/12-2023/02/28: upstream temporarily specified this as 151
   sane.ids.nscd.uid = 2004;
   sane.ids.nscd.gid = 2004;
   sane.ids.systemd-oom.uid = 2005;
@@ -116,9 +116,8 @@
   sane.ids.wpa_supplicant.gid = 2015;
 
   # found on graphical hosts
-  sane.ids.nm-iodine.uid = 2101;  # desko/moby/lappy
+  sane.ids.nm-iodine.uid = 2101; # desko/moby/lappy
   sane.ids.seat.gid = 2102;
-
 
   # originally found on moby host
   # gnome core-shell

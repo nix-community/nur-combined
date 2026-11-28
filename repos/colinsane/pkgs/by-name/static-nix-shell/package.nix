@@ -1,5 +1,6 @@
 {
   bash,
+  hostXdgDataDirsHook,
   lib,
   makeBinaryWrapper,
   newScope,
@@ -177,62 +178,103 @@ lib.makeScope newScope (self: {
       in
       {
         __structuredAttrs = true;
+        strictDeps = true;
+
         inherit pname;
         version = attrs.version or "0.1.0"; # default version
         preferLocalBuild = attrs.preferLocalBuild or true;
 
         nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [
+          hostXdgDataDirsHook
           makeBinaryWrapper
         ];
 
-        runtimePrefixes =
-          (attrs.runtimePrefixes or [ ]) ++ (if resolvedPkgs != null then resolvedPkgs else resolvedSpec);
+        # N.B.: default stdenv behavior is to take the .dev output for each buildInputs.
+        # the .dev output gives us all the things a consumer might want at build-time,
+        # like .pc files, build helpers, etc.
+        # that mostly just pollutes the runtime environment we're trying to build, even with strictDeps.
+        # e.g. `glib.dev` contains `bin/glib-mkenums`. useless at runtime.
+        #
+        # stdenv defaults are like so:
+        # - if a package has a .dev output, then that's almost always the output which has nix-support/propagated-build-inputs.
+        # - propagated-build-inputs propagates the package's own `bin`, `include` and `lib` outputs.
+        #
+        # buildEnv (which is /run/current-system/sw) chooses which outputs of a package to link into the env:
+        # - if `drv.outputSpecified` => install drv unmodified
+        # - else if `drv.meta.outputsToInstall` => install those outputs
+        # - else => install drv's default output (i.e. `${drv}`)
+        #
+        # case study: bind (outputsToInstall)
+        # only ~40 packages inside nixpkgs make use of `outputsToInstall`.
+        # one of them is `bind`. bind defines:
+        #     outputs = [ "out" "lib" "dev" "man" "dnsutils" "host" ];
+        #     meta.outputsToInstall = [ "out" "dnsutils" "host" ];
+        # in this case, `buildInputs = [ bind ];` ships neither of the outputsToInstall -- just `dev`, `out` and `lib`.
+        # it seems that anyone using `bind` undecorated really does want `out`.
+        #
+        # case study: jq (outputs, default != "out")
+        # `jq` has outputs = [ "bin" "doc" "man" "dev" "out" ];
+        # - bin contains `bin/jq`, only
+        # - `out` contains `lib/*.so`, only
+        # - `dev` contains `inc/`, `*.pc`, and propagates bin + out
+        # taking the default `bin` output is 100% suitable for us here
+        buildInputs =
+          let
+            # the effect is to ensure `lib.getDev (selectOutput p) == selectOutput p`,
+            # i.e. to get stdenv to not inject dev's everywhere.
+            selectOutput =
+              p:
+              # this `if` guard is propably unnecessary: i'm being conservative in case there are edgecases around e.g. `override`n packages.
+              if p.outputSpecified or false then p else lib.getOutput p.outputName p;
+          in
+          lib.map selectOutput (
+            (attrs.buildInputs or [ ]) ++ (if resolvedPkgs != null then resolvedPkgs else resolvedSpec)
+          );
 
-        # N.B. `nix-shell` only takes from `buildInputs`, not `runtimePrefixes`.
-        # so this here is what actually gets the right invoked-from-src behavior.
-        buildInputs = (attrs.buildInputs or [ ]) ++ finalAttrs.runtimePrefixes;
+        # after sourcing $stdenv/setup, `nix-shell` executes this `shellHook`.
+        # outside of that, i.e. during the ordinary package build, `shellHooks` is *never invoked*.
+        shellHook = ''
+          case ${merge} in
+            (append)
+              if [ -n "$HOST_PATH" ]; then
+                export PATH=''${PATH+$PATH:}$HOST_PATH
+              fi
+              if [ -n "$HOST_XDG_DATA_DIRS" ]; then
+                export XDG_DATA_DIRS=''${XDG_DATA_DIRS+$XDG_DATA_DIRS:}$HOST_XDG_DATA_DIRS
+              fi
+              ;;
+            (prepend)
+              if [ -n "$HOST_PATH" ]; then
+                export PATH=$HOST_PATH''${PATH+:$PATH}
+              fi
+              if [ -n "$HOST_XDG_DATA_DIRS" ]; then
+                export XDG_DATA_DIRS=$HOST_XDG_DATA_DIRS''${XDG_DATA_DIRS+:$XDG_DATA_DIRS}
+              fi
+          esac
+
+          # the build package will have a hardcoded interpreter path.
+          # this matters, because the ambient interpreter may not be a suitable environment
+          # e.g. the ambient `python3` could have extra packages, and might be sandboxed.
+          # so, place the same interpreter we'd hardcode first on PATH, though note it's not an exact equivalent.
+          newInterpreter=${if interpreter == null then "" else interpreter}
+          if [ -n "$newInterpreter" ]; then
+            interpreterDir=$(dirname "$newInterpreter")
+            if [ -n "$interpreterDir" ]; then
+              export PATH=$interpreterDir''${PATH:+:$PATH}
+            fi
+          fi
+        '';
 
         configurePhase =
           attrs.configurePhase or ''
             runHook preConfigure
 
-            # generate `extraPaths`, `extraXdgDataDirs` colon-separated paths for use in the build phase.
-            # first, gather the entire buildInputs closure:
-            runtimePrefixesList=()
-            crawlPackage() {
-              # only crawl each package *once*
-              for p in "''${runtimePrefixesList[@]}"; do
-                if [[ "$p" == "$1" ]]; then
-                  return
-                fi
-              done
-
-              # ingest this package
-              runtimePrefixesList=("''${runtimePrefixesList[@]}" "$1")
-
-              # crawl everything this package propagates.
-              # this is *required* for Python packages.
-              local prop=$1/nix-support/propagated-build-inputs
-              if [ -e "$prop" ]; then
-                crawlPackages $(cat "$prop")
-              fi
-            }
-            crawlPackages() {
-              for p in "$@"; do
-                crawlPackage "$p"
-              done
-            }
-            crawlPackages "''${runtimePrefixes[@]}"
             append_PATH=
             prepend_PATH=
             append_XDG_DATA_DIRS=
             prepend_XDG_DATA_DIRS=
-            for p in "''${runtimePrefixesList[@]}"; do
-              echo "considering if dependency needs to be added to runtime environment(s): $p"
-              # `addToSearchPath` behaves as no-op if the provided path doesn't exist
-              addToSearchPath ${merge}_PATH "$p/bin"
-              addToSearchPath ${merge}_XDG_DATA_DIRS "$p/share"
-            done
+            ${merge}_PATH=$HOST_PATH
+            ${merge}_XDG_DATA_DIRS=$HOST_XDG_DATA_DIRS
 
             runHook postConfigure
           '';
@@ -315,12 +357,12 @@ lib.makeScope newScope (self: {
               ${lib.optionalString (resolvedSpec != null && resolvedPkgs != null) ''
                 if [[ "${toString (names resolvedSpec)}" != "${toString (names resolvedPkgs)}" ]]; then
                   # weaker name-based comparison
-                  die "embedded package lists for '${pname}' differs from that specified in nix:"$'\n'"${toString (names resolvedPkgs)}"$'\n'"${toString (names resolvedSpec)}"
+                  die "embedded package lists for '${pname}' differs from that specified in nix:"$'\n'"${toString (names resolvedPkgs)}"$'\n'"${toString (names resolvedSpec)}"$'\nconsider specifying `dontCheckPackageConsistency = true;`'
                 fi
                 if [ -z "''${relaxPackageConsistency:-}" ]; then
                   if [[ "${toString resolvedSpec}" != "${toString resolvedPkgs}" ]]; then
                     # stronger path-based comparison (in case one package was `.override`n while another wasn't)
-                    die "embedded package lists for '${pname}' differs from that specified in nix:"$'\n'"${toString resolvedPkgs}"$'\n'"${toString resolvedSpec}"
+                    die "embedded package lists for '${pname}' differs from that specified in nix:"$'\n'"${toString resolvedPkgs}"$'\n'"${toString resolvedSpec}"$'\nconsider specifying `relaxPackageConsistency = true;`'
                   fi
                 fi
               ''}
@@ -350,12 +392,21 @@ lib.makeScope newScope (self: {
           attrs.installCheckPhase or ''
             runHook preInstallCheck
 
-            timeout 15 $out/bin/${finalAttrs.meta.mainProgram} --help
+            # N.B.: with `strictDeps = true`, GI_TYPELIB_PATH contains *target* paths,
+            # and then python builds using pygobject3 fail, like:
+            # `nix-build -A pkgsCross.aarch64-multiplatform.buildPackages.nanogpt-api`.
+            # unsetting all env vars makes sure the result does actually bring all its deps, though.
+            timeout 15 env --ignore-environment $out/bin/${finalAttrs.meta.mainProgram} --help
 
             runHook postInstallCheck
           '';
 
         doInstallCheck = attrs.doInstallCheck or true;
+
+        passthru = {
+          inherit packages;
+        }
+        // (attrs.passthru or { });
 
         meta = (attrs.meta or { }) // {
           mainProgram = (attrs.meta or { }).mainProgram or srcPath;
@@ -551,10 +602,7 @@ lib.makeScope newScope (self: {
           # and <repo:nixos/nixpkgs:pkgs/development/interpreters/python/wrap-python.nix>
           postConfigure =
             attrs.postConfigure or ''
-              for p in "''${runtimePrefixesList[@]}"; do
-                # XXX: python site dirs appear to be unordered?
-                addToSearchPath add_PYTHONPATH "$p/${python3.sitePackages}"
-              done
+              add_PYTHONPATH=$PYTHONPATH
 
               shellPreambleBody=
               if [[ -n "$append_PATH" ]]; then

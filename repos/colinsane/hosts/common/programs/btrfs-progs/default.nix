@@ -8,14 +8,14 @@ in
     sandbox.autodetectCliPaths = "parent"; # e.g. `btrfs subvolume create ./my_subvol`
     sandbox.extraPaths = [
       "/dev/btrfs-control"
-      #vvv required for `sudo btrfs filesystem show` with no args
+      # vvv required for `sudo btrfs filesystem show` with no args
       "/dev"
       "/sys/block"
       "/sys/dev/block"
       "/sys/devices"
-      #vvv required for `sudo btrfs scrub start`
+      # vvv required for `sudo btrfs scrub start`
       "/sys/fs"
-      #vvv required for `sudo btrfs scrub status` to show stats
+      # vvv required for `sudo btrfs scrub status` to show stats
       "/var/lib/btrfs"
     ];
     sandbox.tryKeepUsers = true;

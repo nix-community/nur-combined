@@ -13,7 +13,7 @@ in
       pkgs.bootpart-edk2-rpi
     ];
 
-    #v used by systemd-boot
+    # vvv used by systemd-boot
     hardware.deviceTree.name = "broadcom/bcm2711-rpi-400.dtb";
 
     boot.initrd.availableKernelModules = [

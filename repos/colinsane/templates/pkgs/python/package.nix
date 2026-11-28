@@ -3,7 +3,8 @@
   fetchFromGitHub,
   python3,
   stdenv,
-}: stdenv.mkDerivation (finalAttrs: {
+}:
+stdenv.mkDerivation (finalAttrs: {
   # pname = "mypackage";
   # version = "0.1-unstable-2024-06-04";
 

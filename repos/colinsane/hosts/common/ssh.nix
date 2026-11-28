@@ -1,43 +1,53 @@
 { config, lib, ... }:
 
 let
-  hostKeys = lib.mapAttrsToList
-    (hostName: hostCfg:
-      # generate `root@servo`, `colin@servo`, `root@servo-hn`, `colin@servo-hn`, ... as a single attrset:
-      lib.foldl' (acc: alias: acc // {
+  hostKeys = lib.mapAttrsToList (
+    _hostName: hostCfg:
+    # generate `root@servo`, `colin@servo`, `root@servo-hn`, `colin@servo-hn`, ... as a single attrset:
+    lib.foldl' (
+      acc: alias:
+      acc
+      // {
         "root@${alias}" = lib.mkIf (hostCfg.ssh.host_pubkey != null) hostCfg.ssh.host_pubkey;
         # XXX: ALL `colin@` keys we propagate here are added as authorized keys, in hosts/common/home/ssh.nix.
         # so only propagate the ones we want to authorize, here!
         # (this is a confusing footgun, should be changed)
-        "colin@${alias}" = lib.mkIf (hostCfg.ssh.user_pubkey != null && hostCfg.ssh.authorized) hostCfg.ssh.user_pubkey;
-      })
-      {}
-      hostCfg.names
-    )
-    config.sane.hosts.by-name;
+        "colin@${alias}" = lib.mkIf (
+          hostCfg.ssh.user_pubkey != null && hostCfg.ssh.authorized
+        ) hostCfg.ssh.user_pubkey;
+      }
+    ) { } hostCfg.names
+  ) config.sane.hosts.by-name;
 in
 {
-  sane.ssh.pubkeys = lib.mkMerge (hostKeys ++ [
-    {
-      "root@uninsane.org" = config.sane.hosts.by-name.servo.ssh.host_pubkey;
-      "root@git.uninsane.org" = config.sane.hosts.by-name.servo.ssh.host_pubkey;
+  sane.ssh.pubkeys = lib.mkMerge (
+    hostKeys
+    ++ [
+      {
+        "root@uninsane.org" = config.sane.hosts.by-name.servo.ssh.host_pubkey;
+        "root@git.uninsane.org" = config.sane.hosts.by-name.servo.ssh.host_pubkey;
 
-      # documented: <https://codeberg.org/Codeberg/org/src/branch/main/Imprint.md#ssh-fingerprints>
-      "root@codeberg.org" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIVIC02vnjFyL+I4RHfvIGNtOgJMe769VTF1VR4EB3ZB";
+        # documented: <https://codeberg.org/Codeberg/org/src/branch/main/Imprint.md#ssh-fingerprints>
+        "root@codeberg.org" =
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIVIC02vnjFyL+I4RHfvIGNtOgJMe769VTF1VR4EB3ZB";
 
-      # documented here: <https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints>
-      # Github actually uses multiple keys -- one per format
-      "root@github.com" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
+        # documented here: <https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints>
+        # Github actually uses multiple keys -- one per format
+        "root@github.com" =
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
 
-      # documented: <https://docs.gitlab.com/ee/user/gitlab_com/index.html#ssh-known_hosts-entries>
-      "root@gitlab.com" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAfuCHKVTjquxvt6CM6tdG4SLp1Btn/nOeHHE5UOzRdf";
+        # documented: <https://docs.gitlab.com/ee/user/gitlab_com/index.html#ssh-known_hosts-entries>
+        "root@gitlab.com" =
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAfuCHKVTjquxvt6CM6tdG4SLp1Btn/nOeHHE5UOzRdf";
 
-      # documented: <https://www.rsync.net/resources/fingerprints.txt>
-      # extract keys with `ssh-keyscan sd1.rsync.net`
-      # validate fingerprint with `ssh-keyscan sd1.rsync.net | ssh-keygen -l -f -`
-      "root@*.rsync.net" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINdUkGe6kKn5ssz4WRZKjcws0InbQqZayenzk9obmP1z";
-    }
-  ]);
+        # documented: <https://www.rsync.net/resources/fingerprints.txt>
+        # extract keys with `ssh-keyscan sd1.rsync.net`
+        # validate fingerprint with `ssh-keyscan sd1.rsync.net | ssh-keygen -l -f -`
+        "root@*.rsync.net" =
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINdUkGe6kKn5ssz4WRZKjcws0InbQqZayenzk9obmP1z";
+      }
+    ]
+  );
 
   services.openssh = {
     enable = true;

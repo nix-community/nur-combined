@@ -51,25 +51,29 @@
   # disabling nscd VASTLY simplifies netns and process isolation. see explainer at top of file.
   services.nscd.enable = false;
   # system.nssModules = lib.mkForce [];
-  sane.silencedAssertions = [''.*Loading NSS modules from system.nssModules.*requires services.nscd.enable being set to true.*''];
+  sane.silencedAssertions = [
+    ".*Loading NSS modules from system.nssModules.*requires services.nscd.enable being set to true.*"
+  ];
 
   # add NSS modules into their own subdirectory.
   # then i can add just the NSS modules library path to the global LD_LIBRARY_PATH, rather than ALL of /run/current-system/sw/lib.
   # TODO: i'm doing this so as to achieve mdns DNS resolution (avahi). it would be better to just have hickory-dns delegate .local to avahi
   #   (except avahi doesn't act as a local resolver over DNS protocol -- only dbus).
-  environment.systemPackages = [(pkgs.symlinkJoin {
-    name = "nss-modules";
-    paths = config.system.nssModules.list;
-    postBuild = ''
-      mkdir nss
-      for file in $out/lib/libnss_*; do
-        mv $file nss
-      done
-      rm -rf $out
-      mkdir -p $out/lib
-      mv nss $out/lib
-    '';
-  })];
+  environment.systemPackages = [
+    (pkgs.symlinkJoin {
+      name = "nss-modules";
+      paths = config.system.nssModules.list;
+      postBuild = ''
+        mkdir nss
+        for file in $out/lib/libnss_*; do
+          mv $file nss
+        done
+        rm -rf $out
+        mkdir -p $out/lib
+        mv nss $out/lib
+      '';
+    })
+  ];
   environment.variables.LD_LIBRARY_PATH = [ "/run/current-system/sw/lib/nss" ];
-  systemd.globalEnvironment.LD_LIBRARY_PATH = "/run/current-system/sw/lib/nss";  # specifically for `geoclue.service`
+  systemd.globalEnvironment.LD_LIBRARY_PATH = "/run/current-system/sw/lib/nss"; # specifically for `geoclue.service`
 }
