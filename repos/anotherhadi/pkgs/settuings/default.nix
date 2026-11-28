@@ -6,13 +6,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "settuings";
-  version = "0.2.1";
+  version = "0.2.2";
 
   src = fetchFromGitHub {
     owner = "anotherhadi";
     repo = "settuings";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Vpkzs84NSerl/7QDIWGNUDuKCXc7A/dkCglaTV2idGM=";
+    hash = "sha256-cOqVkqQWfT3pO28EzZNAq9P/Q1dCIOQKTC+Bjoy2iq0=";
   };
 
   vendorHash = "sha256-BndE5rJ33aARDmoJPu/POxSsnezXg2D1GC23VGz0IWQ=";
