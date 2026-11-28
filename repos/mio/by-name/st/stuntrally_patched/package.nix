@@ -66,6 +66,11 @@ stuntrally.overrideAttrs (oldAttrs: {
       substituteInPlace src/common/AppGui_Compositor.cpp \
         --replace-fail 'lens = edView ? 1 : pSet->g.lens_flare,' 'lens = false,' \
         --replace-fail 'sunbeams = edView ? 1 : pSet->g.sunbeams,' 'sunbeams = false,'
+      substituteInPlace data/Hlms/Pbs/Any/Main/200.Atmo_piece_all.any \
+        --replace-fail 'constant AtmoSettings &atmo' 'constant SR3_AtmoSettings &atmo'
+      substituteInPlace data/materials/Common/Metal/MipmapsGaussianBlur_cs.metal \
+        --replace-fail 'i2Inc ),' 'i2Inc )' \
+        --replace-fail 'p.dstLodIdx );' ');'
       substituteInPlace src/game/BaseApp.cpp \
         --replace-fail 'using namespace Ogre;' 'using namespace Ogre;
 
