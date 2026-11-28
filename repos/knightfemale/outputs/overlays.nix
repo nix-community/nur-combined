@@ -1,23 +1,9 @@
 {
-  config,
-  inputs,
-  ...
-}:
-{
   flake.overlays = {
     default = import ./_overlays/default.nix;
+    deviceTrees = import ./_overlays/deviceTrees.nix;
+    lib = import ./_overlays/lib.nix;
+    packages = import ./_overlays/packages.nix;
+    python314Packages = import ./_overlays/python314Packages.nix;
   };
-
-  perSystem =
-    {
-      system,
-      ...
-    }:
-    {
-      _module.args.pkgs = import inputs.nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-        overlays = [ config.flake.overlays.default ];
-      };
-    };
 }

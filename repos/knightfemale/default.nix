@@ -3,11 +3,25 @@
 }:
 
 let
-  overlay = import ./outputs/_overlays/default.nix;
-  pkgs' = pkgs.extend overlay;
+  overlays = {
+    default = import ./outputs/_overlays/default.nix;
+    deviceTrees = import ./outputs/_overlays/deviceTrees.nix;
+    lib = import ./outputs/_overlays/lib.nix;
+    packages = import ./outputs/_overlays/packages.nix;
+    python314Packages = import ./outputs/_overlays/python314Packages.nix;
+  };
+
+  pkgs' = pkgs.extend overlays.default;
+
+  inherit (pkgs'.lib)
+    recurseIntoPackageSets
+    ;
+
+  deviceTrees = recurseIntoPackageSets pkgs'.deviceTreesRaw;
+  python314Packages = recurseIntoPackageSets pkgs'.python314PackagesRaw;
 in
 {
-  overlays.default = overlay;
+  inherit overlays;
 
   inherit (pkgs')
     biu
@@ -15,14 +29,10 @@ in
     flake-show-ng
     ;
 
-  legacyPackages = {
-    inherit (pkgs')
-      deviceTrees
-      ;
-  }
-  // {
-    python314Packages = pkgs'.python314Packages';
-  };
+  inherit
+    python314Packages
+    deviceTrees
+    ;
 
   nixosModules = {
     openlist = ./outputs/_nixosModules/openlist;
