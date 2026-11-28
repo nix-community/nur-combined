@@ -361,32 +361,32 @@
       "fingerprint": "sha256-towcatrM+06L5DicpsZfVGQtyJY6jfzlWnl5JtIKcs4="
     },
     "geolite2-asn": {
-      "version": "2026.11.25",
-      "rawVersion": "2026.11.25",
+      "version": "2026.11.28",
+      "rawVersion": "2026.11.28",
       "src": {
         "fetcher": "url",
-        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.25/GeoLite2-ASN.mmdb",
-        "hash": "sha256-JpRt03KYIdmZSo8vnnVw9V5fQ2IIxVd862iNMdV+rbQ="
+        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.28/GeoLite2-ASN.mmdb",
+        "hash": "sha256-xnDeEfBCfgkV/QKl7KBUrCqh8ZT8nC+CB85CTcYgwCE="
       },
       "fingerprint": "sha256-0ToZa+2Em+tnyn9CPCmAPlp6lIcX7/Merx+CDKFXW1M="
     },
     "geolite2-city": {
-      "version": "2026.11.25",
-      "rawVersion": "2026.11.25",
+      "version": "2026.11.28",
+      "rawVersion": "2026.11.28",
       "src": {
         "fetcher": "url",
-        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.25/GeoLite2-City.mmdb",
-        "hash": "sha256-0xd3DDn99jxLfUkU3bId9YGovjEsBH9XU55znBJ85O8="
+        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.28/GeoLite2-City.mmdb",
+        "hash": "sha256-zggwUfATcDq1XYnp2qhc4rU9mqDfTylTEweYV7vV6pI="
       },
       "fingerprint": "sha256-463eu1xFZXCx4oz8SRSvBA0hvpJyFhic5DHxAO5Hvus="
     },
     "geolite2-country": {
-      "version": "2026.11.25",
-      "rawVersion": "2026.11.25",
+      "version": "2026.11.28",
+      "rawVersion": "2026.11.28",
       "src": {
         "fetcher": "url",
-        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.25/GeoLite2-Country.mmdb",
-        "hash": "sha256-4lbZySd18ztXV531V2XC+h6mVsA8JGGGHg80JggWvhQ="
+        "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.28/GeoLite2-Country.mmdb",
+        "hash": "sha256-7v1KaudjlsBfnDd9Tpkjq4vv2fZJHiPlcB1q5/u22+I="
       },
       "fingerprint": "sha256-J85WDuNyYNUaddQZHQiF6elxX2H2Ai5xb/pLo1lio2E="
     },
@@ -692,15 +692,15 @@
       "fingerprint": "sha256-RF7dTjRA08i3eBdVEzcyBdNUd5jMpUf82/JeB3dMxIs="
     },
     "nezha": {
-      "version": "2.8.0",
-      "rawVersion": "v2.8.0",
-      "date": "2026-11-27",
+      "version": "2.8.1",
+      "rawVersion": "v2.8.1",
+      "date": "2026-11-28",
       "src": {
         "fetcher": "github",
         "owner": "nezhahq",
         "repo": "nezha",
-        "rev": "v2.8.0",
-        "hash": "sha256-o7npqDVr3mj5MLS1hnGw9Ogv+ETiehbMHYH9OplOvIA="
+        "rev": "v2.8.1",
+        "hash": "sha256-ZL16/cOGdfbrpW/cRQkUT11UL/HA9JZ/1fHyn+5juBg="
       },
       "fingerprint": "sha256-XGgYC0V+zgCBDK3pro5CgnEWs5e+XEhjsm9ntwty0pw="
     },
@@ -718,15 +718,15 @@
       "fingerprint": "sha256-auNeaN3UlxE3aWGKBkvVNrZkb14T2DxZMUO1zpasejY="
     },
     "nezha-theme-admin": {
-      "version": "2.7.0",
-      "rawVersion": "v2.7.0",
-      "date": "2026-11-27",
+      "version": "2.7.1",
+      "rawVersion": "v2.7.1",
+      "date": "2026-11-28",
       "src": {
         "fetcher": "github",
         "owner": "nezhahq",
         "repo": "admin-frontend",
-        "rev": "v2.7.0",
-        "hash": "sha256-QbEGbnMSSrYUxlA4z9rI9+gCSnyb2TvyTiKZ2KeClwo="
+        "rev": "v2.7.1",
+        "hash": "sha256-Qd/nRlsDaBK2JgDPjtma+P6Juf4Yr0I1R2Rht0WVi/0="
       },
       "derived": {
         "npmDeps": {
@@ -1440,14 +1440,14 @@
     },
     "sunrise": {
       "version": "0-unstable-2026-11-28",
-      "rawVersion": "293a27f4b4415961dfb3f7e8520b3a17b1122dbf",
+      "rawVersion": "70d397565afce50f2a6a859c8a138cd0b9270a8d",
       "date": "2026-11-28",
       "src": {
         "fetcher": "github",
         "owner": "sunrise-org",
         "repo": "sunrise",
-        "rev": "293a27f4b4415961dfb3f7e8520b3a17b1122dbf",
-        "hash": "sha256-22ghq4Y+rDSpq+x6I+GzwoO+0Qpxqg1LNzjAlAGedB8="
+        "rev": "70d397565afce50f2a6a859c8a138cd0b9270a8d",
+        "hash": "sha256-8CukxCI8I54b+lXX7WmzdsSR7iG+Ls2hi6nJX6uxHRc="
       },
       "derived": {
         "cargoLock": {

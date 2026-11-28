@@ -4944,6 +4944,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "sunrise-entity-data"
+version = "0.1.0"
+dependencies = [
+ "sunrise-core",
+ "sunrise-game-data",
+ "sunrise-mod-vocab",
+ "sunrise-world",
+]
+
+[[package]]
 name = "sunrise-friends"
 version = "0.1.0"
 dependencies = [
@@ -5758,6 +5768,7 @@ dependencies = [
  "fs4",
  "getrandom 0.3.4",
  "glam",
+ "indexmap",
  "log",
  "mio",
  "png",
@@ -5772,6 +5783,7 @@ dependencies = [
  "sunrise-border",
  "sunrise-command",
  "sunrise-core",
+ "sunrise-entity-data",
  "sunrise-game-data",
  "sunrise-items",
  "sunrise-java-properties",
