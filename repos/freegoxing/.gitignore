@@ -1,4 +1,6 @@
 result
 result-*
 .direnv/
+.cache/
+__pycache__/
 .pre-commit-config.yaml

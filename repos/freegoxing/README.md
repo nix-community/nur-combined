@@ -23,9 +23,20 @@ nix fmt                     # 格式化 Nix 和 shell 文件
 nix flake check             # 运行仓库检查
 ```
 
-开发环境、格式化器和检查目前配置在 `x86_64-linux` 上。百度网盘、ChatGPT、嘉立创EDA专业版和 QQ 使用各自目录中的 `update.sh` 检查版本。GitHub Actions 每天北京时间 11:17 检查版本并为更新创建 PR，可以在 Actions 页面手动触发；更新工作流不执行完整构建。
+开发环境、格式化器和检查目前配置在 `x86_64-linux` 上。百度网盘和嘉立创EDA专业版使用各自目录中的 `update.sh` 检查版本和源码 SHA256。GitHub Actions 每天北京时间 11:17 检查并为更新创建 PR，可以在 Actions 页面手动触发；更新工作流不执行完整构建。
 
-自动创建 PR 需要在 GitHub 仓库的 **Settings → Actions → General → Workflow permissions** 中启用 **Allow GitHub Actions to create and approve pull requests**。QQ 更新会跳过比当前版本更旧的官方版本。
+更新脚本会保存官方安装包的 ETag／Last-Modified 和实测 SHA256。相同版本下使用 HTTP 条件请求：服务器返回 304 时复用缓存中的 SHA256，不下载安装包正文；文件变化时重新下载并更新 hash，因此也能处理上游不改版本号就替换安装包的情况。首次运行、缓存失效、版本变化或距上次完整下载已满七天时，都会完整下载复核；304 响应不会延后七天期限。服务器没有提供可用标识或忽略条件请求时，也会完整下载。
+
+GitHub Actions 会跨运行缓存这些元数据。手动触发时勾选 `force_hash` 可强制完整下载；本地运行示例：
+
+```sh
+nix shell nixpkgs#python3 nixpkgs#curl nixpkgs#jq -c bash pkgs/lceda-pro/update.sh
+nix shell nixpkgs#python3 nixpkgs#curl nixpkgs#jq -c env UPDATE_FORCE_HASH=1 bash pkgs/lceda-pro/update.sh
+```
+
+本地缓存默认为 `${XDG_CACHE_HOME:-$HOME/.cache}/nur-package-updates`，可用 `UPDATE_CACHE_DIR` 指定其他目录。仅在下载完整且文件格式符合预期后，才会一起写入 version 和 hash；网络失败不会留下仅更新版本号的包定义。运行 `python3 -m unittest discover -s tests -v` 可验证缓存、强制复核和失败处理逻辑。
+
+自动创建 PR 需要在 GitHub 仓库的 **Settings → Actions → General → Workflow permissions** 中启用 **Allow GitHub Actions to create and approve pull requests**。更新脚本会拒绝降级到更旧的官方版本。
 
 ## 许可证
 

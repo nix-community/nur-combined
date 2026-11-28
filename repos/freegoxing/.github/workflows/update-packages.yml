@@ -2,6 +2,11 @@ name: Update packages
 
 on:
   workflow_dispatch:
+    inputs:
+      force_hash:
+        description: Download archives and recalculate hashes even when cached
+        type: boolean
+        default: false
   schedule:
     # Daily at 11:17 Beijing time
     - cron: '17 3 * * *'
@@ -10,6 +15,10 @@ permissions:
   contents: write
   pull-requests: write
 
+concurrency:
+  group: update-packages
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -17,6 +26,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+
+      - name: Restore source metadata
+        id: source-cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .cache/source-updates
+          key: source-updates-v1-${{ runner.os }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            source-updates-v1-${{ runner.os }}-
 
       - uses: cachix/install-nix-action@v31
         with:
@@ -27,17 +45,15 @@ jobs:
       - name: Update packages
         timeout-minutes: 15
         env:
-          NIXPKGS_ALLOW_UNFREE: '1'
           PYTHONUNBUFFERED: '1'
-          UPDATE_NIX_FLAKE: '1'
+          UPDATE_CACHE_DIR: ${{ github.workspace }}/.cache/source-updates
+          UPDATE_FORCE_HASH: ${{ inputs.force_hash && '1' || '0' }}
         run: |
           set -euo pipefail
-          nix shell nixpkgs#nix-update -c bash -euc '
+          nix shell nixpkgs#python3 nixpkgs#curl nixpkgs#jq -c bash -euc '
+            python3 -m unittest discover -s tests -v
             for package in baidunetdisk lceda-pro; do
               echo "::group::Update $package"
-              export UPDATE_NIX_ATTR_PATH="$package"
-              UPDATE_NIX_OLD_VERSION=$(nix eval --impure --raw ".#$package.version")
-              export UPDATE_NIX_OLD_VERSION
               timeout --kill-after=30s 7m bash "pkgs/$package/update.sh"
               echo "::endgroup::"
               if git diff --quiet -- "pkgs/$package"; then
@@ -47,6 +63,12 @@ jobs:
               fi
             done
           '
+
+      - name: Save source metadata
+        uses: actions/cache/save@v5
+        with:
+          path: .cache/source-updates
+          key: ${{ steps.source-cache.outputs.cache-primary-key }}
 
       - name: Review changes
         run: |
@@ -58,10 +80,13 @@ jobs:
         with:
           branch: update/packages
           delete-branch: true
-          commit-message: 'packages: update upstream versions'
-          title: 'packages: update upstream versions'
+          commit-message: 'packages: update upstream versions and source hashes'
+          title: 'packages: update upstream versions and source hashes'
           body: |
             Automatically update upstream versions and source SHA256 hashes.
+
+            Detect same-version source replacements using conditional HTTP requests,
+            with a full download at least every seven days or when manually forced.
 
             Full Nix build validation is not performed by this workflow.
           add-paths: |
