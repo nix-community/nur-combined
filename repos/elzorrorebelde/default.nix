@@ -62,3 +62,9 @@ in
     inherit (pkgs) buildFHSEnv;
   };
 }
+// pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+  # Kiri - scrolling tiling KWin script
+  kiri = pkgs.kdePackages.callPackage ./packages/kiri {
+    inherit (pkgs) kdePackages;
+  };
+}
