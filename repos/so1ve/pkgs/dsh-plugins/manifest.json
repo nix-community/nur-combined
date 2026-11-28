@@ -13,9 +13,9 @@
   },
   "github:kingcharleslzy-ai/dsh-purge": {
     "version": "1.7.20",
-    "rev": "e519253d5b01344056055af9d2041dcafa42fed3",
-    "url": "https://codeload.github.com/kingcharleslzy-ai/dsh-purge/tar.gz/e519253d5b01344056055af9d2041dcafa42fed3",
-    "hash": "sha256-HcJJ+7VuJCdCuG6L13FKFY/SUYU8Oz80TqvQC9STCpc=",
+    "rev": "462ddf9b452fd11ef57823f41826ece7c40a8cf9",
+    "url": "https://codeload.github.com/kingcharleslzy-ai/dsh-purge/tar.gz/462ddf9b452fd11ef57823f41826ece7c40a8cf9",
+    "hash": "sha256-QA2Q1GJaDvIZGT05k40L0+9S7sTjjjWc7N7+7s+AGJg=",
     "npmDepsHash": "sha256-dUwVwG0Ai6Mdj/6Fpd7tELTTaFKvIfy6LnAyH0hLUO0="
   },
   "npm:@anionex/dsh-turn-rewind": {
