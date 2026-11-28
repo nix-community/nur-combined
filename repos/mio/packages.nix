@@ -39,6 +39,8 @@ let
       ocamlPackages =
         (pkgs.ocaml-ng.ocamlPackages_5_4.overrideScope (
           oself: osuper: {
+            nunchaku = pkgs.lib.callPackageWith (pkgs // oself) ./pkgs/development/ocaml-modules/nunchaku { };
+            smbc = pkgs.lib.callPackageWith (pkgs // oself) ./pkgs/development/ocaml-modules/smbc { };
             saturn = osuper.saturn.overrideAttrs (_: {
               doCheck = false;
             });

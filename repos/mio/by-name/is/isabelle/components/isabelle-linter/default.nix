@@ -1,0 +1,88 @@
+{
+  stdenvNoCC,
+  lib,
+  fetchurl,
+  fetchFromGitHub,
+  isabelle,
+  writableTmpDirAsHomeHook,
+  writeTextFile,
+}:
+
+let
+  settings = writeTextFile {
+    name = "linter-settings";
+    text = ''
+      JEDIT_LINTER_HOME="@out@/share/jedit_linter"
+      ISABELLE_LINTER_JAR="@out@/share/java/isabelle_linter.jar"
+      classpath "$ISABELLE_LINTER_JAR"
+      classpath "@out@/share/java/isabelle_linter_plugin.jar"
+    '';
+  };
+in
+stdenvNoCC.mkDerivation {
+  pname = "isabelle-linter";
+  version = "2025-2-1.0.0";
+
+  outputs = [
+    "out"
+    "settings"
+  ];
+
+  src = fetchFromGitHub {
+    owner = "isabelle-prover";
+    repo = "isabelle-linter";
+    rev = "Isabelle2025-2-v1.0.0";
+    hash = "sha256-V6Bnxyq/WI6U0sVBHA/vFOI0U3Vd5/GLCxbeWVitm8I=";
+  };
+
+  patches = [
+    # Isabelle2025-2 wraps markup in command_range; without the patch then the
+    # commands are ignored span and `isabelle lint` doesn't print anything
+    (fetchurl {
+      url = "https://raw.githubusercontent.com/sempiternal-aurora/nixpkgs/30b07b7e68d352cc26eb51d6b2cf402845b16e77/pkgs/by-name/is/isabelleComponents/isabelle-linter/isabelle-linter-command-range.patch";
+      hash = "sha256-72AJMtcc34IWLvkR1HuIAXaO7ExSmfMKShuNvxbp12A=";
+    })
+  ];
+
+  nativeBuildInputs = [
+    isabelle
+    writableTmpDirAsHomeHook
+  ];
+
+  buildPhase = ''
+    runHook preBuild
+
+    isabelle components -u $(pwd)
+    isabelle scala_build
+
+    runHook postBuild
+  '';
+
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/share/jedit_linter $out/share/java
+    cp -r jedit_linter/jedit_linter_plugin $out/share/jedit_linter
+    install -m644 jedit_linter/Linter.thy $out/share/jedit_linter
+    install -Dm644 linter_base/lib/classes/isabelle_linter.jar jedit_linter/lib/classes/isabelle_linter_plugin.jar $out/share/java
+
+    mkdir -p $settings/etc
+    install -m644 linter_base/etc/options $settings/etc
+    tail -n +2 jedit_linter/etc/options >> $settings/etc/options
+    substitute ${settings} $settings/etc/settings --replace-fail '@out@' "$out"
+
+    runHook postInstall
+  '';
+
+  passthru.tests = {
+    inherit (isabelle.tests) linter;
+  };
+
+  meta = {
+    description = "Linter component for Isabelle";
+    homepage = "https://github.com/isabelle-prover/isabelle-linter";
+    maintainers = with lib.maintainers; [ jvanbruegge ];
+    license = lib.licenses.mit;
+    platforms = lib.platforms.all;
+  };
+}
