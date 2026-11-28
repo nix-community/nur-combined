@@ -68,6 +68,10 @@ stuntrally.overrideAttrs (oldAttrs: {
         --replace-fail 'sunbeams = edView ? 1 : pSet->g.sunbeams,' 'sunbeams = false,'
       substituteInPlace data/Hlms/Pbs/Any/Main/200.Atmo_piece_all.any \
         --replace-fail 'constant AtmoSettings &atmo' 'constant SR3_AtmoSettings &atmo'
+      substituteInPlace src/common/Atmosphere.cpp \
+        --replace-fail 'int32( constBufferSlot )' 'int32( constBufferSlot + 6u )' \
+        --replace-fail 'VertexShader, uint16( slotIdx )' 'VertexShader, uint16( slotIdx + 6u )' \
+        --replace-fail 'PixelShader, uint16( slotIdx )' 'PixelShader, uint16( slotIdx + 6u )'
       substituteInPlace data/materials/Common/Metal/MipmapsGaussianBlur_cs.metal \
         --replace-fail 'i2Inc ),' 'i2Inc )' \
         --replace-fail 'p.dstLodIdx );' ');'
