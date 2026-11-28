@@ -36,7 +36,7 @@ lib.optionalAttrs false # XXX(2025-09-08): using kresd / knot-resolver now
         # be compatible with systemd-resolved
         # "127.0.0.53"
         # or don't be compatible with systemd-resolved, but with libc and pasta instead
-        #   see <pkgs/by-name/sane-scripts/src/sane-vpn>
+        #   see <pkgs/by-name/sane-vpn/sane-vpn>
         "127.0.0.1"
         # enable IPv6, or don't; unbound is spammy when IPv6 is enabled but unroutable
         # "::1"

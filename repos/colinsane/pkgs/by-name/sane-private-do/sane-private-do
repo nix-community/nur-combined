@@ -1,0 +1,69 @@
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../.. -A static-nix-shell.mkBash --arg packages 'ps: [ ps.bash ps.util-linux ]'
+
+set -eu
+
+usage() {
+  echo 'sane-private-do [COMMAND ...]'
+  echo
+  echo 'unlock the private store, run some command, and then re-lock the store'
+  echo 'N.B.: `mount`ing requires elevated privileges (cap_sys_admin).'
+  echo "      for this reason, it's expected that this script is run from within a mount namespace, not directly."
+  echo "      this also has the side effect that parent/sibling processes don't see our mount in their namespace."
+  echo '      i.e. the real /mnt/persist/private path is never modified.'
+  echo
+  echo "if COMMAND is empty, launches the user's default shell"
+}
+
+cmd=()
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    if ((${#cmd[@]})); then
+      # all remaining arguments are to be forwarded to the subcommand
+      cmd+=("$arg")
+    else
+      case $arg in
+        (--help)
+          usage
+          exit 0
+          ;;
+        (*)
+          cmd=("$arg")
+          ;;
+      esac
+    fi
+  done
+}
+
+main() {
+  local mntpoint=/mnt/persist/private
+  if mountpoint -q "$mntpoint"; then
+    # don't mount/unmount if it already exists (re-entrancy)
+    mntpoint=
+  fi
+
+  local external_cmd=("${cmd[@]}")
+  if ! ((${#x[@]})); then
+    external_cmd=("${SHELL:-/bin/sh}" "-i")
+  fi
+
+  if [ -n "$mntpoint" ]; then
+    mount "$mntpoint"
+  fi
+
+  set +e
+  "${external_cmd[@]}"
+  local RC=$?
+  set -e
+
+  if [ -n "$mntpoint" ]; then
+    umount "$mntpoint"
+  fi
+
+  exit "$RC"
+}
+
+parseArgs "$@"
+main

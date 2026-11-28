@@ -1,0 +1,42 @@
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../.. -A static-nix-shell.mkBash --arg packages 'ps: [ ps.bash ps.findutils ]'
+# find where a package stores its dotfiles/dotdir
+# e.g. `sane-find-dotfiles foo` might print `/home/colin/.foo`, `/home/colin/.local/share/foo`, etc.
+
+set -eu
+
+usage() {
+  echo "sane-find-dotfiles NAME..."
+  echo "  find files matching NAME (case-insensitive) under common dot directories"
+  echo "  like ~/.config, ~/.local/share, etc"
+}
+
+names=()
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    case $arg in
+      (--help)
+        usage
+        exit 0
+        ;;
+      (*)
+        names+=("$arg")
+        ;;
+    esac
+  done
+}
+
+main() {
+  for name in "${names[@]}"; do
+    find ~/ ~/.config/ ~/.cache/ ~/.local/share/ -maxdepth 1 -iname "*${name}*" -print
+    find ~/.local/share/*/ -maxdepth 1 -iname "*${name}*" -print
+    find ~/.local/state/*/ -maxdepth 1 -iname "*${name}*" -print
+    find ~/.config/*/ -maxdepth 1 -iname "*${name}*" -print
+    find ~/.cache/*/ -maxdepth 1 -iname "*${name}*" -print
+  done
+}
+
+parseArgs "$@"
+main

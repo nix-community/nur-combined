@@ -76,7 +76,7 @@
     serviceConfig.NetworkNamespacePath = "/run/netns/ovpns";
     serviceConfig.ExecStartPre = [
       # abort if public IP is not as expected
-      "${lib.getExe pkgs.sane-scripts.ip-check} --no-upnp --expect ${config.sane.netns.ovpns.wg.address.ipv4}"
+      "${lib.getExe pkgs.sane-ip-check} --no-upnp --expect ${config.sane.netns.ovpns.wg.address.ipv4}"
     ];
 
     serviceConfig.Restart = lib.mkForce "always";  # exits "success" when it fails to connect to soulseek server

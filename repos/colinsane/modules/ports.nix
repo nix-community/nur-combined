@@ -51,7 +51,7 @@ let
           RestartSec = "3min";
           ExecStart =
           let
-            portFwd = lib.getExe pkgs.sane-scripts.ip-port-forward;
+            portFwd = lib.getExe pkgs.sane-ip-port-forward;
             forwards = map (proto: "${proto}:${port}:${portCfg.description}") portCfg.protocol;
           in ''
             ${portFwd} -v -d ${toString cfg.upnpLeaseDuration} \

@@ -6,10 +6,10 @@ let
   # getIp = pkgs.writeShellScript "dyn-dns-query-wan" ''
   #   # preferred method and fallback
   #   # OPNsense router broadcasts its UPnP endpoint every 30s
-  #   timeout 60 ${lib.getExe pkgs.sane-scripts.ip-check} --json || \
-  #     ${lib.getExe pkgs.sane-scripts.ip-check} --json --no-upnp
+  #   timeout 60 ${lib.getExe pkgs.sane-ip-check} --json || \
+  #     ${lib.getExe pkgs.sane-ip-check} --json --no-upnp
   # '';
-  getIp = "${lib.getExe pkgs.sane-scripts.ip-check} --json";
+  getIp = "${lib.getExe pkgs.sane-ip-check} --json";
 in
 {
   options = {

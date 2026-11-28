@@ -1,0 +1,86 @@
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i ysh ../../.. -A static-nix-shell.mkYsh --arg packages 'ps: [ ps.coreutils-full ps.gnused ps.oils-for-unix ]'
+
+# processes a tab-separated "deadlines" file and alerts for any upcoming events.
+#
+# deadlines.tsv file format:
+# - <date>\t<reminder-interval>\t<event>
+# - no header
+# - one line per entry
+# - <event> may contain any non-newline and non-tab characters
+# - <notice-interval> is the number of days before the event to start alerting, followed by 'd', e.g. `14d`
+# - <date> should be lexicographically orderable and machine-parsable, e.g. `2023-03-14`
+#
+# example `deadlines.tsv`
+# 2023-03-14	1d	celebrate pi day!
+# 2023-04-18	14d	taxes due
+# 2023-04-01	7d	the other pie day :o
+
+# configurables:
+var home = get(ENV, "HOME", "/etc")
+var deadlines = "$home/knowledge/planner/deadlines.tsv"
+
+proc usage {
+  echo "sane-deadlines:"
+  echo "  print any upcoming deadlines from $deadlines"
+}
+
+func parseArgs(args) {
+  for arg in (args) {
+    case (arg) {
+      ("--help") {
+        usage
+        exit 0
+      }
+      (else) {
+        usage
+        exit 1
+      }
+    }
+  }
+}
+
+proc main {
+  if ! test -f "$deadlines" {
+    echo "WARNING: $deadlines sane-deadlines file not found"
+    exit 1
+  }
+
+  var now=$(date +%s)
+  for line in ($(cat "$deadlines") => split(u'\n')) {
+    if (line === "" or line => startsWith("#")) {
+      # ignore comments
+      continue
+    }
+
+    # parse normal line
+    var deadline_field=$(echo "$line" | cut -f 1)
+    var threshold_field=$(echo "$line" | cut -f 2)
+    var description_field=$(echo "$line" | cut -f 3)
+
+    # normalize dates into seconds since unix epoch
+    var deadline=$(date -d "$deadline_field" +%s)
+    var threshold=$(echo "$threshold_field" | sed 's/d/day /g')
+    var birthtime=$(date -d "$deadline_field - $threshold" +%s)
+
+    # show the event iff it's near
+    # 86400 = 24*60*60 = # of seconds in a day
+    # 10080 = 24*60*7 = # of seconds between UTC and UTC-7
+    # 11520 = 24*60*8 = # of seconds between UTC and UTC-8
+    if (now >= birthtime) {
+      var days_until = int((deadline - now + 86399) / 86400)
+      var context = "in $days_until days"
+      if (days_until === 1) {
+        setvar context = "in 1 day"
+      } elif (days_until <= 0) {
+        setvar context = "now"
+      }
+      echo "$context: $description_field"
+    }
+  }
+}
+
+if is-main {
+  call parseArgs(ARGV)
+  main
+}

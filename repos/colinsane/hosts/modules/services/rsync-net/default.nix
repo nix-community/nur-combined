@@ -8,8 +8,8 @@ let
         net-tools
         openssh
         rsync
+        sane-vpn
       ;
-      "sane-scripts.vpn" = pkgs.sane-scripts.vpn;
     };
     srcRoot = ./.;
   };

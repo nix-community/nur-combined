@@ -117,7 +117,7 @@ in
     environment.TR_DEBUG = "1";
     serviceConfig.ExecStartPre = [
       # abort if public IP is not as expected
-      "${lib.getExe pkgs.sane-scripts.ip-check} --no-upnp --expect ${config.sane.netns.ovpns.wg.address.ipv4}"
+      "${lib.getExe pkgs.sane-ip-check} --no-upnp --expect ${config.sane.netns.ovpns.wg.address.ipv4}"
     ];
 
     serviceConfig.Restart = "on-failure";

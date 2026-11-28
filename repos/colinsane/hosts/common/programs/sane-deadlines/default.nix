@@ -20,7 +20,7 @@ in
           };
         };
       };
-    packageUnwrapped = pkgs.sane-scripts.deadlines;
+    packageUnwrapped = pkgs.sane-deadlines;
 
     sandbox.extraHomePaths = [ "knowledge/planner/deadlines.tsv" ];
 

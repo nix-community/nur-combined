@@ -1,0 +1,129 @@
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../.. -A static-nix-shell.mkBash --arg packages 'ps: [ ps.bash ps.dconf ps.libsecret ps.procps ps.systemdMinimal ]'
+
+set -eu
+
+usage() {
+  echo "usage: sane-wipe [--verbose] RESOURCE [RESOURCE ...]"
+  echo "RESOURCE:"
+  echo "  browser: kill and remove cache for firefox, epiphany, chromium, brave, etc"
+  echo "  dino:    remove auth and data for Dino XMPP messenger"
+  echo "  discord: remove auth and data for official Discord messenger"
+  echo "  flare:   remove auth and data for flare-signal messenger"
+  echo "  fractal: remove auth and data for fractal matrix messenger"
+  echo "  rofi:    remove rofi .desktop entry cache and force it to recompute entries"
+}
+
+resources=()
+VERBOSE=
+parseArgs() {
+  while [[ $# -ge 1 ]]; do
+    local arg=$1
+    shift
+    case "$arg" in
+      (browser | dino | discord | flare | fractal | rofi)
+        resources+=("$arg")
+        ;;
+      (--help)
+        usage
+        exit 0
+        ;;
+      (--verbose)
+        VERBOSE=1
+        ;;
+      (*)
+        usage
+        exit 1
+        ;;
+    esac
+  done
+
+  if [[ ${#resources[@]} -eq 0 ]]; then
+    usage
+    exit 1
+  fi
+}
+
+del_secret_if_exists() {
+  local secret=$1
+  # first, ensure the secret is unlocked
+  searchRes=$(secret-tool search --all --unlock 'xdg:schema' "$secret")
+  if [[ -n "$searchRes" ]]; then
+    printf "found secrets for %s: clearing %s" "$secret" "$searchRes"
+    secret-tool clear 'xdg:schema' "$secret"
+  else
+    printf "not clearing secret %s: not found" "$secret"
+  fi
+}
+
+wipe_browser() {
+  # remove chromium/epiphany/firefox/librewolf artifacts
+  rm -rf \
+    ~/.cache/BraveSoftware/* \
+    ~/.cache/chromium/* \
+    ~/.cache/epiphany/* \
+    ~/.cache/librewolf/* \
+    ~/.cache/mozilla/firefox/* \
+    ~/.config/BraveSoftware/* \
+    ~/.config/chromium/* \
+    ~/.librewolf/default/* \
+    ~/.local/share/epiphany/* \
+    ~/.mozilla/firefox/default/* ||
+    true # in case no matches
+
+  # browsers like to stick around in the background so they can load faster
+  pkill brave || true
+  pkill epiphany || true
+  pkill firefox || true
+  pkill librewolf || true
+}
+
+wipe_dino() {
+  rm -rf ~/.local/share/dino/*
+  echo "now re-launch Dino and join some notable channels like:"
+  echo "- discuss@conference.soprani.ca"
+}
+
+wipe_discord() {
+  rm -rf ~/.config/discord/*
+  rm -rf ~/.cache/discord/mesa/*
+  echo "Discord is wiped"
+}
+
+wipe_flare() {
+  del_secret_if_exists 'de.schmidhuberj.Flare'
+
+  dconf reset -f /de/schmidhuberj/Flare/
+
+  rm -rf ~/.local/share/flare/*
+
+  echo "Flare is wiped: you may now repair it."
+}
+
+wipe_fractal() {
+  systemctl stop fractal
+
+  del_secret_if_exists 'org.gnome.Fractal'
+  del_secret_if_exists 'org.gnome.Fractal.Hack'
+
+  echo "Fractal is wiped: you may now restart it and login."
+  echo "The initial sync may take up to an hour, after which you will be prompted to verify the session with another device."
+  echo "If this does not work, try deleting ~/.local/share/fractal/* in its entirety."
+}
+
+wipe_rofi() {
+  rm -f ~/.cache/rofi/rofi-drun-desktop.cache
+}
+
+main() {
+  if [ -n "$VERBOSE" ]; then
+    set -x
+  fi
+
+  for r in "${resources[@]}"; do
+    "wipe_$r"
+  done
+}
+
+parseArgs "$@"
+main

@@ -9,7 +9,7 @@ let
 in
 {
   sane.programs."sane-private-unlock-remote" = {
-    packageUnwrapped = pkgs.sane-scripts.private-unlock-remote;
+    packageUnwrapped = pkgs.sane-private-unlock-remote;
     sandbox.net = "all";
     sandbox.extraHomePaths = [
       ".config/sops"

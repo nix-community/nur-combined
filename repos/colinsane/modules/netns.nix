@@ -310,7 +310,7 @@ let
           # abort if public IP is not as expected.
           # copy this snippet to the service definition site if you want it: it has to be defined as close to the service definition as possible to be useful
           # serviceConfig.ExecStartPre = [
-          #   "${lib.getExe pkgs.sane-scripts.ip-check} --no-upnp --expect ${opts.address.ipv4}"
+          #   "${lib.getExe pkgs.sane-ip-check} --no-upnp --expect ${opts.address.ipv4}"
           # ];
         }))
       ];

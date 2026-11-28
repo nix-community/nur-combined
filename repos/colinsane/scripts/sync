@@ -1,5 +1,5 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i ysh ../. -A static-nix-shell.mkYsh --arg packages 'ps: [ ps.oils-for-unix ps.rsync ps.sane-scripts.sync-from-iphone ps.sane-scripts.sync-music ]'
+#!nix-shell -i ysh ../. -A static-nix-shell.mkYsh --arg packages 'ps: [ ps.oils-for-unix ps.rsync ps.sane-sync-from-iphone ps.sane-sync-music ]'
 
 # mutated by `main`
 var DRY_RUN = false

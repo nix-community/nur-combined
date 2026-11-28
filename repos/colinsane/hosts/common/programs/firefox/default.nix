@@ -107,7 +107,7 @@ let
             genericName = "Web Browser";
             # N.B.: --new-instance ensures we don't reuse an existing differenty-namespaced instance.
             # OTOH, it may error about "only one instance can run at a time": close the other instance if you see that.
-            exec = "${lib.getExe pkgs.sane-scripts.vpn} do default -- firefox --new-instance";
+            exec = "${lib.getExe pkgs.sane-vpn} do default -- firefox --new-instance";
             icon = "firefox";
             categories = [
               "Network"
@@ -121,7 +121,7 @@ let
             genericName = "Web Browser";
             # N.B.: --new-instance ensures we don't reuse an existing differently-namespaced instance.
             # OTOH, it may error about "only one instance can run at a time": close the other instance if you see that.
-            exec = "${lib.getExe pkgs.sane-scripts.vpn} do none -- firefox --new-instance";
+            exec = "${lib.getExe pkgs.sane-vpn} do none -- firefox --new-instance";
             icon = "firefox";
             categories = [
               "Network"

@@ -1,0 +1,53 @@
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../.. -A static-nix-shell.mkBash --arg packages 'ps: [ ps.bash ps.openssh ps.sane-secrets-dump ]'
+
+# unlock a remote private store by dropping the password in a discoverable place.
+# this only works if our own private store has been unlocked and this machine has access to the relevant secret.
+
+set -eu
+
+usage() {
+  echo "sane-private-unlock-remote HOST"
+  echo "  ssh's into HOST and unlocks its encrypted data store (e.g. encrypted home directory)"
+  echo "  this is non-interactive, and only works so long as the machine running this script"
+  echo "  has HOST's key in its own keyring"
+}
+
+host=
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    case $arg in
+      (--help)
+        usage
+        exit 0
+        ;;
+      (*)
+        if [ -z "$host" ]; then
+          host=$arg
+        else
+          usage
+          exit 1
+        fi
+        ;;
+    esac
+  done
+}
+
+main() {
+  local host="$1"
+  local passwd=$(sane-secrets-dump --field password "$host")
+
+  if [ -z "$passwd" ]; then
+    echo "failed to decode password" | tee /dev/stderr
+    exit 1
+  fi
+
+  echo "attempting to mount private store on $host"
+  echo "$passwd" | timeout 30 ssh "$host" 'if ! test -f /mnt/persist/private/init; then cat /dev/stdin > /run/gocryptfs/private.key; fi'
+  echo "mount succeeded"
+}
+
+parseArgs "$@"
+main "$host"

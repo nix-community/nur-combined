@@ -11,7 +11,7 @@ lib.optionalAttrs false # XXX(2024-12-29): unbound caches failed DNS resolutions
         # be compatible with systemd-resolved
         # "127.0.0.53"
         # or don't be compatible with systemd-resolved, but with libc and pasta instead
-        #   see <pkgs/by-name/sane-scripts/src/sane-vpn>
+        #   see <pkgs/by-name/sane-vpn/sane-vpn>
         "127.0.0.1"
         # enable IPv6, or don't, because having just a single name server makes monkey-patching it easier
         # "::1"

@@ -15,7 +15,7 @@ in
   systemd.services.jackett = {
     serviceConfig.ExecStartPre = [
       # abort if public IP is not as expected
-      "${lib.getExe pkgs.sane-scripts.ip-check} --no-upnp --expect ${config.sane.netns.ovpns.wg.address.ipv4}"
+      "${lib.getExe pkgs.sane-ip-check} --no-upnp --expect ${config.sane.netns.ovpns.wg.address.ipv4}"
     ];
     # patch in `--ListenPublic` so that it's reachable from the netns veth.
     # this also makes it reachable from the VPN pub address. oh well.

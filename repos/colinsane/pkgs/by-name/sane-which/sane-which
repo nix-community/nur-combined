@@ -1,0 +1,49 @@
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../.. -A static-nix-shell.mkBash --arg packages 'ps: [ ps.bash ps.coreutils-full ps.file ps.gnugrep ]'
+# traces a PATH lookup by printing the source, resolution, and any symlinks traversed
+# finally, prints the content of the file
+
+cur="$1"
+next="$(which "$cur")"
+
+getExists() {
+  [ -e "$1" ] && echo "$1"
+}
+
+getSymlinked() {
+  # test if $cur is a symlink
+  local next_
+  next_="$(readlink "$cur")"
+  [ "$?" -eq 0 ] && (getExists "$next_" || getExists "$(dirname "$cur")/$next_" || echo "$next_")
+}
+
+getWrapped() {
+  # test if $cur is a wrapper around a patch matching $1 template
+  local dir="$(dirname "$cur")"
+  local base="$(basename "$cur")"
+  local wrapped="$(printf "$1" "$dir" "$base")"
+  [ -e "$wrapped" ] && grep -q "$wrapped" "$cur" && echo "$wrapped"
+}
+
+getNext() {
+  getSymlinked ||
+    getWrapped "%s/.sandboxed/%s" ||
+    getWrapped "%s/.%s-wrapped"
+}
+
+echo "$cur"
+while [ -n "$next" ]; do
+  cur="$next"
+  echo "-> $cur"
+  next="$(getNext "$cur")"
+done
+echo
+
+case $(file --brief --mime "$cur") in
+  (*text*)
+    head -n30 "$cur"
+    ;;
+  (*)
+    echo $(file "$cur")
+    ;;
+esac

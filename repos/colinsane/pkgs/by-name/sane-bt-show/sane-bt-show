@@ -1,0 +1,37 @@
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i python3 ../../.. -A static-nix-shell.mkPython3 --arg packages 'ps: [ ps.python3 ps.sane-bt ]'
+# vim: set filetype=python :
+
+import argparse
+import logging
+
+from sane_bt import MediaMeta, TransmissionApi
+
+
+def main():
+    logging.basicConfig()
+    logging.getLogger().setLevel(logging.INFO)
+
+    parser = argparse.ArgumentParser(
+        description="show information about one or more torrents on servo"
+    )
+    TransmissionApi.add_arguments(parser)
+    parser.add_argument(
+        "torrents",
+        nargs="*",
+        help="torrent id to show (acquire by first calling with no args)",
+    )
+
+    args = parser.parse_args()
+    bt_api = TransmissionApi.from_arguments(args)
+    torrents = args.torrents
+
+    if torrents:
+        for t in torrents:
+            print(bt_api.info(t))
+    else:
+        print(bt_api.list_())
+
+
+if __name__ == "__main__":
+    main()
