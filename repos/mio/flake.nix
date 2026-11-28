@@ -136,6 +136,12 @@
               {
                 quibble = packages.quibble_win11_patched;
               };
+          # windows11-iso-vm-boot: boot Microsoft's Windows 11 25H2 ISO under
+          # OVMF and check that Windows' boot environment draws its screen (see
+          # by-name/qu/quibble_win11/windows-iso-vm-test.nix).
+          windows11-iso-vm-boot =
+            nixpkgs.legacyPackages.x86_64-linux.callPackage ./by-name/qu/quibble_win11/windows-iso-vm-test.nix
+              { };
           zfs-uefi-crypto =
             nixpkgs.legacyPackages.x86_64-linux.callPackage ./by-name/zf/zfs-uefi/crypto-kat.nix
               { };
