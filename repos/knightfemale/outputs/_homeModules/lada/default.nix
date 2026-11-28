@@ -24,7 +24,7 @@ in
   options.programs.lada = {
     enable = lib.mkEnableOption "Lada";
 
-    package = lib.mkPackageOption pkgs.python314Packages "lada" { };
+    package = lib.mkPackageOption pkgs "lada" { };
 
     models = lib.mkOption {
       type = lib.types.listOf (

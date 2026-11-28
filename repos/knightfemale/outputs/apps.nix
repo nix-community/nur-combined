@@ -19,8 +19,6 @@
                 biu
                 comfyui-workflow-mcp
                 flake-show-ng
-                ;
-              inherit (pkgs.python314Packages)
                 lada
                 ;
             }

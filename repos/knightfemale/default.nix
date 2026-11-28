@@ -27,6 +27,7 @@ in
     biu
     comfyui-workflow-mcp
     flake-show-ng
+    lada
     ;
 
   inherit
