@@ -1,33 +1,49 @@
 {
   lib,
-  stdenvNoCC,
-  fetchurl,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  wayland,
+  wayland-scanner,
+  wayland-protocols,
+  libxkbcommon,
+  libffi,
+  libwebp,
 }:
 
 let
   version = "0.5.1";
 in
-stdenvNoCC.mkDerivation {
+stdenv.mkDerivation {
   pname = "aether";
   inherit version;
 
-  src = fetchurl {
-    url = "https://github.com/yashsio/aether/releases/download/v${version}/aether-v${version}-linux-x86_64.tar.gz";
-    hash = "sha256-UmKdBDQJiMbJ/NUdLQyisqQH3T8eB9zl16b0quyw3Fo=";
+  src = fetchFromGitHub {
+    owner = "yashsio";
+    repo = "aether";
+    tag = "v${version}";
+    hash = "sha256-2na+yOAOj4doG/12auiEnbJw2df+B4fAkKFHzhUhpvE=";
   };
 
-  dontUnpack = true;
-  dontBuild = true;
+  cmakeFlags = [
+    "-DWAYLAND_PROTOCOLS_DIR=${wayland-protocols}/share/wayland-protocols"
+    "-DAETHER_WEBP_SYSTEM=ON"
+  ];
+
+  nativeBuildInputs = [ cmake pkg-config wayland-scanner ];
+
+  buildInputs = [ wayland wayland-protocols libxkbcommon libffi libwebp ];
 
   installPhase = ''
-    install -Dm755 "$src" "$out/bin/aether"
+    install -Dm755 aether "$out/bin/aether"
   '';
 
   meta = {
-    description = "A minimal Wayland native image viewer";
+    description = "A minimal wayland native image viewer";
     homepage = "https://github.com/yashsio/aether";
     license = lib.licenses.gpl3Only;
-    platforms = [ "x86_64-linux" ];
-    mainProgram = "aether";
+    platforms = lib.platforms.linux;
+    mainProgram = "Aether";
   };
 }
