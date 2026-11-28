@@ -6,15 +6,17 @@
 }:
 
 # Boots quibble + zfs.efi against an encrypted ZFS pool and proves the EFI
-# driver can unlock and mount it.  This is the EFI half of the Windows-on-ZFS
-# work, tested without Windows: a NixOS VM creates a real pool on a GPT disk
-# (ESP + ZFS partition), makes the bootfs dataset encrypted with a passphrase,
-# and fills it with the Windows path the loader will open.
+# driver can unlock and mount it, and that the loader reads the Windows kernel
+# from it.  This is the EFI half of the Windows-on-ZFS work, tested without
+# Windows: a NixOS VM creates a real pool on a GPT disk (ESP + ZFS partition),
+# makes the bootfs dataset encrypted with a passphrase, and fills it with the
+# Windows path the loader will open.
 #
 # The nested QEMU then boots that disk with quibble, which loads zfs.efi and
 # opens partition 2 for the SystemPath entry.  The driver prompts on the
-# firmware console; the test types the passphrase over QMP and waits for the
-# key store to report the unwrapped dataset key.
+# firmware console; the test types the passphrase over QMP, waits for the key
+# store to report the unwrapped dataset key, and then for quibble to read
+# Windows/System32/ntoskrnl.exe from the mounted dataset.
 #
 # zfs.efi is built with serial-test.patch (test-only) so those messages also go
 # to COM1; without it they only reach quibble's graphical console.
@@ -99,6 +101,11 @@ let
 
     if not wait_for("ZFS: mounted", 120):
         print("dataset did not mount; serial tail:")
+        print(serial()[-6000:])
+        raise SystemExit(1)
+
+    if not wait_for("ZFS: read /Windows/system32/ntoskrnl.exe", 180):
+        print("the loader did not read ntoskrnl.exe from the encrypted dataset; serial tail:")
         print(serial()[-6000:])
         raise SystemExit(1)
 
@@ -210,6 +217,7 @@ runNixOSTest {
     assert "ZFS: dataset is encrypted" in out, out
     assert "dataset key loaded: aes-256-gcm" in out, out
     assert "ZFS: mounted" in out, out
+    assert "ZFS: read /Windows/system32/ntoskrnl.exe" in out, out
     assert "dataset key unwrap failed" not in out, out
     print(out[-4000:])
   '';

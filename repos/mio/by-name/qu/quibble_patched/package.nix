@@ -28,8 +28,8 @@
 # bootfs, or the pool root when that is unset; SystemPath keeps the ordinary
 # multi(0)disk(0)rdisk(0)partition(N)\Windows form because the driver does not
 # implement GetArcName; the pool must stay within FreeBSD's features_for_read
-# (no encryption, no gzip/zstd); and OpenZFS.sys must be a boot-start driver in
-# the guest's SYSTEM hive.
+# (no gzip/zstd; encrypted datasets are supported by zfs.efi); and OpenZFS.sys
+# must be a boot-start driver in the guest's SYSTEM hive.
 let
   mingw = pkgsCross.mingw-msvcrt-x86_64;
 
@@ -99,8 +99,9 @@ quibble.overrideAttrs (old: {
       The install layout is unchanged: `quibble.efi`, `freeldr.ini` and
       `font.ttf` belong in the directory the loader is loaded from, with
       `drivers/` next to them. Booting from ZFS additionally requires the pool
-      to stay inside FreeBSD's read-only feature set (no encryption, no
-      gzip/zstd) and `OpenZFS.sys` to be a boot-start driver in the guest.
+      to stay inside FreeBSD's read-only feature set (no gzip/zstd; encrypted
+      datasets are supported) and `OpenZFS.sys` to be a boot-start driver in
+      the guest.
     '';
   };
 })

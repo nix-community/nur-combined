@@ -1,0 +1,9 @@
+--- a/pixel/packages/pixel/scripts/build-native.mjs
++++ b/pixel/packages/pixel/scripts/build-native.mjs
+@@ -26,7 +26,7 @@ if (process.platform === "darwin") {
+   // (what rustc would use) does not, and macOS 27.2's dyld rejects the result.
+   if (release) execFileSync("/usr/bin/strip", ["-x", path.join(outDir, "pixel.node")], { stdio: "inherit" });
+   const arch = process.arch === "arm64" ? "arm64" : "x86_64";
+-  execFileSync(
++  if (process.env.PIXEL_BUILD_SCROLL_HELPER !== "0") execFileSync(
+     "swiftc",

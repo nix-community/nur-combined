@@ -111,14 +111,15 @@ mingw.stdenv.mkDerivation {
 
       The pool must stay inside FreeBSD's read-only feature set (create it with
       a `compatibility=` that keeps to it), and compression is limited to lz4,
-      lzjb, zle and none.  Encrypted datasets are not readable yet.  The driver
-      prompts on the firmware console for the passphrase (or a hex/raw key)
-      while opening one, derives the wrapping key the way `zfs` does, and
-      unwraps and MAC-verifies the dataset key; a wrong entry is re-prompted.
-      Decrypting the dataset's blocks is not implemented, so the reader still
-      reports that instead of failing the block's checksum.  `GetArcName` is not
-      implemented, so `freeldr.ini` keeps the ordinary `multi(...)partition(N)`
-      form, and `OpenZFS.sys` must be a boot-start driver in the guest.
+      lzjb, zle and none.  Encrypted datasets are supported: the driver prompts
+      on the firmware console for the passphrase (or a hex/raw key) while
+      opening one, derives the wrapping key the way `zfs` does, unwraps and
+      MAC-verifies the dataset key, and decrypts the blocks of a bootfs dataset
+      encrypted with AES-256-GCM; a wrong entry is re-prompted.  AES-256-CCM,
+      encrypted ZIL blocks and key format version 0 are not supported.
+      `GetArcName` is not implemented, so `freeldr.ini` keeps the ordinary
+      `multi(...)partition(N)` form, and `OpenZFS.sys` must be a boot-start
+      driver in the guest.
     '';
     homepage = "https://github.com/openzfsonwindows/zfs-efi";
     license = lib.licenses.lgpl3Plus;

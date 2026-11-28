@@ -46,7 +46,31 @@
  }
  
  /* ZFS_TRACE: breadcrumbs on the firmware console, for finding where it dies */
-@@ -742,6 +767,8 @@
+@@ -499,6 +524,10 @@
+ 
+     tracef("open %s -> %llx\n", norm, (unsigned long long)Status);
+ 
++    test_serial("ZFS: open ");
++    test_serial(norm);
++    test_serial("\n");
++
+     bs->FreePool(full);
+ 
+     if (EFI_ERROR(Status))
+@@ -599,6 +628,12 @@
+     if (rc != 0)
+         return errno_to_status(rc);
+ 
++    if (got) {
++        test_serial("ZFS: read ");
++        test_serial(fh->path);
++        test_serial("\n");
++    }
++
+     fh->pos += got;
+     *BufferSize = got;
+ 
+@@ -742,6 +777,8 @@
      if (!vol->mnt) {
          int rc;
  
@@ -55,7 +79,7 @@
          tracep("open_volume: mounting\n");
          rc = zfse_mount(vol->pool, &vol->mnt);
          tracep("mount rc %d\n", rc);
-@@ -750,6 +777,8 @@
+@@ -750,6 +787,8 @@
              zfs_print("Could not mount the ZFS root file system.\n");
              return errno_to_status(rc);
          }
@@ -64,7 +88,7 @@
      }
  
      Status = new_handle(vol, "/", &fh);
-@@ -956,6 +985,8 @@
+@@ -956,6 +995,8 @@
      systable = SystemTable;
      bs = SystemTable->BootServices;
  

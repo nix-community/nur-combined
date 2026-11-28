@@ -54,8 +54,9 @@ quibble_patched.overrideAttrs (old: {
       The install layout is unchanged: `quibble.efi`, `freeldr.ini` and
       `font.ttf` belong in the directory the loader is loaded from, with
       `drivers/` next to them.  Booting from ZFS additionally requires the pool
-      to stay inside FreeBSD's read-only feature set (no encryption, no
-      gzip/zstd) and `OpenZFS.sys` to be a boot-start driver in the guest.
+      to stay inside FreeBSD's read-only feature set (no gzip/zstd; encrypted
+      datasets are supported) and `OpenZFS.sys` to be a boot-start driver in
+      the guest.
     '';
     homepage = "https://github.com/openzfsonwindows/quibble";
   };

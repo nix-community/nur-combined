@@ -5,6 +5,11 @@ OVMF boot checks, and `zfs-uefi` now reads encrypted datasets (raw keyfile and
 passphrase, including datasets that inherit encryption from an ancestor).  What
 remains is below.
 
+The EFI-level leg is covered by
+`checks.x86_64-linux.zfs-uefi-encrypted-efi-boot`: it creates an encrypted pool,
+boots quibble + `zfs.efi`, types the passphrase, and checks that the dataset
+mounts and that quibble reads `Windows/System32/ntoskrnl.exe` from it.
+
 ## 1. Real Windows installation test
 
 - [ ] Source the ISO: Windows 10/11 Enterprise Evaluation from Microsoft's

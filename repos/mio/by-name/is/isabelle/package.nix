@@ -26,6 +26,12 @@
 }:
 
 let
+  # Adapted from the Isabelle 2026 update in
+  # https://github.com/NixOS/nixpkgs/pull/579996 and the source-oriented
+  # packaging work in https://github.com/NixOS/nixpkgs/pull/567461. This
+  # still starts from Isabelle's platform distribution archive; Poly/ML and
+  # cvc5 are rebuilt from pinned sources, and Isabelle's setup code and HOL
+  # heap are built locally.
   java = openjdk25;
 
   patchelf' = patchelf.overrideAttrs (finalAttrs: {
