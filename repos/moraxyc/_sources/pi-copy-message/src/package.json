@@ -1,0 +1,86 @@
+{
+  "name": "pi-copy-message",
+  "version": "4.0.16",
+  "description": "Pi extension with a searchable TUI picker for copying raw session messages",
+  "author": "Mitch Fultz (https://github.com/fitchmultz)",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=24.22.3 <25 || >=26.13.1"
+  },
+  "keywords": [
+    "pi-package",
+    "pi",
+    "pi-extension",
+    "extension",
+    "clipboard",
+    "copy-message",
+    "copy-user",
+    "copy",
+    "session-messages",
+    "slash-command",
+    "tui",
+    "search",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fitchmultz/pi-copy-message.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fitchmultz/pi-copy-message/issues"
+  },
+  "homepage": "https://github.com/fitchmultz/pi-copy-message#readme",
+  "scripts": {
+    "test": "node --test tests/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint --deny-warnings --ignore-pattern 'tests/probes/**' .",
+    "lint:agent": "oxlint --deny-warnings --format=agent --ignore-pattern 'tests/probes/**' .",
+    "lint:fix": "oxlint --fix --ignore-pattern 'tests/probes/**' .",
+    "format": "oxfmt --write .",
+    "format:check": "oxfmt --check .",
+    "policy:check": "node scripts/check-policy.ts",
+    "quality:probes": "node --test tests/quality*.test.ts",
+    "pack:check": "npm pack --dry-run",
+    "check": "node scripts/run-gates.ts policy:check format:check lint typecheck test pack:check",
+    "check:compat": "node scripts/run-gates.ts policy:check format:check lint typecheck test",
+    "prepublishOnly": "npm run check"
+  },
+  "files": [
+    "extensions",
+    "src",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "1.6.0",
+    "@earendil-works/pi-tui": "1.6.0",
+    "@types/node": "24.19.2",
+    "@types/semver": "7.8.0",
+    "oxc-parser": "0.156.0",
+    "oxfmt": "0.79.0",
+    "oxlint": "1.94.0",
+    "semver": "7.8.6",
+    "tsrs": "7.1.0-beta.tsrs2",
+    "typescript": "7.0.2"
+  },
+  "pi": {
+    "extensions": [
+      "./extensions"
+    ]
+  },
+  "packageManager": "npm@12.2.1",
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-coding-agent": {
+      "optional": true
+    },
+    "@earendil-works/pi-tui": {
+      "optional": true
+    }
+  }
+}

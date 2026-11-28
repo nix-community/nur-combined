@@ -204,6 +204,15 @@ version = { source = "github-release", repo = "P3TERX/GeoLite.mmdb" }
 transform = ["strip-v"]
 fetch = { type = "url", url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/{version}/GeoLite2-Country.mmdb" }
 
+[packages.git-cow]
+version = { source = "github-release", repo = "gabrielkoerich/git-cow", strip_prefix = "v" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "gabrielkoerich/git-cow", rev = "v{version}" }
+
+[packages.git-cow.derive.cargoLock]
+kind = "cargo-vendor"
+strategy = "lockfile"
+
 [packages.git-mcp-server]
 version = { source = "github-tag", repo = "cyanheads/git-mcp-server", strip_prefix = "v" }
 transform = ["strip-v"]
@@ -463,6 +472,15 @@ fetch = { type = "github", repo = "AdityaVG13/ast-sgrep", rev = "{version}" }
 kind = "cargo-vendor"
 strategy = "lockfile"
 
+[packages.pi-btw]
+version = { source = "github-release", repo = "dbachelder/pi-btw", strip_prefix = "v" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "dbachelder/pi-btw", rev = "v{version}" }
+
+[packages.pi-btw.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"
+
 [packages.pi-cc-extensions]
 version = { source = "github-release", repo = "minuque/pi-cc-extensions" }
 transform = ["strip-v"]
@@ -495,6 +513,15 @@ version = { source = "github-release", repo = "dimk90/pi-context-view" }
 transform = ["strip-v"]
 fetch = { type = "github", repo = "dimk90/pi-context-view", rev = "{version}" }
 
+[packages.pi-copy-message]
+version = { source = "github-release", repo = "fitchmultz/pi-copy-message", strip_prefix = "v" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "fitchmultz/pi-copy-message", rev = "v{version}" }
+
+[packages.pi-copy-message.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"
+
 [packages.pi-emphasis]
 version = { source = "git", url = "https://github.com/johnlindquist/pi-emphasis.git", unstable = { } }
 transform = ["strip-v"]
@@ -503,6 +530,24 @@ fetch = { type = "github", repo = "johnlindquist/pi-emphasis", rev = "{version}"
 [packages.pi-emphasis.prepare]
 steps = [{ type = "npm-lock", args = ["--legacy-peer-deps"] }]
 artifacts."package-lock.json" = { type = "file", path = "package-lock.json" }
+
+[packages.pi-fast-resume]
+version = { source = "npm", name = "pi-fast-resume" }
+fetch = { type = "tarball", url = "https://registry.npmjs.org/pi-fast-resume/-/pi-fast-resume-{version}.tgz" }
+
+[packages.pi-fff]
+version = { source = "github-tag", repo = "dmtrKovalenko/fff", strip_prefix = "v", filter = "^v[0-9]+\\.[0-9]+\\.[0-9]+$" }
+transform = ["strip-v"]
+fetch = { type = "github", repo = "dmtrKovalenko/fff", rev = "v{version}" }
+
+[packages.pi-fff.derive.cargoLock]
+kind = "cargo-vendor"
+strategy = "lockfile"
+
+[packages.pi-fff.derive.npmDeps]
+kind = "npm-deps"
+strategy = "lockfile"
+sub_dir = "packages"
 
 [packages.pi-live-terminal]
 version = { source = "git", url = "https://github.com/tanishqkancharla/pi-live-terminal.git", unstable = { stable = { source = "github-tag", repo = "tanishqkancharla/pi-live-terminal", strip_prefix = "v" } } }

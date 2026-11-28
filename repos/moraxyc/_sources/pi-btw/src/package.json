@@ -1,0 +1,58 @@
+{
+  "name": "pi-btw",
+  "version": "0.8.1",
+  "description": "A pi extension for parallel side conversations with /btw",
+  "type": "module",
+  "license": "MIT",
+  "author": "Dan Bachelder",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dbachelder/pi-btw.git"
+  },
+  "homepage": "https://github.com/dbachelder/pi-btw#readme",
+  "bugs": {
+    "url": "https://github.com/dbachelder/pi-btw/issues"
+  },
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "pi-coding-agent",
+    "agent",
+    "tui"
+  ],
+  "files": [
+    "extensions",
+    "skills",
+    "docs",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "vitest --run",
+    "typecheck": "tsc --noEmit"
+  },
+  "pi": {
+    "extensions": [
+      "./extensions/btw.ts"
+    ],
+    "skills": [
+      "./skills"
+    ],
+    "image": "https://raw.githubusercontent.com/dbachelder/pi-btw/main/docs/btw-overlay.png"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-ai": ">=0.85.1 <2",
+    "@earendil-works/pi-coding-agent": ">=0.85.1 <2",
+    "@earendil-works/pi-tui": ">=0.85.1 <2"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-ai": "1.5.0",
+    "@earendil-works/pi-coding-agent": "1.5.0",
+    "@earendil-works/pi-tui": "1.5.0",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.11"
+  }
+}

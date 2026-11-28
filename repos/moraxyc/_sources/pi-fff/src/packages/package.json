@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "workspaces": ["fff-bun", "fff-node", "pi-fff"],
+  "scripts": {
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "lint": "oxlint .",
+    "check": "oxfmt . && oxlint --fix .",
+    "check:ci": "oxfmt --check . && oxlint ."
+  },
+  "devDependencies": {
+    "oxfmt": "0.63.0",
+    "oxlint": "1.78.0"
+  }
+}
