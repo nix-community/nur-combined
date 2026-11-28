@@ -1,0 +1,75 @@
+--- a/src/zfs.c
++++ b/src/zfs.c
+@@ -73,6 +73,28 @@
+ static volume* volumes = NULL;
+ 
+ /*
++ * Test-only: the reader's messages and its key prompt normally go to Quibble's
++ * graphical console, which a headless test cannot read.  Mirror them to
++ * ConOut, which OVMF also sends to the serial port, so the test can assert on
++ * the key store without OCR.
++ */
++static void
++test_serial(const char* s)
++{
++    CHAR16 w[300];
++    UINTN i = 0;
++
++    if (!systable || !systable->ConOut)
++        return;
++    while (s[i] != 0 && i < 298) {
++        w[i] = (CHAR16)(unsigned char)s[i];
++        i++;
++    }
++    w[i] = 0;
++    systable->ConOut->OutputString(systable->ConOut, w);
++}
++
++/*
+  * Typed key at boot.  Firmware console input is the only keyboard the driver
+  * has (Quibble's graphical console has no input protocol), so the prompt goes
+  * to ConOut and the person at the machine types the passphrase there.  The
+@@ -94,6 +116,8 @@
+     wbuf[i] = 0;
+     systable->ConOut->OutputString(systable->ConOut, wbuf);
+ 
++    test_serial(prompt);
++
+     if (systable->ConIn->Reset)
+         systable->ConIn->Reset(systable->ConIn, FALSE);
+ 
+@@ -151,6 +175,7 @@
+     if (info_proto)
+         info_proto->Print(s);
+ #endif
++    test_serial(s);
+ }
+ 
+ /* ZFS_TRACE: breadcrumbs on the firmware console, for finding where it dies */
+@@ -742,6 +767,8 @@
+     if (!vol->mnt) {
+         int rc;
+ 
++        test_serial("ZFS: open_volume\n");
++
+         tracep("open_volume: mounting\n");
+         rc = zfse_mount(vol->pool, &vol->mnt);
+         tracep("mount rc %d\n", rc);
+@@ -750,6 +777,8 @@
+             zfs_print("Could not mount the ZFS root file system.\n");
+             return errno_to_status(rc);
+         }
++
++        test_serial("ZFS: mounted\n");
+     }
+ 
+     Status = new_handle(vol, "/", &fh);
+@@ -956,6 +985,8 @@
+     systable = SystemTable;
+     bs = SystemTable->BootServices;
+ 
++    test_serial("ZFS: efi_main\n");
++
+     tracep("zfs: efi_main\n");
+     get_info_protocol(ImageHandle);
+ 

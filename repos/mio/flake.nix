@@ -159,6 +159,18 @@
                 zfs-uefi = packages.zfs-uefi;
               };
             };
+          # zfs-uefi-encrypted-efi-boot: create an encrypted pool in a ZFS VM,
+          # then boot quibble + zfs.efi against it and check that the driver
+          # prompts for and loads the dataset key (see efi-boot-test.nix).
+          zfs-uefi-encrypted-efi-boot =
+            let
+              p = nixpkgs.legacyPackages.x86_64-linux;
+            in
+            p.callPackage ./by-name/zf/zfs-uefi/efi-boot-test.nix {
+              runNixOSTest = p.testers.runNixOSTest;
+              quibble = packages.quibble_win11_patched;
+              zfs-uefi = packages.zfs-uefi;
+            };
         };
       cached-cuda = forAllSystems (
         system:
