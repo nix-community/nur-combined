@@ -47,20 +47,14 @@
     };
 
     # nixpkgs leaves upsd.conf without LISTEN lines, so NUT only binds
-    # loopback. HA is local; whiterun reaches this over Tailscale, and the
-    # firewall rule keeps 3493 off the LAN.
+    # loopback. HA is local; whiterun reaches this over Tailscale, which is
+    # already a trusted firewall interface.
     upsd.listen = [
       {
         address = "0.0.0.0";
       }
     ];
   };
-
-  # 3493 stays off the LAN; only whiterun (the machine on the UPS) may talk
-  # to upsd over the tailnet. HA connects over loopback.
-  networking.firewall.extraInputRules = ''
-    ip saddr 100.85.38.19 tcp dport 3493 accept
-  '';
 
   # nixpkgs starts upsd before the driver and does not restart it when
   # ups.conf changes, so it keeps the old socket path.
