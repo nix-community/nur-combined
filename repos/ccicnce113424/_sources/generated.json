@@ -553,7 +553,7 @@
     "rayburst-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-+qfEA_WSERvfgpHAmhjy8Dhth8whwp_MdaCXtMHpbEM=/src-tauri/Cargo.lock",
+                "sha256-Md0NOlT0cNcY0pToEaXVpHa_DdhcjbTwhYJB432Geyw=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -569,12 +569,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "rayburst",
-            "rev": "v4.1.3-beta.2",
-            "sha256": "sha256-+qfEA/WSERvfgpHAmhjy8Dhth8whwp/MdaCXtMHpbEM=",
+            "rev": "v4.1.3",
+            "sha256": "sha256-Md0NOlT0cNcY0pToEaXVpHa/DdhcjbTwhYJB432Geyw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.1.3-beta.2"
+        "version": "v4.1.3"
     },
     "splayer-kde-bar-lyc": {
         "cargoLock": null,
