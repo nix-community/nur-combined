@@ -77,6 +77,24 @@ stuntrally.overrideAttrs (oldAttrs: {
         --replace-fail \
           '@property( envprobe_map && envprobe_map != target_envprobe_map && use_parallax_correct_cubemaps && !hlms_enable_cubemaps_auto )' \
           '@property( envprobe_map && envprobe_map != target_envprobe_map && use_parallax_correct_cubemaps && !hlms_enable_cubemaps_auto && syntax != metal )'
+      substituteInPlace data/Hlms/Pbs/Metal/PixelShader_ps.metal \
+        --replace-fail '#define outPs_normals outPs.normals' '#define outPs_normals outPs.normals
+      #define outPs_fog outPs.fog'
+      substituteInPlace data/Hlms/Pbs/Metal/Textures_piece_ps.metal \
+        --replace-fail 'midf4 normals			[[ color(@counter(rtv_target)) ]];' 'midf4 normals			[[ color(@counter(rtv_target)) ]];
+            float fog [[ color(@counter(rtv_target)) ]];'
+      substituteInPlace data/Hlms/Terra/Any/200.Textures_piece_ps.any \
+        --replace-fail '@padd( roughness_map0_sampler' '@piece( ExtraOutputTypes )
+      @property( hlms_gen_normals_gbuffer && syntax == metal )
+          midf4 normals [[ color(@counter(rtv_target)) ]];
+          float fog [[ color(@counter(rtv_target)) ]];
+      @end
+      @end
+
+      @padd( roughness_map0_sampler'
+      substituteInPlace data/Hlms/Terra/Metal/PixelShader_ps.metal \
+        --replace-fail '#define outPs_normals outPs.normals' '#define outPs_normals outPs.normals
+      #define outPs_fog outPs.fog'
       substituteInPlace src/common/Atmosphere.cpp \
         --replace-fail 'VertexShader, uint16( slotIdx )' 'VertexShader, uint16( slotIdx + 6u )' \
         --replace-fail 'PixelShader, uint16( slotIdx )' 'PixelShader, uint16( slotIdx + 6u )'
