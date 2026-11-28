@@ -8,12 +8,12 @@
 {
   ai-usagebar = {
     pname = "ai-usagebar";
-    version = "v1.55.1";
+    version = "v1.55.2";
     src = fetchFromGitHub {
       owner = "akitaonrails";
       repo = "ai-usagebar";
-      tag = "v1.55.1";
-      hash = "sha256-LNS154zSHYhZF59eH4L1ohE+m77GGpD3rlCSJNjlvHk=";
+      tag = "v1.55.2";
+      hash = "sha256-OgYFDW/yW+tCEe8grcphNr34R/O9IoV03Bd+7RXDVgc=";
     };
   };
   aioshutil = {
@@ -118,18 +118,18 @@
   };
   nexttodo-linux-arm64 = {
     pname = "nexttodo-linux-arm64";
-    version = "0.1.329";
+    version = "0.1.429";
     src = fetchurl {
-      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.329/nexttodo-linux-arm64";
-      hash = "sha256-i09wCJaLv2pjdhwBFLKGZ22KJXoZJTwZa73rJqdlBZY=";
+      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.429/nexttodo-linux-arm64";
+      hash = "sha256-RWOT2geFX40gPZ32qIaYNOrhJyb0CSr/aYEbBx+KihA=";
     };
   };
   nexttodo-linux-x64 = {
     pname = "nexttodo-linux-x64";
-    version = "0.1.329";
+    version = "0.1.429";
     src = fetchurl {
-      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.329/nexttodo-linux-x64";
-      hash = "sha256-BSpNEbAhXyhUAs9bSO0715NNqYulTmtvnByZs3D2EJs=";
+      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.429/nexttodo-linux-x64";
+      hash = "sha256-h0LuyMkTMHC3S1qJD2olV4KPpMBO2S0fOrdxIKpfi+8=";
     };
   };
   nexus-media = {

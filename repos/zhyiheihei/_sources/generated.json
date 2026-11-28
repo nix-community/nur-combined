@@ -13,12 +13,12 @@
             "name": null,
             "owner": "akitaonrails",
             "repo": "ai-usagebar",
-            "rev": "v1.55.1",
-            "sha256": "sha256-LNS154zSHYhZF59eH4L1ohE+m77GGpD3rlCSJNjlvHk=",
+            "rev": "v1.55.2",
+            "sha256": "sha256-OgYFDW/yW+tCEe8grcphNr34R/O9IoV03Bd+7RXDVgc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.55.1"
+        "version": "v1.55.2"
     },
     "aioshutil": {
         "cargoLock": null,
@@ -231,11 +231,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-i09wCJaLv2pjdhwBFLKGZ22KJXoZJTwZa73rJqdlBZY=",
+            "sha256": "sha256-RWOT2geFX40gPZ32qIaYNOrhJyb0CSr/aYEbBx+KihA=",
             "type": "url",
-            "url": "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.329/nexttodo-linux-arm64"
+            "url": "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.429/nexttodo-linux-arm64"
         },
-        "version": "0.1.329"
+        "version": "0.1.429"
     },
     "nexttodo-linux-x64": {
         "cargoLock": null,
@@ -246,11 +246,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-BSpNEbAhXyhUAs9bSO0715NNqYulTmtvnByZs3D2EJs=",
+            "sha256": "sha256-h0LuyMkTMHC3S1qJD2olV4KPpMBO2S0fOrdxIKpfi+8=",
             "type": "url",
-            "url": "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.329/nexttodo-linux-x64"
+            "url": "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.429/nexttodo-linux-x64"
         },
-        "version": "0.1.329"
+        "version": "0.1.429"
     },
     "nexus-media": {
         "cargoLock": null,
