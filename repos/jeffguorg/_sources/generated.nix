@@ -293,50 +293,50 @@
   };
   pi-agent = {
     pname = "pi-agent";
-    version = "1.6.1";
+    version = "1.7.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-1.6.1.tgz";
-      sha256 = "sha256-47DrVLbh6Vtg7HxCBJWb1prcUfsfDaOllDC7yaWTc08=";
+      url = "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-1.7.0.tgz";
+      sha256 = "sha256-ywMf85t10EJ5fXSAM5h92cDlZzczlxcsC07WYdC/SCQ=";
     };
   };
   pi-agent-bin-amd64-darwin = {
     pname = "pi-agent-bin-amd64-darwin";
-    version = "v1.6.1";
+    version = "v1.7.0";
     src = fetchurl {
-      url = "https://github.com/earendil-works/pi/releases/download/v1.6.1/pi-darwin-x64.tar.gz";
-      sha256 = "sha256-XC31dEx4KMyLeMVmWjp4XMBzEwAFxxHTUBfGpcQZFpo=";
+      url = "https://github.com/earendil-works/pi/releases/download/v1.7.0/pi-darwin-x64.tar.gz";
+      sha256 = "sha256-Qn0D7SDRTd7dvmEPVsx6ST9YgPWADg7K4XQoSgqcRpE=";
     };
   };
   pi-agent-bin-amd64-linux = {
     pname = "pi-agent-bin-amd64-linux";
-    version = "v1.6.1";
+    version = "v1.7.0";
     src = fetchurl {
-      url = "https://github.com/earendil-works/pi/releases/download/v1.6.1/pi-linux-x64.tar.gz";
-      sha256 = "sha256-PH8AcV61EuFlwNqMrTFNc8g7VNW/d0i+Stxhj8g1e2g=";
+      url = "https://github.com/earendil-works/pi/releases/download/v1.7.0/pi-linux-x64.tar.gz";
+      sha256 = "sha256-QvftZ+g/cn/lHdJ0bVDcRcfReEFZqVGClqKCQCrGj0o=";
     };
   };
   pi-agent-bin-arm64-darwin = {
     pname = "pi-agent-bin-arm64-darwin";
-    version = "v1.6.1";
+    version = "v1.7.0";
     src = fetchurl {
-      url = "https://github.com/earendil-works/pi/releases/download/v1.6.1/pi-darwin-arm64.tar.gz";
-      sha256 = "sha256-2P2OJMKlBUrjg9g7Jvbrb5UO32E5F+Q0pSOU9EzU2TM=";
+      url = "https://github.com/earendil-works/pi/releases/download/v1.7.0/pi-darwin-arm64.tar.gz";
+      sha256 = "sha256-/5WprhYKVbsEF7NQMahsP6UrOSFpmfulQLU1aPLvxus=";
     };
   };
   pi-agent-bin-arm64-linux = {
     pname = "pi-agent-bin-arm64-linux";
-    version = "v1.6.1";
+    version = "v1.7.0";
     src = fetchurl {
-      url = "https://github.com/earendil-works/pi/releases/download/v1.6.1/pi-linux-arm64.tar.gz";
-      sha256 = "sha256-r95kHWxZBNJpYN20Ijv1Y7CGDPGg68RDuF3v9n0Eh1M=";
+      url = "https://github.com/earendil-works/pi/releases/download/v1.7.0/pi-linux-arm64.tar.gz";
+      sha256 = "sha256-zSCc/JD7lPtLAMzXhajWSkoVT5JOUviP6+ts821cmiQ=";
     };
   };
   pi-agent-git = {
     pname = "pi-agent-git";
-    version = "1.6.1";
+    version = "1.7.0";
     src = fetchurl {
-      url = "https://github.com/earendil-works/pi/releases/download/v1.6.1/pi-1.6.1-source.tar.gz";
-      sha256 = "sha256-CPdZ+BDPthy31s3qEndCctOlZ7eay1fOxHwpZ2NOW40=";
+      url = "https://github.com/earendil-works/pi/releases/download/v1.7.0/pi-1.7.0-source.tar.gz";
+      sha256 = "sha256-5WOsgXFERBcgqRhzRRJgUJ/qIXabVw1aFV9x80eYJn8=";
     };
   };
   vagrant-vmware-utility = {

@@ -26,7 +26,7 @@ buildNpmPackage rec {
   # fetcher 固定 v1：v2 会在计算哈希时在线抓取 registry packument，内容随注册表
   # 状态漂移，无法稳定复现；v1 只依赖 lockfile 本身。
   npmDepsFetcherVersion = 1;
-  npmDepsHash = "sha256-WLez4/tAmJIQysd/0J6qHm64vo6zCgaaubrtcoVXBsk=";
+  npmDepsHash = "sha256-ca1P7AdtYPeJ77N9qjLXCav5ZwcNxrANm+qrybmdtiI=";
 
   # nixpkgs 的 npmConfigHook 在 ci 后会 npm rebuild，会触发 canvas 等原生包的
   # install script（沙箱内无网络无 cairo）。上游 CI 全程 --ignore-scripts，

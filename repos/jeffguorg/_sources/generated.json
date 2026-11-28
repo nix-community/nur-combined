@@ -513,11 +513,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-47DrVLbh6Vtg7HxCBJWb1prcUfsfDaOllDC7yaWTc08=",
+            "sha256": "sha256-ywMf85t10EJ5fXSAM5h92cDlZzczlxcsC07WYdC/SCQ=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-1.6.1.tgz"
+            "url": "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-1.7.0.tgz"
         },
-        "version": "1.6.1"
+        "version": "1.7.0"
     },
     "pi-agent-bin-amd64-darwin": {
         "cargoLock": null,
@@ -528,11 +528,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-XC31dEx4KMyLeMVmWjp4XMBzEwAFxxHTUBfGpcQZFpo=",
+            "sha256": "sha256-Qn0D7SDRTd7dvmEPVsx6ST9YgPWADg7K4XQoSgqcRpE=",
             "type": "url",
-            "url": "https://github.com/earendil-works/pi/releases/download/v1.6.1/pi-darwin-x64.tar.gz"
+            "url": "https://github.com/earendil-works/pi/releases/download/v1.7.0/pi-darwin-x64.tar.gz"
         },
-        "version": "v1.6.1"
+        "version": "v1.7.0"
     },
     "pi-agent-bin-amd64-linux": {
         "cargoLock": null,
@@ -543,11 +543,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-PH8AcV61EuFlwNqMrTFNc8g7VNW/d0i+Stxhj8g1e2g=",
+            "sha256": "sha256-QvftZ+g/cn/lHdJ0bVDcRcfReEFZqVGClqKCQCrGj0o=",
             "type": "url",
-            "url": "https://github.com/earendil-works/pi/releases/download/v1.6.1/pi-linux-x64.tar.gz"
+            "url": "https://github.com/earendil-works/pi/releases/download/v1.7.0/pi-linux-x64.tar.gz"
         },
-        "version": "v1.6.1"
+        "version": "v1.7.0"
     },
     "pi-agent-bin-arm64-darwin": {
         "cargoLock": null,
@@ -558,11 +558,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-2P2OJMKlBUrjg9g7Jvbrb5UO32E5F+Q0pSOU9EzU2TM=",
+            "sha256": "sha256-/5WprhYKVbsEF7NQMahsP6UrOSFpmfulQLU1aPLvxus=",
             "type": "url",
-            "url": "https://github.com/earendil-works/pi/releases/download/v1.6.1/pi-darwin-arm64.tar.gz"
+            "url": "https://github.com/earendil-works/pi/releases/download/v1.7.0/pi-darwin-arm64.tar.gz"
         },
-        "version": "v1.6.1"
+        "version": "v1.7.0"
     },
     "pi-agent-bin-arm64-linux": {
         "cargoLock": null,
@@ -573,11 +573,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-r95kHWxZBNJpYN20Ijv1Y7CGDPGg68RDuF3v9n0Eh1M=",
+            "sha256": "sha256-zSCc/JD7lPtLAMzXhajWSkoVT5JOUviP6+ts821cmiQ=",
             "type": "url",
-            "url": "https://github.com/earendil-works/pi/releases/download/v1.6.1/pi-linux-arm64.tar.gz"
+            "url": "https://github.com/earendil-works/pi/releases/download/v1.7.0/pi-linux-arm64.tar.gz"
         },
-        "version": "v1.6.1"
+        "version": "v1.7.0"
     },
     "pi-agent-git": {
         "cargoLock": null,
@@ -588,11 +588,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-CPdZ+BDPthy31s3qEndCctOlZ7eay1fOxHwpZ2NOW40=",
+            "sha256": "sha256-5WOsgXFERBcgqRhzRRJgUJ/qIXabVw1aFV9x80eYJn8=",
             "type": "url",
-            "url": "https://github.com/earendil-works/pi/releases/download/v1.6.1/pi-1.6.1-source.tar.gz"
+            "url": "https://github.com/earendil-works/pi/releases/download/v1.7.0/pi-1.7.0-source.tar.gz"
         },
-        "version": "1.6.1"
+        "version": "1.7.0"
     },
     "vagrant-vmware-utility": {
         "cargoLock": null,
